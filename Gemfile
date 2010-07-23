@@ -22,6 +22,7 @@ gem "mongoid", ">=2.0.0.beta9"
 gem "bson_ext", ">=1.0.1"
 gem "nifty-generators"
 gem "compass", ">= 0.10.2"
+gem 'rb-inotify', ">= 0.5.1"
 
 # Use unicorn as the web server
 # gem 'unicorn'
