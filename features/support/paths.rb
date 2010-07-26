@@ -10,16 +10,12 @@ module NavigationHelpers
 
     when /the home\s?page/
       '/'
-		when /szus home\s?page/
-			'/?system=szus'
-		when /szuk home\s?page/
-			'/?system=szuk'
-		when /eeus home\s?page/
-			'/?system=eeus'
-		when /eeuk home\s?page/
-			'/?system=eeuk'
-		when /er home\s?page/
-			'/?system=er'	
+    when /the new product page/
+      new_product_path
+
+		when /^system (.*) home page$/
+			"/?system=#{$1}"
+
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

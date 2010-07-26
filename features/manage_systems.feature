@@ -12,6 +12,6 @@ Feature: Manage systems
 		
   Scenario: selected system is szuk
     Given I specified the system to be szuk
-    And I am on szuk home page
+    And I am on system szuk home page
 		Then current_system should be szuk
 		And I should see "sizzix.co.uk"

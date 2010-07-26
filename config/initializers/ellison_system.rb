@@ -1,10 +1,13 @@
 module EllisonSystem  
 	
+	# define which locale has what currency
+	LOCALES_2_CURRENCIES = {'en-US' => 'usd', 'en-UK' => 'gbp', 'en-EU' => 'eur'}
+	
+	# define systems here
 	ELLISON_SYSTEMS = %w(szus szuk eeus eeuk er)
-  LOCALES = %w(en-US en-UK en-EU)
 
 	def current_system
-		@current_system ||= "szus"
+		@current_system ||= ELLISON_SYSTEMS.first
 	end
 	
 	def current_system=(s)
@@ -18,17 +21,21 @@ module EllisonSystem
 	end
 	
 	def current_locale
-		@current_locale ||= "en-US"
+		I18n.locale
 	end
 	
 	def current_locale=(l)
-		@current_locale = l if LOCALES.include?(l)
+		I18n.locale = l if LOCALES_2_CURRENCIES.keys.include?(l.to_s)
 	end
 	
 	def set_current_locale(l)
 		self.current_locale = l
 	end
   
+	def current_currency
+		LOCALES_2_CURRENCIES[current_locale.to_s]
+	end
+	
   def is_er?
     # is ellison_retailers?
     current_system == 'er'
@@ -44,11 +51,11 @@ module EllisonSystem
   end
   
   def is_us?
-    current_locale == 'en-US'
+    current_locale.to_sym == :"en-US"
   end
   
   def is_uk?
-    current_locale == 'en-UK' || current_locale == 'en-EU'
+    current_locale.to_sym == :"en-UK" || current_locale.to_sym == :"en-EU"
   end
     
   def is_sizzix_us?
@@ -97,9 +104,9 @@ module EllisonSystem
 	end
 	
 	def set_default_locale
-		if %w(szus eeus er).include?(current_system) && current_locale != "en-US"
+		if %w(szus eeus er).include?(current_system) && current_locale.to_sym != :"en-US"
 			set_current_locale "en-US"
-		elsif %w(szuk eeuk).include?(current_system) && current_locale == "en-US"
+		elsif %w(szuk eeuk).include?(current_system) && current_locale.to_sym == :"en-US"
 			set_current_locale "en-UK"
 		end
 		[@current_system, @current_locale]
