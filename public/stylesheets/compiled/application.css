@@ -3,3 +3,8 @@
   width: 970px;
   margin: 0 auto;
 }
+
+/* line 6, ../../../app/stylesheets/application.scss */
+body.bp th, body.bp td, body.bp caption {
+  padding: 0;
+}

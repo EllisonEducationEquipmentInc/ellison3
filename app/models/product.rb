@@ -8,6 +8,8 @@ class Product
 
 	# validations
 	validates :name, :item_num, :price, :presence => true
+	validates_uniqueness_of :item_num
+	validates :price, :numericality => true
 	
 	# field definitions
 	field :name

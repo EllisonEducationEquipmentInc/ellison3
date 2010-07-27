@@ -14,6 +14,12 @@ private
 		end
 	end
 	
+	def set_locale
+		if I18n.available_locales.include?(params[:locale])
+			
+		end
+	end
+	
 	def get_layout
 		if is_sizzix_us?
 			'application'
