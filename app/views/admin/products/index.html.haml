@@ -1,1 +1,38 @@
-yo
+%h1 Listing products
+= link_to 'all', admin_products_path unless params[:q].blank?
+- form_tag(admin_products_path, :method => :get) do
+  = text_field_tag :q
+  = submit_tag "search"
+%table
+  %thead
+    %tr
+      %th Item num
+      %th Name
+      %th Price
+      %th Start Date
+      %th End Date  
+      %th Active
+      %th Avail.
+      %th Qty.
+      %th &nbsp;
+      %th &nbsp;
+      %th &nbsp;
+  %tbody
+    - for product in @products
+      %tr{ :class => cycle(:odd, :even) }
+        %td= product.item_num
+        %td= product.name
+        %td= product.price
+        %td= l product.start_date
+        %td= l product.end_date
+        %td= product.active
+        %td= product.availability
+        %td= product.quantity
+        %td= link_to 'Show', product
+        %td= link_to 'Edit', edit_admin_product_path(product)
+        %td= link_to 'Destroy', product, :confirm => 'Are you sure?', :method => :delete
+
+%br
+= will_paginate @products
+%br
+= link_to 'New product', new_admin_product_path

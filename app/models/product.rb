@@ -17,6 +17,7 @@ class Product
 	field :quantity, :type => Integer, :default => 0
 	field :active, :type => Boolean, :default => false
 	field :deleted, :type => Boolean, :default => false
+	field :availability, :type => Integer, :default => 0
 	field :start_date, :type => DateTime
 	field :end_date, :type => DateTime
 	field :small_image
