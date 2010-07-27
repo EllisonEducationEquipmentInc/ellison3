@@ -7,18 +7,23 @@ class Product
 	include Mongoid::Timestamps
 
 	# validations
-	validates :name, :item_num, :presence => true
+	validates :name, :item_num, :price, :presence => true
 	
 	# field definitions
 	field :name
 	field :short_desc
 	field :long_desc
 	field :item_num
+	field :quantity, :type => Integer, :default => 0
+	field :active, :type => Boolean, :default => false
+	field :deleted, :type => Boolean, :default => false
+	field :start_date, :type => DateTime
+	field :end_date, :type => DateTime
 	field :small_image
 	field :medium_image
 	field :images, :type => Array
-	field :tabs, :type => Array
-	
+	field :tabs, :type => Array # TODO: embeds_many :tabs
+		
 	LOCALES_2_CURRENCIES.values.each do |currency|
 		field "msrp_#{currency}".to_sym, :type => BigDecimal
 	end
@@ -46,8 +51,5 @@ class Product
 	def price=(p)
 		send("price_#{current_system}_#{current_currency}=", p)
 	end
-	
-	def validate
-    errors[:base] << "This person is dead"
-  end
+
 end

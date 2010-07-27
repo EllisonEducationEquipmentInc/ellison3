@@ -3,7 +3,8 @@ require 'rubygems'
 require 'mongo'
 source 'http://gemcutter.org'
 
-gem 'rails', '3.0.0.beta4'
+gem 'bundler', '1.0.0.rc.1'
+gem 'rails', '3.0.0.rc'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
