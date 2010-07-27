@@ -23,14 +23,14 @@
         %td= product.item_num
         %td= product.name
         %td= product.price
-        %td= l product.start_date
-        %td= l product.end_date
+        %td= l product.start_date, :format => :custom
+        %td= l product.end_date, :format => :custom
         %td= product.active
         %td= product.availability
         %td= product.quantity
-        %td= link_to 'Show', product
+        %td= link_to 'Show', admin_product_path(product)
         %td= link_to 'Edit', edit_admin_product_path(product)
-        %td= link_to 'Destroy', product, :confirm => 'Are you sure?', :method => :delete
+        %td= link_to 'Destroy', admin_product_path(product), :confirm => 'Are you sure?', :method => :delete
 
 %br
 = will_paginate @products

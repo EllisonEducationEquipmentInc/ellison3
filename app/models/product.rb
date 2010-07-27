@@ -26,7 +26,10 @@ class Product
 	field :medium_image
 	field :images, :type => Array
 	field :tabs, :type => Array # TODO: embeds_many :tabs
-		
+	field :life_cycle
+	
+	LIFE_CYCLES = [nil, 'ComingSoon', 'New', 'Discontinued', 'Available', 'Clearance-Discontinued']
+	
 	LOCALES_2_CURRENCIES.values.each do |currency|
 		field "msrp_#{currency}".to_sym, :type => BigDecimal
 	end
