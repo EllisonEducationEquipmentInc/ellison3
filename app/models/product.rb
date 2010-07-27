@@ -7,9 +7,9 @@ class Product
 	include Mongoid::Timestamps
 
 	# validations
-	validates :name, :item_num, :price, :presence => true
+	validates :name, :item_num, :price, :msrp, :presence => true
 	validates_uniqueness_of :item_num
-	validates :price, :numericality => true
+  validates_numericality_of :price, :msrp, :greater_than => 0.0
 	
 	# field definitions
 	field :name
