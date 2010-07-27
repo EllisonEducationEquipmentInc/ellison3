@@ -72,7 +72,16 @@
       }
     },
     
-    
+    :errors => {
+      :template => {
+        :header => {
+          :one => "1 error prohibited this {{model}} from being saved",
+          :other =>  "{{count}} errors prohibited this {{model}} from being saved."
+        },
+        :body => "There were problems with the following fields:"
+      },
+		},
+		
     :activemodel => {
       :errors => {
         :template => {
