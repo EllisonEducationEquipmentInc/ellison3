@@ -34,18 +34,11 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Provide a default URL as a default if there hasn't been a file uploaded
   def default_url(version_name = "medium")
     #"/images/fallback/" + [version_name, "default.png"].compact.join('_')
-    "/images/products/#{version_name}/#{model.item_num}.jpg"
+    "#{Rails.root}/public/images/products/#{version_name}/#{model.item_num}.jpg"
   end
 
-
-  # 
   # Process files as they are uploaded.
   process :resize_to_fill => [300, 300]
-  
-	#
-  #     def scale(width, height)
-  #       # do something
-  #     end
   
   # Create different versions of your uploaded files
   version :small do
@@ -55,13 +48,11 @@ class ImageUploader < CarrierWave::Uploader::Base
 	version :medium do
     process :resize_to_fill => [125, 125]
   end
-  # 
-  # # Add a white list of extensions which are allowed to be uploaded,
-  # # for images you might use something like this:
-  #     def extension_white_list
-  #       %w(jpg jpeg gif png)
-  #     end
-  # 
 
+  # Add a white list of extensions which are allowed to be uploaded,
+  # for images you might use something like this:
+  def extension_white_list
+    %w(jpg jpeg gif png)
+  end
 
 end

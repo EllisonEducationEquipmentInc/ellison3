@@ -27,22 +27,17 @@ class Product
 	field :availability, :type => Integer, :default => 0
 	field :start_date, :type => DateTime
 	field :end_date, :type => DateTime
-	field :small_image
-	field :medium_image
 	field :images, :type => Array
 	field :tabs, :type => Array # TODO: embeds_many :tabs
 	field :life_cycle
 	field :life_cycle_ends, :type => DateTime
 	field :handling_price, :type => Float, :default => 0.0
-
-  #mount_uploader :photo, ImageUploader, :mount_on => :photo_file_name
 	
 	# scopes
 	scope :active, :where => { :active => true }
 	scope :inactive, :where => { :active => false }
 	scope :deleted, :where => { :deleted => true }
 	scope :not_deleted, :where => { :deleted => false }
-
 
 	LIFE_CYCLES = [nil, 'ComingSoon', 'New', 'Discontinued', 'Available', 'Clearance-Discontinued']
 	
@@ -75,5 +70,25 @@ class Product
 	def price=(p)
 		send("price_#{current_system}_#{current_currency}=", p)
 	end
+	
+	def medium_image
+		get_image(:medium)
+	end
+	
+	def small_image
+		get_image(:small)
+	end
+	
+	def large_image
+		get_image(:large)
+	end
 
+private 
+	def get_image(version)
+		if image?
+			image_url(version)
+		else
+			FileTest.exists?(image.default_url(version)) ? image.default_url(version) : "images/products/#{version}/noimage.jpg"
+		end
+	end
 end
