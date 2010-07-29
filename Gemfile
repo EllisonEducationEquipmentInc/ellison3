@@ -21,7 +21,7 @@ gem 'cucumber'
 gem 'rspec-rails', '>=2.0.0.beta.19'
 gem 'spork'
 gem 'launchy'    # So you can do Then show me the page
-gem "mongoid", ">=2.0.0.beta9"
+gem "mongoid", ">=2.0.0.beta.15"
 #gem "mongoid", :git => "git://github.com/durran/mongoid.git", :branch => "prerelease"
 gem "bson_ext", ">=1.0.1"
 gem "nifty-generators"
