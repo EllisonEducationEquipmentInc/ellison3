@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'mongoid/railtie'
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
@@ -32,13 +33,15 @@ module Ellison3
 
     # Configure generators values. Many other options are available, be sure to check the documentation.
     config.generators do |g|
-      g.orm             :active_record
+      g.orm             :mongoid
       g.template_engine :haml
       g.test_framework  :shoulda
 			g.fallbacks[:shoulda] = :rspec 
 			g.fixture_replacement :factory_girl_rails
     end
 
+		config.autoload_paths << File.join(Rails.root, "app", "uploaders")
+		
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 

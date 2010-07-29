@@ -1,3 +1,5 @@
+require 'carrierwave/orm/mongoid'
+
 class Product
 	include EllisonSystem
 	include ActiveModel::Validations
@@ -5,17 +7,20 @@ class Product
 	include Mongoid::Document
 	include Mongoid::Versioning
 	include Mongoid::Timestamps
-
+ 
+	
 	# validations
 	validates :name, :item_num, :price, :msrp, :presence => true
-	validates_uniqueness_of :item_num
+	validates_uniqueness_of :item_num, :upc
   validates_numericality_of :price, :msrp, :greater_than => 0.0
+	
 	
 	# field definitions
 	field :name
 	field :short_desc
 	field :long_desc
 	field :item_num
+	field :upc
 	field :quantity, :type => Integer, :default => 0
 	field :active, :type => Boolean, :default => false
 	field :deleted, :type => Boolean, :default => false
@@ -27,7 +32,18 @@ class Product
 	field :images, :type => Array
 	field :tabs, :type => Array # TODO: embeds_many :tabs
 	field :life_cycle
+	field :life_cycle_ends, :type => DateTime
+	field :handling_price, :type => Float, :default => 0.0
+
+  #mount_uploader :photo, ImageUploader, :mount_on => :photo_file_name
 	
+	# scopes
+	scope :active, :where => { :active => true }
+	scope :inactive, :where => { :active => false }
+	scope :deleted, :where => { :deleted => true }
+	scope :not_deleted, :where => { :deleted => false }
+
+
 	LIFE_CYCLES = [nil, 'ComingSoon', 'New', 'Discontinued', 'Available', 'Clearance-Discontinued']
 	
 	LOCALES_2_CURRENCIES.values.each do |currency|
@@ -38,6 +54,8 @@ class Product
 			field "price_#{system}_#{currency}".to_sym, :type => BigDecimal
 		end
 	end
+
+	mount_uploader :image, ImageUploader	
 	
 	def msrp(options = {})
 		currency = options[:currency] || current_currency

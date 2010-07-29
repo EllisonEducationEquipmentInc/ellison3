@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 require 'rubygems'
+require 'image_science'
 require 'mongo'
 source 'http://gemcutter.org'
 
@@ -9,6 +10,7 @@ gem 'rails', '3.0.0.rc'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem 'passenger'
 gem 'mysql'
 gem 'haml', '>=3.0.13'
 gem 'will_paginate', '>=3.0.pre'
@@ -24,6 +26,12 @@ gem "bson_ext", ">=1.0.1"
 gem "nifty-generators"
 gem "compass", ">= 0.10.2"
 gem 'rb-inotify', ">= 0.5.1"
+#gem 'inline'
+gem 'RubyInline'
+gem 'image_science', ">=1.2.1" #, :git => 'git://github.com/perezd/image_science.git', :branch => 'master', :require => 'inline'
+gem 'mini_magick', :git => 'git://github.com/probablycorey/mini_magick.git'
+#gem 'carrierwave-rails3', :require => 'carrierwave' #, :git => 'git://github.com/jnicklas/carrierwave.git', :branch => 'master' 
+gem 'carrierwave', :git => "git://github.com/jnicklas/carrierwave.git"
 
 # Use unicorn as the web server
 # gem 'unicorn'
