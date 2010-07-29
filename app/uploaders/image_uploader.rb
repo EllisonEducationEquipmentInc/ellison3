@@ -28,7 +28,7 @@ class ImageUploader < CarrierWave::Uploader::Base
 	
 	# Override the filename of the uploaded files
   def filename
-    "#{model.item_num}.#{extension}" if original_filename
+    "#{model.item_num}.#{file.extension}" if original_filename && file && file.try(:extension)
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded
