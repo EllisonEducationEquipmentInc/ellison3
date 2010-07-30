@@ -5,13 +5,7 @@ $(function() {
 });
 
 $(function (){  
-    $('#product_start_date').datetimepicker({
-					changeMonth: true,
-					changeYear: true
-				});  
-});
-$(function (){  
-    $('#product_end_date').datetimepicker({
+    $('.datetimepicker').datetimepicker({
 					changeMonth: true,
 					changeYear: true
 				});  
