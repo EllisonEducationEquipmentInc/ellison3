@@ -7,11 +7,14 @@ class Product
 	include Mongoid::Document
 	include Mongoid::Versioning
 	include Mongoid::Timestamps
- 
+	include Mongoid::Paranoia
+	# To have all queries for a model "cache":
+  #cache
 	
 	# validations
 	validates :name, :item_num, :price, :msrp, :presence => true
-	validates_uniqueness_of :item_num, :upc
+	validates_uniqueness_of :item_num
+	validates_uniqueness_of :upc, :allow_blank => true
   validates_numericality_of :price, :msrp, :greater_than => 0.0
 	
 	
@@ -23,7 +26,6 @@ class Product
 	field :upc
 	field :quantity, :type => Integer, :default => 0
 	field :active, :type => Boolean, :default => false
-	field :deleted, :type => Boolean, :default => false
 	field :availability, :type => Integer, :default => 0
 	field :start_date, :type => DateTime
 	field :end_date, :type => DateTime
@@ -36,8 +38,6 @@ class Product
 	# scopes
 	scope :active, :where => { :active => true }
 	scope :inactive, :where => { :active => false }
-	scope :deleted, :where => { :deleted => true }
-	scope :not_deleted, :where => { :deleted => false }
 
 	LIFE_CYCLES = [nil, 'ComingSoon', 'New', 'Discontinued', 'Available', 'Clearance-Discontinued']
 	

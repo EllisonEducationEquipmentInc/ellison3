@@ -1,0 +1,5 @@
+%h1== Porduct: #{@product.id}
+- @product.attributes.keys.each do |attribute|
+  %p
+    %b== #{attribute.humanize}:
+    = @product.send attribute
