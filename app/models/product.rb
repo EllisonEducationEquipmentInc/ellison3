@@ -3,7 +3,7 @@ require 'carrierwave/orm/mongoid'
 class Product
 	include EllisonSystem
 	include ActiveModel::Validations
-	#include ActiveModel::Translation
+	include ActiveModel::Translation
 	include Mongoid::Document
 	include Mongoid::Versioning
 	include Mongoid::Timestamps
@@ -12,7 +12,7 @@ class Product
   #cache
 	
 	# validations
-	validates :name, :item_num, :msrp, :price, :presence => true
+	validates :name, :item_num, :msrp, :price, :start_date, :end_date, :presence => true
 	validates_uniqueness_of :item_num
 	validates_uniqueness_of :upc, :allow_blank => true
   validates_numericality_of :msrp, :price, :greater_than => 0.0

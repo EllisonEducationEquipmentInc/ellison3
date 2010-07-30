@@ -22,7 +22,7 @@
       %tr{ :class => cycle(:odd, :even) }
         %td= product.item_num
         %td= product.name
-        %td= product.price
+        %td= number_to_currency product.price
         %td= l product.start_date, :format => :custom
         %td= l product.end_date, :format => :custom
         %td= product.active

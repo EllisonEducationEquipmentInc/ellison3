@@ -1,5 +1,8 @@
 %h1== Porduct: #{@product.id}
 = image_tag @product.medium_image
+%p
+  %b Price:
+  = number_to_currency @product.price
 - @product.attributes.keys.each do |attribute|
   %p
     %b== #{attribute.humanize}:
