@@ -1,4 +1,5 @@
 %h1== Porduct: #{@product.id}
+= image_tag @product.medium_image
 - @product.attributes.keys.each do |attribute|
   %p
     %b== #{attribute.humanize}:

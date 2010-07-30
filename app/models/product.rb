@@ -12,10 +12,10 @@ class Product
   #cache
 	
 	# validations
-	validates :name, :item_num, :price, :msrp, :presence => true
+	validates :name, :item_num, :msrp, :price, :presence => true
 	validates_uniqueness_of :item_num
 	validates_uniqueness_of :upc, :allow_blank => true
-  validates_numericality_of :price, :msrp, :greater_than => 0.0
+  validates_numericality_of :msrp, :price, :greater_than => 0.0
 	
 	
 	# field definitions
@@ -68,7 +68,7 @@ class Product
 	end
 	
 	def price=(p)
-		send("price_#{current_system}_#{current_currency}=", p)
+		send("price_#{current_system}_#{current_currency}=", p) unless p.blank?
 	end
 	
 	def medium_image
@@ -88,7 +88,7 @@ private
 		if image?
 			image_url(version)
 		else
-			FileTest.exists?(image.default_url(version)) ? image.default_url(version) : "images/products/#{version}/noimage.jpg"
+			FileTest.exists?("#{Rails.root}/public/#{image.default_url(version)}") ? image.default_url(version) : "/images/products/#{version}/noimage.jpg"
 		end
 	end
 end

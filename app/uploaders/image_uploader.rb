@@ -34,7 +34,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Provide a default URL as a default if there hasn't been a file uploaded
   def default_url(version_name = "medium")
     #"/images/fallback/" + [version_name, "default.png"].compact.join('_')
-    "#{Rails.root}/public/images/products/#{version_name}/#{model.item_num}.jpg"
+    "/images/products/#{version_name}/#{model.item_num}.jpg"
   end
 
   # Process files as they are uploaded.
