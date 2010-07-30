@@ -112,6 +112,21 @@ module EllisonSystem
 		[@current_system, @current_locale]
 	end
 	
+	def domain_to_system(domain)
+		case domain
+		when /sizzix\.com$/
+			set_current_system 'szus'
+		when /sizzix\.co\.uk$/
+			set_current_system 'szuk'
+		when /ellisoneducation\.com$/
+			set_current_system 'eeus'
+		when /ellisoneducation\.co\.uk$/
+			set_current_system 'eeuk'
+		when /ellison\.com$/
+			set_current_system 'er'
+		end
+	end
+	
 end
 
 class ActiveRecord::Base

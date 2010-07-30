@@ -8,8 +8,8 @@ class StaticPagesController < ActionController::Metal
 		begin
   		render params[:path]
 		rescue
-			# TODO: include module that gets system from domain
-			set_current_system(params[:system]) if params[:system]
+			domain_to_system(env['HTTP_HOST'])
+			set_current_system(params[:system]) if params[:system] && Rails.env == 'development'
 			render "#{Rails.root}/public/404_#{current_system}.html", :status => 404 unless request.fullpath =~ /\.[a-zA-Z0-9]{2,4}(\?\d{10})?$/
 		end
   end

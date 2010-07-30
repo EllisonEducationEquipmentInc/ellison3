@@ -8,7 +8,8 @@ class ApplicationController < ActionController::Base
 private
 
 	def get_system
-		unless RAILS_ENV == 'production'
+		domain_to_system(request.host)
+		unless Rails.env == 'production'
 			session[:system] = params[:system] if params[:system]
 			set_current_system(session[:system])
 		end
