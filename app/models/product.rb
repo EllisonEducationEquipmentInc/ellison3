@@ -35,6 +35,13 @@ class Product
 	field :life_cycle_ends, :type => DateTime
 	field :handling_price, :type => Float, :default => 0.0
 	
+	# associations
+	embeds_many :campaigns do
+    def current(time = Time.zone.now)
+			@target.select {|campaign| campaign.available?(time)}
+    end
+  end
+	
 	# scopes
 	scope :active, :where => { :active => true }
 	scope :inactive, :where => { :active => false }
@@ -61,14 +68,27 @@ class Product
 		send("msrp_#{current_currency}=", p)
 	end
 	
-	def price(options = {})
+	def base_price(options = {})
 		currency = options[:currency] || current_currency
 		system = options[:system] || current_system
 		send("price_#{system}_#{currency}") || msrp(options)
 	end
 	
+	def price(options = {})
+		time = options[:time] || Time.zone.now
+		base_price(options) > campaign_price(time) ? campaign_price(time) : base_price(options)
+	end
+	
 	def price=(p)
 		send("price_#{current_system}_#{current_currency}=", p) unless p.blank?
+	end
+	
+	def campaign_price(time = Time.zone.now)
+		get_best_campaign(time).try :sale_price
+	end
+	
+	def get_best_campaign(time = Time.zone.now)
+		campaigns.current(time).sort {|x,y| x.sale_price <=> y.sale_price}.first
 	end
 	
 	def medium_image
@@ -81,7 +101,7 @@ class Product
 	
 	def large_image
 		get_image(:large)
-	end
+	end	
 
 private 
 	def get_image(version)
