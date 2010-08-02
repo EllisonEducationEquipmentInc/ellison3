@@ -24,7 +24,6 @@ class Campaign
 	embedded_in :product, :inverse_of => :campaigns
 	
 	def available?(time = Time.zone.now)
-		Rails.logger.info "#{systems_enabled.inspect} #{current_system} #{systems_enabled.include?(current_system)}"
 		start_date <= time && end_date >= time && active && systems_enabled.include?(current_system)
 	end
 	
