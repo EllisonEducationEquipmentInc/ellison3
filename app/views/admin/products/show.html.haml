@@ -1,9 +1,21 @@
 %h1== Porduct: #{@product.id}
 = image_tag @product.medium_image
+%p= text_field_tag :time, @time, :class => 'datetimepicker', :onchange => "window.location='#{admin_product_path(@product)}?time='+this.value"
 %p
   %b Price:
-  = number_to_currency @product.price
-- @product.attributes.keys.each do |attribute|
+  = number_to_currency @product.price(:time => @time)
+- if @product.get_best_campaign(@time)
+  %p
+    %b Current Campaign:
+    = @product.get_best_campaign(@time).inspect
+  %p
+    %b Campaigns:
+    %br
+    - @product.campaigns.current(@time).each do |campaign|
+      = campaign.inspect
+      %br
+      
+- @product.attributes.keys.reject {|k| %w(versions campaigns).include? k}.each do |attribute|
   %p
     %b== #{attribute.humanize}:
     = @product.send attribute
