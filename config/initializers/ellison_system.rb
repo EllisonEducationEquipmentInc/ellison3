@@ -7,13 +7,13 @@ module EllisonSystem
 	ELLISON_SYSTEMS = %w(szus szuk eeus eeuk er)
 
 	def current_system
-		@current_system ||= ELLISON_SYSTEMS.first
+		Thread.current[:current_system] ||= ELLISON_SYSTEMS.first
 	end
 	
 	def current_system=(s)
-		@current_system = s if ELLISON_SYSTEMS.include?(s)
+		Thread.current[:current_system] = s if ELLISON_SYSTEMS.include?(s)
 		set_default_locale
-		@current_system
+		current_system
 	end
 	
 	def set_current_system(s)

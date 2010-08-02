@@ -75,6 +75,7 @@ class Product
 	end
 	
 	def price(options = {})
+		Rails.logger.info "#product current_system: #{current_system} current_currency: #{current_currency}"
 		time = options[:time] || Time.zone.now
 		base_price(options) > campaign_price(time) ? campaign_price(time) : base_price(options)
 	end
