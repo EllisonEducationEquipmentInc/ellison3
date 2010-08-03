@@ -9,11 +9,15 @@ class Campaign
 	
 	DISCOUNT_TYPES = [["Percent", 0], ["Absolute", 1], ["Fixed", 2]]
 	
+	# validations
+	validates :name, :discount, :discount_type, :start_date, :end_date, :systems_enabled, :presence => true
+	validates_numericality_of :discount, :greater_than => 0.0
+	
 	# field definitions
 	field :name
 	field :code
 	field :short_desc
-	field :active, :type => Boolean, :default => false
+	field :active, :type => Boolean, :default => true
 	field :start_date, :type => DateTime
 	field :end_date, :type => DateTime
 	field :discount, :type => Float, :default => 0.0
@@ -25,6 +29,12 @@ class Campaign
 	
 	def available?(time = Time.zone.now)
 		start_date <= time && end_date >= time && active && systems_enabled.include?(current_system)
+	end
+	
+	def discount_name
+		DISCOUNT_TYPES[discount_type][0]
+	rescue
+		nil	
 	end
 	
 	def sale_price

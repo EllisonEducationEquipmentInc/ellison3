@@ -43,7 +43,13 @@ Ellison3::Application.routes.draw do |map|
     namespace :admin do
       # Directs /admin/products/* to Admin::ProductsController
       # (app/controllers/admin/products_controller.rb)
-      resources :products
+      resources :products do
+				collection do
+			    get :new_campaign
+					post :create_campaign
+					post :update_campaign
+			  end
+			end
     end
 
   # You can have the root of your site routed with "root"

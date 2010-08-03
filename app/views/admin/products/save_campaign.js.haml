@@ -1,0 +1,4 @@
+- if @campaign.save
+  == $("#campaigns").append("#{escape_javascript render('campaign', :campaign => @campaign)}");
+- else
+  == alert('#{escape_javascript @campaign.errors.full_messages.join("\n")}');

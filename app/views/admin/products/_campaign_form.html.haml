@@ -1,0 +1,33 @@
+- form_for @campaign, :url => {:action => @campaign.new_record? ? 'create_campaign' : 'update_campaign'}, :remote => true do |f| 
+  .field
+    = f.label :name
+    = f.text_field :name
+    = hidden_field_tag :product_id, @campaign.product.id
+  .field
+    = f.label :discount_type
+    = f.select :discount_type, Campaign::DISCOUNT_TYPES
+  .field
+    = f.label :discount
+    = f.text_field :discount
+  .field
+    = f.label :start_date
+    = f.text_field :start_date, :class => 'datetimepicker'
+  .field
+    = f.label :end_date
+    = f.text_field :end_date, :class => 'datetimepicker'
+  .field
+    = f.label :systems_enabled
+    - ELLISON_SYSTEMS.each do |sys|
+      = check_box_tag 'campaign[systems_enabled][]', sys
+      = sys
+  .actions
+    = f.submit
+    = link_to 'cancel', '#', :onclick => "$('#new_campaign').html(''); return false;"
+:javascript
+  $(function (){  
+      $('.datetimepicker').datetimepicker({
+  					changeMonth: true,
+  					changeYear: true
+  				});  
+  });
+  

@@ -13,3 +13,10 @@ body.bp th, body.bp td, body.bp caption {
 .field label {
   font-weight: bold;
 }
+
+/* line 14, ../../../app/stylesheets/application.scss */
+#new_campaign {
+  padding: 10px;
+  border: 1px solid gray;
+  background: #FDFFB0;
+}

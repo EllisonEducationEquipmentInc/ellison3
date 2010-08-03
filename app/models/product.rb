@@ -41,7 +41,7 @@ class Product
 			@target.select {|campaign| campaign.available?(time)}
     end
   end
-	
+		
 	# scopes
 	scope :active, :where => { :active => true }
 	scope :inactive, :where => { :active => false }

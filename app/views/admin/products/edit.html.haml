@@ -2,4 +2,10 @@
 
 = render 'form'
 
+.field
+  = label_tag "Campaigns"
+  %p= link_to 'new campaign', {:action => 'new_campaign', :id => @product.id}, :remote => true
+  #new_campaign
+  %ul#campaigns= render :partial => 'campaign', :collection => @product.campaigns
+
 = link_to 'Back', admin_products_path

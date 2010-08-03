@@ -1,0 +1,14 @@
+%li{:id => "campaign_#{campaign.id}", :style => campaign == @product.get_best_campaign ? "background:#00ee00" : nil}
+  %strong Name:
+  = campaign.name
+  %strong Starts/Ends:
+  = l campaign.start_date, :format => :custom
+  \- 
+  = l campaign.end_date, :format => :custom
+  %strong Discount:
+  = campaign.discount_name
+  = campaign.discount
+  %strong Systems:
+  = campaign.systems_enabled.join(", ")
+  
+  
