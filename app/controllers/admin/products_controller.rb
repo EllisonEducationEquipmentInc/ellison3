@@ -88,7 +88,17 @@ class Admin::ProductsController < ApplicationController
 		@product = Product.find(params[:product_id])
 		@campaign = Campaign.new(params[:campaign])
 		@campaign.product = @product
-		render "save_campaign"
+	end
+	
+	def edit_campaign
+		@product = Product.find(params[:product_id])
+		@campaign = @product.campaigns.find(params[:id])
+	end
+	
+	def update_campaign
+		@product = Product.find(params[:product_id])
+		@campaign = @product.campaigns.find(params[:id])
+		@campaign.attributes = params[:campaign]
 	end
 	
 	def delete_campaign

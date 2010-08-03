@@ -1,4 +1,4 @@
-- form_for @campaign, :url => {:action => @campaign.new_record? ? 'create_campaign' : 'update_campaign'}, :remote => true do |f| 
+- form_for @campaign, :url => {:action => @campaign.new_record? ? 'create_campaign' : 'update_campaign', :id => @campaign.id}, :remote => true do |f| 
   .field
     = f.label :name
     = f.text_field :name
@@ -17,12 +17,10 @@
     = f.text_field :end_date, :class => 'datetimepicker'
   .field
     = f.label :systems_enabled
-    - ELLISON_SYSTEMS.each do |sys|
-      = check_box_tag 'campaign[systems_enabled][]', sys
-      = sys
+    = system_enabled('campaign')
   .actions
     = f.submit
-    = link_to 'cancel', '#', :onclick => "$('#new_campaign').html(''); return false;"
+    = link_to 'cancel', '#', :onclick => @campaign.new_record? ? "$('#new_campaign').html(''); return false;" : %Q($("#campaign_#{@campaign.id}").css('background', 'white');$("#campaign_#{@campaign.id}").replaceWith("#{escape_javascript render('campaign', :campaign => @campaign)}"); return false;)
 :javascript
   $(function (){  
       $('.datetimepicker').datetimepicker({

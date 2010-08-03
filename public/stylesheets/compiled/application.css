@@ -30,3 +30,8 @@ body.bp th, body.bp td, body.bp caption {
 .left {
   float: left;
 }
+
+/* line 23, ../../../app/stylesheets/application.scss */
+#campaigns li {
+  padding: 5px;
+}

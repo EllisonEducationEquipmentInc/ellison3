@@ -12,7 +12,7 @@ class Product
   #cache
 	
 	# validations
-	validates :name, :item_num, :msrp, :price, :start_date, :end_date, :presence => true
+	validates :name, :item_num, :msrp, :price, :start_date, :end_date, :systems_enabled, :presence => true
 	validates_uniqueness_of :item_num
 	validates_uniqueness_of :upc, :allow_blank => true
   validates_numericality_of :msrp, :price, :greater_than => 0.0
@@ -34,6 +34,7 @@ class Product
 	field :life_cycle
 	field :life_cycle_ends, :type => DateTime
 	field :handling_price, :type => Float, :default => 0.0
+	field :systems_enabled, :type => Array
 	
 	# associations
 	embeds_many :campaigns do

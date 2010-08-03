@@ -49,6 +49,8 @@ Ellison3::Application.routes.draw do |map|
 					post :create_campaign
 					post :update_campaign
 					delete :delete_campaign
+					get :edit_campaign
+					put :update_campaign
 			  end
 			end
     end
