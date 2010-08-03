@@ -1,0 +1,54 @@
+- form_for([:admin, @product], :html => {:multipart => true}) do |f|
+  = f.error_messages
+  .field
+    = f.label :systems_enabled
+    = system_enabled('product')
+  .field
+    = f.label :active
+    %br
+    = f.check_box :active
+  .field
+    = f.label :item_num
+    %br
+    = f.text_field :item_num
+  .field
+    = f.label :upc
+    %br
+    = f.text_field :upc
+  .field
+    = f.label :name
+    %br
+    = f.text_field :name
+  .field
+    = f.label :msrp
+    %br
+    = f.text_field :msrp
+  .field
+    = f.label :price
+    %br
+    =# f.text_field :price
+  .field
+    = f.label :start_date
+    %br
+    = f.text_field :start_date, :class => 'datetimepicker'
+  .field
+    = f.label :end_date
+    %br
+    = f.text_field :end_date, :class => 'datetimepicker'
+  .field
+    = f.label :life_cycle
+    %br
+    = f.select :life_cycle, Product::LIFE_CYCLES
+  .field
+    = f.label :short_desc
+    %br
+    = f.text_area :short_desc, :class => 'wymeditor'
+  .field
+    = image_tag(@product.image_url(:small)) if @product.image? 
+    = f.file_field :image
+    = f.hidden_field :image_cache
+    %br
+    = f.label :remove_image
+    = f.check_box :remove_image
+  .actions
+    = f.submit
