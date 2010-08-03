@@ -2,18 +2,27 @@
 = image_tag @product.medium_image
 %p= text_field_tag :time, @time, :class => 'datetimepicker', :onchange => "window.location='#{admin_product_path(@product)}?time='+this.value"
 %p
+  %b MSRP:
+  = number_to_currency @product.msrp
+%p
   %b Price:
   = number_to_currency @product.price(:time => @time)
 - if @product.get_best_campaign(@time)
   %p
-    %b Current Campaign:
+    %b Current Best Campaign:
     = @product.get_best_campaign(@time).inspect
-  %p
-    %b Campaigns:
+%p
+  %b All Current active Campaigns (for current system):
+  %br
+  - @product.campaigns.current(@time).each do |campaign|
+    = campaign.inspect
     %br
-    - @product.campaigns.current(@time).each do |campaign|
-      = campaign.inspect
-      %br
+%p
+  %b All Campaigns:
+  %br
+  - @product.campaigns.each do |campaign|
+    = campaign.inspect
+    %br
       
 - @product.attributes.keys.reject {|k| %w(versions campaigns).include? k}.each do |attribute|
   %p
