@@ -66,3 +66,15 @@ body.bp th, body.bp td, body.bp caption {
 	line-height: 0.6em;
 	text-align: center;
 }
+
+.strike_through {
+	text-decoration: line-through;
+}
+
+.price_sale {
+	color: red;
+	font-weight: bold;
+}
+.custom_price {
+	color: blue;
+}

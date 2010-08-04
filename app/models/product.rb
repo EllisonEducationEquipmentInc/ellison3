@@ -35,6 +35,9 @@ class Product
 	field :life_cycle_ends, :type => DateTime
 	field :handling_price, :type => Float, :default => 0.0
 	field :systems_enabled, :type => Array
+
+	index :item_num, :unique => true, :background => true
+	index :systems_enabled
 	
 	# associations
 	embeds_many :campaigns do
@@ -88,9 +91,12 @@ class Product
 		send("price_#{current_system}_#{current_currency}=", p) unless p.blank?
 	end
 	
+	
 	def campaign_price(time = Time.zone.now)
 		get_best_campaign(time).try :sale_price
 	end
+
+	alias :sale_price :campaign_price
 	
 	def get_best_campaign(time = Time.zone.now)
 		campaigns.current(time).sort {|x,y| x.sale_price <=> y.sale_price}.first

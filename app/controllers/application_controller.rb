@@ -5,7 +5,32 @@ class ApplicationController < ActionController::Base
 	
   layout :get_layout
 
+	helper_method :vat, :gross_price, :calculate_vat
+
 private
+	
+	# TODO: CMS for this
+	def vat
+		@vat ||= SystemSetting.value_at("vat").to_f
+	end
+	
+	def gross_price(price, vat_exempt = false)
+    sess = session[:vat_exempt] rescue vat_exempt
+    if is_us? || sess || vat_exempt
+      price
+    else
+      (price.to_f * (1+vat/100.0)).round(2)
+    end
+  end
+  
+  def calculate_vat(price, vat_exempt = false)
+    sess = session[:vat_exempt] rescue vat_exempt
+    if is_us? || sess || vat_exempt
+      0.0
+    else
+      (price.to_f * (vat/100.0)).round(2)
+    end
+  end
 
 	def get_system
 		domain_to_system(request.host)

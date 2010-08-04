@@ -84,3 +84,19 @@ body.bp th, body.bp td, body.bp caption {
   line-height: 0.6em;
   text-align: center;
 }
+
+/* line 70, ../../../app/stylesheets/application.scss */
+.strike_through {
+  text-decoration: line-through;
+}
+
+/* line 74, ../../../app/stylesheets/application.scss */
+.price_sale {
+  color: red;
+  font-weight: bold;
+}
+
+/* line 78, ../../../app/stylesheets/application.scss */
+.custom_price {
+  color: blue;
+}
