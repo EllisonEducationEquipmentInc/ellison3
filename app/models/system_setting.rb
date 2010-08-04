@@ -7,6 +7,8 @@ class SystemSetting
   include Mongoid::Timestamps
 	include Mongoid::Paranoia
 	
+	validates :key, :value, :presence => true
+	
 	field :key
 	field :value
 	
@@ -17,5 +19,8 @@ class SystemSetting
 			first(:conditions => { :key => key}).try :value
 		end
 		
+		def update(key, value)
+			first(:conditions => { :key => key}).try :update_attributes, :value => value
+		end
 	end
 end
