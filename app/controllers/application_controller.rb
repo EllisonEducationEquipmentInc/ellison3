@@ -57,4 +57,8 @@ private
 			'application_er'
 		end
 	end
+	
+	def go_404
+		render :file => "#{Rails.root}/public/404_#{current_system}.html", :layout => false, :status => 404
+	end
 end

@@ -11,6 +11,6 @@ class IndexController < ApplicationController
 	def product
 		@product = Product.find(params[:id])
 	rescue
-		render :file => "#{Rails.root}/public/404_#{current_system}.html", :layout => false, :status => 404
+		go_404
 	end
 end
