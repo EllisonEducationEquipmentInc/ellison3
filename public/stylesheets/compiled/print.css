@@ -71,3 +71,8 @@ body.bp .quiet {
 body.bp .hide {
   display: none;
 }
+
+/* line 7, ../../../app/stylesheets/print.scss */
+.dontprint {
+  display: none;
+}

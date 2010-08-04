@@ -25,4 +25,6 @@
     #header
       = image_tag "logo_szuk.png"
     #wrapper.bp
+      - if notice
+        %p.dontprint.notice= notice 
       = yield

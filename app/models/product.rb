@@ -60,12 +60,22 @@ class Product
 		field "msrp_#{currency}".to_sym, :type => BigDecimal
 	end
 	ELLISON_SYSTEMS.each do |system|
+		field "description_#{system}".to_sym
 		LOCALES_2_CURRENCIES.values.each do |currency|
 			field "price_#{system}_#{currency}".to_sym, :type => BigDecimal
 		end
 	end
 
 	mount_uploader :image, ImageUploader	
+	
+	def description(options = {})
+		system = options[:system] || current_system
+		send("description_#{system}") || send("description_szus")
+	end
+	
+	def description=(d)
+		send("description_#{current_system}=", d) unless d.blank?
+	end
 	
 	def msrp(options = {})
 		currency = options[:currency] || current_currency

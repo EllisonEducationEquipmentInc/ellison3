@@ -40,9 +40,9 @@
     %br
     = f.select :life_cycle, Product::LIFE_CYCLES
   .field
-    = f.label :short_desc
+    = f.label :description
     %br
-    = f.text_area :short_desc, :class => 'wymeditor'
+    = f.text_area :description, :class => 'wymeditor'
   .field
     = image_tag(@product.image_url(:small)) if @product.image? 
     = f.file_field :image
@@ -51,4 +51,4 @@
     = f.label :remove_image
     = f.check_box :remove_image
   .actions
-    = f.submit
+    = f.submit :class => 'wymupdate'

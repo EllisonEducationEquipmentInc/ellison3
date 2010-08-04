@@ -100,3 +100,8 @@ body.bp th, body.bp td, body.bp caption {
 .custom_price {
   color: blue;
 }
+
+/* line 82, ../../../app/stylesheets/application.scss */
+.notice {
+  color: green;
+}

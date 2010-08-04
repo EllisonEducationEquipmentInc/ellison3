@@ -17,4 +17,6 @@
     = csrf_meta_tag
   %body.bp
     #wrapper.bp
+      - if notice
+        %p.dontprint.notice= notice 
       = yield
