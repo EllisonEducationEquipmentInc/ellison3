@@ -1,5 +1,3 @@
-- if @image.save
-  / == $("#campaigns").append("#{escape_javascript render('campaign', :campaign => @campaign)}");
+= remotipart_response do
+  == $("#images").append("#{escape_javascript(render('image', :image => @image))}");
   $('#new_image').html('')
-- else
-  == alert('#{escape_javascript @image.errors.full_messages.join("\n")}');

@@ -11,4 +11,6 @@
   = label_tag "Additional Images"
   %p= link_to 'upload new image', {:action => 'new_image', :id => @product.id}, :remote => true
   #new_image
+  #images= render :partial => 'image', :collection => @product.images
+  .clear
 = link_to 'Back', admin_products_path

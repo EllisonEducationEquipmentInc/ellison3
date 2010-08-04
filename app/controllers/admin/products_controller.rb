@@ -115,8 +115,6 @@ class Admin::ProductsController < ApplicationController
 	def upload_image
 		@product = Product.find(params[:product_id])
 		@image = @product.images.build(params[:image])
-		if @image.save
-			redirect_to(product_path(@product))
-		end
+		@image.save
 	end
 end
