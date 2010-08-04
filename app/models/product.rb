@@ -29,7 +29,6 @@ class Product
 	field :availability, :type => Integer, :default => 0
 	field :start_date, :type => DateTime
 	field :end_date, :type => DateTime
-	field :images, :type => Array
 	field :tabs, :type => Array # TODO: embeds_many :tabs
 	field :life_cycle
 	field :life_cycle_ends, :type => DateTime
@@ -45,6 +44,7 @@ class Product
 			@target.select {|campaign| campaign.available?(time)}
     end
   end
+	embeds_many :images
 		
 	# scopes
 	scope :active, :where => { :active => true }

@@ -1,0 +1,6 @@
+- form_for @image, :url => {:action => 'upload_image'}, :html => {:multipart => true} do |f| 
+  = f.file_field :image
+  = hidden_field_tag :product_id, @product.id
+  .actions
+    = f.submit 
+  

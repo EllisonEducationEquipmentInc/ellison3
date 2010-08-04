@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class ImageUploader < CarrierWave::Uploader::Base
+class GenericImageUploader < CarrierWave::Uploader::Base
 	
   # Include RMagick or ImageScience support
   #     include CarrierWave::RMagick
@@ -16,7 +16,6 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    #"uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.item_num}"
 		"#{Rails.root}/public/images/#{model.class.to_s.pluralize.underscore}/#{version_name}"
   end
 	# 
@@ -25,32 +24,21 @@ class ImageUploader < CarrierWave::Uploader::Base
 	end
 	# ================ file storage block ends ================
 	
-	
-	# Override the filename of the uploaded files
-  def filename
-    "#{model.item_num}.#{file.extension}" if original_filename && file && file.try(:extension)
-  end
 
   # Provide a default URL as a default if there hasn't been a file uploaded
   def default_url(version_name = "medium")
-    #"/images/fallback/" + [version_name, "default.png"].compact.join('_')
-    "/images/products/#{version_name}/#{model.item_num}.jpg"
+    "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   end
 
   # Process files as they are uploaded.
-  process :resize_to_fill => [500, 500]
-  
-  # Create different versions of your uploaded files
-  version :large do
+  process :resize_to_fill => [800, 800]
+	
+	version :large do
     process :resize_to_fill => [300, 300]
   end
 
-  version :small do
+	version :small do
     process :resize_to_fill => [65, 65]
-  end
-
-	version :medium do
-    process :resize_to_fill => [125, 125]
   end
 
   # Add a white list of extensions which are allowed to be uploaded,

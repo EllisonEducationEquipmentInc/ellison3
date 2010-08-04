@@ -1,0 +1,5 @@
+- if @image.save
+  / == $("#campaigns").append("#{escape_javascript render('campaign', :campaign => @campaign)}");
+  $('#new_image').html('')
+- else
+  == alert('#{escape_javascript @image.errors.full_messages.join("\n")}');
