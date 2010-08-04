@@ -70,11 +70,11 @@ class Product
 	
 	def description(options = {})
 		system = options[:system] || current_system
-		send("description_#{system}") || send("description_szus")
+		send("description_#{system}") || send("description_er")
 	end
 	
 	def description=(d)
-		send("description_#{current_system}=", d) unless d.blank?
+		send("description_#{current_system}=", d) unless d.blank? || d == description_er
 	end
 	
 	def msrp(options = {})
