@@ -1,1 +1,6 @@
-= @product.item_num
+%div= @product.item_num
+%div= @product.name
+%div= image_tag(@product.large_image)
+%div= display_product_price(@product)
+%div= @product.description.html_safe
+= link_to 'back', products_path
