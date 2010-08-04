@@ -2,6 +2,9 @@ Ellison3::Application.routes.draw do |map|
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
+	match 'products' => 'index#products'
+	match 'product/:id' => 'index#product', :as => :product
+	
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
