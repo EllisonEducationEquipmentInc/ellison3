@@ -1,3 +1,8 @@
+#header {
+  width: 970px;
+	margin: 0 auto;
+}
+
 #wrapper {
   width: 970px;
 	margin: 0 auto;
@@ -22,4 +27,15 @@ body.bp th, body.bp td, body.bp caption {
 
 #campaigns li {
 	padding:5px
+}
+
+.product {
+	background: whiteSmoke;
+	border: 1px solid #CCC;
+	float: left;
+	height: 282px;
+	margin-bottom: 12px;
+	margin-left: 12px;
+	padding: 6px 10px 8px;
+	width: 150px;
 }

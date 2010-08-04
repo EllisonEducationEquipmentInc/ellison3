@@ -46,7 +46,11 @@ class Product
 	# scopes
 	scope :active, :where => { :active => true }
 	scope :inactive, :where => { :active => false }
-
+	
+	ELLISON_SYSTEMS.each do |sys|
+		scope sys.to_sym, :where => { :systems_enabled => sys }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex
+	end
+	
 	LIFE_CYCLES = [nil, 'ComingSoon', 'New', 'Discontinued', 'Available', 'Clearance-Discontinued']
 	
 	LOCALES_2_CURRENCIES.values.each do |currency|

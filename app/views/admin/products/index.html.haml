@@ -1,4 +1,6 @@
 %h1 Listing products
+= link_to 'New product', new_admin_product_path
+%br
 = link_to 'all', admin_products_path unless params[:q].blank?
 - form_tag(admin_products_path, :method => :get) do
   = text_field_tag :q
@@ -14,6 +16,7 @@
       %th Active
       %th Avail.
       %th Qty.
+      %th Systems
       %th &nbsp;
       %th &nbsp;
       %th &nbsp;
@@ -28,10 +31,10 @@
         %td= product.active
         %td= product.availability
         %td= product.quantity
+        %td= product.systems_enabled.join(", ") rescue ''
         %td= link_to 'Show', admin_product_path(product)
         %td= link_to 'Edit', edit_admin_product_path(product)
         %td= link_to 'Destroy', admin_product_path(product), :confirm => 'Are you sure?', :method => :delete
-
 %br
 = will_paginate @products
 %br

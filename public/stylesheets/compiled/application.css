@@ -1,37 +1,55 @@
 /* line 1, ../../../app/stylesheets/application.scss */
-#wrapper {
+#header {
   width: 970px;
   margin: 0 auto;
 }
 
 /* line 6, ../../../app/stylesheets/application.scss */
+#wrapper {
+  width: 970px;
+  margin: 0 auto;
+}
+
+/* line 11, ../../../app/stylesheets/application.scss */
 body.bp th, body.bp td, body.bp caption {
   padding: 0;
 }
 
-/* line 10, ../../../app/stylesheets/application.scss */
+/* line 15, ../../../app/stylesheets/application.scss */
 .field label {
   font-weight: bold;
 }
 
-/* line 14, ../../../app/stylesheets/application.scss */
+/* line 19, ../../../app/stylesheets/application.scss */
 #new_campaign {
   padding: 10px;
   border: 1px solid gray;
   background: #FDFFB0;
 }
 
-/* line 20, ../../../app/stylesheets/application.scss */
+/* line 25, ../../../app/stylesheets/application.scss */
 .right {
   float: right;
 }
 
-/* line 21, ../../../app/stylesheets/application.scss */
+/* line 26, ../../../app/stylesheets/application.scss */
 .left {
   float: left;
 }
 
-/* line 23, ../../../app/stylesheets/application.scss */
+/* line 28, ../../../app/stylesheets/application.scss */
 #campaigns li {
   padding: 5px;
+}
+
+/* line 32, ../../../app/stylesheets/application.scss */
+.product {
+  background: whiteSmoke;
+  border: 1px solid #CCC;
+  float: left;
+  height: 282px;
+  margin-bottom: 12px;
+  margin-left: 12px;
+  padding: 6px 10px 8px;
+  width: 150px;
 }
