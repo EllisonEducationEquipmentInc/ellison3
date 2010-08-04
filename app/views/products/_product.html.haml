@@ -1,5 +1,5 @@
 .product
-  %div= product.item_num
-  %div= image_tag product.medium_image
-  %div= product.name
-  %div= number_to_currency product.price
+  .product_id= product.item_num
+  .product_image= image_tag product.medium_image
+  .product_name= product.name
+  .product_price= number_to_currency product.price

@@ -53,3 +53,34 @@ body.bp th, body.bp td, body.bp caption {
   padding: 6px 10px 8px;
   width: 150px;
 }
+
+/* line 43, ../../../app/stylesheets/application.scss */
+.product_id {
+  color: #369;
+  padding-bottom: 4px;
+  text-align: center;
+}
+
+/* line 49, ../../../app/stylesheets/application.scss */
+.product_image {
+  background: white;
+  border: 1px solid #CCC;
+  height: 135px;
+  text-align: center;
+}
+
+/* line 56, ../../../app/stylesheets/application.scss */
+.product_name {
+  height: 58px;
+  margin-bottom: 4px;
+  padding: 0px;
+  text-align: center;
+  line-height: normal;
+}
+
+/* line 64, ../../../app/stylesheets/application.scss */
+.product_price {
+  height: 18px;
+  line-height: 0.6em;
+  text-align: center;
+}
