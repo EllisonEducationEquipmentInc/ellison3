@@ -17,6 +17,10 @@ body.bp th, body.bp td, body.bp caption {
   padding: 0;
 }
 
+.bp {
+	line-height: normal;
+}
+
 .field label {
 	font-weight: bold;
 }
@@ -116,10 +120,15 @@ body.bp th, body.bp td, body.bp caption {
 	margin: 10px 0;
 }
 
+#product_detail .life_cycle {
+	color: red;
+}
+
 #product_detail .selected {
 	border: 1px solid gray;
 }
 .product_admin_thumbnail {
 	border: 5px solid white;
 }
+
 .to_delete {border-color:red}

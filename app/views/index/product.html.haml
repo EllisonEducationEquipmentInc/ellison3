@@ -1,6 +1,8 @@
 #product_detail.rounded
   .info
-    %div= @product.item_num
+    .item_num
+      = @product.item_num
+      %span.life_cycle= @product.life_cycle
     .title= @product.name
     .price= display_product_price(@product)
     .desc= @product.description.try :html_safe

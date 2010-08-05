@@ -22,33 +22,38 @@ body.bp th, body.bp td, body.bp caption {
 }
 
 /* line 20, ../../../app/stylesheets/application.scss */
+.bp {
+  line-height: normal;
+}
+
+/* line 24, ../../../app/stylesheets/application.scss */
 .field label {
   font-weight: bold;
 }
 
-/* line 24, ../../../app/stylesheets/application.scss */
+/* line 28, ../../../app/stylesheets/application.scss */
 #new_campaign {
   padding: 10px;
   border: 1px solid gray;
   background: #FDFFB0;
 }
 
-/* line 30, ../../../app/stylesheets/application.scss */
+/* line 34, ../../../app/stylesheets/application.scss */
 .right {
   float: right;
 }
 
-/* line 31, ../../../app/stylesheets/application.scss */
+/* line 35, ../../../app/stylesheets/application.scss */
 .left {
   float: left;
 }
 
-/* line 33, ../../../app/stylesheets/application.scss */
+/* line 37, ../../../app/stylesheets/application.scss */
 #campaigns li {
   padding: 5px;
 }
 
-/* line 37, ../../../app/stylesheets/application.scss */
+/* line 41, ../../../app/stylesheets/application.scss */
 .product {
   background: whiteSmoke;
   border: 1px solid #CCC;
@@ -60,14 +65,14 @@ body.bp th, body.bp td, body.bp caption {
   width: 150px;
 }
 
-/* line 48, ../../../app/stylesheets/application.scss */
+/* line 52, ../../../app/stylesheets/application.scss */
 .product_id {
   color: #369;
   padding-bottom: 4px;
   text-align: center;
 }
 
-/* line 54, ../../../app/stylesheets/application.scss */
+/* line 58, ../../../app/stylesheets/application.scss */
 .product_image {
   background: white;
   border: 1px solid #CCC;
@@ -75,7 +80,7 @@ body.bp th, body.bp td, body.bp caption {
   text-align: center;
 }
 
-/* line 61, ../../../app/stylesheets/application.scss */
+/* line 65, ../../../app/stylesheets/application.scss */
 .product_name {
   height: 58px;
   margin-bottom: 4px;
@@ -84,84 +89,89 @@ body.bp th, body.bp td, body.bp caption {
   line-height: normal;
 }
 
-/* line 69, ../../../app/stylesheets/application.scss */
+/* line 73, ../../../app/stylesheets/application.scss */
 .product_price {
   height: 18px;
   line-height: 0.6em;
   text-align: center;
 }
 
-/* line 75, ../../../app/stylesheets/application.scss */
+/* line 79, ../../../app/stylesheets/application.scss */
 .strike_through {
   text-decoration: line-through;
 }
 
-/* line 79, ../../../app/stylesheets/application.scss */
+/* line 83, ../../../app/stylesheets/application.scss */
 .price_sale {
   color: red;
   font-weight: bold;
 }
 
-/* line 83, ../../../app/stylesheets/application.scss */
+/* line 87, ../../../app/stylesheets/application.scss */
 .custom_price {
   color: blue;
 }
 
-/* line 87, ../../../app/stylesheets/application.scss */
+/* line 91, ../../../app/stylesheets/application.scss */
 .notice {
   color: green;
 }
 
-/* line 90, ../../../app/stylesheets/application.scss */
+/* line 94, ../../../app/stylesheets/application.scss */
 #product_detail {
   padding: 10px;
   border: 1px solid #ccc;
 }
 
-/* line 94, ../../../app/stylesheets/application.scss */
+/* line 98, ../../../app/stylesheets/application.scss */
 #product_detail .info {
   float: right;
   width: 400px;
 }
 
-/* line 98, ../../../app/stylesheets/application.scss */
+/* line 102, ../../../app/stylesheets/application.scss */
 #product_detail .images {
   width: 500px;
   border: 1px solid #ccc;
 }
 
-/* line 103, ../../../app/stylesheets/application.scss */
+/* line 107, ../../../app/stylesheets/application.scss */
 #product_detail #large_image {
   text-align: center;
 }
 
-/* line 107, ../../../app/stylesheets/application.scss */
+/* line 111, ../../../app/stylesheets/application.scss */
 #product_detail .thumbnail {
   margin: 3px;
   border: 1px solid white;
 }
 
-/* line 111, ../../../app/stylesheets/application.scss */
+/* line 115, ../../../app/stylesheets/application.scss */
 #product_detail .title {
   font-weight: bold;
 }
 
-/* line 115, ../../../app/stylesheets/application.scss */
+/* line 119, ../../../app/stylesheets/application.scss */
 #product_detail .price, #product_detail .desc {
   margin: 10px 0;
 }
 
-/* line 119, ../../../app/stylesheets/application.scss */
+/* line 123, ../../../app/stylesheets/application.scss */
+#product_detail .life_cycle {
+  color: red;
+}
+
+/* line 127, ../../../app/stylesheets/application.scss */
 #product_detail .selected {
   border: 1px solid gray;
 }
 
-/* line 122, ../../../app/stylesheets/application.scss */
+/* line 130, ../../../app/stylesheets/application.scss */
 .product_admin_thumbnail {
   border: 5px solid white;
 }
 
-/* line 125, ../../../app/stylesheets/application.scss */
+/* line 134, ../../../app/stylesheets/application.scss */
 .to_delete {
   border-color: red;
 }
