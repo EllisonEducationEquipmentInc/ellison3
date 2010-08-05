@@ -1,6 +1,10 @@
 %div= @product.item_num
 %div= @product.name
-%div= image_tag(@product.large_image)
+#large_image= image_tag(@product.large_image)
+#images
+  - @product.images.each do |image|
+    .left.thumbnail= link_to image_tag(image.image_url(:small)), '#', :onclick => "$('#large_image').html('#{image_tag(image.image_url(:large))}');return false;"
+.clear  
 %div= display_product_price(@product)
 %div= @product.description.try :html_safe
 = link_to 'back', products_path
