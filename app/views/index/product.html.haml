@@ -1,12 +1,13 @@
 #product_detail.rounded
-  %div= @product.item_num
-  %div= @product.name
-  #large_image= image_tag(@product.large_image)
-  #images
+  .info
+    %div= @product.item_num
+    .title= @product.name
+    .price= display_product_price(@product)
+    .desc= @product.description.try :html_safe
+  .images
+    #large_image= image_tag(@product.large_image)
     .left.thumbnail.selected= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}');return false;"
     - @product.images.each do |image|
       .left.thumbnail= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}');return false;"
-  .clear  
-  %div= display_product_price(@product)
-  %div= @product.description.try :html_safe
+    .clear  
   = link_to 'back', products_path

@@ -89,12 +89,33 @@ body.bp th, body.bp td, body.bp caption {
 }
 #product_detail {
 	padding: 10px;
-	border:1px solid #ccc;
+	border: 1px solid #ccc;
 }
+#product_detail .info{
+	float: right;
+	width: 400px;
+}
+#product_detail .images{
+	width: 500px;
+	border: 1px solid #ccc;
+}
+
+#product_detail #large_image {
+	text-align:center;
+}
+
 #product_detail .thumbnail {
 	margin: 3px;
 	border: 1px solid white;
 }
+#product_detail .title {
+	font-weight: bold;
+}
+
+#product_detail .price, #product_detail .desc {
+	margin: 10px 0;
+}
+
 #product_detail .selected {
 	border: 1px solid gray;
 }
