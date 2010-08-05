@@ -1,0 +1,11 @@
+- if tab.text
+  = tab.text
+- if tab.products
+  - Product.available.where(:item_num.in => tab.products).each do |product|
+    .related_product_box
+      .info
+        .item_num= product.item_num
+        .title= link_to product.name, product_url(:id => product)
+        .price= display_product_price(product)
+      = image_tag(product.medium_image)
+  .clear

@@ -1,3 +1,4 @@
+= link_to 'back', products_path
 #product_detail.rounded
   .info
     .item_num
@@ -12,15 +13,13 @@
     - @product.images.each do |image|
       .left.thumbnail= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}');return false;"
     .clear  
-  = link_to 'back', products_path
 #product_tabs.rounded
   %ul
     - @product.tabs.each do |tab|
       %li.rounded_top= link_to tab.name, "#tabs-#{tab.id}"
   .clear
   - @product.tabs.each do |tab|
-    %div{:id => "tabs-#{tab.id}"}
-      == #{tab.id} Sizzlits Decorative Sets are simple to use, compact and portable for creating at home or on the go. Designed to cut a single sheet of cardstock, paper, metallic foil or vellum, these complementary die sets offer an endless array of design possibilities.
+    %div{:id => "tabs-#{tab.id}"}= render tab
 :javascript
   $(function() {
   	$("#product_tabs").tabs();

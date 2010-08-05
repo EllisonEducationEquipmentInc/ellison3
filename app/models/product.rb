@@ -37,6 +37,7 @@ class Product
 
 	index :item_num, :unique => true, :background => true
 	index :systems_enabled
+	index :availability
 	
 	# associations
 	embeds_many :campaigns do
@@ -57,6 +58,14 @@ class Product
 	
 	ELLISON_SYSTEMS.each do |sys|
 		scope sys.to_sym, :where => { :systems_enabled => sys }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex
+	end
+	
+	class << self
+		
+		def available
+			active.where(:availability.in => [1,3])
+		end
+		
 	end
 	
 	LIFE_CYCLES = [nil, 'ComingSoon', 'New', 'Discontinued', 'Available', 'Clearance-Discontinued']

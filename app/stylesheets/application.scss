@@ -1,6 +1,6 @@
 .rounded {
-  -moz-border-radius:2ex;
-  -webkit-border-radius:2ex;
+  -moz-border-radius:1ex;
+  -webkit-border-radius:1ex;
 }
 
 .rounded_top {
@@ -153,5 +153,24 @@ body.bp th, body.bp td, body.bp caption {
 	border: none;
 }
 #product_tabs ul{
-	margin-top:-43px;
+	margin-top:-46px;
+	padding: 5px 5px 0px;
+}
+#product_tabs ui-tabs, #product_tabs .ui-tabs-panel{
+	padding: 5px 0;
+}
+.related_product_box {
+	float: left;
+	height: 160px;
+	margin: 5px 0px 0px 7px;
+	width: 300px;
+}
+
+.related_product_box .info {
+	float: right;
+	margin-left: 5px;
+	width: 150px;
+}
+.related_product_box .title {
+	margin: 5px 0;
 }

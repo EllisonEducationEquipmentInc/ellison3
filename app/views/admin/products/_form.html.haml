@@ -8,6 +8,10 @@
     %br
     = f.check_box :active
   .field
+    = f.label :availability
+    %br
+    = f.select :availability, [["0=Not Available", 0], ["1=Available", 1], ["2=Suspended", 2], ["3=Available-Not-Saleable", 3]] #, {}, :onchange => "if (this.value == '3') {Element.show('availability_copy')} else { Element.hide('availability_copy')}"
+  .field
     = f.label :item_num
     %br
     = f.text_field :item_num

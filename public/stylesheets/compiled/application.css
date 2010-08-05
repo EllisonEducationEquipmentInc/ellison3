@@ -1,7 +1,7 @@
 /* line 1, ../../../app/stylesheets/application.scss */
 .rounded {
-  -moz-border-radius: 2ex;
-  -webkit-border-radius: 2ex;
+  -moz-border-radius: 1ex;
+  -webkit-border-radius: 1ex;
 }
 
 /* line 6, ../../../app/stylesheets/application.scss */
@@ -202,4 +202,30 @@ body.bp th, body.bp td, body.bp caption {
 /* line 155, ../../../app/stylesheets/application.scss */
 #product_tabs ul {
   margin-top: -46px;
+  padding: 5px 5px 0px;
+}
+
+/* line 159, ../../../app/stylesheets/application.scss */
+#product_tabs ui-tabs, #product_tabs .ui-tabs-panel {
+  padding: 5px 0;
+}
+
+/* line 162, ../../../app/stylesheets/application.scss */
+.related_product_box {
+  float: left;
+  height: 160px;
+  margin: 5px 0px 0px 7px;
+  width: 300px;
+}
+
+/* line 169, ../../../app/stylesheets/application.scss */
+.related_product_box .info {
+  float: right;
+  margin-left: 5px;
+  width: 150px;
+}
+
+/* line 174, ../../../app/stylesheets/application.scss */
+.related_product_box .title {
+  margin: 5px 0;
 }
