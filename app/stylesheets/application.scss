@@ -3,6 +3,13 @@
   -webkit-border-radius:2ex;
 }
 
+.rounded_top {
+  -moz-border-radius-topleft:1ex;
+  -moz-border-radius-topright:1ex;
+  -webkit-border-top-left-radius:1ex;
+  -webkit-border-top-right-radius:1ex;
+}
+
 #header {
   width: 970px;
 	margin: 0 auto;
@@ -94,7 +101,9 @@ body.bp th, body.bp td, body.bp caption {
 #product_detail {
 	padding: 10px;
 	border: 1px solid #ccc;
+	width:940px;
 }
+
 #product_detail .info{
 	float: right;
 	width: 400px;
@@ -132,3 +141,17 @@ body.bp th, body.bp td, body.bp caption {
 }
 
 .to_delete {border-color:red}
+
+#product_tabs {
+	margin: 40px 0;
+	padding: 10px;
+	border: 1px solid #ccc;
+	width:940px;
+}
+#product_tabs .ui-widget-header{
+	background: none;
+	border: none;
+}
+#product_tabs ul{
+	margin-top:-43px;
+}

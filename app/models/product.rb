@@ -44,6 +44,11 @@ class Product
 			@target.select {|campaign| campaign.available?(time)}
     end
   end
+	embeds_many :tabs do
+    def current
+			@target.select {|tab| tab.available?(time)}
+    end
+  end
 	embeds_many :images
 		
 	# scopes

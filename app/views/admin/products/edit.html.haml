@@ -1,7 +1,8 @@
 %h1 Edit product
 
 = render 'form'
-
+%br
+%br
 .field
   = label_tag "Campaigns"
   %p= link_to 'new campaign', {:action => 'new_campaign', :id => @product.id}, :remote => true
