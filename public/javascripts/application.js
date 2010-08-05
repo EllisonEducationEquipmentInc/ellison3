@@ -15,10 +15,7 @@ $(function() {
 		$(".product_admin_thumbnail").bind('mouseover mouseout', function() {
 			$(this).toggleClass('to_delete');
 		});
-    $(".product_admin_thumbnail").bind('click', function() {alert('delete?');});
 });
-
-
 
 $(function() {
 		$(".thumbnail").bind('mouseover', function() {
