@@ -106,7 +106,23 @@ body.bp th, body.bp td, body.bp caption {
   color: green;
 }
 
-/* line 86, ../../../app/stylesheets/application.scss */
-.thumbnail {
-  margin: 5px;
+/* line 85, ../../../app/stylesheets/application.scss */
+#product_detail .thumbnail {
+  margin: 3px;
+  border: 1px solid white;
+}
+
+/* line 89, ../../../app/stylesheets/application.scss */
+#product_detail .selected {
+  border: 1px solid gray;
+}
+
+/* line 92, ../../../app/stylesheets/application.scss */
+.product_admin_thumbnail {
+  border: 5px solid white;
+}
+
+/* line 95, ../../../app/stylesheets/application.scss */
+.to_delete {
+  border-color: red;
 }

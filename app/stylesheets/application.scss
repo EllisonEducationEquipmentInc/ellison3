@@ -82,7 +82,14 @@ body.bp th, body.bp td, body.bp caption {
 .notice {
   color: green;
 }
-
-.thumbnail {
-	margin:5px;
+#product_detail .thumbnail {
+	margin: 3px;
+	border: 1px solid white;
 }
+#product_detail .selected {
+	border: 1px solid gray;
+}
+.product_admin_thumbnail {
+	border: 5px solid white;
+}
+.to_delete {border-color:red}
