@@ -1,3 +1,8 @@
+.rounded {
+  -moz-border-radius:2ex;
+  -webkit-border-radius:2ex;
+}
+
 #header {
   width: 970px;
 	margin: 0 auto;
@@ -81,6 +86,10 @@ body.bp th, body.bp td, body.bp caption {
 
 .notice {
   color: green;
+}
+#product_detail {
+	padding: 10px;
+	border:1px solid #ccc;
 }
 #product_detail .thumbnail {
 	margin: 3px;
