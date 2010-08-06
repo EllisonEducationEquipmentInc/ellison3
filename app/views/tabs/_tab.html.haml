@@ -7,6 +7,6 @@
         .item_num= product.item_num
         .title= link_to product.name, product_url(:id => product)
         .price= display_product_price(product)
-        = add_to_cart_button(@product)
+      .info= add_to_cart_button(@product)
       = image_tag(product.medium_image)
   .clear
