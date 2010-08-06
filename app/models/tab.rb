@@ -20,6 +20,7 @@ class Tab
 	field :products, :type => Array
 	field :ideas, :type => Array
 	field :compatibility, :type => Array
+	field :data_colum, :type => Hash
 	
 	# associations
 	embedded_in :product, :inverse_of => :tabs

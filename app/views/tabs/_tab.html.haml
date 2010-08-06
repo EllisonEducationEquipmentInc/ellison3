@@ -17,4 +17,9 @@
       = link_to image_tag(image.image_url(:medium)), image.image_url, :class => 'lightbox', :title => image.caption
       .caption= image.caption
     .clear
+- if tab.data_colum
+  - tab.data_colum.each do |key, value|
+    .data_key= key
+    .data_value= value
+  .clear
   
