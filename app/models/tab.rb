@@ -23,6 +23,7 @@ class Tab
 	
 	# associations
 	embedded_in :product, :inverse_of => :tabs
+	embeds_many :images
 	
 	def available?
 		active && systems_enabled.include?(current_system)

@@ -10,3 +10,11 @@
       .info= add_to_cart_button(@product)
       = image_tag(product.medium_image)
   .clear
+- tab.images.each do |image|
+  .tab_row
+    .image_details= image.details
+    .tab_image
+      = link_to image_tag(image.image_url(:medium)), image.image_url, :class => 'lightbox', :title => image.caption
+      .caption= image.caption
+    .clear
+  

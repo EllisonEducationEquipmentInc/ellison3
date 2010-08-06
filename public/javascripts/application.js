@@ -25,6 +25,7 @@ $(function() {
 });
 
 $(document).ready(function(){
+	// image zoom
 	var options = {
 	    zoomWidth: 300,
 	    zoomHeight: 300,
@@ -32,8 +33,17 @@ $(document).ready(function(){
       yOffset: 0,
       position: "right",
 			zoomType: "reverse"
-};
+		};
 	$('.imagezoom').jqzoom(options);
+	
+	// lightboxes
+	$("a.lightbox").fancybox({
+			// 'transitionIn'	:	'elastic',
+			// 'transitionOut'	:	'elastic',
+			// 'speedIn'		:	600, 
+			// 'speedOut'		:	200, 
+			// 'overlayShow'	:	true
+		});
 });
 
 $(function() {
