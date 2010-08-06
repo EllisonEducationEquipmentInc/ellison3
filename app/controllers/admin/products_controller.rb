@@ -107,6 +107,7 @@ class Admin::ProductsController < ApplicationController
 		@product.campaigns.find(params[:id]).delete
 	end
 	
+	# image methods
 	def new_image
 		@product = Product.find(params[:id])
 		@image = @product.images.build
@@ -116,5 +117,10 @@ class Admin::ProductsController < ApplicationController
 		@product = Product.find(params[:product_id])
 		@image = @product.images.build(params[:image])
 		@image.save
+	end
+	
+	def delete_image
+		@product = Product.find(params[:product_id])
+		@product.images.find(params[:id]).delete
 	end
 end

@@ -56,6 +56,7 @@ Ellison3::Application.routes.draw do |map|
 					put :update_campaign
 					post :upload_image
 					get :new_image
+					delete :delete_image
 			  end
 			end
     end
