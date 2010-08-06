@@ -31,8 +31,14 @@ module ApplicationHelper
 		p.html_safe
 	end
 	
-	def add_to_cart_button
-		
+	def add_to_cart_button(product)
+    html = <<-HTML
+.add_to_cart== Add to #{t :cart}
+.wishlist_wrapper
+  .button.wishlist Add to My List
+  .select Select a list
+HTML
+    Haml::Engine.new(html).render(self)
 	end
 
 end

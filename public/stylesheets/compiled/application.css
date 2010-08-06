@@ -147,45 +147,46 @@ body.bp th, body.bp td, body.bp caption {
 /* line 116, ../../../app/stylesheets/application.scss */
 #product_detail #large_image {
   text-align: center;
+  height: 300px;
 }
 
-/* line 120, ../../../app/stylesheets/application.scss */
+/* line 121, ../../../app/stylesheets/application.scss */
 #product_detail .thumbnail {
   margin: 3px;
   border: 1px solid white;
 }
 
-/* line 124, ../../../app/stylesheets/application.scss */
+/* line 125, ../../../app/stylesheets/application.scss */
 #product_detail .title {
   font-weight: bold;
 }
 
-/* line 128, ../../../app/stylesheets/application.scss */
+/* line 129, ../../../app/stylesheets/application.scss */
 #product_detail .price, #product_detail .desc {
   margin: 10px 0;
 }
 
-/* line 132, ../../../app/stylesheets/application.scss */
+/* line 133, ../../../app/stylesheets/application.scss */
 #product_detail .life_cycle {
   color: red;
 }
 
-/* line 136, ../../../app/stylesheets/application.scss */
+/* line 137, ../../../app/stylesheets/application.scss */
 #product_detail .selected {
   border: 1px solid gray;
 }
 
-/* line 139, ../../../app/stylesheets/application.scss */
+/* line 140, ../../../app/stylesheets/application.scss */
 .product_admin_thumbnail {
   border: 5px solid white;
 }
 
-/* line 143, ../../../app/stylesheets/application.scss */
+/* line 144, ../../../app/stylesheets/application.scss */
 .to_delete {
   border-color: red;
 }
 
-/* line 145, ../../../app/stylesheets/application.scss */
+/* line 146, ../../../app/stylesheets/application.scss */
 #product_tabs {
   margin: 40px 0;
   padding: 10px;
@@ -193,50 +194,58 @@ body.bp th, body.bp td, body.bp caption {
   width: 940px;
 }
 
-/* line 151, ../../../app/stylesheets/application.scss */
+/* line 152, ../../../app/stylesheets/application.scss */
 #product_tabs .ui-widget-header {
   background: none;
   border: none;
 }
 
-/* line 155, ../../../app/stylesheets/application.scss */
+/* line 156, ../../../app/stylesheets/application.scss */
 #product_tabs ul {
   margin-top: -46px;
   padding: 5px 5px 0px;
 }
 
-/* line 159, ../../../app/stylesheets/application.scss */
+/* line 160, ../../../app/stylesheets/application.scss */
 #product_tabs ui-tabs, #product_tabs .ui-tabs-panel {
   padding: 5px 0;
 }
 
-/* line 162, ../../../app/stylesheets/application.scss */
+/* line 163, ../../../app/stylesheets/application.scss */
 .related_product_box {
   float: left;
   height: 160px;
-  margin: 5px 0px 0px 7px;
+  margin: 5px 0px 10px 9px;
   width: 300px;
 }
 
-/* line 169, ../../../app/stylesheets/application.scss */
+/* line 170, ../../../app/stylesheets/application.scss */
 .related_product_box .info {
   float: right;
   margin-left: 5px;
-  width: 150px;
+  width: 162px;
 }
 
-/* line 174, ../../../app/stylesheets/application.scss */
+/* line 175, ../../../app/stylesheets/application.scss */
 .related_product_box .title {
   margin: 5px 0;
 }
 
-/* line 178, ../../../app/stylesheets/application.scss */
-.add_to_cart {
+/* line 179, ../../../app/stylesheets/application.scss */
+.add_to_cart, #product_tabs .add_to_cart {
   background: #88E145;
+  font-size: 12px;
+  min-width: 120px;
+  margin-top: 5px;
 }
 
-/* line 181, ../../../app/stylesheets/application.scss */
+/* line 185, ../../../app/stylesheets/application.scss */
 .wishlist_wrapper {
-  margin-top: 7px;
+  margin-top: 4px;
   font-size: 9px;
+}
+
+/* line 189, ../../../app/stylesheets/application.scss */
+.wishlist_wrapper .button {
+  width: 96px;
 }

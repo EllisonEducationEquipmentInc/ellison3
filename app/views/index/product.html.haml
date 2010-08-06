@@ -7,7 +7,7 @@
     .title= @product.name
     .price= display_product_price(@product)
     .desc= @product.description.try :html_safe
-    = render 'products/add_to_cart'
+    = add_to_cart_button(@product)
   .images
     #large_image= image_tag(@product.large_image)
     .left.thumbnail.selected= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}');return false;"

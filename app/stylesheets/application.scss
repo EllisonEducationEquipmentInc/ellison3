@@ -115,6 +115,7 @@ body.bp th, body.bp td, body.bp caption {
 
 #product_detail #large_image {
 	text-align:center;
+	height: 300px;
 }
 
 #product_detail .thumbnail {
@@ -162,23 +163,29 @@ body.bp th, body.bp td, body.bp caption {
 .related_product_box {
 	float: left;
 	height: 160px;
-	margin: 5px 0px 0px 7px;
+	margin: 5px 0px 10px 9px;
 	width: 300px;
 }
 
 .related_product_box .info {
 	float: right;
 	margin-left: 5px;
-	width: 150px;
+	width: 162px;
 }
 .related_product_box .title {
 	margin: 5px 0;
 }
 
-.add_to_cart {
+.add_to_cart, #product_tabs .add_to_cart {
 	background: #88E145;
+	font-size: 12px;
+	min-width: 120px;
+	margin-top: 5px;
 }
-.wishlist_wrapper{
-	margin-top: 7px;
+.wishlist_wrapper {
+	margin-top: 4px;
 	font-size: 9px;
+}
+.wishlist_wrapper .button {
+	width: 96px;
 }
