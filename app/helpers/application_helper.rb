@@ -30,5 +30,9 @@ module ApplicationHelper
     #p << "<div id=\"custom_price_#{product.id}\">" + "</div>" + link_to('edit', :update => "custom_price_#{product.id}", :url => {:controller => 'cart', :action => 'custom_price', :id => product.id, :with_text => with_text, :line_break => line_break}) if has_sales_manager_permissions? && params[:controller] == 'cart'
 		p.html_safe
 	end
+	
+	def add_to_cart_button
+		
+	end
 
 end

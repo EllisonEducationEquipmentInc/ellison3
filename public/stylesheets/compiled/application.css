@@ -229,3 +229,14 @@ body.bp th, body.bp td, body.bp caption {
 .related_product_box .title {
   margin: 5px 0;
 }
+
+/* line 178, ../../../app/stylesheets/application.scss */
+.add_to_cart {
+  background: #88E145;
+}
+
+/* line 181, ../../../app/stylesheets/application.scss */
+.wishlist_wrapper {
+  margin-top: 7px;
+  font-size: 9px;
+}

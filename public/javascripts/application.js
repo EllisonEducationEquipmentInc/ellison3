@@ -23,3 +23,30 @@ $(function() {
 			$(this).addClass('selected');
 		});
 });
+
+$(function() {
+	$(".add_to_cart").button({
+            icons: {
+                primary: 'ui-icon-cart'
+            }});
+});
+
+$(function() {
+		$(".wishlist")
+			.button()
+			.click( function() {
+				alert( "It will add item immadiately to default wishlist" );
+			})
+		.next()
+			.button( {
+				text: false,
+				icons: {
+					primary: "ui-icon-triangle-1-s"
+				}
+			})
+			.click( function() {
+				alert( "will display a menu to select list" );
+			})
+		.parent()
+			.buttonset();
+	});
