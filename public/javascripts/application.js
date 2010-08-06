@@ -24,6 +24,18 @@ $(function() {
 		});
 });
 
+$(document).ready(function(){
+	var options = {
+	    zoomWidth: 300,
+	    zoomHeight: 300,
+      xOffset: 10,
+      yOffset: 0,
+      position: "right",
+			zoomType: "reverse"
+};
+	$('.imagezoom').jqzoom(options);
+});
+
 $(function() {
 	$(".add_to_cart").button({
             icons: {
