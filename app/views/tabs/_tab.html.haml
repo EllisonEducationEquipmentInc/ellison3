@@ -10,16 +10,33 @@
       .info= add_to_cart_button(@product)
       = image_tag(product.medium_image)
   .clear
-- tab.images.each do |image|
-  .tab_row
-    .image_details= image.details
-    .tab_image
-      = link_to image_tag(image.image_url(:medium)), image.image_url, :class => 'lightbox', :title => image.caption
-      .caption= image.caption
-    .clear
+- if tab.images
+  - tab.images.each do |image|
+    .tab_row
+      .image_details= image.details
+      .tab_image
+        = link_to image_tag(image.image_url(:medium)), image.image_url, :class => 'lightbox', :title => image.caption
+        .caption= image.caption
+      .clear
 - if tab.data_colum
   - tab.data_colum.each do |key, value|
     .data_key= key
     .data_value= value
   .clear
+- if tab.compatibility
+  - tab.compatibility.each do |compatibility|
+    .compatibility_row
+      - products = Product.available.where(:item_num.in => compatibility)
+      - products.each do |product|
+        .compatibility_prodcuct
+          .compatibility_info
+            .item_num= product.item_num
+            = image_tag(product.medium_image)
+            .title= link_to product.name, product_url(:id => product)
+            .price= display_product_price(product)
+          = add_to_cart_button(product)
+        .plus_sign.ui-icon.ui-icon-plusthick
+    .clear
+        
+        
   

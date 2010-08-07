@@ -216,3 +216,25 @@ body.bp th, body.bp td, body.bp caption {
 	width: 250px;
 	margin: 5px 0px 0px 20px;
 }
+
+.compatibility_row {
+	border-bottom: 1px dashed #CCC;
+	padding: 5px 0px 10px;
+	height: 305px;
+}
+.compatibility_prodcuct {
+	float: left;
+	margin: 10px 0px 0px 8px;
+	width: 150px;
+	text-align: center;
+	height: auto;
+}
+
+.compatibility_info{
+	height: 230px;
+}
+
+.plus_sign {
+	float: left;
+	margin: 110px 5px 0px;
+}
