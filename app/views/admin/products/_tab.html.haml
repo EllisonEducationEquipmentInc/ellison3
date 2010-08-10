@@ -1,5 +1,5 @@
-%li{:id => "#tab_#{tab.id}"}
+%li{:id => "tab_#{tab.id}"}
   = tab.name
-  = link_to 'edit', {:action => 'edit_tab', :id => tab, :product_id => @product.id}, :remote => true, :onclick => %Q($("#tab_#{tab.id}").css('background', '#FDFFB0');)
+  = link_to 'edit', {:action => 'edit_tab', :id => tab, :product_id => @product.id}, :remote => true
   |
   = link_to 'delete', {:action => 'delete_tab', :id => tab, :product_id => @product.id}, :remote => true, :confirm => "are you sure?", :method => :delete
