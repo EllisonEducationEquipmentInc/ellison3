@@ -1,5 +1,5 @@
 - if tab.text
-  = tab.text
+  = tab.text.html_safe
 - if tab.products
   - Product.available.where(:item_num.in => tab.products).each do |product|
     .related_product_box

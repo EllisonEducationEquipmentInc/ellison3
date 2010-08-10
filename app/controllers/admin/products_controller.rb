@@ -123,4 +123,37 @@ class Admin::ProductsController < ApplicationController
 		@product = Product.find(params[:product_id])
 		@product.images.find(params[:id]).delete
 	end
+	
+	# tab methods
+	def new_tab
+		@product = Product.find(params[:id])
+		@tab = @product.tabs.build
+	end
+	
+	def create_tab
+		@product = Product.find(params[:product_id])
+		@tab = Tab.new(params[:tab])
+		@tab.product = @product
+	end
+	
+	def edit_tab
+		@product = Product.find(params[:product_id])
+		@tab = @product.tabs.find(params[:id])
+	end
+	
+	def update_tab
+		@product = Product.find(params[:product_id])
+		@tab = @product.tabs.find(params[:id])
+		@tab.attributes = params[:tab]
+	end
+	
+	def delete_tab
+		@product = Product.find(params[:product_id])
+		@product.tabs.find(params[:id]).delete
+	end
+	
+	def products_autocomplete
+		@products = Product.available.only(:name, :item_num).where(:item_num => Regexp.new("^#{params[:term]}.*")).asc(:name).limit(20).all.map {|p| {:label => "#{p.item_num} #{p.name}", :value => p.item_num}}
+		render :json => @products.to_json
+	end
 end

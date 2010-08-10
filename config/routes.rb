@@ -57,6 +57,12 @@ Ellison3::Application.routes.draw do |map|
 					post :upload_image
 					get :new_image
 					delete :delete_image
+					get :new_tab
+					post :create_tab
+					post :update_tab
+					put :update_tab
+					delete :delete_tab
+					get :products_autocomplete
 			  end
 			end
     end

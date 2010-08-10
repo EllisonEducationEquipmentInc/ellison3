@@ -4,14 +4,19 @@
 %br
 %br
 .field
-  = label_tag "Campaigns"
+  %h2 Campaigns
   %p= link_to 'new campaign', {:action => 'new_campaign', :id => @product.id}, :remote => true
   #new_campaign
   %ul#campaigns= render :partial => 'campaign', :collection => @product.campaigns
 .field
-  = label_tag "Additional Images"
+  %h2 Additional Images
   %p= link_to 'upload new image', {:action => 'new_image', :id => @product.id}, :remote => true
   #new_image
   #images= render :partial => 'image', :collection => @product.images
   .clear
+.field
+  %h2 Tabs
+  %p= link_to 'new tab', {:action => 'new_tab', :id => @product.id}, :remote => true
+  %ul#tabs= render :partial => 'tab', :collection => @product.tabs
+  #edit_tab
 = link_to 'Back', admin_products_path

@@ -8,7 +8,7 @@ class Tab
 	# include Mongoid::Paranoia
 		
 	# validations
-	validates :name, :systems_enabled, :systems_enabled, :presence => true
+	validates :name, :systems_enabled, :presence => true
 	
 	# field definitions
 	field :name
@@ -26,7 +26,17 @@ class Tab
 	embedded_in :product, :inverse_of => :tabs
 	embeds_many :images
 	
+	scope :active, :where => { :active => true }
+	
 	def available?
 		active && systems_enabled.include?(current_system)
 	end	
+	
+	def product_item_nums
+		read_attribute(:products).try :join, ", "
+	end
+	
+	def product_item_nums=(product_item_nums)
+		write_attribute(:products, product_item_nums.split(/,\s?/)) unless product_item_nums.nil?
+	end
 end

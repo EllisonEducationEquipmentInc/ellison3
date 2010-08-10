@@ -40,7 +40,7 @@ body.bp th, body.bp td, body.bp caption {
 }
 
 /* line 35, ../../../app/stylesheets/application.scss */
-#new_campaign {
+#new_campaign, #edit_tab {
   padding: 10px;
   border: 1px solid gray;
   background: #FDFFB0;
@@ -202,7 +202,7 @@ body.bp th, body.bp td, body.bp caption {
 }
 
 /* line 157, ../../../app/stylesheets/application.scss */
-#product_tabs ul {
+#product_tabs ul.tabs {
   margin-top: -46px;
   padding: 5px 5px 0px;
 }
@@ -310,4 +310,14 @@ body.bp th, body.bp td, body.bp caption {
 .plus_sign {
   float: left;
   margin: 110px 5px 0px;
+}
+
+/* line 242, ../../../app/stylesheets/application.scss */
+ul.ui-autocomplete {
+  padding-left: 0;
+}
+
+/* line 246, ../../../app/stylesheets/application.scss */
+li.ui-menu-item {
+  list-style-type: none;
 }

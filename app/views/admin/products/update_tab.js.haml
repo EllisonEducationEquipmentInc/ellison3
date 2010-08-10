@@ -1,0 +1,5 @@
+- if @tab.save
+  == $("#tab_#{@tab.id}").html("#{escape_javascript render('tab', :tab => @tab)}");
+  $('#edit_tab').html('')
+- else
+  == alert('#{escape_javascript @tab.errors.full_messages.join("\n")}');
