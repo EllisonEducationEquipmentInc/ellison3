@@ -128,12 +128,14 @@ class Admin::ProductsController < ApplicationController
 	def new_tab
 		@product = Product.find(params[:id])
 		@tab = @product.tabs.build
+		@tab.images.build
 	end
 	
 	def create_tab
 		@product = Product.find(params[:product_id])
 		@tab = Tab.new(params[:tab])
 		@tab.product = @product
+		@tab.images.each {|i| i.save}
 	end
 	
 	def edit_tab

@@ -1,0 +1,13 @@
+.field
+  = image_tag(f.object.image_url(:small)) if f.object.image?
+  = f.file_field :image
+  = f.hidden_field :image_cache
+  %br
+  = f.label :remove_image
+  = f.check_box :remove_image
+  %br
+  = f.label :caption
+  = f.text_field :caption
+  %br
+  = f.label :details
+  = f.text_field :details

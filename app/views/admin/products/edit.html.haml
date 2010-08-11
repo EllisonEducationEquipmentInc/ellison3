@@ -1,19 +1,21 @@
 %h1 Edit product
 
 = render 'form'
-%br
+%hr
 %br
 .field
   %h2 Campaigns
   %p= link_to 'new campaign', {:action => 'new_campaign', :id => @product.id}, :remote => true
   #new_campaign
   %ul#campaigns= render :partial => 'campaign', :collection => @product.campaigns
+%hr
 .field
   %h2 Additional Images
   %p= link_to 'upload new image', {:action => 'new_image', :id => @product.id}, :remote => true
   #new_image
   #images= render :partial => 'image', :collection => @product.images
   .clear
+%hr
 .field
   %h2 Tabs
   %p= link_to 'new tab', {:action => 'new_tab', :id => @product.id}, :remote => true

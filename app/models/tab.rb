@@ -26,6 +26,8 @@ class Tab
 	embedded_in :product, :inverse_of => :tabs
 	embeds_many :images
 	
+	accepts_nested_attributes_for :images
+	
 	scope :active, :where => { :active => true }
 	
 	def available?

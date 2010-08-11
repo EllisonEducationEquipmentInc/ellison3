@@ -1,5 +1,6 @@
-- form_for @tab, :url => {:action => @tab.new_record? ? 'create_tab' : 'update_tab', :id => @tab.id}, :remote => true do |f| 
+- form_for @tab, :url => {:action => @tab.new_record? ? 'create_tab' : 'update_tab'}, :html => {:multipart => true, :id => 'tab_form'}, :remote => true do |f| 
   .field
+    = f.hidden_field :id
     = f.label :name
     = f.text_field :name
     = hidden_field_tag :product_id, @tab.product.id
@@ -20,6 +21,9 @@
     = f.label :products
     = f.text_field :product_item_nums, :size => 50
     Enter item numbers seperated by commas
+  %h3 images
+  - f.fields_for :images do |image_fields|
+    = render 'admin/images/image', :f => image_fields
   .actions
     = f.submit :class => 'wymupdate'
     = link_to 'cancel', '#', :onclick => "$('#edit_tab').html(''); return false;"
