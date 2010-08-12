@@ -10,6 +10,8 @@ gem 'rails', '3.0.0.rc'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+
+gem 'mongo', '>=1.0.7'
 gem 'passenger'
 gem 'mysql'
 gem 'haml', '>=3.0.13'
@@ -21,7 +23,7 @@ gem 'cucumber'
 gem 'rspec-rails', '>=2.0.0.beta.19'
 gem 'spork'
 gem 'launchy'    # So you can do Then show me the page
-gem "mongoid", ">=2.0.0.beta.15"
+gem "mongoid", ">=2.0.0.beta.16"
 gem "mongo_session_store", ">=2.0.0.pre"
 #gem "mongoid", :git => "git://github.com/durran/mongoid.git", :branch => "prerelease"
 gem "bson_ext", ">=1.0.1"

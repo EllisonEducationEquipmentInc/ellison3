@@ -5,7 +5,7 @@ class Image
 	include ActiveModel::Validations
 	include ActiveModel::Translation
 	include Mongoid::Document
-	
+		
 	field :caption
 	field :details
 	
@@ -16,5 +16,6 @@ class Image
 	
 	
 	def _destroy
+		false
 	end
 end

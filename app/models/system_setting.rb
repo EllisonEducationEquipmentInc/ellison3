@@ -6,7 +6,7 @@ class SystemSetting
 	include Mongoid::Versioning
   include Mongoid::Timestamps
 	include Mongoid::Paranoia
-	
+		
 	validates :key, :value, :presence => true
 	
 	field :key

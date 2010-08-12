@@ -57,7 +57,7 @@ class Product
 	scope :inactive, :where => { :active => false }
 	
 	ELLISON_SYSTEMS.each do |sys|
-		scope sys.to_sym, :where => { :systems_enabled => sys }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex
+		scope sys.to_sym, :where => { :systems_enabled.in => [sys] }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex
 	end
 	
 	class << self

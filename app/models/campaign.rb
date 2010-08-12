@@ -6,7 +6,7 @@ class Campaign
 	# include Mongoid::Versioning
 	# include Mongoid::Timestamps
 	# include Mongoid::Paranoia
-	
+		
 	DISCOUNT_TYPES = [["Percent", 0], ["Absolute", 1], ["Fixed", 2]]
 	
 	# validations

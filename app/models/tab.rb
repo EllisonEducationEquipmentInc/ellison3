@@ -6,7 +6,7 @@ class Tab
 	# include Mongoid::Versioning
 	# include Mongoid::Timestamps
 	# include Mongoid::Paranoia
-		
+			
 	# validations
 	validates :name, :systems_enabled, :presence => true
 	
