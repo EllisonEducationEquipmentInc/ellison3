@@ -1,6 +1,6 @@
 - form_for @tab, :url => {:action => @tab.new_record? ? 'create_tab' : 'update_tab'}, :html => {:multipart => true, :id => 'tab_form'}, :remote => true do |f| 
   .field
-    = f.hidden_field :id
+    = hidden_field_tag :id, @tab.id
     = f.label :name
     = f.text_field :name
     = hidden_field_tag :product_id, @tab.product.id

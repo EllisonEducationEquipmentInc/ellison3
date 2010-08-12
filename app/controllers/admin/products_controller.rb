@@ -143,7 +143,7 @@ class Admin::ProductsController < ApplicationController
 	
 	def update_tab
 		@product = Product.find(params[:product_id])
-		@tab = @product.tabs.find(params[:tab][:id])
+		@tab = @product.tabs.find(params[:id])
 		@tab.write_attributes params[:tab]
 		#@tab.attributes = params[:tab]
 		#@tab.images.each {|i| i.save}
