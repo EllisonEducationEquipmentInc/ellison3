@@ -321,3 +321,9 @@ ul.ui-autocomplete {
 li.ui-menu-item {
   list-style-type: none;
 }
+
+/* line 250, ../../../app/stylesheets/application.scss */
+.field .caption {
+  float: right;
+  width: 600px;
+}

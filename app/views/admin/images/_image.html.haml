@@ -1,4 +1,10 @@
 .field
+  .caption
+    = f.label :caption
+    = f.text_field :caption
+    %br
+    = f.label :details
+    = f.text_area :details, :cols => 50, :rows => 5
   = image_tag(f.object.image_url(:small)) if f.object.image?
   = f.file_field :image
   = f.hidden_field :image_cache
@@ -6,8 +12,6 @@
   = f.label :remove_image
   = f.check_box :remove_image
   %br
-  = f.label :caption
-  = f.text_field :caption
-  %br
-  = f.label :details
-  = f.text_field :details
+  = f.label :delete_image
+  = f.check_box :_destroy
+%hr

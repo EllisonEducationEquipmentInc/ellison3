@@ -22,6 +22,7 @@
     = f.text_field :product_item_nums, :size => 50
     Enter item numbers seperated by commas
   %h3 images
+  = link_to_add_fields "Add Image", f, :images
   - f.fields_for :images do |image_fields|
     = render 'admin/images/image', :f => image_fields
   .actions

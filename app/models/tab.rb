@@ -26,7 +26,7 @@ class Tab
 	embedded_in :product, :inverse_of => :tabs
 	embeds_many :images
 	
-	accepts_nested_attributes_for :images
+	accepts_nested_attributes_for :images, :allow_destroy => true
 	
 	scope :active, :where => { :active => true }
 	
@@ -41,4 +41,6 @@ class Tab
 	def product_item_nums=(product_item_nums)
 		write_attribute(:products, product_item_nums.split(/,\s?/)) unless product_item_nums.nil?
 	end
+
+
 end

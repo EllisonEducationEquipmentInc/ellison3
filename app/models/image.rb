@@ -13,4 +13,8 @@ class Image
 	embedded_in :tab, :inverse_of => :images
 	
 	mount_uploader :image, GenericImageUploader	
+	
+	
+	def _destroy
+	end
 end
