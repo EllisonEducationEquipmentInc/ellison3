@@ -62,5 +62,18 @@ HTML
 			yield
 		end
   end
+#.plus_sign.ui-icon.ui-icon-plusthick
+	def compatibility_products(products)
+		html = <<-HTML
+.compatibility_prodcuct
+  .compatibility_info
+    .item_num= product.item_num
+    = image_tag(product.medium_image)
+    .title= link_to product.name, product_url(:id => product)
+    .price= display_product_price(product)
+  = add_to_cart_button(product)
+HTML
+		products.map {|e| Haml::Engine.new(html).render(self, :product => e)}.join("<div class='plus_sign ui-icon ui-icon-plusthick'></div>").html_safe
+	end
 
 end

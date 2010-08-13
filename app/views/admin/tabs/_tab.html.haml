@@ -29,7 +29,7 @@
   %br
   %h3 Compatibility
   %ul
-    = render :partial => 'admin/tabs/tab_compatibility', :collection => @tab.compatibility #if @tab.compatibility
+    = render :partial => 'admin/tabs/tab_compatibility', :collection => @tab.compatibility
     = link_to_add_compatibility "Add Compatibility"
   .actions
     = f.submit :class => 'wymupdate'
