@@ -49,8 +49,8 @@ HTML
 	  link_to_function(name, ("add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")")).html_safe
 	end
 	
-	def link_to_add_compatibility(name)
-		link_to_function(name, ("add_fields(this, \"compatibility\", \"#{escape_javascript(render :partial => 'admin/tabs/tab_compatibility', :locals => { :tab_compatibility => [] })}\")")).html_safe
+	def link_to_add_tab_collection(name)
+		link_to_function("Add #{name.humanize}", ("add_fields(this, \"#{name}\", \"#{escape_javascript(render :partial => "admin/tabs/#{name}", :locals => { name.to_sym => [] })}\")")).html_safe
 	end
 	
 	def remote_multipart_response(&block)

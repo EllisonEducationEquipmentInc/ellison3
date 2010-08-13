@@ -20,7 +20,7 @@ class Tab
 	field :products, :type => Array
 	field :ideas, :type => Array
 	field :compatibility, :type => Array
-	field :data_column, :type => Hash
+	field :data_column, :type => Array
 	
 	# associations
 	embedded_in :product, :inverse_of => :tabs
@@ -48,5 +48,13 @@ class Tab
 	
 	def compatibility_item_nums=(compatibility_item_nums)
 		write_attribute :compatibility, compatibility_item_nums.values.map {|c| c.split(/,\s?/)}
+	end
+	
+	def data_column_fields
+		read_attribute(:data_column) || []
+	end
+	
+	def data_column_fields=(data_column_fields)
+		write_attribute :data_column, data_column_fields.sort {|a, b| a[0].to_i <=> b[0].to_i}.map {|a| a[1].values}
 	end
 end
