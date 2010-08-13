@@ -62,7 +62,7 @@ HTML
 			yield
 		end
   end
-#.plus_sign.ui-icon.ui-icon-plusthick
+
 	def compatibility_products(products)
 		html = <<-HTML
 .compatibility_prodcuct
