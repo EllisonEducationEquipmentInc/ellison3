@@ -1,4 +1,5 @@
-%li{:id => "tab_#{tab.id}"}
+%li.ui-state-default{:id => "tab_#{tab.id}"}
+  %span.ui-icon.ui-icon-arrowthick-2-n-s
   = tab.name
   = link_to 'edit', {:action => 'edit_tab', :id => tab, :product_id => @product.id}, :remote => true
   |

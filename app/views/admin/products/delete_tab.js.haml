@@ -1,3 +1,7 @@
 == $("#tab_#{params[:id]}").hide("slow");
 - sleep 1
 == $("#tab_#{params[:id]}").remove();
+$(function() {
+$("#tabs").sortable();
+$("#tabs").disableSelection();
+});

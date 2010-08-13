@@ -19,6 +19,11 @@
 .field
   %h2 Tabs
   %p= link_to 'new tab', {:action => 'new_tab', :id => @product.id}, :remote => true
-  %ul#tabs= render :partial => 'tab', :collection => @product.tabs
+  %ul#tabs.ui-sortable= render :partial => 'tab', :collection => @product.tabs
   #edit_tab
+  :javascript
+    $(function() {
+    		$("#tabs").sortable();
+    		$("#tabs").disableSelection();
+    	});
 = link_to 'Back', admin_products_path

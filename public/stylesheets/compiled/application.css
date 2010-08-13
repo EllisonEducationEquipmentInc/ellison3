@@ -317,12 +317,32 @@ ul.ui-autocomplete {
   padding-left: 0;
 }
 
-/* line 246, ../../../app/stylesheets/application.scss */
+/* line 245, ../../../app/stylesheets/application.scss */
+#tabs ul {
+  margin-left: 0;
+}
+
+/* line 249, ../../../app/stylesheets/application.scss */
 li.ui-menu-item {
   list-style-type: none;
 }
 
-/* line 250, ../../../app/stylesheets/application.scss */
+/* line 252, ../../../app/stylesheets/application.scss */
+li.ui-state-default {
+  margin: 0px 3px 3px;
+  padding: 0.4em 0.4em 0.4em 1.5em;
+  list-style-type: none;
+  font-size: 1.2em;
+  color: #1C94C4;
+}
+
+/* line 259, ../../../app/stylesheets/application.scss */
+li.ui-state-default span {
+  position: absolute;
+  margin-left: -1.3em;
+}
+
+/* line 264, ../../../app/stylesheets/application.scss */
 .field .caption {
   float: right;
   width: 600px;
