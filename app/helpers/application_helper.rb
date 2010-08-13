@@ -48,5 +48,19 @@ HTML
 	  end  
 	  link_to_function(name, ("add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")")).html_safe
 	end
+	
+	def link_to_add_compatibility(name)
+		link_to_function(name, ("add_fields(this, \"compatibility\", \"#{escape_javascript(render :partial => 'admin/tabs/tab_compatibility', :locals => { :tab_compatibility => [] })}\")")).html_safe
+	end
+	
+	def remote_multipart_response(&block)
+		if params[:format] == 'js'
+			response.content_type = Mime::HTML
+	    content = with_output_buffer(&block)
+	    text_area_tag 'remotipart_response', content
+		else
+			yield
+		end
+  end
 
 end

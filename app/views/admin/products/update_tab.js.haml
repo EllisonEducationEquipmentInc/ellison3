@@ -1,4 +1,4 @@
-= remotipart_response do
+= remote_multipart_response do
   - if @tab.save
     == $("#tab_#{@tab.id}").html("#{escape_javascript render('tab', :tab => @tab)}");
     $('#edit_tab').html('')

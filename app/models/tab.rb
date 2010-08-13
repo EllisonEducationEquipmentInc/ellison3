@@ -42,5 +42,11 @@ class Tab
 		write_attribute(:products, product_item_nums.split(/,\s?/)) unless product_item_nums.nil?
 	end
 
-
+	def compatibility_item_nums
+		read_attribute(:compatibility) || []
+	end
+	
+	def compatibility_item_nums=(compatibility_item_nums)
+		write_attribute :compatibility, compatibility_item_nums.values.map {|c| c.split(/,\s?/)}
+	end
 end

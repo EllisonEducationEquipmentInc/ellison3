@@ -145,6 +145,7 @@ class Admin::ProductsController < ApplicationController
 		@product = Product.find(params[:product_id])
 		@tab = @product.tabs.find(params[:id])
 		@tab.write_attributes params[:tab]
+		@tab.save
 		@tab.images.each {|i| i.save}
 	end
 	
