@@ -1,3 +1,5 @@
-%li= text_field_tag "tab[compatibility_item_nums][#{@tab.compatibility_item_nums.index(tab_compatibility) || 'new_compatibility'}]", tab_compatibility.join(", "), :size => 50, :class => 'tab_compatibility_item_nums'
+%li
+  = text_field_tag "tab[compatibility_item_nums][#{@tab.compatibility_item_nums.index(tab_compatibility) || 'new_compatibility'}]", tab_compatibility.join(", "), :size => 50, :class => 'tab_compatibility_item_nums'
+  = link_to_function 'remove', "$(this).parent().remove()"
 :javascript
   $(".tab_compatibility_item_nums").autocomplete(auto_complete_options);
