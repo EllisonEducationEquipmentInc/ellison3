@@ -145,7 +145,6 @@ class Admin::ProductsController < ApplicationController
 		@product = Product.find(params[:product_id])
 		@tab = @product.tabs.find(params[:id])
 		@tab.write_attributes params[:tab]
-		debugger
 		@tab.save
 		@tab.images.each {|i| i.save}
 	end
@@ -153,6 +152,11 @@ class Admin::ProductsController < ApplicationController
 	def delete_tab
 		@product = Product.find(params[:product_id])
 		@product.tabs.find(params[:id]).delete
+	end
+	
+	def reorder_tabs
+		@product = Product.find(params[:id])
+		render :text => params[:tab].inspect
 	end
 	
 	def products_autocomplete

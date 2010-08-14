@@ -21,9 +21,7 @@
   %p= link_to 'new tab', {:action => 'new_tab', :id => @product.id}, :remote => true
   %ul#tabs.ui-sortable= render :partial => 'tab', :collection => @product.tabs
   #edit_tab
+  #info
   :javascript
-    $(function() {
-    		$("#tabs").sortable();
-    		$("#tabs").disableSelection();
-    	});
+    sortable_tabs("#{@product.id}")
 = link_to 'Back', admin_products_path

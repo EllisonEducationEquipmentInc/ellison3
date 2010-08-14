@@ -4,7 +4,4 @@
     $('#edit_tab').html('')
   - else
     == alert('#{escape_javascript @tab.errors.full_messages.join("\n")}');
-  $(function() {
-  $("#tabs").sortable();
-  $("#tabs").disableSelection();
-  });
+  sortable_tabs("#{@product.id}")

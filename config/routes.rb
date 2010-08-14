@@ -63,6 +63,7 @@ Ellison3::Application.routes.draw do |map|
 					put :update_tab
 					delete :delete_tab
 					get :products_autocomplete
+					get :reorder_tabs
 			  end
 			end
     end

@@ -114,3 +114,11 @@ var auto_complete_options = {
 		this.value = terms.join(", ");
 		return false;
 	}};
+	
+function sortable_tabs(product) {
+	$("#tabs").sortable({update: function(event, ui) {
+   		$("#info").load("/admin/products/reorder_tabs?id="+product+"&"+$("#tabs").sortable('serialize'));
+	  }
+	});
+	$("#tabs").disableSelection();
+};
