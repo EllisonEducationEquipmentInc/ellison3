@@ -16,7 +16,7 @@
     .clear  
 #product_tabs.rounded
   %ul.tabs
-    - @product.tabs.each do |tab|
+    - @product.tabs.current.each do |tab|
       %li.rounded_top= link_to tab.name, "#tabs-#{tab.id}"
   .clear
   - @product.tabs.each do |tab|
