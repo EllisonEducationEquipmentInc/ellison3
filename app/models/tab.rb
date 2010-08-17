@@ -21,6 +21,7 @@ class Tab
 	field :ideas, :type => Array
 	field :compatibility, :type => Array
 	field :data_column, :type => Array
+	field :order_token
 	
 	# associations
 	embedded_in :product, :inverse_of => :tabs

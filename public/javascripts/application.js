@@ -117,7 +117,8 @@ var auto_complete_options = {
 	
 function sortable_tabs(product) {
 	$("#tabs").sortable({update: function(event, ui) {
-   		$("#info").load("/admin/products/reorder_tabs?id="+product+"&"+$("#tabs").sortable('serialize'));
+			$.ajax({url:"/admin/products/reorder_tabs?id="+product+"&"+$("#tabs").sortable('serialize')});
+   		//$("#info").load("/admin/products/reorder_tabs?id="+product+"&"+$("#tabs").sortable('serialize'));
 	  }
 	});
 	$("#tabs").disableSelection();

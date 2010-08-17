@@ -39,7 +39,7 @@ class Admin::ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to(redirect_to(edit_admin_product_url(@product)), :notice => 'Product was successfully created.') }
+        format.html { redirect_to(edit_admin_product_url(@product), :notice => 'Product was successfully created.') }
         format.xml  { render :xml => @product, :status => :created, :location => @product }
       else
         format.html { render :action => "new" }
@@ -156,6 +156,8 @@ class Admin::ProductsController < ApplicationController
 	
 	def reorder_tabs
 		@product = Product.find(params[:id])
+		@product.resort_tabs!(params[:tab])
+		@product.save
 		render :text => params[:tab].inspect
 	end
 	

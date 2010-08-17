@@ -1,4 +1,5 @@
 require 'carrierwave/orm/mongoid'
+require 'digest/sha1'
 
 class Product
 	include EllisonSystem
@@ -29,7 +30,6 @@ class Product
 	field :availability, :type => Integer, :default => 0
 	field :start_date, :type => DateTime
 	field :end_date, :type => DateTime
-	field :tabs, :type => Array # TODO: embeds_many :tabs
 	field :life_cycle
 	field :life_cycle_ends, :type => DateTime
 	field :handling_price, :type => Float, :default => 0.0
@@ -47,8 +47,14 @@ class Product
   end
 	embeds_many :tabs do
     def current
-			@target.select {|tab| tab.available?(time)}
+			@target.select {|tab| tab.available?}
     end
+
+		def resort!(ids)
+			@target.sort! {|a,b| ids.index(a.id.to_s) <=> ids.index(b.id.to_s)}
+			@target.each_with_index { |document, index| document._index = index;  document.display_order = index}
+			@target
+		end
   end
 	embeds_many :images
 		
@@ -137,6 +143,14 @@ class Product
 	def large_image
 		get_image(:large)
 	end	
+	
+	def resort_tabs!(ids)
+		reload
+		reset :tabs do
+			tabs.sort! {|a,b| ids.index(a.id.to_s) <=> ids.index(b.id.to_s)}
+			tabs.each_with_index { |document, index| document._index = index;  document.order_token = Digest::SHA1.hexdigest(rand.to_s); document.notify}
+		end
+	end
 
 private 
 	def get_image(version)
