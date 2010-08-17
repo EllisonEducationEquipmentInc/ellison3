@@ -332,17 +332,21 @@ li.ui-state-default {
   margin: 0px 3px 3px;
   padding: 0.4em 0.4em 0.4em 1.5em;
   list-style-type: none;
+}
+
+/* line 257, ../../../app/stylesheets/application.scss */
+#tabs li.ui-state-default {
   font-size: 1.2em;
   color: #1C94C4;
 }
 
-/* line 259, ../../../app/stylesheets/application.scss */
+/* line 261, ../../../app/stylesheets/application.scss */
 li.ui-state-default span {
   position: absolute;
   margin-left: -1.3em;
 }
 
-/* line 264, ../../../app/stylesheets/application.scss */
+/* line 266, ../../../app/stylesheets/application.scss */
 .field .caption {
   float: right;
   width: 600px;
