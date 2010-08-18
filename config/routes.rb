@@ -5,6 +5,8 @@ Ellison3::Application.routes.draw do |map|
 	match 'products' => 'index#products'
 	match 'product/:id' => 'index#product', :as => :product
 	
+	match 'cart' => 'carts#index', :as => :cart
+	
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action

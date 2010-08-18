@@ -50,8 +50,31 @@ $(function() {
 	$(".add_to_cart").button({
             icons: {
                 primary: 'ui-icon-cart'
-            }});
+            }})
+		.click( function() {
+			$.ajax({url:"/carts/add_to_cart?id="+this.id.replace('add_to_cart_', '')});
+		})
 });
+
+
+$(function() {
+	$(".show_cart")
+		.button({icons: {primary: 'ui-icon-cart'}})
+		.click(function() {show_cart()});
+
+});
+
+function show_cart() {
+	$.fancybox({
+			'padding'		: 10,
+			'autoScale'		: true,
+			'speedIn'		:	500, 
+			'speedOut'		:	200,
+			'href' 	: '/cart',
+			'title'			: false
+		});
+return false;
+}
 
 $(function() {
 		$(".wishlist")

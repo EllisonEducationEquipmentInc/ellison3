@@ -1,0 +1,27 @@
+#cart_container
+  - if @cart.cart_items.blank?
+    Your shopping cart is empty
+  - else
+    %table{:cellpadding => 10}
+      %thead
+        %tr
+          %th{:width => 60} Item No.
+          %th{:width => 70} Item Name
+          %th{:width => 400}
+          %th{:width => 66} Quantity 
+          %th Item Price
+          %th Total Price
+          %th
+      %tbody= render :partial => 'cart_item', :collection => @cart.cart_items
+    :javascript
+      $(function() {
+      	$(".remove_from_cart")
+      	  .button({
+                  icons: {
+                      primary: 'ui-icon-minusthick'
+                  }})
+      		.click( function() {
+      			$.ajax({url:"/carts/remove_from_cart?item_num="+this.id.replace('remove_from_cart_', '')});
+      			$(this).button({ disabled: true });
+      		})
+      });

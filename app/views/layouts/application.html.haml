@@ -10,6 +10,8 @@
   %body.bp
     #header
       = image_tag "logo_szus.gif"
+      .show_cart= "View #{t :cart}"
+    #cart{:style => "display:none"}
     #wrapper.bp
       - if notice
         %p.dontprint.notice= notice 

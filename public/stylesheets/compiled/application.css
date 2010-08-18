@@ -352,3 +352,8 @@ li.ui-state-default span {
   float: right;
   width: 600px;
 }
+
+/* line 272, ../../../app/stylesheets/application.scss */
+#cart_container {
+  width: 800px;
+}

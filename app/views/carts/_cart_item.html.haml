@@ -1,0 +1,10 @@
+%tr{:id => "cart_item_#{cart_item.id}"}
+  %td= cart_item.item_num
+  %td= link_to image_tag(cart_item.small_image), product_url(:id => cart_item.product_id)
+  %td= cart_item.name
+  %td= cart_item.quantity
+  %td= number_to_currency cart_item.price
+  %td= number_to_currency cart_item.total
+  %td
+    .remove_from_cart{:id => "remove_from_cart_#{cart_item.item_num}"} Remove
+    

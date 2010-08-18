@@ -1,5 +1,7 @@
 module ApplicationHelper
 	
+	include ShoppingCart
+	
 	def system_enabled(object)
 		ELLISON_SYSTEMS.inject("") do |buffer, sys|
 			checked = instance_eval("@#{object}").try(:systems_enabled).include?(sys) rescue false
@@ -33,7 +35,7 @@ module ApplicationHelper
 	
 	def add_to_cart_button(product)
     html = <<-HTML
-.add_to_cart== Add to #{t :cart}
+.add_to_cart{:id => "add_to_cart_#{product.id}"}== Add to #{t :cart}
 .wishlist_wrapper
   .button.wishlist Add to My List
   .select Select a list

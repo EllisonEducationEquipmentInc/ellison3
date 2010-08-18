@@ -18,6 +18,9 @@ class Product
 	validates_uniqueness_of :upc, :allow_blank => true
   validates_numericality_of :msrp, :price, :greater_than => 0.0
 	
+	cattr_accessor :current_user
+  cattr_accessor :custom_prices
+  cattr_accessor :highest_item_in_cart
 	
 	# field definitions
 	field :name
@@ -121,7 +124,18 @@ class Product
 		send("price_#{current_system}_#{current_currency}=", p) unless p.blank?
 	end
 	
-	
+	def custom_price
+    begin
+      @custom_price ||= custom_prices[id]
+    rescue
+    end
+    @custom_price
+  end
+  
+  def custom_price=(p)
+    @custom_price = p.to_f.round_to(2)
+  end
+
 	def campaign_price(time = Time.zone.now)
 		get_best_campaign(time).try :sale_price
 	end
