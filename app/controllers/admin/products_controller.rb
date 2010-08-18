@@ -130,6 +130,10 @@ class Admin::ProductsController < ApplicationController
 		@tab = @product.tabs.build
 	end
 	
+	def reusable_tab
+		@product = Product.find(params[:id])
+	end
+	
 	def create_tab
 		@product = Product.find(params[:product_id])
 		@tab = @product.tabs.build(params[:tab])
@@ -156,8 +160,7 @@ class Admin::ProductsController < ApplicationController
 	
 	def reorder_tabs
 		@product = Product.find(params[:id])
-		@product.resort_tabs!(params[:tab])
-		@product.save
+		@product.tabs.resort!(params[:tab])
 		render :text => params[:tab].inspect
 	end
 	

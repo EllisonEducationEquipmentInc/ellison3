@@ -52,7 +52,7 @@ class Product
 
 		def resort!(ids)
 			@target.sort! {|a,b| ids.index(a.id.to_s) <=> ids.index(b.id.to_s)}
-			@target.each_with_index { |document, index| document._index = index;  document.display_order = index}
+			@target.each_with_index { |document, index| document._index = index}
 			@target
 		end
   end
@@ -143,14 +143,7 @@ class Product
 	def large_image
 		get_image(:large)
 	end	
-	
-	def resort_tabs!(ids)
-		reload
-		reset :tabs do
-			tabs.sort! {|a,b| ids.index(a.id.to_s) <=> ids.index(b.id.to_s)}
-			tabs.each_with_index { |document, index| document._index = index;  document.order_token = Digest::SHA1.hexdigest(rand.to_s); document.notify}
-		end
-	end
+
 
 private 
 	def get_image(version)

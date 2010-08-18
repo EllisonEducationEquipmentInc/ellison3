@@ -18,7 +18,10 @@
 %hr
 .field
   %h2 Tabs
-  %p= link_to 'new tab', {:action => 'new_tab', :id => @product.id}, :remote => true
+  %p
+    = link_to 'new tab', {:action => 'new_tab', :id => @product.id}, :remote => true
+    |
+    = link_to 'clone reusable', {:action => 'reusable_tab', :id => @product.id}, :remote => true
   %ul#tabs.ui-sortable= render :partial => 'tab', :collection => @product.tabs
   #edit_tab
   #info

@@ -6,7 +6,7 @@ class Tab
 	# include Mongoid::Versioning
 	# include Mongoid::Timestamps
 	# include Mongoid::Paranoia
-			
+				
 	# validations
 	validates :name, :systems_enabled, :presence => true
 	
@@ -21,7 +21,6 @@ class Tab
 	field :ideas, :type => Array
 	field :compatibility, :type => Array
 	field :data_column, :type => Array
-	field :order_token
 	
 	# associations
 	embedded_in :product, :inverse_of => :tabs

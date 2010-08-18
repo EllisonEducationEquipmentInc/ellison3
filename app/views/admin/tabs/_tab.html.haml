@@ -12,6 +12,10 @@
     = f.label :systems_enabled
     = system_enabled('tab')
   .field
+    = f.label :reusable
+    %br
+    = f.check_box :reusable
+  .field
     = f.label :description
     = f.text_field :description
   .field
