@@ -85,8 +85,10 @@ function initialize_buttons(){
 $(function() {
 	$(".show_cart")
 		.button({icons: {primary: 'ui-icon-cart'}})
-		.click(function() {show_cart()});
-
+		.click(function() {
+			show_cart();
+			$.fancybox.resize();
+		});
 });
 
 function show_cart() {
@@ -98,7 +100,6 @@ function show_cart() {
 			'href' 	: '/cart',
 			'title'			: false
 		});
-	$.fancybox.resize();
 	return false;
 }
 
