@@ -62,7 +62,7 @@ function initialize_buttons(){
 		$(".button").button();
 	});
 	$(function() {
-		$(".save").button({icons: {primary: 'ui-icon-disk'}});
+		$(".save").button({icons: {primary: 'ui-icon-disk'}})
 	});
 	$(function() {
 		$(".ok").button({icons: {primary: 'ui-icon-check'}});
