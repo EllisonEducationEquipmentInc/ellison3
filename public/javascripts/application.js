@@ -94,12 +94,14 @@ $(function() {
 function show_cart() {
 	$.fancybox({
 			'padding'		: 10,
-			'autoScale'		: true,
+			'autoScale'		: false,
 			'speedIn'		:	500, 
 			'speedOut'		:	200,
 			'href' 	: '/cart',
+			'width'	: 860,
 			'title'			: false
 		});
+	$.fancybox.resize();
 	return false;
 }
 

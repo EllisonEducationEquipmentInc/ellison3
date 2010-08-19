@@ -1,8 +1,8 @@
 class CartsController < ApplicationController
 	
 	def index
-		# render @cart.cart_items
-		render :index, :layout => false
+		get_cart
+		render :index, :layout => false if request.xhr?
 	end
 		
 	def add_to_cart
@@ -15,7 +15,6 @@ class CartsController < ApplicationController
 	
 	def empty_cart
 		clear_cart
-		redirect_to :controller => "index", :action => "products"
 	end
 	
 end

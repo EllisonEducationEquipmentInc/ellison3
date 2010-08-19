@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 	
-	before_filter :get_system, :get_cart
+	before_filter :get_system
 	
 	include ShoppingCart
 	
