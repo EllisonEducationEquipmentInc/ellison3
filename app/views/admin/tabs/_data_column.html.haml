@@ -1,4 +1,6 @@
 %li
   = text_field_tag "tab[data_column_fields][#{@tab.data_column_fields.index(data_column) || 'new_data_column'}][name]", data_column[0], :size => 50
   = text_field_tag "tab[data_column_fields][#{@tab.data_column_fields.index(data_column) || 'new_data_column'}][value]", data_column[1], :size => 50
-  = link_to_function 'remove', "$(this).parent().remove()"
+  = link_to_function 'remove', "$(this).parent().remove()", :class => 'trash'
+:javascript
+  $(".trash").button({icons: {primary: 'ui-icon-trash'}});

@@ -48,11 +48,11 @@ HTML
 	  fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|  
 	    render(new_object, :f => builder)  
 	  end  
-	  link_to_function(name, ("add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")")).html_safe
+	  link_to_function(name, ("add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"), :class => "new_button").html_safe
 	end
 	
 	def link_to_add_tab_collection(name)
-		link_to_function("Add #{name.humanize}", ("add_fields(this, \"#{name}\", \"#{escape_javascript(render :partial => "admin/tabs/#{name}", :locals => { name.to_sym => [] })}\")")).html_safe
+		link_to_function("Add #{name.humanize}", ("add_fields(this, \"#{name}\", \"#{escape_javascript(render :partial => "admin/tabs/#{name}", :locals => { name.to_sym => [] })}\")"), :class => "new_button").html_safe
 	end
 	
 	def remote_multipart_response(&block)
