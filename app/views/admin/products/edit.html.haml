@@ -5,21 +5,21 @@
 %br
 .field
   %h2 Campaigns
-  .new_button= link_to 'new campaign', {:action => 'new_campaign', :id => @product.id}, :remote => true
+  = link_to 'new campaign', {:action => 'new_campaign', :id => @product.id}, :remote => true, :class => 'new_button'
   #new_campaign
   %ul#campaigns= render :partial => 'campaign', :collection => @product.campaigns
 %hr
 .field
   %h2 Additional Images
-  .new_button= link_to 'upload new image', {:action => 'new_image', :id => @product.id}, :remote => true
+  = link_to 'upload new image', {:action => 'new_image', :id => @product.id}, :remote => true, :class => 'new_button'
   #new_image
   #images= render :partial => 'image', :collection => @product.images
   .clear
 %hr
 .field
   %h2 Tabs
-  .new_button= link_to 'new tab', {:action => 'new_tab', :id => @product.id}, :remote => true
-  .clone= link_to 'clone reusable', {:action => 'reusable_tab', :id => @product.id}, :remote => true
+  = link_to 'new tab', {:action => 'new_tab', :id => @product.id}, :remote => true, :class => 'new_button'
+  = link_to 'clone reusable', {:action => 'reusable_tab', :id => @product.id}, :remote => true, :class => 'clone'
   %br
   %br
   %ul#tabs.ui-sortable= render :partial => 'tab', :collection => @product.tabs
