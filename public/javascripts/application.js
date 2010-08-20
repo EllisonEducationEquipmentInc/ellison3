@@ -79,6 +79,12 @@ function initialize_buttons(){
 	$(function() {
 		$(".trash").button({icons: {primary: 'ui-icon-trash'}});
 	});
+	$(function() {
+		$(".back").button({icons: {primary: 'ui-icon-triangle-1-w'}});
+	});
+	$(function() {
+		$(".search").button({icons: {primary: 'ui-icon-search'}});
+	});
 };
 
 

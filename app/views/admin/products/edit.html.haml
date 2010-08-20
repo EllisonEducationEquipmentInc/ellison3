@@ -18,12 +18,13 @@
 %hr
 .field
   %h2 Tabs
-  %p
-    .new_button= link_to 'new tab', {:action => 'new_tab', :id => @product.id}, :remote => true
-    .clone= link_to 'clone reusable', {:action => 'reusable_tab', :id => @product.id}, :remote => true
+  .new_button= link_to 'new tab', {:action => 'new_tab', :id => @product.id}, :remote => true
+  .clone= link_to 'clone reusable', {:action => 'reusable_tab', :id => @product.id}, :remote => true
+  %br
+  %br
   %ul#tabs.ui-sortable= render :partial => 'tab', :collection => @product.tabs
   #edit_tab
   #info
   :javascript
     sortable_tabs("#{@product.id}")
-= link_to 'Back', admin_products_path
+= link_to 'Back', admin_products_path, :class => 'back'
