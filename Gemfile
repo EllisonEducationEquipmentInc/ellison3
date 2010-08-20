@@ -37,6 +37,9 @@ gem 'mini_magick', :git => 'git://github.com/probablycorey/mini_magick.git'
 #gem 'carrierwave-rails3', :require => 'carrierwave' #, :git => 'git://github.com/jnicklas/carrierwave.git', :branch => 'master' 
 gem 'carrierwave', :git => "git://github.com/jnicklas/carrierwave.git"
 gem 'remotipart'
+gem 'hpricot'
+gem 'ruby_parser'
+gem 'devise'
 
 # Use unicorn as the web server
 # gem 'unicorn'

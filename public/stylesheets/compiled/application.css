@@ -362,3 +362,49 @@ li.ui-state-default span {
 .save {
   border: 1px solid green;
 }
+
+/* line 280, ../../../app/stylesheets/application.scss */
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+/* line 286, ../../../app/stylesheets/application.scss */
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+/* line 295, ../../../app/stylesheets/application.scss */
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+/* line 305, ../../../app/stylesheets/application.scss */
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+/* line 311, ../../../app/stylesheets/application.scss */
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+/* line 316, ../../../app/stylesheets/application.scss */
+div.field, div.actions {
+  margin-bottom: 10px;
+}

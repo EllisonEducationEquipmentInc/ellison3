@@ -125,11 +125,7 @@ class Product
 	end
 	
 	def custom_price
-    begin
-      @custom_price ||= custom_prices[id]
-    rescue
-    end
-    @custom_price
+    @custom_price ||= custom_prices[id]
   end
   
   def custom_price=(p)
