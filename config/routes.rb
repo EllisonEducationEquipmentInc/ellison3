@@ -71,6 +71,14 @@ Ellison3::Application.routes.draw do |map|
 					get :reorder_tabs
 			  end
 			end
+			
+			resources :users do
+				
+			end
+			
+			resources :profiles do
+				
+			end
     end
 
   # You can have the root of your site routed with "root"

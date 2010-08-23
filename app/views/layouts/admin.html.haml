@@ -14,7 +14,10 @@
           |
           = link_to "Log out", destroy_session_path('admin')
       = link_to "Products", admin_products_path
-      =# link_to "Users", user_registrations_path
+      |
+      = link_to "Users", admin_users_path
+      |
+      = link_to "Profiles", admin_profiles_path
     #wrapper.bp
       - if notice
         %p.dontprint.notice= notice 
