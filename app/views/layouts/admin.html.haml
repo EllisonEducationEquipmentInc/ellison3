@@ -6,6 +6,10 @@
     = render 'layouts/common_head'
     = stylesheet_link_tag 'compiled/admin', :media => 'all'
   %body.bp
+    #header
+      .right= link_to "Edit My Profile", edit_admin_registration_path(current_admin)
+      = link_to "Products", admin_products_path
+      =# link_to "Users", user_registrations_path
     #wrapper.bp
       - if notice
         %p.dontprint.notice= notice 

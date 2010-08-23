@@ -5,6 +5,7 @@
     = link_to "Admin Log in", new_session_path('admin'), :class => 'admin'
 .show_cart= "View #{t :cart}"
 - if user_signed_in?
+  = link_to "My Account", edit_user_registration_path(current_user), :class => 'account'
   = link_to "Sign out", destroy_session_path('user'), :class => 'account'
 - else
   = link_to "Sign in", new_session_path('user'), :class => 'account'
