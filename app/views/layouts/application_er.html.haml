@@ -10,7 +10,10 @@
   %body.bp
     #header
       = image_tag "ui-logos/er.png"
+      = render :partial => 'layouts/nav'
     #wrapper.bp
       - if notice
-        %p.dontprint.notice= notice 
+        %p.dontprint.notice= notice
+      - if alert
+        %p.dontprint.error= alert
       = yield

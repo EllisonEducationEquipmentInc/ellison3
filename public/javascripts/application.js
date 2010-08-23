@@ -85,6 +85,13 @@ function initialize_buttons(){
 	$(function() {
 		$(".search").button({icons: {primary: 'ui-icon-search'}});
 	});
+	$(function() {
+		$(".account").button({icons: {primary: 'ui-icon-person'}});
+	});
+	$(function() {
+		$(".admin").button({icons: {primary: 'ui-icon-wrench'}});
+	});
+	
 };
 
 

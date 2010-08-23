@@ -10,9 +10,11 @@
   %body.bp
     #header
       = image_tag "ui-logos/szus.gif"
-      .show_cart= "View #{t :cart}"
+      = render :partial => 'layouts/nav'
     #cart{:style => "display:none"}
     #wrapper.bp
       - if notice
         %p.dontprint.notice= notice 
+      - if alert
+        %p.dontprint.error= alert
       = yield
