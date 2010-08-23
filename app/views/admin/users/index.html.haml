@@ -1,0 +1,29 @@
+%h1 Listing users
+= link_to 'New user', new_admin_user_path, :class => 'new_button'
+%br
+- unless params[:q].blank?
+  = link_to 'all', admin_users_path, :class => 'button'
+- form_tag(admin_users_path, :method => :get) do
+  = text_field_tag :q
+  = submit_tag "search", :class => "search"
+%table
+  %thead
+    %tr
+      %th Email
+      %th Signed in
+      %th Created At
+      %th &nbsp;
+      %th &nbsp;
+      %th &nbsp;
+  %tbody
+    - for user in @users
+      %tr{ :class => cycle(:odd, :even) }
+        %td= user.email
+        %td= user.sign_in_count
+        %td= l user.created_at, :format => :custom rescue ''
+        %td= link_to 'Edit', edit_admin_user_path(user)
+        %td= link_to 'Destroy', admin_user_path(user), :confirm => 'Are you sure?', :method => :delete
+%br
+= will_paginate @users
+%br
+= link_to 'New user', new_admin_user_path, :class => 'new_button'

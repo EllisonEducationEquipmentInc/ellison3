@@ -1,0 +1,25 @@
+- form_for([:admin, @user], :html => {:multipart => true}) do |f|
+  = f.error_messages
+  .field
+    = f.label :systems_enabled
+    = system_enabled('user')
+  .field
+    = f.label :email
+    %br
+    = f.text_field :email
+  .field
+    = f.label :password
+    %i (leave blank if you don't want to change it)
+    %br/
+    = f.password_field :password
+  .field
+    = f.label :password_confirmation
+    %br/
+    = f.password_field :password_confirmation
+  .field
+    = f.label :current_password
+    %i (we need your current password to confirm your changes)
+    %br/
+    = f.password_field :current_password
+  .actions
+    = f.submit :class => 'save'
