@@ -49,6 +49,7 @@ private
 	end
 	
 	def get_layout
+		return 'admin' if params[:controller] == 'devise/sessions'
 		if is_sizzix_us?
 			'application'
 		elsif is_sizzix_uk?
