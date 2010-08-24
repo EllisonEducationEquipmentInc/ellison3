@@ -12,7 +12,7 @@
   .field
     = f.label :password
     %br/
-    = f.password_field :password, :class => 'password'
+    = f.password_field :password, :class => 'password', :onkeyup => "$(this).valid() "
     .password-meter
       .password-meter-message
       .password-meter-bg
@@ -31,6 +31,7 @@
           rules: { 
               "user[password]": { 
                   required: true, 
+                  password: "#user_email",
                   minlength: 5 
               }, 
               "user[password_confirmation]": { 

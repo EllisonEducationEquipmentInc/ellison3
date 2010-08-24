@@ -32,7 +32,7 @@
 	}
 	
 	$.validator.passwordRating = function(password, username) {
-		if (!password || password.length < 8)
+		if (!password || password.length < 6)
 			return rating(0, "too-short");
 		if (username && password.toLowerCase().match(username.toLowerCase()))
 			return rating(0, "similar-to-username");
