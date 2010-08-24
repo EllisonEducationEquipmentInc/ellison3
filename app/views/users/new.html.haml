@@ -2,16 +2,69 @@
 = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
   = devise_error_messages!
   %p
+    = f.label :name
+    %br/
+    = f.text_field :name
+  %p
     = f.label :email
     %br/
-    = f.text_field :email
+    = f.text_field :email, :class => 'email'
   %p
     = f.label :password
     %br/
-    = f.password_field :password
+    = f.password_field :password, :class => 'password'
   %p
     = f.label :password_confirmation
     %br/
-    = f.password_field :password_confirmation
+    = f.password_field :password_confirmation, :class => 'password_confirm'
   %p= f.submit "Sign up"
 = render :partial => "users/shared/links"
+:javascript
+  $(document).ready(function() { 
+      // validate signup form on keyup and submit 
+      var validator = $("#user_new").validate({ 
+          errorClass: "invalid",
+          rules: { 
+              "user[password]": { 
+                  required: true, 
+                  minlength: 5 
+              }, 
+              "user[password_confirmation]": { 
+                  required: true, 
+                  minlength: 5, 
+                  equalTo: "#user_password" 
+              }, 
+              "user[email]": { 
+                  required: true, 
+                  email: true, 
+              }, 
+
+          }, 
+          messages: { 
+
+              "user[password]": { 
+                  required: "Provide a password", 
+                  rangelength: jQuery.format("Enter at least {0} characters") 
+              }, 
+              "user[password_confirmation]": { 
+                  required: "Repeat your password", 
+                  minlength: jQuery.format("Enter at least {0} characters"), 
+                  equalTo: "Enter the same password as above" 
+              }, 
+              "user[email]": { 
+                  required: "Please enter a valid email address", 
+                  minlength: "Please enter a valid email address", 
+                  remote: jQuery.format("{0} is already in use") 
+              }, 
+
+          }, 
+
+          // set this class to error-labels to indicate valid fields 
+          success: function(label) { 
+              // set   as text for IE 
+              label.html(" ").addClass("checked"); 
+          } 
+      }); 
+
+
+  });
