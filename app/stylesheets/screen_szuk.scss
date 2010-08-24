@@ -1,0 +1,12 @@
+// SIZZIX UK
+$system: szuk;
+
+// Import Ellison Education US specific partials
+@import "partials_szuk/colors";
+
+// Import the common application partials shared by ALL systems 
+@import "master";
+
+
+// Possibly import system-specific override styles here
+//@import "overrides_szuk"

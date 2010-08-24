@@ -1,0 +1,12 @@
+// ELLISON EDUCATION UK
+$system: eeuk;
+
+// Import Ellison Education US specific partials
+@import "partials_eeuk/colors";
+
+// Import the common application partials shared by ALL systems 
+@import "master";
+
+
+// Possibly import system-specific override styles here
+//@import "overrides_eeuk"

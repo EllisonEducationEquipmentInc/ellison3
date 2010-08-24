@@ -49,15 +49,7 @@ private
 	end
 	
 	def get_layout
-		if is_sizzix_us?
-			'application'
-		elsif is_sizzix_uk?
-			'application_szuk'
-		elsif is_ee?
-			'application_ee'
-		else
-			'application_er'
-		end
+	  'application'
 	end
 	
 	def go_404

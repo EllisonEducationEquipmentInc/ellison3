@@ -1,5 +1,6 @@
+-# GLOBAL LAYOUT for the ELLISON3 WEB APPLICATION PLATFORM
+
 !!!
-/default szus layout
 %html
   %head
     %title 
@@ -7,14 +8,19 @@
       \-
       = @title
     = render 'layouts/common_head'
-  %body.bp
-    #header
-      = image_tag "ui-logos/szus.gif"
-      = render :partial => 'layouts/nav'
-    #cart{:style => "display:none"}
-    #wrapper.bp
-      - if notice
-        %p.dontprint.notice= notice 
-      - if alert
-        %p.dontprint.error= alert
-      = yield
+  %body.bp.standard
+    #container
+      #header
+        %h1
+          %a#logo_masthead{:href => "/home", :alt => "#{is_er? ? "Ellison Retailers" : is_ee? ? "Ellison Education" : "Sizzix"} #{is_er? ? nil: is_uk? ? "UK" : "US"}", :title => "#{is_er? ? "Ellison Retailers" : is_ee? ? "Ellison Education" : "Sizzix"} #{is_er? ? nil: is_uk? ? "UK" : "US"}"}== #{is_er? ? "Ellison Retailers" : is_ee? ? "Ellison Education" : "Sizzix"} #{is_er? ? nil: is_uk? ? "UK" : "US"}
+        = render 'layouts/nav_utility'
+        = render 'layouts/nav_catalog'
+      #cart{:style => "display:none"}
+      #content
+        - if notice
+          %p.dontprint.notice= notice 
+        - if alert
+          %p.dontprint.error= alert
+        = yield
+      #footer
+        = render 'layouts/footer'

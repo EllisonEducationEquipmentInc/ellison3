@@ -1,0 +1,20 @@
+// GLOBAL VISUAL DESIGN THEME STYLESHEET for ALL SYSTEMS
+
+body {
+  background: $quinary url("/images/ui-backgrounds/_#{$system}_site.jpg");
+}
+
+#header {
+  #logo_masthead {
+  	background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
+  	display: block;
+  	width: 190px; 
+  	height: 88px;
+  	margin: 0;
+  	text-indent: -9999em;
+  }
+}
+
+#container {
+  background-color: white;
+}

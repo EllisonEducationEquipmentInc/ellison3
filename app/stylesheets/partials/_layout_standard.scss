@@ -1,0 +1,11 @@
+// Standard Layout
+// A single column layout with three rows each for the site header, content & footer
+
+body.standard {
+  #container {
+    @include container;
+  }
+  #header, #content, #footer {
+    @include column($blueprint-grid-columns);
+  }
+}

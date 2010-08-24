@@ -1,0 +1,11 @@
+%ul
+  - if admin_signed_in?
+    %li= link_to "Admin Log out", destroy_session_path('admin'), :class => 'admin'
+  - else
+    %li= link_to "Admin Log in", new_session_path('admin'), :class => 'admin'
+  - if user_signed_in?
+    %li= link_to "My Account", edit_user_registration_path(current_user), :class => 'account'
+    %li= link_to "Sign out", destroy_session_path('user'), :class => 'account'
+  - else
+    %li= link_to "Sign in", new_session_path('user'), :class => 'account'
+  %li= link_to "View #{t :cart}", '#', :class => 'show_cart'
