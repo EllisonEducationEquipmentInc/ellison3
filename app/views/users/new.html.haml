@@ -1,23 +1,27 @@
 %h2 Sign up
 = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
   = devise_error_messages!
-  %p
+  .field
     = f.label :name
     %br/
     = f.text_field :name
-  %p
+  .field
     = f.label :email
     %br/
     = f.text_field :email, :class => 'email'
-  %p
+  .field
     = f.label :password
     %br/
     = f.password_field :password, :class => 'password'
-  %p
+    .password-meter
+      .password-meter-message
+        .password-meter-bg
+          .password-meter-bar
+  .field
     = f.label :password_confirmation
     %br/
     = f.password_field :password_confirmation, :class => 'password_confirm'
-  %p= f.submit "Sign up"
+  .action= f.submit "Sign up"
 = render :partial => "users/shared/links"
 :javascript
   $(document).ready(function() { 
