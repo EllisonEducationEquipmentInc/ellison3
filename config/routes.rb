@@ -1,5 +1,5 @@
 Ellison3::Application.routes.draw do |map|
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => "users" }
 	devise_for :admins
 	
   # The priority is based upon order of creation:
@@ -72,7 +72,7 @@ Ellison3::Application.routes.draw do |map|
 			  end
 			end
 			
-			resources :users 
+			resources :users
 			resources :profiles, :as => 'admins'
 			
 			
