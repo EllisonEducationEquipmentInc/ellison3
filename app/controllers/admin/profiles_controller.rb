@@ -68,7 +68,7 @@ class Admin::ProfilesController < ApplicationController
   # DELETE /admins/1.xml
   def destroy
     @admin = Admin.find(params[:id])
-    @admin.destroy
+    @admin.update_attributes :active => false
 
     respond_to do |format|
       format.html { redirect_to(admin_admins_url) }
