@@ -4,8 +4,8 @@ require 'image_science'
 require 'mongo'
 source 'http://gemcutter.org'
 
-gem 'bundler', '1.0.0.rc.1'
-gem 'rails', '3.0.0.rc'
+gem 'bundler', '1.0.0.rc.6'
+gem 'rails', '3.0.0.rc2'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -23,9 +23,9 @@ gem 'cucumber'
 gem 'rspec-rails', '>=2.0.0.beta.19'
 gem 'spork'
 gem 'launchy'    # So you can do Then show me the page
-gem "mongoid", ">=2.0.0.beta.16"
+#gem "mongoid", "2.0.0.beta.16"
 gem "mongo_session_store", ">=2.0.0.pre"
-#gem "mongoid", :git => "git://github.com/durran/mongoid.git", :branch => "prerelease"
+gem "mongoid", :git => "http://github.com/mongoid/mongoid.git", :branch => "master"
 gem "bson_ext", ">=1.0.1"
 gem "nifty-generators"
 gem "compass", ">= 0.10.2"
