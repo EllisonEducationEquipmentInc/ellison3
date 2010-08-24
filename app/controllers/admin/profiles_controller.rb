@@ -36,10 +36,10 @@ class Admin::ProfilesController < ApplicationController
   # POST /admins.xml
   def create
     @admin = Admin.new(params[:admin])
-
+		@admin.systems_enabled = params[:admin][:systems_enabled]
     respond_to do |format|
       if @admin.save
-        format.html { redirect_to(edit_admin_profile_url(@admin), :notice => 'Admin was successfully created.') }
+        format.html { redirect_to(admin_admins_url, :notice => 'Admin was successfully created.') }
         format.xml  { render :xml => @admin, :status => :created, :location => @admin }
       else
         format.html { render :action => "new" }
@@ -52,11 +52,10 @@ class Admin::ProfilesController < ApplicationController
   # PUT /admins/1.xml
   def update
     @admin = Admin.find(params[:id])
-
+		@admin.systems_enabled = params[:admin][:systems_enabled]
     respond_to do |format|
       if @admin.update_attributes(params[:admin])
-				Rails.logger.info params[:admin].inspect
-        format.html { redirect_to([:admin, @admin], :notice => 'Admin was successfully updated.') }
+        format.html { redirect_to(admin_admins_url, :notice => 'Admin was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

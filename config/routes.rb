@@ -72,13 +72,11 @@ Ellison3::Application.routes.draw do |map|
 			  end
 			end
 			
-			resources :users do
-				
-			end
+			resources :users 
+			resources :profiles, :as => 'admins'
 			
-			resources :profiles do
-				
-			end
+			
+			
     end
 
   # You can have the root of your site routed with "root"

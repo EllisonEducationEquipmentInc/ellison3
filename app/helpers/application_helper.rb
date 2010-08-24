@@ -2,6 +2,7 @@ module ApplicationHelper
 	
 	include ShoppingCart
 	
+	# returns checkboxes for systems
 	def system_enabled(object)
 		ELLISON_SYSTEMS.inject("") do |buffer, sys|
 			checked = instance_eval("@#{object}").try(:systems_enabled).include?(sys) rescue false
