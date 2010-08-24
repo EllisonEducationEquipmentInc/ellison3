@@ -103,6 +103,10 @@ module EllisonSystem
     end
 	end
 	
+	def system_name
+		{"szus" => "Sizzix",  "szuk" => "Sizzix", "eeus" => "Ellison Education", "eeuk" => "Ellison Education", "er" => "Ellison Retailers"}[current_system]
+	end
+	
 	def set_default_locale
 		if %w(szus eeus er).include?(current_system) && current_locale.to_sym != :"en-US"
 			set_current_locale "en-US"
