@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 require 'rubygems'
 require 'image_science'
-#require 'mongo'
+require 'mongo'
 source 'http://gemcutter.org'
 
 gem 'bundler', '>=1.0.0'
@@ -10,8 +10,8 @@ gem 'rails', '3.0.0'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-
-gem 'mongo', '>=1.0.7'
+gem 'mongo', '>=1.0.8'
+gem "bson_ext", "1.0.7"
 gem 'passenger'
 gem 'mysql'
 gem 'haml', '>=3.0.18'
@@ -26,7 +26,6 @@ gem 'launchy'    # So you can do Then show me the page
 #gem "mongoid", "2.0.0.beta.17"
 gem "mongo_session_store", ">=2.0.0.pre"
 gem "mongoid", :git => "http://github.com/mongoid/mongoid.git", :branch => "master"
-gem "bson_ext", ">=1.0.7"
 gem "nifty-generators"
 gem "compass", ">= 0.10.5"
 gem 'rb-inotify', ">= 0.5.1"
@@ -57,7 +56,7 @@ gem 'capistrano'
 gem 'shoulda', :group => :test
 group :test do
   gem 'webrat'
-  gem 'factory_girl_rails'
+  #gem 'factory_girl_rails'
 end
 
 gem "rails3-generators", :group => :development 

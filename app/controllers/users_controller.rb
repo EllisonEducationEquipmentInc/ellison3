@@ -45,6 +45,10 @@ class UsersController < ApplicationController
     sign_out_and_redirect(self.resource)
   end
 
+	def show
+		
+	end
+
 protected
 
   # Authenticates the current scope and gets a copy of the current resource.
