@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 require 'rubygems'
 require 'image_science'
-require 'mongo'
+#require 'mongo'
 source 'http://gemcutter.org'
 
 gem 'bundler', '>=1.0.0'
