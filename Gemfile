@@ -4,8 +4,8 @@ require 'image_science'
 require 'mongo'
 source 'http://gemcutter.org'
 
-gem 'bundler', '1.0.0.rc.6'
-gem 'rails', '3.0.0.rc2'
+gem 'bundler', '>=1.0.0'
+gem 'rails', '3.0.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -14,21 +14,21 @@ gem 'rails', '3.0.0.rc2'
 gem 'mongo', '>=1.0.7'
 gem 'passenger'
 gem 'mysql'
-gem 'haml', '>=3.0.13'
-gem 'will_paginate', '>=3.0.pre'
+gem 'haml', '>=3.0.18'
+gem 'will_paginate', '>=3.0.pre2'
 gem 'capybara'
 gem 'database_cleaner'
 gem 'cucumber-rails'
 gem 'cucumber'
-gem 'rspec-rails', '>=2.0.0.beta.19'
+gem 'rspec-rails', '>=2.0.0.beta.20'
 gem 'spork'
 gem 'launchy'    # So you can do Then show me the page
-#gem "mongoid", "2.0.0.beta.16"
+#gem "mongoid", "2.0.0.beta.17"
 gem "mongo_session_store", ">=2.0.0.pre"
 gem "mongoid", :git => "http://github.com/mongoid/mongoid.git", :branch => "master"
-gem "bson_ext", ">=1.0.1"
+gem "bson_ext", ">=1.0.7"
 gem "nifty-generators"
-gem "compass", ">= 0.10.2"
+gem "compass", ">= 0.10.5"
 gem 'rb-inotify', ">= 0.5.1"
 #gem 'inline'
 gem 'RubyInline'
