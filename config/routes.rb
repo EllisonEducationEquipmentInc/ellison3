@@ -1,9 +1,15 @@
 Ellison3::Application.routes.draw do |map|
-  devise_for :users, :controllers => { :registrations => "users" }
-	devise_for :admins
 	
   # The priority is based upon order of creation:
   # first created -> highest priority.
+
+  devise_for :users, :controllers => { :registrations => "users" }
+	devise_for :admins
+
+	# Sets the devise scope to be used in the controller. 
+	as :user do
+    get "myaccount", :to => "users#myaccount"
+  end
 
 	match 'products' => 'index#products'
 	match 'product/:id' => 'index#product', :as => :product
@@ -53,30 +59,14 @@ Ellison3::Application.routes.draw do |map|
       # (app/controllers/admin/products_controller.rb)
       resources :products do
 				collection do
-			    get :new_campaign
-					post :create_campaign
-					post :update_campaign
-					delete :delete_campaign
-					get :edit_campaign
-					put :update_campaign
-					post :upload_image
-					get :new_image
-					delete :delete_image
-					get :new_tab
-					post :create_tab
-					post :update_tab
-					put :update_tab
-					delete :delete_tab
-					get :products_autocomplete
-					get :reorder_tabs
+			    get :new_campaign, :edit_campaign, :new_image, :new_tab, :products_autocomplete, :reorder_tabs
+					post :create_campaign, :update_campaign, :upload_image, :create_tab, :update_tab
+					delete :delete_campaign, :delete_image, :delete_tab
+					put :update_campaign, :update_tab
 			  end
 			end
-			
 			resources :users
-			resources :profiles, :as => 'admins'
-			
-			
-			
+			resources :profiles, :as => 'admins'			
     end
 
   # You can have the root of your site routed with "root"

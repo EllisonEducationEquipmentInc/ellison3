@@ -219,7 +219,7 @@ DEPENDENCIES
   image_science (>= 1.2.1)
   launchy
   mini_magick!
-  mongo
+  mongo (>= 1.0.8)
   mongo_session_store (>= 2.0.0.pre)
   mongoid!
   mysql

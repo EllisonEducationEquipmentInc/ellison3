@@ -1,5 +1,9 @@
 class IndexController < ApplicationController
 	
+	def test
+		render :text => "text to render..."
+	end
+	
 	def home
 
 	end
