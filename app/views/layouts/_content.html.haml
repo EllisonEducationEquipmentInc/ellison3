@@ -1,0 +1,6 @@
+#cart{:style => "display:none"}
+- if notice
+  %p.dontprint.notice= notice 
+- if alert
+  %p.dontprint.error= alert
+= yield
