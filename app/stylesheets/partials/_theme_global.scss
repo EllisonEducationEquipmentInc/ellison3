@@ -1,7 +1,7 @@
 // GLOBAL VISUAL DESIGN THEME STYLESHEET for ALL SYSTEMS
 
 body {
-  background: $quinary url("/images/ui-backgrounds/_#{$system}_site.jpg");
+  background: url("/images/ui-backgrounds/_#{$system}_site.png");
 }
 
 #header {
@@ -15,6 +15,9 @@ body {
   }
 }
 
-#container {
-  background-color: white;
+#content {
+  
+  .container {
+    background-color: white;    
+  }
 }

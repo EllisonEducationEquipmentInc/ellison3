@@ -45,6 +45,10 @@ $(document).ready(function(){
 			'overlayShow'	:	true
 		});
 	initialize_buttons();
+	
+	// shadowOn
+	$(".container").shadowOn({ imageset: 6, imagepath: "/images/ui-backgrounds/shadowOn" });
+
 });
 
 $(function() {
@@ -94,10 +98,9 @@ function initialize_buttons(){
 	
 };
 
-
 $(function() {
 	$(".show_cart")
-		.button({icons: {primary: 'ui-icon-cart'}})
+//		.button({icons: {primary: 'ui-icon-cart'}})
 		.click(function() {
 			show_cart();
 			$.fancybox.resize();

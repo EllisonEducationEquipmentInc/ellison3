@@ -12,19 +12,18 @@
 // Import Blueprint debug styles
 @import "blueprint/debug";
 
+@import "compass/layout";
+
 // Combine the partials into a single screen stylesheet.
 @import "partials/page";
 @import "partials/form";
 
 // Import page layouts
-@import "partials/layout_standard";
-@import "partials/layout_two-col";   // leaving this in for reference for now
+@import "partials/layout_standard";  // includes sticky footer mixin
+@import "partials/layout_two-col"; // leaving this in for reference for now
 
 // Import #content section layouts
 @import "partials/layout_content_three-col";
-@import "partials/layout_content_wacky";
-@import "partials/layout_content_complex";
 
 // Import global visual design theme stylesheets
-@import "partials/theme";
-@import "partials/divcolors";
+@import "partials/theme_global";

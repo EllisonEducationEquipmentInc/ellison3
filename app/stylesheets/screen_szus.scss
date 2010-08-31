@@ -1,8 +1,9 @@
 // SIZZIX US
 $system: szus;
 
-// Import Ellison Education US specific partials
+// Import Sizzix US specific partials
 @import "partials_szus/colors";
+@import "partials/themes/fullwidth_szus";
 
 // Import the common application partials shared by ALL systems 
 @import "master";

@@ -13,55 +13,49 @@
 }
 
 /* line 13, ../../../app/stylesheets/application.scss */
-#header {
-  width: 970px;
-  margin: 0 auto;
-}
-
-/* line 18, ../../../app/stylesheets/application.scss */
 #wrapper {
   width: 970px;
   margin: 0 auto;
 }
 
-/* line 23, ../../../app/stylesheets/application.scss */
+/* line 18, ../../../app/stylesheets/application.scss */
 body.bp th, body.bp td, body.bp caption {
   padding: 0;
 }
 
-/* line 27, ../../../app/stylesheets/application.scss */
+/* line 22, ../../../app/stylesheets/application.scss */
 .bp {
   line-height: normal;
 }
 
-/* line 31, ../../../app/stylesheets/application.scss */
+/* line 26, ../../../app/stylesheets/application.scss */
 .field label {
   font-weight: bold;
 }
 
-/* line 35, ../../../app/stylesheets/application.scss */
+/* line 30, ../../../app/stylesheets/application.scss */
 #new_campaign, #edit_tab {
   padding: 10px;
   border: 1px solid gray;
   background: #FDFFB0;
 }
 
-/* line 41, ../../../app/stylesheets/application.scss */
+/* line 36, ../../../app/stylesheets/application.scss */
 .right {
   float: right;
 }
 
-/* line 42, ../../../app/stylesheets/application.scss */
+/* line 37, ../../../app/stylesheets/application.scss */
 .left {
   float: left;
 }
 
-/* line 44, ../../../app/stylesheets/application.scss */
+/* line 39, ../../../app/stylesheets/application.scss */
 #campaigns li {
   padding: 5px;
 }
 
-/* line 48, ../../../app/stylesheets/application.scss */
+/* line 43, ../../../app/stylesheets/application.scss */
 .product {
   background: whiteSmoke;
   border: 1px solid #CCC;
@@ -74,14 +68,14 @@ body.bp th, body.bp td, body.bp caption {
   text-align: center;
 }
 
-/* line 60, ../../../app/stylesheets/application.scss */
+/* line 55, ../../../app/stylesheets/application.scss */
 .product_id {
   color: #369;
   padding-bottom: 4px;
   text-align: center;
 }
 
-/* line 66, ../../../app/stylesheets/application.scss */
+/* line 61, ../../../app/stylesheets/application.scss */
 .product_image {
   background: white;
   border: 1px solid #CCC;
@@ -89,7 +83,7 @@ body.bp th, body.bp td, body.bp caption {
   text-align: center;
 }
 
-/* line 73, ../../../app/stylesheets/application.scss */
+/* line 68, ../../../app/stylesheets/application.scss */
 .product_name {
   height: 58px;
   margin-bottom: 4px;
@@ -98,97 +92,97 @@ body.bp th, body.bp td, body.bp caption {
   line-height: normal;
 }
 
-/* line 81, ../../../app/stylesheets/application.scss */
+/* line 76, ../../../app/stylesheets/application.scss */
 .product_price {
   height: 18px;
   line-height: 0.6em;
   text-align: center;
 }
 
-/* line 87, ../../../app/stylesheets/application.scss */
+/* line 82, ../../../app/stylesheets/application.scss */
 .strike_through {
   text-decoration: line-through;
 }
 
-/* line 91, ../../../app/stylesheets/application.scss */
+/* line 86, ../../../app/stylesheets/application.scss */
 .price_sale {
   color: red;
   font-weight: bold;
 }
 
-/* line 95, ../../../app/stylesheets/application.scss */
+/* line 90, ../../../app/stylesheets/application.scss */
 .custom_price {
   color: blue;
 }
 
-/* line 99, ../../../app/stylesheets/application.scss */
+/* line 94, ../../../app/stylesheets/application.scss */
 .notice {
   color: green;
 }
 
-/* line 102, ../../../app/stylesheets/application.scss */
+/* line 97, ../../../app/stylesheets/application.scss */
 #product_detail {
   padding: 10px;
   border: 1px solid #ccc;
   width: 940px;
 }
 
-/* line 108, ../../../app/stylesheets/application.scss */
+/* line 103, ../../../app/stylesheets/application.scss */
 #product_detail .info {
   float: right;
   width: 400px;
 }
 
-/* line 112, ../../../app/stylesheets/application.scss */
+/* line 107, ../../../app/stylesheets/application.scss */
 #product_detail .images {
   width: 500px;
   border: 1px solid #ccc;
 }
 
-/* line 117, ../../../app/stylesheets/application.scss */
+/* line 112, ../../../app/stylesheets/application.scss */
 #product_detail #large_image {
   height: 300px;
   margin-left: 100px;
   min-width: 300px;
 }
 
-/* line 123, ../../../app/stylesheets/application.scss */
+/* line 118, ../../../app/stylesheets/application.scss */
 #product_detail .thumbnail {
   margin: 3px;
   border: 1px solid white;
 }
 
-/* line 127, ../../../app/stylesheets/application.scss */
+/* line 122, ../../../app/stylesheets/application.scss */
 #product_detail .title {
   font-weight: bold;
 }
 
-/* line 131, ../../../app/stylesheets/application.scss */
+/* line 126, ../../../app/stylesheets/application.scss */
 #product_detail .price, #product_detail .desc {
   margin: 10px 0;
 }
 
-/* line 135, ../../../app/stylesheets/application.scss */
+/* line 130, ../../../app/stylesheets/application.scss */
 #product_detail .life_cycle {
   color: red;
 }
 
-/* line 139, ../../../app/stylesheets/application.scss */
+/* line 134, ../../../app/stylesheets/application.scss */
 #product_detail .selected {
   border: 1px solid gray;
 }
 
-/* line 142, ../../../app/stylesheets/application.scss */
+/* line 137, ../../../app/stylesheets/application.scss */
 .product_admin_thumbnail {
   border: 5px solid white;
 }
 
-/* line 146, ../../../app/stylesheets/application.scss */
+/* line 141, ../../../app/stylesheets/application.scss */
 .to_delete {
   border-color: red;
 }
 
-/* line 148, ../../../app/stylesheets/application.scss */
+/* line 143, ../../../app/stylesheets/application.scss */
 #product_tabs {
   margin: 40px 0;
   padding: 10px;
@@ -196,24 +190,24 @@ body.bp th, body.bp td, body.bp caption {
   width: 940px;
 }
 
-/* line 154, ../../../app/stylesheets/application.scss */
+/* line 149, ../../../app/stylesheets/application.scss */
 #product_tabs .ui-widget-header {
   background: none;
   border: none;
 }
 
-/* line 158, ../../../app/stylesheets/application.scss */
+/* line 153, ../../../app/stylesheets/application.scss */
 #product_tabs ul.tabs {
   margin-top: -46px;
   padding: 5px 5px 0px;
 }
 
-/* line 162, ../../../app/stylesheets/application.scss */
+/* line 157, ../../../app/stylesheets/application.scss */
 #product_tabs ui-tabs, #product_tabs .ui-tabs-panel {
   padding: 5px 0;
 }
 
-/* line 165, ../../../app/stylesheets/application.scss */
+/* line 160, ../../../app/stylesheets/application.scss */
 .related_product_box {
   float: left;
   height: 160px;
@@ -221,7 +215,7 @@ body.bp th, body.bp td, body.bp caption {
   width: 300px;
 }
 
-/* line 172, ../../../app/stylesheets/application.scss */
+/* line 167, ../../../app/stylesheets/application.scss */
 .related_product_box .info {
   float: right;
   margin-left: 5px;
@@ -229,13 +223,13 @@ body.bp th, body.bp td, body.bp caption {
   height: 95px;
 }
 
-/* line 178, ../../../app/stylesheets/application.scss */
+/* line 173, ../../../app/stylesheets/application.scss */
 .related_product_box .title {
   margin: 5px 0;
   height: 50px;
 }
 
-/* line 183, ../../../app/stylesheets/application.scss */
+/* line 178, ../../../app/stylesheets/application.scss */
 .add_to_cart, #product_tabs .add_to_cart {
   background: #88E145;
   font-size: 12px;
@@ -243,35 +237,35 @@ body.bp th, body.bp td, body.bp caption {
   margin-top: 5px;
 }
 
-/* line 189, ../../../app/stylesheets/application.scss */
+/* line 184, ../../../app/stylesheets/application.scss */
 .wishlist_wrapper {
   margin-top: 4px;
   font-size: 9px;
 }
 
-/* line 193, ../../../app/stylesheets/application.scss */
+/* line 188, ../../../app/stylesheets/application.scss */
 .wishlist_wrapper .button {
   width: 96px;
 }
 
-/* line 196, ../../../app/stylesheets/application.scss */
+/* line 191, ../../../app/stylesheets/application.scss */
 .image_details {
   float: right;
   width: 700px;
 }
 
-/* line 200, ../../../app/stylesheets/application.scss */
+/* line 195, ../../../app/stylesheets/application.scss */
 .tab_row {
   margin-top: 15px;
 }
 
-/* line 203, ../../../app/stylesheets/application.scss */
+/* line 198, ../../../app/stylesheets/application.scss */
 .tab_image {
   width: 250px;
   text-align: center;
 }
 
-/* line 208, ../../../app/stylesheets/application.scss */
+/* line 203, ../../../app/stylesheets/application.scss */
 .data_key {
   float: left;
   font-weight: bold;
@@ -279,21 +273,21 @@ body.bp th, body.bp td, body.bp caption {
   margin: 5px 0px 0px 20px;
 }
 
-/* line 215, ../../../app/stylesheets/application.scss */
+/* line 210, ../../../app/stylesheets/application.scss */
 .data_value {
   float: left;
   width: 250px;
   margin: 5px 0px 0px 20px;
 }
 
-/* line 221, ../../../app/stylesheets/application.scss */
+/* line 216, ../../../app/stylesheets/application.scss */
 .compatibility_row {
   border-bottom: 1px dashed #CCC;
   padding: 5px 0px 10px;
   height: 305px;
 }
 
-/* line 226, ../../../app/stylesheets/application.scss */
+/* line 221, ../../../app/stylesheets/application.scss */
 .compatibility_prodcuct {
   float: left;
   margin: 10px 0px 0px 8px;
@@ -302,75 +296,75 @@ body.bp th, body.bp td, body.bp caption {
   height: auto;
 }
 
-/* line 234, ../../../app/stylesheets/application.scss */
+/* line 229, ../../../app/stylesheets/application.scss */
 .compatibility_info {
   height: 230px;
 }
 
-/* line 238, ../../../app/stylesheets/application.scss */
+/* line 233, ../../../app/stylesheets/application.scss */
 .plus_sign {
   float: left;
   margin: 110px 5px 0px;
 }
 
-/* line 243, ../../../app/stylesheets/application.scss */
+/* line 238, ../../../app/stylesheets/application.scss */
 ul.ui-autocomplete {
   padding-left: 0;
 }
 
-/* line 246, ../../../app/stylesheets/application.scss */
+/* line 241, ../../../app/stylesheets/application.scss */
 #tabs ul {
   margin-left: 0;
 }
 
-/* line 250, ../../../app/stylesheets/application.scss */
+/* line 245, ../../../app/stylesheets/application.scss */
 li.ui-menu-item {
   list-style-type: none;
 }
 
-/* line 253, ../../../app/stylesheets/application.scss */
+/* line 248, ../../../app/stylesheets/application.scss */
 li.ui-state-default {
   margin: 0px 3px 3px;
   padding: 0.4em 0.4em 0.4em 1.5em;
   list-style-type: none;
 }
 
-/* line 258, ../../../app/stylesheets/application.scss */
+/* line 253, ../../../app/stylesheets/application.scss */
 #tabs li.ui-state-default {
   font-size: 1.2em;
   color: #1C94C4;
 }
 
-/* line 262, ../../../app/stylesheets/application.scss */
+/* line 257, ../../../app/stylesheets/application.scss */
 li.ui-state-default span {
   position: absolute;
   margin-left: -1.3em;
 }
 
-/* line 267, ../../../app/stylesheets/application.scss */
+/* line 262, ../../../app/stylesheets/application.scss */
 .field .caption {
   float: right;
   width: 600px;
 }
 
-/* line 272, ../../../app/stylesheets/application.scss */
+/* line 267, ../../../app/stylesheets/application.scss */
 #cart_container {
   width: 800px;
 }
 
-/* line 275, ../../../app/stylesheets/application.scss */
+/* line 270, ../../../app/stylesheets/application.scss */
 .save {
   border: 1px solid green;
 }
 
-/* line 280, ../../../app/stylesheets/application.scss */
+/* line 275, ../../../app/stylesheets/application.scss */
 .field_with_errors {
   padding: 2px;
   background-color: red;
   display: table;
 }
 
-/* line 286, ../../../app/stylesheets/application.scss */
+/* line 281, ../../../app/stylesheets/application.scss */
 #errorExplanation {
   width: 400px;
   border: 2px solid red;
@@ -380,7 +374,7 @@ li.ui-state-default span {
   background-color: #f0f0f0;
 }
 
-/* line 295, ../../../app/stylesheets/application.scss */
+/* line 290, ../../../app/stylesheets/application.scss */
 #errorExplanation h2 {
   text-align: left;
   font-weight: bold;
@@ -391,35 +385,35 @@ li.ui-state-default span {
   color: #fff;
 }
 
-/* line 305, ../../../app/stylesheets/application.scss */
+/* line 300, ../../../app/stylesheets/application.scss */
 #errorExplanation p {
   color: #333;
   margin-bottom: 0;
   padding: 5px;
 }
 
-/* line 311, ../../../app/stylesheets/application.scss */
+/* line 306, ../../../app/stylesheets/application.scss */
 #errorExplanation ul li {
   font-size: 12px;
   list-style: square;
 }
 
-/* line 316, ../../../app/stylesheets/application.scss */
+/* line 311, ../../../app/stylesheets/application.scss */
 div.field, div.actions {
   margin-bottom: 10px;
 }
 
-/* line 320, ../../../app/stylesheets/application.scss */
+/* line 315, ../../../app/stylesheets/application.scss */
 input.invalid {
   border: 1px dotted red;
 }
 
-/* line 321, ../../../app/stylesheets/application.scss */
+/* line 316, ../../../app/stylesheets/application.scss */
 input.valid {
   border: 1px solid green;
 }
 
-/* line 322, ../../../app/stylesheets/application.scss */
+/* line 317, ../../../app/stylesheets/application.scss */
 label.invalid {
   float: none;
   color: red;

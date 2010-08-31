@@ -1,0 +1,17 @@
+// SIZZIX UK THEME - use with COLUMNAR LAYOUT ARCHETYPE
+
+#root {
+  background: url("/images/ui-backgrounds/columnar_stitches.png") center repeat-y;
+  
+}
+
+#header {
+  border-bottom: 2px dotted $quinary;
+}
+
+#footer {
+  
+  .container {
+    border-top: 2px dotted $primary;
+  }
+}

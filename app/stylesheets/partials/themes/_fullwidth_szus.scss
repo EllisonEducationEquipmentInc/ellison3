@@ -1,0 +1,54 @@
+// SIZZIX US THEME - use with FULL WIDTH LAYOUT ARCHETYPE
+
+#root {
+  background: url("/images/ui-backgrounds/_szus_root_repeat.png") center repeat-y;
+  
+}
+
+.root_top {
+  background: url(/images/ui-backgrounds/_szus_root_top.png) center no-repeat;height:8px
+}
+
+.root_bottom {
+  background: url(/images/ui-backgrounds/_szus_root_bottom.png) center no-repeat;height:8px
+}
+
+#header {
+  background-color: white;
+}
+
+#footer {
+  bottom: -23px; // to help aid the sticky footer situation
+  background-color: $footer_bg;
+  color: $footer_text;
+  
+  h3, h4 {
+    color: white;
+    margin-bottom: 0;
+  }
+  
+  a {
+    color:$footer_text;
+  }
+  
+  a:hover {
+    color:$footer_link_hover;
+  }
+  
+  .column {
+    margin-top: 10px;
+    height: 205px;
+    
+    p {
+      padding-right: 10px;
+    }
+  }
+  
+  .column_left, .column_middle {
+    border-right:thin solid $footer_divider;
+  }
+  
+  .column_middle {
+    padding-right: 38px; // to help push .column_right to it's 'right'-ful position
+  }
+}

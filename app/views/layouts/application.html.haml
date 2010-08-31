@@ -8,19 +8,10 @@
       \-
       = @title
     = render 'layouts/common_head'
-  %body.bp.standard
-    #container
-      #header
-        %h1
-          %a#logo_masthead{:href => "/home", :alt => "#{is_er? ? "Ellison Retailers" : is_ee? ? "Ellison Education" : "Sizzix"} #{is_er? ? nil: is_uk? ? "UK" : "US"}", :title => "#{is_er? ? "Ellison Retailers" : is_ee? ? "Ellison Education" : "Sizzix"} #{is_er? ? nil: is_uk? ? "UK" : "US"}"}== #{is_er? ? "Ellison Retailers" : is_ee? ? "Ellison Education" : "Sizzix"} #{is_er? ? nil: is_uk? ? "UK" : "US"}
-        = render 'layouts/nav_utility'
-        = render 'layouts/nav_catalog'
-      #cart{:style => "display:none"}
-      #content
-        - if notice
-          %p.dontprint.notice= notice 
-        - if alert
-          %p.dontprint.error= alert
-        = yield
-      #footer
-        = render 'layouts/footer'
+  %body.bp
+    - if is_sizzix_us?
+      = render 'layouts/archetype_fullwidth'
+    - elsif is_er?
+      = render 'layouts/archetype_cardpanels'
+    - else
+      = render 'layouts/archetype_columnar'

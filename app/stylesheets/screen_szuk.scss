@@ -1,8 +1,9 @@
 // SIZZIX UK
 $system: szuk;
 
-// Import Ellison Education US specific partials
+// Import Sizzix UK specific partials
 @import "partials_szuk/colors";
+@import "partials/themes/columnar_szuk";
 
 // Import the common application partials shared by ALL systems 
 @import "master";

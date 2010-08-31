@@ -1,8 +1,9 @@
 // ELLISON RETAILERS
 $system: er;
 
-// Import Ellison Education US specific partials
+// Import Ellison Retailers specific partials
 @import "partials_er/colors";
+@import "partials/themes/cardpanels_er";
 
 // Import the common application partials shared by ALL systems 
 @import "master";
