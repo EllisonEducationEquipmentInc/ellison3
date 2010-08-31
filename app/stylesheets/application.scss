@@ -140,21 +140,21 @@ body.bp th, body.bp td, body.bp caption {
 
 .to_delete {border-color:red}
 
-#product_tabs {
+#product_tabs, #myaccount_tabs {
 	margin: 40px 0;
 	padding: 10px;
 	border: 1px solid #ccc;
 	width:940px;
 }
-#product_tabs .ui-widget-header{
+#product_tabs .ui-widget-header, #myaccount_tabs .ui-widget-header{
 	background: none;
 	border: none;
 }
-#product_tabs ul.tabs{
+#product_tabs ul.tabs, #myaccount_tabs ul.tabs{
 	margin-top:-46px;
 	padding: 5px 5px 0px;
 }
-#product_tabs ui-tabs, #product_tabs .ui-tabs-panel{
+#product_tabs ui-tabs, #product_tabs .ui-tabs-panel, #myaccount_tabs ui-tabs, #myaccount_tabs .ui-tabs-panel{
 	padding: 5px 0;
 }
 .related_product_box {

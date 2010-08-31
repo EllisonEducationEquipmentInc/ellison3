@@ -1,0 +1,14 @@
+#myaccount_tabs.rounded
+  %ul.tabs
+    - @tabs.each do |tab|
+      %li.rounded_top= link_to tab.humanize, "#tabs-#{tab}"
+  .clear
+  - @tabs.each do |tab|
+    %div{:id => "tabs-#{tab}"}= tab.humanize
+:javascript
+  $(function() {
+  	$("#myaccount_tabs").tabs();
+  });
+%p
+  Login/email
+  = resource.email

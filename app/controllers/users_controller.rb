@@ -46,7 +46,7 @@ class UsersController < ApplicationController
   end
 
 	def myaccount
-		render :text => resource.email
+		@tabs = %w(my_billing_info my_shipping_info order_status my_list quotes materials)
 	end
 
 protected

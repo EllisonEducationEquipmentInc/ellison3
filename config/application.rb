@@ -35,8 +35,9 @@ module Ellison3
     config.generators do |g|
       g.orm             :mongoid
       g.template_engine :haml
-      g.test_framework  :shoulda
-			g.fallbacks[:shoulda] = :rspec 
+      #g.test_framework  :shoulda
+			#g.fallbacks[:shoulda] = :rspec 
+      g.test_framework  :rspec
 			g.fixture_replacement :factory_girl_rails
     end
 

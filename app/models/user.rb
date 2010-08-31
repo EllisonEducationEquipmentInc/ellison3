@@ -11,6 +11,16 @@ class User
 	validates_uniqueness_of :email, :case_sensitive => false
 	attr_accessible :name, :email, :password, :password_confirmation
 	
+	embeds_many :addresses do
+    def billing
+			@target.select {|address| address.address_type == "billing"}
+    end
+
+		def shipping
+			@target.select {|address| address.address_type == "shipping"}
+    end
+  end
+
 	def initialize(attributes = nil)
 		super(attributes)
 		systems_enabled = [current_system]

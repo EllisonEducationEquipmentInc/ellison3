@@ -56,7 +56,7 @@ gem 'capistrano'
 gem 'shoulda', :group => :test
 group :test do
   gem 'webrat'
-  #gem 'factory_girl_rails'
+  gem 'factory_girl_rails'
 end
 
 gem "rails3-generators", :group => :development 
