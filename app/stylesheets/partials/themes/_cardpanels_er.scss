@@ -1,28 +1,19 @@
 // ELLISON RETAILERS THEME - use with CARD PANELS LAYOUT ARCHETYPE
 
-#header {
-  margin-top: 15px;
+#header, #content, #footer {
+  margin: 15px auto 0 auto;
+  width: 970px;
   
-  .container {
-    padding: 10px;
-    background-color: white;
-  }
-}
-
-#content {
-  margin-top: 15px;
-  
-  .container {
-    padding: 10px;
-    background-color: white;
+  .cardpanelshadow {
+    width:970px;
+    
+    .container {
+      padding: 10px;
+      background-color: white;
+    }
   }
 }
 
 #footer {
-  margin: 15px 0;
-  
-  .container {
-    padding: 10px;
-    background-color: white;
-  }
+  margin-bottom: 15px;
 }
