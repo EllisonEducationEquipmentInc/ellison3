@@ -47,7 +47,7 @@ $(document).ready(function(){
 	initialize_buttons();
 	
 	// shadowOn
-	$(".container").shadowOn({ imageset: 6, imagepath: "/images/ui-backgrounds/shadowOn" });
+	$(".cardpanelshadow").shadowOn({ imageset: 6, imagepath: "/images/ui-backgrounds/shadowOn" });
 
 });
 
