@@ -1,3 +1,5 @@
+%h3 Profile
+%p#profile= render :partial => 'profile'
 #myaccount_tabs.rounded
   %ul.tabs
     - @tabs.each do |tab|
@@ -9,6 +11,4 @@
   $(function() {
   	$("#myaccount_tabs").tabs();
   });
-%p
-  Login/email
-  = resource.email
+

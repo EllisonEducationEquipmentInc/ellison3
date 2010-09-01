@@ -9,6 +9,7 @@ en-US:
     users:
       user:
         signed_up: Thank you for signing up.
+        updated: Your profile has been updated.
     failure:
       unauthenticated: 'You need to sign in or sign up before continuing.'
       unconfirmed: 'You have to confirm your account before continuing.'

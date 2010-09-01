@@ -18,7 +18,7 @@ class Admin
 	attr_accessible :name, :email, :password, :password_confirmation, :employee_number, :active
 	
 protected
-   def password_required?
+  def password_required?
     !persisted? || password.present? || password_confirmation.present?
   end
 end

@@ -24,14 +24,15 @@ class UsersController < ApplicationController
 
   # GET /resource/edit
   def edit
-    render_with_scope :edit
+    redirect_to :action => "myaccount" unless request.xhr?
   end
 
 	# PUT /resource
   def update
-    if resource.update_with_password(params[resource_name])
-      set_flash_message :notice, :updated
-      redirect_to after_update_path_for(resource)
+    if get_user.update_attributes(params[:user])
+			@profile = I18n.t("#{resource_name}.updated", :scope => "devise.#{controller_name}")
+      #set_flash_message :profile, :updated
+      #redirect_to after_update_path_for(get_user)
     else
       clean_up_passwords(resource)
       render_with_scope :edit
@@ -56,7 +57,7 @@ protected
   # the current user in place.
   def authenticate_scope!
     send(:"authenticate_#{resource_name}!")
-    self.resource = resource_class.find(send(:"current_#{resource_name}").id)
+    self.resource = resource_class.find(send(:get_user).id)
   end
   
 end

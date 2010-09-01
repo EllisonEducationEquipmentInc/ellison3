@@ -4,7 +4,7 @@
   - else
     %li= link_to "Admin Log in", new_session_path('admin')
   - if user_signed_in?
-    %li= link_to "My Account", edit_user_registration_path(current_user)
+    %li= link_to "My Account", myaccount_path
     %li= link_to "Sign out", destroy_session_path('user')
   - else
     %li= link_to "Sign in", new_session_path('user')

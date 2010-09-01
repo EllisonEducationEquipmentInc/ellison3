@@ -7,9 +7,14 @@ class ApplicationController < ActionController::Base
 	
   layout :get_layout
 
-	helper_method :vat, :gross_price, :calculate_vat
+	helper_method :vat, :gross_price, :calculate_vat, :get_user
 
 private
+
+	# TODO: implement user_as
+	def get_user
+		current_user
+	end
 	
 	# TODO: CMS for this
 	def vat
