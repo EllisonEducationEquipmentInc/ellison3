@@ -45,7 +45,7 @@
     = f.text_field :fax
   .actions
     = f.submit "Save", :class => 'save'
-    = link_to_function 'cancel', "$('##{@address.address_type}_info').replaceWith('#{escape_javascript(render(:partial => "#{@address.address_type}_info"))}')", :class => 'cancel'
+    = link_to_function 'cancel', "$('##{@address.address_type}_info').replaceWith('#{escape_javascript(render(:partial => "address_info", :locals => {:address_type => @address.address_type}))}')", :class => 'cancel'
   :javascript
     initialize_buttons();
     $(document).ready(function() { 

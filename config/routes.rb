@@ -15,7 +15,7 @@ Ellison3::Application.routes.draw do |map|
 		get "order_status", :to => "users#order_status"
 		get "quotes", :to => "users#quotes"
 		get "materials", :to => "users#materials"
-		get "edit_billing", :to => "users#edit_billing"
+		get "edit_address", :to => "users#edit_address"
 		post "update_address", :to => "users#update_address"
   end
 

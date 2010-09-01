@@ -1,0 +1,41 @@
+%div{:id => "#{address_type}_info"}
+  - if instance_eval "@#{address_type}_address_notice"
+    %p.dontprint.notice= instance_eval "@#{address_type}_address_notice"
+  - if get_user.reload.send("#{address_type}_address")
+    = link_to "Edit #{address_type} address", {:action => "edit_address", :address_type => address_type}, :remote => true
+    - address = get_user.send("#{address_type}_address")
+    %p
+      %b First Name:
+      = address.first_name
+    %p
+      %b Last Name:
+      = address.last_name
+    %p
+      %b Company/School/Organization:
+      = address.company
+    %p
+      %b Address1:
+      = address.address1
+    %p
+      %b Address2:
+      = address.address2
+    %p
+      %b City:
+      = address.city
+    %p
+      %b State:
+      = address.state
+    %p
+      %b Zip/Postal code:
+      = address.zip_code
+    %p
+      %b Country:
+      = address.country
+    %p
+      %b Phone:
+      = address.phone
+    %p
+      %b Fax:
+      = address.fax
+  - else
+    = link_to "Add #{address_type} address", {:action => "edit_address", :address_type => address_type}, :remote => true

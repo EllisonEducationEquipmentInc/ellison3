@@ -52,11 +52,11 @@ class UsersController < ApplicationController
 	end
 	
 	def billing_info
-		render :partial => 'billing_info'
+		render :partial => 'address_info', :locals => {:address_type => "billing"}
 	end
 	
 	def shipping_info
-		render :partial => 'shipping_info'
+		render :partial => 'address_info', :locals => {:address_type => "shipping"}
 	end
 	
 	def order_status
@@ -75,8 +75,8 @@ class UsersController < ApplicationController
 		render :partial => 'materials'
 	end
 	
-	def edit_billing
-		@address = get_user.billing_address || get_user.addresses.build(:address_type => "billing")
+	def edit_address
+		@address = get_user.send("#{params[:address_type]}_address") || get_user.addresses.build(:address_type => params[:address_type])
 	end
 	
 	def update_address

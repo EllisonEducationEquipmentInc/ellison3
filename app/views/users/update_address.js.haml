@@ -1,5 +1,5 @@
 - if @address.save
   - eval "@#{@address.address_type}_address_notice = 'Your #{@address.address_type} address has been saved.'"
-  == $('##{@address.address_type}_info').replaceWith('#{escape_javascript(render(:partial => "#{@address.address_type}_info"))}')
+  == $('##{@address.address_type}_info').replaceWith('#{escape_javascript(render(:partial => "address_info", :locals => {:address_type => @address.address_type}))}')
 - else
   == alert('#{escape_javascript @address.errors.full_messages.join("\n")}');
