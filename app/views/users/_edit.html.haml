@@ -24,3 +24,19 @@
     = link_to_function 'cancel', "$('#profile').html('#{escape_javascript(render(:partial => 'profile'))}')", :class => 'cancel'
 :javascript
   initialize_buttons();
+  $(document).ready(function() { 
+      var validator = $("#user_edit").validate({ 
+          errorClass: "invalid",
+          rules: { 
+              "user[email]": { 
+                  required: true,
+                  email: true
+              }, 
+          }, 
+          success: function(label) { 
+              label.html(" ").addClass("checked"); 
+          } 
+      }); 
+
+
+  });

@@ -1,0 +1,8 @@
+#billing_info
+  - if @billing_address_notice
+    %p.dontprint.notice= @billing_address_notice
+  - if get_user.reload.billing_address
+    = link_to "Edit billing address", {:action => "edit_billing"}, :remote => true
+    = get_user.billing_address.inspect
+  - else
+    = link_to "Add billing address", {:action => "edit_billing"}, :remote => true

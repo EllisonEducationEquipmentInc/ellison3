@@ -1,14 +1,13 @@
-%h3 Profile
-%p#profile= render :partial => 'profile'
+%h3 My Account
 #myaccount_tabs.rounded
   %ul.tabs
+    %li.rounded_top= link_to "Profile", "#profile"
     - @tabs.each do |tab|
-      %li.rounded_top= link_to tab.humanize, "#tabs-#{tab}"
+      %li.rounded_top= link_to "<span>&nbsp;</span>#{tab[1]}".html_safe, :action => tab[0]
   .clear
-  - @tabs.each do |tab|
-    %div{:id => "tabs-#{tab}"}= tab.humanize
+  #profile= render :partial => 'profile'
 :javascript
   $(function() {
-  	$("#myaccount_tabs").tabs();
+  	$("#myaccount_tabs").tabs({cache: true, spinner: '<img src="/images/ui-objects/ajax-loader.gif" />', ajaxOptions: { cache: false } });
   });
 

@@ -14,10 +14,22 @@ class Address
 	field :city
 	field :state
 	field :zip_code
-	field :country, :default => "United States"
+	field :country
 	field :phone
 	field :fax
 	field :email
 	
 	embedded_in :user, :inverse_of => :addresses
+	
+	validates :address_type, :first_name, :last_name, :address1, :city, :zip_code, :phone, :presence => true
+	
+	def initialize(attributes = nil)
+		super(attributes)
+		self.country ||= "United States" if is_us?
+		self.country ||= "United Kingdom" if is_uk?
+	end
+	
+	def us?
+		self.country == "United States"
+	end
 end

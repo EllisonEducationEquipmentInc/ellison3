@@ -49,6 +49,16 @@ $(document).ready(function(){
 	// shadowOn
 	$(".cardpanelshadow").shadowOn({ imageset: 6, imagepath: "/images/ui-backgrounds/shadowOn" });
 
+	jQuery.validator.addMethod("phoneUS", function(phone_number, element) {
+	    phone_number = phone_number.replace(/\s+/g, ""); 
+		return this.optional(element) || phone_number.length > 9 &&
+			phone_number.match(/^(1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/);
+	}, "Please specify a valid US phone number");
+	
+	jQuery.validator.addMethod("zipUS", function(zip, element) {
+		return this.optional(element) || zip.match(/^\d{5}(-\d{4})?$/);
+	}, "Please specify a valid US zip code. Ex: 92660 or 92660-1234");
+
 });
 
 $(function() {
@@ -190,3 +200,4 @@ function sortable_tabs(product) {
 	});
 	$("#tabs").disableSelection();
 };
+

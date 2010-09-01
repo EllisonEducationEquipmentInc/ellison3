@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 	prepend_before_filter :require_no_authentication, :only => [ :new, :create ]
-  prepend_before_filter :authenticate_scope!, :only => [:edit, :update, :destroy, :myaccount]
+  prepend_before_filter :authenticate_scope!, :except => [ :new, :create ]
   include Devise::Controllers::InternalHelpers
 
   # GET /resource/sign_up  
@@ -47,7 +47,41 @@ class UsersController < ApplicationController
   end
 
 	def myaccount
-		@tabs = %w(my_billing_info my_shipping_info order_status my_list quotes materials)
+		@tabs = [[:billing_info, "My Billing Info"], [:shipping_info, "My Shipping Info"], [:order_status, "Order Status"], [:wishlists, "My List"]]
+		@tabs += [[:quotes, "Quotes"], [:materials, "Materials"]] unless is_sizzix?
+	end
+	
+	def billing_info
+		render :partial => 'billing_info'
+	end
+	
+	def shipping_info
+		render :partial => 'shipping_info'
+	end
+	
+	def order_status
+		render :partial => 'order_status'
+	end
+	
+	def wishlists
+		render :partial => 'wishlists'
+	end
+	
+	def quotes
+		render :partial => 'quotes'
+	end
+	
+	def materials
+		render :partial => 'materials'
+	end
+	
+	def edit_billing
+		@address = get_user.billing_address || get_user.addresses.build(:address_type => "billing")
+	end
+	
+	def update_address
+		@address = get_user.send("#{params[:address_type]}_address") || get_user.addresses.build(:address_type => params[:address_type])
+		@address.attributes = params["#{params[:address_type]}_address"]
 	end
 
 protected

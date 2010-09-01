@@ -79,4 +79,12 @@ HTML
 		products.map {|e| Haml::Engine.new(html).render(self, :product => e)}.join("<div class='plus_sign ui-icon ui-icon-plusthick'></div>").html_safe
 	end
 
+	def required_field(label = '')
+		label + content_tag(:span, " * ", :style => "color:#FF0000")
+	end
+	
+	def required_field_if(condition, label = '')
+		condition ? required_field(label) : label
+	end
+	
 end

@@ -25,6 +25,14 @@ class User
 		super(attributes)
 		systems_enabled = [current_system]
 	end
+	
+	def billing_address
+		addresses.billing.last
+	end
+	
+	def shipping_address
+		addresses.shipping.last
+	end
 
 protected
 	def password_required?
