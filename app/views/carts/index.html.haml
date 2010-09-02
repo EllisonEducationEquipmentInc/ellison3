@@ -1,6 +1,6 @@
 #cart_container
   - if @cart.cart_items.blank?
-    Your shopping cart is empty
+    = t :empty_cart
   - else
     %table{:cellpadding => 10}
       %thead

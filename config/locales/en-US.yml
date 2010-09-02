@@ -34,3 +34,4 @@ en-US:
           Defining an inverse_of on this association is not allowed. Only
           use this option on embedded_in or references_many as array.
   cart: cart
+  empty_cart: Your shopping cart is empty

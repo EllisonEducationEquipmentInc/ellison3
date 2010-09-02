@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-	prepend_before_filter :require_no_authentication, :only => [ :new, :create, :remote_login]
-  prepend_before_filter :authenticate_scope!, :except => [ :new, :create, :checkout_requested, :remote_login, :failure ]
+	prepend_before_filter :require_no_authentication, :only => [ :new, :create]
+  prepend_before_filter :authenticate_scope!, :except => [ :new, :create, :checkout_requested]
   include Devise::Controllers::InternalHelpers
 
   # GET /resource/sign_up  
@@ -15,9 +15,15 @@ class UsersController < ApplicationController
 
     if resource.save
       set_flash_message :notice, :signed_up
-      sign_in_and_redirect(resource_name, resource)
+			if request.xhr? 
+				sign_in(resource_name, resource)
+				render :js => "window.location.href = '#{stored_location_for(:user) || root_path}'" 
+			else
+				sign_in_and_redirect(resource_name, resource)
+			end
     else
       clean_up_passwords(resource)
+			render :inline => "alert('<%= escape_javascript resource.errors.full_messages.join(\"\n\") %>')" and return if request.xhr? 
       render_with_scope :new
     end
   end
@@ -89,29 +95,6 @@ class UsersController < ApplicationController
 		return unless request.xhr?
 		session[:user_return_to] = checkout_path
 	end
-	
-	def remote_login   
-		params[:email] = 'mronai@ellison.com'
-		params[:password] = "mronai"
-    resource = warden.authenticate!(:scope => resource_name, :recall => "failure")
-		render :js => "alert('success')"
-    # set_flash_message :notice, :signed_in 
-    #sign_in_and_redirect(resource_name, resource)      
-  end     
-  
-  # Example of JSON response
-  # def sign_in_and_redirect(resource_or_scope, resource=nil)
-  #   scope      = Devise::Mapping.find_scope!(resource_or_scope)     
-  #   resource ||= resource_or_scope
-  #   sign_in(scope, resource) unless warden.user(scope) == resource
-  #   render :json => { :success => true, :redirect  => stored_location_for(scope) || after_sign_in_path_for(resource) } 
-  # end
-            
-  # JSON login failure message                                                            
-  def failure
-    #render :json => {:success => false, :errors => {:reason => "Login failed. Try again"}} 
-		render :js => "alert('failed')"
-  end
 
 protected
 

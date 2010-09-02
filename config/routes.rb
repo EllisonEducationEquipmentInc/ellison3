@@ -18,7 +18,6 @@ Ellison3::Application.routes.draw do |map|
 		get "edit_address", :to => "users#edit_address"
 		get "checkout_requested", :to => "users#checkout_requested"
 		post "update_address", :to => "users#update_address"
-		post "remote_login", :to => "users#remote_login"
   end
 
 	match 'products' => 'index#products'

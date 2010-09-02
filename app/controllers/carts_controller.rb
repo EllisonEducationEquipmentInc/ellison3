@@ -1,4 +1,5 @@
 class CartsController < ApplicationController
+	before_filter :authenticate_user!, :only => [:checkout]
 	
 	def index
 		get_cart
@@ -18,7 +19,7 @@ class CartsController < ApplicationController
 	end
 	
 	def checkout
-		
+		redirect_to(products_path, :alert => I18n.t(:empty_cart)) and return if get_cart.cart_items.blank?
 	end
 	
 end

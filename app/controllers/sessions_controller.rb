@@ -27,6 +27,6 @@ class SessionsController < ApplicationController
   end
 
   def failure
-		render :js => "$('#user_password').attr('value', '');alert('Login failed. Please try again')"
+		render :js => "$('#existing_user_password').attr('value', '');alert('Login failed. Please try again')"
   end
 end
