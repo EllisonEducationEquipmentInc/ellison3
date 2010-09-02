@@ -17,4 +17,8 @@ class CartsController < ApplicationController
 		clear_cart
 	end
 	
+	def checkout
+		
+	end
+	
 end

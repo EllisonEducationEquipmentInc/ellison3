@@ -1,0 +1,4 @@
+- if user_signed_in?
+  == window.location.href = '#{checkout_path}'
+- else
+  == $('#cart_container').html('#{escape_javascript(render(:partial => "login_or_checkout"))}')

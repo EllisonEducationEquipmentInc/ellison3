@@ -113,7 +113,7 @@ $(function() {
 //		.button({icons: {primary: 'ui-icon-cart'}})
 		.click(function() {
 			show_cart();
-			$.fancybox.resize();
+			return false;
 		});
 });
 

@@ -21,7 +21,10 @@ class Address
 	
 	embedded_in :user, :inverse_of => :addresses
 	
-	validates :address_type, :first_name, :last_name, :address1, :city, :zip_code, :phone, :presence => true
+	validates :address_type, :first_name, :last_name, :address1, :city, :zip_code, :phone, :country, :presence => true
+	validates_presence_of :state, :if => Proc.new(&:us?)
+	validates_format_of :zip_code, :with => /^\d{5}(-\d{4})?$/, :if => Proc.new(&:us?)
+	validates_format_of :phone, :with => /^(1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/, :if => Proc.new(&:us?)
 	
 	def initialize(attributes = nil)
 		super(attributes)

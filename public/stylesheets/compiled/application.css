@@ -420,3 +420,15 @@ label.invalid {
   padding-left: .5em;
   vertical-align: top;
 }
+
+/* line 319, ../../../app/stylesheets/application.scss */
+#guest_checkout {
+  float: right;
+  width: 375px;
+}
+
+/* line 323, ../../../app/stylesheets/application.scss */
+#returning_cuctomer {
+  float: left;
+  width: 375px;
+}

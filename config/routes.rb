@@ -3,7 +3,7 @@ Ellison3::Application.routes.draw do |map|
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
-  devise_for :users, :controllers => { :registrations => "users" }
+  devise_for :users, :controllers => { :registrations => "users", :sessions => "sessions" }
 	devise_for :admins
 
 	# Sets the devise scope to be used in the controller. 
@@ -16,13 +16,16 @@ Ellison3::Application.routes.draw do |map|
 		get "quotes", :to => "users#quotes"
 		get "materials", :to => "users#materials"
 		get "edit_address", :to => "users#edit_address"
+		get "checkout_requested", :to => "users#checkout_requested"
 		post "update_address", :to => "users#update_address"
+		post "remote_login", :to => "users#remote_login"
   end
 
 	match 'products' => 'index#products'
 	match 'product/:id' => 'index#product', :as => :product
 	
 	match 'cart' => 'carts#index', :as => :cart
+	match 'checkout' => 'carts#checkout', :as => :checkout
 	
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

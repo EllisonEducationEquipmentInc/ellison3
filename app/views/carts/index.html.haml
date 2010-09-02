@@ -15,10 +15,13 @@
       %tbody= render :partial => 'cart_item', :collection => @cart.cart_items
     .right== Subtotal: #{number_to_currency @cart.sub_total}
     #empty_cart Empty Cart
-    .ok= link_to "Checkout"
+    #checkout_button= "Checkout"
     :javascript
       $(function() {
-        $(".ok").button({icons: {primary: 'ui-icon-check'}});
+        $("#checkout_button").button({icons: {primary: 'ui-icon-check'}})
+          .click( function() {
+            $.ajax({url:"/checkout_requested", complete: function(){$.fancybox.resize()}});
+      		});
         $("#empty_cart").button({icons: {primary: 'ui-icon-trash'}})
           .click( function() {
             $.ajax({url:"/carts/empty_cart", complete: function(){$.fancybox.resize()}});
