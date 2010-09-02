@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
 
   # POST /resource/sign_in
   def create
+		params[:user] = params[:existing_user] if params[:user].blank?
     resource = warden.authenticate!(:scope => resource_name, :recall => request.xhr? ? "failure" : "new")
     set_flash_message :notice, :signed_in
     if request.xhr? 
