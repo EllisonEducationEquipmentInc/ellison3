@@ -1,8 +1,18 @@
 // Ellison Education UK Color Palette
-// http://www.colourlovers.com/palette/396247/Melting_Puppies
+// http://www.colourlovers.com/palette/723615/clairedelune
 
-$primary: #413E4A;
-$secondary: #73626E;
-$tertiary: #B38184;
-$quaternary: #F0B49E;
-$quinary: #F7E4BE;
+$primary: #413E4A;  // very dark grey
+$secondary: #73626E;  // dull dark grey with slight pink-purple hue
+$tertiary: #B38184;  // medium dull grey with reddish tint
+$quaternary: #F0B49E;  //very light orange-reddish peach
+$quinary: #F7E4BE;  // yellowish beige
+
+$navutil_text: $tertiary;
+$navutil_hover: $quinary;
+$navutil_divider: lighten($tertiary, 10%);
+
+$footer_bg: $secondary;
+$footer_text: $quinary;
+$footer_headings: darken($quaternary, 10%);
+$footer_link_hover: $quaternary;
+$footer_divider: darken($secondary, 10%);

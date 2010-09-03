@@ -3,10 +3,11 @@ $system: eeuk;
 
 // Import Ellison Education UK specific partials
 @import "partials_eeuk/colors";
+@import "partials/themes/columnar_eeuk";
 
 // Import the common application partials shared by ALL systems 
 @import "master";
 
 
 // Possibly import system-specific override styles here
-//@import "partials_eeuk/overrides"
+@import "partials_eeuk/overrides"
