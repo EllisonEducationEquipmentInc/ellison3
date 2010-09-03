@@ -3,10 +3,11 @@ $system: eeus;
 
 // Import Ellison Education US specific partials
 @import "partials_eeus/colors";
+@import "partials/themes/columnar_eeus";
 
 // Import the common application partials shared by ALL systems 
 @import "master";
 
 
-// Possibly import system-specific override styles here
-//@import "overrides_eeus"
+// Import system-specific override styles here
+@import "partials_eeus/overrides"
