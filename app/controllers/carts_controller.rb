@@ -19,6 +19,7 @@ class CartsController < ApplicationController
 	end
 	
 	def checkout
+		@title = "Checkout"
 		redirect_to(products_path, :alert => I18n.t(:empty_cart)) and return if get_cart.cart_items.blank?
 	end
 	

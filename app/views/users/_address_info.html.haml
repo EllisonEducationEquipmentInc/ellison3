@@ -2,7 +2,7 @@
   - if instance_eval "@#{address_type}_address_notice"
     %p.dontprint.notice= instance_eval "@#{address_type}_address_notice"
   - if get_user.reload.send("#{address_type}_address")
-    = link_to "Edit #{address_type} address", {:action => "edit_address", :address_type => address_type}, :remote => true
+    = link_to "Edit #{address_type} address", {:controller => 'users', :action => "edit_address", :address_type => address_type}, :remote => true
     - address = get_user.send("#{address_type}_address")
     %p
       %b First Name:
@@ -38,4 +38,4 @@
       %b Fax:
       = address.fax
   - else
-    = link_to "Add #{address_type} address", {:action => "edit_address", :address_type => address_type}, :remote => true
+    = link_to "Add #{address_type} address", {:controller => 'users', :action => "edit_address", :address_type => address_type}, :remote => true
