@@ -16,4 +16,35 @@
 
 #footer {
   margin-bottom: 15px;
+  color: $footer_text;
+  
+  h3, h4 {
+    color: $footer_headings;
+    margin-bottom: 0;
+  }
+  
+  a {
+    color:$footer_text;
+    
+    &:hover {
+      color:$footer_link_hover;
+    }
+  }
+
+  .column {
+    margin-top: 10px;
+    height: 205px;
+    
+    p {
+      padding-right: 10px;
+    }
+  }
+  
+  .column_left, .column_middle {
+    border-right:thin solid $footer_divider;
+  }
+  
+  .column_middle {
+    padding-right: 38px;  // to help push .column_right to it's 'right'-ful position
+  }
 }

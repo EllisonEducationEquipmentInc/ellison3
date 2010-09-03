@@ -5,6 +5,10 @@ body {
 }
 
 #header {
+  
+  .container {
+    height: 100px;
+  }
   #logo_masthead {
   	background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
   	display: block;
@@ -12,6 +16,71 @@ body {
   	height: 88px;
   	margin: 0;
   	text-indent: -9999em;
+  }
+  
+  .nav_utility {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: -110px;
+    overflow: hidden;
+    
+    li {
+      list-style: none;
+      display: inline;
+      float: right;
+      padding: 0 0 0 12px;  // padding left to space links apart
+      
+      a.btn-masthead {
+        color: $navutil_text;  
+        display: block; 
+        font-size: 9px;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-right: 1px solid $navutil_divider;
+        
+        &:hover {
+          color: $navutil_hover;
+        }
+
+        span {
+          display: block;
+          padding: 3px 12px 0 20px;  // padding left to accomodate link icon; padding right to space away from link divider
+        }
+      }
+      
+      a.btn-admin-logout span {
+        background: transparent url('/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_logout-admin.png') no-repeat;
+      }      
+      a.btn-admin-login span {
+        background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/dashboard.png') no-repeat;
+      }
+      a.btn-myaccount span {
+        background: transparent url('/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_myaccount.png') no-repeat;
+      }
+      a.btn-signin span {
+        background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/key.png') no-repeat;
+      }
+      a.btn-signout span {
+        background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/lock.png') no-repeat;
+      }
+      a.btn-viewcart {
+        border-right: 0px;  // last item on list - no divider required
+
+        span {
+          background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/shopping-basket.png') no-repeat;
+          padding-right: 0;
+        }
+      }
+      a.btn-viewbasket {  // for UK & EUR websites
+        border-right: 0px;  // last item on list - no divider required
+
+        span {
+          background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/shopping-basket.png') no-repeat;
+          padding-right: 0;
+        }
+      }
+    }
   }
 }
 

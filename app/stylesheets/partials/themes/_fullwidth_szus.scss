@@ -15,24 +15,28 @@
 
 #header {
   background-color: white;
+  
+  .container {
+    padding-top:10px;
+  }
 }
 
 #footer {
-  bottom: -23px; // to help aid the sticky footer situation
+  bottom: -23px;  // to help aid the sticky footer situation
   background-color: $footer_bg;
   color: $footer_text;
   
   h3, h4 {
-    color: white;
+    color: $footer_headings;
     margin-bottom: 0;
   }
   
   a {
     color:$footer_text;
-  }
-  
-  a:hover {
-    color:$footer_link_hover;
+    
+    &:hover {
+      color:$footer_link_hover;
+    };
   }
   
   .column {
@@ -49,6 +53,6 @@
   }
   
   .column_middle {
-    padding-right: 38px; // to help push .column_right to it's 'right'-ful position
+    padding-right: 38px;  // to help push .column_right to it's 'right'-ful position
   }
 }

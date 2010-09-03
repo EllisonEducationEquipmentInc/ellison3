@@ -1,8 +1,17 @@
 // Sizzix UK Color Palette
 // http://www.colourlovers.com/palette/396247/Melting_Puppies
 
-$primary: #FFBDD8;
-$secondary: #B5D8EB;
-$tertiary: #E3AAD6;
-$quaternary: #FFC8BA;
-$quinary: #93DFB8;
+$primary: #FFBDD8;  // pink
+$secondary: #B5D8EB;  // baby blue
+$tertiary: #E3AAD6;  // medium pink with purple tint
+$quaternary: #FFC8BA;  // medium-light pin kwith peach tint
+$quinary: #93DFB8;  // medium sea grean
+
+$navutil_text: darken($secondary, 14%);
+$navutil_hover: darken($secondary, 30%);
+$navutil_divider: $quinary;
+
+$footer_text: darken($quinary, 15%);
+$footer_headings: darken($primary, 12%);
+$footer_link_hover: darken($secondary, 25%);
+$footer_divider: $secondary;
