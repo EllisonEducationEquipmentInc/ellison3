@@ -1,0 +1,36 @@
+- if @cart.cart_items.blank?
+  = t :empty_cart
+- else
+  %table{:cellpadding => 10}
+    %thead
+      %tr
+        %th{:width => 60} Item No.
+        %th{:width => 70} Item Name
+        %th{:width => 400}
+        %th{:width => 66} Quantity 
+        %th Item Price
+        %th Total Price
+        %th
+    %tbody= render :partial => 'cart_item', :collection => @cart.cart_items
+  .right== Subtotal: #{number_to_currency @cart.sub_total}
+  - unless @cart_locked
+    #empty_cart Empty Cart
+    #checkout_button= "Checkout"
+    :javascript
+      $(function() {
+        $("#checkout_button").button({icons: {primary: 'ui-icon-check'}})
+          .click( function() {
+            $.ajax({url:"/checkout_requested", complete: function(){$.fancybox.resize()}});
+      		});
+        $("#empty_cart").button({icons: {primary: 'ui-icon-trash'}})
+          .click( function() {
+            $.ajax({url:"/carts/empty_cart", complete: function(){$.fancybox.resize()}});
+      			$(this).button({ disabled: true });
+      		});
+      	$(".remove_from_cart")
+      	  .button({icons: {primary: 'ui-icon-minusthick'}})
+      		.click( function() {
+      			$.ajax({url:"/carts/remove_from_cart?item_num="+this.id.replace('remove_from_cart_', '')});
+      			$(this).button({ disabled: true });
+      		})
+      });

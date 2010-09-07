@@ -404,12 +404,13 @@ div.field, div.actions {
 }
 
 /* line 315, ../../../app/stylesheets/application.scss */
-input.invalid {
+input.invalid, select.invalid {
   border: 1px dotted red;
+  background: #ffffd5;
 }
 
 /* line 316, ../../../app/stylesheets/application.scss */
-input.valid {
+input.valid, select.valid {
   border: 1px solid green;
 }
 
@@ -431,4 +432,16 @@ label.invalid {
 #returning_cuctomer {
   float: left;
   width: 375px;
+}
+
+/* line 327, ../../../app/stylesheets/application.scss */
+#checkout_billing {
+  float: right;
+  width: 400px;
+}
+
+/* line 331, ../../../app/stylesheets/application.scss */
+#checkout_shipping {
+  float: left;
+  width: 400px;
 }

@@ -20,6 +20,9 @@ class CartsController < ApplicationController
 	
 	def checkout
 		@title = "Checkout"
+		@cart_locked = true
+		@payment = Payment.new
+		@payment.attributes = get_user.billing_address.attributes if get_user.billing_address
 		redirect_to(products_path, :alert => I18n.t(:empty_cart)) and return if get_cart.cart_items.blank?
 	end
 	

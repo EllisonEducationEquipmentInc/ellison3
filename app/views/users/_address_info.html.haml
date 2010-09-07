@@ -4,38 +4,38 @@
   - if get_user.reload.send("#{address_type}_address")
     = link_to "Edit #{address_type} address", {:controller => 'users', :action => "edit_address", :address_type => address_type}, :remote => true
     - address = get_user.send("#{address_type}_address")
-    %p
-      %b First Name:
-      = address.first_name
-    %p
-      %b Last Name:
-      = address.last_name
-    %p
-      %b Company/School/Organization:
-      = address.company
-    %p
-      %b Address1:
-      = address.address1
-    %p
-      %b Address2:
-      = address.address2
-    %p
-      %b City:
-      = address.city
-    %p
-      %b State:
-      = address.state
-    %p
-      %b Zip/Postal code:
-      = address.zip_code
-    %p
-      %b Country:
-      = address.country
-    %p
-      %b Phone:
-      = address.phone
-    %p
-      %b Fax:
-      = address.fax
+    %br
+    %b First Name:
+    = address.first_name
+    %br
+    %b Last Name:
+    = address.last_name
+    %br
+    %b Company/School/Organization:
+    = address.company
+    %br
+    %b Address1:
+    = address.address1
+    %br
+    %b Address2:
+    = address.address2
+    %br
+    %b City:
+    = address.city
+    %br
+    %b State:
+    = address.state
+    %br
+    %b Zip/Postal code:
+    = address.zip_code
+    %br
+    %b Country:
+    = address.country
+    %br
+    %b Phone:
+    = address.phone
+    %br
+    %b Fax:
+    = address.fax
   - else
     = link_to "Add #{address_type} address", {:controller => 'users', :action => "edit_address", :address_type => address_type}, :remote => true

@@ -312,8 +312,8 @@ div.field, div.actions {
 	margin-bottom: 10px;
 }
 
-input.invalid{border: 1px dotted red;}
-input.valid{border: 1px solid green;}
+input.invalid, select.invalid{border: 1px dotted red; background: #ffffd5;}
+input.valid, select.valid{border: 1px solid green;}
 label.invalid { float: none; color: red; padding-left: .5em; vertical-align: top; }
 
 #guest_checkout {
@@ -323,4 +323,12 @@ label.invalid { float: none; color: red; padding-left: .5em; vertical-align: top
 #returning_cuctomer {
 	float:left;
 	width: 375px;
+}
+#checkout_billing {
+	float: right;
+	width: 400px;
+}
+#checkout_shipping {
+	float: left;
+	width: 400px;
 }

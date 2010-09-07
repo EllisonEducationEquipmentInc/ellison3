@@ -1,5 +1,4 @@
 == $("#cart_item_#{@cart_item_id}").remove();
-- sleep 1
-$.fancybox.resize()
+setTimeout("$.fancybox.resize()", 200);
 - if get_cart.cart_items.blank?
   setTimeout("$.fancybox.close()", 1000);

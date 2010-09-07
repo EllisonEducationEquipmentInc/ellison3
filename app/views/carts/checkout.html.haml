@@ -1,3 +1,16 @@
 %h2 Checkout
 #checkout_shipping
+  %h3 Shipping Info
   = render :partial => 'users/address_info', :locals => {:address_type => "shipping"}
+#checkout_billing
+  %h3 Billing Info
+  = render :partial => 'users/address_info', :locals => {:address_type => "billing"}
+%hr
+#checkout_payment
+  %h3 Payment
+  #checkout_cc= render :partial => 'payment'
+%hr
+#checkout_cart
+  .right= link_to 'Edit Cart', cart_path
+  %h3 Items in your cart
+  = render :partial => 'cart'

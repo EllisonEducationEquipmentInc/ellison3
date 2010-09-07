@@ -58,6 +58,10 @@ $(document).ready(function(){
 	jQuery.validator.addMethod("zipUS", function(zip, element) {
 		return this.optional(element) || zip.match(/^\d{5}(-\d{4})?$/);
 	}, "Please specify a valid US zip code. Ex: 92660 or 92660-1234");
+	
+	jQuery.validator.addMethod("cvv", function(cvv, element) {
+		return this.optional(element) || cvv.match(/^\d{3,4}$/);
+	}, "Security Code is invalid");
 
 });
 
@@ -127,7 +131,7 @@ function show_cart() {
 			'width'	: 860,
 			'title'			: false
 		});
-	$.fancybox.resize();
+	setTimeout("$.fancybox.resize()", 600);
 	return false;
 }
 
