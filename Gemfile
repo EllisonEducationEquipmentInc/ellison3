@@ -39,6 +39,7 @@ gem 'remotipart'
 gem 'hpricot'
 gem 'ruby_parser'
 gem 'devise'
+gem 'active_merchant'
 
 # Use unicorn as the web server
 # gem 'unicorn'

@@ -41,6 +41,10 @@
   = f.label :fax
   %br
   = f.text_field :fax
+.field
+  = f.label :email
+  %br
+  = f.text_field :email
 :javascript
   initialize_buttons();
   $(document).ready(function() { 
@@ -58,6 +62,10 @@
               }, 
               "#{f.object.address_type}_address[city]": { 
                   required: true, 
+              },
+              "#{f.object.address_type}_address[email]": { 
+                  required: true, 
+                  email: true
               },
               "#{f.object.address_type}_address[phone]": { 
                   required: true, 

@@ -22,8 +22,8 @@ class CartsController < ApplicationController
 		@title = "Checkout"
 		@cart_locked = true
 		unless get_user.billing_address && get_user.shipping_address
-			@shipping_address = get_user.shipping_address || get_user.addresses.build(:address_type => "shipping") 
-			@billing_address = get_user.billing_address || get_user.addresses.build(:address_type => "billing") 
+			@shipping_address = get_user.shipping_address || get_user.addresses.build(:address_type => "shipping", :email => get_user.email) 
+			@billing_address = get_user.billing_address || get_user.addresses.build(:address_type => "billing", :email => get_user.email) 
 		end
 		new_payment
 		redirect_to(products_path, :alert => I18n.t(:empty_cart)) and return if get_cart.cart_items.blank?
@@ -32,7 +32,7 @@ class CartsController < ApplicationController
 	def create_shipping
 		@shipping_address = get_user.addresses.build(:address_type => "shipping")
 		@shipping_address.attributes = params[:shipping_address]
-		@billing_address = get_user.addresses.build(:address_type => "billing")
+		@billing_address = get_user.addresses.build(:address_type => "billing", :email => get_user.email)
 	end
 	
 	def create_billing
@@ -44,6 +44,10 @@ class CartsController < ApplicationController
 	def copy_shipping_address
 		@billing_address = get_user.addresses.build(get_user.shipping_address.attributes)
 		@billing_address.address_type = "billing"
+	end
+	
+	def proceed_checkout
+		render :nothing => true
 	end
 
 private

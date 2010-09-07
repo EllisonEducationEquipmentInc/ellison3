@@ -83,7 +83,7 @@ class UsersController < ApplicationController
 	end
 	
 	def edit_address
-		@address = get_user.send("#{params[:address_type]}_address") || get_user.addresses.build(:address_type => params[:address_type])
+		@address = get_user.send("#{params[:address_type]}_address") || get_user.addresses.build(:address_type => params[:address_type], :email => get_user.email)
 	end
 	
 	def update_address

@@ -30,13 +30,13 @@
       = select :payment, :card_expiration_year, Payment.years, { :prompt => "year" }
   .clear
   %br
-  = f.submit "Place Order", :class => 'save', :onsubmit => "this.disable();"
+  = f.submit "Place Order", :class => 'save'
   %br
   %br
   :javascript
     initialize_buttons();
     $(document).ready(function() { 
-        var validator = $("#proceed_checkout").validate({ 
+        var payment_validator = $("#proceed_checkout").validate({ 
             errorClass: "invalid",
             rules: { 
                 "payment[first_name]": { 
@@ -66,6 +66,12 @@
             success: function(label) { 
                 label.html(" ").addClass("checked"); 
             },
+            submitHandler: function(form) {
+              $('#proceed_checkout').ajaxSubmit();
+              $('#payment_submit').attr('disabled', true);
+              place_order();
+            },
+            
             messages: {
                 "payment[first_name]": {
                     required: " ",
@@ -92,5 +98,21 @@
             },
         }); 
     });
+    function place_order() {
+      $.fancybox({  'hideOnOverlayClick'	:	false,
+      			'padding'		: 10,
+      			'autoScale'		: true,
+      			'speedIn'		:	500, 
+      			'speedOut'		:	200,
+      			'showCloseButton'		:	false,
+      			'showNavArrows'		:	false,
+      			'enableEscapeButton'	:	false,
+      			'overlayOpacity'		:	0.7,
+      			'width'	: 860,
+      			'title'			: false,
+      			'content'	: '<div style="text-align:center;width: 260px;"><p>your order is being processed. please wait...</p><img src="/images/ui-objects/ajax-loader-1.gif" /></div>'
+      		});
+    }
+
     
     
