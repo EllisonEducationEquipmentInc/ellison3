@@ -1,0 +1,6 @@
+- if @shipping_address.save
+  - eval "@#{@shipping_address.address_type}_address_notice = 'Your #{@shipping_address.address_type} address has been saved.'"
+  == $('#new_shipping').replaceWith('#{escape_javascript(render(:partial => "users/address_info", :locals => {:address_type => @shipping_address.address_type}))}');
+  $('#new_billing').slideDown('slow');
+- else
+  == alert('#{escape_javascript @shipping_address.errors.full_messages.join("\n")}');

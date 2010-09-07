@@ -1,14 +1,29 @@
 %h2 Checkout
 #checkout_shipping
   %h3 Shipping Info
-  = render :partial => 'users/address_info', :locals => {:address_type => "shipping"}
+  - if get_user.reload.shipping_address
+    = render :partial => 'users/address_info', :locals => {:address_type => "shipping"}
+  - else
+    #new_shipping
+      = form_for(@shipping_address, :as => "#{@shipping_address.address_type}_address", :url => {:action => "create_shipping"}, :remote => true, :html => {:id => "edit_#{@shipping_address.address_type}_address", :method => :post}) do |f|
+        = render :partial => 'users/address_form', :locals => {:f => f}
+        .actions
+          = f.submit "Continue", :class => 'save'
 #checkout_billing
   %h3 Billing Info
-  = render :partial => 'users/address_info', :locals => {:address_type => "billing"}
+  - if get_user.billing_address && get_user.shipping_address
+    = render :partial => 'users/address_info', :locals => {:address_type => "billing"}
+  - else
+    #new_billing{:style => "display:#{get_user.shipping_address ? 'block' : 'none'}"}
+      = form_for(@billing_address, :as => "#{@billing_address.address_type}_address", :url => {:action => "create_billing"}, :remote => true, :html => {:id => "edit_#{@billing_address.address_type}_address", :method => :post}) do |f|
+        = link_to "same as shipping address", {:action => "copy_shipping_address"}, :remote => true
+        = render :partial => 'users/address_form', :locals => {:f => f}
+        .actions
+          = f.submit "Continue", :class => 'save'
 %hr
 #checkout_payment
   %h3 Payment
-  #checkout_cc= render :partial => 'payment'
+  #checkout_cc{:style => "display:#{get_user.billing_address && get_user.shipping_address ? 'block' : 'none'}"}= render :partial => 'payment' if get_user.billing_address && get_user.shipping_address
 %hr
 #checkout_cart
   .right= link_to 'Edit Cart', cart_path

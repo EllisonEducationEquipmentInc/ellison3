@@ -1,0 +1,79 @@
+= f.error_messages
+= f.hidden_field :address_type
+.field
+  = required_field(f.label :first_name)
+  %br
+  = f.text_field :first_name
+.field
+  = required_field(f.label :last_name)
+  %br
+  = f.text_field :last_name
+.field
+  = required_field_if !is_sizzix?, f.label(:company, "Company/School/Organization")
+  %br
+  = f.text_field :company
+.field
+  = required_field(f.label :address1)
+  %br
+  = f.text_field :address1
+.field
+  = f.label :address2
+  %br
+  = f.text_field :address2
+.field
+  = required_field(f.label :city)
+  %br
+  = f.text_field :city
+.field{:id => "#{f.object.address_type}_state"}= render :partial => f.object.us? ? 'users/state_select' : 'users/state', :locals => {:f => f}
+.field
+  = required_field(f.label :zip_code, "Zip/Postal code")
+  %br
+  = f.text_field :zip_code
+.field
+  = required_field(f.label :country)
+  %br
+  = f.select :country, countries, {}, :onchange => "if (this.value == 'United States') {$('##{f.object.address_type}_state').html('#{escape_javascript(render(:partial => 'users/state_select', :locals => {:f => f}))}');$('##{f.object.address_type}_address_state').rules('add', {required: true});$('##{f.object.address_type}_address_phone').rules('add', {phoneUS: true});$('##{f.object.address_type}_address_zip_code').rules('add', {zipUS: true});} else {$('##{f.object.address_type}_state').html('#{escape_javascript(render(:partial => 'users/state', :locals => {:f => f}))}');$('##{f.object.address_type}_address_state').rules('remove');$('##{f.object.address_type}_address_phone').rules('remove', 'phoneUS');$('##{f.object.address_type}_address_zip_code').rules('remove', 'zipUS');}"
+.field
+  = required_field(f.label :phone)
+  %br
+  = f.text_field :phone
+.field
+  = f.label :fax
+  %br
+  = f.text_field :fax
+:javascript
+  initialize_buttons();
+  $(document).ready(function() { 
+      var validator = $("#edit_#{f.object.address_type}_address").validate({ 
+          errorClass: "invalid",
+          rules: { 
+              "#{f.object.address_type}_address[first_name]": { 
+                  required: true
+              }, 
+              "#{f.object.address_type}_address[last_name]": { 
+                  required: true
+              }, 
+              "#{f.object.address_type}_address[address1]": { 
+                  required: true, 
+              }, 
+              "#{f.object.address_type}_address[city]": { 
+                  required: true, 
+              },
+              "#{f.object.address_type}_address[phone]": { 
+                  required: true, 
+                  minlength: 5,
+                  phoneUS: #{f.object.us? ? 'true' : 'false'}
+              },
+              "#{f.object.address_type}_address[zip_code]": { 
+                  required: true, 
+                  zipUS: #{f.object.us? ? 'true' : 'false'}
+              },
+              "#{f.object.address_type}_address[state]": { 
+                  required: #{f.object.us? ? 'true' : 'false'}, 
+              },
+          }, 
+          success: function(label) { 
+              label.html(" ").addClass("checked"); 
+          } 
+      }); 
+  });
