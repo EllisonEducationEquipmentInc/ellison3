@@ -36,6 +36,14 @@ module EllisonSystem
 		LOCALES_2_CURRENCIES[current_locale.to_s]
 	end
 	
+	def is_gbp?
+		current_currency == 'gbp'
+	end
+	
+	def is_eur?
+		current_currency == 'eur'
+	end
+	
   def is_er?
     # is ellison_retailers?
     current_system == 'er'

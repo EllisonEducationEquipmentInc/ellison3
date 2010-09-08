@@ -20,6 +20,7 @@ class Address
 	field :email
 	
 	embedded_in :user, :inverse_of => :addresses
+	embedded_in :order, :inverse_of => :addresses
 	
 	validates :address_type, :first_name, :last_name, :address1, :city, :zip_code, :phone, :country, :presence => true
 	# validates_presence_of :state, :if => Proc.new(&:us?)

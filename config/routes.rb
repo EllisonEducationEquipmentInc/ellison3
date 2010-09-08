@@ -8,11 +8,13 @@ Ellison3::Application.routes.draw do |map|
 
 	# Sets the devise scope to be used in the controller. 
 	as :user do
-    get "myaccount", :to => "users#myaccount"
-		get "billing_info", :to => "users#billing_info"
-		get "shipping_info", :to => "users#shipping_info"
-		get "wishlists", :to => "users#wishlists"
-		get "order_status", :to => "users#order_status"
+    # get "myaccount", :to => "users#myaccount"
+		match "myaccount(/:tab)", :to => "users#myaccount", :as => :myaccount
+		match "myaccount/order/:id", :to => "users#order", :as => :order
+		get "billing", :to => "users#billing"
+		get "shipping", :to => "users#shipping"
+		get "mylists", :to => "users#mylists"
+		get "orders", :to => "users#orders"
 		get "quotes", :to => "users#quotes"
 		get "materials", :to => "users#materials"
 		get "edit_address", :to => "users#edit_address"

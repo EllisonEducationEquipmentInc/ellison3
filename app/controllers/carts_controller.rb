@@ -47,13 +47,21 @@ class CartsController < ApplicationController
 	end
 	
 	def proceed_checkout
+		# TODO: Tax, shipping, handling
 		new_payment
 		@payment.attributes = params[:payment]
-		process_card(:amount => (get_cart.sub_total * 100).round, :payment => @payment, :order => rand(10000), :capture => true)
+		cart_to_order
+		process_card(:amount => (get_cart.sub_total * 100).round, :payment => @payment, :order => @order.id, :capture => true)
+		@order.payment = @payment
+		@order.address = get_user.shipping_address.clone
+		@order.user = get_user
+		@order.status = "Open"
+		@order.save!
+		flash[:notice] = "Thank you for your order.  Below is your order receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email."
 		clear_cart
-		render :js => "window.location.href = '#{order_confirmation_path}'"
+		render :js => "window.location.href = '#{order_path(@order)}'"
 	rescue Exception => e
-		@error_message = e.message
+		@error_message = e.message #backtrace.join("\n")
 	end
 	
 	def order_confirmation

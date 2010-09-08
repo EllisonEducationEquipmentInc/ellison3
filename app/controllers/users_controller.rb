@@ -53,25 +53,34 @@ class UsersController < ApplicationController
   end
 
 	def myaccount
+		# get "myaccount/:tab", :to => "users#myaccount"
+		# to open a tab from the url, pass the key in the :tab parameter like this: /myaccount/orders or myaccount/mylists or myaccount/quotes etc.
 		@title = "My Account"
-		@tabs = [[:billing_info, "My Billing Info"], [:shipping_info, "My Shipping Info"], [:order_status, "Order Status"], [:wishlists, "My List"]]
+		@tabs = [[:billing, "My Billing Info"], [:shipping, "My Shipping Info"], [:orders, "Order Status"], [:mylists, "My List"]]
 		@tabs += [[:quotes, "Quotes"], [:materials, "Materials"]] unless is_sizzix?
 	end
 	
-	def billing_info
+	def billing
 		render :partial => 'address_info', :locals => {:address_type => "billing"}
 	end
 	
-	def shipping_info
+	def shipping
 		render :partial => 'address_info', :locals => {:address_type => "shipping"}
 	end
 	
-	def order_status
+	def orders
+		@orders = get_user.orders.desc(:created_at)
 		render :partial => 'order_status'
 	end
 	
-	def wishlists
-		render :partial => 'wishlists'
+	def order
+		@order = get_user.orders.find params[:id]
+	rescue
+		redirect_to(myaccount_path('orders'))
+	end
+	
+	def mylists
+		render :partial => 'mylists'
 	end
 	
 	def quotes

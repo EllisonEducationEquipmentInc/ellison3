@@ -1,0 +1,24 @@
+class OrderItem
+	include EllisonSystem
+	include Mongoid::Document
+	
+	field :item_num
+	field :product_id
+	field :name
+	field :locale
+	field :quoted_price, :type => BigDecimal
+	field :sale_price, :type => BigDecimal
+	field :discount, :type => BigDecimal
+	field :coupon
+	field :quantity, :type => Integer, :default => 1
+	field :tax_exempt, :type => Boolean, :default => false
+	# field :vat_exempt, :type => Boolean, :default => true
+	field :upsell, :type => Boolean, :default => false
+	field :outlet, :type => Boolean, :default => false
+	
+	embedded_in :order, :inverse_of => :order_items
+	
+	def item_total
+		sale_price * quantity
+	end
+end

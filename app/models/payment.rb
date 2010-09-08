@@ -43,6 +43,8 @@ class Payment
 	field :paid_at, :type => DateTime
 	field :vendor_tx_code
 	
+	embedded_in :order, :inverse_of => :payment
+	
 	validates_presence_of :email
 	
 	def self.cards

@@ -30,6 +30,31 @@ module ShoppingCart
 			session[:shopping_cart], @cart = nil
 		end
 		
+		def cart_to_order(order_id = nil)
+			@order = Order.new(:id => order_id, :subtotal_amount => get_cart.sub_total, :shipping_amount => calculate_shipping, :handling_amount => calculate_handling, :tax_amount => calculate_tax, :locale => current_locale)
+			@cart.cart_items.each do |item|
+				@order.order_items << OrderItem.new(:name => item.name, :item_num => item.item_num, :sale_price => item.price, :quoted_price => item.msrp, :quantity => item.quantity, :locale => item.currency, :product_id => item.id)
+			end
+			@order
+		end
+		
+		# TODO
+		def calculate_shipping
+			0.0
+		end
+		
+		def calculate_handling
+			0.0
+		end
+		
+		def calculate_tax
+			0.0
+		end
+		
+		def calculate_shipping_and_handling
+			calculate_shipping + calculate_handling
+		end
+		
 		def process_card(options = {})
       amount, billing, order = options[:amount], options[:payment], options[:order]
       get_gateway(options[:system])
@@ -39,10 +64,7 @@ module ShoppingCart
         raise "Credit card is invalid. #{credit_card.errors}" if !credit_card.valid?
       end
       if is_us?
-        gw_options = {
-          :email => billing.email,
-          :order_id => order,
-        }
+        gw_options = {:email => billing.email, :order_id => order.id}
         gw_options[:billing_address] = {:company => billing.company, :phone => billing.phone,  :address1 => billing.address1, :city => billing.city, :state => billing.state, :country => billing.country, :zip => billing.zip_code} unless billing.use_saved_credit_card
       	gw_options[:subscription_id] = billing.subscriptionid
       	if billing.deferred
@@ -56,7 +78,7 @@ module ShoppingCart
 				end
 			else
         gw_options = {
-          :order_id => order,
+          :order_id => order.id.to_s,
           :address => {},
           :billing_address => {:name => billing.first_name + ' ' + billing.last_name, :address1 => billing.address1, :city => billing.city, :state => billing.state, :country => billing.country, :zip => billing.zip_code, :phone => billing.phone}
         }
@@ -66,10 +88,8 @@ module ShoppingCart
 			SystemTimer.timeout_after(50) do
 	      if options[:capture] && !billing.deferred && !billing.use_saved_credit_card
 					@net_response = @gateway.purchase(amount_to_charge, credit_card, gw_options)  
-					Rails.logger.warn "purchase #{gw_options.inspect}"
 				elsif billing.use_saved_credit_card
 				  @net_response = @gateway.pay_on_demand amount_to_charge, gw_options
-				  logger.info "on-demand: #{@net_response.inspect}"
 				elsif billing.deferred
 					@net_response = @gateway.recurring_billing(amount_to_charge, credit_card, gw_options)  
 				else
@@ -113,6 +133,7 @@ module ShoppingCart
 		
 		def process_gw_response(response)
       if is_us?
+				# cybersource mappings
         @payment.cv2_result ||= response.params['cvCode']
         @payment.status ||= response.params['decision']
         @payment.vpstx_id = response.params["reconciliationID"]
@@ -125,6 +146,7 @@ module ShoppingCart
         @payment.paid_amount = response.params["amount"]
         @payment.authorization = response.authorization
       else
+				# protx (sage) mappings
         @payment.status ||= response.params["Status"]
         @payment.vpstx_id ||= response.params["VPSTxId"]
         @payment.security_key ||= response.params["SecurityKey"]
@@ -135,7 +157,6 @@ module ShoppingCart
         @payment.cv2_result ||= response.params["CV2Result"]
         @payment.authorization ||= response.authorization
       end
-      
       @payment.paid_at = Time.zone.now
     end
 		
@@ -171,7 +192,7 @@ module ShoppingCart
                   :login => 'ellisonretail'}}
               else
                  {:merchant_account => {
-                   :name => 'protx',
+                   :name => 'sage',
                    :user_name => 'ellison',
                    :password => 'ellisond',
                    :login => 'ellisonadmin'}}
@@ -184,11 +205,8 @@ module ShoppingCart
     end
 
 		class Config
-	    attr_reader :name
-	    attr_reader :user_name
-	    attr_reader :password
+	    attr_reader :name, :user_name, :password
 	    def initialize(config)
-	      #config = YAML::load(File.open("#{RAILS_ROOT}/vendor/plugins/minimalcart/config/#{ENV['system'] == "ellison_retailers" || ENV['system'] == "ellison_education" ? 'config_er' : 'config'}.yml"))
 	      raise "Please configure the ActiveMerchant Gateway" if config[:merchant_account] == nil
 	      @name = config[:merchant_account][:name].to_s
 	      @user_name = config[:merchant_account][:user_name].to_s
