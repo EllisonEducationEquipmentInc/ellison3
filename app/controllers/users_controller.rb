@@ -75,6 +75,7 @@ class UsersController < ApplicationController
 	
 	def order
 		@order = get_user.orders.find params[:id]
+		@title = "Order: #{@order.id}"
 	rescue
 		redirect_to(myaccount_path('orders'))
 	end
