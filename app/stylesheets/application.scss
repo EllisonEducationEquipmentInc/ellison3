@@ -1,15 +1,3 @@
-.rounded {
-  -moz-border-radius:1ex;
-  -webkit-border-radius:1ex;
-}
-
-.rounded_top {
-  -moz-border-radius-topleft:1ex;
-  -moz-border-radius-topright:1ex;
-  -webkit-border-top-left-radius:1ex;
-  -webkit-border-top-right-radius:1ex;
-}
-
 #wrapper {
   width: 970px;
 	margin: 0 auto;
@@ -40,17 +28,6 @@ body.bp th, body.bp td, body.bp caption {
 	padding:5px
 }
 
-.product {
-	background: whiteSmoke;
-	border: 1px solid #CCC;
-	float: left;
-	height: 290px;
-	margin-bottom: 12px;
-	margin-left: 12px;
-	padding: 6px 10px 8px;
-	width: 150px;
-	text-align: center;
-}
 
 .product_id {
 	color: #369;

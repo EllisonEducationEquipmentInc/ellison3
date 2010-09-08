@@ -1,2 +1,34 @@
-= render @products
-= will_paginate @products
+#products_filter
+  %h3 Shop Products By
+  
+  .filter-block.rounded
+    %h4 Themes
+    %ul
+      %li= link_to "Animals", "#"
+      %li= link_to "Basic Shapes", "#"
+      %li= link_to "Birthday", "#"
+      %li= link_to "Flowers, Vines & Trees", "#"
+      %li= link_to "Food, Drinks & Cooking", "#"
+      %li= link_to "Friends & Family", "#"
+      %li= link_to "Holidays", "#"
+      %li= link_to "House & Home", "#"
+      %li= link_to "Love", "#"
+  .filter-block.rounded
+    %h4 Specials
+    %ul
+      %li= link_to "Coming Soon", "#"
+      %li= link_to "New Releases", "#"
+      %li= link_to "Tim Holtz Alterations", "#"
+      %li= link_to "Tim Holtz Coming Soon", "#"
+  .filter-block.rounded
+    %h4 Categories
+    %ul
+      %li= link_to "Embossing", "#"
+      %li= link_to "Machines & Accessories", "#"
+      %li= link_to "Shape-Cutting", "#"
+      %li= link_to "Supplies", "#"
+      %li= link_to "Value Packs", "#"
+    
+.products_grid
+  = render @products
+  = will_paginate @products

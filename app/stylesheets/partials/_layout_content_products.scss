@@ -1,0 +1,4 @@
+#products_filter {
+  @include column(4); }
+.products_grid {
+  @include column(20, true); }
