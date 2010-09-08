@@ -26,6 +26,25 @@ class Payment
 	field :card_expiration_year
 	field :card_security_code
 	
+	field :use_saved_credit_card, :type => Boolean, :default => false
+	field :deferred, :type => Boolean, :default => false
+	
+	field :cv2_result
+	field :status
+	field :vpstx_id
+	field :security_key
+	field :tx_auth_no
+	field :status_detail
+	field :address_result
+	field :post_code_result
+	field :subscriptionid
+	field :paid_amount, :type => BigDecimal
+	field :authorization
+	field :paid_at, :type => DateTime
+	field :vendor_tx_code
+	
+	validates_presence_of :email
+	
 	def self.cards
     is_us? ? %w(Visa MasterCard Discover AmericanExpress) : [["Visa", "visa"],["MasterCard", "master"],["Visa Debit", "delta"], ["Solo", "solo"],["Maestro", "maestro"], ["Visa Electron (UKE)", "electron"]]
   end

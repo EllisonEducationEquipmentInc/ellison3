@@ -40,6 +40,7 @@ gem 'hpricot'
 gem 'ruby_parser'
 gem 'devise'
 gem 'active_merchant'
+gem 'system_timer'
 
 # Use unicorn as the web server
 # gem 'unicorn'

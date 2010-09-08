@@ -47,7 +47,17 @@ class CartsController < ApplicationController
 	end
 	
 	def proceed_checkout
-		render :nothing => true
+		new_payment
+		@payment.attributes = params[:payment]
+		process_card(:amount => (get_cart.sub_total * 100).round, :payment => @payment, :order => rand(10000), :capture => true)
+		clear_cart
+		render :js => "window.location.href = '#{order_confirmation_path}'"
+	rescue Exception => e
+		@error_message = e.message
+	end
+	
+	def order_confirmation
+		render :text => "TODO: order confirmation..."
 	end
 
 private
