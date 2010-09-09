@@ -64,13 +64,11 @@
 	text-align: center;
 	overflow: visible;
 	z-index: 200;
+	color: black;
 	
-	p {
-	  margin-bottom: 0;
-	}
-	
-	h3.id {
-	  font-size: 1em;
-	  color: $primary;
+	a {
+	  color: black;
+	  
+	  &:hover{ color: red;}
 	}
 }
