@@ -1,11 +1,11 @@
 %h1 Listing products
-= link_to 'New product', new_admin_product_path, :class => 'new_button'
+= link_to 'New product', new_admin_product_path, :class => 'jqui_new'
 %br
 - unless params[:q].blank?
-  = link_to 'all', admin_products_path, :class => 'button'
+  = link_to 'all', admin_products_path, :class => 'jqui_button'
 - form_tag(admin_products_path, :method => :get) do
   = text_field_tag :q
-  = submit_tag "search", :class => "search"
+  = submit_tag "search", :class => 'jqui_search'
 %table
   %thead
     %tr
@@ -39,4 +39,4 @@
 %br
 = will_paginate @products
 %br
-= link_to 'New product', new_admin_product_path, :class => 'new_button'
+= link_to 'New product', new_admin_product_path, :class => 'jqui_new'

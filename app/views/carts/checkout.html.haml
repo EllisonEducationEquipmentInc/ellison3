@@ -8,7 +8,7 @@
       = form_for(@shipping_address, :as => "#{@shipping_address.address_type}_address", :url => {:action => "create_shipping"}, :remote => true, :html => {:id => "edit_#{@shipping_address.address_type}_address", :method => :post}) do |f|
         = render :partial => 'users/address_form', :locals => {:f => f}
         .actions
-          = f.submit "Continue", :class => 'save'
+          = f.submit "Continue", :class => 'jqui_save'
 #checkout_billing
   %h3 Billing Info
   - if get_user.billing_address && get_user.shipping_address
@@ -19,7 +19,7 @@
         = link_to "same as shipping address", {:action => "copy_shipping_address"}, :remote => true
         = render :partial => 'users/address_form', :locals => {:f => f}
         .actions
-          = f.submit "Continue", :class => 'save'
+          = f.submit "Continue", :class => 'jqui_save'
 %hr
 #checkout_payment
   %h3 Payment

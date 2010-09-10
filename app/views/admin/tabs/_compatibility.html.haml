@@ -1,6 +1,6 @@
 %li
   = text_field_tag "tab[compatibility_item_nums][#{@tab.compatibility_item_nums.index(compatibility) || 'new_compatibility'}]", compatibility.join(", "), :size => 50, :class => 'tab_compatibility_item_nums'
-  = link_to_function 'remove', "$(this).parent().remove()", :class => 'trash'
+  = link_to_function 'remove', "$(this).parent().remove()", :class => 'jqui_trash'
 :javascript
   $(".tab_compatibility_item_nums").autocomplete(auto_complete_options);
   $(".trash").button({icons: {primary: 'ui-icon-trash'}});

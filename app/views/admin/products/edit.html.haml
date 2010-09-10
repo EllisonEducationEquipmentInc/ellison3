@@ -5,21 +5,21 @@
 %br
 .field
   %h2 Campaigns
-  = link_to 'new campaign', {:action => 'new_campaign', :id => @product.id}, :remote => true, :class => 'new_button'
+  = link_to 'new campaign', {:action => 'new_campaign', :id => @product.id}, :remote => true, :class => 'jqui_new'
   #new_campaign
   %ul#campaigns= render :partial => 'campaign', :collection => @product.campaigns
 %hr
 .field
   %h2 Additional Images
-  = link_to 'upload new image', {:action => 'new_image', :id => @product.id}, :remote => true, :class => 'new_button'
+  = link_to 'upload new image', {:action => 'new_image', :id => @product.id}, :remote => true, :class => 'jqui_new'
   #new_image
   #images= render :partial => 'image', :collection => @product.images
   .clear
 %hr
 .field
   %h2 Tabs
-  = link_to 'new tab', {:action => 'new_tab', :id => @product.id}, :remote => true, :class => 'new_button'
-  = link_to 'clone reusable', {:action => 'reusable_tab', :id => @product.id}, :remote => true, :class => 'clone'
+  = link_to 'new tab', {:action => 'new_tab', :id => @product.id}, :remote => true, :class => 'jqui_new'
+  = link_to 'clone reusable', {:action => 'reusable_tab', :id => @product.id}, :remote => true, :class => 'jqui_clone'
   %br
   %br
   %ul#tabs.ui-sortable= render :partial => 'tab', :collection => @product.tabs
@@ -27,4 +27,4 @@
   #info
   :javascript
     sortable_tabs("#{@product.id}")
-= link_to 'Back', admin_products_path, :class => 'back'
+= link_to 'Back', admin_products_path, :class => 'jqui_back'

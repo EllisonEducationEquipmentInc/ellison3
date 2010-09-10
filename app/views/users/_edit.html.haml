@@ -20,8 +20,8 @@
     %br/
     = f.password_field :current_password
   %p
-    = f.submit "Update", :class => 'save'
-    = link_to_function 'cancel', "$('#profile').html('#{escape_javascript(render(:partial => 'profile'))}')", :class => 'cancel'
+    = f.submit "Update", :class => 'jqui_save'
+    = link_to_function 'cancel', "$('#profile').html('#{escape_javascript(render(:partial => 'profile'))}')", :class => 'jqui_cancel'
 :javascript
   initialize_buttons();
   $(document).ready(function() { 

@@ -19,7 +19,7 @@
     = f.label :systems_enabled
     = system_enabled('campaign')
   .actions
-    = f.submit :class => "save"
+    = f.submit :class => 'jqui_save'
     .cancel= link_to 'cancel', '#', :onclick => @campaign.new_record? ? "$('#new_campaign').html(''); return false;" : %Q($("#campaign_#{@campaign.id}").css('background', 'white');$("#campaign_#{@campaign.id}").replaceWith("#{escape_javascript render('campaign', :campaign => @campaign)}"); return false;)
 :javascript
   $(function (){  

@@ -78,37 +78,37 @@ $(function() {
 
 function initialize_buttons(){
 	$(function() {
-		$(".button").button();
+		$(".jqui_button").button();
 	});
 	$(function() {
-		$(".save").button({icons: {primary: 'ui-icon-disk'}})
+		$(".jqui_save").button({icons: {primary: 'ui-icon-disk'}})
 	});
 	$(function() {
-		$(".ok").button({icons: {primary: 'ui-icon-check'}});
+		$(".jqui_ok").button({icons: {primary: 'ui-icon-check'}});
 	});
 	$(function() {
-		$(".cancel").button({icons: {primary: 'ui-icon-closethick'}});
+		$(".jqui_cancel").button({icons: {primary: 'ui-icon-closethick'}});
 	});
 	$(function() {
-		$(".new_button").button({icons: {primary: 'ui-icon-plusthick'}});
+		$(".jqui_new").button({icons: {primary: 'ui-icon-plusthick'}});
 	});
 	$(function() {
-		$(".clone").button({icons: {primary: 'ui-icon-newwin'}});
+		$(".jqui_clone").button({icons: {primary: 'ui-icon-newwin'}});
 	});
 	$(function() {
-		$(".trash").button({icons: {primary: 'ui-icon-trash'}});
+		$(".jqui_trash").button({icons: {primary: 'ui-icon-trash'}});
 	});
 	$(function() {
-		$(".back").button({icons: {primary: 'ui-icon-triangle-1-w'}});
+		$(".jqui_back").button({icons: {primary: 'ui-icon-triangle-1-w'}});
 	});
 	$(function() {
-		$(".search").button({icons: {primary: 'ui-icon-search'}});
+		$(".jqui_search").button({icons: {primary: 'ui-icon-search'}});
 	});
 	$(function() {
-		$(".account").button({icons: {primary: 'ui-icon-person'}});
+		$(".jqui_account").button({icons: {primary: 'ui-icon-person'}});
 	});
 	$(function() {
-		$(".admin").button({icons: {primary: 'ui-icon-wrench'}});
+		$(".jqui_admin").button({icons: {primary: 'ui-icon-wrench'}});
 	});
 	
 };

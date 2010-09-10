@@ -1,11 +1,11 @@
 %h1 Listing admins
-= link_to 'New admin user', new_admin_admin_path, :class => 'new_button'
+= link_to 'New admin user', new_admin_admin_path, :class => 'jqui_new'
 %br
 - unless params[:q].blank?
-  = link_to 'all', admin_admins_path, :class => 'button'
+  = link_to 'all', admin_admins_path, :class => 'jqui_button'
 - form_tag(admin_admins_path, :method => :get) do
   = text_field_tag :q
-  = submit_tag "search", :class => "search"
+  = submit_tag "search", :class => 'jqui_search'
 %table
   %thead
     %tr
@@ -32,4 +32,4 @@
 %br
 = will_paginate @admins
 %br
-= link_to 'New admin user', new_admin_admin_path, :class => 'new_button'
+= link_to 'New admin user', new_admin_admin_path, :class => 'jqui_new'
