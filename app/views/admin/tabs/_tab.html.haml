@@ -42,7 +42,7 @@
     = render :partial => 'admin/tabs/data_column', :collection => @tab.data_column
     = link_to_add_tab_collection "data_column"
   .actions
-    = f.submit :class => 'wymupdate save'
+    = f.submit :class => 'wymeditorupdate jqui_save'
     = link_to 'cancel', '#', :onclick => "$('#edit_tab').html(''); return false;", :class => 'jqui_cancel'
 :javascript
   $("#tab_text").wymeditor();
