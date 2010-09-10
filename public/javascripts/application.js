@@ -110,6 +110,15 @@ function initialize_buttons(){
 	$(function() {
 		$(".jqui_admin").button({icons: {primary: 'ui-icon-wrench'}});
 	});
+	$(function() {
+		$(".jqui_destroy_min").button({icons: {primary: 'ui-icon-trash'}, text: false});
+	});
+	$(function() {
+		$(".jqui_show_min").button({icons: {primary: 'ui-icon-document'}, text: false});
+	});
+	$(function() {
+		$(".jqui_edit_min").button({icons: {primary: 'ui-icon-pencil'}, text: false});
+	});
 	
 };
 
@@ -140,7 +149,7 @@ $(function() {
 		$(".wishlist")
 			.button()
 			.click( function() {
-				alert( "It will add item immadiately to default wishlist" );
+				alert( "It will add item immediately to default wishlist" );
 			})
 		.next()
 			.button( {

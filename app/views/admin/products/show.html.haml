@@ -1,4 +1,4 @@
-%h1== Porduct: #{@product.id}
+%h1== Product: #{@product.id}
 = image_tag @product.medium_image
 %p= @product.systems_enabled.join(", ") 
 %p= text_field_tag :time, @time, :class => 'datetimepicker', :onchange => "window.location='#{admin_product_path(@product)}?time='+this.value"

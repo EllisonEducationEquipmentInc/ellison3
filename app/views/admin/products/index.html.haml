@@ -33,9 +33,9 @@
         %td= product.availability
         %td= product.quantity
         %td= product.systems_enabled.join(", ") rescue ''
-        %td= link_to 'Show', admin_product_path(product)
-        %td= link_to 'Edit', edit_admin_product_path(product)
-        %td= link_to 'Destroy', admin_product_path(product), :confirm => 'Are you sure?', :method => :delete
+        %td= link_to 'Show', admin_product_path(product), :class => 'jqui_show_min'
+        %td= link_to 'Edit', edit_admin_product_path(product), :class => 'jqui_edit_min'
+        %td= link_to 'Destroy', admin_product_path(product), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
 %br
 = will_paginate @products
 %br
