@@ -119,7 +119,9 @@ function initialize_buttons(){
 	$(function() {
 		$(".jqui_edit_min").button({icons: {primary: 'ui-icon-pencil'}, text: false});
 	});
-	
+	$(function() {
+		$(".jqui_cart_min").button({icons: {primary: 'ui-icon-cart'}, text: false});
+	});	
 };
 
 $(function() {
@@ -146,24 +148,18 @@ function show_cart() {
 }
 
 $(function() {
-		$(".wishlist")
-			.button()
-			.click( function() {
-				alert( "It will add item immediately to default wishlist" );
-			})
-		.next()
-			.button( {
-				text: false,
-				icons: {
-					primary: "ui-icon-triangle-1-s"
-				}
-			})
-			.click( function() {
-				alert( "will display a menu to select list" );
-			})
-		.parent()
-			.buttonset();
-	});
+  $(".wishlist").button()
+    .click(function() {
+      alert("It will add item immediately to default wishlist");})
+    .next()
+    .button({
+      text: false,
+      icons: {primary: "ui-icon-triangle-1-s"}
+    })
+    .click( function() {alert( "will display a menu to select list" );})
+    .parent()
+    .buttonset();
+});
 
 function add_fields(link, association, content) {  
   var new_id = new Date().getTime();  

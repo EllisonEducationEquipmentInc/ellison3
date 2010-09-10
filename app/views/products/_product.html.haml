@@ -3,4 +3,4 @@
   %p= link_to image_tag(product.medium_image), product_url(:id => product)
   %p= link_to product.name, product_url(:id => product)
   %p= display_product_price(product)
-  %p= add_to_cart_button(product)
+  = add_to_cart_button(product)

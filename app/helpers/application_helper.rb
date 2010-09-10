@@ -25,8 +25,8 @@ module ApplicationHelper
 		sale_price = gross_price(product.sale_price(date)) if product.sale_price(date)
 		
 		p = ""
-		p << "<span class='msrp #{'strike_through' if coupon || regular_price || sale_price}'}>#{number_to_currency msrp}</span> "
-		p << "<span class='price_special #{'strike_through' if coupon || sale_price}'}'>#{number_to_currency regular_price}</span> "
+		p << "<span class='msrp#{' strike_through' if coupon || regular_price || sale_price}'>#{number_to_currency msrp}</span> "
+		p << "<span class='price_special#{' strike_through' if coupon || sale_price}'>#{number_to_currency regular_price}</span> "
 		p << "<span class='price_sale'>#{number_to_currency sale_price}</span> "
 		# TODO: custom price
 		#p << "<br><span class='custom_price'>#{product.custom_price}</span>" if product.custom_price
@@ -36,10 +36,10 @@ module ApplicationHelper
 	
 	def add_to_cart_button(product)
     html = <<-HTML
-.add_to_cart{:id => "add_to_cart_#{product.id}"}== Add to #{t :cart}
-.wishlist_wrapper
-  .button.wishlist Add to My List
-  .select Select a list
+%button.add_to_cart{:id => "add_to_cart_#{product.id}"}== Add to #{t :cart}
+%p.buttonset
+  %button.wishlist Add to My List
+  %button.select Select a list
 HTML
     Haml::Engine.new(html).render(self)
 	end
