@@ -102,6 +102,7 @@ class UsersController < ApplicationController
 	end
 	
 	def signin_signup
+		redirect_to(new_session_path('user')) and return unless request.xhr?
 	  render :partial => "login_or_checkout", :layout => false
 	end
 	
