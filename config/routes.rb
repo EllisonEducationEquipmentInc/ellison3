@@ -19,7 +19,9 @@ Ellison3::Application.routes.draw do |map|
 		get "materials", :to => "users#materials"
 		get "edit_address", :to => "users#edit_address"
 		get "checkout_requested", :to => "users#checkout_requested"
+		get "signin_signup", :to => "users#signin_signup"
 		post "update_address", :to => "users#update_address"
+		
   end
 
 	match 'products' => 'index#products'

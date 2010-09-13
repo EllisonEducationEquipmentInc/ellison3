@@ -4,7 +4,7 @@
     %li= link_to "<span>Sign Out</span".html_safe, destroy_session_path('user'), :class => "btn-masthead btn-signout", :title => "Sign Out", :alt => "Sign Out"
     %li= link_to "<span>My Account</span".html_safe, myaccount_path, :class => "btn-masthead btn-myaccount", :title => "My Account", :alt => "My Account"
   - else
-    %li= link_to "<span>Sign In</span".html_safe, new_session_path('user'), :class => "btn-masthead btn-signin", :title => "Sign In", :alt => "Sign In"
+    %li= link_to "<span>Sign In</span".html_safe, {:controller => 'users', :action => 'signin_signup'}, :class => "lightbox btn-masthead btn-signin", :title => "Sign In", :alt => "Sign In"
   - if admin_signed_in?
     %li= link_to "<span>Log Out Dashboard</span".html_safe, destroy_session_path('admin'), :class => "btn-masthead btn-admin-logout", :title => "Log Out Dashboard", :alt => "Log Out Dashboard"
   - else

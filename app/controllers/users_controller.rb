@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 	prepend_before_filter :require_no_authentication, :only => [ :new, :create]
-  prepend_before_filter :authenticate_scope!, :except => [ :new, :create, :checkout_requested]
+  prepend_before_filter :authenticate_scope!, :except => [ :new, :create, :checkout_requested, :signin_signup]
   include Devise::Controllers::InternalHelpers
 
   # GET /resource/sign_up  
@@ -99,6 +99,10 @@ class UsersController < ApplicationController
 	def update_address
 		@address = get_user.send("#{params[:address_type]}_address") || get_user.addresses.build(:address_type => params[:address_type])
 		@address.attributes = params["#{params[:address_type]}_address"]
+	end
+	
+	def signin_signup
+	  render :partial => "login_or_checkout", :layout => false
 	end
 	
 	def checkout_requested
