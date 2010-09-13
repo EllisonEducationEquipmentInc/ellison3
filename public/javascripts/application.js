@@ -42,7 +42,8 @@ $(document).ready(function(){
 			'transitionOut'	:	'elastic',
 			'speedIn'		:	500, 
 			'speedOut'		:	200, 
-			'overlayShow'	:	true
+			'overlayShow'	:	true,
+			'titleShow': false
 		});
 	initialize_buttons();
 	
