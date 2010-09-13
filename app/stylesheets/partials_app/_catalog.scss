@@ -53,22 +53,43 @@
   }
 }
 
+body.bp .product-block {
+  p, h3 {
+    margin:0;
+  }
+	a {
+	  color: black;
+	  
+	  &:hover{ color: $secondary;}
+	}
+}
+
 .product-block {
+  $product-block-width: 167px;
+  $product-block-padding: 8px;
+  
 	background: $catalog_product_bg;
 //	border: 1px solid $catalog_product_border;
 	float: left;
 	height: 290px;
 	margin: 0 0 14px 14px;
-	padding: 8px;
-	width: 167px;
+	padding: $product-block-padding;
+	width: $product-block-width;
 	text-align: center;
 	overflow: visible;
 	z-index: 200;
 	color: black;
 	
-	a {
-	  color: black;
-	  
-	  &:hover{ color: red;}
+	button {
+	  margin-bottom:2px;
+	}
+	
+	// position the cart button stack to the bottom center of each product block
+	.cart-buttons {
+	  width: 100%;
+	  position: absolute;
+	  bottom: $product-block-padding;
+	  left: 50%;
+	  margin-left: -($product-block-width/2) - $product-block-padding;
 	}
 }
