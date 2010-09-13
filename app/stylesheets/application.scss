@@ -28,34 +28,6 @@ body.bp th, body.bp td, body.bp caption {
 	padding:5px
 }
 
-
-.product_id {
-	color: #369;
-	padding-bottom: 4px;
-	text-align: center;
-}
-
-.product_image {
-	background: white;
-	border: 1px solid #CCC;
-	height: 135px;
-	text-align: center;
-}
-
-.product_name {
-	height: 58px;
-	margin-bottom: 4px;
-	padding: 0px;
-	text-align: center;
-	line-height: normal;
-}
-
-.product_price {
-	height: 18px;
-	line-height: 0.6em;
-	text-align: center;
-}
-
 .strike_through {
 	text-decoration: line-through;
 }
@@ -68,9 +40,6 @@ body.bp th, body.bp td, body.bp caption {
 	color: blue;
 }
 
-.notice {
-  color: green;
-}
 #product_detail {
 	padding: 10px;
 	border: 1px solid #ccc;

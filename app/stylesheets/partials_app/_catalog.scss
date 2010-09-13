@@ -56,7 +56,14 @@
 body.bp .product-block {
   p, h3 {
     margin:0;
+    line-height: 1.2em;
   }
+  
+  h3 {
+    font-size: 1.1em;
+    color: #333;
+  }
+  
 	a {
 	  color: black;
 	  
@@ -79,6 +86,10 @@ body.bp .product-block {
 	overflow: visible;
 	z-index: 200;
 	color: black;
+	
+	p#item_name {
+	  margin-bottom: 4px;
+	}
 	
 	button {
 	  margin-bottom:2px;
