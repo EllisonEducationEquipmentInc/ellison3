@@ -1,0 +1,4 @@
+Estimated Tax: 
+%span#tax_amount
+:javascript
+  $.ajax({url:'/carts/get_tax_amount', success: function(data) {$('#tax_amount').html(data)}, beforeSend: function() {$('#tax_amount').html('#{escape_javascript spinner}')}})

@@ -32,3 +32,5 @@
   = render :partial => 'cart'
   .clear
   #cart_shipping.right= render :partial => 'shipping_amount' if get_user.shipping_address
+  .clear
+  #cart_tax.right= render :partial => 'tax_amount' if get_user.shipping_address

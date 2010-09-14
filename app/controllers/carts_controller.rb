@@ -50,7 +50,7 @@ class CartsController < ApplicationController
 		# TODO: Tax, shipping, handling
 		new_payment
 		@payment.attributes = params[:payment]
-		cart_to_order
+		cart_to_order(:address => get_user.shipping_address)
 		process_card(:amount => (get_cart.sub_total * 100).round, :payment => @payment, :order => @order.id, :capture => true)
 		@order.payment = @payment
 		@order.address = get_user.shipping_address.clone
@@ -67,6 +67,11 @@ class CartsController < ApplicationController
 	def get_shipping_amount
 		return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
 		render :inline => "<%= number_to_currency calculate_shipping(get_user.shipping_address) %>"
+	end
+	
+	def get_tax_amount
+		return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
+		render :inline => "<%= number_to_currency calculate_tax() %>"
 	end
 
 private
