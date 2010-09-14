@@ -3,4 +3,6 @@
   == $('#new_shipping').replaceWith('#{escape_javascript(render(:partial => "users/address_info", :locals => {:address_type => @shipping_address.address_type}))}');
   $('#new_billing').slideDown('slow');
 - else
+  - if @shipping_address.enable_avs_bypass
+    $('#bypass_avs').show();
   == alert('#{escape_javascript @shipping_address.errors.full_messages.join("\n")}');
