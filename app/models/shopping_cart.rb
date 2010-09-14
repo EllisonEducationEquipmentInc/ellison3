@@ -4,6 +4,9 @@ module ShoppingCart
 	end
 	
 	module InstanceMethods
+		
+	private 
+		
 		def get_cart
       @cart ||= (Cart.find(session[:shopping_cart]) rescue Cart.new)
     end
@@ -14,6 +17,7 @@ module ShoppingCart
 			else
 				get_cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.sale_price, :msrp => product.msrp, :price => product.price, :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product_id => product.id, :weight => product.weight, :tax_exempt => product.tax_exempt)
 			end
+			get_cart.reset_tax_and_shipping
 			get_cart.save
 			session[:shopping_cart] ||= get_cart.id.to_s
 		end
@@ -21,6 +25,7 @@ module ShoppingCart
 		def remove_cart(item_num)
 			cart_item = get_cart.cart_items.find_item(item_num)
 			cart_item.delete
+			get_cart.reset_tax_and_shipping
 			get_cart.save
 			cart_item.id.to_s
 		end
@@ -31,21 +36,26 @@ module ShoppingCart
 		end
 		
 		def cart_to_order(order_id = nil)
-			@order = Order.new(:id => order_id, :subtotal_amount => get_cart.sub_total, :shipping_amount => calculate_shipping, :handling_amount => calculate_handling, :tax_amount => calculate_tax, :locale => current_locale)
+			@order = Order.new(:id => order_id, :subtotal_amount => get_cart.sub_total, :shipping_amount => calculate_shipping, :handling_amount => calculate_handling, :tax_amount => get_cart.tax_amount, :tax_transaction => get_cart.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at, :locale => current_locale)
 			@cart.cart_items.each do |item|
-				@order.order_items << OrderItem.new(:name => item.name, :item_num => item.item_num, :sale_price => item.price, :quoted_price => item.msrp, :quantity => item.quantity, :locale => item.currency, :product_id => item.id)
+				@order.order_items << OrderItem.new(:name => item.name, :item_num => item.item_num, :sale_price => item.price, :quoted_price => item.msrp, :quantity => item.quantity, :locale => item.currency, :product_id => item.id, :tax_exempt => item.tax_exempt)
 			end
 			@order
 		end
 		
 		# TODO: shipping
 		def calculate_shipping(address, options={})
+			return get_cart.shipping_amount if get_cart.shipping_amount
 			options[:weight] ||= get_cart.total_weight
 			if is_us?
 				fedex_rate(address, options)
+				get_cart.update_attributes :shipping_amount => @rate
+				@rate
 			else
 				0.0
 			end
+		rescue Exception => e
+			e
 		end
 		
 		# TODO: handling
@@ -78,11 +88,10 @@ module ShoppingCart
       @origin = {:street => '25862 Commercentre Drive', :city => 'Lake Forest', :state => 'CA', :zip => '92630', :country => 'US'}
       @destination = {:street => "#{address.address1} #{address.address2}", :city => address.city, :state => address.state, :zip => address.zip_code, :country => country_2_code(address.country), :residential => options[:residential]}
 			SystemTimer.timeout_after(50) do
+				Rails.logger.info "Getting fedex rate for #{address.inspect}"
 				@rate = (@fedex.price(:shipper => { :contact => @shipper, :address => @origin }, :recipient => { :contact => @recipient, :address => @destination }, :count => 1, :weight => options[:weight], :service_type => options[:service], :rate_request_type => @rate_request_type))/100
 			end
 	    @rate
-	  rescue Exception => e
-	    e
 	  end
 		
 		def process_card(options = {})

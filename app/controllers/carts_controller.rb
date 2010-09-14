@@ -63,6 +63,11 @@ class CartsController < ApplicationController
 	rescue Exception => e
 		@error_message = e.message #backtrace.join("\n")
 	end
+	
+	def get_shipping_amount
+		return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
+		render :inline => "<%= number_to_currency calculate_shipping(get_user.shipping_address) %>"
+	end
 
 private
 	

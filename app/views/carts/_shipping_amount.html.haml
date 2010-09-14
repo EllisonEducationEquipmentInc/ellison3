@@ -1,1 +1,4 @@
-== Shipping: #{number_to_currency calculate_shipping(get_user.shipping_address)}
+Shipping: 
+%span#shipping_amount
+:javascript
+  $.ajax({url:'/carts/get_shipping_amount', success: function(data) {$('#shipping_amount').html(data)}, beforeSend: function() {$('#shipping_amount').html('#{escape_javascript spinner}')}})

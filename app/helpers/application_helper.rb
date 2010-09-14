@@ -87,4 +87,8 @@ HTML
 		condition ? required_field(label) : label
 	end
 	
+	def spinner
+		"<img src='/images/ui-objects/ajax-loader.gif' />".html_safe
+	end
+	
 end
