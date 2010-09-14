@@ -2,7 +2,7 @@
 # place those tasks here, and run +rake migrations:run+
 namespace :migrations do |ns|
 	
-	# define migrations task below.
+	# define migration tasks below:
 	desc "Populate Countries"
 	task :populate_countries => :environment do
 		FastererCSV.parse(countries, '"') do |row|
