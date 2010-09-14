@@ -1,6 +1,6 @@
 %h3== Edit #{@address.address_type.humanize} Address
-= form_for(@address, :as => "#{@address.address_type}_address", :url => {:action => "update_address", :address_type => @address.address_type}, :remote => true, :html => {:id => "edit_#{@address.address_type}_address", :method => :post}) do |f|
+= form_for(@address, :as => "#{@address.address_type}_address", :url => {:action => "update_address", :address_type => @address.address_type, :checkout => params[:checkout]}, :remote => true, :html => {:id => "edit_#{@address.address_type}_address", :method => :post}) do |f|
   = render :partial => 'users/address_form', :locals => {:f => f}
   .actions
     = f.submit "Save", :class => 'jqui_save'
-    = link_to_function 'cancel', "$('##{@address.address_type}_info').replaceWith('#{escape_javascript(render(:partial => "users/address_info", :locals => {:address_type => @address.address_type}))}')", :class => 'jqui_cancel'
+    = link_to_function 'cancel', "$('##{@address.address_type}_info').replaceWith('#{escape_javascript(render(:partial => "users/address_info", :locals => {:address_type => @address.address_type, :params => params}))}')", :class => 'jqui_cancel'

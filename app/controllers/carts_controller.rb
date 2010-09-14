@@ -20,7 +20,7 @@ class CartsController < ApplicationController
 	
 	def checkout
 		@title = "Checkout"
-		@cart_locked = true
+		@cart_locked, @checkout = true, true
 		unless get_user.billing_address && get_user.shipping_address
 			@shipping_address = get_user.shipping_address || get_user.addresses.build(:address_type => "shipping", :email => get_user.email) 
 			@billing_address = get_user.billing_address || get_user.addresses.build(:address_type => "billing", :email => get_user.email) 

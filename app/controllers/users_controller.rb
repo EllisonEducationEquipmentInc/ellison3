@@ -97,6 +97,7 @@ class UsersController < ApplicationController
 	end
 	
 	def update_address
+		@checkout = params[:checkout]
 		@address = get_user.send("#{params[:address_type]}_address") || get_user.addresses.build(:address_type => params[:address_type])
 		@address.attributes = params["#{params[:address_type]}_address"]
 	end

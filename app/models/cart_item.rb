@@ -13,6 +13,7 @@ class CartItem
 	field :small_image
 	field :added_at, :type => Time
 	field :weight, :type => Float, :default => 0.0
+	field :tax_exempt, :type => Boolean, :default => false
 	
 	embedded_in :cart, :inverse_of => :cart_items
 	

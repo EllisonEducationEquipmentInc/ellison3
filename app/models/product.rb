@@ -40,6 +40,7 @@ class Product
 	field :life_cycle_ends, :type => DateTime
 	field :handling_price, :type => Float, :default => 0.0
 	field :systems_enabled, :type => Array
+	field :tax_exempt, :type => Boolean, :default => false
 
 	index :item_num, :unique => true, :background => true
 	index :systems_enabled
