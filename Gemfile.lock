@@ -103,6 +103,7 @@ GEM
     factory_girl_rails (1.0)
       factory_girl (~> 1.3)
       rails (>= 3.0.0.beta4)
+    fasterer-csv (1.6.0)
     fastthread (1.0.7)
     ffi (0.6.3)
       rake (>= 0.8.7)
@@ -111,6 +112,7 @@ GEM
     haml (3.0.18)
     highline (1.6.1)
     hpricot (0.8.2)
+    httpclient (2.1.5.2)
     i18n (0.4.1)
     image_science (1.2.1)
     json_pure (1.4.6)
@@ -190,6 +192,8 @@ GEM
       rubyzip
     sexp_processor (3.0.4)
     shoulda (2.11.3)
+    soap4r (1.5.8)
+      httpclient (>= 2.1.1)
     spork (0.8.4)
     subexec (0.0.4)
     system_timer (1.0)
@@ -224,6 +228,7 @@ DEPENDENCIES
   database_cleaner
   devise
   factory_girl_rails
+  fasterer-csv
   haml (>= 3.0.18)
   hpricot
   image_science (>= 1.2.1)
@@ -244,6 +249,7 @@ DEPENDENCIES
   ruby-debug
   ruby_parser
   shoulda
+  soap4r (>= 1.5.8)
   spork
   system_timer
   webrat

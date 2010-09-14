@@ -1,6 +1,8 @@
 %div{:id => "#{address_type}_info"}
   - if instance_eval "@#{address_type}_address_notice"
     %p.dontprint.notice= instance_eval "@#{address_type}_address_notice"
+  - if instance_eval "@#{address_type}_address_error"
+    %p.dontprint.error= instance_eval "@#{address_type}_address_error"
   - if get_user.reload.send("#{address_type}_address")
     = link_to "Edit #{address_type} address", {:controller => 'users', :action => "edit_address", :address_type => address_type}, :remote => true
     - address = get_user.send("#{address_type}_address")

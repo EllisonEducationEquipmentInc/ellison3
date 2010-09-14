@@ -41,6 +41,8 @@ gem 'ruby_parser'
 gem 'devise'
 gem 'active_merchant'
 gem 'system_timer'
+gem "soap4r", ">= 1.5.8"
+gem 'fasterer-csv'
 
 # Use unicorn as the web server
 # gem 'unicorn'

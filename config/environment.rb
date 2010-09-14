@@ -5,3 +5,18 @@ require File.expand_path('../application', __FILE__)
 Ellison3::Application.initialize!
 
 include EllisonSystem
+
+
+# FEDEX credentials
+
+# development
+# FEDEX_AUTH_KEY       = 'JEmlc1QzGJCMpaJK'
+# FEDEX_SECURITY_CODE  = 'PLDg0CgVXr5EaQVjFcoUrht9l'
+# FEDEX_ACCOUNT_NUMBER = '510087380'
+# FEDEX_METER_NUMBER   = '118504799'
+
+# production
+FEDEX_AUTH_KEY       = 'i4HDMW03YiiNKX6e'
+FEDEX_SECURITY_CODE  = 'gRxqSaiOna6wvfAxcFPNO6rrP'
+FEDEX_ACCOUNT_NUMBER = '138837459'
+FEDEX_METER_NUMBER   = '101341003'

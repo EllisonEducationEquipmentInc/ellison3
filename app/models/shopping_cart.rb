@@ -55,6 +55,18 @@ module ShoppingCart
 			calculate_shipping + calculate_handling
 		end
 		
+		def validate_address(address)
+			@fedex = Fedex::Base.new(:auth_key => FEDEX_AUTH_KEY, :security_code => FEDEX_SECURITY_CODE, :account_number => FEDEX_ACCOUNT_NUMBER, :meter_number => FEDEX_METER_NUMBER)
+			SystemTimer.timeout_after(50) do
+				@fedex.address_validation(:country => country_2_code(address.country), :street => "#{address.address1} #{address.address2}", :city => address.city, :state => address.state, :zip => address.zip_code)
+			end
+			session[:enable_avs_bypass] = true if @fedex.result.addressResults.proposedAddressDetails.changes.include?("INSUFFICIENT_DATA") && !@fedex.result.addressResults.proposedAddressDetails.changes.include?("BOX_NUMBER_MATCH")
+			raise "The Shipping address you entered could not be validated. <br>Please enter a valid street name. We can’t deliver to a P.O.Box" if @fedex.result.addressResults.proposedAddressDetails.changes.include?("INSUFFICIENT_DATA") || @fedex.result.addressResults.proposedAddressDetails.changes.include?("BOX_NUMBER_MATCH") 
+			address.avs_result = @fedex.result.addressResults.proposedAddressDetails.changes
+			address.correct_address(@fedex.result.addressResults.proposedAddressDetails.address)
+			# address.update_attribute :avs_result, "BYPASSED"
+		end
+		
 		def process_card(options = {})
       amount, billing, order = options[:amount], options[:payment], options[:order]
       get_gateway(options[:system])

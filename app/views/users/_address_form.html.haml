@@ -1,5 +1,12 @@
 = f.error_messages
 = f.hidden_field :address_type
+#bypass_avs.field.error{:style => 'display:none'}
+  = f.check_box :bypass_avs
+  = f.label :bypass_avs, "Bypass Address Verification"
+  = f.hidden_field :enable_avs_bypass
+  %br
+  By checking this box, you have verified this shipping address is a correct physical address and not a PO BOX.
+  %br
 .field
   = required_field(f.label :first_name)
   %br
