@@ -71,7 +71,7 @@ class CartsController < ApplicationController
 	
 	def get_tax_amount
 		return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
-		render :inline => "<%= number_to_currency calculate_tax() %>"
+		render :inline => "<%= number_to_currency calculate_tax(get_user.shipping_address) %>"
 	end
 
 private

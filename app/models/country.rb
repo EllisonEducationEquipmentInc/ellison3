@@ -13,4 +13,5 @@ class Country
 
 	validates_presence_of :iso_name, :iso, :name, :iso3, :numcode
 	validates_uniqueness_of :iso_name, :iso, :name, :iso3
+	
 end

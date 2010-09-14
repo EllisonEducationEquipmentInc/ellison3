@@ -43,7 +43,7 @@ module ShoppingCart
 			@order
 		end
 		
-		# TODO: shipping
+		# TODO: UK shipping
 		def calculate_shipping(address, options={})
 			return get_cart.shipping_amount if get_cart.shipping_amount
 			options[:weight] ||= get_cart.total_weight
@@ -59,14 +59,21 @@ module ShoppingCart
 		end
 		
 		# TODO: handling
-		def calculate_handling
+		def calculate_handling(cart = nil, customer = nil, shipping_method = nil)
 			0.0
 		end
 		
 		# TODO: tax
-		def calculate_tax
-			get_cart.update_attributes :tax_amount => 0.0
-			0.0
+		def calculate_tax(address, options={})
+			return get_cart.tax_amount if get_cart.tax_amount && get_cart.tax_calculated_at && get_cart.tax_calculated_at > 1.hour.ago
+			if %w(CA IN WA UT).include?(address.state) && !get_user.tax_exempt
+				cch_sales_tax(address)
+        total_tax = @cch.total_tax.to_f
+				get_cart.update_attributes :tax_amount => total_tax, :tax_transaction => @cch.transaction_id, :tax_calculated_at => Time.now
+				total_tax
+			else
+				0.0
+			end
 		end
 		
 		def calculate_shipping_and_handling
@@ -95,6 +102,11 @@ module ShoppingCart
 	    @rate
 	  end
 		
+		def cch_sales_tax(customer, confirm_address = false)
+			Rails.logger.info "Getting CCH tax for #{customer.inspect}"
+      @cch = CCH::Cch.new(:action => 'calculate', :cart => get_cart, :confirm_address => confirm_address,  :customer => customer, :handling_charge => calculate_handling(), :shipping_charge => calculate_shipping(customer), :exempt => get_user.tax_exempt, :tax_exempt_certificate => get_user.tax_exempt_certificate)
+    end
+
 		def process_card(options = {})
       amount, billing, order = options[:amount], options[:payment], options[:order]
       get_gateway(options[:system])

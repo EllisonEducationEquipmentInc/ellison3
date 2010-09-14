@@ -4,6 +4,7 @@
   == $('##{@address.address_type}_info').replaceWith('#{escape_javascript(render(:partial => "address_info", :locals => {:address_type => @address.address_type}))}')
   - if (params[:checkout] || @checkout) && @address.address_type == 'shipping'
     == $('#cart_shipping').html('#{escape_javascript(render(:partial => "carts/shipping_amount"))}');
+    == $('#cart_tax').html('#{escape_javascript(render(:partial => "carts/tax_amount"))}');
 - else
   - if @address.enable_avs_bypass
     $('#bypass_avs').show();

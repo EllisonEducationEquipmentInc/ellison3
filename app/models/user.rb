@@ -8,6 +8,8 @@ class User
 
 	field :name
 	field :systems_enabled, :type => Array
+	field :tax_exempt, :type => Boolean, :default => false
+	field :tax_exempt_certificate
 	validates_uniqueness_of :email, :case_sensitive => false
 	attr_accessible :name, :email, :password, :password_confirmation
 
