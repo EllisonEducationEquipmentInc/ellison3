@@ -17,4 +17,8 @@ class Cart
 	def sub_total
 		cart_items.inject(0) {|sum, item| sum += item.total}
 	end
+	
+	def total_weight
+		cart_items.inject(0) {|sum, item| sum += item.weight}
+	end
 end

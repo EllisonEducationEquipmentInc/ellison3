@@ -1,6 +1,7 @@
 - if @shipping_address.save
   - eval "@#{@shipping_address.address_type}_address_notice = 'Your #{@shipping_address.address_type} address has been saved.'"
   == $('#new_shipping').replaceWith('#{escape_javascript(render(:partial => "users/address_info", :locals => {:address_type => @shipping_address.address_type}))}');
+  == $('#cart_shipping').html('#{escape_javascript(render(:partial => "shipping_amount"))}');
   $('#new_billing').slideDown('slow');
 - else
   - if @shipping_address.enable_avs_bypass

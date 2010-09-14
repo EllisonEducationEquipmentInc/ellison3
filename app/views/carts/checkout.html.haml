@@ -30,3 +30,5 @@
   .right= link_to 'Edit Cart', cart_path
   %h3 Items in your cart
   = render :partial => 'cart'
+  .clear
+  #cart_shipping.right= render :partial => 'shipping_amount' if get_user.shipping_address

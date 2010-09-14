@@ -1,8 +1,9 @@
-# db:migration replacment for mongoid. Since we don;t use RDBMS, there's no need to run db migrations, but sometimes we have to populate (insert) data, or mass update existing records.
+# db:migration replacment for mongoid. Since we don't use RDBMS, there's no need to run db migrations, but sometimes we have to populate (insert) data, or mass update existing records.
 # place those tasks here, and run +rake migrations:run+
 namespace :migrations do |ns|
 	
-	# define migration tasks below:
+	#======== define migration tasks below: ========
+	
 	desc "Populate Countries"
 	task :populate_countries => :environment do
 		FastererCSV.parse(countries, '"') do |row|
@@ -14,6 +15,8 @@ namespace :migrations do |ns|
 	task :set_vat_value => :environment do
 		SystemSetting.create :key => "vat", :value => "17.5"
 	end
+	
+	#======== migration tasks end here ========
 	
 	desc "run all migrations that haven't run"
 	task :run => :environment do |t|

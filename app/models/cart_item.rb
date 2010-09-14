@@ -12,6 +12,7 @@ class CartItem
 	field :quantity, :type => Integer, :default => 1
 	field :small_image
 	field :added_at, :type => Time
+	field :weight, :type => Float, :default => 0.0
 	
 	embedded_in :cart, :inverse_of => :cart_items
 	

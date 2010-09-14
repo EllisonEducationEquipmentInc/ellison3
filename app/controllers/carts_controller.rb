@@ -63,10 +63,6 @@ class CartsController < ApplicationController
 	rescue Exception => e
 		@error_message = e.message #backtrace.join("\n")
 	end
-	
-	def order_confirmation
-		render :text => "TODO: order confirmation..."
-	end
 
 private
 	

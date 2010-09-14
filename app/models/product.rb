@@ -12,6 +12,8 @@ class Product
 	# To have all queries for a model "cache":
   #cache
 	
+	max_versions 5
+	
 	# validations
 	validates :name, :item_num, :msrp, :price, :start_date, :end_date, :systems_enabled, :presence => true
 	validates_uniqueness_of :item_num
@@ -29,6 +31,7 @@ class Product
 	field :item_num
 	field :upc
 	field :quantity, :type => Integer, :default => 0
+	field :weight, :type => Float, :default => 0.0
 	field :active, :type => Boolean, :default => false
 	field :availability, :type => Integer, :default => 0
 	field :start_date, :type => DateTime

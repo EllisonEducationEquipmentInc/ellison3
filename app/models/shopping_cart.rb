@@ -12,7 +12,7 @@ module ShoppingCart
 			if item = get_cart.cart_items.find_item(product.item_num)
 				item.quantity += qty
 			else
-				get_cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.sale_price, :msrp => product.msrp, :price => product.price, :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product_id => product.id)
+				get_cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.sale_price, :msrp => product.msrp, :price => product.price, :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product_id => product.id, :weight => product.weight)
 			end
 			get_cart.save
 			session[:shopping_cart] ||= get_cart.id.to_s
@@ -39,8 +39,13 @@ module ShoppingCart
 		end
 		
 		# TODO: shipping
-		def calculate_shipping
-			0.0
+		def calculate_shipping(address, options={})
+			options[:weight] ||= get_cart.total_weight
+			if is_us?
+				fedex_rate(address, options)
+			else
+				0.0
+			end
 		end
 		
 		# TODO: handling
@@ -56,6 +61,29 @@ module ShoppingCart
 		def calculate_shipping_and_handling
 			calculate_shipping + calculate_handling
 		end
+		
+		# Calculates fedex shipping rates based on shipping address and weight.
+		# first argument should be an Address object.
+		# available options:
+		# 	:request_type  	#=> 'account' (default) or 'list'
+		# 	:residential 		#=> true or false (default)  
+		# 	:weight 				#=> weight in lbs 
+		# 	:service				#=> fedex service type: "FEDEX_GROUND" (default), "FEDEX_2_DAY", "INTERNATIONAL_PRIORITY_FREIGHT", "INTERNATIONAL_ECONOMY", "FEDEX_EXPRESS_SAVER", "FEDEX_1_DAY_FREIGHT", "INTERNATIONAL_PRIORITY", "GROUND_HOME_DELIVERY", "FEDEX_3_DAY_FREIGHT", "STANDARD_OVERNIGHT", "EUROPE_FIRST_INTERNATIONAL_PRIORITY", "INTERNATIONAL_FIRST", "FIRST_OVERNIGHT", "FEDEX_2_DAY_FREIGHT", "PRIORITY_OVERNIGHT", "INTERNATIONAL_ECONOMY_FREIGHT"
+		def fedex_rate(address, options={})
+			@rate_request_type = options[:request_type] == 'list' ? Fedex::RateRequestTypes::LIST : Fedex::RateRequestTypes::ACCOUNT
+			options[:service] ||= Fedex::ServiceTypes::FEDEX_GROUND
+			@fedex = Fedex::Base.new(:auth_key => FEDEX_AUTH_KEY, :security_code => FEDEX_SECURITY_CODE, :account_number => FEDEX_ACCOUNT_NUMBER, :meter_number => FEDEX_METER_NUMBER)
+	    @shipper = {:name => "Ellison", :phone_number => '9495988822'}
+      @recipient = {:name => "#{address.first_name} #{address.last_name}", :phone_number => address.phone}
+      @origin = {:street => '25862 Commercentre Drive', :city => 'Lake Forest', :state => 'CA', :zip => '92630', :country => 'US'}
+      @destination = {:street => "#{address.address1} #{address.address2}", :city => address.city, :state => address.state, :zip => address.zip_code, :country => country_2_code(address.country), :residential => options[:residential]}
+			SystemTimer.timeout_after(50) do
+				@rate = (@fedex.price(:shipper => { :contact => @shipper, :address => @origin }, :recipient => { :contact => @recipient, :address => @destination }, :count => 1, :weight => options[:weight], :service_type => options[:service], :rate_request_type => @rate_request_type))/100
+			end
+	    @rate
+	  rescue Exception => e
+	    e
+	  end
 		
 		def process_card(options = {})
       amount, billing, order = options[:amount], options[:payment], options[:order]
@@ -132,6 +160,10 @@ module ShoppingCart
         card_name.underscore
       end
 		end
+		
+		def country_2_code(country)
+	  	Country.where(:name => country).first.try :iso
+	  end
 		
 		def process_gw_response(response)
       if is_us?

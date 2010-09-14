@@ -29,7 +29,6 @@ Ellison3::Application.routes.draw do |map|
 	
 	match 'cart' => 'carts#index', :as => :cart
 	match 'checkout' => 'carts#checkout', :as => :checkout
-	match 'order_confirmation' => 'carts#order_confirmation', :as => :order_confirmation
 	
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

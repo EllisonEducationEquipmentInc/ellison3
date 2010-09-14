@@ -57,7 +57,6 @@ class Admin::ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.update_attributes(params[:product])
-				Rails.logger.info params[:product].inspect
         format.html { redirect_to([:admin, @product], :notice => 'Product was successfully updated.') }
         format.xml  { head :ok }
       else
