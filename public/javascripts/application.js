@@ -47,6 +47,11 @@ $(document).ready(function(){
 		});
 	initialize_buttons();
 	
+	$(function() {
+		$(".tab-block").tabs();
+	});
+
+	
 	// shadowOn
 	$(".cardpanelshadow").shadowOn({ imageset: 6, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadows for cardpanel layout archetype
 	$(".product-block").shadowOn({ imageset: 1, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadow for product blocks on catalog pages

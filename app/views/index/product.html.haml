@@ -14,14 +14,13 @@
     - @product.images.each do |image|
       .left.thumbnail= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}');return false;"
     .clear  
-#product_tabs.rounded
-  %ul.tabs
+.tab-block
+  %ul
     - @product.tabs.current.each do |tab|
       %li.rounded_top= link_to tab.name, "#tabs-#{tab.id}"
-  .clear
   - @product.tabs.each do |tab|
     %div{:id => "tabs-#{tab.id}"}= render tab
 :javascript
   $(function() {
-  	$("#product_tabs").tabs();
+  	$(".tab-block").tabs();
   });

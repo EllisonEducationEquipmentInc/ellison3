@@ -1,3 +1,7 @@
+// catalog page css
+
+//EDIT!!! these styles don't belong here & should be moved
+
 .rounded {
   -moz-border-radius:1ex;
   -webkit-border-radius:1ex;
@@ -9,6 +13,8 @@
   -webkit-border-top-left-radius:1ex;
   -webkit-border-top-right-radius:1ex;
 }
+
+// catalog filter column
 
 #products_filter {
 
@@ -52,6 +58,8 @@
     padding: 6px;
   }
 }
+
+// individual product blocks
 
 body.bp .product-block {
   p, h3 {
@@ -103,4 +111,18 @@ body.bp .product-block {
 	  left: 50%;
 	  margin-left: -($product-block-width/2) - $product-block-padding;
 	}
+	
+	// price styles
+	.strike_through {
+  	text-decoration: line-through;
+  }
+
+  .price_sale {
+  	color: red;
+  	font-weight: bold;
+  }
+
+  .custom_price {
+  	color: blue;
+  }
 }
