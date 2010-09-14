@@ -10,6 +10,11 @@ namespace :migrations do |ns|
     end
 	end
 	
+	desc "set VAT value (17.5)"
+	task :set_vat_value => :environment do
+		SystemSetting.create :key => "vat", :value => "17.5"
+	end
+	
 	desc "run all migrations that haven't run"
 	task :run => :environment do |t|
 		@tasks = Migration.all.map {|m| m.name}
