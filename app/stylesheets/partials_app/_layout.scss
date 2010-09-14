@@ -1,0 +1,15 @@
+// Ellison3 Web Application Sitewide Layout CSS
+
+// rounded corners
+.rounded {
+  -moz-border-radius:1ex;
+  -webkit-border-radius:1ex;
+}
+
+.rounded_top {
+  -moz-border-radius-topleft:1ex;
+  -moz-border-radius-topright:1ex;
+  -webkit-border-top-left-radius:1ex;
+  -webkit-border-top-right-radius:1ex;
+}
+

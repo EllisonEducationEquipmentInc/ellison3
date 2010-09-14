@@ -50,6 +50,9 @@ $(document).ready(function(){
 	$(function() {
 		$(".tab-block").tabs();
 	});
+	$(function() {
+		$(".accordion-block").accordion();
+	});
 
 	
 	// shadowOn

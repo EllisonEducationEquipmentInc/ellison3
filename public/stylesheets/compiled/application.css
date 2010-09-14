@@ -121,35 +121,30 @@ body.bp th, body.bp td, body.bp caption {
   height: 50px;
 }
 
-/* line 103, ../../../app/stylesheets/application.scss */
+/* line 96, ../../../app/stylesheets/application.scss */
 .wishlist_wrapper {
   margin-top: 4px;
   font-size: 9px;
 }
 
-/* line 107, ../../../app/stylesheets/application.scss */
+/* line 100, ../../../app/stylesheets/application.scss */
 .wishlist_wrapper .button {
   width: 96px;
 }
 
-/* line 110, ../../../app/stylesheets/application.scss */
+/* line 103, ../../../app/stylesheets/application.scss */
 .image_details {
   float: right;
   width: 700px;
 }
 
-/* line 114, ../../../app/stylesheets/application.scss */
-.tab_row {
-  margin-top: 15px;
-}
-
-/* line 117, ../../../app/stylesheets/application.scss */
+/* line 107, ../../../app/stylesheets/application.scss */
 .tab_image {
   width: 250px;
   text-align: center;
 }
 
-/* line 122, ../../../app/stylesheets/application.scss */
+/* line 112, ../../../app/stylesheets/application.scss */
 .data_key {
   float: left;
   font-weight: bold;
@@ -157,21 +152,21 @@ body.bp th, body.bp td, body.bp caption {
   margin: 5px 0px 0px 20px;
 }
 
-/* line 129, ../../../app/stylesheets/application.scss */
+/* line 119, ../../../app/stylesheets/application.scss */
 .data_value {
   float: left;
   width: 250px;
   margin: 5px 0px 0px 20px;
 }
 
-/* line 135, ../../../app/stylesheets/application.scss */
+/* line 125, ../../../app/stylesheets/application.scss */
 .compatibility_row {
   border-bottom: 1px dashed #CCC;
   padding: 5px 0px 10px;
   height: 305px;
 }
 
-/* line 140, ../../../app/stylesheets/application.scss */
+/* line 130, ../../../app/stylesheets/application.scss */
 .compatibility_prodcuct {
   float: left;
   margin: 10px 0px 0px 8px;
@@ -180,75 +175,75 @@ body.bp th, body.bp td, body.bp caption {
   height: auto;
 }
 
-/* line 148, ../../../app/stylesheets/application.scss */
+/* line 138, ../../../app/stylesheets/application.scss */
 .compatibility_info {
   height: 230px;
 }
 
-/* line 152, ../../../app/stylesheets/application.scss */
+/* line 142, ../../../app/stylesheets/application.scss */
 .plus_sign {
   float: left;
   margin: 110px 5px 0px;
 }
 
-/* line 157, ../../../app/stylesheets/application.scss */
+/* line 147, ../../../app/stylesheets/application.scss */
 ul.ui-autocomplete {
   padding-left: 0;
 }
 
-/* line 160, ../../../app/stylesheets/application.scss */
+/* line 150, ../../../app/stylesheets/application.scss */
 #tabs ul {
   margin-left: 0;
 }
 
-/* line 164, ../../../app/stylesheets/application.scss */
+/* line 154, ../../../app/stylesheets/application.scss */
 li.ui-menu-item {
   list-style-type: none;
 }
 
-/* line 167, ../../../app/stylesheets/application.scss */
+/* line 157, ../../../app/stylesheets/application.scss */
 li.ui-state-default {
   margin: 0px 3px 3px;
   padding: 0.4em 0.4em 0.4em 1.5em;
   list-style-type: none;
 }
 
-/* line 172, ../../../app/stylesheets/application.scss */
+/* line 162, ../../../app/stylesheets/application.scss */
 #tabs li.ui-state-default {
   font-size: 1.2em;
   color: #1C94C4;
 }
 
-/* line 176, ../../../app/stylesheets/application.scss */
+/* line 166, ../../../app/stylesheets/application.scss */
 li.ui-state-default span {
   position: absolute;
   margin-left: -1.3em;
 }
 
-/* line 181, ../../../app/stylesheets/application.scss */
+/* line 171, ../../../app/stylesheets/application.scss */
 .field .caption {
   float: right;
   width: 600px;
 }
 
-/* line 186, ../../../app/stylesheets/application.scss */
+/* line 176, ../../../app/stylesheets/application.scss */
 #cart_container {
   width: 800px;
 }
 
-/* line 189, ../../../app/stylesheets/application.scss */
+/* line 179, ../../../app/stylesheets/application.scss */
 .save {
   border: 1px solid green;
 }
 
-/* line 194, ../../../app/stylesheets/application.scss */
+/* line 184, ../../../app/stylesheets/application.scss */
 .field_with_errors {
   padding: 2px;
   background-color: red;
   display: table;
 }
 
-/* line 200, ../../../app/stylesheets/application.scss */
+/* line 190, ../../../app/stylesheets/application.scss */
 #errorExplanation {
   width: 400px;
   border: 2px solid red;
@@ -258,7 +253,7 @@ li.ui-state-default span {
   background-color: #f0f0f0;
 }
 
-/* line 209, ../../../app/stylesheets/application.scss */
+/* line 199, ../../../app/stylesheets/application.scss */
 #errorExplanation h2 {
   text-align: left;
   font-weight: bold;
@@ -269,36 +264,36 @@ li.ui-state-default span {
   color: #fff;
 }
 
-/* line 219, ../../../app/stylesheets/application.scss */
+/* line 209, ../../../app/stylesheets/application.scss */
 #errorExplanation p {
   color: #333;
   margin-bottom: 0;
   padding: 5px;
 }
 
-/* line 225, ../../../app/stylesheets/application.scss */
+/* line 215, ../../../app/stylesheets/application.scss */
 #errorExplanation ul li {
   font-size: 12px;
   list-style: square;
 }
 
-/* line 230, ../../../app/stylesheets/application.scss */
+/* line 220, ../../../app/stylesheets/application.scss */
 div.field, div.actions {
   margin-bottom: 10px;
 }
 
-/* line 234, ../../../app/stylesheets/application.scss */
+/* line 224, ../../../app/stylesheets/application.scss */
 input.invalid, select.invalid {
   border: 1px dotted red;
   background: #ffffd5;
 }
 
-/* line 235, ../../../app/stylesheets/application.scss */
+/* line 225, ../../../app/stylesheets/application.scss */
 input.valid, select.valid {
   border: 1px solid green;
 }
 
-/* line 236, ../../../app/stylesheets/application.scss */
+/* line 226, ../../../app/stylesheets/application.scss */
 label.invalid {
   float: none;
   color: red;
@@ -306,25 +301,25 @@ label.invalid {
   vertical-align: top;
 }
 
-/* line 238, ../../../app/stylesheets/application.scss */
+/* line 228, ../../../app/stylesheets/application.scss */
 #guest_checkout {
   float: right;
   width: 375px;
 }
 
-/* line 242, ../../../app/stylesheets/application.scss */
+/* line 232, ../../../app/stylesheets/application.scss */
 #returning_cuctomer {
   float: left;
   width: 375px;
 }
 
-/* line 246, ../../../app/stylesheets/application.scss */
+/* line 236, ../../../app/stylesheets/application.scss */
 #checkout_billing {
   float: right;
   width: 400px;
 }
 
-/* line 250, ../../../app/stylesheets/application.scss */
+/* line 240, ../../../app/stylesheets/application.scss */
 #checkout_shipping {
   float: left;
   width: 400px;
