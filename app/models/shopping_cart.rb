@@ -66,7 +66,7 @@ module ShoppingCart
 		# TODO: tax
 		def calculate_tax(address, options={})
 			return get_cart.tax_amount if get_cart.tax_amount && get_cart.tax_calculated_at && get_cart.tax_calculated_at > 1.hour.ago
-			if %w(CA IN WA UT).include?(address.state) && !get_user.tax_exempt
+			if %w(CA IN WA UT).include?(address.state)
 				cch_sales_tax(address)
         total_tax = @cch.total_tax.to_f
 				get_cart.update_attributes :tax_amount => total_tax, :tax_transaction => @cch.transaction_id, :tax_calculated_at => Time.now
