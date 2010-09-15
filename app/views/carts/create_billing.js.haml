@@ -1,6 +1,6 @@
+$.fancybox.close();
 - if @billing_address.save
   - eval "@#{@billing_address.address_type}_address_notice = 'Your #{@billing_address.address_type} address has been saved.'"
-  $.fancybox.close();
   == $('#new_billing').replaceWith('#{escape_javascript(render(:partial => "users/address_info", :locals => {:address_type => @billing_address.address_type}))}');
   == $('#checkout_cc').html('#{escape_javascript(render(:partial => "payment"))}');
   $('#checkout_cc').slideDown('slow');

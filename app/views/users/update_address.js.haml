@@ -1,5 +1,5 @@
+$.fancybox.close();
 - if @address.valid? && @address.save
-  $.fancybox.close();
   - eval "@#{@address.address_type}_address_notice = 'Your #{@address.address_type} address has been saved.'"
   - eval "@#{@address.address_type}_address_error = 'Address Verification result: #{@address.avs_result.humanize}. Please correct your address'" unless @address.avs_result.blank? || @address.avs_result == "NO_CHANGES" || @address.avs_result == "BYPASSED"
   == $('##{@address.address_type}_info').replaceWith('#{escape_javascript(render(:partial => "address_info", :locals => {:address_type => @address.address_type}))}')
