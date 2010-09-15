@@ -45,4 +45,8 @@ class Cart
 	def taxable_amaunt
 		cart_items.select {|i| !i.tax_exempt}.inject(0) {|sum, item| sum += item.total}
 	end
+	
+	def total
+		sub_total + tax_amount + shipping_amount
+	end
 end

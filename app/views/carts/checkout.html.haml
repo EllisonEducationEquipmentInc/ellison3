@@ -35,4 +35,4 @@
   .clear
   #cart_tax.right= render :partial => 'tax_amount' if get_user.shipping_address
   .clear
-  #cart_total.right Total:
+  #cart_total.right= render :partial => 'total_amount' if get_user.shipping_address

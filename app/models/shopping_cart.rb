@@ -66,14 +66,14 @@ module ShoppingCart
 		# TODO: UK tax
 		def calculate_tax(address, options={})
 			return get_cart.tax_amount if get_cart.tax_amount && get_cart.tax_calculated_at && get_cart.tax_calculated_at > 1.hour.ago
-			if %w(CA IN WA UT).include?(address.state)
+			total_tax = if %w(CA IN WA UT).include?(address.state)
 				cch_sales_tax(address)
-        total_tax = @cch.total_tax.to_f
-				get_cart.update_attributes :tax_amount => total_tax, :tax_transaction => @cch.transaction_id, :tax_calculated_at => Time.now
-				total_tax
+        @cch.total_tax.to_f				
 			else
 				0.0
 			end
+			get_cart.update_attributes :tax_amount => total_tax, :tax_transaction => @cch ? @cch.transaction_id : nil, :tax_calculated_at => Time.now
+			total_tax
 		end
 		
 		def calculate_shipping_and_handling

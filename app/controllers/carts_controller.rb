@@ -74,6 +74,22 @@ class CartsController < ApplicationController
 		return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
 		render :inline => "<%= number_to_currency calculate_tax(get_user.shipping_address) %>"
 	end
+	
+	def get_total_amount
+		return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
+		tries = 0
+		begin
+			tries += 1
+			@total = get_cart.reload.total
+		rescue Exception => e
+			Rails.logger.error e
+			if tries < 5          
+		    sleep(2**tries)            
+		    retry                      
+		  end
+		end
+		render :inline => "<%= number_to_currency @total %>"
+	end
 
 private
 	

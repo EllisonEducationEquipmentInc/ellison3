@@ -3,6 +3,7 @@
   == $('#new_shipping').replaceWith('#{escape_javascript(render(:partial => "users/address_info", :locals => {:address_type => @shipping_address.address_type}))}');
   == $('#cart_shipping').html('#{escape_javascript(render(:partial => "shipping_amount"))}');
   == $('#cart_tax').html('#{escape_javascript(render(:partial => "tax_amount"))}');
+  == $('#cart_total').html('#{escape_javascript(render(:partial => "total_amount"))}');
   $('#new_billing').slideDown('slow');
 - else
   - if @shipping_address.enable_avs_bypass
