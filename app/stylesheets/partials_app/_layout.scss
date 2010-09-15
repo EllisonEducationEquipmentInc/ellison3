@@ -13,3 +13,7 @@
   -webkit-border-top-right-radius:1ex;
 }
 
+.thumbnail {
+  border: $layout_thumbnail_border;
+  margin-bottom: 2px;
+}

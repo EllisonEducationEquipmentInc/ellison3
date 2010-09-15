@@ -1,26 +1,58 @@
-= link_to 'back', products_path
-#product_detail.rounded
-  .info
-    .item_num
-      = @product.item_num
-      %span.life_cycle= @product.life_cycle
-    .title= @product.name
-    .price= display_product_price(@product)
-    .desc= @product.description.try :html_safe
-    = add_to_cart_button(@product)
-  .images
-    #large_image= image_tag(@product.large_image)
-    .left.thumbnail.selected= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}');return false;"
-    - @product.images.each do |image|
-      .left.thumbnail= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}');return false;"
-    .clear  
-.tab-block
-  %ul
-    - @product.tabs.current.each do |tab|
-      %li.rounded_top= link_to tab.name, "#tabs-#{tab.id}"
-  - @product.tabs.each do |tab|
-    %div{:id => "tabs-#{tab.id}"}= render tab
-:javascript
-  $(function() {
-  	$(".tab-block").tabs();
-  });
+-#= link_to 'back', products_path
+#products_filter
+  %h3 Shop Products By
+  .accordion-block
+    %h4= link_to "Themes", "#"
+    %div
+      %ul
+        %li= link_to "Animals", "#"
+        %li= link_to "Basic Shapes", "#"
+        %li= link_to "Birthday", "#"
+        %li= link_to "Flowers, Vines & Trees", "#"
+        %li= link_to "Food, Drinks & Cooking", "#"
+        %li= link_to "Friends & Family", "#"
+        %li= link_to "Holidays", "#"
+        %li= link_to "House & Home", "#"
+        %li= link_to "Love", "#"
+    %h4= link_to "Specials", "#"
+    %div
+      %ul
+        %li= link_to "Coming Soon", "#"
+        %li= link_to "New Releases", "#"
+        %li= link_to "Tim Holtz Alterations", "#"
+        %li= link_to "Tim Holtz Coming Soon", "#"
+    %h4= link_to "Categories", "#"
+    %div
+      %ul
+        %li= link_to "Embossing", "#"
+        %li= link_to "Machines & Accessories", "#"
+        %li= link_to "Shape-Cutting", "#"
+        %li= link_to "Supplies", "#"
+        %li= link_to "Value Packs", "#"  
+        
+.product_images
+  #large_image= image_tag(@product.large_image)
+.product_thumbs
+  .thumbnail.selected= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}');return false;"
+  - @product.images.each do |image|
+    .thumbnail= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}');return false;"
+  .clear  
+.product_detail
+  %h3
+    = @product.item_num
+    %span.life_cycle= @product.life_cycle
+  %h4= @product.name
+  .price= display_product_price(@product)
+  .desc= @product.description.try :html_safe
+  = add_to_cart_button(@product)
+.product_tabs
+  .tab-block
+    %ul
+      - @product.tabs.current.each do |tab|
+        %li.rounded_top= link_to tab.name, "#tabs-#{tab.id}"
+    - @product.tabs.each do |tab|
+      %div{:id => "tabs-#{tab.id}"}= render tab
+  :javascript
+    $(function() {
+      $(".tab-block").tabs();
+    });
