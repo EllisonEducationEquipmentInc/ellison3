@@ -36,7 +36,7 @@ module ShoppingCart
 		end
 		
 		def cart_to_order(options = {})
-			@order = Order.new(:id => options[:order_id], :subtotal_amount => get_cart.sub_total, :shipping_amount => calculate_shipping(options[:address]), :handling_amount => calculate_handling, :tax_amount => get_cart.tax_amount, :tax_transaction => get_cart.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at, :locale => current_locale)
+			@order = Order.new(:id => options[:order_id], :subtotal_amount => get_cart.sub_total, :shipping_amount => calculate_shipping(options[:address]), :handling_amount => calculate_handling, :tax_amount => calculate_tax(options[:address]), :tax_transaction => get_cart.reload.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at, :locale => current_locale)
 			@cart.cart_items.each do |item|
 				@order.order_items << OrderItem.new(:name => item.name, :item_num => item.item_num, :sale_price => item.price, :quoted_price => item.msrp, :quantity => item.quantity, :locale => item.currency, :product_id => item.id, :tax_exempt => item.tax_exempt)
 			end
@@ -103,7 +103,17 @@ module ShoppingCart
 		
 		def cch_sales_tax(customer, confirm_address = false)
 			Rails.logger.info "Getting CCH tax for #{customer.inspect}"
-      @cch = CCH::Cch.new(:action => 'calculate', :cart => get_cart, :confirm_address => confirm_address,  :customer => customer, :handling_charge => calculate_handling, :shipping_charge => calculate_shipping(customer), :exempt => get_user.tax_exempt, :tax_exempt_certificate => get_user.tax_exempt_certificate)
+			tries = 0
+      begin
+				tries += 1
+      	@cch = CCH::Cch.new(:action => 'calculate', :cart => get_cart.reload, :confirm_address => confirm_address,  :customer => customer, :handling_charge => calculate_handling, :shipping_charge => calculate_shipping(customer), :exempt => get_user.tax_exempt, :tax_exempt_certificate => get_user.tax_exempt_certificate)
+      rescue Timeout::Error => e
+				if tries < 3         
+			    sleep(2**tries)            
+			    retry                      
+			  end
+      	Rails.logger.info "!!! CCH Timed out. Retrying..."
+      end
     end
 
 		def process_card(options = {})
