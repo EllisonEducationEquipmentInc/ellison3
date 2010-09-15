@@ -58,6 +58,18 @@ module ShoppingCart
 			e
 		end
 		
+		def get_delayed_shipping
+			tries = 0
+			get_cart
+			while @cart.shipping_amount.blank? && tries < 5
+				Rails.logger.info "CCH: waiting for shipping amount..."
+				tries += 1
+				sleep(2**tries) 
+				@cart = get_cart.reload
+			end
+			get_cart.shipping_amount
+		end
+		
 		def calculate_handling
 			get_cart.handling_amount
 		end
@@ -106,13 +118,13 @@ module ShoppingCart
 			tries = 0
       begin
 				tries += 1
-      	@cch = CCH::Cch.new(:action => 'calculate', :cart => get_cart.reload, :confirm_address => confirm_address,  :customer => customer, :handling_charge => calculate_handling, :shipping_charge => calculate_shipping(customer), :exempt => get_user.tax_exempt, :tax_exempt_certificate => get_user.tax_exempt_certificate)
+      	@cch = CCH::Cch.new(:action => 'calculate', :cart => get_cart.reload, :confirm_address => confirm_address,  :customer => customer, :handling_charge => calculate_handling, :shipping_charge => get_delayed_shipping, :exempt => get_user.tax_exempt, :tax_exempt_certificate => get_user.tax_exempt_certificate)
       rescue Timeout::Error => e
 				if tries < 3         
 			    sleep(2**tries)            
 			    retry                      
 			  end
-      	Rails.logger.info "!!! CCH Timed out. Retrying..."
+      	Rails.logger.error "!!! CCH Timed out. Retrying..."
       end
     end
 

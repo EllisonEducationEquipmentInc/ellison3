@@ -84,8 +84,8 @@ class CartsController < ApplicationController
 			@total = get_cart.reload.total
 		rescue Exception => e
 			Rails.logger.error e
-			if tries < 6          
-		    sleep(2**tries)            
+			if tries < 10         
+		    sleep(tries)            
 		    retry                      
 		  end
 		end
