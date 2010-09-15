@@ -46,7 +46,11 @@ class Cart
 		cart_items.select {|i| !i.tax_exempt}.inject(0) {|sum, item| sum += item.total}
 	end
 	
+	def handling_amount
+		cart_items.inject(0) {|sum, item| sum += item.handling_price}
+	end
+	
 	def total
-		sub_total + tax_amount + shipping_amount
+		sub_total + tax_amount + shipping_amount + handling_amount
 	end
 end

@@ -48,7 +48,7 @@ class CartsController < ApplicationController
 	end
 	
 	def proceed_checkout
-		# TODO: Tax, shipping, handling
+		# TODO: handling
 		new_payment
 		@payment.attributes = params[:payment]
 		cart_to_order(:address => get_user.shipping_address)
@@ -56,6 +56,7 @@ class CartsController < ApplicationController
 		@order.payment = @payment
 		@order.address = get_user.shipping_address.clone
 		@order.user = get_user
+		@order.ip_address = request.remote_ip
 		@order.status = "Open"
 		@order.save!
 		flash[:notice] = "Thank you for your order.  Below is your order receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email."

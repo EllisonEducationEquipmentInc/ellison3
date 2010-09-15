@@ -15,7 +15,7 @@ module ShoppingCart
 			if item = get_cart.cart_items.find_item(product.item_num)
 				item.quantity += qty
 			else
-				get_cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.sale_price, :msrp => product.msrp, :price => product.price, :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product_id => product.id, :weight => product.weight, :tax_exempt => product.tax_exempt)
+				get_cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.sale_price, :msrp => product.msrp, :price => product.price, :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product_id => product.id, :weight => product.weight, :tax_exempt => product.tax_exempt, :handling_price => product.handling_price)
 			end
 			get_cart.reset_tax_and_shipping
 			get_cart.save
@@ -58,9 +58,8 @@ module ShoppingCart
 			e
 		end
 		
-		# TODO: handling
-		def calculate_handling(cart = nil, customer = nil, shipping_method = nil)
-			0.0
+		def calculate_handling
+			get_cart.handling_amount
 		end
 		
 		# TODO: UK tax
@@ -104,7 +103,7 @@ module ShoppingCart
 		
 		def cch_sales_tax(customer, confirm_address = false)
 			Rails.logger.info "Getting CCH tax for #{customer.inspect}"
-      @cch = CCH::Cch.new(:action => 'calculate', :cart => get_cart, :confirm_address => confirm_address,  :customer => customer, :handling_charge => calculate_handling(), :shipping_charge => calculate_shipping(customer), :exempt => get_user.tax_exempt, :tax_exempt_certificate => get_user.tax_exempt_certificate)
+      @cch = CCH::Cch.new(:action => 'calculate', :cart => get_cart, :confirm_address => confirm_address,  :customer => customer, :handling_charge => calculate_handling, :shipping_charge => calculate_shipping(customer), :exempt => get_user.tax_exempt, :tax_exempt_certificate => get_user.tax_exempt_certificate)
     end
 
 		def process_card(options = {})
