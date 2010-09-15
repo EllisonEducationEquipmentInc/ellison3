@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/jnicklas/carrierwave.git
-  revision: 015530b3cb83cc7988565d2d6f118d6b64b1f83c
+  revision: 60314c375783c17bf9d012028507f04f2356d207
   specs:
     carrierwave (0.5.0.beta2)
       activesupport (>= 3.0.0.rc)
@@ -14,13 +14,13 @@ GIT
 
 GIT
   remote: http://github.com/mongoid/mongoid.git
-  revision: fd4059252fb4ea3a0430a1e9824e3d3f4c95160f
+  revision: 8f9cd361a36c38a9f4c1f4144282c285baf30525
   branch: master
   specs:
-    mongoid (2.0.0.beta.17)
+    mongoid (2.0.0.beta.18)
       activemodel (~> 3.0.0)
-      bson_ext (>= 1.0.7)
-      mongo (>= 1.0.8)
+      bson (= 1.0.7)
+      mongo (= 1.0.8)
       tzinfo (~> 0.3.22)
       will_paginate (~> 3.0.pre)
 
@@ -28,9 +28,9 @@ GEM
   remote: http://rubygems.org/
   remote: http://gemcutter.org/
   specs:
-    RubyInline (3.8.4)
-      ZenTest
-    ZenTest (4.3.3)
+    RubyInline (3.8.6)
+      ZenTest (~> 4.3)
+    ZenTest (4.4.0)
     abstract (1.0.0)
     actionmailer (3.0.0)
       actionpack (= 3.0.0)
@@ -64,6 +64,7 @@ GEM
     arel (1.0.1)
       activesupport (~> 3.0.0)
     bcrypt-ruby (2.1.2)
+    bson (1.0.7)
     bson_ext (1.0.7)
     builder (2.1.2)
     capistrano (2.5.19)
@@ -120,12 +121,13 @@ GEM
       configuration (>= 0.0.5)
       rake (>= 0.8.1)
     linecache (0.43)
-    mail (2.2.5)
+    mail (2.2.6.1)
       activesupport (>= 2.3.6)
       mime-types
       treetop (>= 1.4.5)
     mime-types (1.16)
     mongo (1.0.8)
+      bson (>= 1.0.7)
     mongo_session_store (2.0.0.pre)
       actionpack (~> 3.0)
     mysql (2.8.1)
@@ -146,7 +148,7 @@ GEM
     rack (1.2.1)
     rack-bug (0.3.0)
       rack (>= 1.0)
-    rack-mount (0.6.12)
+    rack-mount (0.6.13)
       rack (>= 1.0.0)
     rack-test (0.5.4)
       rack (>= 1.0)
@@ -168,29 +170,31 @@ GEM
     rb-inotify (0.8.1)
       ffi (>= 0.5.0)
     remotipart (0.1.1)
-    rspec (2.0.0.beta.20)
-      rspec-core (= 2.0.0.beta.20)
-      rspec-expectations (= 2.0.0.beta.20)
-      rspec-mocks (= 2.0.0.beta.20)
-    rspec-core (2.0.0.beta.20)
-    rspec-expectations (2.0.0.beta.20)
+    rspec (2.0.0.beta.22)
+      rspec-core (= 2.0.0.beta.22)
+      rspec-expectations (= 2.0.0.beta.22)
+      rspec-mocks (= 2.0.0.beta.22)
+    rspec-core (2.0.0.beta.22)
+    rspec-expectations (2.0.0.beta.22)
       diff-lcs (>= 1.1.2)
-    rspec-mocks (2.0.0.beta.20)
-    rspec-rails (2.0.0.beta.20)
-      rspec (= 2.0.0.beta.20)
+    rspec-mocks (2.0.0.beta.22)
+      rspec-core (= 2.0.0.beta.22)
+      rspec-expectations (= 2.0.0.beta.22)
+    rspec-rails (2.0.0.beta.22)
+      rspec (= 2.0.0.beta.22)
     ruby-debug (0.10.3)
       columnize (>= 0.1)
       ruby-debug-base (~> 0.10.3.0)
     ruby-debug-base (0.10.3)
       linecache (>= 0.3)
-    ruby_parser (2.0.4)
+    ruby_parser (2.0.5)
       sexp_processor (~> 3.0)
     rubyzip (0.9.4)
     selenium-webdriver (0.0.28)
       ffi (>= 0.6.1)
       json_pure
       rubyzip
-    sexp_processor (3.0.4)
+    sexp_processor (3.0.5)
     shoulda (2.11.3)
     soap4r (1.5.8)
       httpclient (>= 2.1.1)
