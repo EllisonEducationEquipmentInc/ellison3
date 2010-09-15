@@ -1,5 +1,14 @@
 // Ellison3 Web Application Sitewide Layout CSS
 
+// Google Fonts
+.lobster {
+  font-family: 'Lobster', arial, serif;
+}
+.yanone-kaffeesatz {
+  font-family: 'Yanone Kaffeesatz', arial, serif;
+  text-transform: uppercase;
+}
+
 // rounded corners
 .rounded {
   -moz-border-radius:1ex;
@@ -13,7 +22,14 @@
   -webkit-border-top-right-radius:1ex;
 }
 
-.thumbnail {
-  border: $layout_thumbnail_border;
-  margin-bottom: 2px;
+// boxes, objects & grouped elements
+.tab-block {
+  margin: 8px 0;
+}
+
+// typography styles
+.breadcrumbs {
+  font-size: 9px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
 }

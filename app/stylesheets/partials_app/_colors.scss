@@ -1,4 +1,5 @@
 // Ellison3 Web Application Global Color Palette
+// some color names are defined here: http://www.w3schools.com/html/html_colornames.asp
 
 $layout_thumbnail_border: 1px solid #ccc;
 
@@ -8,9 +9,14 @@ $catalog_filter_hover: darken($secondary, 15%);
 $catalog_product_bg: white;
 $catalog_product_border: lighten($primary, 22%);
 
+$catalog_buybox_bg: #ECEADF;
+$catalog_buybox_border: #D9D6C4;
+$catalog_buybox_item-num: darken($catalog_buybox_bg, 30%);
+
 $catalog_item-num: #333;
 $catalog_text: black;
 $catalog_link: black;
 $catalog_hover: $secondary;
-$catalog_sale-price: red;
-$catalog_custom-price: blue;
+$catalog_sale-price: crimson;
+$catalog_custom-price: royalblue;
+$catalog_life-cycle: crimson;

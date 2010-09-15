@@ -1,5 +1,77 @@
 // Ellison3 Web Application Catalog Page CSS
 
+// reset block level element margins
+body.bp {
+  .product-block, .buybox {
+    
+    p, h3, h4 {
+      margin:0;
+      line-height: 1.2em;
+    }
+  
+    h3 {
+      font-size: 1.1em;
+      color: $catalog_item-num;
+    }
+  
+  	a {
+  	  color: $catalog_link;
+	  
+  	  &:hover{ color: $catalog_hover;}
+  	}
+  }
+  
+  .product-block {
+    p, h3 {
+      line-height: 1.2em;
+    }
+  
+    h3 {
+      font-size: 1.1em;
+      color: $catalog_item-num;
+    }
+  
+  	a {
+  	  color: $catalog_link;
+	  
+  	  &:hover{ color: $catalog_hover;}
+  	}    
+  }
+  
+  .buybox {
+    h4 {
+      font-size: .9em;
+      color: $catalog_buybox_item-num;
+      text-transform: uppercase;
+      float: right;
+    }
+  }
+}
+
+// price styles
+.msrp{}
+
+.old-price {
+	text-decoration: line-through;
+}
+
+.sale-price {
+	color: $catalog_sale-price;
+	font-weight: bold;
+}
+
+.special-price {}
+
+.custom-price {
+	color: $catalog_custom-price;
+}
+.life-cycle {
+  color: $catalog_life-cycle;
+  font-size: .6em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 // catalog filter column
 #products_filter {
   h3 {
@@ -38,25 +110,6 @@
   }
 }
 
-// individual product blocks
-body.bp .product-block {
-  p, h3 {
-    margin:0;
-    line-height: 1.2em;
-  }
-  
-  h3 {
-    font-size: 1.1em;
-    color: $catalog_item-num;
-  }
-  
-	a {
-	  color: $catalog_link;
-	  
-	  &:hover{ color: $catalog_hover;}
-	}
-}
-
 .product-block {
   $product-block-width: 167px;
   $product-block-padding: 8px;
@@ -88,23 +141,26 @@ body.bp .product-block {
 	  bottom: $product-block-padding;
 	  left: 50%;
 	  margin-left: -($product-block-width/2) - $product-block-padding;
-	}
-	
-	// price styles
-	.msrp{}
-	
-	.old-price {
-  	text-decoration: line-through;
-  }
+	}	
+}
 
-  .sale-price {
-  	color: $catalog_sale-price;
-  	font-weight: bold;
+// product detail page
+
+.product_main {
+  #large_image {
+    height: 320px;
   }
   
-  .special-price {}
-
-  .custom-price {
-  	color: $catalog_custom-price;
+  .thumbnail {
+    border: $layout_thumbnail_border;
+    margin: 0 2px 2px 0;
+    float:left;
   }
+}
+
+.buybox {
+	background: $catalog_buybox_bg;
+	border: 1px solid $catalog_buybox_border;
+	padding: 6px;
+	margin-bottom: 10px;
 }
