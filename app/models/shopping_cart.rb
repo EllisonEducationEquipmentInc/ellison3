@@ -47,13 +47,13 @@ module ShoppingCart
 		def calculate_shipping(address, options={})
 			return get_cart.shipping_amount if get_cart.shipping_amount
 			options[:weight] ||= get_cart.total_weight
-			if is_us?
-				fedex_rate(address, options)
-				get_cart.update_attributes :shipping_amount => @rate
-				@rate
+			rate = if is_us?
+				fedex_rate(address, options)				
 			else
 				0.0
 			end
+			get_cart.update_attributes :shipping_amount => rate
+			rate
 		rescue Exception => e
 			e
 		end
@@ -63,7 +63,7 @@ module ShoppingCart
 			0.0
 		end
 		
-		# TODO: tax
+		# TODO: UK tax
 		def calculate_tax(address, options={})
 			return get_cart.tax_amount if get_cart.tax_amount && get_cart.tax_calculated_at && get_cart.tax_calculated_at > 1.hour.ago
 			if %w(CA IN WA UT).include?(address.state)

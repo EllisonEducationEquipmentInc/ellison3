@@ -45,6 +45,7 @@
   .price= display_product_price(@product)
   .desc= @product.description.try :html_safe
   = add_to_cart_button(@product)
+  = facebook_like
 .product_tabs
   .tab-block
     %ul
