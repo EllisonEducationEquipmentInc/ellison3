@@ -220,3 +220,19 @@ function sortable_tabs(product) {
 	$("#tabs").disableSelection();
 };
 
+function fancyloader(text) {
+  $.fancybox({  'hideOnOverlayClick'	:	false,
+  			'padding'		: 10,
+  			'autoScale'		: true,
+  			'speedIn'		:	500, 
+  			'speedOut'		:	200,
+  			'showCloseButton'		:	false,
+  			'showNavArrows'		:	false,
+  			'enableEscapeButton'	:	false,
+  			'overlayOpacity'		:	0.7,
+  			'width'	: 860,
+  			'title'			: false,
+  			'content'	: '<div style="text-align:center;width: 260px;"><p>'+text+'</p><img src="/images/ui-objects/ajax-loader-1.gif" /></div>'
+  		});
+}
+

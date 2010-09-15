@@ -69,7 +69,7 @@
             submitHandler: function(form) {
               $('#proceed_checkout').ajaxSubmit();
               //$('#payment_submit').attr('disabled', true);
-              place_order();
+              fancyloader('your order is being processed. please wait...');
             },
             
             messages: {
@@ -98,21 +98,8 @@
             },
         }); 
     });
-    function place_order() {
-      $.fancybox({  'hideOnOverlayClick'	:	false,
-      			'padding'		: 10,
-      			'autoScale'		: true,
-      			'speedIn'		:	500, 
-      			'speedOut'		:	200,
-      			'showCloseButton'		:	false,
-      			'showNavArrows'		:	false,
-      			'enableEscapeButton'	:	false,
-      			'overlayOpacity'		:	0.7,
-      			'width'	: 860,
-      			'title'			: false,
-      			'content'	: '<div style="text-align:center;width: 260px;"><p>your order is being processed. please wait...</p><img src="/images/ui-objects/ajax-loader-1.gif" /></div>'
-      		});
-    }
+    
+
 
     
     
