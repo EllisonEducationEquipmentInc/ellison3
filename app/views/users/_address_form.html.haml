@@ -89,6 +89,10 @@
           }, 
           success: function(label) { 
               label.html(" ").addClass("checked"); 
-          } 
+          },
+          submitHandler: function(form) {
+            $('#edit_#{f.object.address_type}_address').ajaxSubmit();
+            fancyloader('your address is being validated. please wait...');
+          },
       }); 
   });
