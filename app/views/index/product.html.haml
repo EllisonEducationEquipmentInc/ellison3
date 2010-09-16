@@ -18,7 +18,7 @@
     .tab-block
       %ul
         - @product.tabs.current.each do |tab|
-          %li.rounded_top= link_to tab.name, "#tabs-#{tab.id}"
+          %li= link_to tab.name, "#tabs-#{tab.id}"
       - @product.tabs.each do |tab|
         %div{:id => "tabs-#{tab.id}"}= render tab
     :javascript
