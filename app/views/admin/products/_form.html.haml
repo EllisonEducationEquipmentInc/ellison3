@@ -31,18 +31,27 @@
     = f.label :weight
     %br
     = f.text_field :weight
-  .field
-    = f.label :handling_price
-    %br
-    = f.text_field :handling_price
+  - currencies.each  do |currency|
+    .field
+      = f.label "handling_price_#{currency}"
+      %br
+      = f.text_field "handling_price_#{currency}"
   .field
     = f.label :quantity
     %br
     = f.text_field :quantity
-  .field
-    = f.label :msrp
-    %br
-    = f.text_field :msrp
+  - currencies.each  do |currency|
+    .field
+      = f.label "msrp_#{currency}", "MSRP #{currency.upcase}"
+      %br
+      = f.text_field "msrp_#{currency}", :onkeyup => gross_prices?(currency) ? "update_gross($(this), '#{currency}', #{vat})" : nil
+      - if gross_prices? currency
+        %br
+        = label_tag "msrp_#{currency}_gross", "MSRP #{currency.upcase} (incl. VAT)"
+        %br
+        = text_field_tag "msrp_#{currency}_gross", nil, :onKeyUp => "update_net($(this), '#{currency}', #{vat})"
+        :javascript
+          $(document).ready(function(){update_gross($('#product_msrp_#{currency}'), '#{currency}', #{vat})});
   / .field
   /   = f.label :price
   /   %br

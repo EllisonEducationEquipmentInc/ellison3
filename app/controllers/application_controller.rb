@@ -45,12 +45,16 @@ private
 			session[:system] = params[:system] if params[:system]
 			set_current_system(session[:system])
 		end
+		set_locale
 	end
 	
 	def set_locale
-		if I18n.available_locales.include?(params[:locale])
-			
+		I18n.locale = session[:locale]
+		if params[:locale] && I18n.available_locales.include?(params[:locale].to_sym) && allowed_locales.include?(params[:locale])
+			I18n.locale = params[:locale]
+			get_cart.update_prices
 		end
+		session[:locale] = I18n.locale
 	end
 	
 	def get_layout

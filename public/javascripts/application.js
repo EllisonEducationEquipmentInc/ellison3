@@ -236,3 +236,14 @@ function fancyloader(text) {
   		});
 }
 
+function doRound(x, places) {
+	return Math.round(x * Math.pow(10, places)) / Math.pow(10, places);
+}
+
+function update_net(field, currency, vat_rate) {
+	$('#product_msrp_' + currency).val(doRound(field.val()/((vat_rate / 100) + 1), 2));
+}
+
+function update_gross(field, currency, vat_rate) {
+	$('#msrp_'+currency+'_gross').val(doRound(field.val() * ((vat_rate / 100) + 1), 2));
+}

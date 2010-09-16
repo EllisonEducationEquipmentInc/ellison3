@@ -36,6 +36,18 @@ module EllisonSystem
 		LOCALES_2_CURRENCIES[current_locale.to_s]
 	end
 	
+	def allowed_locales
+		if %w(szuk eeuk).include? current_system
+			["en-UK", "en-EU"]
+		else
+			["en-US"]
+		end
+	end
+	
+	def currencies
+		LOCALES_2_CURRENCIES.values_at *allowed_locales
+	end
+	
 	def is_gbp?
 		current_currency == 'gbp'
 	end
@@ -81,6 +93,12 @@ module EllisonSystem
   def is_ee_uk?
     is_ee? && is_uk?
   end
+
+	# if gross prices are displayed (if prices include tax/vat)
+	def gross_prices?(currency = nil)
+		currency ||= current_currency
+		!%(usd).include?(currency)
+	end
   
   def order_prefix
     current_system.upcase

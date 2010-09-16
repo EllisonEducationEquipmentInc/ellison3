@@ -38,7 +38,6 @@ class Product
 	field :end_date, :type => DateTime
 	field :life_cycle
 	field :life_cycle_ends, :type => DateTime
-	field :handling_price, :type => Float, :default => 0.0
 	field :systems_enabled, :type => Array
 	field :tax_exempt, :type => Boolean, :default => false
 
@@ -85,6 +84,7 @@ class Product
 	
 	LOCALES_2_CURRENCIES.values.each do |currency|
 		field "msrp_#{currency}".to_sym, :type => BigDecimal
+		field "handling_price_#{currency}".to_sym, :type => Float, :default => 0.0
 	end
 	ELLISON_SYSTEMS.each do |system|
 		field "description_#{system}".to_sym
@@ -107,6 +107,15 @@ class Product
 	def msrp(options = {})
 		currency = options[:currency] || current_currency
 		send("msrp_#{currency}") || send("msrp_usd")
+	end
+
+	def handling_price=(p)
+		send("handling_price_#{current_currency}=", p) unless p.blank?
+	end
+	
+	def handling_price(options = {})
+		currency = options[:currency] || current_currency
+		send("handling_price_#{currency}") || send("handling_price_usd") || 0.0
 	end
 
 	def msrp=(p)
