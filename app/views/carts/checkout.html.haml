@@ -34,7 +34,7 @@
   #cart_shipping.right= render :partial => 'shipping_amount' if get_user.shipping_address
   .clear
   - if calculate_handling > 0.0
-    #cart_tax.right== Shipping &amp; Handling Surcharge: #{number_to_currency calculate_handling}
+    #cart_handling.right== Shipping &amp; Handling Surcharge: #{number_to_currency calculate_handling}
     .clear
   #cart_tax.right= render :partial => 'tax_amount' if get_user.shipping_address
   .clear

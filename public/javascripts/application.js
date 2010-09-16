@@ -234,6 +234,7 @@ function fancyloader(text) {
   			'title'			: false,
   			'content'	: '<div style="text-align:center;width: 260px;"><p>'+text+'</p><img src="/images/ui-objects/ajax-loader-1.gif" /></div>'
   		});
+	setTimeout("$.fancybox.resize()", 1000);
 }
 
 function doRound(x, places) {
