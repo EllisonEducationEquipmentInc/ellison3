@@ -10,6 +10,17 @@ module ApplicationHelper
 		end.html_safe
 	end
 	
+  def display_product_price_cart(product)
+		# TODO: coupon price
+    if false #product.coupon_price(get_cart) < product.price
+      "<span class='price_coupon'>#{number_to_currency(gross_price(product.coupon_price(get_cart)))}</span>"
+    elsif product.sale_price && gross_price(product.sale_price) < gross_price(product.msrp)
+      "<span class='sale-price'>#{number_to_currency(gross_price(product.price))}</span>"
+    else
+      "<span class='msrp'>#{number_to_currency(gross_price(product.price))}</span>"
+    end.html_safe
+  end
+	
 	def display_product_price(product, options = {})
 		date = options[:date] || Time.zone.now
 		with_text = options[:with_text] 
