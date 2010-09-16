@@ -21,6 +21,7 @@ class Tab
 	field :ideas, :type => Array
 	field :compatibility, :type => Array
 	field :data_column, :type => Array
+	field :display_order, :type => Integer
 	
 	# associations
 	embedded_in :product, :inverse_of => :tabs
@@ -29,6 +30,10 @@ class Tab
 	accepts_nested_attributes_for :images, :allow_destroy => true
 	
 	scope :active, :where => { :active => true }
+	
+	def display_order
+		read_attribute(:display_order) || self._index
+	end
 	
 	def available?
 		active && systems_enabled.include?(current_system)

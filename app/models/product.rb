@@ -53,13 +53,15 @@ class Product
   end
 	embeds_many :tabs do
     def current
-			@target.select {|tab| tab.available?}
+			@target.select {|tab| tab.available?}.sort {|x,y| x.display_order <=> y.display_order}
     end
 
+		def ordered
+			@target.sort {|x,y| x.display_order <=> y.display_order}
+		end
+
 		def resort!(ids)
-			@target.sort! {|a,b| ids.index(a.id.to_s) <=> ids.index(b.id.to_s)}
-			@target.each_with_index { |document, index| document._index = index}
-			@target
+			@target.each {|t| t.display_order = ids.index(t.id.to_s)}
 		end
   end
 	embeds_many :images

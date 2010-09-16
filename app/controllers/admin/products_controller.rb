@@ -162,6 +162,7 @@ class Admin::ProductsController < ApplicationController
 	def reorder_tabs
 		@product = Product.find(params[:id])
 		@product.tabs.resort!(params[:tab])
+		@product.save
 		render :text => params[:tab].inspect
 	end
 	
