@@ -1,4 +1,4 @@
-Shipping: 
-%span#shipping_amount
+.cart_label Shipping: 
+%span#shipping_amount.amount
 :javascript
   $.ajax({url:'/carts/get_shipping_amount', success: function(data) {$('#shipping_amount').html(data)}, beforeSend: function() {$('#shipping_amount').html('#{escape_javascript spinner}')}})

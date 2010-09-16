@@ -31,11 +31,11 @@
   %h3 Items in your cart
   = render :partial => 'cart'
   .clear
-  #cart_shipping.right= render :partial => 'shipping_amount' if get_user.shipping_address
-  .clear
-  - if calculate_handling > 0.0
-    #cart_handling.right== Shipping &amp; Handling Surcharge: #{number_to_currency calculate_handling}
-    .clear
-  #cart_tax.right= render :partial => 'tax_amount' if get_user.shipping_address
-  .clear
-  #cart_total.right= render :partial => 'total_amount' if get_user.shipping_address
+  %ul.right.cart_ul
+    %li.ui-menu-item#cart_shipping= render :partial => 'shipping_amount' if get_user.shipping_address
+    - if calculate_handling > 0.0
+      %li.ui-menu-item#cart_handling
+        .cart_label Shipping &amp; Handling Surcharge:
+        %span.amount= number_to_currency calculate_handling
+    %li.ui-menu-item#cart_tax= render :partial => 'tax_amount' if get_user.shipping_address
+    %li.ui-menu-item#cart_total= render :partial => 'total_amount' if get_user.shipping_address

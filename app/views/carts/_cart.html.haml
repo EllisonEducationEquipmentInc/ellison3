@@ -12,7 +12,10 @@
         %th Total Price
         %th
     %tbody= render :partial => 'cart_item', :collection => @cart.cart_items
-  .right== Subtotal: #{number_to_currency @cart.sub_total}
+  %ul.right.cart_ul
+    %li.ui-menu-item
+      .cart_label Subtotal: 
+      %span.amount= number_to_currency @cart.sub_total
   - unless @cart_locked
     #empty_cart Empty Cart
     #checkout_button= "Checkout"
