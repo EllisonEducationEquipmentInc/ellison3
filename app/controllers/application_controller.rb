@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 	
+	filter_parameter_logging :password, :password_confirmation, :full_card_number, :card_security_code
 	before_filter :get_system
 	
 	include ShoppingCart
