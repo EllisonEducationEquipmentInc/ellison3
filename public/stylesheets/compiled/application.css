@@ -350,5 +350,5 @@ li.subtotal {
 
 /* line 245, ../../../app/stylesheets/application.scss */
 li#cart_total {
-  border-bottom: 1px double gray;
+  border-top: 1px double gray;
 }

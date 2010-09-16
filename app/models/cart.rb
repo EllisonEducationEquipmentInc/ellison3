@@ -56,6 +56,7 @@ class Cart
 	
 	def update_prices
 		return if cart_items.blank?
+		Rails.logger.info "Cart: cart items are being updated"
 		cart_items.each do |item|
 			product = Product.find item.product_id
 			item.write_attributes :sale_price => product.sale_price, :msrp => product.msrp, :price => product.price, :currency => current_currency, :small_image => product.small_image, :tax_exempt => product.tax_exempt, :handling_price => product.handling_price
