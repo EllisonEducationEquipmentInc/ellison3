@@ -342,3 +342,13 @@ label.invalid {
   text-align: right;
   width: 320px;
 }
+
+/* line 244, ../../../app/stylesheets/application.scss */
+li.subtotal {
+  border-bottom: 1px solid gray;
+}
+
+/* line 245, ../../../app/stylesheets/application.scss */
+li#cart_total {
+  border-bottom: 1px double gray;
+}

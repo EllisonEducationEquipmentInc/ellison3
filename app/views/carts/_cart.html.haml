@@ -13,7 +13,7 @@
         %th
     %tbody= render :partial => 'cart_item', :collection => @cart.cart_items
   %ul.right.cart_ul
-    %li.ui-menu-item
+    %li.ui-menu-item.subtotal
       .cart_label Subtotal: 
       %span.amount= number_to_currency @cart.sub_total
   - unless @cart_locked
