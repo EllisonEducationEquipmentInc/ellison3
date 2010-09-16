@@ -49,7 +49,7 @@ private
 	end
 	
 	def set_locale
-		I18n.locale = session[:locale]
+		I18n.locale = session[:locale] if session[:locale] && allowed_locales.include?(session[:locale].to_s)
 		if params[:locale] && I18n.available_locales.include?(params[:locale].to_sym) && allowed_locales.include?(params[:locale])
 			I18n.locale = params[:locale]
 			get_cart.update_prices
