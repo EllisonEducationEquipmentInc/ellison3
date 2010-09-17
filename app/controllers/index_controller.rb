@@ -13,7 +13,8 @@ class IndexController < ApplicationController
 	end
 	
 	def product
-		@product = Product.find(params[:id])
+		@product = Product.send(current_system).available.criteria.id(params[:id]).first
+		raise "Product not found" if @product.nil?
 	rescue
 		go_404
 	end
