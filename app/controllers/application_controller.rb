@@ -63,8 +63,17 @@ private
 	  'application'
 	end
 	
+	# define default meta title here. overrite @title at the action level. 
 	def page_title
-		@title = "Dies, Die Cutting Machines & Scrapbooking Tools"
+		@title = if is_sizzix?
+			"The Start of Something You."
+		elsif is_ee?
+			"Curriculum-based shape-cutting for the classroom"
+		elsif is_er?
+			"Leading Expression"
+		else	
+			"Dies, Die Cutting Machines & Scrapbooking Tools"
+		end
 	end
 	
 	def go_404
