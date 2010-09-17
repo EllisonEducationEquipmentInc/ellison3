@@ -42,7 +42,19 @@ class Order
 	field :utm_source
 	field :tracking
 	
+	ELLISON_SYSTEMS.each do |sys|
+		scope sys.to_sym, :where => { :system => sys }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex
+	end
+	
+	before_create :set_system
+	
 	def total_amount
 		subtotal_amount + shipping_amount + handling_amount + tax_amount
+	end
+
+private
+	
+	def set_system
+		self.system ||= current_system
 	end
 end

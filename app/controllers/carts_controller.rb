@@ -2,6 +2,7 @@ class CartsController < ApplicationController
 	before_filter :authenticate_user!, :only => [:checkout]
 	
 	def index
+		@title = "Shopping #{I18n.t(:cart).titleize}"
 		get_cart
 		render :index, :layout => false if request.xhr?
 	end
@@ -48,11 +49,10 @@ class CartsController < ApplicationController
 	end
 	
 	def proceed_checkout
-		# TODO: handling
 		new_payment
 		@payment.attributes = params[:payment]
 		cart_to_order(:address => get_user.shipping_address)
-		process_card(:amount => (get_cart.sub_total * 100).round, :payment => @payment, :order => @order.id, :capture => true)
+		process_card(:amount => (get_cart.total * 100).round, :payment => @payment, :order => @order.id, :capture => true)
 		@order.payment = @payment
 		@order.address = get_user.shipping_address.clone
 		@order.user = get_user
