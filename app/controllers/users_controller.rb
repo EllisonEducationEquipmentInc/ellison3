@@ -55,7 +55,7 @@ class UsersController < ApplicationController
 	def myaccount
 		# get "myaccount/:tab", :to => "users#myaccount"
 		# to open a tab from the url, pass the key in the :tab parameter like this: /myaccount/orders or myaccount/mylists or myaccount/quotes etc.
-		@title = "My Account"
+		@title = "My Account - Profile"
 		@tabs = [[:billing, "My Billing Info"], [:shipping, "My Shipping Info"], [:orders, "Order Status"], [:mylists, "My List"]]
 		@tabs += [[:quotes, "Quotes"], [:materials, "Materials"]] unless is_sizzix?
 	end

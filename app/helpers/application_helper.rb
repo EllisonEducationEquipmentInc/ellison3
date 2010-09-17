@@ -99,7 +99,7 @@ HTML
 	end
 	
 	def spinner
-		"<img src='/images/ui-objects/ajax-loader.gif' />".html_safe
+		image_tag "/images/ui-objects/ajax-loader.gif"
 	end
 	
 	def facebook_like
