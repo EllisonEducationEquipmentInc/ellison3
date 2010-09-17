@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 	
 	before_filter :get_system
+	before_filter :page_title
 	
 	include ShoppingCart
 	
@@ -60,6 +61,10 @@ private
 	
 	def get_layout
 	  'application'
+	end
+	
+	def page_title
+		@title = "Dies, Die Cutting Machines & Scrapbooking Tools"
 	end
 	
 	def go_404
