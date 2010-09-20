@@ -64,6 +64,7 @@ class CartsController < ApplicationController
 		@order.ip_address = request.remote_ip
 		@order.status = "Open"
 		@order.save!
+		@order.decrement_items!
 		flash[:notice] = "Thank you for your order.  Below is your order receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email."
 		clear_cart
 		render :js => "window.location.href = '#{order_path(@order)}'"

@@ -51,6 +51,12 @@ class Order
 	def total_amount
 		subtotal_amount + shipping_amount + handling_amount + tax_amount
 	end
+	
+	def decrement_items!
+		order_items.each do |item|
+			Product.find(item.product_id).decrement_quantity(item.quantity)
+		end
+	end
 
 private
 	

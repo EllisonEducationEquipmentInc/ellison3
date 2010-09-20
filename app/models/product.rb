@@ -176,6 +176,16 @@ class Product
 	def unavailable?
 		!available? || quantity < 1
 	end
+	
+	def update_quantity(qty)
+		skip_versioning_and_timestamps
+		update_attributes :quantity => qty
+	end
+	
+	def decrement_quantity(qty)
+		skip_versioning_and_timestamps
+		update_attributes :quantity => self.quantity - qty
+	end
 
 
 private 
@@ -185,5 +195,9 @@ private
 		else
 			FileTest.exists?("#{Rails.root}/public/#{image.default_url(version)}") ? image.default_url(version) : "/images/products/#{version}/noimage.jpg"
 		end
+	end
+	
+	def skip_versioning_and_timestamps
+		self._skip_timestamps = self._skip_versioning = true
 	end
 end

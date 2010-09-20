@@ -25,7 +25,8 @@ gem 'spork'
 gem 'launchy'    # So you can do Then show me the page
 #gem "mongoid", "2.0.0.beta.17"
 gem "mongo_session_store", ">=2.0.0.pre"
-gem "mongoid", :git => "http://github.com/mongoid/mongoid.git", :branch => "master"
+#gem "mongoid", :git => "http://github.com/mongoid/mongoid.git", :branch => "master"
+gem "mongoid", :git => "git://github.com/computadude/mongoid.git", :branch => "master"
 gem "nifty-generators"
 gem "compass", ">= 0.10.5"
 gem 'rb-inotify', ">= 0.5.1"

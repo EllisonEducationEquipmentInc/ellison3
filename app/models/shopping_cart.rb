@@ -40,7 +40,7 @@ module ShoppingCart
 		def cart_to_order(options = {})
 			@order = Order.new(:id => options[:order_id], :subtotal_amount => get_cart.sub_total, :shipping_amount => calculate_shipping(options[:address]), :handling_amount => calculate_handling, :tax_amount => calculate_tax(options[:address]), :tax_transaction => get_cart.reload.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at, :locale => current_locale)
 			@cart.cart_items.each do |item|
-				@order.order_items << OrderItem.new(:name => item.name, :item_num => item.item_num, :sale_price => item.price, :quoted_price => item.msrp, :quantity => item.quantity, :locale => item.currency, :product_id => item.id, :tax_exempt => item.tax_exempt)
+				@order.order_items << OrderItem.new(:name => item.name, :item_num => item.item_num, :sale_price => item.price, :quoted_price => item.msrp, :quantity => item.quantity, :locale => item.currency, :product_id => item.product_id, :tax_exempt => item.tax_exempt)
 			end
 			@order
 		end
