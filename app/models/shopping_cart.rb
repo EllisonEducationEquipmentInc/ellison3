@@ -5,6 +5,8 @@ module ShoppingCart
 	
 	module InstanceMethods
 		
+		class RealTimeCartError < StandardError; end #:nodoc
+		
 	private 
 		
 		def get_cart

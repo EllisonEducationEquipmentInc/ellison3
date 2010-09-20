@@ -29,7 +29,7 @@
 #checkout_cart
   .right= link_to 'Edit Cart', cart_path
   %h3 Items in your cart
-  = render :partial => 'cart'
+  #cart_contents= render :partial => 'cart'
   .clear
   %ul.right.cart_ul
     %li.ui-menu-item#cart_shipping= render :partial => 'shipping_amount' if get_user.shipping_address

@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
 	before_filter :authenticate_user!, :only => [:checkout]
-	after_filter(:only => [:checkout]) {|controller| controller.send(:get_cart).reset_item_errors}
+	after_filter(:only => [:checkout, :proceed_checkout]) {|controller| controller.send(:get_cart).reset_item_errors}
 	
 	def index
 		@title = "Shopping #{I18n.t(:cart).titleize}"
@@ -21,9 +21,9 @@ class CartsController < ApplicationController
 	end
 	
 	def checkout
-		get_cart.update_items true
-		flash[:alert] = ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
-		redirect_to(products_path, :alert => flash[:alert] || I18n.t(:empty_cart)) and return if @cart.cart_items.blank?
+		#get_cart.update_items true
+		#flash[:alert] = ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
+		redirect_to(products_path, :alert => flash[:alert] || I18n.t(:empty_cart)) and return if get_cart.cart_items.blank?
 		@title = "Checkout"
 		@cart_locked, @checkout = true, true
 		unless get_user.billing_address && get_user.shipping_address
@@ -52,6 +52,8 @@ class CartsController < ApplicationController
 	end
 	
 	def proceed_checkout
+		get_cart.update_items true
+		raise RealTimeCartError, ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
 		new_payment
 		@payment.attributes = params[:payment]
 		cart_to_order(:address => get_user.shipping_address)
@@ -66,7 +68,12 @@ class CartsController < ApplicationController
 		clear_cart
 		render :js => "window.location.href = '#{order_path(@order)}'"
 	rescue Exception => e
+		@reload_cart = @cart_locked = true if e.exception.class == RealTimeCartError
 		@error_message = e.message #backtrace.join("\n")
+		if @cart.cart_items.blank?
+			flash[:alert] = @error_message
+			render :js => "window.location.href = '#{products_path}'" and return
+		end
 	end
 	
 	def get_shipping_amount
