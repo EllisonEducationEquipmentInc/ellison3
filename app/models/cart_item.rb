@@ -15,10 +15,28 @@ class CartItem
 	field :weight, :type => Float, :default => 0.0
 	field :tax_exempt, :type => Boolean, :default => false
 	field :handling_price, :type => Float, :default => 0.0
+	field :changed_attributes, :type => Array
 	
 	embedded_in :cart, :inverse_of => :cart_items
 	
+	before_save {|item| item.changed_attributes = item.updated}
+	
 	def total
 		price * quantity
+	end
+	
+	# Whether *price*, *quantity*,  *handling_price* have changed so checkout process should halt and cart has to be updated - but not due to currency change
+	def updated?
+		changed? && !changed.include?("currency") && changed.any? {|a| sensitive_attributes.include?(a)}
+	end
+	
+	# sensitive attributes that have changed
+	def updated
+		changed.select {|a| sensitive_attributes.include?(a)}
+	end
+	
+	# collection of attributes whose change should trigger cart update and halt the checkout process
+	def sensitive_attributes
+		%w(price quantity handling_price)
 	end
 end

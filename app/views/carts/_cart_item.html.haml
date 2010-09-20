@@ -2,8 +2,8 @@
   %td= cart_item.item_num
   %td= link_to image_tag(cart_item.small_image), product_url(:id => cart_item.product_id)
   %td= link_to cart_item.name, product_url(:id => cart_item.product_id)
-  %td= cart_item.quantity
-  %td= display_product_price_cart cart_item
+  %td{:class => get_cart.is_cart_item_changed?(cart_item.id, "quantity") ? 'item_changed' : nil}= cart_item.quantity
+  %td{:class => get_cart.is_cart_item_changed?(cart_item.id, "price") ? 'item_changed' : nil}= display_product_price_cart cart_item
   %td= number_to_currency gross_price(cart_item.total)
   %td
     - unless @cart_locked

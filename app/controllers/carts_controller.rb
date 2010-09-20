@@ -1,5 +1,6 @@
 class CartsController < ApplicationController
 	before_filter :authenticate_user!, :only => [:checkout]
+	after_filter(:only => [:checkout]) {|controller| controller.send(:get_cart).reset_item_errors}
 	
 	def index
 		@title = "Shopping #{I18n.t(:cart).titleize}"
@@ -20,6 +21,9 @@ class CartsController < ApplicationController
 	end
 	
 	def checkout
+		get_cart.update_items true
+		flash[:alert] = ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
+		redirect_to(products_path, :alert => flash[:alert] || I18n.t(:empty_cart)) and return if @cart.cart_items.blank?
 		@title = "Checkout"
 		@cart_locked, @checkout = true, true
 		unless get_user.billing_address && get_user.shipping_address
@@ -27,7 +31,6 @@ class CartsController < ApplicationController
 			@billing_address = get_user.billing_address || get_user.addresses.build(:address_type => "billing", :email => get_user.email) 
 		end
 		new_payment
-		redirect_to(products_path, :alert => I18n.t(:empty_cart)) and return if get_cart.cart_items.blank?
 	end
 	
 	def create_shipping

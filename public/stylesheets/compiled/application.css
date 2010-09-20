@@ -352,3 +352,8 @@ li.subtotal {
 li#cart_total {
   border-top: 1px double gray;
 }
+
+/* line 246, ../../../app/stylesheets/application.scss */
+.item_changed {
+  background: #FBE3E4;
+}

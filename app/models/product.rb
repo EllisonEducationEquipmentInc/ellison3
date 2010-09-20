@@ -168,6 +168,14 @@ class Product
 	def large_image
 		get_image(:large)
 	end	
+	
+	def available?
+		start_date < Time.now && end_date > Time.now && (availability == 1 || availability == 3) 
+	end
+	
+	def unavailable?
+		!available? || quantity < 1
+	end
 
 
 private 
