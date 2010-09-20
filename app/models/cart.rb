@@ -97,8 +97,8 @@ class Cart
 			end
 		end
 		if check
-			self.changed_items = cart_items.select(&:updated?).map {|i| [i.id, i.updated]}
 			self.removed = cart_items.delete_all(:conditions => {:quantity.lt => 1}) 
+			self.changed_items = cart_items.select(&:updated?).map {|i| [i.id, i.updated]}
 		end
 		reset_tax_and_shipping if cart_items.any?(&:updated?) || self.removed > 0
 		save
