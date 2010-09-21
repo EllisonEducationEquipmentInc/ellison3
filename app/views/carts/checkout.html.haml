@@ -33,9 +33,6 @@
   .clear
   %ul.right.cart_ul
     %li.ui-menu-item#cart_shipping= render :partial => 'shipping_amount' if get_user.shipping_address
-    - if calculate_handling > 0.0
-      %li.ui-menu-item#cart_handling
-        .cart_label Shipping &amp; Handling Surcharge:
-        %span.amount= number_to_currency calculate_handling
+    %li.ui-menu-item#cart_handling{:style => "display:#{calculate_handling > 0.0 ? 'block' : 'none'}"}= render :partial => 'handling_amount'
     %li.ui-menu-item#cart_tax= render :partial => 'tax_amount' if get_user.shipping_address
     %li.ui-menu-item#cart_total= render :partial => 'total_amount' if get_user.shipping_address

@@ -6,6 +6,7 @@ class Product
 	include ActiveModel::Validations
 	include ActiveModel::Translation
 	include Mongoid::Document
+	# NOTE: to be able to skip Versioning and/or Timestamps, use my patched mongoid: git://github.com/computadude/mongoid.git
 	include Mongoid::Versioning
 	include Mongoid::Timestamps
 	include Mongoid::Paranoia
@@ -197,6 +198,7 @@ private
 		end
 	end
 	
+	# NOTE: needs git://github.com/computadude/mongoid.git
 	def skip_versioning_and_timestamps
 		self._skip_timestamps = self._skip_versioning = true
 	end
