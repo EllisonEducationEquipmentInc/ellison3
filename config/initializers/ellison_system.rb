@@ -130,7 +130,7 @@ module EllisonSystem
 	end
 	
 	def system_name
-		{"szus" => "Sizzix",  "szuk" => "Sizzix", "eeus" => "Ellison Education", "eeuk" => "Ellison Education", "er" => "Ellison Retailers"}[current_system]
+		{"szus" => "Sizzix",  "szuk" => "Sizzix UK", "eeus" => "Ellison Education", "eeuk" => "Ellison Education UK", "er" => "Ellison Retailers"}[current_system]
 	end
 	
 	def set_default_locale

@@ -27,7 +27,7 @@ class User
 
 	def initialize(attributes = nil)
 		super(attributes)
-		systems_enabled = [current_system]
+		self.systems_enabled = [current_system]
 	end
 	
 	def billing_address

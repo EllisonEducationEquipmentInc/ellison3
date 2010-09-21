@@ -1,15 +1,13 @@
 -# logo masthead & branding
-%h1
-  %a#logo_masthead{:href => "/", :alt => "#{is_er? ? "Ellison Retailers" : is_ee? ? "Ellison Education" : "Sizzix"} #{is_er? ? nil: is_uk? ? "UK" : "US"}", :title => "#{is_er? ? "Ellison Retailers" : is_ee? ? "Ellison Education" : "Sizzix"} #{is_er? ? nil: is_uk? ? "UK" : "US"}"}== #{is_er? ? "Ellison Retailers" : is_ee? ? "Ellison Education" : "Sizzix"} #{is_er? ? nil: is_uk? ? "UK" : "US"}
-
+%h1= link_to system_name, root_path, :id => "logo_masthead", :title => system_name, :alt => system_name
 -# utility navigation menu (account management, shopping cart, etc)  
 %ul.nav_utility
   %li= link_to_unless params[:controller] == "carts", "<span>View #{(t :cart).capitalize}</span>".html_safe, '#', :class => "show_cart btn-masthead btn-view#{t :cart}", :title => "View #{(t :cart).capitalize}", :alt => "View #{(t :cart).capitalize}"
   - if user_signed_in?
-    %li= link_to_unless_current "<span>My Account".html_safe, myaccount_path, :class => "btn-masthead btn-myaccount", :title => "My Account", :alt => "My Account" unless admin_signed_in?
-    %li= link_to "<span>Sign Out</span>".html_safe, destroy_session_path('user'), :class => "btn-masthead btn-signout", :title => "Sign Out", :alt => "Sign Out" unless admin_signed_in?
+    %li= link_to_unless_current "<span>My Account".html_safe, myaccount_path, :class => "btn-masthead btn-myaccount", :title => "My Account", :alt => "My Account"
+    %li= link_to "<span>Sign Out</span>".html_safe, destroy_session_path('user'), :class => "btn-masthead btn-signout", :title => "Sign Out", :alt => "Sign Out" 
   - else
-    %li= link_to "<span>Sign In</span>".html_safe, {:controller => 'users', :action => 'signin_signup'}, :class => "lightbox btn-masthead btn-signin", :title => "Sign In", :alt => "Sign In" unless admin_signed_in?
+    %li= link_to "<span>Sign In</span>".html_safe, {:controller => 'users', :action => 'signin_signup'}, :class => "lightbox btn-masthead btn-signin", :title => "Sign In", :alt => "Sign In"
   - if admin_signed_in?
     %li= link_to "<span>Edit Admin Profile</span>".html_safe, edit_admin_registration_path(current_admin), :class => "btn-masthead btn-myaccount", :title => "Edit Admin Profile", :alt => "Edit Admin Profile"
     %li= link_to "<span>Log Out Dashboard</span>".html_safe, destroy_session_path('admin'), :class => "btn-masthead btn-admin-logout", :title => "Log Out Dashboard", :alt => "Log Out Dashboard"
