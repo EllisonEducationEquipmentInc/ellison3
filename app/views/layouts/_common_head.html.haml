@@ -6,7 +6,7 @@
   %meta{ :name => "Description", :content => "#{strip_tags @description}" }
 = stylesheet_link_tag 'jqui-ellison3/jquery-ui-1.8.4.custom.css', :media => 'all'
 = stylesheet_link_tag :all
-= stylesheet_link_tag "compiled/screen#{is_er? ? "_er" : is_ee? ? "_ee" : "_sz"}#{is_er? ? nil: is_uk? ? "uk" : "us"}.css", :media => 'screen, projection'
+= stylesheet_link_tag "compiled/screen_#{current_system}.css", :media => 'screen, projection'
 = stylesheet_link_tag 'compiled/print.css', :media => 'print'
 = stylesheet_link_tag 'compiled/application.css', :media => 'screen, projection'
 /[if lt IE 8]
