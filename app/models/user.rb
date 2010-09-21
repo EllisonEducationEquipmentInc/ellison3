@@ -37,6 +37,12 @@ class User
 	def shipping_address
 		addresses.shipping.last
 	end
+	
+  def self.find_for_authentication(conditions={})
+    #conditions[:active] = true
+		conditions[:systems_enabled.in] = [current_system] 
+    super
+  end
 
 protected
 	def password_required?

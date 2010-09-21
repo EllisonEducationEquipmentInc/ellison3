@@ -23,7 +23,7 @@
   = link_to "Profiles", admin_admins_path
   .right
     Switch to:
-    - ELLISON_SYSTEMS.each do |sys|
+    - (ELLISON_SYSTEMS & current_admin.systems_enabled).each do |sys|
       = link_to_unless current_system == sys, sys, "?system=#{sys}"
 - else
   %p

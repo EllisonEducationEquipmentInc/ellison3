@@ -154,6 +154,8 @@ module EllisonSystem
 			set_current_system 'eeuk'
 		when /ellison\.com$/
 			set_current_system 'er'
+		else
+			set_current_system 'szus'
 		end
 	end
 	

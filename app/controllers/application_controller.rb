@@ -43,7 +43,8 @@ private
 
 	def get_system
 		domain_to_system(request.host)
-		unless Rails.env == 'production'
+		if Rails.env == 'development' || admin_signed_in?
+			# TODO: restrict admin to switch to enabled systems only
 			session[:system] = params[:system] if params[:system]
 			set_current_system(session[:system])
 		end

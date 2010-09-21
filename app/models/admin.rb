@@ -17,6 +17,12 @@ class Admin
 	
 	attr_accessible :name, :email, :password, :password_confirmation, :employee_number, :active
 	
+	def self.find_for_authentication(conditions={})
+    conditions[:active] = true
+		conditions[:systems_enabled.in] = [current_system] 
+    super
+  end
+
 protected
   def password_required?
     !persisted? || password.present? || password_confirmation.present?
