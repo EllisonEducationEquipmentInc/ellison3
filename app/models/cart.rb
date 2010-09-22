@@ -6,6 +6,8 @@ class Cart
 	field :tax_amount, :type => Float
 	field :tax_transaction
 	field :tax_calculated_at, :type => DateTime
+	field :shipping_rates, :type => Array
+	field :shipping_service
 	field :shipping_amount, :type => Float
 	field :removed, :type => Integer, :default => 0
 	field :changed_items, :type => Array
@@ -27,7 +29,7 @@ class Cart
 	end
 	
 	def reset_shipping_amount
-		self.shipping_amount = nil
+		self.shipping_amount, self.shipping_service, self.shipping_rates = nil
 	end
 	
 	def reset_tax_and_shipping(to_save = false)

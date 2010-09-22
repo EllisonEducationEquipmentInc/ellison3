@@ -6,7 +6,7 @@ module CCH
   require 'cgi'
   require 'rexml/document'
   require 'rexml/formatters/pretty'
-	require 'system_timer'
+	#require 'system_timer'
     
   if ENV['RAILS_ENV'] == 'production'
     SERIAL_NUMBER = '7400-9802-FFEC-9187' #LIVE
@@ -139,7 +139,7 @@ module CCH
     def send_request(action = 'Calculate_DS')
       @request = send("build_#{action.underscore}")
       url = URI.parse("http://webservices.esalestax.net/CertiTAX.NET/CertiCalc.asmx")
-			SystemTimer.timeout_after(50) do
+			timeout(50) do
 	      request = Net::HTTP::Post.new(url.path, initheader = {'Content-Type' =>'text/xml; charset=utf-8', 'SOAPAction' => "http://webservices.esalestax.net/CertiTAX.NET/#{action}"})
 	  		http = Net::HTTP.new(url.host, url.port)
 	  		#http.use_ssl = true

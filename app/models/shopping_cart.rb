@@ -49,15 +49,29 @@ module ShoppingCart
 		def calculate_shipping(address, options={})
 			return get_cart.shipping_amount if get_cart.shipping_amount
 			options[:weight] ||= get_cart.total_weight
+			options[:shipping_service] ||= "FEDEX_GROUND"
 			rate = if is_us?
-				fedex_rate(address, options)				
+				fedex_rate(address, options)
+				@shipping_service = @rates.detect {|r| r.type == options[:shipping_service]} ? options[:shipping_service] : @rates.sort {|x,y| x.rate <=> y.rate}.first.type
+				@rates.detect {|r| r.type == options[:shipping_service]}.try(:rate) || @rates.sort {|x,y| x.rate <=> y.rate}.first.rate
 			else
 				0.0
 			end
-			get_cart.update_attributes :shipping_amount => rate
+			get_cart.update_attributes :shipping_amount => rate, :shipping_service => @shipping_service, :shipping_rates => fedex_rates_to_a(@rates)
 			rate
-		rescue Exception => e
-			e
+		# rescue Exception => e
+		# 	e
+		end
+		
+		# convert an array of Shippinglogic::FedEx::Rate::Service elements to an array of hashes that can be saved in the db
+		def fedex_rates_to_a(rates)
+			a = []
+			rates.each do |rate|
+				h = {:rate => rate.rate.to_f}
+				[:name, :type, :saturday, :delivered_by, :speed, :currency].each {|m| h[m]=rate.send(m) }
+				a << h
+			end
+			a
 		end
 		
 		def get_delayed_shipping
@@ -93,34 +107,36 @@ module ShoppingCart
 			calculate_shipping + calculate_handling
 		end
 		
+		# TODO: package dimensions!
+		#
 		# Calculates fedex shipping rates based on shipping address and weight.
 		# first argument should be an Address object.
 		# available options:
-		# 	:request_type  	#=> 'account' (default) or 'list'
+		# 	:request_type  	#=> 'ACCOUNT' (default) or 'LIST'
 		# 	:residential 		#=> true or false (default)  
-		# 	:weight 				#=> weight in lbs 
-		# 	:service				#=> fedex service type: "FEDEX_GROUND" (default), "FEDEX_2_DAY", "INTERNATIONAL_PRIORITY_FREIGHT", "INTERNATIONAL_ECONOMY", "FEDEX_EXPRESS_SAVER", "FEDEX_1_DAY_FREIGHT", "INTERNATIONAL_PRIORITY", "GROUND_HOME_DELIVERY", "FEDEX_3_DAY_FREIGHT", "STANDARD_OVERNIGHT", "EUROPE_FIRST_INTERNATIONAL_PRIORITY", "INTERNATIONAL_FIRST", "FIRST_OVERNIGHT", "FEDEX_2_DAY_FREIGHT", "PRIORITY_OVERNIGHT", "INTERNATIONAL_ECONOMY_FREIGHT"
-		def fedex_rate(address, options={})
-			@rate_request_type = options[:request_type] == 'list' ? Fedex::RateRequestTypes::LIST : Fedex::RateRequestTypes::ACCOUNT
-			options[:service] ||= Fedex::ServiceTypes::FEDEX_GROUND
-			@fedex = Fedex::Base.new(:auth_key => FEDEX_AUTH_KEY, :security_code => FEDEX_SECURITY_CODE, :account_number => FEDEX_ACCOUNT_NUMBER, :meter_number => FEDEX_METER_NUMBER)
-	    @shipper = {:name => "Ellison", :phone_number => '9495988822'}
-      @recipient = {:name => "#{address.first_name} #{address.last_name}", :phone_number => address.phone}
-      @origin = {:street => '25862 Commercentre Drive', :city => 'Lake Forest', :state => 'CA', :zip => '92630', :country => 'US'}
-      @destination = {:street => "#{address.address1} #{address.address2}", :city => address.city, :state => address.state, :zip => address.zip_code, :country => country_2_code(address.country), :residential => options[:residential]}
-			SystemTimer.timeout_after(50) do
-				Rails.logger.info "Getting fedex rate for #{address.inspect}"
-				@rate = (@fedex.price(:shipper => { :contact => @shipper, :address => @origin }, :recipient => { :contact => @recipient, :address => @destination }, :count => 1, :weight => options[:weight], :service_type => options[:service], :rate_request_type => @rate_request_type))/100
-			end
-	    @rate
+		# 	:weight 				#=> weight in lbs (required)
+		# 	:service				#=> fedex service type: "FEDEX_GROUND" (default), "GROUND_HOME_DELIVERY", "FEDEX_EXPRESS_SAVER", "FEDEX_2_DAY", "STANDARD_OVERNIGHT", "PRIORITY_OVERNIGHT", "FIRST_OVERNIGHT", "FEDEX_2_DAY_SATURDAY_DELIVERY", "PRIORITY_OVERNIGHT_SATURDAY_DELIVERY", "FEDEX_3_DAY_FREIGHT", "FEDEX_2_DAY_FREIGHT", "FEDEX_1_DAY_FREIGHT", "FEDEX_3_DAY_FREIGHT_SATURDAY_DELIVERY", "FEDEX_2_DAY_FREIGHT_SATURDAY_DELIVERY", "FEDEX_1_DAY_FREIGHT_SATURDAY_DELIVERY", "INTERNATIONAL_GROUND", "INTERNATIONAL_ECONOMY", "INTERNATIONAL_PRIORITY", "INTERNATIONAL_FIRST", "INTERNATIONAL_PRIORITY_SATURDAY_DELIVERY", "INTERNATIONAL_ECONOMY_FREIGHT", "INTERNATIONAL_PRIORITY_FREIGHT"
+		# 	:packaging_type #=> "FEDEX_ENVELOPE", "FEDEX_PAK", "FEDEX_BOX" (default), "FEDEX_TUBE", "FEDEX_10KG_BOX", "FEDEX_25KG_BOX", "YOUR_PACKAGING" - needs package dimensions (:package_length => 12, :package_width => 12, :package_height => 12)
+		def fedex_rate(address, options={})														
+			@fedex = Shippinglogic::FedEx.new(FEDEX_AUTH_KEY, FEDEX_SECURITY_CODE, FEDEX_ACCOUNT_NUMBER, FEDEX_METER_NUMBER, :test => false)
+			@rates = @fedex.rate(:shipper_company_name => "Ellison", :shipper_streets => '25862 Commercentre Drive', :shipper_city => 'Lake Forest', :shipper_state => 'CA', :shipper_postal_code => "92630", :shipper_country => "US", 
+													:recipient_name => "#{address.first_name} #{address.last_name}", :recipient_company_name => address.company, :recipient_streets => "#{address.address1} #{address.address2}", :recipient_city => address.city,  :recipient_postal_code => address.zip_code, :recipient_state => address.state, :recipient_country => country_2_code(address.country), :recipient_residential => options[:residential], 
+													:package_weight => options[:weight], :rate_request_types => options[:request_type] || "ACCOUNT", :packaging_type => options[:packaging_type] || "YOUR_PACKAGING", :package_length => options[:package_length] || 12, :package_width => options[:package_width] || 12, :package_height => options[:package_height] || 12)													
+	    @rates
 	  end
 		
-		def cch_sales_tax(customer, confirm_address = false)
+		def cch_sales_tax(customer, options = {})
 			Rails.logger.info "Getting CCH tax for #{customer.inspect}"
+			options[:shipping_charge] ||= get_delayed_shipping
+			options[:handling_charge] ||= calculate_handling
+			options[:cart] ||= get_cart.reload
+			options[:tax_exempt_certificate] ||= get_user.tax_exempt_certificate
+			options[:exempt] ||= get_user.tax_exempt
+			options[:confirm_address] ||= false
 			tries = 0
       begin
 				tries += 1
-      	@cch = CCH::Cch.new(:action => 'calculate', :cart => get_cart.reload, :confirm_address => confirm_address,  :customer => customer, :handling_charge => calculate_handling, :shipping_charge => get_delayed_shipping, :exempt => get_user.tax_exempt, :tax_exempt_certificate => get_user.tax_exempt_certificate)
+      	@cch = CCH::Cch.new(:action => 'calculate', :cart => options[:cart], :confirm_address => options[:confirm_address],  :customer => customer, :handling_charge => options[:handling_charge], :shipping_charge => options[:shipping_charge], :exempt => options[:exempt], :tax_exempt_certificate => options[:tax_exempt_certificate])
       rescue Timeout::Error => e
 				if tries < 3         
 			    sleep(2**tries)            
@@ -160,7 +176,7 @@ module ShoppingCart
         gw_options[:currency] = is_gbp? ? "GBP" : "EUR" 
       end
       amount_to_charge = amount.to_i #? amount : (total_cart * 100 ).to_i
-			SystemTimer.timeout_after(50) do
+			timeout(50) do
 	      if options[:capture] && !billing.deferred && !billing.use_saved_credit_card
 					@net_response = @gateway.purchase(amount_to_charge, credit_card, gw_options)  
 				elsif billing.use_saved_credit_card
@@ -183,7 +199,7 @@ module ShoppingCart
         process_gw_response @net_response
       else 
 				if is_us? && (@net_response.params["reasonCode"] == "200" || @net_response.params["reasonCode"] == "230")
-					SystemTimer.timeout_after(50) do
+					timeout(50) do
 						@reversal = @gateway.authorization_reversal(amount_to_charge, @net_response.params["requestID"], @net_response.params["requestToken"], :order_id => @net_response.params["merchantReferenceCode"])
 						logger.info "[!] authorization_reversal: #{@reversal.message} #{@reversal.params.inspect}"
 	        end

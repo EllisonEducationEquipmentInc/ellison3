@@ -1,0 +1,9 @@
+- unless get_cart.shipping_rates.blank?
+  %ul
+  - get_cart.shipping_rates.sort {|x,y| x["rate"] <=> y["rate"]}.each do |rate|
+    %li.ui-menu-item
+      = radio_button_tag :shipping_service, rate["type"], rate["type"] == get_cart.shipping_service
+      == #{rate["type"].humanize}: #{number_to_currency rate["rate"]}
+- else
+  = spinner
+  

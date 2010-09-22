@@ -77,6 +77,15 @@ class CartsController < ApplicationController
 		end
 	end
 	
+	def get_shipping_options
+		return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
+		render :partial => 'shipping_options'
+	end
+	
+	def get_shipping_service
+		render :text => get_cart.shipping_service.try(:humanize)
+	end
+	
 	def get_shipping_amount
 		return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
 		render :inline => "<%= number_to_currency calculate_shipping(get_user.shipping_address) %>"

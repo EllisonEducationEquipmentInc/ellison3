@@ -133,7 +133,7 @@ class Product
 	
 	def price(options = {})
 		time = options[:time] || Time.zone.now
-		base_price(options) > campaign_price(time) ? campaign_price(time) : base_price(options)
+		campaign_price(time) && base_price(options) > campaign_price(time) ? campaign_price(time) : base_price(options)
 	end
 	
 	def price=(p)

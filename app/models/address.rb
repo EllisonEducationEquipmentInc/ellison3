@@ -67,7 +67,7 @@ class Address
 	def validate_address
 		self.avs_result = nil
 		@fedex = Fedex::Base.new(:auth_key => FEDEX_AUTH_KEY, :security_code => FEDEX_SECURITY_CODE, :account_number => FEDEX_ACCOUNT_NUMBER, :meter_number => FEDEX_METER_NUMBER)
-		SystemTimer.timeout_after(50) do
+		timeout(50) do
 			@fedex.address_validation(:country => country_2_code(self.country), :street => "#{self.address1} #{self.address2}", :city => self.city, :state => self.state, :zip => self.zip_code)
 		end
 		self.enable_avs_bypass = true if @fedex.result.addressResults.proposedAddressDetails.changes.include?("INSUFFICIENT_DATA") && !@fedex.result.addressResults.proposedAddressDetails.changes.include?("BOX_NUMBER_MATCH")
@@ -95,12 +95,13 @@ class Address
   	Country.where(:name => country).first.try :iso
   end
 
+	# FIX: enable AVS
 	def must_be_verified?
-		us? && self.address_type == "shipping" && !self.bypass_avs
+		false #us? && self.address_type == "shipping" && !self.bypass_avs
   end
 
 	def not_verified
-		errors.add(:address, "The Shipping address you entered could not be validated. \nPlease enter a valid street name. We can’t deliver to a P.O.Box") if must_be_verified? && self.avs_failed
+		errors.add(:address, "The Shipping address you entered could not be validated. \nPlease enter a valid street name. We can't deliver to a P.O.Box") if must_be_verified? && self.avs_failed
 	end
 	
 	def set_avs_result

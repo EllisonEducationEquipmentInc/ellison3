@@ -4,6 +4,7 @@ $.fancybox.close();
   - eval "@#{@address.address_type}_address_error = 'Address Verification result: #{@address.avs_result.humanize}. Please correct your address'" unless @address.avs_result.blank? || @address.avs_result == "NO_CHANGES" || @address.avs_result == "BYPASSED"
   == $('##{@address.address_type}_info').replaceWith('#{escape_javascript(render(:partial => "address_info", :locals => {:address_type => @address.address_type}))}')
   - if (params[:checkout] || @checkout) && @address.address_type == 'shipping'
+    == $('#shipping_options').html('#{escape_javascript(render(:partial => "carts/shipping_options"))}');
     == $('#cart_shipping').html('#{escape_javascript(render(:partial => "carts/shipping_amount"))}');
     == $('#cart_tax').html('#{escape_javascript(render(:partial => "carts/tax_amount"))}');
     == $('#cart_total').html('#{escape_javascript(render(:partial => "carts/total_amount"))}');

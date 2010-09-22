@@ -10,8 +10,8 @@ gem 'rails', '3.0.0'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mongo', '>=1.0.8'
-gem "bson_ext", "1.0.7"
+gem 'mongo', '1.0.8'
+gem "bson_ext", ">=1.0.7"
 gem 'passenger'
 gem 'mysql'
 gem 'haml', '>=3.0.18'
@@ -41,9 +41,11 @@ gem 'hpricot'
 gem 'ruby_parser'
 gem 'devise'
 gem 'active_merchant'
-gem 'system_timer'
-gem "soap4r", ">= 1.5.8"
+#gem 'system_timer'
+#gem "soap4r" #, :git => 'git://github.com/xaviershay/soap4r.git'
 gem 'fasterer-csv'
+gem 'httparty'
+gem 'shippinglogic'
 
 # Use unicorn as the web server
 # gem 'unicorn'

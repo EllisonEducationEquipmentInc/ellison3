@@ -65,7 +65,7 @@ GEM
       activesupport (~> 3.0.0)
     bcrypt-ruby (2.1.2)
     bson (1.0.7)
-    bson_ext (1.0.7)
+    bson_ext (1.0.9)
     builder (2.1.2)
     capistrano (2.5.19)
       highline
@@ -84,12 +84,13 @@ GEM
     compass (0.10.5)
       haml (>= 3.0.4)
     configuration (1.1.0)
-    cucumber (0.8.5)
+    crack (0.1.8)
+    cucumber (0.9.0)
       builder (~> 2.1.2)
       diff-lcs (~> 1.1.2)
-      gherkin (~> 2.1.4)
-      json_pure (~> 1.4.3)
-      term-ansicolor (~> 1.0.4)
+      gherkin (~> 2.2.2)
+      json (~> 1.4.6)
+      term-ansicolor (~> 1.0.5)
     cucumber-rails (0.3.2)
       cucumber (>= 0.8.0)
     culerity (0.2.12)
@@ -108,14 +109,18 @@ GEM
     fastthread (1.0.7)
     ffi (0.6.3)
       rake (>= 0.8.7)
-    gherkin (2.1.5)
+    gherkin (2.2.3)
+      json (~> 1.4.6)
+      term-ansicolor (~> 1.0.5)
       trollop (~> 1.16.2)
     haml (3.0.18)
     highline (1.6.1)
     hpricot (0.8.2)
-    httpclient (2.1.5.2)
+    httparty (0.6.1)
+      crack (= 0.1.8)
     i18n (0.4.1)
     image_science (1.2.1)
+    json (1.4.6)
     json_pure (1.4.6)
     launchy (0.3.7)
       configuration (>= 0.0.5)
@@ -195,12 +200,12 @@ GEM
       json_pure
       rubyzip
     sexp_processor (3.0.5)
+    shippinglogic (1.2.2)
+      builder (>= 2.1.2)
+      httparty (>= 0.4.4)
     shoulda (2.11.3)
-    soap4r (1.5.8)
-      httpclient (>= 2.1.1)
     spork (0.8.4)
     subexec (0.0.4)
-    system_timer (1.0)
     term-ansicolor (1.0.5)
     thor (0.14.1)
     treetop (1.4.8)
@@ -221,7 +226,7 @@ PLATFORMS
 DEPENDENCIES
   RubyInline
   active_merchant
-  bson_ext (= 1.0.7)
+  bson_ext (>= 1.0.7)
   bundler (>= 1.0.0)
   capistrano
   capybara
@@ -235,10 +240,11 @@ DEPENDENCIES
   fasterer-csv
   haml (>= 3.0.18)
   hpricot
+  httparty
   image_science (>= 1.2.1)
   launchy
   mini_magick!
-  mongo (>= 1.0.8)
+  mongo (= 1.0.8)
   mongo_session_store (>= 2.0.0.pre)
   mongoid!
   mysql
@@ -252,9 +258,8 @@ DEPENDENCIES
   rspec-rails (>= 2.0.0.beta.20)
   ruby-debug
   ruby_parser
+  shippinglogic
   shoulda
-  soap4r (>= 1.5.8)
   spork
-  system_timer
   webrat
   will_paginate (>= 3.0.pre2)
