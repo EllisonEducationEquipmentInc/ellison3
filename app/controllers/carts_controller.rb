@@ -77,6 +77,13 @@ class CartsController < ApplicationController
 		end
 	end
 	
+	def change_shipping_method
+		@rate = get_cart.shipping_rates.detect {|r| r['type'] == params[:method]}
+		get_cart.update_attributes :shipping_amount => @rate['rate'], :shipping_service => @rate['type']
+	rescue
+		calculate_shipping(get_user.shipping_address, :shipping_service => params[:method])
+	end
+	
 	def get_shipping_options
 		return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
 		render :partial => 'shipping_options'

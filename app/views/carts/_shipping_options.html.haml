@@ -2,7 +2,7 @@
   %ul
   - get_cart.shipping_rates.sort {|x,y| x["rate"] <=> y["rate"]}.each do |rate|
     %li.ui-menu-item
-      = radio_button_tag :shipping_service, rate["type"], rate["type"] == get_cart.shipping_service
+      = radio_button_tag :shipping_service, rate["type"], rate["type"] == get_cart.shipping_service, :onchange => "$.ajax({beforeSend: function() {$('#payment_submit').button({disabled: true, label: 'please wait...'});$('#total_amount').html('#{escape_javascript spinner}');$('#shipping_amount').html('#{escape_javascript spinner}')}, url:'/carts/change_shipping_method?method='+this.value});"
       == #{rate["type"].humanize}: #{number_to_currency rate["rate"]}
 - else
   = spinner
