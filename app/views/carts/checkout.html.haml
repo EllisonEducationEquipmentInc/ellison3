@@ -22,11 +22,11 @@
           = f.submit "Continue", :class => 'jqui_save'
 %hr
 #checkout_payment
+  #payment_errors.error{:style => "display:none"}
   .right{:style => "width:400px"}
     %h3 Shipping Options
     #shipping_options= render :partial => "shipping_options"
   %h3 Payment
-  #payment_errors.error{:style => "display:none"}
   #checkout_cc{:style => "display:#{get_user.billing_address && get_user.shipping_address ? 'block' : 'none'}"}= render :partial => 'payment' if get_user.billing_address && get_user.shipping_address
 %hr
 #checkout_cart

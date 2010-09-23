@@ -357,3 +357,8 @@ li#cart_total {
 .item_changed {
   background: #FBE3E4;
 }
+
+/* line 247, ../../../app/stylesheets/application.scss */
+.clear_left {
+  clear: left;
+}

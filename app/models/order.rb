@@ -31,6 +31,7 @@ class Order
 	field :purchase_order
 	
 	field :shipping_priority, :default => "Normal"
+	field :shipping_service
 	field :shipping_overridden, :type => Boolean, :default => false
 	field :tracking_number
 	field :tracking_url

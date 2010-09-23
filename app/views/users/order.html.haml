@@ -56,7 +56,7 @@
 Subtotal:
 = number_to_currency @order.subtotal_amount
 %br
-Shipping & Handling:
+== Shipping & Handling (#{@order.shipping_service.try :humanize}):
 = number_to_currency @order.shipping_amount
 %br
 Shipping & Handling Surcharge:
