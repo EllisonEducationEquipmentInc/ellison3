@@ -1,6 +1,7 @@
 $.fancybox.close();
 - if @shipping_address.valid? && @shipping_address.save
   - eval "@#{@shipping_address.address_type}_address_notice = 'Your #{@shipping_address.address_type} address has been saved.'"
+  - eval "@#{@shipping_address.address_type}_address_error = 'Address Verification result: #{@shipping_address.avs_result.humanize}. Please correct your address'" unless @shipping_address.avs_result.blank? || @shipping_address.avs_result == "NO_CHANGES" || @shipping_address.avs_result == "BYPASSED"
   == $('#new_shipping').replaceWith('#{escape_javascript(render(:partial => "users/address_info", :locals => {:address_type => @shipping_address.address_type}))}');
   == $('#cart_shipping').html('#{escape_javascript(render(:partial => "shipping_amount"))}');
   == $('#cart_tax').html('#{escape_javascript(render(:partial => "tax_amount"))}');

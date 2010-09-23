@@ -5,7 +5,7 @@
     = render :partial => 'users/address_info', :locals => {:address_type => "shipping"}
   - else
     #new_shipping
-      = form_for(@shipping_address, :as => "#{@shipping_address.address_type}_address", :url => {:action => "create_shipping"}, :remote => true, :html => {:id => "edit_#{@shipping_address.address_type}_address", :method => :post}) do |f|
+      = form_for(@shipping_address, :as => "#{@shipping_address.address_type}_address", :url => {:action => "create_shipping", :checkout => true}, :remote => true, :html => {:id => "edit_#{@shipping_address.address_type}_address", :method => :post}) do |f|
         = render :partial => 'users/address_form', :locals => {:f => f}
         .actions
           = f.submit "Continue", :class => 'jqui_save'
