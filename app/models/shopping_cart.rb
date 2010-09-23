@@ -121,7 +121,7 @@ module ShoppingCart
 			@fedex = Shippinglogic::FedEx.new(FEDEX_AUTH_KEY, FEDEX_SECURITY_CODE, FEDEX_ACCOUNT_NUMBER, FEDEX_METER_NUMBER, :test => false)
 			@rates = @fedex.rate(:shipper_company_name => "Ellison", :shipper_streets => '25862 Commercentre Drive', :shipper_city => 'Lake Forest', :shipper_state => 'CA', :shipper_postal_code => "92630", :shipper_country => "US", 
 													:recipient_name => "#{address.first_name} #{address.last_name}", :recipient_company_name => address.company, :recipient_streets => "#{address.address1} #{address.address2}", :recipient_city => address.city,  :recipient_postal_code => address.zip_code, :recipient_state => address.state, :recipient_country => country_2_code(address.country), :recipient_residential => options[:residential], 
-													:package_weight => options[:weight], :rate_request_types => options[:request_type] || "ACCOUNT", :packaging_type => options[:packaging_type] || "YOUR_PACKAGING", :package_length => options[:package_length] || 12, :package_width => options[:package_width] || 12, :package_height => options[:package_height] || 12)													
+													:package_weight => options[:weight], :rate_request_types => options[:request_type] || "ACCOUNT", :packaging_type => options[:packaging_type] || "YOUR_PACKAGING", :package_length => options[:package_length] || 12, :package_width => options[:package_width] || 12, :package_height => options[:package_height] || 12, :ship_time => options[:ship_time] || skip_weekends(Time.now, 3.days))													
 	    @rates
 	  end
 		
@@ -298,6 +298,14 @@ module ShoppingCart
     rescue
       raise 'Invalid ActiveMerchant Gateway'
     end
+		
+		def skip_weekends(date, inc)
+		  date += inc
+		  while (date.wday % 7 == 0) or (date.wday % 7 == 6) do
+		    date += inc
+		  end   
+		  date
+		end
 
 		class Config
 	    attr_reader :name, :user_name, :password
