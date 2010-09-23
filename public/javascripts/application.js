@@ -53,8 +53,33 @@ $(document).ready(function(){
 	$(function() {
 		$(".accordion-block").accordion();
 	});
-
 	
+	// content sliders
+  $("#gallery").sudoSlider({ 
+      ajax: ['/images/_temp/gallery_mockup_001.jpg', '/images/_temp/gallery_mockup_002.jpg', '/images/_temp/gallery_mockup_003.jpg'],
+      numeric:true,
+      preloadAjax:true,
+      imgAjaxFunction: function(t){
+          var url = $(this).children().attr('src');	
+          $('.controls li a span').eq(t-1).html('<img src="' + url + '" width="60" height="20" />');
+      }
+  });
+  
+  // billboard sliders
+	// Full Caption Sliding (Hidden to Visible)
+  $('.boxgrid.captionfull').hover(function(){
+  	$(".cover", this).stop().animate({top:'55px'},{queue:false,duration:160});
+  }, function() {
+  	$(".cover", this).stop().animate({top:'188px'},{queue:false,duration:160});
+  });
+	// Full Caption Sliding (Hidden to Visible)
+  $('.boxgrid-large.captionfull').hover(function(){
+  	$(".cover", this).stop().animate({top:'55px'},{queue:false,duration:160});
+  }, function() {
+  	$(".cover", this).stop().animate({top:'188px'},{queue:false,duration:160});
+  });
+
+
 	// shadowOn
 	$(".cardpanelshadow").shadowOn({ imageset: 6, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadows for cardpanel layout archetype
 	$(".product-block").shadowOn({ imageset: 1, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadow for product blocks on catalog pages

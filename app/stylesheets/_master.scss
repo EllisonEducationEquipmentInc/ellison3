@@ -22,12 +22,15 @@
 @import "partials/layout_standard";  // includes sticky footer mixin
 
 // Import #content section layouts
+@import "partials/layout_content_homepage";
 @import "partials/layout_content_three-col";
 @import "partials/layout_content_products";
+@import "partials/layout_content_product-detail";
 
 // Import global visual design theme stylesheets
 @import "partials/theme_global";
 
 // Import global web application stylesheets
 @import "partials_app/colors";
+@import "partials_app/layout";
 @import "partials_app/catalog";

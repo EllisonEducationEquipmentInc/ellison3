@@ -1,0 +1,28 @@
+#gallery {
+  @include column(24); }
+#customer-outreach {
+  @include column(24, true); }
+#email-signup {
+  @include column(16); }
+#store-locator {
+  @include column(8, true); }
+#billboard1 {
+  @include column(4); }
+#billboard2 {
+  @include column(4); }
+#billboard3 {
+  @include column(4); }
+#billboard4 {
+  @include column(4); }
+#billboard5 {
+  @include column(8, true); }
+#bestsellers {
+  @include column(8); }
+#newarrivals {
+  @include column(8); }
+#staffpicks {
+  @include column(8, true); }
+#blog-posts {
+  @include column(16); }
+#social-media {
+  @include column(8, true); }

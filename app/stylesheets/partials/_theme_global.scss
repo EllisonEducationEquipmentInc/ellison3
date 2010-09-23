@@ -89,4 +89,246 @@ body {
   .container {
     background-color: white;    
   }
+
+  #frame_gallery {
+    position: relative;
+    overflow: hidden;
+    
+    img#frame_gallery {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      z-index: 1;
+    }
+    
+    #controls {
+      position: relative;
+      z-index: 1;
+    }
+  }
+  
+  #gallery {
+    margin-bottom: 12px;
+    height: 18*18px;
+    width: 950px;
+    
+    img {
+      border: none;
+    }
+    
+    ul, li {
+      margin: 0;
+      padding: 0;
+      list-style: none;      
+    }
+    
+    li {
+      width:950px;
+      overflow: hidden;
+    }
+  }
+
+  #customer-outreach {
+    background: transparent url('/images/_temp/stolen/bg_footer_bar.png') no-repeat;
+    margin-bottom: 12px;    
+    height: 49px;
+    
+    p {
+      margin:16px 0 0 0;
+      font-family: Georgia, serif;
+      font-size: 11px;
+      font-style: italic;
+      font-weight: bold;
+      line-height: 2em;
+      color: #685f18;
+      
+      input {
+        font-size: 9px;
+        color: #685f18;
+      }
+    }
+    
+    #email-signup p { margin-left:10px;}
+  }
+  
+/*  #frame_billboards {
+    position: relative;
+    
+    img#frame_billboards {
+      
+      z-index: 1;
+    }
+
+    #billboard1, #billboard2, #billboard3, #billboard4, #billboard5 {
+      position: absolute;
+      top: 61px;
+      background-color: lighten($secondary, 12%);
+      margin-bottom: 12px;
+      height: 18*11px;
+    }
+    #billboard1 {left: 40*4*0px;}
+    #billboard2 {left: 40*4*1px;}
+    #billboard3 {left: 40*4*2px;}
+    #billboard4 {left: 40*4*3px;}
+    #billboard5 {left: 40*4*4px;}
+  }*/
+
+  #billboard1, #billboard2, #billboard3, #billboard4, #billboard5 {
+//    position: absolute;
+//    top: 61px;
+//    background-color: lighten($secondary, 12%);
+    margin-bottom: 12px;
+    height: 18*11px;
+    background: transparent url('/images/ui-objects/frame_billboard_150x198.png') no-repeat;
+    
+//    img {
+  //    margin: 10px;
+  //  }
+  }
+  
+  #billboard5 {
+    background: transparent url('/images/ui-objects/frame_billboard_310x198.png') no-repeat;
+  }
+
+  .boxgrid { 
+    width: 150px; 
+    height: 198px; 
+    overflow: hidden; 
+    position: relative;
+		
+		img {
+			position: absolute; 
+			top: 10px; 
+			left: 10px; 
+			border: 0;
+		}
+		
+		h4, p {
+		  margin: 0;
+		  color: #fff;
+		}
+		
+		h4 {
+		  text-transform: capitalize;
+		}
+		
+		a {
+		  color: #63bbff;
+		  &:hover { color: #ff62d8;};
+		}
+	}
+
+	.boxcaption {
+	  margin:10px;
+	  padding: 4px;
+		float: left; 
+		position: absolute;
+		background: #000; 
+		height: 115px; 
+		width: 122px; 
+		opacity: .8; 
+		/* For IE 5-7 */
+		filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+		/* For IE 8 */
+		-MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  }
+  
+	.captionfull .boxcaption {
+		top: 203px;
+		left: 0;
+	}
+
+
+  .boxgrid-large { 
+    width: 310px; 
+    height: 198px; 
+    overflow: hidden; 
+    position: relative;
+		
+		img {
+			position: absolute; 
+			top: 10px; 
+			left: 10px; 
+			border: 0;
+		}
+		
+		h4, p {
+		  margin: 0;
+		  color: #fff;
+		}
+		
+		a {
+		  color: #63bbff;
+		  &:hover { color: #ff62d8;};
+		}
+	}
+
+	.boxcaption-large {
+	  margin:10px;
+	  padding: 4px;
+		float: left; 
+		position: absolute;
+		background: #000; 
+		height: 115px; 
+		width: 282px; 
+		opacity: .8; 
+		/* For IE 5-7 */
+		filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+		/* For IE 8 */
+		-MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  }
+
+	.captionfull .boxcaption-large {
+		top: 203px;
+		left: 0;
+	}
+
+  #social-media {
+    
+    .tweets, #connect-with-sizzix {
+      margin:0;
+      padding:0;
+      list-style: none;
+      font-family: Georgia, serif;
+      font-size: 10px;
+      font-style: italic;
+      font-weight: bold;
+      color: #4591cf;
+      
+      li {
+        margin-bottom: 5px;
+        
+        a {
+          color: #67b7f9;
+          text-decoration: none;
+          
+          &:hover {
+            color: #ea81ce;
+            text-decoration: none;
+          };
+        }
+        
+        .timestamp {
+          font-family: Helvetica, Arial, sans-serif;
+          font-size: 10px;
+          font-style: normal;
+          font-weight: normal;
+          text-transform: normal;
+          letter-spacing: normal;
+          color: #8592ee;
+        }
+      }
+    }
+    
+    #connect-with-sizzix {
+      font-size:12px;
+      font-style: normal;
+      text-transform: uppercase;
+      
+      li a {
+        color: #0e61bf;
+      }
+    }
+  }
+  
 }

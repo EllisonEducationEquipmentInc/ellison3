@@ -1,11 +1,138 @@
-%h1.lobster
-  Welcome to the Sizzix Website!!!
+#frame_gallery
+  = image_tag("/images/ui-objects/frame_gallery.png", :id => "frame_gallery")
+  #gallery
 
-%h2.yanone-kaffeesatz
-  %strong
-    this is 
-    = current_system
-    
-%p
-  just some goofiness demonstrating Google Web Fonts from
-  = link_to "http://code.google.com/webfonts", "http://code.google.com/webfonts", :target => "blank"
+#customer-outreach
+  #email-signup
+    %p
+      Be the first to know about sales, new products & more!
+      \&nbsp;
+      = text_field(:newsletter, :signup, :size => 22, :value => "Sign up for the Sizzix Scoop", :onfocus => 'this.value=""')
+      %button.jqui_button Email Signup
+  #store-locator
+    %p
+      Find Sizzix products in stores! 
+      \&nbsp;
+      %button.jqui_button Find a Store
+      
+#billboard1
+  .boxgrid.captionfull
+    = image_tag("/images/_temp/billboard_happythoughts.jpg")
+    .cover.boxcaption
+      %h4 Mattis eu scelerisque turpis
+      %p
+        Morbi et metus et mauris imperdiet dictum.
+        %br/
+        =link_to "Diam sagittis nisi", "http://www.google.com"
+
+#billboard2
+  .boxgrid.captionfull
+    = image_tag("/images/_temp/billboard_tinbox.jpg")
+    .cover.boxcaption
+      %h4 Donec eu massa
+      %p
+        Pellentesque tellus tortor, scelerisque non libero. 
+        %br/
+        =link_to "pulvinar non elementum quis", "http://www.google.com"
+
+#billboard3
+  .boxgrid.captionfull
+    = image_tag("/images/_temp/billboard_timholtz-ideaology.jpg")
+    .cover.boxcaption
+      %h4 fermentum mauris
+      %p
+        Suspendisse neque elit, dictum sit amet turpis.
+        %br/
+        =link_to "Elementum quis", "http://www.google.com"
+
+#billboard4
+  .boxgrid.captionfull
+    = image_tag("/images/_temp/billboard_boy-volcanos.jpg")
+    .cover.boxcaption
+      %h4 Duis Pretium
+      %p
+        Etiam eget purus semper justo vulputate facilisis in ut mauris.
+        %br/
+        =link_to "Nullam vitae", "http://www.google.com"
+
+#billboard5
+  .boxgrid-large.captionfull
+    = image_tag("/images/_temp/billboard_babycard.jpg")
+    .cover.boxcaption-large
+      %h4 Sed Lorem Lacus
+      %p
+        Etiam ut metus orci. In vulputate placerat mi et blandit. Nullam vitae cursus orci. In rutrum elit ac magna ultricies viverra.
+        %br/
+        =link_to "Pellentesque consectetur malesuada sagittis", "http://www.google.com"
+
+#bestsellers
+  %h3 What's Hot!
+  best seller carousel (vertical scroll) here
+
+#newarrivals
+  %h3 Just Arrived!
+  new arrivals carousel (vertical scroll) here
+
+#staffpicks
+  %h3 Halloween Favorites from our staff
+  %ul
+    %li Sizzix Sizzlits Die Set 4PK - Snowflakes Set 
+    %li Sizzix Sizzlits Decorative Strip Die - Grass 
+    %li Sizzix Sizzlits Die - Phrase, 'Tis the Season 
+    %li Sizzix On the Edge Die - Plaque & Postage 
+
+.showgrid
+  #blog-posts
+    %h3 News from our Blog
+    %h4 Halloween Banner
+    %p I have been having a lot of fun lately with all the new Halloween dies and Texture Fades. I mean, after all, Halloween is almost around the corner...
+    %h4 Frames and Phrases Dies
+    %p Beth is always coming up with amazing die designs. She had a BIG hit with the 3-D Flower, which has been so popular it's been out of stock over and over again...
+    %h4 Eclips Pen Tool
+    %p The pen tool is a great new feature on our eclips machine. I used it to create my own patterned paper for this birthday card I made...
+    .poll
+      %h3 Take This Month's Poll!
+      %h4 Which Sizzix Machines do you currently own?
+      %p launch poll
+
+  #social-media
+    %h3
+      Sizzix Tweets
+      =image_tag("/images/ui-icons/twitter-bird.png")
+    %ul.tweets
+      %li
+        Rare savings from 20%-87% off our most essential items!
+        =link_to "www.sizzix.com/catalog/campaign/essentially%20yours/?utm_source=twitter", "www.sizzix.com/catalog/campaign/essentially%20yours/?utm_source=twitter"
+        %br/
+        %span.timestamp
+          11:36 AM Sep 17th via web
+      %li
+        Sizzix.com Coupon Code: SC820 Valid thru 8-15
+        =link_to "http://bit.ly/atccYn","http://bit.ly/atccYn"
+        %br/
+        %span.timestamp
+          7:57 AM Aug 10th  via web
+      %li
+        Tuesday Teasers
+        =link_to "http://www.sizzix.com/catalog/campaign/tuesday%20teasers?utm_source=Twitter&utm_medium=social&utm_campaign=tuesday+teasers", "http://www.sizzix.com/catalog/campaign/tuesday%20teasers?utm_source=Twitter&utm_medium=social&utm_campaign=tuesday+teasers"
+        %br/
+        %span.timestamp
+          7:55 AM Aug 10th via web
+      %li
+        New Tim Holtz products available this Fall.
+        =link_to "http://www.sizzix.com/catalog/campaign/Tim%20Holtz%20Coming%20Soon", "http://www.sizzix.com/catalog/campaign/Tim%20Holtz%20Coming%20Soon"
+        %br/
+        %span.timestamp
+          1:59 PM Jul 27th via web
+      %li
+        Want to see the newest Sizzix releases being previewed right now at CHA Summer 2010? See what’s headed your way!
+        =link_to "www.sizzix.com/news", "www.sizzix.com/news"
+        %br/
+        %span.timestamp
+          11:56 AM Jul 27th via web
+    %ul#connect-with-sizzix
+      %li= link_to "Follow Us on Twitter", "http://www.twitter.com/sizzix_us", :target => "blank"
+      %li= link_to "Join Us on Facebook", "http://www.facebook.com/Sizzix", :target => "blank"
+      %li= link_to "Watch Us on YouTube", "http://www.youtube.com/sizzix", :target => "blank"
+      %li= link_to "Sign Up for our Newsletter", "#", :target => "blank"
+      %li= link_to "Email Us", "/contact"
