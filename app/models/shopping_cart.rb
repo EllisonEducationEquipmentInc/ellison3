@@ -55,9 +55,10 @@ module ShoppingCart
 				@shipping_service = @rates.detect {|r| r.type == options[:shipping_service]} ? options[:shipping_service] : @rates.sort {|x,y| x.rate <=> y.rate}.first.type
 				@rates.detect {|r| r.type == options[:shipping_service]}.try(:rate) || @rates.sort {|x,y| x.rate <=> y.rate}.first.rate
 			else
+				@shipping_service = "STANDARD"
 				0.0
 			end
-			get_cart.update_attributes :shipping_amount => rate, :shipping_service => @shipping_service, :shipping_rates => fedex_rates_to_a(@rates)
+			get_cart.update_attributes :shipping_amount => rate, :shipping_service => @shipping_service, :shipping_rates => @rates ? fedex_rates_to_a(@rates) : [{:name => @shipping_service, :type => @shipping_service, :currency => current_currency, :rate => rate}]
 			rate
 		rescue Exception => e
 			e
