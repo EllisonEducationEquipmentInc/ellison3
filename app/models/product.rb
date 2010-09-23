@@ -15,6 +15,8 @@ class Product
 	
 	max_versions 5
 	
+	QUANTITY_THRESHOLD = 0
+	
 	# validations
 	validates :name, :item_num, :msrp, :price, :start_date, :end_date, :systems_enabled, :presence => true
 	validates_uniqueness_of :item_num
@@ -41,7 +43,8 @@ class Product
 	field :life_cycle_ends, :type => DateTime
 	field :systems_enabled, :type => Array
 	field :tax_exempt, :type => Boolean, :default => false
-
+	field :pre_order, :type => Boolean, :default => false
+	
 	index :item_num, :unique => true, :background => true
 	index :systems_enabled
 	index :availability
@@ -77,6 +80,7 @@ class Product
 	
 	class << self
 		
+		# TODO: add start/end date logic
 		def available
 			active.where(:availability.in => [1,3])
 		end
@@ -170,12 +174,17 @@ class Product
 		get_image(:large)
 	end	
 	
+	# available for purchase on the website?
 	def available?
-		start_date < Time.now && end_date > Time.now && (availability == 1 || availability == 3) 
+		start_date < Time.now && end_date > Time.now && availability == 1
+	end
+	
+	def not_reselable?
+	  start_date < Time.now && end_date > Time.now && availability == 3
 	end
 	
 	def unavailable?
-		!available? || quantity < 1
+		!available? || out_of_stock?
 	end
 	
 	def update_quantity(qty)
@@ -186,6 +195,23 @@ class Product
 	def decrement_quantity(qty)
 		skip_versioning_and_timestamps
 		update_attributes :quantity => self.quantity - qty
+	end
+	
+	def in_stock?
+    quantity > QUANTITY_THRESHOLD
+  end
+  
+  def out_of_stock?
+    !in_stock?
+  end
+
+	def pre_order?
+		is_er? && available? && pre_order
+	end
+	
+	# TODO: system specific logic for availability_msg
+	def availability_msg
+		"availability_msg"
 	end
 
 

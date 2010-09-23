@@ -156,6 +156,10 @@ function initialize_buttons(){
 	$(function() {
 		$(".jqui_cart_min").button({icons: {primary: 'ui-icon-cart'}, text: false});
 	});	
+	$(function() {
+		$(".jqui_out_of_stock").button({icons: {primary: 'ui-icon-alert'}});
+	});
+	
 };
 
 $(function() {
