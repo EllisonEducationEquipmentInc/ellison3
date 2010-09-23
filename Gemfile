@@ -41,11 +41,9 @@ gem 'hpricot'
 gem 'ruby_parser'
 gem 'devise'
 gem 'active_merchant'
-#gem 'system_timer'
-#gem "soap4r" #, :git => 'git://github.com/xaviershay/soap4r.git'
 gem 'fasterer-csv'
 gem 'httparty'
-gem 'shippinglogic'
+gem 'shippinglogic', :git => 'git://github.com/computadude/shippinglogic.git', :branch => "master"
 
 # Use unicorn as the web server
 # gem 'unicorn'

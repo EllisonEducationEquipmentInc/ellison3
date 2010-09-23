@@ -11,6 +11,15 @@ GIT
       will_paginate (~> 3.0.pre)
 
 GIT
+  remote: git://github.com/computadude/shippinglogic.git
+  revision: 83801743a8796aa1b58342b02684aeb7e49dc86a
+  branch: master
+  specs:
+    shippinglogic (1.2.2)
+      builder (>= 2.1.2)
+      httparty (>= 0.4.4)
+
+GIT
   remote: git://github.com/jnicklas/carrierwave.git
   revision: 1003d623f350fc353c31d7dfce6ddc78268509f8
   specs:
@@ -200,9 +209,6 @@ GEM
       json_pure
       rubyzip
     sexp_processor (3.0.5)
-    shippinglogic (1.2.2)
-      builder (>= 2.1.2)
-      httparty (>= 0.4.4)
     shoulda (2.11.3)
     spork (0.8.4)
     subexec (0.0.4)
@@ -258,7 +264,7 @@ DEPENDENCIES
   rspec-rails (>= 2.0.0.beta.20)
   ruby-debug
   ruby_parser
-  shippinglogic
+  shippinglogic!
   shoulda
   spork
   webrat
