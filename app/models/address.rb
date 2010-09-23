@@ -66,28 +66,28 @@ class Address
 		
 	def validate_address
 		self.avs_result = nil
-		@fedex = Fedex::Base.new(:auth_key => FEDEX_AUTH_KEY, :security_code => FEDEX_SECURITY_CODE, :account_number => FEDEX_ACCOUNT_NUMBER, :meter_number => FEDEX_METER_NUMBER)
+		@fedex = Shippinglogic::FedEx.new(FEDEX_AUTH_KEY, FEDEX_SECURITY_CODE, FEDEX_ACCOUNT_NUMBER, FEDEX_METER_NUMBER, :test => false)
 		timeout(50) do
-			@fedex.address_validation(:country => country_2_code(self.country), :street => "#{self.address1} #{self.address2}", :city => self.city, :state => self.state, :zip => self.zip_code)
+			@fedex.address :streets => "#{self.address1} #{self.address2}", :city => self.city, :state => self.state, :postal_code => self.zip_code, :country => country_2_code(self.country)
 		end
-		self.enable_avs_bypass = true if @fedex.result.addressResults.proposedAddressDetails.changes.include?("INSUFFICIENT_DATA") && !@fedex.result.addressResults.proposedAddressDetails.changes.include?("BOX_NUMBER_MATCH")
-		if @fedex.result.addressResults.proposedAddressDetails.changes.include?("INSUFFICIENT_DATA") || @fedex.result.addressResults.proposedAddressDetails.changes.include?("BOX_NUMBER_MATCH") 
+		self.enable_avs_bypass = true if @fedex.address.changes.include?("INSUFFICIENT_DATA") && !@fedex.address.changes.include?("BOX_NUMBER_MATCH")
+		if @fedex.address.changes.include?("INSUFFICIENT_DATA") || @fedex.address.changes.include?("BOX_NUMBER_MATCH") 
 			self.avs_failed = true
 		else
-			self.avs_result = @fedex.result.addressResults.proposedAddressDetails.changes
-			correct_address(@fedex.result.addressResults.proposedAddressDetails.address)
+			self.avs_result = @fedex.address.changes
+			correct_address(@fedex.address.address)
 		end
 	end
 	
 	# accepts a @fedex.result.addressResults.proposedAddressDetails.address as an argument to update corrected shipping address 
   def correct_address(fedex_avs_result)
-    raise "Invalid AVS result. Got #{fedex_avs_result.class}. Pass a fedex AVS result" unless fedex_avs_result.class == SOAP::Mapping::Object
-    self.address1 = fedex_avs_result.streetLines
+    #raise "Invalid AVS result. Got #{fedex_avs_result.class}. Pass a fedex AVS result (Shippinglogic::FedEx::Address::Service) object" unless fedex_avs_result.class == Shippinglogic::FedEx::Address::Service
+    self.address1 = fedex_avs_result[:street_lines]
     self.address2 = nil
-    self.state = fedex_avs_result.stateOrProvinceCode.upcase
-    self.zip_code = fedex_avs_result.postalCode
+    self.state = fedex_avs_result[:state_or_province_code]
+    self.zip_code = fedex_avs_result[:postal_code]
     #self.state = fedex_avs_result.countryCode
-    self.city = fedex_avs_result.city
+    self.city = fedex_avs_result[:city]
     save(:validate => false)
   end
 
@@ -95,9 +95,8 @@ class Address
   	Country.where(:name => country).first.try :iso
   end
 
-	# FIX: enable AVS
 	def must_be_verified?
-		false #us? && self.address_type == "shipping" && !self.bypass_avs
+		us? && self.address_type == "shipping" && !self.bypass_avs
   end
 
 	def not_verified
