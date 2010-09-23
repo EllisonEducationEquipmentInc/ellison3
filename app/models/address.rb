@@ -27,9 +27,9 @@ class Address
 	
 	validates :address_type, :first_name, :last_name, :address1, :city, :zip_code, :phone, :country, :presence => true
 	validate :not_verified
-	# validates_presence_of :state, :if => Proc.new(&:us?)
-	# validates_format_of :zip_code, :with => /^\d{5}(-\d{4})?$/, :if => Proc.new(&:us?)
-	# validates_format_of :phone, :with => /^(1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/, :if => Proc.new(&:us?)
+	validates_presence_of :state, :if => Proc.new {|p| p.us?}
+	validates_format_of :zip_code, :with => /^\d{5}(-\d{4})?$/, :if => Proc.new {|p| p.us?}
+	validates_format_of :phone, :with => /^(1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/, :if => Proc.new {|p| p.us?}
 	
 	before_validation :validate_address, :if => :must_be_verified?
 	before_save :set_avs_result
@@ -86,7 +86,6 @@ class Address
     self.address2 = nil
     self.state = fedex_avs_result[:state_or_province_code]
     self.zip_code = fedex_avs_result[:postal_code]
-    #self.state = fedex_avs_result.countryCode
     self.city = fedex_avs_result[:city]
     save(:validate => false)
   end

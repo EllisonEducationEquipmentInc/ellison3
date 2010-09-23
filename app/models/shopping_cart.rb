@@ -61,7 +61,7 @@ module ShoppingCart
 			get_cart.update_attributes :shipping_amount => rate, :shipping_service => @shipping_service, :shipping_rates => @rates ? fedex_rates_to_a(@rates) : [{:name => @shipping_service, :type => @shipping_service, :currency => current_currency, :rate => rate}]
 			rate
 		rescue Exception => e
-			e
+			e.message
 		end
 		
 		# convert an array of Shippinglogic::FedEx::Rate::Service elements to an array of hashes that can be saved in the db
@@ -170,7 +170,7 @@ module ShoppingCart
 				end
 			else
         gw_options = {
-          :order_id => order.id.to_s,
+          :order_id => order,
           :address => {},
           :billing_address => {:name => billing.first_name + ' ' + billing.last_name, :address1 => billing.address1, :city => billing.city, :state => billing.state, :country => billing.country, :zip => billing.zip_code, :phone => billing.phone}
         }

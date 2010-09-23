@@ -57,7 +57,7 @@ class CartsController < ApplicationController
 		new_payment
 		@payment.attributes = params[:payment]
 		cart_to_order(:address => get_user.shipping_address)
-		process_card(:amount => (get_cart.total * 100).round, :payment => @payment, :order => @order.id, :capture => true)
+		process_card(:amount => (get_cart.total * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true)
 		@order.payment = @payment
 		@order.address = get_user.shipping_address.clone
 		@order.user = get_user
