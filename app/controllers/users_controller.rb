@@ -69,7 +69,7 @@ class UsersController < ApplicationController
 	end
 	
 	def orders
-		@orders = get_user.orders.desc(:created_at).paginate(:page => params[:page], :per_page => 20)
+		@orders = get_user.orders.desc(:created_at).paginate(:page => params[:page], :per_page => 10)
 		render :partial => 'order_status'
 	end
 	

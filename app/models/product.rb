@@ -40,7 +40,6 @@ class Product
 	field :start_date, :type => DateTime
 	field :end_date, :type => DateTime
 	field :life_cycle
-	field :life_cycle_ends, :type => DateTime
 	field :systems_enabled, :type => Array
 	field :tax_exempt, :type => Boolean, :default => false
 	field :pre_order, :type => Boolean, :default => false
@@ -87,10 +86,10 @@ class Product
 		
 	end
 	
-	LIFE_CYCLES = [nil, 'ComingSoon', 'New', 'Discontinued', 'Available', 'Clearance-Discontinued']
+	LIFE_CYCLES = [nil, 'pre-release', 'available', 'discontinued', 'unvailable']
 	
 	# define 
-	#   system dependent attributes: start_date, end_date, description, life_cycle, life_cycle_ends
+	#   system dependent attributes: start_date, end_date, description, distribution_life_cycle, distribution_life_cycle_ends
 	#   currency dependent attributes: msrp, handling_price
 	LOCALES_2_CURRENCIES.values.each do |currency|
 		field "msrp_#{currency}".to_sym, :type => BigDecimal
@@ -100,8 +99,8 @@ class Product
 	  field "start_date_#{system}".to_sym, :type => DateTime
 	  field "end_date_#{system}".to_sym, :type => DateTime
 		field "description_#{system}".to_sym
-		field "life_cycle_#{system}".to_sym
-	  field "life_cycle_ends_#{system}".to_sym, :type => DateTime
+		field "distribution_life_cycle_#{system}".to_sym
+	  field "distribution_life_cycle_ends_#{system}".to_sym, :type => DateTime
 		LOCALES_2_CURRENCIES.values.each do |currency|
 			field "price_#{system}_#{currency}".to_sym, :type => BigDecimal
 		end

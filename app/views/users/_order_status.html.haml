@@ -19,5 +19,6 @@
   = will_paginate @orders, :class => 'pagination ajax'
 :javascript
   $(document).ready(function(){
-    $('.pagination.ajax a').click(function() {this.innerHTML='#{escape_javascript spinner}';$('#orders').load(this.href);return false;})
+    $("#orders").css({ opacity: 1.0 });
+    $('.pagination.ajax a').click(function() {$("#orders").css({ opacity: 0.3 });this.innerHTML='#{escape_javascript spinner}';$('#orders').load(this.href);return false;})
   });
