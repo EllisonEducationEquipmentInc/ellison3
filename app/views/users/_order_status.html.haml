@@ -1,17 +1,23 @@
-- if @orders.blank?
-  You have no orders yet
-- else
-  %table
-    %tr
-      %th Order Date
-      %th Order Number
-      %th Amount
-      %th Status
-    - @orders.each do |order|
-      - I18n.locale = order.locale
-      %tr{:class => cycle('odd', 'even')}
-        %td= l order.created_at, :format => :custom
-        %td= link_to order.id, order_path(order)
-        %td= number_to_currency order.total_amount
-        %td= order.status
-- I18n.locale = current_locale
+#orders
+  - if @orders.blank?
+    You have no orders yet
+  - else
+    %table
+      %tr
+        %th Order Date
+        %th Order Number
+        %th Amount
+        %th Status
+      - @orders.each do |order|
+        - I18n.locale = order.locale
+        %tr{:class => cycle('odd', 'even')}
+          %td= l order.created_at, :format => :custom
+          %td= link_to order.id, order_path(order, :page => params[:page])
+          %td= number_to_currency order.total_amount
+          %td= order.status
+  - I18n.locale = current_locale
+  = will_paginate @orders, :class => 'pagination ajax'
+:javascript
+  $(document).ready(function(){
+    $('.pagination.ajax a').click(function() {this.innerHTML='#{escape_javascript spinner}';$('#orders').load(this.href);return false;})
+  });

@@ -75,7 +75,7 @@ class Product
 	scope :inactive, :where => { :active => false }
 	
 	ELLISON_SYSTEMS.each do |sys|
-		scope sys.to_sym, :where => { :systems_enabled.in => [sys] }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex
+		scope sys.to_sym, :where => { :systems_enabled.in => [sys] }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex.:  Product.szus => scope for sizzix US products
 	end
 	
 	class << self
@@ -89,12 +89,19 @@ class Product
 	
 	LIFE_CYCLES = [nil, 'ComingSoon', 'New', 'Discontinued', 'Available', 'Clearance-Discontinued']
 	
+	# define 
+	#   system dependent attributes: start_date, end_date, description, life_cycle, life_cycle_ends
+	#   currency dependent attributes: msrp, handling_price
 	LOCALES_2_CURRENCIES.values.each do |currency|
 		field "msrp_#{currency}".to_sym, :type => BigDecimal
 		field "handling_price_#{currency}".to_sym, :type => Float, :default => 0.0
 	end
 	ELLISON_SYSTEMS.each do |system|
+	  field "start_date_#{system}".to_sym, :type => DateTime
+	  field "end_date_#{system}".to_sym, :type => DateTime
 		field "description_#{system}".to_sym
+		field "life_cycle_#{system}".to_sym
+	  field "life_cycle_ends_#{system}".to_sym, :type => DateTime
 		LOCALES_2_CURRENCIES.values.each do |currency|
 			field "price_#{system}_#{currency}".to_sym, :type => BigDecimal
 		end

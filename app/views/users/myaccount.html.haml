@@ -3,7 +3,7 @@
   %ul
     %li.rounded_top= link_to "Profile", "#profile"
     - @tabs.each do |tab|
-      %li.rounded_top= link_to "<span>&nbsp;</span>#{tab[1]}".html_safe, {:action => tab[0]}, :name => tab[0]
+      %li.rounded_top= link_to "<span>&nbsp;</span>#{tab[1]}".html_safe, {:action => tab[0], :page => params[:page]}, :name => tab[0]
   #profile= render :partial => 'profile'
 :javascript
   $(function() {
