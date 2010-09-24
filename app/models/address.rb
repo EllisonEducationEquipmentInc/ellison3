@@ -79,9 +79,7 @@ class Address
 		end
 	end
 	
-	# accepts a @fedex.result.addressResults.proposedAddressDetails.address as an argument to update corrected shipping address 
   def correct_address(fedex_avs_result)
-    #raise "Invalid AVS result. Got #{fedex_avs_result.class}. Pass a fedex AVS result (Shippinglogic::FedEx::Address::Service) object" unless fedex_avs_result.class == Shippinglogic::FedEx::Address::Service
     self.address1 = fedex_avs_result[:street_lines]
     self.address2 = nil
     self.state = fedex_avs_result[:state_or_province_code]

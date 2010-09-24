@@ -16,13 +16,22 @@ class Product
 	max_versions 5
 	
 	QUANTITY_THRESHOLD = 0
+	LIFE_CYCLES = ['pre-release', 'available', 'discontinued', 'unvailable']
 	
 	# validations
-	validates :name, :item_num, :msrp, :price, :start_date, :end_date, :systems_enabled, :presence => true
+	validates :name, :item_num, :life_cycle, :systems_enabled, :presence => true
+	validates_inclusion_of :life_cycle, :in => LIFE_CYCLES, :message => "%s is not included in the list"
 	validates_uniqueness_of :item_num
 	validates_uniqueness_of :upc, :allow_blank => true
-  validates_numericality_of :msrp, :price, :greater_than => 0.0
+	validate :must_have_msrp
 	
+	before_save :inherit_system_specific_attributes
+	
+	# system specific validations
+	ELLISON_SYSTEMS.each do |system|
+	  validates :"start_date_#{system}", :"end_date_#{system}",  :presence => true, :if => Proc.new {|p| current_system == system}
+	end
+		
 	cattr_accessor :current_user
   cattr_accessor :custom_prices
   cattr_accessor :highest_item_in_cart
@@ -35,18 +44,16 @@ class Product
 	field :upc
 	field :quantity, :type => Integer, :default => 0
 	field :weight, :type => Float, :default => 0.0
-	field :active, :type => Boolean, :default => false
-	field :availability, :type => Integer, :default => 0
+	field :active, :type => Boolean, :default => true
 	field :start_date, :type => DateTime
 	field :end_date, :type => DateTime
 	field :life_cycle
 	field :systems_enabled, :type => Array
 	field :tax_exempt, :type => Boolean, :default => false
-	field :pre_order, :type => Boolean, :default => false
 	
 	index :item_num, :unique => true, :background => true
 	index :systems_enabled
-	index :availability
+	#index :life_cycle
 	
 	# associations
 	embeds_many :campaigns do
@@ -85,22 +92,23 @@ class Product
 		end
 		
 	end
-	
-	LIFE_CYCLES = [nil, 'pre-release', 'available', 'discontinued', 'unvailable']
-	
+		
 	# define 
-	#   system dependent attributes: start_date, end_date, description, distribution_life_cycle, distribution_life_cycle_ends
+	#   system dependent attributes: start_date, end_date, description, distribution_life_cycle, distribution_life_cycle_ends, pre_order, orderable, orderable_start_date
 	#   currency dependent attributes: msrp, handling_price
 	LOCALES_2_CURRENCIES.values.each do |currency|
 		field "msrp_#{currency}".to_sym, :type => BigDecimal
 		field "handling_price_#{currency}".to_sym, :type => Float, :default => 0.0
 	end
 	ELLISON_SYSTEMS.each do |system|
+	  field "orderable_#{system}", :type => Boolean
+	  #field "orderable_start_date_#{system}".to_sym, :type => DateTime
 	  field "start_date_#{system}".to_sym, :type => DateTime
 	  field "end_date_#{system}".to_sym, :type => DateTime
 		field "description_#{system}".to_sym
 		field "distribution_life_cycle_#{system}".to_sym
 	  field "distribution_life_cycle_ends_#{system}".to_sym, :type => DateTime
+	  field "availability_message_#{system}"
 		LOCALES_2_CURRENCIES.values.each do |currency|
 			field "price_#{system}_#{currency}".to_sym, :type => BigDecimal
 		end
@@ -110,7 +118,7 @@ class Product
 	
 	def description(options = {})
 		system = options[:system] || current_system
-		send("description_#{system}") || send("description_er")
+		send("description_#{system}") || send("description_er") || send("description_szus")
 	end
 	
 	def description=(d)
@@ -222,6 +230,22 @@ class Product
 
 
 private 
+
+  # automatically set system specific attributes (if not set) of all other enabled systems. Values are inherited from the current system
+  # example: a new product is being created on SZUS. The new product will be pushed to szus and szuk. Those 2 systems are checked on the product admin form, and before save, SZUK will inherit the same attributes (which can be overridden by switching to szuk) 
+  def inherit_system_specific_attributes
+    self.systems_enabled.reject {|e| e == current_system}.each do |sys|
+      self.send("start_date_#{sys}=", read_attribute("start_date_#{current_system}")) if read_attribute("start_date_#{sys}").blank?
+      self.send("end_date_#{sys}=", read_attribute("end_date_#{current_system}")) if read_attribute("end_date_#{sys}").blank?
+      self.send("orderable_#{sys}=", read_attribute("orderable_#{current_system}")) if read_attribute("orderable_#{sys}").blank?
+      self.send("availability_message_#{sys}=", read_attribute("availability_message_#{current_system}")) if read_attribute("availability_message_#{sys}").blank?
+    end
+  end
+
+  def must_have_msrp
+    errors.add(:msrp, "Make sure MSRP is defined for all available currencies in system #{current_system.upcase}") if currencies.any? {|c| self.send("msrp_#{c}").blank? || self.send("msrp_#{c}") < 0.01}
+  end
+  
 	def get_image(version)
 		if image?
 			image_url(version)

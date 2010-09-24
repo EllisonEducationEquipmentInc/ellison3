@@ -21,7 +21,7 @@ class Admin::ProductsController < ApplicationController
   # GET /products/new
   # GET /products/new.xml
   def new
-    @product = Product.new(:start_date => I18n.localize(Time.zone.now.beginning_of_day, :format => :custom), :end_date => I18n.localize(Time.zone.now.end_of_day, :format => :custom))
+    @product = Product.new :"start_date_#{current_system}" => Time.zone.now.beginning_of_day, :"end_date_#{current_system}" => Time.zone.now.end_of_day, :"orderable_start_date_#{current_system}" => Time.zone.now.end_of_day
 
     respond_to do |format|
       format.html # new.html.erb

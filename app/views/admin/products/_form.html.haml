@@ -8,9 +8,9 @@
     %br
     = f.check_box :active
   .field
-    = f.label :availability
+    = f.label "orderable_#{current_system}", "Orderable/Salable on #{current_system.upcase}", :class => 'overrideable'
     %br
-    = f.select :availability, [["0=Not Available", 0], ["1=Available", 1], ["2=Suspended", 2], ["3=Available-Not-Saleable", 3]] #, {}, :onchange => "if (this.value == '3') {Element.show('availability_copy')} else { Element.hide('availability_copy')}"
+    = f.check_box "orderable_#{current_system}"
   .field
     = f.label :item_num
     %br
@@ -33,7 +33,7 @@
     = f.text_field :weight
   - currencies.each  do |currency|
     .field
-      = f.label "handling_price_#{currency}"
+      = f.label "handling_price_#{currency}", :class => 'overrideable'
       %br
       = f.text_field "handling_price_#{currency}"
   .field
@@ -57,19 +57,23 @@
   /   %br
   /   = f.text_field :price
   .field
-    = f.label :start_date
+    = f.label "start_date_#{current_system}", "Start Date #{current_system.upcase}", :class => 'overrideable'
     %br
-    = f.text_field :start_date, :class => 'datetimepicker'
+    = f.text_field "start_date_#{current_system}", :class => 'datetimepicker'
   .field
-    = f.label :end_date
+    = f.label "end_date_#{current_system}", "End Date #{current_system.upcase}", :class => 'overrideable'
     %br
-    = f.text_field :end_date, :class => 'datetimepicker'
+    = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
+  .field
+    = f.label "availability_message_#{current_system}", "Availability Message #{current_system.upcase}", :class => 'overrideable'
+    %br
+    = f.text_field "availability_message_#{current_system}", :class => 'overrideable', :size => 100
   .field
     = f.label :life_cycle
     %br
     = f.select :life_cycle, Product::LIFE_CYCLES
   .field
-    = f.label :description
+    = f.label :description, :class => 'overrideable'
     %br
     = f.text_area :description, :class => 'wymeditor'
   .field
@@ -81,3 +85,8 @@
     = f.check_box :remove_image
   .actions
     = f.submit :class => 'wymupdate jqui_save'
+  :javascript
+    $(function() {
+      var avail_messages = [{value: '<a href="/contact">Call now to place your order</a>', label: "Call now to place your order"}, {value: '<a href="/stores">Check Your Local Craft Store</a>', label: 'Check Your Local Craft Store'}, {label: 'Available at your Local Retailer', value: '<a href="/stores">Available at your Local Retailer</a>'}, {value: '<a href="http://www.stampinup.com/ECWeb/CategoryPage.aspx?categoryID=180" target="_blank">Stampin\' Up! Exclusive Product</a>', label: 'Stampin\' Up! Exclusive Product'}];
+      $('#product_availability_message_#{current_system}').autocomplete({source: avail_messages});
+    });

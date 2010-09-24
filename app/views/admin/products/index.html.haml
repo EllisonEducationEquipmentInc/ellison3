@@ -14,8 +14,8 @@
       %th Price
       %th Start Date
       %th End Date  
-      %th Active
-      %th Avail.
+      %th Life Cycle
+      %th Orderable
       %th Qty.
       %th Systems
       %th &nbsp;
@@ -29,8 +29,8 @@
         %td= number_to_currency product.price
         %td= l product.start_date, :format => :custom
         %td= l product.end_date, :format => :custom
-        %td= product.active
-        %td= product.availability
+        %td= product.life_cycle
+        %td= product.send "orderable_#{current_system}"
         %td= product.quantity
         %td= product.systems_enabled.join(", ") rescue ''
         %td= link_to 'Show', admin_product_path(product), :class => 'jqui_show_min'

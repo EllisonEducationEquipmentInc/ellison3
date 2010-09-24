@@ -362,3 +362,14 @@ li#cart_total {
 .clear_left {
   clear: left;
 }
+
+/* line 248, ../../../app/stylesheets/application.scss */
+.overrideable {
+  border: 1px solid #090;
+}
+
+/* line 249, ../../../app/stylesheets/application.scss */
+.current_system {
+  font-weight: bold;
+  color: blue;
+}
