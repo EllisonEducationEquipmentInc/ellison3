@@ -27,8 +27,8 @@
         %td= product.item_num
         %td= product.name
         %td= number_to_currency product.price
-        %td= l product.start_date, :format => :custom
-        %td= l product.end_date, :format => :custom
+        %td= l product.send("start_date_#{current_system}"), :format => :custom rescue "N/A for #{current_system}"
+        %td= l product.send("end_date_#{current_system}"), :format => :custom rescue "N/A for #{current_system}"
         %td= product.life_cycle
         %td= product.send "orderable_#{current_system}"
         %td= product.quantity

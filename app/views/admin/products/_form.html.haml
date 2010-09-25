@@ -33,7 +33,7 @@
     = f.text_field :weight
   - currencies.each  do |currency|
     .field
-      = f.label "handling_price_#{currency}", :class => 'overrideable'
+      = f.label "handling_price_#{currency}"
       %br
       = f.text_field "handling_price_#{currency}"
   .field
