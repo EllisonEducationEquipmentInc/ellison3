@@ -297,6 +297,10 @@ $.extend({
   }
 });
 
+$.expr[':'].icontains = function(obj, index, meta, stack){ 
+	return (obj.textContent || obj.innerText || jQuery(obj).text() || '').toLowerCase().indexOf(meta[3].toLowerCase()) >= 0; 
+};
+
 // highlight search terms
 $(document).ready(function(){
 	var term = $.getUrlVar('q');
@@ -306,8 +310,9 @@ $(document).ready(function(){
 		$('span.highlight').each(function(){
 			$(this).after($(this).html()).remove();
 		});
-		$('div.highlightable :contains("'+term+'")').filter(function() {return this.children.length == 0}).each(function(){
-			$(this).html($(this).html().replace(new RegExp(term,'g'), '<span class="highlight">'+term+'</span>'));
+		$('div.highlightable :icontains("'+term+'")').filter(function() {return this.children.length == 0}).each(function(){
+			var regexp = new RegExp(term,'gi')
+			$(this).html($(this).html().replace(regexp, '<span class="highlight">'+$(this).html().match(regexp)[0]+'</span>'));
 			$(this).find('span.highlight').fadeIn("slow");
 		});
 		return false;

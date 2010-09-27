@@ -9,7 +9,7 @@ class Admin::ProductsController < ApplicationController
 	  criteria.where(:active => true) unless params[:inactive].blank?
 	  criteria.where(:life_cycle => params[:life_cycle]) unless params[:life_cycle].blank?
 	  unless params[:q].blank?
-	    regexp = Regexp.new(params[:q])
+	    regexp = Regexp.new(params[:q], "i")
   	  criteria.any_of({ :item_num => regexp}, { :name => regexp }, {:short_desc => regexp})
 	  end
 		@products = criteria.paginate :page => params[:page], :per_page => 100
