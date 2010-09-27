@@ -309,22 +309,15 @@ $(document).ready(function(){
 		$('span.highlight').each(function(){
 			$(this).after($(this).html()).remove();
 		});
+		$('div.highlightable :contains("'+term+'")').filter(function() {return this.children.length == 0}).each(function(){
+			$(this).html($(this).html().replace(new RegExp(term,'g'), '<span class="highlight">'+term+'</span>'));
+			$(this).find('span.highlight').fadeIn("slow");
+		});
 
-		if($('#term').val() == ""){
-			$("p.results").fadeIn().append("Enter term in field above");
-			$('#term').fadeIn().addClass("error");
-			return false;
-		}else{
-			$('div.highlightable :contains("'+term+'")').each(function(){
-				$(this).html($(this).html().replace(new RegExp(term,'g'), '<span class="highlight">'+term+'</span>'));
-				$(this).find('span.highlight').fadeIn("slow");
-			});
+		// how many did it find?
+		n = $("span.highlight").length;
+		console.log("The there is a total of: "+n);
 
-			// how many did it find?
-			n = $("span.highlight").length;
-			console.log("The there is a total of: "+n);
-
-			return false;
-		}
+		return false;
 	}
 });
