@@ -4,7 +4,15 @@ class Admin::ProductsController < ApplicationController
 	before_filter :authenticate_admin!
 	
 	def index
-		@products = Product.all.paginate :page => params[:page], :per_page => 100
+	  criteria = Mongoid::Criteria.new(Product)
+	  criteria.where(:systems_enabled.in => params[:systems_enabled]) unless params[:systems_enabled].blank?
+	  criteria.where(:active => true) unless params[:inactive].blank?
+	  criteria.where(:life_cycle => params[:life_cycle]) unless params[:life_cycle].blank?
+	  unless params[:q].blank?
+	    regexp = Regexp.new(params[:q])
+  	  criteria.any_of({ :item_num => regexp}, { :name => regexp }, {:short_desc => regexp})
+	  end
+		@products = criteria.paginate :page => params[:page], :per_page => 100
 	end
 
   # GET /products/1
@@ -21,7 +29,7 @@ class Admin::ProductsController < ApplicationController
   # GET /products/new
   # GET /products/new.xml
   def new
-    @product = Product.new :"start_date_#{current_system}" => Time.zone.now.beginning_of_day, :"end_date_#{current_system}" => Time.zone.now.end_of_day, :"orderable_start_date_#{current_system}" => Time.zone.now.end_of_day
+    @product = Product.new :"start_date_#{current_system}" => Time.zone.now.beginning_of_day, :"end_date_#{current_system}" => Time.zone.now.end_of_day
 
     respond_to do |format|
       format.html # new.html.erb

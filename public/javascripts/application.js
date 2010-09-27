@@ -278,3 +278,53 @@ function update_net(field, currency, vat_rate) {
 function update_gross(field, currency, vat_rate) {
 	$('#msrp_'+currency+'_gross').val(doRound(field.val() * ((vat_rate / 100) + 1), 2));
 }
+
+// to access parameters in the url
+$.extend({
+  getUrlVars: function(){
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+      hash = hashes[i].split('=');
+      vars.push(hash[0]);
+      vars[hash[0]] = hash[1];
+    }
+    return vars;
+  },
+  getUrlVar: function(name){
+    return $.getUrlVars()[name];
+  }
+});
+
+// highlight search terms
+$(document).ready(function(){
+	var term = $.getUrlVar('q');
+	if (term == undefined) {
+		return false;
+	} else {
+		var n = "0";
+		console.log("The value of term is: "+term);
+
+		$('span.highlight').each(function(){
+			$(this).after($(this).html()).remove();
+		});
+
+		if($('#term').val() == ""){
+			$("p.results").fadeIn().append("Enter term in field above");
+			$('#term').fadeIn().addClass("error");
+			return false;
+		}else{
+			$('div.highlightable :contains("'+term+'")').each(function(){
+				$(this).html($(this).html().replace(new RegExp(term,'g'), '<span class="highlight">'+term+'</span>'));
+				$(this).find('span.highlight').fadeIn("slow");
+			});
+
+			// how many did it find?
+			n = $("span.highlight").length;
+			console.log("The there is a total of: "+n);
+
+			return false;
+		}
+	}
+});

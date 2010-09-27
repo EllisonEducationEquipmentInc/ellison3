@@ -45,15 +45,18 @@ class Product
 	field :quantity, :type => Integer, :default => 0
 	field :weight, :type => Float, :default => 0.0
 	field :active, :type => Boolean, :default => true
-	field :start_date, :type => DateTime
-	field :end_date, :type => DateTime
 	field :life_cycle
 	field :systems_enabled, :type => Array
 	field :tax_exempt, :type => Boolean, :default => false
 	
 	index :item_num, :unique => true, :background => true
 	index :systems_enabled
-	#index :life_cycle
+	index :life_cycle
+	index :active
+	ELLISON_SYSTEMS.each do |system|
+	  index :"start_date_#{system}"
+	  index :"end_date_#{system}"
+	end
 	
 	# associations
 	embeds_many :campaigns do
@@ -86,7 +89,6 @@ class Product
 	
 	class << self
 		
-		# TODO: add start/end date logic
 		def available
 			active.where(:life_cycle.in => LIFE_CYCLES[0,3], :"start_date_#{current_system}".lte => Time.zone.now, :"end_date_#{current_system}".gte => Time.zone.now)
 		end
