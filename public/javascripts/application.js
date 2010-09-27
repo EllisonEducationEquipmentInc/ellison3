@@ -303,9 +303,6 @@ $(document).ready(function(){
 	if (term == undefined) {
 		return false;
 	} else {
-		var n = "0";
-		console.log("The value of term is: "+term);
-
 		$('span.highlight').each(function(){
 			$(this).after($(this).html()).remove();
 		});
@@ -313,11 +310,6 @@ $(document).ready(function(){
 			$(this).html($(this).html().replace(new RegExp(term,'g'), '<span class="highlight">'+term+'</span>'));
 			$(this).find('span.highlight').fadeIn("slow");
 		});
-
-		// how many did it find?
-		n = $("span.highlight").length;
-		console.log("The there is a total of: "+n);
-
 		return false;
 	}
 });
