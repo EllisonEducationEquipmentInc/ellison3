@@ -55,7 +55,7 @@ module ApplicationHelper
 - elsif @product.available?
   %button.add_to_cart{:id => "add_to_cart_#{product.id}"}== Add to #{t :cart}
 - elsif @product.not_reselable?
-  = @product.availability_msg
+  = @product.send "availability_message_#{current_system}"
 - else
   .jqui_out_of_stock Suspended
 %p.buttonset

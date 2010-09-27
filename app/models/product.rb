@@ -88,7 +88,7 @@ class Product
 		
 		# TODO: add start/end date logic
 		def available
-			active.where(:availability.in => [1,3])
+			active.where(:life_cycle.in => LIFE_CYCLES[0,3], :"start_date_#{current_system}".lte => Time.zone.now, :"end_date_#{current_system}".gte => Time.zone.now)
 		end
 		
 	end
@@ -188,13 +188,21 @@ class Product
 		get_image(:large)
 	end	
 	
-	# available for purchase on the website?
+	# Availability logic:
+	# if product's "life_cycle" (global) is 'available'  then product is available for sale no matter wha
+	# if life_cycle is either 'pre-release' or 'discontinued' then availability is determined by "orderable_#{current_system}" - (system specific) attribute
+	
+	# available for purchase on the website (regardless of available quantity)?
 	def available?
-		start_date < Time.now && end_date > Time.now && availability == 1
+		self.send("start_date_#{current_system}") < Time.zone.now && self.send("end_date_#{current_system}") > Time.zone.now && orderable?
+	end
+	
+	def orderable?
+	  life_cycle == "available" || (self.send("orderable_#{current_system}") && life_cycle != "unvailable")
 	end
 	
 	def not_reselable?
-	  start_date < Time.now && end_date > Time.now && availability == 3
+	  !available?
 	end
 	
 	def unavailable?
@@ -212,15 +220,15 @@ class Product
 	end
 	
 	def in_stock?
-    quantity > QUANTITY_THRESHOLD
+    available? && quantity > QUANTITY_THRESHOLD
   end
   
   def out_of_stock?
-    !in_stock?
+    available? && quantity <= QUANTITY_THRESHOLD
   end
 
 	def pre_order?
-		is_er? && available? && pre_order
+		available? && life_cycle == "pre-release"
 	end
 	
 	# TODO: system specific logic for availability_msg
