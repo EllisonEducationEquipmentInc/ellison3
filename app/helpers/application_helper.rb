@@ -52,15 +52,18 @@ module ApplicationHelper
   %button.add_to_cart{:id => "add_to_cart_#{product.id}"}== Pre-Order
 - elsif @product.out_of_stock?
   .jqui_out_of_stock Out of Stock
+- elsif @product.suspended?
+  .jqui_out_of_stock Suspended
 - elsif @product.available?
   %button.add_to_cart{:id => "add_to_cart_#{product.id}"}== Add to #{t :cart}
 - elsif @product.not_reselable?
   = @product.send "availability_message_#{current_system}"
 - else
-  .jqui_out_of_stock Suspended
-%p.buttonset
-  %button.wishlist Add to My List
-  %button.select Select a list
+  .jqui_out_of_stock WTF??
+- unless @product.suspended?
+  %p.buttonset
+    %button.wishlist Add to My List
+    %button.select Select a list
 HTML
     Haml::Engine.new(html).render(self)
 	end

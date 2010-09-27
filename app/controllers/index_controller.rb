@@ -13,7 +13,8 @@ class IndexController < ApplicationController
 	end
 	
 	def product
-		@product = Product.send(current_system).available.criteria.id(params[:id]).first
+		@product = Product.send(current_system).criteria.id(params[:id]).first
+		raise "Invalid product" unless @product.displayable?
 		@title = @product.name
 	rescue
 		go_404

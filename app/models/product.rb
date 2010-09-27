@@ -191,10 +191,12 @@ class Product
 	# Availability logic:
 	# if product's "life_cycle" (global) is 'available'  then product is available for sale no matter wha
 	# if life_cycle is either 'pre-release' or 'discontinued' then availability is determined by "orderable_#{current_system}" - (system specific) attribute
+	# 
+	# product visibility is determined by 'active', "start_date_#{current_system}", "end_date_#{current_system}" attributes
 	
 	# available for purchase on the website (regardless of available quantity)?
 	def available?
-		self.send("start_date_#{current_system}") < Time.zone.now && self.send("end_date_#{current_system}") > Time.zone.now && orderable?
+		displayable? && orderable?
 	end
 	
 	def orderable?
@@ -207,6 +209,15 @@ class Product
 	
 	def unavailable?
 		!available? || out_of_stock?
+	end
+	
+	def suspended?
+	  life_cycle == "unvailable"
+	end
+	
+	# if product can be displayed (regardless of availablitity)
+	def displayable?
+	  active && systems_enabled.include?(current_system) && self.send("start_date_#{current_system}") < Time.zone.now && self.send("end_date_#{current_system}") > Time.zone.now
 	end
 	
 	def update_quantity(qty)
