@@ -2,9 +2,7 @@
 #customer-outreach { @include column(24, true); }
 #email-signup {  @include column(16); }
 #store-locator {  @include column(8, true); }
-#bestsellers {  @include column(8); }
-#newarrivals {  @include column(8); }
-#staffpicks {  @include column(8, true); }
+//#staffpicks {  @include column(8, true); }
 #blog-posts {  @include column(16); }
 #social-media {  @include column(8, true); }
   
@@ -15,4 +13,6 @@
 .billboard_XL { @include column(16); }  // 3/4 the width of the page
 .billboard_XXL { @include column(20); }  // 5/6 the width of the page
 .billboard_XXXL { @include column(24); }  // the full width of the page
-  
+
+// product carousels
+.product-carousel {  @include column(12); }

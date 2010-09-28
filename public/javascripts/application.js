@@ -79,7 +79,30 @@ $(document).ready(function(){
   }, function() {
   	$(".cover", this).stop().animate({top:'188px'},{queue:false,duration:160});
   });
-
+  
+  // product carousels
+  $(function() {
+    $("#bestsellers").jCarouselLite({
+      btnNext: ".up_bestsellers",
+      btnPrev: ".down_bestsellers",
+      vertical: true,
+      auto: 5000,
+      speed: 1000,
+      visible: 3,
+      scroll: 3
+    });
+  });
+  $(function() {
+    $("#newarrivals").jCarouselLite({
+      btnNext: ".up_newarrivals",
+      btnPrev: ".down_newarrivals",
+      vertical: true,
+      auto: 5000,
+      speed: 1000,
+      visible: 3,
+      scroll: 3
+    });
+  });
 
 	// shadowOn
 	$(".cardpanelshadow").shadowOn({ imageset: 6, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadows for cardpanel layout archetype
