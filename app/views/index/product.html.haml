@@ -11,7 +11,7 @@
   .product_detail
     %h3
       = @product.name
-      %span.life-cycle== #{@product.life_cycle} #{@product.life_cycle == "New" ? " Item!" : nil}
+      %span.life-cycle= @product.public_life_cycle
     %p= @product.description.try :html_safe
     = facebook_like
   .product_tabs

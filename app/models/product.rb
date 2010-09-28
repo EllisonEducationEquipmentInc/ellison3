@@ -48,6 +48,7 @@ class Product
 	field :life_cycle
 	field :systems_enabled, :type => Array
 	field :tax_exempt, :type => Boolean, :default => false
+	field :release_date, :type => Date
 	
 	index :item_num, :unique => true, :background => true
 	index :systems_enabled
@@ -243,12 +244,13 @@ class Product
 	def pre_order?
 		available? && life_cycle == "pre-release"
 	end
-	
-	# TODO: system specific logic for availability_msg
-	def availability_msg
-		"availability_msg"
-	end
 
+  # system specific distribution life cycle - before its expiriation (distribution_life_cycle_ends_#{sys})
+  def public_life_cycle
+    read_attribute("distribution_life_cycle_#{current_system}") if read_attribute("distribution_life_cycle_ends_#{current_system}") > Time.zone.now
+  rescue
+    ''
+  end
 
 private 
 
@@ -260,6 +262,8 @@ private
       self.send("end_date_#{sys}=", read_attribute("end_date_#{current_system}")) if read_attribute("end_date_#{sys}").blank?
       self.send("orderable_#{sys}=", read_attribute("orderable_#{current_system}")) if read_attribute("orderable_#{sys}").blank?
       self.send("availability_message_#{sys}=", read_attribute("availability_message_#{current_system}")) if read_attribute("availability_message_#{sys}").blank?
+      self.send("distribution_life_cycle_#{sys}=", read_attribute("distribution_life_cycle_#{current_system}")) if read_attribute("distribution_life_cycle_#{sys}").blank?
+      self.send("distribution_life_cycle_ends_#{sys}=", read_attribute("distribution_life_cycle_ends_#{current_system}")) if read_attribute("distribution_life_cycle_ends_#{sys}").blank?
     end
   end
 

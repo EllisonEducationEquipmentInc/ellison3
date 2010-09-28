@@ -69,6 +69,14 @@
     %br
     = f.text_field "availability_message_#{current_system}", :class => 'overrideable', :size => 100
   .field
+    = f.label "distribution_life_cycle_#{current_system}", "Distribution Life Cycle #{current_system.upcase}", :class => 'overrideable'
+    %br
+    = f.text_field "distribution_life_cycle_#{current_system}", :class => 'overrideable', :size => 100
+  .field
+    = f.label "distribution_life_cycle_ends_#{current_system}", "Distribution Life Cycle Ends #{current_system.upcase}", :class => 'overrideable'
+    %br
+    = f.text_field "distribution_life_cycle_ends_#{current_system}", :class => 'datetimepicker'
+  .field
     = f.label :life_cycle
     %br
     = f.select :life_cycle, Product::LIFE_CYCLES
@@ -89,4 +97,5 @@
     $(function() {
       var avail_messages = [{value: '<a href="/contact">Call now to place your order</a>', label: "Call now to place your order"}, {value: '<a href="/stores">Check Your Local Craft Store</a>', label: 'Check Your Local Craft Store'}, {label: 'Available at your Local Retailer', value: '<a href="/stores">Available at your Local Retailer</a>'}, {value: '<a href="http://www.stampinup.com/ECWeb/CategoryPage.aspx?categoryID=180" target="_blank">Stampin\' Up! Exclusive Product</a>', label: 'Stampin\' Up! Exclusive Product'}];
       $('#product_availability_message_#{current_system}').autocomplete({source: avail_messages});
+      $('#product_distribution_life_cycle_#{current_system}').autocomplete({source: ["New", "Sale", "Discountinued", "Clearance", "Coming Soon"]});
     });
