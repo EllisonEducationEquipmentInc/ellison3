@@ -252,6 +252,11 @@ class Product
   rescue
     ''
   end
+  
+  # temporary many-to-many association fix until patch is released
+	def my_tag_ids=(ids)
+	  self.tags = Tag.where(:_id.in => ids.map {|i| BSON::ObjectId(i)}).map {|p| p}
+	end
 
 private 
 

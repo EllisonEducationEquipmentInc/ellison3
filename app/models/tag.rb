@@ -32,6 +32,24 @@ class Tag
 	index :tag_type
 	index :active
 	
+	# scopes
+	scope :active, :where => { :active => true }
+	scope :inactive, :where => { :active => false }
+	ELLISON_SYSTEMS.each do |sys|
+		scope sys.to_sym, :where => { :systems_enabled.in => [sys] }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex.:  Tag.szus => scope for sizzix US tags
+	end
+	TYPES.each do |type|
+	  scope type.pluralize.to_sym, :where => { :tag_type => type }  # scope :calendar_events, :where => { :tag_type => "calendar_event" } #dynaically create a scope for each type. ex.:  Tag.calendar_events => scope for calendar event tags
+	end
+	
+	class << self
+		
+		def available
+			active.where(:"start_date_#{current_system}".lte => Time.zone.now, :"end_date_#{current_system}".gte => Time.zone.now)
+		end
+		
+	end
+	
 	# temporary many-to-many association fix until patch is released
 	def my_product_ids=(ids)
 	  self.products = Product.where(:_id.in => ids.map {|i| BSON::ObjectId(i)}).map {|p| p}

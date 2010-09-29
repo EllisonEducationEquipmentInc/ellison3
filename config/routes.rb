@@ -80,7 +80,11 @@ Ellison3::Application.routes.draw do |map|
 			  end
 			end
 			resources :users
-			resources :tags
+			resources :tags do
+				collection do
+			    get :tags_autocomplete
+			  end
+			end
 			resources :profiles, :as => 'admins'			
     end
 

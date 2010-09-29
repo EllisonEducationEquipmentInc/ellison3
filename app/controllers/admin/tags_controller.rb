@@ -52,7 +52,7 @@ class Admin::TagsController < ApplicationController
   # PUT /tags/1.xml
   def update
     @tag = Tag.find(params[:id])
-    # params[:tag][:product_ids] ||= []
+    params[:tag][:my_product_ids] ||= []
     respond_to do |format|
       if @tag.update_attributes(params[:tag])
         format.html { redirect_to(admin_tags_url, :notice => 'Tag was successfully updated.') }
@@ -75,4 +75,9 @@ class Admin::TagsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def tags_autocomplete
+		@tags = Tag.available.only(:name, :tag_type, :id).where({:name => Regexp.new("#{params[:term]}", "i")}).asc(:name).limit(20).all.map {|p| {:label => "#{p.name} (#{p.tag_type.humanize})", :value => p.name, :id => p.id}}
+		render :json => @tags.to_json
+	end
 end
