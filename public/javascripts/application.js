@@ -57,7 +57,7 @@ $(document).ready(function(){
 	
 	// content sliders
   $("#gallery").sudoSlider({ 
-      ajax: ['/images/_temp/gallery_mockup_001.jpg', '/images/_temp/gallery_mockup_002.jpg', '/images/_temp/gallery_mockup_003.jpg'],
+      ajax: ['/images/_temp/gallery_mockup_003.jpg', '/images/_temp/gallery_mockup_001.jpg', '/images/_temp/gallery_mockup_002.jpg', '/images/_temp/gallery_mockup_003.jpg', '/images/_temp/gallery_mockup_002.jpg', '/images/_temp/gallery_mockup_003.jpg', '/images/_temp/gallery_mockup_001.jpg', '/images/_temp/gallery_mockup_002.jpg', '/images/_temp/gallery_mockup_003.jpg'],
       numeric:true,
       preloadAjax:true,
       imgAjaxFunction: function(t){
