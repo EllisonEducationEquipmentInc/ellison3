@@ -178,4 +178,17 @@ class Admin::ProductsController < ApplicationController
 		@products = Product.available.only(:name, :item_num, :id).any_of({:item_num => Regexp.new("^#{params[:term]}.*")}, {:name => Regexp.new("#{params[:term]}", "i")}).asc(:name).limit(20).all.map {|p| {:label => "#{p.item_num} #{p.name}", :value => p.item_num, :id => p.id}}
 		render :json => @products.to_json
 	end
+	
+	def show_tabs
+	  @product = Product.find(params[:id])
+	  render :partial => "index/tab_block", :locals => {:object => @product}
+	end
+	
+	def clone_existing_tab
+    @product = Product.find(params[:original_product_id])
+    @tab = @product.tabs.build(Product.find(params[:reusable_tab_product_id]).tabs.find(params[:reusable_tab_id]).clone.attributes)
+    @tab.save!
+  rescue
+    render :js => "alert('make sure both product and tab are selected')" and return
+	end
 end

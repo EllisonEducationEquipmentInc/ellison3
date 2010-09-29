@@ -1,1 +1,41 @@
-yo
+Search for product whose tab needs to be cloned: 
+= text_field_tag "reusable_tab_helper"
+%br
+= form_tag({:action => 'clone_existing_tab'}, :remote => true) do
+  = hidden_field_tag :original_product_id, @product.id
+  = hidden_field_tag :reusable_tab_product_id
+  = hidden_field_tag :reusable_tab_id
+  Selected Product:
+  %span#reusable_product_name.bordered
+  Tab:
+  %span#reusable_product_tab.bordered
+  = submit_tag "Clone", :class => 'jqui_save'
+#tab_to_clone
+:javascript
+  initialize_buttons();
+  $("#reusable_tab_helper").autocomplete({
+  	source: function(request, response) {
+  		$.getJSON("/admin/products/products_autocomplete", {
+  			term: request.term
+  		}, response);
+  	},
+  	search: function() {
+  		if (this.value.length < 2) {
+  			return false;
+  		}
+  	},
+  	focus: function( event, ui ) {
+    				$( "#reusable_tab_helper" ).val( ui.item.label );
+    				return false;
+    			},
+  	select: function(event, ui) {
+  	  this.value = '';
+  	  $('#reusable_tab_product_id').val(ui.item.id);
+  	  $("#reusable_product_name").html(ui.item.label);
+  	  $("#tab_to_clone").load("/admin/products/show_tabs?id="+ui.item.id, function() {
+        initialize_buttons();
+        initialize_lightboxes();
+        $(".tab-block").tabs({select: function(event, ui) {$('#reusable_tab_id').val($(ui.tab).attr('href').replace("#tabs-",""));$("#reusable_product_tab").html($(ui.tab).text())}});
+      });
+  		return false;
+  	}});

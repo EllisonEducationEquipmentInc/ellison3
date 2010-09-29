@@ -25,6 +25,19 @@ $(function() {
 		});
 });
 
+// lightboxes
+function initialize_lightboxes(){
+	$("a.lightbox").fancybox({
+			'transitionIn'	:	'elastic',
+			'transitionOut'	:	'elastic',
+			'speedIn'		:	500, 
+			'speedOut'		:	200, 
+			'overlayShow'	:	true,
+			'titleShow': false
+		});
+}
+
+
 $(document).ready(function(){
 	// image zoom
 	var options = {
@@ -37,15 +50,7 @@ $(document).ready(function(){
 		};
 	$('.imagezoom').jqzoom(options);
 	
-	// lightboxes
-	$("a.lightbox").fancybox({
-			'transitionIn'	:	'elastic',
-			'transitionOut'	:	'elastic',
-			'speedIn'		:	500, 
-			'speedOut'		:	200, 
-			'overlayShow'	:	true,
-			'titleShow': false
-		});
+	initialize_lightboxes();
 	initialize_buttons();
 	
 	$(function() {
@@ -124,17 +129,32 @@ $(document).ready(function(){
 
 });
 
-$(function() {
-	$(".add_to_cart").button({
-            icons: {
-                primary: 'ui-icon-cart'
-            }})
-		.click( function() {
-			$.ajax({url:"/carts/add_to_cart?id="+this.id.replace('add_to_cart_', '')});
-		})
-});
 
 function initialize_buttons(){
+	$(function() {
+		$(".add_to_cart").button({
+	            icons: {
+	                primary: 'ui-icon-cart'
+	            }})
+			.click( function() {
+				$.ajax({url:"/carts/add_to_cart?id="+this.id.replace('add_to_cart_', '')});
+			})
+	});
+	
+	$(function() {
+	  $(".wishlist").button()
+	    .click(function() {
+	      alert("It will add item immediately to default wishlist");})
+	    .next()
+	    .button({
+	      text: false,
+	      icons: {primary: "ui-icon-triangle-1-s"}
+	    })
+	    .click( function() {alert( "will display a menu to select list" );})
+	    .parent()
+	    .buttonset();
+	});
+	
 	$(function() {
 		$(".jqui_button").button();
 	});
@@ -208,20 +228,6 @@ function show_cart() {
 	setTimeout("$.fancybox.resize()", 600);
 	return false;
 }
-
-$(function() {
-  $(".wishlist").button()
-    .click(function() {
-      alert("It will add item immediately to default wishlist");})
-    .next()
-    .button({
-      text: false,
-      icons: {primary: "ui-icon-triangle-1-s"}
-    })
-    .click( function() {alert( "will display a menu to select list" );})
-    .parent()
-    .buttonset();
-});
 
 function add_fields(link, association, content) {  
   var new_id = new Date().getTime();  

@@ -14,18 +14,7 @@
       %span.life-cycle= @product.public_life_cycle
     %p= @product.description.try :html_safe
     = facebook_like
-  .product_tabs
-    .tab-block
-      %ul
-        - @product.tabs.current.each do |tab|
-          %li= link_to tab.name, "#tabs-#{tab.id}"
-      - @product.tabs.each do |tab|
-        %div{:id => "tabs-#{tab.id}"}= render tab
-    :javascript
-      $(function() {
-        $(".tab-block").tabs();
-      });
-  
+  .product_tabs= render :partial => 'tab_block', :locals => {:object => @product}
 .product_sidebar
   .buybox.rounded
     %h4

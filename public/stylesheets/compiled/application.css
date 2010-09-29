@@ -373,3 +373,9 @@ li#cart_total {
   font-weight: bold;
   color: blue;
 }
+
+/* line 250, ../../../app/stylesheets/application.scss */
+.bordered {
+  border: 1px solid #390;
+  background: white;
+}
