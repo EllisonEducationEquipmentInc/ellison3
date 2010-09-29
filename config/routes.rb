@@ -80,6 +80,7 @@ Ellison3::Application.routes.draw do |map|
 			  end
 			end
 			resources :users
+			resources :tags
 			resources :profiles, :as => 'admins'			
     end
 

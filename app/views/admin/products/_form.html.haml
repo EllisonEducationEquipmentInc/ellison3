@@ -91,6 +91,8 @@
     %br
     = f.label :remove_image
     = f.check_box :remove_image
+  %h3 Tags
+  %ul#product_tags= render :partial => 'tag', :collection => @product.tags
   .actions
     = f.submit :class => 'wymupdate jqui_save'
   :javascript

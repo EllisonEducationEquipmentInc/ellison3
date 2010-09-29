@@ -79,7 +79,9 @@ class Product
 		end
   end
 	embeds_many :images
-		
+	
+	references_many :tags, :stored_as => :array, :inverse_of => :products
+  	
 	# scopes
 	scope :active, :where => { :active => true }
 	scope :inactive, :where => { :active => false }
@@ -97,7 +99,7 @@ class Product
 	end
 		
 	# define 
-	#   system dependent attributes: start_date, end_date, description, distribution_life_cycle, distribution_life_cycle_ends, pre_order, orderable, orderable_start_date
+	#   system dependent attributes: start_date, end_date, description, distribution_life_cycle, distribution_life_cycle_ends, orderable
 	#   currency dependent attributes: msrp, handling_price
 	LOCALES_2_CURRENCIES.values.each do |currency|
 		field "msrp_#{currency}".to_sym, :type => BigDecimal
@@ -105,7 +107,6 @@ class Product
 	end
 	ELLISON_SYSTEMS.each do |system|
 	  field "orderable_#{system}", :type => Boolean
-	  #field "orderable_start_date_#{system}".to_sym, :type => DateTime
 	  field "start_date_#{system}".to_sym, :type => DateTime
 	  field "end_date_#{system}".to_sym, :type => DateTime
 		field "description_#{system}".to_sym

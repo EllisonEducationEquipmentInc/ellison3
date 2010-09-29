@@ -1,0 +1,35 @@
+%h1 Listing tags
+= link_to 'New tag', new_admin_tag_path, :class => 'jqui_new'
+%br
+- unless params[:q].blank?
+  = link_to 'all', admin_tags_path, :class => 'jqui_button'
+- form_tag(admin_tags_path, :method => :get) do
+  = text_field_tag :q
+  = submit_tag "search", :class => 'jqui_search'
+%table
+  %thead
+    %tr
+      %th Type
+      %th Name
+      %th Permalink
+      %th Start Date
+      %th End Date
+      %th Systems
+      %th &nbsp;
+      %th &nbsp;
+      %th &nbsp;
+  %tbody
+    - for tag in @tags
+      %tr{ :class => cycle(:odd, :even) }
+        %td= tag.tag_type.humanize
+        %td= tag.name
+        %td= tag.permalink
+        %td= l tag.send("start_date_#{current_system}"), :format => :custom rescue ''
+        %td= l tag.send("end_date_#{current_system}"), :format => :custom rescue ''
+        %td= tag.systems_enabled.join(", ") rescue ''
+        %td= link_to 'Edit', edit_admin_tag_path(tag)
+        %td= link_to 'Destroy', admin_tag_path(tag), :confirm => 'Are you sure?', :method => :delete
+%br
+= will_paginate @tags
+%br
+= link_to 'New tag', new_admin_tag_path, :class => 'jqui_new'

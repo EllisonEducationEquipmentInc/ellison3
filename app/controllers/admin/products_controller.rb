@@ -175,7 +175,7 @@ class Admin::ProductsController < ApplicationController
 	end
 	
 	def products_autocomplete
-		@products = Product.available.only(:name, :item_num).where(:item_num => Regexp.new("^#{params[:term]}.*")).asc(:name).limit(20).all.map {|p| {:label => "#{p.item_num} #{p.name}", :value => p.item_num}}
+		@products = Product.available.only(:name, :item_num, :id).any_of({:item_num => Regexp.new("^#{params[:term]}.*")}, {:name => Regexp.new("#{params[:term]}", "i")}).asc(:name).limit(20).all.map {|p| {:label => "#{p.item_num} #{p.name}", :value => p.item_num, :id => p.id}}
 		render :json => @products.to_json
 	end
 end

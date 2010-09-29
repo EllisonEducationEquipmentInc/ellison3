@@ -1,0 +1,5 @@
+%li.ui-menu-item
+  = link_to_function "x", "$(this).parent().remove()"
+  = tag.name
+  == (#{tag.tag_type})
+  = hidden_field_tag "product[tag_ids][]", tag.id
