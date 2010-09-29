@@ -91,8 +91,8 @@ $(document).ready(function(){
       btnNext: ".up_bestsellers",
       btnPrev: ".down_bestsellers",
       vertical: true,
-      auto: 5000,
-      speed: 1000,
+//      auto: 5000,
+//      speed: 1000,
       visible: 3,
       scroll: 3
     });
