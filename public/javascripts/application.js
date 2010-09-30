@@ -37,15 +37,32 @@ function initialize_lightboxes(){
 		});
 }
 
-
-$(document).ready(function(){
-	$('.accordion .head').click(function() {
+function initialize_facets() {
+	$('.facets .head').click(function() {
 			$(this).find('span').toggleClass('ui-icon-triangle-1-s')
 			$(this).find('span').toggleClass('ui-icon-triangle-1-e')
 			$(this).next().toggle();
 			return false;
 		}).next().show();
-		
+}
+
+function shadow_on() {
+	// shadowOn
+	$(".cardpanelshadow").shadowOn({ imageset: 6, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadows for cardpanel layout archetype
+	$(".product-block").shadowOn({ imageset: 1, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadow for product blocks on catalog pages
+}
+
+function bind_hashchange () {
+	$(window).bind( 'hashchange', function(){
+	  var hash = location.hash;
+	});
+}
+
+$(document).ready(function(){
+	
+	bind_hashchange ();
+	
+	initialize_facets();
 	// image zoom
 	var options = {
 	    zoomWidth: 300,
@@ -116,9 +133,7 @@ $(document).ready(function(){
     });
   });
 
-	// shadowOn
-	$(".cardpanelshadow").shadowOn({ imageset: 6, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadows for cardpanel layout archetype
-	$(".product-block").shadowOn({ imageset: 1, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadow for product blocks on catalog pages
+	shadow_on();
 
 	jQuery.validator.addMethod("phoneUS", function(phone_number, element) {
 	    phone_number = phone_number.replace(/\s+/g, ""); 

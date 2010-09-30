@@ -21,10 +21,19 @@ class IndexController < ApplicationController
 	end
 	
 	def catalog
+
+	end
+	
+	def search
+	  @facets = params[:facets] || ""
+	  @facets_hash = @facets.split(",")
 	  @search = Product.search do |query|
 	    query.with :"listable_#{current_system}", true
+	    @facets_hash.each do |f|
+	      query.with :"#{f.split("~")[0]}_#{current_system}", f.split("~")[1]
+	    end
 	    Tag::TYPES.each do |e|
-    		query.facet :"#{e.to_s.pluralize}_#{current_system}"
+    		query.facet :"#{e.to_s}_#{current_system}"
      	end
      	query.paginate(:page => params[:page] || 1, :per_page => 24)
 	  end

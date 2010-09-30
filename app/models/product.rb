@@ -144,9 +144,9 @@ class Product
       end
     end
     ELLISON_SYSTEMS.each do |system|
-      # system specific facets: ex: themes_szus
+      # system specific facets: ex: theme_szus
       Tag::TYPES.each do |e|
-    		string :"#{e.to_s.pluralize}_#{system}", :multiple => true do
+    		string :"#{e}_#{system}", :multiple => true do
     		  send(e.to_s.pluralize, system).map {|t| t.permalink}
     		end
      	end

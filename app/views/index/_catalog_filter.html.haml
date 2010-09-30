@@ -1,0 +1,24 @@
+%h3 Shop Products By
+.facets.ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
+  - @search.facets.each do |facet|
+    - next if facet.rows.length < 1 || @facets_hash.any? {|h| h.include?(facet_to_param(facet.name))}
+    %h4.head.ui-accordion-header.ui-helper-reset.ui-state-default.ui-corner-top
+      %span.ui-icon.ui-icon-triangle-1-s
+      = link_to facet.name.to_s.gsub("_#{current_system}", "").humanize, "#"
+    %ul.ui-accordion-content.ui-helper-reset.ui-widget-content.ui-corner-bottom.ui-accordion-content-active
+      - facet.rows.each do |row|
+        %li= link_to "#{Tag.find_by_permalink(facet.name, row.value).name} (#{row.count})", "#", :rel => "#{facet_to_param(facet.name)}~#{row.value}", :class => "facet_value"
+    %br
+:javascript
+  $(function() {
+    $(".facet_value").click(function() {
+      if ($.deparam.fragment()['facets'] == undefined || $.deparam.fragment()['facets'] == '') {
+        location.hash = $.param.fragment( location.hash, {facets: $(this).attr('rel')}, 0 );
+      } else {
+        location.hash = $.param.fragment( location.hash, {facets: $.deparam.fragment()['facets']+","+$(this).attr('rel')}, 0 );
+      }
+      $.ajax({url:"/index/search?"+$.param.fragment()});
+      return false;
+    })
+  });
+  

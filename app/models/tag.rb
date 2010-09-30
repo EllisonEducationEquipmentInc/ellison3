@@ -49,6 +49,9 @@ class Tag
 			active.where(:systems_enabled.in => [sys], :"start_date_#{sys}".lte => Time.zone.now, :"end_date_#{sys}".gte => Time.zone.now)
 		end
 		
+		def find_by_permalink(facet, permalink)
+		  active.where(:tag_type => facet.to_s.gsub(Regexp.new("_#{current_system}$"), ""), :permalink => permalink).cache.first
+		end
 	end
 	
 	# temporary many-to-many association fix until patch is released

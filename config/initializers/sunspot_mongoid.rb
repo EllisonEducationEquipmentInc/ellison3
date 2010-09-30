@@ -46,3 +46,6 @@ end
 
 Sunspot.session = Sunspot::Rails.build_session
 ActionController::Base.module_eval { include(Sunspot::Rails::RequestLifecycle) }
+require 'memory'
+Sunspot::Adapters::InstanceAdapter.register(Memory::InstanceAdapter, SearchFacet)
+Sunspot::Adapters::DataAccessor.register(Memory::DataAccessor, SearchFacet )

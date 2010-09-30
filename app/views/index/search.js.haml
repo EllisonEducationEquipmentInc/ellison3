@@ -1,0 +1,6 @@
+== $('#products_filter').html('#{escape_javascript(render(:partial => "index/catalog_filter"))}');
+== $('#product_catalog').html('#{escape_javascript(render(:partial => "index/product_results"))}');
+shadow_on();
+initialize_buttons();
+initialize_facets();
+bind_hashchange ();
