@@ -35,7 +35,7 @@ class IndexController < ApplicationController
 	    Tag::TYPES.each do |e|
     		query.facet :"#{e.to_s}_#{current_system}"
      	end
-     	query.paginate(:page => params[:page] || 1, :per_page => 24)
+     	query.paginate(:page => params[:page] || 1, :per_page => 4)
 	  end
 	  @products = @search.results
 	end
