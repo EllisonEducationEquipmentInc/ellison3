@@ -44,6 +44,7 @@ gem 'active_merchant'
 gem 'fasterer-csv'
 gem 'httparty'
 gem 'shippinglogic', :git => 'git://github.com/computadude/shippinglogic.git', :branch => "master"
+gem 'sunspot_mongoid'
 
 # Use unicorn as the web server
 # gem 'unicorn'

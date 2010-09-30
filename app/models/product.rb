@@ -10,6 +10,9 @@ class Product
 	include Mongoid::Versioning
 	include Mongoid::Timestamps
 	include Mongoid::Paranoia
+	
+	include Sunspot::Mongoid
+	
 	# To have all queries for a model "cache":
   #cache
 	
@@ -90,12 +93,10 @@ class Product
 		scope sys.to_sym, :where => { :systems_enabled.in => [sys] }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex.:  Product.szus => scope for sizzix US products
 	end
 	
-	class << self
-		
+	class << self		
 		def available
 			active.where(:life_cycle.in => LIFE_CYCLES[0,3], :"start_date_#{current_system}".lte => Time.zone.now, :"end_date_#{current_system}".gte => Time.zone.now)
 		end
-		
 	end
 		
 	# define 
@@ -119,6 +120,63 @@ class Product
 	end
 
 	mount_uploader :image, ImageUploader	
+	
+	# solr fields:
+	searchable :auto_index => true, :auto_remove => true do
+	  boolean :active
+		text :tag_names do
+			tags.map { |tag| tag.name }
+		end
+		text :name, :boost => 2
+		#text :keywords, :boost => 1.5
+		text :short_desc, :item_num
+		string :life_cycle, :stored => true
+		string :item_num, :stored => true
+		string :medium_image, :stored => true
+		string :stored_name, :stored => true do
+		  name
+		end
+		string :systems_enabled, :multiple => true
+		integer :quantity, :stored => true
+		LOCALES_2_CURRENCIES.values.each do |currency|
+      float :"msrp_#{currency}" do
+        msrp :currency => currency
+      end
+    end
+    ELLISON_SYSTEMS.each do |system|
+      # system specific facets: ex: themes_szus
+      Tag::TYPES.each do |e|
+    		string :"#{e.to_s.pluralize}_#{system}", :multiple => true do
+    		  send(e.to_s.pluralize, system).map {|t| t.permalink}
+    		end
+     	end
+      boolean :"orderable_#{system}", :stored => true do
+        orderable?(system)
+      end
+      boolean :"listable_#{system}", :stored => true do
+        listable?(system)
+      end
+      text :"description_#{system}" do 
+        description :system => system
+      end
+      string :"public_life_cycle_#{system}", :stored => true do
+        public_life_cycle system
+      end
+      string :"availability_message_#{system}", :stored => true do
+        send "availability_message_#{system}"
+      end
+      LOCALES_2_CURRENCIES.values.each do |currency|
+        float :"price_#{system}_#{currency}" do
+          price :currency => currency, :system => system
+        end
+      end
+    end
+	end
+	
+	# create tags association methods by name: @product.categories #=> Array of associated "category" tags for the current system. Pass optional system as an argument to get available tags for other systems:  @product.categories("szuk")
+	Tag::TYPES.each do |e|
+		class_eval "def #{e.to_s.pluralize}(sys = current_system)\n tags.available(sys).send(\"#{e.to_s.pluralize}\") \n end"
+	end
 	
 	def description(options = {})
 		system = options[:system] || current_system
@@ -203,8 +261,8 @@ class Product
 		displayable? && orderable?
 	end
 	
-	def orderable?
-	  life_cycle == "available" || (self.send("orderable_#{current_system}") && life_cycle != "unvailable")
+	def orderable?(sys = current_system)
+	  life_cycle == "available" || (self.send("orderable_#{sys}") && life_cycle != "unvailable")
 	end
 	
 	def not_reselable?
@@ -219,9 +277,14 @@ class Product
 	  life_cycle == "unvailable"
 	end
 	
-	# if product can be displayed (regardless of availablitity)
-	def displayable?
-	  active && systems_enabled.include?(current_system) && self.send("start_date_#{current_system}") < Time.zone.now && self.send("end_date_#{current_system}") > Time.zone.now
+	# if product can be displayed on the product detail page (regardless of availablitity)
+	def displayable?(sys = current_system)
+	  active && systems_enabled.include?(sys) && self.send("start_date_#{sys}") < Time.zone.now && self.send("end_date_#{sys}") > Time.zone.now
+	end
+	
+	# if product can be displayed on the product list page (regardless of availablitity) - current products whose life_cycle is NOT "unvailable"
+	def listable?(sys = current_system)
+	  displayable?(sys) && LIFE_CYCLES[0,3].include?(life_cycle)
 	end
 	
 	def update_quantity(qty)
@@ -247,15 +310,15 @@ class Product
 	end
 
   # system specific distribution life cycle - before its expiriation (distribution_life_cycle_ends_#{sys})
-  def public_life_cycle
-    read_attribute("distribution_life_cycle_#{current_system}") if read_attribute("distribution_life_cycle_ends_#{current_system}") > Time.zone.now
+  def public_life_cycle(sys = current_system)
+    read_attribute("distribution_life_cycle_#{sys}") if read_attribute("distribution_life_cycle_ends_#{sys}") > Time.zone.now
   rescue
     ''
   end
   
   # temporary many-to-many association fix until patch is released
 	def my_tag_ids=(ids)
-	  self.tags = Tag.where(:_id.in => ids.map {|i| BSON::ObjectId(i)}).map {|p| p}
+	  self.tags = Tag.where(:_id.in => ids.compact.map {|i| BSON::ObjectId(i)}).map {|p| p}
 	end
 
 private 

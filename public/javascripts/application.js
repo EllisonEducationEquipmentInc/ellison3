@@ -39,6 +39,13 @@ function initialize_lightboxes(){
 
 
 $(document).ready(function(){
+	$('.accordion .head').click(function() {
+			$(this).find('span').toggleClass('ui-icon-triangle-1-s')
+			$(this).find('span').toggleClass('ui-icon-triangle-1-e')
+			$(this).next().toggle();
+			return false;
+		}).next().show();
+		
 	// image zoom
 	var options = {
 	    zoomWidth: 300,

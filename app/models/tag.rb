@@ -35,6 +35,7 @@ class Tag
 	# scopes
 	scope :active, :where => { :active => true }
 	scope :inactive, :where => { :active => false }
+	#scope :available, lambda { |sys = current_system| where(:active => true, :systems_enabled.in => [sys], :"start_date_#{sys}".lte => Time.zone.now, :"end_date_#{sys}".gte => Time.zone.now) }
 	ELLISON_SYSTEMS.each do |sys|
 		scope sys.to_sym, :where => { :systems_enabled.in => [sys] }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex.:  Tag.szus => scope for sizzix US tags
 	end
@@ -44,15 +45,15 @@ class Tag
 	
 	class << self
 		
-		def available
-			active.where(:"start_date_#{current_system}".lte => Time.zone.now, :"end_date_#{current_system}".gte => Time.zone.now)
+		def available(sys = current_system)
+			active.where(:systems_enabled.in => [sys], :"start_date_#{sys}".lte => Time.zone.now, :"end_date_#{sys}".gte => Time.zone.now)
 		end
 		
 	end
 	
 	# temporary many-to-many association fix until patch is released
 	def my_product_ids=(ids)
-	  self.products = Product.where(:_id.in => ids.map {|i| BSON::ObjectId(i)}).map {|p| p}
+	  self.products = Product.where(:_id.in => ids.compact.map {|i| BSON::ObjectId(i)}).map {|p| p}
 	end
 
 private 
@@ -62,7 +63,7 @@ private
   end
 
   def set_permalink
-    self.permalink ||= self.name.parameterize 
+    self.permalink = self.name.parameterize 
   end
 
   def inherit_system_specific_attributes

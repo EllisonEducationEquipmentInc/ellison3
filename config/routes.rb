@@ -25,6 +25,7 @@ Ellison3::Application.routes.draw do |map|
   end
 
 	match 'products' => 'index#products'
+	match 'catalog' => 'index#catalog'
 	match 'product/:id' => 'index#product', :as => :product
 	
 	match 'cart' => 'carts#index', :as => :cart

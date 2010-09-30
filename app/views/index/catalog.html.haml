@@ -1,0 +1,15 @@
+#products_filter
+  %h3 Shop Products By
+  .accordion.ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
+    - @search.facets.each do |facet|
+      - next if facet.rows.length < 1
+      %h4.head.ui-accordion-header.ui-helper-reset.ui-state-default.ui-state-active.ui-corner-top.ui-state-hover
+        %span.ui-icon.ui-icon-triangle-1-s
+        = link_to facet.name.to_s.gsub("_#{current_system}", "").humanize, "#"
+      %ul.ui-accordion-content.ui-helper-reset.ui-widget-content.ui-corner-bottom.ui-accordion-content-active
+        - facet.rows.each do |row|
+          %li= link_to "#{row.value} (#{row.count})", "#"
+      %br
+.products_grid
+  = render @products
+  = will_paginate @products

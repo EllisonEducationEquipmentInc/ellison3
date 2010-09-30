@@ -62,7 +62,7 @@ class Admin::ProductsController < ApplicationController
   # PUT /products/1.xml
   def update
     @product = Product.find(params[:id])
-
+    params[:product][:my_tag_ids] ||= []
     respond_to do |format|
       if @product.update_attributes(params[:product])
         format.html { redirect_to(admin_products_url, :notice => 'Product was successfully updated.') }

@@ -1,0 +1,22 @@
+common: &common
+  solr:
+    hostname: localhost
+    port: 8985
+
+production:
+  <<: *common
+
+development:
+  <<: *common
+  solr:
+    port: 8985
+
+staging:
+  <<: *common
+  solr:
+    port: 8985
+
+test:
+  <<: *common
+  solr:
+    port: 8986
