@@ -328,16 +328,16 @@ body.bp {
 	}
 	
 	.product-carousel {
-
+	  
 	  img.thumbnail {
 	    float: left;
 	    margin: 0 5px 3px 0;
-	    width: 65px;
-	    height: 65px;
+	    width: 125px;
+	    height: 125px;
       border: 1px solid #e5d5c5;
 	  }
 	  p.caption {
-	    width: 430px;
+	    width: 300px;
 	    margin: 3px;
 	  }
 	  a {
@@ -356,15 +356,20 @@ body.bp {
 	  }
 	}
 	
-	.frame_carousel {
-	  height: 256px;
-	  background: transparent url('/images/_temp/stolen/frame_carousel_product.png') no-repeat;
-	}
-	
-	#bestsellers, #newarrivals {
-	  top: 22px;
-	  padding-left: 20px;
-	}
+   .frame_carousel {
+     height: 162px;
+     background: transparent url('/images/ui-objects/paper_carousel_product.png') no-repeat;
+   }
+
+   .frame_carousel_blue { @extend .frame_carousel;
+     height: 183px;
+     background: transparent url('/images/ui-objects/paperscrap_blue.png') no-repeat;
+   }
+   
+   #bestsellers, #newarrivals {
+     top: 4px;
+     padding-left: 5px;
+   }
 
   #social-media {
     

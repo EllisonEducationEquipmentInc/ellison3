@@ -115,10 +115,10 @@ $(document).ready(function(){
       btnNext: ".up_bestsellers",
       btnPrev: ".down_bestsellers",
       vertical: true,
-//      auto: 5000,
-//      speed: 1000,
-      visible: 3,
-      scroll: 3
+      auto: 5500,
+      speed: 2500,
+      visible: 1,
+      scroll: 1
     });
   });
   $(function() {
@@ -126,10 +126,10 @@ $(document).ready(function(){
       btnNext: ".up_newarrivals",
       btnPrev: ".down_newarrivals",
       vertical: true,
-      auto: 5000,
-      speed: 1000,
-      visible: 3,
-      scroll: 3
+      auto: 5500,
+      speed: 2500,
+      visible: 1,
+      scroll: 1
     });
   });
 
