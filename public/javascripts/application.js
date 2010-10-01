@@ -55,7 +55,8 @@ function shadow_on() {
 function bind_hashchange () {
 	$(window).bind( 'hashchange', function(){
 	  var hash = location.hash;
-		$.ajax({url:"/index/search?"+$.param.fragment(), beforeSend: function(){$("#product_catalog").css({opacity: 0.3})}, complete: function(){$("#product_catalog").css({opacity: 1})}});
+		if (location.pathname.indexOf("/catalog") >= 0)
+			$.ajax({url:"/index/search?"+$.param.fragment(), beforeSend: function(){$("#product_catalog").css({opacity: 0.3})}, complete: function(){$("#product_catalog").css({opacity: 1})}});
 	});
 }
 
