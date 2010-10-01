@@ -153,17 +153,30 @@ body.bp {
     
     a.prevBtn {
       position:absolute;
-      top: 140px;
-      left: 36px;
       display: block;
-    	width: 34px;
-    	height: 55px;
-    	text-indent: -9999px;
-      background:url("/images/ui-buttons/arrow_prev_white-grunge.png") no-repeat 0 0;
+      font-family: Georgia, serif;
+      font-size: 12px;
+      font-style: italic;
+      font-weight: bold;
+      line-height: 2em;
+      color: #fff;
+      text-decoration: none;
+      &:hover { color: #ff9ac4;};
+
+      top: 153px;
+      left: 8px;
+    	width: 47px;
+    	height: 34px;
+    	padding: 3px 0 0 8px;
+      background:url("/images/ui-buttons/arrow_prev_red-ribbon.png") no-repeat 0 0;
     }
     a.nextBtn { @extend a.prevBtn;
-      left: 884px;
-      background:url("/images/ui-buttons/arrow_next_white-grunge.png") no-repeat 0 0;
+      top: 145px;
+      left: 899px;
+    	width: 45px;
+    	height: 35px;
+    	padding: 5px 0 0 10px;
+      background:url("/images/ui-buttons/arrow_next_red-ribbon.png") no-repeat 0 0;
     }
   }
   
