@@ -124,7 +124,27 @@ HTML
 	end
 	
 	def catalog_breadcrumbs
-	  
+	  r = ''
+	  unless @breadcrumb_tags.blank?
+	    breadcrumbs = [link_to_function("All", "location.hash = ''")] #[]
+	    @breadcrumb_tags.each do |tag|
+	      breadcrumbs << link_to(tag.name, "#", :rel => tag.facet_param, :class => "tag_breadcrumb")
+	    end
+	    r << breadcrumbs.join(" > ")
+	    r << javascript_tag do
+	      <<-JS
+	      $(function() {
+      		$('.tag_breadcrumb').click(function() {
+      		    var facets = $.deparam.fragment()['facets'].split(",");
+      		    facets.splice(facets.indexOf($(this).attr('rel'))+1);        
+              location.hash = $.param.fragment( location.hash, {facets: facets.join(","), page: 1}, 0 );
+        			return false;
+        		})
+      	});
+	      JS
+	    end
+	    r.html_safe
+	  end
 	end
 	
 end

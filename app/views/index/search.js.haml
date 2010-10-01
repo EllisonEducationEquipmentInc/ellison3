@@ -1,7 +1,6 @@
 == $('#products_filter').html('#{escape_javascript(render(:partial => "index/catalog_filter"))}');
 == $('#product_catalog').html('#{escape_javascript(render(:partial => "index/product_results"))}');
-- if @breadcrumb_tags
-  == $('#catalog_breadcumbs').html('#{escape_javascript(@breadcrumb_tags.map {|bc| bc.name}.join(" > "))}');
+== $('#catalog_breadcumbs').html('#{escape_javascript(catalog_breadcrumbs)}');
 shadow_on();
 initialize_buttons();
 initialize_facets();

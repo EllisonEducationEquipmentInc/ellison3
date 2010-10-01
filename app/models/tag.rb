@@ -54,6 +54,10 @@ class Tag
 		end
 	end
 	
+	def facet_param
+	  tag_type.to_s.gsub(/_(#{ELLISON_SYSTEMS.join("|")})$/, "") + "~" + permalink
+	end
+	
 	# temporary many-to-many association fix until patch is released
 	def my_product_ids=(ids)
 	  self.products = Product.where(:_id.in => ids.compact.map {|i| BSON::ObjectId(i)}).map {|p| p}
