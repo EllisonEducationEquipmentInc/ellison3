@@ -30,6 +30,7 @@ class IndexController < ApplicationController
 	  @facets_hash = @facets.split(",")
 	  @breadcrumb_tags = Tag.any_of(*@facets_hash.map {|e| {:tag_type => e.split("~")[0], :permalink => e.split("~")[1]}}).cache unless @facets_hash.blank?
 	  @search = Product.search do |query|
+	    query.keywords params[:q] unless params[:q].blank?
 	    query.with :"listable_#{current_system}", true
 	    @facets_hash.each do |f|
 	      query.with :"#{f.split("~")[0]}_#{current_system}", f.split("~")[1]

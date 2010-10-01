@@ -60,6 +60,23 @@ function bind_hashchange () {
 	});
 }
 
+function highlight_keyword () {
+	var term = $.getUrlVar('q') || $.deparam.fragment()['q'];
+	if (term == undefined) {
+		return false;
+	} else {
+		$('span.highlight').each(function(){
+			$(this).after($(this).html()).remove();
+		});
+		$('div.highlightable :icontains("'+term+'")').filter(function() {return this.children.length == 0}).each(function(){
+			var regexp = new RegExp(term,'gi')
+			$(this).html($(this).html().replace(regexp, '<span class="highlight">'+$(this).html().match(regexp)[0]+'</span>'));
+			$(this).find('span.highlight').fadeIn("slow");
+		});
+		return false;
+	}
+}
+
 $(document).ready(function(){
 	
 	bind_hashchange ();
@@ -139,6 +156,8 @@ $(document).ready(function(){
 
 	shadow_on();
 
+	highlight_keyword();
+	
 	jQuery.validator.addMethod("phoneUS", function(phone_number, element) {
 	    phone_number = phone_number.replace(/\s+/g, ""); 
 		return this.optional(element) || phone_number.length > 9 &&
@@ -356,21 +375,3 @@ $.extend({
 $.expr[':'].icontains = function(obj, index, meta, stack){ 
 	return (obj.textContent || obj.innerText || jQuery(obj).text() || '').toLowerCase().indexOf(meta[3].toLowerCase()) >= 0; 
 };
-
-// highlight search terms
-$(document).ready(function(){
-	var term = $.getUrlVar('q');
-	if (term == undefined) {
-		return false;
-	} else {
-		$('span.highlight').each(function(){
-			$(this).after($(this).html()).remove();
-		});
-		$('div.highlightable :icontains("'+term+'")').filter(function() {return this.children.length == 0}).each(function(){
-			var regexp = new RegExp(term,'gi')
-			$(this).html($(this).html().replace(regexp, '<span class="highlight">'+$(this).html().match(regexp)[0]+'</span>'));
-			$(this).find('span.highlight').fadeIn("slow");
-		});
-		return false;
-	}
-});

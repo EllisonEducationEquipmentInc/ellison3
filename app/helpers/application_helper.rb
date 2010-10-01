@@ -125,6 +125,11 @@ HTML
 	
 	def catalog_breadcrumbs
 	  r = ''
+	  unless params[:q].blank?
+	    r << "Search Keywords: #{params[:q]} "
+	    r << link_to_function("x", "location.hash = $.param.fragment( location.hash, {q: '', page: 1}, 0 )")
+	    r << "<br />"
+	  end 
 	  unless @breadcrumb_tags.blank?
 	    breadcrumbs = [link_to_function("All", "location.hash = ''")] #[]
 	    @breadcrumb_tags.each do |tag|
