@@ -1,6 +1,5 @@
 .breadcrumbs
-  breadcrumbs will go here... for now, here's a link
-  = link_to 'back', products_path
+  = link_to_function 'back', "window.history.back()"
 .product_main
   .product_images
     #large_image= image_tag(@product.large_image)

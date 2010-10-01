@@ -55,6 +55,7 @@ function shadow_on() {
 function bind_hashchange () {
 	$(window).bind( 'hashchange', function(){
 	  var hash = location.hash;
+		$.bbq.pushState(hash);
 	});
 }
 
