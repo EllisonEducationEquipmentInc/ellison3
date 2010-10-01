@@ -17,7 +17,6 @@
       } else {
         location.hash = $.param.fragment( location.hash, {facets: $.deparam.fragment()['facets']+","+$(this).attr('rel'), page: 1}, 0 );
       }
-      $.ajax({url:"/index/search?"+$.param.fragment(), beforeSend: function(){$("#product_catalog").css({opacity: 0.3})}, complete: function(){$("#product_catalog").css({opacity: 1})}});
       return false;
     })
   });

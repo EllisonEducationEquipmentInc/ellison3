@@ -123,4 +123,8 @@ HTML
 	  facet.to_s.gsub(/_(#{ELLISON_SYSTEMS.join("|")})$/, "")
 	end
 	
+	def catalog_breadcrumbs
+	  
+	end
+	
 end
