@@ -38,6 +38,7 @@ class IndexController < ApplicationController
     		query.facet :"#{e.to_s}_#{current_system}"
      	end
      	query.paginate(:page => params[:page] || 1, :per_page => 4)
+     	query.order_by(*params[:sort].split(":")) if params[:sort]
 	  end
 	  @products = @search.results
 	end

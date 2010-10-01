@@ -150,6 +150,7 @@ class Product
     		  send(e.to_s.pluralize, system).map {|t| t.permalink}
     		end
      	end
+     	time :"start_date_#{system}", :stored => true
       boolean :"orderable_#{system}", :stored => true do
         orderable?(system)
       end
@@ -165,6 +166,12 @@ class Product
       string :"availability_message_#{system}", :stored => true do
         send "availability_message_#{system}"
       end
+      string :sort_name do
+  		  name.downcase.sub(/^(an?|the) /, '') rescue nil
+  		end
+  		integer :quantity_sold do
+        Order.only("order_items").where("order_items.item_num" => item_num).inject(0) {|sum, o| sum += o.order_items.where({:item_num => item_num}).first.quantity}
+  		end
       LOCALES_2_CURRENCIES.values.each do |currency|
         float :"price_#{system}_#{currency}" do
           price :currency => currency, :system => system

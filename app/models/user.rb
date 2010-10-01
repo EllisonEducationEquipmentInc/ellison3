@@ -13,7 +13,10 @@ class User
 	validates_uniqueness_of :email, :case_sensitive => false
 	attr_accessible :name, :email, :password, :password_confirmation
 
-	references_many :orders
+	references_many :orders, :index => true
+	
+	index :email
+	index :systems_enabled
 	
 	embeds_many :addresses do
     def billing

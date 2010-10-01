@@ -11,6 +11,9 @@ class Order
 	referenced_in :user
 	
 	index :status 
+	index :system
+	index "order_items.item_num"
+	index "order_items.product_id"
 	
 	field :status, :default => "New"
 	field :system
