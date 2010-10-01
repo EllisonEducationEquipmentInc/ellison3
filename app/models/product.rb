@@ -83,7 +83,7 @@ class Product
   end
 	embeds_many :images
 	
-	references_many :tags, :stored_as => :array, :inverse_of => :products
+	references_many :tags, :stored_as => :array, :inverse_of => :products, :index => true
   	
 	# scopes
 	scope :active, :where => { :active => true }
