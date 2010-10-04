@@ -26,12 +26,17 @@ class IndexController < ApplicationController
 	
 	def search
 	  redirect_to :action => "catalog" and return unless request.xhr?
-	  @price_ranges = [["under", 5], ["under", 10], ["under", 15], ["under", 25], ["under", 50], ["over", 50]]
+	  # TODO: move price ranges to a class 
+	  @price_ranges = is_ee? ? [["under", 20], ["under", 60], ["under", 100], ["under", 150], ["under", 300], ["under", 600], ["over", 600]] : [["under", 5], ["under", 10], ["under", 15], ["under", 25], ["under", 50], ["over", 50]]
 	  @facets = params[:facets] || ""
 	  @facets_hash = @facets.split(",")
 	  @breadcrumb_tags = @facets_hash.blank? ? [] : Tag.any_of(*@facets_hash.map {|e| {:tag_type => e.split("~")[0], :permalink => e.split("~")[1]}}).cache 
 	  @search = Product.search do |query|
 	    query.keywords params[:q] unless params[:q].blank?
+	    query.adjust_solr_params do |params|
+        params[:"spellcheck"] = true
+				params[:"spellcheck.collate"] = true
+			end
 	    query.with :"listable_#{current_system}", true
 	    @facets_hash.each do |f|
 	      query.with :"#{f.split("~")[0]}_#{current_system}", f
