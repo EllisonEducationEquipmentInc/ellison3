@@ -112,7 +112,7 @@ HTML
 	end
 	
 	def spinner
-		image_tag "/images/ui-objects/ajax-loader.gif"
+		image_tag "/images/ui-objects/loader-ajax.gif"
 	end
 	
 	def facebook_like

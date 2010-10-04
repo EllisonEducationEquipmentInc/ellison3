@@ -9,6 +9,15 @@ body.bp {
   }
   h3 {font-size: 1.8em;}
   
+  h3.decorative {
+    height: 45px;
+
+    span {
+      position: relative;
+      top: 14px;
+      left: 53px;
+    }
+  }
   
   a {
     outline: none;
@@ -142,7 +151,9 @@ body.bp {
           	border:1px solid #d9e5f7;
           	background:#eff5fd;
           	padding:3px;
-          	text-decoration:none;            
+          	text-decoration:none;
+          	
+          	&:hover { background:#b2c7e7; };
           }
         }
         
@@ -225,7 +236,7 @@ body.bp {
   }
   
   .billboard {
-    margin-bottom: 24px;
+    margin-bottom: 10px;
     height: 18*11px;
   }
   
@@ -342,6 +353,10 @@ body.bp {
 	
 	.product-carousel {
 	  
+	  h3.bestsellers { background: url('/images/ui-objects/heart_pink.png') no-repeat; }
+
+	  h3.newarrivals { background: url('/images/ui-objects/leaf_fall.png') no-repeat; }	  
+	  
 	  img.thumbnail {
 	    float: left;
 	    margin: 0 5px 3px 0;
@@ -368,23 +383,29 @@ body.bp {
 	    background-image: url('/images/ui-buttons/arrow_down_ltblue-grunge.png');
 	  }
 	}
-	
-   .frame_carousel {
-     height: 162px;
-     background: transparent url('/images/ui-objects/paper_carousel_product.png') no-repeat;
-   }
 
-   .frame_carousel_blue { @extend .frame_carousel;
-     height: 183px;
-     background: transparent url('/images/ui-objects/paperscrap_blue.png') no-repeat;
-   }
-   
-   #bestsellers, #newarrivals {
-     top: 4px;
-     padding-left: 5px;
-   }
+  .frame_carousel {
+    height: 162px;
+    background: transparent url('/images/ui-objects/paperscrap_beige.png') no-repeat;
+  }
+
+  .frame_carousel_blue { @extend .frame_carousel;
+    height: 183px;
+    background: transparent url('/images/ui-objects/paperscrap_blue.png') no-repeat;
+  }
+
+  #bestsellers, #newarrivals {
+    top: 4px;
+    padding-left: 5px;
+  }
+  
+  #staffpicks {
+    h3 { background: url('/images/ui-objects/pumpkin.png') no-repeat; }
+  }
 
   #social-media {
+    
+    h3 { background: url('/images/ui-objects/bird_blue-twitter.png') no-repeat; }
     
     .tweets, #connect-with-sizzix {
       margin:0;

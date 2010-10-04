@@ -66,7 +66,8 @@
         =link_to "Pellentesque consectetur malesuada sagittis", "http://www.google.com"
         
 .product-carousel
-  %h3 What's Hot!
+  %h3.bestsellers.decorative
+    %span What's Hot!
   .frame_carousel
     #bestsellers
       %ul
@@ -154,7 +155,8 @@
   =link_to "Up", "#", :alt => "Up", :title => "Up", :class => "up_bestsellers"
 
 .product-carousel
-  %h3 Just Arrived!
+  %h3.newarrivals.decorative
+    %span Just Arrived!
   .frame_carousel_blue
     #newarrivals
       %ul
@@ -242,7 +244,8 @@
   =link_to "Up", "#", :alt => "Up", :title => "Up", :class => "up_newarrivals"
 
 #staffpicks
-  %h3 Halloween Favorites
+  %h3.decorative
+    %span Halloween Favorites
   %ul
     %li Sizzix Sizzlits Die Set 4PK - Snowflakes Set 
     %li Sizzix Sizzlits Decorative Strip Die - Grass 
@@ -270,9 +273,8 @@
     %p launch poll
 
 #social-media
-  %h3
-    Sizzix Tweets
-    =image_tag("/images/ui-icons/twitter-bird.png")
+  %h3.decorative
+    %span Sizzix Tweets
   %ul.tweets
     %li
       Rare savings from 20%-87% off our most essential items!

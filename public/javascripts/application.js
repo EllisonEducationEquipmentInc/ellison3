@@ -336,7 +336,7 @@ function fancyloader(text) {
   			'overlayOpacity'		:	0.7,
   			'width'	: 860,
   			'title'			: false,
-  			'content'	: '<div style="text-align:center;width: 260px;"><p>'+text+'</p><img src="/images/ui-objects/ajax-loader-1.gif" /></div>'
+  			'content'	: '<div style="text-align:center;width: 260px;"><p>'+text+'</p><img src="/images/ui-objects/loader-ajax_bar.gif" /></div>'
   		});
 	setTimeout("$.fancybox.resize()", 1000);
 }
