@@ -3,11 +3,11 @@
 body.bp {
   background: url("/images/ui-backgrounds/_#{$system}_site.png");
   
-  h3, h4 {
+  h1, h2, h3, h4, h5 {
     font-family: 'Vollkorn', arial, serif;
     margin-bottom: 2px;
   }
-  h3 {font-size: 1.8em;}
+  h3 { font-size: 1.8em; }
   
   h3.decorative {
     height: 45px;
@@ -19,9 +19,9 @@ body.bp {
     }
   }
   
-  a {
-    outline: none;
-  }
+  h4 { text-transform: uppercase; }
+  
+  a { outline: none; }
 }
 
 #header {
@@ -401,6 +401,10 @@ body.bp {
   
   #staffpicks {
     h3 { background: url('/images/ui-objects/pumpkin.png') no-repeat; }
+  }
+
+  #blog-posts {
+    h3 { background: url('/images/ui-objects/flower_pink-geometric.png') no-repeat; }
   }
 
   #social-media {
