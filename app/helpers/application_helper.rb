@@ -130,11 +130,12 @@ HTML
 	    r << link_to_function("x", "location.hash = $.param.fragment( location.hash, {q: '', page: 1}, 0 )")
 	    r << "<br />"
 	  end 
-	  unless @breadcrumb_tags.blank?
+	  unless @breadcrumb_tags.blank? && params[:price].blank?
 	    breadcrumbs = [link_to_function("All", "location.hash = ''")] #[]
 	    @breadcrumb_tags.each do |tag|
 	      breadcrumbs << link_to(tag.name, "#", :rel => tag.facet_param, :class => "tag_breadcrumb") + " " + link_to("x", "#", :rel => tag.facet_param, :class => "tag_breadcrumb_remove")
 	    end
+	    breadcrumbs << "#{params[:price].split("~")[0].capitalize} #{number_to_currency(params[:price].split("~")[1])} " + link_to("x", "#", :rel => params[:price], :class => "price_breadcrumb_remove") unless params[:price].blank?
 	    r << breadcrumbs.join(" > ")
 	    r << javascript_tag do
 	      <<-JS
@@ -149,6 +150,10 @@ HTML
       		    var facets = $.deparam.fragment()['facets'].split(",");
       		    facets.splice(facets.indexOf($(this).attr('rel')),1);        
               location.hash = $.param.fragment( location.hash, {facets: facets.join(","), page: 1}, 0 );
+        			return false;
+        		});
+      		$('.price_breadcrumb_remove').click(function() {       
+              location.hash = $.param.fragment( location.hash, {price: '', page: 1}, 0 );
         			return false;
         		});
       	});

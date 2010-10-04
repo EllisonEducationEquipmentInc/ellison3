@@ -2,13 +2,16 @@
 = text_field_tag :keyword, nil, :autocomplete => "off", :placeholder => "enter search keyword", :style => "width:144px;"
 .facets.ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
   - @search.facets.each do |facet|
-    - next if facet.rows.length < 1 || @facets_hash.any? {|h| h.include?(facet_to_param(facet.name))}
+    - next if facet.rows.length < 1 || @facets_hash.any? {|h| h.include?(facet_to_param(facet.name))} || (facet.name == :price && !params[:price].blank?)
     %h4.head.ui-accordion-header.ui-helper-reset.ui-state-default.ui-corner-top
       %span.ui-icon.ui-icon-triangle-1-s
       = link_to facet.name.to_s.gsub("_#{current_system}", "").humanize, "#"
     %ul.ui-accordion-content.ui-helper-reset.ui-widget-content.ui-corner-bottom.ui-accordion-content-active
       - facet.rows.each do |row|
-        %li= link_to "#{row.instance.name} (#{row.count})", "#",  :rel => "#{row.value}", :class => "facet_value"
+        - if facet.class == Sunspot::Search::FieldFacet
+          %li= link_to "#{row.instance.name} (#{row.count})", "#",  :rel => "#{row.value}", :class => "facet_value"
+        - else
+          %li= link_to "#{row.value[0].capitalize} #{number_to_currency(row.value[1])} (#{row.count})", "#",  :rel => "#{row.value.join("~")}", :class => "price_query_facet_value"
     %br
 :javascript
   $(function() {
@@ -18,6 +21,10 @@
       } else {
         location.hash = $.param.fragment( location.hash, {facets: $.deparam.fragment()['facets']+","+$(this).attr('rel'), page: 1}, 0 );
       }
+      return false;
+    });
+    $(".price_query_facet_value").click(function() {
+      location.hash = $.param.fragment( location.hash, {price: $(this).attr('rel'), page: 1}, 0 );
       return false;
     });
     $('#keyword').change(function() {
