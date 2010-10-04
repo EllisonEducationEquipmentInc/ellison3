@@ -33,13 +33,13 @@ class IndexController < ApplicationController
 	    query.keywords params[:q] unless params[:q].blank?
 	    query.with :"listable_#{current_system}", true
 	    @facets_hash.each do |f|
-	      query.with :"#{f.split("~")[0]}_#{current_system}", f.split("~")[1]
+	      query.with :"#{f.split("~")[0]}_#{current_system}", f
 	    end
 	    Tag::TYPES.each do |e|
     		query.facet :"#{e.to_s}_#{current_system}"
      	end
      	query.paginate(:page => params[:page] || 1, :per_page => 4)
-     	query.order_by(*params[:sort].split(":")) if params[:sort]
+     	query.order_by(*params[:sort].split(":")) unless params[:sort].blank?
 	  end
 	  @products = @search.results
 	end

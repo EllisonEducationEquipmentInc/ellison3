@@ -4,7 +4,7 @@ class Tag
 	include Mongoid::Timestamps
 	include ActiveModel::Validations
 	include ActiveModel::Translation
-	
+		
 	TYPES = ["artist", "calendar_event", "category", "curriculum", "designer", "exclusive", "machine_compatibility", "material_compatibility", "product_family", "product_line", "special", "subcategory", "subcurriculum", "subtheme", "theme"]
   
   references_many :products, :stored_as => :array, :inverse_of => :tags, :index => true

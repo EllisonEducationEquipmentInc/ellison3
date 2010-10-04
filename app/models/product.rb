@@ -146,8 +146,8 @@ class Product
     ELLISON_SYSTEMS.each do |system|
       # system specific facets: ex: theme_szus
       Tag::TYPES.each do |e|
-    		string :"#{e}_#{system}", :multiple => true do
-    		  send(e.to_s.pluralize, system).map {|t| t.permalink}
+    		string :"#{e}_#{system}", :multiple => true, :references => TagFacet do
+    		  send(e.to_s.pluralize, system).map {|t| "#{t.tag_type}~#{t.permalink}"}
     		end
      	end
      	time :"start_date_#{system}", :stored => true

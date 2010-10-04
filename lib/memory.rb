@@ -10,11 +10,11 @@ module Memory
 
   class DataAccessor < Sunspot::Adapters::DataAccessor
     def load( id )
-      @clazz.find(id.to_i)
+      @clazz.find(id)
     end
 
     def load_all( ids )
-      @clazz.find_all(ids.map { |id| id.to_i })
+      @clazz.find_all(ids.map { |id| id })
     end
   end
 end

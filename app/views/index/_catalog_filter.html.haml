@@ -8,7 +8,7 @@
       = link_to facet.name.to_s.gsub("_#{current_system}", "").humanize, "#"
     %ul.ui-accordion-content.ui-helper-reset.ui-widget-content.ui-corner-bottom.ui-accordion-content-active
       - facet.rows.each do |row|
-        %li= link_to "#{Tag.find_by_permalink(facet.name, row.value).name} (#{row.count})", "#", :rel => "#{facet_to_param(facet.name)}~#{row.value}", :class => "facet_value"
+        %li= link_to "#{row.instance.name} (#{row.count})", "#",  :rel => "#{row.value}", :class => "facet_value"
     %br
 :javascript
   $(function() {
