@@ -379,3 +379,27 @@ li#cart_total {
   border: 1px solid #390;
   background: white;
 }
+
+/* line 251, ../../../app/stylesheets/application.scss */
+.pagination a {
+  border: 1px solid #15B;
+  padding: 4px 6px 3px;
+  text-decoration: none;
+  color: #15B;
+}
+
+/* line 252, ../../../app/stylesheets/application.scss */
+.pagination span {
+  border: 1px solid #CCC;
+  padding: 4px 6px 3px;
+  text-decoration: none;
+  color: #CCC;
+}
+
+/* line 253, ../../../app/stylesheets/application.scss */
+.pagination em {
+  border: 1px solid black;
+  padding: 4px 6px 3px;
+  background: #26B;
+  color: white;
+}

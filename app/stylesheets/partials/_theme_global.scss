@@ -1,6 +1,6 @@
 // GLOBAL VISUAL DESIGN THEME STYLESHEET for ALL SYSTEMS
 
-body.bp {
+body {
   background: url("/images/ui-backgrounds/_#{$system}_site.png");
   
   h1, h2, h3, h4, h5 {
@@ -143,7 +143,7 @@ body.bp {
           height: 20px;
           line-height: 20px;
           
-          a { text-decoration: none;}
+          a { outline: none; text-decoration: none;}
           
           img {
           	height:20px;
@@ -164,30 +164,18 @@ body.bp {
     
     a.prevBtn {
       position:absolute;
+      top: 140px;
+      left: 36px;
       display: block;
-      font-family: Georgia, serif;
-      font-size: 12px;
-      font-style: italic;
-      font-weight: bold;
-      line-height: 2em;
-      color: #fff;
-      text-decoration: none;
-      &:hover { color: #ff9ac4;};
-
-      top: 153px;
-      left: 8px;
-    	width: 47px;
-    	height: 34px;
-    	padding: 3px 0 0 8px;
-      background:url("/images/ui-buttons/arrow_prev_red-ribbon.png") no-repeat 0 0;
+    	width: 34px;
+    	height: 55px;
+    	text-indent: -9999px;
+    	outline:none;
+      background:url("/images/ui-buttons/arrow_prev_white-grunge.png") no-repeat 0 0;
     }
     a.nextBtn { @extend a.prevBtn;
-      top: 145px;
-      left: 899px;
-    	width: 45px;
-    	height: 35px;
-    	padding: 5px 0 0 10px;
-      background:url("/images/ui-buttons/arrow_next_red-ribbon.png") no-repeat 0 0;
+      left: 884px;
+      background:url("/images/ui-buttons/arrow_next_white-grunge.png") no-repeat 0 0;
     }
   }
   
@@ -352,6 +340,9 @@ body.bp {
 	}
 	
 	.product-carousel {
+	  h3 {
+	    margin-bottom: 3px;
+	  }
 	  
 	  h3.bestsellers { background: url('/images/ui-objects/heart_pink.png') no-repeat; }
 
@@ -360,12 +351,12 @@ body.bp {
 	  img.thumbnail {
 	    float: left;
 	    margin: 0 5px 3px 0;
-	    width: 125px;
-	    height: 125px;
+	    width: 65px;
+	    height: 65px;
       border: 1px solid #e5d5c5;
 	  }
 	  p.caption {
-	    width: 300px;
+	    width: 430px;
 	    margin: 3px;
 	  }
 	  a {
@@ -375,6 +366,7 @@ body.bp {
     	width: 16px;
     	height: 16px;
     	text-indent: -9999px;
+    	outline:none;
 	  }
 	  a.up_bestsellers, a.up_newarrivals { @extend a;
 	    background-image: url('/images/ui-buttons/arrow_up_ltblue-grunge.png');

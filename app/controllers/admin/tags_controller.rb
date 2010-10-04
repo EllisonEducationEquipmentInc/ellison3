@@ -4,7 +4,15 @@ class Admin::TagsController < ApplicationController
 	before_filter :authenticate_admin!
 	
 	def index
-		@tags = Tag.order_by(:name).all.paginate :page => params[:page], :per_page => 100
+	  criteria = Mongoid::Criteria.new(Tag)
+	  criteria.where(:systems_enabled.in => params[:systems_enabled]) unless params[:systems_enabled].blank?
+	  criteria.where(:active => true) unless params[:inactive].blank?
+	  criteria.where(:tag_type => params[:tag_type]) unless params[:tag_type].blank?
+	  unless params[:q].blank?
+	    regexp = Regexp.new(params[:q], "i")
+  	  criteria.any_of({ :name => regexp})
+	  end
+		@tags = criteria.paginate :page => params[:page], :per_page => 100
 	end
 
   # GET /tags/1

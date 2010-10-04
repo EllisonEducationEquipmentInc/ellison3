@@ -5,9 +5,7 @@
 - unless params[:q].blank?
   = link_to 'all', admin_products_path, :class => 'jqui_button'
 - form_tag(admin_products_path, :method => :get) do
-  - (ELLISON_SYSTEMS & current_admin.systems_enabled).each do |sys|
-    = check_box_tag "systems_enabled[]", sys, params[:systems_enabled] && params[:systems_enabled].include?(sys), :id => nil
-    = sys
+  = admin_systems_checkboxes
   = select_tag :life_cycle, options_for_select([["- life cycle -", nil]] + Product::LIFE_CYCLES, params[:life_cycle])
   = text_field_tag :q, nil, :placeholder => "item num, name, desc"
   = check_box_tag :inactive, "1", params[:inactive] == "1"
