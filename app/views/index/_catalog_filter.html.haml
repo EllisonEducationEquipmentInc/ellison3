@@ -9,9 +9,9 @@
     %ul.ui-accordion-content.ui-helper-reset.ui-widget-content.ui-corner-bottom.ui-accordion-content-active
       - facet.rows.each do |row|
         - if facet.class == Sunspot::Search::FieldFacet
-          %li= link_to "#{row.instance.name} (#{row.count})", "#",  :rel => "#{row.value}", :class => "facet_value"
+          %li= link_to "#{row.instance.name} (#{row.count})", "#",  :rel => "#{row.value}", :title =>  row.instance.name, :class => "facet_value"
         - else
-          %li= link_to "#{row.value[0].capitalize} #{number_to_currency(row.value[1])} (#{row.count})", "#",  :rel => "#{row.value.join("~")}", :class => "price_query_facet_value"
+          %li= link_to "#{row.value[0].capitalize} #{number_to_currency(row.value[1])} (#{row.count})", "#", :title => "#{row.value[0].capitalize} #{number_to_currency(row.value[1])}", :rel => "#{row.value.join("~")}", :class => "price_query_facet_value"
     %br
 :javascript
   $(function() {

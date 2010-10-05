@@ -1,6 +1,10 @@
 == $('#products_filter').html('#{escape_javascript(render(:partial => "index/catalog_filter"))}');
 == $('#product_catalog').html('#{escape_javascript(render(:partial => "index/product_results"))}');
 == $('#catalog_breadcumbs').html('#{escape_javascript(catalog_breadcrumbs)}');
+- if @breadcrumb_tags.blank? && params[:price].blank? && params[:q].blank?
+  document.title = document.title.replace(/^Catalog[^|]+|/, 'Catalog ')
+- else
+  document.title = document.title.replace(/^Catalog[^|]+|/, 'Catalog - #{@breadcrumb_tags.map {|t| t.name}.concat([price_label, keyword_label]).compact.join(" > ").html_safe} ')
 shadow_on();
 initialize_buttons();
 initialize_facets();

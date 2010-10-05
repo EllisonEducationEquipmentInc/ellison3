@@ -126,16 +126,16 @@ HTML
 	def catalog_breadcrumbs
 	  r = ''
 	  unless params[:q].blank?
-	    r << "Search Keywords: #{params[:q]} "
+	    r << keyword_label
 	    r << link_to_function("x", "location.hash = $.param.fragment( location.hash, {q: '', page: 1}, 0 )")
 	    r << "<br />"
 	  end 
 	  unless @breadcrumb_tags.blank? && params[:price].blank?
 	    breadcrumbs = [link_to_function("All", "location.hash = ''")] #[]
 	    @breadcrumb_tags.each do |tag|
-	      breadcrumbs << link_to(tag.name, "#", :rel => tag.facet_param, :class => "tag_breadcrumb") + " " + link_to("x", "#", :rel => tag.facet_param, :class => "tag_breadcrumb_remove")
+	      breadcrumbs << link_to(tag.name, "#", :rel => tag.facet_param, :class => "tag_breadcrumb") + " " + link_to("x", "#", :title => tag.name, :rel => tag.facet_param, :class => "tag_breadcrumb_remove")
 	    end
-	    breadcrumbs << "#{params[:price].split("~")[0].capitalize} #{number_to_currency(params[:price].split("~")[1])} " + link_to("x", "#", :rel => params[:price], :class => "price_breadcrumb_remove") unless params[:price].blank?
+	    breadcrumbs << price_label + link_to("x", "#", :rel => params[:price], :class => "price_breadcrumb_remove") unless params[:price].blank?
 	    r << breadcrumbs.join(" > ")
 	    r << javascript_tag do
 	      <<-JS
@@ -161,6 +161,14 @@ HTML
 	    end
 	  end
 	  r.html_safe
+	end
+	
+	def price_label
+	  "#{params[:price].split("~")[0].capitalize} #{number_to_currency(params[:price].split("~")[1])} " unless params[:price].blank?
+	end
+	
+	def keyword_label
+	  "Search Keywords: #{params[:q]} " unless params[:q].blank?
 	end
 	
 	def sortable(column, title = nil)  

@@ -21,7 +21,7 @@ class IndexController < ApplicationController
 	end
 	
 	def catalog
-
+    @title = "Catalog"
 	end
 	
 	def search

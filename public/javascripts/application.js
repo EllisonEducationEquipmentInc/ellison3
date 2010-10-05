@@ -77,6 +77,19 @@ function highlight_keyword () {
 	}
 }
 
+function add_to_title (text) {
+	match = document.title.match(/^Catalog (- Search:([^|]+))?|/)[1];
+	if (match == undefined) {
+		document.title = document.title.replace("Catalog ", "Catalog - Search: "+text+' ')
+	} else {
+		document.title = document.title.replace(match, match+' - '+text+' ');
+	}
+}
+
+function remove_from_title (text) {
+	document.title = document.title.replace(new RegExp("( - )?"+text+"?"), '');
+}
+
 $(document).ready(function(){
 	
 	bind_hashchange ();
