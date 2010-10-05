@@ -4,31 +4,38 @@
 - unless params[:q].blank?
   = link_to 'all', admin_admins_path, :class => 'jqui_button'
 - form_tag(admin_admins_path, :method => :get) do
-  = text_field_tag :q
+  = text_field_tag :q, nil, :placeholder => "email, name, employee #"
+  = check_box_tag :inactive, "1", params[:inactive] == "1"
+  Incl. inactive
   = submit_tag "search", :class => 'jqui_search'
-%table
-  %thead
-    %tr
-      %th Active
-      %th Email
-      %th Signed in
-      %th Last sign in at
-      %th Created At
-      %th Failed attempts
-      %th &nbsp;
-      %th &nbsp;
-      %th &nbsp;
-  %tbody
-    - for user in @admins
-      %tr{ :class => cycle(:odd, :even) }
-        %td= user.active
-        %td= user.email
-        %td= user.sign_in_count
-        %td= l user.current_sign_in_at, :format => :custom rescue ''
-        %td= l user.created_at, :format => :custom rescue ''
-        %td= user.failed_attempts
-        %td= link_to 'Edit', edit_admin_admin_path(user)
-        %td= link_to 'Deactivate', admin_admin_path(user), :confirm => 'Are you sure?', :method => :delete
+.highlightable
+  %table
+    %thead
+      %tr
+        %th Active
+        = sortable "name"
+        = sortable "email"
+        = sortable "employee_number", "Empl. #"
+        = sortable "sign_in_count", "Signed in"
+        = sortable "current_sign_in_at", "Last sign in at"
+        = sortable "created_at"
+        = sortable "failed_attempts", "Failed Login"
+        %th &nbsp;
+        %th &nbsp;
+        %th &nbsp;
+    %tbody
+      - for user in @admins
+        %tr{ :class => cycle(:odd, :even) }
+          %td= user.active
+          %td= user.name
+          %td= user.email
+          %td= user.employee_number
+          %td= user.sign_in_count
+          %td= l user.current_sign_in_at, :format => :custom rescue ''
+          %td= l user.created_at, :format => :custom rescue ''
+          %td= user.failed_attempts
+          %td= link_to 'Edit', edit_admin_admin_path(user)
+          %td= link_to 'Deactivate', admin_admin_path(user), :confirm => 'Are you sure?', :method => :delete
 %br
 = will_paginate @admins
 %br

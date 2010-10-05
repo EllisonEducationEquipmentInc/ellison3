@@ -176,9 +176,9 @@ HTML
   def arrow(direction = nil)
     direction = case direction
     when "asc"
-      "n"
-    when "desc"
       "s"
+    when "desc"
+      "n"
     end
     content_tag(:span, "", :class => "arrow ui-icon " + (direction ? "ui-icon-triangle-1-#{direction}" : "ui-icon-triangle-2-n-s")).html_safe
   end

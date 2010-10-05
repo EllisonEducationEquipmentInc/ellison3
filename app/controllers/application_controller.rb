@@ -96,10 +96,10 @@ private
 	end
 	
   def sort_direction  
-    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"  
+    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "desc"  
   end
 
   def sort_column  
-    params[:sort] || "name"  
+    params[:sort] || "updated_at"  
   end
 end

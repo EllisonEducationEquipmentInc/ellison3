@@ -4,7 +4,14 @@ class Admin::ProfilesController < ApplicationController
 	before_filter :authenticate_admin!
 	
 	def index
-		@admins = Admin.all.paginate :page => params[:page], :per_page => 100
+	  criteria = Mongoid::Criteria.new(Admin)
+	  criteria.where(:systems_enabled.in => params[:systems_enabled]) unless params[:systems_enabled].blank?
+	  criteria.where(:active => true) unless params[:inactive].blank?
+	  unless params[:q].blank?
+	    regexp = Regexp.new(params[:q], "i")
+  	  criteria.any_of({ :name => regexp}, { :email => regexp }, {:employee_number => regexp})
+	  end
+		@admins = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 100
 	end
 
   # GET /admins/1
