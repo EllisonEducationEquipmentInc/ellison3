@@ -29,7 +29,6 @@ class Admin::TagsController < ApplicationController
   # GET /tags/new.xml
   def new
     @tag = Tag.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @tag }
@@ -45,6 +44,7 @@ class Admin::TagsController < ApplicationController
   # POST /tags.xml
   def create
     @tag = Tag.new(params[:tag])
+    populate_campaign
     respond_to do |format|
       if @tag.save
         format.html { redirect_to(admin_tags_url, :notice => 'Tag was successfully created.') }
@@ -61,6 +61,8 @@ class Admin::TagsController < ApplicationController
   def update
     @tag = Tag.find(params[:id])
     params[:tag][:my_product_ids] ||= []
+    @tag.write_attributes(params[:tag])
+    populate_campaign
     respond_to do |format|
       if @tag.update_attributes(params[:tag])
         format.html { redirect_to(admin_tags_url, :notice => 'Tag was successfully updated.') }
@@ -88,4 +90,15 @@ class Admin::TagsController < ApplicationController
 		@tags = Tag.available.only(:name, :tag_type, :id).where({:name => Regexp.new("#{params[:term]}", "i")}).asc(:name).limit(20).all.map {|p| {:label => "#{p.name} (#{p.tag_type.humanize})", :value => p.name, :id => p.id}}
 		render :json => @tags.to_json
 	end
+
+private
+  
+  def populate_campaign
+    if @tag.campaign? 
+      @tag.campaign ||= Campaign.new 
+      @tag.campaign.write_attributes params[:tag].delete(:campaign).merge(:name => @tag.name, :systems_enabled => @tag.systems_enabled, :start_date => @tag.send("start_date_#{current_system}"), :end_date => @tag.send("end_date_#{current_system}"), :name => @tag.name, :short_desc => @tag.description)
+    else
+      @tag.campaign = nil
+    end
+  end
 end

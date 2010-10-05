@@ -26,6 +26,7 @@ class Campaign
 	
 	# associations
 	embedded_in :product, :inverse_of => :campaigns
+	embedded_in :tag, :inverse_of => :campaign
 		
 	def available?(time = Time.zone.now)
 		start_date <= time && end_date >= time && active && systems_enabled.include?(current_system)

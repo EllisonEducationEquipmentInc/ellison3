@@ -325,7 +325,15 @@ class Product
   
   # temporary many-to-many association fix until patch is released
 	def my_tag_ids=(ids)
-	  self.tags = Tag.where(:_id.in => ids.compact.map {|i| BSON::ObjectId(i)}).map {|p| p}
+	  self.tag_ids = []
+	  self.tags = Tag.where(:_id.in => ids.compact.uniq.map {|i| BSON::ObjectId(i)}).uniq.map {|p| p}
+	end
+	
+	# updates updated_at timestamp, and reindexes record. Validation callbacks are skipped
+	def touch
+	  self.updated_at = Time.zone.now
+	  skip_versioning_and_timestamps
+	  save :validate => false
 	end
 
 private 

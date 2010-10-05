@@ -4,10 +4,13 @@ class Tag
 	include Mongoid::Timestamps
 	include ActiveModel::Validations
 	include ActiveModel::Translation
-		
+	
+	attr_accessor :embed_campaign
+	
 	TYPES = ["artist", "calendar_event", "category", "curriculum", "designer", "exclusive", "machine_compatibility", "material_compatibility", "product_family", "product_line", "special", "subcategory", "subcurriculum", "subtheme", "theme"]
   
   references_many :products, :stored_as => :array, :inverse_of => :tags, :index => true
+  embeds_one :campaign
   
   validates :name, :tag_type, :systems_enabled, :permalink, :presence => true
   validates_format_of :permalink, :with => /^[\w\d-]+$/
@@ -15,6 +18,7 @@ class Tag
   
   before_save :inherit_system_specific_attributes
   before_validation :set_permalink
+  after_save :update_campaign
   
   field :name
   field :tag_type
@@ -60,10 +64,29 @@ class Tag
 	
 	# temporary many-to-many association fix until patch is released
 	def my_product_ids=(ids)
-	  self.products = Product.where(:_id.in => ids.compact.map {|i| BSON::ObjectId(i)}).map {|p| p}
+	  self.product_ids = []
+	  self.products = Product.where(:_id.in => ids.compact.uniq.map {|i| BSON::ObjectId(i)}).uniq.map {|p| p}
+	end
+	
+	def campaign?
+	  self.tag_type == "special" #|| self.tag_type == "exclusive"
 	end
 
 private 
+
+  def update_campaign
+    if campaign? && Boolean.set(embed_campaign) && !campaign.blank? && !products.blank?
+      products.each do |product|
+        c = product.campaigns.find(campaign.id) || Campaign.new
+        c.write_attributes  campaign.attributes
+        c.id = campaign.id
+        c.start_date = Time.zone.local_to_utc campaign.start_date
+        c.end_date = Time.zone.local_to_utc campaign.end_date
+        c.product = product
+        c.save
+      end
+    end
+  end
 
   def permalink_uniqueness
     errors.add(:permalink, "There's another #{self.tag_type.humanize} tag record with permalink: #{self.permalink}") if self.class.where(:tag_type => self.tag_type, :permalink => self.permalink, :_id.ne => self.id).count > 0
