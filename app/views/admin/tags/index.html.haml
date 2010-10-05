@@ -21,11 +21,11 @@
   %table
     %thead
       %tr
-        %th Type
-        %th Name
-        %th Permalink
-        %th Start Date
-        %th End Date
+        = sortable "tag_type"
+        = sortable "name"
+        = sortable "permalink"
+        = sortable "start_date_#{current_system}", "Start Date"
+        = sortable "end_date_#{current_system}", "End Date"
         %th Systems
         %th &nbsp;
         %th &nbsp;

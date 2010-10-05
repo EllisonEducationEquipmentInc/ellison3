@@ -403,3 +403,13 @@ li#cart_total {
   background: #26B;
   color: white;
 }
+
+/* line 254, ../../../app/stylesheets/application.scss */
+.arrow {
+  position: absolute;
+}
+
+/* line 257, ../../../app/stylesheets/application.scss */
+.sortable_header {
+  margin-left: 18px;
+}

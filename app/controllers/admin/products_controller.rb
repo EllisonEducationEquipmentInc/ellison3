@@ -12,7 +12,7 @@ class Admin::ProductsController < ApplicationController
 	    regexp = Regexp.new(params[:q], "i")
   	  criteria.any_of({ :item_num => regexp}, { :name => regexp }, {:short_desc => regexp})
 	  end
-		@products = criteria.paginate :page => params[:page], :per_page => 100
+		@products = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 100
 	end
 
   # GET /products/1
@@ -191,4 +191,5 @@ class Admin::ProductsController < ApplicationController
   rescue
     render :js => "alert('make sure both product and tab are selected')" and return
 	end
+
 end

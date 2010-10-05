@@ -163,4 +163,24 @@ HTML
 	  r.html_safe
 	end
 	
+	def sortable(column, title = nil)  
+    title ||= column.titleize  
+    css_class = "sortable_header"
+    css_class += (column == sort_column) ? " current #{sort_direction}" : ''  
+    direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"  
+    content_tag :th, :class => "ui-widget" do
+      arrow(column == sort_column ? direction : nil ) + link_to(title, {:sort => column, :direction => direction}, {:class => css_class})
+    end
+  end
+  
+  def arrow(direction = nil)
+    direction = case direction
+    when "asc"
+      "n"
+    when "desc"
+      "s"
+    end
+    content_tag(:span, "", :class => "arrow ui-icon " + (direction ? "ui-icon-triangle-1-#{direction}" : "ui-icon-triangle-2-n-s")).html_safe
+  end
+	
 end

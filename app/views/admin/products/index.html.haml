@@ -15,14 +15,14 @@
   %table
     %thead
       %tr
-        %th Item num
-        %th Name
+        = sortable 'item_num'
+        = sortable 'name'
         %th Price
-        %th Start Date
-        %th End Date  
-        %th Life Cycle
+        = sortable "start_date_#{current_system}", "Start Date"
+        = sortable "end_date_#{current_system}", "End Date"
+        = sortable "life_cycle"
         %th Orderable
-        %th Qty.
+        = sortable "quantity", "Qty."
         %th Systems
         %th &nbsp;
         %th &nbsp;
