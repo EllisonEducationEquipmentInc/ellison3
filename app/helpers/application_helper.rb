@@ -46,21 +46,21 @@ module ApplicationHelper
 	end
 	
 	def add_to_cart_button(product)
-	  @product = product
+	  @product_obj = product
     html = <<-HTML
-- if @product.pre_order?
+- if @product_obj.pre_order?
   %button.add_to_cart{:id => "add_to_cart_#{product.id}"}== Pre-Order
-- elsif @product.out_of_stock?
+- elsif @product_obj.out_of_stock?
   .jqui_out_of_stock Out of Stock
-- elsif @product.suspended?
+- elsif @product_obj.suspended?
   .jqui_out_of_stock Suspended
-- elsif @product.available?
+- elsif @product_obj.available?
   %button.add_to_cart{:id => "add_to_cart_#{product.id}"}== Add to #{t :cart}
-- elsif @product.not_reselable?
-  = @product.send "availability_message_#{current_system}"
+- elsif @product_obj.not_reselable?
+  = @product_obj.send "availability_message_#{current_system}"
 - else
   .jqui_out_of_stock WTF??
-- unless @product.suspended?
+- unless @product_obj.suspended?
   %p.buttonset
     %button.wishlist Add to My List
     %button.select Select a list
