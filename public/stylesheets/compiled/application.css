@@ -427,3 +427,53 @@ li#cart_total {
   margin-left: 10px;
   width: 200px;
 }
+
+/* line 268, ../../../app/stylesheets/application.scss */
+.product_carousel {
+  height: 250px;
+  width: 300px;
+  margin-left: 25px;
+  background-color: #DFDFDF;
+  border: 1px solid black;
+}
+/* line 274, ../../../app/stylesheets/application.scss */
+.product_carousel .product_element {
+  background-color: white;
+  width: 135px;
+  padding: 5px;
+  text-align: center;
+  height: 215px;
+  border: 1px solid gray;
+  margin: 5px;
+}
+
+/* line 284, ../../../app/stylesheets/application.scss */
+a.prev_button, a.next_button {
+  font-family: Georgia, serif;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: bold;
+  line-height: 2em;
+  color: #fff;
+  text-decoration: none;
+  position: absolute;
+  margin-top: 100px;
+  width: 47px;
+  height: 34px;
+  padding: 3px 0 0 8px;
+  background: url("/images/ui-buttons/arrow_prev_red-ribbon.png") no-repeat 0 0;
+  z-index: 9999;
+}
+/* line 292, ../../../app/stylesheets/application.scss */
+a.prev_button:hover, a.next_button:hover {
+  color: #ff9ac4;
+}
+
+/* line 301, ../../../app/stylesheets/application.scss */
+a.next_button {
+  margin-left: 480px;
+  width: 45px;
+  height: 35px;
+  padding: 5px 0 0 10px;
+  background: url("/images/ui-buttons/arrow_next_red-ribbon.png") no-repeat 0 0;
+}
