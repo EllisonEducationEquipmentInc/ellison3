@@ -118,7 +118,9 @@ $(document).ready(function(){
 	
 	// mega menu
 	$(function(){ 
-	  jQuery(".megamenu").megamenu(); 
+	  jQuery(".megamenu").megamenu({
+	    justify: "right"
+	  }); 
   });
   
   $(".megamenu a").FontEffect({
