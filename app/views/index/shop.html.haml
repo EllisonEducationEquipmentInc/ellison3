@@ -26,7 +26,9 @@
           = link_to product.name, product_url(:id => product)
           %p= display_product_price(product)
   .clear
-#landing_right= spinner
+#landing_right
+  .buybox.rounded
+    #quick_search.rounded= render :partial => 'quick_search'
 :javascript
   $(function() {
     $("#new_arrivals_xsell").jCarouselLite({

@@ -406,3 +406,15 @@ body.bp th, body.bp td, body.bp caption {
   padding: 5px 0 0 10px;
   background: url("/images/ui-buttons/arrow_next_red-ribbon.png") no-repeat 0 0;
 }
+/* line 309, ../../../app/stylesheets/application.scss */
+#content #quick_search {
+  padding: 5px;
+  background: white;
+  text-align: center;
+}
+/* line 314, ../../../app/stylesheets/application.scss */
+#content #quick_search select {
+  width: 200px;
+  padding: 5px;
+  margin-bottom: 5px;
+}

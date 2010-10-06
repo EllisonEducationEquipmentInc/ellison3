@@ -38,6 +38,13 @@ class IndexController < ApplicationController
 	  @products = @search.results
 	end
 	
+	def quick_search
+	  @landing_page = LandingPage.find params[:id]
+	  params[:facets] = (params[:facets].split(",") << @landing_page.search_query).join(",")
+	  get_search
+	  render :partial => 'quick_search'
+	end
+	
 private
   
   def get_search
