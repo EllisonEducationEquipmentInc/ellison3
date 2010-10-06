@@ -1,0 +1,47 @@
+- form_for([:admin, @landing_page]) do |f|
+  = f.error_messages
+  .field
+    = f.label :systems_enabled
+    = system_enabled('landing_page')
+  .field
+    = f.label :active
+    %br
+    = f.check_box :active
+  .field
+    = f.label :name
+    %br
+    = f.text_field :name
+  .field
+    = f.label :permalink, "Permalink URL. Ex: st-patrick-day-sale"
+    %br
+    == This will be the url of the landing page. Ex: http://#{request.host_with_port}/shop/<strong>st-patrick-day-sale</strong>
+    %br
+    = f.text_field :permalink
+  .field
+    = f.label :search_query, "Catalog facet query parameter. Ex: category~embossing,machine_compatibility~sidekick"
+    %br
+    = f.text_field :search_query
+  .field
+    = f.label "start_date"
+    %br
+    = f.text_field "start_date", :class => 'datetimepicker'
+  .field
+    = f.label "end_date"
+    %br
+    = f.text_field "end_date", :class => 'datetimepicker'
+  .field
+    = f.label :short_desc
+    %br
+    = f.text_field :short_desc
+  .field
+    = f.label :content
+    %br
+    = f.text_area :content, :class => 'wymeditor'
+  .field
+    = label_tag :recommended_products, "Recommended Products"
+    %br
+    = text_field_tag :recommended_products, @landing_page.products && @landing_page.products.join(", "), :size => 100
+  .actions
+    = f.submit :class => 'wymupdate jqui_save'
+  :javascript
+    $("#recommended_products").autocomplete(auto_complete_options);

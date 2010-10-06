@@ -11,12 +11,6 @@
   = check_box_tag :inactive, "1", params[:inactive] == "1"
   Incl. inactive
   = submit_tag "search", :class => 'jqui_search'
-  
-- unless params[:q].blank?
-  = link_to 'all', admin_tags_path, :class => 'jqui_button'
-- form_tag(admin_tags_path, :method => :get) do
-  = text_field_tag :q
-  = submit_tag "search", :class => 'jqui_search'
 .highlightable
   %table
     %thead

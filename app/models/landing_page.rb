@@ -21,7 +21,7 @@ class LandingPage
 	key :permalink
 	index :active
 	
-	validates :name, :permalink, :systems_enabled, :presence => true
+	validates :name, :permalink, :systems_enabled, :start_date, :end_date, :presence => true
 	validates_uniqueness_of :permalink
 	validates_format_of :permalink, :with => /^[\w\d-]+$/
 	

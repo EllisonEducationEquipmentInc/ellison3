@@ -1,0 +1,40 @@
+%h1 Listing Landing Pages
+= link_to 'New landing_page', new_admin_landing_page_path, :class => 'jqui_new'
+%br
+%h3 Filters
+- unless params[:q].blank?
+  = link_to 'all', admin_landing_pages_path, :class => 'jqui_button'
+- form_tag(admin_landing_pages_path, :method => :get) do
+  = admin_systems_checkboxes
+  = text_field_tag :q, nil, :placeholder => "name, search query, permalink"
+  = check_box_tag :inactive, "1", params[:inactive] == "1"
+  Incl. inactive
+  = submit_tag "search", :class => 'jqui_search'
+.highlightable
+  %table
+    %thead
+      %tr
+        = sortable "name"
+        = sortable "permalink"
+        = sortable "start_date"
+        = sortable "end_date"
+        = sortable "search_query"
+        %th Systems
+        %th &nbsp;
+        %th &nbsp;
+        %th &nbsp;
+    %tbody
+      - for landing_page in @landing_pages
+        %tr{ :class => cycle(:odd, :even) }
+          %td= landing_page.name
+          %td= landing_page.permalink
+          %td= l landing_page.send("start_date"), :format => :custom rescue ''
+          %td= l landing_page.send("end_date"), :format => :custom rescue ''
+          %td= landing_page.search_query
+          %td= landing_page.systems_enabled.join(", ") rescue ''
+          %td= link_to 'Edit', edit_admin_landing_page_path(landing_page)
+          %td= link_to 'Destroy', admin_landing_page_path(landing_page), :confirm => 'Are you sure?', :method => :delete
+%br
+= will_paginate @landing_pages
+%br
+= link_to 'New landing_page', new_admin_landing_page_path, :class => 'jqui_new'

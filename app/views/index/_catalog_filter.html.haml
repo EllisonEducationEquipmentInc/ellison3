@@ -1,5 +1,5 @@
 %h3== Shop #{@landing_page ? @landing_page.name : 'Products'} By
-= text_field_tag :keyword, nil, :autocomplete => "off", :placeholder => "enter search keyword", :style => "width:144px;"
+= text_field_tag :keyword, nil, :autocomplete => "off", :placeholder => "enter search keyword", :style => "width:144px;" unless params[:action] == "shop"
 .facets.ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
   - @search.facets.each do |facet|
     - next if facet.rows.length < 1 || @facets_hash.any? {|h| h.include?(facet_to_param(facet.name))} || (facet.name == :price && !params[:price].blank?)
