@@ -10,235 +10,197 @@ body.bp th, body.bp td, body.bp caption {
 .bp {
 	line-height: normal;
 } */
-/* line 14, ../../../app/stylesheets/application.scss */
-.field label {
+/* line 15, ../../../app/stylesheets/application.scss */
+#content .field label {
   font-weight: bold;
 }
-
-/* line 18, ../../../app/stylesheets/application.scss */
-#new_campaign, #edit_tab {
+/* line 19, ../../../app/stylesheets/application.scss */
+#content #new_campaign, #content #edit_tab {
   padding: 10px;
   border: 1px solid gray;
   background: #FDFFB0;
 }
-
-/* line 24, ../../../app/stylesheets/application.scss */
-.right {
+/* line 25, ../../../app/stylesheets/application.scss */
+#content .right {
   float: right;
 }
-
-/* line 25, ../../../app/stylesheets/application.scss */
-.left {
+/* line 26, ../../../app/stylesheets/application.scss */
+#content .left {
   float: left;
 }
-
-/* line 27, ../../../app/stylesheets/application.scss */
-#campaigns li {
+/* line 28, ../../../app/stylesheets/application.scss */
+#content #campaigns li {
   padding: 5px;
 }
-
-/* line 32, ../../../app/stylesheets/application.scss */
-#product_detail {
+/* line 33, ../../../app/stylesheets/application.scss */
+#content #product_detail {
   padding: 10px;
   border: 1px solid #ccc;
   width: 940px;
 }
-
-/* line 38, ../../../app/stylesheets/application.scss */
-#product_detail .info {
+/* line 39, ../../../app/stylesheets/application.scss */
+#content #product_detail .info {
   float: right;
   width: 400px;
 }
-
-/* line 42, ../../../app/stylesheets/application.scss */
-#product_detail .images {
+/* line 43, ../../../app/stylesheets/application.scss */
+#content #product_detail .images {
   width: 500px;
   border: 1px solid #ccc;
 }
-
-/* line 47, ../../../app/stylesheets/application.scss */
-#product_detail #large_image {
+/* line 48, ../../../app/stylesheets/application.scss */
+#content #product_detail #large_image {
   height: 300px;
   margin-left: 100px;
   min-width: 300px;
 }
-
-/* line 53, ../../../app/stylesheets/application.scss */
-#product_detail .title {
+/* line 54, ../../../app/stylesheets/application.scss */
+#content #product_detail .title {
   font-weight: bold;
 }
-
-/* line 57, ../../../app/stylesheets/application.scss */
-#product_detail .price, #product_detail .desc {
+/* line 58, ../../../app/stylesheets/application.scss */
+#content #product_detail .price, #content #product_detail .desc {
   margin: 10px 0;
 }
-
-/* line 61, ../../../app/stylesheets/application.scss */
-#product_detail .life_cycle {
+/* line 62, ../../../app/stylesheets/application.scss */
+#content #product_detail .life_cycle {
   color: red;
 }
-
-/* line 65, ../../../app/stylesheets/application.scss */
-#product_detail .selected {
+/* line 66, ../../../app/stylesheets/application.scss */
+#content #product_detail .selected {
   border: 1px solid gray;
 }
-
-/* line 68, ../../../app/stylesheets/application.scss */
-.product_admin_thumbnail {
+/* line 69, ../../../app/stylesheets/application.scss */
+#content .product_admin_thumbnail {
   border: 5px solid white;
 }
-
-/* line 72, ../../../app/stylesheets/application.scss */
-.to_delete {
+/* line 73, ../../../app/stylesheets/application.scss */
+#content .to_delete {
   border-color: red;
 }
-
-/* line 74, ../../../app/stylesheets/application.scss */
-.related_product_box {
+/* line 75, ../../../app/stylesheets/application.scss */
+#content .related_product_box {
   float: left;
   height: 160px;
   margin: 5px 0px 10px 9px;
   width: 300px;
 }
-
-/* line 81, ../../../app/stylesheets/application.scss */
-.related_product_box .info {
+/* line 82, ../../../app/stylesheets/application.scss */
+#content .related_product_box .info {
   float: right;
   margin-left: 5px;
   width: 162px;
   height: 95px;
 }
-
-/* line 87, ../../../app/stylesheets/application.scss */
-.related_product_box .title {
+/* line 88, ../../../app/stylesheets/application.scss */
+#content .related_product_box .title {
   margin: 5px 0;
   height: 50px;
 }
-
-/* line 92, ../../../app/stylesheets/application.scss */
-.wishlist_wrapper {
+/* line 93, ../../../app/stylesheets/application.scss */
+#content .wishlist_wrapper {
   margin-top: 4px;
   font-size: 9px;
 }
-
-/* line 96, ../../../app/stylesheets/application.scss */
-.wishlist_wrapper .button {
+/* line 97, ../../../app/stylesheets/application.scss */
+#content .wishlist_wrapper .button {
   width: 96px;
 }
-
-/* line 99, ../../../app/stylesheets/application.scss */
-.image_details {
+/* line 100, ../../../app/stylesheets/application.scss */
+#content .image_details {
   float: right;
   width: 700px;
 }
-
-/* line 103, ../../../app/stylesheets/application.scss */
-.tab_image {
+/* line 104, ../../../app/stylesheets/application.scss */
+#content .tab_image {
   width: 250px;
   text-align: center;
 }
-
-/* line 108, ../../../app/stylesheets/application.scss */
-.data_key {
+/* line 109, ../../../app/stylesheets/application.scss */
+#content .data_key {
   float: left;
   font-weight: bold;
   width: 170px;
   margin: 5px 0px 0px 20px;
 }
-
-/* line 115, ../../../app/stylesheets/application.scss */
-.data_value {
+/* line 116, ../../../app/stylesheets/application.scss */
+#content .data_value {
   float: left;
   width: 250px;
   margin: 5px 0px 0px 20px;
 }
-
-/* line 121, ../../../app/stylesheets/application.scss */
-.compatibility_row {
+/* line 122, ../../../app/stylesheets/application.scss */
+#content .compatibility_row {
   border-bottom: 1px dashed #CCC;
   padding: 5px 0px 10px;
   height: 305px;
 }
-
-/* line 126, ../../../app/stylesheets/application.scss */
-.compatibility_prodcuct {
+/* line 127, ../../../app/stylesheets/application.scss */
+#content .compatibility_prodcuct {
   float: left;
   margin: 10px 0px 0px 8px;
   width: 150px;
   text-align: center;
   height: auto;
 }
-
-/* line 134, ../../../app/stylesheets/application.scss */
-.compatibility_info {
+/* line 135, ../../../app/stylesheets/application.scss */
+#content .compatibility_info {
   height: 230px;
 }
-
-/* line 138, ../../../app/stylesheets/application.scss */
-.plus_sign {
+/* line 139, ../../../app/stylesheets/application.scss */
+#content .plus_sign {
   float: left;
   margin: 110px 5px 0px;
 }
-
-/* line 143, ../../../app/stylesheets/application.scss */
-ul.ui-autocomplete {
+/* line 144, ../../../app/stylesheets/application.scss */
+#content ul.ui-autocomplete {
   padding-left: 0;
 }
-
-/* line 146, ../../../app/stylesheets/application.scss */
-#tabs ul {
+/* line 147, ../../../app/stylesheets/application.scss */
+#content #tabs ul {
   margin-left: 0;
 }
-
-/* line 150, ../../../app/stylesheets/application.scss */
-li.ui-menu-item {
+/* line 151, ../../../app/stylesheets/application.scss */
+#content li.ui-menu-item {
   list-style-type: none;
 }
-
-/* line 153, ../../../app/stylesheets/application.scss */
-li.ui-state-default {
+/* line 154, ../../../app/stylesheets/application.scss */
+#content li.ui-state-default {
   margin: 0px 3px 3px;
   padding: 0.4em 0.4em 0.4em 1.5em;
   list-style-type: none;
 }
-
-/* line 158, ../../../app/stylesheets/application.scss */
-#tabs li.ui-state-default {
+/* line 159, ../../../app/stylesheets/application.scss */
+#content #tabs li.ui-state-default {
   font-size: 1.2em;
   color: #1C94C4;
 }
-
-/* line 162, ../../../app/stylesheets/application.scss */
-li.ui-state-default span {
+/* line 163, ../../../app/stylesheets/application.scss */
+#content li.ui-state-default span {
   position: absolute;
   margin-left: -1.3em;
 }
-
-/* line 167, ../../../app/stylesheets/application.scss */
-.field .caption {
+/* line 168, ../../../app/stylesheets/application.scss */
+#content .field .caption {
   float: right;
   width: 600px;
 }
-
-/* line 172, ../../../app/stylesheets/application.scss */
-#cart_container {
+/* line 173, ../../../app/stylesheets/application.scss */
+#content #cart_container {
   width: 800px;
 }
-
-/* line 175, ../../../app/stylesheets/application.scss */
-.save {
+/* line 176, ../../../app/stylesheets/application.scss */
+#content .save {
   border: 1px solid green;
 }
-
-/* line 180, ../../../app/stylesheets/application.scss */
-.field_with_errors {
+/* line 181, ../../../app/stylesheets/application.scss */
+#content .field_with_errors {
   padding: 2px;
   background-color: red;
   display: table;
 }
-
-/* line 186, ../../../app/stylesheets/application.scss */
-#errorExplanation {
+/* line 187, ../../../app/stylesheets/application.scss */
+#content #errorExplanation {
   width: 400px;
   border: 2px solid red;
   padding: 7px;
@@ -246,9 +208,8 @@ li.ui-state-default span {
   margin-bottom: 20px;
   background-color: #f0f0f0;
 }
-
-/* line 195, ../../../app/stylesheets/application.scss */
-#errorExplanation h2 {
+/* line 196, ../../../app/stylesheets/application.scss */
+#content #errorExplanation h2 {
   text-align: left;
   font-weight: bold;
   padding: 5px 5px 5px 15px;
@@ -257,186 +218,157 @@ li.ui-state-default span {
   background-color: #c00;
   color: #fff;
 }
-
-/* line 205, ../../../app/stylesheets/application.scss */
-#errorExplanation p {
+/* line 206, ../../../app/stylesheets/application.scss */
+#content #errorExplanation p {
   color: #333;
   margin-bottom: 0;
   padding: 5px;
 }
-
-/* line 211, ../../../app/stylesheets/application.scss */
-#errorExplanation ul li {
+/* line 212, ../../../app/stylesheets/application.scss */
+#content #errorExplanation ul li {
   font-size: 12px;
   list-style: square;
 }
-
-/* line 216, ../../../app/stylesheets/application.scss */
-div.field, div.actions {
+/* line 217, ../../../app/stylesheets/application.scss */
+#content div.field, #content div.actions {
   margin-bottom: 10px;
 }
-
-/* line 220, ../../../app/stylesheets/application.scss */
-input.invalid, select.invalid {
+/* line 221, ../../../app/stylesheets/application.scss */
+#content input.invalid, #content select.invalid {
   border: 1px dotted red;
   background: #ffffd5;
 }
-
-/* line 221, ../../../app/stylesheets/application.scss */
-input.valid, select.valid {
+/* line 222, ../../../app/stylesheets/application.scss */
+#content input.valid, #content select.valid {
   border: 1px solid green;
 }
-
-/* line 222, ../../../app/stylesheets/application.scss */
-label.invalid {
+/* line 223, ../../../app/stylesheets/application.scss */
+#content label.invalid {
   float: none;
   color: red;
   padding-left: .5em;
   vertical-align: top;
 }
-
-/* line 224, ../../../app/stylesheets/application.scss */
-#guest_checkout {
+/* line 225, ../../../app/stylesheets/application.scss */
+#content #guest_checkout {
   float: right;
   width: 375px;
 }
-
-/* line 228, ../../../app/stylesheets/application.scss */
-#returning_cuctomer {
+/* line 229, ../../../app/stylesheets/application.scss */
+#content #returning_cuctomer {
   float: left;
   width: 375px;
 }
-
-/* line 232, ../../../app/stylesheets/application.scss */
-#checkout_billing {
+/* line 233, ../../../app/stylesheets/application.scss */
+#content #checkout_billing {
   float: right;
   width: 400px;
 }
-
-/* line 236, ../../../app/stylesheets/application.scss */
-#checkout_shipping {
+/* line 237, ../../../app/stylesheets/application.scss */
+#content #checkout_shipping {
   float: left;
   width: 400px;
 }
-
-/* line 240, ../../../app/stylesheets/application.scss */
-#cart_total {
+/* line 241, ../../../app/stylesheets/application.scss */
+#content #cart_total {
   font-size: 1.4em;
 }
-
-/* line 241, ../../../app/stylesheets/application.scss */
-.amount {
+/* line 242, ../../../app/stylesheets/application.scss */
+#content .amount {
   width: 100px;
   margin-left: 5px;
 }
-
-/* line 242, ../../../app/stylesheets/application.scss */
-.cart_label {
+/* line 243, ../../../app/stylesheets/application.scss */
+#content .cart_label {
   float: left;
   width: 200px;
   text-align: right;
 }
-
-/* line 243, ../../../app/stylesheets/application.scss */
-.cart_ul {
+/* line 244, ../../../app/stylesheets/application.scss */
+#content .cart_ul {
   text-align: right;
   width: 320px;
 }
-
-/* line 244, ../../../app/stylesheets/application.scss */
-li.subtotal {
+/* line 245, ../../../app/stylesheets/application.scss */
+#content li.subtotal {
   border-bottom: 1px solid gray;
 }
-
-/* line 245, ../../../app/stylesheets/application.scss */
-li#cart_total {
+/* line 246, ../../../app/stylesheets/application.scss */
+#content li#cart_total {
   border-top: 1px double gray;
 }
-
-/* line 246, ../../../app/stylesheets/application.scss */
-.item_changed {
+/* line 247, ../../../app/stylesheets/application.scss */
+#content .item_changed {
   background: #FBE3E4;
 }
-
-/* line 247, ../../../app/stylesheets/application.scss */
-.clear_left {
+/* line 248, ../../../app/stylesheets/application.scss */
+#content .clear_left {
   clear: left;
 }
-
-/* line 248, ../../../app/stylesheets/application.scss */
-.overrideable {
+/* line 249, ../../../app/stylesheets/application.scss */
+#content .overrideable {
   border: 1px solid #090;
 }
-
-/* line 249, ../../../app/stylesheets/application.scss */
-.current_system {
+/* line 250, ../../../app/stylesheets/application.scss */
+#content .current_system {
   font-weight: bold;
   color: blue;
 }
-
-/* line 250, ../../../app/stylesheets/application.scss */
-.bordered {
+/* line 251, ../../../app/stylesheets/application.scss */
+#content .bordered {
   border: 1px solid #390;
   background: white;
 }
-
-/* line 251, ../../../app/stylesheets/application.scss */
-.pagination a {
+/* line 252, ../../../app/stylesheets/application.scss */
+#content .pagination a {
   border: 1px solid #15B;
   padding: 4px 6px 3px;
   text-decoration: none;
   color: #15B;
 }
-
-/* line 252, ../../../app/stylesheets/application.scss */
-.pagination span {
+/* line 253, ../../../app/stylesheets/application.scss */
+#content .pagination span {
   border: 1px solid #CCC;
   padding: 4px 6px 3px;
   text-decoration: none;
   color: #CCC;
 }
-
-/* line 253, ../../../app/stylesheets/application.scss */
-.pagination em {
+/* line 254, ../../../app/stylesheets/application.scss */
+#content .pagination em {
   border: 1px solid black;
   padding: 4px 6px 3px;
   background: #26B;
   color: white;
 }
-
-/* line 254, ../../../app/stylesheets/application.scss */
-.arrow {
+/* line 255, ../../../app/stylesheets/application.scss */
+#content .arrow {
   position: absolute;
 }
-
-/* line 257, ../../../app/stylesheets/application.scss */
-.sortable_header {
+/* line 258, ../../../app/stylesheets/application.scss */
+#content .sortable_header {
   margin-left: 18px;
 }
-
-/* line 258, ../../../app/stylesheets/application.scss */
-#landing_middle {
+/* line 259, ../../../app/stylesheets/application.scss */
+#content #landing_middle {
   float: left;
   margin-right: 10px;
   width: 540px;
 }
-
-/* line 263, ../../../app/stylesheets/application.scss */
-#landing_right {
+/* line 264, ../../../app/stylesheets/application.scss */
+#content #landing_right {
   float: right;
   width: 230px;
 }
-
-/* line 267, ../../../app/stylesheets/application.scss */
-.product_carousel {
+/* line 268, ../../../app/stylesheets/application.scss */
+#content .product_carousel {
   height: 250px;
   width: 300px;
   margin-left: 25px;
   background-color: #DFDFDF;
   border: 1px solid black;
 }
-/* line 273, ../../../app/stylesheets/application.scss */
-.product_carousel .product_element {
+/* line 274, ../../../app/stylesheets/application.scss */
+#content .product_carousel .product_element {
   background-color: white;
   width: 135px;
   padding: 5px;
@@ -445,9 +377,8 @@ li#cart_total {
   border: 1px solid gray;
   margin: 5px;
 }
-
-/* line 283, ../../../app/stylesheets/application.scss */
-a.prev_button, a.next_button {
+/* line 284, ../../../app/stylesheets/application.scss */
+#content a.prev_button, #content a.next_button {
   font-family: Georgia, serif;
   font-size: 12px;
   font-style: italic;
@@ -463,13 +394,12 @@ a.prev_button, a.next_button {
   background: url("/images/ui-buttons/arrow_prev_red-ribbon.png") no-repeat 0 0;
   z-index: 9999;
 }
-/* line 291, ../../../app/stylesheets/application.scss */
-a.prev_button:hover, a.next_button:hover {
+/* line 292, ../../../app/stylesheets/application.scss */
+#content a.prev_button:hover, #content a.next_button:hover {
   color: #ff9ac4;
 }
-
-/* line 300, ../../../app/stylesheets/application.scss */
-a.next_button {
+/* line 301, ../../../app/stylesheets/application.scss */
+#content a.next_button {
   margin-left: 480px;
   width: 45px;
   height: 35px;
