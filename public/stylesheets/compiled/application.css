@@ -413,3 +413,17 @@ li#cart_total {
 .sortable_header {
   margin-left: 18px;
 }
+
+/* line 258, ../../../app/stylesheets/application.scss */
+#landing_middle {
+  float: left;
+  margin-right: 10px;
+  width: 540px;
+}
+
+/* line 263, ../../../app/stylesheets/application.scss */
+#landing_right {
+  float: right;
+  margin-left: 10px;
+  width: 200px;
+}

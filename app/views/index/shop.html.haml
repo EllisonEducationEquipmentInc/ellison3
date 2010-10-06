@@ -1,0 +1,31 @@
+%h1= @landing_page.name
+%h3= @landing_page.short_desc
+%br
+#products_filter= render :partial => "index/catalog_filter"
+#landing_middle
+  %div= @landing_page.content.html_safe
+  %h2 New Arrivals
+  - @products.each do |product|
+    .billboard_small
+      .boxgrid.captionfull
+        = link_to image_tag(product.medium_image), product_url(:id => product)
+        .cover.boxcaption
+          %h4= product.name
+          %p
+            = product.short_desc
+            %br/
+            = link_to product.name, product_url(:id => product)
+  .clear
+  %h2 Recommended
+  - Product.available.where(:item_num.in => @landing_page.products).cache.each do |product|
+    .billboard_small
+      .boxgrid.captionfull
+        = link_to image_tag(product.medium_image), product_url(:id => product)
+        .cover.boxcaption
+          %h4= product.name
+          %p
+            = product.short_desc
+            %br/
+            = link_to product.name, product_url(:id => product)
+  .clear
+#landing_right= spinner

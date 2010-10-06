@@ -24,6 +24,7 @@ Ellison3::Application.routes.draw do |map|
 		
   end
 
+  match 'shop/:id' => 'index#shop'
 	match 'products' => 'index#products'
 	match 'catalog' => 'index#catalog'
 	match 'product/:id' => 'index#product', :as => :product

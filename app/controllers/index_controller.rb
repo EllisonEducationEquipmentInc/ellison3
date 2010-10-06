@@ -20,13 +20,28 @@ class IndexController < ApplicationController
 		go_404
 	end
 	
+	def shop
+	  @landing_page = LandingPage.find params[:id]
+	  params[:facets] = @landing_page.search_query
+	  params[:sort] = "start_date_#{current_system}:desc"
+	  get_search
+	  @products = @search.results
+	end
+	
 	def catalog
     @title = "Catalog"
 	end
 	
 	def search
 	  redirect_to :action => "catalog" and return unless request.xhr?
-	  # TODO: move price ranges to a class 
+    get_search
+	  @products = @search.results
+	end
+	
+private
+  
+  def get_search
+    # TODO: move price ranges to a class 
 	  @price_ranges = is_ee? ? [["under", 20], ["under", 60], ["under", 100], ["under", 150], ["under", 300], ["under", 600], ["over", 600]] : [["under", 5], ["under", 10], ["under", 15], ["under", 25], ["under", 50], ["over", 50]]
 	  @facets = params[:facets] || ""
 	  @facets_hash = @facets.split(",")
@@ -55,6 +70,5 @@ class IndexController < ApplicationController
      	query.paginate(:page => params[:page] || 1, :per_page => 4)
      	query.order_by(*params[:sort].split(":")) unless params[:sort].blank?
 	  end
-	  @products = @search.results
-	end
+  end
 end

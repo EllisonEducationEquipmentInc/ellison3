@@ -1,4 +1,4 @@
-%h3 Shop Products By
+%h3== Shop #{@landing_page ? @landing_page.name : 'Products'} By
 = text_field_tag :keyword, nil, :autocomplete => "off", :placeholder => "enter search keyword", :style => "width:144px;"
 .facets.ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
   - @search.facets.each do |facet|
@@ -9,30 +9,31 @@
     %ul.ui-accordion-content.ui-helper-reset.ui-widget-content.ui-corner-bottom.ui-accordion-content-active
       - facet.rows.each do |row|
         - if facet.class == Sunspot::Search::FieldFacet
-          %li= link_to "#{row.instance.name} (#{row.count})", "#",  :rel => "#{row.value}", :title =>  row.instance.name, :class => "facet_value"
+          %li= link_to "#{row.instance.name} (#{row.count})", "/catalog#facets=#{(@facets_hash + [row.value]).join(",")}",  :rel => "#{row.value}", :title =>  row.instance.name, :class => "facet_value"
         - else
-          %li= link_to "#{row.value[0].capitalize} #{number_to_currency(row.value[1])} (#{row.count})", "#", :title => "#{row.value[0].capitalize} #{number_to_currency(row.value[1])}", :rel => "#{row.value.join("~")}", :class => "price_query_facet_value"
+          %li= link_to "#{row.value[0].capitalize} #{number_to_currency(row.value[1])} (#{row.count})", "/catalog#facets=#{@facets_hash.join(",")}&price=#{row.value.join("~")}", :title => "#{row.value[0].capitalize} #{number_to_currency(row.value[1])}", :rel => "#{row.value.join("~")}", :class => "price_query_facet_value"
     %br
-:javascript
-  $(function() {
-    $(".facet_value").click(function() {
-      if ($.deparam.fragment()['facets'] == undefined || $.deparam.fragment()['facets'] == '') {
-        location.hash = $.param.fragment( location.hash, {facets: $(this).attr('rel'), page: 1}, 0 );
-      } else {
-        location.hash = $.param.fragment( location.hash, {facets: $.deparam.fragment()['facets']+","+$(this).attr('rel'), page: 1}, 0 );
-      }
-      return false;
-    });
-    $(".price_query_facet_value").click(function() {
-      location.hash = $.param.fragment( location.hash, {price: $(this).attr('rel'), page: 1}, 0 );
-      return false;
-    });
-    $('#keyword').change(function() {
-      if (this.value.length < 3) {
+- unless params[:action] == "shop"
+  :javascript
+    $(function() {
+      $(".facet_value").click(function() {
+        if ($.deparam.fragment()['facets'] == undefined || $.deparam.fragment()['facets'] == '') {
+          location.hash = $.param.fragment( location.hash, {facets: $(this).attr('rel'), page: 1}, 0 );
+        } else {
+          location.hash = $.param.fragment( location.hash, {facets: $.deparam.fragment()['facets']+","+$(this).attr('rel'), page: 1}, 0 );
+        }
         return false;
-      } else {
-        location.hash = $.param.fragment( location.hash, {q: this.value, page: 1}, 0 );
-      }
+      });
+      $(".price_query_facet_value").click(function() {
+        location.hash = $.param.fragment( location.hash, {price: $(this).attr('rel'), page: 1}, 0 );
+        return false;
+      });
+      $('#keyword').change(function() {
+        if (this.value.length < 3) {
+          return false;
+        } else {
+          location.hash = $.param.fragment( location.hash, {q: this.value, page: 1}, 0 );
+        }
+      });
     });
-  });
   
