@@ -4,7 +4,13 @@
   Author URI: http://www.geektantra.com
 */
 
-/* MODIFIED FOR ELLISON */
+/* MODIFIED FOR ELLISON
+  - omitted body styles
+  - disabled tab styles
+  - removed sub-panel borders
+  - disabled sub-panel drop shadow
+
+*/
 
 ul.megamenu li.mm-item {
 }
@@ -43,31 +49,34 @@ ul.megamenu a.mm-item-link:link, ul.megamenu a.mm-item-link:visited {
 }
 
 ul.megamenu a.mm-item-link-hover:link, ul.megamenu a.mm-item-link-hover:visited {
+/* disabling the tab style
+
   color: #444;
   background: #FFF;
   border-top: 1px solid #777;
   border-left: 1px solid #777;
   border-right: 1px solid #777;
   -moz-border-radius: 3px 3px 0px 0px;
-  border-radius: 3px 3px 0px 0px;
+  border-radius: 3px 3px 0px 0px; */
 }
 
 ul.megamenu div.mm-item-content {
-  background: #FFF;
+  background: #f8f6f2;
   padding: 0px;
   position: absolute;
-  border: 1px solid #777;
+/*  border: 1px solid #705841; removing sub-panel border*/
   z-index: 9;
 }
 
 .mm-content-base {
-  background: #FFF;
+  background: #f8f6f2;
+  background: url('/images/ui-backgrounds/_szus_megasubpanel.png') center bottom no-repeat;
   position: relative;
   z-index: 11;
   padding: 10px;
 }
 .mm-js-shadow {
-  background: #555;
+/*  background: #555; disabling sub-panel drop shadow */
   position: absolute;
   z-index: 10;
 }

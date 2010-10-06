@@ -49,7 +49,7 @@ jQuery.fn.megamenu = function(options) {
       $mm_timer = setTimeout(function(){ //Emulate HoverIntent
         mm_item_link_obj.addClass("mm-item-link-hover");
         mm_item_content_obj.css({
-          'top': ($mm_item_link.offset().top + $mm_item_link.outerHeight()) - 1 +"px",
+          'top': ($mm_item_link.offset().top + $mm_item_link.outerHeight()) + 2 +"px",
           'left': ($mm_item_link.offset().left) - 5 + 'px'
         })
         

@@ -5,7 +5,7 @@ body.bp {
   background: url("/images/ui-backgrounds/_#{$system}_site.png");
   
   h1, h2, h3, h4, h5 {
-    font-family: 'Vollkorn', arial, serif; //EDIT!!! 'smooth out' font stack to degrade gracefully
+    font-family: 'Vollkorn', "Times New Roman", serif;
     margin-bottom: 2px;
   }
   h3 { font-size: 1.8em; }
@@ -93,7 +93,7 @@ body.bp {
   }
   
   .megamenu {
-    margin: 0 0 14px 0;
+    margin: 0 0 12px 0;
     padding: 0;
     list-style: none;
     display: none;
@@ -106,9 +106,14 @@ body.bp {
       line-height: 2em;
       color: #fff;
       text-decoration: none;
+      
+      &:hover { color: #94c7f3; };
     }
     
-    .megasubpanel { width: 950px;}
+    .megasubpanel {
+      width: 950px;
+      background-color: #f8f6f2;
+    }
   }
 }
 
