@@ -1,10 +1,11 @@
 // GLOBAL VISUAL DESIGN THEME STYLESHEET for ALL SYSTEMS
+//EDIT!!! this stylesheet may need to be broken up & modularized
 
 body.bp {
   background: url("/images/ui-backgrounds/_#{$system}_site.png");
   
   h1, h2, h3, h4, h5 {
-    font-family: 'Vollkorn', arial, serif;
+    font-family: 'Vollkorn', arial, serif; //EDIT!!! 'smooth out' font stack to degrade gracefully
     margin-bottom: 2px;
   }
   h3 { font-size: 1.8em; }
@@ -26,23 +27,11 @@ body.bp {
 
 #header {
   
-  .container {
-//    height: 100px;
-  }
-  #logo_masthead {
-    background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
-    display: block;
-    width: 190px; 
-    height: 88px;
-    margin: 0;
-    text-indent: -9999em;
-  }
+  h1 { margin-bottom: 0;}
   
   .nav_utility {
     margin: 0;
     padding: 0;
-    position: relative;
-    top: -110px;
     overflow: hidden;
     
     li {
@@ -101,6 +90,25 @@ body.bp {
         }
       }
     }
+  }
+  
+  .megamenu {
+    margin: 0 0 14px 0;
+    padding: 0;
+    list-style: none;
+    display: none;
+    
+    a {
+      font-family: Georgia, serif;
+      font-size: 14px;
+      font-style: italic;
+      font-weight: bold;
+      line-height: 2em;
+      color: #fff;
+      text-decoration: none;
+    }
+    
+    .megasubpanel { width: 950px;}
   }
 }
 

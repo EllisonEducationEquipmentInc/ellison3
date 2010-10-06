@@ -22,10 +22,20 @@
 }
 
 #header {
-  background-color: white;
+  background: white url("/images/ui-backgrounds/_#{$system}_megamenu.png") center bottom no-repeat;
+  
+  #logo_masthead {
+  	background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
+  	display: block;
+  	width: 190px; 
+  	height: 88px;
+  	margin: 0;
+  	text-indent: -9999em;
+  }
   
   .container {
     padding-top:10px;
+    // height: 100px;
   }
 }
 

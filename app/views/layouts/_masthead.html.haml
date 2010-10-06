@@ -1,5 +1,6 @@
 -# logo masthead & branding
-%h1= link_to system_name, root_path, :id => "logo_masthead", :title => system_name, :alt => system_name
+%h1.masthead= link_to system_name, root_path, :id => "logo_masthead", :title => system_name, :alt => system_name
+
 -# utility navigation menu (account management, shopping cart, etc)  
 %ul.nav_utility
   %li= link_to_unless params[:controller] == "carts", "<span>View #{(t :cart).capitalize}</span>".html_safe, '#', :class => "show_cart btn-masthead btn-view#{t :cart}", :title => "View #{(t :cart).capitalize}", :alt => "View #{(t :cart).capitalize}"
@@ -28,5 +29,31 @@
     - (ELLISON_SYSTEMS & current_admin.systems_enabled).each do |sys|
       = link_to_unless current_system == sys, sys, "?system=#{sys}"
 - else
-  %p
-    catalog navigation will go here...
+  %ul.megamenu
+    %li
+      =link_to "Shop Sizzix", "javascript:void(0)"
+      .megasubpanel
+        %h3 Products Sub Panel
+        %p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        %p Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    %li
+      =link_to "Craft Ideas", "javascript:void(0)"
+      .megasubpanel
+        %h3 Ideas Sub Panel
+        example of just text
+    %li
+      =link_to "eclips", "javascript:void(0)"
+      .megasubpanel
+        %h3 eclips Sub Panel
+    %li
+      =link_to "eclips", "javascript:void(0)"
+      .megasubpanel
+        %h3 eclips Sub Panel
+    %li
+      =link_to "Community", "javascript:void(0)"
+      .megasubpanel
+        %h3 eclips Sub Panel
+    %li
+      =link_to "Shop the Outlet", "javascript:void(0)"
+      .megasubpanel
+        %h3 eclips Sub Panel
