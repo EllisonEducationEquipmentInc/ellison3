@@ -96,6 +96,10 @@ function remove_from_title (text) {
 	document.title = document.title.replace(new RegExp("( - )?"+text+"?"), '');
 }
 
+function redirect_to_order (order_path) {
+	window.location.href = order_path
+}
+
 $(document).ready(function(){
 	
 	bind_hashchange ();

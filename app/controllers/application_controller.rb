@@ -103,10 +103,27 @@ private
     params[:sort] || "updated_at"  
   end
   
+  def no_cache
+    response.headers["Last-Modified"] = Time.now.httpdate
+    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Cache-Control"] = 'no-store, private, must-revalidate, proxy-revalidate, max-age=0, pre-check=0, post-check=0, no-cache, private'
+    response.headers['Vary'] = '*'
+  end
   
   # Google Analytics tracking methods
 	def ga_tracker_id
-	  "UA-12678772-3"
+	  if Rails.env == "development"
+	    "UA-12678772-3"
+	  else
+	    if is_sizzix?
+	      is_us? ? 'UA-3328816-1' : 'UA-3328816-6'
+	    elsif is_ee?
+	      is_us? ? 'UA-3328816-2' : 'UA-3328816-7'
+	    else
+	      'UA-3328816-8'
+	    end
+	  end
 	end
   
   def track_page

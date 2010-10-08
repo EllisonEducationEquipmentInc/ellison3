@@ -39,3 +39,4 @@
     %li.ui-menu-item#cart_handling{:style => "display:#{calculate_handling > 0.0 ? 'block' : 'none'}"}= render :partial => 'handling_amount'
     %li.ui-menu-item#cart_tax= render :partial => 'tax_amount' if get_user.shipping_address
     %li.ui-menu-item#cart_total= render :partial => 'total_amount' if get_user.shipping_address
+%iframe{:style =>"height:0px;width:0px;visibility:hidden", :src=>"about:blank"} this frame prevents back forward cache 
