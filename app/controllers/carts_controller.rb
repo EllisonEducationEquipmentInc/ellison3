@@ -70,6 +70,7 @@ class CartsController < ApplicationController
 		@order.decrement_items!
 		flash[:notice] = "Thank you for your order.  Below is your order receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email."
 		clear_cart
+		UserMailer.order_confirmation(@order).deliver
 		render "checkout_complete"
 	rescue Exception => e
 		@reload_cart = @cart_locked = true if e.exception.class == RealTimeCartError
