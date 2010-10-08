@@ -1,0 +1,9 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", 'http-equiv' => "Content-Type"}
+  %body
+    Note: app/views/layouts/user_mailer.html.haml is the common layout for all UserMailer emails. Put common header/footer/frame there.
+    Call system specific partials here:
+    / = render :partial => "layouts/mail/header_#{current_system}"
+    = yield

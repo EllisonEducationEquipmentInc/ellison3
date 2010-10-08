@@ -1,78 +1,73 @@
-!!!
-%html
-  %head
-    %meta{:content => "text/html; charset=UTF-8", 'http-equiv' => "Content-Type"}
-  %body
-    .left
-      %h3 Billing Address
-      %ul
-        %li= @order.payment.company
-        %li== #{@order.payment.first_name} #{@order.payment.last_name}
-        %li= @order.payment.address1
-        %li= @order.payment.address2
-        %li= @order.payment.city
-        %li= @order.payment.state
-        %li= @order.payment.zip_code
-        %li= @order.payment.country
-        %li= @order.payment.phone
-    .left
-      %h3 Shipping Address
-      %ul
-        %li= @order.address.company
-        %li== #{@order.address.first_name} #{@order.address.last_name}
-        %li= @order.address.address1
-        %li= @order.address.address2
-        %li= @order.address.city
-        %li= @order.address.state
-        %li= @order.address.zip_code
-        %li= @order.address.country
-        %li= @order.address.phone
-    .left
-      %h3 Details
-      %strong Order Number:
-      = @order.id
-      %br
-      %strong Web Customer Number:
-      = @order.user.id
-      %br
-      %strong Order Date:
-      = l @order.created_at, :format => :custom
-      %br
-      %strong Status:
-      = @order.status
-      %br
-    .clear
-    %table
-      %tr
-        %th Item No.
-        %th Item Name
-        %th Quantity
-        %th Item Price
-        %th Item Subtotal
-      - @order.order_items.each do |item|
-        %tr{:class => cycle('odd', 'even')}
-          %td= item.item_num
-          %td= item.name
-          %td= item.quantity
-          %td= number_to_currency item.sale_price
-          %td= number_to_currency item.item_total
-    Subtotal:
-    = number_to_currency @order.subtotal_amount
-    %br
-    == Shipping & Handling (#{@order.shipping_service.try :humanize}):
-    = number_to_currency @order.shipping_amount
-    %br
-    Shipping & Handling Surcharge:
-    = number_to_currency @order.handling_amount
-    %br
-    Estimated Sales Tax:
-    = number_to_currency @order.tax_amount
-    %br
-    ESTIMATED TOTAL:
-    = number_to_currency @order.total_amount
-    %br
-    %br
-    This order was charged to:
-    %br
-    = @order.payment.card_name
-    == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
+.left
+  %h3 Billing Address
+  %ul
+    %li= @order.payment.company
+    %li== #{@order.payment.first_name} #{@order.payment.last_name}
+    %li= @order.payment.address1
+    %li= @order.payment.address2
+    %li= @order.payment.city
+    %li= @order.payment.state
+    %li= @order.payment.zip_code
+    %li= @order.payment.country
+    %li= @order.payment.phone
+.left
+  %h3 Shipping Address
+  %ul
+    %li= @order.address.company
+    %li== #{@order.address.first_name} #{@order.address.last_name}
+    %li= @order.address.address1
+    %li= @order.address.address2
+    %li= @order.address.city
+    %li= @order.address.state
+    %li= @order.address.zip_code
+    %li= @order.address.country
+    %li= @order.address.phone
+.left
+  %h3 Details
+  %strong Order Number:
+  = @order.id
+  %br
+  %strong Web Customer Number:
+  = @order.user.id
+  %br
+  %strong Order Date:
+  = l @order.created_at, :format => :custom
+  %br
+  %strong Status:
+  = @order.status
+  %br
+.clear
+%table
+  %tr
+    %th Item No.
+    %th Item Name
+    %th Quantity
+    %th Item Price
+    %th Item Subtotal
+  - @order.order_items.each do |item|
+    %tr{:class => cycle('odd', 'even')}
+      %td= item.item_num
+      %td= item.name
+      %td= item.quantity
+      %td= number_to_currency item.sale_price
+      %td= number_to_currency item.item_total
+Subtotal:
+= number_to_currency @order.subtotal_amount
+%br
+== Shipping & Handling (#{@order.shipping_service.try :humanize}):
+= number_to_currency @order.shipping_amount
+%br
+Shipping & Handling Surcharge:
+= number_to_currency @order.handling_amount
+%br
+Estimated Sales Tax:
+= number_to_currency @order.tax_amount
+%br
+ESTIMATED TOTAL:
+= number_to_currency @order.total_amount
+%br
+%br
+This order was charged to:
+%br
+= @order.payment.card_name
+== #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
