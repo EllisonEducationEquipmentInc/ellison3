@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 	
   layout :get_layout
 
-	helper_method :vat, :gross_price, :calculate_vat, :get_user, :countries, :states, :sort_column, :sort_direction 
+	helper_method :vat, :gross_price, :calculate_vat, :get_user, :countries, :states, :sort_column, :sort_direction, :ga_tracker_id
 
 private
 
@@ -101,5 +101,20 @@ private
 
   def sort_column  
     params[:sort] || "updated_at"  
+  end
+  
+  
+  # Google Analytics tracking methods
+	def ga_tracker_id
+	  "UA-12678772-3"
+	end
+  
+  def track_page
+    var pageTracker = _gat._getTracker('#{ga_tracker_id}');
+    pageTracker._trackPageview();
+  end
+  
+  def trackable
+    @trackable = true
   end
 end

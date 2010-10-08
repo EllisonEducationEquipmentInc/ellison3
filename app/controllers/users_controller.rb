@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 	prepend_before_filter :require_no_authentication, :only => [ :new, :create]
   prepend_before_filter :authenticate_scope!, :except => [ :new, :create, :checkout_requested, :signin_signup]
+  before_filter :trackable
   include Devise::Controllers::InternalHelpers
 
   # GET /resource/sign_up  

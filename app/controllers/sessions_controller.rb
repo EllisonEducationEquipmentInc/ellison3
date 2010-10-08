@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   prepend_before_filter :require_no_authentication, :only => [ :new, :create ]
+  before_filter :trackable, :only => [ :new, :create ]
   include Devise::Controllers::InternalHelpers
 
   # GET /resource/sign_in

@@ -1,5 +1,7 @@
 class CartsController < ApplicationController
 	before_filter :authenticate_user!, :only => [:checkout]
+	before_filter :trackable
+	
 	after_filter(:only => [:checkout, :proceed_checkout]) {|controller| controller.send(:get_cart).reset_item_errors}
 	
 	def index

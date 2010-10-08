@@ -49,13 +49,13 @@ module ApplicationHelper
 	  @product_obj = product
     html = <<-HTML
 - if @product_obj.pre_order?
-  %button.add_to_cart{:id => "add_to_cart_#{product.id}"}== Pre-Order
+  %button.add_to_cart{:id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}"}== Pre-Order
 - elsif @product_obj.out_of_stock?
   .jqui_out_of_stock Out of Stock
 - elsif @product_obj.suspended?
   .jqui_out_of_stock Suspended
 - elsif @product_obj.available?
-  %button.add_to_cart{:id => "add_to_cart_#{product.id}"}== Add to #{t :cart}
+  %button.add_to_cart{:id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}"}== Add to #{t :cart}
 - elsif @product_obj.not_reselable?
   = @product_obj.send "availability_message_#{current_system}"
 - else

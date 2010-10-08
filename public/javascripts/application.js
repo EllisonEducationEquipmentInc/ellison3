@@ -1,5 +1,8 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
+
+var _gaq = _gaq || [];
+
 $(function() {
   $(".wymeditor").wymeditor();
 });
@@ -56,8 +59,10 @@ function shadow_on() {
 function bind_hashchange () {
 	$(window).bind( 'hashchange', function(){
 	  var hash = location.hash;
-		if (location.pathname.indexOf("/catalog") >= 0)
+		if (location.pathname.indexOf("/catalog") >= 0) {
+			_gaq.push(['_trackEvent', 'Catalog', 'Search', $.param.fragment()]);
 			$.ajax({url:"/index/search?"+$.param.fragment(), beforeSend: function(){$("#product_catalog").css({opacity: 0.3})}, complete: function(){$("#product_catalog").css({opacity: 1})}});
+		}
 	});
 }
 
@@ -210,6 +215,7 @@ function initialize_buttons(){
 	            }})
 			.click( function() {
 				$.ajax({url:"/carts/add_to_cart?id="+this.id.replace('add_to_cart_', '')});
+				_gaq.push(['_trackEvent', 'Cart', 'Add To Cart', $(this).attr('rel')]);
 			})
 	});
 	
@@ -283,6 +289,7 @@ $(function() {
 //		.button({icons: {primary: 'ui-icon-cart'}})
 		.click(function() {
 			show_cart();
+			_gaq.push(['_trackEvent', 'Cart', 'Show Cart']);
 			return false;
 		});
 });

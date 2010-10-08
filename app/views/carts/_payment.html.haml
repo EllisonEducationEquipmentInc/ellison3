@@ -68,6 +68,7 @@
             },
             submitHandler: function(form) {
               $('#proceed_checkout').ajaxSubmit();
+              _gaq.push(['_trackEvent', 'Cart', 'Place Order']);
               fancyloader('your order is being processed. please wait...');
             },
             

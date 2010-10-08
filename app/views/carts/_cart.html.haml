@@ -28,12 +28,14 @@
         $("#empty_cart").button({icons: {primary: 'ui-icon-trash'}})
           .click( function() {
             $.ajax({url:"/carts/empty_cart", complete: function(){$.fancybox.resize()}});
+            _gaq.push(['_trackEvent', 'Cart', 'Empty Cart']);
       			$(this).button({ disabled: true });
       		});
       	$(".remove_from_cart")
       	  .button({icons: {primary: 'ui-icon-minusthick'}})
       		.click( function() {
       			$.ajax({url:"/carts/remove_from_cart?item_num="+this.id.replace('remove_from_cart_', '')});
+      			_gaq.push(['_trackEvent', 'Cart', 'Remove From Cart', this.id.replace('remove_from_cart_', '')]);
       			$(this).button({ disabled: true });
       		})
       });

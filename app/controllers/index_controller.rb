@@ -1,5 +1,7 @@
 class IndexController < ApplicationController
 	
+	before_filter :trackable
+	
 	def test
 		render :text => "text to render..."
 	end

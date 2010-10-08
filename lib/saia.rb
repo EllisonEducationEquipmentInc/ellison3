@@ -15,7 +15,7 @@ module Saia
   
   class Saia
     
-    attr_accessor :user_id, :password, :account_number, :test, :billing_terms, :destination_city, :destination_state, :destination_zip_code, :weight, :class_code, :accessorial_code, :response
+    attr_accessor :user_id, :password, :account_number, :test, :billing_terms, :destination_city, :destination_state, :destination_zip_code, :weight, :class_code, :accessorial_code, :response, :raw_response
     
     # @saia = Saia.new :user_id => YOUR_USER_ID, :password => YOUR_PASSWORD
     def initialize(attributes)
@@ -52,8 +52,8 @@ module Saia
     		#http.use_ssl = true
     		http.start do |http|
     			request.body = xml
-    			response = http.request(request)
-    			@response = REXML::Document.new response.body
+    			@raw_response = http.request(request)
+    			@response = REXML::Document.new @raw_response.body
     		end
     	end
     end
@@ -65,7 +65,7 @@ module Saia
         xml.UserID user_id
         xml.Password password
         xml.TestMode test ? "Y" : "N"
-        xml.BillingTerms(billing_terms || "Collect")
+        xml.BillingTerms(billing_terms || "Prepaid")
         xml.AccountNumber account_number
         xml.Application "Outbound"
         xml.DestinationCity destination_city
@@ -74,7 +74,7 @@ module Saia
         xml.Details do
           xml.DetailItem do
             xml.Weight weight
-            xml.Class(class_code || 50)
+            xml.Class(class_code || 70)
           end
         end
         xml.Accessorials do
