@@ -5,7 +5,7 @@ require File.expand_path('../application', __FILE__)
 Ellison3::Application.initialize!
 
 include EllisonSystem
-
+set_default_locale
 
 # FEDEX credentials
 

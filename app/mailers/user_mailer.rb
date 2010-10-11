@@ -1,5 +1,4 @@
 class UserMailer < ActionMailer::Base
-  default :from => "consumersupport@#{get_domain}"
   
   def order_confirmation(order)
     @order = order

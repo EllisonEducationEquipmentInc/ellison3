@@ -4,11 +4,6 @@ class CartsController < ApplicationController
 	before_filter :no_cache, :only => [:checkout]
 	after_filter(:only => [:checkout, :proceed_checkout]) {|controller| controller.send(:get_cart).reset_item_errors}
 	
-	def test
-	  UserMailer.order_confirmation(Order.last).deliver
-	  render :text => "done.."
-	end
-	
 	def index
 		@title = "Shopping #{I18n.t(:cart).titleize}"
 		get_cart

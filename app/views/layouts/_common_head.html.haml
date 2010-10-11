@@ -31,3 +31,9 @@
 = javascript_include_tag 'fonteffect/jquery-fonteffect-1.0.0.min.js'
 = csrf_meta_tag
 = render :partial => 'layouts/ga' if @trackable
+:javascript
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();

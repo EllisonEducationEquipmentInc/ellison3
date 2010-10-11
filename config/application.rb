@@ -49,5 +49,7 @@ module Ellison3
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :password_confirmation, :full_card_number, :card_security_code]
+      	
+    config.action_mailer.default :charset => "utf-8"
   end
 end

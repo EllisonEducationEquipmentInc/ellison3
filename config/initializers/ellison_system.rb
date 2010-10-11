@@ -1,10 +1,10 @@
 module EllisonSystem  
 	
 	# define which locale has what currency
-	LOCALES_2_CURRENCIES = {'en-US' => 'usd', 'en-UK' => 'gbp', 'en-EU' => 'eur'}
+	LOCALES_2_CURRENCIES = {'en-US' => 'usd', 'en-UK' => 'gbp', 'en-EU' => 'eur'} unless const_defined?(:LOCALES_2_CURRENCIES)
 	
 	# define systems here
-	ELLISON_SYSTEMS = %w(szus szuk eeus eeuk er)
+	ELLISON_SYSTEMS = %w(szus szuk eeus eeuk er) unless const_defined?(:ELLISON_SYSTEMS)
 
 	def current_system
 		Thread.current[:current_system] ||= ELLISON_SYSTEMS.first
@@ -113,6 +113,10 @@ module EllisonSystem
       "sizzix.#{is_us? ? 'com' : 'co.uk'}"
     end
   end
+  
+  def consumersupport_email
+    "consumersupport@#{get_domain}"
+  end
 
 	# EY app names
 	def app_name
@@ -170,10 +174,19 @@ end
 
 class ActionView::Base
   include EllisonSystem
+  class << self
+    include EllisonSystem
+  end
 end
 
 class ActionMailer::Base
   include EllisonSystem
+  default :from => Proc.new {consumersupport_email}, :host => Proc.new {get_domain}
+  layout 'user_mailer'
+  
+  class << self
+    include EllisonSystem    
+  end
 end
 
 class ActionController::Base
