@@ -8,7 +8,7 @@ _gaq.push(['_addTrans',
 '#{@order.address.state}',     // state or province
 '#{@order.address.country}'             // country
 ]);
-- @order.order_items do |item|
+- @order.order_items.each do |item|
   _gaq.push(['_addItem',
   '#{@order.id}',           // order ID - necessary to associate item with transaction
   '#{item.item_num}',           // SKU/code - required
