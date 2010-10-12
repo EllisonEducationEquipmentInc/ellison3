@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 	
   layout :get_layout
 
-	helper_method :vat, :gross_price, :calculate_vat, :get_user, :countries, :states, :sort_column, :sort_direction, :ga_tracker_id
+	helper_method :vat, :gross_price, :calculate_vat, :get_user, :countries, :states, :sort_column, :sort_direction, :ga_tracker_id, :has_write_permissions?, :has_read_permissions?, :admin_systems
 
 private
 
@@ -134,4 +134,26 @@ private
   def trackable
     @trackable = true
   end
+  
+  def admin_read_permissions!
+    authenticate_admin!
+    redirect_to admin_path, :alert => "You have no permissions to access this module." and return unless current_admin.has_read_access?(self.controller_name)
+  end
+  
+  def admin_write_permissions!
+    redirect_to admin_path, :alert => "You have no permissions to perform this action." and return unless has_write_permissions?
+  end
+  
+  def has_write_permissions?(sys = current_system)
+    current_admin.has_write_access?(self.controller_name, sys)
+  end
+  
+  def has_read_permissions?(sys = current_system)
+    current_admin.has_read_access?(self.controller_name, sys)
+  end
+  
+  def admin_systems
+    ELLISON_SYSTEMS.select {|s| has_read_permissions?(s)} & current_admin.systems_enabled
+  end
+  
 end

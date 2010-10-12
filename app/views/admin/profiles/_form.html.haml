@@ -33,5 +33,11 @@
     %i (we need your current password to confirm your changes)
     %br/
     = f.password_field :current_password
+  %h3 Permissions
+  - f.fields_for :permissions do |permission_fields|
+    = render 'admin/permissions/permission', :f => permission_fields
+  = link_to_add_fields "Add Permission", f, :permissions
+  %br
+  %br
   .actions
     = f.submit :class => 'jqui_save'

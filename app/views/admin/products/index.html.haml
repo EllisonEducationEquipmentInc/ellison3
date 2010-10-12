@@ -1,5 +1,5 @@
 %h1 Listing products
-= link_to 'New product', new_admin_product_path, :class => 'jqui_new'
+= link_to 'New product', new_admin_product_path, :class => 'jqui_new' if has_write_permissions?
 %br
 %h3 Filters
 - unless params[:q].blank?
@@ -25,8 +25,9 @@
         = sortable "quantity", "Qty."
         %th Systems
         %th &nbsp;
-        %th &nbsp;
-        %th &nbsp;
+        - if has_write_permissions?
+          %th &nbsp;
+          %th &nbsp;
     %tbody
       - for product in @products
         %tr{ :class => cycle(:odd, :even) }
@@ -40,9 +41,10 @@
           %td= product.quantity
           %td= product.systems_enabled.join(", ") rescue ''
           %td= link_to 'Show', admin_product_path(product), :class => 'jqui_show_min'
-          %td= link_to 'Edit', edit_admin_product_path(product), :class => 'jqui_edit_min'
-          %td= link_to 'Destroy', admin_product_path(product), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
+          - if has_write_permissions?
+            %td= link_to 'Edit', edit_admin_product_path(product), :class => 'jqui_edit_min'
+            %td= link_to 'Destroy', admin_product_path(product), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
 %br
 = will_paginate @products
 %br
-= link_to 'New product', new_admin_product_path, :class => 'jqui_new'
+= link_to 'New product', new_admin_product_path, :class => 'jqui_new' if has_write_permissions?

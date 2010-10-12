@@ -1,5 +1,5 @@
 %h1 Listing Landing Pages
-= link_to 'New landing_page', new_admin_landing_page_path, :class => 'jqui_new'
+= link_to 'New landing_page', new_admin_landing_page_path, :class => 'jqui_new' if has_write_permissions?
 %br
 %h3 Filters
 - unless params[:q].blank?
@@ -21,8 +21,9 @@
         = sortable "search_query"
         %th Systems
         %th &nbsp;
-        %th &nbsp;
-        %th &nbsp;
+        - if has_write_permissions?
+          %th &nbsp;
+          %th &nbsp;
     %tbody
       - for landing_page in @landing_pages
         %tr{ :class => cycle(:odd, :even) }
@@ -32,9 +33,10 @@
           %td= l landing_page.send("end_date"), :format => :custom rescue ''
           %td= landing_page.search_query
           %td= landing_page.systems_enabled.join(", ") rescue ''
-          %td= link_to 'Edit', edit_admin_landing_page_path(landing_page)
-          %td= link_to 'Destroy', admin_landing_page_path(landing_page), :confirm => 'Are you sure?', :method => :delete
+          - if has_write_permissions?
+            %td= link_to 'Edit', edit_admin_landing_page_path(landing_page)
+            %td= link_to 'Destroy', admin_landing_page_path(landing_page), :confirm => 'Are you sure?', :method => :delete
 %br
 = will_paginate @landing_pages
 %br
-= link_to 'New landing_page', new_admin_landing_page_path, :class => 'jqui_new'
+= link_to 'New landing_page', new_admin_landing_page_path, :class => 'jqui_new' if has_write_permissions?

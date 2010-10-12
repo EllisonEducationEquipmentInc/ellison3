@@ -45,11 +45,7 @@ class User
     #conditions[:active] = true
 		conditions[:systems_enabled.in] = [current_system] 
     super
-  end
-  
-  # def headers_for(action = nil)
-  #   
-  # end
+  end 
 
 protected
 	def password_required?

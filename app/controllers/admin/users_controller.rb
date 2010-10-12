@@ -1,11 +1,16 @@
 class Admin::UsersController < ApplicationController
 	layout 'admin'
 	
-	before_filter :authenticate_admin!
+	before_filter :admin_read_permissions!
+  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy]
 	
 	def index
 	  criteria = Mongoid::Criteria.new(User)
-	  criteria.where(:systems_enabled.in => params[:systems_enabled]) unless params[:systems_enabled].blank?
+	  if params[:systems_enabled].blank?
+	    criteria.where(:systems_enabled.in => admin_systems)
+	  else
+	    criteria.where(:systems_enabled.in => params[:systems_enabled]) 
+	  end
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
   	  criteria.any_of({ :name => regexp}, { :email => regexp })

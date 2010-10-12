@@ -1,0 +1,12 @@
+.field
+  = f.label :name
+  = f.select :name, Permission::ADMIN_MODULES
+  - ELLISON_SYSTEMS.each do |sys|
+    = sys
+    = check_box_tag "#{f.object_name}[systems_enabled][]", sys, f.object.systems_enabled && f.object.systems_enabled.include?(sys)
+  = f.label :read
+  = f.check_box :read, :disabled => f.object.write
+  = f.label :write
+  = f.check_box :write, :onclick => "if (this.checked) {$(this).prevAll('input:checkbox').first().attr({checked: true, disabled: true})} else {$(this).prevAll('input:checkbox').first().attr({disabled: false})}"
+  = f.label :delete_permission
+  = f.check_box :_destroy

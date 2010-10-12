@@ -1,5 +1,5 @@
 %h1 Listing admins
-= link_to 'New admin user', new_admin_admin_path, :class => 'jqui_new'
+= link_to 'New admin user', new_admin_admin_path, :class => 'jqui_new' if has_write_permissions?
 %br
 - unless params[:q].blank?
   = link_to 'all', admin_admins_path, :class => 'jqui_button'
@@ -21,8 +21,9 @@
         = sortable "created_at"
         = sortable "failed_attempts", "Failed Login"
         %th &nbsp;
-        %th &nbsp;
-        %th &nbsp;
+        - if has_write_permissions?
+          %th &nbsp;
+          %th &nbsp;
     %tbody
       - for user in @admins
         %tr{ :class => cycle(:odd, :even) }
@@ -34,9 +35,10 @@
           %td= l user.current_sign_in_at, :format => :custom rescue ''
           %td= l user.created_at, :format => :custom rescue ''
           %td= user.failed_attempts
-          %td= link_to 'Edit', edit_admin_admin_path(user)
-          %td= link_to 'Deactivate', admin_admin_path(user), :confirm => 'Are you sure?', :method => :delete
+          - if has_write_permissions?
+            %td= link_to 'Edit', edit_admin_admin_path(user)
+            %td= link_to 'Deactivate', admin_admin_path(user), :confirm => 'Are you sure?', :method => :delete
 %br
 = will_paginate @admins
 %br
-= link_to 'New admin user', new_admin_admin_path, :class => 'jqui_new'
+= link_to 'New admin user', new_admin_admin_path, :class => 'jqui_new' if has_write_permissions?
