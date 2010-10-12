@@ -34,6 +34,12 @@
     %br/
     = f.password_field :current_password
   %h3 Permissions
+  .field
+    = f.check_box :can_act_as_customer
+    = f.label :can_act_as_customer
+  .field
+    = f.check_box :can_change_prices
+    = f.label :can_change_prices
   - f.fields_for :permissions do |permission_fields|
     = render 'admin/permissions/permission', :f => permission_fields
   = link_to_add_fields "Add Permission", f, :permissions

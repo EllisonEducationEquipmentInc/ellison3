@@ -1,0 +1,4 @@
+- if user_signed_in?
+  Customer Email: 
+  = current_user.email
+  = link_to "log out", destroy_session_path('user')

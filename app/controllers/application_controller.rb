@@ -144,6 +144,15 @@ private
     redirect_to admin_path, :alert => "You have no permissions to perform this action." and return unless has_write_permissions?
   end
   
+  def admin_user_as_permissions!
+    if request.xhr?
+      render :js => "alert('You have no permissions to log in as customer or your session timed out.');window.location.href = '#{stored_location_for(:admin) || new_admin_session_path}';" and return unless admin_signed_in? && current_admin.can_act_as_customer
+    else  
+      authenticate_admin!
+      redirect_to admin_path, :alert => "You have no permissions to log in as customer" and return unless current_admin.can_act_as_customer
+    end
+  end
+  
   def has_write_permissions?(sys = current_system)
     current_admin.has_write_access?(self.controller_name, sys)
   end

@@ -1,6 +1,8 @@
 class SessionsController < ApplicationController
   prepend_before_filter :require_no_authentication, :only => [ :new, :create ]
   before_filter :trackable, :only => [ :new, :create ]
+  before_filter :admin_user_as_permissions!, :only => [:user_as]
+  
   include Devise::Controllers::InternalHelpers
 
   # GET /resource/sign_in
@@ -30,5 +32,16 @@ class SessionsController < ApplicationController
 
   def failure
 		render :js => "$('#existing_user_password').attr('value', '');alert('Login failed. Please try again')"
+  end
+  
+  def user_as
+    redirect_to admin_path and return unless request.xhr?
+    @user = User.where(:systems_enabled.in => [current_system], :email => params[:user_as_email]).first
+    if @user
+      sign_in(resource_name, @user)
+      render 'users/user_as'
+    else
+      render :js => "alert('user not found')"
+    end
   end
 end

@@ -30,11 +30,12 @@
     Switch to:
     - (ELLISON_SYSTEMS & current_admin.systems_enabled).each do |sys|
       = link_to_unless current_system == sys, sys, "?system=#{sys}"
-  - if user_signed_in?
-    #user_as 
-      Customer Email: 
-      = current_user.email
-      = link_to "log out", destroy_session_path('user')
+  #user_as= render :partial => 'layouts/user_as'
+  - if current_admin.can_act_as_customer
+    = form_tag('/user_as', :remote => true) do
+      = label_tag :user_as_email, "Login as customer:"
+      = text_field_tag :user_as_email, nil, :placeholder => "enter customer email"
+      = submit_tag 'login', :class => 'jqui_save'
 %ul.megamenu
   %li
     = link_to "Shop the Outlet", "javascript:void(0)"

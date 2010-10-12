@@ -21,7 +21,7 @@ Ellison3::Application.routes.draw do |map|
 		get "checkout_requested", :to => "users#checkout_requested"
 		get "signin_signup", :to => "users#signin_signup"
 		post "update_address", :to => "users#update_address"
-		
+		post "user_as", :to => "sessions#user_as"
   end
 
   match 'admin' => 'admin#index'
