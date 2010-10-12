@@ -1,9 +1,10 @@
 %h1 Listing users
-= link_to 'New user', new_admin_user_path, :class => 'jqui_new'
+= link_to 'New user', new_admin_user_path, :class => 'jqui_new' if has_write_permissions?
 %br
 - unless params[:q].blank?
   = link_to 'all', admin_users_path, :class => 'jqui_button'
 - form_tag(admin_users_path, :method => :get) do
+  = admin_systems_checkboxes
   = text_field_tag :q
   = submit_tag "search", :class => 'jqui_search'
 .highlightable
@@ -13,18 +14,21 @@
         = sortable "email"
         = sortable "sign_in_count"
         = sortable "created_at"
-        %th &nbsp;
-        %th &nbsp;
-        %th &nbsp;
+        %th Systems
+        - if has_write_permissions?
+          %th &nbsp;
+          %th &nbsp;
     %tbody
       - for user in @users
         %tr{ :class => cycle(:odd, :even) }
           %td= user.email
           %td= user.sign_in_count
           %td= l user.created_at, :format => :custom rescue ''
-          %td= link_to 'Edit', edit_admin_user_path(user)
-          %td= link_to 'Destroy', admin_user_path(user), :confirm => 'Are you sure?', :method => :delete
+          %td= user.systems_enabled.join(", ") rescue ''
+          - if has_write_permissions?
+            %td= link_to 'Edit', edit_admin_user_path(user)
+            %td= link_to 'Destroy', admin_user_path(user), :confirm => 'Are you sure?', :method => :delete
 %br
 = will_paginate @users
 %br
-= link_to 'New user', new_admin_user_path, :class => 'jqui_new'
+= link_to 'New user', new_admin_user_path, :class => 'jqui_new' if has_write_permissions?

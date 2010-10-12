@@ -30,6 +30,11 @@
     Switch to:
     - (ELLISON_SYSTEMS & current_admin.systems_enabled).each do |sys|
       = link_to_unless current_system == sys, sys, "?system=#{sys}"
+  - if user_signed_in?
+    #user_as 
+      Customer Email: 
+      = current_user.email
+      = link_to "log out", destroy_session_path('user')
 %ul.megamenu
   %li
     = link_to "Shop the Outlet", "javascript:void(0)"
