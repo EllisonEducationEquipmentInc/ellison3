@@ -41,6 +41,8 @@ class Order
 	field :estimated_ship_date, :type => Date
 	field :comments
 	field :internal_comments
+	field :customer_rep
+	field :customer_rep_id, :type => BSON::ObjectId
 	
 	field :clickid
 	field :utm_source

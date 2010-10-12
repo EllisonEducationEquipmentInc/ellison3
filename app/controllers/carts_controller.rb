@@ -66,6 +66,10 @@ class CartsController < ApplicationController
 		@order.user = get_user
 		@order.ip_address = request.remote_ip
 		@order.status = "Open"
+		if admin_signed_in?
+		  @order.customer_rep = current_admin.name
+		  @order.customer_rep_id = current_admin.id
+		end
 		@order.save!
 		@order.decrement_items!
 		flash[:notice] = "Thank you for your order.  Below is your order receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email."
