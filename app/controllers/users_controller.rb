@@ -70,11 +70,13 @@ class UsersController < ApplicationController
 	end
 	
 	def orders
+	  @current_locale = current_locale
 		@orders = get_user.orders.desc(:created_at).paginate(:page => params[:page], :per_page => 10)
 		render :partial => 'order_status'
 	end
 	
 	def order
+	  @current_locale = current_locale
 		@order = get_user.orders.find params[:id]
 		@title = "Order: #{@order.id}"
 	rescue

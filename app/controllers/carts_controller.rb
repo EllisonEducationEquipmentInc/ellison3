@@ -66,6 +66,7 @@ class CartsController < ApplicationController
 		@order.user = get_user
 		@order.ip_address = request.remote_ip
 		@order.status = "Open"
+		@order.comments = params[:comments]
 		if admin_signed_in?
 		  @order.customer_rep = current_admin.name
 		  @order.customer_rep_id = current_admin.id

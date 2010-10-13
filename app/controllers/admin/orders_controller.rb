@@ -5,6 +5,7 @@ class Admin::OrdersController < ApplicationController
   before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy]
 	
 	def index
+	  @current_locale = current_locale
 	  criteria = Mongoid::Criteria.new(Order)
 	  if params[:systems_enabled].blank?
 	    criteria.where(:system.in => admin_systems)
@@ -21,6 +22,7 @@ class Admin::OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.xml
   def show
+    @current_locale = current_locale
     @order = Order.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
@@ -70,5 +72,11 @@ class Admin::OrdersController < ApplicationController
       format.html { redirect_to(admin_orders_url) }
       format.xml  { head :ok }
     end
+  end
+  
+  def update_internal_comment
+    @order = Order.find(params[:id])
+    @order.update_attributes :internal_comments => params[:order][:internal_comments]
+    render :js => "alert('internal comment has been saved')"
   end
 end

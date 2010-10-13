@@ -1,5 +1,5 @@
+.back= link_to "Back to Orders", admin_orders_path
 - I18n.locale = @order.locale
-%div= link_to 'Back to Orders', myaccount_path('orders', :page => params[:page]), :class => 'jqui_back'
 .left
   %h3 Billing Address
   %ul
@@ -38,6 +38,8 @@
   %strong Status:
   = @order.status
   %br
+  %strong Customer Rep:
+  = @order.customer_rep
 .clear
 %table
   %tr
@@ -73,4 +75,34 @@ This order was charged to:
 %br
 = @order.payment.card_name
 == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
+%br
+%br
+.field
+  %strong Paid Amount:
+  = number_to_currency @order.payment.paid_amount rescue "N/A"
+.field
+  %strong Paid At:
+  = l @order.payment.paid_at, :format => :custom rescue ""
+.field
+  %strong Merchant Reference Number:
+  = @order.payment.vendor_tx_code
+.field
+  %strong Transaction ID:
+  = is_us? ? @order.payment.vpstx_id : @order.payment.tx_auth_no
+.field
+  %strong Tax Transaction ID:
+  = @order.tax_transaction
+.field
+  %strong Tax Calculated at:
+  = l @order.tax_calculated_at, :format => :custom rescue ''
+.field
+  %strong Order Comments:
+  = @order.comments
+= form_for @order, :url => {:action => "update_internal_comment", :id => @order.id}, :remote => true do |f|
+  .field
+    = f.label :internal_comments
+    %br
+    = f.text_area :internal_comments
+  .actions
+    = f.submit "save internal comment", :class => 'jqui_save'
 - I18n.locale = @current_locale
