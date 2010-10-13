@@ -101,6 +101,7 @@ This order was charged to:
 .field
   %strong Internal Comments:
   #internal_comment= @order.internal_comments
+- I18n.locale = @current_locale
 - if has_write_permissions?
   :javascript
     $("#internal_comment").editInPlace({
@@ -112,4 +113,3 @@ This order was charged to:
       show_buttons: true,
       saving_animation_color: "#ECF2F8"
     });
-- I18n.locale = @current_locale

@@ -5,6 +5,8 @@ class Order
 	include ActiveModel::Validations
 	include ActiveModel::Translation
 	
+	STATUSES = ["New", "Pending", "Open", "Processing", "In Process", "Shipped", "To Refund", "Refunded", "Cancelled"]
+	
 	embeds_one :payment
 	embeds_one :address
 	embeds_many :order_items

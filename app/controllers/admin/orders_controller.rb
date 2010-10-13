@@ -12,6 +12,7 @@ class Admin::OrdersController < ApplicationController
 	  else
 	    criteria.where(:system.in => params[:systems_enabled]) 
 	  end
+	  criteria.where(:status => params[:status]) unless params[:status].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
   	  criteria.any_of({ 'address.first_name' => regexp}, { 'address.last_name' => regexp }, { 'address.city' => regexp }, { 'address.address' => regexp })

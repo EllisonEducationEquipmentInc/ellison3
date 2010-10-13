@@ -5,7 +5,7 @@
 - form_tag(admin_orders_path, :method => :get) do
   = admin_systems_checkboxes
   = text_field_tag :q, nil, :placeholder => "shipping name, address"
-  = select_tag :status, options_for_select([['All', nil]])
+  = select_tag :status, options_for_select([['All', nil]] + Order::STATUSES, params[:status])
   = submit_tag "search", :class => 'jqui_search'
 .highlightable
   %table
