@@ -84,7 +84,11 @@ Ellison3::Application.routes.draw do |map|
 			  end
 			end
 			resources :users
-			resources :orders
+			resources :orders do
+			  collection do
+			    post :update_internal_comment
+			  end
+			end
 			resources :landing_pages
 			resources :tags do
 				collection do

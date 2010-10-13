@@ -98,11 +98,18 @@ This order was charged to:
 .field
   %strong Order Comments:
   = @order.comments
-= form_for @order, :url => {:action => "update_internal_comment", :id => @order.id}, :remote => true do |f|
-  .field
-    = f.label :internal_comments
-    %br
-    = f.text_area :internal_comments
-  .actions
-    = f.submit "save internal comment", :class => 'jqui_save'
+.field
+  %strong Internal Comments:
+  #internal_comment= @order.internal_comments
+- if has_write_permissions?
+  :javascript
+    $("#internal_comment").editInPlace({
+      url: "/admin/orders/update_internal_comment",
+      params: "id=#{@order.id}",
+      field_type: "textarea",
+      textarea_rows: "15",
+      textarea_cols: "35",
+      show_buttons: true,
+      saving_animation_color: "#ECF2F8"
+    });
 - I18n.locale = @current_locale

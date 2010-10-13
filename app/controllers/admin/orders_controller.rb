@@ -14,7 +14,7 @@ class Admin::OrdersController < ApplicationController
 	  end
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria.any_of({ 'address.first_name' => regexp}, { 'address.last_name' => regexp })
+  	  criteria.any_of({ 'address.first_name' => regexp}, { 'address.last_name' => regexp }, { 'address.city' => regexp }, { 'address.address' => regexp })
 	  end
 		@orders = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 100
 	end
@@ -76,7 +76,7 @@ class Admin::OrdersController < ApplicationController
   
   def update_internal_comment
     @order = Order.find(params[:id])
-    @order.update_attributes :internal_comments => params[:order][:internal_comments]
-    render :js => "alert('internal comment has been saved')"
+    @order.update_attributes :internal_comments => params[:update_value]
+    render :text => @order.internal_comments
   end
 end
