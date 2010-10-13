@@ -1,5 +1,6 @@
 class CartsController < ApplicationController
 	before_filter :authenticate_user!, :only => [:checkout, :proceed_checkout]
+	before_filter :authenticate_admin!, :only => [:custom_price]
 	before_filter :trackable
 	before_filter :no_cache, :only => [:checkout]
 	after_filter(:only => [:checkout, :proceed_checkout]) {|controller| controller.send(:get_cart).reset_item_errors}
@@ -23,8 +24,8 @@ class CartsController < ApplicationController
 	end
 	
 	def checkout
-		#get_cart.update_items true
-		#flash[:alert] = ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
+    get_cart.update_items true
+    flash[:alert] = ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
 		redirect_to(catalog_path, :alert => flash[:alert] || I18n.t(:empty_cart)) and return if get_cart.cart_items.blank?
 		@title = "Checkout"
 		@cart_locked, @checkout = true, true
@@ -126,6 +127,13 @@ class CartsController < ApplicationController
 		  end
 		end
 		render :inline => "<%= number_to_currency @total %>"
+	end
+	
+	def custom_price
+	  render :nothing => true and return unless current_admin.can_change_prices
+	  @cart_item = get_cart.cart_items.find(params[:element_id].gsub("cart_item_price_", ""))
+	  @cart_item.update_attributes(:price => params[:update_value][/[0-9.]+/], :custom_price => true)
+	  render :inline => "<%= display_product_price_cart @cart_item %>"
 	end
 
 private

@@ -12,6 +12,20 @@
         %th Total Price
         %th
     %tbody= render :partial => 'cart_item', :collection => @cart.cart_items
+    - if admin_signed_in? && current_admin.can_change_prices && !@cart_locked
+      :javascript
+        $(".cart_item_price").editInPlace({
+          url: "/carts/custom_price",
+          success: function(){
+            $.get('/cart', function(data){
+              $('#cart_container').replaceWith(data);
+            });
+            $.fancybox.resize();
+          },
+          value_required: true,
+          show_buttons: true,
+          saving_animation_color: "#ECF2F8"
+        });
   %ul.right.cart_ul
     %li.ui-menu-item.subtotal
       .cart_label Subtotal: 

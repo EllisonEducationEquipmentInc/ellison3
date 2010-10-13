@@ -93,7 +93,8 @@ class Cart
 		self.changed_items = nil
 		cart_items.each do |item|
 			product = Product.find item.product_id
-			item.write_attributes :sale_price => product.sale_price, :msrp => product.msrp, :price => product.price, :currency => current_currency, :small_image => product.small_image, :tax_exempt => product.tax_exempt, :handling_price => product.handling_price
+			item.write_attributes :sale_price => product.sale_price, :msrp => product.msrp, :currency => current_currency, :small_image => product.small_image, :tax_exempt => product.tax_exempt, :handling_price => product.handling_price
+			item.price = product.price unless item.custom_price
 			if check
 				item.quantity = product.unavailable? ? 0 : product.quantity if product.unavailable? || product.quantity < item.quantity
 			end
