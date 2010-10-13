@@ -15,7 +15,7 @@ class Admin::UsersController < ApplicationController
 	    regexp = Regexp.new(params[:q], "i")
   	  criteria.any_of({ :name => regexp}, { :email => regexp })
 	  end
-		@users = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 100
+		@users = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
 	end
 
   # GET /users/1
