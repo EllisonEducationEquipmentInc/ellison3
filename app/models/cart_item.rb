@@ -5,9 +5,9 @@ class CartItem
 	field :item_num
 	field :product_id
 	field :name
-	field :msrp, :type => BigDecimal
-	field :sale_price, :type => BigDecimal
-	field :price, :type => BigDecimal
+	field :msrp, :type => Float
+	field :sale_price, :type => Float
+	field :price, :type => Float
 	field :currency
 	field :quantity, :type => Integer, :default => 1
 	field :small_image

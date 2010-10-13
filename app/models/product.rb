@@ -103,7 +103,7 @@ class Product
 	#   system dependent attributes: start_date, end_date, description, distribution_life_cycle, distribution_life_cycle_ends, orderable
 	#   currency dependent attributes: msrp, handling_price
 	LOCALES_2_CURRENCIES.values.each do |currency|
-		field "msrp_#{currency}".to_sym, :type => BigDecimal
+		field "msrp_#{currency}".to_sym, :type => Float
 		field "handling_price_#{currency}".to_sym, :type => Float, :default => 0.0
 	end
 	ELLISON_SYSTEMS.each do |system|
@@ -115,7 +115,7 @@ class Product
 	  field "distribution_life_cycle_ends_#{system}".to_sym, :type => DateTime
 	  field "availability_message_#{system}"
 		LOCALES_2_CURRENCIES.values.each do |currency|
-			field "price_#{system}_#{currency}".to_sym, :type => BigDecimal
+			field "price_#{system}_#{currency}".to_sym, :type => Float
 		end
 	end
 

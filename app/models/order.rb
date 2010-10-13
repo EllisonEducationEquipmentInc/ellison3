@@ -19,11 +19,11 @@ class Order
 	field :system
 	field :locale
 	field :ip_address
-	field :subtotal_amount, :type => BigDecimal
-	field :shipping_amount, :type => BigDecimal
-	field :handling_amount, :type => BigDecimal
-	field :total_discount, :type => BigDecimal
-	field :tax_amount, :type => BigDecimal
+	field :subtotal_amount, :type => Float
+	field :shipping_amount, :type => Float
+	field :handling_amount, :type => Float
+	field :total_discount, :type => Float
+	field :tax_amount, :type => Float
 	# field :vat_exempt, :type => Boolean, :default => true
 	field :tax_exempt, :type => Boolean, :default => false
 	field :tax_exempt_number

@@ -6,9 +6,9 @@ class OrderItem
 	field :product_id
 	field :name
 	field :locale
-	field :quoted_price, :type => BigDecimal
-	field :sale_price, :type => BigDecimal
-	field :discount, :type => BigDecimal
+	field :quoted_price, :type => Float
+	field :sale_price, :type => Float
+	field :discount, :type => Float
 	field :coupon
 	field :quantity, :type => Integer, :default => 1
 	field :tax_exempt, :type => Boolean, :default => false

@@ -1,0 +1,36 @@
+%h1 Listing orders
+%br
+- unless params[:q].blank?
+  = link_to 'all', admin_orders_path, :class => 'jqui_button'
+- form_tag(admin_orders_path, :method => :get) do
+  = admin_systems_checkboxes
+  = text_field_tag :q
+  = submit_tag "search", :class => 'jqui_search'
+.highlightable
+  %table
+    %thead
+      %tr
+        = sortable "id"
+        = sortable "created_at"
+        = sortable "address.last_name"
+        = sortable "subtotal_amount"
+        %th System
+        = sortable "status"
+        - if has_write_permissions?
+          %th &nbsp;
+    %tbody
+      - for order in @orders
+        - I18n.locale = order.locale
+        %tr{ :class => cycle(:odd, :even) }
+          %td= order.id
+          %td= l order.created_at, :format => :custom rescue ''
+          %td== #{order.address.first_name} #{order.address.last_name}
+          %td= number_to_currency order.subtotal_amount
+          %td= order.system
+          %td= order.status
+          - if has_write_permissions?
+            %td= link_to 'Edit', edit_admin_order_path(order)
+- I18n.locale = current_locale
+%br
+= will_paginate @orders
+%br

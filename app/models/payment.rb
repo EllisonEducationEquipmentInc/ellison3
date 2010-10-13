@@ -38,7 +38,7 @@ class Payment
 	field :address_result
 	field :post_code_result
 	field :subscriptionid
-	field :paid_amount, :type => BigDecimal
+	field :paid_amount, :type => Float
 	field :authorization
 	field :paid_at, :type => DateTime
 	field :vendor_tx_code
