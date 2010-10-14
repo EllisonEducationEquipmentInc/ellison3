@@ -17,7 +17,9 @@ module ShoppingCart
 			if item = get_cart.cart_items.find_item(product.item_num)
 				item.quantity += qty
 			else
-				get_cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.sale_price, :msrp => product.msrp, :price => product.price, :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product_id => product.id, :weight => product.weight, :tax_exempt => product.tax_exempt, :handling_price => product.handling_price)
+				get_cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.sale_price, :msrp => product.msrp, :price => product.price, :quantity => qty, 
+				  :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product_id => product.id, :weight => product.weight, 
+				  :tax_exempt => product.tax_exempt, :handling_price => product.handling_price, :volume => product.calculated_volume)
 			end
 			get_cart.reset_tax_and_shipping
 			get_cart.save
@@ -50,6 +52,9 @@ module ShoppingCart
 			return get_cart.shipping_amount if get_cart.shipping_amount
 			options[:weight] ||= get_cart.total_weight
 			options[:shipping_service] ||= "FEDEX_GROUND"
+			options[:package_length] ||= (get_cart.total_volume**(1.0/3.0)).round
+			options[:package_width] ||= (get_cart.total_volume**(1.0/3.0)).round
+			options[:package_height] ||= (get_cart.total_volume**(1.0/3.0)).round
 			rate = if is_us?
 				fedex_rate(address, options)
 				@shipping_service = @rates.detect {|r| r.type == options[:shipping_service]} ? options[:shipping_service] : @rates.sort {|x,y| x.rate <=> y.rate}.first.type

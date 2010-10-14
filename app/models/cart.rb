@@ -47,7 +47,11 @@ class Cart
 	end
 	
 	def total_weight
-		cart_items.inject(0) {|sum, item| sum += item.weight}
+		cart_items.inject(0) {|sum, item| sum += (item.quantity * item.weight)}
+	end
+	
+	def total_volume
+		cart_items.inject(0) {|sum, item| sum += (item.quantity * item.volume)}
 	end
 	
 	def taxable_amaunt
@@ -55,7 +59,7 @@ class Cart
 	end
 	
 	def handling_amount
-		cart_items.inject(0) {|sum, item| sum += item.handling_price}
+		cart_items.inject(0) {|sum, item| sum += (item.quantity * item.handling_price)}
 	end
 	
 	def total

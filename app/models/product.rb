@@ -23,6 +23,8 @@ class Product
 	
 	# validations
 	validates :name, :item_num, :life_cycle, :systems_enabled, :presence => true
+	validates_presence_of :volume, :if => Proc.new {|obj| obj.length.blank? || obj.width.blank? || obj.height.blank?}, :message => "Either volume or length + width + height is required" 
+	validates_presence_of :length, :width, :height, :if => Proc.new {|obj| obj.volume.blank?}, :message => "Either volume or length + width + height is required" 
 	validates_inclusion_of :life_cycle, :in => LIFE_CYCLES, :message => "%s is not included in the list"
 	validates_uniqueness_of :item_num
 	validates_uniqueness_of :upc, :allow_blank => true
@@ -52,6 +54,10 @@ class Product
 	field :systems_enabled, :type => Array
 	field :tax_exempt, :type => Boolean, :default => false
 	field :release_date, :type => Date
+	field :volume, :type => Float
+	field :length, :type => Float
+	field :width, :type => Float
+	field :height, :type => Float
 	
 	index :item_num, :unique => true, :background => true
 	index :systems_enabled
@@ -334,6 +340,10 @@ class Product
 	  self.updated_at = Time.zone.now
 	  skip_versioning_and_timestamps
 	  save :validate => false
+	end
+	
+	def calculated_volume
+	  self.volume || (self.width * self.height * self.length)
 	end
 
 private 

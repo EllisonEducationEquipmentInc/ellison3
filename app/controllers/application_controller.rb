@@ -14,7 +14,6 @@ class ApplicationController < ActionController::Base
 
 private
 
-	# TODO: implement user_as
 	def get_user
 		current_user
 	end

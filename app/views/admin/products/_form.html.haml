@@ -28,9 +28,27 @@
     %br
     = f.check_box :tax_exempt
   .field
-    = f.label :weight
+    = f.label :weight, "Weight (lbs.)"
     %br
     = f.text_field :weight
+  .field
+    = f.label :volume, "Volume (cu.in.)"
+    %br
+    = f.text_field :volume
+  OR
+  .field
+    = f.label :length, "Lenght (in.)"
+    %br
+    = f.text_field :length
+  .field
+    = f.label :width, "Width (in.)"
+    %br
+    = f.text_field :width
+  .field
+    = f.label :height, "Height (in.)"
+    %br
+    = f.text_field :height
+  
   - currencies.each  do |currency|
     .field
       = f.label "handling_price_#{currency}"

@@ -14,6 +14,7 @@ class CartItem
 	field :small_image
 	field :added_at, :type => Time
 	field :weight, :type => Float, :default => 0.0
+	field :volume, :type => Float, :default => 0.0
 	field :tax_exempt, :type => Boolean, :default => false
 	field :handling_price, :type => Float, :default => 0.0
 	field :changed_attributes, :type => Array

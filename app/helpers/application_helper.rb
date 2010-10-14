@@ -42,9 +42,6 @@ module ApplicationHelper
 		p << "<span class='msrp#{' old-price' if coupon || regular_price || sale_price}'>#{number_to_currency msrp}</span> "
 		p << "<span class='special-price#{' old-price' if coupon || sale_price}'>#{number_to_currency regular_price}</span> "
 		p << "<span class='sale-price'>#{number_to_currency sale_price}</span> "
-		# TODO: custom price
-		#p << "<br><span class='custom-price'>#{product.custom_price}</span>" if product.custom_price
-    #p << "<div id=\"custom_price_#{product.id}\">" + "</div>" + link_to('edit', :update => "custom_price_#{product.id}", :url => {:controller => 'cart', :action => 'custom_price', :id => product.id, :with_text => with_text, :line_break => line_break}) if has_sales_manager_permissions? && params[:controller] == 'cart'
 		p.html_safe
 	end
 	
