@@ -1,7 +1,7 @@
 class IndexController < ApplicationController
 	
 	before_filter :trackable, :except => [:catalog]
-	
+		
 	def home
 
 	end

@@ -37,7 +37,7 @@
       $(function() {
         $("#checkout_button").button({icons: {primary: 'ui-icon-check'}})
           .click( function() {
-            $.ajax({url:"/checkout_requested", complete: function(){$.fancybox.resize()}});
+            $.ajax({url:"#{checkout_requested_path}", complete: function(){$.fancybox.resize()}});
       		});
         $("#empty_cart").button({icons: {primary: 'ui-icon-trash'}})
           .click( function() {

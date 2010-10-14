@@ -34,6 +34,11 @@ class Admin
 	
 	attr_accessible :name, :email, :password, :password_confirmation, :employee_number, :active, :permissions_attributes, :can_act_as_customer, :can_change_prices
 	
+	def initialize(attributes = nil)
+		super(attributes)
+		self.systems_enabled ||= [current_system]
+	end
+	
 	def self.find_for_authentication(conditions={})
     conditions[:active] = true
 		conditions[:systems_enabled.in] = [current_system] 

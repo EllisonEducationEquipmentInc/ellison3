@@ -1,10 +1,12 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
 	
 	before_filter :get_system
 	before_filter :page_title
 	
 	include ShoppingCart
+	include SslRequirement
+
+  protect_from_forgery
 	
   layout :get_layout
 

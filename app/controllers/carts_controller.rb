@@ -5,6 +5,10 @@ class CartsController < ApplicationController
 	before_filter :no_cache, :only => [:checkout]
 	after_filter(:only => [:checkout, :proceed_checkout]) {|controller| controller.send(:get_cart).reset_item_errors}
 	
+	ssl_required :checkout, :proceed_checkout
+	ssl_allowed :index, :get_shipping_options, :change_shipping_method, :copy_shipping_address, :change_shipping_method, :get_shipping_service, :get_shipping_amount, :get_tax_amount, :get_total_amount,
+	  :custom_price, :create_shipping, :create_billing
+	
 	def index
 		@title = "Shopping #{I18n.t(:cart).titleize}"
 		get_cart
@@ -24,8 +28,8 @@ class CartsController < ApplicationController
 	end
 	
 	def checkout
-    get_cart.update_items true
-    flash[:alert] = ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
+    # get_cart.update_items true
+    # flash[:alert] = ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
 		redirect_to(catalog_path, :alert => flash[:alert] || I18n.t(:empty_cart)) and return if get_cart.cart_items.blank?
 		@title = "Checkout"
 		@cart_locked, @checkout = true, true

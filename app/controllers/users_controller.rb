@@ -3,6 +3,9 @@ class UsersController < ApplicationController
   prepend_before_filter :authenticate_scope!, :except => [ :new, :create, :checkout_requested, :signin_signup]
   before_filter :trackable
   include Devise::Controllers::InternalHelpers
+  
+  ssl_exceptions :signin_signup, :checkout_requested
+  ssl_allowed :signin_signup, :checkout_requested
 
   # GET /resource/sign_up  
   def new
@@ -107,13 +110,13 @@ class UsersController < ApplicationController
 	end
 	
 	def signin_signup
-		redirect_to(new_session_path('user')) and return unless request.xhr?
+		redirect_to(new_session_path('user', :secure => true)) and return unless request.xhr?
 	  render :partial => "login_or_checkout", :layout => false
 	end
 	
 	def checkout_requested
 		return unless request.xhr?
-		session[:user_return_to] = checkout_path
+		session[:user_return_to] = checkout_path(:secure => true)
 	end
 
 protected

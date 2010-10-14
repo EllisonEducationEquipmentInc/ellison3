@@ -25,4 +25,8 @@ Ellison3::Application.configure do
 	config.action_mailer.raise_delivery_errors = true
 	
 	config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
+	
+	config.after_initialize do
+	  SslRequirement.disable_ssl_check = true
+	end
 end

@@ -4,6 +4,8 @@ class Admin::LandingPagesController < ApplicationController
   before_filter :admin_read_permissions!
   before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy]
 	
+	ssl_exceptions
+	
 	def index
 	  criteria = Mongoid::Criteria.new(LandingPage)
 	  if params[:systems_enabled].blank?
@@ -11,7 +13,7 @@ class Admin::LandingPagesController < ApplicationController
 	  else
 	    criteria.where(:systems_enabled.in => params[:systems_enabled]) 
 	  end
-	  criteria.where(:active => true) unless params[:inactive].blank?
+	  criteria.where(:active => true) if params[:inactive].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
   	  criteria.any_of({ :name => regexp}, { :search_query => regexp}, { :permalink => regexp})

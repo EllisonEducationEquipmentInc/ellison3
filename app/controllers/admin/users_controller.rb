@@ -4,6 +4,8 @@ class Admin::UsersController < ApplicationController
 	before_filter :admin_read_permissions!
   before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy]
 	
+	ssl_exceptions
+	
 	def index
 	  criteria = Mongoid::Criteria.new(User)
 	  if params[:systems_enabled].blank?
