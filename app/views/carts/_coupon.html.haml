@@ -1,0 +1,19 @@
+- if get_cart.coupon
+  %strong Coupon:
+  = get_cart.coupon.name
+  = link_to "remove", remove_coupon_path, :remote => true
+- else
+  = form_tag activate_coupon_path, :id => "coupon_form", :remote => true do
+    = label_tag :coupon_code, "Please enter Coupon code here:"
+    = text_field_tag :coupon_code
+    .jqui_ok#activate_coupon Activate coupon
+  :javascript
+    $(function() {
+      $("#activate_coupon").button({icons: {primary: 'ui-icon-check'}}).click( function() {
+        if ($("#coupon_code").attr('value').length > 2) {
+          $('#coupon_form').submit(); 
+          $(this).button({disabled: true});
+        }
+      });
+    });
+  

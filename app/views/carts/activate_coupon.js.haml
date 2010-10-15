@@ -1,0 +1,4 @@
+$.get('/cart', function(data){
+$('#cart_container').replaceWith(data);
+setTimeout("$.fancybox.resize()", 100);
+});

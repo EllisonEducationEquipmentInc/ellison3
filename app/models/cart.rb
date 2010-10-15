@@ -12,8 +12,8 @@ class Cart
 	field :removed, :type => Integer, :default => 0
 	field :changed_items, :type => Array
 	
-	#field :coupon
-		
+	referenced_in :coupon
+	
 	embeds_many :cart_items do
 		def find_item(item_num)
 			@target.detect {|item| item.item_num == item_num}
@@ -109,5 +109,35 @@ class Cart
 		end
 		reset_tax_and_shipping if cart_items.any?(&:updated?) || self.removed > 0
 		save
+	end
+	
+	
+	# coupon discount applied here
+	def apply_coupon_discount
+	  cart_items.each {|i| i.write_attributes(:coupon_price => false)}
+	  update_items
+	  return if coupon.blank?
+	  if coupon.product?
+	    # check conditions
+	    coupon.cart_must_have && coupon.cart_must_have.each do |key, product_items|
+	      return unless product_items.send("#{key}?") {|i| item_nums.include?(i)}
+	    end
+	    cart_items.where(:item_num.in => coupon.products).each do |item|
+	      item.write_attributes :coupon_price => true, :price => calculate_coupon_discount(item.price)
+	    end
+	  end
+	  save
+	end
+	
+	
+	def calculate_coupon_discount(price)
+	  return if coupon.blank?
+	  if coupon.discount_type == "percent"
+			price - (0.01 * coupon.discount_value * price).round(2)
+		elsif coupon.discount_type == "absolute"
+			price - coupon.discount_value
+		elsif coupon.discount_type == "fixed"
+			coupon.discount_value
+		end
 	end
 end

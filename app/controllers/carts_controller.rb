@@ -7,7 +7,9 @@ class CartsController < ApplicationController
 	
 	ssl_required :checkout, :proceed_checkout
 	ssl_allowed :index, :get_shipping_options, :change_shipping_method, :copy_shipping_address, :change_shipping_method, :get_shipping_service, :get_shipping_amount, :get_tax_amount, :get_total_amount,
-	  :custom_price, :create_shipping, :create_billing
+	  :custom_price, :create_shipping, :create_billing, :activate_coupon
+	
+	verify :xhr => :true, :only => [:proceed_checkout, :get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon], :redirect_to => {:action => :index}
 	
 	def index
 		@title = "Shopping #{I18n.t(:cart).titleize}"
@@ -138,6 +140,23 @@ class CartsController < ApplicationController
 	  @cart_item = get_cart.cart_items.find(params[:element_id].gsub("cart_item_price_", ""))
 	  @cart_item.update_attributes(:price => params[:update_value][/[0-9.]+/], :custom_price => true)
 	  render :inline => "<%= display_product_price_cart @cart_item %>"
+	end
+	
+	def activate_coupon
+	  @coupon = Coupon.available.where(:codes.in => [params[:coupon_code]]).first
+	  if @coupon
+	    get_cart.coupon = @coupon
+	    @cart.apply_coupon_discount
+	  else
+	    render :js => "$('#coupon_form').resetForm();alert('Invalid Coupon Code: #{params[:coupon_code]}');" and return
+	  end
+	end
+	
+	def remove_coupon
+	  get_cart.coupon = nil
+	  @cart.apply_coupon_discount
+	  @cart.save
+	  render :activate_coupon
 	end
 
 private

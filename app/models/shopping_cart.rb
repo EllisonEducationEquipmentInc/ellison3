@@ -17,11 +17,12 @@ module ShoppingCart
 			if item = get_cart.cart_items.find_item(product.item_num)
 				item.quantity += qty
 			else
-				get_cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.sale_price, :msrp => product.msrp, :price => product.price, :quantity => qty, 
-				  :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product_id => product.id, :weight => product.weight, 
+				get_cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.sale_price, :msrp => product.msrp, :price => product.price, 
+				  :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product_id => product.id, :weight => product.weight, 
 				  :tax_exempt => product.tax_exempt, :handling_price => product.handling_price, :volume => product.calculated_volume)
 			end
 			get_cart.reset_tax_and_shipping
+			get_cart.apply_coupon_discount
 			get_cart.save
 			session[:shopping_cart] ||= get_cart.id.to_s
 		end
@@ -30,6 +31,7 @@ module ShoppingCart
 			cart_item = get_cart.cart_items.find_item(item_num)
 			cart_item.delete
 			get_cart.reset_tax_and_shipping
+			get_cart.apply_coupon_discount
 			get_cart.save
 			cart_item.id.to_s
 		end

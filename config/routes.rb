@@ -33,6 +33,8 @@ Ellison3::Application.routes.draw do |map|
 	
 	match 'cart' => 'carts#index', :as => :cart
 	match 'checkout' => 'carts#checkout', :as => :checkout
+	match 'activate_coupon' => 'carts#activate_coupon', :as => :activate_coupon
+	match 'remove_coupon' => 'carts#remove_coupon', :as => :remove_coupon
 	
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

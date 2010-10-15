@@ -30,6 +30,8 @@
     %li.ui-menu-item.subtotal
       .cart_label Subtotal: 
       %span.amount= number_to_currency gross_price(@cart.sub_total)
+  #cart_coupon= render :partial => "carts/coupon"
+  %br
   - unless @cart_locked
     #empty_cart Empty Cart
     #checkout_button= "Checkout"
