@@ -33,7 +33,6 @@ class IndexController < ApplicationController
 	end
 	
 	def search
-	  redirect_to :action => "catalog" and return unless request.xhr?
     get_search
 	  @products = @search.results
 	end
