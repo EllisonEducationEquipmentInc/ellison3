@@ -114,9 +114,8 @@ class Cart
 	
 	# coupon discount applied here
 	def apply_coupon_discount
-	  cart_items.each {|i| i.write_attributes(:coupon_price => false)}
-	  update_items
 	  return if coupon.blank?
+	  reset_coupon_items
 	  if coupon.product?
 	    # check conditions
 	    coupon.cart_must_have && coupon.cart_must_have.each do |key, product_items|
@@ -129,6 +128,10 @@ class Cart
 	  save
 	end
 	
+	def reset_coupon_items
+	  cart_items.each {|i| i.write_attributes(:coupon_price => false)}
+	  update_items
+	end
 	
 	def calculate_coupon_discount(price)
 	  return if coupon.blank?
