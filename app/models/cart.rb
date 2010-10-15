@@ -10,6 +10,7 @@ class Cart
 	field :shipping_service
 	field :shipping_amount, :type => Float
 	field :removed, :type => Integer, :default => 0
+	field :coupon_removed, :type => Boolean, :default => false
 	field :changed_items, :type => Array
 	
 	referenced_in :coupon
@@ -39,7 +40,7 @@ class Cart
 	end
 	
 	def reset_item_errors
-		update_attributes :removed => 0, :changed_items => nil
+		update_attributes :removed => 0, :changed_items => nil, :coupon_removed => false
 	end
 	
 	def sub_total
@@ -77,6 +78,7 @@ class Cart
 			@cart_errors << "Some items placed in your cart are greater than the quantity available for sale. The most current quantity available has been updated in your Shopping Cart." if changed_item_attributes.include?("quantity")
 			@cart_errors << "Some items placed in your Shopping Cart are no longer available for purchase and have been removed. If you are still interested in this item(s), please check back again at a later date for availability." if self.removed > 0
 			@cart_errors << "The Handling price on one or more of the items in your order has been adjusted since you last placed it in your Shopping Cart." if changed_item_attributes.include?("handling_price")	
+			@cart_errors << "Your coupon is no longer valid or changed. Please review your Shopping Cart to verify its contents." if self.coupon_removed
 			# TODO: min qty, handling amount
 			#"The quantity of some items placed in your cart is less than the required minimum quantity. The required minimum quantity has been updated in your Shopping Cart."
 		end
@@ -106,31 +108,33 @@ class Cart
 		if check
 			self.removed = cart_items.delete_all(:conditions => {:quantity.lt => 1}) 
 			self.changed_items = cart_items.select(&:updated?).map {|i| [i.id, i.updated]}
+			self.coupon = Coupon.available.where(:_id => self.coupon_id).first
+			self.coupon_removed = self.changed.include? "coupon_id"
 		end
 		reset_tax_and_shipping if cart_items.any?(&:updated?) || self.removed > 0
-		save
+		apply_coupon_discount
 	end
 	
 	
 	# coupon discount applied here
 	def apply_coupon_discount
-	  return if coupon.blank?
 	  reset_coupon_items
-	  if coupon.product?
-	    # check conditions
-	    coupon.cart_must_have && coupon.cart_must_have.each do |key, product_items|
-	      return unless product_items.send("#{key}?") {|i| item_nums.include?(i)}
-	    end
-	    cart_items.where(:item_num.in => coupon.products).each do |item|
-	      item.write_attributes :coupon_price => true, :price => calculate_coupon_discount(item.price)
-	    end
-	  end
+	  unless coupon.blank?
+  	  if coupon.product?
+  	    # check conditions
+  	    coupon.cart_must_have && coupon.cart_must_have.each do |key, product_items|
+  	      return unless product_items.send("#{key}?") {|i| item_nums.include?(i)}
+  	    end
+  	    cart_items.where(:item_num.in => coupon.products).each do |item|
+  	      item.write_attributes :coupon_price => true, :price => calculate_coupon_discount(item.price)
+  	    end
+  	  end
+  	end
 	  save
 	end
 	
 	def reset_coupon_items
-	  cart_items.each {|i| i.write_attributes(:coupon_price => false)}
-	  update_items
+	  cart_items.select {|i| i.coupon_price}.each {|i| i.write_attributes(:coupon_price => false, :price => i.sale_price || i.msrp)}
 	end
 	
 	def calculate_coupon_discount(price)

@@ -23,7 +23,6 @@ module ShoppingCart
 			end
 			get_cart.reset_tax_and_shipping
 			get_cart.apply_coupon_discount
-			get_cart.save
 			session[:shopping_cart] ||= get_cart.id.to_s
 		end
 		
@@ -32,7 +31,6 @@ module ShoppingCart
 			cart_item.delete
 			get_cart.reset_tax_and_shipping
 			get_cart.apply_coupon_discount
-			get_cart.save
 			cart_item.id.to_s
 		end
 		

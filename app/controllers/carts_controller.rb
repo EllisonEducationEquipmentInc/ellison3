@@ -154,7 +154,7 @@ class CartsController < ApplicationController
 	
 	def remove_coupon
 	  get_cart.coupon = nil
-	  @cart.reset_coupon_items
+	  @cart.apply_coupon_discount
 	  render :activate_coupon
 	end
 
