@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
     
   include Devise::Controllers::InternalHelpers
   
-  verify :xhr => :true, :only => [:user_as], :redirect_to => :root_path
+  verify :xhr => true, :only => [:user_as], :redirect_to => :root_path
 	
   ssl_exceptions :user_as, :destroy
   ssl_allowed :user_as, :destroy
