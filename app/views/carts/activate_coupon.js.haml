@@ -1,4 +1,13 @@
+if ($('#cart_container').length > 0) {
 $.get('/cart', function(data){
 $('#cart_container').replaceWith(data);
 setTimeout("$.fancybox.resize()", 100);
 });
+} else {
+- @cart_locked = true
+== $('#cart_contents').html('#{escape_javascript(render(:partial => "carts/cart"))}');
+== $('#shipping_options').html('#{escape_javascript(render(:partial => "carts/shipping_options"))}');
+== $('#cart_shipping').html('#{escape_javascript(render(:partial => "carts/shipping_amount"))}');
+== $('#cart_tax').html('#{escape_javascript(render(:partial => "carts/tax_amount"))}');
+== $('#cart_total').html('#{escape_javascript(render(:partial => "carts/total_amount"))}');
+}

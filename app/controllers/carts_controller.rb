@@ -89,7 +89,7 @@ class CartsController < ApplicationController
 		@error_message = e.message #backtrace.join("\n")
 		if @cart.cart_items.blank?
 			flash[:alert] = @error_message
-			render :js => "window.location.href = '#{products_path}'" and return
+			render :js => "window.location.href = '#{catalog_path}'" and return
 		end
 	end
 	
@@ -146,6 +146,7 @@ class CartsController < ApplicationController
 	  @coupon = Coupon.available.where(:codes.in => [params[:coupon_code]]).first
 	  if @coupon
 	    get_cart.coupon = @coupon
+	    @cart.reset_tax_and_shipping
 	    @cart.apply_coupon_discount
 	  else
 	    render :js => "$('#coupon_form').resetForm();alert('Invalid Coupon Code: #{params[:coupon_code]}');" and return
@@ -154,6 +155,7 @@ class CartsController < ApplicationController
 	
 	def remove_coupon
 	  get_cart.coupon = nil
+	  @cart.reset_tax_and_shipping
 	  @cart.apply_coupon_discount
 	  render :activate_coupon
 	end
