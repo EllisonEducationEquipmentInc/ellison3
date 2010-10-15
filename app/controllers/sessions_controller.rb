@@ -5,6 +5,8 @@ class SessionsController < ApplicationController
     
   include Devise::Controllers::InternalHelpers
   
+  verify :xhr => :true, :only => [:user_as], :redirect_to => :root_path
+	
   ssl_exceptions :user_as, :destroy
   ssl_allowed :user_as, :destroy
 
@@ -38,7 +40,6 @@ class SessionsController < ApplicationController
   end
   
   def user_as
-    redirect_to admin_path and return unless request.xhr?
     @user = User.where(:systems_enabled.in => [current_system], :email => params[:user_as_email]).first
     if @user
       sign_in(resource_name, @user)

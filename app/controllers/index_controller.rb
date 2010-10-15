@@ -1,6 +1,8 @@
 class IndexController < ApplicationController
 	
 	before_filter :trackable, :except => [:catalog]
+	
+	verify :xhr => :true, :only => [:search, :quick_search], :redirect_to => {:action => :home}
 		
 	def home
 
