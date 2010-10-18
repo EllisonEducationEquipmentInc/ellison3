@@ -95,4 +95,12 @@ class Coupon
 	def product_item_nums=(product_item_nums)
 		write_attribute(:products, product_item_nums.split(/,\s?/)) unless product_item_nums.nil?
 	end
+	
+	def product_excluded_item_nums
+		read_attribute(:products_excluded).try :join, ", "
+	end
+	
+	def product_excluded_item_nums=(product_item_nums)
+		write_attribute(:products_excluded, product_item_nums.split(/,\s?/)) unless product_item_nums.nil?
+	end
 end
