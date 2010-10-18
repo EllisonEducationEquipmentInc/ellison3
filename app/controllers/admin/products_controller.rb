@@ -182,8 +182,15 @@ class Admin::ProductsController < ApplicationController
 	end
 	
 	def products_autocomplete
-		@products = Product.available.only(:name, :item_num, :id).any_of({:item_num => Regexp.new("^#{params[:term]}.*")}, {:name => Regexp.new("#{params[:term]}", "i")}).asc(:name).limit(20).all.map {|p| {:label => "#{p.item_num} #{p.name}", :value => p.item_num, :id => p.id}}
-		render :json => @products.to_json
+	  @by_tag = if params[:term] =~ /^All(\s|\+)/
+	    Tag.active.where(:name =>  Regexp.new("#{params[:term].gsub(/^All(\s|\+)/, '')}", "i")).cache.map do |tag|
+	      {:label => "All #{tag.name} (#{tag.tag_type})", :value => tag.products.map(&:item_num).join(", ")}
+	    end
+	  else  
+	    []
+		end
+    @products = Product.available.only(:name, :item_num, :id).any_of({:item_num => Regexp.new("^#{params[:term]}.*")}, {:name => Regexp.new("#{params[:term]}", "i")}).asc(:name).limit(20).all.map {|p| {:label => "#{p.item_num} #{p.name}", :value => p.item_num, :id => p.id}}
+		render :json => (@by_tag + @products).to_json
 	end
 	
 	def show_tabs

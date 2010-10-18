@@ -1,0 +1,41 @@
+%h1 Listing coupons
+%br
+- unless params[:q].blank?
+  = link_to 'all', admin_coupons_path, :class => 'jqui_button'
+= form_tag(admin_coupons_path, :method => :get) do
+  = admin_systems_checkboxes
+  = text_field_tag :q, nil, :placeholder => "code, name"
+  = select_tag :level, options_for_select([['All', nil]] + Coupon::LEVELS.map {|e| [e.humanize, e]}, params[:level])
+  = submit_tag "search", :class => 'jqui_search'
+.highlightable
+  %table
+    %thead
+      %tr
+        = sortable "codes"
+        = sortable "name"
+        = sortable "start_date_#{current_system}", "Start Date"
+        = sortable "end_date_#{current_system}", "End Date"
+        = sortable "level"
+        %th Systems
+        = sortable "active"
+        %th &nbsp;
+        - if has_write_permissions?
+          %th &nbsp;
+          %th &nbsp;
+    %tbody
+      - for coupon in @coupons
+        %tr{ :class => cycle(:odd, :even) }
+          %td= link_to coupon.codes.join(", "), admin_coupon_path(coupon)
+          %td= coupon.name
+          %td= l coupon.send("start_date_#{current_system}"), :format => :custom rescue "N/A for #{current_system}"
+          %td= l coupon.send("end_date_#{current_system}"), :format => :custom rescue "N/A for #{current_system}"
+          %td= coupon.level.humanize
+          %td= coupon.systems_enabled.join(", ") rescue ''
+          %td= coupon.active
+          %td= link_to 'Show', admin_coupon_path(coupon), :class => 'jqui_show_min'
+          - if has_write_permissions?
+            %td= link_to 'Edit', edit_admin_coupon_path(coupon), :class => 'jqui_edit_min'
+            %td= link_to 'Destroy', admin_coupon_path(coupon), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
+%br
+= will_paginate @coupons
+%br

@@ -130,8 +130,8 @@ class Cart
 	end
 	
 	def coupon_conditions_met?
-	  coupon.cart_must_have && coupon.cart_must_have.each do |key, product_items|
-      return false unless product_items.send("#{key}?") {|i| cart_items.map(&:item_num).include?(i)}
+    return false if !coupon.order_has_to_be.blank? && !coupon.cart_must_have.all? do |condition|
+      condition.flatten[1].send("#{condition.flatten[0]}?") {|i| cart_items.map(&:item_num).include?(i)}
     end
     coupon.order_has_to_be && coupon.order_has_to_be.each do |key, conditions|
       return false unless conditions.all? {|e| e[1].send(e[0].to_sym == :over ? "<" : ">", send(key, coupon.products_excluded))}
