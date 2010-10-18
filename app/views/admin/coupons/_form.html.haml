@@ -33,6 +33,21 @@
     = link_to_function "add", "$('#cart_must_have_list').append('#{escape_javascript render :partial => 'cart_must_have', :locals => {:condition => {:any => []}}}')"
     %ul#cart_must_have_list= render :partial => 'cart_must_have', :collection => @coupon.cart_must_have, :as => :condition
   .field
+    = f.label :order_has_to_be
+    %ul#order_has_to_be_list
+      %li.ui-menu-item
+        %strong Total weight:
+        Over
+        = text_field_tag "coupon[order_has_to_be][total_weight][over]", @coupon.order_has_to_be["total_weight"].try(:[], "over")
+        Under
+        = text_field_tag "coupon[order_has_to_be][total_weight][under]", @coupon.order_has_to_be["total_weight"].try(:[], "under")
+      %li.ui-menu-item
+        %strong Sub Total:
+        Over
+        = text_field_tag "coupon[order_has_to_be][sub_total][over]", @coupon.order_has_to_be["sub_total"].try(:[], "over")
+        Under
+        = text_field_tag "coupon[order_has_to_be][sub_total][under]", @coupon.order_has_to_be["sub_total"].try(:[], "under")
+  .field
     = f.label :description, :class => 'overrideable'
     %br
     = f.text_area :description, :class => 'wymeditor'

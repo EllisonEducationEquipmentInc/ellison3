@@ -134,7 +134,7 @@ class Cart
       condition.flatten[1].send("#{condition.flatten[0]}?") {|i| cart_items.map(&:item_num).include?(i)}
     end
     coupon.order_has_to_be && coupon.order_has_to_be.each do |key, conditions|
-      return false unless conditions.all? {|e| e[1].send(e[0].to_sym == :over ? "<" : ">", send(key, coupon.products_excluded))}
+      return false unless conditions.all? {|e| e[1].to_f.send(e[0].to_sym == :over ? "<" : ">", send(key, coupon.products_excluded))}
     end
     true
 	end
