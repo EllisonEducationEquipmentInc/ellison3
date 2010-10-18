@@ -123,7 +123,7 @@ class Cart
   	  if coupon.product?
   	    # check conditions
   	    coupon.cart_must_have && coupon.cart_must_have.each do |key, product_items|
-  	      return unless product_items.send("#{key}?") {|i| item_nums.include?(i)}
+  	      save and return unless product_items.send("#{key}?") {|i| cart_items.map(&:item_num).include?(i)}
   	    end
   	    cart_items.where(:item_num.in => coupon.products).each do |item|
   	      item.write_attributes :coupon_price => true, :price => calculate_coupon_discount(item.price)

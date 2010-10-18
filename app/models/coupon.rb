@@ -13,7 +13,7 @@ class Coupon
 	field :discount_value, :type => Float, :default => 0.0
 	field :products, :type => Array
 	
-	field :cart_must_have, :type => Hash
+	field :cart_must_have, :type => Hash                # ex: {:any => ["654395", "654396", "654397"], :all => ["654380", "654381"]}
 	field :products_excluded, :type => Array
 	field :order_has_to_be, :type => Hash
 	field :shipping_country, :type => Array
