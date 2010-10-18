@@ -13,9 +13,9 @@ class Coupon
 	field :discount_value, :type => Float, :default => 0.0
 	field :products, :type => Array
 	
-	field :cart_must_have, :type => Hash                # ex: {:any => ["654395", "654396", "654397"], :all => ["654380", "654381"]}
-	field :products_excluded, :type => Array
-	field :order_has_to_be, :type => Hash
+	field :cart_must_have, :type => Hash                                # ex: {:any => ["654395", "654396", "654397"], :all => ["654380", "654381"]}
+	field :products_excluded, :type => Array, :default => []            # excluded product for order_has_to_be conditions. (these products will be excluded for weight and sub_total calculations)
+	field :order_has_to_be, :type => Hash                               # ex: {:total_weight => {:over => 10.0, :under => 100.0}, :sub_total => {:over => 100.0}}
 	field :shipping_country, :type => Array
 	field :shipping_state, :type => Array
 	

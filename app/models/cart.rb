@@ -43,12 +43,12 @@ class Cart
 		update_attributes :removed => 0, :changed_items => nil, :coupon_removed => false
 	end
 	
-	def sub_total
-		cart_items.inject(0) {|sum, item| sum += item.total}
+	def sub_total(excluded_items = [])
+		cart_items.reject {|e| excluded_items.include? e.item_num}.inject(0) {|sum, item| sum += item.total}
 	end
 	
-	def total_weight
-		cart_items.inject(0) {|sum, item| sum += (item.quantity * item.weight)}
+	def total_weight(excluded_items = [])
+		cart_items.reject {|e| excluded_items.include? e.item_num}.inject(0) {|sum, item| sum += (item.quantity * item.weight)}
 	end
 	
 	def total_volume
@@ -120,17 +120,23 @@ class Cart
 	def apply_coupon_discount
 	  reset_coupon_items
 	  unless coupon.blank?
-  	  if coupon.product?
-  	    # check conditions
-  	    coupon.cart_must_have && coupon.cart_must_have.each do |key, product_items|
-  	      save and return unless product_items.send("#{key}?") {|i| cart_items.map(&:item_num).include?(i)}
-  	    end
+  	  if coupon.product? && coupon_conditions_met?
   	    cart_items.where(:item_num.in => coupon.products).each do |item|
   	      item.write_attributes :coupon_price => true, :price => calculate_coupon_discount(item.price)
   	    end
   	  end
   	end
 	  save
+	end
+	
+	def coupon_conditions_met?
+	  coupon.cart_must_have && coupon.cart_must_have.each do |key, product_items|
+      return false unless product_items.send("#{key}?") {|i| cart_items.map(&:item_num).include?(i)}
+    end
+    coupon.order_has_to_be && coupon.order_has_to_be.each do |key, conditions|
+      return false unless conditions.all? {|e| e[1].send(e[0].to_sym == :over ? "<" : ">", send(key, coupon.products_excluded))}
+    end
+    true
 	end
 	
 	def reset_coupon_items
