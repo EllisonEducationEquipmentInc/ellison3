@@ -21,7 +21,7 @@ module ShoppingCart
 				  :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product_id => product.id, :weight => product.weight, 
 				  :tax_exempt => product.tax_exempt, :handling_price => product.handling_price, :volume => product.calculated_volume)
 			end
-			get_cart.reset_tax_and_shipping
+			get_cart.reset_tax_and_shipping true
 			get_cart.apply_coupon_discount
 			session[:shopping_cart] ||= get_cart.id.to_s
 		end
