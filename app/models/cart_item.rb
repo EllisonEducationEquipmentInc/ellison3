@@ -42,4 +42,8 @@ class CartItem
 	def sensitive_attributes
 		%w(price quantity handling_price)
 	end
+	
+	def coupon?
+	  self.item_num == Coupon::COUPON_ITEM_NUM
+	end
 end

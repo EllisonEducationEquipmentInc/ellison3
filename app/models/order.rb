@@ -62,7 +62,7 @@ class Order
 	
 	def decrement_items!
 		order_items.each do |item|
-			Product.find(item.product_id).decrement_quantity(item.quantity)
+			Product.find(item.product_id).decrement_quantity(item.quantity) rescue next
 		end
 	end
 

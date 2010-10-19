@@ -3,6 +3,8 @@ class Coupon
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	
+	COUPON_ITEM_NUM = "coupon"
+	
 	LEVELS = %w( product order highest_priced_product buy_one_get_another shipping  )
 	DISCOUNT_TYPES = %w( percent absolute fixed )
 	
@@ -78,6 +80,18 @@ class Coupon
 	
 	def buy_one_get_another?
 	  self.buy_one_get_another == "buy_one_get_another"
+	end
+	
+	def percent?
+	  self.discount_type == "percent"
+	end
+	
+	def absolute?
+	  self.discount_type == "absolute"
+	end
+	
+	def fixed?
+	  self.discount_type == "fixed"
 	end
 	
 	def description(options = {})

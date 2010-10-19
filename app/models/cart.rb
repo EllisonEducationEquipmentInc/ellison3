@@ -98,6 +98,7 @@ class Cart
 		self.removed = 0
 		self.changed_items = nil
 		cart_items.each do |item|
+		  next if item.coupon?
 			product = Product.find item.product_id
 			item.write_attributes :sale_price => product.sale_price, :msrp => product.msrp, :currency => current_currency, :small_image => product.small_image, :tax_exempt => product.tax_exempt, :handling_price => product.handling_price
 			item.price = product.price unless item.custom_price
@@ -125,9 +126,10 @@ class Cart
   	      item.write_attributes :coupon_price => true, :price => calculate_coupon_discount(item.price)
   	    end
   	  elsif coupon.order?
-  	    cart_items.where(:item_num.nin => coupon.products_excluded).each do |item|
-  	      item.write_attributes :coupon_price => true, :price => calculate_coupon_discount(item.price)
-  	    end
+  	    order_discount = coupon.percent? ? calculate_coupon_discount(sub_total(coupon.products_excluded + [Coupon::COUPON_ITEM_NUM])) : coupon.discount_value
+        cart_items << CartItem.new(:name => coupon.name, :item_num => Coupon::COUPON_ITEM_NUM, :msrp => -(order_discount), :price => -(order_discount), :coupon_price => true,
+				  :quantity => 1, :currency => current_currency, :small_image => nil, :added_at => Time.now, :product_id => nil, :weight => 0, 
+				  :tax_exempt => false, :handling_price => 0, :volume => 0)
   	  end
   	end
 	  save
@@ -144,16 +146,17 @@ class Cart
 	end
 	
 	def reset_coupon_items
+	  cart_items.find_item(Coupon::COUPON_ITEM_NUM).try :delete
 	  cart_items.select {|i| i.coupon_price}.each {|i| i.write_attributes(:coupon_price => false, :price => i.sale_price || i.msrp)}
 	end
 	
 	def calculate_coupon_discount(price)
 	  return if coupon.blank?
-	  if coupon.discount_type == "percent"
+	  if coupon.percent?
 			price - (0.01 * coupon.discount_value * price).round(2)
-		elsif coupon.discount_type == "absolute"
+		elsif coupon.absolute?
 			price - coupon.discount_value
-		elsif coupon.discount_type == "fixed"
+		elsif coupon.fixed?
 			coupon.discount_value
 		end
 	end
