@@ -126,10 +126,15 @@ class Cart
   	      item.write_attributes :coupon_price => true, :price => calculate_coupon_discount(item.price)
   	    end
   	  elsif coupon.order?
-  	    order_discount = coupon.percent? ? (0.01 * coupon.discount_value * sub_total(coupon.products_excluded + [Coupon::COUPON_ITEM_NUM])).round(2) : coupon.discount_value
-        cart_items << CartItem.new(:name => coupon.name, :item_num => Coupon::COUPON_ITEM_NUM, :msrp => -(order_discount), :price => -(order_discount), :coupon_price => true,
-				  :quantity => 1, :currency => current_currency, :small_image => nil, :added_at => Time.now, :product_id => nil, :weight => 0, 
-				  :tax_exempt => false, :handling_price => 0, :volume => 0)
+  	    # === if order level coupon is a line item:
+  	    # order_discount = coupon.percent? ? (0.01 * coupon.discount_value * sub_total(coupon.products_excluded + [Coupon::COUPON_ITEM_NUM])).round(2) : coupon.discount_value
+        # cart_items << CartItem.new(:name => coupon.name, :item_num => Coupon::COUPON_ITEM_NUM, :msrp => -(order_discount), :price => -(order_discount), :coupon_price => true,
+				#  :quantity => 1, :currency => current_currency, :small_image => nil, :added_at => Time.now, :product_id => nil, :weight => 0, :tax_exempt => false, :handling_price => 0, :volume => 0)
+				
+				# === if order level discount is distributed:
+				cart_items.where(:item_num.nin => coupon.products_excluded).each do |item|
+          item.write_attributes :coupon_price => true, :price => calculate_coupon_discount(item.price)
+        end 
   	  end
   	end
 	  save

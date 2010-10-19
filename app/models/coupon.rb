@@ -42,6 +42,7 @@ class Coupon
 	validates :name, :codes, :systems_enabled, :level, :presence => true
 	validates_inclusion_of :level, :in => LEVELS, :message => "extension %s is not included in the list"
 	validates_inclusion_of :discount_type, :in => DISCOUNT_TYPES, :message => "extension %s is not included in the list"
+	validates_inclusion_of :discount_type, :in => ["percent"], :message => "must be 'percent' for order level coupons", :if => Proc.new {|obj| obj.order?}
 	validates_numericality_of :discount_value
 	
 	before_save Proc.new {|obj| obj.order_has_to_be.delete_if {|k,v| v.delete_if {|k,v| v.blank?}.blank?}}
