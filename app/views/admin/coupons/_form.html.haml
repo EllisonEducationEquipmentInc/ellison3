@@ -1,16 +1,20 @@
 = form_for([:admin, @coupon], :html => {:multipart => true}) do |f|
   = f.error_messages
   .field
-    = f.label :systems_enabled
+    = required_field f.label(:systems_enabled)
     = system_enabled('coupon')
   .field
     = f.label :active
     %br
     = f.check_box :active
   .field
-    = f.label :name
+    = required_field f.label(:name)
     %br
     = f.text_field :name
+  .field
+    = required_field f.label(:codes, "Coupon code(s) (separate codes with commas to create aliases)")
+    %br
+    = f.text_field :codes, :value => @coupon.codes.try(:join, ", ")
   .field
     = f.label "start_date_#{current_system}", "Start Date #{current_system.upcase}", :class => 'overrideable'
     %br
@@ -20,19 +24,19 @@
     %br
     = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
   .field
-    = f.label :level
+    = required_field f.label(:level)
     %br
     = f.select :level, Coupon::LEVELS.map {|e| [e.humanize, e]}
   .field
-    = f.label :discount_type
+    = required_field f.label(:discount_type)
     %br
     = f.select :discount_type, Coupon::DISCOUNT_TYPES.map {|e| [e.humanize, e]}
   .field
-    = f.label :discount_value
+    = required_field f.label(:discount_value)
     %br
     = f.text_field :discount_value
   .field
-    = f.label :products
+    = required_field f.label(:products)
     = f.text_field :product_item_nums, :size => 50
     Enter item numbers seperated by commas  
   %h3 Conditions
@@ -46,15 +50,15 @@
       %li.ui-menu-item
         %strong Total weight:
         Over
-        = text_field_tag "coupon[order_has_to_be][total_weight][over]", @coupon.order_has_to_be["total_weight"].try(:[], "over")
+        = text_field_tag "coupon[order_has_to_be][total_weight][over]", @coupon.order_has_to_be.try(:[], "total_weight").try(:[], "over")
         Under
-        = text_field_tag "coupon[order_has_to_be][total_weight][under]", @coupon.order_has_to_be["total_weight"].try(:[], "under")
+        = text_field_tag "coupon[order_has_to_be][total_weight][under]", @coupon.order_has_to_be.try(:[], "total_weight").try(:[], "under")
       %li.ui-menu-item
         %strong Sub Total:
         Over
-        = text_field_tag "coupon[order_has_to_be][sub_total][over]", @coupon.order_has_to_be["sub_total"].try(:[], "over")
+        = text_field_tag "coupon[order_has_to_be][sub_total][over]", @coupon.order_has_to_be.try(:[], "sub_total").try(:[], "over")
         Under
-        = text_field_tag "coupon[order_has_to_be][sub_total][under]", @coupon.order_has_to_be["sub_total"].try(:[], "under")
+        = text_field_tag "coupon[order_has_to_be][sub_total][under]", @coupon.order_has_to_be.try(:[], "sub_total").try(:[], "under")
   .field
     = f.label :product_excluded_item_nums, "Products excluded from 'Order has to be' calculations above"
     %br

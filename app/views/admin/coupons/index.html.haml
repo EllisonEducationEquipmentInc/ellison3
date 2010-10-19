@@ -1,4 +1,5 @@
 %h1 Listing coupons
+= link_to 'New coupon', new_admin_coupon_path, :class => 'jqui_new' if has_write_permissions?
 %br
 - unless params[:q].blank?
   = link_to 'all', admin_coupons_path, :class => 'jqui_button'
@@ -39,3 +40,4 @@
 %br
 = will_paginate @coupons
 %br
+= link_to 'New coupon', new_admin_coupon_path, :class => 'jqui_new' if has_write_permissions?

@@ -119,9 +119,13 @@ class Cart
 	# coupon discount applied here
 	def apply_coupon_discount
 	  reset_coupon_items
-	  unless coupon.blank?
-  	  if coupon.product? && coupon_conditions_met?
+	  if !coupon.blank? && coupon_conditions_met?
+  	  if coupon.product? 
   	    cart_items.where(:item_num.in => coupon.products).each do |item|
+  	      item.write_attributes :coupon_price => true, :price => calculate_coupon_discount(item.price)
+  	    end
+  	  elsif coupon.order?
+  	    cart_items.where(:item_num.nin => coupon.products_excluded).each do |item|
   	      item.write_attributes :coupon_price => true, :price => calculate_coupon_discount(item.price)
   	    end
   	  end
@@ -130,7 +134,7 @@ class Cart
 	end
 	
 	def coupon_conditions_met?
-    return false if !coupon.order_has_to_be.blank? && !coupon.cart_must_have.all? do |condition|
+    return false if !coupon.cart_must_have.blank? && !coupon.cart_must_have.all? do |condition|
       condition.flatten[1].send("#{condition.flatten[0]}?") {|i| cart_items.map(&:item_num).include?(i)}
     end
     coupon.order_has_to_be && coupon.order_has_to_be.each do |key, conditions|

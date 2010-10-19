@@ -104,4 +104,8 @@ class Coupon
 	def product_excluded_item_nums=(product_item_nums)
 		write_attribute(:products_excluded, product_item_nums.split(/,\s?/)) unless product_item_nums.nil?
 	end
+	
+	def codes=(c)
+	  write_attribute :codes, c.is_a?(Array) ? c : c.split(/,\s?/)
+	end
 end
