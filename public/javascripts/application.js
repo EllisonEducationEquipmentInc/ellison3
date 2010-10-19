@@ -126,21 +126,6 @@ $(document).ready(function(){
 		$(".accordion-block").accordion();
 	});
 	
-	// mega menu
-	$(function(){ 
-	  jQuery(".megamenu").megamenu({
-	    show_method: "simple",
-      hide_method: "simple",
-	    justify: "right"
-	  }); 
-  });
-  
-  $(".megamenu a").FontEffect({
-    outline:true,
-    outlineWeight: 2,
-    outlineColor1: "#81a27b"
-  })
-	
 	// content sliders
   $("#gallery").sudoSlider({
     controlsFade:false,
