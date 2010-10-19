@@ -92,29 +92,6 @@ body.bp {
     }
   }
   
-  .megamenu {
-    margin: 0 0 12px 0;
-    padding: 0;
-    list-style: none;
-    display: none;
-    
-    a {
-      font-family: Georgia, serif;
-      font-size: 14px;
-      font-style: italic;
-      font-weight: bold;
-      line-height: 2em;
-      color: #fff;
-      text-decoration: none;
-      
-      &:hover { color: #94c7f3; };
-    }
-    
-    .megasubpanel {
-      width: 950px;
-      background-color: #f8f6f2;
-    }
-  }
 }
 
 #content {
