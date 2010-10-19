@@ -24,6 +24,14 @@
     %br
     = f.select :level, Coupon::LEVELS.map {|e| [e.humanize, e]}
   .field
+    = f.label :discount_type
+    %br
+    = f.select :discount_type, Coupon::DISCOUNT_TYPES.map {|e| [e.humanize, e]}
+  .field
+    = f.label :discount_value
+    %br
+    = f.text_field :discount_value
+  .field
     = f.label :products
     = f.text_field :product_item_nums, :size => 50
     Enter item numbers seperated by commas  

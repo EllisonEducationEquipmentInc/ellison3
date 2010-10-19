@@ -3,7 +3,8 @@ class Coupon
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	
-	LEVELS = %w( product order highest_priced_product shipping buy_one_get_another )
+	LEVELS = %w( product order highest_priced_product buy_one_get_another shipping  )
+	DISCOUNT_TYPES = %w( percent absolute fixed )
 	
 	field :name
 	field :codes, :type => Array
@@ -38,7 +39,7 @@ class Coupon
 
 	validates :name, :codes, :systems_enabled, :level, :presence => true
 	validates_inclusion_of :level, :in => LEVELS, :message => "extension %s is not included in the list"
-	validates_inclusion_of :discount_type, :in => %w( percent absolute fixed ), :message => "extension %s is not included in the list"
+	validates_inclusion_of :discount_type, :in => DISCOUNT_TYPES, :message => "extension %s is not included in the list"
 	validates_numericality_of :discount_value
 	
 	before_save Proc.new {|obj| obj.order_has_to_be.delete_if {|k,v| v.delete_if {|k,v| v.blank?}.blank?}}
