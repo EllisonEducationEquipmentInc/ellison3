@@ -24,9 +24,9 @@
     %br
     = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
   .field
-    = required_field f.label(:level)
+    = required_field f.label(:level, "Level (discount applies to:)")
     %br
-    = f.select :level, Coupon::LEVELS.map {|e| [e.humanize, e]}
+    = f.select :level, Coupon::LEVELS.map {|e| [e.humanize, e]}, {}, :onchange => "update_coupon_level()"
   .field
     = required_field f.label(:discount_type)
     %br
@@ -35,10 +35,12 @@
     = required_field f.label(:discount_value)
     %br
     = f.text_field :discount_value
-  .field
-    = required_field f.label(:products)
-    = f.text_field :product_item_nums, :size => 50
+  .field.product_level.level_specific
+    = required_field f.label(:product_item_nums, "Products to discount (item nums):")
     Enter item numbers seperated by commas  
+    %br
+    = f.text_field :product_item_nums, :size => 150
+    %br
   %h3 Conditions
   .field
     = f.label :cart_must_have
@@ -60,9 +62,9 @@
         Under
         = text_field_tag "coupon[order_has_to_be][sub_total][under]", @coupon.order_has_to_be.try(:[], "sub_total").try(:[], "under")
   .field
-    = f.label :product_excluded_item_nums, "Products excluded from 'Order has to be' calculations above"
+    = f.label :product_excluded_item_nums, "Products excluded from 'Order has to be' calculations above. (Also, these products will be excluded from order level and highest priced product discounts)"
     %br
-    = f.text_field :product_excluded_item_nums, :size => 50
+    = f.text_field :product_excluded_item_nums, :size => 150
   .field
     = f.label :description, :class => 'overrideable'
     %br
@@ -70,8 +72,13 @@
   .actions
     = f.submit :class => 'wymupdate jqui_save'
   :javascript
+    function update_coupon_level(){
+      $('.level_specific').hide();
+      $('.'+$('#coupon_level').attr('value')+'_level').show();
+    }
     $(function() {
-    		$("#coupon_product_item_nums").autocomplete(auto_complete_options);
-    		$("#coupon_product_excluded_item_nums").autocomplete(auto_complete_options);
-    	});
+      update_coupon_level();
+      $("#coupon_product_item_nums").autocomplete(auto_complete_options);
+      $("#coupon_product_excluded_item_nums").autocomplete(auto_complete_options);
+    });
     initialize_buttons();
