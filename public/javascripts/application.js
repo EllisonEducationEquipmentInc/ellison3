@@ -129,6 +129,8 @@ $(document).ready(function(){
 	// mega menu
 	$(function(){ 
 	  jQuery(".megamenu").megamenu({
+	    show_method: "simple",
+      hide_method: "simple",
 	    justify: "right"
 	  }); 
   });
@@ -172,7 +174,7 @@ $(document).ready(function(){
       btnNext: ".up_bestsellers",
       btnPrev: ".down_bestsellers",
       vertical: true,
-      auto: 5500,
+      auto: false,
       speed: 2500,
       visible: 1,
       scroll: 1
@@ -183,7 +185,7 @@ $(document).ready(function(){
       btnNext: ".up_newarrivals",
       btnPrev: ".down_newarrivals",
       vertical: true,
-      auto: 5500,
+      auto: false,
       speed: 2500,
       visible: 1,
       scroll: 1
