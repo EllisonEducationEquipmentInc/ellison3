@@ -319,3 +319,34 @@ body.bp th, body.bp td, body.bp caption {
 li.subtotal {border-bottom:1px solid gray}
 li#cart_total {border-top:1px double gray}
 .item_changed {background:#FBE3E4;}
+
+.nav_panel{
+	margin: 0 0 12px 0;
+  padding: 0;
+  
+  
+	li {float:left;list-style: none; margin-right:10px;}
+
+  a {
+    font-family: Georgia, serif;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+    line-height: 2em;
+    color: #fff;
+    text-decoration: none;
+    
+    &:hover { color: #94c7f3; };
+  }
+	
+	.sub_panel{
+		background: url(/images/ui-backgrounds/_szus_megasubpanel.png) no-repeat 50% 100%;
+		padding: 10px;
+		width: 950px;
+	  background-color: #f8f6f2;
+		position:absolute;
+		z-index:666;
+		left:300px;
+		display:none;
+	}
+}
