@@ -95,6 +95,10 @@ class Cart
 	def update_items(check = false)
 		return if cart_items.blank?
 		Rails.logger.info "Cart: cart items are being updated"
+		if check && cart_items.any?(&:coupon_price)
+		  reset_coupon_items
+		  save
+		end
 		self.removed = 0
 		self.changed_items = nil
 		cart_items.each do |item|
@@ -160,7 +164,7 @@ class Cart
 	  if coupon.percent?
 			price - (0.01 * coupon.discount_value * price).round(2)
 		elsif coupon.absolute?
-			price - coupon.discount_value
+			price - coupon.discount_value > 0 ? price - coupon.discount_value : 0.0
 		elsif coupon.fixed?
 			coupon.discount_value
 		end

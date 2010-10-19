@@ -11,6 +11,7 @@ class Order
 	embeds_one :address
 	embeds_many :order_items
 	referenced_in :user
+	referenced_in :coupon
 	
 	index :status 
 	index :system

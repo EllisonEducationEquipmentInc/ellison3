@@ -3,9 +3,9 @@ class Coupon
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	
-	COUPON_ITEM_NUM = "coupon"
+	COUPON_ITEM_NUM = "coupon23ew323dsd3d"   # coupon as line item disabled
 	
-	LEVELS = %w( product order highest_priced_product buy_one_get_another shipping  )
+	LEVELS = %w( product order highest_priced_product shipping  )
 	DISCOUNT_TYPES = %w( percent absolute fixed )
 	
 	field :name
@@ -38,6 +38,7 @@ class Coupon
 	end
 	
 	references_many :carts
+	references_many :orders, :index => true
 
 	validates :name, :codes, :systems_enabled, :level, :presence => true
 	validates_inclusion_of :level, :in => LEVELS, :message => "extension %s is not included in the list"

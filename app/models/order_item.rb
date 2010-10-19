@@ -9,7 +9,8 @@ class OrderItem
 	field :quoted_price, :type => Float
 	field :sale_price, :type => Float
 	field :discount, :type => Float
-	field :coupon
+	field :custom_price, :type => Boolean, :default => false
+	field :coupon_price, :type => Boolean, :default => false
 	field :quantity, :type => Integer, :default => 1
 	field :tax_exempt, :type => Boolean, :default => false
 	# field :vat_exempt, :type => Boolean, :default => true

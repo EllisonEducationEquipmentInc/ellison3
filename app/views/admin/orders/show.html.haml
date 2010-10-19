@@ -48,6 +48,8 @@
     %th Quantity
     %th Item Price
     %th Item Subtotal
+    %th Custom
+    %th Coupon
   - @order.order_items.each do |item|
     %tr{:class => cycle('odd', 'even')}
       %td= item.item_num
@@ -55,6 +57,8 @@
       %td= item.quantity
       %td= number_to_currency item.sale_price
       %td= number_to_currency item.item_total
+      %td= item.custom_price
+      %td= item.coupon_price
 Subtotal:
 = number_to_currency @order.subtotal_amount
 %br
@@ -77,6 +81,11 @@ This order was charged to:
 == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
 %br
 %br
+- if @order.coupon
+  .field
+    %strong Coupon:
+    = link_to @order.coupon.codes.join(", "), admin_coupon_path(@order.coupon)
+    = @order.coupon.name
 .field
   %strong Paid Amount:
   = number_to_currency @order.payment.paid_amount rescue "N/A"

@@ -43,7 +43,7 @@ class Campaign
 		if discount_type == 0
 			product.base_price - (0.01 * discount * product.base_price).round(2)
 		elsif discount_type == 1
-			product.base_price - discount
+			product.base_price - discount > 0 ? product.base_price - discount : 0.0
 		elsif discount_type == 2
 			discount
 		end

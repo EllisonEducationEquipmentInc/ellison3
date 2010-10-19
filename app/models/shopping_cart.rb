@@ -40,9 +40,12 @@ module ShoppingCart
 		end
 		
 		def cart_to_order(options = {})
-			@order = Order.new(:id => options[:order_id], :subtotal_amount => get_cart.sub_total, :shipping_amount => calculate_shipping(options[:address]), :handling_amount => calculate_handling, :tax_amount => calculate_tax(options[:address]), :tax_transaction => get_cart.reload.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at, :locale => current_locale, :shipping_service => get_cart.shipping_service)
+			@order = Order.new(:id => options[:order_id], :subtotal_amount => get_cart.sub_total, :shipping_amount => calculate_shipping(options[:address]), :handling_amount => calculate_handling, :coupon => get_cart.coupon,
+			              :tax_amount => calculate_tax(options[:address]), :tax_transaction => get_cart.reload.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at, :locale => current_locale, 
+			              :shipping_service => get_cart.shipping_service)
 			@cart.cart_items.each do |item|
-				@order.order_items << OrderItem.new(:name => item.name, :item_num => item.item_num, :sale_price => item.price, :quoted_price => item.msrp, :quantity => item.quantity, :locale => item.currency, :product_id => item.product_id, :tax_exempt => item.tax_exempt, :discount => item.msrp - item.price)
+				@order.order_items << OrderItem.new(:name => item.name, :item_num => item.item_num, :sale_price => item.price, :quoted_price => item.msrp, :quantity => item.quantity,
+				    :locale => item.currency, :product_id => item.product_id, :tax_exempt => item.tax_exempt, :discount => item.msrp - item.price, :custom_price => item.custom_price, :coupon_price => item.coupon_price)
 			end
 			@order
 		end

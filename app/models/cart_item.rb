@@ -43,6 +43,7 @@ class CartItem
 		%w(price quantity handling_price)
 	end
 	
+	# if line item is a coupon
 	def coupon?
 	  self.item_num == Coupon::COUPON_ITEM_NUM
 	end
