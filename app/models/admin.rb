@@ -17,6 +17,14 @@ class Admin
 	field :can_change_prices, :type => Boolean, :default => false
 	field :systems_enabled, :type => Array
 	
+	index :email
+	index :name
+	index :employee_number
+	index :sign_in_count
+	index :created_at
+	index :failed_attempts
+	index :current_sign_in_at
+	
 	embeds_many :permissions do
 	  
 	  def read_access_to(admin_module, sys = current_system)

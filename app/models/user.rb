@@ -17,6 +17,8 @@ class User
 	
 	index :email
 	index :systems_enabled
+	index :sign_in_count
+	index :created_at
 	
 	embeds_many :addresses do
     def billing

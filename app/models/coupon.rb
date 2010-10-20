@@ -31,6 +31,8 @@ class Coupon
 	
 	index :systems_enabled
 	index :codes
+	index :name
+	index :level
 	index :active
 	ELLISON_SYSTEMS.each do |system|
 	  index :"start_date_#{system}"
@@ -48,6 +50,7 @@ class Coupon
 	validates_numericality_of :discount_value
 	
 	before_save Proc.new {|obj| obj.order_has_to_be.delete_if {|k,v| v.delete_if {|k,v| v.blank?}.blank?}}
+	before_save :inherit_system_specific_attributes
 	
 	# scopes
 	scope :active, :where => { :active => true }
@@ -125,4 +128,14 @@ class Coupon
 	def codes=(c)
 	  write_attribute :codes, c.is_a?(Array) ? c : c.split(/,\s?/)
 	end
+	
+private
+  
+  def inherit_system_specific_attributes
+    self.systems_enabled.reject {|e| e == current_system}.each do |sys|
+      %w(start_date end_date).each do |m|
+        self.send("#{m}_#{sys}=", read_attribute("#{m}_#{current_system}")) if read_attribute("#{m}_#{sys}").blank?
+      end      
+    end
+  end
 end

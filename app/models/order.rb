@@ -15,6 +15,8 @@ class Order
 	
 	index :status 
 	index :system
+	index :created_at
+	index "address.last_name"
 	index "order_items.item_num"
 	index "order_items.product_id"
 	

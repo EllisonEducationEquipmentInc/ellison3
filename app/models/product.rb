@@ -36,10 +36,6 @@ class Product
 	ELLISON_SYSTEMS.each do |system|
 	  validates :"start_date_#{system}", :"end_date_#{system}",  :presence => true, :if => Proc.new {|p| current_system == system}
 	end
-		
-	cattr_accessor :current_user
-  cattr_accessor :custom_prices
-  cattr_accessor :highest_item_in_cart
 	
 	# field definitions
 	field :name
@@ -63,6 +59,8 @@ class Product
 	index :systems_enabled
 	index :life_cycle
 	index :active
+	index :name
+	index :quantity
 	ELLISON_SYSTEMS.each do |system|
 	  index :"start_date_#{system}"
 	  index :"end_date_#{system}"
