@@ -35,6 +35,11 @@ class Tag
 	index :permalink
 	index :tag_type
 	index :active
+	index :name
+	ELLISON_SYSTEMS.each do |system|
+	  index :"start_date_#{system}"
+	  index :"end_date_#{system}"
+	end
 	
 	# scopes
 	scope :active, :where => { :active => true }
