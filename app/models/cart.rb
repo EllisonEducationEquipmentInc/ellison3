@@ -138,7 +138,10 @@ class Cart
 				# === if order level discount is distributed:
 				cart_items.where(:item_num.nin => coupon.products_excluded).each do |item|
           item.write_attributes :coupon_price => true, :price => calculate_coupon_discount(item.price)
-        end 
+        end
+      elsif coupon.highest_priced_product?
+        item = cart_items.where(:item_num.nin => coupon.products_excluded).order_by(:price.desc).first
+        item.write_attributes :coupon_price => true, :price => calculate_coupon_discount(item.price) if item
   	  end
   	end
 	  save
