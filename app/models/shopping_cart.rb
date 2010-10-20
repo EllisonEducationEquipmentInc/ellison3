@@ -53,6 +53,12 @@ module ShoppingCart
 		# TODO: UK shipping
 		def calculate_shipping(address, options={})
 			return get_cart.shipping_amount if get_cart.shipping_amount
+			if get_cart.coupon && get_cart.coupon.shipping? && get_cart.coupon_conditions_met? && get_cart.coupon.shipping_countries.include?(address.country) && ((address.us? && get_cart.coupon.shipping_states.include?(address.state)) || !address.us?)
+			  if get_cart.coupon.fixed?
+			    get_cart.update_attributes :shipping_amount => get_cart.coupon.discount_value, :shipping_service => "STANDARD", :shipping_rates => [{:name => "STANDARD", :type => "STANDARD", :currency => current_currency, :rate => get_cart.coupon.discount_value}]
+			    return get_cart.coupon.discount_value
+			  end
+			end
 			options[:weight] ||= get_cart.total_weight
 			options[:shipping_service] ||= "FEDEX_GROUND"
 			options[:package_length] ||= (get_cart.total_volume**(1.0/3.0)).round

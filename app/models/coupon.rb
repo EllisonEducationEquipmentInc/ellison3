@@ -20,8 +20,8 @@ class Coupon
 	field :cart_must_have, :type => Array                               # ex: [{"any" => ["654395", "654396", "654397"], "all" => ["654380", "654381"]}]
 	field :products_excluded, :type => Array, :default => []            # excluded product for order_has_to_be conditions. (these products will be excluded for weight and sub_total calculations)
 	field :order_has_to_be, :type => Hash                               # ex: {"total_weight" => {:over => 10.0, :under => 100.0}, "sub_total" => {:over => 100.0}}
-	field :shipping_country, :type => Array
-	field :shipping_state, :type => Array
+	field :shipping_countries, :type => Array
+	field :shipping_states, :type => Array
 	
 	ELLISON_SYSTEMS.each do |system|
 	  field "start_date_#{system}".to_sym, :type => DateTime
@@ -44,6 +44,7 @@ class Coupon
 	validates_inclusion_of :level, :in => LEVELS, :message => "extension %s is not included in the list"
 	validates_inclusion_of :discount_type, :in => DISCOUNT_TYPES, :message => "extension %s is not included in the list"
 	validates_inclusion_of :discount_type, :in => ["percent"], :message => "must be 'percent' for order level coupons", :if => Proc.new {|obj| obj.order?}
+	validates_inclusion_of :discount_type, :in => ["fixed"], :message => "must be 'fixed' for shipping coupons", :if => Proc.new {|obj| obj.shipping?}
 	validates_numericality_of :discount_value
 	
 	before_save Proc.new {|obj| obj.order_has_to_be.delete_if {|k,v| v.delete_if {|k,v| v.blank?}.blank?}}

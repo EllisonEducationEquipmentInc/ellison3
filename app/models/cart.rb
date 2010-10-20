@@ -116,7 +116,7 @@ class Cart
 			self.coupon = Coupon.available.where(:_id => self.coupon_id).first
 			self.coupon_removed = self.changed.include? "coupon_id"
 		end
-		reset_tax_and_shipping if cart_items.any?(&:updated?) || self.removed > 0
+		reset_tax_and_shipping if cart_items.any?(&:updated?) || self.removed > 0 || self.coupon_removed
 		apply_coupon_discount
 	end
 	
