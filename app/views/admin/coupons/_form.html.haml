@@ -35,6 +35,10 @@
     = required_field f.label(:discount_value)
     %br
     = f.text_field :discount_value
+  .field.product_level.order_level.highest_priced_product_level.level_specific
+    = f.label :free_shipping, "Free Shipping (check if you want to combine this offer with free shipping)"
+    %br
+    = f.check_box :free_shipping, :onchange => "toggle_shpping_conditions();"
   .field.product_level.level_specific
     = required_field f.label(:product_item_nums, "Products to discount (item nums):")
     Enter item numbers seperated by commas  
@@ -103,8 +107,16 @@
           break;
       }
     }
+    function toggle_shpping_conditions(){
+      if ($('#coupon_free_shipping').attr('checked')) {
+        $('.shipping_level').show();
+      } else {
+        $('.shipping_level').hide();
+      }
+    }
     $(function() {
       update_coupon_level();
+      toggle_shpping_conditions();
       $("#coupon_product_item_nums").autocomplete(auto_complete_options);
       $("#coupon_product_excluded_item_nums").autocomplete(auto_complete_options);
     });

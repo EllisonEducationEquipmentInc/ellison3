@@ -54,7 +54,10 @@ module ShoppingCart
 		def calculate_shipping(address, options={})
 			return get_cart.shipping_amount if get_cart.shipping_amount
 			if get_cart.coupon && get_cart.coupon.shipping? && get_cart.coupon_conditions_met? && get_cart.coupon.shipping_countries.include?(address.country) && ((address.us? && get_cart.coupon.shipping_states.include?(address.state)) || !address.us?)
-			  if get_cart.coupon.fixed?
+			  if get_cart.coupon.free_shipping
+			    get_cart.update_attributes :shipping_amount => 0.0, :shipping_service => "STANDARD", :shipping_rates => [{:name => "STANDARD", :type => "STANDARD", :currency => current_currency, :rate => 0.0}]
+			    return 0.0
+			  elsif get_cart.coupon.fixed?
 			    get_cart.update_attributes :shipping_amount => get_cart.coupon.discount_value, :shipping_service => "STANDARD", :shipping_rates => [{:name => "STANDARD", :type => "STANDARD", :currency => current_currency, :rate => get_cart.coupon.discount_value}]
 			    return get_cart.coupon.discount_value
 			  end
@@ -308,7 +311,7 @@ module ShoppingCart
                    :login => 'ellisonadmin'}}
                end
       config = Config.new(options)
-      ActiveMerchant::Billing::Base.mode = :test unless RAILS_ENV == 'production' 
+      ActiveMerchant::Billing::Base.mode = :test unless Rails.env == 'production' 
       @gateway = ActiveMerchant::Billing::Base.gateway(config.name.to_s).new(:login => config.user_name.to_s, :password => config.password.to_s)    
     rescue
       raise 'Invalid ActiveMerchant Gateway'

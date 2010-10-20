@@ -16,6 +16,7 @@ class Coupon
 	field :discount_type, :default => "percent"
 	field :discount_value, :type => Float, :default => 0.0
 	field :products, :type => Array
+	field :free_shipping, :type => Boolean, :default => false
 	
 	field :cart_must_have, :type => Array                               # ex: [{"any" => ["654395", "654396", "654397"], "all" => ["654380", "654381"]}]
 	field :products_excluded, :type => Array, :default => []            # excluded product for order_has_to_be conditions. (these products will be excluded for weight and sub_total calculations)
@@ -81,7 +82,7 @@ class Coupon
 	end
 	
 	def shipping?
-	  self.level == "shipping"
+	  self.level == "shipping" || self.free_shipping
 	end
 	
 	def buy_one_get_another?

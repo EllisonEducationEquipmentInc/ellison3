@@ -23,6 +23,7 @@ class Campaign
 	field :discount, :type => Float, :default => 0.0
 	field :discount_type, :type => Integer, :default => 0
 	field :systems_enabled, :type => Array
+	field :individual, :type => Boolean, :default => false
 	
 	# associations
 	embedded_in :product, :inverse_of => :campaigns
