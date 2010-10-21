@@ -7,7 +7,7 @@ class Tag
 	
 	attr_accessor :embed_campaign
 	
-	TYPES = ["artist", "calendar_event", "category", "curriculum", "designer", "exclusive", "machine_compatibility", "material_compatibility", "product_family", "product_line", "special", "subcategory", "subcurriculum", "subtheme", "theme"]
+	TYPES = ["artist", "calendar_event", "category", "curriculum", "designer", "exclusive", "machine_compatibility", "material_compatibility", "product_family", "product_line", "special", "subcategory", "subcurriculum", "subtheme", "theme", "release_date"]
   
   references_many :products, :stored_as => :array, :inverse_of => :tags, :index => true
   embeds_one :campaign

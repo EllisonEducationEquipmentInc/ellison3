@@ -49,7 +49,6 @@ class Product
 	field :life_cycle
 	field :systems_enabled, :type => Array
 	field :tax_exempt, :type => Boolean, :default => false
-	field :release_date, :type => Date
 	field :volume, :type => Float
 	field :length, :type => Float
 	field :width, :type => Float

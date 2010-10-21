@@ -6,3 +6,4 @@
   %p#item_name= link_to product.name, product_url(:id => product)
   %p= display_product_price(product)
   .cart-buttons= add_to_cart_button(product)
+  .release_available= product.release_dates.map {|e| e.name} * ", "
