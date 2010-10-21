@@ -9,6 +9,7 @@ class Admin::OrdersController < ApplicationController
 	def index
 	  @current_locale = current_locale
 	  criteria = Mongoid::Criteria.new(Order)
+	  criteria.where :deleted_at => nil
 	  if params[:systems_enabled].blank?
 	    criteria.where(:system.in => admin_systems)
 	  else

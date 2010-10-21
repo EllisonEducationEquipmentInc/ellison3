@@ -8,6 +8,7 @@ class Admin::CouponsController < ApplicationController
 	
 	def index
 	  criteria = Mongoid::Criteria.new(Coupon)
+	  criteria.where :deleted_at => nil
 	  if params[:systems_enabled].blank?
 	    criteria.where(:systems_enabled.in => admin_systems)
 	  else

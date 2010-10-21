@@ -8,6 +8,7 @@ class Admin::ProductsController < ApplicationController
 	
 	def index
 	  criteria = Mongoid::Criteria.new(Product)
+	  criteria.where :deleted_at => nil
 	  if params[:systems_enabled].blank?
 	    criteria.where(:systems_enabled.in => admin_systems)
 	  else
