@@ -11,6 +11,10 @@ module Saia
   
   class Rate
     attr_accessor :total_invoice, :quote_number, :expiration_date, :estimated_delivery_date, :standard_service_days
+    
+    def inspect
+      [:total_invoice, :quote_number, :expiration_date, :estimated_delivery_date, :standard_service_days].map {|e| "#{e}: #{send(e)}"} * ', '
+    end
   end
   
   class Saia
