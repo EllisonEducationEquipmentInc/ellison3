@@ -1,14 +1,7 @@
 - if tab.text
   = tab.text.html_safe
 - if tab.products
-  - Product.available.where(:item_num.in => tab.products).each do |product|
-    .related_product_box
-      .info
-        .item_num= product.item_num
-        .title= link_to product.name, product_url(:id => product)
-        .price= display_product_price(product)
-      .info= add_to_cart_button(product)
-      = image_tag(product.medium_image)
+  = render :partial => 'products/product', :collection => Product.available.where(:item_num.in => tab.products).cache
   .clear
 - if tab.images
   - tab.images.each do |image|
@@ -25,7 +18,7 @@
   .clear
 - if tab.compatibility
   - tab.compatibility.each do |compatibility|
-    .compatibility_row= compatibility_products Product.available.where(:item_num.in => compatibility)
+    .compatibility_row= render :partial => 'products/product', :collection => Product.available.where(:item_num.in => compatibility).cache, :spacer_template => 'tabs/separator'
   .clear
   
         
