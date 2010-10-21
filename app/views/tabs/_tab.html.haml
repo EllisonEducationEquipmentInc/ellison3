@@ -20,6 +20,8 @@
   - tab.compatibility.each do |compatibility|
     .compatibility_row= render :partial => 'products/product', :collection => Product.available.where(:item_num.in => compatibility).cache, :spacer_template => 'tabs/separator'
   .clear
+  :javascript
+    shadow_on();
   
         
         
