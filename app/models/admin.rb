@@ -40,7 +40,7 @@ class Admin
 	validates_uniqueness_of :name, :email, :employee_number, :case_sensitive => false
 	validates_format_of :password,	:if => :password_required?, :with => /((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15})/i, :message => "must contain at least one letter and one digit, length must be between 8 and 15 characters"
 	
-	attr_accessible :name, :email, :password, :password_confirmation, :employee_number, :active, :permissions_attributes, :can_act_as_customer, :can_change_prices
+	attr_accessible :name, :email, :password, :password_confirmation, :employee_number
 	
 	def initialize(attributes = nil)
 		super(attributes)

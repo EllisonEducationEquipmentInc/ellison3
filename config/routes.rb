@@ -26,11 +26,12 @@ Ellison3::Application.routes.draw do |map|
 
   match 'admin' => 'admin#index'
 
-  match 'shop/:id' => 'index#shop'
+  match 'shop/:id' => 'index#shop', :as => :shop
 	match 'products' => 'index#products'
 	match 'catalog' => 'index#catalog'
 	match 'product/:id' => 'index#product', :as => :product
 	
+	match 'forget_credit_card' => 'carts#forget_credit_card', :as => :forget_credit_card
 	match 'cart' => 'carts#index', :as => :cart
 	match 'checkout' => 'carts#checkout', :as => :checkout
 	match 'activate_coupon' => 'carts#activate_coupon', :as => :activate_coupon

@@ -39,7 +39,19 @@ class CartsController < ApplicationController
 			@shipping_address = get_user.shipping_address || get_user.addresses.build(:address_type => "shipping", :email => get_user.email) 
 			@billing_address = get_user.billing_address || get_user.addresses.build(:address_type => "billing", :email => get_user.email) 
 		end
+		if get_user.token && !get_user.token.current?
+		  get_tokenized_billing_info :subscription_id => get_user.token.subscriptionid, :order_id =>  get_user.id
+		  if @net_response.success? && @net_response.params['status'] == 'CURRENT'
+		    get_user.token.update_attributes :status => "CURRENT",  :card_number => @net_response.params['cardAccountNumber'], :card_name => get_gateway.cc_code_to_cc(@net_response.params['cardType']), :card_expiration_month => @net_response.params['cardExpirationMonth'],
+		      :card_expiration_year => @net_response.params['cardExpirationYear'], :first_name => @net_response.params['firstName'], :last_name => @net_response.params['lastName'], :city => @net_response.params['city'], :country => @net_response.params['country'], :address1 => @net_response.params['street1'],
+		      :zip_code => @net_response.params['postalCode'], :state => @net_response.params['state'], :email => @net_response.params['email'], :last_updated => Time.zone.now
+		  else
+		    get_user.token.delete
+		  end
+		end
 		new_payment
+		@payment.use_saved_credit_card = true if get_user.token && get_user.token.current?
+		expires_now
 	end
 	
 	def create_shipping
@@ -78,6 +90,10 @@ class CartsController < ApplicationController
 		  @order.customer_rep = current_admin.name
 		  @order.customer_rep_id = current_admin.id
 		end
+		if @payment.save_credit_card
+		  get_user.token = Token.new(:subscriptionid => @payment.subscriptionid)
+		  get_user.save
+		end
 		@order.save!
 		@order.decrement_items!
 		flash[:notice] = "Thank you for your order.  Below is your order receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email."
@@ -86,11 +102,16 @@ class CartsController < ApplicationController
 		render "checkout_complete"
 	rescue Exception => e
 		@reload_cart = @cart_locked = true if e.exception.class == RealTimeCartError
-		@error_message = e.message #backtrace.join("\n")
+		@error_message = e.message #backtrace.join("<br />")
 		if @cart.cart_items.blank?
 			flash[:alert] = @error_message
 			render :js => "window.location.href = '#{catalog_path}'" and return
 		end
+	end
+	
+	def forget_credit_card
+	  get_user.token.delete
+	  new_payment
 	end
 	
 	def change_shipping_method

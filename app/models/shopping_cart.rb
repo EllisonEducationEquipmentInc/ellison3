@@ -40,9 +40,10 @@ module ShoppingCart
 		end
 		
 		def cart_to_order(options = {})
-			@order = Order.new(:id => options[:order_id], :subtotal_amount => get_cart.sub_total, :shipping_amount => calculate_shipping(options[:address]), :handling_amount => calculate_handling, :coupon => get_cart.coupon,
-			              :tax_amount => calculate_tax(options[:address]), :tax_transaction => get_cart.reload.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at, :locale => current_locale, 
-			              :shipping_service => get_cart.shipping_service)
+		  
+			@order = Order.new(:id => options[:order_id], :subtotal_amount => get_cart.sub_total, :shipping_amount => calculate_shipping(options[:address]), :handling_amount => calculate_handling, :tax_amount => calculate_tax(options[:address]),
+			              :tax_transaction => get_cart.reload.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at, :locale => current_locale, :shipping_service => get_cart.shipping_service)
+			@order.coupon = get_cart.coupon
 			@cart.cart_items.each do |item|
 				@order.order_items << OrderItem.new(:name => item.name, :item_num => item.item_num, :sale_price => item.price, :quoted_price => item.msrp, :quantity => item.quantity,
 				    :locale => item.currency, :product_id => item.product_id, :tax_exempt => item.tax_exempt, :discount => item.msrp - item.price, :custom_price => item.custom_price, :coupon_price => item.coupon_price)
@@ -169,7 +170,8 @@ module ShoppingCart
       get_gateway(options[:system])
       unless billing.use_saved_credit_card
 				card_name = correct_card_name(billing.card_name)
-        credit_card = ActiveMerchant::Billing::CreditCard.new(:first_name => billing.first_name, :last_name => billing.last_name, :number => billing.full_card_number, :month => billing.card_expiration_month, :year => billing.card_expiration_year, :type => card_name, :verification_value => billing.card_security_code, :start_month => billing.card_issue_month, :start_year => billing.card_issue_year, :issue_number => billing.card_issue_number)
+        credit_card = ActiveMerchant::Billing::CreditCard.new(:first_name => billing.first_name, :last_name => billing.last_name, :number => billing.full_card_number, :month => billing.card_expiration_month, :year => billing.card_expiration_year,
+                          :type => card_name, :verification_value => billing.card_security_code, :start_month => billing.card_issue_month, :start_year => billing.card_issue_year, :issue_number => billing.card_issue_number)
         raise "Credit card is invalid. #{credit_card.errors}" if !credit_card.valid?
       end
       if is_us?
@@ -195,8 +197,12 @@ module ShoppingCart
       end
       amount_to_charge = amount.to_i #? amount : (total_cart * 100 ).to_i
 			timeout(50) do
-	      if options[:capture] && !billing.deferred && !billing.use_saved_credit_card
+	      if options[:capture] && !billing.deferred && !billing.use_saved_credit_card && !billing.save_credit_card
 					@net_response = @gateway.purchase(amount_to_charge, credit_card, gw_options)  
+				elsif billing.save_credit_card
+				  gw_options.merge!(:number_of_payments => 0, :frequency=> "on-demand", :shipping_address => {}, :start_date => Time.zone.now.strftime("%Y%m%d"),  :subscription_title => "#{credit_card.first_name} #{credit_card.last_name}", :setup_fee => amount_to_charge)
+				  @net_response = @gateway.recurring_billing(0, credit_card, gw_options)
+				  Rails.logger.info @net_response
 				elsif billing.use_saved_credit_card
 				  @net_response = @gateway.pay_on_demand amount_to_charge, gw_options
 				elsif billing.deferred
@@ -214,6 +220,12 @@ module ShoppingCart
         @payment = billing
         @payment.paid_amount = amount ? amount/100 : total_cart
         @payment.vendor_tx_code = order
+        if @payment.use_saved_credit_card && get_user.token
+          @payment.card_number = get_user.token.card_number
+        	@payment.card_expiration_month = get_user.token.card_expiration_month
+        	@payment.card_expiration_year = get_user.token.card_expiration_year
+        	@payment.card_name = get_user.token.card_name
+        end
         process_gw_response @net_response
       else 
 				if is_us? && (@net_response.params["reasonCode"] == "200" || @net_response.params["reasonCode"] == "230")
@@ -228,6 +240,60 @@ module ShoppingCart
         message << "CVV (Security Code): " + @net_response.cvv_result["message"] if @net_response.cvv_result["message"] && !%w(M 1 2 3).include?(@net_response.cvv_result["code"])
         raise 'Your card could not be authorized! Please correct any details below and try again, try another card or <a href="/contact">contact us</a> for further assistance.<br><br> ' + message.join("<br>")
       end
+    end
+    
+    # pass a Payment object as the first argument
+    def void_cc_transaction(payment, options = {})
+      get_gateway
+			timeout(30) do
+      	@net_response = @gateway.void(payment.authorization, options)
+			end
+      if @net_response.success?
+        payment.void_at = Time.zone.now
+        payment.void_amount = @net_response.params['amount']
+        payment.void_authorization = @net_response.authorization
+        payment.status = "VOID"
+        payment.save(false)
+      end
+      @net_response
+    end
+    
+    def refund_cc_transaction(payment, options = {})
+      get_gateway
+      options.merge!(:order_id => "REFUND#{payment.order.id}", :description => "REFUND#{payment.order.id}", :currency => payment.order.locale == 'en-UK' ? "GBP" : "EUR") if is_uk?
+      timeout(30) do
+				@net_response = @gateway.credit(payment.paid_amount * 100, payment.authorization, options)
+			end
+      if @net_response.success?
+        payment.refunded_at = Time.zone.now
+        payment.refunded_amount = @net_response.params['amount'] if @net_response.params['amount']
+        payment.refund_authorization = @net_response.authorization
+        payment.status = "REFUND"
+        payment.save(false)
+      end
+      @net_response
+    end
+    
+    # example: tokenize_billing_info(credit_card, :billing_address=>{:address1 => @billing.address, :address2 => @billing.address2, :country => @billing.country, :company => @billing.company, :zip => @billing.zip_code, :phone => @billing.phone, :state => @billing.state, :city => @billing.city}, :email => @billing.email, :order_id => get_user.id, :customer_account_id => get_user.erp_id)
+    def tokenize_billing_info(credit_card, options)     
+			subscription_title = credit_card.first_name ? "#{credit_card.first_name} #{credit_card.last_name}" : "create customer"
+      options.merge!(:number_of_payments => 0, :frequency=> "on-demand", :shipping_address => {}, :start_date => Time.zone.now.strftime("%Y%m%d"),  :subscription_title => subscription_title, :setup_fee => 0)
+      get_gateway options[:system]
+      timeout(30) do
+        @net_response = @gateway.recurring_billing(0, credit_card, options)
+      end
+      @net_response
+    end
+    
+    # retreive tokenized customer billing info
+    # example: 
+    #   get_tokenized_billing_info :subscription_id=>"2774176050310008284282", :order_id=>"aweweweqq"
+    def get_tokenized_billing_info(options)
+      get_gateway options[:system]
+      timeout(30) do
+        @net_response = @gateway.retreive_customer_info options
+      end
+      @net_response
     end
 
 		def correct_card_name(card_name)

@@ -16,6 +16,7 @@ class IndexController < ApplicationController
 		@product = Product.send(current_system).criteria.id(params[:id]).first
 		raise "Invalid product" unless @product.displayable?
 		@title = @product.name
+		fresh_when(:etag => [current_locale, current_system, @product], :last_modified => @product.updated_at.utc)
 	rescue
 		go_404
 	end
@@ -26,10 +27,13 @@ class IndexController < ApplicationController
 	  params[:sort] = "start_date_#{current_system}:desc"
 	  get_search
 	  @products = @search.results
+	  fresh_when(:etag => [current_locale, current_system, @landing_page], :last_modified => @landing_page.updated_at.utc)
 	end
 	
 	def catalog
     @title = "Catalog"
+    #expires_in 3.hours, 'max-stale' => 5.hours
+    fresh_when :etag => [current_locale, current_system]
 	end
 	
 	def search

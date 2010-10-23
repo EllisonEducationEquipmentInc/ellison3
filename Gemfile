@@ -67,7 +67,7 @@ end
 
 gem "rails3-generators", :group => :development 
 group :development do
-  gem "ruby-debug"
+  gem "ruby-debug19"
   gem "rack-bug"
 end
 

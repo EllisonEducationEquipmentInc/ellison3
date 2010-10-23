@@ -26,6 +26,7 @@ class Payment
 	field :card_expiration_year
 	field :card_security_code
 	
+	field :save_credit_card, :type => Boolean, :default => false
 	field :use_saved_credit_card, :type => Boolean, :default => false
 	field :deferred, :type => Boolean, :default => false
 	
@@ -43,9 +44,19 @@ class Payment
 	field :paid_at, :type => DateTime
 	field :vendor_tx_code
 	
+	field :void_at, :type => DateTime
+  field :void_amount, :type => Float
+  field :void_authorization
+  
+  field :refunded_at, :type => DateTime
+  field :refunded_amount, :type => Float
+  field :refund_authorization
+	
 	embedded_in :order, :inverse_of => :payment
 	
 	validates_presence_of :email
+	
+	before_save :mask_card_number
 	
 	def self.cards
     is_us? ? %w(Visa MasterCard Discover AmericanExpress) : [["Visa", "visa"],["MasterCard", "master"],["Visa Debit", "delta"], ["Solo", "solo"],["Maestro", "maestro"], ["Visa Electron (UKE)", "electron"]]
@@ -75,5 +86,12 @@ class Payment
       start_year += 1
     end
     years
+  end
+  
+  def mask_card_number
+    return if self.full_card_number.blank?
+    masked = self.full_card_number.dup
+    0.upto(masked.size - 5) { |i| masked[i] = 'x'}
+    write_attribute :card_number, masked
   end
 end

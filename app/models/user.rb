@@ -20,6 +20,7 @@ class User
 	index :sign_in_count
 	index :created_at
 	
+	embeds_one :token
 	embeds_many :addresses do
     def billing
 			@target.select {|address| address.address_type == "billing"}
