@@ -2,10 +2,10 @@
   = f.error_messages
   - if get_user.token && get_user.token.current?
     %strong Credit Card on file:
-    = link_to "forget", forget_credit_card_path, :remote => true
     .field
       = get_user.token.card_name
       = get_user.token.card_number
+      = link_to "forget/use another one", forget_credit_card_path, :remote => true
       = f.hidden_field :use_saved_credit_card
   - else
     .left.field

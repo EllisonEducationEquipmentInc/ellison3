@@ -183,7 +183,7 @@ module ShoppingCart
 					gw_options[:number_of_payments] = billing.number_of_payments
 					gw_options[:frequency] = billing.frequency
 					gw_options[:start_date] = 1.months.since.strftime("%Y%m%d")
-					gw_options[:subscription_title] = "Sizzix.com Three Easy Payments"
+					gw_options[:subscription_title] = "#{get_domain.capitalize} Three Easy Payments"
 					gw_options[:customer_account_id] = get_user.id
 					amount = amount ? amount : (subtotal_cart/(billing.number_of_payments + 1.0) * 100 ).round
 				end
@@ -220,6 +220,7 @@ module ShoppingCart
         @payment = billing
         @payment.paid_amount = amount ? amount/100 : total_cart
         @payment.vendor_tx_code = order
+        @payment.mask_card_number
         if @payment.use_saved_credit_card && get_user.token
           @payment.card_number = get_user.token.card_number
         	@payment.card_expiration_month = get_user.token.card_expiration_month

@@ -91,7 +91,8 @@ class CartsController < ApplicationController
 		  @order.customer_rep_id = current_admin.id
 		end
 		if @payment.save_credit_card
-		  get_user.token = Token.new(:subscriptionid => @payment.subscriptionid)
+		  get_user.token = Token.new :last_updated => Time.zone.now, :status => "CURRENT"
+		  get_user.token.copy_common_attributes @payment, :status
 		  get_user.save
 		end
 		@order.save!
