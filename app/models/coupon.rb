@@ -115,7 +115,7 @@ class Coupon
 	end
 	
 	def product_item_nums=(product_item_nums)
-		write_attribute(:products, product_item_nums.split(/,\s?/)) unless product_item_nums.nil?
+		write_attribute(:products, product_item_nums.split(/,\s*/)) unless product_item_nums.nil?
 	end
 	
 	def product_excluded_item_nums
@@ -123,11 +123,11 @@ class Coupon
 	end
 	
 	def product_excluded_item_nums=(product_item_nums)
-		write_attribute(:products_excluded, product_item_nums.split(/,\s?/)) unless product_item_nums.nil?
+		write_attribute(:products_excluded, product_item_nums.split(/,\s*/)) unless product_item_nums.nil?
 	end
 	
 	def codes=(c)
-	  write_attribute :codes, c.is_a?(Array) ? c : c.split(/,\s?/)
+	  write_attribute :codes, c.is_a?(Array) ? c : c.split(/,\s*/)
 	end
 	
 private

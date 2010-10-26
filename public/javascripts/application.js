@@ -409,7 +409,7 @@ $.expr[':'].icontains = function(obj, index, meta, stack){
 function check_items_checkboxes(element) {
 	if (element.find('.product_autocomplete').val() == undefined) return false;
 	$(element).find('.admin_checkboxes [type=checkbox]').attr('checked', false);
-  var item_nums = element.find('.product_autocomplete').val().split(/,\s?/);
+  var item_nums = element.find('.product_autocomplete').val().split(/,\s*/);
   for(var i = 0; i < item_nums.length; i++)
   { 
     $(element).find('.admin_checkboxes [type=checkbox][value='+item_nums[i]+']').attr('checked', true);
@@ -425,7 +425,7 @@ function check_items_to_item_num_field(element) {
 	} else{
 		items.splice(items.indexOf(element.value),1);
 	};
-	if (items.indexOf("") > 0) items.splice(items.indexOf(""),1);
+	if (items.indexOf("") >= 0) items.splice(items.indexOf(""),1);
 	text_field.val(compact(items).join(", "));
 };
 

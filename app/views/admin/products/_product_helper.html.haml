@@ -1,3 +1,5 @@
+= link_to_function "update checkboxes", "check_items_checkboxes($(this).parent())"
+%br
 = radio_button_tag "product_helper_tags_#{@rand}", "all", true, :id => nil, :onclick => "$(this).parent().find('.product_helper_check_box_row').show()"
 show All
 .clear

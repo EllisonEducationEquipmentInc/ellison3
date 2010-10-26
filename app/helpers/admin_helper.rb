@@ -14,7 +14,6 @@ module AdminHelper
       r = label_tag name, options[:label]
       r += tag("br")
       r += text_field_tag name, value, :size => 100, :class => 'product_autocomplete'
-      r += link_to_function "update checkboxes", "check_items_checkboxes($(this).parent())"
       r += tag("br")
       r += link_to "Products Helper", "#", :class => "product_helper_link"
       r += javascript_tag do

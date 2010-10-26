@@ -96,6 +96,6 @@ private
 
   def process_cart_must_have
     params[:coupon][:cart_must_have] ||= []
-    params[:coupon][:cart_must_have] = params[:coupon][:cart_must_have].map {|e| {e.values[0] => e.values[1].split(/,\s?/)}}
+    params[:coupon][:cart_must_have] = params[:coupon][:cart_must_have].map {|e| {e.values[0] => e.values[1].split(/,\s*/)}}
   end
 end

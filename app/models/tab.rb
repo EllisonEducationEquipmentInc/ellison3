@@ -44,7 +44,7 @@ class Tab
 	end
 	
 	def product_item_nums=(product_item_nums)
-		write_attribute(:products, product_item_nums.split(/,\s?/)) unless product_item_nums.nil?
+		write_attribute(:products, product_item_nums.split(/,\s*/)) unless product_item_nums.nil?
 	end
 
 	def compatibility_item_nums
@@ -52,7 +52,7 @@ class Tab
 	end
 	
 	def compatibility_item_nums=(compatibility_item_nums)
-		write_attribute :compatibility, compatibility_item_nums.values.map {|c| c.split(/,\s?/)}
+		write_attribute :compatibility, compatibility_item_nums.values.map {|c| c.split(/,\s*/)}
 	end
 	
 	def data_column_fields
