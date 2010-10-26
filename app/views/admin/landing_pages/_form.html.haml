@@ -12,11 +12,11 @@
     %br
     = f.text_field :name
   .field
-    = f.label :permalink, "Permalink URL. Ex: st-patrick-day-sale"
+    = f.label :permalink, "Permalink URL. Ex: st-patrick-day-sale - cannot be changed later!"
     %br
     == This will be the url of the landing page. Ex: http://#{request.host_with_port}/shop/<strong>st-patrick-day-sale</strong>
     %br
-    = f.text_field :permalink
+    = f.text_field :permalink, :disabled => !@landing_page.new_record?
   .field
     = f.label :search_query, "Catalog facet query parameter. Ex: category~embossing,machine_compatibility~sidekick"
     %br

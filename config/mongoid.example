@@ -2,7 +2,7 @@ defaults: &defaults
   host: localhost
   port: 27017
   allow_dynamic_fields: true
-  parameterize_keys: true
+  parameterize_keys: false
   persist_in_safe_mode: true
   raise_not_found_error: true
   reconnect_time: 3

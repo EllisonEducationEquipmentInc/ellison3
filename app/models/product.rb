@@ -261,8 +261,7 @@ class Product
 	end	
 	
 	# Availability logic:
-	# if product's "life_cycle" (global) is 'available'  then product is available for sale no matter wha
-	# if life_cycle is either 'pre-release' or 'discontinued' then availability is determined by "orderable_#{current_system}" - (system specific) attribute
+	# if life_cycle is either 'pre-release', 'available' or 'discontinued' then availability is determined by "orderable_#{current_system}" - (system specific) attribute
 	# 
 	# product visibility is determined by 'active', "start_date_#{current_system}", "end_date_#{current_system}" attributes
 	
@@ -272,7 +271,7 @@ class Product
 	end
 	
 	def orderable?(sys = current_system)
-	  life_cycle == "available" || (self.send("orderable_#{sys}") && life_cycle != "unvailable")
+	  (self.send("orderable_#{sys}") && life_cycle != "unvailable") #|| life_cycle == "available" 
 	end
 	
 	def not_reselable?

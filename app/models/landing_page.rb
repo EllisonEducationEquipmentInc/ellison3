@@ -26,7 +26,7 @@ class LandingPage
 	
 	validates :name, :permalink, :systems_enabled, :start_date, :end_date, :presence => true
 	validates_uniqueness_of :permalink
-	validates_format_of :permalink, :with => /^[\w\d-]+$/
+	validates_format_of :permalink, :with => /^[a-z0-9-]+$/, :message => "Use only alphanumeric characters (all lowercase, no spaces or special characters). Examle: st-patrick-day-sale"
 	
 	# scopes
 	scope :active, :where => { :active => true }
