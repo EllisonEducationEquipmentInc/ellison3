@@ -1,8 +1,9 @@
-// SIZZIX UK THEME - use with COLUMNAR LAYOUT ARCHETYPE
+// ELLISON EDUCATION US THEME - use with COLUMNAR LAYOUT ARCHETYPE
 
 #header {
   border-bottom: 3px double $secondary;
   padding-top:10px;
+  height: 100px;
   
   #logo_masthead {
   	background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
