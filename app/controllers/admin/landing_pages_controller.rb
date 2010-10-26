@@ -68,7 +68,6 @@ class Admin::LandingPagesController < ApplicationController
   def update
     @landing_page = LandingPage.find(params[:id])
     @landing_page.products = params[:recommended_products].split(/,\s*/)
-    @landing_page._id = params[:landing_page][:permalink]
     respond_to do |format|
       if @landing_page.update_attributes(params[:landing_page])
         format.html { redirect_to(admin_landing_pages_url, :notice => 'LandingPage was successfully updated.') }
