@@ -11,7 +11,7 @@ module AdminHelper
   
   def products_helper_tag(name, value = nil, options = {})
     content_tag :div, :class => "products_helper field" do
-      r = label_tag name, options[:label]
+      r = label_tag name, options[:label] || sanitize_to_id(name)
       r += tag("br")
       r += text_field_tag name, value, :size => 150, :class => 'product_autocomplete'
       r += tag("br")
@@ -22,7 +22,7 @@ module AdminHelper
             $.ajax({url:'/admin/products/product_helper', context: $(e.currentTarget).parent(), beforeSend: function(){$(this).find('.product_helper_link').replaceWith('#{spinner}')}, success: function(data){$(this).find('.spinner').replaceWith(data);check_items_checkboxes(this)}});
             return false;
           });
-          $("##{name}").autocomplete(auto_complete_options);
+          $("##{sanitize_to_id(name)}").autocomplete(auto_complete_options);
         JS
       end
     end.html_safe
