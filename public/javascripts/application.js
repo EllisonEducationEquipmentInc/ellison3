@@ -416,7 +416,7 @@ function check_items_checkboxes(element) {
 };
 
 function check_items_to_item_num_field(element) {
-	var text_field = $(element).parents('.field').find('.product_autocomplete');
+	var text_field = $(element).parents('.products_helper').find('.product_autocomplete');
 	if (text_field.val() == undefined) return false;
 	var items = split(text_field.val())
 	if ($(element).attr('checked')) {
@@ -424,6 +424,7 @@ function check_items_to_item_num_field(element) {
 	} else{
 		items.splice(items.indexOf(element.value),1);
 	};
+	if (items.indexOf("") > 0) items.splice(items.indexOf(""),1);
 	text_field.val(items.join(", "));
 };
 

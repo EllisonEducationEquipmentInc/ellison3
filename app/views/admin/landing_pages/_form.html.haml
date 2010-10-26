@@ -37,13 +37,6 @@
     = f.label :content
     %br
     = f.text_area :content, :class => 'wymeditor'
-  .field
-    = label_tag :recommended_products, "Recommended Products"
-    %br
-    = text_field_tag :recommended_products, @landing_page.products && @landing_page.products.join(", "), :size => 100, :class => 'product_autocomplete'
-    %br
-    = products_helper_link
+  = products_helper_tag :recommended_products, @landing_page.products && @landing_page.products.join(", ")
   .actions
     = f.submit :class => 'wymupdate jqui_save'
-  :javascript
-    $("#recommended_products").autocomplete(auto_complete_options);
