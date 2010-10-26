@@ -333,11 +333,8 @@ var auto_complete_options = {
 		var terms = split( this.value );
 		// remove the current input
 		terms.pop();
-		// add the selected item
-		terms.push( ui.item.value );
-		// add placeholder to get the comma-and-space at the end
-		terms.push("");
-		this.value = terms.join(", ");
+		terms = terms.concat(split(ui.item.value), [""])
+		this.value = compact(terms).join(", ");
 		var item_nums = split(ui.item.value);
 		for(var i = 0; i < item_nums.length; i++)
 	  { 

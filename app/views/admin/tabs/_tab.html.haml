@@ -21,10 +21,7 @@
   .field
     = f.label :text
     = f.text_area :text
-  .field
-    = f.label :products
-    = f.text_field :product_item_nums, :size => 50
-    Enter item numbers seperated by commas
+  = products_helper_tag('product[product_item_nums]', @tab.product_item_nums)
   %h3 images
   = link_to_add_fields "Add Image", f, :images
   - f.fields_for :images do |image_fields|
@@ -46,7 +43,4 @@
     = link_to 'cancel', '#', :onclick => "$('#edit_tab').html(''); return false;", :class => 'jqui_cancel'
 :javascript
   $("#tab_text").wymeditor();
-  $(function() {
-  		$("#tab_product_item_nums").autocomplete(auto_complete_options);
-  	});
   initialize_buttons();

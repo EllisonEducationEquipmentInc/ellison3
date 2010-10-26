@@ -13,7 +13,7 @@ module AdminHelper
     content_tag :div, :class => "products_helper field" do
       r = label_tag name, options[:label]
       r += tag("br")
-      r += text_field_tag name, value, :size => 100, :class => 'product_autocomplete'
+      r += text_field_tag name, value, :size => 150, :class => 'product_autocomplete'
       r += tag("br")
       r += link_to "Products Helper", "#", :class => "product_helper_link"
       r += javascript_tag do
