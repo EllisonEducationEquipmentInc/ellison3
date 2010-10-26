@@ -1,5 +1,17 @@
+= radio_button_tag "product_helper_tags_#{@rand}", "all", true, :id => nil, :onclick => "$(this).parent().find('.product_helper_check_box_row').show()"
+show All
+.clear
+- @tags.each do |group|
+  .admin_tag_selectors
+    %strong= group["tag_type"].humanize
+    .admin_tag_checkboxes
+      - group["group"].each do |tag|
+        = radio_button_tag "product_helper_tags_#{@rand}", tag.id, false, :id => nil, :onclick => "$(this).parents('.products_helper').find('.product_helper_check_box_row').hide();$(this).parents('.products_helper').find('.#{tag.id}').show();"
+        = tag.name
+        %br
 .admin_checkboxes
   - @products.each do |product|
-    = check_box_tag "product_helper", product.item_num, false, :class => "product_helper_check_box", :id => nil, :onchange => "check_items_to_item_num_field(this)"
-    = "#{product.item_num} #{product.name}"
-    %br
+    %div{:class => "product_helper_check_box_row #{product.tag_ids * ' '}"}
+      = check_box_tag "product_helper", product.item_num, false, :class => "product_helper_check_box", :id => nil, :onchange => "check_items_to_item_num_field(this)"
+      = "#{product.item_num} #{product.name}"
+      %br

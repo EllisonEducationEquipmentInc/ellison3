@@ -300,6 +300,19 @@ body.bp th, body.bp td, body.bp caption {
 		height:400px;
 		overflow:auto;
 	}
+	.admin_tag_selectors{
+		width:150px;
+		float: left;
+	}
+	.admin_tag_checkboxes{
+		width:150px;
+		height:200px;
+		overflow:auto;
+	}
+	div.products_helper {
+		border: 1px solid gray;
+		padding: 3px;
+	}
 }
 #guest_checkout {
 	float:right;

@@ -196,6 +196,8 @@ class Admin::ProductsController < ApplicationController
 	
 	def product_helper
 	  @products = Product.active.asc(:name).cache
+	  @tags = Tag.active.order_by(:tag_type.asc, :name.asc).only(:tag_type).cache.group
+	  @rand = rand(10**10)
 	  render :partial => "product_helper"
 	end
 	

@@ -341,7 +341,7 @@ var auto_complete_options = {
 		var item_nums = split(ui.item.value);
 		for(var i = 0; i < item_nums.length; i++)
 	  { 
-	    $(this).siblings('.admin_checkboxes').children('[type=checkbox][value='+item_nums[i]+']').attr('checked', true);
+	    $(this).parent().find('.admin_checkboxes [type=checkbox][value='+item_nums[i]+']').attr('checked', true);
 	  }		
 		return false;
 	}};
@@ -407,11 +407,12 @@ $.expr[':'].icontains = function(obj, index, meta, stack){
 };
 
 function check_items_checkboxes(element) {
-	if ($(element).find('.product_autocomplete').val() == undefined) return false;
-  var item_nums = $(element).find('.product_autocomplete').val().split(/,\s?/);
+	if (element.find('.product_autocomplete').val() == undefined) return false;
+	$(element).find('.admin_checkboxes [type=checkbox]').attr('checked', false);
+  var item_nums = element.find('.product_autocomplete').val().split(/,\s?/);
   for(var i = 0; i < item_nums.length; i++)
   { 
-    $(element).find('.admin_checkboxes').children('[type=checkbox][value='+item_nums[i]+']').attr('checked', true);
+    $(element).find('.admin_checkboxes [type=checkbox][value='+item_nums[i]+']').attr('checked', true);
   }
 };
 
@@ -425,6 +426,15 @@ function check_items_to_item_num_field(element) {
 		items.splice(items.indexOf(element.value),1);
 	};
 	if (items.indexOf("") > 0) items.splice(items.indexOf(""),1);
-	text_field.val(items.join(", "));
+	text_field.val(compact(items).join(", "));
 };
+
+// removes duplicate elements from an array
+function compact(array) {
+	for(var i = 0; i < array.length; i++)
+  { 
+		if (array.indexOf(array[i]) != array.lastIndexOf(array[i])) array.splice(array.lastIndexOf(array[i]),1);
+  }
+	return array;
+}
 

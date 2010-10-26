@@ -38,5 +38,6 @@
     %br
     = f.text_area :content, :class => 'wymeditor'
   = products_helper_tag :recommended_products, @landing_page.products && @landing_page.products.join(", ")
+  = products_helper_tag :something, "eclips"
   .actions
     = f.submit :class => 'wymupdate jqui_save'
