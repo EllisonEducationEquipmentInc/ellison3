@@ -9,6 +9,8 @@ show All
         = radio_button_tag "product_helper_tags_#{@rand}", tag.id, false, :id => nil, :onclick => "$(this).parents('.products_helper').find('.product_helper_check_box_row').hide();$(this).parents('.products_helper').find('.#{tag.id}').show();"
         = tag.name
         %br
+.clear
+= link_to_function "add all visible", "$(this).parent().find('[type=checkbox][checked=false]:visible').attr('checked', true).each(function (i) {check_items_to_item_num_field(this)})"
 .admin_checkboxes
   - @products.each do |product|
     %div{:class => "product_helper_check_box_row #{product.tag_ids * ' '}"}
