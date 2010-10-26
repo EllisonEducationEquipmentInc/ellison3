@@ -39,12 +39,7 @@
     = f.label :free_shipping, "Free Shipping (check if you want to combine this offer with free shipping)"
     %br
     = f.check_box :free_shipping, :onchange => "toggle_shpping_conditions();"
-  .field.product_level.level_specific
-    = required_field f.label(:product_item_nums, "Products to discount (item nums):")
-    Enter item numbers seperated by commas  
-    %br
-    = f.text_field :product_item_nums, :size => 150
-    %br
+  = products_helper_tag('coupon[product_item_nums]', @coupon.product_item_nums, :label => "Products to discount (item nums):", :class => "product_level level_specific")
   .field.shipping_level.level_specific
     .right
       = f.label(:shipping_states, "Shipping States (if US)")
@@ -84,10 +79,7 @@
         = text_field_tag "coupon[order_has_to_be][sub_total][over]", @coupon.order_has_to_be.try(:[], "sub_total").try(:[], "over")
         Under
         = text_field_tag "coupon[order_has_to_be][sub_total][under]", @coupon.order_has_to_be.try(:[], "sub_total").try(:[], "under")
-  .field
-    = f.label :product_excluded_item_nums, "Products excluded from 'Order has to be' calculations above. (Also, these products will be excluded from order level and highest priced product discounts)"
-    %br
-    = f.text_field :product_excluded_item_nums, :size => 150
+  = products_helper_tag('coupon[product_excluded_item_nums]', @coupon.product_excluded_item_nums, :label => "Products excluded from 'Order has to be' calculations above. (Also, these products will be excluded from order level and highest priced product discounts)")
   .field
     = f.label :description, :class => 'overrideable'
     %br
@@ -117,7 +109,5 @@
     $(function() {
       update_coupon_level();
       toggle_shpping_conditions();
-      $("#coupon_product_item_nums").autocomplete(auto_complete_options);
-      $("#coupon_product_excluded_item_nums").autocomplete(auto_complete_options);
     });
     initialize_buttons();

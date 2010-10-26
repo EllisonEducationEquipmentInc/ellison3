@@ -21,7 +21,7 @@
   .field
     = f.label :text
     = f.text_area :text
-  = products_helper_tag('tab[product_item_nums]', @tab.product_item_nums)
+  = products_helper_tag('tab[product_item_nums]', @tab.product_item_nums, :label => "Related Products")
   %h3 images
   = link_to_add_fields "Add Image", f, :images
   - f.fields_for :images do |image_fields|

@@ -10,8 +10,8 @@ module AdminHelper
   end
   
   def products_helper_tag(name, value = nil, options = {})
-    content_tag :div, :class => "products_helper field" do
-      r = label_tag name, options[:label] || sanitize_to_id(name)
+    content_tag :div, :class => "products_helper field #{options[:class]}" do
+      r = label_tag name, options[:label] || sanitize_to_id(name).humanize
       r += tag("br")
       r += text_field_tag name, value, :size => 150, :class => 'product_autocomplete'
       r += tag("br")
