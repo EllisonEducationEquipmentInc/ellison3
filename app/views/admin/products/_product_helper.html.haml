@@ -18,5 +18,6 @@ show All
   - @products.each do |product|
     %div{:class => "product_helper_check_box_row #{product.tag_ids * ' '}"}
       = check_box_tag "product_helper", product.item_num, false, :class => "product_helper_check_box", :id => nil, :onchange => "check_items_to_item_num_field(this)"
+      = image_tag(product.small_image, :size => "12x12", :onmouseover => "$(this).height('65px');$(this).width('65px');", :onmouseout => "$(this).height('12px');$(this).width('12px');")
       = "#{product.item_num} #{product.name}"
       %br
