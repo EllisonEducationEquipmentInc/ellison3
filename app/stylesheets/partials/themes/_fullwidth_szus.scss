@@ -5,24 +5,12 @@
   
   h1, h2, h3, h4, h5 {
     color: #4e371c;
-  }
-  
-  .container {
-    padding-top:12px;
-  }
-  
-}
-
-.root_top {
-  background: url(/images/ui-backgrounds/_szus_root_top.png) center no-repeat;height:8px
-}
-
-.root_bottom {
-  background: url(/images/ui-backgrounds/_szus_root_bottom.png) center no-repeat;height:8px
+  }  
 }
 
 #header {
-  background: white url("/images/ui-backgrounds/_#{$system}_megamenu.png") center bottom no-repeat;
+  height: 140px;
+  background: url("/images/ui-backgrounds/_#{$system}_header.png") center bottom no-repeat;
   
   #logo_masthead {
   	background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
@@ -41,7 +29,7 @@
 
 #footer {
   bottom: -23px;  // to help aid the sticky footer situation
-  background-color: $footer_bg;
+  background: url("/images/ui-backgrounds/_#{$system}_footer.png") center repeat-y;
   color: $footer_text;
   
   h3, h4 {

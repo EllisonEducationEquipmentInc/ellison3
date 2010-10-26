@@ -12,7 +12,9 @@
 // Import Blueprint debug styles
 @import "blueprint/debug";
 
+// Import Compass layout & utilities
 @import "compass/layout";
+@import "compass/utilities/general/clearfix";
 
 // Combine the partials into a single screen stylesheet.
 @import "partials/page";
