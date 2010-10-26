@@ -111,7 +111,7 @@ HTML
 	end
 	
 	def spinner
-		image_tag "/images/ui-objects/loader-ajax.gif"
+		image_tag "/images/ui-objects/loader-ajax.gif", :class => "spinner"
 	end
 	
 	def facebook_like

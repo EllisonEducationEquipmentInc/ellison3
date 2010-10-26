@@ -338,6 +338,11 @@ var auto_complete_options = {
 		// add placeholder to get the comma-and-space at the end
 		terms.push("");
 		this.value = terms.join(", ");
+		var item_nums = split(ui.item.value);
+		for(var i = 0; i < item_nums.length; i++)
+	  { 
+	    $(this).siblings('.admin_checkboxes').children('[type=checkbox][value='+item_nums[i]+']').attr('checked', true);
+	  }		
 		return false;
 	}};
 	
@@ -400,3 +405,25 @@ $.extend({
 $.expr[':'].icontains = function(obj, index, meta, stack){ 
 	return (obj.textContent || obj.innerText || jQuery(obj).text() || '').toLowerCase().indexOf(meta[3].toLowerCase()) >= 0; 
 };
+
+function check_items_checkboxes(element) {
+	if ($(element).find('.product_autocomplete').val() == undefined) return false;
+  var item_nums = $(element).find('.product_autocomplete').val().split(/,\s?/);
+  for(var i = 0; i < item_nums.length; i++)
+  { 
+    $(element).find('.admin_checkboxes').children('[type=checkbox][value='+item_nums[i]+']').attr('checked', true);
+  }
+};
+
+function check_items_to_item_num_field(element) {
+	var text_field = $(element).parents('.field').find('.product_autocomplete');
+	if (text_field.val() == undefined) return false;
+	var items = split(text_field.val())
+	if ($(element).attr('checked')) {
+		items.push(element.value);
+	} else{
+		items.splice(items.indexOf(element.value),1);
+	};
+	text_field.val(items.join(", "));
+};
+

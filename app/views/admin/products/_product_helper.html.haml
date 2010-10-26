@@ -1,0 +1,5 @@
+.admin_checkboxes
+  - @products.each do |product|
+    = check_box_tag "product_helper", product.item_num, false, :class => "product_helper_check_box", :id => nil, :onchange => "check_items_to_item_num_field(this)"
+    = "#{product.item_num} #{product.name}"
+    %br

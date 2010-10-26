@@ -9,5 +9,15 @@ module AdminHelper
     r.html_safe
   end
   
-  
+  def products_helper_link
+    r = link_to "Products Helper", "#", :class => "product_helper_link"
+    r += javascript_tag do
+      <<-JS
+        $('.product_helper_link').click(function(e){
+          $.ajax({url:'/admin/products/product_helper', context: $(e.currentTarget).parent(), beforeSend: function(){$(this).find('.product_helper_link').replaceWith('#{spinner}')}, success: function(data){$(this).find('.spinner').replaceWith(data);check_items_checkboxes(this)}});
+          return false;
+        });
+      JS
+    end.html_safe
+  end
 end

@@ -40,7 +40,9 @@
   .field
     = label_tag :recommended_products, "Recommended Products"
     %br
-    = text_field_tag :recommended_products, @landing_page.products && @landing_page.products.join(", "), :size => 100
+    = text_field_tag :recommended_products, @landing_page.products && @landing_page.products.join(", "), :size => 100, :class => 'product_autocomplete'
+    %br
+    = products_helper_link
   .actions
     = f.submit :class => 'wymupdate jqui_save'
   :javascript

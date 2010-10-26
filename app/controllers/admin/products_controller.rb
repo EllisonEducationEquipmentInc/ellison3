@@ -194,6 +194,11 @@ class Admin::ProductsController < ApplicationController
 		render :json => (@by_tag + @products).to_json
 	end
 	
+	def product_helper
+	  @products = Product.active.asc(:name).cache
+	  render :partial => "product_helper"
+	end
+	
 	def show_tabs
 	  @product = Product.find(params[:id])
 	  render :partial => "index/tab_block", :locals => {:object => @product}
