@@ -37,7 +37,7 @@
           %td= l product.send("start_date_#{current_system}"), :format => :custom rescue "N/A for #{current_system}"
           %td= l product.send("end_date_#{current_system}"), :format => :custom rescue "N/A for #{current_system}"
           %td= product.life_cycle
-          %td= product.send "orderable_#{current_system}" unless product.life_cycle == 'available'
+          %td= product.send "orderable_#{current_system}"
           %td= product.quantity
           %td= product.systems_enabled.join(", ") rescue ''
           %td= link_to 'Show', admin_product_path(product), :class => 'jqui_show_min'
