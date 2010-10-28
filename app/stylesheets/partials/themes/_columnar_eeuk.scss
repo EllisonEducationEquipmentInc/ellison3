@@ -1,4 +1,4 @@
-// ELLISON EDUCATION UK THEME - use with COLUMNAR LAYOUT ARCHETYPE
+// SIZZIX UK THEME - use with COLUMNAR LAYOUT ARCHETYPE
 
 #root {
   background: url("/images/ui-backgrounds/_#{$system}_root_top.png") repeat-x top;
@@ -9,14 +9,14 @@
 }
 
 #header {
-  margin-top: 0px;
+  margin-top: 10px;
   height:146px;
   
   #logo_masthead {
   	background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
   	display: block;
-  	width: 212px; 
-  	height: 146px;
+  	width: 193px; 
+  	height: 74px;
   	margin: 0;
   	text-indent: -9999em;
   }
