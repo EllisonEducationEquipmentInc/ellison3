@@ -1,29 +1,36 @@
-// ELLISON EDUCATION US THEME - use with COLUMNAR LAYOUT ARCHETYPE
+// SIZZIX UK THEME - use with COLUMNAR LAYOUT ARCHETYPE
+
+#root {
+  background: url("/images/ui-backgrounds/_#{$system}_root_top.png") repeat-x top;
+  
+  .container {
+    
+  }
+}
 
 #header {
-  border-bottom: 3px double $secondary;
-  padding-top:10px;
-  height: 100px;
+  margin-top: 0px;
+  height:146px;
   
   #logo_masthead {
   	background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
   	display: block;
-  	width: 190px; 
-  	height: 88px;
+  	width: 212px; 
+  	height: 146px;
   	margin: 0;
   	text-indent: -9999em;
   }
   
   .container {
     // height: 100px;
-  }
-
+  }  
 }
 
 #footer {
-  background-color: $footer_bg;
+  background: #3887ab url("/images/ui-backgrounds/_#{$system}_footer_top.png") repeat-x top;
   
   .container {
+    background: url("/images/ui-backgrounds/_#{$system}_footer.png") no-repeat center top;
     color: $footer_text;
   
     h3, h4 {
@@ -40,7 +47,8 @@
     }
   
     .column {
-      margin-top: 10px;
+      margin-top: 20px;
+      margin-bottom: 20px;
       height: 205px;
     
       p {
@@ -48,12 +56,14 @@
       }
     }
   
-    .column_left, .column_middle {
-      border-right:thin solid $footer_divider;
+    .column_left, .column_middle { @extend .column;
+      border-right: 1px solid $footer_divider;
     }
   
     .column_middle {
       padding-right: 38px;  // to help push .column_right to it's 'right'-ful position
     }
+    
+    .column_right { @extend .column;}
   }
 }
