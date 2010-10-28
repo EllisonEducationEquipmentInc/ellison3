@@ -72,7 +72,15 @@ HTML
 	  fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|  
 	    render(new_object, :f => builder)  
 	  end  
-	  link_to_function(name, ("add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"), :class => "jqui_new").html_safe
+	  link_to_function(name, ("add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"), :class => "jqui_new add_fields_link").html_safe
+	end
+	
+	def add_fields_function(dom_id, f, association)  		
+	  new_object = f.object.associations[association.to_s].klass.new 
+	  fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|  
+	    render(new_object, :f => builder)  
+	  end  
+	  ("add_fields($('##{dom_id} > a.add_fields_link'), \"#{association}\", \"#{escape_javascript(fields)}\")").html_safe
 	end
 	
 	def link_to_add_tab_collection(name)

@@ -80,7 +80,7 @@ class Tag
 private 
 
   def update_campaign
-    if campaign? && Boolean.set(embed_campaign) && !campaign.blank? && !products.blank?
+    if campaign? && Boolean.set(embed_campaign) && !campaign.blank? && !products.blank? && !campaign.individual
       products.each do |product|
         c = product.campaigns.find(campaign.id) || Campaign.new
         c.write_attributes  campaign.attributes

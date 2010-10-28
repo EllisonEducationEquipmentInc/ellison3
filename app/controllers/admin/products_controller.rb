@@ -190,7 +190,7 @@ class Admin::ProductsController < ApplicationController
 	  else  
 	    []
 		end
-    @products = Product.available.only(:name, :item_num, :id).any_of({:item_num => Regexp.new("^#{params[:term]}.*")}, {:name => Regexp.new("#{params[:term]}", "i")}).asc(:name).limit(20).all.map {|p| {:label => "#{p.item_num} #{p.name}", :value => p.item_num, :id => p.id}}
+    @products = Product.available.only(:name, :item_num, :id, :"msrp_#{current_currency}").any_of({:item_num => Regexp.new("^#{params[:term]}.*")}, {:name => Regexp.new("#{params[:term]}", "i")}).asc(:name).limit(20).all.map {|p| {:label => "#{p.item_num} #{p.name}", :value => p.item_num, :id => p.id, :msrp => p.msrp}}
 		render :json => (@by_tag + @products).to_json
 	end
 	

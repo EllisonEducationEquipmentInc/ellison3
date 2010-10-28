@@ -12,6 +12,7 @@ class Campaign
 	# validations
 	validates :name, :discount, :discount_type, :start_date, :end_date, :systems_enabled, :presence => true
 	validates_numericality_of :discount, :greater_than => 0.0
+	validates_associated :individual_discounts
 	
 	# field definitions
 	field :name
@@ -28,6 +29,9 @@ class Campaign
 	# associations
 	embedded_in :product, :inverse_of => :campaigns
 	embedded_in :tag, :inverse_of => :campaign
+	embeds_many :individual_discounts
+	
+	accepts_nested_attributes_for :individual_discounts, :allow_destroy => true
 		
 	def available?(time = Time.zone.now)
 		start_date <= time && end_date >= time && active && systems_enabled.include?(current_system)

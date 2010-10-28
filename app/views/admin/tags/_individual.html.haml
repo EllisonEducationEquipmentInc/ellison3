@@ -1,0 +1,34 @@
+%li.ui-menu-item
+  = text_field_tag 'individual[][id]', '', :id => nil, :class => 'individual_product_id'
+  = text_field_tag 'individual[][item_num]', '', :placeholder => "item num", :id => nil, :class => 'product_autocomplete'
+  = select_tag 'individual[][discount_type]', options_for_select(Campaign::DISCOUNT_TYPES), :id => nil, :class => 'individual_discount_type'
+  = text_field_tag 'individual[][discount]', '', :placeholder => "discount value", :id => nil, :class => 'individual_discount_value', :onkeyup => "$(this).siblings('input.individual_product_price').val(calculate_sale_price($(this).siblings('input.individual_product_msrp').val(), this.value, $(this).siblings('.individual_discount_type').val()))", :onblur => "add_individual_product();$(this).parent('li').next('li').find('.product_autocomplete').focus();"
+  = text_field_tag 'individual[][msrp]', '', :placeholder => "msrp", :id => nil, :size => 5, :disabled => true, :class => 'individual_product_msrp'
+  = text_field_tag 'individual[][price]', '', :id => nil, :placeholder => "sales price", :class => 'individual_product_price', :disabled => true
+  = link_to_function "remove", "$(this).parent('li').remove()"
+  .product_info
+  :javascript
+    $(".product_autocomplete").autocomplete({
+      source: function(request, response) {
+        $.getJSON("/admin/products/products_autocomplete", {
+          term: extractLast(request.term)
+        }, response);
+      },
+      search: function() {
+        var term = extractLast(this.value);
+        if (term.length < 3) {
+          return false;
+        }
+      },
+      focus: function() {
+        return false;
+      },
+      select: function(event, ui) {
+        this.value = split(ui.item.value).pop(); 
+        $(this).siblings('.product_info').html(ui.item.label+' MSRP: '+ui.item.msrp);
+        $(this).siblings('input.individual_product_msrp').val(ui.item.msrp);
+        $(this).siblings('input.individual_product_id').val(ui.item.id);
+        $(this).siblings('input.individual_discount_value').focus();
+        return false;
+      }
+    });

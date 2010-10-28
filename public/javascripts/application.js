@@ -312,6 +312,27 @@ function extractLast(term) {
 	return split(term).pop();
 }
 
+var single_auto_complete_options = {
+	source: function(request, response) {
+		$.getJSON("/admin/products/products_autocomplete", {
+			term: extractLast(request.term)
+		}, response);
+	},
+	search: function() {
+		var term = extractLast(this.value);
+		if (term.length < 3) {
+			return false;
+		}
+	},
+	focus: function() {
+		return false;
+	},
+	select: function(event, ui) {
+		this.value = split(ui.item.value).pop();	
+		return false;
+	}
+}
+
 var auto_complete_options = {
 	source: function(request, response) {
 		$.getJSON("/admin/products/products_autocomplete", {
@@ -334,14 +355,15 @@ var auto_complete_options = {
 		// remove the current input
 		terms.pop();
 		terms = terms.concat(split(ui.item.value), [""])
-		this.value = compact(terms).join(", ");
+		this.value = uniq(terms).join(", ");
 		var item_nums = split(ui.item.value);
 		for(var i = 0; i < item_nums.length; i++)
 	  { 
 	    $(this).parent().find('.admin_checkboxes [type=checkbox][value='+item_nums[i]+']').attr('checked', true);
 	  }		
 		return false;
-	}};
+	}
+};
 	
 function sortable_tabs(product) {
 	$("#tabs").sortable({update: function(event, ui) {
@@ -423,15 +445,25 @@ function check_items_to_item_num_field(element) {
 		items.splice(items.indexOf(element.value),1);
 	};
 	if (items.indexOf("") >= 0) items.splice(items.indexOf(""),1);
-	text_field.val(compact(items).join(", "));
+	text_field.val(uniq(items).join(", "));
 };
 
 // removes duplicate elements from an array
-function compact(array) {
+function uniq(array) {
 	for(var i = 0; i < array.length; i++)
   { 
 		if (array.indexOf(array[i]) != array.lastIndexOf(array[i])) array.splice(array.lastIndexOf(array[i]),1);
   }
 	return array;
+}
+
+function calculate_sale_price(price, discount, discount_type) {
+	if (discount_type == "0"){
+		return doRound(price - (0.01 * discount * price), 2);
+	} else if (discount_type == "1") {
+		return price - discount > 0 ? price - discount : 0.0;
+	} else if (discount_type == "2") {
+		return discount;
+	}
 }
 
