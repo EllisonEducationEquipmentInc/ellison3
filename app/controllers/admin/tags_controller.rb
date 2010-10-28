@@ -36,8 +36,8 @@ class Admin::TagsController < ApplicationController
   # GET /tags/new
   # GET /tags/new.xml
   def new
-    @tag = Tag.new :tag_type => "special"
-    @tag.build_campaign #:individual_products => [{"id"=>"4caa6c8be1b83209f4000112", "item_num"=>"654359", "discount_type"=>"0", "discount"=>"10"}, {"id"=>"4caa6e2ae1b83209f400012c", "item_num"=>"654395", "discount_type"=>"1", "discount"=>"5"}, {"id"=>"4cbddbb2e1b8323737000005", "item_num"=>"654354", "discount_type"=>"2", "discount"=>"99"}, {"id"=>"", "item_num"=>"", "discount_type"=>"0", "discount"=>""}]
+    @tag = Tag.new
+    @tag.build_campaign
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @tag }
@@ -47,18 +47,20 @@ class Admin::TagsController < ApplicationController
   # GET /tags/1/edit
   def edit
     @tag = Tag.find(params[:id])
+    @tag.build_campaign if @tag.campaign.blank?
   end
 
   # POST /tags
   # POST /tags.xml
   def create
     @tag = Tag.new(params[:tag])
-    # populate_campaign
+    populate_campaign
     respond_to do |format|
       if @tag.save
         format.html { redirect_to(admin_tags_url, :notice => 'Tag was successfully created.') }
         format.xml  { render :xml => @tag, :status => :created, :location => @tag }
       else
+        @tag.build_campaign if @tag.campaign.blank?
         format.html { render :action => "new" }
         format.xml  { render :xml => @tag.errors, :status => :unprocessable_entity }
       end
@@ -73,10 +75,11 @@ class Admin::TagsController < ApplicationController
     @tag.write_attributes(params[:tag])
     populate_campaign
     respond_to do |format|
-      if @tag.update_attributes(params[:tag])
+      if @tag.save #update_attributes(params[:tag])
         format.html { redirect_to(admin_tags_url, :notice => 'Tag was successfully updated.') }
         format.xml  { head :ok }
       else
+        @tag.build_campaign if @tag.campaign.blank?
         format.html { render :action => "edit" }
         format.xml  { render :xml => @tag.errors, :status => :unprocessable_entity }
       end
@@ -105,9 +108,9 @@ private
   def populate_campaign
     if @tag.campaign? 
       @tag.campaign ||= Campaign.new 
-      @tag.campaign.write_attributes(:name => @tag.name, :systems_enabled => @tag.systems_enabled, :start_date => @tag.send("start_date_#{current_system}"), :end_date => @tag.send("end_date_#{current_system}"), :name => @tag.name, :short_desc => @tag.description)
-      # @tag.my_product_ids = params[:individual].map {|e| e["id"]}.reject {|e| e.blank?} if @tag.new_record? && @tag.campaign.individual
+      @tag.campaign.write_attributes(:name => @tag.name, :systems_enabled => @tag.systems_enabled, :start_date => @tag.send("start_date_#{current_system}"), :end_date => @tag.send("end_date_#{current_system}"), :short_desc => @tag.description)
     else
+      params[:tag].delete :campaign
       @tag.campaign = nil
     end
   end

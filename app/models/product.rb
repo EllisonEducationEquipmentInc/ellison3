@@ -7,16 +7,17 @@ class Product
 	include ActiveModel::Translation
 	include Mongoid::Document
 	# NOTE: to be able to skip Versioning and/or Timestamps, use my patched mongoid: git://github.com/computadude/mongoid.git
-	include Mongoid::Versioning
 	include Mongoid::Timestamps
 	include Mongoid::Paranoia
 	
 	include Sunspot::Mongoid
 	
+  # include Mongoid::Versioning
+  # max_versions 5
+	
 	# To have all queries for a model "cache":
   #cache
 	
-	max_versions 5
 	
 	QUANTITY_THRESHOLD = 0
 	LIFE_CYCLES = ['pre-release', 'available', 'discontinued', 'unvailable']
@@ -31,6 +32,7 @@ class Product
 	validate :must_have_msrp
 	
 	before_save :inherit_system_specific_attributes
+	before_save :clean_up_tags
 	
 	# system specific validations
 	ELLISON_SYSTEMS.each do |system|
@@ -372,5 +374,9 @@ private
 	# NOTE: needs git://github.com/computadude/mongoid.git
 	def skip_versioning_and_timestamps
 		self._skip_timestamps = self._skip_versioning = true
+	end
+	
+	def clean_up_tags
+	  self.tag_ids = self.tag_ids.compact.uniq
 	end
 end

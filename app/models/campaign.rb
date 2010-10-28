@@ -10,9 +10,11 @@ class Campaign
 	DISCOUNT_TYPES = [["Percent", 0], ["Absolute", 1], ["Fixed", 2]]
 	
 	# validations
-	validates :name, :discount, :discount_type, :start_date, :end_date, :systems_enabled, :presence => true
-	validates_numericality_of :discount, :greater_than => 0.0
-	validates_associated :individual_discounts
+	validates :name, :start_date, :end_date, :systems_enabled, :presence => true
+	validates_numericality_of :discount, :greater_than => 0.0, :if => Proc.new {|obj| !obj.individual}
+	validates_presence_of :discount, :discount_type, :if => Proc.new {|obj| !obj.individual}
+	
+	accepts_nested_attributes_for :individual_discounts, :allow_destroy => true, :reject_if => proc { |attributes| attributes['product_id'].blank? && attributes['item_num'].blank?}
 	
 	# field definitions
 	field :name
@@ -30,8 +32,8 @@ class Campaign
 	embedded_in :product, :inverse_of => :campaigns
 	embedded_in :tag, :inverse_of => :campaign
 	embeds_many :individual_discounts
-	
-	accepts_nested_attributes_for :individual_discounts, :allow_destroy => true
+		
+	validates_associated :individual_discounts
 		
 	def available?(time = Time.zone.now)
 		start_date <= time && end_date >= time && active && systems_enabled.include?(current_system)
