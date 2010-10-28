@@ -102,6 +102,10 @@ class Product
 		def available
 			active.where(:life_cycle.in => LIFE_CYCLES[0,3], :"start_date_#{current_system}".lte => Time.zone.now, :"end_date_#{current_system}".gte => Time.zone.now)
 		end
+		
+		def find_by_item_num(item_num)
+		  active.where(:item_num => item_num).cache.first
+		end
 	end
 		
 	# define 

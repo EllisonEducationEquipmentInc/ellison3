@@ -80,15 +80,32 @@ class Tag
 private 
 
   def update_campaign
-    if campaign? && Boolean.set(embed_campaign) && !campaign.blank? && !products.blank? && !campaign.individual
-      products.each do |product|
-        c = product.campaigns.find(campaign.id) || Campaign.new
-        c.write_attributes  campaign.attributes
-        c.id = campaign.id
-        c.start_date = Time.zone.local_to_utc campaign.start_date
-        c.end_date = Time.zone.local_to_utc campaign.end_date
-        c.product = product
-        c.save
+    if campaign? && Boolean.set(embed_campaign) && !campaign.blank? && !products.blank?
+      # TODO: DRY
+      if campaign.individual
+        campaign.individual_discounts.each do |individual_discount|
+          product = Product.find(individual_discount.product_id) rescue next
+          c = product.campaigns.find(campaign.id) || Campaign.new
+          c.write_attributes campaign.attributes
+          c.id = campaign.id
+          c.discount_type = individual_discount.discount_type
+          c.discount = individual_discount.discount
+          c.individual_discounts = []
+          c.start_date = Time.zone.local_to_utc campaign.start_date
+          c.end_date = Time.zone.local_to_utc campaign.end_date
+          c.product = product
+          c.save
+        end
+      else
+        products.each do |product|
+          c = product.campaigns.find(campaign.id) || Campaign.new
+          c.write_attributes campaign.attributes
+          c.id = campaign.id
+          c.start_date = Time.zone.local_to_utc campaign.start_date
+          c.end_date = Time.zone.local_to_utc campaign.end_date
+          c.product = product
+          c.save
+        end
       end
     end
   end
