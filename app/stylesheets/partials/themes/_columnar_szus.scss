@@ -1,4 +1,4 @@
-// SIZZIX UK THEME - use with COLUMNAR LAYOUT ARCHETYPE
+// SIZZIX US THEME - use with COLUMNAR LAYOUT ARCHETYPE
 
 #root {
   
@@ -8,14 +8,14 @@
 }
 
 #header {
-  margin-top: 0px;
-  height:146px;
+  margin-top: 8px;
+  height:133px;
   
   #logo_masthead {
   	background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
   	display: block;
-  	width: 212px; 
-  	height: 146px;
+  	width: 165px; 
+  	height: 79px;
   	margin: 0;
   	text-indent: -9999em;
   }
@@ -28,7 +28,7 @@
 #footer {
   
   .container {
-    background: url("/images/ui-backgrounds/_#{$system}_footer.png") no-repeat center top;
+    background: url("/images/ui-backgrounds/_#{$system}_footer_repeat.png") repeat-y center;
     color: $footer_text;
   
     h3, h4 {
@@ -45,7 +45,7 @@
     }
   
     .column {
-      margin-top: 45px;
+      margin-top: 20px;
       margin-bottom: 20px;
       height: 205px;
     

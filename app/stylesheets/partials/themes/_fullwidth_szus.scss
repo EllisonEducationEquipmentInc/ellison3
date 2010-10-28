@@ -1,7 +1,10 @@
 // SIZZIX US THEME - use with FULL WIDTH LAYOUT ARCHETYPE
 
 #root {
-  background: url("/images/ui-backgrounds/_szus_root_repeat.png") center repeat-y;
+  
+  .container {
+    background: url("/images/ui-backgrounds/_#{$system}_root_repeat.png") center repeat-y;
+  }
   
   h1, h2, h3, h4, h5 {
     color: #4e371c;
@@ -9,8 +12,6 @@
 }
 
 #header {
-  height: 140px;
-  background: url("/images/ui-backgrounds/_#{$system}_header.png") center bottom no-repeat;
   
   #logo_masthead {
   	background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
@@ -22,15 +23,19 @@
   }
   
   .container {
+    background: url("/images/ui-backgrounds/_#{$system}_header.png") center bottom no-repeat;
     padding-top:10px;
-    // height: 100px;
+    height: 140px;
   }
 }
 
 #footer {
   bottom: -23px;  // to help aid the sticky footer situation
-  background: url("/images/ui-backgrounds/_#{$system}_footer.png") center repeat-y;
   color: $footer_text;
+  
+  .container {
+    background: url("/images/ui-backgrounds/_#{$system}_footer_repeat.png") center repeat-y;
+  }
   
   h3, h4 {
     color: $footer_headings;
@@ -54,11 +59,13 @@
     }
   }
   
-  .column_left, .column_middle {
+  .column_left, .column_middle { @extend .column;
     border-right:thin solid $footer_divider;
   }
   
   .column_middle {
     padding-right: 38px;  // to help push .column_right to it's 'right'-ful position
   }
+  
+  .column_right { @extend .column }
 }

@@ -6,6 +6,10 @@
 
 .container { @include container; }
 
+.design-gutter { @include column(3); }
+.main { @include column(24); }
+
+
 // content wrapper divs
 .contentwrap_small { @include column(4); }  // 1/6 the width of the page
 .contentwrap_medium { @include column(8); }  // 1/3 the width of the page

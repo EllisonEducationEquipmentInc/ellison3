@@ -1,11 +1,20 @@
 #header
   .container
-    = render 'layouts/masthead'
+    .design-gutter content
+    .main
+      = render 'layouts/masthead'
+    .design-gutter.last content
 #root
   .container
-    #content
-      = render 'layouts/content'
+    .design-gutter content
+    .main
+      #content
+        = render 'layouts/content'
+    .design-gutter.last content
   #root_footer
 #footer
   .container
-    = render 'layouts/footer'
+    .design-gutter content
+    .main
+      = render 'layouts/footer'
+    .design-gutter.last content

@@ -11,7 +11,7 @@ $navutil_text: darken($secondary, 14%);
 $navutil_hover: darken($secondary, 30%);
 $navutil_divider: $quinary;
 
-$footer_text: darken($quinary, 15%);
-$footer_headings: darken($primary, 12%);
-$footer_link_hover: darken($secondary, 25%);
-$footer_divider: $secondary;
+$footer_text: #333;
+$footer_headings: #333;
+$footer_link_hover: darken($secondary, 15%);
+$footer_divider: #c1cda8;
