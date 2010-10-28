@@ -19,6 +19,7 @@ Ellison3::Application.routes.draw do |map|
 		get "materials", :to => "users#materials"
 		get "edit_address", :to => "users#edit_address"
 		get "checkout_requested", :to => "users#checkout_requested"
+		get "quote_requested", :to => "users#quote_requested"
 		get "signin_signup", :to => "users#signin_signup"
 		post "update_address", :to => "users#update_address"
 		post "user_as", :to => "sessions#user_as"
@@ -34,6 +35,7 @@ Ellison3::Application.routes.draw do |map|
 	match 'forget_credit_card' => 'carts#forget_credit_card', :as => :forget_credit_card
 	match 'cart' => 'carts#index', :as => :cart
 	match 'checkout' => 'carts#checkout', :as => :checkout
+	match 'quote' => 'carts#quote', :as => :quote
 	match 'activate_coupon' => 'carts#activate_coupon', :as => :activate_coupon
 	match 'remove_coupon' => 'carts#remove_coupon', :as => :remove_coupon
 	

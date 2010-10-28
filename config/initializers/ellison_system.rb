@@ -163,6 +163,10 @@ module EllisonSystem
 		end
 	end
 	
+	def quote_name
+	  is_er? ? "Pre-order" : "Quote"
+	end
+	
 end
 
 class ActiveRecord::Base

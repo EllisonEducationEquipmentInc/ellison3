@@ -19,6 +19,8 @@ class CartItem
 	field :tax_exempt, :type => Boolean, :default => false
 	field :handling_price, :type => Float, :default => 0.0
 	field :changed_attributes, :type => Array
+	field :pre_order, :type => Boolean, :default => false
+	field :out_of_stock, :type => Boolean, :default => false
 	
 	embedded_in :cart, :inverse_of => :cart_items
 	

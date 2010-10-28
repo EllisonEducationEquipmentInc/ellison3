@@ -32,9 +32,16 @@
       %span.amount#cart_subtotal= number_to_currency gross_price(@cart.sub_total)
   #cart_coupon= render :partial => "carts/coupon"
   %br
+  - if get_cart.pre_order?
+    .cart_messaging There are items in the cart that are available for pre-order only. If you would like to place a pre-order please click "Pre-Order". For immediate shipping please remove these items
   - unless @cart_locked
     #empty_cart Empty Cart
-    #checkout_button= "Checkout"
+    - if chekout_allowed?
+      #checkout_button= "Checkout"
+    - else
+      .save_as_quote Pre-Order
+    - if quote_allowed?
+      .save_as_quote Save as Quote
     :javascript
       $(function() {
         $("#checkout_button").button({icons: {primary: 'ui-icon-check'}})
@@ -53,5 +60,10 @@
       			$.ajax({url:"/carts/remove_from_cart?item_num="+this.id.replace('remove_from_cart_', '')});
       			_gaq.push(['_trackEvent', 'Cart', 'Remove From Cart', this.id.replace('remove_from_cart_', '')]);
       			$(this).button({ disabled: true });
-      		})
+      		}); 
+      		$(".save_as_quote")
+        	  .button({icons: {primary: 'ui-icon-clipboard'}})
+        		.click( function() {
+              $.ajax({url:"#{quote_requested_path}", complete: function(){$.fancybox.resize()}});
+        		});
       });

@@ -67,6 +67,10 @@ class Cart
 		sub_total + tax_amount + shipping_amount + handling_amount
 	end
 	
+	def pre_order?
+	  cart_items.any? {|e| e.pre_order}
+	end
+	
 	def changed_item_attributes
 		self.changed_items.map {|e| e[1]}.flatten.uniq rescue nil
 	end

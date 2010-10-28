@@ -10,12 +10,21 @@ class ApplicationController < ActionController::Base
 	
   layout :get_layout
 
-	helper_method :vat, :gross_price, :calculate_vat, :get_user, :countries, :states, :sort_column, :sort_direction, :ga_tracker_id, :has_write_permissions?, :has_read_permissions?, :admin_systems
+	helper_method :vat, :gross_price, :calculate_vat, :get_user, :countries, :states, :sort_column, :sort_direction, :ga_tracker_id, :has_write_permissions?, :has_read_permissions?, :admin_systems,
+	              :quote_allowed?, :chekout_allowed?
 
 private
 
 	def get_user
 		current_user
+	end
+	
+	def chekout_allowed?
+	  !is_ee_uk? && !get_cart.pre_order?
+	end
+	
+	def quote_allowed?
+	  is_ee?
 	end
 	
 	# TODO: CMS for this

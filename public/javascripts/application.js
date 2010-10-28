@@ -272,7 +272,19 @@ function initialize_buttons(){
 	$(function() {
 		$(".jqui_out_of_stock").button({icons: {primary: 'ui-icon-alert'}});
 	});
+	$(function() {
+		$(".jqui_clipboard").button({icons: {primary: 'ui-icon-clipboard'}});
+	});
 	
+};
+
+function order_comment() {
+	$('#order_comment').click(function() {
+    $(this).find('span').toggleClass('ui-icon-triangle-1-s')
+    $(this).find('span').toggleClass('ui-icon-triangle-1-e')
+    $(this).next().toggle();
+    return false;
+  }).next().hide();
 };
 
 $(function() {

@@ -19,7 +19,7 @@ module ShoppingCart
 			else
 				get_cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.sale_price, :msrp => product.msrp, :price => product.price, 
 				  :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product_id => product.id, :weight => product.weight, 
-				  :tax_exempt => product.tax_exempt, :handling_price => product.handling_price, :volume => product.calculated_volume)
+				  :tax_exempt => product.tax_exempt, :handling_price => product.handling_price, :volume => product.calculated_volume, :pre_order => product.pre_order?, :out_of_stock => product.out_of_stock?)
 			end
 			get_cart.reset_tax_and_shipping true
 			get_cart.apply_coupon_discount

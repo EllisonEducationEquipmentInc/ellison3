@@ -1,5 +1,12 @@
 %tr{:id => "cart_item_#{cart_item.id}"}
-  %td= cart_item.item_num
+  %td{:class => cart_item.pre_order ? 'pre_order' : nil}
+    = cart_item.item_num
+    - if cart_item.pre_order
+      %br
+      Pre-order
+    - elsif cart_item.out_of_stock
+      %br
+      Out of stock
   %td= link_to(image_tag(cart_item.small_image), product_url(:id => cart_item.product_id)) unless cart_item.small_image.blank?
   %td= cart_item.product_id.blank? ? cart_item.name : link_to(cart_item.name, product_url(:id => cart_item.product_id)) 
   %td{:class => get_cart.is_cart_item_changed?(cart_item.id, "quantity") ? 'item_changed' : nil}= cart_item.quantity

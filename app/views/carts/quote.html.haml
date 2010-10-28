@@ -1,0 +1,38 @@
+%h2= @title
+#checkout_shipping
+  %h3 Shipping Info
+  - if get_user.reload.shipping_address
+    = render :partial => 'users/address_info', :locals => {:address_type => "shipping"}
+  - else
+    #new_shipping
+      = form_for(@shipping_address, :as => "#{@shipping_address.address_type}_address", :url => {:action => "create_shipping", :checkout => true}, :remote => true, :html => {:id => "edit_#{@shipping_address.address_type}_address", :method => :post}) do |f|
+        = render :partial => 'users/address_form', :locals => {:f => f}
+        .actions
+          = f.submit "Continue", :class => 'jqui_save'
+.right{:style => "width:400px"}
+  %h3 Shipping Options
+  #shipping_options= render :partial => "shipping_options" if get_user.shipping_address
+  %hr
+  = form_tag({:action => "proceed_quote"}, :remote => true, :method => :post) do
+    .ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
+      %h4.ui-accordion-header.ui-helper-reset#order_comment
+        %span.ui-icon.ui-icon-triangle-1-e
+        = link_to 'Comments', "#"
+      %div= text_area_tag :comments, nil, :style => "width:500px;height:100px;" 
+    = link_to_function "Place #{quote_name}", "$(this).parent('form').submit()", :class => 'jqui_save'
+  :javascript
+    order_comment()
+  %br
+  %br
+%hr
+#checkout_cart
+  .right= link_to 'Edit Cart', cart_path
+  %h3 Items in your cart
+  #cart_contents= render :partial => 'cart'
+  .clear
+  %ul.right.cart_ul
+    %li.ui-menu-item#cart_shipping= render :partial => 'shipping_amount' if get_user.shipping_address
+    %li.ui-menu-item#cart_handling{:style => "display:#{calculate_handling > 0.0 ? 'block' : 'none'}"}= render :partial => 'handling_amount'
+    %li.ui-menu-item#cart_tax= render :partial => 'tax_amount' if get_user.shipping_address
+    %li.ui-menu-item#cart_total= render :partial => 'total_amount' if get_user.shipping_address
+%iframe{:style =>"height:0px;width:0px;visibility:hidden", :src=>"about:blank"} this frame prevents back forward cache

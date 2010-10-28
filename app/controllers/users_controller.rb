@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
 	prepend_before_filter :require_no_authentication, :only => [ :new, :create]
-  prepend_before_filter :authenticate_scope!, :except => [ :new, :create, :checkout_requested, :signin_signup]
+  prepend_before_filter :authenticate_scope!, :except => [ :new, :create, :checkout_requested, :signin_signup, :quote_requested]
   before_filter :trackable
   include Devise::Controllers::InternalHelpers
   
-  ssl_exceptions :signin_signup, :checkout_requested
-  ssl_allowed :signin_signup, :checkout_requested
+  ssl_exceptions :signin_signup, :checkout_requested, :quote_requested
+  ssl_allowed :signin_signup, :checkout_requested, :quote_requested
+
+  verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials], :redirect_to => {:action => :myaccount}
 
   # GET /resource/sign_up  
   def new
@@ -61,7 +63,7 @@ class UsersController < ApplicationController
 		# to open a tab from the url, pass the key in the :tab parameter like this: /myaccount/orders or myaccount/mylists or myaccount/quotes etc.
 		@title = "My Account - Profile"
 		@tabs = [[:billing, "My Billing Info"], [:shipping, "My Shipping Info"], [:orders, "Order Status"], [:mylists, "My List"]]
-		@tabs += [[:quotes, "Quotes"], [:materials, "Materials"]] unless is_sizzix?
+		@tabs += [[:quotes, quote_name.pluralize], [:materials, "Materials"]] unless is_sizzix?
 	end
 	
 	def billing
@@ -115,8 +117,12 @@ class UsersController < ApplicationController
 	end
 	
 	def checkout_requested
-		return unless request.xhr?
 		session[:user_return_to] = checkout_path(:secure => true)
+	end
+	
+	def quote_requested
+	  session[:user_return_to] = quote_path(:secure => true)
+	  render :checkout_requested
 	end
 
 protected

@@ -1,15 +1,15 @@
 class CartsController < ApplicationController
-	before_filter :authenticate_user!, :only => [:checkout, :proceed_checkout]
+	before_filter :authenticate_user!, :only => [:checkout, :proceed_checkout, :quote, :proceed_quote]
 	before_filter :authenticate_admin!, :only => [:custom_price]
 	before_filter :trackable
-	before_filter :no_cache, :only => [:checkout]
-	after_filter(:only => [:checkout, :proceed_checkout]) {|controller| controller.send(:get_cart).reset_item_errors}
+	before_filter :no_cache, :only => [:checkout, :quote]
+	after_filter(:only => [:checkout, :proceed_checkout, :quote, :proceed_quote]) {|controller| controller.send(:get_cart).reset_item_errors}
 	
-	ssl_required :checkout, :proceed_checkout
+	ssl_required :checkout, :proceed_checkout, :quote, :proceed_quote
 	ssl_allowed :index, :get_shipping_options, :change_shipping_method, :copy_shipping_address, :change_shipping_method, :get_shipping_service, :get_shipping_amount, :get_tax_amount, :get_total_amount,
 	  :custom_price, :create_shipping, :create_billing, :activate_coupon, :remove_coupon
 	
-	verify :xhr => true, :only => [:proceed_checkout, :get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon], :redirect_to => {:action => :index}
+	verify :xhr => true, :only => [:proceed_checkout, :get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote], :redirect_to => {:action => :index}
 	
 	def index
 		@title = "Shopping #{I18n.t(:cart).titleize}"
@@ -52,6 +52,15 @@ class CartsController < ApplicationController
 		new_payment
 		@payment.use_saved_credit_card = true if get_user.token && get_user.token.current?
 		expires_now
+	end
+	
+	def quote
+	  redirect_to(catalog_path, :alert => flash[:alert] || I18n.t(:empty_cart)) and return if get_cart.cart_items.blank? || !(quote_allowed? || get_cart.pre_order?)
+		@title = quote_name
+		@cart_locked, @checkout = true, true
+		unless get_user.shipping_address
+			@shipping_address = get_user.shipping_address || get_user.addresses.build(:address_type => "shipping", :email => get_user.email) 
+		end
 	end
 	
 	def create_shipping
@@ -108,6 +117,10 @@ class CartsController < ApplicationController
 			flash[:alert] = @error_message
 			render :js => "window.location.href = '#{catalog_path}'" and return
 		end
+	end
+	
+	def proceed_quote
+	  render :js => "alert('this will process quote')"
 	end
 	
 	def forget_credit_card
