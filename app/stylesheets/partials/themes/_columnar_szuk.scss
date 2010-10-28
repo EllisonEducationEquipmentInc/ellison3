@@ -55,7 +55,7 @@
     }
   
     .column_left, .column_middle { @extend .column;
-      border-right:thin solid $footer_divider;
+      border-right: 1px solid $footer_divider;
     }
   
     .column_middle {
