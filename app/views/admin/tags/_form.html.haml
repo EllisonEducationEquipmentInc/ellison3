@@ -1,0 +1,84 @@
+= form_for([:admin, @tag]) do |f|
+  = f.error_messages
+  .field
+    = f.label :systems_enabled
+    = system_enabled('tag')
+  .field
+    = f.label :active
+    %br
+    = f.check_box :active
+  .field
+    = f.label :tag_type
+    = f.select :tag_type, Tag::TYPES.map {|t| [t.humanize, t]}, {}, :onchange => "if (this.value == 'special') {$('#new_campaign').show();$('#tag_embed_campaign').attr('checked', true)} else {$('#new_campaign').hide()}"
+  #new_campaign{:style => "display:#{@tag.campaign? ? 'block' : 'none'}"}
+    .field
+      = f.label :embed_campaign, "Embed/update campaign"
+      = f.check_box :embed_campaign
+      (if checked, discount will be batch applied to associated products. If not checked, this "campaign" will have no effect on product pricing whatsoever)
+    = f.fields_for :campaign, @tag.campaign do |campaign_fields|
+      .field
+        = campaign_fields.label :individual, "Individual Pricing (each product has individual discount)"
+        = campaign_fields.check_box :individual, :onclick => "update_campaign()"
+      .field.individual
+        %ul#individual
+          = campaign_fields.fields_for :individual_discounts do |individual_discount_fields|
+            = render :partial => 'admin/individual_discounts/individual_discount', :locals => {:f => individual_discount_fields}
+          = link_to_add_fields "Add Product", campaign_fields, :individual_discounts
+          :javascript
+            function add_individual_discount(){
+              #{add_fields_function('individual', campaign_fields, :individual_discounts)}
+            };
+      .field.discount
+        = campaign_fields.label :discount_type
+        = campaign_fields.select :discount_type, Campaign::DISCOUNT_TYPES
+      .field.discount
+        = campaign_fields.label :discount
+        = campaign_fields.text_field :discount
+  .field
+    = f.label :name
+    %br
+    = f.text_field :name
+  .field
+    = f.label "start_date_#{current_system}", "Start Date #{current_system.upcase}", :class => 'overrideable'
+    %br
+    = f.text_field "start_date_#{current_system}", :class => 'datetimepicker'
+  .field
+    = f.label "end_date_#{current_system}", "End Date #{current_system.upcase}", :class => 'overrideable'
+    %br
+    = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
+  .field
+    = f.label :description
+    %br
+    = f.text_area :description
+  %h3 Products
+  %ul#tag_products= render :partial => 'product', :collection => @tag.products
+  = text_field_tag "tag_products_helper"
+  .actions
+    = f.submit :class => 'jqui_save'
+:javascript
+  function update_campaign(){
+    if ($('#tag_campaign_individual').attr('checked')) {$('.discount').hide();$('.individual').show();} else {$('.discount').show();$('.individual').hide()}
+  };
+  
+  $("#tag_products_helper").autocomplete({
+  	source: function(request, response) {
+  		$.getJSON("/admin/products/products_autocomplete", {
+  			term: request.term
+  		}, response);
+  	},
+  	search: function() {
+  		if (this.value.length < 2) {
+  			return false;
+  		}
+  	},
+  	focus: function( event, ui ) {
+    				$( "#tag_products_helper" ).val( ui.item.label );
+    				return false;
+    			},
+  	select: function(event, ui) {
+  	  this.value = '';
+  	  $("#tag_products").append("<li class='ui-menu-item'><a href='#' onclick='$(this).parent().remove();return false;'>x</a> "+ui.item.label+"<input name=\"tag[my_product_ids][]\" type=\"hidden\" value=\""+ui.item.id+"\" /></li>");
+  		return false;
+  	}});
+  
+  update_campaign();
