@@ -103,7 +103,6 @@ class CartsController < ApplicationController
 	
 	def proceed_quote
 	  redirect_to :quote and return unless (quote_allowed? || get_cart.pre_order?) && get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
-	  # TODO: email confirmation
 	  get_cart.update_items true, true
     raise RealTimeCartError, ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
 	  cart_to_quote(:address => get_user.shipping_address)
@@ -118,11 +117,11 @@ class CartsController < ApplicationController
 		@quote.save!
 	  flash[:notice] = "Thank you for your #{quote_name}.  Below is your #{quote_name} receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email."
 		clear_cart
-	  #UserMailer.quote_confirmation(@quote).deliver
+	  UserMailer.quote_confirmation(@quote).deliver
 	  render :js => "window.location.href = '#{myquote_path(@quote)}'"
 	rescue Exception => e
 		@reload_cart = @cart_locked = true if e.exception.class == RealTimeCartError
-		@error_message = e.message #backtrace.join("<br />")
+		@error_message = e.message
 		if get_cart.cart_items.blank?
 			flash[:alert] = @error_message
 			render :js => "window.location.href = '#{catalog_path}'" and return

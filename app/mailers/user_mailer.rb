@@ -4,4 +4,9 @@ class UserMailer < ActionMailer::Base
     @order = order
     mail(:to => order.user.email, :subject => "#{get_domain.capitalize} Order confirmation.")
   end
+  
+  def quote_confirmation(quote)
+    @quote = quote
+    mail(:to => quote.user.email, :subject => "#{get_domain.capitalize} #{quote_name} confirmation.")
+  end
 end
