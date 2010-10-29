@@ -107,7 +107,7 @@ class Cart
 		self.changed_items = nil
 		cart_items.each do |item|
 		  next if item.coupon?
-			product = Product.find item.product_id
+			product = item.product
 			item.write_attributes :sale_price => product.sale_price, :msrp => product.msrp, :currency => current_currency, :small_image => product.small_image, :tax_exempt => product.tax_exempt, :handling_price => product.handling_price
 			item.price = product.price unless item.custom_price
 			if check

@@ -20,7 +20,6 @@ class Order
 	index :created_at
 	index "address.last_name"
 	index "order_items.item_num"
-	index "order_items.product_id"
 	
 	field :status, :default => "New"
 	field :system
@@ -67,7 +66,7 @@ class Order
 	
 	def decrement_items!
 		order_items.each do |item|
-			Product.find(item.product_id).decrement_quantity(item.quantity) rescue next
+			item.product.decrement_quantity(item.quantity) rescue next
 		end
 	end
 

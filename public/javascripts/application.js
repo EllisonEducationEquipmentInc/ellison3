@@ -2,6 +2,7 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 var _gaq = _gaq || [];
+var button_label = button_label || '';
 
 $(function() {
   $(".wymeditor").wymeditor();

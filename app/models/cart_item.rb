@@ -3,7 +3,6 @@ class CartItem
 	include Mongoid::Document
 	
 	field :item_num
-	field :product_id
 	field :name
 	field :msrp, :type => Float
 	field :sale_price, :type => Float
@@ -23,6 +22,7 @@ class CartItem
 	field :out_of_stock, :type => Boolean, :default => false
 	
 	embedded_in :cart, :inverse_of => :cart_items
+	referenced_in :product
 	
 	before_save {|item| item.changed_attributes = item.updated}
 	

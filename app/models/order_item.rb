@@ -3,7 +3,6 @@ class OrderItem
 	include Mongoid::Document
 	
 	field :item_num
-	field :product_id
 	field :name
 	field :locale
 	field :quoted_price, :type => Float
@@ -19,6 +18,7 @@ class OrderItem
 	
 	embedded_in :order, :inverse_of => :order_items
 	embedded_in :quote, :inverse_of => :order_items
+	referenced_in :product
 	
 	def item_total
 		sale_price * quantity

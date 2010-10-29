@@ -12,6 +12,21 @@
     %li= @quote.address.zip_code
     %li= @quote.address.country
     %li= @quote.address.phone
+#checkout_billing
+  - if @quote.can_be_converted?
+    %h3 Billing Info
+    - if get_user.token && get_user.token.current?
+      #tokenized_billing_info= render :partial => 'tokenized_billing_info'
+    - elsif @billing_address
+      #new_billing.notice{:style => "display:none"}
+        = form_for(@billing_address, :as => "#{@billing_address.address_type}_address", :url => {:controller => 'carts', :action => "create_billing", :quote => @quote.id}, :remote => true, :html => {:id => "edit_#{@billing_address.address_type}_address", :method => :post}) do |f|
+          = link_to "same as shipping address", {:controller => 'carts', :action => "copy_shipping_address"}, :remote => true
+          = render :partial => 'users/address_form', :locals => {:f => f}
+          .actions
+            = f.submit "Continue", :class => 'jqui_save'
+    - elsif get_user.billing_address
+      = render :partial => 'users/address_info', :locals => {:address_type => "billing"}
+
 .left
   %h3 Details
   %strong== #{quote_name} Number:
@@ -36,9 +51,9 @@
     %th Item Subtotal
   - @quote.order_items.each do |item|
     %tr{:class => cycle('odd', 'even')}
-      %td= item.item_num
+      %td{:class => item.product.quantity < item.quantity ? 'pre_order' : nil}= item.item_num
       %td= item.name
-      %td= item.quantity
+      %td{:class => item.product.quantity < item.quantity ? 'pre_order' : nil}= item.quantity
       %td= number_to_currency item.sale_price
       %td= number_to_currency item.item_total
 Subtotal:
@@ -55,5 +70,24 @@ Estimated Sales Tax:
 %br
 ESTIMATED TOTAL:
 = number_to_currency @quote.total_amount
+- if @quote.can_be_converted?
+  %hr
+  #checkout_payment
+    #payment_errors.error{:style => "display:none"}
+    %h3 Payment
+    #checkout_cc{:style => "display:none"}= render :partial => 'carts/payment' if get_user.billing_address && @billing_address.blank?
+  %hr
+  #convert_quote_to_order Convert to order
+  :javascript
+    $("#convert_quote_to_order").button({icons: {primary: 'ui-icon-check'}}).click(function() {
+      #{@billing_address.blank? ? "$('#checkout_cc').slideDown('slow')" : "$('#new_billing').slideDown('slow');$('#billing_address_first_name').focus()"};
+      $(this).remove();
+    })
+  - if @quote.order_items.any? {|e| e.product.quantity < e.quantity}
+    .error== Some of the items in your quote are temporarily out of stock.  However, you can still convert your #{quote_name} to an order. A Customer Service Representative will contact you soon with more information regarding these items.
+- else
+  .error== Please Contact Customer Service to convert this #{quote_name} to Order as some of the items in your quote are either out of stock or unavailable at this time.
+%br
+%br
 %br
 - I18n.locale = @current_locale

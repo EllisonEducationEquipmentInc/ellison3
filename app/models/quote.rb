@@ -17,7 +17,6 @@ class Quote
 	index :active
 	index "address.last_name"
 	index "order_items.item_num"
-	index "order_items.product_id"
 
   field :active, :type => Boolean, :default => true
 	field :system
@@ -57,6 +56,14 @@ class Quote
 
 	def total_amount
 		subtotal_amount + shipping_amount + handling_amount + tax_amount
+	end
+	
+	def can_be_converted?
+	  products.count == order_items.count && (is_ee_us? || is_er? && order_items.all? {|e| e.product.available? && e.product.quantity >= e.quantity})
+	end
+	
+	def products
+	  Product.send(current_system).available.any_in(:item_num => order_items.map {|e| e.item_num}).cache
 	end
 
 private

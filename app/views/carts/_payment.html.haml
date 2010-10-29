@@ -1,4 +1,4 @@
-= form_for(@payment, :url => {:action => "proceed_checkout"}, :remote => true, :html => {:id => "proceed_checkout", :method => :post}) do |f|
+= form_for(@payment, :url => {:controller => :carts, :action => @quote ? "quote_2_order" : "proceed_checkout", :id => @quote}, :remote => true, :html => {:id => "proceed_checkout", :method => :post}) do |f|
   = f.error_messages
   - if get_user.token && get_user.token.current?
     %strong Credit Card on file:

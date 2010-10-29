@@ -62,6 +62,43 @@ class CartsController < ApplicationController
 			@shipping_address = get_user.shipping_address || get_user.addresses.build(:address_type => "shipping", :email => get_user.email) 
 		end
 	end
+	
+	# TODO: DRY order setters
+	def quote_2_order
+	  @quote = get_user.quotes.active.where(:system => current_system, :_id => BSON::ObjectId(params[:id])).first
+	  redirect_to root_url and return unless get_user.billing_address && @quote && request.xhr? && request.post?
+	  render :js => "window.location.href = '#{myquote_path(@quote)}'" and return unless @quote.can_be_converted?
+  	new_payment
+		@payment.attributes = params[:payment]
+		@order = Order.new
+		@order.copy_common_attributes @quote
+		@order.order_items = @quote.order_items
+		process_card(:amount => (get_cart.total * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true)
+		@order.payment = @payment
+		@order.address = get_user.shipping_address.clone
+		@order.user = get_user
+		@order.ip_address = request.remote_ip
+		@order.status = "Open"
+		@order.comments = params[:comments]
+		if admin_signed_in?
+		  @order.customer_rep = current_admin.name
+		  @order.customer_rep_id = current_admin.id
+		end
+		if @payment.save_credit_card
+		  get_user.token = Token.new :last_updated => Time.zone.now, :status => "CURRENT"
+		  get_user.token.copy_common_attributes @payment, :status
+		  get_user.save
+		end
+		@order.save!
+		@quote.update_attributes :active => false
+		@order.decrement_items!
+		flash[:notice] = "Thank you for your order.  Below is your order receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email."
+		UserMailer.order_confirmation(@order).deliver
+		render "checkout_complete"
+	rescue Exception => e
+		@reload_cart = @cart_locked = true if e.exception.class == RealTimeCartError
+		@error_message = e.message #backtrace.join("<br />")
+	end
 		
 	def proceed_checkout
 	  redirect_to :checkout and return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
@@ -139,6 +176,7 @@ class CartsController < ApplicationController
 	def create_billing
 		@billing_address = get_user.addresses.build(:address_type => "billing")
 		@billing_address.attributes = params[:billing_address]
+		@quote = params[:quote] unless params[:quote].blank?
 		new_payment
 	end
 	

@@ -89,7 +89,9 @@ class Product
 	embeds_many :images
 	
 	references_many :tags, :stored_as => :array, :inverse_of => :products, :index => true
-  	
+  references_many :order_items, :index => true
+  references_many :cart_items, :index => true
+  
 	# scopes
 	scope :active, :where => { :active => true }
 	scope :inactive, :where => { :active => false }

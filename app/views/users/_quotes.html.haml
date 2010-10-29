@@ -8,6 +8,7 @@
         %th== #{quote_name} Number
         %th Amount
         %th Expires
+        %th Available to Order?
       - @quotes.each do |quote|
         - I18n.locale = quote.locale
         %tr{:class => cycle('odd', 'even')}
@@ -15,6 +16,7 @@
           %td= link_to quote.id, myquote_path(quote, :page => params[:page])
           %td= number_to_currency quote.total_amount
           %td= l quote.expires_at, :format => :custom
+          %td= quote.can_be_converted? ? "YES" : "--"
   - I18n.locale = current_locale
   = will_paginate @quotes, :class => 'pagination ajax'
 :javascript
