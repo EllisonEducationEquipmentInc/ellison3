@@ -2,7 +2,11 @@
 //EDIT!!! this stylesheet may need to be broken up & modularized
 
 body.bp {
-  background: url("/images/ui-backgrounds/_#{$system}_site.png");
+  @if $system == er {
+    background: url("/images/ui-backgrounds/_#{$system}_site.jpg") no-repeat center bottom fixed ;
+  } @else {
+    background: url("/images/ui-backgrounds/_#{$system}_site.png");
+  }
   
   h1, h2, h3, h4, h5 {
     font-family: 'Vollkorn', "Times New Roman", serif;
@@ -95,7 +99,6 @@ body.bp {
       }
     }
   }
-  
 }
 
 #content {
