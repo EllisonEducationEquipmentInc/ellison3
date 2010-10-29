@@ -21,6 +21,7 @@
       %div= text_area_tag :comments, nil, :style => "width:500px;height:100px;" 
     = link_to_function "Place #{quote_name}", "$(this).parent('form').submit()", :class => 'jqui_save', :id => 'payment_submit'
   :javascript
+    var button_label = "Place #{quote_name}";
     order_comment()
   %br
   %br
