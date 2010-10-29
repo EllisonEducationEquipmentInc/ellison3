@@ -19,7 +19,7 @@
         %span.ui-icon.ui-icon-triangle-1-e
         = link_to 'Comments', "#"
       %div= text_area_tag :comments, nil, :style => "width:500px;height:100px;" 
-    = link_to_function "Place #{quote_name}", "$(this).parent('form').submit()", :class => 'jqui_save'
+    = link_to_function "Place #{quote_name}", "$(this).parent('form').submit()", :class => 'jqui_save', :id => 'payment_submit'
   :javascript
     order_comment()
   %br

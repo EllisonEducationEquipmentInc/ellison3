@@ -55,6 +55,7 @@ class CartsController < ApplicationController
 	end
 	
 	def quote
+	  # TODO: real time cart
 	  redirect_to(catalog_path, :alert => flash[:alert] || I18n.t(:empty_cart)) and return if get_cart.cart_items.blank? || !(quote_allowed? || get_cart.pre_order?)
 		@title = quote_name
 		@cart_locked, @checkout = true, true
@@ -62,25 +63,7 @@ class CartsController < ApplicationController
 			@shipping_address = get_user.shipping_address || get_user.addresses.build(:address_type => "shipping", :email => get_user.email) 
 		end
 	end
-	
-	def create_shipping
-		get_cart.reset_tax_and_shipping(true)
-		@shipping_address = get_user.addresses.build(:address_type => "shipping")
-		@shipping_address.attributes = params[:shipping_address]
-		@billing_address = get_user.addresses.build(:address_type => "billing", :email => get_user.email)
-	end
-	
-	def create_billing
-		@billing_address = get_user.addresses.build(:address_type => "billing")
-		@billing_address.attributes = params[:billing_address]
-		new_payment
-	end
-	
-	def copy_shipping_address
-		@billing_address = get_user.addresses.build(get_user.shipping_address.attributes)
-		@billing_address.address_type = "billing"
-	end
-	
+		
 	def proceed_checkout
 	  redirect_to :checkout and return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
 		get_cart.update_items true
@@ -121,6 +104,24 @@ class CartsController < ApplicationController
 	
 	def proceed_quote
 	  render :js => "alert('this will process quote')"
+	end
+	
+	def create_shipping
+		get_cart.reset_tax_and_shipping(true)
+		@shipping_address = get_user.addresses.build(:address_type => "shipping")
+		@shipping_address.attributes = params[:shipping_address]
+		@billing_address = get_user.addresses.build(:address_type => "billing", :email => get_user.email)
+	end
+	
+	def create_billing
+		@billing_address = get_user.addresses.build(:address_type => "billing")
+		@billing_address.attributes = params[:billing_address]
+		new_payment
+	end
+	
+	def copy_shipping_address
+		@billing_address = get_user.addresses.build(get_user.shipping_address.attributes)
+		@billing_address.address_type = "billing"
 	end
 	
 	def forget_credit_card

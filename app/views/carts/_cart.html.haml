@@ -32,9 +32,9 @@
       %span.amount#cart_subtotal= number_to_currency gross_price(@cart.sub_total)
   #cart_coupon= render :partial => "carts/coupon"
   %br
-  - if get_cart.pre_order?
-    .cart_messaging There are items in the cart that are available for pre-order only. If you would like to place a pre-order please click "Pre-Order". For immediate shipping please remove these items
   - unless @cart_locked
+    - if get_cart.pre_order?
+      .cart_messaging There are items in the cart that are available for pre-order only. If you would like to place a pre-order please click "Pre-Order". For immediate shipping please remove these items
     #empty_cart Empty Cart
     - if chekout_allowed?
       #checkout_button= "Checkout"
