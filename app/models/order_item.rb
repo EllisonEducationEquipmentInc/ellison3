@@ -18,6 +18,7 @@ class OrderItem
 	field :outlet, :type => Boolean, :default => false
 	
 	embedded_in :order, :inverse_of => :order_items
+	embedded_in :quote, :inverse_of => :order_items
 	
 	def item_total
 		sale_price * quantity

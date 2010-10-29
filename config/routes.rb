@@ -11,6 +11,7 @@ Ellison3::Application.routes.draw do |map|
     # get "myaccount", :to => "users#myaccount"
 		match "myaccount(/:tab)", :to => "users#myaccount", :as => :myaccount
 		match "myaccount/order/:id", :to => "users#order", :as => :order
+		match "myaccount/quote/:id", :to => "users#quote", :as => :myquote
 		get "billing", :to => "users#billing"
 		get "shipping", :to => "users#shipping"
 		get "mylists", :to => "users#mylists"

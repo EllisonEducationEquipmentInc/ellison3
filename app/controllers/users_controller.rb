@@ -76,7 +76,7 @@ class UsersController < ApplicationController
 	
 	def orders
 	  @current_locale = current_locale
-		@orders = get_user.orders.desc(:created_at).paginate(:page => params[:page], :per_page => 10)
+		@orders = get_user.orders.where(:system => current_system).desc(:created_at).paginate(:page => params[:page], :per_page => 10)
 		render :partial => 'order_status'
 	end
 	
@@ -88,12 +88,22 @@ class UsersController < ApplicationController
 		redirect_to(myaccount_path('orders'))
 	end
 	
-	def mylists
-		render :partial => 'mylists'
+	def quotes
+	  @current_locale = current_locale
+		@quotes = get_user.quotes.active.where(:system => current_system).desc(:created_at).paginate(:page => params[:page], :per_page => 10)
+		render :partial => 'quotes'
 	end
 	
-	def quotes
-		render :partial => 'quotes'
+	def quote
+	  @current_locale = current_locale
+		@quote = get_user.quotes.active.where(:system => current_system, :_id => BSON::ObjectId(params[:id])).first
+		@title = "#{quote_name}: #{@quote.id}"
+  rescue
+    redirect_to(myaccount_path('quotes'))
+	end
+	
+	def mylists
+		render :partial => 'mylists'
 	end
 	
 	def materials

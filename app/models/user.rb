@@ -14,6 +14,7 @@ class User
 	attr_accessible :name, :email, :password, :password_confirmation
 
 	references_many :orders, :index => true
+	references_many :quotes, :index => true
 	
 	index :email
 	index :systems_enabled

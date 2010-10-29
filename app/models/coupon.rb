@@ -42,6 +42,7 @@ class Coupon
 	
 	references_many :carts
 	references_many :orders, :index => true
+	references_many :quotes, :index => true
 
 	validates :name, :codes, :systems_enabled, :level, :presence => true
 	validates_inclusion_of :level, :in => LEVELS, :message => "extension %s is not included in the list"

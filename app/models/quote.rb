@@ -1,28 +1,25 @@
-class Order
+class Quote
 	include EllisonSystem
   include Mongoid::Document
 	include Mongoid::Timestamps
 	include ActiveModel::Validations
 	include ActiveModel::Translation
-	
-	STATUSES = ["New", "Pending", "Open", "Processing", "In Process", "Shipped", "To Refund", "Refunded", "Cancelled"]
-	
-	validates :status, :subtotal_amount, :shipping_amount, :tax_amount, :address, :order_items, :payment, :presence => true
-	
-	embeds_one :payment
+
+  validates :subtotal_amount, :shipping_amount, :tax_amount, :address, :order_items, :presence => true
+
 	embeds_one :address
 	embeds_many :order_items
 	referenced_in :user
 	referenced_in :coupon
-	
-	index :status 
+
 	index :system
 	index :created_at
+	index :active
 	index "address.last_name"
 	index "order_items.item_num"
 	index "order_items.product_id"
-	
-	field :status, :default => "New"
+
+  field :active, :type => Boolean, :default => true
 	field :system
 	field :locale
 	field :ip_address
@@ -38,42 +35,37 @@ class Order
 	field :tax_calculated_at, :type => DateTime
 	field :tax_commited, :type => Boolean, :default => false
 	field :to_review, :type => Boolean, :default => false
-	field :purchase_order
-	
+
 	field :shipping_priority, :default => "Normal"
 	field :shipping_service
 	field :shipping_overridden, :type => Boolean, :default => false
-	field :tracking_number
-	field :tracking_url
-	field :estimated_ship_date, :type => Date
 	field :comments
 	field :internal_comments
 	field :customer_rep
 	field :customer_rep_id, :type => BSON::ObjectId
-	
-	field :clickid
-	field :utm_source
-	field :tracking
-	
+
+  field :expires_at, :type => DateTime
+
 	ELLISON_SYSTEMS.each do |sys|
 		scope sys.to_sym, :where => { :system => sys }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex
 	end
 	
+	scope :active, lambda { where(:active => true, :expires_at.gt => Time.zone.now) }
+
 	before_create :set_system
-	
+	before_create :set_expires_at
+
 	def total_amount
 		subtotal_amount + shipping_amount + handling_amount + tax_amount
 	end
-	
-	def decrement_items!
-		order_items.each do |item|
-			Product.find(item.product_id).decrement_quantity(item.quantity) rescue next
-		end
-	end
 
 private
-	
+
 	def set_system
 		self.system ||= current_system
+	end
+	
+	def set_expires_at
+	  self.expires_at = is_ee? ? 90.days.from_now : 6.months.from_now
 	end
 end

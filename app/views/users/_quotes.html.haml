@@ -1,1 +1,24 @@
-TODO
+#quotes
+  - if @quotes.blank?
+    == You have no #{quote_name.pluralize} yet
+  - else
+    %table
+      %tr
+        %th== #{quote_name} Date
+        %th== #{quote_name} Number
+        %th Amount
+        %th Expires
+      - @quotes.each do |quote|
+        - I18n.locale = quote.locale
+        %tr{:class => cycle('odd', 'even')}
+          %td= l quote.created_at, :format => :custom
+          %td= link_to quote.id, myquote_path(quote, :page => params[:page])
+          %td= number_to_currency quote.total_amount
+          %td= l quote.expires_at, :format => :custom
+  - I18n.locale = current_locale
+  = will_paginate @quotes, :class => 'pagination ajax'
+:javascript
+  $(document).ready(function(){
+    $("#quotes").css({ opacity: 1.0 });
+    $('.pagination.ajax a').click(function() {$("#quotes").css({ opacity: 0.3 });this.innerHTML='#{escape_javascript spinner}';$('#quotes').load(this.href);return false;})
+  });

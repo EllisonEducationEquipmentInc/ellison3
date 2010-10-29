@@ -175,4 +175,13 @@ private
     ELLISON_SYSTEMS.select {|s| has_read_permissions?(s)} & current_admin.systems_enabled
   end
   
+  def generate_code(num_length = 4, alpha_length = 6)
+    letters = ("A".."Z").to_a 
+    numbers = ("0".."9").to_a
+    code = ""
+    1.upto(num_length) { |i| code << letters[rand(letters.size-1)] }
+    1.upto(6) { |alpha_length| code << numbers[rand(numbers.size-1)] }
+    code
+  end
+  
 end
