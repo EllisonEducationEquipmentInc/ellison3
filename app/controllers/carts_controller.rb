@@ -102,8 +102,10 @@ class CartsController < ApplicationController
 	end
 	
 	def proceed_quote
-	  # TODO: real time cart, email confirmation
-    # raise RealTimeCartError, ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
+	  redirect_to :quote and return unless (quote_allowed? || get_cart.pre_order?) && get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
+	  # TODO: email confirmation
+	  get_cart.update_items true, true
+    raise RealTimeCartError, ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
 	  cart_to_quote(:address => get_user.shipping_address)
 	  @quote.address = get_user.shipping_address.clone
 		@quote.user = get_user

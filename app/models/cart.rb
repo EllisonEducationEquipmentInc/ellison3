@@ -96,7 +96,7 @@ class Cart
 	end
 		
 	# to adjust qty and remove unavailable items and prompt user, pass true in the argument
-	def update_items(check = false)
+	def update_items(check = false, quote = false)
 		return if cart_items.blank?
 		Rails.logger.info "Cart: cart items are being updated"
 		if check && cart_items.any?(&:coupon_price)
@@ -111,7 +111,11 @@ class Cart
 			item.write_attributes :sale_price => product.sale_price, :msrp => product.msrp, :currency => current_currency, :small_image => product.small_image, :tax_exempt => product.tax_exempt, :handling_price => product.handling_price
 			item.price = product.price unless item.custom_price
 			if check
-				item.quantity = product.unavailable? ? 0 : product.quantity if product.unavailable? || product.quantity < item.quantity
+			  if quote
+			    item.quantity = 0 if !product.available?
+			  else
+			   	item.quantity = product.unavailable? ? 0 : product.quantity if product.unavailable? || product.quantity < item.quantity
+			  end
 			end
 		end
 		if check
