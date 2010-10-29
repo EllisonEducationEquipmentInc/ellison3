@@ -6,9 +6,7 @@
     %title Ellison3 Dashboard
     = render 'layouts/common_head'
   %body.bp
-    - if is_sizzix_us?
-      = render 'layouts/archetype_fullwidth'
-    - elsif is_er?
+    - if is_er?
       = render 'layouts/archetype_cardpanels'
     - else
       = render 'layouts/archetype_columnar'
