@@ -16,7 +16,7 @@
   - if @quote.can_be_converted?
     %h3 Billing Info
     - if get_user.token && get_user.token.current?
-      #tokenized_billing_info= render :partial => 'tokenized_billing_info'
+      #tokenized_billing_info= render :partial => 'carts/tokenized_billing_info'
     - elsif @billing_address
       #new_billing.notice{:style => "display:none"}
         = form_for(@billing_address, :as => "#{@billing_address.address_type}_address", :url => {:controller => 'carts', :action => "create_billing", :quote => @quote.id}, :remote => true, :html => {:id => "edit_#{@billing_address.address_type}_address", :method => :post}) do |f|

@@ -58,6 +58,27 @@ module ShoppingCart
 			order
 		end
 		
+		def process_order(order)
+		  order.address = get_user.shipping_address.clone
+  		order.user = get_user
+  		order.ip_address = request.remote_ip
+  		# TODO: order status logic
+  		order.status = "Open" if order.is_a?(Order)
+  		order.comments = params[:comments] if params
+  		if admin_signed_in?
+  		  order.customer_rep = current_admin.name
+  		  order.customer_rep_id = current_admin.id
+  		end
+  		if order.respond_to?(:payment) && order.payment && order.payment.save_credit_card
+  		  get_user.token = Token.new :last_updated => Time.zone.now, :status => "CURRENT"
+  		  get_user.token.copy_common_attributes order.payment, :status
+  		  get_user.save
+  		end
+  		order.save!
+  		order.decrement_items! if order.is_a?(Order)
+  		flash[:notice] = "Thank you for your #{order.is_a?(Order) ? 'order' : quote_name}.  Below is your order receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email."
+		end
+		
 		# TODO: UK shipping
 		def calculate_shipping(address, options={})
 			return get_cart.shipping_amount if get_cart.shipping_amount
@@ -211,6 +232,7 @@ module ShoppingCart
 				  @net_response = @gateway.recurring_billing(0, credit_card, gw_options)
 				  Rails.logger.info @net_response
 				elsif billing.use_saved_credit_card
+				  Rails.logger.info "use_saved_credit_card: #{amount_to_charge}, #{gw_options}"
 				  @net_response = @gateway.pay_on_demand amount_to_charge, gw_options
 				elsif billing.deferred
 					@net_response = @gateway.recurring_billing(amount_to_charge, credit_card, gw_options)  
@@ -302,6 +324,20 @@ module ShoppingCart
         @net_response = @gateway.retreive_customer_info options
       end
       @net_response
+    end
+    
+    # updates current user's payment/subscription token from cybersource
+    def update_user_token
+      if get_user.token && !get_user.token.current?
+  		  get_tokenized_billing_info :subscription_id => get_user.token.subscriptionid, :order_id =>  get_user.id
+  		  if @net_response.success? && @net_response.params['status'] == 'CURRENT'
+  		    get_user.token.update_attributes :status => "CURRENT",  :card_number => @net_response.params['cardAccountNumber'], :card_name => get_gateway.cc_code_to_cc(@net_response.params['cardType']), :card_expiration_month => @net_response.params['cardExpirationMonth'],
+  		      :card_expiration_year => @net_response.params['cardExpirationYear'], :first_name => @net_response.params['firstName'], :last_name => @net_response.params['lastName'], :city => @net_response.params['city'], :country => @net_response.params['country'], :address1 => @net_response.params['street1'],
+  		      :zip_code => @net_response.params['postalCode'], :state => @net_response.params['state'], :email => @net_response.params['email'], :last_updated => Time.zone.now
+  		  else
+  		    get_user.token.delete
+  		  end
+  		end
     end
 
 		def correct_card_name(card_name)
@@ -398,6 +434,14 @@ module ShoppingCart
 		  end   
 		  date
 		end
+		
+		def new_payment
+  		@payment = Payment.new
+  		@payment.attributes = get_user.billing_address.attributes if get_user.billing_address
+  		@payment.use_saved_credit_card = true if get_user.token && get_user.token.current?
+  		@payment.attributes = params[:payment] if params[:payment]
+  		@payment.subscriptionid = get_user.token.subscriptionid if get_user.token && get_user.token.current?
+  	end
 
 		class Config
 	    attr_reader :name, :user_name, :password

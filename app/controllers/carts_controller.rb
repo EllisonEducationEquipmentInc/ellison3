@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-	before_filter :authenticate_user!, :only => [:checkout, :proceed_checkout, :quote, :proceed_quote]
+	before_filter :authenticate_user!, :only => [:checkout, :proceed_checkout, :quote, :proceed_quote, :quote_2_order]
 	before_filter :authenticate_admin!, :only => [:custom_price]
 	before_filter :trackable
 	before_filter :no_cache, :only => [:checkout, :quote]
@@ -9,7 +9,7 @@ class CartsController < ApplicationController
 	ssl_allowed :index, :get_shipping_options, :change_shipping_method, :copy_shipping_address, :change_shipping_method, :get_shipping_service, :get_shipping_amount, :get_tax_amount, :get_total_amount,
 	  :custom_price, :create_shipping, :create_billing, :activate_coupon, :remove_coupon
 	
-	verify :xhr => true, :only => [:proceed_checkout, :get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote], :redirect_to => {:action => :index}
+	verify :xhr => true, :only => [:proceed_checkout, :get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :quote_2_order], :redirect_to => {:action => :index}
 	
 	def index
 		@title = "Shopping #{I18n.t(:cart).titleize}"
@@ -39,18 +39,8 @@ class CartsController < ApplicationController
 			@shipping_address = get_user.shipping_address || get_user.addresses.build(:address_type => "shipping", :email => get_user.email) 
 			@billing_address = get_user.billing_address || get_user.addresses.build(:address_type => "billing", :email => get_user.email) 
 		end
-		if get_user.token && !get_user.token.current?
-		  get_tokenized_billing_info :subscription_id => get_user.token.subscriptionid, :order_id =>  get_user.id
-		  if @net_response.success? && @net_response.params['status'] == 'CURRENT'
-		    get_user.token.update_attributes :status => "CURRENT",  :card_number => @net_response.params['cardAccountNumber'], :card_name => get_gateway.cc_code_to_cc(@net_response.params['cardType']), :card_expiration_month => @net_response.params['cardExpirationMonth'],
-		      :card_expiration_year => @net_response.params['cardExpirationYear'], :first_name => @net_response.params['firstName'], :last_name => @net_response.params['lastName'], :city => @net_response.params['city'], :country => @net_response.params['country'], :address1 => @net_response.params['street1'],
-		      :zip_code => @net_response.params['postalCode'], :state => @net_response.params['state'], :email => @net_response.params['email'], :last_updated => Time.zone.now
-		  else
-		    get_user.token.delete
-		  end
-		end
+    update_user_token
 		new_payment
-		@payment.use_saved_credit_card = true if get_user.token && get_user.token.current?
 		expires_now
 	end
 	
@@ -63,36 +53,22 @@ class CartsController < ApplicationController
 		end
 	end
 	
-	# TODO: DRY order setters
 	def quote_2_order
 	  @quote = get_user.quotes.active.where(:system => current_system, :_id => BSON::ObjectId(params[:id])).first
 	  redirect_to root_url and return unless get_user.billing_address && @quote && request.xhr? && request.post?
-	  render :js => "window.location.href = '#{myquote_path(@quote)}'" and return unless @quote.can_be_converted?
+	  unless @quote.can_be_converted?
+	    flash[:alert] = "Your quote cannot be converted to an order this time. Please try again later."
+	    render :js => "window.location.href = '#{myquote_path(@quote)}'" and return
+	  end
   	new_payment
-		@payment.attributes = params[:payment]
 		@order = Order.new
 		@order.copy_common_attributes @quote
 		@order.order_items = @quote.order_items
-		process_card(:amount => (get_cart.total * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true)
+		process_card(:amount => (@quote.total_amount * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true)
 		@order.payment = @payment
-		@order.address = get_user.shipping_address.clone
-		@order.user = get_user
-		@order.ip_address = request.remote_ip
-		@order.status = "Open"
-		@order.comments = params[:comments]
-		if admin_signed_in?
-		  @order.customer_rep = current_admin.name
-		  @order.customer_rep_id = current_admin.id
-		end
-		if @payment.save_credit_card
-		  get_user.token = Token.new :last_updated => Time.zone.now, :status => "CURRENT"
-		  get_user.token.copy_common_attributes @payment, :status
-		  get_user.save
-		end
-		@order.save!
+		@order.quote = @quote
+		process_order @order
 		@quote.update_attributes :active => false
-		@order.decrement_items!
-		flash[:notice] = "Thank you for your order.  Below is your order receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email."
 		UserMailer.order_confirmation(@order).deliver
 		render "checkout_complete"
 	rescue Exception => e
@@ -105,27 +81,10 @@ class CartsController < ApplicationController
 		get_cart.update_items true
 		raise RealTimeCartError, ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
 		new_payment
-		@payment.attributes = params[:payment]
 		cart_to_order(:address => get_user.shipping_address)
 		process_card(:amount => (get_cart.total * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true)
 		@order.payment = @payment
-		@order.address = get_user.shipping_address.clone
-		@order.user = get_user
-		@order.ip_address = request.remote_ip
-		@order.status = "Open"
-		@order.comments = params[:comments]
-		if admin_signed_in?
-		  @order.customer_rep = current_admin.name
-		  @order.customer_rep_id = current_admin.id
-		end
-		if @payment.save_credit_card
-		  get_user.token = Token.new :last_updated => Time.zone.now, :status => "CURRENT"
-		  get_user.token.copy_common_attributes @payment, :status
-		  get_user.save
-		end
-		@order.save!
-		@order.decrement_items!
-		flash[:notice] = "Thank you for your order.  Below is your order receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email."
+    process_order(@order)
 		clear_cart
 		UserMailer.order_confirmation(@order).deliver
 		render "checkout_complete"
@@ -143,16 +102,7 @@ class CartsController < ApplicationController
 	  get_cart.update_items true, true
     raise RealTimeCartError, ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
 	  cart_to_quote(:address => get_user.shipping_address)
-	  @quote.address = get_user.shipping_address.clone
-		@quote.user = get_user
-		@quote.ip_address = request.remote_ip
-		@quote.comments = params[:comments]
-		if admin_signed_in?
-		  @quote.customer_rep = current_admin.name
-		  @quote.customer_rep_id = current_admin.id
-		end
-		@quote.save!
-	  flash[:notice] = "Thank you for your #{quote_name}.  Below is your #{quote_name} receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email."
+    process_order @quote
 		clear_cart
 	  UserMailer.quote_confirmation(@quote).deliver
 	  render :js => "window.location.href = '#{myquote_path(@quote)}'"
@@ -187,6 +137,7 @@ class CartsController < ApplicationController
 	
 	def forget_credit_card
 	  get_user.token.delete
+	  @quote = params[:quote] unless params[:quote].blank?
 	  new_payment
 	end
 	
@@ -259,8 +210,5 @@ class CartsController < ApplicationController
 
 private
 	
-	def new_payment
-		@payment = Payment.new
-		@payment.attributes = get_user.billing_address.attributes if get_user.billing_address
-	end
+
 end

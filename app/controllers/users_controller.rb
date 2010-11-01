@@ -99,6 +99,7 @@ class UsersController < ApplicationController
 		@quote = get_user.quotes.active.where(:system => current_system, :_id => BSON::ObjectId(params[:id])).first
 		@title = "#{quote_name}: #{@quote.id}"
 		@billing_address = get_user.addresses.build(:address_type => "billing", :email => get_user.email) if get_user.billing_address.blank?
+		update_user_token
 		new_payment
   rescue
     redirect_to(myaccount_path('quotes'))
@@ -137,12 +138,6 @@ class UsersController < ApplicationController
 	  render :checkout_requested
 	end
 	
-private
-
-	def new_payment
-		@payment = Payment.new
-		@payment.attributes = get_user.billing_address.attributes if get_user.billing_address
-	end
 	
 protected
 

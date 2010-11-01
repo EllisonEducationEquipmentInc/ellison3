@@ -14,6 +14,7 @@ class Order
 	embeds_many :order_items
 	referenced_in :user
 	referenced_in :coupon
+	referenced_in :quote
 	
 	index :status 
 	index :system

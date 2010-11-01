@@ -1,11 +1,11 @@
-= form_for(@payment, :url => {:controller => :carts, :action => @quote ? "quote_2_order" : "proceed_checkout", :id => @quote}, :remote => true, :html => {:id => "proceed_checkout", :method => :post}) do |f|
+= form_for(@payment, :url => {:controller => :carts, :action => @quote ? "quote_2_order" : "proceed_checkout", :id => @quote, :secure => true}, :remote => true, :html => {:id => "proceed_checkout", :method => :post}) do |f|
   = f.error_messages
   - if get_user.token && get_user.token.current?
     %strong Credit Card on file:
     .field
       = get_user.token.card_name
       = get_user.token.card_number
-      = link_to "forget/use another one", forget_credit_card_path, :remote => true
+      = link_to "forget/use another one", forget_credit_card_path(:quote => @quote), :remote => true
       = f.hidden_field :use_saved_credit_card
   - else
     .left.field
