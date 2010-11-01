@@ -62,7 +62,7 @@ class Order
 	before_create :set_system
 	
 	def total_amount
-		subtotal_amount + shipping_amount + handling_amount + tax_amount
+		(subtotal_amount + shipping_amount + handling_amount + tax_amount).round(2)
 	end
 	
 	def decrement_items!

@@ -64,7 +64,7 @@ class CartsController < ApplicationController
 		@order = Order.new
 		@order.copy_common_attributes @quote, :created_at
 		@order.order_items = @quote.order_items
-		process_card(:amount => (@quote.total_amount * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true)
+		process_card(:amount => (@quote.total_amount * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?)
 		@order.payment = @payment
 		@order.quote = @quote
 		process_order @order
@@ -82,7 +82,7 @@ class CartsController < ApplicationController
 		raise RealTimeCartError, ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
 		new_payment
 		cart_to_order(:address => get_user.shipping_address)
-		process_card(:amount => (get_cart.total * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true)
+    process_card(:amount => (get_cart.total * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?)
 		@order.payment = @payment
     process_order(@order)
 		clear_cart

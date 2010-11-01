@@ -91,7 +91,7 @@ This order was charged to:
     %strong Coupon:
     = link_to @order.coupon.codes.join(", "), admin_coupon_path(@order.coupon)
     = @order.coupon.name
-.field
+.field{:class => @order.payment.paid_amount < @order.total_amount ? 'error' : nil}
   %strong Paid Amount:
   = number_to_currency @order.payment.paid_amount rescue "N/A"
 .field

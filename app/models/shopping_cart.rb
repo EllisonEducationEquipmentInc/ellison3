@@ -58,12 +58,18 @@ module ShoppingCart
 			order
 		end
 		
+		# defines logic if payment of an order can be run, or payment has to be tokenized first and payment has to be run manually
+		def payment_can_be_run?
+		  is_sizzix? || (is_er? && @order && @order.address && @order.address.us?)
+		end
+		
 		def process_order(order)
 		  order.address = get_user.shipping_address.clone
   		order.user = get_user
   		order.ip_address = request.remote_ip
-  		# TODO: order status logic
-  		order.status = "Open" if order.is_a?(Order)
+  		if order.is_a?(Order)
+  		  order.status = payment_can_be_run? ? "Open" : "New"
+  		end
   		order.comments = params[:comments] if params
   		if admin_signed_in?
   		  order.customer_rep = current_admin.name
@@ -194,7 +200,7 @@ module ShoppingCart
     end
 
 		def process_card(options = {})
-      amount, billing, order = options[:amount], options[:payment], options[:order]
+      amount, billing, order, tokenize_only = options[:amount], options[:payment], options[:order], options[:tokenize_only]
       get_gateway(options[:system])
       unless billing.use_saved_credit_card
 				card_name = correct_card_name(billing.card_name)
@@ -223,17 +229,22 @@ module ShoppingCart
         }
         gw_options[:currency] = is_gbp? ? "GBP" : "EUR" 
       end
-      amount_to_charge = amount.to_i #? amount : (total_cart * 100 ).to_i
+      amount_to_charge = tokenize_only ? 0 : amount.to_i #? amount : (total_cart * 100 ).to_i
 			timeout(50) do
-	      if options[:capture] && !billing.deferred && !billing.use_saved_credit_card && !billing.save_credit_card
+	      if options[:capture] && !billing.deferred && !billing.use_saved_credit_card && !billing.save_credit_card && !tokenize_only
 					@net_response = @gateway.purchase(amount_to_charge, credit_card, gw_options)  
-				elsif billing.save_credit_card
+				elsif billing.save_credit_card || tokenize_only && !billing.use_saved_credit_card
 				  gw_options.merge!(:number_of_payments => 0, :frequency=> "on-demand", :shipping_address => {}, :start_date => Time.zone.now.strftime("%Y%m%d"),  :subscription_title => "#{credit_card.first_name} #{credit_card.last_name}", :setup_fee => amount_to_charge)
 				  @net_response = @gateway.recurring_billing(0, credit_card, gw_options)
 				  Rails.logger.info @net_response
-				elsif billing.use_saved_credit_card
+				elsif billing.use_saved_credit_card && !tokenize_only
 				  Rails.logger.info "use_saved_credit_card: #{amount_to_charge}, #{gw_options}"
 				  @net_response = @gateway.pay_on_demand amount_to_charge, gw_options
+				elsif billing.use_saved_credit_card && tokenize_only
+				  @payment = billing
+				  @payment.copy_common_attributes get_user.token
+				  @payment.paid_amount = amount_to_charge
+				  return @payment
 				elsif billing.deferred
 					@net_response = @gateway.recurring_billing(amount_to_charge, credit_card, gw_options)  
 				else

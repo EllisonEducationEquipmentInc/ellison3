@@ -64,7 +64,7 @@ class Cart
 	end
 	
 	def total
-		sub_total + tax_amount + shipping_amount + handling_amount
+		(sub_total + tax_amount + shipping_amount + handling_amount).round(2)
 	end
 	
 	def pre_order?
