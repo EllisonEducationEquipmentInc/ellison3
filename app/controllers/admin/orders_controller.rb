@@ -1,8 +1,9 @@
 class Admin::OrdersController < ApplicationController
   layout 'admin'
 	
+	before_filter :set_admin_title
 	before_filter :admin_read_permissions!
-  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment]
+  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :authorize_cc]
 	
 	ssl_exceptions
 	
@@ -82,5 +83,23 @@ class Admin::OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order.update_attributes :internal_comments => params[:update_value]
     render :text => @order.internal_comments
+  end
+  
+  def authorize_cc
+    @order = Order.find(params[:id])
+    @order.payment.use_saved_credit_card = true
+    I18n.locale = @order.locale
+    begin
+      raise "This order cannot be changed" if @order.status_frozen?
+      process_card(:amount => (@order.total_amount * 100).round, :payment => @order.payment, :order => @order.id.to_s, :capture => true, :use_payment_token => true)
+      @order.open!
+      @order.save
+      flash[:notice] = "Successful transaction..."
+    rescue Exception => e
+      #UserNotifier.deliver_declined_cc(@order, e.to_s.gsub(/^.+\<br\>\<br\>\s/, '').gsub("<br>", "\n")) if is_ee_us? && e.to_s.include?("could not be authorized")
+      flash[:alert] = e #exp_msg(e)
+    end
+    I18n.locale = @locale
+    redirect_to admin_order_path(@order)
   end
 end

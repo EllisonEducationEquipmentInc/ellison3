@@ -1,0 +1,4 @@
+- if has_write_permissions?
+  - if !@order.status_frozen? && !@order.payment.blank? && @order.payment.subscriptionid  && !@order.user.erp.blank? && !@order.user.invoice_account.blank?
+    = link_to "Authorize CC", {:action => 'authorize_cc', :id => @order}
+    

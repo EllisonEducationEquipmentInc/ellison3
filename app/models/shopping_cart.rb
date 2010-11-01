@@ -68,7 +68,7 @@ module ShoppingCart
   		order.user = get_user
   		order.ip_address = request.remote_ip
   		if order.is_a?(Order)
-  		  order.status = payment_can_be_run? ? "Open" : "New"
+  		  payment_can_be_run? ? order.open! : order.new!
   		end
   		order.comments = params[:comments] if params
   		if admin_signed_in?
@@ -261,7 +261,7 @@ module ShoppingCart
         @payment.paid_amount = amount ? amount/100 : total_cart
         @payment.vendor_tx_code = order
         @payment.mask_card_number
-        if @payment.use_saved_credit_card && get_user.token
+        if @payment.use_saved_credit_card && !options[:use_payment_token] && get_user.token
           @payment.card_number = get_user.token.card_number
         	@payment.card_expiration_month = get_user.token.card_expiration_month
         	@payment.card_expiration_year = get_user.token.card_expiration_year

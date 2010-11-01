@@ -5,9 +5,11 @@ class Order
 	include ActiveModel::Validations
 	include ActiveModel::Translation
 	
+	# have to be titlized
 	STATUSES = ["New", "Pending", "Open", "Processing", "In Process", "Shipped", "To Refund", "Refunded", "Cancelled"]
 	
 	validates :status, :subtotal_amount, :shipping_amount, :tax_amount, :address, :order_items, :payment, :presence => true
+	validates_inclusion_of :status, :in => STATUSES
 	
 	embeds_one :payment
 	embeds_one :address
@@ -68,6 +70,29 @@ class Order
 	def decrement_items!
 		order_items.each do |item|
 			item.product.decrement_quantity(item.quantity) rescue next
+		end
+	end
+	
+	# if status can no longer be changed on the web
+	def status_frozen?
+	  !(new? || pending?)
+	end
+	
+	# to this format to change status:
+	#   @order.in_process! 
+	#   p @order.status # => "In Process"
+	#
+	#   to check agains a specific status:
+	#   @order.in_process? # => true 
+	def method_missing(key, *args)
+		if s=STATUSES.detect {|e| e == key.to_s.gsub(/(\?|!)$/, '').titleize}
+		  if key.to_s[-1] == "!"
+		    self.status = s 
+		  elsif key.to_s[-1] == "?"
+		    self.status == s 
+		  end
+		else
+		  send key, args
 		end
 	end
 
