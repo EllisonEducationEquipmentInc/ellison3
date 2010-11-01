@@ -1,4 +1,4 @@
-class Admin::OrdersController < ApplicationController
+class Admin::QuotesController < ApplicationController
   layout 'admin'
 	
 	before_filter :admin_read_permissions!
@@ -8,7 +8,7 @@ class Admin::OrdersController < ApplicationController
 	
 	def index
 	  @current_locale = current_locale
-	  criteria = Mongoid::Criteria.new(Order)
+	  criteria = Mongoid::Criteria.new(Quote)
 	  criteria.where :deleted_at => nil
 	  if params[:systems_enabled].blank?
 	    criteria.where(:system.in => admin_systems)
@@ -20,67 +20,67 @@ class Admin::OrdersController < ApplicationController
 	    regexp = Regexp.new(params[:q], "i")
   	  criteria.any_of({ 'address.first_name' => regexp}, { 'address.last_name' => regexp }, { 'address.city' => regexp }, { 'address.address' => regexp })
 	  end
-		@orders = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
+		@quotes = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
 	end
 
-  # GET /orders/1
-  # GET /orders/1.xml
+  # GET /quotes/1
+  # GET /quotes/1.xml
   def show
     @current_locale = current_locale
-    @order = Order.find(params[:id])
+    @quote = Quote.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @order }
+      format.xml  { render :xml => @quote }
     end
   end
 
-  # GET /orders/new
-  # GET /orders/new.xml
+  # GET /quotes/new
+  # GET /quotes/new.xml
   def new
-    @order = Order.new
+    @quote = Quote.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @order }
+      format.xml  { render :xml => @quote }
     end
   end
 
-  # GET /orders/1/edit
+  # GET /quotes/1/edit
   def edit
-    @order = Order.find(params[:id])
+    @quote = Quote.find(params[:id])
   end
 
 
-  # PUT /orders/1
-  # PUT /orders/1.xml
+  # PUT /quotes/1
+  # PUT /quotes/1.xml
   def update
-    @order = Order.find(params[:id])
+    @quote = Quote.find(params[:id])
     respond_to do |format|
-      if @order.update_attributes(params[:order])
-        format.html { redirect_to(admin_orders_url, :notice => 'Order was successfully updated.') }
+      if @quote.update_attributes(params[:quote])
+        format.html { redirect_to(admin_quotes_url, :notice => 'Quote was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @order.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @quote.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /orders/1
-  # DELETE /orders/1.xml
+  # DELETE /quotes/1
+  # DELETE /quotes/1.xml
   def destroy
-    @order = Order.find(params[:id])
-    @order.destroy
+    @quote = Quote.find(params[:id])
+    @quote.destroy
 
     respond_to do |format|
-      format.html { redirect_to(admin_orders_url) }
+      format.html { redirect_to(admin_quotes_url) }
       format.xml  { head :ok }
     end
   end
   
   def update_internal_comment
-    @order = Order.find(params[:id])
-    @order.update_attributes :internal_comments => params[:update_value]
-    render :text => @order.internal_comments
+    @quote = Quote.find(params[:id])
+    @quote.update_attributes :internal_comments => params[:update_value]
+    render :text => @quote.internal_comments
   end
 end

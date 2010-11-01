@@ -10,7 +10,11 @@ class User
 	field :systems_enabled, :type => Array
 	field :tax_exempt, :type => Boolean, :default => false
 	field :tax_exempt_certificate
+	field :invoice_account
+	field :erp
+	
 	validates_uniqueness_of :email, :case_sensitive => false
+	validates_presence_of :tax_exempt_certificate, :if => Proc.new {|obj| obj.tax_exempt}
 	attr_accessible :name, :email, :password, :password_confirmation
 
 	references_many :orders, :index => true

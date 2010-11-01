@@ -1,3 +1,4 @@
+%h2== Order - #{@order.id}
 .back= link_to "Back to Orders", admin_orders_path
 - I18n.locale = @order.locale
 .left
@@ -31,7 +32,7 @@
   %br
   - if @order.quote
     %strong== #{quote_name.capitalize} Reference Number:
-    = @order.quote.id
+    = link_to @order.quote.id, admin_quote_path(@order.quote)
     %br
   %strong Web Customer Number:
   = @order.user.id

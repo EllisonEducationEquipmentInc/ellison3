@@ -4,7 +4,7 @@ class Permission
 	include ActiveModel::Translation
 	include Mongoid::Document
 	
-	ADMIN_MODULES = ["products", "tags", "landing_pages", "profiles", "users", "orders", "coupons"]
+	ADMIN_MODULES = ["products", "tags", "landing_pages", "profiles", "users", "orders", "quotes", "coupons"]
 		
 	validates :name, :systems_enabled, :presence => true
 	

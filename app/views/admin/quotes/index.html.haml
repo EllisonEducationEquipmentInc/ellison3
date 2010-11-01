@@ -1,0 +1,38 @@
+%h1 Listing quotes
+%br
+- unless params[:q].blank?
+  = link_to 'all', admin_quotes_path, :class => 'jqui_button'
+- form_tag(admin_quotes_path, :method => :get) do
+  = admin_systems_checkboxes
+  = text_field_tag :q, nil, :placeholder => "shipping name, address"
+  = submit_tag "search", :class => 'jqui_search'
+.highlightable
+  %table
+    %thead
+      %tr
+        = sortable "id"
+        = sortable "created_at"
+        = sortable "address.last_name"
+        = sortable "subtotal_amount"
+        %th System
+        = sortable "active"
+        = sortable "expires_at"
+        - if has_write_permissions?
+          %th &nbsp;
+    %tbody
+      - for quote in @quotes
+        - I18n.locale = quote.locale
+        %tr{ :class => cycle(:odd, :even) }
+          %td= link_to quote.id, admin_quote_path(quote)
+          %td= l quote.created_at, :format => :custom rescue ''
+          %td== #{quote.address.first_name} #{quote.address.last_name}
+          %td= number_to_currency quote.subtotal_amount
+          %td= quote.system
+          %td= quote.active
+          %td= l quote.expires_at, :format => :custom
+          - if has_write_permissions?
+            %td= link_to 'View', admin_quote_path(quote)
+- I18n.locale = @current_locale
+%br
+= will_paginate @quotes
+%br

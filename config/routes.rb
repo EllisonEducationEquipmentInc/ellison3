@@ -95,6 +95,11 @@ Ellison3::Application.routes.draw do |map|
 			    post :update_internal_comment
 			  end
 			end
+			resources :quotes do
+			  collection do
+			    post :update_internal_comment
+			  end
+			end
 			resources :coupons
 			resources :landing_pages
 			resources :tags do

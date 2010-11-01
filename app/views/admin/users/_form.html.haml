@@ -4,6 +4,22 @@
     = f.label :systems_enabled
     = system_enabled('user')
   .field
+    = f.label :erp, "AX ID"
+    %br
+    = f.text_field :erp
+  .field
+    = f.label :invoice_account
+    %br
+    = f.text_field :invoice_account
+  .field
+    = f.label :tax_exempt
+    %br
+    = f.check_box :tax_exempt
+  .field
+    = f.label :tax_exempt_certificate
+    %br
+    = f.text_field :tax_exempt_certificate
+  .field
     = f.label :email
     %br
     = f.text_field :email

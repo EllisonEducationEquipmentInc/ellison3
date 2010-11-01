@@ -38,7 +38,7 @@
     #empty_cart Empty Cart
     - if chekout_allowed?
       #checkout_button= "Checkout"
-    - else
+    - elsif get_cart.pre_order?
       .save_as_quote Pre-Order
     - if quote_allowed?
       .save_as_quote Save as Quote

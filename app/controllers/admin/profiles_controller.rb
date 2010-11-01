@@ -50,7 +50,7 @@ class Admin::ProfilesController < ApplicationController
   # POST /admins.xml
   def create
     @admin = Admin.new(params[:admin])
-    mas_assign_protected_attributes
+    mass_assign_protected_attributes
     respond_to do |format|
       if @admin.save
         format.html { redirect_to(admin_admins_url, :notice => 'Admin was successfully created.') }
@@ -66,7 +66,7 @@ class Admin::ProfilesController < ApplicationController
   # PUT /admins/1.xml
   def update
     @admin = Admin.find(params[:id])
-		mas_assign_protected_attributes
+		mass_assign_protected_attributes
     respond_to do |format|
       if @admin.update_attributes(params[:admin])
         format.html { redirect_to(admin_admins_url, :notice => 'Admin was successfully updated.') }
@@ -93,7 +93,7 @@ class Admin::ProfilesController < ApplicationController
 private 
 	
 	# these attributes can only be changed by an admin who has write permissions to change admin profiles
-	def mas_assign_protected_attributes
+	def mass_assign_protected_attributes
 	  @admin.systems_enabled = params[:admin][:systems_enabled]
 		@admin.active = params[:admin][:active]
 		@admin.permissions_attributes = params[:admin][:permissions_attributes]
