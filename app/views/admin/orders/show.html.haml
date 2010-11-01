@@ -29,6 +29,10 @@
   %strong Order Number:
   = @order.id
   %br
+  - if @order.quote
+    %strong== #{quote_name.capitalize} Reference Number:
+    = @order.quote.id
+    %br
   %strong Web Customer Number:
   = @order.user.id
   %br

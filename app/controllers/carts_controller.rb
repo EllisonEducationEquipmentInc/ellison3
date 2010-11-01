@@ -62,7 +62,7 @@ class CartsController < ApplicationController
 	  end
   	new_payment
 		@order = Order.new
-		@order.copy_common_attributes @quote
+		@order.copy_common_attributes @quote, :created_at
 		@order.order_items = @quote.order_items
 		process_card(:amount => (@quote.total_amount * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true)
 		@order.payment = @payment

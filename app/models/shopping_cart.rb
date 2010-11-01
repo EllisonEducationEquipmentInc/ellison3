@@ -437,7 +437,7 @@ module ShoppingCart
 		
 		def new_payment
   		@payment = Payment.new
-  		@payment.attributes = get_user.billing_address.attributes if get_user.billing_address
+  		@payment.copy_common_attributes(get_user.billing_address) if get_user.billing_address
   		@payment.use_saved_credit_card = true if get_user.token && get_user.token.current?
   		@payment.attributes = params[:payment] if params[:payment]
   		@payment.subscriptionid = get_user.token.subscriptionid if get_user.token && get_user.token.current?
