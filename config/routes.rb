@@ -39,7 +39,8 @@ Ellison3::Application.routes.draw do |map|
 	match 'quote' => 'carts#quote', :as => :quote
 	match 'activate_coupon' => 'carts#activate_coupon', :as => :activate_coupon
 	match 'remove_coupon' => 'carts#remove_coupon', :as => :remove_coupon
-	
+	match 'remove_order_reference' => 'carts#remove_order_reference', :as => :remove_order_reference
+		
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
@@ -93,7 +94,7 @@ Ellison3::Application.routes.draw do |map|
 			resources :orders do
 			  collection do
 			    post :update_internal_comment, :change_order_status, :change_shipping
-			    get :recalculate_tax
+			    get :recalculate_tax, :recreate
 			  end
 			end
 			resources :quotes do

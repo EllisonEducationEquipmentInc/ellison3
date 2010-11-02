@@ -43,6 +43,7 @@ class Quote
 	field :internal_comments
 	field :customer_rep
 	field :customer_rep_id, :type => BSON::ObjectId
+	field :order_reference
 
   field :expires_at, :type => DateTime
 

@@ -11,6 +11,8 @@ module ShoppingCart
 		
 		def get_cart
       @cart ||= (Cart.find(session[:shopping_cart]) rescue Cart.new)
+      session[:shopping_cart] = @cart.id.to_s
+      @cart
     end
 		
 		def add_2_cart(product, qty = 1)
@@ -49,13 +51,24 @@ module ShoppingCart
 		
 		def cart_to_order_or_quote(klass, options = {})
 		  order = klass.to_s.classify.constantize.new(:id => options[:order_id], :subtotal_amount => get_cart.sub_total, :shipping_amount => calculate_shipping(options[:address]), :handling_amount => calculate_handling, :tax_amount => calculate_tax(options[:address]),
-			              :tax_transaction => get_cart.reload.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at, :locale => current_locale, :shipping_service => get_cart.shipping_service)
+			              :tax_transaction => get_cart.reload.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at, :locale => current_locale, :shipping_service => get_cart.shipping_service, :order_reference => get_cart.order_reference)
 			order.coupon = get_cart.coupon
 			@cart.cart_items.each do |item|
 				order.order_items << OrderItem.new(:name => item.name, :item_num => item.item_num, :sale_price => item.price, :quoted_price => item.msrp, :quantity => item.quantity,
 				    :locale => item.currency, :product => item.product, :tax_exempt => item.tax_exempt, :discount => item.msrp - item.price, :custom_price => item.custom_price, :coupon_price => item.coupon_price)
 			end
 			order
+		end
+		
+		def order_to_cart(order)
+		  get_cart
+		  order.order_items.each do |item|
+		    cart_item = CartItem.new(:price => item.sale_price, :small_image => item.product.small_image, :added_at => Time.now, :pre_order => item.product.pre_order?, :out_of_stock => item.product.out_of_stock?, :weight => item.product.weight, :volume => item.product.calculated_volume, :msrp => item.product.msrp)
+		    cart_item.copy_common_attributes item
+		    cart_item.custom_price = true if cart_item.price != item.product.price
+		    get_cart.cart_items << cart_item
+		  end
+		  get_cart.save
 		end
 		
 		# defines logic if payment of an order can be run, or payment has to be tokenized first and payment has to be run manually

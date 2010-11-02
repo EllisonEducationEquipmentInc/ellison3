@@ -51,6 +51,7 @@ class Order
 	field :internal_comments
 	field :customer_rep
 	field :customer_rep_id, :type => BSON::ObjectId
+	field :order_reference
 	
 	field :clickid
 	field :utm_source

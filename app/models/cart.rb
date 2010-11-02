@@ -12,6 +12,7 @@ class Cart
 	field :removed, :type => Integer, :default => 0
 	field :coupon_removed, :type => Boolean, :default => false
 	field :changed_items, :type => Array
+	field :order_reference
 	
 	referenced_in :coupon
 	

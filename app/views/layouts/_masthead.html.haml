@@ -36,6 +36,11 @@
     Switch to:
     - (ELLISON_SYSTEMS & current_admin.systems_enabled).each do |sys|
       = link_to_unless current_system == sys, sys, "?system=#{sys}"
+  - if get_cart.order_reference
+    #previous_order_reference
+      previous order reference:
+      = link_to get_cart.order_reference, admin_order_path(get_cart.order_reference)
+      = link_to 'reset', remove_order_reference_path, :remote => true
   #user_as= render :partial => 'layouts/user_as'
   - if current_admin.can_act_as_customer
     = form_tag('/user_as', :remote => true) do

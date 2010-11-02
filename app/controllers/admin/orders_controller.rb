@@ -4,6 +4,7 @@ class Admin::OrdersController < ApplicationController
 	before_filter :set_admin_title
 	before_filter :admin_read_permissions!
   before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :authorize_cc, :change_order_status, :recalculate_tax, :change_amount]
+	before_filter :admin_user_as_permissions!, :only => [:recreate]
 	
 	ssl_exceptions
 	
@@ -124,5 +125,19 @@ class Admin::OrdersController < ApplicationController
 	  @order = Order.find(params[:id])
 	  @order.update_attributes :shipping_amount => params[:update_value][/[0-9.]+/]
 	  render :inline => "$('#shipping_amount').html('<%= number_to_currency @order.shipping_amount %>');$('#total_amount').html('<%= number_to_currency @order.total_amount %>');<% if calculate_tax?(@order.address.state) %>$('#tax_amount').addClass('error');alert('don\\'t forget to run CCH tax');<% end %>" # "<%= display_product_price_cart @order.shipping_amount %>"
+  end
+  
+  def recreate
+    @order = Order.find(params[:id])
+    I18n.locale = @order.locale
+    sign_in("user", @order.user)
+    get_cart.clear
+    order_to_cart @order
+		unless @order.status_frozen?
+    	@order.cancelled!
+    	#@order.save 
+    	get_cart.update_attributes :order_reference => @order.id
+		end
+    redirect_to checkout_path
   end
 end

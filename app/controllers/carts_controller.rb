@@ -1,6 +1,7 @@
 class CartsController < ApplicationController
 	before_filter :authenticate_user!, :only => [:checkout, :proceed_checkout, :quote, :proceed_quote, :quote_2_order]
 	before_filter :authenticate_admin!, :only => [:custom_price]
+	before_filter :admin_user_as_permissions!, :only => [:remove_order_reference]
 	before_filter :trackable
 	before_filter :no_cache, :only => [:checkout, :quote]
 	after_filter(:only => [:checkout, :proceed_checkout, :quote, :proceed_quote]) {|controller| controller.send(:get_cart).reset_item_errors}
@@ -208,6 +209,11 @@ class CartsController < ApplicationController
 	  render :activate_coupon
 	end
 
+  def remove_order_reference
+    get_cart.update_attributes :order_reference => nil
+    render :js => "$('#previous_order_reference').remove()"
+  end
+  
 private
 	
 

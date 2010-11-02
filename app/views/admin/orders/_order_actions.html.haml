@@ -1,33 +1,36 @@
-- if has_write_permissions? && !@order.status_frozen?
+- if has_write_permissions?
   .success
-    = link_to "Authorize CC", {:action => 'authorize_cc', :id => @order}, :class => 'jqui_button' if !@order.payment.blank? && @order.payment.subscriptionid  && !@order.user.erp.blank? && !@order.user.invoice_account.blank?
-    %span#calculate_tax_button= "Run CCH Sales Tax Calculate" if !@order.tax_committed && !@order.status_frozen? && calculate_tax?(@order.address.state)
-  :javascript
-    $(document).ready(function(){
-      $('#shipping_amount').editInPlace({
-        url: "/admin/orders/change_shipping",
-        params: "id=#{@order.id}",
-        show_buttons: true,
-        value_required: true,
-        success: function(data){
-          eval(data);
-        },
-        saving_animation_color: "#ECF2F8"
-      });
-      $("#calculate_tax_button").button().click(function(){
-        $(this).button({'disabled': true});
-        $.ajax({url:"#{url_for({:action => "recalculate_tax", :id => @order})}"});
-        return false;
-      });
-      $("#order_status").editInPlace({
-        url: "/admin/orders/change_order_status",
-        params: "id=#{@order.id}",
-        field_type: "select",
-        select_options: "New, Pending, Cancelled", 
-        show_buttons: true,
-        value_required: true,
-        saving_animation_color: "#ECF2F8"
-      });
-    });
+    = link_to "Recreate", {:action => 'recreate', :id => @order}, :class => 'jqui_button'
+    - if !@order.status_frozen?
+      = link_to "Authorize CC", {:action => 'authorize_cc', :id => @order}, :class => 'jqui_button' if !@order.payment.blank? && @order.payment.subscriptionid  && !@order.user.erp.blank? && !@order.user.invoice_account.blank?
+      - if !@order.tax_committed && calculate_tax?(@order.address.state)
+        %span#calculate_tax_button= "Run CCH Sales Tax Calculate" 
+      :javascript
+        $(document).ready(function(){
+          $('#shipping_amount').editInPlace({
+            url: "/admin/orders/change_shipping",
+            params: "id=#{@order.id}",
+            show_buttons: true,
+            value_required: true,
+            success: function(data){
+              eval(data);
+            },
+            saving_animation_color: "#ECF2F8"
+          });
+          $("#calculate_tax_button").button().click(function(){
+            $(this).button({'disabled': true});
+            $.ajax({url:"#{url_for({:action => "recalculate_tax", :id => @order})}"});
+            return false;
+          });
+          $("#order_status").editInPlace({
+            url: "/admin/orders/change_order_status",
+            params: "id=#{@order.id}",
+            field_type: "select",
+            select_options: "New, Pending, Cancelled", 
+            show_buttons: true,
+            value_required: true,
+            saving_animation_color: "#ECF2F8"
+          });
+        });
 
     

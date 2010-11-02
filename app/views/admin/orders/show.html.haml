@@ -48,6 +48,10 @@
   %br
   %strong Customer Rep:
   = @order.customer_rep
+  - unless @order.order_reference.blank?
+    %br
+    %strong Order Reference ID:
+    = link_to @order.order_reference, admin_order_path(@order.order_reference)
   %div{:class => @order.user.erp.blank? || @order.user.invoice_account.blank? ? 'error' : nil}
     %strong ERP ID:
     = @order.user.erp
