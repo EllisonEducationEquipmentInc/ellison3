@@ -2,22 +2,22 @@
   = f.error_messages
   - if get_user.token && get_user.token.current?
     %strong Credit Card on file:
-    .field
+    .field.credit_card
       = get_user.token.card_name
       = get_user.token.card_number
       = link_to "forget/use another one", forget_credit_card_path(:quote => @quote), :remote => true
       = f.hidden_field :use_saved_credit_card
   - else
-    .left.field
+    .left.field.credit_card
       = required_field(f.label :first_name)
       %br
       = f.text_field :first_name
-    .left.field
+    .left.field.credit_card
       = required_field(f.label :last_name)
       %br
       = f.text_field :last_name
     .clear_left
-    .field
+    .field.credit_card
       .left
         = required_field(f.label :card_name)
         %br
@@ -40,6 +40,11 @@
         = f.check_box :save_credit_card
         = f.label :save_credit_card
     .clear_left
+  - if can_use_previous_payment?
+    .field
+      = f.check_box :use_previous_orders_card, :onclick => "if (this.checked) {$('.credit_card').remove()} else {$(this).attr('disabled', true);$('#payment_submit').replaceWith('#{escape_javascript spinner}');$('#checkout_cc').load('/carts/use_previous_orders_card');}"
+      = f.label :use_previous_orders_card, "Use same payment info that was used in order #"
+      = link_to get_cart.order_reference, admin_order_path(get_cart.order_reference)
   .ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
     %h4.ui-accordion-header.ui-helper-reset#order_comment
       %span.ui-icon.ui-icon-triangle-1-e

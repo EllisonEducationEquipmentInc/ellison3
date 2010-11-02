@@ -225,7 +225,7 @@ module ShoppingCart
 		def process_card(options = {})
       amount, billing, order, tokenize_only = options[:amount], options[:payment], options[:order], options[:tokenize_only]
       get_gateway(options[:system])
-      unless billing.use_saved_credit_card
+      unless billing.use_saved_credit_card || options[:use_payment_token]
 				card_name = correct_card_name(billing.card_name)
         credit_card = ActiveMerchant::Billing::CreditCard.new(:first_name => billing.first_name, :last_name => billing.last_name, :number => billing.full_card_number, :month => billing.card_expiration_month, :year => billing.card_expiration_year,
                           :type => card_name, :verification_value => billing.card_security_code, :start_month => billing.card_issue_month, :start_year => billing.card_issue_year, :issue_number => billing.card_issue_number)
@@ -254,18 +254,18 @@ module ShoppingCart
       end
       amount_to_charge = tokenize_only ? 0 : amount.to_i #? amount : (total_cart * 100 ).to_i
 			timeout(50) do
-	      if options[:capture] && !billing.deferred && !billing.use_saved_credit_card && !billing.save_credit_card && !tokenize_only
+	      if options[:capture] && !billing.deferred && !billing.use_saved_credit_card && !billing.save_credit_card && !tokenize_only && !options[:use_payment_token]
 					@net_response = @gateway.purchase(amount_to_charge, credit_card, gw_options)  
-				elsif billing.save_credit_card || tokenize_only && !billing.use_saved_credit_card
+				elsif (billing.save_credit_card || tokenize_only) && !billing.use_saved_credit_card && !options[:use_payment_token]
 				  gw_options.merge!(:number_of_payments => 0, :frequency=> "on-demand", :shipping_address => {}, :start_date => Time.zone.now.strftime("%Y%m%d"),  :subscription_title => "#{credit_card.first_name} #{credit_card.last_name}", :setup_fee => amount_to_charge)
 				  @net_response = @gateway.recurring_billing(0, credit_card, gw_options)
 				  Rails.logger.info @net_response
-				elsif billing.use_saved_credit_card && !tokenize_only
+				elsif (billing.use_saved_credit_card || options[:use_payment_token]) && !tokenize_only
 				  Rails.logger.info "use_saved_credit_card: #{amount_to_charge}, #{gw_options}"
 				  @net_response = @gateway.pay_on_demand amount_to_charge, gw_options
-				elsif billing.use_saved_credit_card && tokenize_only
+				elsif (billing.use_saved_credit_card || options[:use_payment_token]) && tokenize_only
 				  @payment = billing
-				  @payment.copy_common_attributes get_user.token
+				  @payment.copy_common_attributes get_user.token unless options[:use_payment_token]
 				  @payment.paid_amount = amount_to_charge
 				  return @payment
 				elsif billing.deferred
@@ -475,6 +475,10 @@ module ShoppingCart
   		@payment.use_saved_credit_card = true if get_user.token && get_user.token.current?
   		@payment.attributes = params[:payment] if params[:payment]
   		@payment.subscriptionid = get_user.token.subscriptionid if get_user.token && get_user.token.current?
+  	end
+  	
+  	def can_use_previous_payment?
+  	  !get_cart.order_reference.blank? && current_admin && current_admin.can_act_as_customer && Order.find(get_cart.order_reference).user == current_user rescue false
   	end
 
 		class Config

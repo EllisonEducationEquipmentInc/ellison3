@@ -1,7 +1,7 @@
 class CartsController < ApplicationController
 	before_filter :authenticate_user!, :only => [:checkout, :proceed_checkout, :quote, :proceed_quote, :quote_2_order]
 	before_filter :authenticate_admin!, :only => [:custom_price]
-	before_filter :admin_user_as_permissions!, :only => [:remove_order_reference]
+	before_filter :admin_user_as_permissions!, :only => [:remove_order_reference, :use_previous_orders_card]
 	before_filter :trackable
 	before_filter :no_cache, :only => [:checkout, :quote]
 	after_filter(:only => [:checkout, :proceed_checkout, :quote, :proceed_quote]) {|controller| controller.send(:get_cart).reset_item_errors}
@@ -10,7 +10,7 @@ class CartsController < ApplicationController
 	ssl_allowed :index, :get_shipping_options, :change_shipping_method, :copy_shipping_address, :change_shipping_method, :get_shipping_service, :get_shipping_amount, :get_tax_amount, :get_total_amount,
 	  :custom_price, :create_shipping, :create_billing, :activate_coupon, :remove_coupon
 	
-	verify :xhr => true, :only => [:proceed_checkout, :get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :quote_2_order], :redirect_to => {:action => :index}
+	verify :xhr => true, :only => [:proceed_checkout, :get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :quote_2_order, :use_previous_orders_card, :remove_order_reference], :redirect_to => {:action => :index}
 	
 	def index
 		@title = "Shopping #{I18n.t(:cart).titleize}"
@@ -81,9 +81,15 @@ class CartsController < ApplicationController
 	  redirect_to :checkout and return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
 		get_cart.update_items true
 		raise RealTimeCartError, ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
-		new_payment
+		if can_use_previous_payment? && params[:payment] && params[:payment][:use_previous_orders_card] 
+      @payment = Order.find(get_cart.order_reference).payment.dup
+      use_payment_token = true
+		else
+		  use_payment_token = false
+		  new_payment
+		end
 		cart_to_order(:address => get_user.shipping_address)
-    process_card(:amount => (get_cart.total * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?)
+    process_card(:amount => (get_cart.total * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?, :use_payment_token => use_payment_token)
 		@order.payment = @payment
     process_order(@order)
 		clear_cart
@@ -91,7 +97,7 @@ class CartsController < ApplicationController
 		render "checkout_complete"
 	rescue Exception => e
 		@reload_cart = @cart_locked = true if e.exception.class == RealTimeCartError
-		@error_message = e.message #backtrace.join("<br />")
+		@error_message = e.backtrace.join("<br />")
 		if @cart.cart_items.blank?
 			flash[:alert] = @error_message
 			render :js => "window.location.href = '#{catalog_path}'" and return
@@ -212,6 +218,11 @@ class CartsController < ApplicationController
   def remove_order_reference
     get_cart.update_attributes :order_reference => nil
     render :js => "$('#previous_order_reference').remove()"
+  end
+  
+  def use_previous_orders_card
+    new_payment
+    render :partial => "payment"
   end
   
 private
