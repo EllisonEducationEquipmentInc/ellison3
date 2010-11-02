@@ -118,10 +118,10 @@ This order was charged to:
   = is_us? ? @order.payment.vpstx_id : @order.payment.tx_auth_no
 .field
   %strong Tax Transaction ID:
-  = @order.tax_transaction
+  %span#tax_transaction= @order.tax_transaction
 .field
   %strong Tax Calculated at:
-  = l @order.tax_calculated_at, :format => :custom rescue ''
+  %span#tax_calculated_at= l @order.tax_calculated_at, :format => :custom rescue ''
 .field
   %strong Order Comments:
   = @order.comments

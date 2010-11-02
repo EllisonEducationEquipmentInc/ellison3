@@ -1,6 +1,13 @@
 - if has_write_permissions? && !@order.status_frozen?
-  = link_to "Authorize CC", {:action => 'authorize_cc', :id => @order} if !@order.payment.blank? && @order.payment.subscriptionid  && !@order.user.erp.blank? && !@order.user.invoice_account.blank?
+  .success
+    = link_to "Authorize CC", {:action => 'authorize_cc', :id => @order}, :class => 'jqui_button' if !@order.payment.blank? && @order.payment.subscriptionid  && !@order.user.erp.blank? && !@order.user.invoice_account.blank?
+    %span.jqui_button#calculate_tax_button= "Run CCH Sales Tax Calculate" if !@order.tax_committed && !@order.status_frozen? && calculate_tax?(@order.address.state)
   :javascript
+    $(".jqui_button").button().click(function(){
+      $(this).button({'disabled': true});
+      $.ajax({url:"#{url_for({:action => "recalculate_tax", :id => @order})}"});
+      return false;
+    });
     $("#order_status").editInPlace({
       url: "/admin/orders/change_order_status",
       params: "id=#{@order.id}",

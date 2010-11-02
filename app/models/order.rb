@@ -38,10 +38,9 @@ class Order
 	field :tax_exempt_number
 	field :tax_transaction
 	field :tax_calculated_at, :type => DateTime
-	field :tax_commited, :type => Boolean, :default => false
+	field :tax_committed, :type => Boolean, :default => false
 	field :to_review, :type => Boolean, :default => false
 	field :purchase_order
-	
 	field :shipping_priority, :default => "Normal"
 	field :shipping_service
 	field :shipping_overridden, :type => Boolean, :default => false
@@ -92,7 +91,7 @@ class Order
 		    self.status == s 
 		  end
 		else
-		  send key, args
+		  raise NoMethodError, "undefined method `#{key}` for #{self}"
 		end
 	end
 

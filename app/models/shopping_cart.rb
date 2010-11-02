@@ -146,7 +146,7 @@ module ShoppingCart
 		# TODO: UK tax
 		def calculate_tax(address, options={})
 			return get_cart.tax_amount if get_cart.tax_amount && get_cart.tax_calculated_at && get_cart.tax_calculated_at > 1.hour.ago
-			total_tax = if %w(CA IN WA UT).include?(address.state)
+			total_tax = if calculate_tax?(address.state)
 				cch_sales_tax(address)
         @cch.total_tax.to_f				
 			else
@@ -197,6 +197,16 @@ module ShoppingCart
 			  end
       	Rails.logger.error "!!! CCH Timed out. Retrying..."
       end
+    end
+    
+    def tax_from_order(order, refund = false)
+      if calculate_tax?(order.address.state)
+        @cch = CCH::Cch.new(:action => refund ? 'ProcessAttributedReturn' : 'calculate', :customer => order.address, :shipping_charge => order.shipping_amount, :handling_charge => order.handling_amount, :total => order.subtotal_amount, :transaction_id => order.tax_transaction, :exempt => order.user.tax_exempt, :tax_exempt_certificate => order.user.tax_exempt_certificate )
+			end
+    end
+    
+    def calculate_tax?(state)
+      %w(CA IN WA UT).include?(state)
     end
 
 		def process_card(options = {})

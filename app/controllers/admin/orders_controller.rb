@@ -3,7 +3,7 @@ class Admin::OrdersController < ApplicationController
 	
 	before_filter :set_admin_title
 	before_filter :admin_read_permissions!
-  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :authorize_cc, :change_order_status]
+  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :authorize_cc, :change_order_status, :recalculate_tax]
 	
 	ssl_exceptions
 	
@@ -98,17 +98,25 @@ class Admin::OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order.payment.use_saved_credit_card = true
     I18n.locale = @order.locale
-    begin
-      raise "This order cannot be changed" if @order.status_frozen?
-      process_card(:amount => (@order.total_amount * 100).round, :payment => @order.payment, :order => @order.id.to_s, :capture => true, :use_payment_token => true)
-      @order.open!
-      @order.save
-      flash[:notice] = "Successful transaction..."
-    rescue Exception => e
-      #UserNotifier.deliver_declined_cc(@order, e.to_s.gsub(/^.+\<br\>\<br\>\s/, '').gsub("<br>", "\n")) if is_ee_us? && e.to_s.include?("could not be authorized")
-      flash[:alert] = e #exp_msg(e)
-    end
+    raise "This order cannot be changed" if @order.status_frozen?
+    process_card(:amount => (@order.total_amount * 100).round, :payment => @order.payment, :order => @order.id.to_s, :capture => true, :use_payment_token => true)
+    @order.open!
+    @order.save
+    flash[:notice] = "Successful transaction..."
+  rescue Exception => e
+    # TODO: UserNotifier.deliver_declined_cc(@order, e.to_s.gsub(/^.+\<br\>\<br\>\s/, '').gsub("<br>", "\n")) if is_ee_us? && e.to_s.include?("could not be authorized")
+    flash[:alert] = e #exp_msg(e)
+  ensure
     I18n.locale = @locale
     redirect_to admin_order_path(@order)
+  end
+  
+  def recalculate_tax
+    @order = Order.find(params[:id])
+    raise "This order cannot be changed" if @order.status_frozen?
+    tax_from_order(@order)
+    @order.update_attributes(:tax_transaction => @cch.transaction_id, :tax_calculated_at => Time.zone.now,  :tax_amount => @cch.total_tax, :tax_exempt => @order.user.tax_exempt, :tax_exempt_number => @order.user.tax_exempt_certificate) if @cch && @cch.success? 
+  rescue Exception => e
+    render :js => "alert('#{e}')"
   end
 end
