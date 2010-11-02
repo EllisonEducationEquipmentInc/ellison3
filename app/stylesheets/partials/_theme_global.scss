@@ -99,6 +99,47 @@ body.bp {
       }
     }
   }
+  #nav_megamenu {
+    float: left;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    
+    ul {
+      clear: left;
+      float: right;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      right: 50%;
+      text-align: center;
+      
+      li {
+        display: block;
+        float: left;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        left: 50%;
+        
+        a {
+          display:block;
+          margin:0 0 0 1px;
+          padding:3px 10px;
+        }
+        
+        .megasubpanel {
+          background-color: #fff;
+          text-align: left;
+          position:absolute;
+          width: 950px;
+          display: none;
+        }
+      }
+    }
+  }
 }
 
 #content {

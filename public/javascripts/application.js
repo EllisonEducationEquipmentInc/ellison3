@@ -53,7 +53,6 @@ function initialize_facets() {
 function shadow_on() {
 	// shadowOn
 	$(".cardpanelshadow").shadowOn({ imageset: 6, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadows for cardpanel layout archetype
-	$(".megasubpanel").shadowOn({ imageset: 6, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadows for cardpanel layout archetype
 	$(".product-block").shadowOn({ imageset: 1, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadow for product blocks on catalog pages
 }
 
@@ -126,6 +125,16 @@ $(document).ready(function(){
 	$(function() {
 		$(".accordion-block").accordion();
 	});
+	
+	// mega menu
+  var hoverconfig = { // hover intent custom configurations
+    sensitivity: 2, // number = sensitivity threshold (must be 1 or higher)
+    interval: 100, // number = milliseconds for onMouseOver polling interval
+    over: megamenuHoverOver, // function = onMouseOver callback (REQUIRED)
+    timeout: 500, // number = milliseconds delay before onMouseOut
+    out: megamenuHoverOut // function = onMouseOut callback (REQUIRED)
+  };
+  $("#nav_megamenu ul li").hoverIntent(hoverconfig); // trigger hover intent with custom configurations	
 	
 	// content sliders
   $("#gallery").sudoSlider({
@@ -480,3 +489,15 @@ function calculate_sale_price(price, discount, discount_type) {
 	}
 }
 
+// Mega Menu Hover functions
+function megamenuHoverOver() {
+  var xCoord  = Math.abs($('#nav_megamenu ul').position().left) - $(this).position().left // calculate correct left coordinate of the subpanel
+  
+  $(this).find('.megasubpanel').css({ "left": (xCoord) + "px" }); // reset the left coordinate of the subpanel
+  $(this).find('.megasubpanel').stop().slideDown('fast', 'easeOutQuad').show();
+}
+function megamenuHoverOut(){
+  $(this).find('.megasubpanel').stop().slideUp('fast', 'easeInQuad', function() {
+      $(this).hide();  // after fading, hide the subpanel
+  });
+}
