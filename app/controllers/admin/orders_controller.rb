@@ -3,7 +3,7 @@ class Admin::OrdersController < ApplicationController
 	
 	before_filter :set_admin_title
 	before_filter :admin_read_permissions!
-  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :authorize_cc, :change_order_status, :recalculate_tax]
+  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :authorize_cc, :change_order_status, :recalculate_tax, :change_amount]
 	
 	ssl_exceptions
 	
@@ -118,5 +118,11 @@ class Admin::OrdersController < ApplicationController
     @order.update_attributes(:tax_transaction => @cch.transaction_id, :tax_calculated_at => Time.zone.now,  :tax_amount => @cch.total_tax, :tax_exempt => @order.user.tax_exempt, :tax_exempt_number => @order.user.tax_exempt_certificate) if @cch && @cch.success? 
   rescue Exception => e
     render :js => "alert('#{e}')"
+  end
+  
+  def change_shipping
+	  @order = Order.find(params[:id])
+	  @order.update_attributes :shipping_amount => params[:update_value][/[0-9.]+/]
+	  render :inline => "$('#shipping_amount').html('<%= number_to_currency @order.shipping_amount %>');$('#total_amount').html('<%= number_to_currency @order.total_amount %>');<% if calculate_tax?(@order.address.state) %>$('#tax_amount').addClass('error');alert('don\\'t forget to run CCH tax');<% end %>" # "<%= display_product_price_cart @order.shipping_amount %>"
   end
 end

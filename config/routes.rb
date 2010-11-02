@@ -92,7 +92,7 @@ Ellison3::Application.routes.draw do |map|
 			resources :users
 			resources :orders do
 			  collection do
-			    post :update_internal_comment, :change_order_status, :recalculate_tax
+			    post :update_internal_comment, :change_order_status, :change_shipping
 			    get :recalculate_tax
 			  end
 			end
