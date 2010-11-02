@@ -3,7 +3,7 @@ class Admin::OrdersController < ApplicationController
 	
 	before_filter :set_admin_title
 	before_filter :admin_read_permissions!
-  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :authorize_cc]
+  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :authorize_cc, :change_order_status]
 	
 	ssl_exceptions
 	
@@ -83,6 +83,15 @@ class Admin::OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order.update_attributes :internal_comments => params[:update_value]
     render :text => @order.internal_comments
+  end
+  
+  def change_order_status
+    @order = Order.find(params[:id])
+    @order.send "#{params[:update_value].parameterize.underscore}!"
+    @order.save
+    render :text => @order.status
+  rescue Exception => e
+    render :text => e
   end
   
   def authorize_cc

@@ -44,7 +44,7 @@
   = l @order.created_at, :format => :custom
   %br
   %strong Status:
-  = @order.status
+  %span#order_status= @order.status
   %br
   %strong Customer Rep:
   = @order.customer_rep

@@ -1,4 +1,13 @@
-- if has_write_permissions?
-  - if !@order.status_frozen? && !@order.payment.blank? && @order.payment.subscriptionid  && !@order.user.erp.blank? && !@order.user.invoice_account.blank?
-    = link_to "Authorize CC", {:action => 'authorize_cc', :id => @order}
+- if has_write_permissions? && !@order.status_frozen?
+  = link_to "Authorize CC", {:action => 'authorize_cc', :id => @order} if !@order.payment.blank? && @order.payment.subscriptionid  && !@order.user.erp.blank? && !@order.user.invoice_account.blank?
+  :javascript
+    $("#order_status").editInPlace({
+      url: "/admin/orders/change_order_status",
+      params: "id=#{@order.id}",
+      field_type: "select",
+      select_options: "Pending, Cancelled", 
+      show_buttons: true,
+      value_required: true,
+      saving_animation_color: "#ECF2F8"
+    });
     
