@@ -19,4 +19,12 @@ class List
 	def products
 	  Product.send(current_system).available.where(:_id.in => self.product_ids).cache
 	end
+	
+	def add_product(product_id)
+	  product_id = BSON::ObjectId(product_id) if product_id.is_a?(String)
+	  unless self.product_ids.include?(product_id)
+	    self.product_ids << product_id 
+	    save
+	  end
+	end
 end

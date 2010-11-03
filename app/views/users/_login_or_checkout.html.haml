@@ -1,3 +1,5 @@
+- if @message
+  .error= @message
 #guest_checkout
   %h2 New Customer 
   = form_for(resource, :as => resource_name, :url => registration_path(resource_name, :secure => true)) do |f|

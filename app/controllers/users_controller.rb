@@ -1,13 +1,13 @@
 class UsersController < ApplicationController
 	prepend_before_filter :require_no_authentication, :only => [ :new, :create]
-  prepend_before_filter :authenticate_scope!, :except => [ :new, :create, :checkout_requested, :signin_signup, :quote_requested]
+  prepend_before_filter :authenticate_scope!, :except => [ :new, :create, :checkout_requested, :signin_signup, :quote_requested, :add_to_list]
   before_filter :trackable
   include Devise::Controllers::InternalHelpers
   
   ssl_exceptions :signin_signup, :checkout_requested, :quote_requested
   ssl_allowed :signin_signup, :checkout_requested, :quote_requested
 
-  verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list], :redirect_to => {:action => :myaccount}
+  verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list, :add_to_wishlist], :redirect_to => {:action => :myaccount}
 
   # GET /resource/sign_up  
   def new
@@ -87,6 +87,15 @@ class UsersController < ApplicationController
 		@title = "Order: #{@order.id}"
 	rescue
 		redirect_to(myaccount_path('orders'))
+	end
+	
+	def add_to_list
+	  if user_signed_in?
+	    @list = get_user.lists.default || get_user.lists.build(:name => "My List", :default_list => true)
+	    @list.add_product params[:id]
+	  else
+	    @message = "You must be logged in to add an item to a list."
+	  end
 	end
 	
 	def list

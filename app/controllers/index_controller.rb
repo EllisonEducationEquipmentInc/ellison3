@@ -1,6 +1,7 @@
 class IndexController < ApplicationController
 	
 	before_filter :trackable, :except => [:catalog]
+  before_filter :store_path!
 	
 	verify :xhr => true, :only => [:search, :quick_search], :redirect_to => {:action => :home}
 		
@@ -16,7 +17,7 @@ class IndexController < ApplicationController
 		@product = Product.send(current_system).criteria.id(params[:id]).first
 		raise "Invalid product" unless @product.displayable?
 		@title = @product.name
-		fresh_when(:etag => [current_locale, current_system, @product], :last_modified => @product.updated_at.utc)
+		fresh_when(:etag => [current_locale, current_system, @product, current_user], :last_modified => @product.updated_at.utc)
 	rescue
 		go_404
 	end
@@ -33,11 +34,12 @@ class IndexController < ApplicationController
 	def catalog
     @title = "Catalog"
     #expires_in 3.hours, 'max-stale' => 5.hours
-    fresh_when :etag => [current_locale, current_system]
+    fresh_when :etag => [current_locale, current_system, current_user]
 	end
 	
 	def search
     get_search
+    session[:user_return_to] = catalog_path + "#" + request.env["QUERY_STRING"]
 	  @products = @search.results
 	end
 	

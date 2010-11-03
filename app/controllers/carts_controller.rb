@@ -33,6 +33,7 @@ class CartsController < ApplicationController
 	def checkout
     # get_cart.update_items true
     # flash[:alert] = ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
+    session[:user_return_to] = nil
 		redirect_to(catalog_path, :alert => flash[:alert] || I18n.t(:empty_cart)) and return if get_cart.cart_items.blank?
 		@title = "Checkout"
 		@cart_locked, @checkout = true, true
@@ -46,6 +47,7 @@ class CartsController < ApplicationController
 	end
 	
 	def quote
+	  session[:user_return_to] = nil
 	  redirect_to(catalog_path, :alert => flash[:alert] || I18n.t(:empty_cart)) and return if get_cart.cart_items.blank? || !(quote_allowed? || get_cart.pre_order?)
 		@title = quote_name
 		@cart_locked, @checkout = true, true

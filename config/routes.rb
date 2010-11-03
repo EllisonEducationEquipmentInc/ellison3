@@ -28,13 +28,14 @@ Ellison3::Application.routes.draw do |map|
 		post "create_list", :to => "users#create_list"
 		delete "delete_list", :to => "users#delete_list"
 		post "user_as", :to => "sessions#user_as"
+		get "add_to_list", :to => "users#add_to_list"
   end
 
   match 'admin' => 'admin#index'
 
   match 'shop/:id' => 'index#shop', :as => :shop
 	match 'products' => 'index#products'
-	match 'catalog' => 'index#catalog'
+	match 'catalog' => 'index#catalog', :as => :catalog
 	match 'product/:id' => 'index#product', :as => :product
 	
 	match 'forget_credit_card' => 'carts#forget_credit_card', :as => :forget_credit_card

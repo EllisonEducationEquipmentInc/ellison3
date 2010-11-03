@@ -190,4 +190,8 @@ private
     ''
   end
   
+  def store_path!
+    session[:user_return_to] = request.request_uri if request.get? && !request.xhr?
+  end
+  
 end

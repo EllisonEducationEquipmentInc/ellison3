@@ -23,6 +23,10 @@ class User
 	  def owns
 			@target.detect {|list| list.owns}
     end
+    
+    def default
+			@target.detect {|list| list.default_list}
+    end
 	end
 	
 	index :email

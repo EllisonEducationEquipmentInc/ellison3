@@ -1,0 +1,13 @@
+- if user_signed_in?
+  == $('#wishlist_buttons_#{params[:id]}').html('#{escape_javascript link_to('Item added to List', myaccount_path('mylists'))}')
+- else
+  $.fancybox({
+  'padding'		: 10,
+  'autoScale'		: false,
+  'speedIn'		:	500, 
+  'speedOut'		:	200,
+  'width'	: 860,
+  'title'			: false,
+  'content'	: '#{escape_javascript(render(:partial => "login_or_checkout"))}'
+  });
+  setTimeout("$.fancybox.resize()", 600);
