@@ -4,6 +4,7 @@ class List
 	include Mongoid::Timestamps
 	include ActiveModel::Validations
 	include ActiveModel::Translation
+	include Mongoid::Paranoia
 	
 	referenced_in :user
 	

@@ -2,7 +2,7 @@
   %td{:id => "name_#{list.id}", :class => list.owns ? nil : 'editable'}= list.name
   %td.editable{:id => "comments_#{list.id}"}= list.comments
   %td= list.product_ids.length
-  %td= list.default_list
+  %td= radio_button_tag :set_defailt_list, list.id, list.default_list, :onclick => "disable_default_list_delete();$.ajax({url:'/list_set_to_default?id=#{list.id}'});" unless list.owns
   %td
     = link_to "View this List", list_path(list), :class => 'jqui_show'
     = link_to "Delete this List", {:action => 'delete_list', :id => list}, :class => 'jqui_trash', :method => :delete, :remote => true, :confirm => "Are you sure you want to delete this List?" unless list.owns

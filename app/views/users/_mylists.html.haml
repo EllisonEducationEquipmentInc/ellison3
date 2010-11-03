@@ -20,6 +20,10 @@
       = f.label :comments
       %br
       = f.text_area :comments
+    .field
+      = f.label :default_list, "Make this your default list?"
+      %br
+      = f.check_box :default_list
     .actions
       = f.submit :class => 'jqui_save'
       = link_to_function "cancel", "$('#new_list').hide()", :class => "jqui_cancel"
@@ -27,6 +31,11 @@
   $('#new_list').hide();
   initialize_buttons();
   make_lists_editable();
+  disable_default_list_delete();
+  function disable_default_list_delete(){
+    $('#lists .jqui_trash').show();
+    $('#lists :checked').parent('td').next().children('.jqui_trash').hide();
+  }
   function make_lists_editable(){
     $(".editable").editInPlace({
       url: "/update_list",

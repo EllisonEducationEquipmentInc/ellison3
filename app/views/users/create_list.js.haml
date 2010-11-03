@@ -1,5 +1,6 @@
 == $('#lists table').append('#{escape_javascript render(:partial => 'list_row', :locals => {:list => @list})}');
 initialize_buttons();
 make_lists_editable();
+disable_default_list_delete();
 $('#new_list').resetForm();
 $('#new_list').hide();

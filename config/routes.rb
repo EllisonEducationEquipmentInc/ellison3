@@ -29,6 +29,7 @@ Ellison3::Application.routes.draw do |map|
 		delete "delete_list", :to => "users#delete_list"
 		post "user_as", :to => "sessions#user_as"
 		get "add_to_list", :to => "users#add_to_list"
+		get "list_set_to_default", :to => "users#list_set_to_default"
   end
 
   match 'admin' => 'admin#index'

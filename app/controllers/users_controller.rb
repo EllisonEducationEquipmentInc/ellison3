@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   ssl_exceptions :signin_signup, :checkout_requested, :quote_requested
   ssl_allowed :signin_signup, :checkout_requested, :quote_requested
 
-  verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list, :add_to_wishlist], :redirect_to => {:action => :myaccount}
+  verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list, :add_to_wishlist, :list_set_to_default], :redirect_to => {:action => :myaccount}
 
   # GET /resource/sign_up  
   def new
@@ -110,6 +110,7 @@ class UsersController < ApplicationController
 	  @list = List.new params[:list]
 	  @list.user = current_user
 	  @list.save!
+	  get_user.list_set_to_default(@list.id.to_s) if @list.default_list || get_user.lists.default.blank?
 	rescue Exception => e
 		render :js => "alert(\"#{e.message}\")"
 	end
@@ -125,6 +126,13 @@ class UsersController < ApplicationController
 	  @list = get_user.lists.find id
 	  @list.update_attributes attribute => params[:update_value]
 	  render :text => params[:update_value]
+	end
+	
+	def list_set_to_default
+	  get_user.list_set_to_default(params[:id])
+	  render :nothing => true
+	rescue Exception => e
+		render :js => "alert(\"#{e.message}\")"
 	end
 	
 	def quotes

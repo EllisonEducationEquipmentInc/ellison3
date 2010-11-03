@@ -186,8 +186,6 @@ private
   
   def set_admin_title
     @title = "#{params[:controller].try(:humanize)} - #{params[:action].try(:humanize)} #{params[:id]}"
-  rescue
-    ''
   end
   
   def store_path!
