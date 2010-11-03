@@ -20,6 +20,25 @@
   	text-indent: -9999em;
   }
   
+  #nav_megamenu {
+    margin-top: 15px;
+    
+    .megalink {
+      font-family: Georgia, serif;
+      font-size: 12px;
+      font-style: italic;
+      font-weight: bold;
+      color: #000;
+      text-decoration: none;
+      
+      &:hover {color: #f3658c;};
+    }
+    
+    .megasubpanel {
+      margin-top: 1px;
+    }
+  }
+  
   .container {
     // height: 100px;
   }  
