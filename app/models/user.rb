@@ -19,6 +19,11 @@ class User
 
 	references_many :orders, :index => true
 	references_many :quotes, :index => true
+	references_many :lists, :index => true do
+	  def owns
+			@target.detect {|list| list.owns}
+    end
+	end
 	
 	index :email
 	index :systems_enabled
@@ -53,7 +58,22 @@ class User
     #conditions[:active] = true
 		conditions[:systems_enabled.in] = [current_system] 
     super
-  end 
+  end
+  
+  def create_owns_list
+    return unless lists.owns.blank?
+    l = List.new :owns => true, :name => "Products I own"
+    l.product_ids = orders.only(:status, "order_items.product_id").where(:status.in => ["Open", "Processing", "In Process", "Shipped"]).inject([]) {|all,e| all += e.order_items.map {|i| i.product_id}}.compact.uniq
+    l.user = self
+    l.save
+  end
+  
+  def add_to_owns_list(product_ids)
+    create_owns_list
+    l = lists.owns
+    l.product_ids = (l.product_ids + product_ids).compact.uniq
+    l.save
+  end
 
 protected
 	def password_required?

@@ -94,7 +94,10 @@ module ShoppingCart
   		  get_user.save
   		end
   		order.save!
-  		order.decrement_items! if order.is_a?(Order)
+  		if order.is_a?(Order)
+  		  order.decrement_items! 
+  		  order.user.add_to_owns_list order.order_items.map {|e| e.product_id}
+  		end
   		flash[:notice] = "Thank you for your #{order.is_a?(Order) ? 'order' : quote_name}.  Below is your order receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email."
 		end
 		

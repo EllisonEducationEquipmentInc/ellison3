@@ -61,6 +61,8 @@ class Order
 		scope sys.to_sym, :where => { :system => sys }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex
 	end
 	
+	scope :real_orders, :where => {:status.in => ["Open", "Processing", "In Process", "Shipped"]}
+	
 	before_create :set_system
 	
 	def total_amount

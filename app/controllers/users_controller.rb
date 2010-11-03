@@ -107,6 +107,7 @@ class UsersController < ApplicationController
 	end
 	
 	def mylists
+	  get_user.create_owns_list if get_user.lists.owns.blank?
 		render :partial => 'mylists'
 	end
 	
