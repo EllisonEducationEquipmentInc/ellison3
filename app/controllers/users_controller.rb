@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   ssl_exceptions :signin_signup, :checkout_requested, :quote_requested
   ssl_allowed :signin_signup, :checkout_requested, :quote_requested
 
-  verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials], :redirect_to => {:action => :myaccount}
+  verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list], :redirect_to => {:action => :myaccount}
 
   # GET /resource/sign_up  
   def new
@@ -89,6 +89,35 @@ class UsersController < ApplicationController
 		redirect_to(myaccount_path('orders'))
 	end
 	
+	def list
+		@list = List.find params[:id]
+		@users_list = get_user.lists.include?(@list)
+		@title = "List: #{@list.name}"
+	rescue
+		redirect_to(myaccount_path('mylists'))
+	end
+	
+	def create_list
+	  @list = List.new params[:list]
+	  @list.user = current_user
+	  @list.save!
+	rescue Exception => e
+		render :js => "alert(\"#{e.message}\")"
+	end
+	
+	def delete_list
+	  @list = get_user.lists.find params[:id]
+	  @list.delete
+	  render :js => "$('#list_row_#{@list.id}').remove()"
+	end
+	
+	def update_list
+    attribute, id = params[:element_id].split("_")
+	  @list = get_user.lists.find id
+	  @list.update_attributes attribute => params[:update_value]
+	  render :text => params[:update_value]
+	end
+	
 	def quotes
 	  @current_locale = current_locale
 		@quotes = get_user.quotes.active.where(:system => current_system).desc(:created_at).paginate(:page => params[:page], :per_page => 10)
@@ -108,6 +137,7 @@ class UsersController < ApplicationController
 	
 	def mylists
 	  get_user.create_owns_list if get_user.lists.owns.blank?
+	  @lists = get_user.lists
 		render :partial => 'mylists'
 	end
 	

@@ -285,6 +285,9 @@ function initialize_buttons(){
 	$(function() {
 		$(".jqui_clipboard").button({icons: {primary: 'ui-icon-clipboard'}});
 	});
+	$(function() {
+		$(".jqui_show").button({icons: {primary: 'ui-icon-document'}});
+	});
 	
 };
 

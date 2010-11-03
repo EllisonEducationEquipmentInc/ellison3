@@ -1,0 +1,14 @@
+%h2== List: #{@list.name}
+.buybox.rounded
+  .right
+    - if @users_list
+      %strong Jump to list:
+      = select_tag :jump_to_list, options_for_select(current_user.lists.map {|e| [e.name, e.id]}, params[:id]), :style => "max-width:200px", :onchange => "window.location='/list/'+this.value"
+      %br
+      = link_to "Manage My Lists", myaccount_path('mylists')
+      %br
+      = link_to 'Share this list with friends and family'
+  = @list.comments
+  .clear
+= render @list.products
+.clear

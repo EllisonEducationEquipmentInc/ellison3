@@ -12,6 +12,7 @@ Ellison3::Application.routes.draw do |map|
 		match "myaccount(/:tab)", :to => "users#myaccount", :as => :myaccount
 		match "myaccount/order/:id", :to => "users#order", :as => :order
 		match "myaccount/quote/:id", :to => "users#quote", :as => :myquote
+		match "list/:id", :to => "users#list", :as => :list
 		get "billing", :to => "users#billing"
 		get "shipping", :to => "users#shipping"
 		get "mylists", :to => "users#mylists"
@@ -23,6 +24,9 @@ Ellison3::Application.routes.draw do |map|
 		get "quote_requested", :to => "users#quote_requested"
 		get "signin_signup", :to => "users#signin_signup"
 		post "update_address", :to => "users#update_address"
+		post "update_list", :to => "users#update_list"
+		post "create_list", :to => "users#create_list"
+		delete "delete_list", :to => "users#delete_list"
 		post "user_as", :to => "sessions#user_as"
   end
 

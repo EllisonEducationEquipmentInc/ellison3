@@ -1,3 +1,39 @@
-- get_user.lists.each do |list|
-  = list.name
-  = render list.products
+#lists
+  Click on View This List to manage or share the list.
+  %table
+    %tr
+      %th List Name
+      %th List Comments
+      %th No. of List Items
+      %th Default List
+      %th
+    = render :partial => 'list_row', :collection => @lists, :as => :list
+  = link_to_function "Create New List", "$('#new_list').show()", :class => 'jqui_new'
+  %br
+  %br
+  = form_for(List.new, :url => {:action => 'create_list'}, :remote => true) do |f|
+    .field
+      = f.label :name
+      %br
+      = f.text_field :name
+    .field
+      = f.label :comments
+      %br
+      = f.text_area :comments
+    .actions
+      = f.submit :class => 'jqui_save'
+      = link_to_function "cancel", "$('#new_list').hide()", :class => "jqui_cancel"
+:javascript
+  $('#new_list').hide();
+  initialize_buttons();
+  make_lists_editable();
+  function make_lists_editable(){
+    $(".editable").editInPlace({
+      url: "/update_list",
+      field_type: "textarea",
+      textarea_rows: "10",
+      textarea_cols: "35",
+      show_buttons: true,
+      saving_animation_color: "#ECF2F8"
+    });
+  }

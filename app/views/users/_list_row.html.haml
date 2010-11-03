@@ -1,0 +1,8 @@
+%tr{:id => "list_row_#{list.id}"}
+  %td{:id => "name_#{list.id}", :class => list.owns ? nil : 'editable'}= list.name
+  %td.editable{:id => "comments_#{list.id}"}= list.comments
+  %td= list.product_ids.length
+  %td= list.default_list
+  %td
+    = link_to "View this List", list_path(list), :class => 'jqui_show'
+    = link_to "Delete this List", {:action => 'delete_list', :id => list}, :class => 'jqui_trash', :method => :delete, :remote => true, :confirm => "Are you sure you want to delete this List?" unless list.owns
