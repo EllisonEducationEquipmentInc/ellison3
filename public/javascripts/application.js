@@ -225,6 +225,7 @@ function initialize_buttons(){
 	    .click(function() {
 	      $.ajax({url:"/add_to_list?id="+this.id.replace('add_to_list_', '')});
 				_gaq.push(['_trackEvent', 'Lists', 'Add To Default List', $(this).attr('rel')]);
+				$(this).button({disabled: true});
 			})
 	    .next()
 	    .button({
