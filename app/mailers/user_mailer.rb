@@ -9,4 +9,12 @@ class UserMailer < ActionMailer::Base
     @quote = quote
     mail(:to => quote.user.email, :subject => "#{get_domain.capitalize} #{quote_name} confirmation.")
   end
+  
+  def email_list(user, name, recipients, wishlist, note)
+		@from = user.email
+		@list = wishlist
+		@name = name
+		@note = note
+		mail(:from => user.email, :to => recipients, :subject => "#{name} wants to share their #{get_domain.capitalize} List with you")
+	end
 end

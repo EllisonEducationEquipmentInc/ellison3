@@ -1,13 +1,13 @@
 class UsersController < ApplicationController
 	prepend_before_filter :require_no_authentication, :only => [ :new, :create]
-  prepend_before_filter :authenticate_scope!, :except => [ :new, :create, :checkout_requested, :signin_signup, :quote_requested, :add_to_list]
+  prepend_before_filter :authenticate_scope!, :except => [ :new, :create, :checkout_requested, :signin_signup, :quote_requested, :add_to_list, :list]
   before_filter :trackable
   include Devise::Controllers::InternalHelpers
   
   ssl_exceptions :signin_signup, :checkout_requested, :quote_requested
   ssl_allowed :signin_signup, :checkout_requested, :quote_requested
 
-  verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list, :add_to_wishlist, :list_set_to_default, :remove_from_list, :move_to_list], :redirect_to => {:action => :myaccount}
+  verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list, :add_to_wishlist, :list_set_to_default, :remove_from_list, :move_to_list, :email_list], :redirect_to => {:action => :myaccount}
 
   # GET /resource/sign_up  
   def new
@@ -107,9 +107,9 @@ class UsersController < ApplicationController
 	def move_to_list
 	  raise "Item cannot be moved to the same list" if params[:list] == params[:move_to]
 	  @list = get_user.lists.find params[:list]
+	  @new_list = get_user.lists.find params[:move_to]
 	  @list.product_ids.delete_if {|e| e.to_s == params[:id]}
 	  @list.save
-	  @new_list = get_user.lists.find params[:move_to]
 	  @new_list.add_product params[:id]
 	  render :remove_from_list
 	rescue Exception => e
@@ -118,8 +118,8 @@ class UsersController < ApplicationController
 	
 	def list
 		@list = List.find params[:id]
-		@users_list = get_user.lists.include?(@list)
-		@lists = get_user.lists.map {|e| [e.name, e.id]}
+		@users_list = user_signed_in? && get_user.lists.include?(@list)
+		@lists = user_signed_in? && get_user.lists.map {|e| [e.name, e.id]}
 		@title = "List: #{@list.name}"
 	rescue
 		redirect_to(myaccount_path('mylists'))
@@ -138,6 +138,18 @@ class UsersController < ApplicationController
 	  @list = get_user.lists.find params[:id]
 	  @list.delete
 	  render :js => "$('#list_row_#{@list.id}').remove()"
+	end
+	
+	def email_list
+	  @list = get_user.lists.find params[:id]
+	  if @list && !params[:list_to].blank? && !params[:list_your_name].blank? && params[:list_to].split(/,\s*/).all? {|e| e =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/}
+	    UserMailer.email_list(get_user, params[:list_your_name], params[:list_to].split(/,\s*/), @list, params[:list_note]).deliver
+	  else
+	    raise "Unable to send email. Please make sure that you have specified Your name and entered a valid recipient email address."
+	  end
+	  render :js => "$('#email_list_form').resetForm();$('#email_list').slideUp();alert('Your email has been sent to: #{params[:list_to]}')"
+	rescue Exception => e
+		render :js => "alert('#{e.message}')"
 	end
 	
 	def update_list
