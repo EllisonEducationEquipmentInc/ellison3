@@ -1,4 +1,13 @@
-.product-block
+.product-block{:class => "product_#{product.id}"}
+  - if @users_list
+    .list_actions
+      = link_to_function "Move to Another List", "$(this).siblings('.move_to_another_list').toggle()", :class => 'jqui_move_min'
+      = link_to "Delete from List", {:controller => 'users', :action => 'remove_from_list', :id => product, :list => @list.id}, :remote => true, :method => :delete, :confirm => "Are you sure yo want to remove this item from this List?", :class => 'jqui_destroy_min'
+      .move_to_another_list.rounded{:style => "display:none"}
+        = form_tag({:controller => 'users', :action => 'move_to_list', :id => product, :list => @list.id}, :remote => true) do
+          = select_tag :move_to, options_for_select(@lists), :style => "max-width:150px"
+          = submit_tag "Move", :class => 'jqui_save'
+          = link_to_function 'cancel', "$(this).parents('.move_to_another_list').hide()"
   %h3
     = product.item_num
     %span.life-cycle= product.public_life_cycle

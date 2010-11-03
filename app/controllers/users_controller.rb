@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   ssl_exceptions :signin_signup, :checkout_requested, :quote_requested
   ssl_allowed :signin_signup, :checkout_requested, :quote_requested
 
-  verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list, :add_to_wishlist, :list_set_to_default], :redirect_to => {:action => :myaccount}
+  verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list, :add_to_wishlist, :list_set_to_default, :remove_from_list, :move_to_list], :redirect_to => {:action => :myaccount}
 
   # GET /resource/sign_up  
   def new
@@ -98,9 +98,28 @@ class UsersController < ApplicationController
 	  end
 	end
 	
+	def remove_from_list
+	  @list = get_user.lists.find params[:list]
+	  @list.product_ids.delete_if {|e| e.to_s == params[:id]}
+	  @list.save
+	end
+	
+	def move_to_list
+	  raise "Item cannot be moved to the same list" if params[:list] == params[:move_to]
+	  @list = get_user.lists.find params[:list]
+	  @list.product_ids.delete_if {|e| e.to_s == params[:id]}
+	  @list.save
+	  @new_list = get_user.lists.find params[:move_to]
+	  @new_list.add_product params[:id]
+	  render :remove_from_list
+	rescue Exception => e
+		render :js => "alert(\"#{e.message}\")"
+	end
+	
 	def list
 		@list = List.find params[:id]
 		@users_list = get_user.lists.include?(@list)
+		@lists = get_user.lists.map {|e| [e.name, e.id]}
 		@title = "List: #{@list.name}"
 	rescue
 		redirect_to(myaccount_path('mylists'))

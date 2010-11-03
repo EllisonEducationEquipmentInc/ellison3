@@ -299,7 +299,9 @@ function initialize_buttons(){
 	$(function() {
 		$(".jqui_show").button({icons: {primary: 'ui-icon-document'}});
 	});
-	
+	$(function() {
+		$(".jqui_move_min").button({icons: {primary: 'ui-icon-extlink'}, text: false});
+	});
 };
 
 function order_comment() {

@@ -59,7 +59,7 @@ module ApplicationHelper
   = @product_obj.send "availability_message_#{current_system}"
 - else
   .jqui_out_of_stock WTF??
-- unless @product_obj.suspended?
+- unless @product_obj.suspended? || @users_list
   %p.buttonset{:id => "wishlist_buttons_#{product.id}"}
     %button.wishlist{:id => "add_to_list_#{product.id}", :rel => "#{product.item_num}"} Add to My List
     %button.select{:id => "add_to_list_#{product.id}", :rel => "#{product.item_num}"} Select a list

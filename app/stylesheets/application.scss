@@ -314,6 +314,8 @@ body.bp th, body.bp td, body.bp caption {
 		padding: 3px;
 	}
 	input.transperent {border:none;background:none;}
+	.list_actions {text-align:left;position:absolute;}
+	.move_to_another_list {border:1px solid gray;background:white;padding:3px;}
 }
 #guest_checkout {
 	float:right;

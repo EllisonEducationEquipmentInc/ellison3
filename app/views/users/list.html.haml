@@ -3,7 +3,7 @@
   .right
     - if @users_list
       %strong Jump to list:
-      = select_tag :jump_to_list, options_for_select(current_user.lists.map {|e| [e.name, e.id]}, params[:id]), :style => "max-width:200px", :onchange => "window.location='/list/'+this.value"
+      = select_tag :jump_to_list, options_for_select(@lists, params[:id]), :style => "max-width:200px", :onchange => "window.location='/list/'+this.value"
       %br
       = link_to "Manage My Lists", myaccount_path('mylists')
       %br
