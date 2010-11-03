@@ -60,23 +60,29 @@
           %li elementum
           %li feugiat tristique
         %ul.contentwrap_small
-          %li dolor sit amet
-          %li consectetur adipiscing
-          %li Vestibulum auctor
-          %li odio in nisl
-          %li dictum
+          %li.listtitle Category
+          %ul
+            %li= link_to "dolor sit amet", "#"
+            %li consectetur adipiscing
+            %li Vestibulum auctor
+            %li odio in nisl
+            %li dictum
         %ul.contentwrap_small
-          %li bibendum
-          %li massa interdum
-          %li Phasellus dapibus
+          %li.listtitle Designer
+          %ul
+            %li bibendum
+            %li massa interdum
+            %li Phasellus dapibus
         %p.contentwrap_small
           Nam semper porttitor arcu, ut molestie diam gravida vitae. Suspendisse et nisi quis turpis molestie faucibus a a risus. Nulla rutrum felis vel nisi accumsan vitae auctor mauris pharetra. Praesent a accumsan libero. Aenean mi nunc, convallis vestibulum euismod in, lobortis non sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Duis bibendum interdum felis, ut dictum risus ornare vel.
         %ul.contentwrap_small.last
-          %li Vestibulum auctor
-          %li odio in nisl
-          %li dictum
-          %li bibendum
-          %li massa interdum
+          %li.listtitle Machine Compatibility
+          %ul
+            %li Vestibulum auctor
+            %li odio in nisl
+            %li dictum
+            %li bibendum
+            %li massa interdum
     %li.megaitem
       = link_to "Craft Ideas", "#", :class => "megalink"
       .megasubpanel
@@ -104,6 +110,11 @@
       = link_to "What's New?", "#", :class => "megalink"
       .megasubpanel
         %ul.contentwrap_XXXL.last.resize
+          %li= link_to "eclips", shop_path("eclips")
+          %li= link_to "eclips", shop_path("eclips")
+          %li= link_to "eclips", shop_path("eclips")
+          %li= link_to "eclips", shop_path("eclips")
+          %li= link_to "eclips", shop_path("eclips")
           %li= link_to "eclips", shop_path("eclips")
     %li.megaitem
       = link_to "On Sale Now!", "#", :class => "megalink"
@@ -147,7 +158,7 @@
 - if is_sizzix_us?
   :javascript
     // mega menu link styles
-    $("#nav_megamenu a").FontEffect({
+    $(".megalink").FontEffect({
       outline:true,
       outlineWeight: 2,
       outlineColor1: "#81a27b"

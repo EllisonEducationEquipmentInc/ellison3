@@ -134,7 +134,6 @@ $(document).ready(function(){
       }
     });
 	});
-
   var hoverconfig = { // hover intent custom configurations
     sensitivity: 2, // number = sensitivity threshold (must be 1 or higher)
     interval: 100, // number = milliseconds for onMouseOver polling interval

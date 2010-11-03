@@ -24,6 +24,23 @@
   	margin: 0;
   	text-indent: -9999em;
   }  
+
+  #nav_megamenu {
+    margin-top: 5px;
+    
+    .megalink {
+      font-size: 13px;
+      font-weight: bold;
+      color: #000;
+      text-decoration: none;
+      
+      &:hover {color: #e20026;};
+    }
+    
+    .megasubpanel {
+      margin-top: 0px;
+    }
+  }
 }
 
 #footer {
