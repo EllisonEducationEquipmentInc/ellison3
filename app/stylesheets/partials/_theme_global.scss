@@ -103,9 +103,9 @@ body.bp {
     float: left;
     width: 100%;
     position: relative;
-    z-index: 2;
+    z-index: 300;
     
-    ul {
+    ul.megalist {
       clear: left;
       float: right;
       list-style: none;
@@ -115,7 +115,7 @@ body.bp {
       right: 50%;
       text-align: center;
       
-      li {
+      li.megaitem {
         display: block;
         float: left;
         list-style: none;
@@ -124,18 +124,31 @@ body.bp {
         position: relative;
         left: 50%;
         
-        a {
+        a.megalink {
           display:block;
           margin:0 0 0 1px;
           padding:3px 10px;
         }
         
         .megasubpanel {
-          background-color: #fff;
+          background: #f8f6f2 url("/images/ui-backgrounds/_szus_megasubpanel.png") no-repeat center bottom;
           text-align: left;
           position:absolute;
           width: 950px;
           display: none;
+          padding: 8px 0 0 0;
+
+          ul, p {
+            margin: 0;
+            padding: 0 0 8px 10px;
+          }
+          ul {
+            list-style: none;
+          }
+          
+          .last {
+            padding-right: 10px;
+          }
         }
       }
     }

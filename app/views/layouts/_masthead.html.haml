@@ -50,33 +50,97 @@
 
 -# primary navigation menu (product catalog, customer & community outreach, etc)
 #nav_megamenu
-  %ul
-    %li
-      = link_to "Shop Sizzix", catalog_path
+  %ul.megalist
+    %li.megaitem
+      = link_to "Shop Sizzix", catalog_path, :class => "megalink"
       .megasubpanel
-        1 Nam semper porttitor arcu, ut molestie diam gravida vitae. Suspendisse et nisi quis turpis molestie faucibus a a risus. Nulla rutrum felis vel nisi accumsan vitae auctor mauris pharetra. Praesent a accumsan libero. Aenean mi nunc, convallis vestibulum euismod in, lobortis non sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Duis bibendum interdum felis, ut dictum risus ornare vel.
-    %li
-      = link_to "Craft Ideas", "#"
+        %ul.contentwrap_medium.resize
+          %li massa interdum
+          %li Phasellus dapibus
+          %li elementum
+          %li feugiat tristique
+        %ul.contentwrap_small
+          %li dolor sit amet
+          %li consectetur adipiscing
+          %li Vestibulum auctor
+          %li odio in nisl
+          %li dictum
+        %ul.contentwrap_small
+          %li bibendum
+          %li massa interdum
+          %li Phasellus dapibus
+        %p.contentwrap_small
+          Nam semper porttitor arcu, ut molestie diam gravida vitae. Suspendisse et nisi quis turpis molestie faucibus a a risus. Nulla rutrum felis vel nisi accumsan vitae auctor mauris pharetra. Praesent a accumsan libero. Aenean mi nunc, convallis vestibulum euismod in, lobortis non sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Duis bibendum interdum felis, ut dictum risus ornare vel.
+        %ul.contentwrap_small.last
+          %li Vestibulum auctor
+          %li odio in nisl
+          %li dictum
+          %li bibendum
+          %li massa interdum
+    %li.megaitem
+      = link_to "Craft Ideas", "#", :class => "megalink"
       .megasubpanel
-        2 Nam semper porttitor arcu, ut molestie diam gravida vitae. Suspendisse et nisi quis turpis molestie faucibus a a risus. Nulla rutrum felis vel nisi accumsan vitae auctor mauris pharetra. Praesent a accumsan libero. Aenean mi nunc, convallis vestibulum euismod in, lobortis non sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Duis bibendum interdum felis, ut dictum risus ornare vel.
-    %li
-      = link_to "What's New?", "#"
+        %ul.contentwrap_medium
+          %li elementum
+          %li feugiat tristique
+          %li Vestibulum auctor
+          %li bibendum
+          %li massa interdum
+        %ul.contentwrap_small.resize
+          %li dolor sit amet
+          %li consectetur adipiscing
+          %li Phasellus dapibus
+        %p.contentwrap_small
+          Nam semper porttitor arcu, ut molestie diam gravida vitae. Suspendisse et nisi quis turpis molestie faucibus a a risus. Nulla rutrum felis vel nisi accumsan vitae auctor mauris pharetra. Praesent a accumsan libero. Aenean mi nunc, convallis vestibulum euismod in, lobortis non sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Duis bibendum interdum felis, ut dictum risus ornare vel.
+        %ul.contentwrap_medium.last
+          %li Vestibulum auctor
+          %li odio in nisl
+          %li massa interdum
+          %li Phasellus dapibus
+          %li dictum
+          %li bibendum
+          %li massa interdum
+    %li.megaitem
+      = link_to "What's New?", "#", :class => "megalink"
       .megasubpanel
-        %ul
+        %ul.contentwrap_XXXL.last.resize
           %li= link_to "eclips", shop_path("eclips")
-    %li
-      = link_to "On Sale Now!", "#"
+    %li.megaitem
+      = link_to "On Sale Now!", "#", :class => "megalink"
       .megasubpanel
-        4 Nam semper porttitor arcu, ut molestie diam gravida vitae. Suspendisse et nisi quis turpis molestie faucibus a a risus. Nulla rutrum felis vel nisi accumsan vitae auctor mauris pharetra. Praesent a accumsan libero. Aenean mi nunc, convallis vestibulum euismod in, lobortis non sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Duis bibendum interdum felis, ut dictum risus ornare vel.
-    %li
-      = link_to "Community", "#"
+        %p.contentwrap_XXXL.last.resize
+          4 Nam semper porttitor arcu, ut molestie diam gravida vitae. Suspendisse et nisi quis turpis molestie faucibus a a risus. Nulla rutrum felis vel nisi accumsan vitae auctor mauris pharetra. Praesent a accumsan libero. Aenean mi nunc, convallis vestibulum euismod in, lobortis non sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Duis bibendum interdum felis, ut dictum risus ornare vel.
+    %li.megaitem
+      = link_to "Community", "#", :class => "megalink"
       .megasubpanel
-        5 Nam semper porttitor arcu, ut molestie diam gravida vitae. Suspendisse et nisi quis turpis molestie faucibus a a risus. Nulla rutrum felis vel nisi accumsan vitae auctor mauris pharetra. Praesent a accumsan libero. Aenean mi nunc, convallis vestibulum euismod in, lobortis non sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Duis bibendum interdum felis, ut dictum risus ornare vel.
-    %li
-      = link_to "Customer Care", "#"
+        %p.contentwrap_XXXL.last.resize
+          5 Nam semper porttitor arcu, ut molestie diam gravida vitae. Suspendisse et nisi quis turpis molestie faucibus a a risus. Nulla rutrum felis vel nisi accumsan vitae auctor mauris pharetra. Praesent a accumsan libero. Aenean mi nunc, convallis vestibulum euismod in, lobortis non sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Duis bibendum interdum felis, ut dictum risus ornare vel.
+    %li.megaitem
+      = link_to "Customer Care", "#", :class => "megalink"
       .megasubpanel
-        6 Nam semper porttitor arcu, ut molestie diam gravida vitae. Suspendisse et nisi quis turpis molestie faucibus a a risus. Nulla rutrum felis vel nisi accumsan vitae auctor mauris pharetra. Praesent a accumsan libero. Aenean mi nunc, convallis vestibulum euismod in, lobortis non sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Duis bibendum interdum felis, ut dictum risus ornare vel.
-    %li
-      = link_to "Shop the Outlet", "#"
+        %p.contentwrap_XXXL.last.resize
+          The next thing was to eat the comfits: this caused some noise and  confusion, as the large birds complained that they could not taste  theirs, and the small ones choked and had to be patted on the back.  However, it was over at last, and they sat down again in a ring, and  begged the Mouse to tell them something more.
+        %p.contentwrap_large.first.resize
+          'It IS a long tail, certainly,' said Alice, looking down with wonder at  the Mouse's tail; 'but why do you call it sad?' And she kept on puzzling  about it while the Mouse was speaking, so that her idea of the tale was  something like this:&mdash;
+        %p.contentwrap_large.last= image_tag("http://placehold.it/470x150")
+        %p.contentwrap_medium.first
+          'You promised to tell me your history, you know,' said Alice, 'and why  it is you hate - C and D,' she added in a whisper, half afraid that it  would be offended again.
+        %p.contentwrap_medium.resize
+          Alice thought the whole thing very absurd, but they all looked so grave  that she did not dare to laugh; and, as she could not think of anything  to say, she simply bowed, and took the thimble, looking as solemn as she  could.
+        %p.contentwrap_medium.last
+          'I beg your pardon,' said Alice very humbly: 'you had got to the fifth  bend, I think?'
+    %li.megaitem
+      = link_to "Shop the Outlet", "#", :class => "megalink"
       .megasubpanel
-        7 Nam semper porttitor arcu, ut molestie diam gravida vitae. Suspendisse et nisi quis turpis molestie faucibus a a risus. Nulla rutrum felis vel nisi accumsan vitae auctor mauris pharetra. Praesent a accumsan libero. Aenean mi nunc, convallis vestibulum euismod in, lobortis non sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Duis bibendum interdum felis, ut dictum risus ornare vel.
+        %ul.contentwrap_small
+          %li massa interdum
+          %li Phasellus dapibus
+          %li elementum
+          %li feugiat tristique
+        %ul.contentwrap_XL.resize
+          %li bibendum
+          %li Phasellus dapibus
+        %ul.contentwrap_small.last
+          %li Vestibulum auctor
+          %li bibendum
+          %li massa interdum

@@ -127,6 +127,14 @@ $(document).ready(function(){
 	});
 	
 	// mega menu
+	$("#nav_megamenu").find('.resize').each(function(){
+	  $(this).css({
+      width: function(index, value) {
+        return parseFloat(value) - 20.0;
+      }
+    });
+	});
+
   var hoverconfig = { // hover intent custom configurations
     sensitivity: 2, // number = sensitivity threshold (must be 1 or higher)
     interval: 100, // number = milliseconds for onMouseOver polling interval
@@ -498,12 +506,16 @@ function calculate_sale_price(price, discount, discount_type) {
 // Mega Menu Hover functions
 function megamenuHoverOver() {
   var xCoord  = Math.abs($('#nav_megamenu ul').position().left) - $(this).position().left // calculate correct left coordinate of the subpanel
-  
   $(this).find('.megasubpanel').css({ "left": (xCoord) + "px" }); // reset the left coordinate of the subpanel
-  $(this).find('.megasubpanel').stop().slideDown('fast', 'easeOutQuad').show();
+  
+  $(this).find('.megasubpanel').stop().slideDown('fast', function() {
+//    $(this).shadowOn({ imageset: 6, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadow for mega menu subpanel
+    $(this).show();
+  });
 }
 function megamenuHoverOut(){
-  $(this).find('.megasubpanel').stop().slideUp('fast', 'easeInQuad', function() {
-      $(this).hide();  // after fading, hide the subpanel
+  $(this).find('.megasubpanel').stop().slideUp('fast', function() {
+    $(this).hide();  // after fading, hide the subpanel
+//    $(this).shadowOff();
   });
 }
