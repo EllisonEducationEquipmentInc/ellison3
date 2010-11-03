@@ -144,3 +144,11 @@
           %li Vestibulum auctor
           %li bibendum
           %li massa interdum
+- if is_sizzix_us?
+  :javascript
+    // mega menu link styles
+    $("#nav_megamenu a").FontEffect({
+      outline:true,
+      outlineWeight: 2,
+      outlineColor1: "#81a27b"
+    })
