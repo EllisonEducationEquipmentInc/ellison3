@@ -420,25 +420,15 @@ module ShoppingCart
       @payment.paid_at = Time.zone.now
     end
 		
-		def get_gateway(system = nil)
-      unless system
-        system = if is_sizzix_us?
-                   'sizzix_us'
-                 elsif is_ee_us? 
-                   'ee_us'
-                 elsif is_er? 
-                   'er'
-                 else
-                   'uk'
-                 end
-      end
-      options = if system == 'sizzix_us'
+		def get_gateway(system = current_system)
+		  system ||= current_system
+      options = if system == 'szus'
                 {:merchant_account => {
                    :name => 'cyber_source',
                    :user_name => 'sizzix',
                    :password => 'gjSlJTQJGbiPL5fAwVZ2ho0r98LmsYw1FOdGq675dIZzsASmsv5/M2kKhc3mwAtPGlVBAf12UVToDRYqcXpQJUtkXCvp1oDQ0RyqmQlTH9CGUGh3lR+7jVwJ5+8qokWtWnrYuUU3JDE4suev4jYGCQ9lutmXAmhH5+OpxGG84TRsV7APDoSoJM4UhtGpYnaGjSv3wuaxjDUU50arrvl0hnOwBKay/n8zaQqFzebAC08aVUEB/XZRVOgNFipxelAlS2RcK+nWgNDRHKqZCVMf0IZQaHeVH7uNXAnn7yqiRa1aeti5RTckMTiy56/iNgYJD2W62ZcCaEfn46nEYbzhNA==',
                    :login => 'sizzix'}}
-              elsif system == 'ee_us'
+              elsif system == 'eeus'
                  {:merchant_account => {
                    :name => 'cyber_source',
                    :user_name => 'ellison',

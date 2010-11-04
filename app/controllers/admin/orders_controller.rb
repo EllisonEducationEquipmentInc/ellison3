@@ -100,7 +100,7 @@ class Admin::OrdersController < ApplicationController
     @order.payment.use_saved_credit_card = true
     I18n.locale = @order.locale
     raise "This order cannot be changed" if @order.status_frozen?
-    process_card(:amount => (@order.total_amount * 100).round, :payment => @order.payment, :order => @order.id.to_s, :capture => true, :use_payment_token => true)
+    process_card(:amount => (@order.total_amount * 100).round, :payment => @order.payment, :order => @order.id.to_s, :capture => true, :use_payment_token => true, :system => @order.system)
     @order.open!
     @order.save
     flash[:notice] = "Successful transaction..."
