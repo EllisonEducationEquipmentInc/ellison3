@@ -1,6 +1,7 @@
 - if @cch && @cch.success? 
   == $('#tax_transaction').html('#{@order.tax_transaction}')
   == $('#tax_calculated_at').html('#{l @order.tax_calculated_at, :format => :custom}')
+  == $('#tax_amount').html('#{number_to_currency @order.tax_amount}')
 - elsif @cch
   == alert('#{@cch.errors}');
 $('#calculate_tax_button').button({'disabled': false});
