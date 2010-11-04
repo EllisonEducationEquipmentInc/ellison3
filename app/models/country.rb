@@ -10,6 +10,8 @@ class Country
 	field :name
 	field :iso3
 	field :numcode
+	field :vat_exempt, :type => Boolean, :default => false
+	field :gbp, :type => Boolean, :default => false
 
 	validates_presence_of :iso_name, :iso, :name, :iso3, :numcode
 	validates_uniqueness_of :iso_name, :iso, :name, :iso3

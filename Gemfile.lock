@@ -116,7 +116,6 @@ GEM
     factory_girl_rails (1.0)
       factory_girl (~> 1.3)
       rails (>= 3.0.0.beta4)
-    fasterer-csv (1.6.0)
     fastthread (1.0.7)
     ffi (0.6.3)
       rake (>= 0.8.7)
@@ -262,7 +261,6 @@ DEPENDENCIES
   database_cleaner
   devise
   factory_girl_rails
-  fasterer-csv
   haml (>= 3.0.18)
   hpricot
   httparty
