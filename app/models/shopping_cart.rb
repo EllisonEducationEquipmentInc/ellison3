@@ -251,7 +251,7 @@ module ShoppingCart
         gw_options = {
           :order_id => order,
           :address => {},
-          :billing_address => {:name => billing.first_name + ' ' + billing.last_name, :address1 => billing.address1, :city => billing.city, :state => billing.state, :country => billing.country, :zip => billing.zip_code, :phone => billing.phone}
+          :billing_address => {:name => billing.first_name + ' ' + billing.last_name, :address1 => billing.address1, :city => billing.city, :state => billing.state, :country => country_2_code(billing.country), :zip => billing.zip_code, :phone => billing.phone}
         }
         gw_options[:currency] = is_gbp? ? "GBP" : "EUR" 
       end
@@ -442,7 +442,7 @@ module ShoppingCart
                   :login => 'ellisonretail'}}
               else
                  {:merchant_account => {
-                   :name => 'sage',
+                   :name => 'sage_pay',
                    :user_name => 'ellison',
                    :password => 'ellisond',
                    :login => 'ellisonadmin'}}
