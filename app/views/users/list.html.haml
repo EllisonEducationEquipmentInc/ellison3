@@ -26,7 +26,7 @@
         .field
           = required_field label_tag(:list_your_name, "Your Name:")
           %br
-          = text_field_tag :list_your_name, nil, :size => 100
+          = text_field_tag :list_your_name, get_user.name, :size => 100
         .field
           = required_field label_tag(:list_to, "To:")
           %small Separate email addresses with a comma.

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 	prepend_before_filter :require_no_authentication, :only => [ :new, :create]
-  prepend_before_filter :authenticate_scope!, :except => [ :new, :create, :checkout_requested, :signin_signup, :quote_requested, :add_to_list, :list]
+  prepend_before_filter :authenticate_scope!, :except => [ :new, :create, :checkout_requested, :signin_signup, :quote_requested, :add_to_list, :list, :get_lists]
   before_filter :trackable
   include Devise::Controllers::InternalHelpers
   
@@ -91,11 +91,27 @@ class UsersController < ApplicationController
 	
 	def add_to_list
 	  if user_signed_in?
-	    @list = get_user.lists.default || get_user.lists.build(:name => "My List", :default_list => true)
+	    if params[:list].blank?
+  	    @list = get_user.lists.default || get_user.build_default_mylist	     
+	    else
+	      @list = get_user.lists.find(params[:list]) rescue get_user.build_default_mylist	
+	    end
 	    @list.add_product params[:id]
 	  else
 	    @message = "You must be logged in to add an item to a list."
 	  end
+	end
+	
+	def get_lists
+	  if user_signed_in?
+  	  @lists = get_user.lists
+  	  @lists << get_user.build_default_mylist if @lists.blank?
+  	  @lists = @lists.map {|e| ["#{e.name} #{' (default)' if e.default_list}", e.id]}
+  	  render :partial => 'lists'
+  	else
+  	  @message = "You must be logged in to add an item to a list."
+	    render :add_to_list
+  	end
 	end
 	
 	def remove_from_list

@@ -63,6 +63,7 @@ module ApplicationHelper
   %p.buttonset{:id => "wishlist_buttons_#{product.id}"}
     %button.wishlist{:id => "add_to_list_#{product.id}", :rel => "#{product.item_num}"} Add to My List
     %button.select{:id => "add_to_list_#{product.id}", :rel => "#{product.item_num}"} Select a list
+  .wishlist_loader{:style => "display:none"}= image_tag('/images/ui-objects/loader-ajax_fb.gif')
 HTML
     Haml::Engine.new(html).render(self)
 	end

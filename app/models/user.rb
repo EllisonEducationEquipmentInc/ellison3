@@ -83,6 +83,10 @@ class User
     raise "list #{list_id} not found." unless lists.all.detect {|e| e.id.to_s == list_id}
     lists.all.each {|e| e.update_attributes :default_list => e.id.to_s == list_id}
   end
+  
+  def build_default_mylist
+    lists.build(:name => "My List", :default_list => true)
+  end
 
 protected
 	def password_required?

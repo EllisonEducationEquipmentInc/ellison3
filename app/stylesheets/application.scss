@@ -317,6 +317,7 @@ body.bp th, body.bp td, body.bp caption {
 	.list_actions {text-align:left;position:absolute;}
 	.move_to_another_list {border:1px solid gray;background:white;padding:3px;}
 	#email_list{background:white;border:1px solid white;padding:10px;}
+	.users_lists_container{position:absolute;background:white;padding:5px;border:1px solid gray;width:190px;left:-10px;top:-6px;text-align:left;}
 }
 #guest_checkout {
 	float:right;

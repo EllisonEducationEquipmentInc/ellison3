@@ -100,7 +100,7 @@ class CartsController < ApplicationController
 	rescue Exception => e
 		@reload_cart = @cart_locked = true if e.exception.class == RealTimeCartError
 		@error_message = e.backtrace.join("<br />")
-		if @cart.cart_items.blank?
+		if get_cart.cart_items.blank?
 			flash[:alert] = @error_message
 			render :js => "window.location.href = '#{catalog_path}'" and return
 		end

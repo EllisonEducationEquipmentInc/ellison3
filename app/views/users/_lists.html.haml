@@ -1,0 +1,13 @@
+.users_lists_container
+  = form_tag({:controller => 'users', :action => 'add_to_list', :id => params[:id]}, :remote => true, :method => :get) do
+    = label_tag :list
+    = select_tag :list, options_for_select(@lists, get_user.lists.default.try(:id)), :style => "max-width:150px"
+    %br
+    = submit_tag "Add to List", :class => 'jqui_save'
+    = link_to_function 'cancel', "$(this).parents('.users_lists_container').hide()"
+    %br
+    = link_to "Manage My Lists", myaccount_path('mylists')
+  :javascript
+    $(function() {
+      $(".jqui_save").button({icons: {primary: 'ui-icon-disk'}})
+    });

@@ -239,7 +239,13 @@ function initialize_buttons(){
 	      text: false,
 	      icons: {primary: "ui-icon-triangle-1-s"}
 	    })
-	    .click( function() {alert( "will display a menu to select list" );})
+	    .click( function() {
+				$(this).parent('p').next('.wishlist_loader').show();
+				$.ajax({url:"/users/get_lists?id="+this.id.replace('add_to_list_', ''), context: $(this).parent('p'), success: function(data){
+				        $(this).next('.wishlist_loader').hide();
+								if (data[0] != '$') $(this).after(data);
+				      }});			
+			})
 	    .parent()
 	    .buttonset();
 	});
