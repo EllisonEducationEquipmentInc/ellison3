@@ -16,6 +16,16 @@ namespace :migrations do |ns|
 		SystemSetting.create :key => "vat", :value => "17.5"
 	end
 	
+	desc "setup countries for systems"
+	task :setup_countries => :environment do
+	  us = Country.find_by_name("United States")
+	  us.update_attributes :systems_enabled => ["szus", "eeus", "er"]
+	  eu_countries = Country.where(:name.in => ["Austria", "Belgium", "Bulgaria", "Croatia", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Italy", "Latvia", "Lithuania", "Luxembourg", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Switzerland", "United Kingdom", "Isle of Man", "Northern Ireland", "Guernsey", "Jersey", "Sweden", "Ireland"])
+	  eu_countries.each {|e| e.update_attributes(:systems_enabled => ["szuk", "eeuk", "er"])}
+	  all_other_countries = Country.where(:systems_enabled => nil)
+	  all_other_countries.each {|e| e.update_attributes(:systems_enabled => ["er"])}
+	end
+	
 	#======== migration tasks end here ========
 	
 	desc "run all migrations that haven't run"

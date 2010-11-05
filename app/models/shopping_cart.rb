@@ -119,9 +119,7 @@ module ShoppingCart
 			options[:package_length] ||= (get_cart.total_volume**(1.0/3.0)).round
 			options[:package_width] ||= (get_cart.total_volume**(1.0/3.0)).round
 			options[:package_height] ||= (get_cart.total_volume**(1.0/3.0)).round
-		  Rails.logger.info "get_cart.shipping_amount: #{get_cart.shipping_amount} #{get_cart.shipping_amount.class}"
 			rate = if is_us?
-			  Rails.logger.info "calculate_shipping getting rate"
 				fedex_rate(address, options)
 				@shipping_service = @rates.detect {|r| r.type == options[:shipping_service]} ? options[:shipping_service] : @rates.sort {|x,y| x.rate <=> y.rate}.first.type
 				@rates.detect {|r| r.type == options[:shipping_service]}.try(:rate) || @rates.sort {|x,y| x.rate <=> y.rate}.first.rate
@@ -394,7 +392,7 @@ module ShoppingCart
 		end
 		
 		def country_2_code(country)
-	  	Country.where(:name => country).cache.first.try :iso
+	  	Country.name_2_code(country)
 	  end
 		
 		def process_gw_response(response)

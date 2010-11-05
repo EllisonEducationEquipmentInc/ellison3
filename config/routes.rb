@@ -101,6 +101,7 @@ Ellison3::Application.routes.draw do |map|
 			  end
 			end
 			resources :users
+			resources :countries
 			resources :orders do
 			  collection do
 			    post :update_internal_comment, :change_order_status, :change_shipping

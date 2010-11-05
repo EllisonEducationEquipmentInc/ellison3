@@ -118,12 +118,7 @@ private
 	end
 	
 	def countries
-		# TODO: make it dynamic
-		if is_us? && !is_er?
-			["United States"]
-		else
-			Country.all.cache.map {|c| c.name}
-		end
+	  Country.send(current_system).cache.all.map {|e| e.name}
 	end
 		
 	def states

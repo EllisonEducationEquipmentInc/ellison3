@@ -90,7 +90,7 @@ class Address
   end
 
 	def country_2_code(country)
-  	Country.where(:name => country).cache.first.try :iso
+  	Country.name_2_code(country)
   end
   
   def vat_exempt?

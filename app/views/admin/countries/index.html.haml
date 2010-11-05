@@ -1,0 +1,36 @@
+%h1 Listing countries
+= link_to 'New country', new_admin_country_path, :class => 'jqui_new' if has_write_permissions?
+%br
+- unless params[:q].blank?
+  = link_to 'all', admin_countries_path, :class => 'jqui_button'
+= form_tag(admin_countries_path, :method => :get) do
+  = admin_systems_checkboxes
+  = text_field_tag :q, nil, :placeholder => "name"
+  = submit_tag "search", :class => 'jqui_search'
+.highlightable
+  %table
+    %thead
+      %tr
+        = sortable "name"
+        %th Iso
+        %th VAT Exempt
+        %th GBP
+        %th Systems
+        - if has_write_permissions?
+          %th &nbsp;
+          %th &nbsp;
+    %tbody
+      - for country in @countries
+        %tr{ :class => cycle(:odd, :even) }
+          %td= country.name
+          %td= country.iso
+          %td= country.vat_exempt
+          %td= country.gbp
+          %td= country.systems_enabled.join(", ") rescue ''
+          - if has_write_permissions?
+            %td= link_to 'Edit', edit_admin_country_path(country), :class => 'jqui_edit_min'
+            %td= link_to 'Destroy', admin_country_path(country), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
+%br
+= will_paginate @countries
+%br
+= link_to 'New country', new_admin_country_path, :class => 'jqui_new' if has_write_permissions?
