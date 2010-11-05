@@ -130,8 +130,8 @@ body.bp {
           padding:3px 10px;
         }
         
-        .megasubpanel {
-          background: #f8f6f2 url("/images/ui-backgrounds/_szus_megasubpanel.png") no-repeat center bottom;
+        .megapanel {
+          background: #f8f6f2 url("/images/ui-backgrounds/_szus_megapanel.png") no-repeat center bottom;
           text-align: left;
           position:absolute;
           width: 950px;
@@ -148,28 +148,43 @@ body.bp {
           ul, p {
             margin: 0;
             padding: 0;
+            
+            ul {
+              font-size: .9em;
+            }
+          }
+          p {
+            font-size: .9em;
           }
           ul {
             list-style: none;
           }
 
-          p.contentwrap_small, p.contentwrap_medium, p.contentwrap_large, p.contentwrap_XL, p.contentwrap_XXL, p.contentwrap_XXXL {
+          .contentwrap_17col, .contentwrap_XXS, .contentwrap_XS, .contentwrap_small, .contentwrap_medium, .contentwrap_large, .contentwrap_XL, .contentwrap_XXL, .contentwrap_XXXL {
+            margin: 0;
+            padding: 0 0 8px 10px;
+          }
+          p.contentwrap_XXS, p.contentwrap_XS, p.contentwrap_small, p.contentwrap_medium, p.contentwrap_large, p.contentwrap_XL, p.contentwrap_XXL, p.contentwrap_XXXL {
             padding: 0 0 8px 10px;
           }
           
-          ul.contentwrap_small, ul.contentwrap_medium, ul.contentwrap_large, ul.contentwrap_XL, ul.contentwrap_XXL, ul.contentwrap_XXXL {
+          ul.contentwrap_XXS, ul.contentwrap_XS, ul.contentwrap_small, ul.contentwrap_medium, ul.contentwrap_large, ul.contentwrap_XL, ul.contentwrap_XXL, ul.contentwrap_XXXL {
             padding: 0 0 8px 10px;
             
             li.listtitle {
-              font-size: .9em;
               text-transform: uppercase;
               font-weight: bold;
+              font-size: .9em;
+              margin-top: 8px;
+            }
+            li.listtitle.first { @extend li.listtitle;
+              margin-top: 0px;
             }
           }
           
-          .last {
+/*          .last {
             padding-right: 10px;
-          }
+          }*/
         }
       }
     }
@@ -312,6 +327,9 @@ body.bp {
     height: 18*11px;
   }
   
+  .billboard_XS { @extend .billboard;
+    background: transparent url('/images/ui-objects/frame_billboard_XS.png') no-repeat; }
+    
   .billboard_small { @extend .billboard;
     background: transparent url('/images/ui-objects/frame_billboard_small.png') no-repeat; }
   

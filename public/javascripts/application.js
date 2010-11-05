@@ -513,15 +513,15 @@ function calculate_sale_price(price, discount, discount_type) {
 // Mega Menu Hover functions
 function megamenuHoverOver() {
   var xCoord  = Math.abs($('#nav_megamenu ul').position().left) - $(this).position().left // calculate correct left coordinate of the subpanel
-  $(this).find('.megasubpanel').css({ "left": (xCoord) + "px" }); // reset the left coordinate of the subpanel
+  $(this).find('.megapanel').css({ "left": (xCoord) + "px" }); // reset the left coordinate of the subpanel
   
-  $(this).find('.megasubpanel').stop().slideDown('fast', function() {
+  $(this).find('.megapanel').stop().slideDown('fast', function() {
 //    $(this).shadowOn({ imageset: 6, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadow for mega menu subpanel
     $(this).show();
   });
 }
 function megamenuHoverOut(){
-  $(this).find('.megasubpanel').stop().slideUp('fast', function() {
+  $(this).find('.megapanel').stop().slideUp('fast', function() {
     $(this).hide();  // after fading, hide the subpanel
 //    $(this).shadowOff();
   });
