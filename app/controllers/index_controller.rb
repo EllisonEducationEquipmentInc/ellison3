@@ -79,7 +79,7 @@ private
           end
 	      end
       end
-     	query.paginate(:page => params[:page] || 1, :per_page => 4)
+     	query.paginate(:page => params[:page] || 1, :per_page => 16)
      	query.order_by(*params[:sort].split(":")) unless params[:sort].blank?
 	  end
   end

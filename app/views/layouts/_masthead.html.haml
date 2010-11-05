@@ -2,7 +2,7 @@
 %h1.masthead= link_to system_name, root_path, :id => "logo_masthead", :title => system_name, :alt => system_name
 
 -# utility navigation menu (account management, shopping cart, etc)  
-%ul.nav_utility
+%ul.nav_utility.dontprint
   %li= link_to_unless params[:controller] == "carts", "<span>View #{(t :cart).capitalize}</span>".html_safe, '#', :class => "show_cart btn-masthead btn-view#{t :cart}", :title => "View #{(t :cart).capitalize}", :alt => "View #{(t :cart).capitalize}"
   - if user_signed_in?
     %li= link_to_unless_current "<span>My Account</span>".html_safe, myaccount_path(:secure => true), :class => "btn-masthead btn-myaccount", :title => "My Account", :alt => "My Account"
@@ -17,44 +17,45 @@
 
 -# Ellison3 dashboard menu for admins + catalog mega-nav menus for consumers
 - if admin_signed_in?
-  = link_to "Products", admin_products_path
-  |
-  = link_to "Tags", admin_tags_path
-  |
-  = link_to "Coupons", admin_coupons_path
-  |
-  = link_to "Orders", admin_orders_path
-  |
-  = link_to "Quotes", admin_quotes_path
-  |
-  = link_to "Users", admin_users_path
-  |
-  = link_to "Profiles", admin_admins_path
-  |
-  = link_to "Landing Pages", admin_landing_pages_path
-  |
-  = link_to "Countries", admin_countries_path
-  .right
-    Switch to:
-    - (ELLISON_SYSTEMS & current_admin.systems_enabled).each do |sys|
-      = link_to_unless current_system == sys, sys, "?system=#{sys}"
-  - if get_cart.order_reference
-    #previous_order_reference
-      previous order reference:
-      = link_to get_cart.order_reference, admin_order_path(get_cart.order_reference)
-      = link_to 'reset', remove_order_reference_path, :remote => true
-  #user_as= render :partial => 'layouts/user_as'
-  - if current_admin.can_act_as_customer
-    = form_tag('/user_as', :remote => true) do
-      = label_tag :user_as_email, "Login as customer:"
-      = text_field_tag :user_as_email, nil, :placeholder => "enter customer email"
-      = submit_tag 'login', :class => 'jqui_save'
+  .dontprint
+    = link_to "Products", admin_products_path
+    |
+    = link_to "Tags", admin_tags_path
+    |
+    = link_to "Coupons", admin_coupons_path
+    |
+    = link_to "Orders", admin_orders_path
+    |
+    = link_to "Quotes", admin_quotes_path
+    |
+    = link_to "Users", admin_users_path
+    |
+    = link_to "Profiles", admin_admins_path
+    |
+    = link_to "Landing Pages", admin_landing_pages_path
+    |
+    = link_to "Countries", admin_countries_path
+    .right
+      Switch to:
+      - (ELLISON_SYSTEMS & current_admin.systems_enabled).each do |sys|
+        = link_to_unless current_system == sys, sys, "?system=#{sys}"
+    - if get_cart.order_reference
+      #previous_order_reference
+        previous order reference:
+        = link_to get_cart.order_reference, admin_order_path(get_cart.order_reference)
+        = link_to 'reset', remove_order_reference_path, :remote => true
+    #user_as= render :partial => 'layouts/user_as'
+    - if current_admin.can_act_as_customer
+      = form_tag('/user_as', :remote => true) do
+        = label_tag :user_as_email, "Login as customer:"
+        = text_field_tag :user_as_email, nil, :placeholder => "enter customer email"
+        = submit_tag 'login', :class => 'jqui_save'
 - if is_uk? && !@cart_locked
   -# UK currency selector
   = link_to_unless current_currency == "gbp", "GBP", "?locale=en-UK"
   = link_to_unless current_currency == "eur", "EUR", "?locale=en-EU"
 -# primary navigation menu (product catalog, customer & community outreach, etc)
-#nav_megamenu
+#nav_megamenu.dontprint
   %ul.megalist
     %li.megaitem
       = link_to "Shop Sizzix", catalog_path, :class => "megalink"

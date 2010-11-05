@@ -1,9 +1,29 @@
 @import "blueprint";
+@import "partials_szus/colors";
+@import "partials_app/colors";
+@import "partials_app/catalog";
+@import "partials/layout_content_products";
+@import "partials/layout_content_product-detail";
 
 //Recommended Blueprint configuration with scoping and semantic layout:
 body.bp {
-  @include blueprint-print(true); }
-
+  @include blueprint-print(true);
+}
+#content {
+	.dontprint {
+	  display:none;
+	}
+}
+.product-block {  
+	height: 220px;
+	overflow: hidden;
+	padding: 7px;
+	border:1px solid gray;
+  page-break-before: always;
+	.cart-buttons {
+		display:none;
+	}
+}
 .dontprint {
   display:none;
 }
