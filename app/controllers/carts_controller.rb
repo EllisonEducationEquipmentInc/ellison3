@@ -154,6 +154,7 @@ class CartsController < ApplicationController
 	
 	def change_shipping_method
 		@rate = get_cart.shipping_rates.detect {|r| r['type'] == params[:method]}
+		get_cart.reset_tax
 		get_cart.update_attributes :shipping_amount => @rate['rate'], :shipping_service => @rate['type']
 	rescue
 		calculate_shipping(get_user.shipping_address, :shipping_service => params[:method])
