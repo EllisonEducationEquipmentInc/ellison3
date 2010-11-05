@@ -1,0 +1,39 @@
+= form_for([:admin, @country], :html => {:multipart => true}) do |f|
+  = f.error_messages
+  .field
+    = required_field f.label(:systems_enabled)
+    = system_enabled('country')
+  .field
+    = required_field f.label(:name)
+    %br
+    = f.text_field :name, :disabled => !@country.new_record?
+  .field
+    = required_field f.label(:iso)
+    %br
+    = f.text_field :iso
+  .field
+    = f.label :display_order
+    %br
+    = f.text_field :display_order
+  .field
+    = f.label :iso3
+    %br
+    = f.text_field :iso3
+  .field
+    = f.label :iso_name
+    %br
+    = f.text_field :iso_name
+  .field
+    = f.label :numcode
+    %br
+    = f.text_field :numcode
+  .field
+    = f.label :vat_exempt
+    %br
+    = f.check_box :vat_exempt
+  .field
+    = f.label :gbp
+    %br
+    = f.check_box :gbp    
+  .actions
+    = f.submit :class => 'jqui_save'

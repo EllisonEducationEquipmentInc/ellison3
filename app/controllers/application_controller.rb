@@ -118,7 +118,7 @@ private
 	end
 	
 	def countries
-	  Country.send(current_system).cache.all.map {|e| e.name}
+	  Country.send(current_system).cache.order_by(:display_order.asc, :name.asc).map {|e| e.name}
 	end
 		
 	def states

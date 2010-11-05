@@ -7,7 +7,7 @@ namespace :migrations do |ns|
 	desc "Populate Countries"
 	task :populate_countries => :environment do
 		CSV.parse(iso_countries, :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
-      Country.create(:iso_name => row['iso_name'], :iso => row['iso'], :name => row['name'], :iso3 => row['iso'], :numcode => row['numcode'], :vat_exempt => row['vat_exempt'], :gbp => row['gbp'])
+      Country.create(:iso_name => row['iso_name'], :iso => row['iso'], :name => row['name'], :iso3 => row['iso3'], :numcode => row['numcode'], :vat_exempt => row['vat_exempt'], :gbp => row['gbp'])
     end
 	end
 	
@@ -24,6 +24,13 @@ namespace :migrations do |ns|
 	  eu_countries.each {|e| e.update_attributes(:systems_enabled => ["szuk", "eeuk", "er"])}
 	  all_other_countries = Country.where(:systems_enabled => nil)
 	  all_other_countries.each {|e| e.update_attributes(:systems_enabled => ["er"])}
+	end
+	
+	desc "puts US and UK to the top of country list"
+	task :country_display_order => :environment do
+	  Country.all.each {|e| e.update_attributes(:display_order => 300)}
+	  Country.find_by_name("United States").update_attributes :display_order => 1
+	  Country.find_by_name("United Kingdom").update_attributes :display_order => 2
 	end
 	
 	#======== migration tasks end here ========

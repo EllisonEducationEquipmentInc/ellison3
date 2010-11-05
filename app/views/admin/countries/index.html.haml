@@ -12,7 +12,9 @@
     %thead
       %tr
         = sortable "name"
+        = sortable "display_order"
         %th Iso
+        %th Iso3
         %th VAT Exempt
         %th GBP
         %th Systems
@@ -23,7 +25,9 @@
       - for country in @countries
         %tr{ :class => cycle(:odd, :even) }
           %td= country.name
+          %td= country.display_order
           %td= country.iso
+          %td= country.iso3
           %td= country.vat_exempt
           %td= country.gbp
           %td= country.systems_enabled.join(", ") rescue ''
