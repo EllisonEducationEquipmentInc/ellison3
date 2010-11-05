@@ -26,7 +26,7 @@
           %td= link_to order.id, admin_order_path(order)
           %td= l order.created_at, :format => :custom rescue ''
           %td== #{order.address.first_name} #{order.address.last_name}
-          %td= number_to_currency order.subtotal_amount
+          %td= number_to_currency order.gross_subtotal_amount
           %td= order.system
           %td= order.status
           - if has_write_permissions?

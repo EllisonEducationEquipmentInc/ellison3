@@ -51,11 +51,12 @@ module ShoppingCart
 		
 		def cart_to_order_or_quote(klass, options = {})
 		  order = klass.to_s.classify.constantize.new(:id => options[:order_id], :subtotal_amount => get_cart.sub_total, :shipping_amount => calculate_shipping(options[:address]), :handling_amount => calculate_handling, :tax_amount => calculate_tax(options[:address]),
-			              :tax_transaction => get_cart.reload.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at, :locale => current_locale, :shipping_service => get_cart.shipping_service, :order_reference => get_cart.order_reference)
+			              :tax_transaction => get_cart.reload.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at, :locale => current_locale, :shipping_service => get_cart.shipping_service, :order_reference => get_cart.order_reference, :vat_percentage => vat, :vat_exempt => vat_exempt?)
 			order.coupon = get_cart.coupon
 			@cart.cart_items.each do |item|
 				order.order_items << OrderItem.new(:name => item.name, :item_num => item.item_num, :sale_price => item.price, :quoted_price => item.msrp, :quantity => item.quantity,
-				    :locale => item.currency, :product => item.product, :tax_exempt => item.tax_exempt, :discount => item.msrp - item.price, :custom_price => item.custom_price, :coupon_price => item.coupon_price)
+				    :locale => item.currency, :product => item.product, :tax_exempt => item.tax_exempt, :discount => item.msrp - item.price, :custom_price => item.custom_price, 
+				    :coupon_price => item.coupon_price, :vat => calculate_vat(item.price), :vat_percentage => vat, :vat_exempt => vat_exempt?)
 			end
 			order
 		end
@@ -124,7 +125,7 @@ module ShoppingCart
 				@rates.detect {|r| r.type == options[:shipping_service]}.try(:rate) || @rates.sort {|x,y| x.rate <=> y.rate}.first.rate
 			else
 				@shipping_service = "STANDARD"
-				0.0
+				gross_price 5.0
 			end
 			get_cart.update_attributes :shipping_amount => rate, :shipping_service => @shipping_service, :shipping_rates => @rates ? fedex_rates_to_a(@rates) : [{:name => @shipping_service, :type => @shipping_service, :currency => current_currency, :rate => rate}]
 			rate
@@ -159,12 +160,13 @@ module ShoppingCart
 			get_cart.handling_amount
 		end
 		
-		# TODO: UK tax
 		def calculate_tax(address, options={})
 			return get_cart.tax_amount if get_cart.tax_amount && get_cart.tax_calculated_at && get_cart.tax_calculated_at > 1.hour.ago
 			total_tax = if calculate_tax?(address.state)
 				cch_sales_tax(address)
-        @cch.total_tax.to_f				
+        @cch.total_tax.to_f		
+      elsif is_uk? 
+        calculate_vat(get_cart.sub_total, vat_exempt?)
 			else
 				0.0
 			end
@@ -284,7 +286,7 @@ module ShoppingCart
         #  raise "CVV code is invalid. Please try again."
         #else
         @payment = billing
-        @payment.paid_amount = amount ? amount/100 : total_cart
+        @payment.paid_amount = amount ? amount/100.0 : total_cart
         @payment.vendor_tx_code = order
         @payment.mask_card_number
         if @payment.use_saved_credit_card && !options[:use_payment_token] && get_user.token
@@ -388,7 +390,7 @@ module ShoppingCart
 		end
 		
 		def country_2_code(country)
-	  	Country.where(:name => country).first.try :iso
+	  	Country.where(:name => country).cache.first.try :iso
 	  end
 		
 		def process_gw_response(response)

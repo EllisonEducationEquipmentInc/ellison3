@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   layout :get_layout
 
 	helper_method :vat, :gross_price, :calculate_vat, :get_user, :countries, :states, :sort_column, :sort_direction, :ga_tracker_id, :has_write_permissions?, :has_read_permissions?, :admin_systems,
-	              :quote_allowed?, :chekout_allowed?
+	              :quote_allowed?, :chekout_allowed?, :currency_correct?, :vat_exempt?
 
 private
 
@@ -50,8 +50,33 @@ private
       (price.to_f * (vat/100.0)).round(2)
     end
   end
+  
+  def set_vat_exempt
+    session[:vat_exempt] = vat_exempt? if is_uk?
+  end
+  
+  def vat_exempt?
+    user_signed_in? && get_user.shipping_address && get_user.shipping_address.vat_exempt?
+  end
+  
+  def gbp_only?
+    user_signed_in? && get_user.billing_address && get_user.billing_address.gbp_only?
+  end
+  
+  def currency_correct?
+    !is_uk? || is_uk? && (gbp_only? && is_gbp? || !gbp_only? && is_eur?)
+  end
+  
+  def set_proper_currency!
+    if is_uk? && user_signed_in? && get_user.billing_address && !currency_correct? 
+      session[:locale] = I18n.locale = gbp_only? ? 'en-UK' : 'en-EU'
+      get_cart.reset_tax_and_shipping
+			get_cart.update_items
+    end
+  end
 
 	def get_system
+	  session[:vat_exempt] = nil
 		domain_to_system(request.host)
 		if Rails.env == 'development' || admin_signed_in?
 			# TODO: restrict admin to switch to enabled systems only

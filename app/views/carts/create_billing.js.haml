@@ -1,8 +1,12 @@
 $.fancybox.close();
 - if @billing_address.save
   - eval "@#{@billing_address.address_type}_address_notice = 'Your #{@billing_address.address_type} address has been saved.'"
-  == $('#new_billing').replaceWith('#{escape_javascript(render(:partial => "users/address_info", :locals => {:address_type => @billing_address.address_type}))}');
-  == $('#checkout_cc').html('#{escape_javascript(render(:partial => "payment"))}');
-  $('#checkout_cc').slideDown('slow');
+  - unless currency_correct?
+    alert('Currency will be adjusted based on your billing address country');
+    == window.location='#{checkout_path}';
+  - else
+    == $('#new_billing').replaceWith('#{escape_javascript(render(:partial => "users/address_info", :locals => {:address_type => @billing_address.address_type}))}');
+    == $('#checkout_cc').html('#{escape_javascript(render(:partial => "payment"))}');
+    $('#checkout_cc').slideDown('slow');
 - else
   == alert('#{escape_javascript @billing_address.errors.full_messages.join("\n")}');

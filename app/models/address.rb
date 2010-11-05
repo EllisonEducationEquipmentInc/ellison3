@@ -90,7 +90,15 @@ class Address
   end
 
 	def country_2_code(country)
-  	Country.where(:name => country).first.try :iso
+  	Country.where(:name => country).cache.first.try :iso
+  end
+  
+  def vat_exempt?
+    self.address_type == "shipping" && Country.where(:name => self.country).cache.first.try(:vat_exempt)
+  end
+  
+  def gbp_only?
+    self.address_type == "billing" && Country.where(:name => self.country).cache.first.try(:gbp)
   end
 
 	def must_be_verified?

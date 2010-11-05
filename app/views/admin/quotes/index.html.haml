@@ -26,7 +26,7 @@
           %td= link_to quote.id, admin_quote_path(quote)
           %td= l quote.created_at, :format => :custom rescue ''
           %td== #{quote.address.first_name} #{quote.address.last_name}
-          %td= number_to_currency quote.subtotal_amount
+          %td= number_to_currency quote.gross_subtotal_amount
           %td= quote.system
           %td= quote.active
           %td= l quote.expires_at, :format => :custom

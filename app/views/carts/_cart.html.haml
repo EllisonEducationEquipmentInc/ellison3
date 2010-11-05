@@ -11,7 +11,7 @@
         %th Item Price
         %th Total Price
         %th
-    %tbody= render :partial => 'cart_item', :collection => @cart.cart_items
+    %tbody= render :partial => 'carts/cart_item', :collection => @cart.cart_items
     - if admin_signed_in? && current_admin.can_change_prices && !@cart_locked
       :javascript
         $(".cart_item_price").editInPlace({

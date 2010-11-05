@@ -35,3 +35,4 @@ en-US:
           use this option on embedded_in or references_many as array.
   cart: cart
   empty_cart: Your shopping cart is empty
+  estimated_tax: Estimated Tax

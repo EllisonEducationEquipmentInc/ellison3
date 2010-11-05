@@ -55,10 +55,10 @@
       %td= item.item_num
       %td= item.name
       %td= item.quantity
-      %td= number_to_currency item.sale_price
+      %td= number_to_currency item.gross_price
       %td= number_to_currency item.item_total
 Subtotal:
-= number_to_currency @order.subtotal_amount
+= number_to_currency @order.gross_subtotal_amount
 %br
 == Shipping & Handling (#{@order.shipping_service.try :humanize}):
 = number_to_currency @order.shipping_amount
@@ -66,7 +66,7 @@ Subtotal:
 Shipping & Handling Surcharge:
 = number_to_currency @order.handling_amount
 %br
-Estimated Sales Tax:
+== #{t :estimated_tax}:
 = number_to_currency @order.tax_amount
 %br
 ESTIMATED TOTAL:

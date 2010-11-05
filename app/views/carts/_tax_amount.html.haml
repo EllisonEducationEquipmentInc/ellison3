@@ -1,4 +1,4 @@
-.cart_label Estimated Tax: 
+.cart_label== #{t :estimated_tax}: 
 %span#tax_amount.amount
 :javascript
   $.ajax({url:'/carts/get_tax_amount', success: function(data) {$('#tax_amount').html(data)}, beforeSend: function() {$('#tax_amount').html('#{escape_javascript spinner}')}})

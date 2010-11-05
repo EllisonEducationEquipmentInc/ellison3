@@ -12,7 +12,9 @@ class OrderItem
 	field :coupon_price, :type => Boolean, :default => false
 	field :quantity, :type => Integer, :default => 1
 	field :tax_exempt, :type => Boolean, :default => false
-	# field :vat_exempt, :type => Boolean, :default => true
+	field :vat_exempt, :type => Boolean, :default => false
+	field :vat, :type => Float
+	field :vat_percentage, :type => Float
 	field :upsell, :type => Boolean, :default => false
 	field :outlet, :type => Boolean, :default => false
 	
@@ -20,7 +22,13 @@ class OrderItem
 	embedded_in :quote, :inverse_of => :order_items
 	referenced_in :product
 	
+	def gross_price
+	  sale_price + vat
+	rescue
+	  sale_price
+	end
+	
 	def item_total
-		sale_price * quantity
+		gross_price * quantity
 	end
 end

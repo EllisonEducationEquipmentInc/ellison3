@@ -35,3 +35,4 @@ en-UK:
           use this option on embedded_in or references_many as array.
   cart: basket
   empty_cart: Your shopping cart is empty
+  estimated_tax: VAT (already included in Sub-Total)

@@ -4,6 +4,7 @@ class CartsController < ApplicationController
 	before_filter :admin_user_as_permissions!, :only => [:remove_order_reference, :use_previous_orders_card]
 	before_filter :trackable
 	before_filter :no_cache, :only => [:checkout, :quote]
+	before_filter :set_vat_exempt
 	after_filter(:only => [:checkout, :proceed_checkout, :quote, :proceed_quote]) {|controller| controller.send(:get_cart).reset_item_errors}
 	
 	ssl_required :checkout, :proceed_checkout, :quote, :proceed_quote
@@ -35,6 +36,7 @@ class CartsController < ApplicationController
     # flash[:alert] = ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
     session[:user_return_to] = nil
 		redirect_to(catalog_path, :alert => flash[:alert] || I18n.t(:empty_cart)) and return if get_cart.cart_items.blank?
+		set_proper_currency!
 		@title = "Checkout"
 		@cart_locked, @checkout = true, true
 		unless get_user.billing_address && get_user.shipping_address

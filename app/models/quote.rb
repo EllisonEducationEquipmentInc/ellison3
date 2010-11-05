@@ -28,7 +28,8 @@ class Quote
 	field :handling_amount, :type => Float
 	field :total_discount, :type => Float
 	field :tax_amount, :type => Float
-	# field :vat_exempt, :type => Boolean, :default => true
+	field :vat_exempt, :type => Boolean, :default => false
+	field :vat_percentage, :type => Float
 	field :tax_exempt, :type => Boolean, :default => false
 	field :tax_exempt_number
 	field :tax_transaction
@@ -56,6 +57,12 @@ class Quote
 	before_create :set_system
 	before_create :set_expires_at
 
+  def gross_subtotal_amount
+	  self.vat_exempt ? subtotal_amount : subtotal_amount + tax_amount
+	rescue
+	  subtotal_amount
+	end
+	
 	def total_amount
 		subtotal_amount + shipping_amount + handling_amount + tax_amount
 	end

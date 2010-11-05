@@ -47,7 +47,10 @@
       = label_tag :user_as_email, "Login as customer:"
       = text_field_tag :user_as_email, nil, :placeholder => "enter customer email"
       = submit_tag 'login', :class => 'jqui_save'
-
+- if is_uk? && !@cart_locked
+  -# UK currency selector
+  = link_to_unless current_currency == "gbp", "GBP", "?locale=en-UK"
+  = link_to_unless current_currency == "eur", "EUR", "?locale=en-EU"
 -# primary navigation menu (product catalog, customer & community outreach, etc)
 #nav_megamenu
   %ul.megalist
