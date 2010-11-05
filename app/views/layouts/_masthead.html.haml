@@ -55,6 +55,7 @@
       = link_to "Shop Sizzix", catalog_path, :class => "megalink"
       .megapanel
         %ul.contentwrap_XS.resize
+          -#EDIT!!! cleanup jquery.
           %li= link_to "massa interdum", "#", :onmouseover => "$('#subsub1').fadeTo('fast',1);$('#subsub2').fadeTo('fast',0).hide();$('#subsub3').fadeTo('fast',0).hide();$('#subsub4').fadeTo('fast',0).hide();"
           %li= link_to "Phasellus dapibus", "#", :onmouseover => "$('#subsub2').fadeTo('fast',1);$('#subsub1').fadeTo('fast',0).hide();$('#subsub3').fadeTo('fast',0).hide();$('#subsub4').fadeTo('fast',0).hide();"
           %li= link_to "elementum", "#", :onmouseover => "$('#subsub3').fadeTo('fast',1);$('#subsub2').fadeTo('fast',0).hide();$('#subsub1').fadeTo('fast',0).hide();$('#subsub4').fadeTo('fast',0).hide();"
