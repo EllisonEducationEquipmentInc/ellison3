@@ -2,7 +2,7 @@
   = f.error_messages
   - if purchase_order_allowed?
     .field
-      = f.check_box :purchase_order, :onclick => "if (this.checked){$('#po_info').show();$('#cc_info').hide();$('.cc').each(function(){$(this).rules('remove')})} else {$('#po_info').hide();$('#cc_info').show();$('.cc').each(function(){$(this).rules('add',{required: true})});$('#payment_full_card_number').rules('add',{creditcard: true});$('#payment_card_security_code').rules('add',{cvv: true});}"
+      = f.check_box :purchase_order, :onclick => "if (this.checked){$('#po_info').show();$('#cc_info').hide();$('#payment_attachment').rules('add',{required: true});$('.cc').each(function(){$(this).rules('remove')})} else {$('#po_info').hide();$('#cc_info').show();$('.cc').each(function(){$(this).rules('add',{required: true})});$('#payment_full_card_number').rules('add',{creditcard: true});$('#payment_card_security_code').rules('add',{cvv: true});$('#payment_attachment').rules('remove')}"
       = f.label :purchase_order, "Check if you would like to pay your order by Purchase Order."
     .field#po_info{:style => "display:none"}
       = f.label :attachment, "Upload Purchase Order: (doc, pdf)"
