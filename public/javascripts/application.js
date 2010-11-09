@@ -526,3 +526,66 @@ function megamenuHoverOut(){
 //    $(this).shadowOff();
   });
 }
+
+var payment_validator_options = {
+    errorClass: "invalid",
+    rules: { 
+        "payment[first_name]": { 
+            required: true
+        }, 
+        "payment[last_name]": { 
+            required: true
+        }, 
+        "payment[card_name]": { 
+            required: true,
+        },
+        "payment[full_card_number]": { 
+            required: true,
+            creditcard: true
+        },
+        "payment[card_security_code]": { 
+            required: true,
+            cvv: true
+        },
+        "payment[card_expiration_month]": { 
+            required: true
+        },
+        "payment[card_expiration_year]": { 
+            required: true
+        },
+    }, 
+    success: function(label) { 
+        label.html(" ").addClass("checked"); 
+    },
+    submitHandler: function(form) {
+      $('#proceed_checkout').callRemote();
+			// $('#proceed_checkout').ajaxSubmit();
+      _gaq.push(['_trackEvent', 'Cart', 'Place Order']);
+      fancyloader('your order is being processed. please wait...');
+    },
+    
+    messages: {
+        "payment[first_name]": {
+            required: " ",
+        },
+        "payment[last_name]": {
+            required: " ",
+        },
+        "payment[card_name]": { 
+            required: " ",
+        },
+        "payment[full_card_number]": {
+            required: " ",
+            creditcard: "invalid"
+        },
+        "payment[card_security_code]": { 
+            required: " ",
+        },
+        "payment[card_expiration_month]": { 
+            required: " ",
+        },
+        "payment[card_expiration_year]": { 
+            required: " ",
+        },
+    },
+};

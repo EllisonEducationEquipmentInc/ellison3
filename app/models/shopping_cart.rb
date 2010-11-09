@@ -74,7 +74,7 @@ module ShoppingCart
 		
 		# defines logic if payment of an order can be run, or payment has to be tokenized first and payment has to be run manually
 		def payment_can_be_run?
-		  is_sizzix? || (is_er? && @order && @order.address && @order.address.us?)
+		  (is_sizzix? || (is_er? && @order && @order.address && @order.address.us?)) && !@order.payment.try(:purchase_order)
 		end
 		
 		def process_order(order)
@@ -476,6 +476,10 @@ module ShoppingCart
   	
   	def can_use_previous_payment?
   	  !get_cart.order_reference.blank? && current_admin && current_admin.can_act_as_customer && Order.find(get_cart.order_reference).user == current_user rescue false
+  	end
+  	
+  	def purchase_order_allowed?
+  	  user_signed_in? && get_user.purchase_order
   	end
 
 		class Config

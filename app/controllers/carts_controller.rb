@@ -11,7 +11,7 @@ class CartsController < ApplicationController
 	ssl_allowed :index, :get_shipping_options, :change_shipping_method, :copy_shipping_address, :change_shipping_method, :get_shipping_service, :get_shipping_amount, :get_tax_amount, :get_total_amount,
 	  :custom_price, :create_shipping, :create_billing, :activate_coupon, :remove_coupon
 	
-	verify :xhr => true, :only => [:proceed_checkout, :get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :quote_2_order, :use_previous_orders_card, :remove_order_reference], :redirect_to => {:action => :index}
+	verify :xhr => true, :only => [:get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :use_previous_orders_card, :remove_order_reference], :redirect_to => {:action => :index}
 	
 	def index
 		@title = "Shopping #{I18n.t(:cart).titleize}"
@@ -60,7 +60,7 @@ class CartsController < ApplicationController
 	
 	def quote_2_order
 	  @quote = get_user.quotes.active.where(:system => current_system, :_id => BSON::ObjectId(params[:id])).first
-	  redirect_to root_url and return unless get_user.billing_address && @quote && request.xhr? && request.post?
+	  redirect_to root_url and return unless get_user.billing_address && @quote && request.post?
 	  unless @quote.can_be_converted?
 	    flash[:alert] = "Your quote cannot be converted to an order this time. Please try again later."
 	    render :js => "window.location.href = '#{myquote_path(@quote)}'" and return
@@ -69,12 +69,13 @@ class CartsController < ApplicationController
 		@order = Order.new
 		@order.copy_common_attributes @quote, :created_at
 		@order.order_items = @quote.order_items
-		process_card(:amount => (@quote.total_amount * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?)
+		process_card(:amount => (@quote.total_amount * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?) unless @payment.purchase_order && purchase_order_allowed?
 		@order.payment = @payment
 		@order.quote = @quote
 		process_order @order
 		@quote.update_attributes :active => false
 		UserMailer.order_confirmation(@order).deliver
+		@order.payment.save
 		render "checkout_complete"
 	rescue Exception => e
 		@reload_cart = @cart_locked = true if e.exception.class == RealTimeCartError
@@ -82,7 +83,7 @@ class CartsController < ApplicationController
 	end
 		
 	def proceed_checkout
-	  redirect_to :checkout and return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
+	  redirect_to :checkout and return unless get_user.shipping_address && !get_cart.cart_items.blank?
 		get_cart.update_items true
 		raise RealTimeCartError, ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
 		if can_use_previous_payment? && params[:payment] && params[:payment][:use_previous_orders_card] 
@@ -93,11 +94,12 @@ class CartsController < ApplicationController
 		  new_payment
 		end
 		cart_to_order(:address => get_user.shipping_address)
-    process_card(:amount => (get_cart.total * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?, :use_payment_token => use_payment_token)
+    process_card(:amount => (get_cart.total * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?, :use_payment_token => use_payment_token) unless @payment.purchase_order && purchase_order_allowed?
 		@order.payment = @payment
     process_order(@order)
 		clear_cart
 		UserMailer.order_confirmation(@order).deliver
+		@order.payment.save
 		render "checkout_complete"
 	rescue Exception => e
 		@reload_cart = @cart_locked = true if e.exception.class == RealTimeCartError

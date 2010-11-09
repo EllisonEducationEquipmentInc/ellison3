@@ -1,3 +1,4 @@
-$.fancybox.close();
-$('#payment_errors').show();
-== $('#payment_errors').html('#{escape_javascript @error_message.html_safe}');
+= remote_multipart_response do
+  $.fancybox.close();
+  $('#payment_errors').show();
+  == $('#payment_errors').html('#{escape_javascript @error_message.html_safe}');

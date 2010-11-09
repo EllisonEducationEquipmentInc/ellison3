@@ -1,45 +1,55 @@
-= form_for(@payment, :url => {:controller => :carts, :action => @quote ? "quote_2_order" : "proceed_checkout", :id => @quote, :secure => true}, :remote => true, :html => {:id => "proceed_checkout", :method => :post}) do |f|
+= form_for(@payment, :url => {:controller => :carts, :action => @quote ? "quote_2_order" : "proceed_checkout", :id => @quote, :secure => true}, :remote => true, :html => {:id => "proceed_checkout", :method => :post, :multipart => true}) do |f|
   = f.error_messages
-  - if get_user.token && get_user.token.current?
-    %strong Credit Card on file:
-    .field.credit_card
-      = get_user.token.card_name
-      = get_user.token.card_number
-      = link_to "forget/use another one", forget_credit_card_path(:quote => @quote), :remote => true
-      = f.hidden_field :use_saved_credit_card
-  - else
-    .left.field.credit_card
-      = required_field(f.label :first_name)
+  - if purchase_order_allowed?
+    .field
+      = f.check_box :purchase_order, :onclick => "if (this.checked){$('#po_info').show();$('#cc_info').hide();$('.cc').each(function(){$(this).rules('remove')})} else {$('#po_info').hide();$('#cc_info').show();$('.cc').each(function(){$(this).rules('add',{required: true})});$('#payment_full_card_number').rules('add',{creditcard: true});$('#payment_card_security_code').rules('add',{cvv: true});}"
+      = f.label :purchase_order, "Check if you would like to pay your order by Purchase Order."
+    .field#po_info{:style => "display:none"}
+      = f.label :attachment, "Upload Purchase Order: (doc, pdf)"
       %br
-      = f.text_field :first_name
-    .left.field.credit_card
-      = required_field(f.label :last_name)
-      %br
-      = f.text_field :last_name
-    .clear_left
-    .field.credit_card
-      .left
-        = required_field(f.label :card_name)
+      = f.file_field :attachment
+      = f.hidden_field :attachment_cache
+  #cc_info
+    - if get_user.token && get_user.token.current?
+      %strong Credit Card on file:
+      .field.credit_card
+        = get_user.token.card_name
+        = get_user.token.card_number
+        = link_to "forget/use another one", forget_credit_card_path(:quote => @quote), :remote => true
+        = f.hidden_field :use_saved_credit_card
+    - else
+      .left.field.credit_card
+        = required_field(f.label :first_name)
         %br
-        = select :payment, :card_name, Payment.cards, {:prompt => "--- card type ---"}
-      .left
-        = required_field(f.label :full_card_number, "Credit Card Number")
+        = f.text_field :first_name, :class => "cc"
+      .left.field.credit_card
+        = required_field(f.label :last_name)
         %br
-        = text_field :payment, :full_card_number
-      .left
-        = required_field(f.label :card_security_code)
-        %br
-        = text_field :payment, :card_security_code, :size => 4
+        = f.text_field :last_name, :class => "cc"
       .clear_left
-      .field
-        = required_field(f.label :card_expiration_month, "Expires")
-        %br
-        = select :payment, :card_expiration_month, Payment.months, { :prompt => "month" }
-        = select :payment, :card_expiration_year, Payment.years, { :prompt => "year" }
-      .field
-        = f.check_box :save_credit_card
-        = f.label :save_credit_card
-    .clear_left
+      .field.credit_card
+        .left
+          = required_field(f.label :card_name)
+          %br
+          = select :payment, :card_name, Payment.cards, {:prompt => "--- card type ---"}, :class => "cc"
+        .left
+          = required_field(f.label :full_card_number, "Credit Card Number")
+          %br
+          = text_field :payment, :full_card_number, :class => "cc"
+        .left
+          = required_field(f.label :card_security_code)
+          %br
+          = text_field :payment, :card_security_code, :size => 4, :class => "cc"
+        .clear_left
+        .field
+          = required_field(f.label :card_expiration_month, "Expires")
+          %br
+          = select :payment, :card_expiration_month, Payment.months, { :prompt => "month" }, :class => "cc"
+          = select :payment, :card_expiration_year, Payment.years, { :prompt => "year" }, :class => "cc"
+        .field
+          = f.check_box :save_credit_card
+          = f.label :save_credit_card
+      .clear_left
   - if can_use_previous_payment?
     .field
       = f.check_box :use_previous_orders_card, :onclick => "if (this.checked) {$('.credit_card').remove()} else {$(this).attr('disabled', true);$('#payment_submit').replaceWith('#{escape_javascript spinner}');$('#checkout_cc').load('/carts/use_previous_orders_card');}"
@@ -58,65 +68,5 @@
     $(document).ready(function() { 
         initialize_buttons();
         order_comment();
-        var payment_validator = $("#proceed_checkout").validate({ 
-            errorClass: "invalid",
-            rules: { 
-                "payment[first_name]": { 
-                    required: true
-                }, 
-                "payment[last_name]": { 
-                    required: true
-                }, 
-                "payment[card_name]": { 
-                    required: true,
-                },
-                "payment[full_card_number]": { 
-                    required: true,
-                    creditcard: true
-                },
-                "payment[card_security_code]": { 
-                    required: true,
-                    cvv: true
-                },
-                "payment[card_expiration_month]": { 
-                    required: true
-                },
-                "payment[card_expiration_year]": { 
-                    required: true
-                },
-            }, 
-            success: function(label) { 
-                label.html(" ").addClass("checked"); 
-            },
-            submitHandler: function(form) {
-              $('#proceed_checkout').ajaxSubmit();
-              _gaq.push(['_trackEvent', 'Cart', 'Place Order']);
-              fancyloader('your order is being processed. please wait...');
-            },
-            
-            messages: {
-                "payment[first_name]": {
-                    required: " ",
-                },
-                "payment[last_name]": {
-                    required: " ",
-                },
-                "payment[card_name]": { 
-                    required: " ",
-                },
-                "payment[full_card_number]": {
-                    required: " ",
-                    creditcard: "invalid"
-                },
-                "payment[card_security_code]": { 
-                    required: " ",
-                },
-                "payment[card_expiration_month]": { 
-                    required: " ",
-                },
-                "payment[card_expiration_year]": { 
-                    required: " ",
-                },
-            },
-        }); 
+        $('#proceed_checkout').validate(payment_validator_options);
     });

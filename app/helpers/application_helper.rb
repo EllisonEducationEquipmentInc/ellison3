@@ -89,6 +89,7 @@ HTML
 	end
 	
 	def remote_multipart_response(&block)
+	  Rails.logger.info "wtf2"
 		if params[:format] == 'js'
 			response.content_type = Mime::HTML
 	    content = with_output_buffer(&block)

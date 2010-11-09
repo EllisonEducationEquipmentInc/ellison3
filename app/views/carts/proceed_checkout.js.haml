@@ -1,11 +1,12 @@
-$.fancybox.close();
-$('#payment_errors').show();
-== $('#payment_errors').html('#{escape_javascript @error_message.html_safe}');
-- if @reload_cart
-  == $('#cart_handling').html('#{escape_javascript(render(:partial => "carts/handling_amount"))}');
-  - if calculate_handling > 0.0
-    $('#cart_handling').show();
-  == $('#cart_contents').html('#{escape_javascript(render(:partial => "carts/cart"))}');
-  == $('#cart_shipping').html('#{escape_javascript(render(:partial => "carts/shipping_amount"))}');
-  == $('#cart_tax').html('#{escape_javascript(render(:partial => "carts/tax_amount"))}');
-  == $('#cart_total').html('#{escape_javascript(render(:partial => "carts/total_amount"))}');
+= remote_multipart_response do
+  $.fancybox.close();
+  $('#payment_errors').show();
+  == $('#payment_errors').html('#{escape_javascript @error_message.html_safe}');
+  - if @reload_cart
+    == $('#cart_handling').html('#{escape_javascript(render(:partial => "carts/handling_amount"))}');
+    - if calculate_handling > 0.0
+      $('#cart_handling').show();
+    == $('#cart_contents').html('#{escape_javascript(render(:partial => "carts/cart"))}');
+    == $('#cart_shipping').html('#{escape_javascript(render(:partial => "carts/shipping_amount"))}');
+    == $('#cart_tax').html('#{escape_javascript(render(:partial => "carts/tax_amount"))}');
+    == $('#cart_total').html('#{escape_javascript(render(:partial => "carts/total_amount"))}');

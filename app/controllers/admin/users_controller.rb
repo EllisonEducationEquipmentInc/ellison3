@@ -94,10 +94,8 @@ class Admin::UsersController < ApplicationController
 private 
 
 	def mass_assign_protected_attributes
-	  @user.systems_enabled = params[:user][:systems_enabled]
-    @user.invoice_account = params[:user][:invoice_account]
-    @user.erp = params[:user][:erp]
-    @user.tax_exempt_certificate = params[:user][:tax_exempt_certificate]
-    @user.tax_exempt = params[:user][:tax_exempt]
+	  [:systems_enabled, :invoice_account, :erp, :tax_exempt_certificate, :tax_exempt, :purchase_order].each do |meth|
+	    @user.send("#{meth}=", params[:user][meth])
+	  end
 	end	
 end

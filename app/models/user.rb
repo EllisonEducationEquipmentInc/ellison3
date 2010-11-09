@@ -12,6 +12,7 @@ class User
 	field :tax_exempt_certificate
 	field :invoice_account
 	field :erp
+	field :purchase_order, :type => Boolean, :default => false
 	
 	validates_uniqueness_of :email, :case_sensitive => false
 	validates_presence_of :tax_exempt_certificate, :if => Proc.new {|obj| obj.tax_exempt}

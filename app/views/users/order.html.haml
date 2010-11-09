@@ -73,8 +73,12 @@ ESTIMATED TOTAL:
 = number_to_currency @order.total_amount
 %br
 %br
-This order was charged to:
-%br
-= @order.payment.card_name
-== #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
+- if @order.payment.try(:purchase_order)
+  %strong Purchase Order
+  = link_to "download", @order.payment.attachment_url if @order.payment.attachment
+- else
+  This order was charged to:
+  %br
+  = @order.payment.card_name
+  == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
 - I18n.locale = @current_locale

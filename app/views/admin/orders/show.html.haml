@@ -97,10 +97,15 @@ ESTIMATED TOTAL:
 %span#total_amount= number_to_currency @order.total_amount
 %br
 %br
-This order was charged to:
-%br
-= @order.payment.card_name
-== #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
+- if @order.payment.try(:purchase_order)
+  .error
+    %strong Purchase Order
+    = link_to "download", @order.payment.attachment_url if @order.payment.attachment
+- else
+  This order was charged to:
+  %br
+  = @order.payment.card_name
+  == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
 %br
 %br
 - if @order.coupon
@@ -108,7 +113,7 @@ This order was charged to:
     %strong Coupon:
     = link_to @order.coupon.codes.join(", "), admin_coupon_path(@order.coupon)
     = @order.coupon.name
-.field{:class => @order.payment.paid_amount < @order.total_amount ? 'error' : nil}
+.field{:class => @order.payment.paid_amount && @order.payment.paid_amount < @order.total_amount ? 'error' : nil}
   %strong Paid Amount:
   = number_to_currency @order.payment.paid_amount rescue "N/A"
 .field

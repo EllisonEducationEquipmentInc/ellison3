@@ -68,7 +68,7 @@ class Quote
 	end
 	
 	def can_be_converted?
-	  self.expires_at < Time.zone.now && products.count == order_items.count && (is_ee_us? || is_er? && order_items.all? {|e| e.product.available? && e.product.quantity >= e.quantity})
+	  self.expires_at > Time.zone.now && products.count == order_items.count && (is_ee_us? || is_er? && order_items.all? {|e| e.product.available? && e.product.quantity >= e.quantity})
 	end
 	
 	def products

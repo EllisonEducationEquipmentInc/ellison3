@@ -1,3 +1,5 @@
+require 'carrierwave/orm/mongoid'
+
 class Payment
 	include EllisonSystem
   include Mongoid::Document
@@ -29,6 +31,7 @@ class Payment
 	field :save_credit_card, :type => Boolean, :default => false
 	field :use_saved_credit_card, :type => Boolean, :default => false
 	field :deferred, :type => Boolean, :default => false
+	field :purchase_order, :type => Boolean, :default => false
 	
 	field :cv2_result
 	field :status
@@ -51,6 +54,8 @@ class Payment
   field :refunded_at, :type => DateTime
   field :refunded_amount, :type => Float
   field :refund_authorization
+	
+	mount_uploader :attachment, PrivateAttachmentUploader	
 	
 	embedded_in :order, :inverse_of => :payment
 	
