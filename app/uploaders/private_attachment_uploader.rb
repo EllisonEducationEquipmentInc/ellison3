@@ -5,6 +5,8 @@ class PrivateAttachmentUploader < CarrierWave::Uploader::Base
   #include CarrierWave::ImageScience
 
 	storage :grid_fs
+	ignore_integrity_errors false
+	validate_integrity true
 	#permissions 0777 
 
 	def cache_dir
