@@ -64,11 +64,17 @@
       .megapanel
         %ul.megasublist.contentwrap_XS.resize
           -#EDIT!!! cleanup jquery & class/ID names.
-          %li= link_to "Massa Interdum", "#", :onmouseover => "$('#subsub1').fadeTo('fast',1);$('#subsub2').fadeTo('fast',0).hide();$('#subsub3').fadeTo('fast',0).hide();$('#subsub4').fadeTo('fast',0).hide();", :class => "megasublink"
-          %li= link_to "Phasellus Dapibus", "#", :onmouseover => "$('#subsub2').fadeTo('fast',1);$('#subsub1').fadeTo('fast',0).hide();$('#subsub3').fadeTo('fast',0).hide();$('#subsub4').fadeTo('fast',0).hide();", :class => "megasublink"
-          %li= link_to "Elementum", "#", :onmouseover => "$('#subsub3').fadeTo('fast',1);$('#subsub2').fadeTo('fast',0).hide();$('#subsub1').fadeTo('fast',0).hide();$('#subsub4').fadeTo('fast',0).hide();", :class => "megasublink"
-          %li.last= link_to "Feugiat tristique", "#", :onmouseover => "$('#subsub4').fadeTo('fast',1);$('#subsub2').fadeTo('fast',0).hide();$('#subsub3').fadeTo('fast',0).hide();$('#subsub1').fadeTo('fast',0).hide();", :class => "megasublink"
-        #subsub1
+          %li= link_to "Massa Interdum", "#subsub1", :class => "megasublink", :onclick => "return false;"
+          %li= link_to "Phasellus Dapibus", "#subsub2", :class => "megasublink", :onclick => "return false;"
+          %li= link_to "Elementum", "#subsub3", :class => "megasublink", :onclick => "return false;"
+          %li= link_to "Feugiat tristique", "#subsub4", :class => "megasublink", :onclick => "return false;"
+          :javascript
+            $('ul.megasublist li').mouseover(function(){
+              $($(this).find('a').attr('href')).fadeTo('fast',1).siblings('div.subsub').fadeTo('fast',0).hide();
+              $(this).parents('.megapanel').shadowOff();
+              $(this).parents('.megapanel').shadowOn(megapanel_shadow_options); 
+            })
+        #subsub1.subsub
           %ul.contentwrap_XS
             %li.listtitle.first Category
             %ul
@@ -123,7 +129,7 @@
           .contentwrap_medium= image_tag("http://placehold.it/310x150")
           %p.contentwrap_medium.last
             John Carter suggests that we rescue her and return her to Helium. The loot of Zodanga would be magnificent, and I have often thought that had we an alliance with the people of Helium we could obtain sufficient assurance of sustenance to permit us to increase the size and frequency of our hatchings, and thus become unquestionably supreme among the green men of all Barsoom. What say you?
-        #subsub2{:style => "display: none;"}
+        #subsub2.subsub{:style => "display: none;"}
           .contentwrap_XXL.last= image_tag("http://placehold.it/790x80")
           .contentwrap_XL
             %p "Have you seen Oz?"
@@ -135,7 +141,7 @@
               %li=link_to "dictum", "#"
               %li=link_to "bibendum", "#"
               %li=link_to "massa interdum", "#"
-        #subsub3{:style => "display: none;"}
+        #subsub3.subsub{:style => "display: none;"}
           .contentwrap_XS
             = image_tag("http://placehold.it/150x175")
             %p "Hil-lo, hol-lo, hel-lo!" After this she stood upon both feet and cried in a loud voice: "Ziz-zy, zuz-zy, zik!" Now the charm began to work
@@ -151,7 +157,7 @@
           .contentwrap_XS.last
             = image_tag("http://placehold.it/150x175")
             %p They made his hat and boots and clothes into a small bundle and threw it into the top branches of a tall tree          
-        #subsub4{:style => "display: none;"}
+        #subsub4.subsub{:style => "display: none;"}
           .contentwrap_17col
             %div{:style => "position: relative; float: left; margin-right: 10px"}= image_tag("http://placehold.it/110x100")
             %div{:style => "position: relative; float: left; width: 550px; min-height: 110px"}== Phileas Fogg took a chair, and sat down near the fireplace, opposite Aouda. No emotion was visible on his face. Fogg returned was exactly the Fogg who had gone away; there was the same calm, the same impassibility.

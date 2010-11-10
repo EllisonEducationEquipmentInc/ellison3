@@ -120,7 +120,7 @@ module ShoppingCart
       # options[:package_length] ||= (get_cart.total_volume**(1.0/3.0)).round
       # options[:package_width] ||= (get_cart.total_volume**(1.0/3.0)).round
       # options[:package_height] ||= (get_cart.total_volume**(1.0/3.0)).round
-			rate = if is_us?
+			rate = if address.us?
 			  us_shipping_rate(address, options) || fedex_rate(address, options) 
 				@shipping_service = @rates.detect {|r| r.type == options[:shipping_service]} ? options[:shipping_service] : @rates.sort {|x,y| x.rate <=> y.rate}.first.type
 				@rates.detect {|r| r.type == options[:shipping_service]}.try(:rate) || @rates.sort {|x,y| x.rate <=> y.rate}.first.rate

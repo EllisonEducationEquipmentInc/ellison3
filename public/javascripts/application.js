@@ -135,13 +135,14 @@ $(document).ready(function(){
     });
 	});
   var hoverconfig = { // hover intent custom configurations
+		autoresize: false,
     sensitivity: 2, // number = sensitivity threshold (must be 1 or higher)
     interval: 100, // number = milliseconds for onMouseOver polling interval
     over: megamenuHoverOver, // function = onMouseOver callback (REQUIRED)
     timeout: 500, // number = milliseconds delay before onMouseOut
     out: megamenuHoverOut // function = onMouseOut callback (REQUIRED)
   };
-  $("#nav_megamenu ul li").hoverIntent(hoverconfig); // trigger hover intent with custom configurations	
+  $("#nav_megamenu li").hoverIntent(hoverconfig); // trigger hover intent with custom configurations	
 	
 	// content sliders
   $("#gallery").sudoSlider({
@@ -510,20 +511,20 @@ function calculate_sale_price(price, discount, discount_type) {
 	}
 }
 
+var megapanel_shadow_options = { autoresize: false, imageset: 6, imagepath: "/images/ui-backgrounds/shadowOn" }
+
 // Mega Menu Hover functions
 function megamenuHoverOver() {
   var xCoord  = Math.abs($('#nav_megamenu ul').position().left) - $(this).position().left // calculate correct left coordinate of the subpanel
   $(this).find('.megapanel').css({ "left": (xCoord) + "px" }); // reset the left coordinate of the subpanel
   
   $(this).find('.megapanel').stop().slideDown('fast', function() {
-//    $(this).shadowOn({ imageset: 6, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadow for mega menu subpanel
-    $(this).show();
+   $(this).shadowOn(megapanel_shadow_options);  // drop shadow for mega menu subpanel
   });
 }
 function megamenuHoverOut(){
   $(this).find('.megapanel').stop().slideUp('fast', function() {
-    $(this).hide();  // after fading, hide the subpanel
-//    $(this).shadowOff();
+    $(this).shadowOff();
   });
 }
 
