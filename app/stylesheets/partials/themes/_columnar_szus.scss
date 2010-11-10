@@ -8,15 +8,15 @@
 }
 
 #header {
-  margin-top: 8px;
-  height:133px;
+  margin-top: 0px;
+  height:125px;
   
   #logo_masthead {
   	background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
   	display: block;
-  	width: 165px; 
-  	height: 79px;
-  	margin: 0;
+  	width: 134px; 
+  	height: 77px;
+  	margin: 2px 0 0 31px;
   	text-indent: -9999em;
   }
   
@@ -28,37 +28,14 @@
       font-size: 12px;
       font-style: italic;
       font-weight: bold;
-      color: #fff;
+      color: #000;
       text-decoration: none;
       
-      &:hover {color: #000;};
+      &:hover {color: #f3658c;};
     }
     
     .megapanel {
-      margin-top: 4px;
-
-      .megasublist {
-        li {
-          padding: 10px 0;
-          background: url("/images/ui-backgrounds/_#{$system}_megasubitem.png") no-repeat;
-          
-          &.last { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_last.png") no-repeat; }
-          
-          &:hover { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_hover.png") no-repeat; };
-        }
-      }
-      
-      .megasublink {
-        font-family: Georgia, serif;
-        font-size: 12px;
-        font-style: italic;
-        font-weight: bold;
-        color: #000;
-        text-decoration: none;
-        margin-bottom: 15px;
-      
-        &:hover {color: #393113;};        
-      }
+      margin-top: 1px;
     }
   }
   
@@ -70,7 +47,7 @@
 #footer {
   
   .container {
-    background: url("/images/ui-backgrounds/_#{$system}_footer_repeat.png") repeat-y center;
+    background: url("/images/ui-backgrounds/_#{$system}_footer.png") no-repeat center top;
     color: $footer_text;
   
     h3, h4 {
@@ -87,7 +64,7 @@
     }
   
     .column {
-      margin-top: 20px;
+      margin-top: 45px;
       margin-bottom: 20px;
       height: 205px;
     

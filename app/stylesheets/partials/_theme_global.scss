@@ -131,7 +131,7 @@ body.bp {
         }
         
         .megapanel {
-          background: #f8f6f2 url("/images/ui-backgrounds/_szus_megapanel.png") no-repeat center bottom;
+          background: #f8f6f2 url("/images/ui-backgrounds/_#{$system}_megapanel.png") no-repeat center bottom;
           text-align: left;
           position:absolute;
           width: 950px;

@@ -1,40 +1,65 @@
-// SIZZIX UK THEME - use with COLUMNAR LAYOUT ARCHETYPE
+// ELLISON EDUCATION UK THEME - use with COLUMNAR LAYOUT ARCHETYPE
+// (was the old Sizzix US theme - keeping for reference)
 
 #root {
-  background: url("/images/ui-backgrounds/_#{$system}_root_top.png") repeat-x top;
   
   .container {
-    
+    background: url("/images/ui-backgrounds/_#{$system}_root.png") no-repeat center top;
   }
 }
 
 #header {
-  margin-top: 10px;
-  height:146px;
+  margin-top: 8px;
+  height:133px;
   
   #logo_masthead {
   	background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
   	display: block;
-  	width: 193px; 
-  	height: 74px;
+  	width: 165px; 
+  	height: 79px;
   	margin: 0;
   	text-indent: -9999em;
   }
   
   #nav_megamenu {
-    margin-top: 5px;
+    margin-top: 15px;
     
     .megalink {
-      font-size: 13px;
+      font-family: Georgia, serif;
+      font-size: 12px;
+      font-style: italic;
       font-weight: bold;
-      color: #ebd4e2;
+      color: #fff;
       text-decoration: none;
       
-      &:hover {color: #fff;};
+      &:hover {color: #000;};
     }
     
     .megapanel {
-      margin-top: 0px;
+      margin-top: 4px;
+
+      .megasublist {
+        li {
+          padding: 10px 0;
+          background: url("/images/ui-backgrounds/_#{$system}_megasubitem.png") no-repeat;
+          
+          &.last { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_last.png") no-repeat; }
+          
+          &:hover { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_hover.png") no-repeat; };
+        }
+      }
+      
+      .megasublink {
+        font-family: Georgia, serif;
+        font-size: 12px;
+        font-style: italic;
+        font-weight: bold;
+        color: #000;
+        text-decoration: none;
+        margin-bottom: 15px;
+      
+        &:hover {color: #393113;};        
+      }
     }
   }
   
@@ -44,9 +69,9 @@
 }
 
 #footer {
-  background: #3887ab url("/images/ui-backgrounds/_#{$system}_footer_top.png") repeat-x top;
   
   .container {
+    background: url("/images/ui-backgrounds/_#{$system}_footer_repeat.png") repeat-y center;
     color: $footer_text;
   
     h3, h4 {

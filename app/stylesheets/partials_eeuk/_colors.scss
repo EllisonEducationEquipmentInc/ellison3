@@ -1,18 +1,18 @@
 // Ellison Education UK Color Palette
-// http://www.colourlovers.com/palette/723615/clairedelune
+// http://www.colourlovers.com/palette/373610/mellon_ball_surprise
 
-$primary: #413E4A;  // very dark grey
-$secondary: #73626E;  // dull dark grey with slight pink-purple hue
-$tertiary: #B38184;  // medium dull grey with reddish tint
-$quaternary: #F0B49E;  //very light orange-reddish peach
-$quinary: #F7E4BE;  // yellowish beige
+$primary: #F56991;  // medium bright pink
+$secondary: #FF9F80;  // medium peach-orange
+$tertiary: #FFC48C;  // medium peach-yellow
+$quaternary: #EFFAB4;  // very light lime-green with yellow tint
+$quinary: #D1F2A5;  // medium bright lime-green
 
-$navutil_text: $tertiary;
-$navutil_hover: $quinary;
-$navutil_divider: lighten($tertiary, 10%);
+$navutil_text: lighten($primary, 7%);
+$navutil_hover: darken($primary, 9%);
+$navutil_divider: lighten($tertiary, 4%);
 
-$footer_bg: $secondary;
-$footer_text: $quinary;
-$footer_headings: darken($quaternary, 10%);
-$footer_link_hover: $quaternary;
-$footer_divider: darken($secondary, 10%);
+$footer_bg: #4e4e4e;
+$footer_text: #cbcbcb;
+$footer_headings: white;
+$footer_link_hover: #91a29e;
+$footer_divider: #858585
