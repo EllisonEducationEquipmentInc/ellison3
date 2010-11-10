@@ -62,12 +62,12 @@
     %li.megaitem
       = link_to "Shop Sizzix", catalog_path, :class => "megalink"
       .megapanel
-        %ul.contentwrap_XS.resize
+        %ul.megasublist.contentwrap_XS.resize
           -#EDIT!!! cleanup jquery.
-          %li= link_to "massa interdum", "#", :onmouseover => "$('#subsub1').fadeTo('fast',1);$('#subsub2').fadeTo('fast',0).hide();$('#subsub3').fadeTo('fast',0).hide();$('#subsub4').fadeTo('fast',0).hide();"
-          %li= link_to "Phasellus dapibus", "#", :onmouseover => "$('#subsub2').fadeTo('fast',1);$('#subsub1').fadeTo('fast',0).hide();$('#subsub3').fadeTo('fast',0).hide();$('#subsub4').fadeTo('fast',0).hide();"
-          %li= link_to "elementum", "#", :onmouseover => "$('#subsub3').fadeTo('fast',1);$('#subsub2').fadeTo('fast',0).hide();$('#subsub1').fadeTo('fast',0).hide();$('#subsub4').fadeTo('fast',0).hide();"
-          %li= link_to "feugiat tristique", "#", :onmouseover => "$('#subsub4').fadeTo('fast',1);$('#subsub2').fadeTo('fast',0).hide();$('#subsub3').fadeTo('fast',0).hide();$('#subsub1').fadeTo('fast',0).hide();"
+          %li= link_to "Massa Interdum", "#", :onmouseover => "$('#subsub1').fadeTo('fast',1);$('#subsub2').fadeTo('fast',0).hide();$('#subsub3').fadeTo('fast',0).hide();$('#subsub4').fadeTo('fast',0).hide();", :class => "megasublink"
+          %li= link_to "Phasellus Dapibus", "#", :onmouseover => "$('#subsub2').fadeTo('fast',1);$('#subsub1').fadeTo('fast',0).hide();$('#subsub3').fadeTo('fast',0).hide();$('#subsub4').fadeTo('fast',0).hide();", :class => "megasublink"
+          %li= link_to "Elementum", "#", :onmouseover => "$('#subsub3').fadeTo('fast',1);$('#subsub2').fadeTo('fast',0).hide();$('#subsub1').fadeTo('fast',0).hide();$('#subsub4').fadeTo('fast',0).hide();", :class => "megasublink"
+          %li= link_to "Feugiat tristique", "#", :onmouseover => "$('#subsub4').fadeTo('fast',1);$('#subsub2').fadeTo('fast',0).hide();$('#subsub3').fadeTo('fast',0).hide();$('#subsub1').fadeTo('fast',0).hide();", :class => "megasublink"
         #subsub1
           %ul.contentwrap_XS
             %li.listtitle.first Category

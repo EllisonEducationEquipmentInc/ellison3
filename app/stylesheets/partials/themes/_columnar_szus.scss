@@ -36,6 +36,27 @@
     
     .megapanel {
       margin-top: 4px;
+
+      .megasublist {
+        li {
+          padding: 10px 0;
+          background: url("/images/ui-backgrounds/_#{$system}_megasubitem.png") no-repeat;
+          
+          &:hover { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_hover.png") no-repeat; };
+        }
+      }
+      
+      .megasublink {
+        font-family: Georgia, serif;
+        font-size: 12px;
+        font-style: italic;
+        font-weight: bold;
+        color: #000;
+        text-decoration: none;
+        margin-bottom: 15px;
+      
+        &:hover {color: #393113;};        
+      }
     }
   }
   
