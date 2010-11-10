@@ -64,10 +64,10 @@
       .megapanel
         %ul.megasublist.contentwrap_XS.resize
           -#EDIT!!! cleanup jquery & class/ID names.
-          %li= link_to "Massa Interdum", "#subsub1", :class => "megasublink", :onclick => "return false;"
-          %li= link_to "Phasellus Dapibus", "#subsub2", :class => "megasublink", :onclick => "return false;"
-          %li= link_to "Elementum", "#subsub3", :class => "megasublink", :onclick => "return false;"
-          %li= link_to "Feugiat tristique", "#subsub4", :class => "megasublink", :onclick => "return false;"
+          %li= link_to "Massa Interdum", "#", :class => "megasublink", :onclick => "return false;"
+          %li= link_to "Phasellus Dapibus", "#", :class => "megasublink", :onclick => "return false;"
+          %li= link_to "Elementum", "#", :class => "megasublink", :onclick => "return false;"
+          %li= link_to "Feugiat tristique", "#", :class => "megasublink", :onclick => "return false;"
           :javascript
             $('ul.megasublist li').mouseover(function(){
               $('div.subsub').eq($('ul.megasublist li').index(this)).fadeTo('fast',1).siblings('div.subsub').fadeTo('fast',0).hide();
