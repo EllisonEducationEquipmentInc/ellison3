@@ -213,3 +213,21 @@ class ActionController::IntegrationTest
     include EllisonSystem
   end
 end
+
+class Hash
+  # Destructively convert all keys to integers.
+  def integerify_keys!
+    keys.each do |key|
+      self[key.to_i] = delete(key)
+    end
+    self
+  end
+  
+  # Destructively convert all values to floats.
+  def floatify_values!
+    each do |key, value|
+      self[key] = value[/[0-9.]+/].to_f if value.is_a?(String)
+    end
+    self
+  end
+end

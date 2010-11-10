@@ -1,0 +1,16 @@
+= form_for([:admin, @fedex_rate], :html => {:multipart => true}) do |f|
+  = f.error_messages
+  .field
+    = f.label :weight_min, "Min weight (lbs)"
+    = f.text_field :weight_min
+    %br
+    = f.label :weight_max, "Max weight (lbs)"
+    = f.text_field :weight_max
+  - FedexZone::ZONES.each do |zone|
+    .field
+      %h4== Zone #{zone}
+      - FedexRate::SERVICES.each do |service|
+        = label_tag "fedex_rate[rates][#{zone}][#{service}]", service.to_s.humanize
+        = text_field_tag "fedex_rate[rates][#{zone}][#{service}]", @fedex_rate.rates.try(:[], zone.to_s).try(:[], service)
+  .actions
+    = f.submit :class => 'jqui_save'

@@ -21,7 +21,7 @@ module ShoppingCart
 			else
 				get_cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.sale_price, :msrp => product.msrp, :price => product.price, 
 				  :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product => product, :weight => product.weight, 
-				  :tax_exempt => product.tax_exempt, :handling_price => product.handling_price, :volume => product.calculated_volume, :pre_order => product.pre_order?, :out_of_stock => product.out_of_stock?)
+				  :tax_exempt => product.tax_exempt, :handling_price => product.handling_price, :pre_order => product.pre_order?, :out_of_stock => product.out_of_stock?)
 			end
 			get_cart.reset_tax_and_shipping true
 			get_cart.apply_coupon_discount
@@ -116,11 +116,12 @@ module ShoppingCart
 			end
 			options[:weight] ||= get_cart.total_weight
 			options[:shipping_service] ||= "FEDEX_GROUND"
-			options[:package_length] ||= (get_cart.total_volume**(1.0/3.0)).round
-			options[:package_width] ||= (get_cart.total_volume**(1.0/3.0)).round
-			options[:package_height] ||= (get_cart.total_volume**(1.0/3.0)).round
+			options[:packaging_type] ||= "YOUR_PACKAGING"
+      # options[:package_length] ||= (get_cart.total_volume**(1.0/3.0)).round
+      # options[:package_width] ||= (get_cart.total_volume**(1.0/3.0)).round
+      # options[:package_height] ||= (get_cart.total_volume**(1.0/3.0)).round
 			rate = if is_us?
-				fedex_rate(address, options)
+			  us_shipping_rate(address, options) || fedex_rate(address, options) 
 				@shipping_service = @rates.detect {|r| r.type == options[:shipping_service]} ? options[:shipping_service] : @rates.sort {|x,y| x.rate <=> y.rate}.first.type
 				@rates.detect {|r| r.type == options[:shipping_service]}.try(:rate) || @rates.sort {|x,y| x.rate <=> y.rate}.first.rate
 			else
@@ -130,7 +131,7 @@ module ShoppingCart
 			get_cart.update_attributes :shipping_amount => rate, :shipping_service => @shipping_service, :shipping_rates => @rates ? fedex_rates_to_a(@rates) : [{:name => @shipping_service, :type => @shipping_service, :currency => current_currency, :rate => rate}]
 			rate
 		rescue Exception => e
-		  Rails.logger.warn "calculate_shipping error: #{e}"
+		  Rails.logger.warn "calculate_shipping error: #{e.backtrace}"
 			e.message
 		end
 		
@@ -179,7 +180,22 @@ module ShoppingCart
 			calculate_shipping + calculate_handling
 		end
 		
-		# TODO: package dimensions!
+		def us_shipping_rate(address, options={})
+		  raise "Address has to be a US address" unless address.us?
+		  zone = FedexZone.find_by_zip(address.zip_code).try :zone
+		  rates = FedexRate.find_by_weight(options[:weight])
+		  return false unless rates && zone && !rates.rates[zone.to_s].blank?
+		  @rates = []
+		  rates.rates[zone.to_s].each do |k,v|
+		    service = Shippinglogic::FedEx::Rate::Service.new
+		    service.name = "Fedex " + k.titleize
+		    service.type = k.upcase
+		    service.rate = v
+		    @rates << service
+		  end
+		  @rates
+		end
+		
 		#
 		# Calculates fedex shipping rates based on shipping address and weight.
 		# first argument should be an Address object.
@@ -194,7 +210,8 @@ module ShoppingCart
 			@fedex = Shippinglogic::FedEx.new(FEDEX_AUTH_KEY, FEDEX_SECURITY_CODE, FEDEX_ACCOUNT_NUMBER, FEDEX_METER_NUMBER, :test => false)
 			@rates = @fedex.rate(:shipper_company_name => "Ellison", :shipper_streets => '25862 Commercentre Drive', :shipper_city => 'Lake Forest', :shipper_state => 'CA', :shipper_postal_code => "92630", :shipper_country => "US", 
 													:recipient_name => "#{address.first_name} #{address.last_name}", :recipient_company_name => address.company, :recipient_streets => "#{address.address1} #{address.address2}", :recipient_city => address.city,  :recipient_postal_code => address.zip_code, :recipient_state => address.state, :recipient_country => country_2_code(address.country), :recipient_residential => options[:residential], 
-													:package_weight => options[:weight], :rate_request_types => options[:request_type] || "ACCOUNT", :packaging_type => options[:packaging_type] || "YOUR_PACKAGING", :package_length => options[:package_length] || 12, :package_width => options[:package_width] || 12, :package_height => options[:package_height] || 12, :ship_time => options[:ship_time] || skip_weekends(Time.now, 3.days))													
+													:package_weight => options[:weight], :rate_request_types => options[:request_type] || "ACCOUNT", :packaging_type => options[:packaging_type] || "YOUR_PACKAGING", :package_length => options[:package_length] || 25, :package_width => options[:package_width] || 25, :package_height => options[:package_height] || 25, :ship_time => options[:ship_time] || skip_weekends(Time.now, 3.days))													
+	    Rails.logger.info "Rates: #{@rates.inspect}"
 	    @rates
 	  end
 		

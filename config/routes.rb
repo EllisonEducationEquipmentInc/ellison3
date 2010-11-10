@@ -100,6 +100,7 @@ Ellison3::Application.routes.draw do |map|
 					put :update_campaign, :update_tab
 			  end
 			end
+			resources :us_shipping_rates, :as => :fedex_rates
 			resources :users
 			resources :countries
 			resources :orders do
