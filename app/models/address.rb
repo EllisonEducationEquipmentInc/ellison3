@@ -66,7 +66,7 @@ class Address
 	end
 	
 	def apo?
-	  us? && %w(AA AE AP).include?(self.state.upcase)
+	  us? && %w(AA AE AP).include?(self.state.try(:upcase))
 	end
 		
 	def validate_address
