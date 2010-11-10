@@ -64,6 +64,10 @@ class Address
 	def us?
 		self.country == "United States"
 	end
+	
+	def apo?
+	  us? && %w(AA AE AP).include?(self.state.upcase)
+	end
 		
 	def validate_address
 		self.avs_result = nil

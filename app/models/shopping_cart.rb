@@ -182,7 +182,7 @@ module ShoppingCart
 		
 		def us_shipping_rate(address, options={})
 		  raise "Address has to be a US address" unless address.us?
-		  zone = FedexZone.find_by_zip(address.zip_code).try :zone
+		  zone = address.apo? ? "APO" : FedexZone.find_by_zip(address.zip_code).try(:zone)
 		  rates = FedexRate.find_by_weight(options[:weight])
 		  return false unless rates && zone && !rates.rates[zone.to_s].blank?
 		  @rates = []

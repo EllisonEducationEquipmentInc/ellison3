@@ -3,7 +3,7 @@ class FedexZone
   include Mongoid::Document
 	include ActiveModel::Validations
 	
-	ZONES = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 17] 
+	ZONES = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 17, "APO"] 
 	
 	field :zip_start, :type => Integer
 	field :zip_end, :type => Integer
