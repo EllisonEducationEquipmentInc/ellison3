@@ -63,11 +63,11 @@
       = link_to "Shop Sizzix", catalog_path, :class => "megalink"
       .megapanel
         %ul.megasublist.contentwrap_XS.resize
-          -#EDIT!!! cleanup jquery.
+          -#EDIT!!! cleanup jquery & class/ID names.
           %li= link_to "Massa Interdum", "#", :onmouseover => "$('#subsub1').fadeTo('fast',1);$('#subsub2').fadeTo('fast',0).hide();$('#subsub3').fadeTo('fast',0).hide();$('#subsub4').fadeTo('fast',0).hide();", :class => "megasublink"
           %li= link_to "Phasellus Dapibus", "#", :onmouseover => "$('#subsub2').fadeTo('fast',1);$('#subsub1').fadeTo('fast',0).hide();$('#subsub3').fadeTo('fast',0).hide();$('#subsub4').fadeTo('fast',0).hide();", :class => "megasublink"
           %li= link_to "Elementum", "#", :onmouseover => "$('#subsub3').fadeTo('fast',1);$('#subsub2').fadeTo('fast',0).hide();$('#subsub1').fadeTo('fast',0).hide();$('#subsub4').fadeTo('fast',0).hide();", :class => "megasublink"
-          %li= link_to "Feugiat tristique", "#", :onmouseover => "$('#subsub4').fadeTo('fast',1);$('#subsub2').fadeTo('fast',0).hide();$('#subsub3').fadeTo('fast',0).hide();$('#subsub1').fadeTo('fast',0).hide();", :class => "megasublink"
+          %li.last= link_to "Feugiat tristique", "#", :onmouseover => "$('#subsub4').fadeTo('fast',1);$('#subsub2').fadeTo('fast',0).hide();$('#subsub3').fadeTo('fast',0).hide();$('#subsub1').fadeTo('fast',0).hide();", :class => "megasublink"
         #subsub1
           %ul.contentwrap_XS
             %li.listtitle.first Category

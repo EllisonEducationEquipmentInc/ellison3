@@ -42,6 +42,8 @@
           padding: 10px 0;
           background: url("/images/ui-backgrounds/_#{$system}_megasubitem.png") no-repeat;
           
+          &.last { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_last.png") no-repeat; }
+          
           &:hover { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_hover.png") no-repeat; };
         }
       }
