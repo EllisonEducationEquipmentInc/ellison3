@@ -173,7 +173,10 @@ class CartsController < ApplicationController
 	
 	def get_shipping_amount
 		return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
-		render :inline => "<%= number_to_currency calculate_shipping(get_user.shipping_address) %>"
+		calculate_shipping(get_user.shipping_address)
+		render :inline => "<%= number_to_currency get_cart.shipping_amount %>"
+	rescue Exception => e
+	  render :js => "alert('#{e}');"
 	end
 	
 	def get_tax_amount

@@ -103,6 +103,9 @@ module ShoppingCart
 		end
 		
 		# TODO: UK shipping
+		#
+		# shipping logic: 
+		#   ER: domestic - US Shipping Rates (by weight/zone), international - real fedex call.
 		def calculate_shipping(address, options={})
 			return get_cart.shipping_amount if get_cart.shipping_amount
 			if !get_cart.coupon.blank? && get_cart.coupon.shipping? && get_cart.coupon_conditions_met? && get_cart.coupon.shipping_countries.include?(address.country) && ((address.us? && get_cart.coupon.shipping_states.include?(address.state)) || !address.us?)
@@ -115,12 +118,12 @@ module ShoppingCart
 			  end
 			end
 			options[:weight] ||= get_cart.total_weight
-			options[:shipping_service] ||= "FEDEX_GROUND"
-			options[:packaging_type] ||= "YOUR_PACKAGING"
+			options[:shipping_service] ||= "FEDEX_GROUND" if address.us?
+			options[:packaging_type] ||= "FEDEX_BOX" #"YOUR_PACKAGING"
       # options[:package_length] ||= (get_cart.total_volume**(1.0/3.0)).round
       # options[:package_width] ||= (get_cart.total_volume**(1.0/3.0)).round
       # options[:package_height] ||= (get_cart.total_volume**(1.0/3.0)).round
-			rate = if address.us?
+			rate = if is_us? #address.us?
 			  us_shipping_rate(address, options) || fedex_rate(address, options) 
 				@shipping_service = @rates.detect {|r| r.type == options[:shipping_service]} ? options[:shipping_service] : @rates.sort {|x,y| x.rate <=> y.rate}.first.type
 				@rates.detect {|r| r.type == options[:shipping_service]}.try(:rate) || @rates.sort {|x,y| x.rate <=> y.rate}.first.rate
@@ -130,9 +133,6 @@ module ShoppingCart
 			end
 			get_cart.update_attributes :shipping_amount => rate, :shipping_service => @shipping_service, :shipping_rates => @rates ? fedex_rates_to_a(@rates) : [{:name => @shipping_service, :type => @shipping_service, :currency => current_currency, :rate => rate}]
 			rate
-		rescue Exception => e
-		  Rails.logger.warn "calculate_shipping error: #{e.backtrace}"
-			e.message
 		end
 		
 		# convert an array of Shippinglogic::FedEx::Rate::Service elements to an array of hashes that can be saved in the db
@@ -180,8 +180,9 @@ module ShoppingCart
 			calculate_shipping + calculate_handling
 		end
 		
+		# US shipping rates based on weight + Fedex zones
 		def us_shipping_rate(address, options={})
-		  raise "Address has to be a US address" unless address.us?
+		  return false unless address.us?
 		  zone = address.apo? ? "APO" : FedexZone.find_by_zip(address.zip_code).try(:zone)
 		  rates = FedexRate.find_by_weight(options[:weight])
 		  return false unless rates && zone && !rates.rates[zone.to_s].blank?
@@ -210,8 +211,8 @@ module ShoppingCart
 			@fedex = Shippinglogic::FedEx.new(FEDEX_AUTH_KEY, FEDEX_SECURITY_CODE, FEDEX_ACCOUNT_NUMBER, FEDEX_METER_NUMBER, :test => false)
 			@rates = @fedex.rate(:shipper_company_name => "Ellison", :shipper_streets => '25862 Commercentre Drive', :shipper_city => 'Lake Forest', :shipper_state => 'CA', :shipper_postal_code => "92630", :shipper_country => "US", 
 													:recipient_name => "#{address.first_name} #{address.last_name}", :recipient_company_name => address.company, :recipient_streets => "#{address.address1} #{address.address2}", :recipient_city => address.city,  :recipient_postal_code => address.zip_code, :recipient_state => address.state, :recipient_country => country_2_code(address.country), :recipient_residential => options[:residential], 
-													:package_weight => options[:weight], :rate_request_types => options[:request_type] || "ACCOUNT", :packaging_type => options[:packaging_type] || "YOUR_PACKAGING", :package_length => options[:package_length] || 25, :package_width => options[:package_width] || 25, :package_height => options[:package_height] || 25, :ship_time => options[:ship_time] || skip_weekends(Time.now, 3.days))													
-	    Rails.logger.info "Rates: #{@rates.inspect}"
+													:package_weight => options[:weight], :rate_request_types => options[:request_type] || "ACCOUNT", :packaging_type => options[:packaging_type] || "FEDEX_BOX", :package_length => options[:package_length], :package_width => options[:package_width], :package_height => options[:package_height], :ship_time => options[:ship_time] || skip_weekends(Time.now, 3.days))													
+	    raise "unable to calculate shipping rates. please check your shipping address or call customer service to place an order." if @rates.blank?
 	    @rates
 	  end
 		
