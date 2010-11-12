@@ -95,6 +95,7 @@ class CartsController < ApplicationController
 		end
 		cart_to_order(:address => get_user.shipping_address)
     process_card(:amount => (get_cart.total * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?, :use_payment_token => use_payment_token) unless @payment.purchase_order && purchase_order_allowed?
+		debugger
 		@order.payment = @payment
     process_order(@order)
 		clear_cart

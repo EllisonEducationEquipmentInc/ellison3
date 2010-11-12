@@ -58,6 +58,7 @@ module ShoppingCart
 				    :locale => item.currency, :product => item.product, :tax_exempt => item.tax_exempt, :discount => item.msrp - item.price, :custom_price => item.custom_price, 
 				    :coupon_price => item.coupon_price, :vat => calculate_vat(item.price), :vat_percentage => vat, :vat_exempt => vat_exempt?)
 			end
+			order.address ||= get_user.shipping_address.clone
 			order
 		end
 		
@@ -78,7 +79,6 @@ module ShoppingCart
 		end
 		
 		def process_order(order)
-		  order.address = get_user.shipping_address.clone
   		order.user = get_user
   		order.ip_address = request.remote_ip
   		if order.is_a?(Order)
@@ -222,7 +222,7 @@ module ShoppingCart
 			options[:handling_charge] ||= calculate_handling
 			options[:cart] ||= get_cart.reload
 			options[:tax_exempt_certificate] ||= get_user.tax_exempt_certificate
-			options[:exempt] ||= get_user.tax_exempt
+			options[:exempt] ||= tax_exempt?
 			options[:confirm_address] ||= false
 			tries = 0
       begin
@@ -499,6 +499,10 @@ module ShoppingCart
   	
   	def purchase_order_allowed?
   	  user_signed_in? && get_user.purchase_order
+  	end
+  	
+  	def tax_exempt?
+  	  user_signed_in? && get_user.tax_exempt || is_er?
   	end
 
 		class Config

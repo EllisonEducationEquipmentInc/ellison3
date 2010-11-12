@@ -1,0 +1,31 @@
+= form_for([:admin, @shipping_rate], :html => {:multipart => true}) do |f|
+  = f.error_messages
+  .field.error
+    Change system on the top
+    %br
+    = f.label :system
+    \:
+    = f.text_field :system, :readonly => true, :class => 'transperent'
+  .field
+    = f.label :zone_or_country
+    %br
+    = select_tag 'shipping_rate[zone_or_country]', grouped_options_for_select([["USA Zones", FedexZone::ZONES], ["Countries", countries]], @shipping_rate.zone_or_country, "--select zone/country--")
+  - currencies.each  do |currency|
+    .field
+      = f.label "price_min_#{currency}"
+      %br
+      = f.text_field "price_min_#{currency}"
+    .field
+      = f.label "price_max_#{currency}"
+      %br
+      = f.text_field "price_max_#{currency}"
+    .field
+      = f.label "standard_rate_#{currency}"
+      %br
+      = f.text_field "standard_rate_#{currency}"
+    .field
+      = f.label "rush_rate_#{currency}"
+      %br
+      = f.text_field "rush_rate_#{currency}"
+  .actions
+    = f.submit :class => 'jqui_save'

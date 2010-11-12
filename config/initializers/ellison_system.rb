@@ -36,16 +36,16 @@ module EllisonSystem
 		LOCALES_2_CURRENCIES[current_locale.to_s]
 	end
 	
-	def allowed_locales
-		if %w(szuk eeuk).include? current_system
+	def allowed_locales(sys = current_system)
+		if %w(szuk eeuk).include? sys
 			["en-UK", "en-EU"]
 		else
 			["en-US"]
 		end
 	end
 	
-	def currencies
-		LOCALES_2_CURRENCIES.values_at *allowed_locales
+	def currencies(sys = current_system)
+		LOCALES_2_CURRENCIES.values_at *allowed_locales(sys)
 	end
 	
 	def is_gbp?

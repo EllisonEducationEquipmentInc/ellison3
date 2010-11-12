@@ -101,6 +101,7 @@ Ellison3::Application.routes.draw do |map|
 			  end
 			end
 			resources :us_shipping_rates, :as => :fedex_rates
+			resources :shipping_rates
 			resources :users
 			resources :countries
 			resources :orders do
