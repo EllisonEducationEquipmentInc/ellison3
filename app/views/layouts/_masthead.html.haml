@@ -3,7 +3,6 @@
 
 -# utility navigation menu (account management, shopping cart, etc)  
 %ul.nav_utility.dontprint
-  %li= link_to_unless params[:controller] == "carts", "<span>View #{(t :cart).capitalize}</span>".html_safe, '#', :class => "show_cart btn-masthead btn-view#{t :cart}", :title => "View #{(t :cart).capitalize}", :alt => "View #{(t :cart).capitalize}"
   - if user_signed_in?
     %li= link_to_unless_current "<span>My Account</span>".html_safe, myaccount_path(:secure => true), :class => "btn-masthead btn-myaccount", :title => "My Account", :alt => "My Account"
     %li= link_to "<span>Sign Out</span>".html_safe, destroy_session_path('user'), :class => "btn-masthead btn-signout", :title => "Sign Out", :alt => "Sign Out" 
@@ -14,6 +13,22 @@
     %li= link_to "<span>Log Out Dashboard</span>".html_safe, destroy_session_path('admin'), :class => "btn-masthead btn-admin-logout", :title => "Log Out Dashboard", :alt => "Log Out Dashboard"
   - else
     %li= link_to "<span>Log In Dashboard</span>".html_safe, new_session_path('admin', :secure => true), :class => "btn-masthead btn-admin-login", :title => "Log In Dashboard", :alt => "Log In Dashboard"
+
+-# shopping cart
+#shoppingcart_info
+  %p.cart_qty
+    \&nbsp;
+    %span#cart_items_qty
+      42 items
+  %p.cart_total
+    %span#total_currency
+      $9,999.99
+    \&nbsp;
+  %p.cart_shipmsg
+    \&nbsp;
+    = link_to "FREE shipping at $45", "#"
+#shoppingcart_icon
+  = link_to_unless params[:controller] == "carts", image_tag("/images/ui-objects/_#{current_system}_shoppingbag.png", :border =>0, :alt => "Shopping Bag"), "#", :title => "View #{(t :cart).capitalize}", :alt => "View #{(t :cart).capitalize}", :class => "show_cart"
 
 -# Ellison3 dashboard menu for admins + catalog mega-nav menus for consumers
 - if admin_signed_in?
@@ -69,7 +84,7 @@
           %li= link_to "Massa Interdum", "#", :class => "megasublink", :onclick => "return false;"
           %li= link_to "Phasellus Dapibus", "#", :class => "megasublink", :onclick => "return false;"
           %li= link_to "Elementum", "#", :class => "megasublink", :onclick => "return false;"
-          %li= link_to "Feugiat tristique", "#", :class => "megasublink", :onclick => "return false;"
+          %li.last= link_to "Feugiat tristique", "#", :class => "megasublink", :onclick => "return false;"
           :javascript
             $('ul.megasublist li').mouseover(function(){
               $('div.subsub').eq($('ul.megasublist li').index(this)).fadeTo('fast',1).siblings('div.subsub').fadeTo('fast',0).hide();

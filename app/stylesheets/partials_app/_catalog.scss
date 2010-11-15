@@ -2,7 +2,7 @@
 
 // reset block level element margins
 body.bp {
-  .product-block, .buybox {
+  .product-block, .product_buybox {
     
     p, h3, h4 {
       margin:0;
@@ -38,12 +38,24 @@ body.bp {
   	}    
   }
   
-  .buybox {
+  .product_buybox {
     h4 {
-      font-size: .9em;
+      margin: 0 0 7px 0;
+      font-size: 1em;
       color: $catalog_buybox_item-num;
       text-transform: uppercase;
-      float: right;
+      font-weight: bold;
+    }
+    h4.itemnumber {
+      float: right;      
+    }
+  }
+  .product_moreinfo {
+    h4 {
+      text-transform: none;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #444;
     }
   }
 }
@@ -148,22 +160,52 @@ body.bp {
 }
 
 // product detail page
-
-.product_main {
-  #large_image {
-    height: 320px;
-  }
-  
-  .thumbnail {
-    border: $layout_thumbnail_border;
-    margin: 0 2px 2px 0;
-    float:left;
-  }
+#large_image {
+  height: 320px;
+  background: $catalog_product_bg;
+  overflow: visible;
+  z-index: 200;
 }
 
-.buybox {
+.thumbnail {
+  border: $layout_thumbnail_border;
+  margin: 0 2px 2px 0;
+  float:left;
+}
+
+.product_sociallinks {
+	margin-top: 10px;
+}
+
+.product_buybox {
 	background: $catalog_buybox_bg;
 	border: 1px solid $catalog_buybox_border;
 	padding: 6px;
-	margin-bottom: 10px;
+	margin: 10px 0;
+	
+	h4 {
+	  margin-top: 7px;
+	}
+	
+	.ui-button {
+	  margin-top: 3px;
+	}	
+}
+
+.add_to_cart {
+  width: 176px;
+  height: 30px;
+  background: url('/images/ui-buttons/addtobag_off.png') no-repeat;
+  border: none;
+  font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #fff;
+  
+  .ui-icon {
+    background-image: none;
+  }
+  
+  &:hover { background: url('/images/ui-buttons/addtobag_on.png') no-repeat; };
 }

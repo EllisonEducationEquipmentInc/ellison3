@@ -1,10 +1,13 @@
-.product_main {
-  @include column(19); }
-.product_sidebar {
-  @include column(5, true); }
-.product_images {
-  @include column(11); }
-.product_detail {
-  @include column(8, true);}
-.product_tabs {
-  @include column(19, true); }
+//.product_main { @include column(19); }
+.product_images { @include column(12); }
+.product_title { @include column(12, true); }
+.product_sociallinks { @include column(7);}
+.product_buybox {
+  display: inline;
+  float: left;
+  margin-right: 0;
+  width: 176px;
+}
+.product_moreinfo { @include column(12, true);}
+.product_tabs { @include column(19); }
+.product_sidebar { @include column(5, true); }

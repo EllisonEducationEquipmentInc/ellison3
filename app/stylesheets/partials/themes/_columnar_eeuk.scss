@@ -1,6 +1,12 @@
 // ELLISON EDUCATION UK THEME - use with COLUMNAR LAYOUT ARCHETYPE
 // (was the old Sizzix US theme - keeping for reference)
 
+body.bp {
+  h1, h2, h3, h4, h5 {
+    font-family: 'Vollkorn', "Times New Roman", serif;
+  }
+}
+
 #root {
   
   .container {
@@ -29,10 +35,10 @@
       font-size: 12px;
       font-style: italic;
       font-weight: bold;
-      color: #fff;
+      color: white;
       text-decoration: none;
       
-      &:hover {color: #000;};
+      &:hover {color: black;};
     }
     
     .megapanel {
@@ -54,7 +60,7 @@
         font-size: 12px;
         font-style: italic;
         font-weight: bold;
-        color: #000;
+        color: black;
         text-decoration: none;
         margin-bottom: 15px;
       

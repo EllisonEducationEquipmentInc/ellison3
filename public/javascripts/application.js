@@ -54,6 +54,7 @@ function shadow_on() {
 	// shadowOn
 	$(".cardpanelshadow").shadowOn({ imageset: 6, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadows for cardpanel layout archetype
 	$(".product-block").shadowOn({ imageset: 1, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadow for product blocks on catalog pages
+	$("#large_image").shadowOn({ imageset: 1, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadow for product blocks on catalog pages
 }
 
 function bind_hashchange () {
@@ -220,7 +221,7 @@ function initialize_buttons(){
 	$(function() {
 		$(".add_to_cart").button({
 	            icons: {
-	                primary: 'ui-icon-cart'
+	                primary: 'ui-icon-plus'
 	            }})
 			.click( function() {
 				$.ajax({url:"/carts/add_to_cart?id="+this.id.replace('add_to_cart_', '')});

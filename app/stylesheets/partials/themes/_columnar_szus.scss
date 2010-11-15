@@ -1,5 +1,11 @@
 // SIZZIX US THEME - use with COLUMNAR LAYOUT ARCHETYPE
 
+body.bp {
+  h1, h2, h3, h4, h5 {
+    font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+  }
+}
+
 #root {
   
   .container {
@@ -8,36 +14,59 @@
 }
 
 #header {
-  margin-top: 0px;
-  height:125px;
+  margin-top: 8px;
+  height:118px;
   
   #logo_masthead {
   	background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
   	display: block;
-  	width: 134px; 
+  	width: 147px; 
   	height: 77px;
-  	margin: 2px 0 0 31px;
+  	margin: 0px;
   	text-indent: -9999em;
   }
   
   #nav_megamenu {
-    margin-top: 15px;
+    margin-top: 10px;
     
     .megalink {
-      font-family: Georgia, serif;
-      font-size: 12px;
-      font-style: italic;
+      font-family:  'PT Sans', Helvetica, Arial, sans-serif;
+      font-size: 1.1em;
       font-weight: bold;
-      color: #000;
+      color: #6c5941;
+      text-transform: uppercase;
       text-decoration: none;
       
-      &:hover {color: #f3658c;};
+      &:hover {color: black;};
     }
     
     .megapanel {
-      margin-top: 1px;
+      margin-top: 4px;
+
+      .megasublist {
+        li {
+          padding: 10px 0;
+          background: url("/images/ui-backgrounds/_#{$system}_megasubitem.png") no-repeat;
+          
+          &.last { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_last.png") no-repeat; }
+          
+          &:hover { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_hover.png") no-repeat; };
+        }
+      }
+      
+      .megasublink {
+        font-family:  'PT Sans', Helvetica, Arial, sans-serif;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: black;
+        text-decoration: none;
+        margin-bottom: 15px;
+      
+        &:hover {color: #393113;};        
+      }
     }
   }
+
   
   .container {
     // height: 100px;
