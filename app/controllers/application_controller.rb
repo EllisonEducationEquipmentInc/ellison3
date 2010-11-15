@@ -76,12 +76,8 @@ private
 
 	def get_system
 	  session[:vat_exempt] = nil
-		domain_to_system(request.host)
-		if Rails.env == 'development' || admin_signed_in?
-			# TODO: restrict admin to switch to enabled systems only
-			session[:system] = params[:system] if params[:system]
-			set_current_system(session[:system])
-		end
+		domain_to_system(request.host) unless admin_signed_in? && !session[:system].blank?
+    change_current_system(params[:system]) if params[:system]
 		set_locale
 	end
 	
@@ -93,6 +89,14 @@ private
 			get_cart.update_items
 		end
 		session[:locale] = I18n.locale
+	end
+	
+	def change_current_system(new_system)
+	  if Rails.env == 'development' || admin_signed_in?
+			# TODO: restrict admin to switch to enabled systems only
+			session[:system] = new_system
+			set_current_system(new_system)
+		end
 	end
 	
 	def get_layout

@@ -78,7 +78,7 @@ namespace :migrations do |ns|
 	def tozip(z)
     a=z.split("-")
     a=a.map {|e| to_five(e)}
-    a.length < 2 ? a * 2 : a
+    a.length < 2 ? [a, a+999 ]: a
   end
 
   def to_five(z)
@@ -88,7 +88,7 @@ namespace :migrations do |ns|
   def fedex_zones_csv
     <<-CSV
 "zip","zone","express_zone"
-"005","8",
+"005-006","8",
 "010-212","8",
 "214-268","8",
 "270-324","8",

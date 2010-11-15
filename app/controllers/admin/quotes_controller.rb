@@ -4,6 +4,7 @@ class Admin::QuotesController < ApplicationController
 	before_filter :set_admin_title
 	before_filter :admin_read_permissions!
   before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :update_active_status]
+	before_filter :admin_user_as_permissions!, :only => [:recreate]
 	
 	ssl_exceptions
 	
@@ -89,5 +90,16 @@ class Admin::QuotesController < ApplicationController
     @quote = Quote.find(params[:id])
     @quote.update_attributes :active => params[:active]
     render :nothing => true
+  end
+  
+  def recreate
+    @quote = Quote.find(params[:id])
+    change_current_system @quote.system
+    I18n.locale = @quote.locale
+    sign_in("user", @quote.user)
+    get_cart.clear
+    order_to_cart @quote
+    @quote.update_attributes :active => false
+    redirect_to checkout_path
   end
 end

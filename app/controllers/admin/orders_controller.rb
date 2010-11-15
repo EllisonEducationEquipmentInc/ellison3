@@ -129,6 +129,7 @@ class Admin::OrdersController < ApplicationController
   
   def recreate
     @order = Order.find(params[:id])
+    change_current_system @order.system
     I18n.locale = @order.locale
     sign_in("user", @order.user)
     get_cart.clear
