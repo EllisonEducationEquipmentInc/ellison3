@@ -46,9 +46,10 @@
           %br
           = select :payment, :card_expiration_month, Payment.months, { :prompt => "month" }, :class => "cc"
           = select :payment, :card_expiration_year, Payment.years, { :prompt => "year" }, :class => "cc"
-        .field
-          = f.check_box :save_credit_card
-          = f.label :save_credit_card
+        - if can_tokenize_payment?
+          .field
+            = f.check_box :save_credit_card
+            = f.label :save_credit_card
       .clear_left
   - if can_use_previous_payment?
     .field

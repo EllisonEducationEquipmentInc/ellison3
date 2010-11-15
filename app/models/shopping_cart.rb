@@ -286,7 +286,7 @@ module ShoppingCart
 				card_name = correct_card_name(billing.card_name)
         credit_card = ActiveMerchant::Billing::CreditCard.new(:first_name => billing.first_name, :last_name => billing.last_name, :number => billing.full_card_number, :month => billing.card_expiration_month, :year => billing.card_expiration_year,
                           :type => card_name, :verification_value => billing.card_security_code, :start_month => billing.card_issue_month, :start_year => billing.card_issue_year, :issue_number => billing.card_issue_number)
-        raise "Credit card is invalid. #{credit_card.errors}" if !credit_card.valid?
+        raise "Credit card is invalid. #{credit_card.errors.full_messages * ", "}" if !credit_card.valid?
       end
       if is_us?
         gw_options = {:email => billing.email, :order_id => order}
@@ -527,6 +527,10 @@ module ShoppingCart
   	
   	def can_use_previous_payment?
   	  !get_cart.order_reference.blank? && current_admin && current_admin.can_act_as_customer && Order.find(get_cart.order_reference).user == current_user rescue false
+  	end
+  	
+  	def can_tokenize_payment?
+  	  is_us?
   	end
   	
   	def purchase_order_allowed?
