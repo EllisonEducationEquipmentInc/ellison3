@@ -197,7 +197,7 @@ body.bp .product_sidebar p {
 }
 
 /* line 208, ../../../app/stylesheets/partials_app/_catalog.scss */
-.add_to_cart {
+.add_to_cart_detail {
   width: 176px;
   height: 30px;
   background: url("/images/ui-buttons/addtobag_off.png") no-repeat;
@@ -209,11 +209,11 @@ body.bp .product_sidebar p {
   color: #fff;
 }
 /* line 219, ../../../app/stylesheets/partials_app/_catalog.scss */
-.add_to_cart .ui-icon {
+.add_to_cart_detail .ui-icon {
   background-image: none;
 }
 /* line 223, ../../../app/stylesheets/partials_app/_catalog.scss */
-.add_to_cart:hover {
+.add_to_cart_detail:hover {
   background: url("/images/ui-buttons/addtobag_on.png") no-repeat;
 }
 
