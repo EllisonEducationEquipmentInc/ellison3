@@ -169,17 +169,21 @@ body.bp {
 }
 
 // product detail page
-#large_image {
-  height: 320px;
+.product_images {
   background: $catalog_product_bg;
   overflow: visible;
   z-index: 200;
-}
 
-.thumbnail {
-  border: $layout_thumbnail_border;
-  margin: 0 2px 2px 0;
-  float:left;
+  #large_image {
+    width: 450px;
+    margin: 3px 0 0 3px;
+  }
+
+  .thumbnail {
+    border: $layout_thumbnail_border;
+    margin: 3px 0 3px 3px;
+    float:left;
+  }  
 }
 
 .product_sociallinks {
