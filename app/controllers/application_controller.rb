@@ -76,6 +76,7 @@ private
 
 	def get_system
 	  session[:vat_exempt] = nil
+	  set_current_system session[:system] unless session[:system].blank?
 		domain_to_system(request.host) unless admin_signed_in? && !session[:system].blank?
     change_current_system(params[:system]) if params[:system]
 		set_locale
