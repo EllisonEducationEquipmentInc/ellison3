@@ -100,6 +100,7 @@ ESTIMATED TOTAL:
 - if @order.payment.try(:purchase_order)
   .error
     %strong Purchase Order
+    = @order.payment.purchase_order_number
     = link_to "download", @order.payment.attachment_url if @order.payment.attachment
 - else
   This order was charged to:

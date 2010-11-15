@@ -69,5 +69,9 @@ ESTIMATED TOTAL:
 %br
 This order was charged to:
 %br
-= @order.payment.card_name
-== #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
+- if @order.payment.try(:purchase_order)
+  %strong Purchase Order
+  = @order.payment.purchase_order_number
+- else
+  = @order.payment.card_name
+  == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}

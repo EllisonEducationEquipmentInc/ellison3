@@ -32,6 +32,7 @@ class Payment
 	field :use_saved_credit_card, :type => Boolean, :default => false
 	field :deferred, :type => Boolean, :default => false
 	field :purchase_order, :type => Boolean, :default => false
+	field :purchase_order_number
 	
 	field :cv2_result
 	field :status
@@ -60,6 +61,7 @@ class Payment
 	embedded_in :order, :inverse_of => :payment
 	
 	validates_presence_of :email
+	validates_presence_of :purchase_order_number, :if => Proc.new {|obj| obj.purchase_order}
 	
 	before_save :mask_card_number
 	
