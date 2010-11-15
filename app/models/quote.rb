@@ -63,8 +63,16 @@ class Quote
 	  subtotal_amount
 	end
 	
+	def gross_shipping_amount
+	  self.shipping_amount + shipping_vat
+	end
+	
 	def total_amount
-		subtotal_amount + shipping_amount + handling_amount + tax_amount
+		(subtotal_amount + shipping_amount + handling_amount + tax_amount + shipping_vat).round(2)
+	end
+	
+	def shipping_vat
+	  self.vat_exempt ? 0.0 : (self.shipping_amount * (self.vat_percentage/100.0)).round(2)
 	end
 	
 	def can_be_converted?

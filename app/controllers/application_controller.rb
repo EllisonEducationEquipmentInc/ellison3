@@ -32,7 +32,6 @@ private
 		@vat ||= SystemSetting.value_at("vat").to_f
 	end
 	
-	# TODO: implement VAT exempt by SHipping Country
 	def gross_price(price, vat_exempt = false)
     sess = session[:vat_exempt] rescue vat_exempt
     if is_us? || sess || vat_exempt

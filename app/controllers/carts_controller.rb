@@ -94,7 +94,7 @@ class CartsController < ApplicationController
 		  new_payment
 		end
 		cart_to_order(:address => get_user.shipping_address)
-    process_card(:amount => (get_cart.total * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?, :use_payment_token => use_payment_token) unless @payment.purchase_order && purchase_order_allowed?
+    process_card(:amount => (total_cart * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?, :use_payment_token => use_payment_token) unless @payment.purchase_order && purchase_order_allowed?
 		debugger
 		@order.payment = @payment
     process_order(@order)
@@ -175,8 +175,9 @@ class CartsController < ApplicationController
 	def get_shipping_amount
 		return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
 		calculate_shipping(get_user.shipping_address)
-		render :inline => "<%= number_to_currency get_cart.shipping_amount %>"
+		render :inline => "<%= number_to_currency gross_price(get_cart.shipping_amount) %>"
 	rescue Exception => e
+	  Rails.logger.error e.backtrace.join("\n")
 	  render :js => "alert('#{e}');"
 	end
 	
@@ -190,11 +191,12 @@ class CartsController < ApplicationController
 		tries = 0
 		begin
 			tries += 1
-			@total = get_cart.reload.total
+			@total = total_cart
 		rescue Exception => e
-			Rails.logger.error e
+			Rails.logger.error e #.backtrace.join("\n")
 			if tries < 15        
 		    sleep(tries)            
+			  get_cart.reload
 		    retry                      
 		  end
 		end

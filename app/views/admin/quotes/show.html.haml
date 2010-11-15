@@ -56,7 +56,7 @@ Subtotal:
 = number_to_currency @quote.gross_subtotal_amount
 %br
 == Shipping & Handling (#{@quote.shipping_service.try :humanize}):
-= number_to_currency @quote.shipping_amount
+= number_to_currency @quote.gross_shipping_amount
 %br
 Shipping & Handling Surcharge:
 = number_to_currency @quote.handling_amount

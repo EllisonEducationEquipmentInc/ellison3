@@ -64,9 +64,9 @@ class Cart
 		cart_items.inject(0) {|sum, item| sum += (item.quantity * item.handling_price)}
 	end
 	
-	def total
-		(sub_total + tax_amount + shipping_amount + handling_amount).round(2)
-	end
+  # def total
+  #   (sub_total + tax_amount + shipping_amount + handling_amount).round(2)
+  # end
 	
 	def pre_order?
 	  cart_items.any? {|e| e.pre_order}

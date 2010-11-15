@@ -51,7 +51,7 @@ module ShoppingCart
 		
 		def cart_to_order_or_quote(klass, options = {})
 		  order = klass.to_s.classify.constantize.new(:id => options[:order_id], :subtotal_amount => get_cart.sub_total, :shipping_amount => calculate_shipping(options[:address]), :handling_amount => calculate_handling, :tax_amount => calculate_tax(options[:address]),
-			              :tax_transaction => get_cart.reload.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at, :locale => current_locale, :shipping_service => get_cart.shipping_service, :order_reference => get_cart.order_reference, :vat_percentage => vat, :vat_exempt => vat_exempt?)
+			              :tax_transaction => get_cart.reload.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at.try(:utc), :locale => current_locale, :shipping_service => get_cart.shipping_service, :order_reference => get_cart.order_reference, :vat_percentage => vat, :vat_exempt => vat_exempt?)
 			order.coupon = get_cart.coupon
 			@cart.cart_items.each do |item|
 				order.order_items << OrderItem.new(:name => item.name, :item_num => item.item_num, :sale_price => item.price, :quoted_price => item.msrp, :quantity => item.quantity,
@@ -105,7 +105,10 @@ module ShoppingCart
 		# TODO: UK shipping
 		#
 		# shipping logic: 
+		#   SZUS:  US Shipping Rates (by weight/zone) - TBD
 		#   ER: domestic - US Shipping Rates (by weight/zone), international - real fedex call.
+		#   SZUK, EEUK: Shipping Rates (cart subtotal based)
+		#   TODO: EEUS: Shipping Rates (cart subtotal based)
 		def calculate_shipping(address, options={})
 			return get_cart.shipping_amount if get_cart.shipping_amount
 			if !get_cart.coupon.blank? && get_cart.coupon.shipping? && get_cart.coupon_conditions_met? && get_cart.coupon.shipping_countries.include?(address.country) && ((address.us? && get_cart.coupon.shipping_states.include?(address.state)) || !address.us?)
@@ -123,14 +126,13 @@ module ShoppingCart
       # options[:package_length] ||= (get_cart.total_volume**(1.0/3.0)).round
       # options[:package_width] ||= (get_cart.total_volume**(1.0/3.0)).round
       # options[:package_height] ||= (get_cart.total_volume**(1.0/3.0)).round
-			rate = if is_us? #address.us?
+			if is_us? #address.us?
 			  us_shipping_rate(address, options) || fedex_rate(address, options) 
-				@shipping_service = @rates.detect {|r| r.type == options[:shipping_service]} ? options[:shipping_service] : @rates.sort {|x,y| x.rate <=> y.rate}.first.type
-				@rates.detect {|r| r.type == options[:shipping_service]}.try(:rate) || @rates.sort {|x,y| x.rate <=> y.rate}.first.rate
 			else
-				@shipping_service = "STANDARD"
-				gross_price 5.0
+			  shipping_rate(address, options)
 			end
+			@shipping_service = @rates.detect {|r| r.type == options[:shipping_service]} ? options[:shipping_service] : @rates.sort {|x,y| x.rate <=> y.rate}.first.type
+			rate = @rates.detect {|r| r.type == options[:shipping_service]}.try(:rate) || @rates.sort {|x,y| x.rate <=> y.rate}.first.rate
 			get_cart.update_attributes :shipping_amount => rate, :shipping_service => @shipping_service, :shipping_rates => @rates ? fedex_rates_to_a(@rates) : [{:name => @shipping_service, :type => @shipping_service, :currency => current_currency, :rate => rate}]
 			rate
 		end
@@ -172,7 +174,7 @@ module ShoppingCart
 			else
 				0.0
 			end
-			get_cart.update_attributes :tax_amount => total_tax, :tax_transaction => @cch ? @cch.transaction_id : nil, :tax_calculated_at => Time.now
+			get_cart.update_attributes :tax_amount => total_tax, :tax_transaction => @cch ? @cch.transaction_id : nil, :tax_calculated_at => Time.now #, :vat_percentage => 
 			total_tax
 		end
 		
@@ -193,6 +195,24 @@ module ShoppingCart
 		    service.type = k.upcase
 		    service.rate = v
 		    @rates << service
+		  end
+		  @rates
+		end
+		
+		# shipping rates based on cart subtotal
+		def shipping_rate(address, options={})
+		  rate = ShippingRate.where(:system => current_system, :"price_min_#{current_currency}".lte => subtotal_cart, :"price_max_#{current_currency}".gte => subtotal_cart, :zone_or_country => address.us? ? FedexZone.find_by_address(address).try(:zone).try(:to_s) : address.country).first
+		  raise "unable to calculate shipping" if rate.blank?
+		  @rates = []
+		  standard = Shippinglogic::FedEx::Rate::Service.new
+		  standard.name = standard.type = "STANDARD"
+		  standard.rate = rate.send("standard_rate_#{current_currency}")
+		  @rates << standard
+		  unless rate.send("rush_rate_#{current_currency}").blank?
+		    rush = Shippinglogic::FedEx::Rate::Service.new
+  		  rush.name = rush.type = "RUSH"
+  		  rush.rate = rate.send("rush_rate_#{current_currency}")
+  		  @rates << rush
 		  end
 		  @rates
 		end
@@ -241,6 +261,18 @@ module ShoppingCart
       if calculate_tax?(order.address.state)
         @cch = CCH::Cch.new(:action => refund ? 'ProcessAttributedReturn' : 'calculate', :customer => order.address, :shipping_charge => order.shipping_amount, :handling_charge => order.handling_amount, :total => order.subtotal_amount, :transaction_id => order.tax_transaction, :exempt => order.user.tax_exempt, :tax_exempt_certificate => order.user.tax_exempt_certificate )
 			end
+    end
+    
+    def subtotal_cart
+      gross_price get_cart.sub_total
+    end
+    
+    def shipping_vat
+      calculate_vat get_cart.shipping_amount
+    end
+    
+    def total_cart
+      (get_cart.sub_total + get_cart.tax_amount + get_cart.shipping_amount + get_cart.handling_amount + shipping_vat).round(2)
     end
     
     def calculate_tax?(state)

@@ -20,5 +20,9 @@ class FedexZone
 	  def find_by_zip(zip)
 	    where({:zip_start.lte => zip.to_i, :zip_end.gte => zip.to_i}).first
 	  end
+	  
+	  def find_by_address(address)
+	    address.apo? ? "APO" : find_by_zip(address.zip_code)
+	  end
 	end
 end

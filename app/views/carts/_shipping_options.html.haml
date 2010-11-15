@@ -6,7 +6,7 @@
       == #{rate["name"]}:
       - unless rate["delivered_by"].blank?
         == Estimated delivery: #{l rate["delivered_by"], :format => :date}
-      %span.right= number_to_currency rate["rate"]
+      %span.right= number_to_currency gross_price(rate["rate"])
 - else
   = spinner
   
