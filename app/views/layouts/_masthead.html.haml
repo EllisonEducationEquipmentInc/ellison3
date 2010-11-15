@@ -77,7 +77,7 @@
 #nav_megamenu.dontprint
   %ul.megalist
     %li.megaitem
-      = link_to "Shop Sizzix", catalog_path, :class => "megalink"
+      = link_to "Shop Sizzix", catalog_path, :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
       .megapanel
         %ul.megasublist.contentwrap_XS.resize
           -#EDIT!!! cleanup jquery & class/ID names.
@@ -184,7 +184,7 @@
             %div{:style => "position: relative; float: left; width: 550px; min-height: 110px"}== "Madam, you could not remain in India, and your safety could only be assured by bringing you to such a distance that your persecutors could not take you."
           .contentwrap_XXS= image_tag("http://placehold.it/110x400")
     %li.megaitem
-      = link_to "Craft Ideas", "#", :class => "megalink"
+      = link_to "Craft Ideas", "#", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
       .megapanel
         %ul.contentwrap_medium
           %li elementum
@@ -207,7 +207,7 @@
           %li bibendum
           %li massa interdum
     %li.megaitem
-      = link_to "What's New?", "#", :class => "megalink"
+      = link_to "What's New?", "#", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
       .megapanel
         %ul.contentwrap_XXXL.last.resize
           %li= link_to "eclips", shop_path("eclips")
@@ -217,17 +217,17 @@
           %li= link_to "eclips", shop_path("eclips")
           %li= link_to "eclips", shop_path("eclips")
     %li.megaitem
-      = link_to "On Sale Now!", "#", :class => "megalink"
+      = link_to "On Sale Now!", "#", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
       .megapanel
         %p.contentwrap_XXXL.last.resize
           4 Nam semper porttitor arcu, ut molestie diam gravida vitae. Suspendisse et nisi quis turpis molestie faucibus a a risus. Nulla rutrum felis vel nisi accumsan vitae auctor mauris pharetra. Praesent a accumsan libero. Aenean mi nunc, convallis vestibulum euismod in, lobortis non sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Duis bibendum interdum felis, ut dictum risus ornare vel.
     %li.megaitem
-      = link_to "Community", "#", :class => "megalink"
+      = link_to "Community", "#", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
       .megapanel
         %p.contentwrap_XXXL.last.resize
           5 Nam semper porttitor arcu, ut molestie diam gravida vitae. Suspendisse et nisi quis turpis molestie faucibus a a risus. Nulla rutrum felis vel nisi accumsan vitae auctor mauris pharetra. Praesent a accumsan libero. Aenean mi nunc, convallis vestibulum euismod in, lobortis non sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Duis bibendum interdum felis, ut dictum risus ornare vel.
     %li.megaitem
-      = link_to "Customer Care", "#", :class => "megalink"
+      = link_to "Customer Care", "#", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
       .megapanel
         %p.contentwrap_XXXL.last.resize
           The next thing was to eat the comfits: this caused some noise and  confusion, as the large birds complained that they could not taste  theirs, and the small ones choked and had to be patted on the back.  However, it was over at last, and they sat down again in a ring, and  begged the Mouse to tell them something more.
@@ -241,7 +241,7 @@
         %p.contentwrap_medium.last
           'I beg your pardon,' said Alice very humbly: 'you had got to the fifth  bend, I think?'
     %li.megaitem
-      = link_to "Shop the Outlet", "#", :class => "megalink"
+      = link_to "Shop the Outlet", "#", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
       .megapanel
         %ul.contentwrap_small
           %li massa interdum
