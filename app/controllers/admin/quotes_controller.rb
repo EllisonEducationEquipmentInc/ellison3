@@ -3,7 +3,7 @@ class Admin::QuotesController < ApplicationController
 	
 	before_filter :set_admin_title
 	before_filter :admin_read_permissions!
-  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment]
+  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :update_active_status]
 	
 	ssl_exceptions
 	
@@ -83,5 +83,11 @@ class Admin::QuotesController < ApplicationController
     @quote = Quote.find(params[:id])
     @quote.update_attributes :internal_comments => params[:update_value]
     render :text => @quote.internal_comments
+  end
+  
+  def update_active_status
+    @quote = Quote.find(params[:id])
+    @quote.update_attributes :active => params[:active]
+    render :nothing => true
   end
 end

@@ -33,6 +33,15 @@
   %br
   %strong Customer Rep:
   = @quote.customer_rep
+  %br
+  %strong Active:
+  - if has_write_permissions?
+    .field
+      = check_box_tag :quote_active, "1", @quote.active, :onchange => "$.ajax({url: '/admin/quotes/update_active_status?id=#{@quote.id}&active='+this.checked})"
+      :javascript
+        $('#quote_active').iphoneStyle({ background: '#F9F3E8',checkedLabel: 'YES', uncheckedLabel: 'NO' })
+  - else
+    = @quote.active
 .clear
 %table
   %tr

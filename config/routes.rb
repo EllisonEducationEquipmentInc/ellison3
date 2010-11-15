@@ -113,6 +113,7 @@ Ellison3::Application.routes.draw do |map|
 			resources :quotes do
 			  collection do
 			    post :update_internal_comment
+			    get :update_active_status
 			  end
 			end
 			resources :coupons
