@@ -15,7 +15,7 @@
     Item #
     = @product.item_num
   %h4= display_product_price(@product)
-  = add_to_cart_button(@product)
+  = add_to_cart_button(@product, 'add_to_cart_detail')
     
 %p= @product.description.try :html_safe
 

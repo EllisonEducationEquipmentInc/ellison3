@@ -78,7 +78,7 @@ namespace :migrations do |ns|
 	def tozip(z)
     a=z.split("-")
     a=a.map {|e| to_five(e)}
-    a.length < 2 ? [a, a+999 ]: a
+    a.length < 2 ? [a[0], a[0]+999 ] : a
   end
 
   def to_five(z)
