@@ -72,10 +72,12 @@ class CartsController < ApplicationController
 		process_card(:amount => (@quote.total_amount * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?) unless @payment.purchase_order && purchase_order_allowed?
 		@order.payment = @payment
 		@order.quote = @quote
+		@order.address ||= get_user.shipping_address.clone
 		process_order @order
 		@quote.update_attributes :active => false
 		UserMailer.order_confirmation(@order).deliver
 		@order.payment.save
+		tax_from_order(@order)
 		render "checkout_complete"
 	rescue Exception => e
 		@reload_cart = @cart_locked = true if e.exception.class == RealTimeCartError
