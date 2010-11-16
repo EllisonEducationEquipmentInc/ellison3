@@ -26,8 +26,43 @@ body.bp {
   	text-indent: -9999em;
   }
   
+  #searchbar {
+    width: 467px;
+    height: 62px;
+    margin: 7px 6px 0 0;
+    
+    input.textfield {
+      border: none;
+      font-size:14px;
+      font-weight: bold;
+      width:400px;
+      margin: 0;
+      position: relative;
+      top: 11px;
+      left: 15px;
+    }
+    input.submitbutton {
+      margin: 0;
+      position: relative;
+      top: 17px;
+      left: 24px;
+    }
+  }
+  
+  #shoppingcart_icon {
+    width: 52px;
+    height: 62px;
+    margin: 7px 0 0 0;
+  }
+
+  #shoppingcart_info {
+    width: 158px;
+    height: 62px;
+    margin: 7px 0 0 0;
+  }
+  
   #nav_megamenu {
-    margin-top: 10px;
+    margin-top: 3px;
     
     .megalink {
       font-family:  'PT Sans', Helvetica, Arial, sans-serif;

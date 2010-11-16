@@ -85,19 +85,18 @@ body.bp {
     }
   }
   
+  #searchbar {
+    float: right;
+    background: url('/images/ui-backgrounds/_#{$system}_search.png') no-repeat left;    
+  }
+  
   #shoppingcart_icon {
     float: right;
-    margin: 10px 0 0 0;
-    width: 52px;
-    height: 62px;
   }
 
   #shoppingcart_info {
     float: right;
-    margin: 10px 0 0 0;
-    width: 158px;
-    height: 62px;
-    background: url('/images/ui-backgrounds/_szus_shoppingbag.png') no-repeat right;
+    background: url('/images/ui-backgrounds/_#{$system}_shoppingbag.png') no-repeat right;
     
     p {
       font:10px Tahoma, Verdana, Arial; 
@@ -113,7 +112,6 @@ body.bp {
         float: right;
         width: 45%;
         text-align: right;
-        margin-right: 4px;
       }
       
       &.cart_shipmsg {
