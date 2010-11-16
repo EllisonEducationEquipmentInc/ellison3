@@ -15,9 +15,10 @@
     %li= link_to "<span>Log In Dashboard</span>".html_safe, new_session_path('admin', :secure => true), :class => "btn-masthead btn-admin-login", :title => "Log In Dashboard", :alt => "Log In Dashboard"
 
 -# shopping cart
-#shoppingcart_info= render :partial => 'carts/shopping_cart'
-#shoppingcart_icon
-  = link_to_unless params[:controller] == "carts", image_tag("/images/ui-objects/_#{current_system}_shoppingbag.png", :border =>0, :alt => "Shopping Bag"), "#", :title => "View #{(t :cart).capitalize}", :alt => "View #{(t :cart).capitalize}", :class => "show_cart"
+#shoppingcart_info= spinner
+:javascript
+  $('#shoppingcart_info').load('/carts/shopping_cart');
+#shoppingcart_icon= link_to_unless params[:controller] == "carts", image_tag("/images/ui-objects/_#{current_system}_shoppingbag.png", :border =>0, :alt => "Shopping Bag"), "#", :title => "View #{(t :cart).capitalize}", :alt => "View #{(t :cart).capitalize}", :class => "show_cart"
 
 -# Ellison3 dashboard menu for admins + catalog mega-nav menus for consumers
 - if admin_signed_in?

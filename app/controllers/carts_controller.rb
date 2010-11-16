@@ -9,9 +9,9 @@ class CartsController < ApplicationController
 	
 	ssl_required :checkout, :proceed_checkout, :quote, :proceed_quote
 	ssl_allowed :index, :get_shipping_options, :change_shipping_method, :copy_shipping_address, :change_shipping_method, :get_shipping_service, :get_shipping_amount, :get_tax_amount, :get_total_amount,
-	  :custom_price, :create_shipping, :create_billing, :activate_coupon, :remove_coupon
+	  :custom_price, :create_shipping, :create_billing, :activate_coupon, :remove_coupon, :shopping_cart
 	
-	verify :xhr => true, :only => [:get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :use_previous_orders_card, :remove_order_reference], :redirect_to => {:action => :index}
+	verify :xhr => true, :only => [:get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :use_previous_orders_card, :remove_order_reference, :shopping_cart], :redirect_to => {:action => :index}
 	
 	def index
 		@title = "Shopping #{I18n.t(:cart).titleize}"
@@ -237,6 +237,10 @@ class CartsController < ApplicationController
   def use_previous_orders_card
     new_payment
     render :partial => "payment"
+  end
+  
+  def shopping_cart
+    render :partial => "carts/shopping_cart"
   end
   
 private
