@@ -4,7 +4,7 @@
 - if @breadcrumb_tags.blank? && params[:price].blank? && params[:q].blank?
   document.title = document.title.replace(/^Catalog[^|]+|/, 'Catalog ')
 - else
-  document.title = document.title.replace(/^Catalog[^|]+|/, 'Catalog - #{@breadcrumb_tags.map {|t| t.name}.concat([price_label, keyword_label]).compact.join(" > ").html_safe} ')
+  document.title = document.title.replace(/^Catalog[^|]+|/, 'Catalog - #{escape_javascript(@breadcrumb_tags.map {|t| t.name}.concat([price_label, keyword_label]).compact.join(" > ").html_safe)} ')
 == _gaq.push(['_setAccount', '#{ga_tracker_id}']);
 _gaq.push(['_trackPageview', location.pathname + location.hash + location.search]);
 shadow_on();

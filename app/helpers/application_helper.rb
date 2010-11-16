@@ -149,15 +149,15 @@ HTML
 	      <<-JS
 	      $(function() {
       		$('.tag_breadcrumb').click(function() {
-      		    var facets = $.deparam.fragment()['facets'].split(",");
+      		    var facets = $.deparam.fragment()['facets'].split(',');
       		    facets.splice(facets.indexOf($(this).attr('rel'))+1);        
-              location.hash = $.param.fragment( location.hash, {facets: facets.join(","), page: 1}, 0 );
+              location.hash = $.param.fragment( location.hash, {facets: facets.join(','), page: 1}, 0 );
         			return false;
         		});
       		$('.tag_breadcrumb_remove').click(function() {
-      		    var facets = $.deparam.fragment()['facets'].split(",");
+      		    var facets = $.deparam.fragment()['facets'].split(',');
       		    facets.splice(facets.indexOf($(this).attr('rel')),1);        
-              location.hash = $.param.fragment( location.hash, {facets: facets.join(","), page: 1}, 0 );
+              location.hash = $.param.fragment( location.hash, {facets: facets.join(','), page: 1}, 0 );
         			return false;
         		});
       		$('.price_breadcrumb_remove').click(function() {       
