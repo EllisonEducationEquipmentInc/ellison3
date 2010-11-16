@@ -18,11 +18,23 @@
   = add_to_cart_button(@product, 'add_to_cart_detail')
     
 %p= @product.description.try :html_safe
-
+#tag_images
+  -# use this to display tags that have images (ex: designer logos)
+  %ul
+    - @product.tags.have_image.each do |tag|
+      %li.ui-menu-item= image_tag(tag.image_url(:medium))
+:javascript
+  $(document).ready(function(){
+    $("#tag_images").jCarouselLite({
+      auto: 800,
+      speed: 1000,
+      visible: 1
+    });
+  })
 .product_moreinfo
   = image_tag("http://placehold.it/470x150")
   %h4 Keywords:
-  %p= @product.tags.available.map {|tag| link_to(tag.name, catalog_path(:anchor => "facets=#{tag.facet_param}&page=1"))}.join(", ").html_safe
+  %p= @product.tags.keywords.map {|tag| link_to(tag.name, catalog_path(:anchor => "facets=#{tag.facet_param}&page=1"))}.join(", ").html_safe
 .product_tabs= render :partial => 'tab_block', :locals => {:object => @product}
 
 .product_sidebar

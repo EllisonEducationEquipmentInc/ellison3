@@ -421,81 +421,88 @@ body.bp th, body.bp td, body.bp caption {
   top: -6px;
   text-align: left;
 }
+/* line 321, ../../../app/stylesheets/application.scss */
+#content #tag_images {
+  width: 135px;
+  height: 125px;
+  overflow: hidden;
+  float: left;
+}
 
-/* line 322, ../../../app/stylesheets/application.scss */
+/* line 328, ../../../app/stylesheets/application.scss */
 p.show_cart {
   cursor: pointer;
 }
 
-/* line 323, ../../../app/stylesheets/application.scss */
+/* line 329, ../../../app/stylesheets/application.scss */
 #guest_checkout {
   float: right;
   width: 375px;
 }
 
-/* line 327, ../../../app/stylesheets/application.scss */
+/* line 333, ../../../app/stylesheets/application.scss */
 #returning_cuctomer {
   float: left;
   width: 375px;
 }
 
-/* line 331, ../../../app/stylesheets/application.scss */
+/* line 337, ../../../app/stylesheets/application.scss */
 #checkout_billing {
   float: right;
   width: 400px;
 }
 
-/* line 335, ../../../app/stylesheets/application.scss */
+/* line 341, ../../../app/stylesheets/application.scss */
 #checkout_shipping {
   float: left;
   width: 400px;
 }
 
-/* line 339, ../../../app/stylesheets/application.scss */
+/* line 345, ../../../app/stylesheets/application.scss */
 #cart_total {
   font-size: 1.4em;
 }
 
-/* line 340, ../../../app/stylesheets/application.scss */
+/* line 346, ../../../app/stylesheets/application.scss */
 .amount {
   width: 100px;
   margin-left: 5px;
 }
 
-/* line 341, ../../../app/stylesheets/application.scss */
+/* line 347, ../../../app/stylesheets/application.scss */
 .cart_label {
   float: left;
   width: 200px;
   text-align: right;
 }
 
-/* line 342, ../../../app/stylesheets/application.scss */
+/* line 348, ../../../app/stylesheets/application.scss */
 .cart_ul {
   text-align: right;
   width: 320px;
 }
 
-/* line 343, ../../../app/stylesheets/application.scss */
+/* line 349, ../../../app/stylesheets/application.scss */
 li.subtotal {
   border-bottom: 1px solid gray;
 }
 
-/* line 344, ../../../app/stylesheets/application.scss */
+/* line 350, ../../../app/stylesheets/application.scss */
 li#cart_total {
   border-top: 1px double gray;
 }
 
-/* line 345, ../../../app/stylesheets/application.scss */
+/* line 351, ../../../app/stylesheets/application.scss */
 .item_changed {
   background: #FBE3E4;
 }
 
-/* line 347, ../../../app/stylesheets/application.scss */
+/* line 353, ../../../app/stylesheets/application.scss */
 td.pre_order {
   color: red;
 }
 
-/* line 351, ../../../app/stylesheets/application.scss */
+/* line 357, ../../../app/stylesheets/application.scss */
 .cart_messaging {
   color: #006ABB;
   font-weight: bold;

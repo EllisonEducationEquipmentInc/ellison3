@@ -8,6 +8,7 @@ class Tag
 	attr_accessor :embed_campaign
 	
 	TYPES = ["artist", "calendar_event", "category", "curriculum", "designer", "exclusive", "machine_compatibility", "material_compatibility", "product_family", "product_line", "special", "subcategory", "subcurriculum", "subtheme", "theme", "release_date"]
+  HIDDEN_TYPES = ["exclusive"]
   
   references_many :products, :stored_as => :array, :inverse_of => :tags, :index => true
   embeds_one :campaign
@@ -40,6 +41,9 @@ class Tag
 	  index :"start_date_#{system}"
 	  index :"end_date_#{system}"
 	end
+	index :image_filename
+	
+	mount_uploader :image, GenericImageUploader	
 	
 	# scopes
 	scope :active, :where => { :active => true }
@@ -55,7 +59,15 @@ class Tag
 	class << self
 		
 		def available(sys = current_system)
-			active.where(:systems_enabled.in => [sys], :"start_date_#{sys}".lte => Time.zone.now, :"end_date_#{sys}".gte => Time.zone.now)
+			active.where(:systems_enabled.in => [sys], :"start_date_#{sys}".lte => Time.zone.now.change(:sec => 1), :"end_date_#{sys}".gte => Time.zone.now.change(:sec => 1))
+		end
+		
+		def keywords(sys = current_system)
+			available(sys).where(:tag_type.nin => HIDDEN_TYPES)
+		end
+		
+		def have_image(sys = current_system)
+		  keywords(sys).excludes(:image_filename => nil)
 		end
 		
 		def find_by_permalink(facet, permalink)
