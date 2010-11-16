@@ -80,10 +80,9 @@
       = link_to "Shop Sizzix", catalog_path, :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
       .megapanel
         %ul.megasublist.contentwrap_XS.resize
-          -#EDIT!!! cleanup jquery & class/ID names.
-          %li= link_to "Massa Interdum", "#", :class => "megasublink", :onclick => "return false;"
+          %li= link_to "Product Catalog", "#", :class => "megasublink", :onclick => "return false;"
           %li= link_to "Phasellus Dapibus", "#", :class => "megasublink", :onclick => "return false;"
-          %li= link_to "Elementum", "#", :class => "megasublink", :onclick => "return false;"
+          %li= link_to "Featured Designers", "#", :class => "megasublink", :onclick => "return false;"
           %li.last= link_to "Feugiat tristique", "#", :class => "megasublink", :onclick => "return false;"
           :javascript
             $('ul.megasublist li').mouseover(function(){
@@ -167,8 +166,8 @@
             = image_tag("http://placehold.it/150x175")
             %p The sky was darkened, and a low rumbling sound was heard in the air
           .contentwrap_XS
-            = image_tag("http://placehold.it/150x175")
-            %p There was a rushing of many wings, a great chattering and laughing, and the sun came out of the dark sky to show the Wicked Witch surrounded by a crowd of monkeys, each with a pair of immense and powerful wings on his shoulders
+            = image_tag("/images/_temp/meganav_timholtz.jpg")
+            %p== Tim Holtz is the Creative Director for Ranger Industries, one of the leading manufacturers of innovative inks, paints, and embossing products. Tim plays an integral part in the development and design of cutting edge paper crafting products. Tim has teamed up with Sizzix bring #{link_to "unique products", "/shop/timholtz"} that work hand in hand with Ranger’s extensive lines.
           .contentwrap_XS
             = image_tag("http://placehold.it/150x175")
             %p Here they dropped the poor Woodman, who fell a great distance to the rocks, where he lay so battered and dented that he could neither move nor groan
