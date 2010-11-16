@@ -536,7 +536,7 @@ module ShoppingCart
   	end
   	
   	def purchase_order_allowed?
-  	  user_signed_in? && get_user.purchase_order
+  	  is_ee? || user_signed_in? && get_user.purchase_order
   	end
   	
   	def tax_exempt?
