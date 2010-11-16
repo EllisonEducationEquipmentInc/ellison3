@@ -6,12 +6,12 @@ require 'csv'
 source 'http://gemcutter.org'
 
 gem 'bundler', '>=1.0.0'
-gem 'rails', '3.0.1'
+gem 'rails', '3.0.3'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mongo', '1.0.8'
+gem 'mongo', '>=1.0.8'
 gem "bson_ext", ">=1.0.7"
 gem 'passenger'
 gem 'mysql'
@@ -25,7 +25,7 @@ gem 'rspec-rails', '>=2.0.0.beta.20'
 gem 'spork'
 gem 'launchy'    # So you can do Then show me the page
 #gem "mongoid", "2.0.0.beta.17"
-gem "mongo_session_store", ">=2.0.0.pre"
+gem "mongo_session_store", ">=2.0.0"
 #gem "mongoid", :git => "http://github.com/mongoid/mongoid.git", :branch => "master"
 gem "mongoid", :git => "git://github.com/computadude/mongoid.git", :branch => "master"
 gem "nifty-generators"
@@ -45,7 +45,7 @@ gem 'active_merchant'
 #gem 'fasterer-csv'
 gem 'httparty'
 gem 'shippinglogic', :git => 'git://github.com/computadude/shippinglogic.git', :branch => "master"
-gem 'sunspot_mongoid'
+gem 'sunspot_mongoid', :git => 'git://github.com/jugyo/sunspot_mongoid.git', :branch => "master"
 
 # Use unicorn as the web server
 # gem 'unicorn'
