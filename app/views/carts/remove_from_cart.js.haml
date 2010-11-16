@@ -1,5 +1,6 @@
 == $("#cart_item_#{@cart_item_id}").remove();
 == $('#cart_subtotal').html('#{number_to_currency gross_price(get_cart.sub_total)}');
+== $('#shoppingcart_info').html('#{escape_javascript(render(:partial => "carts/shopping_cart"))}');
 $.get('/cart', function(data){
 $('#cart_container').replaceWith(data);
 setTimeout("$.fancybox.resize()", 100);

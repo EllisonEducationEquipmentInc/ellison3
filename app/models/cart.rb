@@ -56,6 +56,10 @@ class Cart
 		cart_items.inject(0) {|sum, item| sum += (item.quantity * item.volume)}
 	end
 	
+	def total_quantity
+		cart_items.inject(0) {|sum, item| sum += item.quantity}
+	end
+	
 	def taxable_amaunt
 		cart_items.select {|i| !i.tax_exempt}.inject(0) {|sum, item| sum += item.total}
 	end

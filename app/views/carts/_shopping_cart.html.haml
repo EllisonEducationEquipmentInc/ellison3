@@ -1,0 +1,9 @@
+%p.cart_qty
+  \&nbsp;
+  %span#cart_items_qty= pluralize get_cart.total_quantity, "item"
+%p.cart_total
+  %span#total_currency= number_to_currency get_cart.sub_total
+  \&nbsp;
+%p.cart_shipmsg
+  \&nbsp;
+  = link_to "Check Out Now", checkout_path unless get_cart.cart_items.blank?
