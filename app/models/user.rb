@@ -88,6 +88,10 @@ class User
   def build_default_mylist
     lists.build(:name => "My List", :default_list => true)
   end
+  
+  def tax_exempt?
+    self.tax_exempt || is_er? && self.systems_enabled.include?("er")
+  end
 
 protected
 	def password_required?

@@ -116,7 +116,6 @@ class Admin::OrdersController < ApplicationController
     @order = Order.find(params[:id])
     raise "This order cannot be changed" if @order.status_frozen?
     tax_from_order(@order)
-    @order.update_attributes(:tax_transaction => @cch.transaction_id, :tax_calculated_at => Time.zone.now,  :tax_amount => @cch.total_tax, :tax_exempt => @order.user.tax_exempt, :tax_exempt_number => @order.user.tax_exempt_certificate) if @cch && @cch.success? 
   rescue Exception => e
     render :js => "alert('#{e}')"
   end

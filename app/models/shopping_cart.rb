@@ -259,7 +259,9 @@ module ShoppingCart
     
     def tax_from_order(order, refund = false)
       if calculate_tax?(order.address.state)
-        @cch = CCH::Cch.new(:action => refund ? 'ProcessAttributedReturn' : 'calculate', :customer => order.address, :shipping_charge => order.shipping_amount, :handling_charge => order.handling_amount, :total => order.subtotal_amount, :transaction_id => order.tax_transaction, :exempt => order.user.tax_exempt, :tax_exempt_certificate => order.user.tax_exempt_certificate )
+        set_current_system order.system
+        @cch = CCH::Cch.new(:action => refund ? 'ProcessAttributedReturn' : 'calculate', :customer => order.address, :shipping_charge => order.shipping_amount, :handling_charge => order.handling_amount, :total => order.subtotal_amount, :transaction_id => order.tax_transaction, :exempt => order.user.tax_exempt?, :tax_exempt_certificate => order.user.tax_exempt_certificate )
+        order.update_attributes(:tax_transaction => @cch.transaction_id, :tax_calculated_at => Time.zone.now,  :tax_amount => @cch.total_tax, :tax_exempt => order.user.tax_exempt?, :tax_exempt_number => order.user.tax_exempt_certificate) if @cch && @cch.success? 
 			end
     end
     
@@ -538,7 +540,7 @@ module ShoppingCart
   	end
   	
   	def tax_exempt?
-  	  user_signed_in? && get_user.tax_exempt || is_er?
+  	  user_signed_in? && get_user.tax_exempt?
   	end
 
 		class Config
