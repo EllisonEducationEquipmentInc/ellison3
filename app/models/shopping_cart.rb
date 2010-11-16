@@ -249,7 +249,7 @@ module ShoppingCart
 				tries += 1
       	@cch = CCH::Cch.new(:action => 'calculate', :cart => options[:cart], :confirm_address => options[:confirm_address],  :customer => customer, :handling_charge => options[:handling_charge], :shipping_charge => options[:shipping_charge], :exempt => options[:exempt], :tax_exempt_certificate => options[:tax_exempt_certificate])
       rescue Timeout::Error => e
-				if tries < 4         
+				if tries < 4      
 			    sleep(2**tries)            
 			    retry                      
 			  end

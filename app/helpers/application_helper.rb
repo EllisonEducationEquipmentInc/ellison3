@@ -198,5 +198,15 @@ HTML
     end
     content_tag(:span, "", :class => "arrow ui-icon " + (direction ? "ui-icon-triangle-1-#{direction}" : "ui-icon-triangle-2-n-s")).html_safe
   end
+  
+  def alert_wrapper(content = '', &block)
+    content_tag :div, :class => "ui-widget" do
+      content_tag :div, :class => "ui-state-error ui-corner-all", :style => "padding: 0 .7em;" do
+        content_tag :p do
+          content_tag(:span, '', :class => "ui-icon ui-icon-alert", :style => "float: left; margin-right: .3em;") + (block_given? ? capture(&block) : content)
+        end
+      end
+    end
+  end
 	
 end
