@@ -119,6 +119,7 @@ $(document).ready(function(){
 	
 	initialize_lightboxes();
 	initialize_buttons();
+	initialize_show_cart();
 	
 	$(function() {
 		$(".tab-block").tabs();
@@ -320,7 +321,7 @@ function order_comment() {
   }).next().hide();
 };
 
-$(function() {
+function initialize_show_cart() {
 	$(".show_cart")
 //		.button({icons: {primary: 'ui-icon-cart'}})
 		.click(function() {
@@ -328,7 +329,7 @@ $(function() {
 			_gaq.push(['_trackEvent', 'Cart', 'Show Cart']);
 			return false;
 		});
-});
+}
 
 function show_cart() {
 	$.fancybox({

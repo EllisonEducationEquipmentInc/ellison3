@@ -1,9 +1,11 @@
-%p.cart_qty
+%p.cart_qty.show_cart
   \&nbsp;
   %span#cart_items_qty= pluralize get_cart.total_quantity, "item"
-%p.cart_total
+%p.cart_total.show_cart
   %span#total_currency= number_to_currency get_cart.sub_total
   \&nbsp;
 %p.cart_shipmsg
   \&nbsp;
   = link_to_unless_current "Check Out Now", checkout_path unless get_cart.cart_items.blank?
+:javascript
+  initialize_show_cart()
