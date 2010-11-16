@@ -26,7 +26,7 @@
             url: "/admin/orders/change_order_status",
             params: "id=#{@order.id}",
             field_type: "select",
-            select_options: "New, Pending, Cancelled", 
+            select_options: "New, #{'Open, ' if @order.payment.purchase_order}Pending, Cancelled", 
             show_buttons: true,
             value_required: true,
             saving_animation_color: "#ECF2F8"

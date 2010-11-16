@@ -76,7 +76,7 @@ ESTIMATED TOTAL:
 - if @order.payment.try(:purchase_order)
   %strong Purchase Order
   = @order.payment.purchase_order_number
-  = link_to "download", @order.payment.attachment_url if @order.payment.attachment
+  = link_to "download", @order.payment.attachment_url, :target => "_blank" if @order.payment.attachment
 - else
   This order was charged to:
   %br
