@@ -5,7 +5,7 @@
 %ul.nav_utility.dontprint
   - if user_signed_in?
     %li= link_to "<span>Sign Out</span>".html_safe, destroy_session_path('user'), :class => "btn-masthead btn-signout", :title => "Sign Out", :alt => "Sign Out" 
-    %li= link_to_unless_current "<span>My Account</span>".html_safe, myaccount_path(:secure => true), :class => "btn-masthead btn-myaccount", :title => "My Account", :alt => "My Account"
+    %li= link_to "<span>#{admin_signed_in? ? 'Customer\'s' : 'My'} Account</span>".html_safe, myaccount_path(:secure => true), :class => "btn-masthead btn-myaccount", :title => "My Account", :alt => "My Account"
   - else
     %li= link_to "<span>Sign In</span>".html_safe, signin_signup_path, :class => "lightbox btn-masthead btn-signin", :title => "Sign In", :alt => "Sign In"
   - if admin_signed_in?
@@ -14,7 +14,8 @@
 
 -# shopping cart
 #shoppingcart_icon= link_to_unless params[:controller] == "carts", image_tag("/images/ui-objects/_#{current_system}_shoppingcart.png", :border =>0, :alt => "Shopping Bag"), "#", :title => "View #{(t :cart).capitalize}", :alt => "View #{(t :cart).capitalize}", :class => "show_cart"
-#shoppingcart_info= spinner
+#shoppingcart_info
+  #cartspinner= spinner
 :javascript
   $('#shoppingcart_info').load('/carts/shopping_cart');
 
@@ -210,12 +211,12 @@
       %li.megaitem
         = link_to "Dashboard", "#", :class => "megalink-admin", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
         .megapanel
-          %h3.contentwrap_medium.resize== #{current_system} Admin Dashboard
-          .contentwrap_XL.last{ :style => 'text-align: right;'}
+          %h3.contentwrap_XL.resize== Admin Dashboard ~ #{system_name} 
+          .contentwrap_medium.last{ :style => 'text-align: right;'}
             %span{:class => 'minilink'}
               %strong Switch System:
               - (ELLISON_SYSTEMS & current_admin.systems_enabled).each do |sys|
-                = link_to_unless current_system == sys, sys, "?system=#{sys}"            
+                = link_to_unless current_system == sys, sys, "?system=#{sys}"
           %ul.megasublist.resize
             %li= link_to "Product Catalog", "#", :class => "megasublink", :onclick => "return false;"
             %li= link_to "Customer Orders", "#", :class => "megasublink", :onclick => "return false;"

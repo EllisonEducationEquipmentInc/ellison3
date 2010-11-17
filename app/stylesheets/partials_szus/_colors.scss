@@ -7,9 +7,9 @@ $tertiary: #FFC48C;  // medium peach-yellow
 $quaternary: #EFFAB4;  // very light lime-green with yellow tint
 $quinary: #D1F2A5;  // medium bright lime-green
 
-$navutil_text: lighten($primary, 7%);
-$navutil_hover: darken($primary, 9%);
-$navutil_divider: lighten($tertiary, 4%);
+$navutil_text: #6c5941;
+$navutil_hover: #b60000;
+$navutil_divider: lighten($navutil_text, 30%);
 
 $footer_text: #333;
 $footer_headings: #333;

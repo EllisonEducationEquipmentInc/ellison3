@@ -49,8 +49,7 @@ body.bp {
       
       a.btn-masthead {
         color: $navutil_text;  
-        display: block; 
-        font-size: 9px;
+        display: block;
         text-transform: uppercase;
         text-decoration: none;
         border-right: 1px solid $navutil_divider;
@@ -61,7 +60,7 @@ body.bp {
 
         span {
           display: block;
-          padding: 3px 12px 0 20px;  // padding left to accomodate link icon; padding right to space away from link divider
+          padding: 0 12px 0 18px;  // padding left to accomodate link icon; padding right to space away from link divider
         }
       }
       
@@ -103,6 +102,10 @@ body.bp {
   #shoppingcart_info {
     float: right;
     background: url('/images/ui-backgrounds/_#{$system}_shoppingcart.png') no-repeat right;
+    
+    #cartspinner {
+      margin-top: 15px;
+    }
     
     p {
       font:10px Tahoma, Verdana, Arial; 
