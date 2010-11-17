@@ -208,9 +208,9 @@
     -# Ellison3 dashboard menu for admins
     - if admin_signed_in?
       %li.megaitem
-        = link_to "Site Admin", "#", :class => "megalink-admin", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
+        = link_to "Dashboard", "#", :class => "megalink-admin", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
         .megapanel
-          %h3.contentwrap_medium.resize== #{current_system} System Admin
+          %h3.contentwrap_medium.resize== #{current_system} Admin Dashboard
           .contentwrap_XL.last{ :style => 'text-align: right;'}
             %span{:class => 'minilink'}
               %strong Switch System:
