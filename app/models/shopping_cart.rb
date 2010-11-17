@@ -28,6 +28,14 @@ module ShoppingCart
 			session[:shopping_cart] ||= get_cart.id.to_s
 		end
 		
+		def change_qty(item_num, qty)
+		  cart_item = get_cart.cart_items.find_item(item_num)
+			cart_item.quantity = qty
+			get_cart.reset_tax_and_shipping
+			get_cart.apply_coupon_discount
+			cart_item
+		end
+		
 		def remove_cart(item_num)
 			cart_item = get_cart.cart_items.find_item(item_num)
 			cart_item.delete

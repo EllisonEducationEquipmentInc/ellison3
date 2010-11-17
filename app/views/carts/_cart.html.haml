@@ -12,6 +12,18 @@
         %th Total Price
         %th
     %tbody= render :partial => 'carts/cart_item', :collection => @cart.cart_items
+    - unless @cart_locked
+      :javascript
+        $('input.number_only').keydown(function(e){if (e.keyCode != 46 && e.keyCode != 8 && e.keyCode != 9 && !String.fromCharCode(e.keyCode).match(/\d+/)) return false})
+        .focusout(function(){
+          if ($(this).val().length < 1) {
+            var original_value = $(this).attr('defaultValue');
+            $(this).val(original_value);
+          }
+          var item_num = this.id.replace('cart_quantity_', '')
+          $.ajax({url:"/carts/change_quantity?item_num="+item_num+"&qty="+$(this).val()});
+          _gaq.push(['_trackEvent', 'Cart', 'Change Quantity', item_num+':'+$(this).val()]);
+        })
     - if admin_signed_in? && current_admin.can_change_prices && !@cart_locked
       :javascript
         $(".cart_item_price").editInPlace({

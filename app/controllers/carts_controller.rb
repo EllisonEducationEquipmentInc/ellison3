@@ -9,9 +9,9 @@ class CartsController < ApplicationController
 	
 	ssl_required :checkout, :proceed_checkout, :quote, :proceed_quote
 	ssl_allowed :index, :get_shipping_options, :change_shipping_method, :copy_shipping_address, :change_shipping_method, :get_shipping_service, :get_shipping_amount, :get_tax_amount, :get_total_amount,
-	  :custom_price, :create_shipping, :create_billing, :activate_coupon, :remove_coupon, :shopping_cart
+	  :custom_price, :create_shipping, :create_billing, :activate_coupon, :remove_coupon, :shopping_cart, :change_quantity
 	
-	verify :xhr => true, :only => [:get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :use_previous_orders_card, :remove_order_reference, :shopping_cart], :redirect_to => {:action => :index}
+	verify :xhr => true, :only => [:get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :use_previous_orders_card, :remove_order_reference, :shopping_cart, :change_quantity], :redirect_to => {:action => :index}
 	
 	def index
 		@title = "Shopping #{I18n.t(:cart).titleize}"
@@ -25,6 +25,10 @@ class CartsController < ApplicationController
 	
 	def remove_from_cart
 		@cart_item_id = remove_cart(params[:item_num])
+	end
+	
+	def change_quantity
+	  @cart_item = change_qty(params[:item_num], params[:qty].to_i)
 	end
 	
 	def empty_cart

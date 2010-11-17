@@ -46,6 +46,7 @@ class Product
 	field :item_num
 	field :upc
 	field :quantity, :type => Integer, :default => 0
+	field :minimum_quantity, :type => Integer, :default => 1
 	field :weight, :type => Float, :default => 0.0
 	field :active, :type => Boolean, :default => true
 	field :life_cycle
