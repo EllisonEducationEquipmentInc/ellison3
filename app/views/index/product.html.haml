@@ -22,7 +22,7 @@
   -# use this to display tags that have images (ex: designer logos)
   %ul
     - @product.tags.have_image.each do |tag|
-      %li.ui-menu-item= image_tag(tag.image_url(:medium))
+      %li.ui-menu-item= link_to(image_tag(tag.image_url(:medium)), catalog_path(:anchor => "facets=#{tag.facet_param}&page=1"))
 :javascript
   $(document).ready(function(){
     $("#tag_images").jCarouselLite({

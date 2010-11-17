@@ -17,7 +17,7 @@ class IndexController < ApplicationController
 		@product = Product.send(current_system).criteria.id(params[:id]).first
 		raise "Invalid product" unless @product.displayable?
 		@title = @product.name
-		#fresh_when(:etag => [current_locale, current_system, @product, current_user], :last_modified => @product.updated_at.utc)
+		fresh_when(:etag => [current_locale, current_system, @product, current_user], :last_modified => @product.updated_at.utc)
 	rescue
 		go_404
 	end
