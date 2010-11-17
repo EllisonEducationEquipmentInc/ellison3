@@ -72,7 +72,13 @@ body.bp {
       text-transform: uppercase;
       text-decoration: none;
       
-      &:hover {color: black;};
+      &:hover { color: black; };
+    }
+    
+    .megalink-admin { @extend .megalink;
+      color: #b60000;
+      
+      &:hover { color: #d50000; };
     }
     
     .megapanel {
@@ -80,7 +86,7 @@ body.bp {
 
       .megasublist {
         li {
-          padding: 10px 0;
+          padding: 9px 0;
           background: url("/images/ui-backgrounds/_#{$system}_megasubitem.png") no-repeat;
           
           &.last { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_last.png") no-repeat; }

@@ -176,6 +176,12 @@ body.bp {
           display: none;
           padding: 8px 0 0 0;
           
+          h3 {
+            text-transform: uppercase;
+            font-size: 1.3em;
+            font-weight: bold;
+          }
+          
           a {
             color: black;
             text-decoration: none;
@@ -197,8 +203,13 @@ body.bp {
           ul {
             list-style: none;
           }
+          
+          .megasublist, .contentwrap_17col {
+            margin: 0;
+            padding: 0 0 8px 10px;            
+          }
 
-          .contentwrap_17col, .contentwrap_XXS, .contentwrap_XS, .contentwrap_small, .contentwrap_medium, .contentwrap_large, .contentwrap_XL, .contentwrap_XXL, .contentwrap_XXXL {
+          .contentwrap_XXS, .contentwrap_XS, .contentwrap_small, .contentwrap_medium, .contentwrap_large, .contentwrap_XL, .contentwrap_XXL, .contentwrap_XXXL {
             margin: 0;
             padding: 0 0 8px 10px;
           }
@@ -219,10 +230,6 @@ body.bp {
               margin-top: 0px;
             }
           }
-          
-/*          .last {
-            padding-right: 10px;
-          }*/
         }
       }
     }

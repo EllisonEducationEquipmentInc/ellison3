@@ -19,8 +19,11 @@
 }
 
 // typography styles
-.breadcrumbs {
+.minilink {
   font-size: 9px;
   text-transform: uppercase;
+}
+
+.breadcrumbs { @extend minilink;
   margin-bottom: 4px;
 }

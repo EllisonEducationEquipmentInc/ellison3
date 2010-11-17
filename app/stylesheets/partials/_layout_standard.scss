@@ -20,5 +20,6 @@
 .contentwrap_XXL { @include column(20); }  // 5/6 the width of the page (790px)
 .contentwrap_XXXL { @include column(24, true); }  // the full width of the page (950px)
 
-// for mockup layout ONLY
+// for mega nav layout ONLY
+.megasublist { @include column(4); }
 .contentwrap_17col { @include column(17, true); }

@@ -1,7 +1,7 @@
 -# logo masthead & branding
 %h1.masthead= link_to system_name, root_path, :id => "logo_masthead", :title => system_name, :alt => system_name
 
--# utility navigation menu (account management, shopping cart, etc)  
+-# utility navigation menu (customer account management, shopping cart, etc)  
 %ul.nav_utility.dontprint
   - if user_signed_in?
     %li= link_to "<span>Sign Out</span>".html_safe, destroy_session_path('user'), :class => "btn-masthead btn-signout", :title => "Sign Out", :alt => "Sign Out" 
@@ -11,8 +11,6 @@
   - if admin_signed_in?
     %li= link_to "<span>Edit Admin Profile</span>".html_safe, edit_admin_registration_path(current_admin), :class => "btn-masthead btn-myaccount", :title => "Edit Admin Profile", :alt => "Edit Admin Profile"
     %li= link_to "<span>Log Out Dashboard</span>".html_safe, destroy_session_path('admin'), :class => "btn-masthead btn-admin-logout", :title => "Log Out Dashboard", :alt => "Log Out Dashboard"
-  - else
-    %li= link_to "<span>Log In Dashboard</span>".html_safe, new_session_path('admin', :secure => true), :class => "btn-masthead btn-admin-login", :title => "Log In Dashboard", :alt => "Log In Dashboard"
 
 -# shopping cart
 #shoppingcart_icon= link_to_unless params[:controller] == "carts", image_tag("/images/ui-objects/_#{current_system}_shoppingcart.png", :border =>0, :alt => "Shopping Bag"), "#", :title => "View #{(t :cart).capitalize}", :alt => "View #{(t :cart).capitalize}", :class => "show_cart"
@@ -25,67 +23,23 @@
   %input{ :class =>"textfield", :name => "w", :type => "text", :value => "Search for Sizzix Products & Ideas", :onfocus => "if (this.value == 'Search for Sizzix Products & Ideas'){this.value='';}" }
   %input{ :class => "submitbutton", :name => "submit", :src => "/images/ui-icons/set_fugue/24x24/drop-shadow/magnifier-left.png", :type => "image", :height => "24", :width => "24" }
 
--# Ellison3 dashboard menu for admins + catalog mega-nav menus for consumers
-- if admin_signed_in?
-  .dontprint
-    = link_to "Products", admin_products_path
-    |
-    = link_to "Tags", admin_tags_path
-    |
-    = link_to "Coupons", admin_coupons_path
-    |
-    = link_to "Orders", admin_orders_path
-    |
-    = link_to "Quotes", admin_quotes_path
-    |
-    = link_to "Users", admin_users_path
-    |
-    = link_to "Profiles", admin_admins_path
-    |
-    = link_to "Landing Pages", admin_landing_pages_path
-    |
-    = link_to "US Shipping Rates (by weight)", admin_fedex_rates_path
-    |
-    = link_to "Shipping Rates (by #{t 'number.currency.format.unit'})", admin_shipping_rates_path
-    |
-    = link_to "Countries", admin_countries_path
-    .right
-      Switch to:
-      - (ELLISON_SYSTEMS & current_admin.systems_enabled).each do |sys|
-        = link_to_unless current_system == sys, sys, "?system=#{sys}"
-    - if get_cart.order_reference
-      #previous_order_reference
-        previous order reference:
-        = link_to get_cart.order_reference, admin_order_path(get_cart.order_reference)
-        = link_to 'reset', remove_order_reference_path, :remote => true
-    #user_as= render :partial => 'layouts/user_as'
-    - if current_admin.can_act_as_customer
-      = form_tag('/user_as', :remote => true) do
-        = label_tag :user_as_email, "Login as customer:"
-        = text_field_tag :user_as_email, nil, :placeholder => "enter customer email"
-        = submit_tag 'login', :class => 'jqui_save'
-- if is_uk? && !@cart_locked
-  -# UK currency selector
+-# UK currency selector
+- if is_uk? && !@cart_locked  
   = link_to_unless current_currency == "gbp", "GBP", "?locale=en-UK"
   = link_to_unless current_currency == "eur", "EUR", "?locale=en-EU"
+
 -# primary navigation menu (product catalog, customer & community outreach, etc)
 #nav_megamenu.dontprint
   %ul.megalist
     %li.megaitem
       = link_to "Shop Sizzix", catalog_path, :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
       .megapanel
-        %ul.megasublist.contentwrap_XS.resize
+        %ul.megasublist.resize
           %li= link_to "Product Catalog", "#", :class => "megasublink", :onclick => "return false;"
           %li= link_to "Phasellus Dapibus", "#", :class => "megasublink", :onclick => "return false;"
           %li= link_to "Featured Designers", "#", :class => "megasublink", :onclick => "return false;"
           %li.last= link_to "Feugiat tristique", "#", :class => "megasublink", :onclick => "return false;"
-          :javascript
-            $('ul.megasublist li').mouseover(function(){
-              $('div.subsub').eq($('ul.megasublist li').index(this)).fadeTo('fast',1).siblings('div.subsub').fadeTo('fast',0).hide();
-              $(this).parents('.megapanel').shadowOff();
-              $(this).parents('.megapanel').shadowOn(megapanel_shadow_options); 
-            })
-        .subsub
+        .subpanel
           %ul.contentwrap_XS
             %li.listtitle.first Category
             %ul
@@ -141,7 +95,7 @@
           .contentwrap_medium.last
             %p Sizzix award-winning artwork is now available electronically! The eclips Electronic Shape-Cutting Machine and Handheld Remote Control creates completely customizable shapes and letters to adorn almost anything. No computer required!
             %p= link_to "View the eclips videos", "/shop/eclips"
-        .subsub{:style => "display: none;"}
+        .subpanel{:style => "display: none;"}
           .contentwrap_XXL.last= image_tag("http://placehold.it/790x80")
           .contentwrap_XL
             %p "Have you seen Oz?"
@@ -153,7 +107,7 @@
               %li=link_to "dictum", "#"
               %li=link_to "bibendum", "#"
               %li=link_to "massa interdum", "#"
-        .subsub{:style => "display: none;"}
+        .subpanel{:style => "display: none;"}
           .contentwrap_XS
             = image_tag("http://placehold.it/150x175")
             %p "Hil-lo, hol-lo, hel-lo!" After this she stood upon both feet and cried in a loud voice: "Ziz-zy, zuz-zy, zik!" Now the charm began to work
@@ -169,7 +123,7 @@
           .contentwrap_XS.last
             = image_tag("http://placehold.it/150x175")
             %p They made his hat and boots and clothes into a small bundle and threw it into the top branches of a tall tree          
-        .subsub{:style => "display: none;"}
+        .subpanel{:style => "display: none;"}
           .contentwrap_17col
             %div{:style => "position: relative; float: left; margin-right: 10px"}= image_tag("http://placehold.it/110x100")
             %div{:style => "position: relative; float: left; width: 550px; min-height: 110px"}== Phileas Fogg took a chair, and sat down near the fireplace, opposite Aouda. No emotion was visible on his face. Fogg returned was exactly the Fogg who had gone away; there was the same calm, the same impassibility.
@@ -250,11 +204,71 @@
           %li Vestibulum auctor
           %li bibendum
           %li massa interdum
+          
+    -# Ellison3 dashboard menu for admins
+    - if admin_signed_in?
+      %li.megaitem
+        = link_to "Site Admin", "#", :class => "megalink-admin", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
+        .megapanel
+          %h3.contentwrap_medium.resize== #{current_system} System Admin
+          .contentwrap_XL.last{ :style => 'text-align: right;'}
+            %span{:class => 'minilink'}
+              %strong Switch System:
+              - (ELLISON_SYSTEMS & current_admin.systems_enabled).each do |sys|
+                = link_to_unless current_system == sys, sys, "?system=#{sys}"            
+          %ul.megasublist.resize
+            %li= link_to "Product Catalog", "#", :class => "megasublink", :onclick => "return false;"
+            %li= link_to "Customer Orders", "#", :class => "megasublink", :onclick => "return false;"
+            %li= link_to "User Accounts", "#", :class => "megasublink", :onclick => "return false;"
+            %li.last= link_to "Website Settings", "#", :class => "megasublink", :onclick => "return false;"
+          .subpanel
+            .contentwrap_XXL.last
+              %ul
+                %li= link_to "Manage Product Catalog", admin_products_path
+                %li= link_to "Create & Associate Product Tags", admin_tags_path
+                %li= link_to "Create & Edit Coupons", admin_coupons_path
+          .subpanel{:style => "display: none;"}
+            #user_as.contentwrap_XXL.last= render :partial => 'layouts/user_as'
+            .contentwrap_XXL.last
+              %ul
+                %li= link_to "Review Customer Orders", admin_orders_path
+                %li= link_to "Review Customer Quotes", admin_quotes_path
+            - if get_cart.order_reference
+              #previous_order_reference.contentwrap_XXL.last
+                previous order reference:
+                = link_to get_cart.order_reference, admin_order_path(get_cart.order_reference)
+                = link_to 'reset', remove_order_reference_path, :remote => true
+            - if current_admin.can_act_as_customer
+              = form_tag('/user_as', :remote => true, :class => 'contentwrap_XXL last') do
+                = label_tag :user_as_email, "Login as customer:"
+                = text_field_tag :user_as_email, nil, :placeholder => "enter customer email"
+                = submit_tag 'login', :class => 'jqui_save'
+                
+          .subpanel{:style => "display: none;"}
+            .contentwrap_XXL.last
+              %ul
+                %li= link_to "Manage Customer Accounts", admin_users_path
+                %li= link_to "Manage Website Administrators", admin_admins_path
+          .subpanel{:style => "display: none;"}
+            .contentwrap_XXL.last
+              %ul
+                %li= link_to "Create & Edit Landing Pages", admin_landing_pages_path
+              %ul
+                %li= link_to "Manage US Shipping Rates (by weight)", admin_fedex_rates_path
+                %li= link_to "Manage Shipping Rates (by #{t 'number.currency.format.unit'})", admin_shipping_rates_path
+                %li= link_to "Edit International Settings", admin_countries_path
+
 - if is_ee_uk?
   :javascript
-    // mega menu link styles
+    -# Ellison Education UK mega menu link styles
     $(".megalink").FontEffect({
       outline:true,
       outlineWeight: 2,
       outlineColor1: "#81a27b"
     })
+:javascript
+  $('ul.megasublist li').mouseover(function(){
+    $('div.subpanel').eq($('ul.megasublist li').index(this)).fadeTo('fast',1).siblings('div.subpanel').fadeTo('fast',0).hide();
+    $(this).parents('.megapanel').shadowOff();
+    $(this).parents('.megapanel').shadowOn(megapanel_shadow_options); 
+  })

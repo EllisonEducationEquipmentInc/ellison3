@@ -1,4 +1,4 @@
 - if user_signed_in?
-  Customer Email: 
-  = current_user.email
-  = link_to "log out", destroy_session_path('user')
+  You are currently logged in as 
+  %strong= current_user.email
+  = link_to "[Log Out as this Customer]", destroy_session_path('user'), :class => "minilink"
