@@ -76,14 +76,21 @@ private
 
 	def get_system
 	  session[:vat_exempt] = nil
-	  set_current_system session[:system] unless session[:system].blank?
-		domain_to_system(request.host) unless admin_signed_in? && !session[:system].blank?
-    change_current_system(params[:system]) if params[:system]
+	  domain_to_system(request.host)
+	  if Rails.env == 'development' || admin_signed_in?
+	    if session[:system].blank?
+	      session[:system] = current_system
+	    else
+	      set_current_system session[:system]
+	    end
+      change_current_system(params[:system]) if params[:system]
+	  end
 		set_locale
 	end
 	
 	def set_locale
 		I18n.locale = session[:locale] if session[:locale] && allowed_locales.include?(session[:locale].to_s)
+		set_default_locale unless allowed_locales.include?(I18n.locale.to_s)
 		if params[:locale] && I18n.available_locales.include?(params[:locale].to_sym) && allowed_locales.include?(params[:locale])
 			I18n.locale = params[:locale]
 			get_cart.reset_tax_and_shipping
@@ -95,6 +102,7 @@ private
 	def change_current_system(new_system)
 	  if Rails.env == 'development' || admin_signed_in?
 			# TODO: restrict admin to switch to enabled systems only
+			session[:locale] = nil
 			session[:system] = new_system
 			set_current_system(new_system)
 		end
