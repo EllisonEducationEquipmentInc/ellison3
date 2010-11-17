@@ -4,8 +4,8 @@
 -# utility navigation menu (account management, shopping cart, etc)  
 %ul.nav_utility.dontprint
   - if user_signed_in?
-    %li= link_to_unless_current "<span>My Account</span>".html_safe, myaccount_path(:secure => true), :class => "btn-masthead btn-myaccount", :title => "My Account", :alt => "My Account"
     %li= link_to "<span>Sign Out</span>".html_safe, destroy_session_path('user'), :class => "btn-masthead btn-signout", :title => "Sign Out", :alt => "Sign Out" 
+    %li= link_to_unless_current "<span>My Account</span>".html_safe, myaccount_path(:secure => true), :class => "btn-masthead btn-myaccount", :title => "My Account", :alt => "My Account"
   - else
     %li= link_to "<span>Sign In</span>".html_safe, signin_signup_path, :class => "lightbox btn-masthead btn-signin", :title => "Sign In", :alt => "Sign In"
   - if admin_signed_in?

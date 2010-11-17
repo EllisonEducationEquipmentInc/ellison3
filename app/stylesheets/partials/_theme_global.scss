@@ -74,13 +74,19 @@ body.bp {
       a.btn-myaccount span {
         background: transparent url('/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_myaccount.png') no-repeat;
       }
-      a.btn-signin span {
-        background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/key.png') no-repeat;
+      a.btn-signin {
         border-right: 0px;  // last item on list - no divider required
+
+        span {
+          background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/key.png') no-repeat;
+        }        
       }
-      a.btn-signout span {
-        background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/lock.png') no-repeat;
+      a.btn-signout {
         border-right: 0px;  // last item on list - no divider required
+
+        span {
+          background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/lock.png') no-repeat;
+        }        
       }
     }
   }
