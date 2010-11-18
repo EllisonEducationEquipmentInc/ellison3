@@ -10,7 +10,7 @@
           = link_to_function 'cancel', "$(this).parents('.move_to_another_list').hide()"
   %h3
     = product.item_num
-  - if product.public_life_cycle != nil
+  - unless product.public_life_cycle == "" || product.public_life_cycle == nil
     .life-cycle
       %span= product.public_life_cycle
   %p= link_to image_tag(product.medium_image), product_url(:id => product)
