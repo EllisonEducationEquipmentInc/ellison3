@@ -230,7 +230,7 @@
                 %li= link_to "Create & Associate Product Tags", admin_tags_path
                 %li= link_to "Create & Edit Coupons", admin_coupons_path
           .subpanel{:style => "display: none;"}
-            #user_as.contentwrap_XXL.last= render :partial => 'layouts/user_as'
+            #user_as= render :partial => 'layouts/user_as'
             .contentwrap_XXL.last
               %ul
                 %li= link_to "Review Customer Orders", admin_orders_path
