@@ -150,6 +150,30 @@ body.bp {
 	z-index: 200;
 	color: $catalog_text;
 	
+	.life-cycle {
+    position: absolute;
+    top: 3px;
+    left: -19px;
+    padding-top: 4px;
+    width: 117px;
+    height: 29px;
+    z-index: 201;
+    background: url("/images/ui-backgrounds/lifecycle.png") no-repeat;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.86602540, M12=0.50000000, M21=-0.50000000, M22=0.86602540,sizingMethod='auto expand')";
+    filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.86602540, M12=0.50000000, M21=-0.50000000, M22=0.86602540,sizingMethod='auto expand');
+    -moz-transform:  matrix(0.86602540, -0.50000000, 0.50000000, 0.86602540, 0, 0);
+    -webkit-transform:  matrix(0.86602540, -0.50000000, 0.50000000, 0.86602540, 0, 0);
+    -o-transform:  matrix(0.86602540, -0.50000000, 0.50000000, 0.86602540, 0, 0);
+    font-family:  'PT Sans', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    
+    span {
+      position: relative;
+      left: -6px;
+    }
+	}
+	
 	p#item_name {
 	  margin-bottom: 4px;
 	}
