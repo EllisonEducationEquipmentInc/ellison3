@@ -21,6 +21,7 @@ class UsersController < ApplicationController
 
     if resource.save
       set_flash_message :notice, :signed_up
+      session[:user_return_to] = retailer_application_path if is_er?
 			if request.xhr? 
 				sign_in(resource_name, resource)
 				render :js => "window.location.href = '#{stored_location_for(:user) || root_path}'" 
@@ -235,6 +236,9 @@ class UsersController < ApplicationController
 	  render :checkout_requested
 	end
 	
+	def retailer_application
+
+	end
 	
 protected
 

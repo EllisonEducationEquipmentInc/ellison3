@@ -116,6 +116,7 @@ class Product
 	#   currency dependent attributes: msrp, handling_price
 	LOCALES_2_CURRENCIES.values.each do |currency|
 		field "msrp_#{currency}".to_sym, :type => Float
+		field "wholesale_price_#{currency}".to_sym, :type => Float
 		field "handling_price_#{currency}".to_sym, :type => Float, :default => 0.0
 	end
 	ELLISON_SYSTEMS.each do |system|
@@ -210,6 +211,11 @@ class Product
 		currency = options[:currency] || current_currency
 		send("msrp_#{currency}") || send("msrp_usd")
 	end
+	
+	def wholesale_price(options = {})
+	 	currency = options[:currency] || current_currency
+		send("wholesale_price_#{currency}") || (msrp(:currency => currency)/2.0).round(2)
+	end
 
 	def handling_price=(p)
 		send("handling_price_#{current_currency}=", p) unless p.blank?
@@ -227,7 +233,11 @@ class Product
 	def base_price(options = {})
 		currency = options[:currency] || current_currency
 		system = options[:system] || current_system
-		send("price_#{system}_#{currency}") || msrp(options)
+		if is_er?
+		  wholesale_price(options)
+		else
+		  send("price_#{system}_#{currency}") || msrp(options)
+		end
 	end
 	
 	def price(options = {})

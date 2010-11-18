@@ -53,6 +53,10 @@
         = text_field_tag "msrp_#{currency}_gross", nil, :onKeyUp => "update_net($(this), '#{currency}', #{vat})"
         :javascript
           $(document).ready(function(){update_gross($('#product_msrp_#{currency}'), '#{currency}', #{vat})});
+    .field
+      = f.label "wholesale_price_#{currency}"
+      %br
+      = f.text_field "wholesale_price_#{currency}"
   / .field
   /   = f.label :price
   /   %br

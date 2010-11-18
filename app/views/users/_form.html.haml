@@ -1,7 +1,7 @@
 .field
-  = f.label :name
+  = f.label is_er? ? :company : :name
   %br/
-  = f.text_field :name
+  = f.text_field is_er? ? :company : :name
 .field
   = f.label :email
   %br/
@@ -39,6 +39,9 @@
                   required: true, 
                   email: true, 
               }, 
+              "user[company]": { 
+                  required: #{is_er? ? 'true' : 'false'}, 
+              },
 
           }, 
           messages: { 

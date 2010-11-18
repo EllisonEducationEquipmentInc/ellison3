@@ -550,7 +550,15 @@ module ShoppingCart
   	def tax_exempt?
   	  user_signed_in? && get_user.tax_exempt?
   	end
+  	
+  	def ecommerce_allowed?
+  	  !is_er? || user_signed_in? && get_user.status == 'active'
+  	end
 
+    def retailer_discount_levels
+      RetailerDiscountLevels.instance
+    end
+    
 		class Config
 	    attr_reader :name, :user_name, :password
 	    def initialize(config)

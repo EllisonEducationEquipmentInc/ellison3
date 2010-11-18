@@ -38,13 +38,16 @@ module ApplicationHelper
 		sale_price = gross_price(product.sale_price(date)) if product.sale_price(date)
 		
 		p = ""
-		p << "<span class='msrp#{' old-price' if coupon || regular_price || sale_price}'>#{number_to_currency msrp}</span> "
-		p << "<span class='special-price#{' old-price' if coupon || sale_price}'>#{number_to_currency regular_price}</span> "
-		p << "<span class='sale-price'>#{number_to_currency sale_price}</span> "
+		p << "<span class='msrp#{' old-price' if ecommerce_allowed? && (coupon || regular_price || sale_price)}'>#{number_to_currency msrp}</span> "
+		if ecommerce_allowed?
+  		p << "<span class='special-price#{' old-price' if coupon || sale_price}'>#{number_to_currency regular_price}</span> "
+  		p << "<span class='sale-price'>#{number_to_currency sale_price}</span> "
+  	end
 		p.html_safe
 	end
 	
 	def add_to_cart_button(product, class_name = 'add_to_cart')
+	  return '' unless ecommerce_allowed?
 	  @product_obj = product
     html = <<-HTML
 - if @product_obj.pre_order?

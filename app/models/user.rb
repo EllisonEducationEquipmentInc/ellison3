@@ -6,17 +6,22 @@ class User
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
+  STATUSES = ["pending", "active", "suspended", "declined"]
+
 	field :name
+	field :company
 	field :systems_enabled, :type => Array
 	field :tax_exempt, :type => Boolean, :default => false
 	field :tax_exempt_certificate
 	field :invoice_account
 	field :erp
 	field :purchase_order, :type => Boolean, :default => false
+	field :discount_level, :type => Integer
+	field :status, :default => "pending"
 	
 	validates_uniqueness_of :email, :case_sensitive => false
 	validates_presence_of :tax_exempt_certificate, :if => Proc.new {|obj| obj.tax_exempt}
-	attr_accessible :name, :email, :password, :password_confirmation
+	attr_accessible :name, :company, :email, :password, :password_confirmation
 
 	references_many :orders, :index => true
 	references_many :quotes, :index => true
@@ -34,6 +39,7 @@ class User
 	index :systems_enabled
 	index :sign_in_count
 	index :created_at
+	index :status
 	
 	embeds_one :token
 	embeds_many :addresses do
@@ -60,7 +66,7 @@ class User
 	end
 	
   def self.find_for_authentication(conditions={})
-    #conditions[:active] = true
+    conditions[:status.nin] = ["suspended", "declined"]
 		conditions[:systems_enabled.in] = [current_system] 
     super
   end

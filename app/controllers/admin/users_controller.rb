@@ -36,7 +36,6 @@ class Admin::UsersController < ApplicationController
   # GET /users/new.xml
   def new
     @user = User.new
-    mass_assign_protected_attributes
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @user }
@@ -52,6 +51,7 @@ class Admin::UsersController < ApplicationController
   # POST /users.xml
   def create
     @user = User.new(params[:user])
+    mass_assign_protected_attributes
     respond_to do |format|
       if @user.save
         format.html { redirect_to(admin_users_url, :notice => 'User was successfully created.') }
@@ -94,7 +94,7 @@ class Admin::UsersController < ApplicationController
 private 
 
 	def mass_assign_protected_attributes
-	  [:systems_enabled, :invoice_account, :erp, :tax_exempt_certificate, :tax_exempt, :purchase_order].each do |meth|
+	  [:systems_enabled, :invoice_account, :erp, :tax_exempt_certificate, :tax_exempt, :purchase_order, :status].each do |meth|
 	    @user.send("#{meth}=", params[:user][meth])
 	  end
 	end	

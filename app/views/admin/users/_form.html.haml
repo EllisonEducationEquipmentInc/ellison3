@@ -3,6 +3,15 @@
   .field
     = f.label :systems_enabled
     = system_enabled('user')
+  - if is_er? || @user.systems_enabled && @user.systems_enabled.include?("er")
+    .field
+      = f.label :status, "Status (has affect only on Retailer users)"
+      %br
+      = f.select :status, User::STATUSES
+    .field
+      = f.label :discount_level
+      %br
+      = select_tag 'user[discount_level]', grouped_options_for_select(retailer_discount_levels.grouped_hash, @user.discount_level)
   .field
     = f.label :erp, "AX ID"
     %br
