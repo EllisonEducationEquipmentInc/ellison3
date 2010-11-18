@@ -60,7 +60,7 @@ body.bp {
 
         span {
           display: block;
-          padding: 0 12px 0 18px;  // padding left to accomodate link icon; padding right to space away from link divider
+          padding: 0 12px 0 20px;  // padding left to accomodate link icon; padding right to space away from link divider
         }
       }
       
@@ -189,7 +189,10 @@ body.bp {
             color: black;
             text-decoration: none;
       
-            &:hover {color: #b60000;};
+            &:hover {
+              color: #b60000;
+              text-decoration: underline;
+            }
           }
 
           ul, p {
@@ -231,6 +234,21 @@ body.bp {
             }
             li.listtitle.first { @extend li.listtitle;
               margin-top: 0px;
+            }
+          }
+          
+          .megasublink {
+            text-decoration: none;
+            
+            &:hover { text-decoration: none; }
+          }
+          
+          #systemswitch {
+            font-weight: bold;
+            color: #b60000;
+            
+            a {
+              font-weight: normal;
             }
           }
         }

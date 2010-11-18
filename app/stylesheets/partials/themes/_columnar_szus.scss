@@ -103,7 +103,7 @@ body.bp {
           
           &.last { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_last.png") no-repeat; }
           
-          &:hover { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_hover.png") no-repeat; };
+          &:hover { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_hover.png") no-repeat; }
         }
       }
       
@@ -112,10 +112,9 @@ body.bp {
         font-size: 1.1em;
         font-weight: bold;
         color: black;
-        text-decoration: none;
         margin-bottom: 15px;
       
-        &:hover {color: #393113;};        
+        &:hover { color: #393113; }
       }
     }
   }

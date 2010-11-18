@@ -215,8 +215,9 @@
           .contentwrap_medium.last{ :style => 'text-align: right;'}
             %span{:class => 'minilink'}
               %strong Switch System:
-              - (ELLISON_SYSTEMS & current_admin.systems_enabled).each do |sys|
-                = link_to_unless current_system == sys, sys, "?system=#{sys}"
+              %span{:id => 'systemswitch'}
+                - (ELLISON_SYSTEMS & current_admin.systems_enabled).each do |sys|
+                  = link_to_unless current_system == sys, sys, "?system=#{sys}"
           %ul.megasublist.resize
             %li= link_to "Product Catalog", "#", :class => "megasublink", :onclick => "return false;"
             %li= link_to "Customer Orders", "#", :class => "megasublink", :onclick => "return false;"
@@ -259,9 +260,9 @@
                 %li= link_to "Manage Shipping Rates (by #{t 'number.currency.format.unit'})", admin_shipping_rates_path
                 %li= link_to "Edit International Settings", admin_countries_path
 
+-# Ellison Education UK mega menu link styles
 - if is_ee_uk?
   :javascript
-    -# Ellison Education UK mega menu link styles
     $(".megalink").FontEffect({
       outline:true,
       outlineWeight: 2,
