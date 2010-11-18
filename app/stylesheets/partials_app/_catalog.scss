@@ -153,12 +153,14 @@ body.bp {
 	.life-cycle {
     position: absolute;
     top: 3px;
+    top: -24px\9;
     left: -19px;
     padding-top: 4px;
     width: 117px;
     height: 29px;
     z-index: 201;
     background: url("/images/ui-backgrounds/lifecycle.png") no-repeat;
+    background: url("/images/ui-backgrounds/lifecycle.gif") no-repeat\9;
     -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.86602540, M12=0.50000000, M21=-0.50000000, M22=0.86602540,sizingMethod='auto expand')";
     filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.86602540, M12=0.50000000, M21=-0.50000000, M22=0.86602540,sizingMethod='auto expand');
     -moz-transform:  matrix(0.86602540, -0.50000000, 0.50000000, 0.86602540, 0, 0);
