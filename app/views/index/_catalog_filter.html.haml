@@ -12,7 +12,6 @@
           %li= link_to "#{row.instance.name} (#{row.count})", "/catalog#facets=#{(@facets_hash + [row.value]).join(",")}",  :rel => "#{row.value}", :title =>  row.instance.name, :class => "facet_value"
         - else
           %li= link_to "#{row.value[0].capitalize} #{number_to_currency(row.value[1])} (#{row.count})", "/catalog#facets=#{@facets_hash.join(",")}&price=#{row.value.join("~")}", :title => "#{row.value[0].capitalize} #{number_to_currency(row.value[1])}", :rel => "#{row.value.join("~")}", :class => "price_query_facet_value"
-    %br
 - unless params[:action] == "shop"
   :javascript
     $(function() {
