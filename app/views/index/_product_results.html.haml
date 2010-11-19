@@ -5,7 +5,7 @@
   = label_tag :select_all_products
   %br
   #add_checked_to_cart.rounded{:style => "display:none;position:fixed;z-index:9999;padding:20px;left:50%;top:150px;background:white;border:1px solid gray;opacity:0.9;filter:alpha(opacity=90);cursor: move;"}
-    #add_all_selected_to_cart.jqui_new Add All Selected To Cart
+    #add_all_selected_to_cart.jqui_new
   :javascript
     $('#add_checked_to_cart').draggable();
     $('#add_all_selected_to_cart').click(function(){
@@ -18,7 +18,8 @@
       $('input.add_to_cart_checkbox').attr('checked', false);
     });
     function toggle_add_checked_to_cart(){
-      if ($('.add_to_cart_checkbox:checked').length > 0){$('#add_checked_to_cart').show()} else {$('#add_checked_to_cart').hide()}
+      if ($('.add_to_cart_checkbox:checked').length > 0){$('#add_checked_to_cart').show()} else {$('#add_checked_to_cart').hide()};
+      $('#add_all_selected_to_cart').button({label: 'Add All '+$('.add_to_cart_checkbox:checked').length+' Selected To Cart'});
     }
 - if @search.total < 1
   We're sorry, we found 0 matching Products
