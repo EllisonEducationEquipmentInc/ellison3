@@ -38,16 +38,13 @@ module ApplicationHelper
 		sale_price = gross_price(product.sale_price(date)) if product.sale_price(date)
 		
 		p = ""
-		p << "<span class='msrp#{' old-price' if ecommerce_allowed? && (coupon || regular_price || sale_price)}'>#{number_to_currency msrp}</span> "
-		if ecommerce_allowed?
-  		p << "<span class='special-price#{' old-price' if coupon || sale_price}'>#{number_to_currency regular_price}</span> "
-  		p << "<span class='sale-price'>#{number_to_currency sale_price}</span> "
-  	end
+		p << "<span class='msrp#{' old-price' if coupon || regular_price || sale_price}'>#{number_to_currency msrp}</span> "
+		p << "<span class='special-price#{' old-price' if coupon || sale_price}'>#{number_to_currency regular_price}</span> "
+		p << "<span class='sale-price'>#{number_to_currency sale_price}</span> "
 		p.html_safe
 	end
 	
 	def add_to_cart_button(product, class_name = 'add_to_cart')
-	  return '' unless ecommerce_allowed?
 	  @product_obj = product
     html = <<-HTML
 - if is_er?
@@ -148,10 +145,10 @@ HTML
 	  unless @breadcrumb_tags.blank? && params[:price].blank?
 	    breadcrumbs = [link_to_function("All", "location.hash = ''")] #[]
 	    @breadcrumb_tags.each do |tag|
-	      breadcrumbs << link_to(tag.name, "#", :rel => tag.facet_param, :class => "tag_breadcrumb") + " " + link_to("x", "#", :title => tag.name, :rel => tag.facet_param, :class => "tag_breadcrumb_remove")
+	      breadcrumbs << link_to(tag.name, "#", :rel => tag.facet_param, :class => "tag_breadcrumb") + " " + link_to("x", "#", :title => "remove #{tag.name}", :rel => tag.facet_param, :class => "tag_breadcrumb_remove")
 	    end
-	    breadcrumbs << price_label + link_to("x", "#", :rel => params[:price], :class => "price_breadcrumb_remove") unless params[:price].blank?
-	    r << breadcrumbs.join(" > ")
+	    breadcrumbs << price_label + link_to("x", "#", :rel => params[:price], :title => "remove price", :class => "price_breadcrumb_remove") unless params[:price].blank?
+	    r << breadcrumbs.join("<span class='breadcrumb_arrow'> > </span>".html_safe)
 	    r << javascript_tag do
 	      <<-JS
 	      $(function() {

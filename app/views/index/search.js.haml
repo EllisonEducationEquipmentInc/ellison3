@@ -1,6 +1,6 @@
 == $('#products_filter').html('#{escape_javascript(render(:partial => "index/catalog_filter"))}');
 == $('#product_catalog').html('#{escape_javascript(render(:partial => "index/product_results"))}');
-== $('#catalog_breadcumbs').html('#{escape_javascript(catalog_breadcrumbs)}');
+== $('#catalog_breadcrumbs').html('#{escape_javascript(catalog_breadcrumbs)}');
 - if @breadcrumb_tags.blank? && params[:price].blank? && params[:q].blank?
   document.title = document.title.replace(/^Catalog[^|]+|/, 'Catalog ')
 - else
