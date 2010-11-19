@@ -1,4 +1,4 @@
-.product-block{:class => "product_#{product.id}"}
+.product-block{:style => !ecommerce_allowed? ? "height:210px" : nil, :class => "product_#{product.id}"}
   - if @users_list
     .list_actions
       = link_to_function "Move to Another List", "$(this).siblings('.move_to_another_list').toggle()", :class => 'jqui_move_min'
