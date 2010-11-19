@@ -61,7 +61,7 @@ module ApplicationHelper
 - elsif @product_obj.suspended?
   .jqui_out_of_stock Suspended
 - elsif @product_obj.available?
-  %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}"}== Add to #{t :cart} +
+  %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}"}== Add to #{(t :cart).capitalize} +
 - elsif @product_obj.not_reselable?
   = @product_obj.send "availability_message_#{current_system}"
 - else
