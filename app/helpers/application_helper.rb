@@ -45,6 +45,7 @@ module ApplicationHelper
 	end
 	
 	def add_to_cart_button(product, class_name = 'add_to_cart')
+	  return '' unless ecommerce_allowed?
 	  @product_obj = product
     html = <<-HTML
 - if is_er?
