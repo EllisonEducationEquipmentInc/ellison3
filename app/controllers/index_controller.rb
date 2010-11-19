@@ -69,7 +69,7 @@ private
 	      query.with :"#{f.split("~")[0]}_#{current_system}", f
 	    end
 	    query.with(:"price_#{current_system}_#{current_currency}").send(params[:price].split("~")[0] == "under" ? :less_than : :greater_than, params[:price].split("~")[1]) unless params[:price].blank?
-	    Tag::TYPES.each do |e|
+	    tag_types.each do |e|
     		query.facet :"#{e.to_s}_#{current_system}"
      	end
      	query.facet(:price) do |qf|
@@ -82,5 +82,12 @@ private
      	query.paginate(:page => params[:page] || 1, :per_page => 16)
      	query.order_by(*params[:sort].split(":")) unless params[:sort].blank?
 	  end
+  end
+  
+  # solr filter display logic
+  def tag_types
+    tags = Tag::TYPES - Tag::HIDDEN_TYPES
+    tags -= ["release_date", "special"] unless ecommerce_allowed?
+    tags
   end
 end
