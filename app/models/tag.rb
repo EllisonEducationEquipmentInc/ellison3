@@ -103,8 +103,8 @@ private
           c.discount_type = individual_discount.discount_type
           c.discount = individual_discount.discount
           c.individual_discounts = []
-          c.start_date = Time.zone.local_to_utc campaign.start_date
-          c.end_date = Time.zone.local_to_utc campaign.end_date
+          c.start_date = campaign.start_date.utc
+          c.end_date = campaign.end_date.utc
           c.product = product
           c.save
         end
@@ -113,8 +113,8 @@ private
           c = product.campaigns.find(campaign.id) || Campaign.new
           c.write_attributes campaign.attributes
           c.id = campaign.id
-          c.start_date = Time.zone.local_to_utc campaign.start_date
-          c.end_date = Time.zone.local_to_utc campaign.end_date
+          c.start_date = campaign.start_date.utc
+          c.end_date = campaign.end_date.utc
           c.product = product
           c.save
         end
