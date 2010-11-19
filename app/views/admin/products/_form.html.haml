@@ -41,6 +41,10 @@
     = f.label :quantity
     %br
     = f.text_field :quantity
+  .field
+    = f.label :discount_category_id
+    %br
+    = f.select :discount_category_id, DiscountCategory.active.cache.map {|e| [e.name, e.id]}, :prompt => "--select--"
   - currencies.each  do |currency|
     .field
       = f.label "msrp_#{currency}", "MSRP #{currency.upcase}"

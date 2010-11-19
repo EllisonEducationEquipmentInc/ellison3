@@ -60,6 +60,18 @@ namespace :migrations do |ns|
 	  set_current_system "szus"
 	end
 	
+	desc "populate retailer discount matrix"
+	task :discount_matrix => :environment do
+	  @matrix = CSV.open(File.expand_path(File.dirname(__FILE__) + "/migrations/discount_matrix.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"').to_a
+	  CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/discount_categories.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
+      @discount_category = DiscountCategory.new(:name => row["name"], :old_id => row["id"])
+      RetailerDiscountLevels.instance.levels.each do |level|
+        @discount_category.send("discount_#{level.id}=", @matrix.detect {|e| e["discount_level_id"] == "#{level.id}" && e["discount_category_id"] == row["id"]}["discount"])
+      end
+      @discount_category.save!
+	  end
+	end
+	
 	#======== migration tasks end here ========
 	
 	desc "run all migrations that haven't run"

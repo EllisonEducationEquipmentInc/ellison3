@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
 	
 	before_filter :get_system
+	before_filter :set_retailer_discount_level
 	before_filter :page_title
 	
 	include ShoppingCart
@@ -222,6 +223,10 @@ private
   
   def store_path!
     session[:user_return_to] = request.fullpath if request.get? && !request.xhr?
+  end
+  
+  def set_retailer_discount_level
+    Product.retailer_discount_level = is_er? && user_signed_in? && get_user.status == 'active' && get_user.discount_level ? get_user.discount_level : nil
   end
   
 end

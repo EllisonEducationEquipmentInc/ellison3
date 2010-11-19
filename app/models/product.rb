@@ -22,8 +22,11 @@ class Product
 	QUANTITY_THRESHOLD = 0
 	LIFE_CYCLES = ['pre-release', 'available', 'discontinued', 'unvailable']
 	
+	cattr_accessor :retailer_discount_level
+	
 	# validations
 	validates :name, :item_num, :life_cycle, :systems_enabled, :presence => true
+	validates_presence_of :discount_category_id, :if => Proc.new {|obj| obj.systems_enabled && obj.systems_enabled.include?("er")}
   # validates_presence_of :volume, :if => Proc.new {|obj| obj.length.blank? || obj.width.blank? || obj.height.blank?}, :message => "Either volume or length + width + height is required" 
   # validates_presence_of :length, :width, :height, :if => Proc.new {|obj| obj.volume.blank?}, :message => "Either volume or length + width + height is required" 
 	validates_inclusion_of :life_cycle, :in => LIFE_CYCLES, :message => "%s is not included in the list"
@@ -92,6 +95,8 @@ class Product
 	references_many :tags, :stored_as => :array, :inverse_of => :products, :index => true
   references_many :order_items, :index => true
   references_many :cart_items, :index => true
+  
+  referenced_in :discount_category
   
 	# scopes
 	scope :active, :where => { :active => true }
@@ -242,20 +247,18 @@ class Product
 	
 	def price(options = {})
 		time = options[:time] || Time.zone.now
-		campaign_price(time) && base_price(options) > campaign_price(time) ? campaign_price(time) : base_price(options)
+		best_price = campaign_price(time) && base_price(options) > campaign_price(time) ? campaign_price(time) : base_price(options)
+		if is_er? && !retailer_discount_level.blank?
+		  rp = retailer_price(retailer_discount_level, options)
+		  rp < best_price ? rp : best_price
+		else
+		  best_price
+		end
 	end
 	
 	def price=(p)
 		send("price_#{current_system}_#{current_currency}=", p) unless p.blank?
 	end
-	
-	def custom_price
-    @custom_price ||= custom_prices[id]
-  end
-  
-  def custom_price=(p)
-    @custom_price = p.to_f.round_to(2)
-  end
 
 	def campaign_price(time = Time.zone.now)
 		get_best_campaign(time).try :sale_price
@@ -265,6 +268,18 @@ class Product
 	
 	def get_best_campaign(time = Time.zone.now)
 		campaigns.current(time).sort {|x,y| x.sale_price <=> y.sale_price}.first
+	end
+	
+	def retailer_price(discount_level = retailer_discount_level, options = {})
+	  (wholesale_price(options) - retailer_discount(discount_level, options)).round(2)
+	end
+	
+	def retailer_discount_percentage(discount_level = retailer_discount_level)
+	  discount_category.try :discount, discount_level
+	end
+	
+	def retailer_discount(discount_level = retailer_discount_level, options = {})
+	  wholesale_price(options) * retailer_discount_percentage(discount_level)/100.0 rescue 0.0
 	end
 	
 	def medium_image
