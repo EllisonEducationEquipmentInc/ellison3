@@ -1,5 +1,25 @@
 .right= select_tag :sort, options_for_select([["Relevance", nil], ["New Arrivals", "start_date_#{current_system}:desc"], ["Best Sellers", "quantity_sold:desc"], ["Lowest Price", "price_#{current_system}_#{current_currency}:asc"], ["Highest Price", "price_#{current_system}_#{current_currency}:desc"], ["Product Name [A-Z]", "sort_name:asc"], ["Product Name [Z-A]", "sort_name:desc"]], params[:sort]), :onchange => "location.hash = $.param.fragment( location.hash, {sort: this.value, page: 1}, 0 )"
 %h3== #{@search.total} Products Showing
+- if is_er? && ecommerce_allowed?
+  = check_box_tag :select_all_products, "1", false, :onclick => "$('input.add_to_cart_checkbox').attr('checked', this.checked);toggle_add_checked_to_cart();"
+  = label_tag :select_all_products
+  %br
+  #add_checked_to_cart.rounded{:style => "display:none;position:fixed;z-index:9999;padding:20px;left:50%;top:150px;background:white;border:1px solid gray;opacity:0.9;filter:alpha(opacity=90);cursor: move;"}
+    #add_all_selected_to_cart.jqui_new Add All Selected To Cart
+  :javascript
+    $('#add_checked_to_cart').draggable();
+    $('#add_all_selected_to_cart').click(function(){
+      var values = $('.add_to_cart_checkbox:checked').map(function() {
+        return this.value+':'+$('#quantity_'+this.value).val();
+      }).get().join(',');
+      $.ajax({url:"/carts/add_selected_to_cart?values="+values});
+      _gaq.push(['_trackEvent', 'Cart', 'Add All Selected To Cart', values]);
+      $('#add_checked_to_cart').hide();
+      $('input.add_to_cart_checkbox').attr('checked', false);
+    });
+    function toggle_add_checked_to_cart(){
+      if ($('.add_to_cart_checkbox:checked').length > 0){$('#add_checked_to_cart').show()} else {$('#add_checked_to_cart').hide()}
+    }
 - if @search.total < 1
   We're sorry, we found 0 matching Products
   - if !@search.correctly_spelled? && @search.spell_collation

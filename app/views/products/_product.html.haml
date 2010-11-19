@@ -1,4 +1,6 @@
 .product-block{:style => !ecommerce_allowed? ? "height:210px" : nil, :class => "product_#{product.id}"}
+  - if is_er? && ecommerce_allowed?
+    .right.add_to_cart_multi{:style => "display:none"}= check_box_tag "cb_product_#{product.id}", product.id, false, :class => "add_to_cart_checkbox", :onclick => "toggle_add_checked_to_cart()"
   - if @users_list
     .list_actions
       = link_to_function "Move to Another List", "$(this).siblings('.move_to_another_list').toggle()", :class => 'jqui_move_min'

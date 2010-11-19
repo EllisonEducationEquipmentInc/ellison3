@@ -118,7 +118,7 @@ class Product
 		
 	# define 
 	#   system dependent attributes: start_date, end_date, description, distribution_life_cycle, distribution_life_cycle_ends, orderable
-	#   currency dependent attributes: msrp, handling_price
+	#   currency dependent attributes: msrp, handling_price, wholesale_price (default: 50% of msrp if not defined)
 	LOCALES_2_CURRENCIES.values.each do |currency|
 		field "msrp_#{currency}".to_sym, :type => Float
 		field "wholesale_price_#{currency}".to_sym, :type => Float
