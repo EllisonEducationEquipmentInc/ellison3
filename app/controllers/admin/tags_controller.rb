@@ -109,7 +109,7 @@ private
   def populate_campaign
     if @tag.campaign? 
       @tag.campaign ||= Campaign.new 
-      @tag.campaign.write_attributes(:name => @tag.name, :systems_enabled => @tag.systems_enabled, :start_date => @tag.send("start_date_#{current_system}"), :end_date => @tag.send("end_date_#{current_system}"), :short_desc => @tag.description)
+      @tag.campaign.write_attributes(:name => @tag.name, :systems_enabled => @tag.systems_enabled, :start_date => @tag.send("start_date_#{current_system}").utc, :end_date => @tag.send("end_date_#{current_system}").utc, :short_desc => @tag.description)
     else
       params[:tag].delete :campaign
       @tag.campaign = nil
