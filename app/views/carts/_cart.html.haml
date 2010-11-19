@@ -14,7 +14,7 @@
     %tbody= render :partial => 'carts/cart_item', :collection => @cart.cart_items
     - unless @cart_locked
       :javascript
-        $('input.number_only').keydown(function(e){if (e.keyCode != 46 && e.keyCode != 8 && e.keyCode != 9 && !String.fromCharCode(e.keyCode).match(/\d+/)) return false})
+        $('input.number_only').keydown(number_only)
         .focusout(function(){
           if ($(this).val().length < 1) {
             var original_value = $(this).attr('defaultValue');

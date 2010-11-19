@@ -11,6 +11,7 @@ class CartItem
 	field :coupon_price, :type => Boolean, :default => false
 	field :currency
 	field :quantity, :type => Integer, :default => 1
+	field :minimum_quantity, :type => Integer, :default => 1
 	field :small_image
 	field :added_at, :type => Time
 	field :weight, :type => Float, :default => 0.0

@@ -20,7 +20,10 @@ class CartsController < ApplicationController
 	end
 		
 	def add_to_cart
-		add_2_cart(Product.find(params[:id]))
+	  @product = Product.find(params[:id])
+	  qty = params[:qty].blank? ? is_er? ? @product.minimum_quantity : 1 : params[:qty].to_i
+	  qty = @product.minimum_quantity if is_er? && qty < @product.minimum_quantity
+		add_2_cart(@product, qty)
 	end
 	
 	def remove_from_cart
@@ -28,7 +31,13 @@ class CartsController < ApplicationController
 	end
 	
 	def change_quantity
-	  @cart_item = change_qty(params[:item_num], params[:qty].to_i)
+	  qty = params[:qty].to_i
+	  if qty < 1
+	    @cart_item_id = remove_cart(params[:item_num])
+	    render :remove_from_cart and return
+	  else
+	    @cart_item = change_qty(params[:item_num], qty)
+	  end
 	end
 	
 	def empty_cart

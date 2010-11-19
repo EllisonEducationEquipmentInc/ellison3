@@ -15,3 +15,4 @@
     location.href = "/catalog#facets="+$('#initial_query').val()+","+$('#quick_search select').map(function (){return this.value}).filter(function() {return this.length > 0}).get().join(',')
   });
   initialize_buttons();
+  er_number_only();

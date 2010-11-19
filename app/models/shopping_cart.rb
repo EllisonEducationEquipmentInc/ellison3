@@ -21,7 +21,7 @@ module ShoppingCart
 			else
 				get_cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.sale_price, :msrp => product.msrp, :price => product.price, 
 				  :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product => product, :weight => product.weight, 
-				  :tax_exempt => product.tax_exempt, :handling_price => product.handling_price, :pre_order => product.pre_order?, :out_of_stock => product.out_of_stock?)
+				  :tax_exempt => product.tax_exempt, :handling_price => product.handling_price, :pre_order => product.pre_order?, :out_of_stock => product.out_of_stock?, :minimum_quantity => product.minimum_quantity)
 			end
 			get_cart.reset_tax_and_shipping true
 			get_cart.apply_coupon_discount
@@ -30,6 +30,7 @@ module ShoppingCart
 		
 		def change_qty(item_num, qty)
 		  cart_item = get_cart.cart_items.find_item(item_num)
+		  return cart_item if is_er? && cart_item.minimum_quantity > qty
 			cart_item.quantity = qty
 			get_cart.reset_tax_and_shipping
 			get_cart.apply_coupon_discount
@@ -73,7 +74,7 @@ module ShoppingCart
 		def order_to_cart(order)
 		  get_cart
 		  order.order_items.each do |item|
-		    cart_item = CartItem.new(:price => item.sale_price, :small_image => item.product.small_image, :added_at => Time.now, :pre_order => item.product.pre_order?, :out_of_stock => item.product.out_of_stock?, :weight => item.product.weight, :volume => item.product.calculated_volume, :msrp => item.product.msrp)
+		    cart_item = CartItem.new(:price => item.sale_price, :small_image => item.product.small_image, :added_at => Time.now, :pre_order => item.product.pre_order?, :out_of_stock => item.product.out_of_stock?, :weight => item.product.weight, :msrp => item.product.msrp, :minimum_quantity => item.product.minimum_quantity)
 		    cart_item.copy_common_attributes item
 		    cart_item.custom_price = true if cart_item.price != item.product.price
 		    get_cart.cart_items << cart_item

@@ -50,6 +50,10 @@ module ApplicationHelper
 	  return '' unless ecommerce_allowed?
 	  @product_obj = product
     html = <<-HTML
+- if is_er?
+  = label_tag "quantity_#{product.id}", "Qty: (Min. #{product.minimum_quantity})"
+  = text_field_tag "quantity_#{product.id}", @product_obj.minimum_quantity, :size => 3, :class => "er_product_quantity", :onchange => "if ($(this).val() < #{product.minimum_quantity}) {$(this).val(#{product.minimum_quantity});alert('Minimum Quantity Required for this product is: #{product.minimum_quantity}')}"
+  %br
 - if @product_obj.pre_order?
   %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}"}== Pre-Order
 - elsif @product_obj.out_of_stock?

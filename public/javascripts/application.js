@@ -3,6 +3,7 @@
 
 var _gaq = _gaq || [];
 var button_label = button_label || '';
+var number_only = function(e){if (e.keyCode != 46 && e.keyCode != 8 && e.keyCode != 9 && !String.fromCharCode(e.keyCode).match(/\d+/)) return false}
 
 $(function() {
   $(".wymeditor").wymeditor();
@@ -99,6 +100,10 @@ function remove_from_title (text) {
 
 function redirect_to_order (order_path) {
 	window.location.href = order_path
+}
+
+function er_number_only() {
+	$('input.er_product_quantity').keydown(number_only);
 }
 
 $(document).ready(function(){
@@ -213,8 +218,9 @@ $(document).ready(function(){
 	
 	jQuery.validator.addMethod("cvv", function(cvv, element) {
 		return this.optional(element) || cvv.match(/^\d{3,4}$/);
-	}, "Security Code is invalid");
+	}, "Security Code is invalid");	
 
+	er_number_only();
 });
 
 
@@ -225,7 +231,8 @@ function initialize_buttons(){
 	                primary: 'ui-icon-plus'
 	            }})
 			.click( function() {
-				$.ajax({url:"/carts/add_to_cart?id="+this.id.replace('add_to_cart_', '')});
+				var qty = $(this).siblings('input.er_product_quantity').val() == undefined ? '' : "&qty="+$(this).siblings('input.er_product_quantity').val()
+				$.ajax({url:"/carts/add_to_cart?id="+this.id.replace('add_to_cart_', '')+qty});
 				_gaq.push(['_trackEvent', 'Cart', 'Add To Cart', $(this).attr('rel')]);
 			})
 	});

@@ -42,6 +42,10 @@
     %br
     = f.text_field :quantity
   .field
+    = f.label :minimum_quantity, "Minimum Quantity for Retailers"
+    %br
+    = f.text_field :minimum_quantity
+  .field
     = f.label :discount_category_id
     %br
     = f.select :discount_category_id, DiscountCategory.active.cache.map {|e| [e.name, e.id]}, :prompt => "--select--"
