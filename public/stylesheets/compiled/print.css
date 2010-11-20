@@ -221,10 +221,10 @@ body.bp .product_sidebar p {
   text-decoration: underline;
 }
 /* line 235, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product-block button {
+.product-block button, .product-block .ui-button {
   margin-bottom: 2px;
 }
-/* line 240, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 242, ../../../app/stylesheets/partials_app/_catalog.scss */
 .product-block .cart-buttons {
   width: 100%;
   position: absolute;
@@ -233,46 +233,46 @@ body.bp .product_sidebar p {
   margin-left: -91.5px;
 }
 
-/* line 250, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 252, ../../../app/stylesheets/partials_app/_catalog.scss */
 .product_images {
   background: white;
   overflow: visible;
   z-index: 200;
 }
-/* line 255, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 257, ../../../app/stylesheets/partials_app/_catalog.scss */
 .product_images #large_image {
   width: 450px;
   margin: 3px 0 0 3px;
 }
-/* line 260, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 262, ../../../app/stylesheets/partials_app/_catalog.scss */
 .product_images .thumbnail {
   border: 1px solid #cccccc;
   margin: 3px 0 3px 3px;
   float: left;
 }
 
-/* line 267, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 269, ../../../app/stylesheets/partials_app/_catalog.scss */
 .product_sociallinks {
   margin-top: 10px;
 }
 
-/* line 271, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 273, ../../../app/stylesheets/partials_app/_catalog.scss */
 .product_buybox {
   background: #eceadf;
   border: 1px solid #d9d6c4;
   padding: 6px;
   margin: 10px 0;
 }
-/* line 277, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 279, ../../../app/stylesheets/partials_app/_catalog.scss */
 .product_buybox h4 {
   margin-top: 7px;
 }
-/* line 281, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 283, ../../../app/stylesheets/partials_app/_catalog.scss */
 .product_buybox .ui-button {
   margin-top: 3px;
 }
 
-/* line 286, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 288, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart_detail {
   width: 176px;
   height: 30px;
@@ -284,16 +284,16 @@ body.bp .product_sidebar p {
   font-size: 1.1em;
   color: #fff;
 }
-/* line 297, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 299, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart_detail .ui-icon {
   background-image: none;
 }
-/* line 301, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 303, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart_detail:hover {
   background: url("/images/ui-buttons/addtocart_detail_on.png") no-repeat;
 }
 
-/* line 304, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 306, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart {
   width: 121px;
   height: 25px;
@@ -301,15 +301,15 @@ body.bp .product_sidebar p {
   border: none;
   color: #fff;
 }
-/* line 311, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 313, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart .ui-icon {
   background-image: none;
 }
-/* line 315, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 317, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart.ui-button {
   margin-right: 0;
 }
-/* line 319, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 321, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart:hover {
   background: url("/images/ui-buttons/addtocart_on.png") no-repeat;
 }

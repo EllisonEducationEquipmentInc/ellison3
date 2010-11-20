@@ -236,6 +236,8 @@ body.bp {
 	  margin-bottom:2px;
 	}
 	
+	.ui-button { @extend button; }
+	
 	// position the cart button stack to the bottom center of each product block
 	.cart-buttons {
 	  width: 100%;
