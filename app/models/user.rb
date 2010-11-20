@@ -22,6 +22,10 @@ class User
 	validates_uniqueness_of :email, :case_sensitive => false
 	validates_presence_of :tax_exempt_certificate, :if => Proc.new {|obj| obj.tax_exempt}
 	attr_accessible :name, :company, :email, :password, :password_confirmation
+	
+	accepts_nested_attributes_for :addresses
+	
+	validates_associated :retailer_application, :addresses
 
 	references_many :orders, :index => true
 	references_many :quotes, :index => true
@@ -42,6 +46,7 @@ class User
 	index :status
 	
 	embeds_one :token
+	embeds_one :retailer_application
 	embeds_many :addresses do
     def billing
 			@target.select {|address| address.address_type == "billing"}
@@ -49,6 +54,10 @@ class User
 
 		def shipping
 			@target.select {|address| address.address_type == "shipping"}
+    end
+    
+    def home
+			@target.select {|address| address.address_type == "home"}
     end
   end
 
@@ -63,6 +72,10 @@ class User
 	
 	def shipping_address
 		addresses.shipping.last
+	end
+	
+	def home_address
+		addresses.home.last
 	end
 	
   def self.find_for_authentication(conditions={})

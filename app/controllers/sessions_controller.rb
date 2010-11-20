@@ -21,6 +21,7 @@ class SessionsController < ApplicationController
 		params[:user] = params[:existing_user] if params[:user].blank?
     resource = warden.authenticate!(:scope => resource_name, :recall => request.xhr? ? "failure" : "new")
     set_flash_message :notice, :signed_in
+    session[:user_return_to] = retailer_application_path if is_er? && resource.status == 'pending'
     if request.xhr? 
 			sign_in(resource_name, resource)
 			render :js => "window.location.href = '#{stored_location_for(:user) || root_path}'" 

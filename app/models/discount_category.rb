@@ -17,9 +17,11 @@ class DiscountCategory
 	  validates_numericality_of :"discount_#{level.id}", :only_integer => true
 	end
 	
+	cache
+	
 	index :old_id
 	
-	references_many :products
+	references_many :products, :index => true
 	
 	scope :active, :where => { :active => true }
 	

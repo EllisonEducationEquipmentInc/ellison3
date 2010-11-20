@@ -8,7 +8,8 @@ class UsersController < ApplicationController
   ssl_allowed :signin_signup, :checkout_requested, :quote_requested
 
   verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list, :add_to_wishlist, :list_set_to_default, :remove_from_list, :move_to_list, :email_list], :redirect_to => {:action => :myaccount}
-
+  verify :post => true, :only => [:create_retailer_application]
+  
   # GET /resource/sign_up  
   def new
     build_resource({})
@@ -237,10 +238,37 @@ class UsersController < ApplicationController
 	end
 	
 	def retailer_application
-
+	  @title = "Ellison Retailer Application"
+	  @user = get_user
+	  @user.build_retailer_application unless @user.retailer_application
+	  build_addresses("billing")
+	  build_addresses("shipping")
+	  build_addresses("home")
+	  
+	end
+	
+	def create_retailer_application
+	  @user = get_user
+	  @user.attributes = params[:user]
+	  @user.build_retailer_application unless @user.retailer_application
+	  build_addresses("billing")
+	  build_addresses("shipping")
+	  build_addresses("home")
+	  @user.retailer_application.attributes = params[:user][:retailer_application]
+	  
+	  #@user.addresses = params[:user][:retailer_application]
+	  if @user.save
+	    redirect_to(myaccount_path, :notice => 'Thank you for submitting your application as an Authorized Ellison Retailer. Your request is currently being processed and is pending approval. While we confirm your information, please take a tour of the website. However, please remember that your special pricing can only be accessed once your application has been approved. Thanks for your patience, and we look forward to serving you.')
+	  else
+	    render :retailer_application
+	  end
 	end
 	
 protected
+
+  def build_addresses(address_type)
+    get_user.addresses.build(:address_type => address_type, :email => get_user.email) unless get_user.send("#{address_type}_address")
+  end
 
   # Authenticates the current scope and gets a copy of the current resource.
   # We need to use a copy because we don't want actions like update changing

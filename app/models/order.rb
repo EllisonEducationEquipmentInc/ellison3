@@ -10,6 +10,7 @@ class Order
 	
 	validates :status, :subtotal_amount, :shipping_amount, :tax_amount, :address, :order_items, :payment, :presence => true
 	validates_inclusion_of :status, :in => STATUSES
+	validates_associated :payment
 	
 	embeds_one :payment
 	embeds_one :address

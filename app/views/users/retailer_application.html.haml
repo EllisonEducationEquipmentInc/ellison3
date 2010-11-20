@@ -1,2 +1,96 @@
 %h2 Want to be an Authorized Ellison Retailer?
 You're almost there! Just fill out this form, and we'll evaluate your request. While you're here, take a tour of the website, but remember, your special pricing can only be accessed once your application has been approved. Thanks for your patience, and we look forward to serving you.
+= form_for(@user, :url => {:action => :create_retailer_application}, :html => {:multipart => true, :method => :post}) do |f|
+  .right{:style => "width:450px;"}
+    %h3 Owner/President's Home Address
+    = f.fields_for :addresses, @user.home_address do |home_address_fields|
+      = render :partial => 'users/address_form', :locals => {:f => home_address_fields}
+  = f.error_messages
+  .field
+    = required_field(f.label :company)
+    %br
+    = f.text_field :company
+  = f.fields_for :retailer_application, @user.retailer_application do |retailer_application_fields|
+    = retailer_application_fields.error_messages
+    .field
+      = required_field(retailer_application_fields.label :signing_up_for)
+      = retailer_application_fields.select :signing_up_for, RetailerApplication::SIGN_UP_FOR
+    %h3 Company Details
+    .field
+      = required_field(retailer_application_fields.label :website)
+      = retailer_application_fields.text_field :website, :type => :url, :placeholder => "Example: http://www.ellison.com", :required => true
+      = retailer_application_fields.check_box :no_website
+      = retailer_application_fields.label :no_website, "I do not have a website"
+    .field
+      = required_field(retailer_application_fields.label :tax_identifier)
+      = retailer_application_fields.text_field :tax_identifier, :required => true
+    .field
+      = required_field(retailer_application_fields.label :years_in_business)
+      = retailer_application_fields.text_field :years_in_business, :required => true, :type => "number", :min => 0, :size => 7
+    .field
+      = required_field(retailer_application_fields.label :number_of_employees)
+      = retailer_application_fields.text_field :number_of_employees, :required => true, :type => "number", :min => 1, :size => 7
+    .field
+      = required_field(retailer_application_fields.label :annual_sales)
+      = retailer_application_fields.text_field :annual_sales, :required => true
+    .field
+      = required_field(retailer_application_fields.label :resale_number, "Resale # (International customers, please enter Business Registration ID.)")
+      %br
+      = retailer_application_fields.text_field :resale_number, :required => true
+    .field
+      = required_field(retailer_application_fields.label :brands_to_resell)
+      - RetailerApplication::AVAILABLE_BRANDS.each do |brand|
+        %strong= brand
+        = check_box_tag 'user[retailer_application][brands_to_resell][]', brand, @user.retailer_application.brands_to_resell.include?(brand)
+    .field
+      = required_field(retailer_application_fields.label :authorized_buyers)
+      %br
+      = retailer_application_fields.text_area :authorized_buyers, :required => true
+    .field
+      = required_field(retailer_application_fields.label :business_type)
+      = retailer_application_fields.select :business_type, RetailerApplication::BUSINESS_TYPES
+    .field
+      = required_field(retailer_application_fields.label :store_department)
+      = retailer_application_fields.select :store_department, RetailerApplication::STORE_DEPARTMENTS
+    .field
+      = required_field(retailer_application_fields.label :store_location)
+      = retailer_application_fields.select :store_location, RetailerApplication::STORE_LOCATIONS
+    .field
+      = required_field(retailer_application_fields.label :how_did_you_learn_about_us)
+      = retailer_application_fields.select :how_did_you_learn_about_us, RetailerApplication::LEARNED_FROMS
+    .field
+      = required_field(retailer_application_fields.label :store_square_footage)
+      = retailer_application_fields.select :store_square_footage, RetailerApplication::SQUARE_FOOTAGES
+    %h3 Preferred Payment Method
+    .field
+      = required_field(retailer_application_fields.label :payment_method)
+      - RetailerApplication::PAYMENT_METHODS.each do |payment_method|
+        %strong= payment_method
+        = retailer_application_fields.radio_button :payment_method, payment_method
+    %h3 Requirements For Wholesale Consideration
+    .field
+      = required_field(retailer_application_fields.label :resale_tax_certificate)
+      = retailer_application_fields.file_field :resale_tax_certificate
+      = retailer_application_fields.hidden_field :resale_tax_certificate_cache
+    .field
+      = required_field(retailer_application_fields.label :business_license)
+      = retailer_application_fields.file_field :business_license
+      = retailer_application_fields.hidden_field :business_license_cache
+    .field
+      = required_field(retailer_application_fields.label :store_photo)
+      = retailer_application_fields.file_field :store_photo
+      = retailer_application_fields.hidden_field :store_photo_cache
+    %i Note: The Wholesale/Distributor application will not be considered until we receive the documents. You can upload right away or fax us at 949-598-8838, Attn: Sales. 
+    .field
+      = retailer_application_fields.check_box :will_fax_documents
+      = retailer_application_fields.label :will_fax_documents, "I will fax these documents"
+  .clear
+    .right{:style => "width:450px;"}
+      %h3 Billing Address
+      = f.fields_for :addresses, @user.billing_address do |billing_address_fields|
+        = render :partial => 'users/address_form', :locals => {:f => billing_address_fields}
+    %h3 Shipping Address
+    = f.fields_for :addresses, @user.shipping_address do |shipping_address_fields|
+      = render :partial => 'users/address_form', :locals => {:f => shipping_address_fields}
+  .actions
+    = f.submit "Save", :class => 'jqui_save'
