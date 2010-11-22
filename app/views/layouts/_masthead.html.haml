@@ -7,6 +7,8 @@
     %li= link_to "<span>Sign Out</span>".html_safe, destroy_session_path('user'), :class => "btn-masthead btn-signout", :title => "Sign Out", :alt => "Sign Out" 
     %li= link_to "<span>#{admin_signed_in? ? 'Customer\'s' : 'My'} Account</span>".html_safe, myaccount_path(:secure => true), :class => "btn-masthead btn-myaccount", :title => "My Account", :alt => "My Account"
   - else
+    %li= link_to "<span>Sign Up</span>".html_safe, signin_signup_path, :class => "lightbox btn-masthead btn-signup", :title => "Sign Up", :alt => "Sign Up"
+    %li.plaintext= link_to "<span>or</span>".html_safe, signin_signup_path, :class => "btn-masthead btn-plaintext"
     %li= link_to "<span>Sign In</span>".html_safe, signin_signup_path, :class => "lightbox btn-masthead btn-signin", :title => "Sign In", :alt => "Sign In"
   - if admin_signed_in?
     %li= link_to "<span>Edit Admin Profile</span>".html_safe, edit_admin_registration_path(current_admin), :class => "btn-masthead btn-myaccount", :title => "Edit Admin Profile", :alt => "Edit Admin Profile"

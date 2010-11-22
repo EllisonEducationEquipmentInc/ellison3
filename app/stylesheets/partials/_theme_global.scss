@@ -80,6 +80,13 @@ body.bp {
           background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/key.png') no-repeat;
         }        
       }
+      a.btn-signup {
+        border-right: 0px;  // last item on list - no divider required
+
+        span {
+          background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/notebook--pencil.png') no-repeat;
+        }        
+      }
       a.btn-signout {
         border-right: 0px;  // last item on list - no divider required
 
@@ -87,6 +94,17 @@ body.bp {
           background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/lock.png') no-repeat;
         }        
       }
+      a.btn-plaintext {
+        border-right: 0px;  // last item on list - no divider required
+        
+        span {
+          padding: 0;
+          text-transform: none;
+        }
+      }
+      
+      &.plaintext { padding: 0; }
+
     }
   }
   
