@@ -109,7 +109,7 @@ class UsersController < ApplicationController
 	def get_lists
 	  if user_signed_in?
   	  @lists = get_user.lists
-  	  @lists << get_user.build_default_mylist if @lists.blank?
+  	  @lists << get_user.build_default_mylist if @lists.blank? || (@lists.length == 1 && @lists.first.owns)
   	  @lists = @lists.map {|e| ["#{e.name} #{' (default)' if e.default_list}", e.id]}
   	  render :partial => 'lists'
   	else
@@ -214,6 +214,7 @@ class UsersController < ApplicationController
 	end
 	
 	def view_retailer_application
+	  @user = get_user
 	  render :partial => "view_retailer_application"
 	end
 	
