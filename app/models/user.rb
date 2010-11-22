@@ -21,7 +21,7 @@ class User
 	
 	validates_uniqueness_of :email, :case_sensitive => false
 	validates_presence_of :tax_exempt_certificate, :if => Proc.new {|obj| obj.tax_exempt}
-	attr_accessible :name, :company, :email, :password, :password_confirmation
+	attr_accessible :name, :company, :email, :password, :password_confirmation, :addresses_attributes
 	
 	accepts_nested_attributes_for :addresses
 	
@@ -110,6 +110,12 @@ class User
   
   def tax_exempt?
     self.tax_exempt || is_er? && self.systems_enabled.include?("er")
+  end
+
+  def build_addresses(*address_types)
+    address_types.each do |address_type|
+      addresses.build(:address_type => address_type, :email => self.email) unless send("#{address_type}_address")
+    end
   end
 
 protected

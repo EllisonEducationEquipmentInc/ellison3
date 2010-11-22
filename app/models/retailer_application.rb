@@ -32,7 +32,10 @@ class RetailerApplication
   field :will_fax_documents, :type => Boolean, :default => false
   
   validates :signing_up_for, :tax_identifier, :years_in_business, :number_of_employees, :number_of_employees, :annual_sales, :resale_number, :authorized_buyers, :brands_to_resell, :business_type, :store_department, :store_location, :payment_method, :presence => true
-	validates_presence_of :resale_tax_certificate_filename, :business_license_filename, :store_photo_filename, :unless => Proc.new {|obj| obj.will_fax_documents}
+	validates_presence_of :resale_tax_certificate, :business_license, :store_photo, :unless => Proc.new {|obj| obj.will_fax_documents}
+  validates_format_of :website, :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix, :message =>"must be a valid url, ex: http://www.yoursite.com", :if => Proc.new {|p| !p.no_website}
+  validates_presence_of :website, :if => Proc.new {|p| !p.no_website}
+	validates_numericality_of :years_in_business, :number_of_employees
 	
 	embedded_in :user, :inverse_of => :retailer_application
 

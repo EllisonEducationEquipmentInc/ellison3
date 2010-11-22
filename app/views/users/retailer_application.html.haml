@@ -87,10 +87,18 @@ You're almost there! Just fill out this form, and we'll evaluate your request. W
   .clear
     .right{:style => "width:450px;"}
       %h3 Billing Address
+      = link_to_function "copy shipping address", "copy_address_data(2, 1)"
       = f.fields_for :addresses, @user.billing_address do |billing_address_fields|
         = render :partial => 'users/address_form', :locals => {:f => billing_address_fields}
     %h3 Shipping Address
+    = link_to_function "copy home address", "copy_address_data(0, 2)"
     = f.fields_for :addresses, @user.shipping_address do |shipping_address_fields|
       = render :partial => 'users/address_form', :locals => {:f => shipping_address_fields}
   .actions
     = f.submit "Save", :class => 'jqui_save'
+:javascript
+  function copy_address_data(from_index, to_index){
+    $(':visible:input[name*="user[addresses_attributes]['+from_index+']"]').each(function(index){
+      $($(':visible:input[name*="user[addresses_attributes]['+to_index+']"]')[index]).val(this.value);
+    });
+  }
