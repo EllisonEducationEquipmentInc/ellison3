@@ -70,13 +70,18 @@ body.bp {
 }
 
 // price styles
-.msrp{}
+.msrp {
+  font-family:  'PT Sans', Helvetica, Arial, sans-serif;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: $catalog_price;
+}
 
 .old-price {
 	text-decoration: line-through;
 }
 
-.sale-price {
+.sale-price { @extend .msrp;
 	color: $catalog_sale-price;
 	font-weight: bold;
 }
@@ -133,7 +138,7 @@ body.bp {
 // catalog filter column
 #products_filter {
   h3 {
-    margin: 10px 0 10px 0;
+    margin: 2px 0 10px 0;
     text-transform: uppercase;
     font-size: 1.1em;
     font-weight: bold;
@@ -173,7 +178,7 @@ body.bp {
 // catalog results column
 #product_catalog {
   h3 {
-    margin: 2px 0 8px 0;
+    margin: 2px 0 10px 0;
     font-size: 1.1em;
     font-weight: bold;
   }
@@ -245,6 +250,13 @@ body.bp {
 	  bottom: $product-block-padding;
 	  left: 50%;
 	  margin-left: -($product-block-width/2) - $product-block-padding;
+	  font-family: Verdana,Arial,sans-serif;
+	  
+	  a {
+	    display: inline-block;
+	    margin-bottom: 6px;
+	    font-size: 10.2px;
+	  }
 	}	
 }
 
