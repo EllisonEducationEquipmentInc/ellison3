@@ -30,3 +30,29 @@
 .breadcrumbs { @extend minilink;
   margin-bottom: 4px;
 }
+
+#content {
+  .pagination {
+    font-family: Georgia,serif;
+    font-weight: bold;
+    text-transform: lowercase;
+    text-decoration: none;
+  
+    a {
+      text-decoration:none;
+      color: #6C5941;
+  
+      &:hover {
+        color: #b60000;
+        text-decoration: underline;
+      }
+    }
+    span {
+      text-decoration:none;
+      color: #CCC;
+    }
+    em {
+      color: #b60000;
+    }
+  }
+}

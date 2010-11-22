@@ -26,43 +26,6 @@ body.bp th, body.bp td, body.bp caption {
 		padding:5px
 	}
 
-
-	#product_detail {
-		padding: 10px;
-		border: 1px solid #ccc;
-		width:940px;
-	}
-
-	#product_detail .info{
-		float: right;
-		width: 400px;
-	}
-	#product_detail .images{
-		width: 500px;
-		border: 1px solid #ccc;
-	}
-
-	#product_detail #large_image {
-		height: 300px;
-		margin-left: 100px;
-		min-width: 300px;
-	}
-
-	#product_detail .title {
-		font-weight: bold;
-	}
-
-	#product_detail .price, #product_detail .desc {
-		margin: 10px 0;
-	}
-
-	#product_detail .life_cycle {
-		color: red;
-	}
-
-	#product_detail .selected {
-		border: 1px solid gray;
-	}
 	.product_admin_thumbnail {
 		border: 5px solid white;
 	}
@@ -224,9 +187,6 @@ body.bp th, body.bp td, body.bp caption {
 	.overrideable {border:1px solid #090}
 	.current_system {font-weight:bold;color:blue;}
 	.bordered{border:1px solid #390;background:white;}
-	.pagination a {border:1px solid #15B;padding: 4px 6px 3px;text-decoration:none;color: #15B;}
-	.pagination span {border:1px solid #CCC;padding: 4px 6px 3px;text-decoration:none;color: #CCC;}
-	.pagination em {border:1px solid black;padding: 4px 6px 3px;background: #26B;color:white;}
 	.arrow {
 		position: absolute;
 	}
