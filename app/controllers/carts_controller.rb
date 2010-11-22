@@ -240,6 +240,7 @@ class CartsController < ApplicationController
 	  @coupon = Coupon.available.where(:codes.in => [params[:coupon_code]]).first
 	  if @coupon
 	    get_cart.coupon = @coupon
+	    @cart.coupon_code = params[:coupon_code]
 	    @cart.reset_tax_and_shipping
 	    @cart.apply_coupon_discount
 	  else
@@ -248,7 +249,7 @@ class CartsController < ApplicationController
 	end
 	
 	def remove_coupon
-	  get_cart.coupon = nil
+	  get_cart.coupon, get_cart.coupon_code = nil
 	  @cart.reset_tax_and_shipping
 	  @cart.apply_coupon_discount
 	  render :activate_coupon

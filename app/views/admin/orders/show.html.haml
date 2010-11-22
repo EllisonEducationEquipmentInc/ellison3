@@ -112,7 +112,7 @@ ESTIMATED TOTAL:
 - if @order.coupon
   .field
     %strong Coupon:
-    = link_to @order.coupon.codes.join(", "), admin_coupon_path(@order.coupon)
+    = link_to @order.coupon_code || @order.coupon.codes.join(", "), admin_coupon_path(@order.coupon)
     = @order.coupon.name
 .field{:class => @order.payment.paid_amount && @order.payment.paid_amount < @order.total_amount ? 'error' : nil}
   %strong Paid Amount:

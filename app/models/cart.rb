@@ -13,6 +13,7 @@ class Cart
 	field :coupon_removed, :type => Boolean, :default => false
 	field :changed_items, :type => Array
 	field :order_reference
+	field :coupon_code
 	
 	referenced_in :coupon
 	
@@ -128,6 +129,7 @@ class Cart
 			self.changed_items = cart_items.select(&:updated?).map {|i| [i.id, i.updated]}
 			self.coupon = Coupon.available.where(:_id => self.coupon_id).first
 			self.coupon_removed = self.changed.include? "coupon_id"
+			self.coupon_code = nil if self.coupon_removed
 		end
 		reset_tax_and_shipping if cart_items.any?(&:updated?) || self.removed > 0 || self.coupon_removed
 		apply_coupon_discount

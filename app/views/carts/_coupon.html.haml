@@ -1,5 +1,6 @@
 - unless get_cart.coupon.blank?
   %strong Coupon:
+  = get_cart.coupon_code
   = get_cart.coupon.name
   = link_to "remove", remove_coupon_path, :remote => true
 - else

@@ -59,7 +59,7 @@ module ShoppingCart
 		end
 		
 		def cart_to_order_or_quote(klass, options = {})
-		  order = klass.to_s.classify.constantize.new(:id => options[:order_id], :subtotal_amount => get_cart.sub_total, :shipping_amount => calculate_shipping(options[:address]), :handling_amount => calculate_handling, :tax_amount => calculate_tax(options[:address]),
+		  order = klass.to_s.classify.constantize.new(:id => options[:order_id], :subtotal_amount => get_cart.sub_total, :shipping_amount => calculate_shipping(options[:address]), :handling_amount => calculate_handling, :tax_amount => calculate_tax(options[:address]), :coupon_code => get_cart.coupon_code,
 			              :tax_transaction => get_cart.reload.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at.try(:utc), :locale => current_locale, :shipping_service => get_cart.shipping_service, :order_reference => get_cart.order_reference, :vat_percentage => vat, :vat_exempt => vat_exempt?)
 			order.coupon = get_cart.coupon
 			@cart.cart_items.each do |item|
@@ -131,7 +131,7 @@ module ShoppingCart
 			end
 			options[:weight] ||= get_cart.total_weight
 			options[:shipping_service] ||= "FEDEX_GROUND" if address.us?
-			options[:packaging_type] ||= "FEDEX_BOX" #"YOUR_PACKAGING"
+			options[:packaging_type] ||= "YOUR_PACKAGING"
       # options[:package_length] ||= (get_cart.total_volume**(1.0/3.0)).round
       # options[:package_width] ||= (get_cart.total_volume**(1.0/3.0)).round
       # options[:package_height] ||= (get_cart.total_volume**(1.0/3.0)).round
@@ -240,7 +240,7 @@ module ShoppingCart
 			@fedex = Shippinglogic::FedEx.new(FEDEX_AUTH_KEY, FEDEX_SECURITY_CODE, FEDEX_ACCOUNT_NUMBER, FEDEX_METER_NUMBER, :test => false)
 			@rates = @fedex.rate(:shipper_company_name => "Ellison", :shipper_streets => '25862 Commercentre Drive', :shipper_city => 'Lake Forest', :shipper_state => 'CA', :shipper_postal_code => "92630", :shipper_country => "US", 
 													:recipient_name => "#{address.first_name} #{address.last_name}", :recipient_company_name => address.company, :recipient_streets => "#{address.address1} #{address.address2}", :recipient_city => address.city,  :recipient_postal_code => address.zip_code, :recipient_state => address.state, :recipient_country => country_2_code(address.country), :recipient_residential => options[:residential], 
-													:package_weight => options[:weight], :rate_request_types => options[:request_type] || "ACCOUNT", :packaging_type => options[:packaging_type] || "FEDEX_BOX", :package_length => options[:package_length], :package_width => options[:package_width], :package_height => options[:package_height], :ship_time => options[:ship_time] || skip_weekends(Time.now, 3.days))													
+													:package_weight => options[:weight], :rate_request_types => options[:request_type] || "ACCOUNT", :packaging_type => options[:packaging_type] || "FEDEX_BOX", :package_length => options[:package_length] || 12, :package_width => options[:package_width] || 12, :package_height => options[:package_height] || 12, :ship_time => options[:ship_time] || skip_weekends(Time.now, 3.days))													
 	    raise "unable to calculate shipping rates. please check your shipping address or call customer service to place an order." if @rates.blank?
 	    @rates
 	  end

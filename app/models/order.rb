@@ -54,6 +54,7 @@ class Order
 	field :customer_rep
 	field :customer_rep_id, :type => BSON::ObjectId
 	field :order_reference
+	field :coupon_code
 	
 	field :clickid
 	field :utm_source

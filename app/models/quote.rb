@@ -45,6 +45,7 @@ class Quote
 	field :customer_rep
 	field :customer_rep_id, :type => BSON::ObjectId
 	field :order_reference
+	field :coupon_code
 
   field :expires_at, :type => DateTime
 
