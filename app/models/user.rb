@@ -5,7 +5,7 @@ class User
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
-
+  
   STATUSES = ["pending", "active", "suspended", "declined"]
 
 	field :name
@@ -21,6 +21,7 @@ class User
 	
 	validates_uniqueness_of :email, :case_sensitive => false
 	validates_presence_of :tax_exempt_certificate, :if => Proc.new {|obj| obj.tax_exempt}
+		
 	attr_accessible :name, :company, :email, :password, :password_confirmation, :addresses_attributes
 	
 	accepts_nested_attributes_for :addresses

@@ -71,7 +71,7 @@
   %strong Resale Tax Certificate:
   = link_to "download", @user.retailer_application.resale_tax_certificate_url, :target => "_blank" if @user.retailer_application.try(:resale_tax_certificate?)
   %br
-  %strong Business License::
+  %strong Business License:
   = link_to "download", @user.retailer_application.business_license_url, :target => "_blank" if @user.retailer_application.try(:business_license?)
   %br
   %strong Store Phote:

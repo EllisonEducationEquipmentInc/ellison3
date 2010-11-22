@@ -88,15 +88,22 @@ You're almost there! Just fill out this form, and we'll evaluate your request. W
       = retailer_application_fields.check_box :will_fax_documents
       = retailer_application_fields.label :will_fax_documents, "I will fax these documents"
   .clear
-    .right{:style => "width:450px;"}
-      %h3 Billing Address
-      = link_to_function "copy shipping address", "copy_address_data(2, 1)"
-      = f.fields_for :addresses, @user.billing_address do |billing_address_fields|
-        = render :partial => 'users/address_form', :locals => {:f => billing_address_fields}
-    %h3 Shipping Address
-    = link_to_function "copy home address", "copy_address_data(0, 2)"
-    = f.fields_for :addresses, @user.shipping_address do |shipping_address_fields|
-      = render :partial => 'users/address_form', :locals => {:f => shipping_address_fields}
+  .right{:style => "width:450px;"}
+    %h3 Billing Address
+    = link_to_function "copy shipping address", "copy_address_data(2, 1)"
+    = f.fields_for :addresses, @user.billing_address do |billing_address_fields|
+      = render :partial => 'users/address_form', :locals => {:f => billing_address_fields}
+  %h3 Shipping Address
+  = link_to_function "copy home address", "copy_address_data(0, 2)"
+  = f.fields_for :addresses, @user.shipping_address do |shipping_address_fields|
+    = render :partial => 'users/address_form', :locals => {:f => shipping_address_fields}
+  = f.fields_for :retailer_application, @user.retailer_application do |retailer_application_fields|
+    .field
+      = retailer_application_fields.check_box :agreed_to_policy
+      = required_field(retailer_application_fields.label :agreed_to_policy, "I have read and agree to the Reseller Application Policy. [INSERT LINK]")
+    .field
+      = retailer_application_fields.check_box :agreed_to_terms
+      = required_field(retailer_application_fields.label :agreed_to_terms, "Reseller Terms and Conditions of Trading. [INSERT LINK]")
   .actions
     = f.submit "Save", :class => 'jqui_save'
 :javascript

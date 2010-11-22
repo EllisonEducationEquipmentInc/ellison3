@@ -3,6 +3,8 @@ class RetailerApplication
 	include ActiveModel::Validations
 	include ActiveModel::Translation
 	include Mongoid::Document
+	
+	attr_accessor :agreed_to_policy, :agreed_to_terms
 
   AVAILABLE_BRANDS = %w(Sizzix Ellison AllStar)
   SIGN_UP_FOR = %w(Wholesale Distributor)
@@ -36,6 +38,9 @@ class RetailerApplication
   validates_format_of :website, :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix, :message =>"must be a valid url, ex: http://www.yoursite.com", :if => Proc.new {|p| !p.no_website}
   validates_presence_of :website, :if => Proc.new {|p| !p.no_website}
 	validates_numericality_of :years_in_business, :number_of_employees
+	
+	validates_acceptance_of :agreed_to_policy, :message => "You must read and agree to the Reseller Application Policy."
+	validates_acceptance_of :agreed_to_terms, :message => "Reseller Terms and Conditions of Trading."
 	
 	embedded_in :user, :inverse_of => :retailer_application
 
