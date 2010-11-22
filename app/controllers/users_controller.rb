@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   ssl_exceptions :signin_signup, :checkout_requested, :quote_requested
   ssl_allowed :signin_signup, :checkout_requested, :quote_requested
 
-  verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list, :add_to_wishlist, :list_set_to_default, :remove_from_list, :move_to_list, :email_list], :redirect_to => {:action => :myaccount}
+  verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list, :add_to_wishlist, :list_set_to_default, :remove_from_list, :move_to_list, :email_list, :view_retailer_application], :redirect_to => {:action => :myaccount}
   verify :post => true, :only => [:create_retailer_application]
   
   # GET /resource/sign_up  
@@ -65,7 +65,9 @@ class UsersController < ApplicationController
 		# get "myaccount/:tab", :to => "users#myaccount"
 		# to open a tab from the url, pass the key in the :tab parameter like this: /myaccount/orders or myaccount/mylists or myaccount/quotes etc.
 		@title = "My Account - Profile"
-		@tabs = [[:billing, "My Billing Info"], [:shipping, "My Shipping Info"], [:orders, "Order Status"], [:mylists, "My List"]]
+    @tabs = []
+		@tabs += [[:view_retailer_application, "Your Application"]] if is_er?
+		@tabs += [[:billing, "My Billing Info"], [:shipping, "My Shipping Info"], [:orders, "Order Status"], [:mylists, "My Lists"]]
 		@tabs += [[:quotes, quote_name.pluralize], [:materials, "Materials"]] unless is_sizzix?
 	end
 	
@@ -211,6 +213,10 @@ class UsersController < ApplicationController
 		render :partial => 'materials'
 	end
 	
+	def view_retailer_application
+	  render :partial => "view_retailer_application"
+	end
+	
 	def edit_address
 		@address = get_user.send("#{params[:address_type]}_address") || get_user.addresses.build(:address_type => params[:address_type], :email => get_user.email)
 	end
@@ -249,9 +255,9 @@ class UsersController < ApplicationController
 	  @user.attributes = params[:user]
 	  @user.build_retailer_application unless @user.retailer_application
 	  @user.build_addresses("billing", "shipping", "home")
-	  @user.retailer_application.attributes = params[:user][:retailer_application]
-	  
+	  @user.retailer_application.attributes = params[:user][:retailer_application]	  
 	  if @user.save
+	    @user.retailer_application.save
 	    redirect_to(myaccount_path, :notice => 'Thank you for submitting your application as an Authorized Ellison Retailer. Your request is currently being processed and is pending approval. While we confirm your information, please take a tour of the website. However, please remember that your special pricing can only be accessed once your application has been approved. Thanks for your patience, and we look forward to serving you.')
 	  else
 	    render :retailer_application

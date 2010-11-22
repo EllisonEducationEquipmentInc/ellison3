@@ -7,40 +7,6 @@
     = link_to "Edit #{address_type} address", {:controller => 'users', :action => "edit_address", :address_type => address_type, :checkout => @checkout || params[:checkout]}, :remote => true
     - address = get_user.send("#{address_type}_address")
     %br
-    %b First Name:
-    = address.first_name
-    %br
-    %b Last Name:
-    = address.last_name
-    %br
-    %b Company/School/Organization:
-    = address.company
-    %br
-    %b Address1:
-    = address.address1
-    %br
-    %b Address2:
-    = address.address2
-    %br
-    %b City:
-    = address.city
-    %br
-    %b State:
-    = address.state
-    %br
-    %b Zip/Postal code:
-    = address.zip_code
-    %br
-    %b Country:
-    = address.country
-    %br
-    %b Phone:
-    = address.phone
-    %br
-    %b Fax:
-    = address.fax
-    %br
-    %b Email:
-    = address.email
+    = render :partial => 'users/address_details', :locals => {:address => address}
   - else
     = link_to "Add #{address_type} address", {:controller => 'users', :action => "edit_address", :address_type => address_type}, :remote => true

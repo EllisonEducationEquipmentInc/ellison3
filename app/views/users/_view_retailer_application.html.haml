@@ -1,0 +1,92 @@
+- if get_user.application_complete?
+  %div= link_to "edit", retailer_application_path if get_user.status == 'pending'
+  .right{:style => "width:450px;"}
+    %h3 Owner/President's Home Address
+    = render :partial => 'users/address_details', :locals => {:address => get_user.home_address}
+  %h3 Company Details
+  %strong Company
+  = get_user.company
+  %br
+  %strong Email:
+  = get_user.email
+  %br
+  %strong I am signing up for:
+  = get_user.retailer_application.signing_up_for
+  %br
+  %strong Website:
+  = get_user.retailer_application.no_website ? "I do not have a website" : get_user.retailer_application.website
+  %br
+  %strong Tax Identifier:
+  = get_user.retailer_application.tax_identifier
+  %br
+  %strong Years in business:
+  = get_user.retailer_application.years_in_business
+  %br
+  %strong Number of employees:
+  = get_user.retailer_application.number_of_employees
+  %br
+  %strong Annual sales:
+  = get_user.retailer_application.annual_sales
+  %br
+  %strong Resale #:
+  = get_user.retailer_application.resale_number
+  %br
+  %strong Brands to resell:
+  = get_user.retailer_application.brands_to_resell * ", "
+  %br
+  %strong Authorized buyers:
+  = get_user.retailer_application.authorized_buyers
+  %br
+  %strong Business type
+  = get_user.retailer_application.business_type
+  %br
+  %strong Store department:
+  = get_user.retailer_application.store_department
+  %br
+  %strong Store location:
+  = get_user.retailer_application.store_location
+  %br
+  %strong How did you learn about us?:
+  = get_user.retailer_application.how_did_you_learn_about_us
+  %br
+  %strong Store square footage:
+  = get_user.retailer_application.store_square_footage
+  .clear
+  %br
+  %br
+  %h3 Preferred Payment Method
+  %strong Payment Method:
+  = get_user.retailer_application.payment_method
+  %br
+  %br
+  .right{:style => "width:450px;"}
+    %h3 Billing Address
+    = render :partial => 'users/address_details', :locals => {:address => get_user.billing_address}
+  %h3 Shipping Address
+  = render :partial => 'users/address_details', :locals => {:address => get_user.shipping_address}
+  .clear
+  %br
+  %br
+  %h3 Requirements For Wholesale Consideration
+  %strong Resale Tax Certificate:
+  = link_to "download", @user.retailer_application.resale_tax_certificate_url, :target => "_blank" if @user.retailer_application.try(:resale_tax_certificate?)
+  %br
+  %strong Business License::
+  = link_to "download", @user.retailer_application.business_license_url, :target => "_blank" if @user.retailer_application.try(:business_license?)
+  %br
+  %strong Store Phote:
+  = link_to "download", @user.retailer_application.store_photo_url, :target => "_blank" if @user.retailer_application.try(:store_photo?)
+  %br
+  Fax later
+  = check_box_tag :will_fax_documents, "1", @user.retailer_application.will_fax_documents, :disabled => true
+  %br
+  %br
+  Agreed to Reseller Application Policy
+  = check_box_tag :agreed_application_policy, "1", true, :disabled => true
+  %br
+  Accepted the terms of service
+  = check_box_tag :agreed_terms, "1", true, :disabled => true
+- else
+  Your Retailers Application is not complete. Please
+  = link_to "Click here", retailer_application_path
+  to edit/create your Retailers Application.

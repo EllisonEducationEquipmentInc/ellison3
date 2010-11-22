@@ -111,6 +111,10 @@ class User
   def tax_exempt?
     self.tax_exempt || is_er? && self.systems_enabled.include?("er")
   end
+  
+  def application_complete?
+    !retailer_application.blank? && !billing_address.blank? && !shipping_address.blank? && !retailer_application.blank?
+  end
 
   def build_addresses(*address_types)
     address_types.each do |address_type|

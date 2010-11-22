@@ -72,14 +72,17 @@ You're almost there! Just fill out this form, and we'll evaluate your request. W
       = required_field(retailer_application_fields.label :resale_tax_certificate)
       = retailer_application_fields.file_field :resale_tax_certificate
       = retailer_application_fields.hidden_field :resale_tax_certificate_cache
+      = link_to "download", @user.retailer_application.resale_tax_certificate_url, :target => "_blank" if @user.retailer_application.try(:resale_tax_certificate?)
     .field
       = required_field(retailer_application_fields.label :business_license)
       = retailer_application_fields.file_field :business_license
       = retailer_application_fields.hidden_field :business_license_cache
+      = link_to "download", @user.retailer_application.business_license_url, :target => "_blank" if @user.retailer_application.try(:business_license?)
     .field
       = required_field(retailer_application_fields.label :store_photo)
       = retailer_application_fields.file_field :store_photo
       = retailer_application_fields.hidden_field :store_photo_cache
+      = link_to "download", @user.retailer_application.store_photo_url, :target => "_blank" if @user.retailer_application.try(:store_photo?)
     %i Note: The Wholesale/Distributor application will not be considered until we receive the documents. You can upload right away or fax us at 949-598-8838, Attn: Sales. 
     .field
       = retailer_application_fields.check_box :will_fax_documents

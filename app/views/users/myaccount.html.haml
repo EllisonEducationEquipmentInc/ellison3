@@ -1,4 +1,7 @@
 %h3 My Account
+- if is_er? && !get_user.application_complete?
+  Interested in becoming an Authorized Ellison Retailer? 
+  = link_to "Please take a moment to complete your Retailer’s Application.", retailer_application_path
 .tab-block
   %ul
     %li.rounded_top= link_to "Profile", "#profile"
