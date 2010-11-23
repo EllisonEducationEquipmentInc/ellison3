@@ -102,7 +102,7 @@ class UsersController < ApplicationController
 	    end
 	    @list.add_product params[:id]
 	  else
-	    @message = "You must be logged in to add an item to a list."
+	    @message = I18n.t :list_not_logged_in
 	  end
 	end
 	
@@ -113,7 +113,7 @@ class UsersController < ApplicationController
   	  @lists = @lists.map {|e| ["#{e.name} #{' (default)' if e.default_list}", e.id]}
   	  render :partial => 'lists'
   	else
-  	  @message = "You must be logged in to add an item to a list. Please add products to List after you logged in."
+  	  @message = I18n.t :list_not_logged_in
 	    render :add_to_list
   	end
 	end
