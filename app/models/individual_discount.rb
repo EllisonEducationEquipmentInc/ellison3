@@ -16,6 +16,8 @@ class IndividualDiscount
 	
 	embedded_in :campaign, :inverse_of => :individual_discounts
 	
+	after_destroy :remove_from_product
+	
 	def price
 	  return if self.msrp.blank?
 		if discount_type == 0
@@ -26,4 +28,13 @@ class IndividualDiscount
 			discount
 		end
 	end
+	
+private
+  
+  def remove_from_product
+    product = Product.find(self.product_id)
+    product.campaigns.find(campaign.id).delete
+    product.save
+  #rescue
+  end
 end
