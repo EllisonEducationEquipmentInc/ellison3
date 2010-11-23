@@ -8,6 +8,7 @@
       = link_to "Manage My Lists", myaccount_path('mylists')
       %br
       = link_to_function 'Share this list with friends and family', "$('#email_list').slideDown();$('#list_your_name').focus();"
+  .toggleview.right.minilink= link_to "switch to list view", "#", :class => "toggle_view"
   = @list.comments
   .clear
   - if @users_list
@@ -57,5 +58,9 @@
               $('#email_list_form').ajaxSubmit();
             },
         });
-= render @list.products
+.highlightable= render @list.products
+:javascript
+  $(document).ready(function(){
+    toggle_view();
+  })
 .clear

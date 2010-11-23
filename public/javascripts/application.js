@@ -106,6 +106,20 @@ function er_number_only() {
 	$('input.er_product_quantity').keydown(number_only);
 }
 
+function toggle_view() {
+	$("a.toggle_view").toggle(function(){
+    $(this).text("switch back to grid view").addClass("toggled");
+    $(".highlightable").fadeOut("fast", function() {
+      $(this).fadeIn("fast").addClass("listview");
+    });
+  }, function () {
+    $(this).text("switch to list view").removeClass("toggled");
+    $(".highlightable").fadeOut("fast", function() {
+      $(this).fadeIn("fast").removeClass("listview");
+    });
+  });
+}
+
 $(document).ready(function(){
 	
 	bind_hashchange ();

@@ -40,16 +40,5 @@
       location.hash = $.param.fragment( location.hash, {page: $.deparam.querystring(this.href)['page']}, 0 );
       return false;
     })
-    
-    $("a.toggle_view").toggle(function(){
-      $(this).text("switch back to grid view").addClass("toggled");
-      $(".highlightable").fadeOut("fast", function() {
-        $(this).fadeIn("fast").addClass("listview");
-      });
-    }, function () {
-      $(this).text("switch to list view").removeClass("toggled");
-      $(".highlightable").fadeOut("fast", function() {
-        $(this).fadeIn("fast").removeClass("listview");
-      });
-    });
+    toggle_view();
   });
