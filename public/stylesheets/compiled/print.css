@@ -541,23 +541,11 @@ body.bp .product_sidebar p {
 .product_tabs {
   display: inline;
   float: left;
-  margin-right: 10px;
-  width: 750px;
+  margin-right: 0;
+  width: 950px;
 }
 /* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html .product_tabs {
-  overflow-x: hidden;
-}
-
-/* line 13, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
-.product_sidebar {
-  display: inline;
-  float: left;
-  margin-right: 0;
-  width: 190px;
-}
-/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html .product_sidebar {
   overflow-x: hidden;
 }
 
