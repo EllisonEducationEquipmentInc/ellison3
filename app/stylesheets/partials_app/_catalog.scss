@@ -272,6 +272,66 @@ body.bp {
     	    margin-bottom: 6px;
     	    font-size: 10.2px;
     	  }
+    	  
+    	  .users_lists_container {
+    	    position: absolute;
+    	    top: -30px;
+    	    left: -6px;
+    	    background: white;
+    	    padding: 8px;
+    	    border: 1px solid gray;
+    	    width: $product-block-width + 11;
+    	    text-align: left;
+    	    z-index: 201;
+    	    
+    	    h4 {
+    	      font-family: Verdana,Arial,sans-serif;
+    	      font-weight: bold;
+    	      font-size: 10px;
+    	      text-transform: none;
+    	      color: #6C5941;
+    	      margin-bottom: 8px;
+    	      float: left;
+    	    }
+    	    
+    	    select#list {
+    	      margin-bottom: 8px;
+    	    }
+    	    
+    	    input {
+    	      float: right;
+    	    }
+
+          a {
+            margin-bottom: 0;
+            text-decoration: none;
+            color: #9c8a73;
+            
+            &:hover {
+              color: $catalog_filter_hover;
+              text-decoration: underline;
+            };
+            
+            &.cancel {
+              display: inline-block;
+              position: relative;
+              width: 16px;
+              height: 16px;
+          	  text-indent: -9999px;
+              background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/cross-circle.png");
+              float: right;
+            }
+            &.cancel {
+              display: inline-block;
+              position: relative;
+              width: 16px;
+              height: 16px;
+          	  text-indent: -9999px;
+              background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/cross-circle.png");
+              float: right;
+            }
+          }          
+    	  }
     	}	
     }
   
@@ -308,6 +368,12 @@ body.bp {
         }
       
         .life-cycle { text-align: center;}
+        
+    	  .users_lists_container {
+    	    position: absolute;
+    	    top: 0px;
+    	    left: -74px;
+    	  }
       }
     }
   }

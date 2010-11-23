@@ -341,17 +341,6 @@ body.bp th, body.bp td, body.bp caption {
   border: 1px solid white;
   padding: 10px;
 }
-/* line 277, ../../../app/stylesheets/application.scss */
-#content .users_lists_container {
-  position: absolute;
-  background: white;
-  padding: 5px;
-  border: 1px solid gray;
-  width: 190px;
-  left: -10px;
-  top: -6px;
-  text-align: left;
-}
 /* line 278, ../../../app/stylesheets/application.scss */
 #content #tag_images {
   width: 135px;
