@@ -385,7 +385,7 @@ module ShoppingCart
         payment.void_amount = @net_response.params['amount']
         payment.void_authorization = @net_response.authorization
         payment.status = "VOID"
-        payment.save(false)
+        payment.save(:validate => false)
       end
       @net_response
     end
@@ -401,7 +401,7 @@ module ShoppingCart
         payment.refunded_amount = @net_response.params['amount'] if @net_response.params['amount']
         payment.refund_authorization = @net_response.authorization
         payment.status = "REFUND"
-        payment.save(false)
+        payment.save(:validate => false)
       end
       @net_response
     end
