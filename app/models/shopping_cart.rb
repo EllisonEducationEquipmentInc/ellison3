@@ -120,6 +120,7 @@ module ShoppingCart
 		#   TODO: EEUS: Shipping Rates (cart subtotal based)
 		def calculate_shipping(address, options={})
 			return get_cart.shipping_amount if get_cart.shipping_amount
+			@shipping_discount_percentage = 0.0
 			if !get_cart.coupon.blank? && get_cart.coupon.shipping? && get_cart.coupon_conditions_met? && get_cart.coupon.shipping_countries.include?(address.country) && ((address.us? && get_cart.coupon.shipping_states.include?(address.state)) || !address.us?)
 			  if get_cart.coupon.free_shipping
 			    get_cart.update_attributes :shipping_amount => 0.0, :shipping_service => "STANDARD", :shipping_rates => [{:name => "STANDARD", :type => "STANDARD", :currency => current_currency, :rate => 0.0}]
@@ -127,6 +128,8 @@ module ShoppingCart
 			  elsif get_cart.coupon.fixed?
 			    get_cart.update_attributes :shipping_amount => get_cart.coupon.discount_value, :shipping_service => "STANDARD", :shipping_rates => [{:name => "STANDARD", :type => "STANDARD", :currency => current_currency, :rate => get_cart.coupon.discount_value}]
 			    return get_cart.coupon.discount_value
+			  elsif get_cart.coupon.percent?
+			    @shipping_discount_percentage = get_cart.coupon.discount_value
 			  end
 			end
 			options[:weight] ||= get_cart.total_weight
@@ -142,15 +145,17 @@ module ShoppingCart
 			end
 			@shipping_service = @rates.detect {|r| r.type == options[:shipping_service]} ? options[:shipping_service] : @rates.sort {|x,y| x.rate <=> y.rate}.first.type
 			rate = @rates.detect {|r| r.type == options[:shipping_service]}.try(:rate) || @rates.sort {|x,y| x.rate <=> y.rate}.first.rate
-			get_cart.update_attributes :shipping_amount => rate, :shipping_service => @shipping_service, :shipping_rates => @rates ? fedex_rates_to_a(@rates) : [{:name => @shipping_service, :type => @shipping_service, :currency => current_currency, :rate => rate}]
+			rate -= (0.01 * @shipping_discount_percentage * rate).round(2)
+			get_cart.update_attributes :shipping_amount => rate, :shipping_service => @shipping_service, :shipping_rates => @rates ? fedex_rates_to_a(@rates, @shipping_discount_percentage) : [{:name => @shipping_service, :type => @shipping_service, :currency => current_currency, :rate => rate}]
 			rate
 		end
 		
 		# convert an array of Shippinglogic::FedEx::Rate::Service elements to an array of hashes that can be saved in the db
-		def fedex_rates_to_a(rates)
+		def fedex_rates_to_a(rates, shipping_discount_percentage = 0.0)
 			a = []
 			rates.each do |rate|
-				h = {:rate => rate.rate.to_f}
+			  r = rate.rate.to_f
+				h = {:rate => r - (0.01 * shipping_discount_percentage * r).round(2)}
 				[:name, :type, :saturday, :delivered_by, :speed, :currency].each {|m| h[m]=rate.send(m) }
 				a << h
 			end
