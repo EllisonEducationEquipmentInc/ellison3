@@ -350,7 +350,8 @@ body.bp {
       
       &.toggled {
         background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_gridview.png") no-repeat right top;
-        background-position: right bottom;
+        
+        &:hover { background-position: right bottom; };
       }
     }
   }
