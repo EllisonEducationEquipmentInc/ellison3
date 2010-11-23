@@ -106,7 +106,7 @@ class User
   end
   
   def build_default_mylist
-    lists.build(:name => "My List", :default_list => true)
+    lists.build(:name => "Untitled List", :default_list => true)
   end
   
   def tax_exempt?

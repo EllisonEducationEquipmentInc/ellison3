@@ -113,7 +113,7 @@ class UsersController < ApplicationController
   	  @lists = @lists.map {|e| ["#{e.name} #{' (default)' if e.default_list}", e.id]}
   	  render :partial => 'lists'
   	else
-  	  @message = "You must be logged in to add an item to a list."
+  	  @message = "You must be logged in to add an item to a list. Please repeat this action after you logged in."
 	    render :add_to_list
   	end
 	end
