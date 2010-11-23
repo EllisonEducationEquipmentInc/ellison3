@@ -194,6 +194,12 @@ body.bp {
 	z-index: 200;
 	color: $catalog_text;
 	
+  h3 {
+    margin: 2px 0 10px 0;
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+	
 	.life-cycle {
     position: absolute;
     top: 3px;
@@ -324,80 +330,75 @@ body.bp {
 	}	
 }
 
-// catalog results column
-#product_catalog {
+.highlightable {
 
-  h3 {
-    margin: 2px 0 10px 0;
-    font-size: 1.1em;
-    font-weight: bold;
-  }
-  
-  .toggleview {
-    margin-right: 10px;
-    a {
-      display: block;
-      height: 16px;
-      color: #6C5941;
-      text-decoration: none;
-      padding-right: 20px;
-      background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_listview.png") no-repeat right top;
+  // list view styles
+  &.listview {
+    .product-block {
+      width: 758px;
+      height: 125px;
+      text-align: left;
       
-      &:hover {
-        color: #b60000;
-        background-position: right bottom;
+      p.item_name, p.item_price { margin-left: 133px; }
+      
+      h3.item_number { @extend p.item_name;
+        margin-bottom: 4px;
       }
       
-      &.toggled {
-        background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_gridview.png") no-repeat right top;
-        
-        &:hover { background-position: right bottom; };
+      .item_description { @extend p.item_name;
+        display: block;
       }
+
+      .item_image {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        margin: 8px;
+      }
+    
+      .cart-buttons {
+        position: absolute;
+        top: 0px;
+        left: 637px;
+        margin: 8px;
+        width: auto;
+      }
+    
+      .life-cycle { text-align: center;}
+      
+  	  .users_lists_container {
+  	    position: absolute;
+  	    top: 0px;
+  	    left: -74px;
+  	  }
+  	  
+  	  .list_actions {
+  	    top: 110px;
+  	    left: 713px;
+  	  }
     }
   }
-  
-  .highlightable {
-  
-    // list view styles
-    &.listview {
-      .product-block {
-        width: 758px;
-        height: 125px;
-        text-align: left;
-        
-        p.item_name, p.item_price { margin-left: 133px; }
-        
-        h3.item_number { @extend p.item_name;
-          margin-bottom: 4px;
-        }
-        
-        .item_description { @extend p.item_name;
-          display: block;
-        }
+}
 
-        .item_image {
-          position: absolute;
-          top: 0px;
-          left: 0px;
-          margin: 8px;
-        }
+.toggleview {
+  margin-right: 10px;
+  a.toggle_view {
+    display: block;
+    height: 16px;
+    color: #6C5941;
+    text-decoration: none;
+    padding-right: 20px;
+    background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_listview.png") no-repeat right top;
+    
+    &:hover {
+      color: #b60000;
+      background-position: right bottom;
+    }
+    
+    &.toggled {
+      background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_gridview.png") no-repeat right top;
       
-        .cart-buttons {
-          position: absolute;
-          top: 0px;
-          left: 637px;
-          margin: 8px;
-          width: auto;
-        }
-      
-        .life-cycle { text-align: center;}
-        
-    	  .users_lists_container {
-    	    position: absolute;
-    	    top: 0px;
-    	    left: -74px;
-    	  }
-      }
+      &:hover { background-position: right bottom; };
     }
   }
 }
