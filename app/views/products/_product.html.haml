@@ -10,14 +10,15 @@
           = select_tag :move_to, options_for_select(@lists), :style => "max-width:150px"
           = submit_tag "Move", :class => 'jqui_save'
           = link_to_function 'cancel', "$(this).parents('.move_to_another_list').hide()"
-  %h3
+  %h3.item_number
     = product.item_num
   - unless product.public_life_cycle.blank?
     .life-cycle
       %span= product.public_life_cycle
-  %p= link_to image_tag(product.medium_image), product_url(:id => product)
-  %p#item_name= link_to product.name, product_url(:id => product)
-  %p= display_product_price(product)
+  %p.item_image= link_to image_tag(product.medium_image), product_url(:id => product)
+  %p.item_name= link_to product.name, product_url(:id => product)
+  %p.item_price= display_product_price(product)
+  .item_description= product.description.try :html_safe
   .cart-buttons= add_to_cart_button(product)
   - if ecommerce_allowed? && product.pre_order?
     .release_available= product.release_dates.map {|e| e.name} * ", "
