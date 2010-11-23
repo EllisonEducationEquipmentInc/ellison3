@@ -42,12 +42,12 @@
     })
     
     $("a.toggle_view").toggle(function(){
-      $(this).addClass("toggled");
+      $(this).text("switch back to grid view").addClass("toggled");
       $(".highlightable").fadeOut("fast", function() {
         $(this).fadeIn("fast").addClass("listview");
       });
     }, function () {
-      $(this).removeClass("toggled");
+      $(this).text("switch to list view").removeClass("toggled");
       $(".highlightable").fadeOut("fast", function() {
         $(this).fadeIn("fast").removeClass("listview");
       });

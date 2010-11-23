@@ -338,8 +338,17 @@ body.bp {
     a {
       display: block;
       height: 16px;
+      text-decoration: none;
       padding-right: 20px;
+      background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_listview.png") no-repeat right top;
+      
+      &:hover { background-position: right bottom; };
+    }
+    
+    a.toggled {
       background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_gridview.png") no-repeat right top;
+      
+      &:hover { background-position: right bottom; };
     }
   }
   
