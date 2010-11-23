@@ -49,6 +49,19 @@
           %br
           = select :payment, :card_expiration_month, Payment.months, { :prompt => "month" }, :class => "cc"
           = select :payment, :card_expiration_year, Payment.years, { :prompt => "year" }, :class => "cc"
+        - if !is_us?
+          .field
+            You need to fill in the following fields
+            %strong ONLY
+            if the information is on your card.
+          .field.credit_card
+            = f.label :card_issue_month, "Card Start Date"
+            = select :payment, :card_issue_month, Payment.months, { :include_blank => true }, :class => "cc"
+            \/
+            = select :payment, :card_issue_year, Payment.issue_years, { :include_blank => true }, :class => "cc"
+          .field.credit_card
+            = f.label :card_issue_number
+            = f.text_field :card_issue_number, :size => 2, :maxlength => 2, :class => "cc"
         - if can_tokenize_payment?
           .field
             = f.check_box :save_credit_card
