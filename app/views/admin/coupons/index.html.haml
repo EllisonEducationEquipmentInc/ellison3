@@ -26,7 +26,7 @@
     %tbody
       - for coupon in @coupons
         %tr{ :class => cycle(:odd, :even) }
-          %td= link_to coupon.codes.join(", "), admin_coupon_path(coupon)
+          %td= coupon.no_code_required ? "N/A" : link_to(coupon.codes.join(", "), admin_coupon_path(coupon))
           %td= coupon.name
           %td= l coupon.send("start_date_#{current_system}"), :format => :custom rescue "N/A for #{current_system}"
           %td= l coupon.send("end_date_#{current_system}"), :format => :custom rescue "N/A for #{current_system}"

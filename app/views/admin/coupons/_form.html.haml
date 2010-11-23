@@ -11,6 +11,10 @@
     = required_field f.label(:name)
     %br
     = f.text_field :name
+  .field.shipping_level.level_specific
+    = f.label :no_code_required
+    %br
+    = f.check_box :no_code_required
   .field
     = required_field f.label(:codes, "Coupon code(s) (separate codes with commas to create aliases)")
     %br
@@ -90,19 +94,17 @@
     function update_coupon_level(){
       $('.level_specific').hide();
       $('.'+$('#coupon_level').attr('value')+'_level').show();
+      if ($('#coupon_level').attr('value') != 'shipping') $('#coupon_no_code_required').attr('checked', false);
       switch ($('#coupon_level').attr('value')) {
         case 'order':
           $('#coupon_discount_type').val('percent');
-          break;
-        case 'shipping':
-          $('#coupon_discount_type').val('fixed');
           break;
       }
     }
     function toggle_shpping_conditions(){
       if ($('#coupon_free_shipping').attr('checked')) {
         $('.shipping_level').show();
-      } else {
+      } else if ($('#coupon_level').attr('value') != 'shipping'){
         $('.shipping_level').hide();
       }
     }

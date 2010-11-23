@@ -6,6 +6,7 @@ class Cart
 	field :tax_amount, :type => Float
 	field :tax_transaction
 	field :tax_calculated_at, :type => DateTime
+	field :shipping_calculated_at, :type => DateTime
 	field :shipping_rates, :type => Array
 	field :shipping_service
 	field :shipping_amount, :type => Float
@@ -32,7 +33,7 @@ class Cart
 	end
 	
 	def reset_shipping_amount
-		self.shipping_amount, self.shipping_service, self.shipping_rates = nil
+		self.shipping_amount, self.shipping_service, self.shipping_rates, self.shipping_calculated_at = nil
 	end
 	
 	def reset_tax_and_shipping(to_save = false)
@@ -127,7 +128,7 @@ class Cart
 		if check
 			self.removed = cart_items.delete_all(:conditions => {:quantity.lt => 1}) 
 			self.changed_items = cart_items.select(&:updated?).map {|i| [i.id, i.updated]}
-			self.coupon = Coupon.available.where(:_id => self.coupon_id).first
+			self.coupon = Coupon.available.with_coupon.where(:_id => self.coupon_id).first
 			self.coupon_removed = self.changed.include? "coupon_id"
 			self.coupon_code = nil if self.coupon_removed
 		end
@@ -162,14 +163,18 @@ class Cart
 	  save
 	end
 	
-	def coupon_conditions_met?
-    return false if !coupon.cart_must_have.blank? && !coupon.cart_must_have.all? do |condition|
+	def coupon_conditions_met?(c = coupon)
+    return false if !c.cart_must_have.blank? && !c.cart_must_have.all? do |condition|
       condition.flatten[1].send("#{condition.flatten[0]}?") {|i| cart_items.map(&:item_num).include?(i)}
     end
-    coupon.order_has_to_be && coupon.order_has_to_be.each do |key, conditions|
-      return false unless conditions.all? {|e| e[1].to_f.send(e[0].to_sym == :over ? "<" : ">", send(key, coupon.products_excluded))}
+    c.order_has_to_be && c.order_has_to_be.each do |key, conditions|
+      return false unless conditions.all? {|e| e[1].to_f.send(e[0].to_sym == :over ? "<" : ">", send(key, c.products_excluded))}
     end
     true
+	end
+	
+	def shipping_conditions_met?(address, c = coupon)
+	  c.shipping_countries.include?(address.country) && ((address.us? && c.shipping_states.include?(address.state)) || !address.us?)
 	end
 	
 	def reset_coupon_items

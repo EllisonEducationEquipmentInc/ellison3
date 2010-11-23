@@ -237,7 +237,7 @@ class CartsController < ApplicationController
 	end
 	
 	def activate_coupon
-	  @coupon = Coupon.available.where(:codes.in => [params[:coupon_code]]).first
+	  @coupon = Coupon.available.with_coupon.where(:codes.in => [params[:coupon_code]]).first
 	  if @coupon
 	    get_cart.coupon = @coupon
 	    @cart.coupon_code = params[:coupon_code]

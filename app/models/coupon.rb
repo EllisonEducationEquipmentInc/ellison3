@@ -10,6 +10,7 @@ class Coupon
 	
 	field :name
 	field :codes, :type => Array
+	field :no_code_required, :type => Boolean, :default => false
 	field :active, :type => Boolean, :default => true
 	field :systems_enabled, :type => Array
 	field :level
@@ -44,12 +45,14 @@ class Coupon
 	references_many :orders, :index => true
 	references_many :quotes, :index => true
 
-	validates :name, :codes, :systems_enabled, :level, :presence => true
+	validates :name, :systems_enabled, :level, :presence => true
+	validates_presence_of :codes, :unless => Proc.new {|obj| obj.no_code_required && obj.level == "shipping"}, :message => "can't be blank. Only shipping promotions can be setup with no_code_required option"
 	validates_inclusion_of :level, :in => LEVELS, :message => "extension %s is not included in the list"
 	validates_inclusion_of :discount_type, :in => DISCOUNT_TYPES, :message => "extension %s is not included in the list"
 	validates_inclusion_of :discount_type, :in => ["percent"], :message => "must be 'percent' for order level coupons", :if => Proc.new {|obj| obj.order?}
 	validates_inclusion_of :discount_type, :in => ["fixed", "percent"], :message => "must be 'fixed' or 'percent' for shipping coupons", :if => Proc.new {|obj| obj.level == "shipping" }
 	validates_numericality_of :discount_value
+	validates_exclusion_of :no_code_required, :in => [true], :unless => Proc.new {|obj| obj.level == "shipping"}, :message => "Only shipping promotions can be setup with no_code_required option"
 	
 	before_save Proc.new {|obj| obj.order_has_to_be.delete_if {|k,v| v.delete_if {|k,v| v.blank?}.blank?}}
 	before_save :inherit_system_specific_attributes
@@ -57,6 +60,9 @@ class Coupon
 	# scopes
 	scope :active, :where => { :active => true }
 	scope :inactive, :where => { :active => false }
+	scope :with_coupon, :where => { :no_code_required => false }
+	scope :no_code_required, :where => { :no_code_required => true }	
+  scope :by_location, lambda { |address| { :where => { :shipping_countries.in => [address.country]}.merge(address.us? ? {:shipping_states.in => [address.state]} : {})} }	
 	
 	ELLISON_SYSTEMS.each do |sys|
 		scope sys.to_sym, :where => { :systems_enabled.in => [sys] }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex.:  Product.szus => scope for sizzix US products

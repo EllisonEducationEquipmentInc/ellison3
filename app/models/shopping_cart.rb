@@ -119,17 +119,22 @@ module ShoppingCart
 		#   SZUK, EEUK: Shipping Rates (cart subtotal based)
 		#   TODO: EEUS: Shipping Rates (cart subtotal based)
 		def calculate_shipping(address, options={})
-			return get_cart.shipping_amount if get_cart.shipping_amount
+			return get_cart.shipping_amount if get_cart.shipping_amount && get_cart.shipping_calculated_at > 1.hour.ago
 			@shipping_discount_percentage = 0.0
-			if !get_cart.coupon.blank? && get_cart.coupon.shipping? && get_cart.coupon_conditions_met? && get_cart.coupon.shipping_countries.include?(address.country) && ((address.us? && get_cart.coupon.shipping_states.include?(address.state)) || !address.us?)
-			  if get_cart.coupon.free_shipping
-			    get_cart.update_attributes :shipping_amount => 0.0, :shipping_service => "STANDARD", :shipping_rates => [{:name => "STANDARD", :type => "STANDARD", :currency => current_currency, :rate => 0.0}]
+			coupon = if !get_cart.coupon.blank? && get_cart.coupon.shipping? && get_cart.coupon_conditions_met? && get_cart.shipping_conditions_met?(address)
+			  get_cart.coupon
+			else
+			  shipping_promotion_coupon_discount(address)
+			end
+			if !coupon.blank?
+			  if coupon.free_shipping
+			    get_cart.update_attributes :shipping_calculated_at => Time.now, :shipping_amount => 0.0, :shipping_service => "STANDARD", :shipping_rates => [{:name => "STANDARD", :type => "STANDARD", :currency => current_currency, :rate => 0.0}]
 			    return 0.0
-			  elsif get_cart.coupon.fixed?
-			    get_cart.update_attributes :shipping_amount => get_cart.coupon.discount_value, :shipping_service => "STANDARD", :shipping_rates => [{:name => "STANDARD", :type => "STANDARD", :currency => current_currency, :rate => get_cart.coupon.discount_value}]
-			    return get_cart.coupon.discount_value
-			  elsif get_cart.coupon.percent?
-			    @shipping_discount_percentage = get_cart.coupon.discount_value
+			  elsif coupon.fixed?
+			    get_cart.update_attributes :shipping_calculated_at => Time.now, :shipping_amount => coupon.discount_value, :shipping_service => "STANDARD", :shipping_rates => [{:name => "STANDARD", :type => "STANDARD", :currency => current_currency, :rate => coupon.discount_value}]
+			    return coupon.discount_value
+			  elsif coupon.percent?
+			    @shipping_discount_percentage = coupon.discount_value
 			  end
 			end
 			options[:weight] ||= get_cart.total_weight
@@ -146,8 +151,13 @@ module ShoppingCart
 			@shipping_service = @rates.detect {|r| r.type == options[:shipping_service]} ? options[:shipping_service] : @rates.sort {|x,y| x.rate <=> y.rate}.first.type
 			rate = @rates.detect {|r| r.type == options[:shipping_service]}.try(:rate) || @rates.sort {|x,y| x.rate <=> y.rate}.first.rate
 			rate -= (0.01 * @shipping_discount_percentage * rate).round(2)
-			get_cart.update_attributes :shipping_amount => rate, :shipping_service => @shipping_service, :shipping_rates => @rates ? fedex_rates_to_a(@rates, @shipping_discount_percentage) : [{:name => @shipping_service, :type => @shipping_service, :currency => current_currency, :rate => rate}]
+			get_cart.update_attributes :shipping_calculated_at => Time.now, :shipping_amount => rate, :shipping_service => @shipping_service, :shipping_rates => @rates ? fedex_rates_to_a(@rates, @shipping_discount_percentage) : [{:name => @shipping_service, :type => @shipping_service, :currency => current_currency, :rate => rate}]
 			rate
+		end
+		
+		# get eligible shipping coupons that don't require coupon code
+		def shipping_promotion_coupon_discount(address)
+		  Coupon.available.no_code_required.by_location(address).detect {|e| get_cart.coupon_conditions_met?(e)}
 		end
 		
 		# convert an array of Shippinglogic::FedEx::Rate::Service elements to an array of hashes that can be saved in the db
