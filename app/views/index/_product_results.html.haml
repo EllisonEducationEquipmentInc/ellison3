@@ -39,5 +39,5 @@
       location.hash = $.param.fragment( location.hash, {page: $.deparam.querystring(this.href)['page']}, 0 );
       return false;
     })
-    toggle_view();
+    $("a.toggle_view").toggleView({initial_state: $.deparam.fragment()['view']})
   });

@@ -61,6 +61,6 @@
 .highlightable= render @list.products
 :javascript
   $(document).ready(function(){
-    toggle_view();
+    $("a.toggle_view").toggleView({initial_state: $.deparam.fragment()['view']});
   })
 .clear

@@ -107,34 +107,32 @@ function er_number_only() {
 }
 
 function toggle_view() {
-	this.list_view = function(){
-    $(this).text("switch back to grid view").addClass("toggled");
-		$(this).attr('data-current-state', 'list');
-		$(window).unbind( 'hashchange');
-		location.hash = $.param.fragment( location.hash, {view: $(this).attr('data-current-state')}, 0 );
-    $(".highlightable").fadeOut("fast", function() {
-      $(this).fadeIn("fast").addClass("listview");
-			bind_hashchange();
-    });
-  };
 
-	this.grid_view = function () {
-    $(this).text("switch to list view").removeClass("toggled");
-		$(this).attr('data-current-state', 'grid');
-		$(window).unbind( 'hashchange');
-		location.hash = $.param.fragment( location.hash, {view: $(this).attr('data-current-state')}, 0 );
-    $(".highlightable").fadeOut("fast", function() {
-      $(this).fadeIn("fast").removeClass("listview");
-			bind_hashchange();
-    });
-  }
+	tview = function(state, fade) {
+		console.log(this)
+		if (state == 'list') {
+			$(this).text("switch back to grid view").addClass("toggled");
+		} else {
+			$(this).text("switch to list view").removeClass("toggled");
+		};
+		$(this).attr('data-current-state', state);
+    if (fade) {
+			$(window).unbind( 'hashchange');
+			location.hash = $.param.fragment( location.hash, {view: $(this).attr('data-current-state')}, 0 );
+			$(".highlightable").fadeOut("fast", function() {
+				if (state == 'list') {$(this).fadeIn("fast").addClass("listview");} else {$(this).fadeIn("fast").removeClass("listview");};
+				bind_hashchange();
+	    });
+		} else {
+			if (state == 'list') {$(".highlightable").addClass("listview");} else {$(this).fadeIn("fast").removeClass("listview");};
+		};
+	}
+	
 	if ($.deparam.fragment()['view'] == 'list') {
-		// this.list_view.call($("a.toggle_view"));
-		$(".highlightable").addClass("listview");
-		$("a.toggle_view").text("switch back to grid view").addClass("toggled").attr('data-current-state', 'list');
-		$("a.toggle_view").toggle(this.grid_view, this.list_view);
+		tview.call($("a.toggle_view"), 'list', false);
+		// $("a.toggle_view").toggle(tview('list',true), tview('grid',true));
 	} else{
-		$("a.toggle_view").toggle(this.list_view, this.grid_view);
+		// $("a.toggle_view").toggle(tview('grid',true), tview('list',true));
 	};
 			
 }
