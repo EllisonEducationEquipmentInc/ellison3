@@ -104,6 +104,16 @@ body.bp {
   text-transform: uppercase;
 }
 
+.minibtn-cancel {
+  display: inline-block;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  text-indent: -9999px;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/cross-circle.png");
+  float: right;
+}
+
 // catalog filter breadcrumbs
 #catalog_breadcrumbs {
   font-weight: bold;
@@ -231,6 +241,36 @@ body.bp {
 	  position: absolute;
 	  left: 125px;
 	  top: 4px;
+	  z-index: 250;
+	  
+	  .move_to_another_list {
+	    position: absolute;
+	    top: 0;
+	    left: -121px;
+	    width: 157px;
+	    border:1px solid gray;
+	    background:white;
+	    padding: 8px;
+
+	    h4 {
+	      font-family: Verdana,Arial,sans-serif;
+	      font-weight: bold;
+	      font-size: 10px;
+	      text-transform: none;
+	      color: #6C5941;
+	      margin-bottom: 8px;
+	      float: left;
+	    }
+	    
+	    select#move_to {
+	      margin-bottom: 8px;
+	    }
+	    
+	    input {
+	      margin: 30px 0 0 0;
+	      float: right;
+	    }
+	  }	  
 	}
 
 	p.item_name {
@@ -278,7 +318,7 @@ body.bp {
 	    width: $product-block-width + 11;
 	    text-align: left;
 	    z-index: 201;
-	    
+	  
 	    h4 {
 	      font-family: Verdana,Arial,sans-serif;
 	      font-weight: bold;
@@ -305,26 +345,7 @@ body.bp {
         &:hover {
           color: $catalog_filter_hover;
           text-decoration: underline;
-        };
-        
-        &.cancel {
-          display: inline-block;
-          position: relative;
-          width: 16px;
-          height: 16px;
-      	  text-indent: -9999px;
-          background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/cross-circle.png");
-          float: right;
-        }
-        &.cancel {
-          display: inline-block;
-          position: relative;
-          width: 16px;
-          height: 16px;
-      	  text-indent: -9999px;
-          background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/cross-circle.png");
-          float: right;
-        }
+        };        
       }          
 	  }
 	}	
@@ -375,6 +396,10 @@ body.bp {
   	  .list_actions {
   	    top: 110px;
   	    left: 713px;
+
+    	  .move_to_another_list {
+    	    top: -60px;
+    	  }	  
   	  }
     }
   }

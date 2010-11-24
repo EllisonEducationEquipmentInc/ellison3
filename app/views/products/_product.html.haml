@@ -5,11 +5,12 @@
     .list_actions
       = link_to_function "Move to Another List", "$(this).siblings('.move_to_another_list').toggle()", :class => 'jqui_move_min'
       = link_to "Delete from List", {:controller => 'users', :action => 'remove_from_list', :id => product, :list => @list.id}, :remote => true, :method => :delete, :confirm => "Are you sure yo want to remove this item from this List?", :class => 'jqui_destroy_min'
-      .move_to_another_list.rounded{:style => "display:none"}
+      .move_to_another_list{:style => "display:none"}
+        %h4 Move to Another List
+        = link_to_function 'cancel', "$(this).parents('.move_to_another_list').hide()", :class => "minibtn-cancel"
         = form_tag({:controller => 'users', :action => 'move_to_list', :id => product, :list => @list.id}, :remote => true) do
           = select_tag :move_to, options_for_select(@lists), :style => "max-width:150px"
-          = submit_tag "Move", :class => 'jqui_save'
-          = link_to_function 'cancel', "$(this).parents('.move_to_another_list').hide()"
+          = image_submit_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/notebook--arrow.png", :alt => "Move Item to Another List", :title => "Move Item to Another List")
   %h3.item_number
     = product.item_num
   - unless product.public_life_cycle.blank?

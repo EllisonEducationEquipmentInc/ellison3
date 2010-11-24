@@ -1,6 +1,6 @@
 .users_lists_container
   %h4 Add Item to My List
-  = link_to_function 'cancel', "$(this).parents('.users_lists_container').hide()", :class => 'cancel', :alt => "Cancel", :title => "Cancel"
+  = link_to_function 'cancel', "$(this).parents('.users_lists_container').hide()", :class => 'minibtn-cancel', :alt => "Cancel", :title => "Cancel"
   = form_tag({:controller => 'users', :action => 'add_to_list', :id => params[:id]}, :remote => true, :method => :get) do
     = select_tag :list, options_for_select(@lists, get_user.lists.default.try(:id)), :style => "max-width:150px"
     = link_to "Manage My Lists", myaccount_path('mylists')
