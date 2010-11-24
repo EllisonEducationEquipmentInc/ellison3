@@ -59,7 +59,7 @@ $.extend(ViewToggler.prototype, {
 			this.dom.addClass("toggled");
 		};
 		$(window).unbind( 'hashchange');
-		location.hash = $.param.fragment( location.hash, {view: this.dom.attr('data-current-state')}, 0 );
+		location.hash = $.param.fragment( location.hash, {view: this.current_state}, 0 );
 		$(this.settings.collection_container).fadeOut("fast", function() {
 			if (that.settings.states.indexOf(that.current_state) == 0) {
 				$(this).fadeIn("fast").removeClass("listview");

@@ -33,7 +33,7 @@
         %tr{ :class => cycle(:odd, :even) }
           %td= product.item_num
           %td= product.name
-          %td= number_to_currency product.price
+          %td= number_to_currency product.price rescue 'N/A'
           %td= l product.send("start_date_#{current_system}"), :format => :custom rescue "N/A for #{current_system}"
           %td= l product.send("end_date_#{current_system}"), :format => :custom rescue "N/A for #{current_system}"
           %td= product.life_cycle
