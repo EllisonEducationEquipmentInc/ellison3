@@ -467,7 +467,27 @@ body.bp .product_sidebar p {
 }
 
 /* line 475, ../../../app/stylesheets/partials_app/_catalog.scss */
-.add_to_cart_detail {
+.add_to_cart {
+  width: 121px;
+  height: 25px;
+  background: url("/images/ui-buttons/addtocart_off.png") no-repeat;
+  border: none;
+  color: #fff;
+}
+/* line 482, ../../../app/stylesheets/partials_app/_catalog.scss */
+.add_to_cart .ui-icon {
+  background-image: none;
+}
+/* line 486, ../../../app/stylesheets/partials_app/_catalog.scss */
+.add_to_cart.ui-button {
+  margin-right: 0;
+}
+/* line 490, ../../../app/stylesheets/partials_app/_catalog.scss */
+.add_to_cart:hover {
+  background: url("/images/ui-buttons/addtocart_on.png") no-repeat;
+}
+/* line 492, ../../../app/stylesheets/partials_app/_catalog.scss */
+.add_to_cart.detail {
   width: 176px;
   height: 30px;
   background: url("/images/ui-buttons/addtocart_detail_off.png") no-repeat;
@@ -478,34 +498,13 @@ body.bp .product_sidebar p {
   font-size: 1.1em;
   color: #fff;
 }
-/* line 486, ../../../app/stylesheets/partials_app/_catalog.scss */
-.add_to_cart_detail .ui-icon {
+/* line 503, ../../../app/stylesheets/partials_app/_catalog.scss */
+.add_to_cart.detail .ui-icon {
   background-image: none;
 }
-/* line 490, ../../../app/stylesheets/partials_app/_catalog.scss */
-.add_to_cart_detail:hover {
+/* line 507, ../../../app/stylesheets/partials_app/_catalog.scss */
+.add_to_cart.detail:hover {
   background: url("/images/ui-buttons/addtocart_detail_on.png") no-repeat;
-}
-
-/* line 493, ../../../app/stylesheets/partials_app/_catalog.scss */
-.add_to_cart {
-  width: 121px;
-  height: 25px;
-  background: url("/images/ui-buttons/addtocart_off.png") no-repeat;
-  border: none;
-  color: #fff;
-}
-/* line 500, ../../../app/stylesheets/partials_app/_catalog.scss */
-.add_to_cart .ui-icon {
-  background-image: none;
-}
-/* line 504, ../../../app/stylesheets/partials_app/_catalog.scss */
-.add_to_cart.ui-button {
-  margin-right: 0;
-}
-/* line 508, ../../../app/stylesheets/partials_app/_catalog.scss */
-.add_to_cart:hover {
-  background: url("/images/ui-buttons/addtocart_on.png") no-repeat;
 }
 
 /* line 1, ../../../app/stylesheets/partials/_layout_content_products.scss */
