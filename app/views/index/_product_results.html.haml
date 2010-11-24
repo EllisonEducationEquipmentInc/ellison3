@@ -1,6 +1,5 @@
 .right= select_tag :sort, options_for_select([["Relevance", nil], ["New Arrivals", "start_date_#{current_system}:desc"], ["Best Sellers", "quantity_sold:desc"], ["Lowest Price", "price_#{current_system}_#{current_currency}:asc"], ["Highest Price", "price_#{current_system}_#{current_currency}:desc"], ["Product Name [A-Z]", "sort_name:asc"], ["Product Name [Z-A]", "sort_name:desc"]], params[:sort]), :onchange => "location.hash = $.param.fragment( location.hash, {sort: this.value, page: 1}, 0 )"
-.toggleview.right.minilink
-  = link_to "switch to list view", "#", :class => "toggle_view"
+.toggleview.right.minilink= link_to "switch to list view", "#", :class => "toggle_view"
 %h3== #{@search.total} Products Showing
 - if is_er? && ecommerce_allowed?
   = check_box_tag :select_all_products, "1", false, :onclick => "$('input.add_to_cart_checkbox').attr('checked', this.checked);toggle_add_checked_to_cart();"

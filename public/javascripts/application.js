@@ -59,7 +59,7 @@ function shadow_on() {
 }
 
 function bind_hashchange () {
-	$(window).bind( 'hashchange', function(){
+	$(window).bind( 'hashchange', function(event){
 	  var hash = location.hash;
 		if (location.pathname.indexOf("/catalog") >= 0) {
 			_gaq.push(['_trackEvent', 'Catalog', 'Search', $.param.fragment()]);
@@ -107,17 +107,36 @@ function er_number_only() {
 }
 
 function toggle_view() {
-	$("a.toggle_view").toggle(function(){
+	this.list_view = function(){
     $(this).text("switch back to grid view").addClass("toggled");
+		$(this).attr('data-current-state', 'list');
+		$(window).unbind( 'hashchange');
+		location.hash = $.param.fragment( location.hash, {view: $(this).attr('data-current-state')}, 0 );
     $(".highlightable").fadeOut("fast", function() {
       $(this).fadeIn("fast").addClass("listview");
+			bind_hashchange();
     });
-  }, function () {
+  };
+
+	this.grid_view = function () {
     $(this).text("switch to list view").removeClass("toggled");
+		$(this).attr('data-current-state', 'grid');
+		$(window).unbind( 'hashchange');
+		location.hash = $.param.fragment( location.hash, {view: $(this).attr('data-current-state')}, 0 );
     $(".highlightable").fadeOut("fast", function() {
       $(this).fadeIn("fast").removeClass("listview");
+			bind_hashchange();
     });
-  });
+  }
+	if ($.deparam.fragment()['view'] == 'list') {
+		// this.list_view.call($("a.toggle_view"));
+		$(".highlightable").addClass("listview");
+		$("a.toggle_view").text("switch back to grid view").addClass("toggled").attr('data-current-state', 'list');
+		$("a.toggle_view").toggle(this.grid_view, this.list_view);
+	} else{
+		$("a.toggle_view").toggle(this.list_view, this.grid_view);
+	};
+			
 }
 
 $(document).ready(function(){
