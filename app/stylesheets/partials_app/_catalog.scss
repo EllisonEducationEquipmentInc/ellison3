@@ -1,16 +1,23 @@
 // Ellison3 Web Application Catalog Page CSS
 
-// reset block level element margins
 body.bp {
+  .products_filter, .products_grid {
+    
+    h3 {
+      margin: 2px 0 10px 0;
+      font-size: 1.1em;
+      font-weight: bold;      
+    }
+  }
+  
   .product-block, .product_buybox {
     
-    p, h3, h4 {
+    p, h4 {
       margin:0;
       line-height: 1.2em;
     }
   
     h3 {
-      font-size: 1.1em;
       color: $catalog_item-num;
     }
   
@@ -22,14 +29,8 @@ body.bp {
   }
   
   .product-block {
-    p, h3 {
-      line-height: 1.2em;
-    }
 
     h3 {
-      margin: 2px 0 10px 0;
-      font-size: 1.1em;
-      font-weight: bold;
       color: $catalog_item-num;
     }
 
@@ -193,7 +194,6 @@ body.bp {
   $product-block-padding: 8px;
 
 	background: $catalog_product_bg;
-	//border: 1px solid $catalog_product_border;
 	float: left;
 	height: 290px;
 	margin: 0 0 14px 14px;
