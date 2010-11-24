@@ -106,37 +106,6 @@ function er_number_only() {
 	$('input.er_product_quantity').keydown(number_only);
 }
 
-function toggle_view() {
-
-	tview = function(state, fade) {
-		console.log(this)
-		if (state == 'list') {
-			$(this).text("switch back to grid view").addClass("toggled");
-		} else {
-			$(this).text("switch to list view").removeClass("toggled");
-		};
-		$(this).attr('data-current-state', state);
-    if (fade) {
-			$(window).unbind( 'hashchange');
-			location.hash = $.param.fragment( location.hash, {view: $(this).attr('data-current-state')}, 0 );
-			$(".highlightable").fadeOut("fast", function() {
-				if (state == 'list') {$(this).fadeIn("fast").addClass("listview");} else {$(this).fadeIn("fast").removeClass("listview");};
-				bind_hashchange();
-	    });
-		} else {
-			if (state == 'list') {$(".highlightable").addClass("listview");} else {$(this).fadeIn("fast").removeClass("listview");};
-		};
-	}
-	
-	if ($.deparam.fragment()['view'] == 'list') {
-		tview.call($("a.toggle_view"), 'list', false);
-		// $("a.toggle_view").toggle(tview('list',true), tview('grid',true));
-	} else{
-		// $("a.toggle_view").toggle(tview('grid',true), tview('list',true));
-	};
-			
-}
-
 $(document).ready(function(){
 	
 	bind_hashchange ();
