@@ -6,7 +6,8 @@ body.bp {
     h3 {
       margin: 2px 0 10px 0;
       font-size: 1.1em;
-      font-weight: bold;      
+      font-weight: bold;
+      text-transform: none;
     }
   }
   
@@ -39,6 +40,12 @@ body.bp {
   
   	  &:hover{ color: $catalog_hover;}
   	}    
+  }
+  
+  h3.product_title {
+    font-size: 1.8em;
+    font-weight: normal;
+    text-transform: none;
   }
   
   .product_buybox {

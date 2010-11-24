@@ -1,11 +1,11 @@
 - if @message
   .error= @message
 #guest_checkout
-  %h2 New Customer 
+  %h2 I'm A New Customer 
   = form_for(resource, :as => resource_name, :url => registration_path(resource_name, :secure => true)) do |f|
     = render :partial => "form", :locals => {:f => f}
 #returning_cuctomer
-  %h2 Returning Customer 
+  %h2 I'm A Returning Customer 
   = form_for(resource, :as => "existing_#{resource_name}", :url => session_path(resource_name, :secure => true)) do |f|
     = render :partial => 'users/sessions/form', :locals => {:f => f}
   - if devise_mapping.recoverable? && controller_name != 'passwords'

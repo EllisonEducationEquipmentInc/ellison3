@@ -11,9 +11,9 @@ body.bp {
   h1, h2, h3, h4, h5 {
     margin-bottom: 2px;
   }
-  h3 { font-size: 1.8em; }
+  h2 { font-size: 1.8em; }
   
-  h3.decorative {
+  h2.decorative {
     height: 45px;
 
     span {
@@ -23,7 +23,11 @@ body.bp {
     }
   }
   
-  h4 { text-transform: uppercase; }
+  h3 {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
   
   a { outline: none; }
 }
@@ -528,9 +532,9 @@ body.bp {
   
   .product-carousel {
     
-    h3.bestsellers { background: url('/images/ui-objects/heart_pink.png') no-repeat; }
+    h2.bestsellers { background: url('/images/ui-objects/heart_pink.png') no-repeat; }
 
-    h3.newarrivals { background: url('/images/ui-objects/leaf_fall.png') no-repeat; }   
+    h2.newarrivals { background: url('/images/ui-objects/leaf_fall.png') no-repeat; }   
     
     img.thumbnail {
       float: left;
@@ -575,16 +579,16 @@ body.bp {
   }
   
   #staffpicks {
-    h3 { background: url('/images/ui-objects/pumpkin.png') no-repeat; }
+    h2 { background: url('/images/ui-objects/pumpkin.png') no-repeat; }
   }
 
   #blog-posts {
-    h3 { background: url('/images/ui-objects/flower_pink-geometric.png') no-repeat; }
+    h2 { background: url('/images/ui-objects/flower_pink-geometric.png') no-repeat; }
   }
 
   #social-media {
     
-    h3 { background: url('/images/ui-objects/bird_blue-twitter.png') no-repeat; }
+    h2 { background: url('/images/ui-objects/bird_blue-twitter.png') no-repeat; }
     
     .tweets, #connect-with-sizzix {
       margin:0;
