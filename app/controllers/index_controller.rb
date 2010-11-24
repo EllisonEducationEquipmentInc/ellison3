@@ -37,8 +37,12 @@ class IndexController < ApplicationController
     fresh_when :etag => [current_locale, current_system, current_user]
 	end
 	
+	def outlet
+	  @title = "Sizzix Outlet"
+	end
+	
 	def search
-    get_search
+    get_search(outlet?)
     session[:user_return_to] = catalog_path + "#" + request.env["QUERY_STRING"]
 	  @products = @search.results
 	end
@@ -52,7 +56,7 @@ class IndexController < ApplicationController
 	
 private
   
-  def get_search
+  def get_search(outlet = false)
     # TODO: move price ranges to a class 
 	  @price_ranges = is_ee? ? [["under", 20], ["under", 60], ["under", 100], ["under", 150], ["under", 300], ["under", 600], ["over", 600]] : [["under", 5], ["under", 10], ["under", 15], ["under", 25], ["under", 50], ["over", 50]]
 	  @facets = params[:facets] || ""
@@ -65,6 +69,7 @@ private
 				params[:"spellcheck.collate"] = true
 			end
 	    query.with :"listable_#{current_system}", true
+	    query.with :outlet, outlet
 	    @facets_hash.each do |f|
 	      query.with :"#{f.split("~")[0]}_#{current_system}", f
 	    end

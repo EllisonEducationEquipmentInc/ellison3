@@ -65,10 +65,14 @@
       = f.label "wholesale_price_#{currency}"
       %br
       = f.text_field "wholesale_price_#{currency}"
-  / .field
-  /   = f.label :price
-  /   %br
-  /   = f.text_field :price
+  .field
+    = f.label :outlet
+    %br
+    = f.check_box :outlet, :onclick => "if (this.checked) {$('#outlet_price').show()} else {$('#outlet_price').hide()}"
+  .field#outlet_price{:style => "display:#{@product.outlet ? 'block' : 'none'}"}
+    = f.label :price
+    %br
+    = f.text_field :price
   .field
     = f.label "start_date_#{current_system}", "Start Date #{current_system.upcase}", :class => 'overrideable'
     %br

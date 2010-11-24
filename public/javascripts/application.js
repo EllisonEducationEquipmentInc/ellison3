@@ -4,6 +4,7 @@
 var _gaq = _gaq || [];
 var button_label = button_label || '';
 var number_only = function(e){if (e.keyCode != 46 && e.keyCode != 8 && e.keyCode != 9 && !String.fromCharCode(e.keyCode).match(/\d+/)) return false}
+var outlet = location.pathname.indexOf("/outlet") >= 0;
 
 $(function() {
   $(".wymeditor").wymeditor();
@@ -61,9 +62,11 @@ function shadow_on() {
 function bind_hashchange () {
 	$(window).bind( 'hashchange', function(event){
 	  var hash = location.hash;
-		if (location.pathname.indexOf("/catalog") >= 0) {
-			_gaq.push(['_trackEvent', 'Catalog', 'Search', $.param.fragment()]);
-			$.ajax({url:"/index/search?"+$.param.fragment(), beforeSend: function(){$("#product_catalog").css({opacity: 0.3})}, complete: function(){$("#product_catalog").css({opacity: 1})}});
+		if (location.pathname.indexOf("/catalog") >= 0 || outlet) {
+			var event_name = outlet ? "Outlet" : 'Catalog'
+			var outlet_param = outlet ? "outlet=1&" : ''
+			_gaq.push(['_trackEvent', event_name, 'Search', $.param.fragment()]);
+			$.ajax({url:"/index/search?"+outlet_param+$.param.fragment(), beforeSend: function(){$("#product_catalog").css({opacity: 0.3})}, complete: function(){$("#product_catalog").css({opacity: 1})}});
 		}
 	});
 }

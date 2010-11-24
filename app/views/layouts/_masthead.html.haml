@@ -1,6 +1,9 @@
 -# logo masthead & branding
-%h1.masthead= link_to system_name, root_path, :id => "logo_masthead", :title => system_name, :alt => system_name
-
+%h1.masthead  
+  - if outlet?
+    = link_to "Sizzix Outlet", outlet_path, :id => "logo_masthead", :title => "Sizzix Outlet", :alt => "Sizzix Outlet"
+  - else
+    = link_to system_name, root_path, :id => "logo_masthead", :title => system_name, :alt => system_name
 -# utility navigation menu (customer account management, shopping cart, etc)  
 %ul.nav_utility.dontprint
   - if user_signed_in?
@@ -193,7 +196,7 @@
         %p.contentwrap_medium.last
           'I beg your pardon,' said Alice very humbly: 'you had got to the fifth  bend, I think?'
     %li.megaitem
-      = link_to "Shop the Outlet", "#", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
+      = link_to "Shop the Outlet", outlet_path, :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
       .megapanel
         %ul.contentwrap_small
           %li massa interdum

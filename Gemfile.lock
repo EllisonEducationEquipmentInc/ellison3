@@ -37,7 +37,7 @@ GIT
 
 GIT
   remote: git://github.com/probablycorey/mini_magick.git
-  revision: 430531f357547388b4dcd2a0cdef3c6df6e57d4e
+  revision: d22f1010d5476aa7837166168fae49e69a6696cc
   specs:
     mini_magick (3.1)
       subexec (~> 0.0.4)
@@ -80,7 +80,7 @@ GEM
       activesupport (= 3.0.3)
     activesupport (3.0.3)
     archive-tar-minitar (0.5.2)
-    arel (2.0.3)
+    arel (2.0.4)
     bcrypt-ruby (2.1.2)
     bson (1.1.2)
     bson_ext (1.1.2)
@@ -106,7 +106,7 @@ GEM
     columnize (0.3.2)
     compass (0.10.6)
       haml (>= 3.0.4)
-    configuration (1.1.0)
+    configuration (1.2.0)
     crack (0.1.8)
     cucumber (0.9.4)
       builder (~> 2.1.2)
@@ -152,9 +152,9 @@ GEM
       rake (>= 0.8.1)
     linecache19 (0.5.11)
       ruby_core_source (>= 0.1.4)
-    mail (2.2.9.1)
+    mail (2.2.10)
       activesupport (>= 2.3.6)
-      i18n (>= 0.4.1)
+      i18n (~> 0.4.1)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
@@ -245,7 +245,7 @@ GEM
     sunspot_rails (1.1.0)
       sunspot (= 1.1.0)
     term-ansicolor (1.0.5)
-    thor (0.14.4)
+    thor (0.14.6)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.23)

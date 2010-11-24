@@ -52,6 +52,7 @@ class Product
 	field :minimum_quantity, :type => Integer, :default => 1
 	field :weight, :type => Float, :default => 0.0
 	field :active, :type => Boolean, :default => true
+	field :outlet, :type => Boolean, :default => false
 	field :life_cycle
 	field :systems_enabled, :type => Array
 	field :tax_exempt, :type => Boolean, :default => false
@@ -142,6 +143,7 @@ class Product
 	# solr fields:
 	searchable :auto_index => true, :auto_remove => true do
 	  boolean :active
+	  boolean :outlet
 		text :tag_names do
 			tags.map { |tag| tag.name }
 		end
