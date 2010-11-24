@@ -13,6 +13,7 @@ module EllisonSystem
 	def current_system=(s)
 		Thread.current[:current_system] = s if ELLISON_SYSTEMS.include?(s)
 		set_default_locale
+		change_timezone
 		current_system
 	end
 	
@@ -34,6 +35,10 @@ module EllisonSystem
   
 	def current_currency
 		LOCALES_2_CURRENCIES[current_locale.to_s]
+	end
+	
+	def change_timezone
+	  Time.zone = is_us? ? 'Pacific Time (US & Canada)' : 'London'
 	end
 	
 	def allowed_locales(sys = current_system)
