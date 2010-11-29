@@ -406,7 +406,7 @@ body.bp .product_sidebar p {
 }
 /* line 417, ../../../app/stylesheets/partials_app/_catalog.scss */
 .highlightable.listview .product-block .list_actions .move_to_another_list {
-  top: -60px;
+  top: -59px;
 }
 
 /* line 425, ../../../app/stylesheets/partials_app/_catalog.scss */
@@ -522,6 +522,11 @@ body.bp .product_sidebar p {
 /* line 525, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart.detail:hover {
   background: url("/images/ui-buttons/addtocart_detail_on.png") no-repeat;
+}
+
+/* line 529, ../../../app/stylesheets/partials_app/_catalog.scss */
+#jump_to_list {
+  margin-bottom: 5px;
 }
 
 /* line 1, ../../../app/stylesheets/partials/_layout_content_products.scss */

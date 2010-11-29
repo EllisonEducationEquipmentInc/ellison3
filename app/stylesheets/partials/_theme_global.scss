@@ -29,11 +29,32 @@ body.bp {
     text-transform: uppercase;
   }
   
-  a { outline: none; }
+  a {
+    color: $primary;
+    text-decoration: none;
+    outline: none;
+    
+    &:hover {
+      color: darken($primary, 25%);
+      text-decoration: underline;
+    }
+  }
+  
+  ul.plain {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  
+    li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
 }
 
 #tips li {
-  display: none ;
+  display: none;
 }
 
 #header {

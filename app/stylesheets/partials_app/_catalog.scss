@@ -415,7 +415,7 @@ body.bp {
   	    left: 713px;
 
     	  .move_to_another_list {
-    	    top: -60px;
+    	    top: -59px;
     	  }	  
   	  }
     }
@@ -524,4 +524,8 @@ body.bp {
   
     &:hover { background: url('/images/ui-buttons/addtocart_detail_on.png') no-repeat; };    
   }
+}
+
+#jump_to_list {
+  margin-bottom: 5px;
 }

@@ -1,4 +1,4 @@
-%h3.left== Manage List: #{@list.name}
+%h3== Manage List: #{@list.name}
 .contentwrap_XXL
   %p.left
     - unless @list.comments.blank?
@@ -15,7 +15,7 @@
     %strong Select Another Wishlist:
     %br
     = select_tag :jump_to_list, options_for_select(@lists, params[:id]), :style => "max-width:200px", :onchange => "window.location='/list/'+this.value"
-  %ul
+  %ul.plain
     %li= link_to "Manage My Lists", myaccount_path('mylists')
     %li= link_to_function 'Share this list with friends and family', "$('#email_list').slideDown();$('#list_your_name').focus();"
 - if @users_list
