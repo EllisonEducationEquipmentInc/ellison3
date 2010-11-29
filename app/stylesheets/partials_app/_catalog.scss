@@ -27,6 +27,32 @@ body.bp {
 	  
   	  &:hover{ color: $catalog_hover;}
   	}
+
+    .users_lists_container {
+
+      h4 {
+        font-family: Verdana,Arial,sans-serif;        
+        font-weight: bold;
+        font-size: 10px;
+        text-transform: none;
+        color: #6C5941;
+        margin-bottom: 8px;
+      }
+  
+      a {
+        font-family: Verdana,Arial,sans-serif;        
+        font-size: 10.2px;
+        margin-bottom: 0;
+        text-decoration: none;
+        color: #9c8a73;
+    
+        &:hover {
+          color: $catalog_filter_hover;
+          text-decoration: underline;
+        }
+      }
+    }
+
   }
   
   .product-block {
@@ -41,7 +67,7 @@ body.bp {
   	  &:hover{ color: $catalog_hover;}
   	}    
   }
-  
+
   h3.product_title {
     font-size: 1.8em;
     font-weight: normal;
@@ -316,46 +342,32 @@ body.bp {
 	  }
 	  
 	  .users_lists_container {
-	    position: absolute;
-	    top: -30px;
-	    left: -6px;
-	    background: white;
-	    padding: 8px;
-	    border: 1px solid gray;
 	    width: $product-block-width + 11;
-	    text-align: left;
-	    z-index: 201;
-	  
-	    h4 {
-	      font-family: Verdana,Arial,sans-serif;
-	      font-weight: bold;
-	      font-size: 10px;
-	      text-transform: none;
-	      color: #6C5941;
-	      margin-bottom: 8px;
-	      float: left;
-	    }
-	    
-	    select#list {
-	      margin-bottom: 8px;
-	    }
-	    
-	    input {
-	      float: right;
-	    }
-
-      a {
-        margin-bottom: 0;
-        text-decoration: none;
-        color: #9c8a73;
-        
-        &:hover {
-          color: $catalog_filter_hover;
-          text-decoration: underline;
-        };        
-      }          
+      position: absolute;
+      top: -30px;
+      left: -6px;
 	  }
 	}	
+}
+
+.users_lists_container {
+  background: white;
+  padding: 8px;
+  border: 1px solid gray;
+  text-align: left;
+  z-index: 201;
+
+  h4 {
+    float: left;
+  }
+  
+  select#list {
+    margin-bottom: 8px;
+  }
+  
+  input {
+    float: right;
+  }
 }
 
 .highlightable {
@@ -458,6 +470,7 @@ body.bp {
 }
 
 .product_buybox {
+  position: relative;
 	background: $catalog_buybox_bg;
 	border: 1px solid $catalog_buybox_border;
 	padding: 6px;
@@ -467,9 +480,22 @@ body.bp {
 	  margin-top: 7px;
 	}
 	
+	a {
+	  display: block;
+	  margin-top: 4px;
+	  font-family: Verdana,Arial,sans-serif;
+	  font-size: 10.2px;
+	}
+	
 	.ui-button {
 	  margin-top: 3px;
-	}	
+	}
+	
+	.users_lists_container {
+    position: absolute;
+    top: 64px;
+    left: 0px;
+	}
 }
 
 .add_to_cart {
