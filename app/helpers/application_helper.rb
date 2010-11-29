@@ -144,7 +144,7 @@ HTML
 	  r = ''
 	  unless params[:q].blank?
 	    r << keyword_label
-	    r << link_to_function("x", "location.hash = $.param.fragment( location.hash, {q: '', page: 1}, 0 )")
+	    r << link_to_function("x", "location.hash = $.param.fragment( location.hash, {q: '', page: 1}, 0 )", :class => "tag_breadcrumb_remove")
 	    r << "<br />"
 	  end 
 	  unless @breadcrumb_tags.blank? && params[:price].blank? && params[:saving].blank?
