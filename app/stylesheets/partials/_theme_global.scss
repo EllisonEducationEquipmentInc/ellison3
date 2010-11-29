@@ -53,6 +53,15 @@ body.bp {
   }
 }
 
+ul.ui-tabs-nav {
+  li.ui-state-hover {
+    a { color: #fff; }
+  }
+  li.ui-state-active {
+    a { color: $primary; }
+  }
+}
+
 #tips li {
   display: none;
 }

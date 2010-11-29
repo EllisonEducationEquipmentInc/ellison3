@@ -1,6 +1,6 @@
 - if @profile
   %p.dontprint.notice= @profile
-%strong Login/email:
+%strong Login/Email:
 = get_user.email
 = link_to "change", edit_user_registration_path(get_user), :remote => true
 %br
