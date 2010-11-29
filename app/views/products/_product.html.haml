@@ -11,9 +11,11 @@
         = form_tag({:controller => 'users', :action => 'move_to_list', :id => product, :list => @list.id}, :remote => true) do
           = select_tag :move_to, options_for_select(@lists), :style => "max-width:150px"
           = image_submit_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/notebook--arrow.png", :alt => "Move Item to Another List", :title => "Move Item to Another List")
-  %h3.item_number
-    = product.item_num
-  - unless product.public_life_cycle.blank?
+  %h3.item_number= product.item_num
+  - if outlet?
+    .life-cycle
+      %span== Save #{product.saving}%
+  - elsif !product.public_life_cycle.blank?
     .life-cycle
       %span= product.public_life_cycle
   %p.item_image= link_to image_tag(product.medium_image), product_url(:id => product), :class => outlet? ? 'lightbox' : nil

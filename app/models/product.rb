@@ -158,6 +158,7 @@ class Product
 		end
 		string :systems_enabled, :multiple => true
 		integer :quantity, :stored => true
+		integer :saving, :stored => true
 		LOCALES_2_CURRENCIES.values.each do |currency|
       float :"msrp_#{currency}" do
         msrp :currency => currency
@@ -195,6 +196,9 @@ class Product
       LOCALES_2_CURRENCIES.values.each do |currency|
         float :"price_#{system}_#{currency}" do
           price :currency => currency, :system => system
+        end
+        integer :"saving_#{system}_#{currency}" do
+          saving(system, currency)
         end
       end
     end
@@ -267,6 +271,12 @@ class Product
 	end
 
 	alias :sale_price :campaign_price
+	
+	def saving(sys = current_system, curr = current_currency)
+		sp = ((msrp(:currency => curr) - price(:currency => curr, :system => sys))/msrp(:currency => curr) * 100).round rescue 0
+		sp = 0 if sp < 0 || (sp.respond_to?(:nan?) && sp.nan?)
+		sp
+	end
 	
 	def get_best_campaign(time = Time.zone.now)
 		campaigns.current(time).sort {|x,y| x.sale_price <=> y.sale_price}.first
@@ -377,7 +387,7 @@ class Product
 	def calculated_volume
 	  self.volume || (self.width * self.height * self.length)
 	end
-
+	
 private 
 
   # automatically set system specific attributes (if not set) of all other enabled systems. Values are inherited from the current system

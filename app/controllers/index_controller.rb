@@ -61,7 +61,13 @@ private
   
   def get_search(outlet = false)
     # TODO: move price ranges to a class 
-	  @price_ranges = is_ee? ? [["under", 20], ["under", 60], ["under", 100], ["under", 150], ["under", 300], ["under", 600], ["over", 600]] : [["under", 5], ["under", 10], ["under", 15], ["under", 25], ["under", 50], ["over", 50]]
+	  @price_ranges = if outlet
+	    [["under", 1], ["under", 5], ["under", 10], ["under", 15], ["under", 20], ["under", 50], ["over", 50]]
+	  elsif is_ee?
+	    [["under", 20], ["under", 60], ["under", 100], ["under", 150], ["under", 300], ["under", 600], ["over", 600]]
+	  else
+	    [["under", 5], ["under", 10], ["under", 15], ["under", 25], ["under", 50], ["over", 50]]
+	  end
 	  @facets = params[:facets] || ""
 	  @facets_hash = @facets.split(",")
 	  @breadcrumb_tags = @facets_hash.blank? ? [] : Tag.any_of(*@facets_hash.map {|e| {:tag_type => e.split("~")[0], :permalink => e.split("~")[1]}}).cache 
