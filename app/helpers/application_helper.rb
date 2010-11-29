@@ -147,12 +147,13 @@ HTML
 	    r << link_to_function("x", "location.hash = $.param.fragment( location.hash, {q: '', page: 1}, 0 )")
 	    r << "<br />"
 	  end 
-	  unless @breadcrumb_tags.blank? && params[:price].blank?
+	  unless @breadcrumb_tags.blank? && params[:price].blank? && params[:saving].blank?
 	    breadcrumbs = [link_to_function("All", "location.hash = ''")] #[]
 	    @breadcrumb_tags.each do |tag|
 	      breadcrumbs << link_to(tag.name, "#", :rel => tag.facet_param, :class => "tag_breadcrumb") + " " + link_to("x", "#", :title => "remove #{tag.name}", :rel => tag.facet_param, :class => "tag_breadcrumb_remove")
 	    end
-	    breadcrumbs << price_label + link_to("x", "#", :rel => params[:price], :title => "remove price", :class => "price_breadcrumb_remove") unless params[:price].blank?
+	    breadcrumbs << price_label + ' ' + link_to("x", "#", :rel => params[:price], :title => "remove price", :class => "price_breadcrumb_remove") unless params[:price].blank?
+	    breadcrumbs << saving_label + ' ' + link_to("x", "#", :rel => params[:saving], :title => "remove saving", :class => "saving_breadcrumb_remove") unless params[:saving].blank?
 	    r << breadcrumbs.join("<span class='breadcrumb_arrow'> > </span>".html_safe)
 	    r << javascript_tag do
 	      <<-JS
@@ -173,6 +174,10 @@ HTML
               location.hash = $.param.fragment( location.hash, {price: '', page: 1}, 0 );
         			return false;
         		});
+      		$('.saving_breadcrumb_remove').click(function() {       
+              location.hash = $.param.fragment( location.hash, {saving: '', page: 1}, 0 );
+        			return false;
+        		});
       	});
 	      JS
 	    end
@@ -181,7 +186,11 @@ HTML
 	end
 	
 	def price_label
-	  "#{params[:price].split("~")[0].capitalize} #{number_to_currency(params[:price].split("~")[1])} " unless params[:price].blank?
+	  PriceFacet.instance.get_label(params[:price], false, outlet?) unless params[:price].blank?
+	end
+	
+	def saving_label
+	  PriceFacet.instance.get_label(params[:saving], true) unless params[:saving].blank?
 	end
 	
 	def keyword_label

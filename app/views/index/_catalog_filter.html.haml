@@ -2,7 +2,7 @@
 = text_field_tag :keyword, nil, :autocomplete => "off", :placeholder => "enter search keyword", :style => "width:144px;" unless params[:action] == "shop"
 .facets.ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
   - @search.facets.each do |facet|
-    - next if facet.rows.length < 1 || @facets_hash.any? {|h| h.include?(facet_to_param(facet.name))} || (facet.name == :price && !params[:price].blank?)
+    - next if facet.rows.length < 1 || @facets_hash.any? {|h| h.include?(facet_to_param(facet.name))} || (facet.name == :price && !params[:price].blank?) || (facet.name == :saving && !params[:saving].blank?)
     %h4.head.ui-accordion-header.ui-helper-reset.ui-state-default.ui-corner-top
       %span.ui-icon.ui-icon-triangle-1-s
       = link_to facet.name.to_s.gsub("_#{current_system}", "").humanize, "#"
@@ -10,8 +10,10 @@
       - facet.rows.each do |row|
         - if facet.class == Sunspot::Search::FieldFacet
           %li= link_to "#{row.instance.name} (#{row.count})", "/catalog#facets=#{(@facets_hash + [row.value]).join(",")}",  :rel => "#{row.value}", :title =>  row.instance.name, :class => "facet_value"
+        - elsif row.value.saving
+          %li= link_to "#{row.value.label} (#{row.count})", "/catalog#facets=#{@facets_hash.join(",")}&saving=#{row.value.min}~#{row.value.max}", :title => row.value.label, :rel => "#{row.value.min}~#{row.value.max}", :class => "saving_query_facet_value"
         - else
-          %li= link_to "#{row.value[0].capitalize} #{number_to_currency(row.value[1])} (#{row.count})", "/catalog#facets=#{@facets_hash.join(",")}&price=#{row.value.join("~")}", :title => "#{row.value[0].capitalize} #{number_to_currency(row.value[1])}", :rel => "#{row.value.join("~")}", :class => "price_query_facet_value"
+          %li= link_to "#{row.value.label} (#{row.count})", "/catalog#facets=#{@facets_hash.join(",")}&price=#{row.value.min}~#{row.value.max}", :title => row.value.label, :rel => "#{row.value.min}~#{row.value.max}", :class => "price_query_facet_value"
 - unless params[:action] == "shop"
   :javascript
     $(function() {
@@ -25,6 +27,10 @@
       });
       $(".price_query_facet_value").click(function() {
         location.hash = $.param.fragment( location.hash, {price: $(this).attr('rel'), page: 1}, 0 );
+        return false;
+      });
+      $(".saving_query_facet_value").click(function() {
+        location.hash = $.param.fragment( location.hash, {saving: $(this).attr('rel'), page: 1}, 0 );
         return false;
       });
       $('#keyword').change(function() {

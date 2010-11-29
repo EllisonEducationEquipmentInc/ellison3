@@ -60,14 +60,6 @@ class IndexController < ApplicationController
 private
   
   def get_search(outlet = false)
-    # TODO: move price ranges to a class 
-	  @price_ranges = if outlet
-	    [["under", 1], ["under", 5], ["under", 10], ["under", 15], ["under", 20], ["under", 50], ["over", 50]]
-	  elsif is_ee?
-	    [["under", 20], ["under", 60], ["under", 100], ["under", 150], ["under", 300], ["under", 600], ["over", 600]]
-	  else
-	    [["under", 5], ["under", 10], ["under", 15], ["under", 25], ["under", 50], ["over", 50]]
-	  end
 	  @facets = params[:facets] || ""
 	  @facets_hash = @facets.split(",")
 	  @breadcrumb_tags = @facets_hash.blank? ? [] : Tag.any_of(*@facets_hash.map {|e| {:tag_type => e.split("~")[0], :permalink => e.split("~")[1]}}).cache 
@@ -82,16 +74,26 @@ private
 	    @facets_hash.each do |f|
 	      query.with :"#{f.split("~")[0]}_#{current_system}", f
 	    end
-	    query.with(:"price_#{current_system}_#{current_currency}").send(params[:price].split("~")[0] == "under" ? :less_than : :greater_than, params[:price].split("~")[1]) unless params[:price].blank?
+	    query.with(:"price_#{current_system}_#{current_currency}", params[:price].split("~")[0]..params[:price].split("~")[1]) unless params[:price].blank?
+      query.with(:"saving_#{current_system}_#{current_currency}", params[:saving].split("~")[0]..params[:saving].split("~")[1]) unless params[:saving].blank?
 	    tag_types.each do |e|
     		query.facet :"#{e.to_s}_#{current_system}"
      	end
      	query.facet(:price) do |qf|
-	      @price_ranges.each do |price_range|
+	      PriceFacet.instance.facets(outlet).each do |price_range|
 	        qf.row(price_range) do
-            with(:"price_#{current_system}_#{current_currency}").send(price_range[0] == "under" ? :less_than : :greater_than, price_range[1])
+            with(:"price_#{current_system}_#{current_currency}", price_range.min..price_range.max)
           end
 	      end
+      end
+      if outlet
+        query.facet(:saving) do |qf|
+          PriceFacet.instance.savings.each do |saving|
+            qf.row(saving) do
+              with(:"saving_#{current_system}_#{current_currency}", saving.min..saving.max)
+            end
+          end
+        end
       end
      	query.paginate(:page => params[:page] || 1, :per_page => 16)
      	query.order_by(*params[:sort].split(":")) unless params[:sort].blank?

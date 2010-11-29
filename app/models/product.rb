@@ -101,6 +101,8 @@ class Product
   
 	# scopes
 	scope :active, :where => { :active => true }
+	scope :not_outlet, :where => { :outlet => false }
+	scope :outlet, :where => { :outlet => true }
 	scope :inactive, :where => { :active => false }
 	
 	ELLISON_SYSTEMS.each do |sys|
