@@ -17,9 +17,11 @@ class IndexController < ApplicationController
 		@product = Product.send(current_system).criteria.id(params[:id]).first
 		raise "Invalid product" unless @product.displayable?
 		@title = @product.name
+		redirect_to :action => "outlet", :anchor => "q=#{@product.item_num}" and return if !request.xhr? && is_sizzix_us? && @product && @product.outlet 
 		fresh_when(:etag => [current_locale, current_system, @product, current_user, request.xhr?], :last_modified => @product.updated_at.utc)
 		render :product_min, :layout => false and return if request.xhr?
-	rescue
+	rescue Exception => e
+	  Rails.logger.error e.message
 		go_404
 	end
 	
