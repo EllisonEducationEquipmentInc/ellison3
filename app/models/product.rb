@@ -48,7 +48,7 @@ class Product
 	field :long_desc
 	field :item_num
 	field :upc
-	field :quantity, :type => Integer, :default => 0
+  field :quantity, :type => Integer, :default => 0
 	field :minimum_quantity, :type => Integer, :default => 1
 	field :weight, :type => Float, :default => 0.0
 	field :active, :type => Boolean, :default => true
@@ -66,7 +66,6 @@ class Product
 	index :life_cycle
 	index :active
 	index :name
-	index :quantity
 	ELLISON_SYSTEMS.each do |system|
 	  index :"start_date_#{system}"
 	  index :"end_date_#{system}"
@@ -139,6 +138,10 @@ class Product
 			field "price_#{system}_#{currency}".to_sym, :type => Float
 		end
 	end
+	WAREHOUSES.each do |warehouse|
+	  field "quantity_#{warehouse}".to_sym, :type => Integer, :default => 0
+	  index "quantity_#{warehouse}".to_sym
+	end
 
 	mount_uploader :image, ImageUploader	
 	
@@ -159,7 +162,7 @@ class Product
 		  name
 		end
 		string :systems_enabled, :multiple => true
-		integer :quantity, :stored => true
+    # integer :quantity, :stored => true
 		integer :saving, :stored => true
 		LOCALES_2_CURRENCIES.values.each do |currency|
       float :"msrp_#{currency}" do
@@ -344,14 +347,27 @@ class Product
 	  displayable?(sys) && LIFE_CYCLES[0,3].include?(life_cycle)
 	end
 	
+	
+	def quantity
+	  if is_sizzix_us?
+	    self.quantity_us + self.quantity_sz
+	  else
+	    is_us? ? self.quantity_us : self.quantity_uk
+	  end
+	end
+	
 	def update_quantity(qty)
 		skip_versioning_and_timestamps
-		update_attributes :quantity => qty
+    # TODO: build logic 
 	end
 	
 	def decrement_quantity(qty)
 		skip_versioning_and_timestamps
-		update_attributes :quantity => self.quantity - qty
+	  if is_sizzix? && qty > self.quantity_us
+	    update_attributes :quantity_sz => self.quantity_sz + self.quantity_us - qty, :quantity_us => 0
+	  else
+	    is_us? ? update_attributes(:quantity_us => self.quantity_us - qty) : update_attributes(:quantity_uk => self.quantity_uk - qty)
+	  end
 	end
 	
 	def in_stock?
@@ -419,7 +435,8 @@ private
 	
 	# NOTE: needs git://github.com/computadude/mongoid.git
 	def skip_versioning_and_timestamps
-		self._skip_timestamps = self._skip_versioning = true
+		self._skip_timestamps = true if respond_to?(:_skip_timestamps=)
+		self._skip_versioning = true if respond_to?(:_skip_versioning=)
 	end
 	
 	def clean_up_tags

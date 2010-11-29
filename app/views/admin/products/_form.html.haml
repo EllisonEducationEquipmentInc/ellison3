@@ -37,10 +37,11 @@
       = f.label "handling_price_#{currency}"
       %br
       = f.text_field "handling_price_#{currency}"
-  .field
-    = f.label :quantity
-    %br
-    = f.text_field :quantity
+  - WAREHOUSES.each do |warehouse|
+    .field
+      = f.label "quantity_#{warehouse}"
+      %br
+      = f.text_field "quantity_#{warehouse}"
   .field
     = f.label :minimum_quantity, "Minimum Quantity for Retailers"
     %br

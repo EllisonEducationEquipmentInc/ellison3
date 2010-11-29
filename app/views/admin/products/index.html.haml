@@ -22,7 +22,8 @@
         = sortable "end_date_#{current_system}", "End Date"
         = sortable "life_cycle"
         %th Orderable
-        = sortable "quantity", "Qty."
+        - WAREHOUSES.each do |warehouse|
+          = sortable "quantity_#{warehouse}", "Qty. #{warehouse.upcase}"
         %th Systems
         %th &nbsp;
         - if has_write_permissions?
@@ -38,7 +39,8 @@
           %td= l product.send("end_date_#{current_system}"), :format => :custom rescue "N/A for #{current_system}"
           %td= product.life_cycle
           %td= product.send "orderable_#{current_system}"
-          %td= product.quantity
+          - WAREHOUSES.each do |warehouse|
+            %td= product.send "quantity_#{warehouse}"
           %td= product.systems_enabled.join(", ") rescue ''
           %td= link_to 'Show', admin_product_path(product), :class => 'jqui_show_min'
           - if has_write_permissions?
