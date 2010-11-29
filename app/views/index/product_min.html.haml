@@ -1,0 +1,26 @@
+.product_min{:style => "width:780px"}
+  %h3.product_title
+    = @product.name
+    %span.life-cycle= @product.public_life_cycle
+  .product_images
+    #large_image= image_tag(@product.large_image)
+    .thumbnail.selected= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}'); return false;"
+    - @product.images.each do |image|
+      .thumbnail= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;"
+  .product_buybox.rounded
+    %h4.itemnumber
+      Item #
+      = @product.item_num
+    %h4= display_product_price(@product)
+    = add_to_cart_button(@product, 'add_to_cart detail')
+  %p= @product.description.try :html_safe
+  .clear  
+  #tab_accordion
+    - @product.tabs.current.each do |tab|
+      %h3= link_to tab.name, "#"
+      %div{:id => "tabs-#{tab.id}"}= render 'tabs/tab', :tab => tab
+:javascript
+  $(function() {
+    $("#tab_accordion").accordion();
+    initialize_buttons();
+  });

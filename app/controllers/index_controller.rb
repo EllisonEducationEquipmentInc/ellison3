@@ -17,7 +17,8 @@ class IndexController < ApplicationController
 		@product = Product.send(current_system).criteria.id(params[:id]).first
 		raise "Invalid product" unless @product.displayable?
 		@title = @product.name
-		fresh_when(:etag => [current_locale, current_system, @product, current_user], :last_modified => @product.updated_at.utc)
+		fresh_when(:etag => [current_locale, current_system, @product, current_user, request.xhr?], :last_modified => @product.updated_at.utc)
+		render :product_min, :layout => false and return if request.xhr?
 	rescue
 		go_404
 	end
@@ -43,7 +44,7 @@ class IndexController < ApplicationController
 	
 	def search
     get_search(outlet?)
-    session[:user_return_to] = catalog_path + "#" + request.env["QUERY_STRING"]
+    session[:user_return_to] = (outlet? ? outlet_path : catalog_path) + "#" + request.env["QUERY_STRING"]
 	  @products = @search.results
 	end
 	
