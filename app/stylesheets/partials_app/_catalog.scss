@@ -16,6 +16,10 @@ body.bp {
     p, h4 {
       margin:0;
       line-height: 1.2em;
+      
+      &.buttonset {
+        margin-top: 4px;
+      }
     }
   
     h3 {
@@ -320,12 +324,6 @@ body.bp {
     display: none;
   }
 
-	button {
-	  margin-bottom:2px;
-	}
-
-	.ui-button { @extend button; }
-
 	// position the cart button stack to the bottom center of each product block
 	.cart-buttons {
 	  width: 100%;
@@ -480,14 +478,15 @@ body.bp {
 	  margin-top: 7px;
 	}
 	
-	.ui-button {
-	  margin-top: 3px;
-	}
-	
 	.users_lists_container {
     position: absolute;
     top: 64px;
     left: 0px;
+	}
+	
+	a {
+	  font-family: Verdana,Arial,sans-serif;
+	  font-size: 10.2px;
 	}
 }
 
