@@ -469,17 +469,19 @@ $.expr[':'].icontains = function(obj, index, meta, stack){
 };
 
 function check_items_checkboxes(element) {
-	if (element.find('.product_autocomplete').val() == undefined) return false;
+	if (model == undefined) var model = 'product';
+	if (element.find('.'+model+'_autocomplete').val() == undefined) return false;
 	$(element).find('.admin_checkboxes [type=checkbox]').attr('checked', false);
-  var item_nums = element.find('.product_autocomplete').val().split(/,\s*/);
+  var item_nums = element.find('.'+model+'_autocomplete').val().split(/,\s*/);
   for(var i = 0; i < item_nums.length; i++)
   { 
     $(element).find('.admin_checkboxes [type=checkbox][value='+item_nums[i]+']').attr('checked', true);
   }
 };
 
-function check_items_to_item_num_field(element) {
-	var text_field = $(element).parents('.products_helper').find('.product_autocomplete');
+function check_items_to_item_num_field(element, model) {
+	if (model == undefined) var model = 'product';
+	var text_field = $(element).parents('.'+model+'s_helper').find('.'+model+'_autocomplete');
 	if (text_field.val() == undefined) return false;
 	var items = split(text_field.val())
 	if ($(element).attr('checked')) {

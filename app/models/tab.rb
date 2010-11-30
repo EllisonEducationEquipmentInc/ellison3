@@ -47,6 +47,14 @@ class Tab
 	def product_item_nums=(product_item_nums)
 		write_attribute(:products, product_item_nums.split(/,\s*/)) unless product_item_nums.nil?
 	end
+	
+	def idea_item_nums
+		read_attribute(:ideas).try :join, ", "
+	end
+	
+	def idea_item_nums=(idea_item_nums)
+		write_attribute(:ideas, idea_item_nums.split(/,\s*/)) unless idea_item_nums.nil?
+	end
 
 	def compatibility_item_nums
 		read_attribute(:compatibility) || []

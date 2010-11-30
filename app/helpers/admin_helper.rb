@@ -29,4 +29,24 @@ module AdminHelper
     end.html_safe
   end
   
+  def ideas_helper_tag(name, value = nil, options = {})
+    content_tag :div, :class => "ideas_helper field #{options[:class].try(:html_safe)}" do
+      r = label_tag(name, options[:label]).html_safe || sanitize_to_id(name).humanize
+      r += tag("br")
+      r += text_field_tag(name, value, :size => 150, :class => 'idea_autocomplete').html_safe
+      r += tag("br")
+      r += link_to("Ideas Helper", "#", :class => "idea_helper_link").html_safe
+      r += javascript_tag do
+        <<-JS
+          $('.idea_helper_link').click(function(e){
+            $.ajax({url:'/admin/ideas/idea_helper', context: $(e.currentTarget).parent(), beforeSend: function(){$(this).find('.idea_helper_link').replaceWith('#{escape_javascript spinner}')}, success: function(data){$(this).find('.spinner').replaceWith(data);check_items_checkboxes(this)}});
+            return false;
+          });
+          $('##{sanitize_to_id(name)}').autocomplete(auto_complete_options);
+        JS
+        .html_safe
+      end
+    end.html_safe
+  end
+  
 end
