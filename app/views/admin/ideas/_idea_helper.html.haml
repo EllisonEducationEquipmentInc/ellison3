@@ -1,0 +1,23 @@
+= link_to_function "update checkboxes", "check_items_checkboxes($(this).parent())"
+(use it to update checkboxes if you manually deleted an item num)
+%br
+= radio_button_tag "product_helper_tags_#{@rand}", "all", true, :id => nil, :onclick => "$(this).parent().find('.product_helper_check_box_row').show()"
+show All
+.clear
+- @tags.each do |group|
+  .admin_tag_selectors
+    %strong= group["tag_type"].humanize
+    .admin_tag_checkboxes
+      - group["group"].each do |tag|
+        = radio_button_tag "product_helper_tags_#{@rand}", tag.id, false, :id => nil, :onclick => "$(this).parents('.products_helper').find('.product_helper_check_box_row').hide();$(this).parents('.products_helper').find('.#{tag.id}').show();"
+        = tag.name
+        %br
+.clear
+= link_to_function "add all visible", "$(this).parent().find('[type=checkbox][checked=false]:visible').attr('checked', true).each(function (i) {check_items_to_item_num_field(this)})"
+.admin_checkboxes
+  - @products.each do |product|
+    %div{:class => "product_helper_check_box_row #{product.tag_ids * ' '}"}
+      = check_box_tag "product_helper", product.item_num, false, :class => "product_helper_check_box", :id => nil, :onchange => "check_items_to_item_num_field(this)"
+      = image_tag(product.small_image, :size => "12x12", :onmouseover => "$(this).css({'height': '65px', 'width': '65px', 'position': 'absolute', 'z-index': 99})", :onmouseout => "$(this).css({'height': '12px', 'width': '12px', 'position': 'relative', 'z-index': 1})")
+      = "#{product.item_num} #{product.name}"
+      %br

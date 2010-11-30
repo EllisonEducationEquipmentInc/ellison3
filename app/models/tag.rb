@@ -11,6 +11,7 @@ class Tag
   HIDDEN_TYPES = ["exclusive", "calendar"]
   
   references_many :products, :stored_as => :array, :inverse_of => :tags, :index => true
+  references_many :ideas, :stored_as => :array, :inverse_of => :tags, :index => true
   embeds_one :campaign
   
   validates :name, :tag_type, :systems_enabled, :permalink, :presence => true
@@ -83,6 +84,12 @@ class Tag
 	def my_product_ids=(ids)
 	  self.product_ids = []
 	  self.products = Product.where(:_id.in => ids.compact.uniq.map {|i| BSON::ObjectId(i)}).uniq.map {|p| p}
+	end
+
+	# temporary many-to-many association fix until patch is released	
+	def my_idea_ids=(ids)
+	  self.idea_ids = []
+	  self.ideas = Idea.where(:_id.in => ids.compact.uniq.map {|i| BSON::ObjectId(i)}).uniq.map {|p| p}
 	end
 	
 	def campaign?

@@ -104,6 +104,14 @@ Ellison3::Application.routes.draw do |map|
 					put :update_campaign, :update_tab
 			  end
 			end
+			resources :ideas do
+				collection do
+			    get :new_image, :new_tab, :ideas_autocomplete, :reorder_tabs, :show_tabs, :idea_helper
+					post :upload_image, :create_tab, :update_tab, :clone_existing_tab
+					delete :delete_image, :delete_tab
+					put :update_tab
+			  end
+			end
 			resources :us_shipping_rates, :as => :fedex_rates
 			resources :shipping_rates
 			resources :users

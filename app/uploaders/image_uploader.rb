@@ -17,11 +17,15 @@ class ImageUploader < CarrierWave::Uploader::Base
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
     #"uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.item_num}"
-		"#{Rails.root}/public/images/#{model.class.to_s.pluralize.underscore}/#{version_name}"
+		"#{Rails.root}/public/images/#{subdir_name}/#{version_name}"
   end
 	# 
 	def cache_dir
 	  "#{Rails.root}/tmp/uploads"
+	end
+	
+	def subdir_name
+	  model.class.to_s.pluralize.underscore
 	end
 	# ================ file storage block ends ================
 	
@@ -34,7 +38,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Provide a default URL as a default if there hasn't been a file uploaded
   def default_url(version_name = "medium")
     #"/images/fallback/" + [version_name, "default.png"].compact.join('_')
-    "/images/products/#{version_name}/#{model.item_num}.jpg"
+    "/images/#{subdir_name}/#{version_name}/#{model.item_num}.jpg"
   end
 
   # Process files as they are uploaded.

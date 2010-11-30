@@ -1,0 +1,41 @@
+%h1 Listing ideas
+= link_to 'New idea', new_admin_idea_path, :class => 'jqui_new' if has_write_permissions?
+%br
+%h3 Filters
+- unless params[:q].blank?
+  = link_to 'all', admin_ideas_path, :class => 'jqui_button'
+- form_tag(admin_ideas_path, :method => :get) do
+  = admin_systems_checkboxes
+  = text_field_tag :q, nil, :placeholder => "idea num, name"
+  = check_box_tag :inactive, "1", params[:inactive] == "1"
+  Incl. inactive
+  = submit_tag "search", :class => 'jqui_search'
+.highlightable
+  %table
+    %thead
+      %tr
+        = sortable 'idea_num'
+        = sortable 'name'
+        = sortable "start_date_#{current_system}", "Start Date"
+        = sortable "end_date_#{current_system}", "End Date"
+        %th Systems
+        %th &nbsp;
+        - if has_write_permissions?
+          %th &nbsp;
+          %th &nbsp;
+    %tbody
+      - for idea in @ideas
+        %tr{ :class => cycle(:odd, :even) }
+          %td= idea.idea_num
+          %td= idea.name
+          %td= l idea.send("start_date_#{current_system}"), :format => :custom rescue "N/A for #{current_system}"
+          %td= l idea.send("end_date_#{current_system}"), :format => :custom rescue "N/A for #{current_system}"
+          %td= idea.systems_enabled.join(", ") rescue ''
+          %td= link_to 'Show', admin_idea_path(idea), :class => 'jqui_show_min'
+          - if has_write_permissions?
+            %td= link_to 'Edit', edit_admin_idea_path(idea), :class => 'jqui_edit_min'
+            %td= link_to 'Destroy', admin_idea_path(idea), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
+%br
+= will_paginate @ideas
+%br
+= link_to 'New idea', new_admin_idea_path, :class => 'jqui_new' if has_write_permissions?

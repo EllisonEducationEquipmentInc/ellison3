@@ -61,6 +61,13 @@
   %h3 Products
   %ul#tag_products= render :partial => 'product', :collection => @tag.products
   = text_field_tag "tag_products_helper"
+  %br
+  %br
+  %h3 Ideas
+  %ul#tag_ideas= render :partial => 'idea', :collection => @tag.ideas
+  = text_field_tag "tag_ideas_helper"
+  %br
+  %br
   .actions
     = f.submit :class => 'jqui_save'
 :javascript
@@ -86,6 +93,26 @@
   	select: function(event, ui) {
   	  this.value = '';
   	  $("#tag_products").append("<li class='ui-menu-item'><a href='#' onclick='$(this).parent().remove();return false;'>x</a> "+ui.item.label+"<input name=\"tag[my_product_ids][]\" type=\"hidden\" value=\""+ui.item.id+"\" /></li>");
+  		return false;
+  	}});
+  $("#tag_ideas_helper").autocomplete({
+  	source: function(request, response) {
+  		$.getJSON("/admin/ideas/ideas_autocomplete", {
+  			term: request.term
+  		}, response);
+  	},
+  	search: function() {
+  		if (this.value.length < 2) {
+  			return false;
+  		}
+  	},
+  	focus: function( event, ui ) {
+    				$( "#tag_ideas_helper" ).val( ui.item.label );
+    				return false;
+    			},
+  	select: function(event, ui) {
+  	  this.value = '';
+  	  $("#tag_ideas").append("<li class='ui-menu-item'><a href='#' onclick='$(this).parent().remove();return false;'>x</a> "+ui.item.label+"<input name=\"tag[my_idea_ids][]\" type=\"hidden\" value=\""+ui.item.id+"\" /></li>");
   		return false;
   	}});
   
