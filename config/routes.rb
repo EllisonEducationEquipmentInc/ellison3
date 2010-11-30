@@ -46,6 +46,7 @@ Ellison3::Application.routes.draw do |map|
 	match 'catalog' => 'index#catalog', :as => :catalog
 	match 'outlet' => 'index#outlet', :as => :outlet
 	match 'product/:id' => 'index#product', :as => :product
+	match 'idea/:id' => 'index#idea', :as => :idea
 	
 	match 'forget_credit_card' => 'carts#forget_credit_card', :as => :forget_credit_card
 	match 'cart' => 'carts#index', :as => :cart
