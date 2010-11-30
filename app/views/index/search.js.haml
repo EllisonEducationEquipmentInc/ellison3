@@ -2,9 +2,9 @@
 == $('#product_catalog').html('#{escape_javascript(render(:partial => "index/product_results"))}');
 == $('#catalog_breadcrumbs').html('#{escape_javascript(catalog_breadcrumbs)}');
 - if @breadcrumb_tags.blank? && params[:price].blank? && params[:q].blank?
-  document.title = document.title.replace(/^Catalog[^|]+|/, 'Catalog ')
+  == document.title = document.title.replace(/^#{outlet? ? 'Outlet' : 'Catalog'}[^|]+|/, '#{outlet? ? 'Outlet' : 'Catalog'} ')
 - else
-  document.title = document.title.replace(/^Catalog[^|]+|/, 'Catalog - #{escape_javascript(@breadcrumb_tags.map {|t| t.name}.concat([price_label, keyword_label]).compact.join(" > ").html_safe)} ')
+  == document.title = document.title.replace(/^#{outlet? ? 'Outlet' : 'Catalog'}[^|]+|/, '#{outlet? ? 'Outlet' : 'Catalog'} - #{escape_javascript(@breadcrumb_tags.map {|t| t.name}.concat([price_label, keyword_label]).compact.join(" > ").html_safe)} ')
 == _gaq.push(['_setAccount', '#{ga_tracker_id}']);
 _gaq.push(['_trackPageview', location.pathname + location.hash + location.search]);
 shadow_on();

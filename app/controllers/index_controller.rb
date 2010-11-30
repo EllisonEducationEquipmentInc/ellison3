@@ -56,7 +56,7 @@ class IndexController < ApplicationController
 	end
 	
 	def outlet
-	  @title = "Sizzix Outlet"
+	  @title = "Outlet"
 	end
 	
 	def search
