@@ -64,7 +64,7 @@ class Idea
 	
 	class << self		
 		def available
-			active.where(:"start_date_#{current_system}".lte => Time.zone.now, :"end_date_#{current_system}".gte => Time.zone.now)
+			active.where(:"start_date_#{current_system}".lte => Time.zone.now.change(:sec => 1), :"end_date_#{current_system}".gte => Time.zone.now.change(:sec => 1))
 		end
 		
 		def find_by_idea_num(idea_num)
