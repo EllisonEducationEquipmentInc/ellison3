@@ -34,7 +34,7 @@ class IndexController < ApplicationController
 		@idea = Idea.send(current_system).criteria.id(params[:id]).first
 		raise "Invalid idea" unless @idea.listable?
 		@title = @idea.name
-	  fresh_when(:etag => [current_locale, current_system, @idea, current_user], :last_modified => @idea.updated_at.utc)
+	  fresh_when(:etag => [current_system, @idea], :last_modified => @idea.updated_at.utc)
 	rescue Exception => e
 	  Rails.logger.info e.message
 		go_404
