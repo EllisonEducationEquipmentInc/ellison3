@@ -422,23 +422,24 @@ ul.ui-tabs-nav {
     background: transparent url('/images/_temp/stolen/bg_footer_bar.png') no-repeat;
     margin-bottom: 12px;    
     height: 49px;
+    text-align: center;
     
     p {
-      margin:16px 0 0 0;
+      margin: 10px 0 0 0;
       font-family: Georgia, serif;
-      font-size: 11px;
+      font-size: 16px;
       font-style: italic;
       font-weight: bold;
       line-height: 2em;
       color: #685f18;
-      
-      input {
-        font-size: 9px;
-        color: #685f18;
-      }
     }
     
-    #email-signup p { margin-left:10px;}
+    &:hover {
+      p {
+        color: #000;
+        cursor: pointer; cursor: hand;
+      }
+    }
   }
   
   .billboard {
