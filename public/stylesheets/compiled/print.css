@@ -331,7 +331,7 @@ body.bp .product_sidebar p {
 .product-block .cart-buttons .users_lists_container {
   width: 178px;
   position: absolute;
-  top: -30px;
+  bottom: 0px;
   left: -6px;
 }
 
@@ -396,7 +396,7 @@ body.bp .product_sidebar p {
 /* line 407, ../../../app/stylesheets/partials_app/_catalog.scss */
 .highlightable.listview .product-block .users_lists_container {
   position: absolute;
-  top: 0px;
+  bottom: 33px;
   left: -74px;
 }
 /* line 413, ../../../app/stylesheets/partials_app/_catalog.scss */
@@ -474,7 +474,7 @@ body.bp .product_sidebar p {
 /* line 481, ../../../app/stylesheets/partials_app/_catalog.scss */
 .product_buybox .users_lists_container {
   position: absolute;
-  top: 64px;
+  top: 62px;
   left: 0px;
 }
 /* line 487, ../../../app/stylesheets/partials_app/_catalog.scss */

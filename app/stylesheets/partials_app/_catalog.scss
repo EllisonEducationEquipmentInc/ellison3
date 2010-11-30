@@ -342,7 +342,7 @@ body.bp {
 	  .users_lists_container {
 	    width: $product-block-width + 11;
       position: absolute;
-      top: -30px;
+      bottom: 0px;
       left: -6px;
 	  }
 	}	
@@ -406,7 +406,7 @@ body.bp {
       
   	  .users_lists_container {
   	    position: absolute;
-  	    top: 0px;
+  	    bottom: 33px;
   	    left: -74px;
   	  }
   	  
@@ -480,7 +480,7 @@ body.bp {
 	
 	.users_lists_container {
     position: absolute;
-    top: 64px;
+    top: 62px;
     left: 0px;
 	}
 	
