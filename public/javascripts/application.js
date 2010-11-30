@@ -153,20 +153,7 @@ $(document).ready(function(){
     out: megamenuHoverOut // function = onMouseOut callback (REQUIRED)
   };
   $("#nav_megamenu li").hoverIntent(hoverconfig); // trigger hover intent with custom configurations	
-	
-	// content sliders
-  $("#gallery").sudoSlider({
-    controlsFade:false,
-    prevHtml:'<a href="#" class="prevBtn"> prev </a>',
-    ajax: ['/images/_temp/gallery_mockup_003.jpg', '/images/_temp/gallery_mockup_001.jpg', '/images/_temp/gallery_mockup_002.jpg', '/images/_temp/gallery_mockup_003.jpg', '/images/_temp/gallery_mockup_002.jpg', '/images/_temp/gallery_mockup_003.jpg', '/images/_temp/gallery_mockup_001.jpg', '/images/_temp/gallery_mockup_002.jpg', '/images/_temp/gallery_mockup_003.jpg'],
-    numeric:true,
-    preloadAjax:true,
-    imgAjaxFunction: function(t){
-        var url = $(this).children().attr('src');	
-        $('.controls li a span').eq(t-1).html('<img src="' + url + '" width="60" height="20" />');
-    }
-  });
-  
+	  
   // billboard sliders
 	// Full Caption Sliding (Hidden to Visible)
   $('.boxgrid.captionfull').hover(function(){

@@ -1,6 +1,34 @@
 #frame_gallery
   = image_tag("/images/ui-objects/_#{current_system}_frame_gallery.png", :id => "frame_gallery")
   #gallery
+  - if is_sizzix_us?
+    :javascript
+      $(document).ready(function(){
+        $("#gallery").sudoSlider({
+          controlsFade: false,
+          prevHtml: '<a href="#" class="prevBtn"> prev </a>',
+          ajax: ['/images/_temp/gallery_mockup_003.jpg', '/images/_temp/gallery_mockup_001.jpg', '/images/_temp/gallery_mockup_002.jpg', '/images/_temp/gallery_mockup_003.jpg', '/images/_temp/gallery_mockup_002.jpg', '/images/_temp/gallery_mockup_003.jpg', '/images/_temp/gallery_mockup_001.jpg', '/images/_temp/gallery_mockup_002.jpg', '/images/_temp/gallery_mockup_003.jpg'],
+          numeric: false,
+          preloadAjax: true,
+          fade: true,
+          auto: true
+        });
+      });
+  - else
+    :javascript
+      $(document).ready(function(){
+        $("#gallery").sudoSlider({
+          controlsFade: false,
+          prevHtml: '<a href="#" class="prevBtn"> prev </a>',
+          ajax: ['/images/_temp/gallery_mockup_003.jpg', '/images/_temp/gallery_mockup_001.jpg', '/images/_temp/gallery_mockup_002.jpg', '/images/_temp/gallery_mockup_003.jpg', '/images/_temp/gallery_mockup_002.jpg', '/images/_temp/gallery_mockup_003.jpg', '/images/_temp/gallery_mockup_001.jpg', '/images/_temp/gallery_mockup_002.jpg', '/images/_temp/gallery_mockup_003.jpg'],
+          numeric: true,
+          preloadAjax: true,
+          imgAjaxFunction: function(t){
+            var url = $(this).children().attr('src');
+            $('.controls li a span').eq(t-1).html('<img src="' + url + '" width="60" height="20" />');
+          }
+        });
+      });
 
 #customer-outreach
   #email-signup
