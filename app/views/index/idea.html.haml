@@ -17,17 +17,5 @@
 .idea_moreinfo
   = image_tag("http://placehold.it/470x150")
   %h4 Keywords:
-  %p
-    = link_to "flower", "#"
-    , 
-    = link_to "blue", "#"
-    , 
-    = link_to "Christmas", "#"
-    , 
-    = link_to "Deena Ziegler", "#"
-    , 
-    = link_to "Big Shot Pro", "#"
-    , 
-    = link_to "felt", "#"
-
+  %p= @idea.tags.keywords.map {|tag| link_to(tag.name, catalog_path(:anchor => "facets=#{tag.facet_param}&page=1&ideas=1"))}.join(", ").html_safe
 .idea_tabs= render :partial => 'tab_block', :locals => {:object => @idea}
