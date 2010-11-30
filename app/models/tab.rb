@@ -25,6 +25,7 @@ class Tab
 	
 	# associations
 	embedded_in :product, :inverse_of => :tabs
+	embedded_in :idea, :inverse_of => :tabs
 	embeds_many :images
 	
 	accepts_nested_attributes_for :images, :allow_destroy => true
