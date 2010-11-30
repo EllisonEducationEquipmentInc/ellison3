@@ -153,10 +153,7 @@ body.bp {
 }
 
 // catalog filter breadcrumbs
-#catalog_breadcrumbs {
-  font-weight: bold;
-  font-size: 9px;
-  text-transform: uppercase;
+#catalog_breadcrumbs { @extend .breadcrumbs;
   color: #b60000;
   
   a {

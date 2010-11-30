@@ -27,7 +27,7 @@
   text-transform: uppercase;
 }
 
-.breadcrumbs { @extend minilink;
+.breadcrumbs { @extend .minilink;
   margin-bottom: 4px;
 }
 
