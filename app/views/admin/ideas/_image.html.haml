@@ -1,1 +1,1 @@
-.left.product_admin_thumbnail{:id => "image_#{image.id}"}= link_to image_tag(image.image_url(:small)), {:action => 'delete_image', :id => image.id, :product_id => image.product.id}, :method => :delete, :remote => true, :confirm => "Are you sure you want to delete this object?"
+.left.idea_admin_thumbnail{:id => "image_#{image.id}"}= link_to image_tag(image.image_url(:small)), {:action => 'delete_image', :id => image.id, :idea_id => image.idea.id}, :method => :delete, :remote => true, :confirm => "Are you sure you want to delete this object?"

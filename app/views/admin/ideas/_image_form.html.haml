@@ -1,6 +1,6 @@
 - form_for @image, :url => {:action => 'upload_image'}, :html => {:multipart => true, :id => 'new_image_form'}, :remote => true do |f| 
   = f.file_field :image
-  = hidden_field_tag :product_id, @product.id
+  = hidden_field_tag :idea_id, @idea.id
   .actions
     = f.submit :class => 'jqui_ok'
 :javascript
