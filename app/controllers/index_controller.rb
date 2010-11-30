@@ -5,6 +5,8 @@ class IndexController < ApplicationController
 	
 	verify :xhr => true, :only => [:search, :quick_search], :redirect_to => {:action => :home}
 		
+	helper_method :idea?
+	
 	def home
 
 	end
@@ -58,7 +60,7 @@ class IndexController < ApplicationController
 	end
 	
 	def search
-    get_search(outlet?)
+    get_search
     session[:user_return_to] = (outlet? ? outlet_path : catalog_path) + "#" + request.env["QUERY_STRING"]
 	  @products = @search.results
 	end
@@ -72,34 +74,45 @@ class IndexController < ApplicationController
 	
 private
   
-  def get_search(outlet = false)
+  def get_search
+    @klass = idea? ? Idea : Product
+    @secondary_klass = idea? ? Product : Idea
 	  @facets = params[:facets] || ""
 	  @facets_hash = @facets.split(",")
-	  @breadcrumb_tags = @facets_hash.blank? ? [] : Tag.any_of(*@facets_hash.map {|e| {:tag_type => e.split("~")[0], :permalink => e.split("~")[1]}}).cache 
-	  @search = Product.search do |query|
+	  @breadcrumb_tags = @facets_hash.blank? ? [] : Tag.any_of(*@facets_hash.map {|e| {:tag_type => e.split("~")[0], :permalink => e.split("~")[1]}}).cache
+	  @sort_options = idea? ? [["Relevance", nil], ["New Ideas", "start_date_#{current_system}:desc"], ["Idea Name [A-Z]", "sort_name:asc"], ["Idea Name [Z-A]", "sort_name:desc"]] :
+	                    [["Relevance", nil], ["New Arrivals", "start_date_#{current_system}:desc"], ["Best Sellers", "quantity_sold:desc"], ["Lowest Price", "price_#{current_system}_#{current_currency}:asc"], ["Highest Price", "price_#{current_system}_#{current_currency}:desc"], ["Product Name [A-Z]", "sort_name:asc"], ["Product Name [Z-A]", "sort_name:desc"]]
+	  @search = perform_search(@klass)
+	  @secondary_search = perform_search(@secondary_klass)
+  end
+  
+  def perform_search(klass)
+    klass.search do |query|
 	    query.keywords params[:q] unless params[:q].blank?
 	    query.adjust_solr_params do |params|
         params[:"spellcheck"] = true
 				params[:"spellcheck.collate"] = true
 			end
 	    query.with :"listable_#{current_system}", true
-	    query.with :outlet, outlet
 	    @facets_hash.each do |f|
 	      query.with :"#{f.split("~")[0]}_#{current_system}", f
 	    end
-	    query.with(:"price_#{current_system}_#{current_currency}", params[:price].split("~")[0]..params[:price].split("~")[1]) unless params[:price].blank?
-      query.with(:"saving_#{current_system}_#{current_currency}", params[:saving].split("~")[0]..params[:saving].split("~")[1]) unless params[:saving].blank?
 	    tag_types.each do |e|
     		query.facet :"#{e.to_s}_#{current_system}"
      	end
-     	query.facet(:price) do |qf|
-	      PriceFacet.instance.facets(outlet).each do |price_range|
-	        qf.row(price_range) do
-            with(:"price_#{current_system}_#{current_currency}", price_range.min..price_range.max)
-          end
-	      end
-      end
-      if outlet
+	    unless klass == Idea
+	      query.with :outlet, outlet?
+	      query.with(:"price_#{current_system}_#{current_currency}", params[:price].split("~")[0]..params[:price].split("~")[1]) unless params[:price].blank?
+        query.with(:"saving_#{current_system}_#{current_currency}", params[:saving].split("~")[0]..params[:saving].split("~")[1]) unless params[:saving].blank?
+        query.facet(:price) do |qf|
+  	      PriceFacet.instance.facets(outlet?).each do |price_range|
+  	        qf.row(price_range) do
+              with(:"price_#{current_system}_#{current_currency}", price_range.min..price_range.max)
+            end
+  	      end
+        end
+	    end
+      if outlet? && klass != Idea
         query.facet(:saving) do |qf|
           PriceFacet.instance.savings.each do |saving|
             qf.row(saving) do
@@ -118,5 +131,9 @@ private
     tags = Tag::TYPES - Tag::HIDDEN_TYPES
     tags -= ["release_date", "special"] unless ecommerce_allowed?
     tags
+  end
+  
+  def idea?
+    params[:ideas] == "1"
   end
 end

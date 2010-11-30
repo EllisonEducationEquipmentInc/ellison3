@@ -1,7 +1,8 @@
-.right= select_tag :sort, options_for_select([["Relevance", nil], ["New Arrivals", "start_date_#{current_system}:desc"], ["Best Sellers", "quantity_sold:desc"], ["Lowest Price", "price_#{current_system}_#{current_currency}:asc"], ["Highest Price", "price_#{current_system}_#{current_currency}:desc"], ["Product Name [A-Z]", "sort_name:asc"], ["Product Name [Z-A]", "sort_name:desc"]], params[:sort]), :onchange => "location.hash = $.param.fragment( location.hash, {sort: this.value, page: 1}, 0 )"
+.right= select_tag :sort, options_for_select(@sort_options, params[:sort]), :onchange => "location.hash = $.param.fragment( location.hash, {sort: this.value, page: 1}, 0 )"
 .toggleview.right.minilink= link_to "switch to list view", "#", :class => "toggle_view"
-%h3== #{@search.total} Products Showing
-- if is_er? && ecommerce_allowed?
+%h3== #{pluralize @search.total, @klass.to_s} Showing
+#toggle_product_idea== #{pluralize @secondary_search.total, @secondary_klass.to_s} Found
+- if is_er? && ecommerce_allowed? && !idea?
   = check_box_tag :select_all_products, "1", false, :onclick => "$('input.add_to_cart_checkbox').attr('checked', this.checked);toggle_add_checked_to_cart();"
   = label_tag :select_all_products
   %br
@@ -23,7 +24,7 @@
       $('#add_all_selected_to_cart').button({label: 'Add All '+$('.add_to_cart_checkbox:checked').length+' Selected To Cart'});
     }
 - if @search.total < 1
-  We're sorry, we found 0 matching Products
+  == We're sorry, we found 0 matching #{@klass}s
   - if !@search.correctly_spelled? && @search.spell_collation
     %p 
       Did you mean? 
@@ -37,6 +38,10 @@
     $('.pagination.ajax a').click(function() {
       this.innerHTML='#{escape_javascript spinner}';
       location.hash = $.param.fragment( location.hash, {page: $.deparam.querystring(this.href)['page']}, 0 );
+      return false;
+    })
+    $('#toggle_product_idea').click(function() {
+      location.hash = $.param.fragment( location.hash, {ideas: #{idea? ? '0' : '1'}, page: 1}, 0 );
       return false;
     })
     $("a.toggle_view").toggleView({initial_state: $.deparam.fragment()['view']})
