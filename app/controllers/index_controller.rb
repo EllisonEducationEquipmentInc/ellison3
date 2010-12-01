@@ -84,6 +84,7 @@ class IndexController < ApplicationController
 	  @feedback = Feedback.new(params[:feedback])
 	  @feedback.department = Feedback::DEPARTMENTS[0]
 	  @feedback.expires_at = 7.days.since
+	  @feedback.user = get_user if user_signed_in?
 	  @feedback.comments.first.email ||= @feedback.email
 	end
 	

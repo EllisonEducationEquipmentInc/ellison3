@@ -3,7 +3,7 @@ class Admin::FeedbacksController < ApplicationController
 
   before_filter :set_admin_title
 	before_filter :admin_read_permissions!
-  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy]
+  before_filter :admin_write_permissions!, :only => [:new, :create, :show, :edit, :update, :destroy]
 	
 	ssl_exceptions
 	
