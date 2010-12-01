@@ -1,0 +1,11 @@
+%h3 Dear Valued Customer,
+%p A member of our Customer Service team has responded to your inquiry number , below. Please click on the link or copy and paste it into your browser if you have further questions or comments:
+%p= link_to reply_to_feedback_url(@feedback, :host => get_domain), reply_to_feedback_url(@feedback, :host => get_domain)
+%p This link will remain active for 7 days. Once the link expires, you will need create a new session by posting your question on our feedback form.
+%p **Please do not reply to this email as it is sent from an unattended mail box.**
+%ul#feedback_history= render :partial => 'comments/comment', :collection => @feedback.comments
+%p Kind regards,
+%p
+  Customer Support and Service
+  %br
+  = get_domain

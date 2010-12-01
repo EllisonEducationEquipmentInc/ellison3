@@ -17,4 +17,9 @@ class UserMailer < ActionMailer::Base
 		@note = note
 		mail(:from => user.email, :to => recipients, :subject => "#{name} wants to share their #{get_domain.capitalize} List with you")
 	end
+	
+	def feedback_reply(feedback)
+	  @feedback = feedback
+	  mail(:to => feedback.email, :subject => "RE: [#{get_domain.capitalize}] #{feedback.subject} - #{feedback.id}")
+	end
 end

@@ -1,5 +1,5 @@
 %li
-  = comment.admin_reply ? consumersupport_email : comment.email
+  = comment.admin_reply ? "Customer Support and Service" : comment.email
   = l comment.created_at, :format => :custom rescue ''
   %br
   = comment.message
