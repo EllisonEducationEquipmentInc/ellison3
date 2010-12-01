@@ -1,0 +1,18 @@
+%h1 Feedback History
+%strong== ID: #{@feedback.id}
+%br
+%strong== Subject: #{@feedback.subject}
+%br
+%strong== Email: #{@feedback.email}
+%ul#feedback_history= render :partial => 'comments/comment', :collection => @feedback.comments
+= form_for(@feedback.comments.build(:email => current_admin.email), :url => {:action => 'add_comment', :id => @feedback}, :html => {:id => "contact_form", :method => :post}) do |f|
+  .field
+    = f.label :email
+    %br
+    = f.text_field :email
+  .field
+    = f.label :message, "Your Reply"
+    %br
+    = f.text_area :message
+  .actions
+    = f.submit :class => 'jqui_save'

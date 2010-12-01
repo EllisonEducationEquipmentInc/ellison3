@@ -138,7 +138,12 @@ Ellison3::Application.routes.draw do |map|
 			    get :tags_autocomplete
 			  end
 			end
-			resources :profiles, :as => 'admins'			
+			resources :profiles, :as => 'admins'
+			resources :feedbacks do
+			  collection do
+			    post :update_attribute
+			  end
+			end
     end
 
   # You can have the root of your site routed with "root"

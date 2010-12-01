@@ -10,7 +10,7 @@
       = f.text_field :email
     .field
       = f.label :subject
-      = f.select :subject, Feedback.statuses
+      = f.select :subject, Feedback.subjects
     = f.fields_for :comments, @feedback.comments.build do |comments_fields|
       .field
         = comments_fields.label :message, "Your Comments"

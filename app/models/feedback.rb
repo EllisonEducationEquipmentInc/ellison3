@@ -5,10 +5,10 @@ class Feedback
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	
-	STATUSES = %w(new replied ignored closed)
+	STATUSES = %w(New replied ignored closed)
 	DEPARTMENTS = ["Customer Service", "Marketing", "Sales", "R&D", "I.T"]
 	
-	def self.statuses
+	def self.subjects
 	  if is_er?
   	  ['Corporate Information', 'General Suggestion', 'Retailer Information Request', 'Retailer Stores Update', 'Miscellaneous']
   	elsif is_ee_us?
@@ -26,14 +26,19 @@ class Feedback
 	field :subject
 	field :expires_at, :type => DateTime
 	field :priority, :type => Integer, :default => 0
-	field :status, :default => 'new'
+	field :status, :default => 'New'
 	field :department
+	field :system
+	
+	index :subject
+	index :email
+	index :status
+	index :system
 	
 	attr_protected :status, :priority
 	
 	validates_presence_of :email, :subject, :expires_at, :status
 	validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
-	validates_inclusion_of :status, :in => STATUSES
 	validates_associated :comments, :message => "can't be blank"
 	
 	referenced_in :user
@@ -41,4 +46,5 @@ class Feedback
 	
 	accepts_nested_attributes_for :comments, :allow_destroy => true
 	
+	before_create Proc.new {|obj| obj.system = current_system}
 end

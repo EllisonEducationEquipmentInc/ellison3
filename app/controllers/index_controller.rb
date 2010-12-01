@@ -82,13 +82,14 @@ class IndexController < ApplicationController
 	
 	def send_feedback
 	  @feedback = Feedback.new(params[:feedback])
+	  @feedback.department = Feedback::DEPARTMENTS[0]
 	  @feedback.expires_at = 7.days.since
 	  @feedback.comments.first.email ||= @feedback.email
-    # @feedback.comments.first.created_at = Time.zone.now
 	end
 	
 	def reply_to_feedback
 	  @feedback = Feedback.find(params[:id])
+	  raise "wrong system" unless @feedback.system == current_system
 	rescue 
 		go_404
 	end
@@ -97,7 +98,7 @@ class IndexController < ApplicationController
 	  @feedback = Feedback.find(params[:id])
 	  @comment = @feedback.comments.build params[:comment]
 	  @comment.email = @feedback.email
-	  @feedback.status = "new"
+	  @feedback.status = "New"
 	end
 	
 private

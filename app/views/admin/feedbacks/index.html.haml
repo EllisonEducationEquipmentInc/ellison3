@@ -1,0 +1,66 @@
+%h1 Listing feedbacks
+%br
+- unless params[:q].blank?
+  = link_to 'all', admin_feedbacks_path, :class => 'jqui_button'
+- form_tag(admin_feedbacks_path, :method => :get) do
+  = admin_systems_checkboxes
+  = text_field_tag :q, nil, :placeholder => "email, comment"
+  = select_tag :department, options_for_select([['All', nil]] + Feedback::DEPARTMENTS, params[:department])
+  = select_tag :subject, options_for_select([['All', nil]] + Feedback.subjects, params[:subject])
+  = select_tag :status, options_for_select([['All', nil]] + Feedback::STATUSES, params[:status])
+  = submit_tag "search", :class => 'jqui_search'
+.highlightable
+  %table
+    %thead
+      %tr
+        = sortable "id"
+        = sortable "email"
+        = sortable "subject"
+        = sortable "status"
+        = sortable "department"
+        %th System
+        = sortable "created_at"
+        - if has_write_permissions?
+          %th &nbsp;
+    %tbody
+      - for feedback in @feedbacks
+        %tr{ :class => cycle(:odd, :even)}
+          %td= link_to feedback.id, admin_feedback_path(feedback)
+          %td= feedback.email
+          %td
+            .comment_details{:style => "display:none;"}
+              %ul= render :partial => 'comments/comment', :collection => feedback.comments
+            %span.comment_subject= link_to "#{feedback.subject} (#{feedback.comments.count})", admin_feedback_path(feedback)
+          %td
+            %span.edit_status{:id => "status_#{feedback.id}"}= feedback.status
+          %td
+            %span.edit_department{:id => "department_#{feedback.id}"}= feedback.department
+          %td= feedback.system
+          %td= l feedback.created_at, :format => :custom rescue ''
+          - if has_write_permissions?
+            %td= link_to 'Reply', admin_feedback_path(feedback)
+%br
+= will_paginate @feedbacks
+%br
+- if has_write_permissions?
+  :javascript
+    $(".edit_department").editInPlace({
+      url: "/admin/feedbacks/update_attribute",
+      field_type: "select",
+      select_options: "#{Feedback::DEPARTMENTS * ', '}",
+      show_buttons: true,
+      saving_animation_color: "#ECF2F8"
+    });
+    $(".edit_status").editInPlace({
+      url: "/admin/feedbacks/update_attribute",
+      field_type: "select",
+      select_options: "#{Feedback::STATUSES * ', '}",
+      show_buttons: true,
+      saving_animation_color: "#ECF2F8"
+    });
+    $(".comment_subject").tooltip({ 
+      bodyHandler: function() { 
+        return $(this).siblings('.comment_details').html();
+      }, 
+      showURL: false 
+    });
