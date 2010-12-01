@@ -1,0 +1,18 @@
+%h1 Feedback History
+%strong== ID: #{@feedback.id}
+%br
+%strong== Subject: #{@feedback.subject}
+%br
+%strong== Email: #{@feedback.email}
+%ul#feedback_history= render @feedback.comments
+- unless @feedback.expires_at < Time.zone.now
+  = form_for(@feedback.comments.build, :url => {:controller => :index, :action => 'add_comment', :id => @feedback, :secure => true}, :remote => true, :html => {:id => "contact_form", :method => :post}) do |f|
+    .field
+      = f.label :message, "Your Comments"
+      %br
+      = f.text_area :message
+    .actions
+      = f.submit :class => 'jqui_save'
+
+      
+

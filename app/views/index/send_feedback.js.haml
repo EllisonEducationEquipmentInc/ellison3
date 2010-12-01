@@ -1,0 +1,4 @@
+- if @feedback.save
+  == $("#feedback_form").html('#{escape_javascript "Thank you for your feedback. Your comment has been sent. Your reference number is #{@feedback.id}"}');
+- else
+  == alert('#{escape_javascript @feedback.errors.full_messages.join("\n")}');

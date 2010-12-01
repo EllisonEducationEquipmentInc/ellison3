@@ -1,0 +1,5 @@
+%li
+  = comment.email
+  = l comment.created_at, :format => :custom rescue ''
+  %br
+  = comment.message

@@ -28,6 +28,7 @@ class User
 	
 	validates_associated :retailer_application, :addresses
 
+  references_many :feedbacks, :index => true
 	references_many :orders, :index => true
 	references_many :quotes, :index => true
 	references_many :lists, :index => true do

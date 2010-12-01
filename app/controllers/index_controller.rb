@@ -3,7 +3,9 @@ class IndexController < ApplicationController
 	before_filter :trackable, :except => [:catalog]
   before_filter :store_path!
 	
-	verify :xhr => true, :only => [:search, :quick_search], :redirect_to => {:action => :home}
+	ssl_required :contact, :send_feedback
+	
+	verify :xhr => true, :only => [:search, :quick_search, :send_feedback, :add_comment], :redirect_to => {:action => :home}
 		
 	helper_method :idea?
 	
@@ -71,6 +73,31 @@ class IndexController < ApplicationController
 	  params[:facets] = (params[:facets].split(",") << @landing_page.search_query).join(",")
 	  get_search
 	  render :partial => 'quick_search'
+	end
+	
+	def contact
+	  @feedback = Feedback.new
+	  @feedback.email = get_user.email if user_signed_in?
+	end
+	
+	def send_feedback
+	  @feedback = Feedback.new(params[:feedback])
+	  @feedback.expires_at = 7.days.since
+	  @feedback.comments.first.email ||= @feedback.email
+    # @feedback.comments.first.created_at = Time.zone.now
+	end
+	
+	def reply_to_feedback
+	  @feedback = Feedback.find(params[:id])
+	rescue 
+		go_404
+	end
+	
+	def add_comment
+	  @feedback = Feedback.find(params[:id])
+	  @comment = @feedback.comments.build params[:comment]
+	  @comment.email = @feedback.email
+	  @feedback.status = "new"
 	end
 	
 private
