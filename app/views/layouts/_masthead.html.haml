@@ -139,7 +139,7 @@
             %div{:style => "position: relative; float: left; width: 550px; min-height: 110px"}== "Madam, you could not remain in India, and your safety could only be assured by bringing you to such a distance that your persecutors could not take you."
           .contentwrap_XXS= image_tag("http://placehold.it/110x400")
     %li.megaitem
-      = link_to "Craft Ideas", "#", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
+      = link_to "Craft Ideas", catalog_path(:anchor => "ideas=1"), :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
       .megapanel
         %ul.contentwrap_medium
           %li elementum
