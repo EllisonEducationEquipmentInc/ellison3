@@ -227,4 +227,17 @@ HTML
     end
   end
 	
+	def youtube_video(text)
+	  return text if text.blank?
+	  new_text = text.dup
+	  text.scan /\[YOUTUBE\].+?\[\/YOUTUBE\]/ do |match|
+	    text_to_replace, youtube_video_id = match, match[/\[YOUTUBE\](.+)\[\/YOUTUBE\]/, 1]
+	    embeded_code = <<-HTML
+  	  <object width="480" height="385"><param name="movie" value="http://www.youtube.com/v/#{youtube_video_id}?fs=1&amp;hl=en_US"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/#{youtube_video_id}?fs=1&amp;hl=en_US" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="480" height="385"></embed></object>
+  	  HTML
+  	  .html_safe
+  	  new_text.gsub!(text_to_replace, embeded_code)
+	  end
+	  new_text
+	end
 end

@@ -53,6 +53,7 @@ class Admin::LandingPagesController < ApplicationController
   def create
     @landing_page = LandingPage.new(params[:landing_page])
     @landing_page.products = params[:recommended_products].split(/,\s*/)
+    @landing_page.ideas = params[:related_ideas].split(/,\s*/)
     respond_to do |format|
       if @landing_page.save
         format.html { redirect_to(admin_landing_pages_url, :notice => 'LandingPage was successfully created.') }
@@ -69,6 +70,7 @@ class Admin::LandingPagesController < ApplicationController
   def update
     @landing_page = LandingPage.find(params[:id])
     @landing_page.products = params[:recommended_products].split(/,\s*/)
+    @landing_page.ideas = params[:related_ideas].split(/,\s*/)
     respond_to do |format|
       if @landing_page.update_attributes(params[:landing_page])
         format.html { redirect_to(admin_landing_pages_url, :notice => 'LandingPage was successfully updated.') }

@@ -26,6 +26,17 @@
           = link_to product.name, product_url(:id => product)
           %p= display_product_price(product)
   .clear
+  - unless @landing_page.ideas.blank?
+    %h2 Related Ideas
+    = link_to "prev", "#", :class => "prev_button", :id => "prev_button_related_ideas"
+    = link_to "next", "#", :class => "next_button", :id => "next_button_related_ideas"
+    .product_carousel#related_ideas
+      %ul
+        - Idea.available.where(:idea_num.in => @landing_page.ideas).cache.each do |idea|
+          %li.product_element
+            = image_tag(idea.medium_image)
+            = link_to idea.name, idea_url(:id => idea)
+    .clear
 #landing_right
   .buybox.rounded
     #quick_search.rounded= render :partial => 'quick_search'
@@ -40,5 +51,11 @@
     $("#recommended_xsell").jCarouselLite({
       btnPrev: "#prev_button_recommended_xsell",
       btnNext: "#next_button_recommended_xsell",
+    });
+  });
+  $(function() {
+    $("#related_ideas").jCarouselLite({
+      btnPrev: "#prev_button_related_ideas",
+      btnNext: "#next_button_related_ideas",
     });
   });
