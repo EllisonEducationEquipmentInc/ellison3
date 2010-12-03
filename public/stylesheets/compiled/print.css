@@ -729,7 +729,13 @@ body.bp .hide {
   display: none;
 }
 
-/* line 51, ../../../app/stylesheets/print.scss */
+/* line 50, ../../../app/stylesheets/print.scss */
+.highlightable {
+  border-top: 1px dashed #ccc;
+  border-left: 1px dashed #ccc;
+}
+
+/* line 55, ../../../app/stylesheets/print.scss */
 .product-block {
   height: 230px;
   overflow: visible;
@@ -739,12 +745,12 @@ body.bp .hide {
   border-right: 1px dashed #ccc;
   page-break-before: auto;
 }
-/* line 60, ../../../app/stylesheets/print.scss */
+/* line 64, ../../../app/stylesheets/print.scss */
 .product-block .cart-buttons {
   display: none;
 }
 
-/* line 66, ../../../app/stylesheets/print.scss */
+/* line 70, ../../../app/stylesheets/print.scss */
 .listview .product-block {
   border-right: 0px;
 }
