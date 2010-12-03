@@ -53,6 +53,14 @@ body.bp {
   }
 }
 
+.dontdisplay { display: none; }
+
+#content {
+	.dontdisplay {
+	  display: none;
+	}
+}
+
 ul.ui-tabs-nav {
   li.ui-state-hover {
     a { color: #fff; }

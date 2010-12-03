@@ -1,7 +1,7 @@
-.right= select_tag :sort, options_for_select(@sort_options, params[:sort]), :onchange => "location.hash = $.param.fragment( location.hash, {sort: this.value, page: 1}, 0 )"
-.toggleview.right.minilink= link_to "switch to list view", "#", :class => "toggle_view"
+.right.dontprint= select_tag :sort, options_for_select(@sort_options, params[:sort]), :onchange => "location.hash = $.param.fragment( location.hash, {sort: this.value, page: 1}, 0 )"
+.toggleview.right.minilink.dontprint= link_to "switch to list view", "#", :class => "toggle_view"
 %h3== #{pluralize @search.total, @klass.to_s} Showing
-#toggle_product_idea== #{pluralize @secondary_search.total, @secondary_klass.to_s} Found
+#toggle_product_idea.dontprint== #{pluralize @secondary_search.total, @secondary_klass.to_s} Found
 - if is_er? && ecommerce_allowed? && !idea?
   = check_box_tag :select_all_products, "1", false, :onclick => "$('input.add_to_cart_checkbox').attr('checked', this.checked);toggle_add_checked_to_cart();"
   = label_tag :select_all_products
@@ -31,7 +31,7 @@
       = link_to_function @search.spell_collation, "location.hash = $.param.fragment( location.hash, {q: '#{@search.spell_collation}'}, 0 )"
 .highlightable= render @products
 .clear
-= will_paginate @products, :class => 'pagination ajax'
+= will_paginate @products, :class => 'pagination ajax dontprint'
 :javascript
   $(document).ready(function(){
     $("#product_catalog").css({ opacity: 1.0 });

@@ -693,24 +693,58 @@ body.bp .hide {
 }
 
 /* line 13, ../../../app/stylesheets/print.scss */
-#content .dontprint {
+.dontprint {
   display: none;
 }
 
 /* line 17, ../../../app/stylesheets/print.scss */
+#content .dontprint {
+  display: none;
+}
+
+/* line 22, ../../../app/stylesheets/print.scss */
+.shadowOnBit {
+  display: none;
+}
+
+/* line 28, ../../../app/stylesheets/print.scss */
+#printmasthead h1 {
+  margin: 0;
+  padding: 0;
+  height: auto;
+}
+
+/* line 36, ../../../app/stylesheets/print.scss */
+#catalog_breadcrumbs {
+  color: #000;
+  font-weight: bold;
+}
+/* line 40, ../../../app/stylesheets/print.scss */
+#catalog_breadcrumbs a {
+  color: #000;
+  text-decoration: none;
+}
+/* line 45, ../../../app/stylesheets/print.scss */
+#catalog_breadcrumbs a.tag_breadcrumb_remove, #catalog_breadcrumbs a.price_breadcrumb_remove, #catalog_breadcrumbs .breadcrumb_arrow, #catalog_breadcrumbs a.price_breadcrumb_remove {
+  display: none;
+}
+
+/* line 51, ../../../app/stylesheets/print.scss */
 .product-block {
-  height: 220px;
-  overflow: hidden;
-  padding: 7px;
-  border: 1px solid gray;
+  height: 230px;
+  overflow: visible;
+  margin: 0;
+  padding: 10px 14px;
+  border-bottom: 1px dashed #ccc;
+  border-right: 1px dashed #ccc;
   page-break-before: auto;
 }
-/* line 23, ../../../app/stylesheets/print.scss */
+/* line 60, ../../../app/stylesheets/print.scss */
 .product-block .cart-buttons {
   display: none;
 }
 
-/* line 27, ../../../app/stylesheets/print.scss */
-.dontprint {
-  display: none;
+/* line 66, ../../../app/stylesheets/print.scss */
+.listview .product-block {
+  border-right: 0px;
 }

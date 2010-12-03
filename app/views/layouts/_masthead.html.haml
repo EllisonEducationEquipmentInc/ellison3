@@ -1,35 +1,38 @@
--# logo masthead & branding
-%h1.masthead  
-  - if outlet?
-    = link_to "Sizzix Outlet", outlet_path, :id => "logo_masthead", :title => "Sizzix Outlet", :alt => "Sizzix Outlet"
-  - else
-    = link_to system_name, root_path, :id => "logo_masthead", :title => system_name, :alt => system_name
--# utility navigation menu (customer account management, shopping cart, etc)  
-%ul.nav_utility.dontprint
-  - if user_signed_in?
-    %li= link_to "<span>Sign Out</span>".html_safe, destroy_session_path('user'), :class => "btn-masthead btn-signout", :title => "Sign Out", :alt => "Sign Out" 
-    %li= link_to "<span>#{admin_signed_in? ? 'Customer\'s' : 'My'} Account</span>".html_safe, myaccount_path(:secure => true), :class => "btn-masthead btn-myaccount", :title => "My Account", :alt => "My Account"
-  - else
-    %li= link_to "<span>Sign Up</span>".html_safe, signin_signup_path, :class => "lightbox btn-masthead btn-signup", :title => "Sign Up", :alt => "Sign Up"
-    %li.plaintext= link_to "<span>or</span>".html_safe, signin_signup_path, :class => "btn-masthead btn-plaintext"
-    %li= link_to "<span>Sign In</span>".html_safe, signin_signup_path, :class => "lightbox btn-masthead btn-signin", :title => "Sign In", :alt => "Sign In"
-  - if admin_signed_in?
-    %li= link_to "<span>Edit Admin Profile</span>".html_safe, edit_admin_registration_path(current_admin), :class => "btn-masthead btn-myaccount", :title => "Edit Admin Profile", :alt => "Edit Admin Profile"
-    %li= link_to "<span>Log Out Dashboard</span>".html_safe, destroy_session_path('admin'), :class => "btn-masthead btn-admin-logout", :title => "Log Out Dashboard", :alt => "Log Out Dashboard"
+.dontprint
+  -# logo masthead & branding
+  %h1.masthead  
+    - if outlet?
+      = link_to "Sizzix Outlet", outlet_path, :id => "logo_masthead", :title => "Sizzix Outlet", :alt => "Sizzix Outlet"
+    - else
+      = link_to system_name, root_path, :id => "logo_masthead", :title => system_name, :alt => system_name
+  -# utility navigation menu (customer account management, shopping cart, etc)  
+  %ul.nav_utility
+    - if user_signed_in?
+      %li= link_to "<span>Sign Out</span>".html_safe, destroy_session_path('user'), :class => "btn-masthead btn-signout", :title => "Sign Out", :alt => "Sign Out" 
+      %li= link_to "<span>#{admin_signed_in? ? 'Customer\'s' : 'My'} Account</span>".html_safe, myaccount_path(:secure => true), :class => "btn-masthead btn-myaccount", :title => "My Account", :alt => "My Account"
+    - else
+      %li= link_to "<span>Sign Up</span>".html_safe, signin_signup_path, :class => "lightbox btn-masthead btn-signup", :title => "Sign Up", :alt => "Sign Up"
+      %li.plaintext= link_to "<span>or</span>".html_safe, signin_signup_path, :class => "btn-masthead btn-plaintext"
+      %li= link_to "<span>Sign In</span>".html_safe, signin_signup_path, :class => "lightbox btn-masthead btn-signin", :title => "Sign In", :alt => "Sign In"
+    - if admin_signed_in?
+      %li= link_to "<span>Edit Admin Profile</span>".html_safe, edit_admin_registration_path(current_admin), :class => "btn-masthead btn-myaccount", :title => "Edit Admin Profile", :alt => "Edit Admin Profile"
+      %li= link_to "<span>Log Out Dashboard</span>".html_safe, destroy_session_path('admin'), :class => "btn-masthead btn-admin-logout", :title => "Log Out Dashboard", :alt => "Log Out Dashboard"
 
--# shopping cart
-#shoppingcart_icon= link_to_unless params[:controller] == "carts", image_tag("/images/ui-objects/_#{current_system}_shoppingcart.png", :border =>0, :alt => "Shopping Bag"), "#", :title => "View #{(t :cart).capitalize}", :alt => "View #{(t :cart).capitalize}", :class => "show_cart"
-#shoppingcart_info
-  #cartspinner= spinner
-:javascript
-  $('#shoppingcart_info').load('/carts/shopping_cart');
+  -# shopping cart
+  #shoppingcart_icon= link_to_unless params[:controller] == "carts", image_tag("/images/ui-objects/_#{current_system}_shoppingcart.png", :border =>0, :alt => "Shopping Bag"), "#", :title => "View #{(t :cart).capitalize}", :alt => "View #{(t :cart).capitalize}", :class => "show_cart"
+  #shoppingcart_info
+    #cartspinner= spinner
+  :javascript
+    $('#shoppingcart_info').load('/carts/shopping_cart');
 
--# search bar
-%form#searchbar{:action => "/catalog", :method => "get", :name => "searchbar"}
-  %input{ :class =>"textfield", :name => "w", :type => "text", :value => "Search for Sizzix Products & Ideas", :onfocus => "if (this.value == 'Search for Sizzix Products & Ideas'){this.value='';}" }
-  %input{ :class => "submitbutton", :name => "submit", :src => "/images/ui-icons/set_fugue/24x24/drop-shadow/magnifier-left.png", :type => "image", :height => "24", :width => "24" }
+  -# search bar
+  %form#searchbar{:action => "/catalog", :method => "get", :name => "searchbar"}
+    %input{ :class =>"textfield", :name => "w", :type => "text", :value => "Search for Sizzix Products & Ideas", :onfocus => "if (this.value == 'Search for Sizzix Products & Ideas'){this.value='';}" }
+    %input{ :class => "submitbutton", :name => "submit", :src => "/images/ui-icons/set_fugue/24x24/drop-shadow/magnifier-left.png", :type => "image", :height => "24", :width => "24" }
 
--# UK currency selector
-- if is_uk? && !@cart_locked  
-  = link_to_unless current_currency == "gbp", "GBP", "?locale=en-UK"
-  = link_to_unless current_currency == "eur", "EUR", "?locale=en-EU"
+  -# UK currency selector
+  - if is_uk? && !@cart_locked  
+    = link_to_unless current_currency == "gbp", "GBP", "?locale=en-UK"
+    = link_to_unless current_currency == "eur", "EUR", "?locale=en-EU"
+#printmasthead.dontdisplay
+  %h1 Sizzix.com
