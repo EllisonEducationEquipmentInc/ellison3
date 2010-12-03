@@ -4,10 +4,7 @@ namespace :data_migrations do
   
   desc "test"
   task :test => :load_dep  do
-    @tag = OldData::PolymorphicTag.find 28 #59
-    p @tag.name.force_encoding("UTF-8") if @tag.name.encoding.name == "ASCII-8BIT"
-    p @tag.name.encoding.name
-    #p @tag.name.encode("ISO-8859-1") #encoding.name #.force_encoding("UTF-8").encode("UTF-8", :invalid => :replace, :undef => :replace)
+    p OldData::Idea.all(:conditions => ["id IN (?)", [627, 509, 560, 726]]).map {|e| e.idea_num}
   end
   
   desc "migrate tags"
@@ -50,6 +47,54 @@ namespace :data_migrations do
       new_product.save
       p new_product.errors
       p "------ #{product.id} -------"
+    end
+  end
+  
+  desc "migrate SZUS product tabs"
+  task :tabs_szus => :load_dep do
+    Product.all.each do |product|
+      #product = Product.find '4cf847fbe1b8326863000227'
+      old_product = OldData::Product.find(product.old_id) rescue next
+      old_product.tabs.not_deleted.each do |tab|
+        next if product.tabs.where(:name => tab.name).count > 0
+        new_tab = product.tabs.build 
+        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ELLISON_SYSTEMS, :active => tab.active, :text => tab.freeform
+        unless tab.column_grid.blank?
+          new_tab.data_column ||= []
+          for i in 1..OldData::Tab::MAX_GRID do
+            new_tab.data_column << [tab.column_grid["left_#{i}"][0], tab.column_grid["left_#{i}"][1]] unless tab.column_grid["left_#{i}"].blank?
+            new_tab.data_column << [tab.column_grid["right_#{i}"][0], tab.column_grid["right_#{i}"][1]] unless tab.column_grid["right_#{i}"].blank?
+          end
+        end
+        unless tab.item_nums.blank?
+          unless tab.item_nums[:compatibility].blank?
+            new_tab.compatibility = []
+            tab.item_nums[:compatibility].each do |comp|
+              new_tab.compatibility << OldData::Product.all(:select => "item_num", :conditions => ["id IN (?)", comp.reject {|e| e.blank?}]).map {|e| e.item_num}
+            end
+          end
+          new_tab.products = OldData::Product.all(:select => "item_num", :conditions => ["id IN (?)", tab.item_nums[:products].compact.uniq]).map {|e| e.item_num} unless tab.item_nums[:products].blank?
+          new_tab.ideas = OldData::Idea.all(:conditions => ["id IN (?)", tab.item_nums[:ideas].compact.uniq]).map {|e| e.idea_num} unless tab.item_nums[:ideas].blank?
+          unless tab.images.blank?
+            i=0
+            tab.images["large_images"].reject {|e| e.blank?}.each do |img|
+              image = new_tab.images.build
+              image.caption = tab.images["captions"][i]
+              begin
+                image.remote_image_url = "http://www.sizzix.com/images/#{img}"
+                p image.save
+              rescue Exception => e
+                p e.message
+              ensure
+                i+=1
+              end
+            end
+          end
+        end
+        p new_tab.save
+        p new_tab.errors
+        p "#{product.item_num} ------ #{tab.id} -------"
+      end
     end
   end
   
