@@ -131,7 +131,7 @@ private
     		query.facet :"#{e.to_s}_#{current_system}"
      	end
 	    unless klass == Idea
-	      query.with :outlet, outlet?
+	      query.with :outlet, outlet? if is_sizzix_us?
 	      query.with(:"price_#{current_system}_#{current_currency}", params[:price].split("~")[0]..params[:price].split("~")[1]) unless params[:price].blank?
         query.with(:"saving_#{current_system}_#{current_currency}", params[:saving].split("~")[0]..params[:saving].split("~")[1]) unless params[:saving].blank?
         query.facet(:price) do |qf|
