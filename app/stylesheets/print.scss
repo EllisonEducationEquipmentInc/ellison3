@@ -11,6 +11,18 @@
 body.bp {
   @include blueprint-print(true);
   
+  .product-block {
+    p, a {
+      font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
+      font-color: #000;
+      font-weight: none;
+      text-decoration: none;
+    }
+    
+    h3 { @extend p;
+      margin: 0 0 4px 0;
+    }
+  }
 }
 
 // classes to hide & omit elements from printing
@@ -55,26 +67,15 @@ body.bp {
   }
 }
 
-.highlightable {
-	border-top: 1px dashed #ccc;
-	border-left: 1px dashed #ccc;  
-}
-
 .product-block {  
-	height: 230px;
+	height: 220px;
 	overflow: visible;
 	margin: 0;
-	padding: 10px 14px;
+	padding: 8px 14px;
 	border-bottom: 1px dashed #ccc;
 	border-right: 1px dashed #ccc;
   page-break-before: auto;
-  
-  * {
-    font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
-    font-color: #000;
-    text-decoration: none;
-  }
-  
+    
 	.cart-buttons {
 		display: none;
 	}

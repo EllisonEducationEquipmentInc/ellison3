@@ -6,12 +6,12 @@ body.bp .products_filter h3, body.bp .products_grid h3 {
   text-transform: none;
 }
 /* line 16, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .product-block p, body.bp .product-block h4, body.bp .product_buybox p, body.bp .product_buybox h4 {
+body.bp .product-block p, body.bp .product-block h3, body.bp .product-block h4, body.bp .product_buybox p, body.bp .product_buybox .product-block h3, body.bp .product-block .product_buybox h3, body.bp .product_buybox h4 {
   margin: 0;
   line-height: 1.2em;
 }
 /* line 20, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .product-block p.buttonset, body.bp .product-block h4.buttonset, body.bp .product_buybox p.buttonset, body.bp .product_buybox h4.buttonset {
+body.bp .product-block p.buttonset, body.bp .product-block h3.buttonset, body.bp .product-block h4.buttonset, body.bp .product_buybox p.buttonset, body.bp .product_buybox .product-block h3.buttonset, body.bp .product-block .product_buybox h3.buttonset, body.bp .product_buybox h4.buttonset {
   margin-top: 4px;
 }
 /* line 25, ../../../app/stylesheets/partials_app/_catalog.scss */
@@ -90,7 +90,7 @@ body.bp .product_sidebar h4 {
   font-weight: bold;
 }
 /* line 105, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .product_sidebar p {
+body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp .product-block .product_sidebar h3 {
   font-size: .9em;
   margin-bottom: 4px;
 }
@@ -294,15 +294,15 @@ body.bp .product_sidebar p {
   float: right;
 }
 /* line 310, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product-block p.item_name, .highlightable.listview .product-block h3.item_number, .highlightable.listview .product-block .item_description {
+.product-block p.item_name, .highlightable.listview .product-block h3.item_number, .highlightable.listview .product-block .item_description, body.bp .product-block h3.item_name {
   margin: 2px 0 4px 0;
 }
 /* line 313, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product-block p.item_name a, .highlightable.listview .product-block h3.item_number a, .highlightable.listview .product-block .item_description a {
+.product-block p.item_name a, .highlightable.listview .product-block h3.item_number a, .highlightable.listview .product-block .item_description a, body.bp .product-block h3.item_name a {
   text-decoration: none;
 }
 /* line 316, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product-block p.item_name a:hover, .highlightable.listview .product-block h3.item_number a:hover, .highlightable.listview .product-block .item_description a:hover {
+.product-block p.item_name a:hover, .highlightable.listview .product-block h3.item_number a:hover, .highlightable.listview .product-block .item_description a:hover, body.bp .product-block h3.item_name a:hover {
   text-decoration: underline;
 }
 /* line 320, ../../../app/stylesheets/partials_app/_catalog.scss */
@@ -360,7 +360,7 @@ body.bp .product_sidebar p {
   text-align: left;
 }
 /* line 377, ../../../app/stylesheets/partials_app/_catalog.scss */
-.highlightable.listview .product-block p.item_name, .highlightable.listview .product-block h3.item_number, .highlightable.listview .product-block .item_description, .highlightable.listview .product-block p.item_price {
+.highlightable.listview .product-block p.item_name, .highlightable.listview .product-block h3.item_number, .highlightable.listview .product-block .item_description, .highlightable.listview body.bp .product-block h3.item_name, body.bp .highlightable.listview .product-block h3.item_name, .highlightable.listview .product-block p.item_price, .highlightable.listview body.bp .product-block h3.item_price, body.bp .highlightable.listview .product-block h3.item_price {
   margin-left: 133px;
 }
 /* line 379, ../../../app/stylesheets/partials_app/_catalog.scss */
@@ -618,7 +618,7 @@ body.bp .product_sidebar p {
   overflow-x: hidden;
 }
 
-/* line 10, ../../../app/stylesheets/print.scss */
+/* line 11, ../../../app/stylesheets/print.scss */
 body.bp {
   line-height: 1.5;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
@@ -665,7 +665,7 @@ body.bp a:link, body.bp a:visited {
   text-decoration: underline;
 }
 /* line 79, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_print.scss */
-body.bp p img.top {
+body.bp p img.top, body.bp .product-block h3 img.top {
   margin-top: 0;
 }
 /* line 81, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_print.scss */
@@ -691,80 +691,77 @@ body.bp .quiet {
 body.bp .hide {
   display: none;
 }
-/* line 13, ../../../app/stylesheets/print.scss */
-body.bp div {
-  page-break-inside: avoid;
+/* line 15, ../../../app/stylesheets/print.scss */
+body.bp .product-block p, body.bp .product-block h3, body.bp .product-block a {
+  font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
+  font-color: #000;
+  font-weight: none;
+  text-decoration: none;
+}
+/* line 22, ../../../app/stylesheets/print.scss */
+body.bp .product-block h3 {
+  margin: 0 0 4px 0;
 }
 
-/* line 17, ../../../app/stylesheets/print.scss */
+/* line 29, ../../../app/stylesheets/print.scss */
 .dontprint {
   display: none;
 }
 
-/* line 21, ../../../app/stylesheets/print.scss */
+/* line 33, ../../../app/stylesheets/print.scss */
 #content .dontprint {
   display: none;
 }
-/* line 24, ../../../app/stylesheets/print.scss */
-#content div {
-  page-break-inside: avoid;
-}
 
-/* line 29, ../../../app/stylesheets/print.scss */
+/* line 37, ../../../app/stylesheets/print.scss */
 .shadowOnBit {
   display: none;
 }
 
-/* line 35, ../../../app/stylesheets/print.scss */
+/* line 42, ../../../app/stylesheets/print.scss */
+.page-break {
+  display: block;
+  page-break-before: always;
+}
+
+/* line 48, ../../../app/stylesheets/print.scss */
 #printmasthead h1 {
   margin: 0;
   padding: 0;
   height: auto;
 }
 
-/* line 43, ../../../app/stylesheets/print.scss */
+/* line 56, ../../../app/stylesheets/print.scss */
 #catalog_breadcrumbs {
   color: #000;
   font-weight: bold;
 }
-/* line 47, ../../../app/stylesheets/print.scss */
+/* line 60, ../../../app/stylesheets/print.scss */
 #catalog_breadcrumbs a {
   color: #000;
   text-decoration: none;
 }
-/* line 52, ../../../app/stylesheets/print.scss */
+/* line 65, ../../../app/stylesheets/print.scss */
 #catalog_breadcrumbs a.tag_breadcrumb_remove, #catalog_breadcrumbs a.price_breadcrumb_remove, #catalog_breadcrumbs .breadcrumb_arrow, #catalog_breadcrumbs a.price_breadcrumb_remove {
   display: none;
 }
 
-/* line 57, ../../../app/stylesheets/print.scss */
-.highlightable {
-  border-top: 1px dashed #ccc;
-  border-left: 1px dashed #ccc;
-}
-
-/* line 62, ../../../app/stylesheets/print.scss */
+/* line 70, ../../../app/stylesheets/print.scss */
 .product-block {
-  height: 230px;
+  height: 220px;
   overflow: visible;
   margin: 0;
-  padding: 10px 14px;
+  padding: 8px 14px;
   border-bottom: 1px dashed #ccc;
   border-right: 1px dashed #ccc;
   page-break-before: auto;
 }
-/* line 71, ../../../app/stylesheets/print.scss */
-.product-block * {
-  font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
-  font-color: #000;
-  text-decoration: none;
-}
-/* line 77, ../../../app/stylesheets/print.scss */
+/* line 79, ../../../app/stylesheets/print.scss */
 .product-block .cart-buttons {
   display: none;
 }
 
-/* line 83, ../../../app/stylesheets/print.scss */
+/* line 85, ../../../app/stylesheets/print.scss */
 .listview .product-block {
   border-right: 0px;
 }
