@@ -361,7 +361,7 @@ body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp 
 }
 /* line 377, ../../../app/stylesheets/partials_app/_catalog.scss */
 .highlightable.listview .product-block p.item_name, .highlightable.listview .product-block h3.item_number, .highlightable.listview .product-block .item_description, .highlightable.listview body.bp .product-block h3.item_name, body.bp .highlightable.listview .product-block h3.item_name, .highlightable.listview .product-block p.item_price, .highlightable.listview body.bp .product-block h3.item_price, body.bp .highlightable.listview .product-block h3.item_price {
-  margin-left: 133px;
+  margin: 2px 125px 4px 133px;
 }
 /* line 379, ../../../app/stylesheets/partials_app/_catalog.scss */
 .highlightable.listview .product-block h3.item_number {
@@ -764,4 +764,8 @@ body.bp .product-block h3 {
 /* line 85, ../../../app/stylesheets/print.scss */
 .listview .product-block {
   border-right: 0px;
+}
+/* line 88, ../../../app/stylesheets/print.scss */
+.listview .product-block p.item_name, .highlightable.listview .product-block h3.item_number, .highlightable.listview .product-block .item_description, .listview body.bp .product-block h3.item_name, body.bp .listview .product-block h3.item_name, .listview .product-block p.item_price, .listview body.bp .product-block h3.item_price, body.bp .listview .product-block h3.item_price, .listview .product-block .item_description {
+  margin: 2px 0px 4px 133px;
 }

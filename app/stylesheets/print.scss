@@ -84,5 +84,7 @@ body.bp {
 .listview {
   .product-block {
     border-right: 0px;
+    
+    p.item_name, p.item_price, .item_description { margin: 2px 0px 4px 133px; }
   }
 }

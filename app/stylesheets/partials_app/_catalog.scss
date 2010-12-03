@@ -374,7 +374,7 @@ body.bp {
       height: 125px;
       text-align: left;
       
-      p.item_name, p.item_price { margin-left: 133px; }
+      p.item_name, p.item_price { margin: 2px 125px 4px 133px; }
       
       h3.item_number { @extend p.item_name;
         margin-bottom: 4px;
