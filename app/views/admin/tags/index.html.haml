@@ -27,8 +27,8 @@
     %tbody
       - for tag in @tags
         %tr{ :class => cycle(:odd, :even) }
-          %td= tag.tag_type.humanize
-          %td= tag.name
+          %td= tag.tag_type.humanize rescue ''
+          %td= tag.name #if tag.name.valid_encoding?
           %td= tag.permalink
           %td= l tag.send("start_date_#{current_system}"), :format => :custom rescue ''
           %td= l tag.send("end_date_#{current_system}"), :format => :custom rescue ''

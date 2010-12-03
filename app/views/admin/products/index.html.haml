@@ -10,6 +10,8 @@
   = text_field_tag :q, nil, :placeholder => "item num, name, desc"
   = check_box_tag :inactive, "1", params[:inactive] == "1"
   Incl. inactive
+  = check_box_tag :outlet, "1", params[:outlet] == "1"
+  outlet only
   = submit_tag "search", :class => 'jqui_search'
 .highlightable
   %table
@@ -24,6 +26,7 @@
         %th Orderable
         - WAREHOUSES.each do |warehouse|
           = sortable "quantity_#{warehouse}", "Qty. #{warehouse.upcase}"
+        %th Outlet
         %th Systems
         %th &nbsp;
         - if has_write_permissions?
@@ -41,6 +44,7 @@
           %td= product.send "orderable_#{current_system}"
           - WAREHOUSES.each do |warehouse|
             %td= product.send "quantity_#{warehouse}"
+          %td= product.outlet
           %td= product.systems_enabled.join(", ") rescue ''
           %td= link_to 'Show', admin_product_path(product), :class => 'jqui_show_min'
           - if has_write_permissions?

@@ -36,6 +36,7 @@ class Product
 	
 	before_save :inherit_system_specific_attributes
 	before_save :clean_up_tags
+	before_save :timestamp_outlet
 	
 	# system specific validations
 	ELLISON_SYSTEMS.each do |system|
@@ -53,6 +54,7 @@ class Product
 	field :weight, :type => Float, :default => 0.0
 	field :active, :type => Boolean, :default => true
 	field :outlet, :type => Boolean, :default => false
+	field :outlet_since, :type => DateTime
 	field :life_cycle
 	field :systems_enabled, :type => Array
 	field :tax_exempt, :type => Boolean, :default => false
@@ -60,12 +62,15 @@ class Product
 	field :length, :type => Float
 	field :width, :type => Float
 	field :height, :type => Float
+	field :keywords
+	field :old_id, :type => Integer
 	
 	index :item_num, :unique => true, :background => true
 	index :systems_enabled
 	index :life_cycle
 	index :active
 	index :name
+	index :old_id
 	ELLISON_SYSTEMS.each do |system|
 	  index :"start_date_#{system}"
 	  index :"end_date_#{system}"
@@ -164,6 +169,7 @@ class Product
 		string :systems_enabled, :multiple => true
     # integer :quantity, :stored => true
 		integer :saving, :stored => true
+		time :outlet_since
 		LOCALES_2_CURRENCIES.values.each do |currency|
       float :"msrp_#{currency}" do
         msrp :currency => currency
@@ -441,5 +447,9 @@ private
 	
 	def clean_up_tags
 	  self.tag_ids = self.tag_ids.compact.uniq
+	end
+	
+	def timestamp_outlet
+	  self.outlet_since ||= Time.zone.now if changed.include?("outlet") && self.outlet
 	end
 end

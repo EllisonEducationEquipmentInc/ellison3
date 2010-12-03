@@ -7,7 +7,7 @@ class IndexController < ApplicationController
 	
 	verify :xhr => true, :only => [:search, :quick_search, :send_feedback, :add_comment], :redirect_to => {:action => :home}
 		
-	helper_method :idea?
+	helper_method :idea?, :per_page
 	
 	def home
 
@@ -151,7 +151,7 @@ private
           end
         end
       end
-     	query.paginate(:page => params[:page] || 1, :per_page => 16)
+     	query.paginate(:page => params[:page] || 1, :per_page => per_page)
      	query.order_by(*params[:sort].split(":")) unless params[:sort].blank?
 	  end
   end
@@ -165,5 +165,18 @@ private
   
   def idea?
     params[:ideas] == "1"
+  end
+  
+  def per_page
+    case params[:per_page]
+    when "48"
+      48
+    when "72"
+      72
+    when "96"
+      96
+    else
+      24
+    end
   end
 end

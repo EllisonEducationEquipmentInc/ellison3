@@ -32,12 +32,20 @@ class Tag
 	  field "start_date_#{system}".to_sym, :type => DateTime
 	  field "end_date_#{system}".to_sym, :type => DateTime
 	end
+	field :banner
+	field :list_page_image
+	field :medium_image
+	field :calendar_start_date, :type => DateTime
+	field :calendar_end_date, :type => DateTime
+	field :all_day, :type => Boolean
+	field :old_id, :type => Integer
 	
 	index :systems_enabled
 	index :permalink
 	index :tag_type
 	index :active
 	index :name
+	index :old_id
 	ELLISON_SYSTEMS.each do |system|
 	  index :"start_date_#{system}"
 	  index :"end_date_#{system}"

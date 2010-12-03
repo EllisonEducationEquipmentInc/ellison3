@@ -73,7 +73,7 @@ function bind_hashchange () {
 
 function highlight_keyword () {
 	var term = $.getUrlVar('q') || $.deparam.fragment()['q'];
-	if (term == undefined) {
+	if (term == undefined || term.length == 0) {
 		return false;
 	} else {
 		$('span.highlight').each(function(){

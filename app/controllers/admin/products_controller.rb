@@ -16,6 +16,7 @@ class Admin::ProductsController < ApplicationController
 	    criteria.where(:systems_enabled.in => params[:systems_enabled]) 
 	  end
 	  criteria.where(:active => true) if params[:inactive].blank?
+	  criteria.where(:outlet => true) if params[:outlet] == "1"
 	  criteria.where(:life_cycle => params[:life_cycle]) unless params[:life_cycle].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")

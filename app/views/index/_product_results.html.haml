@@ -31,7 +31,10 @@
       = link_to_function @search.spell_collation, "location.hash = $.param.fragment( location.hash, {q: '#{@search.spell_collation}'}, 0 )"
 .highlightable= render @products
 .clear
-= will_paginate @products, :class => 'pagination ajax dontprint'
+.right
+  %strong Items Per Page:
+  = select_tag :per_page, options_for_select([24,48,72,96], per_page)
+= will_paginate @products, :class => 'pagination ajax'
 :javascript
   $(document).ready(function(){
     $("#product_catalog").css({ opacity: 1.0 });
@@ -42,6 +45,10 @@
     })
     $('#toggle_product_idea').click(function() {
       location.hash = $.param.fragment( location.hash, {ideas: #{idea? ? '0' : '1'}, page: 1}, 0 );
+      return false;
+    });
+    $('#per_page').change(function() {
+      location.hash = $.param.fragment( location.hash, {per_page: this.value, page: 1}, 0 );
       return false;
     })
     $("a.toggle_view").toggleView({initial_state: $.deparam.fragment()['view']})
