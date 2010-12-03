@@ -31,10 +31,10 @@
       = link_to_function @search.spell_collation, "location.hash = $.param.fragment( location.hash, {q: '#{@search.spell_collation}'}, 0 )"
 .highlightable= render @products
 .clear
-.right
+.right.dontprint
   %strong Items Per Page:
   = select_tag :per_page, options_for_select([24,48,72,96], per_page)
-= will_paginate @products, :class => 'pagination ajax'
+= will_paginate @products, :class => 'pagination ajax dontprint'
 :javascript
   $(document).ready(function(){
     $("#product_catalog").css({ opacity: 1.0 });

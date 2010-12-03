@@ -618,7 +618,7 @@ body.bp .product_sidebar p {
   overflow-x: hidden;
 }
 
-/* line 9, ../../../app/stylesheets/print.scss */
+/* line 10, ../../../app/stylesheets/print.scss */
 body.bp {
   line-height: 1.5;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
@@ -691,51 +691,59 @@ body.bp .quiet {
 body.bp .hide {
   display: none;
 }
-
 /* line 13, ../../../app/stylesheets/print.scss */
+body.bp div {
+  page-break-inside: avoid;
+}
+
+/* line 17, ../../../app/stylesheets/print.scss */
 .dontprint {
   display: none;
 }
 
-/* line 17, ../../../app/stylesheets/print.scss */
+/* line 21, ../../../app/stylesheets/print.scss */
 #content .dontprint {
   display: none;
 }
+/* line 24, ../../../app/stylesheets/print.scss */
+#content div {
+  page-break-inside: avoid;
+}
 
-/* line 22, ../../../app/stylesheets/print.scss */
+/* line 29, ../../../app/stylesheets/print.scss */
 .shadowOnBit {
   display: none;
 }
 
-/* line 28, ../../../app/stylesheets/print.scss */
+/* line 35, ../../../app/stylesheets/print.scss */
 #printmasthead h1 {
   margin: 0;
   padding: 0;
   height: auto;
 }
 
-/* line 36, ../../../app/stylesheets/print.scss */
+/* line 43, ../../../app/stylesheets/print.scss */
 #catalog_breadcrumbs {
   color: #000;
   font-weight: bold;
 }
-/* line 40, ../../../app/stylesheets/print.scss */
+/* line 47, ../../../app/stylesheets/print.scss */
 #catalog_breadcrumbs a {
   color: #000;
   text-decoration: none;
 }
-/* line 45, ../../../app/stylesheets/print.scss */
+/* line 52, ../../../app/stylesheets/print.scss */
 #catalog_breadcrumbs a.tag_breadcrumb_remove, #catalog_breadcrumbs a.price_breadcrumb_remove, #catalog_breadcrumbs .breadcrumb_arrow, #catalog_breadcrumbs a.price_breadcrumb_remove {
   display: none;
 }
 
-/* line 50, ../../../app/stylesheets/print.scss */
+/* line 57, ../../../app/stylesheets/print.scss */
 .highlightable {
   border-top: 1px dashed #ccc;
   border-left: 1px dashed #ccc;
 }
 
-/* line 55, ../../../app/stylesheets/print.scss */
+/* line 62, ../../../app/stylesheets/print.scss */
 .product-block {
   height: 230px;
   overflow: visible;
@@ -745,12 +753,18 @@ body.bp .hide {
   border-right: 1px dashed #ccc;
   page-break-before: auto;
 }
-/* line 64, ../../../app/stylesheets/print.scss */
+/* line 71, ../../../app/stylesheets/print.scss */
+.product-block * {
+  font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
+  font-color: #000;
+  text-decoration: none;
+}
+/* line 77, ../../../app/stylesheets/print.scss */
 .product-block .cart-buttons {
   display: none;
 }
 
-/* line 70, ../../../app/stylesheets/print.scss */
+/* line 83, ../../../app/stylesheets/print.scss */
 .listview .product-block {
   border-right: 0px;
 }

@@ -1,3 +1,5 @@
+// GLOBAL PRINT STYLESHEET for ALL SYSTEMS
+
 @import "blueprint";
 @import "partials_szus/colors";
 @import "partials_app/colors";
@@ -10,6 +12,8 @@ body.bp {
   @include blueprint-print(true);
   
 }
+
+// classes to hide & omit elements from printing
 .dontprint {
   display:none;
 }
@@ -18,11 +22,15 @@ body.bp {
 	  display:none;
 	}
 }
-
 .shadowOnBit {
   display: none;
 }
 
+// to force page breaks
+.page-break { display:block; page-break-before:always; }
+
+
+// LAYOUT & TYPOGRAPHY OVERRIDES
 // masthead & branding
 #printmasthead {
   h1 {
@@ -60,6 +68,12 @@ body.bp {
 	border-bottom: 1px dashed #ccc;
 	border-right: 1px dashed #ccc;
   page-break-before: auto;
+  
+  * {
+    font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
+    font-color: #000;
+    text-decoration: none;
+  }
   
 	.cart-buttons {
 		display: none;

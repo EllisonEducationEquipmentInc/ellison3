@@ -53,10 +53,11 @@ body.bp {
   }
 }
 
-.dontdisplay { display: none; }
+// hidden classes for print & page breaks
+.dontdisplay, .page-break { display: none; }
 
 #content {
-	.dontdisplay {
+	.dontdisplay, .page-break {
 	  display: none;
 	}
 }
