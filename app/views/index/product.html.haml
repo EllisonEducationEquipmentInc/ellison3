@@ -7,7 +7,7 @@
     .thumbnail= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;"
   .clear  
 %h3.product_title
-  = @product.name
+  = @product.name.html_safe
   %span.life-cycle= @product.public_life_cycle
 .product_sociallinks= facebook_like
 .product_buybox.rounded

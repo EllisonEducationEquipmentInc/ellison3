@@ -158,7 +158,9 @@ private
   
   # solr filter display logic
   def tag_types
-    tags = Tag::TYPES - Tag::HIDDEN_TYPES
+    @filter_names = @facets.split(",").map {|e| e[/^(\w+)/]}
+    tags = Tag::TYPES.reject {|e| e =~ /^sub/ unless @filter_names.include?(e.gsub(/^sub/,''))} - Tag::HIDDEN_TYPES
+    tags -= ["product_family"] unless @filter_names.include?("product_line")
     tags -= ["release_date", "special"] unless ecommerce_allowed?
     tags
   end
