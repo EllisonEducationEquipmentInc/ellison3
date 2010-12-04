@@ -743,62 +743,52 @@ body.bp .product_moreinfo h4, body.bp .product_moreinfo p, body.bp .product_more
 #content .dontprint {
   display: none;
 }
-/* line 58, ../../../app/stylesheets/print.scss */
-#content .product_moreinfo h4 {
-  margin-bottom: 2px;
-}
-/* line 60, ../../../app/stylesheets/print.scss */
-#content .product_moreinfo p a, #content .product_moreinfo body.bp .product-block h3 a, body.bp .product-block #content .product_moreinfo h3 a {
-  font-color: #000;
-  font-weight: none;
-  text-decoration: none;
-}
 
-/* line 68, ../../../app/stylesheets/print.scss */
+/* line 57, ../../../app/stylesheets/print.scss */
 .shadowOnBit {
   display: none;
 }
 
-/* line 73, ../../../app/stylesheets/print.scss */
+/* line 62, ../../../app/stylesheets/print.scss */
 .page-break {
   display: block;
   page-break-before: always;
 }
 
-/* line 79, ../../../app/stylesheets/print.scss */
+/* line 68, ../../../app/stylesheets/print.scss */
 #printmasthead h1 {
   margin: 0;
   padding: 0;
   height: auto;
 }
 
-/* line 87, ../../../app/stylesheets/print.scss */
+/* line 76, ../../../app/stylesheets/print.scss */
 #catalog_breadcrumbs {
   color: #000;
   font-weight: bold;
 }
-/* line 91, ../../../app/stylesheets/print.scss */
+/* line 80, ../../../app/stylesheets/print.scss */
 #catalog_breadcrumbs a {
   color: #000;
   text-decoration: none;
 }
-/* line 96, ../../../app/stylesheets/print.scss */
+/* line 85, ../../../app/stylesheets/print.scss */
 #catalog_breadcrumbs a.tag_breadcrumb_remove, #catalog_breadcrumbs a.price_breadcrumb_remove, #catalog_breadcrumbs .breadcrumb_arrow, #catalog_breadcrumbs a.price_breadcrumb_remove {
   display: none;
 }
 
-/* line 102, ../../../app/stylesheets/print.scss */
+/* line 91, ../../../app/stylesheets/print.scss */
 .msrp, .sale-price {
   font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
   color: #000;
 }
 
-/* line 107, ../../../app/stylesheets/print.scss */
+/* line 96, ../../../app/stylesheets/print.scss */
 .sale-price {
   color: #c00;
 }
 
-/* line 114, ../../../app/stylesheets/print.scss */
+/* line 101, ../../../app/stylesheets/print.scss */
 .product-block {
   height: 220px;
   overflow: visible;
@@ -808,21 +798,21 @@ body.bp .product_moreinfo h4, body.bp .product_moreinfo p, body.bp .product_more
   border-right: 1px dashed #ccc;
   page-break-before: auto;
 }
-/* line 123, ../../../app/stylesheets/print.scss */
+/* line 110, ../../../app/stylesheets/print.scss */
 .product-block .cart-buttons {
   display: none;
 }
 
-/* line 129, ../../../app/stylesheets/print.scss */
+/* line 116, ../../../app/stylesheets/print.scss */
 .listview .product-block {
   border-right: 0px;
 }
-/* line 132, ../../../app/stylesheets/print.scss */
+/* line 119, ../../../app/stylesheets/print.scss */
 .listview .product-block p.item_name, .highlightable.listview .product-block h3.item_number, .highlightable.listview .product-block .item_description, .listview body.bp .product-block h3.item_name, body.bp .listview .product-block h3.item_name, .listview .product-block p.item_price, .listview body.bp .product-block h3.item_price, body.bp .listview .product-block h3.item_price, .listview .product-block .item_description {
   margin: 2px 0px 4px 133px;
 }
 
-/* line 137, ../../../app/stylesheets/print.scss */
+/* line 124, ../../../app/stylesheets/print.scss */
 h3.product_title, .product_buybox, .product_description, .product_moreinfo {
   float: right;
   margin: 0;
@@ -830,19 +820,24 @@ h3.product_title, .product_buybox, .product_description, .product_moreinfo {
   width: 450px;
 }
 
-/* line 145, ../../../app/stylesheets/print.scss */
+/* line 132, ../../../app/stylesheets/print.scss */
 .product_moreinfo h4 {
   margin-bottom: 2px;
 }
-/* line 146, ../../../app/stylesheets/print.scss */
+/* line 133, ../../../app/stylesheets/print.scss */
 .product_moreinfo a {
   font-color: #000;
   font-weight: none;
   text-decoration: none;
 }
 
-/* line 153, ../../../app/stylesheets/print.scss */
+/* line 140, ../../../app/stylesheets/print.scss */
 .product_buybox {
   background-color: transparent;
   border: 0px;
+}
+
+/* line 145, ../../../app/stylesheets/print.scss */
+.ui-tabs-panel {
+  display: none;
 }

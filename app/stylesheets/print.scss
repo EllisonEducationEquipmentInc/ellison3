@@ -53,17 +53,6 @@ body.bp {
 	.dontprint {
 	  display:none;
 	}
-
-  .product_moreinfo {
-    h4 { margin-bottom: 2px; }
-    p {
-      a { 
-        font-color: #000;
-        font-weight: none;
-        text-decoration: none;
-      } 
-    }
-  }
 }
 .shadowOnBit {
   display: none;
@@ -107,8 +96,6 @@ body.bp {
 .sale-price {
   color: #c00;
 }
-
-
 
 // catalog results page
 .product-block {  
