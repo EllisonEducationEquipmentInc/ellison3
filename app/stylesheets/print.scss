@@ -31,7 +31,7 @@ body.bp {
   h3.product_title {
     line-height: 1em;
   }
-  .product_buybox {
+  .buybox {
     h4 {
       font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
       color: #000;      
@@ -121,7 +121,7 @@ body.bp {
 }
 
 // product detail page
-h3.product_title, .product_buybox, .product_description, .product_moreinfo {
+h3.product_title, .buybox, .product_description, .product_moreinfo {
   float: right;
   margin: 0;
   padding: 0;
@@ -137,7 +137,7 @@ h3.product_title, .product_buybox, .product_description, .product_moreinfo {
   }
 }
 
-.product_buybox {
+.buybox {
   background-color: transparent;
   border: 0px;
 }

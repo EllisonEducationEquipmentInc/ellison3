@@ -1,6 +1,6 @@
 .breadcrumbs.dontprint
   = link_to_function 'back', "window.history.back()"
-.product_images
+.item_images
   #large_image= image_tag(@product.large_image)
   .dontprint
     .thumbnail.selected= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}'); return false;"
@@ -11,7 +11,7 @@
   = @product.name.html_safe
   %span.life-cycle= @product.public_life_cycle
 .product_sociallinks.dontprint= facebook_like
-.product_buybox.rounded
+.buybox.rounded
   %h4.itemnumber== Item ##{@product.item_num}
   %h4= display_product_price(@product)
   .dontprint

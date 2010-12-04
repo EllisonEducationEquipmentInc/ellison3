@@ -6,28 +6,28 @@ body.bp .products_filter h3, body.bp .products_grid h3 {
   text-transform: none;
 }
 /* line 16, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .product-block p, body.bp .product-block h3, body.bp .product-block h4, body.bp .product_buybox p, body.bp .product_buybox .product-block h3, body.bp .product-block .product_buybox h3, body.bp .product_buybox h4 {
+body.bp .product-block p, body.bp .product-block h3, body.bp .product-block h4, body.bp .buybox p, body.bp .buybox .product-block h3, body.bp .product-block .buybox h3, body.bp .buybox h4 {
   margin: 0;
   line-height: 1.2em;
 }
 /* line 20, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .product-block p.buttonset, body.bp .product-block h3.buttonset, body.bp .product-block h4.buttonset, body.bp .product_buybox p.buttonset, body.bp .product_buybox .product-block h3.buttonset, body.bp .product-block .product_buybox h3.buttonset, body.bp .product_buybox h4.buttonset {
+body.bp .product-block p.buttonset, body.bp .product-block h3.buttonset, body.bp .product-block h4.buttonset, body.bp .buybox p.buttonset, body.bp .buybox .product-block h3.buttonset, body.bp .product-block .buybox h3.buttonset, body.bp .buybox h4.buttonset {
   margin-top: 4px;
 }
 /* line 25, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .product-block h3, body.bp .product_buybox h3 {
+body.bp .product-block h3, body.bp .buybox h3 {
   color: #6c5941;
 }
 /* line 29, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .product-block a, body.bp .product_buybox a {
+body.bp .product-block a, body.bp .buybox a {
   color: black;
 }
 /* line 32, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .product-block a:hover, body.bp .product_buybox a:hover {
+body.bp .product-block a:hover, body.bp .buybox a:hover {
   color: #ff9f80;
 }
 /* line 37, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .product-block .users_lists_container h4, body.bp .product_buybox .users_lists_container h4 {
+body.bp .product-block .users_lists_container h4, body.bp .buybox .users_lists_container h4 {
   font-family: Verdana,Arial,sans-serif;
   font-weight: bold;
   font-size: 10px;
@@ -36,7 +36,7 @@ body.bp .product-block .users_lists_container h4, body.bp .product_buybox .users
   margin-bottom: 8px;
 }
 /* line 46, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .product-block .users_lists_container a, body.bp .product_buybox .users_lists_container a {
+body.bp .product-block .users_lists_container a, body.bp .buybox .users_lists_container a {
   font-family: Verdana,Arial,sans-serif;
   font-size: 10.2px;
   margin-bottom: 0;
@@ -44,7 +44,7 @@ body.bp .product-block .users_lists_container a, body.bp .product_buybox .users_
   color: #9c8a73;
 }
 /* line 53, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .product-block .users_lists_container a:hover, body.bp .product_buybox .users_lists_container a:hover {
+body.bp .product-block .users_lists_container a:hover, body.bp .buybox .users_lists_container a:hover {
   color: #ff6533;
   text-decoration: underline;
 }
@@ -67,7 +67,7 @@ body.bp h3.product_title {
   text-transform: none;
 }
 /* line 82, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .product_buybox h4 {
+body.bp .buybox h4 {
   margin: 0 0 7px 0;
   font-size: 1em;
   color: #6c5941;
@@ -75,7 +75,7 @@ body.bp .product_buybox h4 {
   font-weight: bold;
 }
 /* line 89, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .product_buybox h4.itemnumber {
+body.bp .buybox h4.itemnumber {
   float: right;
 }
 /* line 94, ../../../app/stylesheets/partials_app/_catalog.scss */
@@ -436,18 +436,18 @@ body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp 
 }
 
 /* line 448, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product_images {
+.item_images {
   background: white;
   overflow: visible;
   z-index: 200;
 }
 /* line 453, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product_images #large_image {
+.item_images #large_image {
   width: 450px;
   margin: 3px 0 0 3px;
 }
 /* line 458, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product_images .thumbnail {
+.item_images .thumbnail {
   border: 1px solid #cccccc;
   margin: 3px 0 3px 3px;
   float: left;
@@ -459,7 +459,7 @@ body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp 
 }
 
 /* line 469, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product_buybox {
+.buybox {
   position: relative;
   background: #eceadf;
   border: 1px solid #d9d6c4;
@@ -467,17 +467,17 @@ body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp 
   margin: 10px 0;
 }
 /* line 476, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product_buybox h4 {
+.buybox h4 {
   margin-top: 7px;
 }
 /* line 480, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product_buybox .users_lists_container {
+.buybox .users_lists_container {
   position: absolute;
   top: 62px;
   left: 0px;
 }
 /* line 486, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product_buybox a {
+.buybox a {
   font-family: Verdana,Arial,sans-serif;
   font-size: 10.2px;
 }
@@ -553,14 +553,14 @@ body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp 
 }
 
 /* line 2, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
-.product_images {
+.item_images {
   display: inline;
   float: left;
   margin-right: 10px;
   width: 470px;
 }
 /* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html .product_images {
+* html .item_images {
   overflow-x: hidden;
 }
 
@@ -589,7 +589,7 @@ body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp 
 }
 
 /* line 5, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
-.product_buybox {
+.buybox {
   display: inline;
   float: left;
   margin-right: 0;
@@ -725,7 +725,7 @@ body.bp h3.product_title {
   line-height: 1em;
 }
 /* line 35, ../../../app/stylesheets/print.scss */
-body.bp .product_buybox h4 {
+body.bp .buybox h4 {
   font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
   color: #000;
 }
@@ -813,7 +813,7 @@ body.bp .product_moreinfo h4, body.bp .product_moreinfo p, body.bp .product_more
 }
 
 /* line 124, ../../../app/stylesheets/print.scss */
-h3.product_title, .product_buybox, .product_description, .product_moreinfo {
+h3.product_title, .buybox, .product_description, .product_moreinfo {
   float: right;
   margin: 0;
   padding: 0;
@@ -832,12 +832,7 @@ h3.product_title, .product_buybox, .product_description, .product_moreinfo {
 }
 
 /* line 140, ../../../app/stylesheets/print.scss */
-.product_buybox {
+.buybox {
   background-color: transparent;
   border: 0px;
-}
-
-/* line 145, ../../../app/stylesheets/print.scss */
-.ui-tabs-panel {
-  display: none;
 }

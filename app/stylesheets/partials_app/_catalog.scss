@@ -11,7 +11,7 @@ body.bp {
     }
   }
   
-  .product-block, .product_buybox {
+  .product-block, .buybox {
     
     p, h4 {
       margin:0;
@@ -78,7 +78,7 @@ body.bp {
     text-transform: none;
   }
   
-  .product_buybox {
+  .buybox {
     h4 {
       margin: 0 0 7px 0;
       font-size: 1em;
@@ -445,7 +445,7 @@ body.bp {
 }
 
 // product detail page
-.product_images {
+.item_images {
   background: $catalog_product_bg;
   overflow: visible;
   z-index: 200;
@@ -466,7 +466,7 @@ body.bp {
 	margin-top: 10px;
 }
 
-.product_buybox {
+.buybox {
   position: relative;
 	background: $catalog_buybox_bg;
 	border: 1px solid $catalog_buybox_border;
