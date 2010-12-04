@@ -35,4 +35,4 @@
     = link_to_unless current_currency == "gbp", "GBP", "?locale=en-UK"
     = link_to_unless current_currency == "eur", "EUR", "?locale=en-EU"
 #printmasthead.dontdisplay
-  %h1 Sizzix.com
+  %h1== #{system_name.capitalize}.com

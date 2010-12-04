@@ -382,6 +382,8 @@ body.bp {
       
       .item_description { @extend p.item_name;
         display: block;
+        height: 70px;
+        overflow: hidden;
       }
 
       .item_image {

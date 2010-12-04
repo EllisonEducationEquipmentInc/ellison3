@@ -11,6 +11,10 @@
 body.bp {
   @include blueprint-print(true);
   
+  a {
+    color: #000;
+  }
+  
   .product-block {
     p, a {
       font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
@@ -23,6 +27,22 @@ body.bp {
       margin: 0 0 4px 0;
     }
   }
+  
+  h3.product_title {
+    line-height: 1em;
+  }
+  .product_buybox {
+    h4 {
+      font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
+      color: #000;      
+    }
+  }
+  
+  .product_moreinfo {
+    h4, p {
+      margin: 0;
+    }
+  }
 }
 
 // classes to hide & omit elements from printing
@@ -33,6 +53,17 @@ body.bp {
 	.dontprint {
 	  display:none;
 	}
+
+  .product_moreinfo {
+    h4 { margin-bottom: 2px; }
+    p {
+      a { 
+        font-color: #000;
+        font-weight: none;
+        text-decoration: none;
+      } 
+    }
+  }
 }
 .shadowOnBit {
   display: none;
@@ -67,6 +98,19 @@ body.bp {
   }
 }
 
+// price styles
+.msrp {
+  font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
+  color: #000;
+}
+
+.sale-price {
+  color: #c00;
+}
+
+
+
+// catalog results page
 .product-block {  
 	height: 220px;
 	overflow: visible;
@@ -87,4 +131,26 @@ body.bp {
     
     p.item_name, p.item_price, .item_description { margin: 2px 0px 4px 133px; }
   }
+}
+
+// product detail page
+h3.product_title, .product_buybox, .product_description, .product_moreinfo {
+  float: right;
+  margin: 0;
+  padding: 0;
+  width: 450px;
+}
+
+.product_moreinfo {
+  h4 { margin-bottom: 2px; }
+  a {
+    font-color: #000;
+    font-weight: none;
+    text-decoration: none;
+  }
+}
+
+.product_buybox {
+  background-color: transparent;
+  border: 0px;
 }

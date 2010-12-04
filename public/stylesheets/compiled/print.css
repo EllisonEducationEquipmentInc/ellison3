@@ -370,15 +370,17 @@ body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp 
 /* line 383, ../../../app/stylesheets/partials_app/_catalog.scss */
 .highlightable.listview .product-block .item_description {
   display: block;
+  height: 70px;
+  overflow: hidden;
 }
-/* line 387, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 389, ../../../app/stylesheets/partials_app/_catalog.scss */
 .highlightable.listview .product-block .item_image {
   position: absolute;
   top: 0px;
   left: 0px;
   margin: 8px;
 }
-/* line 394, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 396, ../../../app/stylesheets/partials_app/_catalog.scss */
 .highlightable.listview .product-block .cart-buttons {
   position: absolute;
   top: 0px;
@@ -386,31 +388,31 @@ body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp 
   margin: 8px;
   width: auto;
 }
-/* line 402, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 404, ../../../app/stylesheets/partials_app/_catalog.scss */
 .highlightable.listview .product-block .life-cycle {
   text-align: center;
 }
-/* line 404, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 406, ../../../app/stylesheets/partials_app/_catalog.scss */
 .highlightable.listview .product-block .users_lists_container {
   position: absolute;
   bottom: 33px;
   left: -74px;
 }
-/* line 410, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 412, ../../../app/stylesheets/partials_app/_catalog.scss */
 .highlightable.listview .product-block .list_actions {
   top: 110px;
   left: 713px;
 }
-/* line 414, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 416, ../../../app/stylesheets/partials_app/_catalog.scss */
 .highlightable.listview .product-block .list_actions .move_to_another_list {
   top: -59px;
 }
 
-/* line 422, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 424, ../../../app/stylesheets/partials_app/_catalog.scss */
 .toggleview {
   margin-right: 10px;
 }
-/* line 424, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 426, ../../../app/stylesheets/partials_app/_catalog.scss */
 .toggleview a.toggle_view {
   display: block;
   height: 16px;
@@ -419,44 +421,44 @@ body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp 
   padding-right: 20px;
   background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_listview.png") no-repeat right top;
 }
-/* line 432, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 434, ../../../app/stylesheets/partials_app/_catalog.scss */
 .toggleview a.toggle_view:hover {
   color: #b60000;
   background-position: right bottom;
 }
-/* line 437, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 439, ../../../app/stylesheets/partials_app/_catalog.scss */
 .toggleview a.toggle_view.toggled {
   background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_gridview.png") no-repeat right top;
 }
-/* line 440, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 442, ../../../app/stylesheets/partials_app/_catalog.scss */
 .toggleview a.toggle_view.toggled:hover {
   background-position: right bottom;
 }
 
-/* line 446, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 448, ../../../app/stylesheets/partials_app/_catalog.scss */
 .product_images {
   background: white;
   overflow: visible;
   z-index: 200;
 }
-/* line 451, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 453, ../../../app/stylesheets/partials_app/_catalog.scss */
 .product_images #large_image {
   width: 450px;
   margin: 3px 0 0 3px;
 }
-/* line 456, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 458, ../../../app/stylesheets/partials_app/_catalog.scss */
 .product_images .thumbnail {
   border: 1px solid #cccccc;
   margin: 3px 0 3px 3px;
   float: left;
 }
 
-/* line 463, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 465, ../../../app/stylesheets/partials_app/_catalog.scss */
 .product_sociallinks {
   margin-top: 10px;
 }
 
-/* line 467, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 469, ../../../app/stylesheets/partials_app/_catalog.scss */
 .product_buybox {
   position: relative;
   background: #eceadf;
@@ -464,23 +466,23 @@ body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp 
   padding: 6px;
   margin: 10px 0;
 }
-/* line 474, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 476, ../../../app/stylesheets/partials_app/_catalog.scss */
 .product_buybox h4 {
   margin-top: 7px;
 }
-/* line 478, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 480, ../../../app/stylesheets/partials_app/_catalog.scss */
 .product_buybox .users_lists_container {
   position: absolute;
   top: 62px;
   left: 0px;
 }
-/* line 484, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 486, ../../../app/stylesheets/partials_app/_catalog.scss */
 .product_buybox a {
   font-family: Verdana,Arial,sans-serif;
   font-size: 10.2px;
 }
 
-/* line 490, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 492, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart {
   width: 121px;
   height: 25px;
@@ -488,19 +490,19 @@ body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp 
   border: none;
   color: #fff;
 }
-/* line 497, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 499, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart .ui-icon {
   background-image: none;
 }
-/* line 501, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 503, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart.ui-button {
   margin-right: 0;
 }
-/* line 505, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 507, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart:hover {
   background: url("/images/ui-buttons/addtocart_on.png") no-repeat;
 }
-/* line 507, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 509, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart.detail {
   width: 176px;
   height: 30px;
@@ -512,16 +514,16 @@ body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp 
   font-size: 1.1em;
   color: #fff;
 }
-/* line 518, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 520, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart.detail .ui-icon {
   background-image: none;
 }
-/* line 522, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 524, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart.detail:hover {
   background: url("/images/ui-buttons/addtocart_detail_on.png") no-repeat;
 }
 
-/* line 526, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 528, ../../../app/stylesheets/partials_app/_catalog.scss */
 #jump_to_list {
   margin-bottom: 5px;
 }
@@ -595,6 +597,18 @@ body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp 
 }
 
 /* line 11, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
+.product_description {
+  display: inline;
+  float: left;
+  margin-right: 0;
+  width: 470px;
+}
+/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html .product_description {
+  overflow-x: hidden;
+}
+
+/* line 12, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
 .product_moreinfo {
   display: inline;
   float: left;
@@ -606,7 +620,7 @@ body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp 
   overflow-x: hidden;
 }
 
-/* line 12, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
+/* line 13, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
 .product_tabs {
   display: inline;
   float: left;
@@ -691,62 +705,100 @@ body.bp .quiet {
 body.bp .hide {
   display: none;
 }
-/* line 15, ../../../app/stylesheets/print.scss */
+/* line 14, ../../../app/stylesheets/print.scss */
+body.bp a {
+  color: #000;
+}
+/* line 19, ../../../app/stylesheets/print.scss */
 body.bp .product-block p, body.bp .product-block h3, body.bp .product-block a {
   font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
   font-color: #000;
   font-weight: none;
   text-decoration: none;
 }
-/* line 22, ../../../app/stylesheets/print.scss */
+/* line 26, ../../../app/stylesheets/print.scss */
 body.bp .product-block h3 {
   margin: 0 0 4px 0;
 }
+/* line 31, ../../../app/stylesheets/print.scss */
+body.bp h3.product_title {
+  line-height: 1em;
+}
+/* line 35, ../../../app/stylesheets/print.scss */
+body.bp .product_buybox h4 {
+  font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
+  color: #000;
+}
+/* line 42, ../../../app/stylesheets/print.scss */
+body.bp .product_moreinfo h4, body.bp .product_moreinfo p, body.bp .product_moreinfo .product-block h3, body.bp .product-block .product_moreinfo h3 {
+  margin: 0;
+}
 
-/* line 29, ../../../app/stylesheets/print.scss */
+/* line 49, ../../../app/stylesheets/print.scss */
 .dontprint {
   display: none;
 }
 
-/* line 33, ../../../app/stylesheets/print.scss */
+/* line 53, ../../../app/stylesheets/print.scss */
 #content .dontprint {
   display: none;
 }
+/* line 58, ../../../app/stylesheets/print.scss */
+#content .product_moreinfo h4 {
+  margin-bottom: 2px;
+}
+/* line 60, ../../../app/stylesheets/print.scss */
+#content .product_moreinfo p a, #content .product_moreinfo body.bp .product-block h3 a, body.bp .product-block #content .product_moreinfo h3 a {
+  font-color: #000;
+  font-weight: none;
+  text-decoration: none;
+}
 
-/* line 37, ../../../app/stylesheets/print.scss */
+/* line 68, ../../../app/stylesheets/print.scss */
 .shadowOnBit {
   display: none;
 }
 
-/* line 42, ../../../app/stylesheets/print.scss */
+/* line 73, ../../../app/stylesheets/print.scss */
 .page-break {
   display: block;
   page-break-before: always;
 }
 
-/* line 48, ../../../app/stylesheets/print.scss */
+/* line 79, ../../../app/stylesheets/print.scss */
 #printmasthead h1 {
   margin: 0;
   padding: 0;
   height: auto;
 }
 
-/* line 56, ../../../app/stylesheets/print.scss */
+/* line 87, ../../../app/stylesheets/print.scss */
 #catalog_breadcrumbs {
   color: #000;
   font-weight: bold;
 }
-/* line 60, ../../../app/stylesheets/print.scss */
+/* line 91, ../../../app/stylesheets/print.scss */
 #catalog_breadcrumbs a {
   color: #000;
   text-decoration: none;
 }
-/* line 65, ../../../app/stylesheets/print.scss */
+/* line 96, ../../../app/stylesheets/print.scss */
 #catalog_breadcrumbs a.tag_breadcrumb_remove, #catalog_breadcrumbs a.price_breadcrumb_remove, #catalog_breadcrumbs .breadcrumb_arrow, #catalog_breadcrumbs a.price_breadcrumb_remove {
   display: none;
 }
 
-/* line 70, ../../../app/stylesheets/print.scss */
+/* line 102, ../../../app/stylesheets/print.scss */
+.msrp, .sale-price {
+  font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
+  color: #000;
+}
+
+/* line 107, ../../../app/stylesheets/print.scss */
+.sale-price {
+  color: #c00;
+}
+
+/* line 114, ../../../app/stylesheets/print.scss */
 .product-block {
   height: 220px;
   overflow: visible;
@@ -756,16 +808,41 @@ body.bp .product-block h3 {
   border-right: 1px dashed #ccc;
   page-break-before: auto;
 }
-/* line 79, ../../../app/stylesheets/print.scss */
+/* line 123, ../../../app/stylesheets/print.scss */
 .product-block .cart-buttons {
   display: none;
 }
 
-/* line 85, ../../../app/stylesheets/print.scss */
+/* line 129, ../../../app/stylesheets/print.scss */
 .listview .product-block {
   border-right: 0px;
 }
-/* line 88, ../../../app/stylesheets/print.scss */
+/* line 132, ../../../app/stylesheets/print.scss */
 .listview .product-block p.item_name, .highlightable.listview .product-block h3.item_number, .highlightable.listview .product-block .item_description, .listview body.bp .product-block h3.item_name, body.bp .listview .product-block h3.item_name, .listview .product-block p.item_price, .listview body.bp .product-block h3.item_price, body.bp .listview .product-block h3.item_price, .listview .product-block .item_description {
   margin: 2px 0px 4px 133px;
+}
+
+/* line 137, ../../../app/stylesheets/print.scss */
+h3.product_title, .product_buybox, .product_description, .product_moreinfo {
+  float: right;
+  margin: 0;
+  padding: 0;
+  width: 450px;
+}
+
+/* line 145, ../../../app/stylesheets/print.scss */
+.product_moreinfo h4 {
+  margin-bottom: 2px;
+}
+/* line 146, ../../../app/stylesheets/print.scss */
+.product_moreinfo a {
+  font-color: #000;
+  font-weight: none;
+  text-decoration: none;
+}
+
+/* line 153, ../../../app/stylesheets/print.scss */
+.product_buybox {
+  background-color: transparent;
+  border: 0px;
 }

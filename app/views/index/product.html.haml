@@ -1,24 +1,27 @@
-.breadcrumbs
+.breadcrumbs.dontprint
   = link_to_function 'back', "window.history.back()"
 .product_images
   #large_image= image_tag(@product.large_image)
-  .thumbnail.selected= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}'); return false;"
-  - @product.images.each do |image|
-    .thumbnail= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;"
-  .clear  
+  .dontprint
+    .thumbnail.selected= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}'); return false;"
+    - @product.images.each do |image|
+      .thumbnail= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;"
+    .clear  
 %h3.product_title
   = @product.name.html_safe
   %span.life-cycle= @product.public_life_cycle
-.product_sociallinks= facebook_like
+.product_sociallinks.dontprint= facebook_like
 .product_buybox.rounded
   %h4.itemnumber== Item ##{@product.item_num}
   %h4= display_product_price(@product)
-  = add_to_cart_button(@product, 'add_to_cart detail')
+  .dontprint
+    = add_to_cart_button(@product, 'add_to_cart detail')
     
-%p= @product.description.try :html_safe
+.product_description
+  = @product.description.try :html_safe
 
 .product_moreinfo
-  = image_tag("http://placehold.it/470x150")
+  = image_tag("http://placehold.it/470x150", :class => "dontprint")
   %h4 Keywords:
   %p= @product.tags.keywords.map {|tag| link_to(tag.name, catalog_path(:anchor => "facets=#{tag.facet_param}&page=1"))}.join(", ").html_safe
 .product_tabs= render :partial => 'tab_block', :locals => {:object => @product}
