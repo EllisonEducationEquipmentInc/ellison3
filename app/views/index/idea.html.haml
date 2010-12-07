@@ -12,7 +12,8 @@
 .item_sociallinks= facebook_like
 .buybox.rounded
   %h4.itemnumber== Item ##{@idea.idea_num}
-%p= @idea.description.try :html_safe
+.item_description
+  = @idea.description.try :html_safe
 
 .idea_moreinfo
   = image_tag("http://placehold.it/470x150")

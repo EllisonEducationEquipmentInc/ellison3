@@ -17,7 +17,7 @@
   .dontprint
     = add_to_cart_button(@product, 'add_to_cart detail')
     
-.product_description
+.item_description
   = @product.description.try :html_safe
 
 .product_moreinfo
