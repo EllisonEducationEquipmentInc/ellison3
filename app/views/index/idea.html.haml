@@ -6,7 +6,7 @@
   - @idea.images.each do |image|
     .thumbnail= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;"
   .clear  
-%h3.idea_title
+%h3.item_title
   = @idea.name
   %span.life-cycle= @idea.public_life_cycle
 .item_sociallinks= facebook_like

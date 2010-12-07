@@ -1,6 +1,6 @@
 //.product_main { @include column(19); }
 .item_images { @include column(12); }
-.product_title { @include column(12, true); }
+.item_title { @include column(12, true); }
 .item_sociallinks { @include column(7);}
 .buybox {
   display: inline;

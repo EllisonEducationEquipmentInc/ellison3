@@ -7,7 +7,7 @@
     - @product.images.each do |image|
       .thumbnail= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;"
     .clear  
-%h3.product_title
+%h3.item_title
   = @product.name.html_safe
   %span.life-cycle= @product.public_life_cycle
 .item_sociallinks.dontprint= facebook_like

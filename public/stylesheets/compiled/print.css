@@ -61,7 +61,7 @@ body.bp .product-block a:hover {
   color: #ff9f80;
 }
 /* line 75, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp h3.product_title {
+body.bp h3.item_title {
   font-size: 1.8em;
   font-weight: normal;
   text-transform: none;
@@ -565,14 +565,14 @@ body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp 
 }
 
 /* line 3, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
-.product_title {
+.item_title {
   display: inline;
   float: left;
   margin-right: 0;
   width: 470px;
 }
 /* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html .product_title {
+* html .item_title {
   overflow-x: hidden;
 }
 
@@ -721,7 +721,7 @@ body.bp .product-block h3 {
   margin: 0 0 4px 0;
 }
 /* line 31, ../../../app/stylesheets/print.scss */
-body.bp h3.product_title {
+body.bp h3.item_title {
   line-height: 1em;
 }
 /* line 35, ../../../app/stylesheets/print.scss */
@@ -813,7 +813,7 @@ body.bp .product_moreinfo h4, body.bp .product_moreinfo p, body.bp .product_more
 }
 
 /* line 124, ../../../app/stylesheets/print.scss */
-h3.product_title, .buybox, .product_description, .product_moreinfo {
+h3.item_title, .buybox, .product_description, .product_moreinfo {
   float: right;
   margin: 0;
   padding: 0;
