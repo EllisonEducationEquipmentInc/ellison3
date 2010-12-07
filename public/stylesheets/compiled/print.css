@@ -79,7 +79,7 @@ body.bp .buybox h4.itemnumber {
   float: right;
 }
 /* line 94, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .product_moreinfo h4 {
+body.bp .item_moreinfo h4 {
   text-transform: none;
   font-size: 1.1em;
   font-weight: bold;
@@ -609,26 +609,26 @@ body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp 
 }
 
 /* line 12, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
-.product_moreinfo {
+.item_moreinfo {
   display: inline;
   float: left;
   margin-right: 0;
   width: 470px;
 }
 /* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html .product_moreinfo {
+* html .item_moreinfo {
   overflow-x: hidden;
 }
 
 /* line 13, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
-.product_tabs {
+.item_tabs {
   display: inline;
   float: left;
   margin-right: 0;
   width: 950px;
 }
 /* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html .product_tabs {
+* html .item_tabs {
   overflow-x: hidden;
 }
 
@@ -730,7 +730,7 @@ body.bp .buybox h4 {
   color: #000;
 }
 /* line 42, ../../../app/stylesheets/print.scss */
-body.bp .product_moreinfo h4, body.bp .product_moreinfo p, body.bp .product_moreinfo .product-block h3, body.bp .product-block .product_moreinfo h3 {
+body.bp .item_moreinfo h4, body.bp .item_moreinfo p, body.bp .item_moreinfo .product-block h3, body.bp .product-block .item_moreinfo h3 {
   margin: 0;
 }
 
@@ -813,7 +813,7 @@ body.bp .product_moreinfo h4, body.bp .product_moreinfo p, body.bp .product_more
 }
 
 /* line 124, ../../../app/stylesheets/print.scss */
-h3.item_title, .buybox, .item_description, .product_moreinfo {
+h3.item_title, .buybox, .item_description, .item_moreinfo {
   float: right;
   margin: 0;
   padding: 0;
@@ -821,11 +821,11 @@ h3.item_title, .buybox, .item_description, .product_moreinfo {
 }
 
 /* line 132, ../../../app/stylesheets/print.scss */
-.product_moreinfo h4 {
+.item_moreinfo h4 {
   margin-bottom: 2px;
 }
 /* line 133, ../../../app/stylesheets/print.scss */
-.product_moreinfo a {
+.item_moreinfo a {
   font-color: #000;
   font-weight: none;
   text-decoration: none;

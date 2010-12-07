@@ -9,5 +9,5 @@
   width: 176px;
 }
 .item_description { @include column(12, true);}
-.product_moreinfo { @include column(12, true);}
-.product_tabs { @include column(24, true); }
+.item_moreinfo { @include column(12, true);}
+.item_tabs { @include column(24, true); }
