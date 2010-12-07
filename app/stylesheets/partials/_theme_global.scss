@@ -144,6 +144,11 @@ ul.ui-tabs-nav {
           padding: 0;
           text-transform: none;
         }
+
+				&:hover {
+					color: #6C5941;
+					cursor: text;
+				}
       }
       
       &.plaintext { padding: 0; }
