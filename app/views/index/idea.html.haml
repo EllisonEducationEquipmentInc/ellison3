@@ -9,7 +9,7 @@
 %h3.idea_title
   = @idea.name
   %span.life-cycle= @idea.public_life_cycle
-.idea_sociallinks= facebook_like
+.item_sociallinks= facebook_like
 .buybox.rounded
   %h4.itemnumber== Item ##{@idea.idea_num}
 %p= @idea.description.try :html_safe

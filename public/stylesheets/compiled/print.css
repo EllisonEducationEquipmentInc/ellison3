@@ -454,7 +454,7 @@ body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp 
 }
 
 /* line 465, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product_sociallinks {
+.item_sociallinks {
   margin-top: 10px;
 }
 
@@ -577,14 +577,14 @@ body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp 
 }
 
 /* line 4, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
-.product_sociallinks {
+.item_sociallinks {
   display: inline;
   float: left;
   margin-right: 10px;
   width: 270px;
 }
 /* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html .product_sociallinks {
+* html .item_sociallinks {
   overflow-x: hidden;
 }
 

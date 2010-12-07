@@ -10,7 +10,7 @@
 %h3.product_title
   = @product.name.html_safe
   %span.life-cycle= @product.public_life_cycle
-.product_sociallinks.dontprint= facebook_like
+.item_sociallinks.dontprint= facebook_like
 .buybox.rounded
   %h4.itemnumber== Item ##{@product.item_num}
   %h4= display_product_price(@product)
