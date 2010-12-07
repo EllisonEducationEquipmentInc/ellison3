@@ -25,11 +25,16 @@ class Idea
 	field :idea_num
 	field :active, :type => Boolean, :default => true
 	field :systems_enabled, :type => Array
+	field :objective
+	field :keywords
+	field :old_id, :type => Integer
+	field :long_desc
 	
 	index :idea_num, :unique => true, :background => true
 	index :systems_enabled
 	index :active
 	index :name
+	index :old_id
 	ELLISON_SYSTEMS.each do |system|
 	  index :"start_date_#{system}"
 	  index :"end_date_#{system}"

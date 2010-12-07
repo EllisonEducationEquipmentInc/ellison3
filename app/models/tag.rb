@@ -7,8 +7,8 @@ class Tag
 	
 	attr_accessor :embed_campaign
 	
-	TYPES = ["artist", "calendar_event", "category", "curriculum", "designer", "exclusive", "machine_compatibility", "material_compatibility", "product_family", "product_line", "special", "subcategory", "subcurriculum", "subtheme", "theme", "release_date"]
-  HIDDEN_TYPES = ["exclusive", "calendar"]
+	TYPES = ["artist", "category", "curriculum", "designer", "exclusive", "machine_compatibility", "material_compatibility", "product_family", "product_line", "special", "subcategory", "subcurriculum", "subtheme", "theme", "release_date"]
+  HIDDEN_TYPES = ["exclusive", "calendar", "calendar_event"]
   
   references_many :products, :stored_as => :array, :inverse_of => :tags, :index => true
   references_many :ideas, :stored_as => :array, :inverse_of => :tags, :index => true
@@ -39,6 +39,8 @@ class Tag
 	field :calendar_end_date, :type => DateTime
 	field :all_day, :type => Boolean
 	field :old_id, :type => Integer
+	field :old_id_edu, :type => Integer
+	field :color
 	
 	index :systems_enabled
 	index :permalink

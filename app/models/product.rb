@@ -64,6 +64,10 @@ class Product
 	field :height, :type => Float
 	field :keywords
 	field :old_id, :type => Integer
+	field :old_id_edu, :type => Integer
+	
+	field :item_code
+	field :default_config, :type => Boolean, :default => false
 	
 	index :item_num, :unique => true, :background => true
 	index :systems_enabled
@@ -96,6 +100,7 @@ class Product
 		end
   end
 	embeds_many :images
+	embeds_one :product_config
 	
 	references_many :tags, :stored_as => :array, :inverse_of => :products, :index => true
   references_many :order_items, :index => true
@@ -435,6 +440,7 @@ private
 		if image?
 			image_url(version)
 		else
+		  return image.default_url_edu(version) if is_ee? && FileTest.exists?("#{Rails.root}/public/#{image.default_url_edu(version)}")
 			FileTest.exists?("#{Rails.root}/public/#{image.default_url(version)}") ? image.default_url(version) : "/images/products/#{version}/noimage.jpg"
 		end
 	end

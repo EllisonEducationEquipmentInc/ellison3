@@ -40,6 +40,10 @@ class ImageUploader < CarrierWave::Uploader::Base
     #"/images/fallback/" + [version_name, "default.png"].compact.join('_')
     "/images/#{subdir_name}/#{version_name}/#{model.item_num}.jpg"
   end
+  
+  def default_url_edu(version_name = "medium")
+    "/images/ellison_#{subdir_name}/#{version_name}/#{model.item_code}.jpg"
+  end
 
   # Process files as they are uploaded.
   process :resize_to_fill => [800, 800]

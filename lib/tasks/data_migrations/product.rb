@@ -141,6 +141,7 @@ module OldData
   	
   	def new_life_cycle
   	  return 'pre-release' if self.pre_order
+  	  return 'discontinued' if self.life_cycle == 'Clearance-Discontinued'
   	  if self.availability == 0 || self.availability == 2
   	    'unvailable'
   	  elsif self.availability == 1 || self.availability == 3
