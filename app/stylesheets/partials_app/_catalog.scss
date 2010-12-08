@@ -185,10 +185,14 @@ body.bp {
 // catalog filter column
 #products_filter {
   h3 {
-    margin: 2px 0 10px 0;
+    margin: 24px 0 4px 0;
     text-transform: uppercase;
     font-size: 1.1em;
     font-weight: bold;
+  }
+  
+  .facets {
+    margin-top: 15px;
   }
 
   h4 {
@@ -477,7 +481,7 @@ body.bp {
 }
 
 .toggleview {
-  margin-right: 10px;
+  margin: 14px 10px 0 0;
   a.toggle_view {
     display: block;
     height: 16px;
@@ -497,6 +501,10 @@ body.bp {
       &:hover { background-position: right bottom; };
     }
   }
+}
+
+select#sort {
+  margin-top: 12px;
 }
 
 // product detail page
