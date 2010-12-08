@@ -288,7 +288,6 @@ body.bp {
 
 	background: $catalog_product_bg;
 	float: left;
-	height: 290px;
 	margin: 0 0 14px 14px;
 	padding: $item-block-padding;
 	width: $item-block-width;
@@ -296,6 +295,10 @@ body.bp {
 	overflow: visible;
 	z-index: 200;
 	color: $catalog_text;
+	
+	&.product { height: 290px; }
+	
+	&.idea { height: 210px; }
 	
   h3 {
     margin: 2px 0 10px 0;
@@ -443,6 +446,16 @@ body.bp {
         display: block;
         height: 70px;
         overflow: hidden;
+      }
+      
+      &.product {
+        .item_description { width: 500px; }
+      }
+      &.idea {
+        .item_description {
+          margin: 2px 0 4px 133px;
+          width: auto;
+        }
       }
 
       .item_image {
