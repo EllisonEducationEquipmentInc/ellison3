@@ -1,6 +1,7 @@
-.contentwrap_XXL
-  .right.dontprint= select_tag :sort, options_for_select(@sort_options, params[:sort]), :onchange => "location.hash = $.param.fragment( location.hash, {sort: this.value, page: 1}, 0 )"
-  .toggleview.right.minilink.dontprint= link_to "switch to list view", "#", :class => "toggle_view"
+%h3.dontdisplay== #{pluralize @search.total, @klass.to_s} Showing
+.contentwrap_XXL.dontprint
+  .right= select_tag :sort, options_for_select(@sort_options, params[:sort]), :onchange => "location.hash = $.param.fragment( location.hash, {sort: this.value, page: 1}, 0 )"
+  .toggleview.right.minilink= link_to "switch to list view", "#", :class => "toggle_view"
   %ul#catalogtabs
     %li= link_to "<span>#{pluralize @search.total, @klass.to_s} Showing</span>".html_safe, "#", :onclick => "return false;", :class => "tab active"
     %li= link_to "<span>#{pluralize @secondary_search.total, @secondary_klass.to_s} Found</span>".html_safe, "#", :id => "toggle_product_idea", :class => "tab inactive"

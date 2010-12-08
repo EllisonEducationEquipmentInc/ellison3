@@ -175,7 +175,7 @@ body.bp .product_sidebar p, body.bp .product_sidebar .product-block h3, body.bp 
 
 /* line 187, ../../../app/stylesheets/partials_app/_catalog.scss */
 #products_filter h3 {
-  margin: 24px 0 4px 0;
+  margin: 16px 0 12px 0;
   text-transform: uppercase;
   font-size: 1.1em;
   font-weight: bold;
