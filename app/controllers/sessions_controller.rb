@@ -19,7 +19,16 @@ class SessionsController < ApplicationController
   # POST /resource/sign_in
   def create
 		params[:user] = params[:existing_user] if params[:user].blank?
-    resource = warden.authenticate!(:scope => resource_name, :recall => request.xhr? ? "failure" : "new")
+		u = User.find_for_authentication :old_user => true, :email => params[:user][:email]
+		if u && u.old_authenticated?(params[:user][:password])
+		  Rails.logger.info "Rehashing password for #{u.email}"
+		  u.old_user = false
+		  u.password = params[:user][:password]
+		  u.save
+		  resource = u
+		else
+		  resource = warden.authenticate!(:scope => resource_name, :recall => request.xhr? ? "failure" : "new")
+		end
     set_flash_message :notice, :signed_in
     session[:user_return_to] = retailer_application_path if is_er? && !resource.application_complete?
     if request.xhr? 

@@ -19,6 +19,15 @@ class User
 	field :discount_level, :type => Integer
 	field :status, :default => "pending"
 	
+	field :old_id_szus, :type => Integer
+	field :old_id_szuk, :type => Integer
+	field :old_id_eeus, :type => Integer
+	field :old_id_eeuk, :type => Integer
+	field :old_id_er, :type => Integer
+	field :old_password_hash
+	field :old_salt
+	field :old_user, :type => Boolean, :default => false
+	
 	validates_uniqueness_of :email, :case_sensitive => false
 	validates_presence_of :tax_exempt_certificate, :if => Proc.new {|obj| obj.tax_exempt}
 		
@@ -46,6 +55,7 @@ class User
 	index :sign_in_count
 	index :created_at
 	index :status
+	index :old_user
 	
 	embeds_one :token
 	embeds_one :retailer_application
@@ -122,6 +132,14 @@ class User
     address_types.each do |address_type|
       addresses.build(:address_type => address_type, :email => self.email) unless send("#{address_type}_address")
     end
+  end
+  
+  def self.old_encrypt(password, salt)
+    Digest::SHA1.hexdigest("--#{salt}--#{password}--")
+  end
+  
+  def old_authenticated?(password)
+    old_password_hash == self.class.old_encrypt(password, self.old_salt)
   end
 
 protected

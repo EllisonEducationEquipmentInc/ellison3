@@ -40,6 +40,9 @@
   %strong Web Customer Number:
   = @order.user.id
   %br
+  %strong Customer Account:
+  = @order.user.email
+  %br
   %strong Order Date:
   = l @order.created_at, :format => :custom
   %br
