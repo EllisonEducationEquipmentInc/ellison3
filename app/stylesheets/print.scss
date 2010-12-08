@@ -15,7 +15,7 @@ body.bp {
     color: #000;
   }
   
-  .product-block {
+  .item-block {
     p, a {
       font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
       font-color: #000;
@@ -98,7 +98,7 @@ body.bp {
 }
 
 // catalog results page
-.product-block {  
+.item-block {  
 	height: 220px;
 	overflow: visible;
 	margin: 0;
@@ -113,7 +113,7 @@ body.bp {
 }
 
 .listview {
-  .product-block {
+  .item-block {
     border-right: 0px;
     
     p.item_name, p.item_price, .item_description { margin: 2px 0px 4px 133px; }

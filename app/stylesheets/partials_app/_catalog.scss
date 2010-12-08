@@ -11,7 +11,7 @@ body.bp {
     }
   }
   
-  .product-block, .buybox {
+  .item-block, .buybox {
     
     p, h4 {
       margin:0;
@@ -59,7 +59,7 @@ body.bp {
 
   }
   
-  .product-block {
+  .item-block {
 
     h3 {
       color: $catalog_item-num;
@@ -282,16 +282,16 @@ body.bp {
 }
 
 // individual product blocks (grid view)
-.product-block {
-  $product-block-width: 167px;
-  $product-block-padding: 8px;
+.item-block {
+  $item-block-width: 167px;
+  $item-block-padding: 8px;
 
 	background: $catalog_product_bg;
 	float: left;
 	height: 290px;
 	margin: 0 0 14px 14px;
-	padding: $product-block-padding;
-	width: $product-block-width;
+	padding: $item-block-padding;
+	width: $item-block-width;
 	text-align: center;
 	overflow: visible;
 	z-index: 200;
@@ -384,9 +384,9 @@ body.bp {
 	.cart-buttons {
 	  width: 100%;
 	  position: absolute;
-	  bottom: $product-block-padding;
+	  bottom: $item-block-padding;
 	  left: 50%;
-	  margin-left: -($product-block-width/2) - $product-block-padding;
+	  margin-left: -($item-block-width/2) - $item-block-padding;
 	  font-family: Verdana,Arial,sans-serif;
 
 	  a {
@@ -396,7 +396,7 @@ body.bp {
 	  }
 	  
 	  .users_lists_container {
-	    width: $product-block-width + 11;
+	    width: $item-block-width + 11;
       position: absolute;
       bottom: 0px;
       left: -6px;
@@ -428,7 +428,7 @@ body.bp {
 
   // list view styles
   &.listview {
-    .product-block {
+    .item-block {
       width: 758px;
       height: 125px;
       text-align: left;

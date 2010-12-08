@@ -55,7 +55,7 @@ function initialize_facets() {
 function shadow_on() {
 	// shadowOn
 	$(".cardpanelshadow").shadowOn({ imageset: 6, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadows for cardpanel layout archetype
-	$(".product-block").shadowOn({ imageset: 1, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadow for product blocks on catalog pages
+	$(".item-block").shadowOn({ imageset: 1, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadow for product blocks on catalog pages
 	$(".item_images").shadowOn({ imageset: 1, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadow for product blocks on catalog pages
 }
 
