@@ -417,6 +417,10 @@ class Product
 	  self.volume || (self.width * self.height * self.length)
 	end
 	
+	def size
+	  product_config.additional_name if product_config && product_config.config_group == 'size'
+	end
+	
 private 
 
   # automatically set system specific attributes (if not set) of all other enabled systems. Values are inherited from the current system

@@ -84,7 +84,7 @@ namespace :data_migrations do
     end
   end
   
-  def process_tab(tab,new_tab)
+  def process_tab(tab,new_tab,sys="sz")
     unless tab.column_grid.blank?
       new_tab.data_column ||= []
       for i in 1..OldData::Tab::MAX_GRID do
@@ -102,19 +102,21 @@ namespace :data_migrations do
       end
       new_tab.products = OldData::Product.all(:select => "item_num", :conditions => ["id IN (?)", tab.item_nums[:products].compact.uniq]).map {|e| e.item_num} unless tab.item_nums[:products].blank?
       new_tab.ideas = OldData::Idea.all(:conditions => ["id IN (?)", tab.item_nums[:ideas].compact.uniq]).map {|e| e.idea_num} unless tab.item_nums[:ideas].blank?
-      unless tab.images.blank?
-        i=0
-        tab.images["large_images"].reject {|e| e.blank?}.each do |img|
-          image = new_tab.images.build
-          image.caption = tab.images["captions"][i]
-          begin
-            image.remote_image_url = "http://www.sizzix.com/images/#{img}"
-            p image.save
-          rescue Exception => e
-            p e.message
-          ensure
-            i+=1
-          end
+    end
+    unless tab.images.blank? || tab.images["large_images"].blank?
+      p "found images"
+      new_tab.save
+      i=0
+      tab.images["large_images"].reject {|e| e.blank?}.each do |img|
+        image = new_tab.images.build
+        p image.caption = tab.images["captions"][i]
+        begin
+          p image.remote_image_url = "http://www.#{sys == 'edu' ? "ellisoneducation" : "sizzix"}.com/images/#{img}"
+          p image.save
+        rescue Exception => e
+          p e.message
+        ensure
+          i+=1
         end
       end
     end
@@ -199,6 +201,7 @@ namespace :data_migrations do
   
   desc "migrate EDU US product tabs"
   task :tabs_eeus => [:set_edu, :load_dep] do
+    set_current_system "eeus"
     Product.where(:old_id_edu.gt => 0).each do |product|
       #product = Product.find '4cf847fbe1b8326863000227'
       old_product = OldData::Product.find(product.old_id_edu) rescue next
@@ -210,6 +213,99 @@ namespace :data_migrations do
         p new_tab.save
         p new_tab.errors
         p "#{product.item_num} ------ #{tab.id} -------"
+      end
+    end
+  end
+  
+  desc "EDU sizes to tags"
+  task :size_to_tag => [:set_edu, :load_dep] do
+    set_current_system "eeus"
+    Product.where(:product_config.exists => true, 'product_config.config_group' => 'size').each do |product|
+      tag = Tag.where(:tag_type => "size", :name => product.size).first || Tag.new(:tag_type => 'size', :name => product.size, :start_date_eeus => 1.year.ago, :end_date_eeus => 20.years.since, :systems_enabled => ["eeus", "eeuk", "er"])
+      tag.product_ids << product.id
+      product_ids = tag.product_ids.dup
+      tag.products = Product.where(:_id.in => product_ids).uniq.map {|p| p}
+      p tag.save
+      tag.reload
+      tag.product_ids = []
+      tag.products = Product.where(:_id.in => product_ids).uniq.map {|p| p}
+      tag.save
+      p tag.product_ids
+      p "#{product.item_num} ------ #{tag.name} -------"
+    end
+  end
+  
+  desc "fix size_to_tab"
+  task :fix_size_to_tag => [:set_edu, :load_dep] do
+    Tag.sizes.each do |tag|
+      product_ids = tag.product_ids.dup
+      tag.products = Product.where(:_id.in => product_ids).uniq.map {|p| p}
+      tag.save
+      tag.reload
+      tag.product_ids = []
+      tag.products = Product.where(:_id.in => product_ids).uniq.map {|p| p}
+      p tag.save
+    end
+  end
+  
+  desc "migrate sizzix ideas"
+  task :ideas_edu => [:set_edu, :load_dep] do
+    set_current_system "eeus"
+    #idea = OldData::Idea.find 1820
+    OldData::Idea.all(:conditions => "id > 0").each do |idea|
+      new_idea = Idea.new :name => idea.name, :description_eeus => idea.short_desc, :old_id_edu => idea.id, :systems_enabled => ["eeus", "eeuk", "er"], :idea_num => "L#{idea.idea_num}", :long_desc => idea.long_desc, :active => idea.active_status, 
+         :keywords => idea.keywords, :start_date_eeus => idea.start_date, :end_date_eeus => idea.end_date, :objective => idea.objective, :grade_level => idea.grade_level && idea.grade_level.split(/,\s*/),
+         :distribution_life_cycle_eeus => idea.new_lesson ? 'New' : nil, :distribution_life_cycle_ends_eeus => idea.new_lesson && idea.new_expires_at
+      new_idea.tags = Tag.where(:old_id_edu.in => idea.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
+      new_idea.save
+      ["image2", "image3"].each do |meth|
+        unless idea.send(meth).blank?
+          image = new_idea.images.build
+          begin
+            image.remote_image_url = "http://www.ellisoneducation.com/images/#{idea.send(meth)}"
+            p image.save
+          rescue Exception => e
+            p e.message
+          end        
+        end
+      end
+      p new_idea.save
+      p new_idea.errors
+      next unless new_idea.valid?
+      new_idea.reload
+      new_idea.tags = Tag.where(:old_id_edu.in => idea.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
+      new_idea.save
+      p new_idea.errors
+      p "------ #{idea.id} #{new_idea.id}-------"
+    end
+  end
+  
+  desc "rename EDU idea images"
+  task :rename_images_edu => [:set_edu, :load_dep] do
+    p path =  "#{Rails.root}/public/images/"
+    OldData::Idea.all(:conditions => "id > 0").each do |idea|
+      #idea = OldData::Idea.find 731
+      FileUtils.mv "#{path}#{idea.large_image.gsub('ellison_lessons/', 'ellison_ideas/')}", "#{path}ellison_ideas/large/L#{idea.idea_num}.jpg" if !idea.large_image.blank? && FileTest.exists?("#{path}#{idea.large_image.gsub('ellison_lessons/', 'ellison_ideas/')}") rescue next
+      FileUtils.mv "#{path}#{idea.med_image.gsub('ellison_lessons/', 'ellison_ideas/')}", "#{path}ellison_ideas/medium/L#{idea.idea_num}.jpg" if !idea.med_image.blank? && FileTest.exists?("#{path}#{idea.med_image.gsub('ellison_lessons/', 'ellison_ideas/')}") rescue next
+      FileUtils.mv "#{path}#{idea.small_image.gsub('ellison_lessons/', 'ellison_ideas/')}", "#{path}ellison_ideas/small/L#{idea.idea_num}.jpg" if !idea.small_image.blank? && FileTest.exists?("#{path}#{idea.small_image.gsub('ellison_lessons/', 'ellison_ideas/')}") rescue next
+      p idea.idea_num
+    end
+  end
+  
+  desc "migrate EDU idea tabs"
+  task :idea_tabs_ee => [:set_edu, :load_dep] do
+    set_current_system "eeus"
+    Idea.all.each do |idea|
+    #idea=Idea.find '4cfed56de1b83259d6000017'
+      old_idea = OldData::Idea.find(idea.old_id_edu) rescue next
+      old_idea.idea_tabs.not_deleted.each do |tab|
+        next if idea.tabs.where(:name => tab.name).count > 0
+        new_tab = idea.tabs.build 
+        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ELLISON_SYSTEMS, :active => tab.active, :text => tab.freeform
+        process_tab(tab,new_tab,"edu")
+        p new_tab.save
+        p new_tab.errors
+        p "#{idea.idea_num} ------ #{tab.id} -------"
       end
     end
   end

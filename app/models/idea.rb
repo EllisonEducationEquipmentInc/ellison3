@@ -28,7 +28,9 @@ class Idea
 	field :objective
 	field :keywords
 	field :old_id, :type => Integer
+	field :old_id_edu, :type => Integer
 	field :long_desc
+	field :grade_level, :type => Array
 	
 	index :idea_num, :unique => true, :background => true
 	index :systems_enabled
@@ -94,6 +96,7 @@ class Idea
 			tags.map { |tag| tag.name }
 		end
 		text :name, :boost => 2
+		text :idea_num
 		#text :keywords, :boost => 1.5
 		string :idea_num, :stored => true
 		string :medium_image, :stored => true
@@ -174,6 +177,10 @@ class Idea
 	  active && systems_enabled.include?(sys) && self.send("start_date_#{sys}") < Time.zone.now && self.send("end_date_#{sys}") > Time.zone.now
 	end
 	
+	def item_code
+	  self.idea_num #.gsub(/^L/, "")
+	end
+	
 private 
 
   # automatically set system specific attributes (if not set) of all other enabled systems. Values are inherited from the current system
@@ -191,6 +198,7 @@ private
 		if image?
 			image_url(version)
 		else
+		  return image.default_url_edu(version) if is_ee? && FileTest.exists?("#{Rails.root}/public/#{image.default_url_edu(version)}")
 			FileTest.exists?("#{Rails.root}/public/#{image.default_url(version)}") ? image.default_url(version) : "/images/ideas/#{version}/noimage.jpg"
 		end
 	end
