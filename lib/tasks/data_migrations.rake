@@ -280,6 +280,18 @@ namespace :data_migrations do
     end
   end
   
+  desc "update related idea nums EDU"
+  task :related_ideas_edu => [:set_edu, :load_dep] do
+    set_current_system "eeus"
+    Product.where(:old_id_edu.gt => 0, :'tabs.ideas'.exists => true).each do |product|
+      # product=Product.find '4cfd6a0ee1b83207130011f2'
+      product.tabs.select {|e| !e.ideas.blank?}.each do |tab|
+        tab.ideas = tab.ideas.map {|e| e =~ /^L/ ? e : "L#{e}"}
+        p tab.save
+      end
+    end
+  end
+  
   desc "rename EDU idea images"
   task :rename_images_edu => [:set_edu, :load_dep] do
     p path =  "#{Rails.root}/public/images/"
