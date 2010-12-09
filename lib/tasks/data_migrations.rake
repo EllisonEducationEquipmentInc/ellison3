@@ -28,7 +28,7 @@ namespace :data_migrations do
       new_product.price = product.price if new_product.outlet
       new_product.tags = Tag.where(:old_id.in => product.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
       new_product.save
-      ["image2", "image3", "embelish_image", "line_drawing"].each do |meth|
+      ["image2", "image3", "embelish_image", "line_drawing", "zoom_image"].each do |meth|
         unless product.send(meth).blank?
           image = new_product.images.build
           begin
@@ -131,7 +131,7 @@ namespace :data_migrations do
          :distribution_life_cycle_szus => idea.new_lesson ? 'New' : nil, :distribution_life_cycle_ends_szus => idea.new_lesson && idea.new_expires_at
       new_idea.tags = Tag.where(:old_id.in => idea.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
       new_idea.save
-      ["image2", "image3"].each do |meth|
+      ["image2", "image3", "zoom_image"].each do |meth|
         unless idea.send(meth).blank?
           image = new_idea.images.build
           begin
@@ -177,7 +177,7 @@ namespace :data_migrations do
 
       new_product.tags = Tag.where(:old_id_edu.in => product.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
       new_product.save
-      ["image2", "image3", "embelish_image", "line_drawing"].each do |meth|
+      ["image2", "image3", "embelish_image", "line_drawing", "zoom_image"].each do |meth|
         unless product.send(meth).blank?
           image = new_product.images.build
           begin
@@ -319,6 +319,88 @@ namespace :data_migrations do
         p new_tab.errors
         p "#{idea.idea_num} ------ #{tab.id} -------"
       end
+    end
+  end
+  
+  desc "import sizzix US users"
+  task :users_szus => :load_dep do
+    set_current_system "szus"
+    OldData::User.not_deleted.all(:conditions => "id > 0").each do |old_user|
+      #old_user = OldData::User.find(463910)
+      new_user = User.new(:email => old_user.email, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
+      new_user.old_password_hash = old_user.crypted_password
+      new_user.old_salt = old_user.salt
+      new_user.password = new_user.old_password_hash[0..19]
+      new_user.old_user = true
+    
+      new_user.old_id_szus = old_user.id
+    
+      new_user.tax_exempt = old_user.tax_exempt
+      new_user.tax_exempt_certificate = old_user.tax_exempt_certificate
+      new_user.invoice_account = old_user.billing_addresses.first.try :invoice_account
+      new_user.erp = old_user.erp_id
+      new_user.status = old_user.state
+      new_user.old_account_id = old_user.account_id
+      new_user.purchase_order = old_user.purchase_order
+      new_user.discount_level = old_user.discount_level_id
+      new_user.first_order_minimum = old_user.first_order_minimum
+      new_user.order_minimum = old_user.order_minimum
+      new_user.customer_newsletter = old_user.customer_newsletter
+      new_user.outlet_newsletter = old_user.outlet_newsletter
+      new_user.real_deal = old_user.real_deal
+      new_user.default_user = old_user.default_user
+      new_user.internal_comments = old_user.internal_comments
+
+      p new_user.save
+      unless old_user.billing_addresses.first.blank?
+        p "billing address..."
+        old_billing = old_user.billing_addresses.first
+        billing_address = new_user.addresses.build(:address_type => "billing", :email => new_user.email, :bypass_avs => true, :first_name => old_billing.first_name, :last_name => old_billing.last_name, :address1 => old_billing.address, :address2 => old_billing.address2, :city => old_billing.city, :state => old_billing.state, :zip_code => old_billing.zip_code, :country => old_billing.country, :phone => old_billing.phone, :company => old_billing.company)
+        p billing_address.save
+        p billing_address.errors
+        unless old_billing.subscriptionid.blank?
+          p "token found..."
+          new_user.token = Token.new(:subscriptionid => old_billing.subscriptionid)
+          unless old_billing.tokenized_info.blank?
+            new_user.token.write_attributes :first_name => old_billing.tokenized_info['firstName'], :last_name => old_billing.tokenized_info['lastName'], :address1 => old_billing.tokenized_info['street1'], :address2 => old_billing.tokenized_info['street2'], :city => old_billing.tokenized_info['city'], :state => old_billing.tokenized_info['state'], :zip_code => old_billing.tokenized_info['postalCode'], :country => old_billing.tokenized_info['country'] == 'US' ? "United States" : old_billing.tokenized_info['country'], :email => old_billing.tokenized_info['email']
+          end
+          p new_user.token.save
+        end
+      end
+      unless old_user.customers.first.blank?
+        p "shipping address..."
+        old_shipping = old_user.customers.first
+        shipping_address = new_user.addresses.build(:address_type => "shipping", :email => new_user.email, :bypass_avs => true, :first_name => old_shipping.first_name, :last_name => old_shipping.last_name, :address1 => old_shipping.address, :address2 => old_shipping.address2, :city => old_shipping.city, :state => old_shipping.state, :zip_code => old_shipping.zip_code, :country => old_shipping.country, :phone => old_shipping.phone, :company => old_shipping.company)
+        p shipping_address.save
+      end
+      p new_user.errors
+      p new_user.old_id_szus
+    end
+  end
+  
+  desc "migrate SZUS orders"
+  task :orders_szus => :load_dep do
+    set_current_system "szus"
+    #order = OldData::Order.find(511574)
+    OldData::Order.all.each do |order|
+      new_order = Order.new(:status => order.status_name, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :order_number => order.id, :order_reference => order.order_reference_id.blank? ? nil : Order.where(:order_number => order.order_reference_id).first.try(:id), :tracking_number => order.tracking_number, :tracking_url => order.tracking_url, :customer_rep => order.sales_rep.try(:email), :clickid => order.clickid, :utm_source => order.utm_source, :tracking => order.tracking,
+                    :tax_transaction => order.tax_transaction_id, :tax_calculated_at => order.tax_calculated_at, :tax_exempt_number => order.tax_exempt_number, :tax_committed => order.tax_committed, :shipping_priority => order.shipping_priority, :shipping_service => "STANDARD", :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :ip_address => order.ip_address, :estimated_ship_date => order.estimated_ship_date, :purchase_order => order.purchase_order, :comments => order.comments, :internal_comments => order.internal_comments, :old_quote_id => order.quote_id)
+    
+      new_order.user = User.where(:old_id_szus => order.user_id).first unless order.user_id.blank?
+    
+      new_order.address = Address.new(:address_type => "shipping", :email => order.ship_email, :bypass_avs => true, :first_name => order.ship_first_name, :last_name => order.ship_last_name, :address1 => order.ship_address1, :address2 => order.ship_address2, :city => order.ship_city, :state => order.ship_state, :zip_code => order.ship_zip, :country => order.ship_country, :phone => order.ship_phone, :company => order.shipping_company)
+    
+      new_order.payment = Payment.new(:created_at => order.payment.created_at, :first_name => order.payment.first_name, :last_name => order.payment.last_name, :company => order.payment.company, :address1 => order.payment.address1, :address2 => order.payment.address2, :city => order.payment.city, :state => order.payment.state, :zip_code => order.payment.zip, :country => order.payment.country, :phone => order.payment.phone, :email => order.payment.email, :payment_method => order.payment.payment_type, :card_name => order.payment.card_name, :card_number => order.payment.card_number, :card_expiration_month => order.payment.card_expiration_month, :card_expiration_year => order.payment.card_expiration_year, :save_credit_card => order.payment.save_credit_card, :use_saved_credit_card => order.payment.use_saved_credit_card, :deferred => order.payment.deferred, :purchase_order => !order.payment.purchase_order.blank?, :purchase_order_number => order.payment.purchase_order, :cv2_result => order.payment.cv2_result, :status => order.payment.status, :vpstx_id => order.payment.vpstx_id, :security_key => order.payment.security_key, :tx_auth_no => order.payment.tx_auth_no, :status_detail => order.payment.status_detail, :address_result => order.payment.address_result, :post_code_result => order.payment.post_code_result, :subscriptionid => order.payment.subscriptionid, :paid_amount => order.payment.paid_amount, :authorization => order.payment.authorization, :paid_at => order.payment.paid_at, :vendor_tx_code => order.payment.vendor_tx_code, :void_at => order.payment.void_at, :void_amount => order.payment.void_amount, :void_authorization => order.payment.void_authorization, :refunded_at => order.payment.refunded_at, :refunded_amount => order.payment.refunded_amount, :refund_authorization => order.payment.refund_authorization, :deferred_payment_amount => order.payment.deferred_payment_amount, :number_of_payments => order.payment.number_of_payments, :frequency => order.payment.frequency) unless order.payment.blank?
+    
+      order.order_items.each do |item|
+        new_order.order_items << OrderItem.new(:item_num => item.item_num, :name => item.product.try(:name), :locale => item.order.locale, :quoted_price => item.quoted_price, :sale_price => item.sale_price, :discount => item.discount, :quantity => item.quantity, :vat_exempt => item.vat_exempt, :vat => item.vat, :vat_percentage => item.vat_percentage, :upsell => item.upsell, :outlet => item.outlet, 
+          :product_id => Product.where(:old_id => item.product_id).first.try(:id))
+      end
+     
+      p new_order.save
+      p new_order.errors
+      p order.id
+      p ' '
     end
   end
   

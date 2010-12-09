@@ -4,13 +4,19 @@ class Order
 	include Mongoid::Timestamps
 	include ActiveModel::Validations
 	include ActiveModel::Translation
+  
+  include Mongoid::Sequence
 	
+	field :order_number, :type=>Integer
+  sequence :order_number
+  
 	# have to be titlized
 	STATUSES = ["New", "Pending", "Open", "Processing", "In Process", "Shipped", "To Refund", "Refunded", "Cancelled"]
 	
 	validates :status, :subtotal_amount, :shipping_amount, :tax_amount, :address, :order_items, :payment, :presence => true
 	validates_inclusion_of :status, :in => STATUSES
 	validates_associated :payment
+	validates_uniqueness_of :order_number, :on => :create, :message => "must be unique"
 	
 	embeds_one :payment
 	embeds_one :address
@@ -24,16 +30,18 @@ class Order
 	index :created_at
 	index "address.last_name"
 	index "order_items.item_num"
+	index :order_number
 	
 	field :status, :default => "New"
 	field :system
 	field :locale
 	field :ip_address
 	field :subtotal_amount, :type => Float
-	field :shipping_amount, :type => Float
+
+	field :shipping_amount, :type => Float      	            # net shipping_amount (without VAT) is stored for UK sites
 	field :handling_amount, :type => Float
 	field :total_discount, :type => Float
-	field :tax_amount, :type => Float
+	field :tax_amount, :type => Float                         # !!! does NOT contain shipping VAT
 	field :vat_exempt, :type => Boolean, :default => false
 	field :vat_percentage, :type => Float
 	field :tax_exempt, :type => Boolean, :default => false
@@ -55,6 +63,8 @@ class Order
 	field :customer_rep_id, :type => BSON::ObjectId
 	field :order_reference
 	field :coupon_code
+	
+	field :old_quote_id, :type => Integer
 	
 	field :clickid
 	field :utm_source
@@ -83,7 +93,7 @@ class Order
 	end
 	
 	def shipping_vat
-	  self.vat_exempt ? 0.0 : (self.shipping_amount * (self.vat_percentage/100.0)).round(2)
+	  self.vat_exempt ? 0.0 : (self.shipping_amount * ((self.vat_percentage || 0.0)/100.0)).round(2)
 	end
 	
 	def decrement_items!

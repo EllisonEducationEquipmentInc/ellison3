@@ -55,6 +55,10 @@ class Payment
   field :refunded_at, :type => DateTime
   field :refunded_amount, :type => Float
   field :refund_authorization
+  
+  field :deferred_payment_amount, :type => Float
+  field :number_of_payments, :type => Integer
+  field :frequency
 	
 	mount_uploader :attachment, PrivateAttachmentUploader	
 	

@@ -18,7 +18,15 @@ class User
 	field :purchase_order, :type => Boolean, :default => false
 	field :discount_level, :type => Integer
 	field :status, :default => "pending"
+	field :first_order_minimum, :type => Integer
+	field :order_minimum, :type => Integer
+	field :customer_newsletter, :type => Boolean, :default => false
+	field :outlet_newsletter, :type => Boolean, :default => false
+	field :real_deal, :type => Boolean, :default => false
+	field :default_user, :type => Boolean, :default => false
+	field :internal_comments
 	
+	field :old_account_id, :type => Integer
 	field :old_id_szus, :type => Integer
 	field :old_id_szuk, :type => Integer
 	field :old_id_eeus, :type => Integer
@@ -28,7 +36,7 @@ class User
 	field :old_salt
 	field :old_user, :type => Boolean, :default => false
 	
-	validates_uniqueness_of :email, :case_sensitive => false
+	validates_uniqueness_of :email, :case_sensitive => false, :on => :create
 	validates_presence_of :tax_exempt_certificate, :if => Proc.new {|obj| obj.tax_exempt}
 		
 	attr_accessible :name, :company, :email, :password, :password_confirmation, :addresses_attributes
@@ -56,6 +64,11 @@ class User
 	index :created_at
 	index :status
 	index :old_user
+	index :old_id_szus
+	index :old_id_edu
+	index :old_id_szuk
+	index :old_id_eeuk
+	index :old_id_er
 	
 	embeds_one :token
 	embeds_one :retailer_application
