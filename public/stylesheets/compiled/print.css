@@ -240,7 +240,7 @@ body.bp .product_sidebar p, body.bp .product_sidebar .item-block h3, body.bp .it
 }
 /* line 252, ../../../app/stylesheets/partials_app/_catalog.scss */
 #catalogtabs li a.active span:hover, #catalogtabs li a.inactive span:hover {
-  color: #be9f35;
+  color: #609e85;
 }
 /* line 257, ../../../app/stylesheets/partials_app/_catalog.scss */
 #catalogtabs li a.active {
@@ -250,7 +250,7 @@ body.bp .product_sidebar p, body.bp .product_sidebar .item-block h3, body.bp .it
 /* line 261, ../../../app/stylesheets/partials_app/_catalog.scss */
 #catalogtabs li a.active span {
   background: transparent url("/images/ui-backgrounds/tab_active.png") no-repeat;
-  color: #222;
+  color: #81a77e;
   padding: 11px 0 10px 14px;
 }
 /* line 267, ../../../app/stylesheets/partials_app/_catalog.scss */
@@ -265,7 +265,7 @@ body.bp .product_sidebar p, body.bp .product_sidebar .item-block h3, body.bp .it
 /* line 273, ../../../app/stylesheets/partials_app/_catalog.scss */
 #catalogtabs li a.inactive span {
   background: transparent url("/images/ui-backgrounds/tab_inactive.png") no-repeat;
-  color: #aeaa99;
+  color: #afab8a;
   padding: 11px 0 10px 8px;
 }
 /* line 278, ../../../app/stylesheets/partials_app/_catalog.scss */

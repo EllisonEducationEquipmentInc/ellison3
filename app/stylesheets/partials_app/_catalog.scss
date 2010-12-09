@@ -250,7 +250,7 @@ body.bp {
     
     a.active span, a.inactive span {
       &:hover {
-        color: #be9f35;
+        color: #609e85;
       }      
     }
 
@@ -260,7 +260,7 @@ body.bp {
       
       span {
         background: transparent url('/images/ui-backgrounds/tab_active.png') no-repeat;
-        color: #222;
+        color: #81a77e;
         padding: 11px 0 10px 14px;  // padding left to accomodate link icon; padding right to space away from link divider
       }
     }
@@ -272,7 +272,7 @@ body.bp {
       
       span {
         background: transparent url('/images/ui-backgrounds/tab_inactive.png') no-repeat;
-        color: #aeaa99;
+        color: #afab8a;
         padding: 11px 0 10px 8px;  // padding left to accomodate link icon; padding right to space away from link divider
         
         &:hover { background: transparent url('/images/ui-backgrounds/tab_inactive-hover.png') no-repeat left; }
