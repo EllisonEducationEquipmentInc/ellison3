@@ -7,11 +7,21 @@ $tertiary: #F1D4AF;  // cream with orange tint
 $quaternary: #ECE5CE;  // light beige
 $quinary: #774F38;  // medium brown
 
-$navutil_text: $quinary;
-$navutil_hover: darken($secondary, 15%);
-$navutil_divider: darken($secondary, 3%);
+$navutil_link: #eee;
+$navutil_hover: #6382e0;
+$navutil_divider: #3a3a3a;
+
+$meganav_bg_panel: white;
+$meganav_link: #eee;
+$meganav_hover: #6382e0;
+$meganav_admin: #e90000;
+$meganav_admin_hover: #f00;
+
+$megapanel_link: black;
+$megapanel_hover: #6382e0;
 
 $footer_text: $quinary;
 $footer_headings: $primary;
-$footer_link_hover: darken($secondary, 15%);
+$footer_link: $quinary;
+$footer_hover: darken($secondary, 15%);
 $footer_divider: $secondary;

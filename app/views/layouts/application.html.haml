@@ -9,7 +9,24 @@
       = get_domain.capitalize
     = render 'layouts/common_head'
   %body.bp
-    - if is_er?
-      = render 'layouts/archetype_cardpanels'
-    - else
-      = render 'layouts/archetype_columnar'
+    #root
+      .container
+        .design-gutter.dontprint
+          \&nbsp;
+        .main
+          #header
+            = render 'layouts/masthead'
+            = render 'layouts/meganav'
+          #content
+            = render 'layouts/content'
+        .design-gutter.dontprint.last
+          \&nbsp;
+      #root_footer
+    #footer.dontprint
+      .container
+        .design-gutter.dontprint
+          \&nbsp;
+        .main
+          = render 'layouts/footer'
+        .design-gutter.dontprint.last
+          \&nbsp;

@@ -9,19 +9,20 @@ body.bp {
 #root {
   
   .container {
+    margin-top: 6px;
     background: url("/images/ui-backgrounds/_#{$system}_root.png") no-repeat center top;
   }
 }
 
 #header {
-  margin: 18px 0 0 0;
+  margin: 18px 0 10px 0;
   height:118px;
   
   #logo_masthead {
   	background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
   	display: block;
-  	width: 147px; 
-  	height: 77px;
+  	width: 252px; 
+  	height: 59px;
   	margin: 0px;
   	text-indent: -9999em;
   }

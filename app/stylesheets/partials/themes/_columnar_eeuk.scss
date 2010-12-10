@@ -86,10 +86,10 @@ body.bp {
     }
   
     a {
-      color:$footer_text;
+      color:$footer_link;
     
       &:hover {
-        color:$footer_link_hover;
+        color:$footer_hover;
       };
     }
   

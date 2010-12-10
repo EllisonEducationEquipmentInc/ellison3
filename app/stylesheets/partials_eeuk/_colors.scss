@@ -7,12 +7,22 @@ $tertiary: #FFC48C;  // medium peach-yellow
 $quaternary: #EFFAB4;  // very light lime-green with yellow tint
 $quinary: #D1F2A5;  // medium bright lime-green
 
-$navutil_text: lighten($primary, 7%);
+$navutil_link: lighten($primary, 7%);
 $navutil_hover: darken($primary, 9%);
 $navutil_divider: lighten($tertiary, 4%);
+
+$meganav_bg_panel: white;
+$meganav_link: #eee;
+$meganav_hover: #6382e0;
+$meganav_admin: #e90000;
+$meganav_admin_hover: #f00;
+
+$megapanel_link: black;
+$megapanel_hover: #6382e0;
 
 $footer_bg: #4e4e4e;
 $footer_text: #cbcbcb;
 $footer_headings: white;
-$footer_link_hover: #91a29e;
+$footer_link: #cbcbcb;
+$footer_hover: #91a29e;
 $footer_divider: #858585

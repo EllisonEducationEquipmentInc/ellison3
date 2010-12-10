@@ -7,11 +7,21 @@ $tertiary: #E3AAD6;  // medium pink with purple tint
 $quaternary: #FFC8BA;  // medium-light pin kwith peach tint
 $quinary: #93DFB8;  // medium sea grean
 
-$navutil_text: darken($secondary, 14%);
+$navutil_link: darken($secondary, 14%);
 $navutil_hover: darken($secondary, 30%);
 $navutil_divider: $quinary;
 
+$meganav_bg_panel: white;
+$meganav_link: #eee;
+$meganav_hover: #6382e0;
+$meganav_admin: #e90000;
+$meganav_admin_hover: #f00;
+
+$megapanel_link: black;
+$megapanel_hover: #6382e0;
+
 $footer_text: #333;
 $footer_headings: #333;
-$footer_link_hover: darken($secondary, 15%);
+$footer_link: #333;
+$footer_hover: darken($secondary, 15%);
 $footer_divider: #c1cda8;

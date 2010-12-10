@@ -3,7 +3,7 @@
 
 body.bp {
   @if $system == er {
-    background: url("/images/ui-backgrounds/_#{$system}_site.jpg") no-repeat center bottom fixed ;
+    background: url("/images/ui-backgrounds/_#{$system}_site.jpg") no-repeat center top fixed;
   } @else {
     background: url("/images/ui-backgrounds/_#{$system}_site.png");
   }
@@ -91,7 +91,7 @@ ul.ui-tabs-nav {
       padding: 0 0 0 12px;  // padding left to space links apart
       
       a.btn-masthead {
-        color: $navutil_text;  
+        color: $navutil_link;
         display: block;
         text-transform: uppercase;
         text-decoration: none;
@@ -238,7 +238,7 @@ ul.ui-tabs-nav {
         }
         
         .megapanel {
-          background: #f8f6f2 url("/images/ui-backgrounds/_#{$system}_megapanel.png") no-repeat center bottom;
+          background: $meganav_bg_panel url("/images/ui-backgrounds/_#{$system}_megapanel.png") no-repeat center bottom;
           text-align: left;
           position:absolute;
           width: 950px;
@@ -252,11 +252,11 @@ ul.ui-tabs-nav {
           }
           
           a {
-            color: black;
+            color: $megapanel_link;
             text-decoration: none;
       
             &:hover {
-              color: #b60000;
+              color: $megapanel_hover;
               text-decoration: underline;
             }
           }
@@ -311,7 +311,7 @@ ul.ui-tabs-nav {
           
           #systemswitch {
             font-weight: bold;
-            color: #b60000;
+            color: $megapanel_hover;
             
             a {
               font-weight: normal;
@@ -369,15 +369,15 @@ ul.ui-tabs-nav {
             height:20px;
             line-height:20px;
             border:1px solid #d9e5f7;
-            background:#eff5fd;
+            background: #eff5fd;
             padding:3px;
             text-decoration:none;
             
-            &:hover { background:#b2c7e7; };
+            &:hover { background: #b2c7e7; };
           }
         }
         
-        li.current img { background:#b2c7e7; }
+        li.current img { background: #b2c7e7; }
       }
 
     }

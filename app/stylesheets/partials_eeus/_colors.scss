@@ -7,12 +7,22 @@ $tertiary: #BFB35A;  // dull olive green
 $quaternary: #F2C45A;  // gold
 $quinary: #8C2318;  // deep reddish burgundy
 
-$navutil_text: $tertiary;
+$navutil_link: $tertiary;
 $navutil_hover: $quinary;
 $navutil_divider: lighten($tertiary, 10%);
+
+$meganav_bg_panel: white;
+$meganav_link: #eee;
+$meganav_hover: #6382e0;
+$meganav_admin: #e90000;
+$meganav_admin_hover: #f00;
+
+$megapanel_link: black;
+$megapanel_hover: #6382e0;
 
 $footer_bg: $primary;
 $footer_text: $quaternary;
 $footer_headings: darken($quaternary, 15%);
-$footer_link_hover: darken($secondary, 15%);
+$footer_link: $quaternary;
+$footer_hover: darken($secondary, 15%);
 $footer_divider: $secondary;
