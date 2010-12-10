@@ -142,8 +142,10 @@ module OldData
   	def new_life_cycle
   	  return 'pre-release' if self.pre_order
   	  return 'discontinued' if self.life_cycle == 'Clearance-Discontinued'
-  	  if self.availability == 0 || self.availability == 2
+  	  if self.availability == 0
   	    'unvailable'
+  	  elsif self.availability == 2
+  	    'discontinued'
   	  elsif self.availability == 1 || self.availability == 3
   	    'available'
   	  end
@@ -400,9 +402,10 @@ module OldData
       end
     end
 
-    def msrp
+    def msrp(locale = nil)
+      locale ||= I18n.locale[-2,2]
       begin
-        m = prices.first(:conditions => ["locale = ?", I18n.locale[-2,2]]).msrp
+        m = prices.first(:conditions => ["locale = ?", locale]).msrp
       rescue  
   	    m = prices.first(:conditions => ["locale = ?", 'US']).msrp
       end

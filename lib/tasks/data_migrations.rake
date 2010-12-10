@@ -325,7 +325,7 @@ namespace :data_migrations do
   desc "import sizzix US users"
   task :users_szus => :load_dep do
     set_current_system "szus"
-    OldData::User.not_deleted.all(:conditions => "id > 0").each do |old_user|
+    OldData::User.not_deleted.find_each(:conditions => "id > 0") do |old_user|
       #old_user = OldData::User.find(463910)
       new_user = User.new(:email => old_user.email, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
       new_user.old_password_hash = old_user.crypted_password
@@ -382,7 +382,7 @@ namespace :data_migrations do
   task :orders_szus => :load_dep do
     set_current_system "szus"
     #order = OldData::Order.find(511574)
-    OldData::Order.all.each do |order|
+    OldData::Order.find_each(:conditions => "id > 437144") do |order|
       new_order = Order.new(:status => order.status_name, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :order_number => order.id, :order_reference => order.order_reference_id.blank? ? nil : Order.where(:order_number => order.order_reference_id).first.try(:id), :tracking_number => order.tracking_number, :tracking_url => order.tracking_url, :customer_rep => order.sales_rep.try(:email), :clickid => order.clickid, :utm_source => order.utm_source, :tracking => order.tracking,
                     :tax_transaction => order.tax_transaction_id, :tax_calculated_at => order.tax_calculated_at, :tax_exempt_number => order.tax_exempt_number, :tax_committed => order.tax_committed, :shipping_priority => order.shipping_priority, :shipping_service => "STANDARD", :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :ip_address => order.ip_address, :estimated_ship_date => order.estimated_ship_date, :purchase_order => order.purchase_order, :comments => order.comments, :internal_comments => order.internal_comments, :old_quote_id => order.quote_id)
     
@@ -404,8 +404,35 @@ namespace :data_migrations do
     end
   end
   
+  desc "migrate SZUK products"
+  task :products_szuk => [:set_szuk, :load_dep]  do
+    set_current_system "szuk"
+    # product = OldData::Product.find 758
+    OldData::Product.not_deleted.all.each do |product|
+      new_product = Product.where(:item_num => product.item_num).first || Product.new(:systems_enabled => ["szuk"], :name => product.name, :item_num => product.item_num, :long_desc => product.long_desc, :upc => product.upc, :keywords => product.keywords, :life_cycle => product.new_life_cycle, :active => product.new_active_status)
+      new_product.systems_enabled << "szuk" if product.new_active_status && !new_product.systems_enabled.include?("szuk")
+      new_product.write_attributes :description_szuk => product.short_desc, :old_id_szuk => product.id,  :orderable_szuk => product.new_orderable, :msrp_gbp => product.msrp("UK"), :msrp_eur => product.msrp("EU"), :start_date_szuk => product.start_date, :end_date_szuk => product.end_date, :quantity_uk => product.quantity,  :distribution_life_cycle_szuk => product.life_cycle, :distribution_life_cycle_ends_szuk => !product.life_cycle.blank? && product.life_cycle_ends, :availability_message_szuk => product.availability_msg
+      if !new_product.active && product.new_active_status
+        p "...product needs to be activated -- removing szus"
+        new_product.systems_enabled.delete("szus") 
+      end
+      new_product.active = true if product.new_active_status
+      if product.new_life_cycle != 'unvailable' && new_product.life_cycle == 'unvailable' && product.new_active_status
+        p "...product is available -- changing life cycle to discontinued"
+        new_product.life_cycle = 'discontinued' 
+      end
+      p new_product.save
+      p new_product.errors
+      p "------ #{product.id} #{product.item_num} -------"
+    end
+  end
+  
   task :set_edu do
     ENV['SYSTEM'] = "edu"
+  end
+  
+  task :set_szuk do
+    ENV['SYSTEM'] = "szuk"
   end
     
   desc "load dependencies and connect to mysql db"
@@ -414,6 +441,8 @@ namespace :data_migrations do
     db = case ENV['SYSTEM']
     when "edu"
       "ellison_education_qa"
+    when "szuk"
+      "sizzix_2_uk_qa"
     else
       "sizzix_2_us_qa"
     end

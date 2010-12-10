@@ -65,6 +65,7 @@ class Product
 	field :keywords
 	field :old_id, :type => Integer
 	field :old_id_edu, :type => Integer
+	field :old_id_szuk, :type => Integer
 	
 	field :item_code
 	field :default_config, :type => Boolean, :default => false
@@ -356,15 +357,15 @@ class Product
 	
 	# if product can be displayed on the product list page (regardless of availablitity) - current products whose life_cycle is NOT "unvailable"
 	def listable?(sys = current_system)
-	  displayable?(sys) && LIFE_CYCLES[0,3].include?(life_cycle)
+	  displayable?(sys) && (LIFE_CYCLES[0,2].include?(life_cycle) || self.life_cycle == 'discontinued' && quantity(sys) > 0)
 	end
 	
 	
-	def quantity
-	  if is_sizzix_us?
+	def quantity(sys = current_system)
+	  if sys == "szus"
 	    self.quantity_us + self.quantity_sz
 	  else
-	    is_us? ? self.quantity_us : self.quantity_uk
+	    sys == "eeus" || sys == "er" ? self.quantity_us : self.quantity_uk
 	  end
 	end
 	
