@@ -186,7 +186,7 @@
               %strong Switch System:
               %span{:id => 'systemswitch'}
                 - (ELLISON_SYSTEMS & current_admin.systems_enabled).each do |sys|
-                  = link_to_unless current_system == sys, sys, "?system=#{sys}"
+                  = link_to_unless current_system == sys, sys, "#{uri_append_or_first}system=#{sys}"
           %ul.megasublist.resize
             %li= link_to "Product Catalog", "#", :class => "megasublink", :onclick => "return false;"
             %li= link_to "Customer Orders", "#", :class => "megasublink", :onclick => "return false;"

@@ -203,7 +203,7 @@ HTML
     css_class += (column == sort_column) ? " current #{sort_direction}" : ''  
     direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"  
     content_tag :th, :class => "ui-widget" do
-      arrow(column == sort_column ? direction : nil ) + link_to(title, {:sort => column, :direction => direction}, {:class => css_class})
+      arrow(column == sort_column ? direction : nil ) + link_to(title, request.query_parameters.merge(:sort => column, :direction => direction), {:class => css_class})
     end
   end
   
@@ -239,5 +239,9 @@ HTML
   	  new_text.gsub!(text_to_replace, embeded_code)
 	  end
 	  new_text
+	end
+	
+	def uri_append_or_first
+	  request.query_parameters.blank? ? "?" : "#{request.fullpath}&"
 	end
 end

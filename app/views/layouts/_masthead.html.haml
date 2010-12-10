@@ -32,7 +32,7 @@
 
   -# UK currency selector
   - if is_uk? && !@cart_locked  
-    = link_to_unless current_currency == "gbp", "GBP", "?locale=en-UK"
-    = link_to_unless current_currency == "eur", "EUR", "?locale=en-EU"
+    = link_to_unless current_currency == "gbp", "GBP", "#{uri_append_or_first}locale=en-UK"
+    = link_to_unless current_currency == "eur", "EUR", "#{uri_append_or_first}locale=en-EU"
 #printmasthead.dontdisplay
   %h1== #{system_name.capitalize}.com
