@@ -40,6 +40,7 @@ class Coupon
 	  index :"start_date_#{system}"
 	  index :"end_date_#{system}"
 	end
+	index :updated_at
 	
 	references_many :carts
 	references_many :orders, :index => true

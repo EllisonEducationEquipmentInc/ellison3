@@ -34,6 +34,7 @@ class Feedback
 	index :email
 	index :status
 	index :system
+	index :updated_at
 	
 	attr_protected :status, :priority
 	

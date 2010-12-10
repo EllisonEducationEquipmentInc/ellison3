@@ -41,6 +41,7 @@ class Idea
 	  index :"start_date_#{system}"
 	  index :"end_date_#{system}"
 	end
+	index :updated_at
 	
 	alias :item_num :idea_num
 	

@@ -30,8 +30,11 @@
   %strong System:
   = @order.system
   %br
-  %strong Order Number:
+  %strong Order ID:
   = @order.id
+  %br
+  %strong Order Number:
+  = @order.public_order_number
   %br
   - if @order.quote
     %strong== #{quote_name.capitalize} Reference Number:

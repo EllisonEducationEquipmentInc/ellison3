@@ -23,6 +23,7 @@ class LandingPage
 	index :start_date
 	index :end_date
 	index :search_query
+	index :updated_at
 	
 	validates :name, :permalink, :systems_enabled, :start_date, :end_date, :presence => true
 	validates_uniqueness_of :permalink

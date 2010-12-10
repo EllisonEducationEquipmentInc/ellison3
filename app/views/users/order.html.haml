@@ -27,7 +27,7 @@
 .left
   %h3 Details
   %strong Order Number:
-  = @order.id
+  = @order.public_order_number
   %br
   - if @order.quote
     %strong== #{quote_name.capitalize} Reference Number:

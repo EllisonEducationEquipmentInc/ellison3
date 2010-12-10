@@ -24,6 +24,7 @@ class Admin
 	index :created_at
 	index :failed_attempts
 	index :current_sign_in_at
+	index :updated_at
 	
 	embeds_many :permissions do
 	  

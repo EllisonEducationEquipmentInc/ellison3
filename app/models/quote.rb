@@ -18,6 +18,7 @@ class Quote
 	index :active
 	index "address.last_name"
 	index "order_items.item_num"
+	index :updated_at
 
   field :active, :type => Boolean, :default => true
 	field :system

@@ -28,9 +28,11 @@ class Order
 	index :status 
 	index :system
 	index :created_at
+	index :updated_at
 	index "address.last_name"
 	index "order_items.item_num"
 	index :order_number
+	index :subtotal_amount
 	
 	field :status, :default => "New"
 	field :system
@@ -105,6 +107,10 @@ class Order
 	# if status can no longer be changed on the web
 	def status_frozen?
 	  !(new? || pending?)
+	end
+	
+	def public_order_number
+	  "#{order_prefix(self.system)}#{self.order_number}"
 	end
 	
 	# to this format to change status:

@@ -53,6 +53,7 @@ class Tag
 	  index :"end_date_#{system}"
 	end
 	index :image_filename
+	index :updated_at
 	
 	mount_uploader :image, GenericImageUploader	
 	

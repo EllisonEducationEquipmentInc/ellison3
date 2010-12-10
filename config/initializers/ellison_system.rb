@@ -107,8 +107,8 @@ module EllisonSystem
 		!%(usd).include?(currency)
 	end
   
-  def order_prefix
-    current_system.upcase
+  def order_prefix(sys = current_system)
+    sys.upcase
   end
   
   def get_domain

@@ -27,6 +27,7 @@ class ShippingRate
 		index "price_min_#{currency}".to_sym
 		index "price_max_#{currency}".to_sym
 	end
+	index :updated_at
   
 
 private

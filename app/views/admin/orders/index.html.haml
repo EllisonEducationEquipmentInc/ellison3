@@ -11,7 +11,7 @@
   %table
     %thead
       %tr
-        = sortable "id"
+        = sortable "order_number"
         = sortable "created_at"
         = sortable "address.last_name"
         = sortable "subtotal_amount"
@@ -23,7 +23,7 @@
       - for order in @orders
         - I18n.locale = order.locale
         %tr{ :class => cycle(:odd, :even) }
-          %td= link_to order.id, admin_order_path(order)
+          %td= link_to order.public_order_number, admin_order_path(order)
           %td= l order.created_at, :format => :custom rescue ''
           %td== #{order.address.first_name} #{order.address.last_name}
           %td= number_to_currency order.gross_subtotal_amount

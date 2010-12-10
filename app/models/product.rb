@@ -81,6 +81,7 @@ class Product
 	  index :"start_date_#{system}"
 	  index :"end_date_#{system}"
 	end
+	index :updated_at
 	
 	# associations
 	embeds_many :campaigns do
