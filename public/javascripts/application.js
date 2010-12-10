@@ -324,6 +324,7 @@ function initialize_show_cart() {
 		.click(function() {
 			show_cart();
 			_gaq.push(['_trackEvent', 'Cart', 'Show Cart']);
+			setTimeout("$.fancybox.resize()", 1600);
 			return false;
 		});
 }
@@ -332,13 +333,16 @@ function show_cart() {
 	$.fancybox({
 			'padding'		: 10,
 			'autoScale'		: false,
+			'scrolling' : 'auto',
 			'speedIn'		:	500, 
 			'speedOut'		:	200,
 			'href' 	: '/cart',
 			'width'	: 860,
-			'title'			: false
+			'autoDimensions': true,
+			'title'			: false,
+			'onComplete' : function(){setTimeout("$.fancybox.resize()", 100)}
 		});
-	setTimeout("$.fancybox.resize()", 600);
+	setTimeout("$.fancybox.resize()", 900);
 	return false;
 }
 
