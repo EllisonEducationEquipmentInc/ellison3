@@ -427,6 +427,18 @@ namespace :data_migrations do
     end
   end
   
+  desc "fix SZUS product unavailable items -- not needed for live migration"
+  task :fix_products_szus => :load_dep do
+    OldData::Product.all(:conditions => "availability = 2 and active = 1").each do |old_product|
+      product = Product.where(:old_id => old_product.id).first
+      next if product.blank?
+      product.life_cycle = 'discontinued'
+      product.systems_enabled << "szus" if !product.systems_enabled.include?("szus")
+      p product.save
+      p "----- #{product.item_num} -----"
+    end
+  end
+  
   task :set_edu do
     ENV['SYSTEM'] = "edu"
   end
