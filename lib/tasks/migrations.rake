@@ -72,6 +72,16 @@ namespace :migrations do |ns|
 	  end
 	end
 	
+	desc "set order number sequence to start from 1000000"
+	task :order_number_sequence => :environment do
+	  o=Order.new
+	  o.valid?
+	  h=Mongoid::Sequence::Holder.last
+	  h.seq = 1000000
+    p h.save
+	end
+	
+	
 	#======== migration tasks end here ========
 	
 	desc "run all migrations that haven't run"
