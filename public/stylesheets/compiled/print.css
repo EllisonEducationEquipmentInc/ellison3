@@ -1,921 +1,119 @@
-/* line 6, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .products_filter h3, body.bp .products_grid h3 {
-  margin: 2px 0 10px 0;
-  font-size: 1.1em;
-  font-weight: bold;
-  text-transform: none;
-}
-/* line 16, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item-block p, body.bp .item-block h3, body.bp .item-block h4, body.bp .buybox p, body.bp .buybox .item-block h3, body.bp .item-block .buybox h3, body.bp .buybox h4 {
-  margin: 0;
-  line-height: 1.2em;
-}
-/* line 20, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item-block p.buttonset, body.bp .item-block h3.buttonset, body.bp .item-block h4.buttonset, body.bp .buybox p.buttonset, body.bp .buybox .item-block h3.buttonset, body.bp .item-block .buybox h3.buttonset, body.bp .buybox h4.buttonset {
-  margin-top: 4px;
-}
-/* line 25, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item-block h3, body.bp .buybox h3 {
-  color: #6c5941;
-}
-/* line 29, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item-block a, body.bp .buybox a {
-  color: black;
-}
-/* line 32, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item-block a:hover, body.bp .buybox a:hover {
-  color: #ff9f80;
-}
-/* line 37, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item-block .users_lists_container h4, body.bp .buybox .users_lists_container h4 {
-  font-family: Verdana,Arial,sans-serif;
-  font-weight: bold;
-  font-size: 10px;
-  text-transform: none;
-  color: #6C5941;
-  margin-bottom: 8px;
-}
-/* line 46, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item-block .users_lists_container a, body.bp .buybox .users_lists_container a {
-  font-family: Verdana,Arial,sans-serif;
-  font-size: 10.2px;
-  margin-bottom: 0;
-  text-decoration: none;
-  color: #9c8a73;
-}
-/* line 53, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item-block .users_lists_container a:hover, body.bp .buybox .users_lists_container a:hover {
-  color: #ff6533;
-  text-decoration: underline;
-}
-/* line 64, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item-block h3 {
-  color: #6c5941;
-}
-/* line 68, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item-block a {
-  color: black;
-}
-/* line 71, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item-block a:hover {
-  color: #ff9f80;
-}
-/* line 75, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp h3.item_title {
-  font-size: 1.8em;
-  font-weight: normal;
-  text-transform: none;
-}
-/* line 82, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .buybox h4 {
-  margin: 0 0 7px 0;
-  font-size: 1em;
-  color: #6c5941;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-/* line 89, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .buybox h4.itemnumber {
-  float: right;
-}
-/* line 94, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item_moreinfo h4 {
-  text-transform: none;
-  font-size: 1.1em;
-  font-weight: bold;
-  color: #444;
-}
-/* line 102, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .product_sidebar h4 {
-  font-weight: bold;
-}
-/* line 105, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .product_sidebar p, body.bp .product_sidebar .item-block h3, body.bp .item-block .product_sidebar h3 {
-  font-size: .9em;
-  margin-bottom: 4px;
-}
+/*
+Syntax error: Undefined variable: "$cat_tab_hover".
+        on line 253 of /home/jose/ELLISON3/app/stylesheets/partials_app/_catalog.scss
+        from line 6 of /home/jose/ELLISON3/app/stylesheets/print.scss
 
-/* line 113, ../../../app/stylesheets/partials_app/_catalog.scss */
-.msrp, .sale-price {
-  font-family: 'PT Sans', Helvetica, Arial, sans-serif;
-  font-size: 1.1em;
-  font-weight: bold;
-  color: #6c5941;
-}
-
-/* line 120, ../../../app/stylesheets/partials_app/_catalog.scss */
-.old-price {
-  text-decoration: line-through;
-}
-
-/* line 124, ../../../app/stylesheets/partials_app/_catalog.scss */
-.sale-price {
-  color: crimson;
-  font-weight: bold;
-}
-
-/* line 129, ../../../app/stylesheets/partials_app/_catalog.scss */
-.coupon-price {
-  color: green;
-  font-weight: bold;
-}
-
-/* line 135, ../../../app/stylesheets/partials_app/_catalog.scss */
-.custom-price {
-  color: royalblue;
-}
-
-/* line 138, ../../../app/stylesheets/partials_app/_catalog.scss */
-.life-cycle {
-  color: crimson;
-  font-size: .6em;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-/* line 145, ../../../app/stylesheets/partials_app/_catalog.scss */
-.minibtn-cancel {
-  display: inline-block;
-  position: relative;
-  width: 16px;
-  height: 16px;
-  text-indent: -9999px;
-  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/cross-circle.png");
-  float: right;
-}
-
-/* line 156, ../../../app/stylesheets/partials_app/_catalog.scss */
-#catalog_breadcrumbs {
-  color: #b60000;
-}
-/* line 159, ../../../app/stylesheets/partials_app/_catalog.scss */
-#catalog_breadcrumbs a {
-  color: #6C5941;
-  text-decoration: none;
-}
-/* line 163, ../../../app/stylesheets/partials_app/_catalog.scss */
-#catalog_breadcrumbs a:hover {
-  color: #b60000;
-  text-decoration: underline;
-}
-/* line 168, ../../../app/stylesheets/partials_app/_catalog.scss */
-#catalog_breadcrumbs a.tag_breadcrumb_remove, #catalog_breadcrumbs a.price_breadcrumb_remove, #catalog_breadcrumbs .breadcrumb_arrow {
-  display: inline-block;
-  position: relative;
-  top: -1px;
-  width: 16px;
-  height: 16px;
-  text-indent: -9999px;
-  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/cross-circle.png");
-}
-/* line 180, ../../../app/stylesheets/partials_app/_catalog.scss */
-#catalog_breadcrumbs .breadcrumb_arrow {
-  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/arrow-000-small.png");
-}
-
-/* line 187, ../../../app/stylesheets/partials_app/_catalog.scss */
-#products_filter h3 {
-  margin: 16px 0 12px 0;
-  text-transform: uppercase;
-  font-size: 1.1em;
-  font-weight: bold;
-}
-/* line 194, ../../../app/stylesheets/partials_app/_catalog.scss */
-#products_filter .facets {
-  margin-top: 15px;
-}
-/* line 198, ../../../app/stylesheets/partials_app/_catalog.scss */
-#products_filter h4 {
-  margin: 7px 0 0 0;
-  text-transform: uppercase;
-  font-family: 'PT Sans', Helvetica, Arial, sans-serif;
-  font-size: 10.5px;
-  font-weight: bold;
-}
-/* line 206, ../../../app/stylesheets/partials_app/_catalog.scss */
-#products_filter ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-/* line 211, ../../../app/stylesheets/partials_app/_catalog.scss */
-#products_filter ul a {
-  color: #140f06;
-  font-size: 10px;
-  text-decoration: none;
-}
-/* line 216, ../../../app/stylesheets/partials_app/_catalog.scss */
-#products_filter ul a:hover {
-  color: #ff6533;
-}
-/* line 222, ../../../app/stylesheets/partials_app/_catalog.scss */
-#products_filter .ui-accordion-content {
-  margin-bottom: 10px;
-  padding: 6px 10px;
-  font-size: 10.2px;
-}
-
-/* line 230, ../../../app/stylesheets/partials_app/_catalog.scss */
-#catalogtabs {
-  font-family: 'PT Sans', Helvetica, Arial, sans-serif;
-  font-weight: bold;
-  font-size: 1.1em;
-}
-/* line 235, ../../../app/stylesheets/partials_app/_catalog.scss */
-#catalogtabs li {
-  float: left;
-  padding: 0;
-}
-/* line 239, ../../../app/stylesheets/partials_app/_catalog.scss */
-#catalogtabs li a.tab {
-  display: block;
-}
-/* line 242, ../../../app/stylesheets/partials_app/_catalog.scss */
-#catalogtabs li a.tab:hover {
-  text-decoration: none;
-}
-/* line 246, ../../../app/stylesheets/partials_app/_catalog.scss */
-#catalogtabs li a.tab span {
-  display: block;
-}
-/* line 252, ../../../app/stylesheets/partials_app/_catalog.scss */
-#catalogtabs li a.active span:hover, #catalogtabs li a.inactive span:hover {
-  color: #609e85;
-}
-/* line 257, ../../../app/stylesheets/partials_app/_catalog.scss */
-#catalogtabs li a.active {
-  background: transparent url("/images/ui-backgrounds/tab_active-end.png") no-repeat right;
-  padding-right: 11px;
-}
-/* line 261, ../../../app/stylesheets/partials_app/_catalog.scss */
-#catalogtabs li a.active span {
-  background: transparent url("/images/ui-backgrounds/tab_active.png") no-repeat;
-  color: #81a77e;
-  padding: 11px 0 10px 14px;
-}
-/* line 267, ../../../app/stylesheets/partials_app/_catalog.scss */
-#catalogtabs li a.inactive {
-  background: transparent url("/images/ui-backgrounds/tab_inactive-end.png") no-repeat right;
-  padding-right: 15px;
-}
-/* line 271, ../../../app/stylesheets/partials_app/_catalog.scss */
-#catalogtabs li a.inactive:hover {
-  background: transparent url("/images/ui-backgrounds/tab_inactive-hover-end.png") no-repeat right;
-}
-/* line 273, ../../../app/stylesheets/partials_app/_catalog.scss */
-#catalogtabs li a.inactive span {
-  background: transparent url("/images/ui-backgrounds/tab_inactive.png") no-repeat;
-  color: #afab8a;
-  padding: 11px 0 10px 8px;
-}
-/* line 278, ../../../app/stylesheets/partials_app/_catalog.scss */
-#catalogtabs li a.inactive span:hover {
-  background: transparent url("/images/ui-backgrounds/tab_inactive-hover.png") no-repeat left;
-}
-
-/* line 285, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item-block {
-  background: white;
-  float: left;
-  margin: 0 0 14px 14px;
-  padding: 8px;
-  width: 167px;
-  text-align: center;
-  overflow: visible;
-  z-index: 200;
-  color: black;
-}
-/* line 299, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item-block.product {
-  height: 290px;
-}
-/* line 301, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item-block.idea {
-  height: 210px;
-}
-/* line 303, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item-block h3 {
-  margin: 2px 0 10px 0;
-  font-size: 1.1em;
-  font-weight: bold;
-}
-/* line 309, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item-block .life-cycle {
-  position: absolute;
-  top: 3px;
-  top: -24px \9;
-  left: -19px;
-  padding-top: 4px;
-  width: 117px;
-  height: 29px;
-  z-index: 201;
-  background: url("/images/ui-backgrounds/lifecycle.png") no-repeat;
-  background: url("/images/ui-backgrounds/lifecycle.gif") no-repeat\9;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.86602540, M12=0.50000000, M21=-0.50000000, M22=0.86602540,sizingMethod='auto expand')";
-  filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.86602540, M12=0.50000000, M21=-0.50000000, M22=0.86602540,sizingMethod='auto expand');
-  -moz-transform: matrix(0.866, -0.5, 0.5, 0.866, 0, 0);
-  -webkit-transform: matrix(0.866, -0.5, 0.5, 0.866, 0, 0);
-  -o-transform: matrix(0.866, -0.5, 0.5, 0.866, 0, 0);
-  font-family: 'PT Sans', Helvetica, Arial, sans-serif;
-  font-size: 11px;
-  font-weight: bold;
-}
-/* line 329, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item-block .life-cycle span {
-  position: relative;
-  left: -6px;
-}
-/* line 335, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item-block .list_actions {
-  text-align: left;
-  position: absolute;
-  left: 125px;
-  top: 4px;
-  z-index: 250;
-}
-/* line 342, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item-block .list_actions .move_to_another_list {
-  position: absolute;
-  top: 0;
-  left: -121px;
-  width: 157px;
-  border: 1px solid gray;
-  background: white;
-  padding: 8px;
-}
-/* line 351, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item-block .list_actions .move_to_another_list h4 {
-  font-family: Verdana,Arial,sans-serif;
-  font-weight: bold;
-  font-size: 10px;
-  text-transform: none;
-  color: #6C5941;
-  margin-bottom: 8px;
-  float: left;
-}
-/* line 361, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item-block .list_actions .move_to_another_list select#move_to {
-  margin-bottom: 8px;
-}
-/* line 365, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item-block .list_actions .move_to_another_list input {
-  margin: 30px 0 0 0;
-  float: right;
-}
-/* line 372, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item-block p.item_name, .highlightable.listview .item-block h3.item_number, .highlightable.listview .item-block .item_description, body.bp .item-block h3.item_name {
-  margin: 2px 0 4px 0;
-}
-/* line 375, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item-block p.item_name a, .highlightable.listview .item-block h3.item_number a, .highlightable.listview .item-block .item_description a, body.bp .item-block h3.item_name a {
-  text-decoration: none;
-}
-/* line 378, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item-block p.item_name a:hover, .highlightable.listview .item-block h3.item_number a:hover, .highlightable.listview .item-block .item_description a:hover, body.bp .item-block h3.item_name a:hover {
-  text-decoration: underline;
-}
-/* line 382, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item-block .item_description {
-  display: none;
-}
-/* line 387, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item-block .cart-buttons {
-  width: 100%;
-  position: absolute;
-  bottom: 8px;
-  left: 50%;
-  margin-left: -91.5px;
-  font-family: Verdana,Arial,sans-serif;
-}
-/* line 395, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item-block .cart-buttons a {
-  display: inline-block;
-  margin-bottom: 6px;
-  font-size: 10.2px;
-}
-/* line 401, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item-block .cart-buttons .users_lists_container {
-  width: 178px;
-  position: absolute;
-  bottom: 0px;
-  left: -6px;
-}
-
-/* line 410, ../../../app/stylesheets/partials_app/_catalog.scss */
-.users_lists_container {
-  background: white;
-  padding: 8px;
-  border: 1px solid gray;
-  text-align: left;
-  z-index: 201;
-}
-/* line 417, ../../../app/stylesheets/partials_app/_catalog.scss */
-.users_lists_container h4 {
-  float: left;
-}
-/* line 421, ../../../app/stylesheets/partials_app/_catalog.scss */
-.users_lists_container select#list {
-  margin-bottom: 8px;
-}
-/* line 425, ../../../app/stylesheets/partials_app/_catalog.scss */
-.users_lists_container input {
-  float: right;
-}
-
-/* line 434, ../../../app/stylesheets/partials_app/_catalog.scss */
-.highlightable.listview .item-block {
-  width: 758px;
-  height: 125px;
-  text-align: left;
-}
-/* line 439, ../../../app/stylesheets/partials_app/_catalog.scss */
-.highlightable.listview .item-block p.item_name, .highlightable.listview .item-block h3.item_number, .highlightable.listview .item-block .item_description, .highlightable.listview body.bp .item-block h3.item_name, body.bp .highlightable.listview .item-block h3.item_name, .highlightable.listview .item-block p.item_price, .highlightable.listview body.bp .item-block h3.item_price, body.bp .highlightable.listview .item-block h3.item_price {
-  margin: 2px 125px 4px 133px;
-}
-/* line 441, ../../../app/stylesheets/partials_app/_catalog.scss */
-.highlightable.listview .item-block h3.item_number {
-  margin-bottom: 4px;
-}
-/* line 445, ../../../app/stylesheets/partials_app/_catalog.scss */
-.highlightable.listview .item-block .item_description {
-  display: block;
-  height: 70px;
-  overflow: hidden;
-}
-/* line 452, ../../../app/stylesheets/partials_app/_catalog.scss */
-.highlightable.listview .item-block.product .item_description {
-  width: 500px;
-}
-/* line 455, ../../../app/stylesheets/partials_app/_catalog.scss */
-.highlightable.listview .item-block.idea .item_description {
-  margin: 2px 0 4px 133px;
-  width: auto;
-}
-/* line 461, ../../../app/stylesheets/partials_app/_catalog.scss */
-.highlightable.listview .item-block .item_image {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  margin: 8px;
-}
-/* line 468, ../../../app/stylesheets/partials_app/_catalog.scss */
-.highlightable.listview .item-block .cart-buttons {
-  position: absolute;
-  top: 0px;
-  left: 637px;
-  margin: 8px;
-  width: auto;
-}
-/* line 476, ../../../app/stylesheets/partials_app/_catalog.scss */
-.highlightable.listview .item-block .life-cycle {
-  text-align: center;
-}
-/* line 478, ../../../app/stylesheets/partials_app/_catalog.scss */
-.highlightable.listview .item-block .users_lists_container {
-  position: absolute;
-  bottom: 33px;
-  left: -74px;
-}
-/* line 484, ../../../app/stylesheets/partials_app/_catalog.scss */
-.highlightable.listview .item-block .list_actions {
-  top: 110px;
-  left: 713px;
-}
-/* line 488, ../../../app/stylesheets/partials_app/_catalog.scss */
-.highlightable.listview .item-block .list_actions .move_to_another_list {
-  top: -59px;
-}
-
-/* line 496, ../../../app/stylesheets/partials_app/_catalog.scss */
-.toggleview {
-  margin: 14px 10px 0 0;
-}
-/* line 498, ../../../app/stylesheets/partials_app/_catalog.scss */
-.toggleview a.toggle_view {
-  display: block;
-  height: 16px;
-  color: #6C5941;
-  text-decoration: none;
-  padding-right: 20px;
-  background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_listview.png") no-repeat right top;
-}
-/* line 506, ../../../app/stylesheets/partials_app/_catalog.scss */
-.toggleview a.toggle_view:hover {
-  color: #b60000;
-  background-position: right bottom;
-}
-/* line 511, ../../../app/stylesheets/partials_app/_catalog.scss */
-.toggleview a.toggle_view.toggled {
-  background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_gridview.png") no-repeat right top;
-}
-/* line 514, ../../../app/stylesheets/partials_app/_catalog.scss */
-.toggleview a.toggle_view.toggled:hover {
-  background-position: right bottom;
-}
-
-/* line 519, ../../../app/stylesheets/partials_app/_catalog.scss */
-select#sort {
-  margin-top: 12px;
-}
-
-/* line 524, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item_images {
-  background: white;
-  overflow: visible;
-  z-index: 200;
-}
-/* line 529, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item_images #large_image {
-  width: 450px;
-  margin: 3px 0 0 3px;
-}
-/* line 534, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item_images .thumbnail {
-  border: 1px solid #cccccc;
-  margin: 3px 0 3px 3px;
-  float: left;
-}
-
-/* line 541, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item_sociallinks {
-  margin-top: 10px;
-}
-
-/* line 545, ../../../app/stylesheets/partials_app/_catalog.scss */
-.buybox {
-  position: relative;
-  background: #eceadf;
-  border: 1px solid #d9d6c4;
-  padding: 6px;
-  margin: 10px 0;
-}
-/* line 552, ../../../app/stylesheets/partials_app/_catalog.scss */
-.buybox h4 {
-  margin-top: 7px;
-}
-/* line 556, ../../../app/stylesheets/partials_app/_catalog.scss */
-.buybox .users_lists_container {
-  position: absolute;
-  top: 62px;
-  left: 0px;
-}
-/* line 562, ../../../app/stylesheets/partials_app/_catalog.scss */
-.buybox a {
-  font-family: Verdana,Arial,sans-serif;
-  font-size: 10.2px;
-}
-
-/* line 568, ../../../app/stylesheets/partials_app/_catalog.scss */
-.add_to_cart {
-  width: 121px;
-  height: 25px;
-  background: url("/images/ui-buttons/addtocart_off.png") no-repeat;
-  border: none;
-  color: #fff;
-}
-/* line 575, ../../../app/stylesheets/partials_app/_catalog.scss */
-.add_to_cart .ui-icon {
-  background-image: none;
-}
-/* line 579, ../../../app/stylesheets/partials_app/_catalog.scss */
-.add_to_cart.ui-button {
-  margin-right: 0;
-}
-/* line 583, ../../../app/stylesheets/partials_app/_catalog.scss */
-.add_to_cart:hover {
-  background: url("/images/ui-buttons/addtocart_on.png") no-repeat;
-}
-/* line 585, ../../../app/stylesheets/partials_app/_catalog.scss */
-.add_to_cart.detail {
-  width: 176px;
-  height: 30px;
-  background: url("/images/ui-buttons/addtocart_detail_off.png") no-repeat;
-  border: none;
-  font-family: 'PT Sans', Helvetica, Arial, sans-serif;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 1.1em;
-  color: #fff;
-}
-/* line 596, ../../../app/stylesheets/partials_app/_catalog.scss */
-.add_to_cart.detail .ui-icon {
-  background-image: none;
-}
-/* line 600, ../../../app/stylesheets/partials_app/_catalog.scss */
-.add_to_cart.detail:hover {
-  background: url("/images/ui-buttons/addtocart_detail_on.png") no-repeat;
-}
-
-/* line 604, ../../../app/stylesheets/partials_app/_catalog.scss */
-#jump_to_list {
-  margin-bottom: 5px;
-}
-
-/* line 1, ../../../app/stylesheets/partials/_layout_content_products.scss */
-#products_filter {
-  display: inline;
-  float: left;
-  margin-right: 10px;
-  width: 150px;
-}
-/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html #products_filter {
-  overflow-x: hidden;
-}
-
-/* line 3, ../../../app/stylesheets/partials/_layout_content_products.scss */
-.products_grid {
-  display: inline;
-  float: left;
-  margin-right: 0;
-  width: 790px;
-}
-/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html .products_grid {
-  overflow-x: hidden;
-}
-
-/* line 2, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
-.item_images {
-  display: inline;
-  float: left;
-  margin-right: 10px;
-  width: 470px;
-}
-/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html .item_images {
-  overflow-x: hidden;
-}
-
-/* line 3, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
-.item_title {
-  display: inline;
-  float: left;
-  margin-right: 0;
-  width: 470px;
-}
-/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html .item_title {
-  overflow-x: hidden;
-}
-
-/* line 4, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
-.item_sociallinks {
-  display: inline;
-  float: left;
-  margin-right: 10px;
-  width: 270px;
-}
-/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html .item_sociallinks {
-  overflow-x: hidden;
-}
-
-/* line 5, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
-.buybox {
-  display: inline;
-  float: left;
-  margin-right: 0;
-  width: 176px;
-}
-
-/* line 11, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
-.item_description {
-  display: inline;
-  float: left;
-  margin-right: 0;
-  width: 470px;
-}
-/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html .item_description {
-  overflow-x: hidden;
-}
-
-/* line 12, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
-.item_moreinfo {
-  display: inline;
-  float: left;
-  margin-right: 0;
-  width: 470px;
-}
-/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html .item_moreinfo {
-  overflow-x: hidden;
-}
-
-/* line 13, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
-.item_tabs {
-  display: inline;
-  float: left;
-  margin-right: 0;
-  width: 950px;
-}
-/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html .item_tabs {
-  overflow-x: hidden;
-}
-
-/* line 11, ../../../app/stylesheets/print.scss */
-body.bp {
-  line-height: 1.5;
-  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-  color: black;
-  background: none;
-  font-size: 10pt;
-}
-/* line 52, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_print.scss */
-body.bp .container {
-  background: none;
-}
-/* line 54, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_print.scss */
-body.bp hr {
-  background: #cccccc;
-  color: #cccccc;
-  width: 100%;
-  height: 2px;
-  margin: 2em 0;
-  padding: 0;
-  border: none;
-}
-/* line 62, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_print.scss */
-body.bp hr.space {
-  background: white;
-  color: white;
-}
-/* line 65, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_print.scss */
-body.bp h1, body.bp h2, body.bp h3, body.bp h4, body.bp h5, body.bp h6 {
-  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-}
-/* line 67, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_print.scss */
-body.bp code {
-  font-size: 0.9em;
-  font-family: "andale mono", "lucida console", monospace;
-}
-/* line 72, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_print.scss */
-body.bp a img {
-  border: none;
-}
-/* line 75, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_print.scss */
-body.bp a:link, body.bp a:visited {
-  background: transparent;
-  font-weight: 700;
-  text-decoration: underline;
-}
-/* line 79, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_print.scss */
-body.bp p img.top, body.bp .item-block h3 img.top {
-  margin-top: 0;
-}
-/* line 81, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_print.scss */
-body.bp blockquote {
-  margin: 1.5em;
-  padding: 1em;
-  font-style: italic;
-  font-size: 0.9em;
-}
-/* line 86, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_print.scss */
-body.bp .small {
-  font-size: 0.9em;
-}
-/* line 88, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_print.scss */
-body.bp .large {
-  font-size: 1.1em;
-}
-/* line 90, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_print.scss */
-body.bp .quiet {
-  color: #999999;
-}
-/* line 92, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_print.scss */
-body.bp .hide {
-  display: none;
-}
-/* line 14, ../../../app/stylesheets/print.scss */
-body.bp a {
-  color: #000;
-}
-/* line 19, ../../../app/stylesheets/print.scss */
-body.bp .item-block p, body.bp .item-block h3, body.bp .item-block a {
-  font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
-  font-color: #000;
-  font-weight: none;
-  text-decoration: none;
-}
-/* line 26, ../../../app/stylesheets/print.scss */
-body.bp .item-block h3 {
-  margin: 0 0 4px 0;
-}
-/* line 31, ../../../app/stylesheets/print.scss */
-body.bp h3.item_title {
-  line-height: 1em;
-}
-/* line 35, ../../../app/stylesheets/print.scss */
-body.bp .buybox h4 {
-  font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
-  color: #000;
-}
-/* line 42, ../../../app/stylesheets/print.scss */
-body.bp .item_moreinfo h4, body.bp .item_moreinfo p, body.bp .item_moreinfo .item-block h3, body.bp .item-block .item_moreinfo h3 {
-  margin: 0;
-}
-
-/* line 49, ../../../app/stylesheets/print.scss */
-.dontprint {
-  display: none;
-}
-
-/* line 53, ../../../app/stylesheets/print.scss */
-#content .dontprint {
-  display: none;
-}
-
-/* line 57, ../../../app/stylesheets/print.scss */
-.shadowOnBit {
-  display: none;
-}
-
-/* line 62, ../../../app/stylesheets/print.scss */
-.page-break {
-  display: block;
-  page-break-before: always;
-}
-
-/* line 68, ../../../app/stylesheets/print.scss */
-#printmasthead h1 {
-  margin: 0;
-  padding: 0;
-  height: auto;
-}
-
-/* line 76, ../../../app/stylesheets/print.scss */
-#catalog_breadcrumbs {
-  color: #000;
-  font-weight: bold;
-}
-/* line 80, ../../../app/stylesheets/print.scss */
-#catalog_breadcrumbs a {
-  color: #000;
-  text-decoration: none;
-}
-/* line 85, ../../../app/stylesheets/print.scss */
-#catalog_breadcrumbs a.tag_breadcrumb_remove, #catalog_breadcrumbs a.price_breadcrumb_remove, #catalog_breadcrumbs .breadcrumb_arrow, #catalog_breadcrumbs a.price_breadcrumb_remove {
-  display: none;
-}
-
-/* line 91, ../../../app/stylesheets/print.scss */
-.msrp, .sale-price {
-  font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
-  color: #000;
-}
-
-/* line 96, ../../../app/stylesheets/print.scss */
-.sale-price {
-  color: #c00;
-}
-
-/* line 101, ../../../app/stylesheets/print.scss */
-.item-block {
-  height: 220px;
-  overflow: visible;
-  margin: 0;
-  padding: 8px 14px;
-  border-bottom: 1px dashed #ccc;
-  border-right: 1px dashed #ccc;
-  page-break-before: auto;
-}
-/* line 110, ../../../app/stylesheets/print.scss */
-.item-block .cart-buttons {
-  display: none;
-}
-
-/* line 116, ../../../app/stylesheets/print.scss */
-.listview .item-block {
-  border-right: 0px;
-}
-/* line 119, ../../../app/stylesheets/print.scss */
-.listview .item-block p.item_name, .highlightable.listview .item-block h3.item_number, .highlightable.listview .item-block .item_description, .listview body.bp .item-block h3.item_name, body.bp .listview .item-block h3.item_name, .listview .item-block p.item_price, .listview body.bp .item-block h3.item_price, body.bp .listview .item-block h3.item_price, .listview .item-block .item_description {
-  margin: 2px 0px 4px 133px;
-}
-
-/* line 124, ../../../app/stylesheets/print.scss */
-h3.item_title, .buybox, .item_description, .item_moreinfo {
-  float: right;
-  margin: 0;
-  padding: 0;
-  width: 450px;
-}
-
-/* line 132, ../../../app/stylesheets/print.scss */
-.item_moreinfo h4 {
-  margin-bottom: 2px;
-}
-/* line 133, ../../../app/stylesheets/print.scss */
-.item_moreinfo a {
-  font-color: #000;
-  font-weight: none;
-  text-decoration: none;
-}
-
-/* line 140, ../../../app/stylesheets/print.scss */
-.buybox {
-  background-color: transparent;
-  border: 0px;
-}
+Backtrace:
+/home/jose/ELLISON3/app/stylesheets/partials_app/_catalog.scss:253
+/home/jose/ELLISON3/app/stylesheets/print.scss:6
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/script/variable.rb:39:in `_perform'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/script/node.rb:61:in `perform'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/prop_node.rb:132:in `perform!'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:305:in `_perform'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:213:in `perform'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:326:in `block in perform_children'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:326:in `map'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:326:in `perform_children'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:317:in `perform!'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/rule_node.rb:191:in `perform!'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:305:in `_perform'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:213:in `perform'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:326:in `block in perform_children'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:326:in `map'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:326:in `perform_children'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:317:in `perform!'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/rule_node.rb:191:in `perform!'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:305:in `_perform'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:213:in `perform'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:326:in `block in perform_children'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:326:in `map'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:326:in `perform_children'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:317:in `perform!'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/rule_node.rb:191:in `perform!'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:305:in `_perform'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:213:in `perform'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:326:in `block in perform_children'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:326:in `map'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:326:in `perform_children'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:317:in `perform!'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/rule_node.rb:191:in `perform!'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:305:in `_perform'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:213:in `perform'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:326:in `block in perform_children'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:326:in `map'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:326:in `perform_children'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/import_node.rb:78:in `perform!'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:305:in `_perform'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/import_node.rb:64:in `_perform'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:213:in `perform'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/root_node.rb:37:in `perform'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:326:in `block in perform_children'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:326:in `map'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:326:in `perform_children'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:317:in `perform!'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/root_node.rb:59:in `perform!'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:305:in `_perform'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/node.rb:213:in `perform'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/root_node.rb:37:in `perform'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/tree/root_node.rb:29:in `render'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/plugin.rb:220:in `update_stylesheet'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/plugin.rb:85:in `block (2 levels) in update_stylesheets'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/plugin.rb:78:in `each'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/plugin.rb:78:in `block in update_stylesheets'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/plugin.rb:76:in `each'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/plugin.rb:76:in `update_stylesheets'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/plugin.rb:50:in `check_for_updates'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/haml-3.0.24/lib/sass/plugin/rack.rb:40:in `call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/warden-0.10.7/lib/warden/manager.rb:35:in `block in call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/warden-0.10.7/lib/warden/manager.rb:34:in `catch'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/warden-0.10.7/lib/warden/manager.rb:34:in `call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/actionpack-3.0.3/lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/actionpack-3.0.3/lib/action_dispatch/middleware/head.rb:14:in `call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/rack-1.2.1/lib/rack/methodoverride.rb:24:in `call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/actionpack-3.0.3/lib/action_dispatch/middleware/params_parser.rb:21:in `call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/actionpack-3.0.3/lib/action_dispatch/middleware/flash.rb:182:in `call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/actionpack-3.0.3/lib/action_dispatch/middleware/session/abstract_store.rb:149:in `call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/actionpack-3.0.3/lib/action_dispatch/middleware/cookies.rb:295:in `call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/actionpack-3.0.3/lib/action_dispatch/middleware/callbacks.rb:46:in `block in call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/activesupport-3.0.3/lib/active_support/callbacks.rb:415:in `_run_call_callbacks'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/actionpack-3.0.3/lib/action_dispatch/middleware/callbacks.rb:44:in `call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/rack-1.2.1/lib/rack/sendfile.rb:107:in `call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/actionpack-3.0.3/lib/action_dispatch/middleware/remote_ip.rb:48:in `call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/actionpack-3.0.3/lib/action_dispatch/middleware/show_exceptions.rb:46:in `call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/railties-3.0.3/lib/rails/rack/logger.rb:13:in `call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/rack-1.2.1/lib/rack/runtime.rb:17:in `call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/activesupport-3.0.3/lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/rack-1.2.1/lib/rack/lock.rb:11:in `block in call'
+<internal:prelude>:10:in `synchronize'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/rack-1.2.1/lib/rack/lock.rb:11:in `call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/actionpack-3.0.3/lib/action_dispatch/middleware/static.rb:30:in `call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/railties-3.0.3/lib/rails/application.rb:168:in `call'
+/usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/railties-3.0.3/lib/rails/application.rb:77:in `method_missing'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/rack/request_handler.rb:96:in `process_request'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/abstract_request_handler.rb:513:in `accept_and_process_next_request'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/abstract_request_handler.rb:274:in `main_loop'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/rack/application_spawner.rb:205:in `start_request_handler'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/rack/application_spawner.rb:170:in `block in handle_spawn_application'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/utils.rb:479:in `safe_fork'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/rack/application_spawner.rb:165:in `handle_spawn_application'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/abstract_server.rb:357:in `server_main_loop'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/abstract_server.rb:206:in `start_synchronously'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/abstract_server.rb:180:in `start'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/rack/application_spawner.rb:128:in `start'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/spawn_manager.rb:253:in `block (2 levels) in spawn_rack_application'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/abstract_server_collection.rb:132:in `lookup_or_add'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/spawn_manager.rb:246:in `block in spawn_rack_application'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/abstract_server_collection.rb:82:in `block in synchronize'
+<internal:prelude>:10:in `synchronize'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/spawn_manager.rb:244:in `spawn_rack_application'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/spawn_manager.rb:137:in `spawn_application'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/spawn_manager.rb:275:in `handle_spawn_application'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/abstract_server.rb:357:in `server_main_loop'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/lib/phusion_passenger/abstract_server.rb:206:in `start_synchronously'
+/home/jose/.passenger/standalone/3.0.0-x86_64-ruby1.9.2-linux-gcc4.4.3-1002/support/helper-scripts/passenger-spawn-server:99:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Undefined variable: \"$cat_tab_hover\".\A         on line 253 of /home/jose/ELLISON3/app/stylesheets/partials_app/_catalog.scss\A         from line 6 of /home/jose/ELLISON3/app/stylesheets/print.scss"; }

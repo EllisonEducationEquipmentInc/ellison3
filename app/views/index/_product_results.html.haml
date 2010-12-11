@@ -7,7 +7,7 @@
     %li= link_to "<span>#{pluralize @secondary_search.total, @secondary_klass.to_s} Found</span>".html_safe, "#", :id => "toggle_product_idea", :class => "tab inactive"
   - if is_er? && ecommerce_allowed? && !idea?
     = check_box_tag :select_all_products, "1", false, :onclick => "$('input.add_to_cart_checkbox').attr('checked', this.checked);toggle_add_checked_to_cart();"
-    = label_tag :select_all_products
+    = label_tag :select_all_products, nil, :class => "minilink"
     %br
     #add_checked_to_cart.rounded{:style => "display:none;position:fixed;z-index:9999;padding:20px;left:50%;top:150px;background:white;border:1px solid gray;opacity:0.9;filter:alpha(opacity=90);cursor: move;"}
       #add_all_selected_to_cart.jqui_new

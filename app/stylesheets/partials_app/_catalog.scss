@@ -250,32 +250,32 @@ body.bp {
     
     a.active span, a.inactive span {
       &:hover {
-        color: #609e85;
+        color: $cat_tab_hover;
       }      
     }
 
     a.active {
-      background: transparent url('/images/ui-backgrounds/tab_active-end.png') no-repeat right;
+      background: transparent url('/images/ui-backgrounds/_#{$system}_tab_active-end.png') no-repeat right;
       padding-right: 11px;
       
       span {
-        background: transparent url('/images/ui-backgrounds/tab_active.png') no-repeat;
-        color: #81a77e;
+        background: transparent url('/images/ui-backgrounds/_#{$system}_tab_active.png') no-repeat;
+        color: $cat_tab_active;
         padding: 11px 0 10px 14px;  // padding left to accomodate link icon; padding right to space away from link divider
       }
     }
     a.inactive {
-      background: transparent url('/images/ui-backgrounds/tab_inactive-end.png') no-repeat right;
+      background: transparent url('/images/ui-backgrounds/_#{$system}_tab_inactive-end.png') no-repeat right;
       padding-right: 15px;
       
-      &:hover { background: transparent url('/images/ui-backgrounds/tab_inactive-hover-end.png') no-repeat right; }
+      &:hover { background: transparent url('/images/ui-backgrounds/_#{$system}_tab_inactive-hover-end.png') no-repeat right; }
       
       span {
-        background: transparent url('/images/ui-backgrounds/tab_inactive.png') no-repeat;
-        color: #afab8a;
+        background: transparent url('/images/ui-backgrounds/_#{$system}_tab_inactive.png') no-repeat;
+        color: $cat_tab_inactive;
         padding: 11px 0 10px 8px;  // padding left to accomodate link icon; padding right to space away from link divider
         
-        &:hover { background: transparent url('/images/ui-backgrounds/tab_inactive-hover.png') no-repeat left; }
+        &:hover { background: transparent url('/images/ui-backgrounds/_#{$system}_tab_inactive-hover.png') no-repeat left; }
       }
     }
   }
@@ -330,6 +330,12 @@ body.bp {
       position: relative;
       left: -6px;
     }
+	}
+	
+	.add_to_cart_multi {
+	  position: absolute;
+	  top: 3px;
+	  right: 4px;
 	}
 	
 	.list_actions {
@@ -516,9 +522,10 @@ body.bp {
   }
 }
 
-select#sort {
+select#sort, input#select_all_products {
   margin-top: 12px;
 }
+
 
 // product detail page
 .item_images {
