@@ -109,9 +109,18 @@
     %br
     = f.label :remove_image
     = f.check_box :remove_image
+  %br
   %h3 Tags
   %ul#product_tags= render :partial => 'tag', :collection => @product.tags
   = text_field_tag "product_tags_helper"
+  %br
+  %br
+  %h3 Ideas
+  %ul#product_ideas= render :partial => 'idea', :collection => @product.ideas
+  = label_tag :product_ideas_helper
+  = text_field_tag "product_ideas_helper"
+  %br
+  %br
   .actions
     = f.submit :class => 'wymupdate jqui_save'
   :javascript
@@ -140,3 +149,24 @@
     	  $("#product_tags").append("<li class='ui-menu-item'><a href='#' onclick='$(this).parent().remove();return false;'>x</a> "+ui.item.label+"<input name=\"product[my_tag_ids][]\" type=\"hidden\" value=\""+ui.item.id+"\" /></li>");
     		return false;
     	}});
+    	
+    	$("#product_ideas_helper").autocomplete({
+      	source: function(request, response) {
+      		$.getJSON("/admin/ideas/ideas_autocomplete", {
+      			term: request.term
+      		}, response);
+      	},
+      	search: function() {
+      		if (this.value.length < 2) {
+      			return false;
+      		}
+      	},
+      	focus: function( event, ui ) {
+        				$( "#product_ideas_helper" ).val( ui.item.label );
+        				return false;
+        			},
+      	select: function(event, ui) {
+      	  this.value = '';
+      	  $("#product_ideas").append("<li class='ui-menu-item'><a href='#' onclick='$(this).parent().remove();return false;'>x</a> "+ui.item.label+"<input name=\"product[my_idea_ids][]\" type=\"hidden\" value=\""+ui.item.id+"\" /></li>");
+      		return false;
+      	}});

@@ -16,6 +16,7 @@ class List
 	field :owns, :type => Boolean, :default => false
 	field :product_ids, :type => Array, :default => []
 	field :comments
+	field :old_permalink
 	
 	def products
 	  Product.send(current_system).available.where(:_id.in => self.product_ids).cache

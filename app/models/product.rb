@@ -106,6 +106,7 @@ class Product
 	embeds_one :product_config
 	
 	references_many :tags, :stored_as => :array, :inverse_of => :products, :index => true
+	references_many :ideas, :stored_as => :array, :inverse_of => :products, :index => true
   references_many :order_items, :index => true
   references_many :cart_items, :index => true
   
@@ -408,6 +409,16 @@ class Product
 	  self.tag_ids = []
 	  self.tags = Tag.where(:_id.in => ids.compact.uniq.map {|i| BSON::ObjectId(i)}).uniq.map {|p| p}
 	end
+	
+	def my_idea_ids=(ids)
+	  self.idea_ids = []
+	  self.ideas = Idea.where(:_id.in => ids.compact.uniq.map {|i| BSON::ObjectId(i)}).uniq.map {|p| p}
+	end
+	
+	def idea_ids
+	  self['idea_ids'] || []
+	end
+	
 	
 	# updates updated_at timestamp, and reindexes record. Validation callbacks are skipped
 	def touch

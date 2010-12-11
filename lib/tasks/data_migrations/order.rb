@@ -56,6 +56,18 @@ module OldData
     def status_name
       order_status.try :name
     end
+    
+    def uk_tax_amount
+      self.vat_exempt ? 0.0 : self.subtotal_amount * (current_vat_percentage/100.0)
+    end
+    
+    def uk_shipping_tax
+      
+    end
+    
+    def current_vat_percentage
+      order_items.first.vat_percentage
+    end
 
   end
   

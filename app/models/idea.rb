@@ -61,6 +61,7 @@ class Idea
 	embeds_many :images
 	
 	references_many :tags, :stored_as => :array, :inverse_of => :ideas, :index => true
+	references_many :products, :stored_as => :array, :inverse_of => :ideas, :index => true
   
 	# scopes
 	scope :active, :where => { :active => true }
@@ -165,6 +166,15 @@ class Idea
 	def my_tag_ids=(ids)
 	  self.tag_ids = []
 	  self.tags = Tag.where(:_id.in => ids.compact.uniq.map {|i| BSON::ObjectId(i)}).uniq.map {|p| p}
+	end
+	
+	def my_product_ids=(ids)
+	  self.product_ids = []
+	  self.products = Product.where(:_id.in => ids.compact.uniq.map {|i| BSON::ObjectId(i)}).uniq.map {|p| p}
+	end
+	
+	def product_ids
+	  self['product_ids'] || []
 	end
 	
 	# updates updated_at timestamp, and reindexes record. Validation callbacks are skipped
