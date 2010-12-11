@@ -121,6 +121,10 @@
   = text_field_tag "product_ideas_helper"
   %br
   %br
+  %h3 Related Products
+  = products_helper_tag('product[related_product_item_nums]', @product.related_product_item_nums, :label => 'Related Products (item_num only)')
+  %br
+  %br
   .actions
     = f.submit :class => 'wymupdate jqui_save'
   :javascript

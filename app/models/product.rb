@@ -57,6 +57,7 @@ class Product
 	field :outlet_since, :type => DateTime
 	field :life_cycle
 	field :systems_enabled, :type => Array
+	field :related_products, :type => Array, :default => []
 	field :tax_exempt, :type => Boolean, :default => false
 	field :volume, :type => Float
 	field :length, :type => Float
@@ -419,6 +420,13 @@ class Product
 	  self['idea_ids'] || []
 	end
 	
+	def related_product_item_nums
+		read_attribute(:related_products).try :join, ", "
+	end
+	
+	def related_product_item_nums=(product_item_nums)
+		write_attribute(:related_products, product_item_nums.split(/,\s*/)) unless product_item_nums.nil?
+	end
 	
 	# updates updated_at timestamp, and reindexes record. Validation callbacks are skipped
 	def touch
