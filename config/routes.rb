@@ -109,7 +109,7 @@ Ellison3::Application.routes.draw do |map|
 			end
 			resources :ideas do
 				collection do
-			    get :new_image, :new_tab, :ideas_autocomplete, :reorder_tabs, :show_tabs, :idea_helper
+			    get :new_image, :new_tab, :ideas_autocomplete, :reorder_tabs, :show_tabs, :idea_helper, :idea_helper_by_tag
 					post :upload_image, :create_tab, :update_tab, :clone_existing_tab
 					delete :delete_image, :delete_tab
 					put :update_tab

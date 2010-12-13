@@ -172,6 +172,12 @@ class Admin::IdeasController < ApplicationController
 	  render :partial => "idea_helper"
 	end
 	
+	def idea_helper_by_tag
+	  @tag = Tag.find(params[:id])
+	  @ideas = @tag.ideas.cache
+	  render :partial => 'idea_checkboxes'
+	end
+	
 	def show_tabs
 	  @idea = Idea.find(params[:id])
 	  render :partial => "index/tab_block", :locals => {:object => @idea}

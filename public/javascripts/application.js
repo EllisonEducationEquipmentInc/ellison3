@@ -472,7 +472,7 @@ $.expr[':'].icontains = function(obj, index, meta, stack){
 	return (obj.textContent || obj.innerText || jQuery(obj).text() || '').toLowerCase().indexOf(meta[3].toLowerCase()) >= 0; 
 };
 
-function check_items_checkboxes(element) {
+function check_items_checkboxes(element, model) {
 	if (model == undefined) var model = 'product';
 	if (element.find('.'+model+'_autocomplete').val() == undefined) return false;
 	$(element).find('.admin_checkboxes [type=checkbox]').attr('checked', false);
