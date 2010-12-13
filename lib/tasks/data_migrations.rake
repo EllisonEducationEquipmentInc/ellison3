@@ -516,6 +516,26 @@ namespace :data_migrations do
     end
   end
   
+  desc "idea to product association - WARNING: overwrites existing relationship (if exists)"
+  task :idea_to_products => :load_dep do
+    # idea = Idea.find '4cfed69be1b83259d6000033'
+    Idea.where(:product_ids.size => 0).each do |idea|
+      tab = idea.tabs.where({:name => /(products|dies) used/i}).first
+      next if tab.blank?
+      products = Product.where(:item_num.in => tab.products)
+      idea.product_ids = []
+      idea.products = products.uniq.map {|p| p}
+      idea.save(:validate => false)
+      idea.reload
+      idea.my_product_ids = Product.where(:item_num.in => tab.products).uniq.map {|p| "#{p.id}"}.uniq
+      p idea.save(:validate => false)
+      p idea.errors
+      idea.reload
+      idea.products.each {|e| e.ideas = (e.ideas + [idea]).uniq; e.idea_ids = (e.idea_ids << idea.id).uniq; p e.save(:validate => false)}
+      p "-------- #{idea.idea_num} --------"
+    end
+  end
+  
   task :set_edu do
     ENV['SYSTEM'] = "edu"
   end

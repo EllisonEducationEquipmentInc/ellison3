@@ -1,23 +1,26 @@
 .breadcrumbs.dontprint
-	= link_to_function 'back', "window.history.back()"
+  = link_to_function 'back', "window.history.back()"
 .item_images
-	#large_image= image_tag(@idea.large_image)
-	.dontprint
-		.thumbnail.selected= link_to image_tag(@idea.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@idea.large_image)}'); return false;"
-		- @idea.images.each do |image|
-			.thumbnail= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;"
-		.clear  
+  #large_image= image_tag(@idea.large_image)
+  .dontprint
+    .thumbnail.selected= link_to image_tag(@idea.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@idea.large_image)}'); return false;"
+    - @idea.images.each do |image|
+      .thumbnail= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;"
+    .clear  
 %h3.item_title
-	= @idea.name
-	%span.life-cycle= @idea.public_life_cycle
+  = @idea.name
+  %span.life-cycle= @idea.public_life_cycle
 .item_sociallinks.dontprint= facebook_like
 .buybox.rounded
-	%h4.itemnumber== Item ##{@idea.idea_num}
+  %h4.itemnumber== Item ##{@idea.idea_num}
 .item_description
-	= @idea.description.try :html_safe
+  = @idea.description.try :html_safe
 
 .item_moreinfo
-	= image_tag("http://placehold.it/470x150", :class => "dontprint")
-	%h4 Keywords:
-	%p= @idea.tags.keywords.map {|tag| link_to(tag.name, catalog_path(:anchor => "facets=#{tag.facet_param}&page=1&ideas=1"))}.join(", ").html_safe
+  = image_tag("http://placehold.it/470x150", :class => "dontprint")
+  %h4 Keywords:
+  %p= @idea.tags.keywords.map {|tag| link_to(tag.name, catalog_path(:anchor => "facets=#{tag.facet_param}&page=1&ideas=1"))}.join(", ").html_safe
+  - unless @idea.products.blank?
+    %h4 Related Products:
+    .related_ideas= render :partial => 'products/related_product', :collection => @idea.products, :as => :product
 .item_tabs= render :partial => 'tab_block', :locals => {:object => @idea}

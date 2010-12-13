@@ -1,0 +1,8 @@
+.item-block.idea{:class => "idea_#{idea.id}"}
+  %h3.item_number= idea.item_num
+  - unless idea.public_life_cycle.blank?
+    .life-cycle
+      %span= idea.public_life_cycle
+  %p.item_image= link_to image_tag(idea.medium_image), idea_url(:id => idea)
+  %p.item_name= link_to idea.name.html_safe, idea_url(:id => idea)
+  .item_description= idea.description.try :html_safe
