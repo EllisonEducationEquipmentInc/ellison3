@@ -54,7 +54,7 @@ module OldData
     end
     
     def status_name
-      order_status.try :name
+      order_status.try(:name) == "In Progress" ? "In Process" : order_status.try(:name)
     end
     
     def uk_tax_amount

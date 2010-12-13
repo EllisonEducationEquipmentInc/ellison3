@@ -401,7 +401,7 @@ namespace :data_migrations do
   task :users_szuk => [:set_szuk, :load_dep] do
     set_current_system "szuk"
     # old_user = OldData::User.find(12369)
-    OldData::User.not_deleted.find_each(:conditions => "id > 9473") do |old_user|
+    OldData::User.not_deleted.find_each(:conditions => "id > 0") do |old_user|
       existing = User.where(:email => old_user.email).first
       if !existing.blank? && old_user.orders.count > 0
         new_user = existing
@@ -496,6 +496,18 @@ namespace :data_migrations do
     # old_list = OldData::Wishlist.find(649)
     OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
       user = User.where(:old_id_szus => old_list.user_id).first
+      next unless user
+      list = user.lists.build(:name => old_list.name, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments)
+      list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
+      p list.save
+      p "----- #{list.user.email} -----"
+    end
+  end
+  
+  desc "migrate SZUK wishlists"
+  task :lists_szuk => [:set_szuk, :load_dep] do
+    OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
+      user = User.where(:old_id_szuk => old_list.user_id).first
       next unless user
       list = user.lists.build(:name => old_list.name, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments)
       list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
