@@ -168,6 +168,7 @@ class Admin::IdeasController < ApplicationController
 	  @ideas = Idea.active.only(:name, :idea_num, :images, :tag_ids).asc(:name).cache
 	  @tags = Tag.active.order_by(:tag_type.asc, :name.asc).only(:tag_type).cache.group
 	  @rand = rand(10**10)
+	  expires_in 1.hours, 'max-stale' => 1.hours
 	  render :partial => "idea_helper"
 	end
 	

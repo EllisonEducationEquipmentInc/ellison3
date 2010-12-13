@@ -13,11 +13,4 @@ show All
         = tag.name
         %br
 .clear
-= link_to_function "add all visible", "$(this).parent().find('[type=checkbox][checked=false]:visible').attr('checked', true).each(function (i) {check_items_to_item_num_field(this)})"
-.admin_checkboxes
-  - @products.each do |product|
-    %div{:class => "product_helper_check_box_row #{product.tag_ids * ' '}"}
-      = check_box_tag "product_helper", product.item_num, false, :class => "product_helper_check_box", :id => nil, :onchange => "check_items_to_item_num_field(this)"
-      = image_tag(product.small_image, :size => "12x12", :onmouseover => "$(this).css({'height': '65px', 'width': '65px', 'position': 'absolute', 'z-index': 99})", :onmouseout => "$(this).css({'height': '12px', 'width': '12px', 'position': 'relative', 'z-index': 1})")
-      = "#{product.item_num} #{product.name}"
-      %br
+= render :partial => 'product_checkboxes'

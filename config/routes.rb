@@ -101,7 +101,7 @@ Ellison3::Application.routes.draw do |map|
       # (app/controllers/admin/products_controller.rb)
       resources :products do
 				collection do
-			    get :new_campaign, :edit_campaign, :new_image, :new_tab, :products_autocomplete, :reorder_tabs, :show_tabs, :product_helper
+			    get :new_campaign, :edit_campaign, :new_image, :new_tab, :products_autocomplete, :reorder_tabs, :show_tabs, :product_helper, :product_helper_by_tag
 					post :create_campaign, :update_campaign, :upload_image, :create_tab, :update_tab, :clone_existing_tab
 					delete :delete_campaign, :delete_image, :delete_tab
 					put :update_campaign, :update_tab

@@ -200,7 +200,14 @@ class Admin::ProductsController < ApplicationController
 	  @products = Product.active.only(:name, :item_num, :images, :tag_ids).asc(:name).cache
 	  @tags = Tag.active.order_by(:tag_type.asc, :name.asc).only(:tag_type).cache.group
 	  @rand = rand(10**10)
+	  expires_in 1.hours, 'max-stale' => 1.hours
 	  render :partial => "product_helper"
+	end
+	
+	def product_helper_by_tag
+	  @tag = Tag.find(params[:id])
+	  @products = @tag.products.cache
+	  render :partial => 'product_checkboxes'
 	end
 	
 	def show_tabs

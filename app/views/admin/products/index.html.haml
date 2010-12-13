@@ -19,6 +19,7 @@
       %tr
         = sortable 'item_num'
         = sortable 'name'
+        %th Active
         %th Price
         = sortable "start_date_#{current_system}", "Start Date"
         = sortable "end_date_#{current_system}", "End Date"
@@ -37,6 +38,7 @@
         %tr{ :class => cycle(:odd, :even) }
           %td= product.item_num
           %td= product.name
+          %td= product.active
           %td= number_to_currency product.price rescue 'N/A'
           %td= l product.send("start_date_#{current_system}"), :format => :custom rescue "N/A for #{current_system}"
           %td= l product.send("end_date_#{current_system}"), :format => :custom rescue "N/A for #{current_system}"
