@@ -883,7 +883,6 @@ body.bp .item_moreinfo h4, body.bp .item_moreinfo p, body.bp .item_moreinfo .ite
 
 /* line 102, ../../../app/stylesheets/print.scss */
 .item-block {
-  height: 220px;
   overflow: visible;
   margin: 0;
   padding: 8px 14px;
@@ -891,21 +890,25 @@ body.bp .item_moreinfo h4, body.bp .item_moreinfo p, body.bp .item_moreinfo .ite
   border-right: 1px dashed #ccc;
   page-break-before: auto;
 }
-/* line 111, ../../../app/stylesheets/print.scss */
+/* line 110, ../../../app/stylesheets/print.scss */
 .item-block .cart-buttons {
   display: none;
 }
+/* line 114, ../../../app/stylesheets/print.scss */
+.item-block.product, .item-block.idea {
+  height: 220px;
+}
 
-/* line 117, ../../../app/stylesheets/print.scss */
+/* line 120, ../../../app/stylesheets/print.scss */
 .listview .item-block {
   border-right: 0px;
 }
-/* line 120, ../../../app/stylesheets/print.scss */
+/* line 123, ../../../app/stylesheets/print.scss */
 .listview .item-block p.item_name, .highlightable.listview .item-block h3.item_number, .highlightable.listview .item-block .item_description, .listview body.bp .item-block h3.item_name, body.bp .listview .item-block h3.item_name, .listview .item-block p.item_price, .listview body.bp .item-block h3.item_price, body.bp .listview .item-block h3.item_price, .listview .item-block .item_description {
   margin: 2px 0px 4px 133px;
 }
 
-/* line 125, ../../../app/stylesheets/print.scss */
+/* line 128, ../../../app/stylesheets/print.scss */
 h3.item_title, .buybox, .item_description, .item_moreinfo {
   float: right;
   margin: 0;
@@ -913,18 +916,18 @@ h3.item_title, .buybox, .item_description, .item_moreinfo {
   width: 450px;
 }
 
-/* line 133, ../../../app/stylesheets/print.scss */
+/* line 136, ../../../app/stylesheets/print.scss */
 .item_moreinfo h4 {
   margin-bottom: 2px;
 }
-/* line 134, ../../../app/stylesheets/print.scss */
+/* line 137, ../../../app/stylesheets/print.scss */
 .item_moreinfo a {
   font-color: #000;
   font-weight: none;
   text-decoration: none;
 }
 
-/* line 141, ../../../app/stylesheets/print.scss */
+/* line 144, ../../../app/stylesheets/print.scss */
 .buybox {
   background-color: transparent;
   border: 0px;

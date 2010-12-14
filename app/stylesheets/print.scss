@@ -100,7 +100,6 @@ body.bp {
 
 // catalog results page
 .item-block {  
-	height: 220px;
 	overflow: visible;
 	margin: 0;
 	padding: 8px 14px;
@@ -110,6 +109,10 @@ body.bp {
     
 	.cart-buttons {
 		display: none;
+	}
+	
+	&.product, &.idea {
+	  height: 220px;
 	}
 }
 
