@@ -1,11 +1,19 @@
-// Ellison Education US Color Palette 
-// http://www.colourlovers.com/palette/110225/Vintage_Modern
+// Ellison Education US Color Palette
+// this is temporary
+$primary: #51fc06;
+$secondary: #51fc06;
+$tertiary: #51fc06;
+$quaternary: #51fc06;
+$quinary: #51fc06;
 
-$primary: #5E8C6A;  // medium green with a slight bluish tint
-$secondary: #88A65E;  // medium green
-$tertiary: #BFB35A;  // dull olive green
-$quaternary: #F2C45A;  // gold
-$quinary: #8C2318;  // deep reddish burgundy
+
+$text: #222;
+$link: #346da3;
+$hover: #222;
+$heading: #346da3;
+
+$jqui_tab_active: #fff;
+$jqui_tab_hover: #222;
 
 $navutil_link: $tertiary;
 $navutil_hover: $quinary;
@@ -23,6 +31,17 @@ $megapanel_hover: #6382e0;
 $catalog_tab_active: #81a77e;
 $catalog_tab_inactive: #afab8a;
 $catalog_tab_hover: #609e85;
+
+$catalog_filter_link: #140F06;
+$catalog_filter_hover: darken($secondary, 15%);
+
+$catalog_item-num: #6C5941;
+$catalog_price: #6C5941;
+$catalog_hover: $secondary;
+
+$catalog_buybox_bg: #ECEADF;
+$catalog_buybox_border: #D9D6C4;
+$catalog_buybox_item-num: #6C5941;
 
 $footer_bg: $primary;
 $footer_text: $quaternary;

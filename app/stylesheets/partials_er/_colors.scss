@@ -1,11 +1,12 @@
 // Ellison Retailers Color Palette
-// http://www.colourlovers.com/palette/49963/let_them_eat_cake
 
-$primary: #E08E79;  // medium pink with orange tint
-$secondary: #C5E0DC;  // light blue
-$tertiary: #F1D4AF;  // cream with orange tint
-$quaternary: #ECE5CE;  // light beige
-$quinary: #774F38;  // medium brown
+$text: #222;
+$link: #346da3;
+$hover: #222;
+$heading: #346da3;
+
+$jqui_tab_active: #fff;
+$jqui_tab_hover: #222;
 
 $navutil_link: #eee;
 $navutil_hover: #6382e0;
@@ -17,12 +18,23 @@ $meganav_hover: #6382e0;
 $meganav_admin: #e90000;
 $meganav_admin_hover: #f00;
 
-$megapanel_link: black;
+$megapanel_link: #222;
 $megapanel_hover: #6382e0;
 
 $catalog_tab_active: #346da3;
 $catalog_tab_inactive: #b2b2b2;
 $catalog_tab_hover: #346da3;
+
+$catalog_filter_link: #222;
+$catalog_filter_hover: #346da3;
+
+$catalog_item-num: #346da3;
+$catalog_price: #222;
+$catalog_hover: #346da3;
+
+$catalog_buybox_bg: #f2f5f7;
+$catalog_buybox_border: #ddd;
+$catalog_buybox_item-num: #222;
 
 $footer_text: #dbdbdb;
 $footer_headings: #eee;

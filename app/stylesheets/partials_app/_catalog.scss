@@ -39,7 +39,6 @@ body.bp {
         font-weight: bold;
         font-size: 10px;
         text-transform: none;
-        color: #6C5941;
         margin-bottom: 8px;
       }
   
@@ -48,7 +47,6 @@ body.bp {
         font-size: 10.2px;
         margin-bottom: 0;
         text-decoration: none;
-        color: #9c8a73;
     
         &:hover {
           color: $catalog_filter_hover;
@@ -87,7 +85,7 @@ body.bp {
       font-weight: bold;
     }
     h4.itemnumber {
-      float: right;      
+      float: right;
     }
   }
   .item_moreinfo {
@@ -95,7 +93,7 @@ body.bp {
       text-transform: none;
       font-size: 1.1em;
       font-weight: bold;
-      color: #444;
+      color: $heading;
     }
   }
   .product_sidebar {
@@ -126,15 +124,17 @@ body.bp {
 	font-weight: bold;
 }
 
-.coupon-price {
+.coupon-price { @extend .msrp;
 	color: green;
 	font-weight: bold;
 }
-.special-price {}
+.special-price { @extend .msrp; }
 
-.custom-price {
+.custom-price {  @extend .msrp;
 	color: $catalog_custom-price;
 }
+
+// life cycle ribbon
 .life-cycle {
   color: $catalog_life-cycle;
   font-size: .6em;
@@ -154,14 +154,11 @@ body.bp {
 
 // catalog filter breadcrumbs
 #catalog_breadcrumbs { @extend .breadcrumbs;
-  color: #b60000;
   
   a {
-    color: #6C5941;
     text-decoration: none;
     
     &:hover {
-      color: #b60000;
       text-decoration: underline; }
   }
   
@@ -200,7 +197,7 @@ body.bp {
     text-transform: uppercase;
     font-family:  'PT Sans', Helvetica, Arial, sans-serif;
     font-size: 10.5px;
-    font-weight: bold;
+    font-weight: bold;    
   }
   
   ul {
@@ -359,7 +356,6 @@ body.bp {
 	      font-weight: bold;
 	      font-size: 10px;
 	      text-transform: none;
-	      color: #6C5941;
 	      margin-bottom: 8px;
 	      float: left;
 	    }
@@ -401,9 +397,14 @@ body.bp {
 	  a {
 	    display: inline-block;
 	    margin-bottom: 6px;
-	    font-size: 10.2px;
+	    font-size: .85em;
 	  }
 	  
+	  label {
+	    font-size: .85em;
+	    color: lighten($catalog_item-num, 25%);
+	  }
+	  	  
 	  .users_lists_container {
 	    width: $item-block-width + 11;
       position: absolute;
@@ -411,6 +412,10 @@ body.bp {
       left: -6px;
 	  }
 	}	
+}
+
+.er_product_quantity {
+  margin-bottom: 4px;
 }
 
 .users_lists_container {
@@ -473,7 +478,7 @@ body.bp {
     
       .cart-buttons {
         position: absolute;
-        top: 0px;
+        bottom: 0px;
         left: 637px;
         margin: 8px;
         width: auto;
@@ -483,7 +488,6 @@ body.bp {
       
   	  .users_lists_container {
   	    position: absolute;
-  	    bottom: 33px;
   	    left: -74px;
   	  }
   	  
@@ -504,13 +508,11 @@ body.bp {
   a.toggle_view {
     display: block;
     height: 16px;
-    color: #6C5941;
     text-decoration: none;
     padding-right: 20px;
     background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_listview.png") no-repeat right top;
     
     &:hover {
-      color: #b60000;
       background-position: right bottom;
     }
     
@@ -560,6 +562,12 @@ select#sort, input#select_all_products {
 	  margin-top: 7px;
 	}
 	
+  label {
+    font-family: Verdana,Arial,sans-serif;
+    font-size: .85em;
+    color: lighten($catalog_item-num, 25%);
+  }
+	
 	.users_lists_container {
     position: absolute;
     top: 62px;
@@ -568,7 +576,7 @@ select#sort, input#select_all_products {
 	
 	a {
 	  font-family: Verdana,Arial,sans-serif;
-	  font-size: 10.2px;
+	  font-size: .85em;
 	}
 }
 
@@ -577,7 +585,7 @@ select#sort, input#select_all_products {
   height: 25px;
   background: url('/images/ui-buttons/addtocart_off.png') no-repeat;
   border: none;
-  color: #fff;
+  color: white;
   
   .ui-icon {
     background-image: none;
@@ -598,7 +606,7 @@ select#sort, input#select_all_products {
     text-transform: uppercase;
     font-weight: bold;
     font-size: 1.1em;
-    color: #fff;
+    color: white;
   
     .ui-icon {
       background-image: none;

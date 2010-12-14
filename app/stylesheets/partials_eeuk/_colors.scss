@@ -1,11 +1,18 @@
 // Ellison Education UK Color Palette
-// http://www.colourlovers.com/palette/373610/mellon_ball_surprise
+// this is temporary
+$primary: #51fc06;
+$secondary: #51fc06;
+$tertiary: #51fc06;
+$quaternary: #51fc06;
+$quinary: #51fc06;
 
-$primary: #F56991;  // medium bright pink
-$secondary: #FF9F80;  // medium peach-orange
-$tertiary: #FFC48C;  // medium peach-yellow
-$quaternary: #EFFAB4;  // very light lime-green with yellow tint
-$quinary: #D1F2A5;  // medium bright lime-green
+$text: #222;
+$link: #346da3;
+$hover: #222;
+$heading: #346da3;
+
+$jqui_tab_active: #fff;
+$jqui_tab_hover: #222;
 
 $navutil_link: lighten($primary, 7%);
 $navutil_hover: darken($primary, 9%);
@@ -23,6 +30,17 @@ $megapanel_hover: #6382e0;
 $catalog_tab_active: #81a77e;
 $catalog_tab_inactive: #afab8a;
 $catalog_tab_hover: #609e85;
+
+$catalog_filter_link: #140F06;
+$catalog_filter_hover: darken($secondary, 15%);
+
+$catalog_item-num: #6C5941;
+$catalog_price: #6C5941;
+$catalog_hover: $secondary;
+
+$catalog_buybox_bg: #ECEADF;
+$catalog_buybox_border: #D9D6C4;
+$catalog_buybox_item-num: #6C5941;
 
 $footer_bg: #4e4e4e;
 $footer_text: #cbcbcb;

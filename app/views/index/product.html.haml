@@ -23,7 +23,7 @@
 .item_moreinfo
   = image_tag("http://placehold.it/470x150", :class => "dontprint")
   %h4 Keywords:
-  %p= @product.tags.keywords.map {|tag| link_to(tag.name, catalog_path(:anchor => "facets=#{tag.facet_param}&page=1"))}.join(", ").html_safe
+  %p.keyword= @product.tags.keywords.map {|tag| link_to(tag.name, catalog_path(:anchor => "facets=#{tag.facet_param}&page=1"))}.join(", ").html_safe
   - unless @product.ideas.blank?
     %h4 Related Ideas:
     .related_ideas= render :partial => 'ideas/related_idea', :collection => @product.ideas, :as => :idea

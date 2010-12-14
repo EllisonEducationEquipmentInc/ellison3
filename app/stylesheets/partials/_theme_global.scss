@@ -30,12 +30,12 @@ body.bp {
   }
   
   a {
-    color: $primary;
+    color: $link;
     text-decoration: none;
     outline: none;
     
     &:hover {
-      color: darken($primary, 25%);
+      color: $hover;
       text-decoration: underline;
     }
   }
@@ -64,10 +64,10 @@ body.bp {
 
 ul.ui-tabs-nav {
   li.ui-state-hover {
-    a { color: #fff; }
+    a { color: $jqui_tab_hover; }
   }
   li.ui-state-active {
-    a { color: $primary; }
+    a { color: $jqui_tab_active; }
   }
 }
 
