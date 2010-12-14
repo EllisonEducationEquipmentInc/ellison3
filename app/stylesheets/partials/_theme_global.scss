@@ -146,7 +146,7 @@ ul.ui-tabs-nav {
         }
 
 				&:hover {
-					color: #6C5941;
+					color: $navutil_link;
 					cursor: text;
 				}
       }
@@ -195,10 +195,10 @@ ul.ui-tabs-nav {
         margin: 2px 0 0 0;
         
         a {
-          color: #69c;
+          color: $cart_shipmsg_link;
           
           &:hover {
-            color: #5488b8;
+            color: $cart_shipmsg_hover;
           };
         }
       }
@@ -390,16 +390,16 @@ ul.ui-tabs-nav {
       font-style: italic;
       font-weight: bold;
       line-height: 2em;
-      color: white;
+      color: $home_gallery_ctrl_btn;
       text-decoration: none;
-      &:hover { color: #ff9ac4;};
+      &:hover { color: $home_gallery_ctrl_hover;};
 
       top: 153px;
       left: 8px;
       width: 47px;
       height: 34px;
       padding: 3px 0 0 8px;
-      background:url("/images/ui-buttons/arrow_prev_red-ribbon.png") no-repeat 0 0;
+      background:url("/images/ui-buttons/_#{$system}_arrow_prev_red-ribbon.png") no-repeat 0 0;
     }
     a.nextBtn { @extend a.prevBtn;
       top: 145px;
@@ -407,7 +407,7 @@ ul.ui-tabs-nav {
       width: 45px;
       height: 35px;
       padding: 5px 0 0 10px;
-      background:url("/images/ui-buttons/arrow_next_red-ribbon.png") no-repeat 0 0;
+      background:url("/images/ui-buttons/_#{$system}_arrow_next_red-ribbon.png") no-repeat 0 0;
     }
   }
   
