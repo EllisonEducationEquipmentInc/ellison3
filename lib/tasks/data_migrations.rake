@@ -620,6 +620,13 @@ namespace :data_migrations do
     end
   end
   
+  desc "er user test"
+  task :users_er_test => [:set_er, :load_dep] do
+    set_current_system "er"
+    old_user = OldData::User.find 1282
+    p old_user.retailer_info.business_license.public_filename
+  end
+  
   desc "check for duplicate user accounts across systems"
   task :duplicate_users_er => [:set_er, :load_dep] do
     print "Orders in ER \t|\t email \t\t|\t active \t|\t Ord. elsewhere \t|\t Orders systems \n"
@@ -645,7 +652,12 @@ namespace :data_migrations do
     
   desc "load dependencies and connect to mysql db"
   task :load_dep => :environment do
-
+    $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/')
+    $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/lib/')
+    $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/lib/technoweenie/')
+    $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/lib/technoweenie/attachment_fu/backends/')
+    $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/lib/technoweenie/attachment_fu/processors/')
+    
     db = case ENV['SYSTEM']
     when "edu"
       "ellison_education_qa"
