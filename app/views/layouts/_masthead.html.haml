@@ -5,8 +5,12 @@
       = link_to "Sizzix Outlet", outlet_path, :id => "logo_masthead", :title => "Sizzix Outlet", :alt => "Sizzix Outlet"
     - else
       = link_to system_name, root_path, :id => "logo_masthead", :title => system_name, :alt => system_name
-  -# utility navigation menu (customer account management, shopping cart, etc)  
+
+  -# utility navigation menu (customer account management, shopping cart, UK currency selector, etc)  
   %ul.nav_utility
+    - if is_uk? && !@cart_locked
+      %li= link_to_unless current_currency == "gbp", "GBP", "#{uri_append_or_first}locale=en-UK"
+      %li= link_to_unless current_currency == "eur", "EUR", "#{uri_append_or_first}locale=en-EU"
     - if user_signed_in?
       %li= link_to "<span>Sign Out</span>".html_safe, destroy_session_path('user'), :class => "btn-masthead btn-signout", :title => "Sign Out", :alt => "Sign Out" 
       %li= link_to "<span>#{admin_signed_in? ? 'Customer\'s' : 'My'} Account</span>".html_safe, myaccount_path(:secure => true), :class => "btn-masthead btn-myaccount", :title => "My Account", :alt => "My Account"
@@ -30,9 +34,5 @@
     %input{ :class =>"textfield", :name => "w", :type => "text", :value => "Search for Sizzix Products & Ideas", :onfocus => "if (this.value == 'Search for Sizzix Products & Ideas'){this.value='';}" }
     %input{ :class => "submitbutton", :name => "submit", :src => "/images/ui-icons/set_fugue/24x24/drop-shadow/magnifier-left.png", :type => "image", :height => "24", :width => "24" }
 
-  -# UK currency selector
-  - if is_uk? && !@cart_locked  
-    = link_to_unless current_currency == "gbp", "GBP", "#{uri_append_or_first}locale=en-UK"
-    = link_to_unless current_currency == "eur", "EUR", "#{uri_append_or_first}locale=en-EU"
 #printmasthead.dontdisplay
   %h1== #{system_name.capitalize}.com

@@ -3,11 +3,11 @@
 
 body.bp {
   @if $system == er {
-    background: url("/images/ui-backgrounds/_#{$system}_site.jpg") no-repeat center top fixed;
+    background-image: url("/images/ui-backgrounds/_#{$system}_site.jpg") no-repeat center top fixed;
   } @else {
-    background: url("/images/ui-backgrounds/_#{$system}_site.png");
+    background-image: url("/images/ui-backgrounds/_#{$system}_site.png");
   }
-  
+
   h1, h2, h3, h4, h5 {
     margin-bottom: 2px;
   }

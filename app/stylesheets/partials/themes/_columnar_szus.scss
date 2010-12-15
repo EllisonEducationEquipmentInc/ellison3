@@ -131,7 +131,7 @@ body.bp {
     background: url("/images/ui-backgrounds/_#{$system}_footer.png") no-repeat center top;
     color: $footer_text;
   
-    h3, h4 {
+    h2, h3, h4 {
       color: $footer_headings;
       margin-bottom: 0;
     }
