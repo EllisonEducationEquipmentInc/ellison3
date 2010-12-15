@@ -90,6 +90,10 @@ class Admin::UsersController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def view_retailer_application
+    @user = User.find(params[:id])
+  end
 
 private 
 

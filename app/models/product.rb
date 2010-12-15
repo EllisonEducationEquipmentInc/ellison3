@@ -67,6 +67,7 @@ class Product
 	field :old_id, :type => Integer
 	field :old_id_edu, :type => Integer
 	field :old_id_szuk, :type => Integer
+	field :old_id_er, :type => Integer
 	
 	field :item_code
 	field :default_config, :type => Boolean, :default => false

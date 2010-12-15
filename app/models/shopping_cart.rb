@@ -226,7 +226,16 @@ module ShoppingCart
 		# shipping rates based on cart subtotal
 		def shipping_rate(address, options={})
 		  rate = ShippingRate.where(:system => current_system, :"price_min_#{current_currency}".lte => subtotal_cart, :"price_max_#{current_currency}".gte => subtotal_cart, :zone_or_country => address.us? ? FedexZone.find_by_address(address).try(:zone).try(:to_s) : address.country).first
-		  raise "unable to calculate shipping" if rate.blank?
+		  if rate.blank?
+		    msg = if is_sizzix_us? && !address.us?
+	          "sizzix.com only ships to U.S addresses. Please change your shipping address, or place your order on sizzix.co.uk"
+		      elsif is_sizzix_uk? && address.us?
+		        "sizzix.co.uk does not ship to U.S addresses. Please change your shipping address, or place your order on sizzix.com"
+		      else
+		        'Please try again later.'
+		      end
+		    raise "Unable to calculate shipping. #{msg}" 
+		  end
 		  @rates = []
 		  standard = Shippinglogic::FedEx::Rate::Service.new
 		  standard.name = standard.type = "STANDARD"
