@@ -8,6 +8,12 @@ $link: #a9250e;
 $hover: #222;
 $heading: #6c5941;
 
+$table_thead_bg: #79664b; // same as jQueryUI .ui-widget-hover 
+$table_thead_text: #fff;
+$table_thead_link: #fff;
+$table_thead_hover: #dbd7bf; // derived from $table_td_even
+$table_td_even: #eceadf; // same as jQueryUI .ui-widget-content 
+
 $jqui_tab_active: #6c5941;
 $jqui_tab_hover: #fff;
 

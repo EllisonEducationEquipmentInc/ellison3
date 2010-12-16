@@ -9,8 +9,9 @@
       Out of stock
   %td= link_to(image_tag(cart_item.small_image), product_url(:id => cart_item.product_id)) unless cart_item.small_image.blank?
   %td= cart_item.product_id.blank? ? cart_item.name : link_to(cart_item.name, product_url(:id => cart_item.product_id)) 
-  %td{:class => get_cart.is_cart_item_changed?(cart_item.id, "quantity") ? 'item_changed' : nil}= text_field_tag :quantity, cart_item.quantity, :id => "cart_quantity_#{cart_item.item_num}", :maxlength => 3, :size => 3, :class => "number_only", :disabled => @cart_locked, :autocomplete => 'off', :onchange => is_er? ? "if ($(this).val() < #{cart_item.minimum_quantity}) {$(this).val(#{cart_item.minimum_quantity});alert('Minimum Quantity Required for this product is: #{cart_item.minimum_quantity}')}" : nil
+  %td== $9999.99
   %td{:id => "cart_item_price_#{cart_item.id}", :class => get_cart.is_cart_item_changed?(cart_item.id, "price") ? 'cart_item_price item_changed' : 'cart_item_price'}= display_product_price_cart cart_item
+  %td{:class => get_cart.is_cart_item_changed?(cart_item.id, "quantity") ? 'item_changed' : nil}= text_field_tag :quantity, cart_item.quantity, :id => "cart_quantity_#{cart_item.item_num}", :maxlength => 3, :size => 3, :class => "number_only", :disabled => @cart_locked, :autocomplete => 'off', :onchange => is_er? ? "if ($(this).val() < #{cart_item.minimum_quantity}) {$(this).val(#{cart_item.minimum_quantity});alert('Minimum Quantity Required for this product is: #{cart_item.minimum_quantity}')}" : nil
   %td{:id => "cart_item_total_#{cart_item.id}"}= number_to_currency gross_price(cart_item.total)
   %td
     - unless @cart_locked || cart_item.coupon? 

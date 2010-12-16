@@ -109,7 +109,6 @@ body.bp {
 
 // price styles
 .msrp {
-  font-family:  'PT Sans', Helvetica, Arial, sans-serif;
   font-size: 1.1em;
   font-weight: bold;
   color: $catalog_price;
@@ -131,6 +130,8 @@ body.bp {
 .special-price { @extend .msrp; }
 
 .custom-price {  @extend .msrp;
+  font-size: 1em;
+  font-weight: normal;
 	color: $catalog_custom-price;
 }
 
@@ -498,7 +499,7 @@ body.bp {
   	  }
   	  
   	  .list_actions {
-  	    top: 110px;
+  	    top: 8px;
   	    left: 713px;
 
     	  .move_to_another_list {

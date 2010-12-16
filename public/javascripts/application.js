@@ -191,6 +191,14 @@ $(document).ready(function(){
       scroll: 1
     });
   });
+  
+  //jqueryui tables
+  $("table").each(function() {
+    $(this).addClass("ui-widget ui-widget-content ui-corner-all");
+  });
+  $("table thead").each(function() {
+    $(this).addClass("ui-state-hover");
+  });
 
 	shadow_on();
 

@@ -138,20 +138,16 @@ body.bp th, body.bp td, body.bp caption {
   width: 600px;
 }
 /* line 133, ../../../app/stylesheets/application.scss */
-#content #cart_container {
-  width: 800px;
-}
-/* line 136, ../../../app/stylesheets/application.scss */
 #content .save {
   border: 1px solid green;
 }
-/* line 141, ../../../app/stylesheets/application.scss */
+/* line 138, ../../../app/stylesheets/application.scss */
 #content .field_with_errors {
   padding: 2px;
   background-color: red;
   display: table;
 }
-/* line 147, ../../../app/stylesheets/application.scss */
+/* line 144, ../../../app/stylesheets/application.scss */
 #content #errorExplanation {
   width: 400px;
   border: 2px solid red;
@@ -160,7 +156,7 @@ body.bp th, body.bp td, body.bp caption {
   margin-bottom: 20px;
   background-color: #f0f0f0;
 }
-/* line 156, ../../../app/stylesheets/application.scss */
+/* line 153, ../../../app/stylesheets/application.scss */
 #content #errorExplanation h2 {
   text-align: left;
   font-weight: bold;
@@ -170,75 +166,75 @@ body.bp th, body.bp td, body.bp caption {
   background-color: #c00;
   color: #fff;
 }
-/* line 166, ../../../app/stylesheets/application.scss */
+/* line 163, ../../../app/stylesheets/application.scss */
 #content #errorExplanation p {
   color: #333;
   margin-bottom: 0;
   padding: 5px;
 }
-/* line 172, ../../../app/stylesheets/application.scss */
+/* line 169, ../../../app/stylesheets/application.scss */
 #content #errorExplanation ul li {
   font-size: 12px;
   list-style: square;
 }
-/* line 177, ../../../app/stylesheets/application.scss */
+/* line 174, ../../../app/stylesheets/application.scss */
 #content div.field, #content div.actions {
   margin-bottom: 10px;
 }
-/* line 181, ../../../app/stylesheets/application.scss */
+/* line 178, ../../../app/stylesheets/application.scss */
 #content input.invalid, #content select.invalid {
   border: 1px dotted red;
   background: #ffffd5;
 }
-/* line 182, ../../../app/stylesheets/application.scss */
+/* line 179, ../../../app/stylesheets/application.scss */
 #content input.valid, #content select.valid {
   border: 1px solid green;
 }
-/* line 183, ../../../app/stylesheets/application.scss */
+/* line 180, ../../../app/stylesheets/application.scss */
 #content label.invalid {
   float: none;
   color: red;
   padding-left: .5em;
   vertical-align: top;
 }
-/* line 186, ../../../app/stylesheets/application.scss */
+/* line 183, ../../../app/stylesheets/application.scss */
 #content .clear_left {
   clear: left;
 }
-/* line 187, ../../../app/stylesheets/application.scss */
+/* line 184, ../../../app/stylesheets/application.scss */
 #content .overrideable {
   border: 1px solid #090;
 }
-/* line 188, ../../../app/stylesheets/application.scss */
+/* line 185, ../../../app/stylesheets/application.scss */
 #content .current_system {
   font-weight: bold;
   color: blue;
 }
-/* line 189, ../../../app/stylesheets/application.scss */
+/* line 186, ../../../app/stylesheets/application.scss */
 #content .bordered {
   border: 1px solid #390;
   background: white;
 }
-/* line 190, ../../../app/stylesheets/application.scss */
+/* line 187, ../../../app/stylesheets/application.scss */
 #content .arrow {
   position: absolute;
 }
-/* line 193, ../../../app/stylesheets/application.scss */
+/* line 190, ../../../app/stylesheets/application.scss */
 #content .sortable_header {
   margin-left: 18px;
 }
-/* line 194, ../../../app/stylesheets/application.scss */
+/* line 191, ../../../app/stylesheets/application.scss */
 #content #landing_middle {
   float: left;
   margin-right: 10px;
   width: 540px;
 }
-/* line 199, ../../../app/stylesheets/application.scss */
+/* line 196, ../../../app/stylesheets/application.scss */
 #content #landing_right {
   float: right;
   width: 230px;
 }
-/* line 203, ../../../app/stylesheets/application.scss */
+/* line 200, ../../../app/stylesheets/application.scss */
 #content .product_carousel {
   height: 250px;
   width: 300px;
@@ -246,7 +242,7 @@ body.bp th, body.bp td, body.bp caption {
   background-color: #DFDFDF;
   border: 1px solid black;
 }
-/* line 209, ../../../app/stylesheets/application.scss */
+/* line 206, ../../../app/stylesheets/application.scss */
 #content .product_carousel .product_element {
   background-color: white;
   width: 135px;
@@ -256,7 +252,7 @@ body.bp th, body.bp td, body.bp caption {
   border: 1px solid gray;
   margin: 5px;
 }
-/* line 219, ../../../app/stylesheets/application.scss */
+/* line 216, ../../../app/stylesheets/application.scss */
 #content a.prev_button, #content a.next_button {
   font-family: Georgia, serif;
   font-size: 12px;
@@ -273,11 +269,11 @@ body.bp th, body.bp td, body.bp caption {
   background: url("/images/ui-buttons/arrow_prev_red-ribbon.png") no-repeat 0 0;
   z-index: 9999;
 }
-/* line 227, ../../../app/stylesheets/application.scss */
+/* line 224, ../../../app/stylesheets/application.scss */
 #content a.prev_button:hover, #content a.next_button:hover {
   color: #ff9ac4;
 }
-/* line 236, ../../../app/stylesheets/application.scss */
+/* line 233, ../../../app/stylesheets/application.scss */
 #content a.next_button {
   margin-left: 480px;
   width: 45px;
@@ -285,59 +281,59 @@ body.bp th, body.bp td, body.bp caption {
   padding: 5px 0 0 10px;
   background: url("/images/ui-buttons/arrow_next_red-ribbon.png") no-repeat 0 0;
 }
-/* line 244, ../../../app/stylesheets/application.scss */
+/* line 241, ../../../app/stylesheets/application.scss */
 #content #quick_search {
   padding: 5px;
   background: white;
   text-align: center;
 }
-/* line 249, ../../../app/stylesheets/application.scss */
+/* line 246, ../../../app/stylesheets/application.scss */
 #content #quick_search select {
   width: 200px;
   padding: 5px;
   margin-bottom: 5px;
 }
-/* line 255, ../../../app/stylesheets/application.scss */
+/* line 252, ../../../app/stylesheets/application.scss */
 #content .admin_checkboxes {
   width: 450px;
   height: 400px;
   overflow: auto;
 }
-/* line 260, ../../../app/stylesheets/application.scss */
+/* line 257, ../../../app/stylesheets/application.scss */
 #content .admin_tag_selectors {
   width: 150px;
   float: left;
 }
-/* line 264, ../../../app/stylesheets/application.scss */
+/* line 261, ../../../app/stylesheets/application.scss */
 #content .admin_tag_checkboxes {
   width: 150px;
   height: 200px;
   overflow: auto;
 }
-/* line 269, ../../../app/stylesheets/application.scss */
+/* line 266, ../../../app/stylesheets/application.scss */
 #content div.products_helper {
   border: 1px solid gray;
   padding: 3px;
   background: white;
 }
-/* line 274, ../../../app/stylesheets/application.scss */
+/* line 271, ../../../app/stylesheets/application.scss */
 #content div.ideas_helper {
   border: 1px solid gray;
   padding: 3px;
   background: white;
 }
-/* line 279, ../../../app/stylesheets/application.scss */
+/* line 276, ../../../app/stylesheets/application.scss */
 #content input.transperent {
   border: none;
   background: none;
 }
-/* line 282, ../../../app/stylesheets/application.scss */
+/* line 279, ../../../app/stylesheets/application.scss */
 #content #email_list {
   background: white;
   border: 1px solid white;
   padding: 10px;
 }
-/* line 284, ../../../app/stylesheets/application.scss */
+/* line 281, ../../../app/stylesheets/application.scss */
 #content #tag_images {
   width: 135px;
   height: 125px;
@@ -345,80 +341,80 @@ body.bp th, body.bp td, body.bp caption {
   float: left;
 }
 
-/* line 291, ../../../app/stylesheets/application.scss */
+/* line 288, ../../../app/stylesheets/application.scss */
 p.show_cart {
   cursor: pointer;
 }
 
-/* line 292, ../../../app/stylesheets/application.scss */
+/* line 289, ../../../app/stylesheets/application.scss */
 #guest_checkout {
   float: right;
   width: 375px;
 }
 
-/* line 296, ../../../app/stylesheets/application.scss */
+/* line 293, ../../../app/stylesheets/application.scss */
 #returning_cuctomer {
   float: left;
   width: 375px;
 }
 
-/* line 300, ../../../app/stylesheets/application.scss */
+/* line 297, ../../../app/stylesheets/application.scss */
 #checkout_billing {
   float: right;
   width: 400px;
 }
 
-/* line 304, ../../../app/stylesheets/application.scss */
+/* line 301, ../../../app/stylesheets/application.scss */
 #checkout_shipping {
   float: left;
   width: 400px;
 }
 
-/* line 308, ../../../app/stylesheets/application.scss */
+/* line 305, ../../../app/stylesheets/application.scss */
 #cart_total {
   font-size: 1.4em;
 }
 
-/* line 309, ../../../app/stylesheets/application.scss */
+/* line 306, ../../../app/stylesheets/application.scss */
 .amount {
   width: 100px;
   margin-left: 5px;
 }
 
-/* line 310, ../../../app/stylesheets/application.scss */
+/* line 307, ../../../app/stylesheets/application.scss */
 .cart_label {
   float: left;
   width: 200px;
   text-align: right;
 }
 
-/* line 311, ../../../app/stylesheets/application.scss */
+/* line 308, ../../../app/stylesheets/application.scss */
 .cart_ul {
   text-align: right;
   width: 320px;
 }
 
-/* line 312, ../../../app/stylesheets/application.scss */
+/* line 309, ../../../app/stylesheets/application.scss */
 li.subtotal {
   border-bottom: 1px solid gray;
 }
 
-/* line 313, ../../../app/stylesheets/application.scss */
+/* line 310, ../../../app/stylesheets/application.scss */
 li#cart_total {
   border-top: 1px double gray;
 }
 
-/* line 314, ../../../app/stylesheets/application.scss */
+/* line 311, ../../../app/stylesheets/application.scss */
 .item_changed {
   background: #FBE3E4;
 }
 
-/* line 316, ../../../app/stylesheets/application.scss */
+/* line 313, ../../../app/stylesheets/application.scss */
 td.pre_order {
   color: red;
 }
 
-/* line 320, ../../../app/stylesheets/application.scss */
+/* line 317, ../../../app/stylesheets/application.scss */
 .cart_messaging {
   color: #006ABB;
   font-weight: bold;
