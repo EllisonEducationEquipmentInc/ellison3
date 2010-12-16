@@ -48,6 +48,7 @@ namespace :data_migrations do
       p new_product.errors
       p "------ #{product.id} -------"
     end
+    p Sunspot.commit
   end
   
   desc "migrate SZUS product tabs"
@@ -65,25 +66,9 @@ namespace :data_migrations do
         p "#{product.item_num} ------ #{tab.id} -------"
       end
     end
+    p Sunspot.commit
   end
-  
-  desc "migrate SZ idea tabs"
-  task :idea_tabs_sz => :load_dep do
-    Idea.all.each do |idea|
-    #idea=Idea.find '4cf98c3fe1b8320d4c000007'
-      old_idea = OldData::Idea.find(idea.old_id) rescue next
-      old_idea.idea_tabs.not_deleted.each do |tab|
-        next if idea.tabs.where(:name => tab.name).count > 0
-        new_tab = idea.tabs.build 
-        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ELLISON_SYSTEMS, :active => tab.active, :text => tab.freeform
-        process_tab(tab,new_tab)
-        p new_tab.save
-        p new_tab.errors
-        p "#{idea.idea_num} ------ #{tab.id} -------"
-      end
-    end
-  end
-  
+    
   def process_tab(tab,new_tab,sys="sz")
     unless tab.column_grid.blank?
       new_tab.data_column ||= []
@@ -151,6 +136,25 @@ namespace :data_migrations do
       p new_idea.errors
       p "------ #{idea.id} #{new_idea.id}-------"
     end
+    p Sunspot.commit
+  end
+  
+  desc "migrate SZ idea tabs"
+  task :idea_tabs_sz => :load_dep do
+    Idea.all.each do |idea|
+    #idea=Idea.find '4cf98c3fe1b8320d4c000007'
+      old_idea = OldData::Idea.find(idea.old_id) rescue next
+      old_idea.idea_tabs.not_deleted.each do |tab|
+        next if idea.tabs.where(:name => tab.name).count > 0
+        new_tab = idea.tabs.build 
+        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ELLISON_SYSTEMS, :active => tab.active, :text => tab.freeform
+        process_tab(tab,new_tab)
+        p new_tab.save
+        p new_tab.errors
+        p "#{idea.idea_num} ------ #{tab.id} -------"
+      end
+    end
+    p Sunspot.commit
   end
   
   desc "migrate EDU tags"
@@ -197,6 +201,7 @@ namespace :data_migrations do
       p new_product.errors
       p "------ #{product.id} -------"
     end
+    p Sunspot.commit
   end
   
   desc "migrate EDU US product tabs"
@@ -215,6 +220,7 @@ namespace :data_migrations do
         p "#{product.item_num} ------ #{tab.id} -------"
       end
     end
+    p Sunspot.commit
   end
   
   desc "EDU sizes to tags"
@@ -233,6 +239,7 @@ namespace :data_migrations do
       p tag.product_ids
       p "#{product.item_num} ------ #{tag.name} -------"
     end
+    p Sunspot.commit
   end
   
   desc "fix size_to_tab"
@@ -278,6 +285,7 @@ namespace :data_migrations do
       p new_idea.errors
       p "------ #{idea.id} #{new_idea.id}-------"
     end
+    p Sunspot.commit
   end
   
   desc "update related idea nums EDU"
@@ -290,6 +298,7 @@ namespace :data_migrations do
         p tab.save
       end
     end
+    p Sunspot.commit
   end
   
   desc "rename EDU idea images"
@@ -301,6 +310,18 @@ namespace :data_migrations do
       FileUtils.mv "#{path}#{idea.med_image.gsub('ellison_lessons/', 'ellison_ideas/')}", "#{path}ellison_ideas/medium/L#{idea.idea_num}.jpg" if !idea.med_image.blank? && FileTest.exists?("#{path}#{idea.med_image.gsub('ellison_lessons/', 'ellison_ideas/')}") rescue next
       FileUtils.mv "#{path}#{idea.small_image.gsub('ellison_lessons/', 'ellison_ideas/')}", "#{path}ellison_ideas/small/L#{idea.idea_num}.jpg" if !idea.small_image.blank? && FileTest.exists?("#{path}#{idea.small_image.gsub('ellison_lessons/', 'ellison_ideas/')}") rescue next
       p idea.idea_num
+    end
+  end
+  
+  desc "rename EDU product images"
+  task :rename_prod_images_edu => [:set_edu, :load_dep] do
+    p path =  "#{Rails.root}/public/images/"
+    # product = OldData::Product.find 4351
+    OldData::Product.find_each(:conditions => "small_image  NOT REGEXP 'ellison_products/small/[0-9]{5,7}(_|-)?[a-z0-9]*\.(gif|jpg)$'") do |product|
+      FileUtils.cp "#{path}#{product.image}", "#{path}ellison_products/large/#{product.item_num}#{product.image[/\.(\w{3,4})$/]}" if !product.image.blank? && FileTest.exists?("#{path}#{product.image}") rescue next
+      FileUtils.cp "#{path}#{product.medium_image}", "#{path}ellison_products/medium/#{product.item_num}#{product.medium_image[/\.(\w{3,4})$/]}" if !product.medium_image.blank? && FileTest.exists?("#{path}#{product.medium_image}") rescue next
+      FileUtils.cp "#{path}#{product.small_image}", "#{path}ellison_products/small/#{product.item_num}#{product.small_image[/\.(\w{3,4})$/]}" if !product.small_image.blank? && FileTest.exists?("#{path}#{product.small_image}") rescue next
+      p product.item_num
     end
   end
   
@@ -320,6 +341,7 @@ namespace :data_migrations do
         p "#{idea.idea_num} ------ #{tab.id} -------"
       end
     end
+    p Sunspot.commit
   end
   
   desc "import sizzix US users"
@@ -383,6 +405,7 @@ namespace :data_migrations do
       p new_product.errors
       p "------ #{product.id} #{product.item_num} -------"
     end
+    p Sunspot.commit
   end
   
   desc "fix SZUS product unavailable items -- not needed for live migration"
@@ -519,7 +542,8 @@ namespace :data_migrations do
   desc "idea to product association - WARNING: overwrites existing relationship (if exists)"
   task :idea_to_products => :load_dep do
     # idea = Idea.find '4cfed69be1b83259d6000033'
-    Idea.where(:product_ids.size => 0).in_batches(10) do |batch|
+    # EDU only
+    Idea.where(:product_ids.size => 0, :systems_enabled.in => ["eeus"]).in_batches(10) do |batch|
       batch.each do |idea|
         tab = idea.tabs.where({:name => /(products|dies) used/i}).first
         next if tab.blank?
@@ -569,6 +593,7 @@ namespace :data_migrations do
       p new_product.errors
       p "------ #{product.id} #{product.item_num} -------"
     end
+    p Sunspot.commit
   end
   
   desc "process SZUK only product tabs"
@@ -586,6 +611,7 @@ namespace :data_migrations do
         p "#{product.item_num} ------ #{tab.id} -------"
       end
     end
+    p Sunspot.commit
   end
   
   desc "import ER users - IMPORTANT: copy production 'attachment' folder to the new app's root folder"
@@ -677,6 +703,99 @@ namespace :data_migrations do
       p new_order.errors
       p "-------- #{order.id} ----------"
     end
+  end
+  
+  desc "migrate ER wishlists"
+  task :lists_er => [:set_er, :load_dep] do
+    set_current_system "er"
+    OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
+      user = User.where(:old_id_er => old_list.user_id).first
+      next unless user
+      list = user.lists.build(:name => old_list.name, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments)
+      list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
+      p list.save
+      p "----- #{list.user.email} - #{user.email}-----"
+    end
+  end
+  
+  desc "migrate EDU US accounts"
+  task :accounts_eeus => [:set_edu, :load_dep] do
+    set_current_system "eeus"
+    OldData::Account.not_deleted.find_each(:conditions => "id > 0") do |old_account|
+      p Account.create(:school => old_account.school, :name => old_account.name, :city => old_account.city, :erp => old_account.axapta_id, :address1 => old_account.address, :address2 => old_account.address1, :zip_code => old_account.zip, :created_at => old_account.created_at, :title => old_account.title, :country => old_account.country,  :avocation => old_account.avocation, :students => old_account.students, :individual => old_account.individual, :old_id => old_account.id, :institution => old_account.institution.try(:name), :resale_number => old_account.resale_number, :phone => old_account.phone, :fax => old_account.fax, :description => old_account.description, :affiliation => old_account.affiliation, :tax_exempt_number => old_account.tax_exempt_number, :tax_exempt => old_account.tax_exempt, :state => old_account.state, :email => old_account.email, :active => old_account.active)
+    end
+  end
+  
+  desc "import EDU US users"
+  task :users_eeus => [:set_edu, :load_dep] do
+    set_current_system "eeus"
+    # old_user = OldData::User.find(12369)
+    OldData::User.not_deleted.find_each(:conditions => "id > 0") do |old_user|
+      existing = User.where(:email => old_user.email).first
+      if !existing.blank? && old_user.orders.count > 0
+        new_user = existing
+        p "!!! user #{old_user.email} found. merging..."
+        new_user.old_id_eeus = old_user.id
+        new_user.systems_enabled << "eeus" if !new_user.systems_enabled.include?("eeus") 
+        p new_user.save
+      else
+        new_user = User.new(:email => old_user.email, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
+        new_user.old_id_eeus = old_user.id
+
+        process_user(old_user,new_user)
+      end
+      account = Account.where(:old_id => old_user.account_id).first
+      if account
+        p "account found..."
+        new_user.account = account 
+        new_user.save
+      end
+      p new_user.errors
+      p "-------- #{new_user.old_id_eeus} #{new_user.email}----------"
+    end
+  end
+  
+  desc "migrate EDU US orders"
+  task :orders_eeus => [:set_edu, :load_dep] do
+    set_current_system "eeus"
+    #order = OldData::Order.find(511574)
+    OldData::Order.find_each(:conditions => "id > 0") do |order|
+      new_order = Order.new(:status => order.status_name, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :order_number => order.id, :order_reference => order.order_reference_id.blank? ? nil : Order.where(:order_number => order.order_reference_id).first.try(:id), :tracking_number => order.tracking_number, :tracking_url => order.tracking_url, :customer_rep => order.sales_rep.try(:email), :clickid => order.clickid, :utm_source => order.utm_source, :tracking => order.tracking,
+                    :tax_transaction => order.tax_transaction_id, :tax_calculated_at => order.tax_calculated_at, :tax_exempt_number => order.tax_exempt_number, :tax_committed => order.tax_committed, :shipping_priority => order.shipping_priority, :shipping_service => "STANDARD", :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :ip_address => order.ip_address, :estimated_ship_date => order.estimated_ship_date, :purchase_order => order.purchase_order, :comments => order.comments, :internal_comments => order.internal_comments, :old_quote_id => order.quote_id)
+    
+      new_order.user = User.where(:old_id_eeus => order.user_id).first unless order.user_id.blank?
+    
+      new_order.address = Address.new(:address_type => "shipping", :email => order.ship_email, :bypass_avs => true, :first_name => order.ship_first_name, :last_name => order.ship_last_name, :address1 => order.ship_address1, :address2 => order.ship_address2, :city => order.ship_city, :state => order.ship_state, :zip_code => order.ship_zip, :country => order.ship_country, :phone => order.ship_phone, :company => order.shipping_company)
+    
+      new_order.payment = Payment.new(:created_at => order.payment.created_at, :first_name => order.payment.first_name, :last_name => order.payment.last_name, :company => order.payment.company, :address1 => order.payment.address1, :address2 => order.payment.address2, :city => order.payment.city, :state => order.payment.state, :zip_code => order.payment.zip, :country => order.payment.country, :phone => order.payment.phone, :email => order.payment.email, :payment_method => order.payment.payment_type, :card_name => order.payment.card_name, :card_number => order.payment.card_number, :card_expiration_month => order.payment.card_expiration_month, :card_expiration_year => order.payment.card_expiration_year, :save_credit_card => order.payment.save_credit_card, :use_saved_credit_card => order.payment.use_saved_credit_card, :deferred => order.payment.deferred, :purchase_order => !order.payment.purchase_order.blank?, :purchase_order_number => order.payment.purchase_order, :cv2_result => order.payment.cv2_result, :status => order.payment.status, :vpstx_id => order.payment.vpstx_id, :security_key => order.payment.security_key, :tx_auth_no => order.payment.tx_auth_no, :status_detail => order.payment.status_detail, :address_result => order.payment.address_result, :post_code_result => order.payment.post_code_result, :subscriptionid => order.payment.subscriptionid, :paid_amount => order.payment.paid_amount, :authorization => order.payment.authorization, :paid_at => order.payment.paid_at, :vendor_tx_code => order.payment.vendor_tx_code, :void_at => order.payment.void_at, :void_amount => order.payment.void_amount, :void_authorization => order.payment.void_authorization, :refunded_at => order.payment.refunded_at, :refunded_amount => order.payment.refunded_amount, :refund_authorization => order.payment.refund_authorization, :deferred_payment_amount => order.payment.deferred_payment_amount, :number_of_payments => order.payment.number_of_payments, :frequency => order.payment.frequency) unless order.payment.blank?
+    
+      order.order_items.each do |item|
+        new_order.order_items << OrderItem.new(:item_num => item.item_num, :name => item.product.try(:name), :locale => item.order.locale, :quoted_price => item.quoted_price, :sale_price => item.sale_price, :discount => item.discount, :quantity => item.quantity, :vat_exempt => item.vat_exempt, :vat => item.vat, :vat_percentage => item.vat_percentage, :upsell => item.upsell, :outlet => item.outlet, 
+          :product_id => Product.where(:old_id_eeus => item.product_id).first.try(:id))
+      end
+     
+      p new_order.save
+      p new_order.errors
+      p "-------- #{order.id} ----------"
+    end
+  end
+  
+  desc "migrate EDU US wishlists"
+  task :lists_eeus => [:set_edu, :load_dep] do
+    set_current_system "er"
+    OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
+      user = User.where(:old_id_eeus => old_list.user_id).first
+      next unless user
+      list = user.lists.build(:name => old_list.name, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments)
+      list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
+      p list.save
+      p "----- #{list.user.email} - #{user.email}-----"
+    end
+  end
+  
+  desc "migrate ER quotes"
+  task :quotes_er => [:set_er, :load_dep] do
+    
   end
   
   task :set_edu do

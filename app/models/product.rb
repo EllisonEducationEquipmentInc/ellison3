@@ -468,6 +468,9 @@ private
 			image_url(version)
 		else
 		  return image.default_url_edu(version) if is_ee? && FileTest.exists?("#{Rails.root}/public/#{image.default_url_edu(version)}")
+		  return image.default_url_edu_by_item_num(version) if is_ee? && FileTest.exists?("#{Rails.root}/public/#{image.default_url_edu_by_item_num(version)}")
+		  return image.default_url_edu_by_item_num_downcase(version) if is_ee? && FileTest.exists?("#{Rails.root}/public/#{image.default_url_edu_by_item_num_downcase(version)}")
+		  return image.default_url_edu_by_item_num_downcase_underscore(version) if is_ee? && FileTest.exists?("#{Rails.root}/public/#{image.default_url_edu_by_item_num_downcase_underscore(version)}")
 			FileTest.exists?("#{Rails.root}/public/#{image.default_url(version)}") ? image.default_url(version) : "/images/products/#{version}/noimage.jpg"
 		end
 	end

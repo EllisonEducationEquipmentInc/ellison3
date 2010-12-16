@@ -1,4 +1,5 @@
 class User
+  include EllisonSystem
   include Mongoid::Document
 	include Mongoid::Timestamps
 	include Mongoid::Paranoia
@@ -45,6 +46,8 @@ class User
 	
 	validates_associated :retailer_application, :addresses
 
+  referenced_in :account
+  
   references_many :feedbacks, :index => true
 	references_many :orders, :index => true
 	references_many :quotes, :index => true
@@ -65,7 +68,7 @@ class User
 	index :status
 	index :old_user
 	index :old_id_szus
-	index :old_id_edu
+	index :old_id_eeus
 	index :old_id_szuk
 	index :old_id_eeuk
 	index :old_id_er
