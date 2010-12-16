@@ -1,35 +1,26 @@
-%b First Name:
-= address.first_name
-%br
-%b Last Name:
-= address.last_name
-%br
-%b Company/School/Organization:
-= address.company
-%br
-%b Address1:
-= address.address1
-%br
-%b Address2:
-= address.address2
-%br
-%b City:
-= address.city
-%br
-%b State:
-= address.state
-%br
-%b Zip/Postal code:
-= address.zip_code
-%br
-%b Country:
-= address.country
-%br
-%b Phone:
-= address.phone
-%br
-%b Fax:
-= address.fax
-%br
-%b Email:
-= address.email
+%p
+  = address.first_name 
+  = address.last_name
+  - unless address.company.blank?
+    %br
+    = address.company
+  %br
+  = address.address1
+  - unless address.address2.blank?
+    %br
+    = address.address2
+  %br
+  == #{address.city}, 
+  = address.state
+  &nbsp;
+  = address.zip_code
+  %br
+  = address.country
+  %br
+  = address.phone
+  - unless address.fax.blank?
+    %br
+    = address.fax
+    (Fax)
+  %br
+  = address.email
