@@ -375,30 +375,6 @@ p.show_cart {
   font-size: 1.4em;
 }
 
-/* line 306, ../../../app/stylesheets/application.scss */
-.amount {
-  width: 100px;
-  margin-left: 5px;
-}
-
-/* line 307, ../../../app/stylesheets/application.scss */
-.cart_label {
-  float: left;
-  width: 200px;
-  text-align: right;
-}
-
-/* line 308, ../../../app/stylesheets/application.scss */
-.cart_ul {
-  text-align: right;
-  width: 320px;
-}
-
-/* line 309, ../../../app/stylesheets/application.scss */
-li.subtotal {
-  border-bottom: 1px solid gray;
-}
-
 /* line 310, ../../../app/stylesheets/application.scss */
 li#cart_total {
   border-top: 1px double gray;

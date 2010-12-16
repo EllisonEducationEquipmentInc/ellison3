@@ -130,8 +130,6 @@ body.bp {
 .special-price { @extend .msrp; }
 
 .custom-price {  @extend .msrp;
-  font-size: 1em;
-  font-weight: normal;
 	color: $catalog_custom-price;
 }
 

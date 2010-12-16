@@ -8,12 +8,24 @@
         %th{:width => 60} Item No.
         %th{:width => 70} Item Name
         %th{:width => 400}
-        %th{:width => 75} Retail Price
-        %th{:width => 75} You Paid
-        %th{:width => 70} Quantity
-        %th{:width => 75} Total Price
+        - if !request.xhr?
+          %th{:style => "text-align: right", :width => 75} Retail Price
+        %th{:style => "text-align: right", :width => 75} You Paid
+        %th{:style => "text-align: right", :width => 70} Quantity
+        %th{:style => "text-align: right", :width => 75} Total Price
         %th
-    %tbody= render :partial => 'carts/cart_item', :collection => @cart.cart_items
+    %tbody
+      = render :partial => 'carts/cart_item', :collection => @cart.cart_items
+      %tr
+        %td
+        %td
+        %td
+        - if !request.xhr?
+          %td
+        %td
+        %td{:style => "text-align: right", :class => "cart_extended_price"} Subtotal:
+        %td{:style => "text-align: right", :class => "cart_extended_price"}= number_to_currency gross_price(@cart.sub_total)
+        %td        
     - unless @cart_locked
       :javascript
         $('input.number_only').keydown(number_only)
@@ -48,10 +60,6 @@
       $(this).addClass("ui-state-hover");
     });
 
-  %ul.right.cart_ul
-    %li.ui-menu-item.subtotal
-      .cart_label Subtotal: 
-      %span.amount#cart_subtotal= number_to_currency gross_price(@cart.sub_total)
   #cart_coupon= render :partial => "carts/coupon"
   %br
   - unless @cart_locked
