@@ -26,7 +26,7 @@
     = link_to @quote.order.id, admin_order_path(@quote.order)
     %br
   %strong Web Customer Number:
-  = @quote.user.id
+  = @quote.user.id rescue "User NOT found"
   %br
   %strong Quote Date:
   = l @quote.created_at, :format => :custom
@@ -37,15 +37,16 @@
   %br
   %strong Customer Rep:
   = @quote.customer_rep  
-  %div{:class => @quote.user.erp.blank? || @quote.user.invoice_account.blank? ? 'error' : nil}
-    %strong ERP ID:
-    = @quote.user.erp
-    = link_to 'edit', edit_admin_user_path(@quote.user)
-    %br
-    %strong Invoice Account:
-    = @quote.user.invoice_account
-    = link_to 'edit', edit_admin_user_path(@quote.user)
-    %br
+  - if @quote.user
+    %div{:class => @quote.user.erp.blank? || @quote.user.invoice_account.blank? ? 'error' : nil}
+      %strong ERP ID:
+      = @quote.user.erp
+      = link_to 'edit', edit_admin_user_path(@quote.user)
+      %br
+      %strong Invoice Account:
+      = @quote.user.invoice_account
+      = link_to 'edit', edit_admin_user_path(@quote.user)
+      %br
   %strong Active:
   - if has_write_permissions?
     .field

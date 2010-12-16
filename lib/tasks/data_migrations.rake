@@ -162,7 +162,9 @@ namespace :data_migrations do
     set_current_system "eeus"
     OldData::PolymorphicTag.not_deleted.find_each(:conditions => ["tag_type NOT IN (?)", [1,16]]) do |tag|
       tag.name.force_encoding("UTF-8") if tag.name.encoding.name == "ASCII-8BIT"
-      new_tag = Tag.where(:name => tag.name, :tag_type => tag.old_type_to_new).first || Tag.new(:name => tag.name, :tag_type => tag.old_type_to_new, :active => tag.active, :systems_enabled => ["eeus", "eeuk", "er"], :description => tag.short_desc, :start_date_eeus => tag.start_date,  :end_date_eeus => tag.end_date, :banner => tag.banner, :list_page_image => tag.list_page_image, :medium_image => tag.medium_image)
+      systems = ["eeus", "er"]
+      systems << "eeuk" unless ["calendar", "calendar_event", "theme", "curriculum", "subcurriculum", "subtheme"].include?(tag.old_type_to_new)
+      new_tag = Tag.where(:name => tag.name, :tag_type => tag.old_type_to_new).first || Tag.new(:name => tag.name, :tag_type => tag.old_type_to_new, :active => tag.active, :systems_enabled => systems, :description => tag.short_desc, :start_date_eeus => tag.start_date,  :end_date_eeus => tag.end_date, :banner => tag.banner, :list_page_image => tag.list_page_image, :medium_image => tag.medium_image)
       new_tag.write_attributes :old_id_edu => tag.id, :all_day => tag.all_day, :calendar_start_date => tag.calendar_start_date, :calendar_end_date => tag.calendar_end_date
       print new_tag.save
       p tag.id
@@ -542,8 +544,7 @@ namespace :data_migrations do
   desc "idea to product association - WARNING: overwrites existing relationship (if exists)"
   task :idea_to_products => :load_dep do
     # idea = Idea.find '4cfed69be1b83259d6000033'
-    # EDU only
-    Idea.where(:product_ids.size => 0, :systems_enabled.in => ["eeus"]).in_batches(10) do |batch|
+    Idea.where(:product_ids.size => 0).in_batches(10) do |batch|
       batch.each do |idea|
         tab = idea.tabs.where({:name => /(products|dies) used/i}).first
         next if tab.blank?
@@ -624,6 +625,7 @@ namespace :data_migrations do
         new_user = existing
         p "!!! user #{old_user.email} found. merging..."
         new_user.old_id_er = old_user.id
+        new_user.save
         new_user.systems_enabled << "er" if !new_user.systems_enabled.include?("er") 
         unless new_user.orders.count > 0
           new_user.systems_enabled = ["er"]
@@ -795,7 +797,25 @@ namespace :data_migrations do
   
   desc "migrate ER quotes"
   task :quotes_er => [:set_er, :load_dep] do
+    set_current_system "er"
+    # order = OldData::Quote.find(48)
+    OldData::Quote.find_each(:conditions => "id > 0") do |order|
+      new_order = Quote.new(:old_id_er => order.id, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :quote_number => order.quote, :customer_rep => order.sales_rep.try(:email), 
+                    :expires_at => order.expires_at, :active => order.active, :tax_exempt_number => order.tax_exempt_number, :shipping_priority => order.shipping_priority, :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :comments => order.comments)
     
+      new_order.user = User.where(:old_id_er => order.user_id).first unless order.user_id.blank?
+    
+      new_order.address = Address.new(:address_type => "shipping", :email => order.shipping_email, :bypass_avs => true, :first_name => order.shipping_first_name, :last_name => order.shipping_last_name, :address1 => order.shipping_address, :address2 => order.shipping_address2, :city => order.shipping_city, :state => order.shipping_state, :zip_code => order.shipping_zip, :country => order.shipping_country, :phone => order.shipping_phone, :company => order.shipping_company)
+        
+      order.order_items.each do |item|
+        new_order.order_items << OrderItem.new(:item_num => item.item_num, :name => item.product.try(:name), :locale => item.quote.locale, :quoted_price => item.quoted_price, :sale_price => item.sale_price, :discount => item.discount, :quantity => item.quantity, :vat_exempt => item.vat_exempt, :vat => item.vat, :vat_percentage => item.vat_percentage, :upsell => item.upsell, :outlet => item.outlet, 
+          :product_id => Product.where(:old_id_er => item.product_id).first.try(:id))
+      end
+     
+      p new_order.save
+      p new_order.errors
+      p "-------- #{order.id} ----------"
+    end
   end
   
   task :set_edu do

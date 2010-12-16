@@ -21,6 +21,7 @@ class Quote
 	index :updated_at
 
   field :active, :type => Boolean, :default => true
+  field :quote_number
 	field :system
 	field :locale
 	field :ip_address
@@ -47,6 +48,8 @@ class Quote
 	field :customer_rep_id, :type => BSON::ObjectId
 	field :order_reference
 	field :coupon_code
+	field :old_id_er, :type => Integer
+	field :old_id_eeus, :type => Integer
 
   field :expires_at, :type => DateTime
 
