@@ -340,7 +340,7 @@ namespace :data_migrations do
   task :orders_szus => :load_dep do
     set_current_system "szus"
     #order = OldData::Order.find(511574)
-    OldData::Order.find_each(:conditions => "id > 437144") do |order|
+    OldData::Order.find_each(:conditions => "id > 0") do |order|
       new_order = Order.new(:status => order.status_name, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :order_number => order.id, :order_reference => order.order_reference_id.blank? ? nil : Order.where(:order_number => order.order_reference_id).first.try(:id), :tracking_number => order.tracking_number, :tracking_url => order.tracking_url, :customer_rep => order.sales_rep.try(:email), :clickid => order.clickid, :utm_source => order.utm_source, :tracking => order.tracking,
                     :tax_transaction => order.tax_transaction_id, :tax_calculated_at => order.tax_calculated_at, :tax_exempt_number => order.tax_exempt_number, :tax_committed => order.tax_committed, :shipping_priority => order.shipping_priority, :shipping_service => "STANDARD", :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :ip_address => order.ip_address, :estimated_ship_date => order.estimated_ship_date, :purchase_order => order.purchase_order, :comments => order.comments, :internal_comments => order.internal_comments, :old_quote_id => order.quote_id)
     
@@ -452,7 +452,7 @@ namespace :data_migrations do
     new_user.password = new_user.old_password_hash[0..19]
     new_user.old_user = true  
     new_user.tax_exempt = old_user.tax_exempt
-    new_user.tax_exempt_certificate = old_user.tax_exempt_certificate
+    new_user.tax_exempt_certificate = old_user.tax_exempt_certificate || 'N/A'
     new_user.invoice_account = old_user.billing_addresses.first.try :invoice_account
     new_user.erp = old_user.erp_id
     new_user.status = old_user.state
@@ -591,18 +591,19 @@ namespace :data_migrations do
   desc "import ER users - IMPORTANT: copy production 'attachment' folder to the new app's root folder"
   task :users_er => [:set_er, :load_dep] do
     set_current_system "er"
-    # old_user = OldData::User.find(12369)
-    OldData::User.not_deleted.find_each(:conditions => "id > 0") do |old_user|
+    # old_user = OldData::User.find 1282
+    OldData::User.not_deleted.find_each(:conditions => "id > 1323") do |old_user|
       existing = User.where(:email => old_user.email).first
       if !existing.blank? 
         new_user = existing
-        p "user #{old_user.email} found. merging..."
+        p "!!! user #{old_user.email} found. merging..."
         new_user.old_id_er = old_user.id
         new_user.systems_enabled << "er" if !new_user.systems_enabled.include?("er") 
         unless new_user.orders.count > 0
-          # new_user.systems_enabled = ["er"]
-          new_user.addresses.delete_all
+          new_user.systems_enabled = ["er"]
+          new_user.addresses = []
           process_user(old_user,new_user)
+          new_user.tax_exempt = false
         end
         p new_user.save
       else
@@ -611,20 +612,35 @@ namespace :data_migrations do
 
         process_user(old_user,new_user)
       end
-      unless new_user.retailer_application
-        retailer_application = new_user.build_retailer_application 
-        
+      if !new_user.retailer_application && old_user.retailer_info
+        retailer_application = new_user.build_retailer_application(:signing_up_for => old_user.retailer_info.signing_up_for, :website => old_user.retailer_info.website, :no_website => old_user.retailer_info.no_website, :years_in_business => old_user.retailer_info.years_in_business, 
+                          :number_of_employees => old_user.retailer_info.number_of_employees, :annual_sales => old_user.retailer_info.annual_sales, :resale_number => old_user.retailer_info.resale_number, :authorized_buyers => old_user.retailer_info.authorized_buyers, 
+                          :business_type => old_user.retailer_info.business_type, :store_department => old_user.retailer_info.store_department, :store_location => old_user.retailer_info.store_location, :store_square_footage => old_user.retailer_info.store_square_footage, 
+                          :payment_method => old_user.retailer_info.payment_method, :tax_identifier => old_user.retailer_info.tax_id, :how_did_you_learn_about_us => old_user.retailer_info.learned_from, :will_fax_documents => old_user.retailer_info.fax_later)
+        RetailerApplication::AVAILABLE_BRANDS.each do |brand|
+          retailer_application.brands_to_resell << brand if old_user.retailer_info.send("resell_#{brand.downcase}")
+        end
+        unless old_user.retailer_info.fax_later
+          retailer_application.business_license = File.open(old_user.retailer_info.business_license.public_filename) if old_user.retailer_info.business_license && File.exist?(old_user.retailer_info.business_license.public_filename) && !File.extname(old_user.retailer_info.business_license.public_filename).blank?
+          retailer_application.resale_tax_certificate = File.open(old_user.retailer_info.resale_tax_certificate.public_filename) if old_user.retailer_info.resale_tax_certificate && File.exist?(old_user.retailer_info.resale_tax_certificate.public_filename) && !File.extname(old_user.retailer_info.resale_tax_certificate.public_filename).blank?
+          retailer_application.store_photo = File.open(old_user.retailer_info.store_photo.public_filename) if old_user.retailer_info.store_photo && File.exist?(old_user.retailer_info.store_photo.public_filename) && !File.extname(old_user.retailer_info.store_photo.public_filename).blank?
+          retailer_application.save
+          retailer_application.will_fax_documents = true unless retailer_application.business_license? && retailer_application.resale_tax_certificate? && retailer_application.store_photo?
+        end
+        p retailer_application.valid?
+        p retailer_application.errors
+        owner = old_user.retailer_info.owner_president.dup
+        owner_first_name = owner[/\w+/]
+        owner_last_name = owner.gsub(owner_first_name,'').strip
+        owner_last_name = old_user.retailer_info.last_name if owner_last_name.blank?
+        home_address = new_user.addresses.build(:address_type => 'home', :bypass_avs => true, :first_name => owner_first_name, :last_name => owner_last_name, :state => old_user.retailer_info.home_state, :country => old_user.retailer_info.home_country, :city => old_user.retailer_info.home_city, :address1 => old_user.retailer_info.home_address, :zip_code => old_user.retailer_info.home_zip, :email => old_user.retailer_info.email, :phone => old_user.retailer_info.phone, :company => old_user.name)
+        p home_address.valid?
+        p home_address.errors
+        new_user.save
       end
       p new_user.errors
-      p "-------- #{new_user.old_id_szuk} #{new_user.email}----------"
+      p "-------- #{new_user.old_id_er} #{new_user.email}----------"
     end
-  end
-  
-  desc "er user test"
-  task :users_er_test => [:set_er, :load_dep] do
-    set_current_system "er"
-    old_user = OldData::User.find 1282
-    p old_user.retailer_info.business_license.public_filename
   end
   
   desc "check for duplicate user accounts across systems"
@@ -635,6 +651,31 @@ namespace :data_migrations do
       if existing
         print "#{old_user.orders.count} \t\t|\t #{existing.email} \t|\t #{existing.status} \t|\t #{existing.orders.count} \t|\t #{existing.orders.map {|e| e.system}}\n"
       end
+    end
+  end
+  
+  desc "migrate ER orders"
+  task :orders_er => [:set_er, :load_dep] do
+    set_current_system "er"
+    #order = OldData::Order.find(511574)
+    OldData::Order.find_each(:conditions => "id > 0") do |order|
+      new_order = Order.new(:status => order.status_name, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :order_number => order.id, :order_reference => order.order_reference_id.blank? ? nil : Order.where(:order_number => order.order_reference_id).first.try(:id), :tracking_number => order.tracking_number, :tracking_url => order.tracking_url, :customer_rep => order.sales_rep.try(:email), :clickid => order.clickid, :utm_source => order.utm_source, :tracking => order.tracking,
+                    :tax_transaction => order.tax_transaction_id, :tax_calculated_at => order.tax_calculated_at, :tax_exempt_number => order.tax_exempt_number, :tax_committed => order.tax_committed, :shipping_priority => order.shipping_priority, :shipping_service => "STANDARD", :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :ip_address => order.ip_address, :estimated_ship_date => order.estimated_ship_date, :purchase_order => order.purchase_order, :comments => order.comments, :internal_comments => order.internal_comments, :old_quote_id => order.quote_id)
+    
+      new_order.user = User.where(:old_id_er => order.user_id).first unless order.user_id.blank?
+    
+      new_order.address = Address.new(:address_type => "shipping", :email => order.ship_email, :bypass_avs => true, :first_name => order.ship_first_name, :last_name => order.ship_last_name, :address1 => order.ship_address1, :address2 => order.ship_address2, :city => order.ship_city, :state => order.ship_state, :zip_code => order.ship_zip, :country => order.ship_country, :phone => order.ship_phone, :company => order.shipping_company)
+    
+      new_order.payment = Payment.new(:created_at => order.payment.created_at, :first_name => order.payment.first_name, :last_name => order.payment.last_name, :company => order.payment.company, :address1 => order.payment.address1, :address2 => order.payment.address2, :city => order.payment.city, :state => order.payment.state, :zip_code => order.payment.zip, :country => order.payment.country, :phone => order.payment.phone, :email => order.payment.email, :payment_method => order.payment.payment_type, :card_name => order.payment.card_name, :card_number => order.payment.card_number, :card_expiration_month => order.payment.card_expiration_month, :card_expiration_year => order.payment.card_expiration_year, :save_credit_card => order.payment.save_credit_card, :use_saved_credit_card => order.payment.use_saved_credit_card, :deferred => order.payment.deferred, :purchase_order => !order.payment.purchase_order.blank?, :purchase_order_number => order.payment.purchase_order, :cv2_result => order.payment.cv2_result, :status => order.payment.status, :vpstx_id => order.payment.vpstx_id, :security_key => order.payment.security_key, :tx_auth_no => order.payment.tx_auth_no, :status_detail => order.payment.status_detail, :address_result => order.payment.address_result, :post_code_result => order.payment.post_code_result, :subscriptionid => order.payment.subscriptionid, :paid_amount => order.payment.paid_amount, :authorization => order.payment.authorization, :paid_at => order.payment.paid_at, :vendor_tx_code => order.payment.vendor_tx_code, :void_at => order.payment.void_at, :void_amount => order.payment.void_amount, :void_authorization => order.payment.void_authorization, :refunded_at => order.payment.refunded_at, :refunded_amount => order.payment.refunded_amount, :refund_authorization => order.payment.refund_authorization, :deferred_payment_amount => order.payment.deferred_payment_amount, :number_of_payments => order.payment.number_of_payments, :frequency => order.payment.frequency) unless order.payment.blank?
+    
+      order.order_items.each do |item|
+        new_order.order_items << OrderItem.new(:item_num => item.item_num, :name => item.product.try(:name), :locale => item.order.locale, :quoted_price => item.quoted_price, :sale_price => item.sale_price, :discount => item.discount, :quantity => item.quantity, :vat_exempt => item.vat_exempt, :vat => item.vat, :vat_percentage => item.vat_percentage, :upsell => item.upsell, :outlet => item.outlet, 
+          :product_id => Product.where(:old_id_er => item.product_id).first.try(:id))
+      end
+     
+      p new_order.save
+      p new_order.errors
+      p "-------- #{order.id} ----------"
     end
   end
   
