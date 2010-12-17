@@ -1,4 +1,19 @@
+// catalog results
 #products_filter {
   @include column(4); }
 .products_grid {
   @include column(20, true); }
+  
+// shopping cart 
+#checkout_shipping {
+  @include column(8); }
+#checkout_billing {
+  @include column(8); }
+#checkout_something {
+  @include column(8, true); }
+#checkout_cc {
+  @include column(16); }
+#checkout_shipping_options {
+  @include column(8, true);
+  float: right;
+}

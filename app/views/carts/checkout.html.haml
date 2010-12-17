@@ -18,28 +18,30 @@
   - else
     #new_billing{:style => "display:#{get_user.shipping_address ? 'block' : 'none'}"}
       = form_for(@billing_address, :as => "#{@billing_address.address_type}_address", :url => {:action => "create_billing"}, :remote => true, :html => {:id => "edit_#{@billing_address.address_type}_address", :method => :post}) do |f|
-        = link_to "same as shipping address", {:action => "copy_shipping_address"}, :remote => true
+        = link_to "same as shipping address", {:action => "copy_shipping_address"}, :remote => true, :class => "minilink"
         = render :partial => 'users/address_form', :locals => {:f => f}
         .actions
           = f.submit "Continue", :class => 'jqui_save'
+#checkout_something
+  %h3 Order Summary
+  %p
+    == You have #{pluralize get_cart.total_quantity, "item"} in your shopping #{(t :cart)} 
+    = link_to "review #{(t :cart)}", "#", :class => "show_cart"
+  %li.ui-menu-itemm
+    .cart_label Subtotal:
+    %span.amount= number_to_currency gross_price(@cart.sub_total)
+  %li.ui-menu-item#cart_shipping= render :partial => 'shipping_amount' if get_user.shipping_address
+  %li.ui-menu-item#cart_handling{:style => "display:#{calculate_handling > 0.0 ? 'block' : 'none'}"}= render :partial => 'handling_amount'
+  %li.ui-menu-item#cart_tax= render :partial => 'tax_amount' if get_user.shipping_address
+  %li.ui-menu-item#cart_total= render :partial => 'total_amount' if get_user.shipping_address
+  
 %hr
 #checkout_payment
   #payment_errors.error{:style => "display:none"}
-  .right{:style => "width:400px"}
+  #checkout_shipping_options
     %h3 Shipping Options
     == weight: #{get_cart.total_weight} lbs
     #shipping_options= render :partial => "shipping_options" if get_user.shipping_address
   %h3 Payment
   #checkout_cc{:style => "display:#{get_user.billing_address && get_user.shipping_address ? 'block' : 'none'}"}= render :partial => 'payment' if get_user.billing_address && get_user.shipping_address
-%hr
-#checkout_cart
-  .right= link_to 'Edit Cart', cart_path
-  %h3 Items in your cart
-  #cart_contents= render :partial => 'cart'
-  .clear
-  %ul.right.cart_ul
-    %li.ui-menu-item#cart_shipping= render :partial => 'shipping_amount' if get_user.shipping_address
-    %li.ui-menu-item#cart_handling{:style => "display:#{calculate_handling > 0.0 ? 'block' : 'none'}"}= render :partial => 'handling_amount'
-    %li.ui-menu-item#cart_tax= render :partial => 'tax_amount' if get_user.shipping_address
-    %li.ui-menu-item#cart_total= render :partial => 'total_amount' if get_user.shipping_address
 %iframe{:style =>"height:0px;width:0px;visibility:hidden", :src=>"about:blank"} this frame prevents back forward cache 

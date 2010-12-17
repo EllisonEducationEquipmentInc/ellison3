@@ -20,7 +20,7 @@
     - elsif @billing_address
       #new_billing.notice{:style => "display:none"}
         = form_for(@billing_address, :as => "#{@billing_address.address_type}_address", :url => {:controller => 'carts', :action => "create_billing", :quote => @quote.id}, :remote => true, :html => {:id => "edit_#{@billing_address.address_type}_address", :method => :post}) do |f|
-          = link_to "same as shipping address", {:controller => 'carts', :action => "copy_shipping_address"}, :remote => true
+          = link_to "same as shipping address", {:controller => 'carts', :action => "copy_shipping_address"}, :remote => true, :class => "minilink"
           = render :partial => 'users/address_form', :locals => {:f => f}
           .actions
             = f.submit "Continue", :class => 'jqui_save'
