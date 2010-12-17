@@ -121,8 +121,33 @@
   = text_field_tag "product_ideas_helper"
   %br
   %br
-  %h3 Related Products
-  = products_helper_tag('product[related_product_item_nums]', @product.related_product_item_nums, :label => 'Related Products (item_num only)')
+  %h3 Related Product Tag
+  .field
+    = f.label :related_product_tag, "Related Product Tag ID"
+    %br
+    = f.text_field :related_product_tag
+    %span#related_product_tag_name= @product.related_product_tag_name
+    :javascript
+      $('#product_related_product_tag').autocomplete({
+      	source: function(request, response) {
+      		$.getJSON("/admin/tags/tags_autocomplete", {
+      			term: request.term
+      		}, response);
+      	},
+      	search: function() {
+      		if (this.value.length < 2) {
+      			return false;
+      		}
+      	},
+      	focus: function( event, ui ) {
+        				return false;
+        			},
+      	select: function(event, ui) {
+      	  $("#related_product_tag_name").html( ui.item.label );
+          $(this).val( ui.item.id );
+          return false;
+        }});
+  =# products_helper_tag('product[related_product_item_nums]', @product.related_product_item_nums, :label => 'Related Products (item_num only)')
   %br
   %br
   .actions

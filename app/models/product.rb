@@ -58,6 +58,7 @@ class Product
 	field :life_cycle
 	field :systems_enabled, :type => Array
 	field :related_products, :type => Array, :default => []
+	field :related_product_tag
 	field :tax_exempt, :type => Boolean, :default => false
 	field :volume, :type => Float
 	field :length, :type => Float
@@ -442,6 +443,21 @@ class Product
 	
 	def size
 	  product_config.additional_name if product_config && product_config.config_group == 'size'
+	end
+	
+	def related_product_tag_name
+	  return if self.related_product_tag.blank?
+	  Tag.find(self.related_product_tag).try :name
+	end
+	
+	def four_related_products
+	  if self.related_product_tag.blank?
+	    tags.available.themes.first.products.available.limit(4)
+	  else
+	    Tag.find(self.related_product_tag).products.available.limit(4)
+	  end
+	rescue
+	  []
 	end
 	
 private 
