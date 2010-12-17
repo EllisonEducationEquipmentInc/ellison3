@@ -24,7 +24,7 @@
           %td
         %td
         %td{:style => "text-align: right", :class => "cart_extended_price"} Subtotal:
-        %td{:style => "text-align: right", :class => "cart_extended_price"}= number_to_currency gross_price(@cart.sub_total)
+        %td#cart_subtotal{:style => "text-align: right", :class => "cart_extended_price"}= number_to_currency gross_price(@cart.sub_total)
         %td        
     - unless @cart_locked
       :javascript
