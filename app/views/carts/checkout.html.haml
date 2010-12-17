@@ -26,7 +26,24 @@
   %h3 Order Summary
   %p
     == You have #{pluralize get_cart.total_quantity, "item"} in your shopping #{(t :cart)} 
-    = link_to "review #{(t :cart)}", "#", :class => "show_cart"
+    = link_to "review #{(t :cart)}", "#", :id => "review_bag"
+    :javascript
+      $('#review_bag').click(function(){
+        $.fancybox({
+      			'padding'		: 10,
+      			'autoScale'		: false,
+      			'scrolling' : 'auto',
+      			'speedIn'		:	500, 
+      			'speedOut'		:	200,
+      			'href' 	: '/cart?locked=1',
+      			'width'	: 860,
+      			'autoDimensions': true,
+      			'title'			: false,
+      			'onComplete' : function(){setTimeout("$.fancybox.resize()", 100)}
+      		});
+      	setTimeout("$.fancybox.resize()", 900);
+      	return false;
+      })
   %li.ui-menu-itemm
     .cart_label Subtotal:
     %span.amount= number_to_currency gross_price(@cart.sub_total)

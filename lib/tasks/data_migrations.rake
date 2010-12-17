@@ -82,6 +82,7 @@ namespace :data_migrations do
         new_tab.compatibility = []
         tab.item_nums[:compatibility].each do |comp|
           next if comp.all? {|e| e.blank?}
+          # TODO: sort by original order
           new_tab.compatibility << OldData::Product.all(:select => "item_num", :conditions => ["id IN (?)", comp.reject {|e| e.blank?}]).map {|e| e.item_num}
         end
       end

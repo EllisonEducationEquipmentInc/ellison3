@@ -330,8 +330,8 @@ function initialize_show_cart() {
 	$(".show_cart")
 //		.button({icons: {primary: 'ui-icon-cart'}})
 		.click(function() {
-			show_cart();
 			_gaq.push(['_trackEvent', 'Cart', 'Show Cart']);
+			show_cart();
 			setTimeout("$.fancybox.resize()", 1600);
 			return false;
 		});

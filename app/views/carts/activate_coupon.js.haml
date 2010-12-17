@@ -3,7 +3,8 @@ $.get('/cart', function(data){
 $('#cart_container').replaceWith(data);
 setTimeout("$.fancybox.resize()", 100);
 });
-} else {
+}
+if ($('#review_bag').length > 0) {
 - @cart_locked = true
 == $('#cart_contents').html('#{escape_javascript(render(:partial => "carts/cart"))}');
 == $('#shipping_options').html('#{escape_javascript(render(:partial => "carts/shipping_options"))}');
