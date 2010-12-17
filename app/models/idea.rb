@@ -200,7 +200,7 @@ class Idea
 	
 	def four_related_ideas
 	  if self.related_idea_tag.blank?
-	    tags.available.send(is_ee? ? :subcurriculum : :themes).first.ideas.available.limit(4)
+	    tags.available.send(is_ee? ? :subcurriculums : :themes).first.ideas.available.limit(4)
 	  else
 	    Tag.find(self.related_idea_tag).ideas.available.limit(4)
 	  end
