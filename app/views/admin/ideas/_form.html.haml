@@ -55,6 +55,32 @@
   = text_field_tag "idea_products_helper"
   %br
   %br
+  %h3 Related Idea Tag
+  .field
+    = f.label :related_idea_tag, "Related Idea Tag ID"
+    %br
+    = f.text_field :related_idea_tag
+    %span#related_idea_tag_name= @idea.related_idea_tag_name
+    :javascript
+      $('#idea_related_idea_tag').autocomplete({
+      	source: function(request, response) {
+      		$.getJSON("/admin/tags/tags_autocomplete", {
+      			term: request.term
+      		}, response);
+      	},
+      	search: function() {
+      		if (this.value.length < 2) {
+      			return false;
+      		}
+      	},
+      	focus: function( event, ui ) {
+        				return false;
+        			},
+      	select: function(event, ui) {
+      	  $("#related_idea_tag_name").html( ui.item.label );
+          $(this).val( ui.item.id );
+          return false;
+        }});
   .actions
     = f.submit :class => 'wymupdate jqui_save'
   :javascript

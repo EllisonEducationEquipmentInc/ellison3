@@ -31,6 +31,7 @@ class Idea
 	field :old_id_edu, :type => Integer
 	field :long_desc
 	field :grade_level, :type => Array
+	field :related_idea_tag
 	
 	index :idea_num, :unique => true, :background => true
 	index :systems_enabled
@@ -190,6 +191,21 @@ class Idea
 	
 	def item_code
 	  self.idea_num #.gsub(/^L/, "")
+	end
+	
+	def related_idea_tag_name
+	  return if self.related_idea_tag.blank?
+	  Tag.find(self.related_idea_tag).try :name
+	end
+	
+	def four_related_ideas
+	  if self.related_idea_tag.blank?
+	    tags.available.send(is_ee? ? :subcurriculum : :themes).first.ideas.available.limit(4)
+	  else
+	    Tag.find(self.related_idea_tag).ideas.available.limit(4)
+	  end
+	rescue
+	  []
 	end
 	
 private 
