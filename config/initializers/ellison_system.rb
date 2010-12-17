@@ -7,6 +7,8 @@ module EllisonSystem
 	ELLISON_SYSTEMS = %w(szus szuk eeus eeuk er) unless const_defined?(:ELLISON_SYSTEMS)
 	
 	WAREHOUSES = %w(us uk sz)
+	
+	MULTIFACETS = true #false
 
 	def current_system
 		Thread.current[:current_system] ||= ELLISON_SYSTEMS.first

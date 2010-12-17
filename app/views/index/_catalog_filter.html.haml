@@ -2,18 +2,23 @@
 = text_field_tag :keyword, nil, :autocomplete => "off", :placeholder => "enter search keyword", :style => "width:144px;" unless params[:action] == "shop"
 .facets.ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
   - @search.facets.each do |facet|
-    - next if facet.rows.length < 1 || @facets_hash.any? {|h| h.include?(facet_to_param(facet.name))} || (facet.name == :price && !params[:price].blank?) || (facet.name == :saving && !params[:saving].blank?)
+    - next if facet.rows.length < 1 || !MULTIFACETS && @facets_hash.any? {|h| h.include?(facet_to_param(facet.name))} || (facet.name == :price && !params[:price].blank?) || (facet.name == :saving && !params[:saving].blank?)
     %h4.head.ui-accordion-header.ui-helper-reset.ui-state-default.ui-corner-top
       %span.ui-icon.ui-icon-triangle-1-s
       = link_to facet.name.to_s.gsub("_#{current_system}", "").humanize, "#"
     %ul.ui-accordion-content.ui-helper-reset.ui-widget-content.ui-corner-bottom.ui-accordion-content-active
       - facet.rows.each do |row|
-        - if facet.class == Sunspot::Search::FieldFacet
-          %li= link_to "#{row.instance.name} (#{row.count})", "/catalog#facets=#{(@facets_hash + [row.value]).join(",")}",  :rel => "#{row.value}", :title =>  row.instance.name, :class => "facet_value"
-        - elsif row.value.saving
-          %li= link_to "#{row.value.label} (#{row.count})", "/catalog#facets=#{@facets_hash.join(",")}&saving=#{row.value.min}~#{row.value.max}", :title => row.value.label, :rel => "#{row.value.min}~#{row.value.max}", :class => "saving_query_facet_value"
-        - else
-          %li= link_to "#{row.value.label} (#{row.count})", "/catalog#facets=#{@facets_hash.join(",")}&price=#{row.value.min}~#{row.value.max}", :title => row.value.label, :rel => "#{row.value.min}~#{row.value.max}", :class => "price_query_facet_value"
+        %li
+          - if facet.class == Sunspot::Search::FieldFacet
+            - facet_selected = MULTIFACETS && @facets_hash.include?(row.value) 
+            - if facet_selected
+              = link_to(row.instance.name, "#", :title => "remove #{row.instance.name}", :rel => row.value, :class => "multifacet_remove facet_selected")
+            - else  
+              = link_to "#{row.instance.name} (#{row.count})", "/catalog#facets=#{(@facets_hash + [row.value]).join(",")}",  :rel => "#{row.value}", :title =>  row.instance.name, :class => "facet_value"
+          - elsif row.value.saving
+            = link_to "#{row.value.label} (#{row.count})", "/catalog#facets=#{@facets_hash.join(",")}&saving=#{row.value.min}~#{row.value.max}", :title => row.value.label, :rel => "#{row.value.min}~#{row.value.max}", :class => "saving_query_facet_value"
+          - else
+            = link_to "#{row.value.label} (#{row.count})", "/catalog#facets=#{@facets_hash.join(",")}&price=#{row.value.min}~#{row.value.max}", :title => row.value.label, :rel => "#{row.value.min}~#{row.value.max}", :class => "price_query_facet_value"
 - unless params[:action] == "shop"
   :javascript
     $(function() {
@@ -40,5 +45,11 @@
           location.hash = $.param.fragment( location.hash, {q: this.value, page: 1}, 0 );
         }
       });
+      $('.multifacet_remove').click(function() {
+          var facets = $.deparam.fragment()['facets'].split(',');
+          facets.splice(facets.indexOf($(this).attr('rel')),1);        
+          location.hash = $.param.fragment( location.hash, {facets: facets.join(','), page: 1}, 0 );
+          return false;
+        });
     });
   

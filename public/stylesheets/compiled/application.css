@@ -323,13 +323,17 @@ body.bp th, body.bp td, body.bp caption {
   border: none;
   background: none;
 }
-/* line 276, ../../../app/stylesheets/application.scss */
+/* line 278, ../../../app/stylesheets/application.scss */
+#content .facet_selected {
+  color: red;
+}
+/* line 280, ../../../app/stylesheets/application.scss */
 #content #email_list {
   background: white;
   border: 1px solid white;
   padding: 10px;
 }
-/* line 278, ../../../app/stylesheets/application.scss */
+/* line 282, ../../../app/stylesheets/application.scss */
 #content #tag_images {
   width: 135px;
   height: 125px;
@@ -337,44 +341,44 @@ body.bp th, body.bp td, body.bp caption {
   float: left;
 }
 
-/* line 285, ../../../app/stylesheets/application.scss */
+/* line 289, ../../../app/stylesheets/application.scss */
 p.show_cart {
   cursor: pointer;
 }
 
-/* line 286, ../../../app/stylesheets/application.scss */
+/* line 290, ../../../app/stylesheets/application.scss */
 #guest_checkout {
   float: right;
   width: 375px;
 }
 
-/* line 290, ../../../app/stylesheets/application.scss */
+/* line 294, ../../../app/stylesheets/application.scss */
 #returning_cuctomer {
   float: left;
   width: 375px;
 }
 
-/* line 295, ../../../app/stylesheets/application.scss */
+/* line 299, ../../../app/stylesheets/application.scss */
 #cart_total {
   font-size: 1.4em;
 }
 
-/* line 300, ../../../app/stylesheets/application.scss */
+/* line 304, ../../../app/stylesheets/application.scss */
 li#cart_total {
   border-top: 1px double gray;
 }
 
-/* line 301, ../../../app/stylesheets/application.scss */
+/* line 305, ../../../app/stylesheets/application.scss */
 .item_changed {
   background: #FBE3E4;
 }
 
-/* line 303, ../../../app/stylesheets/application.scss */
+/* line 307, ../../../app/stylesheets/application.scss */
 td.pre_order {
   color: red;
 }
 
-/* line 307, ../../../app/stylesheets/application.scss */
+/* line 311, ../../../app/stylesheets/application.scss */
 .cart_messaging {
   color: #006ABB;
   font-weight: bold;
