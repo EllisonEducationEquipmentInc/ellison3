@@ -14,9 +14,11 @@
     %h4= display_product_price(@product)
     = add_to_cart_button(@product, 'add_to_cart detail')
   %p= @product.description.try :html_safe
-  .clea
-  %h4 Related Products:
-  .related_products= render :partial => 'products/related_product', :collection => @product.four_related_products, :as => :product
+  .clear
+  - unless @product.four_related_products.blank?
+    %h4 Related Products:
+    = link_to "View All", send(@product.outlet ? 'outlet_path' : 'catalog_path', :anchor => "facets=#{@product.related_tag.facet_param}&page=1"), :onclick => "$.fancybox.close()"
+    .related_products= render :partial => 'products/related_product', :collection => @product.four_related_products, :as => :product
   #tab_accordion
     - @product.tabs.current.each do |tab|
       %h3= link_to tab.name, "#"

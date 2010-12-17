@@ -28,7 +28,8 @@
     %h4 Related Ideas:
     .related_ideas= render :partial => 'ideas/related_idea', :collection => @product.ideas, :as => :idea
   .clear
-  %h4 Related Products:
-  View All
-  .related_products= render :partial => 'products/related_product', :collection => @product.four_related_products, :as => :product
+  - unless @product.four_related_products.blank?
+    %h4 Related Products:
+    = link_to "View All", send(@product.outlet ? 'outlet_path' : 'catalog_path', :anchor => "facets=#{@product.related_tag.facet_param}&page=1")
+    .related_products= render :partial => 'products/related_product', :collection => @product.four_related_products, :as => :product
 .item_tabs= render :partial => 'tab_block', :locals => {:object => @product}

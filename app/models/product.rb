@@ -451,18 +451,19 @@ class Product
 	
 	def related_product_tag_name
 	  return if self.related_product_tag.blank?
-	  Tag.find(self.related_product_tag).try :name
+	  related_tag.try :name
+	end
+	
+	def related_tag
+	  if self.related_product_tag.blank?
+	    tags.available.send(is_ee? ? :subcurriculums : :themes).first || tags.available.product_lines.first
+	  else
+	    Tag.find(self.related_product_tag)
+	  end
 	end
 	
 	def four_related_products
-	  if self.related_product_tag.blank?
-	    t = tags.available.send(is_ee? ? :subcurriculums : :themes).first || tags.available.product_lines.first
-	    t.products.related_to(self.outlet)
-	  else
-	    Tag.find(self.related_product_tag).products.related_to(self.outlet)
-	  end
-  rescue
-    []
+	  related_tag.products.related_to(self.outlet) rescue []
 	end
 	
 private 
