@@ -1,31 +1,45 @@
 - I18n.locale = @order.locale
 %div= link_to 'Back to Orders', myaccount_path('orders', :page => params[:page]), :class => 'jqui_back'
-.left
+.contentwrap_medium
   %h3 Billing Address
-  %ul
-    %li= @order.payment.company
-    %li== #{@order.payment.first_name} #{@order.payment.last_name}
-    %li= @order.payment.address1
-    %li= @order.payment.address2
-    %li= @order.payment.city
-    %li= @order.payment.state
-    %li= @order.payment.zip_code
-    %li= @order.payment.country
-    %li= @order.payment.phone
-.left
+  %p
+    - unless @order.payment.company.blank?
+      = @order.payment.company
+      %br
+    == #{@order.payment.first_name} #{@order.payment.last_name}
+    %br
+    = @order.payment.address1
+    %br
+    - unless @order.payment.address2.blank?
+      = @order.payment.address2
+      %br
+    == #{@order.payment.city}, #{@order.payment.state} #{@order.payment.zip_code}
+    %br
+    = @order.payment.country
+    %br
+    = @order.payment.phone
+
+.contentwrap_medium
   %h3 Shipping Address
-  %ul
-    %li= @order.address.company
-    %li== #{@order.address.first_name} #{@order.address.last_name}
-    %li= @order.address.address1
-    %li= @order.address.address2
-    %li= @order.address.city
-    %li= @order.address.state
-    %li= @order.address.zip_code
-    %li= @order.address.country
-    %li= @order.address.phone
-.left
-  %h3 Details
+  %p
+    - unless @order.address.company.blank?
+      = @order.address.company
+      %br
+    == #{@order.address.first_name} #{@order.address.last_name}
+    %br
+    = @order.address.address1
+    %br
+    - unless @order.address.address2.blank?
+      = @order.address.address2
+      %br
+    == #{@order.address.city}, #{@order.address.state} #{@order.address.zip_code}
+    %br
+    = @order.address.country
+    %br
+    = @order.address.phone
+    
+.contentwrap_medium.last
+  %h3 Order Details
   %strong Order Number:
   = @order.public_order_number
   %br
