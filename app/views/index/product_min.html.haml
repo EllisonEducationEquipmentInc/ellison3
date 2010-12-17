@@ -14,7 +14,9 @@
     %h4= display_product_price(@product)
     = add_to_cart_button(@product, 'add_to_cart detail')
   %p= @product.description.try :html_safe
-  .clear  
+  .clea
+  %h4 Related Products:
+  .related_products= render :partial => 'products/related_product', :collection => @product.four_related_products, :as => :product
   #tab_accordion
     - @product.tabs.current.each do |tab|
       %h3= link_to tab.name, "#"

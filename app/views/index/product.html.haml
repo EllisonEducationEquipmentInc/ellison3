@@ -29,5 +29,6 @@
     .related_ideas= render :partial => 'ideas/related_idea', :collection => @product.ideas, :as => :idea
   .clear
   %h4 Related Products:
+  View All
   .related_products= render :partial => 'products/related_product', :collection => @product.four_related_products, :as => :product
 .item_tabs= render :partial => 'tab_block', :locals => {:object => @product}

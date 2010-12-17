@@ -133,6 +133,10 @@ class Product
 		def find_by_item_num(item_num)
 		  active.where(:item_num => item_num).cache.first
 		end
+		
+		def related_to(outlet = false)
+		  available.where(:outlet => outlet, :"quantity_#{is_us? ? 'us' : 'uk'}".gt => 0, :life_cycle.in => ['available']).limit(4)
+		end
 	end
 		
 	# define 
@@ -452,12 +456,13 @@ class Product
 	
 	def four_related_products
 	  if self.related_product_tag.blank?
-	    tags.available.themes.first.products.available.limit(4)
+	    t = tags.available.send(is_ee? ? :subcurriculums : :themes).first || tags.available.product_lines.first
+	    t.products.related_to(self.outlet)
 	  else
-	    Tag.find(self.related_product_tag).products.available.limit(4)
+	    Tag.find(self.related_product_tag).products.related_to(self.outlet)
 	  end
-	rescue
-	  []
+  rescue
+    []
 	end
 	
 private 
