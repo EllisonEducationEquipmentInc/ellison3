@@ -195,17 +195,19 @@ class Idea
 	
 	def related_idea_tag_name
 	  return if self.related_idea_tag.blank?
-	  Tag.find(self.related_idea_tag).try :name
+	  related_tag.try :name
+	end
+	
+	def related_tag
+	  if self.related_idea_tag.blank?
+	    tags.available.send(is_ee? ? :subcurriculums : :themes).first
+	  else
+	    Tag.find(self.related_idea_tag)
+	  end
 	end
 	
 	def four_related_ideas
-	  if self.related_idea_tag.blank?
-	    tags.available.send(is_ee? ? :subcurriculums : :themes).first.ideas.available.limit(4)
-	  else
-	    Tag.find(self.related_idea_tag).ideas.available.limit(4)
-	  end
-	rescue
-	  []
+	  related_tag.ideas.available.limit(4) rescue []
 	end
 	
 private 
