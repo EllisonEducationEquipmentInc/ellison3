@@ -1,0 +1,43 @@
+// Ellison3 Web Application Shopping Cart CSS
+
+body.bp {
+  
+  thead th {
+    background: $table_thead_bg url("/images/ui-backgrounds/_#{$system}_table_thead.png") center;
+    color: $table_thead_text;
+    
+    a {
+      color: $table_thead_link;
+      
+      &:hover { color: $table_thead_hover; }
+    }
+  }
+  
+  tr.even td {
+    background: none repeat scroll 0 0 $table_td_even;
+  }
+  tr.odd td {
+    background: none repeat scroll 0 0 white;
+  }
+}
+
+.cart_item_price {
+  .msrp {
+    font-weight: normal;
+    font-size: 1em;
+  }
+}
+
+.cart_extended_price {
+  font-weight: bold;
+}
+
+#cart_total {
+  color: $cart_total_price;
+}
+
+ul.cart_summary {
+  li {
+    font-weight: bold;
+  }
+}
