@@ -675,14 +675,14 @@ select#sort, input#select_all_products {
 }
 
 /* line 12, ../../../app/stylesheets/partials/_layout_content_products.scss */
-#checkout_something {
+#checkout_summary {
   display: inline;
   float: left;
   margin-right: 0;
   width: 310px;
 }
 /* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html #checkout_something {
+* html #checkout_summary {
   overflow-x: hidden;
 }
 

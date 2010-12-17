@@ -9,7 +9,7 @@
   @include column(8); }
 #checkout_billing {
   @include column(8); }
-#checkout_something {
+#checkout_summary {
   @include column(8, true); }
 #checkout_cc {
   @include column(16); }

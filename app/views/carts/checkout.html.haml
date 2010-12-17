@@ -22,13 +22,17 @@
         = render :partial => 'users/address_form', :locals => {:f => f}
         .actions
           = f.submit "Continue", :class => 'jqui_save'
-#checkout_something
+#checkout_summary
   %h3 Order Summary
   %p
-    == You have #{pluralize get_cart.total_quantity, "item"} in your shopping #{(t :cart)} 
-    = link_to "review #{(t :cart)}", "#", :id => "review_bag"
+    You have
+    %strong
+      %em
+        =pluralize get_cart.total_quantity, "item"
+    == in your shopping #{(t :cart)} 
+    = link_to "review #{(t :cart)}", "#", :class => "review_bag minilink"
     :javascript
-      $('#review_bag').click(function(){
+      $('.review_bag').click(function(){
         $.fancybox({
       			'padding'		: 10,
       			'autoScale'		: false,
@@ -44,13 +48,18 @@
       	setTimeout("$.fancybox.resize()", 900);
       	return false;
       })
-  %li.ui-menu-itemm
-    .cart_label Subtotal:
-    %span.amount= number_to_currency gross_price(@cart.sub_total)
-  %li.ui-menu-item#cart_shipping= render :partial => 'shipping_amount' if get_user.shipping_address
-  %li.ui-menu-item#cart_handling{:style => "display:#{calculate_handling > 0.0 ? 'block' : 'none'}"}= render :partial => 'handling_amount'
-  %li.ui-menu-item#cart_tax= render :partial => 'tax_amount' if get_user.shipping_address
-  %li.ui-menu-item#cart_total= render :partial => 'total_amount' if get_user.shipping_address
+  %p
+    Have a Coupon Code?
+    = link_to "Add it here &raquo;".html_safe, "#", :class => "review_bag"
+    
+  %ul.plain.cart_summary
+    %li
+      Subtotal:
+      %span.amount.right= number_to_currency gross_price(@cart.sub_total)
+    %li#cart_shipping= render :partial => 'shipping_amount' if get_user.shipping_address
+    %li#cart_handling{:style => "display:#{calculate_handling > 0.0 ? 'block' : 'none'}"}= render :partial => 'handling_amount'
+    %li#cart_tax= render :partial => 'tax_amount' if get_user.shipping_address
+    %li#cart_total= render :partial => 'total_amount' if get_user.shipping_address
   
 %hr
 #checkout_payment

@@ -3,8 +3,8 @@
 
 $layout_thumbnail_border: 1px solid #ccc;
 
-$cart_shipmsg_link: #69c;
-$cart_shipmsg_hover: #5488b8;
+$cart_shipmsg_link: #69c; // light blue
+$cart_shipmsg_hover: #5488b8; // slightly darker blue
 
 $catalog_product_bg: white;
 
@@ -13,3 +13,5 @@ $catalog_link: black;
 $catalog_sale-price: crimson;
 $catalog_custom-price: royalblue;
 $catalog_life-cycle: crimson;
+
+$cart_total_price: #50bf93; // green colour-matched to the add to cart button

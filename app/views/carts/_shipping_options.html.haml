@@ -1,7 +1,7 @@
 - unless get_cart.shipping_rates.blank?
-  %ul
+  %ul.plain
     - get_cart.shipping_rates.sort {|x,y| x["rate"] <=> y["rate"]}.each do |rate|
-      %li.ui-menu-item
+      %li
         = radio_button_tag :shipping_service, rate["type"], rate["type"] == get_cart.shipping_service, :onchange => "$.ajax({beforeSend: function() {$('#payment_submit').button({disabled: true, label: 'please wait...'});$('#total_amount').html('#{escape_javascript spinner}');$('#shipping_amount').html('#{escape_javascript spinner}');$('#tax_amount').html('#{escape_javascript spinner}');}, url:'/carts/change_shipping_method?method='+this.value});"
         == #{rate["name"]}:
         - unless rate["delivered_by"].blank?

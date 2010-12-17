@@ -29,6 +29,10 @@ body.bp {
     text-transform: uppercase;
   }
   
+  p {
+    margin-bottom: 6px;
+  }
+  
   a {
     color: $link;
     text-decoration: none;
@@ -53,7 +57,7 @@ body.bp {
   }
   
   .notice {
-    bottom-margin: 2px;
+    margin-bottom: 2px;
   }
 }
 
