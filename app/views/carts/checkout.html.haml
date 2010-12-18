@@ -30,27 +30,27 @@
       %em
         =pluralize get_cart.total_quantity, "item"
     == in your shopping #{(t :cart)} 
-    = link_to "review #{(t :cart)}", "#", :class => "review_bag minilink"
-    :javascript
-      $('.review_bag').click(function(){
-        $.fancybox({
-      			'padding'		: 10,
-      			'autoScale'		: false,
-      			'scrolling' : 'auto',
-      			'speedIn'		:	500, 
-      			'speedOut'		:	200,
-      			'href' 	: '/cart?locked=1',
-      			'width'	: 860,
-      			'autoDimensions': true,
-      			'title'			: false,
-      			'onComplete' : function(){setTimeout("$.fancybox.resize()", 100)}
-      		});
-      	setTimeout("$.fancybox.resize()", 900);
-      	return false;
-      })
+    = link_to "review #{(t :cart)}", "#", :class => "review_cart minilink"
   %p
     Have a Coupon Code?
-    = link_to "Add it here &raquo;".html_safe, "#", :class => "review_bag"
+    = link_to "Add it now! &raquo;".html_safe, "#", :class => "review_cart"
+  :javascript
+    $('.review_cart').click(function(){
+      $.fancybox({
+    			'padding'		: 10,
+    			'autoScale'		: false,
+    			'scrolling' : 'auto',
+    			'speedIn'		:	500, 
+    			'speedOut'		:	200,
+    			'href' 	: '/cart?locked=1',
+    			'width'	: 860,
+    			'autoDimensions': true,
+    			'title'			: false,
+    			'onComplete' : function(){setTimeout("$.fancybox.resize()", 100)}
+    		});
+    	setTimeout("$.fancybox.resize()", 900);
+    	return false;
+    })
     
   %ul.plain.cart_summary
     %li

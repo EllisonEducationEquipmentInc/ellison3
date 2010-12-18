@@ -23,7 +23,7 @@
       %li= link_to "<span>Log Out Dashboard</span>".html_safe, destroy_session_path('admin'), :class => "btn-masthead btn-admin-logout", :title => "Log Out Dashboard", :alt => "Log Out Dashboard"
 
   -# shopping cart
-  #shoppingcart_icon= link_to_unless params[:controller] == "carts", image_tag("/images/ui-objects/_#{current_system}_shoppingcart.png", :border =>0, :alt => "Shopping #{(t :cart).capitalize}"), "#", :title => "View #{(t :cart).capitalize}", :alt => "View #{(t :cart).capitalize}", :class => "show_cart"
+  #shoppingcart_icon= link_to image_tag("/images/ui-objects/_#{current_system}_shoppingcart.png", :border =>0, :alt => "Shopping #{(t :cart).capitalize}"), "#", :title => "View #{(t :cart).capitalize}", :alt => "View #{(t :cart).capitalize}", :class => "#{params[:controller] == 'carts' ? 'review_cart' : 'show_cart'}"
   #shoppingcart_info
     #cartspinner= spinner
   :javascript

@@ -1,7 +1,7 @@
-%p.cart_qty.show_cart
+%p.cart_qty
   \&nbsp;
   %span#cart_items_qty= pluralize get_cart.total_quantity, "item"
-%p.cart_total.show_cart
+%p.cart_total
   %span#total_currency= number_to_currency get_cart.sub_total
   \&nbsp;
 %p.cart_shipmsg
