@@ -10,6 +10,6 @@
   #profile= render :partial => 'profile'
 :javascript
   $(function() {
-  	var $tabs = $(".tab-block").tabs({cache: true, spinner: '#{spinner}', ajaxOptions: { cache: false }, select: function(event, ui) {document.title = document.title.replace(/(Profile|#{@tabs.map {|t| t[1]}.join("|")})/, $(ui.tab).text().replace(/^\s+/, ""));}});
+  	var $tabs = $(".tab-block").tabs({cache: true, spinner: '#{loader_bar}', ajaxOptions: { cache: false }, select: function(event, ui) {document.title = document.title.replace(/(Profile|#{@tabs.map {|t| t[1]}.join("|")})/, $(ui.tab).text().replace(/^\s+/, ""));}});
   	#{"$tabs.tabs('select', #{@tabs.map {|t| t[0]}.index(params[:tab].to_sym) + 1 rescue 0})" if params[:tab]}
   });
