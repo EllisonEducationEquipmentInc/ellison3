@@ -24,10 +24,11 @@
   .buybox.rounded
     %h4.itemnumber== Idea ##{@idea.idea_num}
 
-  - unless @idea.products.blank?
-    %h4 Related Products:
-    .related_ideas= render :partial => 'products/related_product', :collection => @idea.products, :as => :product
-  - unless @idea.four_related_ideas.blank?
-    %h4 Related Ideas:
-    = link_to "View All", catalog_path(:anchor => "facets=#{@idea.related_tag.facet_param}&ideas=1&page=1")
-    .related_ideas= render :partial => 'ideas/related_idea', :collection => @idea.four_related_ideas, :as => :idea
+  .dontprint
+    - unless @idea.products.blank?
+      %h4 Related Products:
+      .related_ideas= render :partial => 'products/related_product', :collection => @idea.products, :as => :product
+    - unless @idea.four_related_ideas.blank?
+      %h4 Related Ideas:
+      = link_to "View All", catalog_path(:anchor => "facets=#{@idea.related_tag.facet_param}&ideas=1&page=1")
+      .related_ideas= render :partial => 'ideas/related_idea', :collection => @idea.four_related_ideas, :as => :idea
