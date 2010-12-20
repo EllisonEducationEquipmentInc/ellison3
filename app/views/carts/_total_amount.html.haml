@@ -1,4 +1,4 @@
 Total: 
 %span#total_amount.amount.right
 :javascript
-  $.ajax({url:'/carts/get_total_amount', success: function(data) {$('#total_amount').html(data);$('#payment_submit').button({disabled: false, label: button_label});}, beforeSend: function() {$('#payment_submit').button({disabled: true, label: 'please wait...'});$('#total_amount').html('#{escape_javascript spinner}')}})
+  $.ajax({url:'/carts/get_total_amount', success: function(data) {$('#total_amount').html(data);$('#payment_submit').button({disabled: false, label: button_label});}, beforeSend: function() {$('#payment_submit').button({disabled: true, label: 'please wait...'});$('#total_amount').html('#{escape_javascript loader_bar}')}})

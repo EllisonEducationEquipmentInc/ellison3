@@ -1,4 +1,4 @@
 == #{t :estimated_tax}: 
 %span#tax_amount.amount.right
 :javascript
-  $.ajax({url:'/carts/get_tax_amount', success: function(data) {$('#tax_amount').html(data)}, beforeSend: function() {$('#tax_amount').html('#{escape_javascript spinner}')}})
+  $.ajax({url:'/carts/get_tax_amount', success: function(data) {$('#tax_amount').html(data)}, beforeSend: function() {$('#tax_amount').html('#{escape_javascript loader_bar}')}})
