@@ -71,29 +71,31 @@
       %td= item.quantity
       %td= number_to_currency item.gross_price
       %td= number_to_currency item.item_total
-Subtotal:
-= number_to_currency @order.gross_subtotal_amount
-%br
-== Shipping & Handling (#{@order.shipping_service.try :humanize}):
-= number_to_currency @order.gross_shipping_amount
-%br
-Shipping & Handling Surcharge:
-= number_to_currency @order.handling_amount
-%br
-== #{t :estimated_tax}:
-= number_to_currency @order.tax_amount
-%br
-ESTIMATED TOTAL:
-= number_to_currency @order.total_amount
-%br
-%br
-- if @order.payment.try(:purchase_order)
-  %strong Purchase Order
-  = @order.payment.purchase_order_number
-  = link_to "download", @order.payment.attachment_url, :target => "_blank" if @order.payment.attachment
-- else
-  This order was charged to:
-  %br
-  = @order.payment.card_name
-  == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
+%ul.plain.cart_summary.contentwrap_medium
+  %li
+    Subtotal:
+    %span.right= number_to_currency @order.gross_subtotal_amount
+  %li 
+    == Shipping & Handling (#{@order.shipping_service.try :humanize}):
+    %span.right= number_to_currency @order.gross_shipping_amount
+  %li
+    Shipping & Handling Surcharge:
+    %span.right= number_to_currency @order.handling_amount
+  %li 
+    == #{t :estimated_tax}:
+    %span.right= number_to_currency @order.tax_amount
+  %li
+    ESTIMATED TOTAL:
+    %span.right= number_to_currency @order.total_amount
+  %li &nbsp;
+  - if @order.payment.try(:purchase_order)
+    %li
+      Purchase Order
+      = @order.payment.purchase_order_number
+      = link_to "download", @order.payment.attachment_url, :target => "_blank" if @order.payment.attachment
+  - else
+    %li
+      This order was charged to: 
+      = @order.payment.card_name
+      == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
 - I18n.locale = @current_locale
