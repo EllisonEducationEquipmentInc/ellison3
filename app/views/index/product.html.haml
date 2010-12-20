@@ -1,35 +1,37 @@
 .breadcrumbs.dontprint
   = link_to_function 'back', "window.history.back()"
-.item_images
-  #large_image= image_tag(@product.large_image)
-  .dontprint
-    .thumbnail.selected= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}'); return false;"
-    - @product.images.each do |image|
-      .thumbnail= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;"
-    .clear  
-%h3.item_title
-  = @product.name.html_safe
-  %span.life-cycle= @product.public_life_cycle
-.item_sociallinks.dontprint= facebook_like
-.buybox.rounded
-  %h4.itemnumber== Item ##{@product.item_num}
-  %h4= display_product_price(@product)
-  .dontprint
-    = add_to_cart_button(@product, 'add_to_cart detail')
-    
-.item_description
-  = @product.description.try :html_safe
+.item_main
+  %h3.item_title
+    = @product.name.html_safe
+    %span.life-cycle= @product.public_life_cycle
+  .item_images
+    #large_image= image_tag(@product.large_image)
+    .dontprint
+      .thumbnail.selected= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}'); return false;"
+      - @product.images.each do |image|
+        .thumbnail= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;"
+      .clear
+  .item_description
+    = @product.description.try :html_safe
+  .item_moreinfo
+    = image_tag("http://placehold.it/430x150", :class => "dontprint")
+    %h4 Keywords:
+    %p.keyword= @product.tags.keywords.map {|tag| link_to(tag.name, catalog_path(:anchor => "facets=#{tag.facet_param}&page=1"))}.join(", ").html_safe
+  .item_sociallinks.dontprint= facebook_like
+  .item_tabs= render :partial => 'tab_block', :locals => {:object => @product}
 
-.item_moreinfo
-  = image_tag("http://placehold.it/470x150", :class => "dontprint")
-  %h4 Keywords:
-  %p.keyword= @product.tags.keywords.map {|tag| link_to(tag.name, catalog_path(:anchor => "facets=#{tag.facet_param}&page=1"))}.join(", ").html_safe
+.item_sidebar
+  .buybox.rounded
+    %h4.itemnumber== Item ##{@product.item_num}
+    %h4= display_product_price(@product)
+    .dontprint
+      = add_to_cart_button(@product, 'add_to_cart detail')
+
   - unless @product.ideas.blank?
-    %h4 Related Ideas:
-    .related_ideas= render :partial => 'ideas/related_idea', :collection => @product.ideas, :as => :idea
-  .clear
+    %h4 Related Ideas
+    = render :partial => 'ideas/related_idea', :collection => @product.ideas, :as => :idea
   - unless @product.four_related_products.blank?
-    %h4 Related Products:
-    = link_to "View All", send(@product.outlet ? 'outlet_path' : 'catalog_path', :anchor => "facets=#{@product.related_tag.facet_param}&page=1")
-    .related_products= render :partial => 'products/related_product', :collection => @product.four_related_products, :as => :product
-.item_tabs= render :partial => 'tab_block', :locals => {:object => @product}
+    %h4
+      Related Products 
+      = link_to "View All", send(@product.outlet ? 'outlet_path' : 'catalog_path', :anchor => "facets=#{@product.related_tag.facet_param}&page=1"), :class => "minilink"
+    = render :partial => 'products/related_product', :collection => @product.four_related_products, :as => :product

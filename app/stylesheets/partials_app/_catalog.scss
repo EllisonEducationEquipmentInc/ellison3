@@ -74,6 +74,7 @@ body.bp {
     font-size: 1.8em;
     font-weight: normal;
     text-transform: none;
+    margin-bottom: 8px;
   }
   
   .buybox {
@@ -88,7 +89,7 @@ body.bp {
       float: right;
     }
   }
-  .item_moreinfo {
+  .item_moreinfo, .item_sidebar {
     h4 {
       text-transform: none;
       font-size: 1.1em;
@@ -96,13 +97,10 @@ body.bp {
       color: $heading;
     }
   }
-  .product_sidebar {
+  .item_sidebar {
     h4 {
-      font-weight: bold;
-    }
-    p {
-      font-size: .9em;
-      margin-bottom: 4px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
     }
   }
 }
@@ -537,7 +535,7 @@ select#sort, input#select_all_products {
   z-index: 200;
 
   #large_image {
-    width: 450px;
+    width: 300px;
     margin: 3px 0 0 3px;
   }
 
@@ -579,6 +577,13 @@ select#sort, input#select_all_products {
 	  font-family: Verdana,Arial,sans-serif;
 	  font-size: .85em;
 	}
+}
+
+.item_sidebar {
+  
+  .item-block {
+    margin: 0 0 8px 5px;
+  }
 }
 
 .add_to_cart {
