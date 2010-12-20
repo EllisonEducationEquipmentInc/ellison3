@@ -4,6 +4,8 @@
 body.bp {
   @if $system == er {
     background-image: url("/images/ui-backgrounds/_#{$system}_site.jpg") no-repeat center top fixed;
+  } @elseif $system == szus {
+    background-image: url("/images/ui-backgrounds/_#{$system}_site.jpg");
   } @else {
     background-image: url("/images/ui-backgrounds/_#{$system}_site.png");
   }
@@ -29,10 +31,6 @@ body.bp {
     text-transform: uppercase;
   }
   
-  p {
-    margin-bottom: 6px;
-  }
-  
   a {
     color: $link;
     text-decoration: none;
@@ -54,10 +52,6 @@ body.bp {
       margin: 0;
       padding: 0;
     }
-  }
-  
-  .notice {
-    margin-bottom: 2px;
   }
 }
 
@@ -111,7 +105,7 @@ ul.ui-tabs-nav {
 
         span {
           display: block;
-          padding: 0 12px 0 20px;  // padding left to accomodate link icon; padding right to space away from link divider
+          padding: 0 18px 0 20px;  // padding left to accomodate link icon; padding right to space away from link divider
         }
       }
       
@@ -333,7 +327,7 @@ ul.ui-tabs-nav {
 
 #content {
   min-height: 600px;
-  
+  margin-top: 16px;
   .container {
     background-color: white;    
   }
@@ -341,7 +335,7 @@ ul.ui-tabs-nav {
   #frame_gallery {
     position: relative;
     overflow: hidden;
-    height: 360px;
+    height: 299px;
     margin-bottom: 3px;
     
     img#frame_gallery {
@@ -403,7 +397,7 @@ ul.ui-tabs-nav {
       &:hover { color: $home_gallery_ctrl_hover;};
 
       top: 153px;
-      left: 8px;
+      left: 0px;
       width: 47px;
       height: 34px;
       padding: 3px 0 0 8px;
@@ -411,7 +405,7 @@ ul.ui-tabs-nav {
     }
     a.nextBtn { @extend a.prevBtn;
       top: 145px;
-      left: 899px;
+      left: 907px;
       width: 45px;
       height: 35px;
       padding: 5px 0 0 10px;
@@ -447,13 +441,13 @@ ul.ui-tabs-nav {
     text-align: center;
     
     p {
-      margin: 10px 0 0 0;
+      margin: 5px 0 0 0;
       font-family: Georgia, serif;
-      font-size: 16px;
+      font-size: 20px;
       font-style: italic;
       font-weight: bold;
       line-height: 2em;
-      color: #685f18;
+      color: white;
     }
     
     &:hover {
