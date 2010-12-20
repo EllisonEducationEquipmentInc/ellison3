@@ -16,7 +16,7 @@
   .item_moreinfo
     = image_tag("http://placehold.it/430x150", :class => "dontprint")
     %h4 Keywords:
-    %p= @idea.tags.keywords.map {|tag| link_to(tag.name, catalog_path(:anchor => "facets=#{tag.facet_param}&page=1&ideas=1"))}.join(", ").html_safe
+    %p.keyword= @idea.tags.keywords.map {|tag| link_to(tag.name, catalog_path(:anchor => "facets=#{tag.facet_param}&page=1&ideas=1"))}.join(", ").html_safe
   .item_sociallinks.dontprint= facebook_like
   .item_tabs= render :partial => 'tab_block', :locals => {:object => @idea}
 
