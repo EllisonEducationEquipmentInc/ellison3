@@ -636,6 +636,31 @@ select#sort, input#select_all_products {
   margin-bottom: 5px;
 }
 
+/* line 638, ../../../app/stylesheets/partials_app/_catalog.scss */
+.data_key {
+  font-weight: bold;
+  display: inline;
+  float: left;
+  margin-right: 10px;
+  width: 190px;
+}
+/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html .data_key {
+  overflow-x: hidden;
+}
+
+/* line 643, ../../../app/stylesheets/partials_app/_catalog.scss */
+.data_value {
+  display: inline;
+  float: left;
+  margin-right: 0;
+  width: 550px;
+}
+/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html .data_value {
+  overflow-x: hidden;
+}
+
 /* line 2, ../../../app/stylesheets/partials/_layout_content_products.scss */
 #products_filter {
   display: inline;

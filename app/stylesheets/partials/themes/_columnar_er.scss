@@ -126,6 +126,18 @@ body.bp {
   }  
 }
 
+#content {
+  
+  .item_detail {
+    
+    h4 {
+      border-bottom:1px solid $catalog_detail_border;
+    }
+  }
+  
+  
+}
+
 #footer {
   
   .container {

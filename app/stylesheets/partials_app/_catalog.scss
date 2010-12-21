@@ -633,3 +633,13 @@ select#sort, input#select_all_products {
 #jump_to_list {
   margin-bottom: 5px;
 }
+
+// product & idea detail page styles
+.data_key {
+  font-weight: bold;
+  @include column(5);
+}
+
+.data_value {
+  @include column(14, true);
+}
