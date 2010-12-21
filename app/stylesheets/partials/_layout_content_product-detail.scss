@@ -1,5 +1,6 @@
 .item_main { @include column(19); }
 .item_images { @include column(8); }
+.item_title { @include column(19); }
 .item_description { @include column(11, true);}
 .item_moreinfo { @include column(11, true);}
 .item_sociallinks { @include column(11, true);}
