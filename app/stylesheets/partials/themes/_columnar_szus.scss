@@ -30,6 +30,7 @@ body.bp {
   }
   
   .nav_utility {
+    margin-top: 6px;
     
     li {
       font-family: 'PT Sans', Helvetica, Arial, sans-serif;
@@ -44,14 +45,14 @@ body.bp {
   #searchbar {
     width: 467px;
     height: 62px;
-    margin: 16px 26px 0 0;
+    margin: 12px 28px 0 0;
     
 
     
     input.textfield {
       border: none;
       font-size:14px;
-      font-weight: bold;
+      font-weight: normal;
       width:394px;
       margin: 0 0 0 1px;
       position: relative;
@@ -69,13 +70,13 @@ body.bp {
   #shoppingcart_icon {
     width: 52px;
     height: 62px;
-    margin: 14px 12px 0 0;
+    margin: 10px 12px 0 0;
   }
 
   #shoppingcart_info {
     width: 158px;
     height: 62px;
-    margin: 14px 0 0 0;
+    margin: 10px 0 0 0;
   }
   
   #nav_megamenu {

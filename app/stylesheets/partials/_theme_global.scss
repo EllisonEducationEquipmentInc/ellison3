@@ -82,7 +82,7 @@ ul.ui-tabs-nav {
   h1 { margin-bottom: 0;}
   
   .nav_utility {
-    margin: 0;
+    margin: 6px 0 0 0;
     padding: 0;
     overflow: hidden;
     
@@ -178,7 +178,7 @@ ul.ui-tabs-nav {
     p {
       font:10px Tahoma, Verdana, Arial; 
       font-weight: bold;
-      margin: 15px 0 0 0;
+      margin: 15px 0 0 5px;
 
       &.cart_qty {
         float: left;
@@ -194,7 +194,7 @@ ul.ui-tabs-nav {
       &.cart_shipmsg {
         float: left;
         width: 100%;
-        margin: 2px 0 0 0;
+        margin: 4px 0 0 5px;
         
         a {
           color: $cart_shipmsg_link;
