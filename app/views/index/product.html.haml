@@ -10,26 +10,25 @@
 %h3.item_title
   = @product.name.html_safe
   %span.life-cycle= @product.public_life_cycle
+.item_description
+  = @product.description.try :html_safe
 .item_sociallinks.dontprint= facebook_like
 .buybox.rounded
   %h4.itemnumber== Item ##{@product.item_num}
   %h4= display_product_price(@product)
   .dontprint
     = add_to_cart_button(@product, 'add_to_cart detail')
-    
-.item_description
-  = @product.description.try :html_safe
+.item_compatibility
+  %h4 Compatibility
+  %p This die is compatible with these machines:
 
-.item_moreinfo
-  = image_tag("http://placehold.it/470x150", :class => "dontprint")
-  %h4 Keywords:
-  %p.keyword= @product.tags.keywords.map {|tag| link_to(tag.name, catalog_path(:anchor => "facets=#{tag.facet_param}&page=1"))}.join(", ").html_safe
+.item_tabs= render :partial => 'tab_block', :locals => {:object => @product}
+.item_cross-sell
   - unless @product.ideas.blank?
     %h4 Related Ideas:
     .related_ideas= render :partial => 'ideas/related_idea', :collection => @product.ideas, :as => :idea
-  .clear
   - unless @product.four_related_products.blank?
-    %h4 Related Products:
-    = link_to "View All", send(@product.outlet ? 'outlet_path' : 'catalog_path', :anchor => "facets=#{@product.related_tag.facet_param}&page=1")
+    %h4
+      Related Products
+      = link_to "View All", send(@product.outlet ? 'outlet_path' : 'catalog_path', :anchor => "facets=#{@product.related_tag.facet_param}&page=1"), :class => "minilink"
     .related_products= render :partial => 'products/related_product', :collection => @product.four_related_products, :as => :product
-.item_tabs= render :partial => 'tab_block', :locals => {:object => @product}

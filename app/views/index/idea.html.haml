@@ -10,22 +10,19 @@
 %h3.item_title
   = @idea.name
   %span.life-cycle= @idea.public_life_cycle
-.item_sociallinks.dontprint= facebook_like
-.buybox.rounded
-  %h4.itemnumber== Item ##{@idea.idea_num}
 .item_description
   = @idea.description.try :html_safe
+.item_sociallinks.dontprint= facebook_like
+.buybox.rounded
+  %h4.itemnumber== Idea ##{@idea.idea_num}
 
-.item_moreinfo
-  = image_tag("http://placehold.it/470x150", :class => "dontprint")
-  %h4 Keywords:
-  %p= @idea.tags.keywords.map {|tag| link_to(tag.name, catalog_path(:anchor => "facets=#{tag.facet_param}&page=1&ideas=1"))}.join(", ").html_safe
+.item_tabs= render :partial => 'tab_block', :locals => {:object => @idea}
+.item_cross-sell
   - unless @idea.products.blank?
     %h4 Related Products:
     .related_ideas= render :partial => 'products/related_product', :collection => @idea.products, :as => :product
-  .clear
   - unless @idea.four_related_ideas.blank?
-    %h4 Related Ideas:
-    = link_to "View All", catalog_path(:anchor => "facets=#{@idea.related_tag.facet_param}&ideas=1&page=1")
+    %h4
+      Related Ideas
+      = link_to "View All", catalog_path(:anchor => "facets=#{@idea.related_tag.facet_param}&ideas=1&page=1"), :class => "minilink"
     .related_ideas= render :partial => 'ideas/related_idea', :collection => @idea.four_related_ideas, :as => :idea
-.item_tabs= render :partial => 'tab_block', :locals => {:object => @idea}
