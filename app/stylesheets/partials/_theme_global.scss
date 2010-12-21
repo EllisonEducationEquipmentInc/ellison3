@@ -329,14 +329,14 @@ ul.ui-tabs-nav {
   min-height: 600px;
   margin-top: 16px;
   .container {
-    background-color: white;    
+    background-color: white
   }
 
   #frame_gallery {
     position: relative;
     overflow: hidden;
     height: 299px;
-    margin-bottom: 3px;
+    margin-bottom: 12px;
     
     img#frame_gallery {
       position: absolute;
@@ -441,7 +441,7 @@ ul.ui-tabs-nav {
     text-align: center;
     
     p {
-      margin: 5px 0 0 0;
+      margin: 3px 0 0 0;
       font-family: Georgia, serif;
       font-size: 20px;
       font-style: italic;
