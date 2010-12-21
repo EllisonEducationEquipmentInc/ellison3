@@ -16,7 +16,7 @@
 .buybox.rounded
   %h4.itemnumber== Idea ##{@idea.idea_num}
 
-.item_tabs= render :partial => 'tab_block', :locals => {:object => @idea}
+.item_detail= render :partial => 'tab_block', :locals => {:object => @idea}
 .item_cross-sell
   - unless @idea.products.blank?
     %h4 Related Products:

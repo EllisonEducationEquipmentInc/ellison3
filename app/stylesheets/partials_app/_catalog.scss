@@ -88,8 +88,9 @@ body.bp {
       float: right;
     }
   }
-  .item_compatibility, .item_cross-sell {
+  .item_compatibility, .item_cross-sell, .item_detail {
     h4 {
+      text-transform: uppercase;
       font-size: 1.1em;
       font-weight: bold;
       color: $heading;      
@@ -581,7 +582,12 @@ select#sort, input#select_all_products {
 	}
 }
 
+.item_detail {
+  margin-top: 10px;
+}
+
 .item_cross-sell {
+  margin-top: 10px;
   
   .item-block {
     margin: 0 0 8px 5px;

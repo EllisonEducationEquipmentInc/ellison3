@@ -1,10 +1,3 @@
-.tab-block
-  %ul
-    - object.tabs.current.each do |tab|
-      %li= link_to tab.name, "#tabs-#{tab.id}"
-  - object.tabs.current.each do |tab|
-    %div{:id => "tabs-#{tab.id}"}= render 'tabs/tab', :tab => tab
-:javascript
-  $(function() {
-    $(".tab-block").tabs({ select: function(event, ui) {_gaq.push(['_trackEvent', 'Product', 'Click Tab', $(ui.tab).text()])}});
-  });
+- object.tabs.current.each do |tab|
+  %h4= tab.name
+  %div{:id => "tabs-#{tab.id}"}= render 'tabs/tab', :tab => tab

@@ -22,7 +22,7 @@
   %h4 Compatibility
   %p This die is compatible with these machines:
 
-.item_tabs= render :partial => 'tab_block', :locals => {:object => @product}
+.item_detail= render :partial => 'tab_block', :locals => {:object => @product}
 .item_cross-sell
   - unless @product.ideas.blank?
     %h4 Related Ideas:
