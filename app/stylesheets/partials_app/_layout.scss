@@ -35,6 +35,12 @@
   margin-bottom: 4px;
 }
 
+.thumbnail {
+  border: $layout_thumbnail_border;
+  margin: 3px 0 3px 3px;
+  float:left;
+}
+
 #content {
   .pagination {
     font-family: Georgia,serif;

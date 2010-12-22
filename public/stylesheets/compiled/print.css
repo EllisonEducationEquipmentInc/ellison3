@@ -534,19 +534,13 @@ select#sort, input#select_all_products {
   width: 300px;
   margin: 3px 0 0 3px;
 }
-/* line 545, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item_images .thumbnail {
-  border: 1px solid #cccccc;
-  margin: 3px 0 3px 3px;
-  float: left;
-}
 
-/* line 552, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 546, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_sociallinks {
   margin-top: 10px;
 }
 
-/* line 556, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 550, ../../../app/stylesheets/partials_app/_catalog.scss */
 .buybox {
   position: relative;
   background: white;
@@ -554,43 +548,43 @@ select#sort, input#select_all_products {
   padding: 6px;
   margin-bottom: 10px;
 }
-/* line 563, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 557, ../../../app/stylesheets/partials_app/_catalog.scss */
 .buybox h4 {
   margin-top: 7px;
 }
-/* line 567, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 561, ../../../app/stylesheets/partials_app/_catalog.scss */
 .buybox label {
   font-family: Verdana,Arial,sans-serif;
   font-size: .85em;
   color: #404040;
 }
-/* line 573, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 567, ../../../app/stylesheets/partials_app/_catalog.scss */
 .buybox .users_lists_container {
   position: absolute;
   top: 62px;
   left: 0px;
 }
-/* line 579, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 573, ../../../app/stylesheets/partials_app/_catalog.scss */
 .buybox a {
   font-family: Verdana,Arial,sans-serif;
   font-size: .85em;
 }
 
-/* line 585, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 579, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_detail {
   margin-top: 10px;
 }
 
-/* line 589, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 583, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_cross-sell {
   margin-top: 10px;
 }
-/* line 592, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 586, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_cross-sell .item-block {
   margin: 0 0 8px 5px;
 }
 
-/* line 597, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 591, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart {
   width: 121px;
   height: 25px;
@@ -598,19 +592,19 @@ select#sort, input#select_all_products {
   border: none;
   color: white;
 }
-/* line 604, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 598, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart .ui-icon {
   background-image: none;
 }
-/* line 608, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 602, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart.ui-button {
   margin-right: 0;
 }
-/* line 612, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 606, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart:hover {
   background: url("/images/ui-buttons/addtocart_on.png") no-repeat;
 }
-/* line 614, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 608, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart.detail {
   width: 176px;
   height: 30px;
@@ -622,21 +616,21 @@ select#sort, input#select_all_products {
   font-size: 1.1em;
   color: white;
 }
-/* line 625, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 619, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart.detail .ui-icon {
   background-image: none;
 }
-/* line 629, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 623, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart.detail:hover {
   background: url("/images/ui-buttons/addtocart_detail_on.png") no-repeat;
 }
 
-/* line 633, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 627, ../../../app/stylesheets/partials_app/_catalog.scss */
 #jump_to_list {
   margin-bottom: 5px;
 }
 
-/* line 638, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 632, ../../../app/stylesheets/partials_app/_catalog.scss */
 .data_key {
   font-weight: bold;
   display: inline;
@@ -649,7 +643,7 @@ select#sort, input#select_all_products {
   overflow-x: hidden;
 }
 
-/* line 643, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 637, ../../../app/stylesheets/partials_app/_catalog.scss */
 .data_value {
   display: inline;
   float: left;

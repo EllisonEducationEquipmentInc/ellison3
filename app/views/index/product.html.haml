@@ -21,6 +21,15 @@
 .item_compatibility
   %h4 Compatibility
   %p This die is compatible with these machines:
+  %ul.plain
+    %li= image_tag("/images/ui-objects/machines/BIGkick_red-white.jpg", :class => "thumbnail")
+    %li= image_tag("/images/ui-objects/machines/BIGkick_periwinkle.jpg", :class => "thumbnail")
+    %li= image_tag("/images/ui-objects/machines/Vagabond.jpg", :class => "thumbnail")
+    %li= image_tag("/images/ui-objects/machines/BigShotPro_WestminsterFibers.jpg", :class => "thumbnail")
+    %li= image_tag("/images/ui-objects/machines/eclips_v1.jpg", :class => "thumbnail")
+    %li= image_tag("/images/ui-objects/machines/eclips_v2.jpg", :class => "thumbnail")
+  .clear
+  %p= link_to "What does \"PLUS\" mean?", "#"
 
 .item_detail= render :partial => 'tab_block', :locals => {:object => @product}
 .item_cross-sell
