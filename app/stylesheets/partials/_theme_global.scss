@@ -3,11 +3,13 @@
 
 body.bp {
   @if $system == er {
-    background-image: url("/images/ui-backgrounds/_#{$system}_site.jpg") no-repeat center top fixed;
-  } @elseif $system == szus {
-    background-image: url("/images/ui-backgrounds/_#{$system}_site.jpg");
+    background: url("/images/ui-backgrounds/_#{$system}_site.jpg") no-repeat center top fixed;
+  } @else if $system == szus {
+    background: url("/images/ui-backgrounds/_#{$system}_site.jpg");
+  } @else if $system == szuk {
+    background-color: #dee5ff;
   } @else {
-    background-image: url("/images/ui-backgrounds/_#{$system}_site.png");
+    background: url("/images/ui-backgrounds/_#{$system}_site.png");
   }
 
   h1, h2, h3, h4, h5 {
