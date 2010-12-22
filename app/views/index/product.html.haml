@@ -22,21 +22,21 @@
   %h4 Compatibility
   %p This die is compatible with these machines:
   %ul.plain
-    %li= link_to image_tag("/images/ui-objects/machines/BIGkick_periwinkle.jpg"), "#"
-    %li= link_to image_tag("/images/ui-objects/machines/BIGkick_red-white.jpg"), "#"
+    %li= link_to image_tag("/images/ui-objects/machines/BIGkick_periwinkle.jpg", :class => "thumbnail"), "#"
+    %li= link_to image_tag("/images/ui-objects/machines/BIGkick_red-white.jpg", :class => "thumbnail"), "#"
     %li
       = link_to "#" do
-        %span.plus 
-        = image_tag("/images/ui-objects/machines/Vagabond.jpg")
+        %span.compatibility-plus Compatibility Plus
+        = image_tag("/images/ui-objects/machines/Vagabond.jpg", :class => "thumbnail")
     %li
       = link_to "#" do
-        %span.plus 
-        = image_tag("/images/ui-objects/machines/BigShot_WestminsterFibers.jpg")
-    %li= link_to image_tag("/images/ui-objects/machines/eclips_v1.jpg"), "#"
-    %li= link_to image_tag("/images/ui-objects/machines/eclips_v2.jpg"), "#"
+        %span.compatibility-plus Compatibility Plus
+        = image_tag("/images/ui-objects/machines/BigShot_WestminsterFibers.jpg", :class => "thumbnail")
+    %li= link_to image_tag("/images/ui-objects/machines/eclips_v1.jpg", :class => "thumbnail"), "#"
+    %li= link_to image_tag("/images/ui-objects/machines/eclips_v2.jpg", :class => "thumbnail"), "#"
 
   .clear
-  %p== What does #{image_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/plus-octagon-frame.png")} mean?
+  %p== What does #{image_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/plus-octagon-frame.png", :alt => "Compatibility Plus", :title => "Compatibility Plus")} mean?
 
 .item_detail= render :partial => 'tab_block', :locals => {:object => @product}
 .item_cross-sell
