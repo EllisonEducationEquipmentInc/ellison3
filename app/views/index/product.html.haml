@@ -22,14 +22,21 @@
   %h4 Compatibility
   %p This die is compatible with these machines:
   %ul.plain
-    %li= image_tag("/images/ui-objects/machines/BIGkick_red-white.jpg", :class => "thumbnail")
-    %li= image_tag("/images/ui-objects/machines/BIGkick_periwinkle.jpg", :class => "thumbnail")
-    %li= image_tag("/images/ui-objects/machines/Vagabond.jpg", :class => "thumbnail")
-    %li= image_tag("/images/ui-objects/machines/BigShotPro_WestminsterFibers.jpg", :class => "thumbnail")
-    %li= image_tag("/images/ui-objects/machines/eclips_v1.jpg", :class => "thumbnail")
-    %li= image_tag("/images/ui-objects/machines/eclips_v2.jpg", :class => "thumbnail")
+    %li= link_to image_tag("/images/ui-objects/machines/BIGkick_periwinkle.jpg"), "#"
+    %li= link_to image_tag("/images/ui-objects/machines/BIGkick_red-white.jpg"), "#"
+    %li
+      = link_to "#" do
+        %span.plus 
+        = image_tag("/images/ui-objects/machines/Vagabond.jpg")
+    %li
+      = link_to "#" do
+        %span.plus 
+        = image_tag("/images/ui-objects/machines/BigShot_WestminsterFibers.jpg")
+    %li= link_to image_tag("/images/ui-objects/machines/eclips_v1.jpg"), "#"
+    %li= link_to image_tag("/images/ui-objects/machines/eclips_v2.jpg"), "#"
+
   .clear
-  %p= link_to "What does \"PLUS\" mean?", "#"
+  %p== What does #{image_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/plus-octagon-frame.png")} mean?
 
 .item_detail= render :partial => 'tab_block', :locals => {:object => @product}
 .item_cross-sell

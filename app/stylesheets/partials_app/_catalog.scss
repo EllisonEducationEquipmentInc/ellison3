@@ -588,6 +588,37 @@ select#sort, input#select_all_products {
   }
 }
 
+.item_compatibility {
+
+  ul.plain {
+  
+    li {
+      display: inline;
+      float: left;
+      overflow: hidden;
+      position: relative;
+      
+      a {
+        float: left;
+      }
+      
+      img { 
+        border: $layout_thumbnail_border;
+        margin: 3px 0 3px 3px;
+      }
+      
+      .plus {
+        width: 16px;
+        height: 16px;
+        background: transparent url('/images/ui-icons/set_fugue/16x16/no-shadow/plus-octagon-frame.png') no-repeat;
+        position: absolute;
+        top: 6px;
+        right: 3px;
+      }
+    }
+  }
+}
+
 .add_to_cart {
   width: 121px;
   height: 25px;

@@ -584,7 +584,33 @@ select#sort, input#select_all_products {
   margin: 0 0 8px 5px;
 }
 
-/* line 591, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 595, ../../../app/stylesheets/partials_app/_catalog.scss */
+.item_compatibility ul.plain li, .item_compatibility #catalogtabs li {
+  display: inline;
+  float: left;
+  overflow: hidden;
+  position: relative;
+}
+/* line 601, ../../../app/stylesheets/partials_app/_catalog.scss */
+.item_compatibility ul.plain li a, .item_compatibility #catalogtabs li a {
+  float: left;
+}
+/* line 605, ../../../app/stylesheets/partials_app/_catalog.scss */
+.item_compatibility ul.plain li img, .item_compatibility #catalogtabs li img {
+  border: 1px solid #cccccc;
+  margin: 3px 0 3px 3px;
+}
+/* line 610, ../../../app/stylesheets/partials_app/_catalog.scss */
+.item_compatibility ul.plain li .plus, .item_compatibility #catalogtabs li .plus {
+  width: 16px;
+  height: 16px;
+  background: transparent url("/images/ui-icons/set_fugue/16x16/no-shadow/plus-octagon-frame.png") no-repeat;
+  position: absolute;
+  top: 6px;
+  right: 3px;
+}
+
+/* line 622, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart {
   width: 121px;
   height: 25px;
@@ -592,19 +618,19 @@ select#sort, input#select_all_products {
   border: none;
   color: white;
 }
-/* line 598, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 629, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart .ui-icon {
   background-image: none;
 }
-/* line 602, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 633, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart.ui-button {
   margin-right: 0;
 }
-/* line 606, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 637, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart:hover {
   background: url("/images/ui-buttons/addtocart_on.png") no-repeat;
 }
-/* line 608, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 639, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart.detail {
   width: 176px;
   height: 30px;
@@ -616,21 +642,21 @@ select#sort, input#select_all_products {
   font-size: 1.1em;
   color: white;
 }
-/* line 619, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 650, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart.detail .ui-icon {
   background-image: none;
 }
-/* line 623, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 654, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart.detail:hover {
   background: url("/images/ui-buttons/addtocart_detail_on.png") no-repeat;
 }
 
-/* line 627, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 658, ../../../app/stylesheets/partials_app/_catalog.scss */
 #jump_to_list {
   margin-bottom: 5px;
 }
 
-/* line 632, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 663, ../../../app/stylesheets/partials_app/_catalog.scss */
 .data_key {
   font-weight: bold;
   display: inline;
@@ -643,7 +669,7 @@ select#sort, input#select_all_products {
   overflow-x: hidden;
 }
 
-/* line 637, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 668, ../../../app/stylesheets/partials_app/_catalog.scss */
 .data_value {
   display: inline;
   float: left;
