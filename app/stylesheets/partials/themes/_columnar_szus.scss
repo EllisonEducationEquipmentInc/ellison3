@@ -14,8 +14,9 @@ body.bp {
 }
 
 #header {
-  margin: 10px 0 0 0;
-  height: 124px;
+  background: url("/images/ui-backgrounds/szuk_hdr_bkg.jpg") repeat scroll 0 0;
+  padding: 10px 0 0 0;
+  height: 114px;
   
   #logo_masthead {
   	background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
