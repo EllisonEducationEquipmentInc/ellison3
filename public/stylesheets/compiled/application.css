@@ -360,10 +360,3 @@ li#cart_total {
 td.pre_order {
   color: red;
 }
-
-/* line 293, ../../../app/stylesheets/application.scss */
-.cart_messaging {
-  color: #006ABB;
-  font-weight: bold;
-  padding: 10px 5px;
-}

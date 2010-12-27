@@ -64,14 +64,14 @@
   %br
   - unless @cart_locked
     - if get_cart.pre_order?
-      .cart_messaging There are items in the cart that are available for pre-order only. If you would like to place a pre-order please click "Pre-Order". For immediate shipping please remove these items
-    #empty_cart Empty Cart
+      %p.error There are items in the cart that are available for pre-order only. If you would like to place a pre-order please click "Pre-Order". For immediate shipping please remove these items.
+    - if quote_allowed?
+      .save_as_quote.right Save as Quote
     - if chekout_allowed?
-      #checkout_button= "Checkout"
+      #checkout_button.right= "Checkout"
     - elsif get_cart.pre_order?
       .save_as_quote Pre-Order
-    - if quote_allowed?
-      .save_as_quote Save as Quote
+    #empty_cart.right Empty Cart
     :javascript
       $(function() {
         $("#checkout_button").button({icons: {primary: 'ui-icon-check'}})

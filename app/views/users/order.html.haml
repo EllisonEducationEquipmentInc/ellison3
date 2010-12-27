@@ -71,22 +71,23 @@
       %td= item.quantity
       %td= number_to_currency item.gross_price
       %td= number_to_currency item.item_total
-%ul.plain.cart_summary.contentwrap_medium
+.contentwrap_XL &nbsp;
+%ul.plain.cart_summary.contentwrap_medium.last
   %li
     Subtotal:
     %span.right= number_to_currency @order.gross_subtotal_amount
   %li 
     == Shipping & Handling (#{@order.shipping_service.try :humanize}):
     %span.right= number_to_currency @order.gross_shipping_amount
-  %li
+  %li{:style => "display:#{@order.handling_amount > 0.0 ? 'block' : 'none'}"}
     Shipping & Handling Surcharge:
     %span.right= number_to_currency @order.handling_amount
   %li 
     == #{t :estimated_tax}:
     %span.right= number_to_currency @order.tax_amount
-  %li
-    ESTIMATED TOTAL:
-    %span.right= number_to_currency @order.total_amount
+  %li#cart_total
+    Total:
+    %span#total_amount.amount.right= number_to_currency @order.total_amount
   %li &nbsp;
   - if @order.payment.try(:purchase_order)
     %li
