@@ -157,7 +157,7 @@ body.bp .item_cross-sell h4 a.minilink {
   width: 16px;
   height: 16px;
   text-indent: -9999px;
-  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/cross-circle.png");
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/cross-small.png") -2px -1px no-repeat;
 }
 /* line 177, ../../../app/stylesheets/partials_app/_catalog.scss */
 #catalog_breadcrumbs .breadcrumb_arrow {
