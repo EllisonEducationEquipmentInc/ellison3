@@ -212,6 +212,17 @@ body.bp {
       
       &:hover {
         color: $catalog_filter_hover;
+      }      
+      &.facet_selected {
+        padding-left: 16px;
+        background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/tick-small.png") top left no-repeat;
+        color: $catalog_filter_hover;
+        font-weight: bold;
+        
+        &:hover {
+          background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/cross-small.png") top left no-repeat;
+          color: $catalog_filter_link;
+        }
       }
     }
   }
