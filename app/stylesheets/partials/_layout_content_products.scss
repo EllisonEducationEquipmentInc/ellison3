@@ -1,8 +1,8 @@
 // catalog results
 #products_filter {
-  @include column(4); }
+  @include column(5); }
 .products_grid {
-  @include column(20, true); }
+  @include column(19, true); }
   
 // shopping cart 
 #checkout_shipping {

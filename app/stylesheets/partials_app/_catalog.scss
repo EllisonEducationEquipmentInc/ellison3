@@ -214,12 +214,12 @@ body.bp {
         color: $catalog_filter_hover;
       }
       
-      &.facet_value {
+      &.facet_value, &.price_query_facet_value {
         padding-left: 16px;
-        background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_tick-small.png") top left no-repeat;
+        background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/ui-check-box-uncheck.png") top left no-repeat;
         
         &:hover {
-          background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/tick-small.png") top left no-repeat;
+          background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_ui-check-box-tick.png") top left no-repeat;
         }
       }
       
@@ -233,11 +233,7 @@ body.bp {
           background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/cross-small.png") top left no-repeat;
           color: $catalog_filter_link;
         }
-      }
-      
-      &.price_query_facet_value {
-        padding-left: 16px;
-      }
+      }      
     }
   }
   
@@ -305,7 +301,7 @@ body.bp {
 
 // individual product blocks (grid view)
 .item-block {
-  $item-block-width: 167px;
+  $item-block-width: 157px;
   $item-block-padding: 8px;
 
 	background: $catalog_product_bg;
