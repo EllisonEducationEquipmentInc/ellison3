@@ -14,7 +14,7 @@ body.bp {
 }
 
 #header {
-  background: url("/images/ui-backgrounds/szuk_hdr_bkg.jpg") repeat scroll 0 0;
+  background: url("/images/ui-backgrounds/_#{$system}_header.jpg") repeat scroll 0 0;
   padding: 10px 0 0 0;
   height: 114px;
   
@@ -131,6 +131,11 @@ body.bp {
   .container {
     // height: 100px;
   }  
+}
+
+#content {
+  float: left;
+  margin: 16px 0 12px 0;
 }
 
 #footer {
