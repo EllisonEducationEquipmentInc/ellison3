@@ -154,6 +154,7 @@ body.bp {
 
 // catalog filter breadcrumbs
 #catalog_breadcrumbs { @extend .breadcrumbs;
+  margin-left: 12px;
   
   a {
     text-decoration: none;
@@ -301,12 +302,12 @@ body.bp {
 
 // individual product blocks (grid view)
 .item-block {
-  $item-block-width: 157px;
-  $item-block-padding: 8px;
+  $item-block-width: 163px;
+  $item-block-padding: 6px;
 
 	background: $catalog_product_bg;
 	float: left;
-	margin: 0 0 14px 14px;
+	margin: 0 0 12px 12px;
 	padding: $item-block-padding;
 	width: $item-block-width;
 	text-align: center;
@@ -470,7 +471,7 @@ body.bp {
   // list view styles
   &.listview {
     .item-block {
-      width: 758px;
+      width: 725px;
       height: 125px;
       text-align: left;
       

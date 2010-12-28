@@ -1,5 +1,6 @@
 %h3.dontdisplay== #{pluralize @search.total, @klass.to_s} Showing
-.contentwrap_XXL.dontprint
+.dontprint
+  #catalog_breadcrumbs
   .right= select_tag :sort, options_for_select(@sort_options, params[:sort]), :onchange => "location.hash = $.param.fragment( location.hash, {sort: this.value, page: 1}, 0 )"
   .toggleview.right.minilink= link_to "switch to list view", "#", :class => "toggle_view"
   %ul#catalogtabs
@@ -33,6 +34,7 @@
     %p 
       Did you mean? 
       = link_to_function @search.spell_collation, "location.hash = $.param.fragment( location.hash, {q: '#{@search.spell_collation}'}, 0 )"
+.clear
 .highlightable= render @products
 .clear
 .right.dontprint
