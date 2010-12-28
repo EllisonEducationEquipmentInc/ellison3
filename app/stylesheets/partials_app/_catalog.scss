@@ -234,6 +234,10 @@ body.bp {
           color: $catalog_filter_link;
         }
       }
+      
+      &.price_query_facet_value {
+        padding-left: 16px;
+      }
     }
   }
   
