@@ -17,54 +17,55 @@
     = select_tag :jump_to_list, options_for_select(@lists, params[:id]), :style => "max-width:200px", :onchange => "window.location='/list/'+this.value"
   %ul.plain
     %li= link_to "Manage My Lists", myaccount_path('mylists')
-    %li= link_to_function 'Share this list with friends and family', "$('#email_list').slideDown();$('#list_your_name').focus();"
+    %li= link_to 'Share this list with friends and family', "#email_list", :class => "lightbox"
 - if @users_list
-  #email_list.rounded{:style => "display:none"}
-    %h3 Share this list with friends and family
-    %p Complete the information below to email your friends and family a link to this list: 
-    %hr
-    %h3= @list.name
-    = form_tag({:controller => 'users', :action => 'email_list', :id => @list.id}, :remote => true, :id => 'email_list_form') do
-      .field
-        %strong Permalink:
-        = link_to list_url(@list)
-      .field
-        %strong From:
-        = get_user.email
-      .field
-        = required_field label_tag(:list_your_name, "Your Name:")
-        %br
-        = text_field_tag :list_your_name, get_user.name, :size => 100
-      .field
-        = required_field label_tag(:list_to, "To:")
-        %small Separate email addresses with a comma.
-        %br
-        = text_field_tag :list_to, nil, :size => 100
-      .field
-        = label_tag(:list_note, "Note:")
-        %br
-        = text_area_tag :list_note, nil, :cols => 72, :rows => 10
-      .actions
-        = submit_tag "Send Email", :class => 'jqui_save'
-        = link_to_function 'cancel', "$('#email_list').slideUp()"
-    :javascript
-      var email_list_validator = $("#email_list_form").validate({ 
-          errorClass: "invalid",
-          rules: { 
-              "list_your_name": { 
-                  required: true
-              }, 
-              "list_to": { 
-                  required: true
-              },
-          }, 
-          success: function(label) { 
-              label.html(" ").addClass("checked"); 
-          },
-          submitHandler: function(form) {
-            $('#email_list_form').ajaxSubmit();
-          },
-      });
+  %div{:style => "display:none"}
+    #email_list
+      %h3 Share this list with friends and family
+      %p Complete the information below to email your friends and family a link to this list: 
+      %hr
+      %h3= @list.name
+      = form_tag({:controller => 'users', :action => 'email_list', :id => @list.id}, :remote => true, :id => 'email_list_form') do
+        .field
+          %strong Permalink:
+          = link_to list_url(@list)
+        .field
+          %strong From:
+          = get_user.email
+        .field
+          = required_field label_tag(:list_your_name, "Your Name:")
+          %br
+          = text_field_tag :list_your_name, get_user.name, :size => 40
+        .field
+          = required_field label_tag(:list_to, "To:")
+          %small Separate email addresses with a comma.
+          %br
+          = text_area_tag :list_to, nil, :cols => 60, :rows => 2
+        .field
+          = label_tag(:list_note, "Note:")
+          %br
+          = text_area_tag :list_note, nil, :cols => 60, :rows => 10
+        .actions
+          = submit_tag "Send Email", :class => 'jqui_button'
+          = link_to_function 'Cancel', "$.fancybox.close();", :class => "jqui_cancel"
+      :javascript
+        var email_list_validator = $("#email_list_form").validate({ 
+            errorClass: "invalid",
+            rules: { 
+                "list_your_name": { 
+                    required: true
+                }, 
+                "list_to": { 
+                    required: true
+                },
+            }, 
+            success: function(label) { 
+                label.html(" ").addClass("checked"); 
+            },
+            submitHandler: function(form) {
+              $('#email_list_form').ajaxSubmit();
+            },
+        });
 .products_grid
   .highlightable
     - if @list.products.blank?

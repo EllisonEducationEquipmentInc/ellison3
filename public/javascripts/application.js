@@ -39,7 +39,8 @@ function initialize_lightboxes(){
 			'speedIn'		:	500, 
 			'speedOut'		:	200, 
 			'overlayShow'	:	true,
-			'titleShow': false
+			'titleShow': false,
+			'onComplete' : function(){setTimeout("$.fancybox.resize()", 100)}
 		});
 }
 
@@ -192,7 +193,7 @@ $(document).ready(function(){
     });
   });
   
-  //jqueryui tables
+  // jqueryui tables
   $("table").each(function() {
     $(this).addClass("ui-widget ui-widget-content ui-corner-all");
   });

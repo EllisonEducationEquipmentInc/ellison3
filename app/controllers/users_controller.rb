@@ -167,7 +167,7 @@ class UsersController < ApplicationController
 	  else
 	    raise "Unable to send email. Please make sure that you have specified Your name and entered a valid recipient email address."
 	  end
-	  render :js => "$('#email_list_form').resetForm();$('#email_list').slideUp();alert('Your email has been sent to: #{params[:list_to]}')"
+	  render :js => "$('#email_list_form').resetForm();$.fancybox.close();alert('Your email has been sent to: #{params[:list_to]}')"
 	rescue Exception => e
 		render :js => "alert('#{e.message}')"
 	end
