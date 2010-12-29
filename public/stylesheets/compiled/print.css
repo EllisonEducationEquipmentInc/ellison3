@@ -481,7 +481,7 @@ body.bp .item_cross-sell h4 a.minilink {
 }
 /* line 492, ../../../app/stylesheets/partials_app/_catalog.scss */
 .highlightable.listview .item-block.product .item_description {
-  width: 500px;
+  width: 460px;
 }
 /* line 495, ../../../app/stylesheets/partials_app/_catalog.scss */
 .highlightable.listview .item-block.idea .item_description {
@@ -499,7 +499,7 @@ body.bp .item_cross-sell h4 a.minilink {
 .highlightable.listview .item-block .cart-buttons {
   position: absolute;
   bottom: 0px;
-  left: 637px;
+  left: 600px;
   margin: 8px;
   width: auto;
 }
