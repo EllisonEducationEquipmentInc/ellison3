@@ -576,7 +576,7 @@ var payment_validator_options = {
       $('#proceed_checkout').callRemote();
 			// $('#proceed_checkout').ajaxSubmit();
       _gaq.push(['_trackEvent', 'Cart', 'Place Order']);
-      fancyloader('your order is being processed. please wait...');
+      fancyloader('Your order is being processed. Thank you for your patience!');
     },
     
     messages: {
