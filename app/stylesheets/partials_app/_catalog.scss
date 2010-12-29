@@ -1,7 +1,7 @@
 // Ellison3 Web Application Catalog Page CSS
 
 body.bp {
-  .products_filter, .products_grid {
+  .products_grid {
     
     h3 {
       margin: 2px 0 10px 0;
@@ -182,17 +182,18 @@ body.bp {
 
 // catalog filter column
 #products_filter {
+  
+  #keyword {
+    margin: 5px 0 15px 0;
+  }
+  
   h3 {
-    margin: 16px 0 12px 0;
+    margin: 0;
     text-transform: uppercase;
     font-size: 1.1em;
     font-weight: bold;
   }
   
-  .facets {
-    margin-top: 15px;
-  }
-
   h4 {
     margin: 7px 0 0 0;
     text-transform: uppercase;

@@ -28,14 +28,14 @@
         if ($('.add_to_cart_checkbox:checked').length > 0){$('#add_checked_to_cart').show()} else {$('#add_checked_to_cart').hide()};
         $('#add_all_selected_to_cart').button({label: 'Add All '+$('.add_to_cart_checkbox:checked').length+' Selected To Cart'});
       }
-- if @search.total < 1
-  == We're sorry, we found 0 matching #{@klass}s
-  - if !@search.correctly_spelled? && @search.spell_collation
-    %p 
-      Did you mean? 
-      = link_to_function @search.spell_collation, "location.hash = $.param.fragment( location.hash, {q: '#{@search.spell_collation}'}, 0 )"
 .clear
-.highlightable= render @products
+.highlightable
+  - if @search.total < 1
+    %p
+      %strong== We're sorry, we found 0 matching #{@klass}s
+    - if !@search.correctly_spelled? && @search.spell_collation
+      %p== Did you mean #{link_to_function @search.spell_collation, "location.hash = $.param.fragment( location.hash, {q: '#{@search.spell_collation}'}, 0 )"}?
+  = render @products
 .clear
 .right.dontprint
   %strong Items Per Page:
