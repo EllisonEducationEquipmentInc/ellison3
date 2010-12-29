@@ -357,7 +357,7 @@ body.bp .item_cross-sell h4 a.minilink {
 .item-block .list_actions {
   text-align: left;
   position: absolute;
-  left: 125px;
+  left: 118px;
   top: 4px;
   z-index: 250;
 }
@@ -515,7 +515,7 @@ body.bp .item_cross-sell h4 a.minilink {
 /* line 523, ../../../app/stylesheets/partials_app/_catalog.scss */
 .highlightable.listview .item-block .list_actions {
   top: 8px;
-  left: 713px;
+  left: 677px;
 }
 
 /* line 531, ../../../app/stylesheets/partials_app/_catalog.scss */
@@ -720,6 +720,18 @@ select#sort, input#select_all_products {
 }
 
 /* line 4, ../../../app/stylesheets/partials/_layout_content_products.scss */
+.sidebar {
+  display: inline;
+  float: left;
+  margin-right: 10px;
+  width: 190px;
+}
+/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p0@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html .sidebar {
+  overflow-x: hidden;
+}
+
+/* line 6, ../../../app/stylesheets/partials/_layout_content_products.scss */
 .products_grid {
   display: inline;
   float: left;
@@ -731,7 +743,7 @@ select#sort, input#select_all_products {
   overflow-x: hidden;
 }
 
-/* line 8, ../../../app/stylesheets/partials/_layout_content_products.scss */
+/* line 10, ../../../app/stylesheets/partials/_layout_content_products.scss */
 #checkout_shipping {
   display: inline;
   float: left;
@@ -743,7 +755,7 @@ select#sort, input#select_all_products {
   overflow-x: hidden;
 }
 
-/* line 10, ../../../app/stylesheets/partials/_layout_content_products.scss */
+/* line 12, ../../../app/stylesheets/partials/_layout_content_products.scss */
 #checkout_billing {
   display: inline;
   float: left;
@@ -755,7 +767,7 @@ select#sort, input#select_all_products {
   overflow-x: hidden;
 }
 
-/* line 12, ../../../app/stylesheets/partials/_layout_content_products.scss */
+/* line 14, ../../../app/stylesheets/partials/_layout_content_products.scss */
 #checkout_summary {
   display: inline;
   float: left;
@@ -767,7 +779,7 @@ select#sort, input#select_all_products {
   overflow-x: hidden;
 }
 
-/* line 14, ../../../app/stylesheets/partials/_layout_content_products.scss */
+/* line 16, ../../../app/stylesheets/partials/_layout_content_products.scss */
 #checkout_cc {
   display: inline;
   float: left;
@@ -779,7 +791,7 @@ select#sort, input#select_all_products {
   overflow-x: hidden;
 }
 
-/* line 16, ../../../app/stylesheets/partials/_layout_content_products.scss */
+/* line 18, ../../../app/stylesheets/partials/_layout_content_products.scss */
 #checkout_shipping_options {
   display: inline;
   float: left;

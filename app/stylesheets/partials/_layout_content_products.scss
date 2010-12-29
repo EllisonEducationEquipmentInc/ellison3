@@ -1,6 +1,8 @@
 // catalog results
 #products_filter {
   @include column(5); }
+.sidebar {
+  @include column(5); }
 .products_grid {
   @include column(19, true); }
   
@@ -15,5 +17,4 @@
   @include column(16); }
 #checkout_shipping_options {
   @include column(8, true);
-  float: right;
-}
+  float: right; }

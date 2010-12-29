@@ -9,6 +9,7 @@
         %th{:width => 70} Item Name
         %th{:width => 400}
         - if !request.xhr?
+          %th{:width => 200} Move
           %th{:style => "text-align: right", :width => 75} Retail Price
         %th{:style => "text-align: right", :width => 75} You Paid
         %th{:style => "text-align: right", :width => 70} Quantity
@@ -21,6 +22,7 @@
         %td
         %td
         - if !request.xhr?
+          %td
           %td
         %td
         %td{:style => "text-align: right", :class => "cart_extended_price"} Subtotal:
