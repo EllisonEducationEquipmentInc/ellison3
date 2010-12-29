@@ -435,10 +435,10 @@ body.bp {
 	  }
 	  	  
 	  .users_lists_container {
-	    width: $item-block-width + 11;
+	    width: $item-block-width + 2;
       position: absolute;
       bottom: 0px;
-      left: -6px;
+      left: -4px;
 	  }
 	}	
 }
@@ -517,7 +517,7 @@ body.bp {
       
   	  .users_lists_container {
   	    position: absolute;
-  	    left: -74px;
+  	    left: -61px;
   	  }
   	  
   	  .list_actions {

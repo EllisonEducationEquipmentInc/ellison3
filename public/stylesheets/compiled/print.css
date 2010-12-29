@@ -427,10 +427,10 @@ body.bp .item_cross-sell h4 a.minilink {
 }
 /* line 437, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item-block .cart-buttons .users_lists_container {
-  width: 174px;
+  width: 165px;
   position: absolute;
   bottom: 0px;
-  left: -6px;
+  left: -4px;
 }
 
 /* line 446, ../../../app/stylesheets/partials_app/_catalog.scss */
@@ -510,7 +510,7 @@ body.bp .item_cross-sell h4 a.minilink {
 /* line 518, ../../../app/stylesheets/partials_app/_catalog.scss */
 .highlightable.listview .item-block .users_lists_container {
   position: absolute;
-  left: -74px;
+  left: -61px;
 }
 /* line 523, ../../../app/stylesheets/partials_app/_catalog.scss */
 .highlightable.listview .item-block .list_actions {
