@@ -456,7 +456,7 @@ class Product
 	
 	def related_tag
 	  if self.related_product_tag.blank?
-	    tags.available.send(is_ee? ? :subcurriculums : :themes).first || tags.available.product_lines.first
+	    tags.available.send(is_ee? ? :subcurriculums : :themes).first || tags.available.categories.first
 	  else
 	    Tag.find(self.related_product_tag)
 	  end
