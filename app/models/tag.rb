@@ -35,8 +35,6 @@ class Tag
 	field :banner
 	field :list_page_image
 	field :medium_image
-	field :calendar_start_date, :type => DateTime
-	field :calendar_end_date, :type => DateTime
 	field :all_day, :type => Boolean
 	field :old_id, :type => Integer
 	field :old_id_edu, :type => Integer
@@ -51,6 +49,8 @@ class Tag
 	ELLISON_SYSTEMS.each do |system|
 	  index :"start_date_#{system}"
 	  index :"end_date_#{system}"
+	  field :"calendar_start_date_#{system}", :type => DateTime
+  	field :"calendar_end_date_#{system}", :type => DateTime
 	end
 	index :image_filename
 	index :updated_at
