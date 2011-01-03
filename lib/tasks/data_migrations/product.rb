@@ -51,6 +51,14 @@ module OldData
       STORE_VALUES = {  '<a href="/contact">Call now to place your order</a>' => "cntpyo", '<a href="/stores">Check Your Local Craft Store</a>' => "cylcs",  '<a href="/stores">Available at your Local Retailer</a>' => "retailer",  '<a href="/stores">Coming soon to your local Retailer</a>' => 'soon'}
       ADMIN_STORE_VALUES = { "Call now to place your order" => "cntpyo", "Check Your Local Craft Store" => "cylcs", "Available at your Local Retailer" => 'retailer', "Coming soon to your local Retailer" => 'soon', "Custom" => "custom"} 
     end
+    
+    def store_values
+      if is_us?
+        {  '<a href="/contact">Call now to place your order</a>' => "cntpyo", '<a href="/stores">Check Your Local Craft Store</a>' => "cylcs",  '<a href="/stores">Available at your Local Retailer</a>' => "retailer", '<a href="http://www.stampinup.com/ECWeb/CategoryPage.aspx?categoryID=180" target="_blank">Stampin\' Up! Exclusive Product</a>' => 'stampin'}
+      else
+        {  '<a href="/contact">Call now to place your order</a>' => "cntpyo", '<a href="/stores">Check Your Local Craft Store</a>' => "cylcs",  '<a href="/stores">Available at your Local Retailer</a>' => "retailer",  '<a href="/stores">Coming soon to your local Retailer</a>' => 'soon'}
+      end
+    end
 
     has_many :products_tabs, :order => "display_order, id", :dependent => :destroy
     has_many :tabs, :through => :products_tabs, :order => "products_tabs.display_order, products_tabs.id", :uniq => true
@@ -459,7 +467,7 @@ module OldData
       if store == 'custom'
         availability_message
       else
-        STORE_VALUES.index(store)
+        store_values.key(store)
       end
     end
 
