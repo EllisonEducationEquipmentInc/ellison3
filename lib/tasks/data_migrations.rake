@@ -59,7 +59,7 @@ namespace :data_migrations do
       old_product.tabs.not_deleted.each do |tab|
         next if product.tabs.where(:name => tab.name).count > 0
         new_tab = product.tabs.build 
-        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ELLISON_SYSTEMS, :active => tab.active, :text => tab.freeform
+        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ["szus", "szuk", "er"], :active => tab.active, :text => tab.freeform
         process_tab(tab,new_tab)
         p new_tab.save
         p new_tab.errors
@@ -216,7 +216,7 @@ namespace :data_migrations do
       old_product.tabs.not_deleted.each do |tab|
         next if product.tabs.where(:name => tab.name).count > 0
         new_tab = product.tabs.build 
-        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ELLISON_SYSTEMS, :active => tab.active, :text => tab.freeform
+        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled =>  ["eeus", "eeuk", "er"], :active => tab.active, :text => tab.freeform
         process_tab(tab,new_tab)
         p new_tab.save
         p new_tab.errors
@@ -337,7 +337,7 @@ namespace :data_migrations do
       old_idea.idea_tabs.not_deleted.each do |tab|
         next if idea.tabs.where(:name => tab.name).count > 0
         new_tab = idea.tabs.build 
-        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ELLISON_SYSTEMS, :active => tab.active, :text => tab.freeform
+        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ["eeus", "eeuk", "er"], :active => tab.active, :text => tab.freeform
         process_tab(tab,new_tab,"edu")
         p new_tab.save
         p new_tab.errors
