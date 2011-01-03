@@ -109,7 +109,7 @@ class Idea
 		string :systems_enabled, :multiple => true
     ELLISON_SYSTEMS.each do |system|
       # system specific facets: ex: theme_szus
-      Tag::TYPES.each do |e|
+      Tag.all_types.each do |e|
     		string :"#{e}_#{system}", :multiple => true, :references => TagFacet do
     		  send(e.to_s.pluralize, system).map {|t| "#{t.tag_type}~#{t.permalink}"}
     		end
@@ -131,7 +131,7 @@ class Idea
 	end
 	
 	# create tags association methods by name: @product.categories #=> Array of associated "category" tags for the current system. Pass optional system as an argument to get available tags for other systems:  @product.categories("szuk")
-	Tag::TYPES.each do |e|
+	Tag.all_types.each do |e|
 		class_eval "def #{e.to_s.pluralize}(sys = current_system)\n tags.available(sys).send(\"#{e.to_s.pluralize}\") \n end"
 	end
 	

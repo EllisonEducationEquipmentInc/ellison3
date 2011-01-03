@@ -9,7 +9,7 @@
     = f.check_box :active
   .field
     = f.label :tag_type
-    = f.select :tag_type, Tag::TYPES.map {|t| [t.humanize, t]}, {}, :onchange => "if (this.value == 'special') {$('#new_campaign').show();$('#tag_embed_campaign').attr('checked', true)} else {$('#new_campaign').hide()}"
+    = f.select :tag_type, Tag.all_types.map {|t| [t.humanize, t]}, {}, :onchange => "if (this.value == 'special') {$('#new_campaign').show();$('#tag_embed_campaign').attr('checked', true)} else {$('#new_campaign').hide()}"
   #new_campaign{:style => "display:#{@tag.campaign? ? 'block' : 'none'}"}
     .field
       = f.label :embed_campaign, "Embed/update campaign"

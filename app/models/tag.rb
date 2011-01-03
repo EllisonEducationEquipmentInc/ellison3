@@ -7,8 +7,8 @@ class Tag
 	
 	attr_accessor :embed_campaign
 	
-	TYPES = ["artist", "category", "curriculum", "designer", "exclusive", "machine_compatibility", "material_compatibility", "product_family", "product_line", "special", "subcategory", "subcurriculum", "subtheme", "theme", "release_date", "size"]
-  HIDDEN_TYPES = ["exclusive", "calendar", "calendar_event"]
+	TYPES = ["artist", "category", "curriculum", "designer", "machine_compatibility", "material_compatibility", "product_family", "product_line", "special", "subcategory", "subcurriculum", "subtheme", "theme", "release_date", "size"]
+  HIDDEN_TYPES = ["exclusive", "calendar_event"]
   
   references_many :products, :stored_as => :array, :inverse_of => :tags, :index => true
   references_many :ideas, :stored_as => :array, :inverse_of => :tags, :index => true
@@ -70,6 +70,10 @@ class Tag
 	
 	class << self
 		
+		def all_types
+		  Tag::TYPES + Tag::HIDDEN_TYPES
+		end
+		  
 		def available(sys = current_system)
 			active.where(:systems_enabled.in => [sys], :"start_date_#{sys}".lte => Time.zone.now.change(:sec => 1), :"end_date_#{sys}".gte => Time.zone.now.change(:sec => 1))
 		end
