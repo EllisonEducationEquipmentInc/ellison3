@@ -845,6 +845,12 @@ namespace :data_migrations do
     end
   end
   
+  desc "calendar events only for EEUS"
+  task :calendar_events_eeus_only => [:set_edu, :load_dep] do
+    set_current_system "eeus"
+    Tag.calendar_events.each {|e| p e.update_attributes :systems_enabled => ["eeus"]}
+  end
+  
   task :set_edu do
     ENV['SYSTEM'] = "edu"
   end
