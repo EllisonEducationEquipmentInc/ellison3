@@ -39,6 +39,7 @@ class Tag
 	field :old_id, :type => Integer
 	field :old_id_edu, :type => Integer
 	field :color
+	field :keywords
 	
 	index :systems_enabled
 	index :permalink
