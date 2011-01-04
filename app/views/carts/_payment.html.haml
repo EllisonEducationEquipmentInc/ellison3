@@ -83,7 +83,8 @@
   :javascript
     var button_label = "Place Order";
     $(document).ready(function() { 
-        initialize_buttons();
+        $(".jqui_save").button({icons: {primary: 'ui-icon-disk'}});
+        //initialize_buttons();
         order_comment();
         $('#proceed_checkout').validate(payment_validator_options);
     });
