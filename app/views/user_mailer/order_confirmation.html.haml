@@ -72,19 +72,17 @@
     %td{ :align => "right"}
       %strong= number_to_currency @order.gross_subtotal_amount
   %tr
-    %td{ :colspan => "4", :align => "right" }== Shipping & Handling (#{@order.shipping_service.try :humanize}):
-    %td{ :align => "right"}
-      %strong= number_to_currency @order.gross_shipping_amount
+    %td{ :colspan => "4", :align => "right" }== Shipping & Handling (#{@order.shipping_service.try :humanize})
+    %td{ :align => "right"}= number_to_currency @order.gross_shipping_amount
   %tr
-    %td{ :colspan => "4", :align => "right" } Shipping & Handling Surcharge:
-    %td{ :align => "right"}
-      %strong= number_to_currency @order.handling_amount
+    %td{ :colspan => "4", :align => "right" } Shipping & Handling Surcharge
+    %td{ :align => "right"}= number_to_currency @order.handling_amount
   %tr
-    %td{ :colspan => "4", :align => "right" }== #{t :estimated_tax}:
-    %td{ :align => "right"}
-      %strong= number_to_currency @order.tax_amount
+    %td{ :colspan => "4", :align => "right" }== #{t :estimated_tax}
+    %td{ :align => "right"}= number_to_currency @order.tax_amount
   %tr
-    %td{ :colspan => "4", :align => "right" } TOTAL:
+    %td{ :colspan => "4", :align => "right" }
+      %strong TOTAL
     %td{ :align => "right"}
       %strong= number_to_currency @order.total_amount
   %tr
