@@ -1,3 +1,14 @@
+# module ActionDispatch
+#   module Session
+#     class AbstractStore
+#       private
+#       
+#       def method_name
+#         
+#       end
+#     end
+#   end
+# end
 CarrierWave.configure do |config|
 	config.ignore_processing_errors = false
 	config.ignore_integrity_errors = false
