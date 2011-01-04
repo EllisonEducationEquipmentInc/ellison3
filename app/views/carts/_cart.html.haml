@@ -11,7 +11,7 @@
         - if !request.xhr?
           %th{:width => 200} Move
           %th{:style => "text-align: right", :width => 75} Retail Price
-        %th{:style => "text-align: right", :width => 75} You Paid
+        %th{:style => "text-align: right", :width => 75} You Pay
         %th{:style => "text-align: right", :width => 70} Quantity
         %th{:style => "text-align: right", :width => 75} Total Price
         %th
@@ -62,9 +62,9 @@
       $(this).addClass("ui-state-hover");
     });
 
-  #cart_coupon= render :partial => "carts/coupon"
-  %br
   - unless @cart_locked
+    #cart_coupon= render :partial => "carts/coupon"
+    %br
     - if get_cart.pre_order?
       %p.error There are items in the cart that are available for pre-order only. If you would like to place a pre-order please click "Pre-Order". For immediate shipping please remove these items.
     - if quote_allowed?
@@ -99,3 +99,5 @@
               $.ajax({url:"#{quote_requested_path}", complete: function(){$.fancybox.resize()}});
         		});
       });
+  - else
+    .right= link_to 'Edit Cart', cart_path

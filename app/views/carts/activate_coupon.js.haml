@@ -6,6 +6,7 @@ setTimeout("$.fancybox.resize()", 100);
 }
 if ($('#review_bag').length > 0) {
 - @cart_locked = true
+== $('#cart_coupon').html('#{escape_javascript(render(:partial => "carts/coupon"))}');
 == $('#cart_contents').html('#{escape_javascript(render(:partial => "carts/cart"))}');
 == $('#shipping_options').html('#{escape_javascript(render(:partial => "carts/shipping_options"))}');
 == $('#cart_shipping').html('#{escape_javascript(render(:partial => "carts/shipping_amount"))}');

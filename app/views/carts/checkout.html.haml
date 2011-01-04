@@ -28,27 +28,15 @@
     You have
     %strong
       %em
-        =pluralize get_cart.total_quantity, "item"
+        = pluralize get_cart.total_quantity, "item"
     == in your shopping #{(t :cart)} 
-    = link_to "review #{(t :cart)}", "#", :class => "review_cart minilink"
+    = link_to "review #{(t :cart)}", "#", :class => "review_cart minilink", :id => 'review_bag'
   %p
-    Have a Coupon Code?
-    = link_to "Add it now! &raquo;".html_safe, "#", :class => "review_cart"
+    #cart_coupon= render :partial => "carts/coupon"
+    %br
   :javascript
     $('.review_cart').click(function(){
-      $.fancybox({
-    			'padding'		: 10,
-    			'autoScale'		: false,
-    			'scrolling' : 'auto',
-    			'speedIn'		:	500, 
-    			'speedOut'		:	200,
-    			'href' 	: '/cart?locked=1',
-    			'width'	: 860,
-    			'autoDimensions': true,
-    			'title'			: false,
-    			'onComplete' : function(){setTimeout("$.fancybox.resize()", 100)}
-    		});
-    	setTimeout("$.fancybox.resize()", 900);
+      $('html, body').animate({ scrollTop: $("#checkout_cart").offset().top }, 500);
     	return false;
     })
     
@@ -70,4 +58,9 @@
     #shipping_options= render :partial => "shipping_options" if get_user.shipping_address
   %h3 Payment
   #checkout_cc{:style => "display:#{get_user.billing_address && get_user.shipping_address ? 'block' : 'none'}"}= render :partial => 'payment' if get_user.billing_address && get_user.shipping_address
+.clear
+#checkout_cart
+  = link_to_function "top", "$('html, body').animate({ scrollTop: 0 }, 500);"
+  .right= link_to 'Edit Cart', cart_path
+  #cart_contents= render :partial => 'cart'
 %iframe{:style =>"height:0px;width:0px;visibility:hidden", :src=>"about:blank"} this frame prevents back forward cache 
