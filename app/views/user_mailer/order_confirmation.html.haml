@@ -1,77 +1,100 @@
-.left
-  %h3 Billing Address
-  %ul
-    %li= @order.payment.company
-    %li== #{@order.payment.first_name} #{@order.payment.last_name}
-    %li= @order.payment.address1
-    %li= @order.payment.address2
-    %li= @order.payment.city
-    %li= @order.payment.state
-    %li= @order.payment.zip_code
-    %li= @order.payment.country
-    %li= @order.payment.phone
-.left
-  %h3 Shipping Address
-  %ul
-    %li= @order.address.company
-    %li== #{@order.address.first_name} #{@order.address.last_name}
-    %li= @order.address.address1
-    %li= @order.address.address2
-    %li= @order.address.city
-    %li= @order.address.state
-    %li= @order.address.zip_code
-    %li= @order.address.country
-    %li= @order.address.phone
-.left
-  %h3 Details
-  %strong Order Number:
-  = @order.public_order_number
-  %br
-  %strong Web Customer Number:
-  = @order.user.id
-  %br
-  %strong Order Date:
-  = l @order.created_at, :format => :custom
-  %br
-  %strong Status:
-  = @order.status
-  %br
-.clear
-%table
+%table{ :border => "0", :cellspacing => "0", :cellpadding => "0" }
   %tr
-    %th Item No.
-    %th Item Name
-    %th Quantity
-    %th Item Price
-    %th Item Subtotal
+    %td{ :colspan => "3"}
+      %h1.primary-heading Thank you for your order!
+  %tr
+    %td.threecol.first
+      %h3.secondary-heading Billing Address
+      %p
+        - unless @order.payment.company.blank?
+          = @order.payment.company
+          %br
+        == #{@order.payment.first_name} #{@order.payment.last_name}
+        %br
+        = @order.payment.address1
+        %br
+        - unless @order.payment.address2.blank?
+          = @order.payment.address2
+          %br
+        == #{@order.payment.city}, #{@order.payment.state} #{@order.payment.zip_code}
+        %br
+        = @order.payment.country
+        %br
+        = @order.payment.phone
+    %td.threecol
+      %h3.secondary-heading Shipping Address
+      %p
+        - unless @order.address.company.blank?
+          %li= @order.address.company
+          %br
+        == #{@order.address.first_name} #{@order.address.last_name}
+        %br
+        = @order.address.address1
+        %br
+        - unless @order.address.address2.blank?
+          = @order.address.address2
+          %br
+        == #{@order.address.city}, #{@order.address.state} #{@order.address.zip_code}
+        %br
+        = @order.address.country
+        %br
+        = @order.address.phone
+    %td.threecol.last
+      %h3.secondary-heading Details
+      %strong Order Number:
+      = @order.public_order_number
+      %br
+      %strong Web Customer Number:
+      = @order.user.id
+      %br
+      %strong Order Date:
+      = l @order.created_at, :format => :custom
+      %br
+      %strong Status:
+      = @order.status
+%table{ :border => "0", :width => "100%", :cellspacing => "0", :cellpadding => "0" }
+  %tr
+    %th{ :width => "60", :align => "left" } Item No.
+    %th{ :align => "left" } Item Name
+    %th{ :width => "40", :align => "center" } Qty
+    %th{ :width => "55", :align => "right" } Price
+    %th{ :width => "70", :align => "right" } Subtotal
   - @order.order_items.each do |item|
     %tr{:class => cycle('odd', 'even')}
-      %td= item.item_num
-      %td= item.name
-      %td= item.quantity
-      %td= number_to_currency item.gross_price
-      %td= number_to_currency item.item_total
-Subtotal:
-= number_to_currency @order.gross_subtotal_amount
-%br
-== Shipping & Handling (#{@order.shipping_service.try :humanize}):
-= number_to_currency @order.gross_shipping_amount
-%br
-Shipping & Handling Surcharge:
-= number_to_currency @order.handling_amount
-%br
-== #{t :estimated_tax}:
-= number_to_currency @order.tax_amount
-%br
-ESTIMATED TOTAL:
-= number_to_currency @order.total_amount
-%br
-%br
-This order was charged to:
-%br
-- if @order.payment.try(:purchase_order)
-  %strong Purchase Order
-  = @order.payment.purchase_order_number
-- else
-  = @order.payment.card_name
-  == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
+      %td{ :width => "60", :align => "left" }= item.item_num
+      %td{ :align => "left" }= item.name
+      %td{ :width => "40", :align => "center" }= item.quantity
+      %td{ :width => "55", :align => "right" }= number_to_currency item.gross_price
+      %td{ :width => "70", :align => "right" }= number_to_currency item.item_total
+  %tr
+    %td{ :colspan => "4", :align => "right" }
+      %strong Subtotal
+    %td{ :align => "right"}
+      %strong= number_to_currency @order.gross_subtotal_amount
+  %tr
+    %td{ :colspan => "4", :align => "right" }== Shipping & Handling (#{@order.shipping_service.try :humanize}):
+    %td{ :align => "right"}
+      %strong= number_to_currency @order.gross_shipping_amount
+  %tr
+    %td{ :colspan => "4", :align => "right" } Shipping & Handling Surcharge:
+    %td{ :align => "right"}
+      %strong= number_to_currency @order.handling_amount
+  %tr
+    %td{ :colspan => "4", :align => "right" }== #{t :estimated_tax}:
+    %td{ :align => "right"}
+      %strong= number_to_currency @order.tax_amount
+  %tr
+    %td{ :colspan => "4", :align => "right" } TOTAL:
+    %td{ :align => "right"}
+      %strong= number_to_currency @order.total_amount
+  %tr
+    %td{ :colspan => "4", :align => "left" }
+      This order was charged to:
+      %strong
+        - if @order.payment.try(:purchase_order)
+          %strong Purchase Order
+          = @order.payment.purchase_order_number
+        - else
+          = @order.payment.card_name
+          == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
+    %td{ :align => "right"}

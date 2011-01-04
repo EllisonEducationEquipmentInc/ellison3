@@ -4,47 +4,71 @@
     %meta{:content => "text/html; charset=UTF-8", 'http-equiv' => "Content-Type"}
     %style{:type => "text/css", :media => "screen"}
       :plain
-        html, body {
-          margin: 0;
-          padding: 0;
-          border: 0;
-          font-weight: inherit;
-          font-style: inherit;
-          font-size: 100%;
-          font-family: inherit;
-          vertical-align: baseline;
+        body,#wrap {
+          background-color: #e1d7c7;
+        }
+        td, th {
+          font-size: 11px;
+          vertical-align: top;
+        }
+        #layout {
+          margin: 10px auto 30px;
+          text-align: left;
+        }
+        #message {
+          font-size: 13px;
+          background: #fff;
+          color: #444;
+          font-style: normal;
+          font-weight: normal;
+          font-family: Helvetica;
+          line-height: 1.4em;
+          padding: 10px 20px 30px;
+          vertical-align: top;
+        }
+        #message .primary-heading,.content .primary-heading {
+          font-size: 22px;
+          font-weight: normal;
+          color: #333;
+          font-family: Georgia;
+          line-height: 150%;
+          text-align: left;
+          margin: 10px 0px;
+        }
+        #message .secondary-heading,.content .secondary-heading {
+          font-size: 18px;
+          font-weight: normal;
+          color: #333;
+          font-style: normal;
+          font-family: Georgia;
+          text-align: left;
+          margin-bottom: 15px;
+        }
+        #content {
+          padding-bottom: 20px;
+        }
+        td.threecol {
+          width: 28%;
+          padding-right: 10px;
+          padding-left: 10px;
+          color: #444;
+          padding-top: 10px;
+          border-right: 1px solid #ccc;
+        }
+        td.first {
+          padding-left:0;
+          width:25%;
+        }
+        td.last {
+          padding-right:0px;
+          margin-right:0px;
+          border:0;
         }
 
-        html {
-          margin: 10px;
-          font-size: 100.01%;
-        }
-
-        body.bp {
-          line-height: 1.5;
-          font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-          color: #000000;
-          font-size: 75%;
-        }
-      
-        body.bp h1, body.bp h2, body.bp h3, body.bp h4, body.bp h5, body.bp h6 {
-          margin: 0;
-          padding: 0;
-        }
-      
-        body.bp ul {
-          margin: 0;
-        }
-
-
-
-      
-        body {
-          width: 600px;
-        }      
-    
   %body.bp
-    Note: app/views/layouts/user_mailer.html.haml is the common layout for all UserMailer emails. Put common header/footer/frame there.
-    Call system specific partials here:
-    / = render :partial => "layouts/mail/header_#{current_system}"
-    = yield
+    %center
+      #wrap
+        %table#layout{:border => "0", :cellspacing => "0", :cellpadding => "0", :width => "600" }
+          %tr
+            %td#message
+              = yield
