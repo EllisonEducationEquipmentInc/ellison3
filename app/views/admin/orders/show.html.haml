@@ -1,31 +1,43 @@
 %h2== Order - #{@order.id}
 .back= link_to "Back to Orders", admin_orders_path
 - I18n.locale = @order.locale
-.left
+.contentwrap_medium
   %h3 Billing Address
-  %ul
-    %li= @order.payment.company
-    %li== #{@order.payment.first_name} #{@order.payment.last_name}
-    %li= @order.payment.address1
-    %li= @order.payment.address2
-    %li= @order.payment.city
-    %li= @order.payment.state
-    %li= @order.payment.zip_code
-    %li= @order.payment.country
-    %li= @order.payment.phone
-.left
+  %p
+    - unless @order.payment.company.blank?
+      = @order.payment.company
+      %br
+    == #{@order.payment.first_name} #{@order.payment.last_name}
+    %br
+    = @order.payment.address1
+    %br
+    - unless @order.payment.address2.blank?
+      = @order.payment.address2
+      %br
+    == #{@order.payment.city}, #{@order.payment.state} #{@order.payment.zip_code}
+    %br
+    = @order.payment.country
+    %br
+    = @order.payment.phone
+.contentwrap_medium
   %h3 Shipping Address
-  %ul
-    %li= @order.address.company
-    %li== #{@order.address.first_name} #{@order.address.last_name}
-    %li= @order.address.address1
-    %li= @order.address.address2
-    %li= @order.address.city
-    %li= @order.address.state
-    %li= @order.address.zip_code
-    %li= @order.address.country
-    %li= @order.address.phone
-.left
+  %p
+    -  unless @order.address.company.blank?
+      = @order.address.company
+      %br
+    == #{@order.address.first_name} #{@order.address.last_name}
+    %br
+    = @order.address.address1
+    %br
+    - unless @order.address.address2.blank?
+      = @order.address.address2
+      %br
+    == #{@order.address.city}, #{@order.address.state} #{@order.address.zip_code}
+    %br
+    = @order.address.country
+    %br
+    = @order.address.phone
+.contentwrap_medium.last
   %h3 Details
   %strong System:
   = @order.system
@@ -87,32 +99,33 @@
       %td= number_to_currency item.item_total
       %td= item.custom_price
       %td= item.coupon_price
-Subtotal:
-= number_to_currency @order.gross_subtotal_amount
-%br
-== Shipping & Handling (#{@order.shipping_service.try :humanize}):
-%span#shipping_amount= number_to_currency @order.gross_shipping_amount
-%br
-Shipping & Handling Surcharge:
-= number_to_currency @order.handling_amount
-%br
-Estimated Sales Tax:
-%span#tax_amount= number_to_currency @order.tax_amount
-%br
-ESTIMATED TOTAL:
-%span#total_amount= number_to_currency @order.total_amount
-%br
-%br
-- if @order.payment.try(:purchase_order)
-  .error
-    %strong Purchase Order
-    = @order.payment.purchase_order_number
-    = link_to "download", @order.payment.attachment_url, :class => "link_download", :target => "_blank" if @order.payment.attachment
-- else
-  This order was charged to:
-  %br
-  = @order.payment.card_name
-  == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
+.contentwrap_XL &nbsp;
+%ul.plain.cart_summary.contentwrap_medium.last
+  %li
+    Subtotal:
+    %span.right= number_to_currency @order.gross_subtotal_amount
+  %li
+    == Shipping & Handling (#{@order.shipping_service.try :humanize}):
+    %span.right#shipping_amount= number_to_currency @order.gross_shipping_amount
+  %li
+    Shipping & Handling Surcharge:
+    %span.right= number_to_currency @order.handling_amount
+  %li
+    Sales Tax:
+    %span.right#tax_amount= number_to_currency @order.tax_amount
+  %li#cart_total
+    TOTAL:
+    %span.right#total_amount.amount= number_to_currency @order.total_amount
+  %li    
+    - if @order.payment.try(:purchase_order)
+      .error
+        %strong Purchase Order
+        = @order.payment.purchase_order_number
+        = link_to "download", @order.payment.attachment_url, :class => "link_download", :target => "_blank" if @order.payment.attachment
+    - else
+      This order was charged to:
+      = @order.payment.card_name
+      == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
 %br
 %br
 - if @order.coupon
