@@ -1,4 +1,7 @@
-%p
-  Welcome #{@resource.email}!
-%p You can confirm your account through the link below:
-%p= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token, :host => get_domain)
+%table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
+  %tr
+    %td
+      %p
+        Welcome #{@resource.email}!
+      %p You can confirm your account through the link below:
+      %p= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token, :host => get_domain)

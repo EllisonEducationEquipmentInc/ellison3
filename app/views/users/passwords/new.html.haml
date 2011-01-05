@@ -1,9 +1,10 @@
-%h2 Forgot your password?
+%h2 Did you forget your password?
+%p Dont worry! It happens to the best of us. Thankfully, resetting it is quick and easy.
 = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
   = devise_error_messages!
   %p
-    = f.label :email
+    = f.label :email, "<strong>Just enter your email address below...</strong>".html_safe
     %br/
     = f.text_field :email
-  %p= f.submit "Send me reset password instructions"
+  %p= f.submit "Continue", :class => "jqui_button"
 = render :partial => "devise/shared/links"
