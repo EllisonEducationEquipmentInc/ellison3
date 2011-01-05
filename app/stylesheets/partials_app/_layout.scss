@@ -65,3 +65,11 @@
     }
   }
 }
+
+// iconified links
+.link_download {
+  display: inline-block;
+  height: 16px;
+  padding-right: 18px;
+  background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_document-download.png") no-repeat right bottom;
+}

@@ -64,14 +64,26 @@
           margin-right:0px;
           border:0;
         }
-
+        td.twocol-left {
+          width: 50%;
+          padding-right: 10px;
+          color: #444;
+          padding-top: 10px;
+          border-right: 1px solid #ccc;
+        }
+        td.twocol-right {
+          padding-left: 20px;
+          color: #444;
+          padding-top: 10px;
+        }
+      
   %body.bp
     %center
       #wrap
-        %table#layout{:border => "0", :cellspacing => "0", :cellpadding => "0", :width => "600" }
+        %table#layout{ :width => "600", :border => "0", :cellspacing => "0", :cellpadding => "0" }
           %tr
             %td#message
-              %table{ :border => "0", :cellspacing => "0", :cellpadding => "0", :width => "100%" }
+              %table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
                 %tr
                   %td= image_tag("http://www.#{get_domain}/images/ui-email/logo_#{current_system}.png", :alt => "#{system_name}", :title => "#{system_name}")
                   %td{ :align => "right" }

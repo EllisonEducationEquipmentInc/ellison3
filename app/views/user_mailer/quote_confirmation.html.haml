@@ -1,57 +1,69 @@
-.left
-  %h3 Shipping Address
-  %ul
-    %li= @quote.address.company
-    %li== #{@quote.address.first_name} #{@quote.address.last_name}
-    %li= @quote.address.address1
-    %li= @quote.address.address2
-    %li= @quote.address.city
-    %li= @quote.address.state
-    %li= @quote.address.zip_code
-    %li= @quote.address.country
-    %li= @quote.address.phone
-.left
-  %h3 Details
-  %strong== #{quote_name} Number:
-  = @quote.id
-  %br
-  %strong Web Customer Number:
-  = @quote.user.id
-  %br
-  %strong Order Date:
-  = l @quote.created_at, :format => :custom
-  %br
-  %strong Expires at:
-  = l @quote.expires_at, :format => :custom
-  %br
-.clear
-%table
+%table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
   %tr
-    %th Item No.
-    %th Item Name
-    %th Quantity
-    %th Item Price
-    %th Item Subtotal
+    %td{ :colspan => "3"}
+      %h1.primary-heading== Thank you for your #{quote_name}!
+  %tr
+    %td.twocol-left
+      %h3.secondary-heading Shipping Address
+      %p
+        - unless @quote.address.company.blank?
+          = @quote.address.company
+          %br
+        == #{@quote.address.first_name} #{@quote.address.last_name}
+        %br
+        = @quote.address.address1
+        %br
+        - unless @quote.address.address2.blank?
+          = @quote.address.address2
+          %br
+        == #{@quote.address.city}, #{@quote.address.state} #{@quote.address.zip_code}
+        %br
+        = @quote.address.country
+        %br
+        = @quote.address.phone
+    %td.twocol-right
+      %h3.secondary-heading== #{quote_name.capitalize} Details
+      %strong== #{quote_name} Number:
+      = @quote.id
+      %br
+      %strong Web Customer Number:
+      = @quote.user.id
+      %br
+      %strong Order Date:
+      = l @quote.created_at, :format => :custom
+      %br
+      %strong Expires at:
+      = l @quote.expires_at, :format => :custom
+%table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
+  %tr
+    %th{ :width => "60", :align => "left" } Item No.
+    %th{ :align => "left" } Item Name
+    %th{ :width => "40", :align => "center" } Qty
+    %th{ :width => "55", :align => "right" } Price
+    %th{ :width => "70", :align => "right" } Subtotal
   - @quote.order_items.each do |item|
     %tr{:class => cycle('odd', 'even')}
-      %td= item.item_num
-      %td= item.name
-      %td= item.quantity
-      %td= number_to_currency item.gross_price
-      %td= number_to_currency item.item_total
-Subtotal:
-= number_to_currency @quote.gross_subtotal_amount
-%br
-== Shipping & Handling (#{@quote.shipping_service.try :humanize}):
-= number_to_currency @quote.gross_shipping_amount
-%br
-Shipping & Handling Surcharge:
-= number_to_currency @quote.handling_amount
-%br
-== #{t :estimated_tax}:
-= number_to_currency @quote.tax_amount
-%br
-ESTIMATED TOTAL:
-= number_to_currency @quote.total_amount
-%br
-%br
+      %td{ :width => "60", :align => "left" }= item.item_num
+      %td{ :align => "left" }= item.name
+      %td{ :width => "40", :align => "center" }= item.quantity
+      %td{ :width => "55", :align => "right" }= number_to_currency item.gross_price
+      %td{ :width => "70", :align => "right" }= number_to_currency item.item_total
+  %tr
+    %td{ :colspan => "4", :align => "right" }
+      %strong Subtotal
+    %td{ :align => "right"}
+      %strong= number_to_currency @quote.gross_subtotal_amount
+  %tr
+    %td{ :colspan => "4", :align => "right" }== Shipping & Handling (#{@quote.shipping_service.try :humanize})
+    %td{ :align => "right"}= number_to_currency @quote.gross_shipping_amount
+  %tr
+    %td{ :colspan => "4", :align => "right" } Shipping & Handling Surcharge
+    %td{ :align => "right"}= number_to_currency @quote.handling_amount
+  %tr
+    %td{ :colspan => "4", :align => "right" }== #{t :estimated_tax}
+    %td{ :align => "right"}= number_to_currency @quote.tax_amount
+  %tr
+    %td{ :colspan => "4", :align => "right" }
+      %strong ESTIMATED TOTAL
+    %td{ :align => "right"} 
+      %strong= number_to_currency @quote.total_amount

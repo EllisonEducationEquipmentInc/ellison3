@@ -93,7 +93,7 @@
     %li
       Purchase Order
       = @order.payment.purchase_order_number
-      = link_to "download", @order.payment.attachment_url, :target => "_blank" if @order.payment.attachment
+      = link_to "download", @order.payment.attachment_url, :class => "link_download", :target => "_blank" if @order.payment.attachment
   - else
     %li
       This order was charged to: 

@@ -1,6 +1,9 @@
-%p== #{@name} wants to let you know about the #{system_name} list that they just created at #{get_domain.capitalize}. To view this list, click #{link_to 'here', list_url(@list, :host => get_domain)}.
-- unless @note.blank?
-  %h3== #{@name} has a personal message for you:
-  %p= @note
-%br
-%div== #{get_domain.capitalize} has sent you this email at the request of #{@name}.
+%table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
+  %tr
+    %td
+      %p== #{@name} wants to let you know about the #{system_name} list that they just created at #{get_domain.capitalize}. To view this list, click #{link_to 'here', list_url(@list, :host => get_domain)}.
+      - unless @note.blank?
+        %h3== #{@name} has a personal message for you:
+        %p= @note
+      %br
+      %div== #{get_domain.capitalize} has sent you this email at the request of #{@name}.

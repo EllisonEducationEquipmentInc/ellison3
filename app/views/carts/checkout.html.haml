@@ -60,7 +60,7 @@
   #checkout_cc{:style => "display:#{get_user.billing_address && get_user.shipping_address ? 'block' : 'none'}"}= render :partial => 'payment' if get_user.billing_address && get_user.shipping_address
 .clear
 #checkout_cart
-  = link_to_function "top", "$('html, body').animate({ scrollTop: 0 }, 500);"
-  .right= link_to 'Edit Cart', cart_path
+  = link_to_function "top", "$('html, body').animate({ scrollTop: 0 }, 500);", :class => "minilink"
+  .right.minilink= link_to 'Edit Cart', cart_path
   #cart_contents= render :partial => 'cart'
 %iframe{:style =>"height:0px;width:0px;visibility:hidden", :src=>"about:blank"} this frame prevents back forward cache 
