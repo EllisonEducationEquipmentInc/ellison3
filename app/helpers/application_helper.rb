@@ -249,4 +249,8 @@ HTML
 	def uri_append_or_first
 	  request.query_parameters.blank? ? "?" : "#{request.fullpath}&"
 	end
+	
+	def idea_name
+	  is_ee? ? 'lesson' : 'idea'
+	end
 end

@@ -4,9 +4,10 @@
   .right= select_tag :sort, options_for_select(@sort_options, params[:sort]), :onchange => "location.hash = $.param.fragment( location.hash, {sort: this.value, page: 1}, 0 )"
   .toggleview.right.minilink= link_to "switch to list view", "#", :class => "toggle_view"
   %ul#catalogtabs
-    %li= link_to "<span>#{pluralize @search.total, @klass.to_s} Showing</span>".html_safe, "#", :onclick => "return false;", :class => "tab active"
-    %li= link_to "<span>#{pluralize @secondary_search.total, @secondary_klass.to_s} Found</span>".html_safe, "#", :id => "toggle_product_idea", :class => "tab inactive"
-    %li= link_to "<span>130 Outlet Items Found</span>".html_safe, "#", :id => "toggle_product_idea", :class => "tab inactive"
+    %li= link_to "<span>#{pluralize @product_search.total, "Product"} #{outlet? || idea? ? 'Found' : 'Showing'}</span>".html_safe, "#", :id => "toggle_product", :class => "tab #{'in' if outlet? || idea?}active"
+    %li= link_to "<span>#{pluralize @idea_search.total, idea_name.capitalize} #{idea? ? 'Showing' : 'Found'}</span>".html_safe, "#", :id => "toggle_idea", :class => "tab #{'in' unless idea?}active"
+    - if is_sizzix_us?
+      %li= link_to "<span>#{pluralize @outlet_search.total, "Outlet Item"} #{outlet? ? 'Showing' : 'Found'}</span>".html_safe, "#", :id => "toggle_outlet", :class => "tab #{'in' unless outlet?}active"
   - if is_er? && ecommerce_allowed? && !idea?
     = check_box_tag :select_all_products, "1", false, :onclick => "$('input.add_to_cart_checkbox').attr('checked', this.checked);toggle_add_checked_to_cart();"
     = label_tag :select_all_products, nil, :class => "minilink"
@@ -49,8 +50,16 @@
       location.hash = $.param.fragment( location.hash, {page: $.deparam.querystring(this.href)['page']}, 0 );
       return false;
     })
-    $('#toggle_product_idea').click(function() {
-      location.hash = $.param.fragment( location.hash, {ideas: #{idea? ? '0' : '1'}, page: 1}, 0 );
+    $('#toggle_product').click(function() {
+      location.hash = $.param.fragment( location.hash.replace(/\&?outlet=\d/,'').replace(/^#\&/, '#'), {ideas: 0, page: 1}, 0 );
+      return false;
+    });
+    $('#toggle_idea').click(function() {
+      location.hash = $.param.fragment( location.hash.replace(/\&?outlet=\d/,'').replace(/^#\&/, '#'), {ideas: 1, page: 1}, 0 );
+      return false;
+    });
+    $('#toggle_outlet').click(function() {
+      location.hash = $.param.fragment( location.hash, {outlet: 1, page: 1, ideas: 0}, 0 );
       return false;
     });
     $('#per_page').change(function() {

@@ -114,11 +114,19 @@ private
     @breadcrumb_tags = @facets_hash.blank? ? [] : Tag.any_of(*@facets_hash.map {|e| {:tag_type => e.split("~")[0], :permalink => e.split("~")[1]}}).cache
     @sort_options = idea? ? [["Relevance", nil], ["New Ideas", "start_date_#{current_system}:desc"], ["Idea Name [A-Z]", "sort_name:asc"], ["Idea Name [Z-A]", "sort_name:desc"]] :
                       [["Relevance", nil], ["New Arrivals", "start_date_#{current_system}:desc"], ["Best Sellers", "quantity_sold:desc"], ["Lowest Price", "price_#{current_system}_#{current_currency}:asc"], ["Highest Price", "price_#{current_system}_#{current_currency}:desc"], ["Product Name [A-Z]", "sort_name:asc"], ["Product Name [Z-A]", "sort_name:desc"]]
-    @search = perform_search(@klass)
-    @secondary_search = perform_search(@secondary_klass)
+    @product_search = perform_search(Product)
+    @idea_search = perform_search(Idea)
+    @outlet_search = perform_search(Product, true) if is_sizzix_us?
+    @search = if outlet?
+      @outlet_search
+    elsif idea?
+      @idea_search
+    else
+      @product_search
+    end
   end
   
-  def perform_search(klass)
+  def perform_search(klass, outlet = false)
     klass.search do |query|
       query.keywords params[:q] unless params[:q].blank?
       query.adjust_solr_params do |params|
@@ -140,18 +148,18 @@ private
         query.facet :"#{e.to_s}_#{current_system}", :exclude => @filter_conditions[e]
       end
       unless klass == Idea
-        query.with :outlet, outlet? if is_sizzix_us?
+        query.with :outlet, outlet if is_sizzix_us?
         query.with(:"price_#{current_system}_#{current_currency}", params[:price].split("~")[0]..params[:price].split("~")[1]) unless params[:price].blank?
         query.with(:"saving_#{current_system}_#{current_currency}", params[:saving].split("~")[0]..params[:saving].split("~")[1]) unless params[:saving].blank?
         query.facet(:price) do |qf|
-          PriceFacet.instance.facets(outlet?).each do |price_range|
+          PriceFacet.instance.facets(outlet).each do |price_range|
             qf.row(price_range) do
               with(:"price_#{current_system}_#{current_currency}", price_range.min..price_range.max)
             end
           end
         end
       end
-      if outlet? && klass != Idea
+      if outlet && klass != Idea
         query.facet(:saving) do |qf|
           PriceFacet.instance.savings.each do |saving|
             qf.row(saving) do
