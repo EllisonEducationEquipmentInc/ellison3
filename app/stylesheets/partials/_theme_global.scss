@@ -171,16 +171,11 @@ ul.ui-tabs-nav {
 
   #shoppingcart_info {
     float: right;
-    background: url('/images/ui-backgrounds/_#{$system}_shoppingcart.png') no-repeat right;
-    
-    #cartspinner {
-      margin-top: 15px;
-    }
+    background: url('/images/ui-backgrounds/_#{$system}_shoppingcart.png') no-repeat left;
     
     p {
       font:10px Tahoma, Verdana, Arial; 
       font-weight: bold;
-      margin: 15px 0 0 5px;
 
       &.cart_qty {
         float: left;

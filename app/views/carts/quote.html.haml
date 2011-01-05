@@ -9,33 +9,45 @@
         = render :partial => 'users/address_form', :locals => {:f => f}
         .actions
           = f.submit "Continue", :class => 'jqui_save'
-.right#new_billing{:style => "width:400px;display:#{get_user.shipping_address ? 'block' : 'none'}"}
+#new_billing{:style => "display:#{get_user.shipping_address ? 'block' : 'none'}"}
   %h3 Shipping Options
   #shipping_options= render :partial => "shipping_options" if get_user.shipping_address
-  %hr
-  = form_tag({:action => "proceed_quote"}, :remote => true, :method => :post) do
-    .ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
-      %h4.ui-accordion-header.ui-helper-reset#order_comment
-        %span.ui-icon.ui-icon-triangle-1-e
-        = link_to 'Comments', "#"
-      %div= text_area_tag :comments, nil, :style => "width:400px;height:100px;" 
-    = link_to_function "Place #{quote_name}", "$(this).parent('form').submit();fancyloader('Your #{quote_name} is being processed. Thank you for your patience!');", :class => 'jqui_save', :id => 'payment_submit'
+#checkout_summary
+  %h3 Order Summary
+  %p
+    You have
+    %strong
+      %em
+        = pluralize get_cart.total_quantity, "item"
+    == in your shopping #{(t :cart)} 
+    = link_to "review #{(t :cart)}", "#", :class => "review_cart minilink", :id => 'review_bag'
   :javascript
-    var button_label = "Place #{quote_name}";
-    order_comment()
-  %br
-  %br
-.clear
-#payment_errors.error{:style => "display:none"}
-%hr
-#checkout_cart
-  .right= link_to 'Edit Cart', cart_path
-  %h3 Items in your cart
-  #cart_contents= render :partial => 'cart'
-  .clear
-  %ul.right.cart_ul
+    $('.review_cart').click(function(){
+      $('html, body').animate({ scrollTop: $("#checkout_cart").offset().top }, 500);
+    	return false;
+    })
+  %ul.plain.cart_summary
+    %li
+      Subtotal:
+      %span.amount.right= number_to_currency gross_price(@cart.sub_total)
     %li.ui-menu-item#cart_shipping= render :partial => 'shipping_amount' if get_user.shipping_address
     %li.ui-menu-item#cart_handling{:style => "display:#{calculate_handling > 0.0 ? 'block' : 'none'}"}= render :partial => 'handling_amount'
     %li.ui-menu-item#cart_tax= render :partial => 'tax_amount' if get_user.shipping_address
     %li.ui-menu-item#cart_total= render :partial => 'total_amount' if get_user.shipping_address
+  = form_tag({:action => "proceed_quote"}, :remote => true, :method => :post, :style => "margin-bottom: 10px") do
+    .ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
+      %h4.ui-accordion-header.ui-helper-reset#order_comment
+        %span.ui-icon.ui-icon-triangle-1-e
+        = link_to 'Comments', "#"
+      %div= text_area_tag :comments, nil, :style => "width:310px;height:100px;" 
+    = link_to_function "Place #{quote_name}", "$(this).parent('form').submit();fancyloader('Your #{quote_name} is being processed. Thank you for your patience!');", :class => 'jqui_save', :id => 'payment_submit'
+  :javascript
+    var button_label = "Place #{quote_name}";
+    order_comment()
+#payment_errors.error{:style => "display:none"}
+%hr
+#checkout_cart
+  = link_to_function "top", "$('html, body').animate({ scrollTop: 0 }, 500);", :class => "minilink"
+  .right.minilink= link_to 'Edit Cart', cart_path
+  #cart_contents= render :partial => 'cart'
 %iframe{:style =>"height:0px;width:0px;visibility:hidden", :src=>"about:blank"} this frame prevents back forward cache

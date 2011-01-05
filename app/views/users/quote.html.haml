@@ -1,6 +1,6 @@
 - I18n.locale = @quote.locale
 %div= link_to "Back to #{quote_name.pluralize}", myaccount_path('quotes', :page => params[:page]), :class => 'jqui_back'
-.left
+.contentwrap_medium
   %h3 Shipping Address
   %ul
     %li= @quote.address.company
@@ -26,8 +26,9 @@
             = f.submit "Continue", :class => 'jqui_save'
     - elsif get_user.billing_address
       = render :partial => 'users/address_info', :locals => {:address_type => "billing"}
-
-.left
+  - else
+    &nbsp;
+.contentwrap_medium.last
   %h3 Details
   %strong== #{quote_name} Number:
   = @quote.id
