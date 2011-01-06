@@ -1,6 +1,8 @@
-// SIZZIX US THEME - use with COLUMNAR LAYOUT ARCHETYPE
+// ELLISON RETAILERS THEME
 
 body.bp {
+  background: url("/images/ui-backgrounds/_#{$system}_site.jpg") no-repeat center top fixed;
+  
   h1, h2, h3, h4, h5 {
     font-family: 'PT Sans', Helvetica, Arial, sans-serif;
   }

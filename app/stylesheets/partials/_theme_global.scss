@@ -2,15 +2,6 @@
 //EDIT!!! this stylesheet may need to be broken up & modularized
 
 body.bp {
-  @if $system == er {
-    background: url("/images/ui-backgrounds/_#{$system}_site.jpg") no-repeat center top fixed;
-  } @else if $system == szus {
-    background: url("/images/ui-backgrounds/_#{$system}_site.jpg");
-  } @else if $system == szuk {
-    background-color: #dee5ff;
-  } @else {
-    background: url("/images/ui-backgrounds/_#{$system}_site.png");
-  }
 
   h1, h2, h3, h4, h5 {
     margin-bottom: 2px;
