@@ -226,13 +226,18 @@
                 %li= link_to "Manage Shipping Rates (by #{t 'number.currency.format.unit'})", admin_shipping_rates_path
                 %li= link_to "Edit International Settings", admin_countries_path
 
--# Ellison Education UK mega menu link styles
-- if is_ee_uk?
+-# Sizzix UK mega menu link styles
+- if is_sizzix_uk?
   :javascript
     $(".megalink").FontEffect({
       outline:true,
       outlineWeight: 2,
-      outlineColor1: "#81a27b"
+      outlineColor1: "#3359a4"
+    })
+    $(".megalink-admin").FontEffect({
+      outline:true,
+      outlineWeight: 2,
+      outlineColor1: "#e3e7f8"
     })
 :javascript
   $('ul.megasublist li').mouseover(function(){
