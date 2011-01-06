@@ -561,9 +561,10 @@ select#sort, input#select_all_products {
   z-index: 200;
 
   #large_image {
-    width: 300px;
+    width: 450px;
     min-height: 300px;
     margin: 3px 0 0 3px;
+    text-align: center;
   }
   
   .thumbnail {
