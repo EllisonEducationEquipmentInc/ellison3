@@ -8,5 +8,5 @@
   = f.check_box :read, :disabled => f.object.write
   = f.label :write
   = f.check_box :write, :onclick => "if (this.checked) {$(this).prevAll('input:checkbox').first().attr({checked: true, disabled: true})} else {$(this).prevAll('input:checkbox').first().attr({disabled: false})}"
-  = f.label :delete_permission
+  = f.label :_destroy, "Destroy this permission"
   = f.check_box :_destroy

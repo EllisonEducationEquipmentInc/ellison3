@@ -4,7 +4,7 @@
 %h3 Filters
 - unless params[:q].blank?
   = link_to 'all', admin_landing_pages_path, :class => 'jqui_button'
-- form_tag(admin_landing_pages_path, :method => :get) do
+= form_tag(admin_landing_pages_path, :method => :get) do
   = admin_systems_checkboxes
   = text_field_tag :q, nil, :placeholder => "name, search query, permalink"
   = check_box_tag :inactive, "1", params[:inactive] == "1"

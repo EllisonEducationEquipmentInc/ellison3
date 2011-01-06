@@ -1,4 +1,4 @@
-- form_for([:admin, @landing_page]) do |f|
+- form_for([:admin, @landing_page], :html => {:multipart => true}) do |f|
   = f.error_messages
   .field
     = f.label :systems_enabled
@@ -23,6 +23,12 @@
     = f.label :search_query, "Catalog facet query parameter. Ex: category~embossing,machine_compatibility~sidekick"
     %br
     = f.text_field :search_query
+    = f.label :outlet
+    = f.check_box :outlet
+  .field
+    = f.label :quick_search
+    %br
+    = f.check_box :quick_search
   .field
     = f.label "start_date"
     %br
@@ -35,11 +41,11 @@
     = f.label :short_desc
     %br
     = f.text_field :short_desc
-  .field
-    = f.label :content
-    %br
-    = f.text_area :content, :class => 'wymeditor'
-  = products_helper_tag :recommended_products, @landing_page.products && @landing_page.products.join(", ")
-  = ideas_helper_tag :related_ideas, @landing_page.ideas && @landing_page.ideas.join(", ")
+    
+  = f.fields_for :visual_assets do |visual_asset_fields|
+    = render 'admin/visual_assets/visual_asset', :f => visual_asset_fields
+  = link_to_add_fields "Add Visual Asset", f, :visual_assets
+  %br
+  %br
   .actions
     = f.submit :class => 'wymupdate jqui_save'

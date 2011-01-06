@@ -259,6 +259,13 @@ body.bp th, body.bp td, body.bp caption {
 		overflow: hidden;
 		float:left;
 	}
+	
+	.visual_asset{
+		border: 1px solid gray;
+		padding: 3px;
+		margin-bottom: 10px;
+		width:850px;
+	}
 }
 p.show_cart{cursor:pointer;}
 #guest_checkout {
