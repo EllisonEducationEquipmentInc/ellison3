@@ -26,4 +26,4 @@
   .item_description= product.description.try :html_safe
   .cart-buttons= add_to_cart_button(product)
   - if ecommerce_allowed? && product.pre_order?
-    .release_available= product.release_dates.map {|e| e.name} * ", "
+    %span.release_available== Available #{product.release_dates.map {|e| e.name} * ", "}

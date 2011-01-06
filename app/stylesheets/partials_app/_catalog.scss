@@ -316,7 +316,13 @@ body.bp {
 	z-index: 200;
 	color: $catalog_text;
 	
-	&.product { height: 290px; }
+	&.product { 
+	  @if $system == er {
+	    height: 310px;
+	  } @else {
+	    height: 290px;
+	  }
+	}
 	
 	&.idea { height: 210px; }
 	
@@ -415,6 +421,17 @@ body.bp {
   .item_description {
     display: none;
   }
+  
+  .release_available { @extend .minilink;
+    display: inline-block;
+    height: 16px;
+    margin-top: 8px;
+    padding-left: 18px;
+    color: $catalog_availability;
+    font-weight: bold;
+    background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/calendar-medium.png') no-repeat;
+  }
+
 
 	// position the cart button stack to the bottom center of each product block
 	.cart-buttons {
@@ -425,15 +442,13 @@ body.bp {
 	  margin-left: -($item-block-width/2) - $item-block-padding;
 	  font-family: Verdana,Arial,sans-serif;
 
-	  a {
-	    display: inline-block;
-	    margin-bottom: 6px;
-	    font-size: .85em;
-	  }
-	  
 	  label {
 	    font-size: .85em;
 	    color: lighten($catalog_item-num, 25%);
+	  }
+	  
+	  .message {
+	    font-size: .85em;
 	  }
 	  	  
 	  .users_lists_container {
@@ -505,6 +520,12 @@ body.bp {
         top: 0px;
         left: 0px;
         margin: 8px;
+      }
+      
+      .release_available {
+        position: absolute;
+        top: -4px;
+        right: 140px;
       }
     
       .cart-buttons {
