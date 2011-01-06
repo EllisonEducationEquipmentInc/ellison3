@@ -1,10 +1,4 @@
 // Ellison Education UK Color Palette
-// this is temporary
-$primary: #51fc06;
-$secondary: #51fc06;
-$tertiary: #51fc06;
-$quaternary: #51fc06;
-$quinary: #51fc06;
 
 $text: #222;
 $link: #346da3;
@@ -20,9 +14,9 @@ $table_td_even: #f2f5f7; // same as jQueryUI .ui-widget-content
 $jqui_tab_active: #fff;
 $jqui_tab_hover: #222;
 
-$navutil_link: lighten($primary, 7%);
-$navutil_hover: darken($primary, 9%);
-$navutil_divider: lighten($tertiary, 4%);
+$navutil_link: #eee;
+$navutil_hover: #6382e0;
+$navutil_divider: #3a3a3a;
 
 $meganav_bg_panel: white;
 $meganav_link: #eee;
@@ -30,30 +24,31 @@ $meganav_hover: #6382e0;
 $meganav_admin: #e90000;
 $meganav_admin_hover: #f00;
 
-$megapanel_link: black;
+$megapanel_link: #222;
 $megapanel_hover: #6382e0;
 
 $home_gallery_ctrl_btn: black;
-$home_gallery_ctrl_hover: crimson;
+$home_gallery_ctrl_hover: #ff9ac4;
 
-$catalog_tab_active: #81a77e;
-$catalog_tab_inactive: #afab8a;
-$catalog_tab_hover: #609e85;
+$catalog_tab_active: #346da3;
+$catalog_tab_inactive: #b2b2b2;
+$catalog_tab_hover: #346da3;
 
-$catalog_filter_link: #140F06;
-$catalog_filter_hover: darken($secondary, 15%);
+$catalog_filter_link: #222;
+$catalog_filter_hover: #346da3;
 
-$catalog_item-num: #6C5941;
-$catalog_price: #6C5941;
-$catalog_hover: $secondary;
+$catalog_item-num: #346da3;
+$catalog_price: #222;
+$catalog_hover: #346da3;
 
-$catalog_buybox_bg: #ECEADF;
-$catalog_buybox_border: #D9D6C4;
-$catalog_buybox_item-num: #6C5941;
+$catalog_buybox_bg: #f2f5f7;
+$catalog_buybox_border: #ddd;
+$catalog_buybox_item-num: #222;
 
-$footer_bg: #4e4e4e;
-$footer_text: #cbcbcb;
-$footer_headings: white;
-$footer_link: #cbcbcb;
-$footer_hover: #91a29e;
-$footer_divider: #858585
+$catalog_detail_border: #ddd;
+
+$footer_text: #dbdbdb;
+$footer_headings: #eee;
+$footer_link: #a3b1db;
+$footer_hover: #6382e0;
+$footer_divider: #444;

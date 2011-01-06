@@ -1,69 +1,169 @@
-// SIZZIX UK THEME - use with COLUMNAR LAYOUT ARCHETYPE
+// SIZZIX US THEME - use with COLUMNAR LAYOUT ARCHETYPE
+
+body.bp {
+  h1, h2, h3, h4, h5 {
+    font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+  }
+}
 
 #root {
-  background: url("/images/ui-backgrounds/_#{$system}_root_top.png") repeat-x top;
   
   .container {
-    
+    margin-top: 6px;
+    background: url("/images/ui-backgrounds/_#{$system}_root.png") no-repeat center top;
   }
 }
 
 #header {
-  margin-top: 10px;
-  height:146px;
+  margin: 18px 0 10px 0;
+  height:118px;
   
   #logo_masthead {
   	background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
   	display: block;
-  	width: 193px; 
-  	height: 74px;
-  	margin: 0;
+  	width: 196px; 
+  	height: 99px;
+  	margin: 0px;
   	text-indent: -9999em;
   }
+  
+  .nav_utility {
+    
+    li {
+      font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+      font-weight: bold;
+      
+      a.btn-masthead {
+        font-size: 11px;
+      }
+    }
+  }
+  
+  #searchbar {
+    width: 467px;
+    height: 62px;
+    margin: 5px 8px 0 0;
+    
 
+    
+    input.textfield {
+      border: none;
+      font-size:14px;
+      font-weight: normal;
+      width:394px;
+      margin: 0 0 0 1px;
+      position: relative;
+      top: 11px;
+      left: 15px;
+    }
+    input.submitbutton {
+      margin: 0;
+      position: relative;
+      top: 17px;
+      left: 24px;
+    }
+  }
+  
+  #shoppingcart_icon {
+    width: 66px;
+    height: 62px;
+    margin: 5px 0 0 0;
+  }
+
+  #shoppingcart_info {
+    width: 143px;
+    height: 62px;
+    margin: 6px 0 0 0;
+    
+    #cartspinner, p {
+      margin: 15px 0 0 5px;
+    }
+  }
+  
   #nav_megamenu {
-    margin-top: 5px;
     
     .megalink {
-      font-size: 13px;
+      font-family:  'PT Sans', Helvetica, Arial, sans-serif;
+      font-size: 1.1em;
       font-weight: bold;
-      color: #ebd4e2;
+      color: $meganav_link;
+      text-transform: uppercase;
       text-decoration: none;
       
-      &:hover {color: white;};
+      &:hover { color: $meganav_hover; };
+    }
+    
+    .megalink-admin { @extend .megalink;
+      color: $meganav_admin;
+      
+      &:hover { color: $meganav_admin_hover; }
     }
     
     .megapanel {
-      margin-top: 0px;
+      margin-top: 4px;
+
+      .megasublist {
+        li {
+          padding: 9px 0;
+          background: url("/images/ui-backgrounds/_#{$system}_megasubitem.png") no-repeat;
+          
+          &.last { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_last.png") no-repeat; }
+          
+          &:hover { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_hover.png") no-repeat; }
+        }
+      }
+      
+      .megasublink {
+        font-family:  'PT Sans', Helvetica, Arial, sans-serif;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: $megapanel_link;
+        margin-bottom: 15px;
+      
+        &:hover { color: $megapanel_hover; }
+      }
     }
   }
+
   
   .container {
     // height: 100px;
   }  
 }
 
+#content {
+  
+  .item_detail {
+    
+    h4 {
+      border-bottom:1px solid $catalog_detail_border;
+    }
+  }
+  
+  
+}
+
 #footer {
-  background: #3887ab url("/images/ui-backgrounds/_#{$system}_footer_top.png") repeat-x top;
   
   .container {
+    background: url("/images/ui-backgrounds/_#{$system}_footer.png") no-repeat center top;
     color: $footer_text;
   
-    h3, h4 {
+    h2, h3, h4 {
       color: $footer_headings;
       margin-bottom: 0;
     }
   
     a {
-      color:$footer_link;
+      color: $footer_link;
     
       &:hover {
-        color:$footer_hover;
+        color: $footer_hover;
       };
     }
   
     .column {
-      margin-top: 20px;
+      margin-top: 45px;
       margin-bottom: 20px;
       height: 205px;
     
