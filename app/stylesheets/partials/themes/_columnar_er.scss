@@ -41,41 +41,43 @@ body.bp {
   
   #searchbar {
     width: 467px;
-    height: 74px;
-    margin: 0 6px 0 0;
+    height: 62px;
+    margin: 5px 8px 0 0;
+    
+
     
     input.textfield {
       border: none;
       font-size:14px;
-      font-weight: bold;
-      width:400px;
-      margin: 0;
+      font-weight: normal;
+      width:394px;
+      margin: 0 0 0 1px;
       position: relative;
-      top: 18px;
+      top: 11px;
       left: 15px;
     }
     input.submitbutton {
       margin: 0;
       position: relative;
-      top: 25px;
+      top: 17px;
       left: 24px;
     }
   }
   
   #shoppingcart_icon {
-    width: 69px;
-    height: 74px;
-    margin: 0;
+    width: 66px;
+    height: 62px;
+    margin: 5px 0 0 0;
   }
 
   #shoppingcart_info {
-    width: 130px;
-    height: 74px;
-    margin: 1px 0 0 0;
+    width: 143px;
+    height: 62px;
+    margin: 6px 0 0 0;
     
     #cartspinner, p {
-      margin: 19px 0 0 5px;
-    }    
+      margin: 15px 0 0 5px;
+    }
   }
   
   #nav_megamenu {
