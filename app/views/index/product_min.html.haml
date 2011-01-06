@@ -18,7 +18,7 @@
   .clear
   - unless @product.four_related_products.blank?
     %h4 Related Products:
-    = link_to "View All", send(@product.outlet ? 'outlet_path' : 'catalog_path', :anchor => "facets=#{@product.related_tag.facet_param}&page=1"), :onclick => "$.fancybox.close()"
+    = link_to "View All", catalog_path(:anchor => "facets=#{@product.related_tag.facet_param}&page=1#{'&outlet=1' if @product.outlet}"), :onclick => "$.fancybox.close()"
     .related_products= render :partial => 'products/related_product', :collection => @product.four_related_products, :as => :product
   #tab_accordion
     - @product.tabs.current.each do |tab|

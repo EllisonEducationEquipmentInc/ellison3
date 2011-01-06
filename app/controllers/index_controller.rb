@@ -21,7 +21,7 @@ class IndexController < ApplicationController
     @product = Product.send(current_system).criteria.id(params[:id]).first
     raise "Invalid product" unless @product.displayable?
     @title = @product.name
-    redirect_to :action => "outlet", :anchor => "q=#{@product.item_num}" and return if !request.xhr? && is_sizzix_us? && @product && @product.outlet 
+    #redirect_to :action => "outlet", :anchor => "q=#{@product.item_num}" and return if !request.xhr? && is_sizzix_us? && @product && @product.outlet 
     if request.xhr?
       render :product_min, :layout => false and return 
     else
@@ -45,6 +45,7 @@ class IndexController < ApplicationController
   def shop
     @landing_page = LandingPage.find params[:id]
     params[:facets] = @landing_page.search_query
+    params[:outlet] = "1" if @landing_page.outlet
     params[:sort] = "start_date_#{current_system}:desc"
     get_search
     @products = @search.results
@@ -63,7 +64,7 @@ class IndexController < ApplicationController
   
   def search
     get_search
-    session[:user_return_to] = (outlet? ? outlet_path : catalog_path) + "#" + request.env["QUERY_STRING"]
+    session[:user_return_to] = catalog_path + "#" + request.env["QUERY_STRING"]
     @products = @search.results
     expires_in 1.hours, 'max-stale' => 1.hours
   end
@@ -71,6 +72,7 @@ class IndexController < ApplicationController
   def quick_search
     @landing_page = LandingPage.find params[:id]
     params[:facets] = (params[:facets].split(",") << @landing_page.search_query).join(",")
+    params[:outlet] = "1" if @landing_page.outlet
     get_search
     render :partial => 'quick_search'
   end
@@ -102,15 +104,18 @@ class IndexController < ApplicationController
     @feedback.status = "New"
   end
   
+  def limited_search
+    get_search_objects
+    @per_page = params[:per_page] if params[:per_page].to_i > 0
+    @search = perform_search(@klass, outlet?)
+    @items = @search.results
+    render :layout => false
+  end
+  
 private
   
   def get_search
-    @klass = idea? ? Idea : Product
-    @secondary_klass = idea? ? Product : Idea
-    @facets = params[:facets] || ""
-    @facets_hash = @facets.split(",")
-    @multi_facets_hash = {}
-    @facets_hash.each {|e| @multi_facets_hash[e.split("~")[0]].blank? ? @multi_facets_hash[e.split("~")[0]] = e.split("~")[1] : @multi_facets_hash[e.split("~")[0]] << ",#{e.split("~")[1]}"}
+    get_search_objects
     @breadcrumb_tags = @facets_hash.blank? ? [] : Tag.any_of(*@facets_hash.map {|e| {:tag_type => e.split("~")[0], :permalink => e.split("~")[1]}}).cache
     @sort_options = idea? ? [["Relevance", nil], ["New Ideas", "start_date_#{current_system}:desc"], ["Idea Name [A-Z]", "sort_name:asc"], ["Idea Name [Z-A]", "sort_name:desc"]] :
                       [["Relevance", nil], ["New Arrivals", "start_date_#{current_system}:desc"], ["Best Sellers", "quantity_sold:desc"], ["Lowest Price", "price_#{current_system}_#{current_currency}:asc"], ["Highest Price", "price_#{current_system}_#{current_currency}:desc"], ["Product Name [A-Z]", "sort_name:asc"], ["Product Name [Z-A]", "sort_name:desc"]]
@@ -124,6 +129,15 @@ private
     else
       @product_search
     end
+  end
+  
+  def get_search_objects
+    @klass = idea? ? Idea : Product
+    @secondary_klass = idea? ? Product : Idea
+    @facets = params[:facets] || ""
+    @facets_hash = @facets.split(",")
+    @multi_facets_hash = {}
+    @facets_hash.each {|e| @multi_facets_hash[e.split("~")[0]].blank? ? @multi_facets_hash[e.split("~")[0]] = e.split("~")[1] : @multi_facets_hash[e.split("~")[0]] << ",#{e.split("~")[1]}"}
   end
   
   def perform_search(klass, outlet = false)
@@ -168,7 +182,7 @@ private
           end
         end
       end
-      query.paginate(:page => params[:page] || 1, :per_page => per_page)
+      query.paginate(:page => params[:page] || 1, :per_page => @per_page || per_page)
       query.order_by(*params[:sort].split(":")) unless params[:sort].blank?
     end
   end
