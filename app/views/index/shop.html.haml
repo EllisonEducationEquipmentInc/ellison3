@@ -2,5 +2,8 @@
 %h3= @landing_page.short_desc
 %br
 #products_filter= render :partial => "index/catalog_filter"
-#landing_middle
-  = render @landing_page.visual_assets.ordered
+#landing_middle= render @landing_page.visual_assets.ordered
+- if @landing_page.quick_search
+  #landing_right
+    .buybox.rounded
+      #quick_search.rounded= render :partial => 'quick_search'
