@@ -1,5 +1,13 @@
 %h3 Search Within These Results
-= text_field_tag :keyword, nil, :autocomplete => "off", :value => "enter keywords", :onfocus => "if (this.value == 'enter keywords'){this.value='';}",  :style => "width:183px;" unless params[:action] == "shop"
+= text_field_tag :keyword, nil, :autocomplete => "off", :value => "enter keywords", :onfocus => "if (this.value == 'enter keywords'){this.value='';}", :onblur => "if (this.value == ''){this.value='enter keywords';}", :style => "width:183px;" unless params[:action] == "shop"
+:javascript
+  $("#keyword").addClass("idlefield");
+  $("#keyword").focus(function(){
+    $(this).addClass("activefield").removeClass("idlefield");
+  }).blur(function(){
+    $(this).removeClass("activefield").addClass("idlefield");
+  });
+
 %h3== Filter #{@landing_page ? @landing_page.name : 'Products'} Results By:
 .facets.ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
   - @search.facets.each do |facet|

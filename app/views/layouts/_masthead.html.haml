@@ -31,8 +31,15 @@
 
   -# search bar
   %form#searchbar{:action => "/catalog", :method => "get", :name => "searchbar"}
-    %input{ :class =>"textfield", :name => "w", :type => "text", :value => "Search for Sizzix Products & Ideas", :onfocus => "if (this.value == 'Search for Sizzix Products & Ideas'){this.value='';}" }
+    %input{ :class =>"textfield", :name => "w", :type => "text", :value => "Search for Sizzix Products & Ideas", :onfocus => "if (this.value == 'Search for Sizzix Products & Ideas'){this.value='';}", :onblur => "if (this.value == ''){this.value='Search for Sizzix Products & Ideas';}" }
     %input{ :class => "submitbutton", :name => "submit", :src => "/images/ui-icons/set_fugue/24x24/drop-shadow/magnifier-left.png", :type => "image", :height => "24", :width => "24" }
+    :javascript
+      $("input.textfield").addClass("idlefield");
+      $("input.textfield").focus(function(){
+        $(this).addClass("activefield").removeClass("idlefield");
+      }).blur(function(){
+        $(this).removeClass("activefield").addClass("idlefield");
+      });
 
 #printmasthead.dontdisplay
   %h1== #{system_name.capitalize}.com

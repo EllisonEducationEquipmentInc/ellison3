@@ -51,6 +51,14 @@ body.bp {
 // hidden classes for print & page breaks
 .dontdisplay, .page-break { display: none; }
 
+.activefield {
+  color: $input_active;
+}
+
+.idlefield {
+  color: $input_idle;
+}
+
 #content {
 	.dontdisplay, .page-break {
 	  display: none;
@@ -153,7 +161,7 @@ ul.ui-tabs-nav {
   
   #searchbar {
     float: right;
-    background: url('/images/ui-backgrounds/_#{$system}_search.png') no-repeat left;    
+    background: url('/images/ui-backgrounds/_#{$system}_search.png') no-repeat left;
   }
   
   #shoppingcart_icon {
