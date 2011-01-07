@@ -48,7 +48,7 @@ class Idea
 	
 	embeds_many :tabs do
     def current
-			@target.select {|tab| tab.available?}.sort {|x,y| x.display_order <=> y.display_order}
+			ordered.select {|tab| tab.available?} #.sort {|x,y| x.display_order <=> y.display_order}
     end
 
 		def ordered
@@ -207,7 +207,7 @@ class Idea
 	end
 	
 	def four_related_ideas
-	  related_tag.ideas.available.limit(4) rescue []
+	  related_tag.ideas.send(current_system).available.limit(4) rescue []
 	end
 	
 private 
