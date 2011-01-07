@@ -50,12 +50,13 @@ body.bp {
     
     input.textfield {
       border: none;
+      background: none;
       font-size: 14px;
       font-weight: normal;
       width:394px;
       margin: 0 0 0 1px;
       position: relative;
-      top: 13px;
+      top: 10px;
       left: 15px;
     }
     input.submitbutton {
@@ -134,7 +135,7 @@ body.bp {
 }
 
 #content {
-  border-top: 1px solid #69c;
+  border-top: 1px solid #ccc;
   padding-top: 12px;
   
   .item_detail {
@@ -157,6 +158,13 @@ body.bp {
   .container {
     background: url("/images/ui-backgrounds/_#{$system}_footer.gif") no-repeat center top;
     color: $footer_text;
+      
+      .main {
+        .column_left,.column_middle,.column_right {
+          margin-top: 20px;
+        }
+        
+      }
   
     h2, h3, h4 {
       color: $footer_headings;
