@@ -55,6 +55,16 @@ class LandingPage
 	# scopes
 	scope :active, :where => { :active => true }
 	scope :inactive, :where => { :active => false }
+	
+	ELLISON_SYSTEMS.each do |sys|
+		scope sys.to_sym, :where => { :systems_enabled.in => [sys] }  
+	end
+	
+	class << self		
+		def available
+			active.where(:"start_date".lte => Time.zone.now.change(:sec => 1), :"end_date".gte => Time.zone.now.change(:sec => 1))
+		end
+	end
 
 private
   

@@ -43,13 +43,16 @@ class IndexController < ApplicationController
   end
   
   def shop
-    @landing_page = LandingPage.find params[:id]
+    @landing_page = LandingPage.send(current_system).available.find params[:id]
     params[:facets] = @landing_page.search_query
     params[:outlet] = "1" if @landing_page.outlet
     params[:sort] = "start_date_#{current_system}:desc"
     get_search
     @products = @search.results
     fresh_when(:etag => [current_locale, current_system, @landing_page], :last_modified => @landing_page.updated_at.utc)
+  rescue Exception => e
+    Rails.logger.info e.message
+    go_404
   end
   
   def catalog
