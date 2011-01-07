@@ -5,6 +5,7 @@ class LandingPage
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	include Mongoid::Paranoia
+	include Mongoid::Associations::EmbeddedCallbacks
 	
 	field :name
 	field :permalink
@@ -28,7 +29,7 @@ class LandingPage
 	index :updated_at
 	index :systems_enabled
 	
-  before_save :save_image_visual_assets
+  # before_save :save_image_visual_assets
 
   embeds_many :visual_assets do
     def current
@@ -58,6 +59,6 @@ class LandingPage
 private
   
   def save_image_visual_assets
-    visual_assets.select {|e| e.asset_type == 'image'}.each {|asset| asset.save}
+    visual_assets.select {|e| e.asset_type == 'image'}.each {|asset| asset.valid?}
   end
 end

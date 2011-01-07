@@ -27,4 +27,23 @@ module Mongoid #:nodoc:
       end
     end
   end
+  
+  module Associations #:nodoc:
+    module EmbeddedCallbacks
+
+      # bubble callbacks to embedded associations
+      def run_callbacks(kind, *args, &block)
+        # now bubble callbacks down
+        self.associations.each_pair do |name, meta|
+          if meta.association == Mongoid::Associations::EmbedsMany
+            self.send(name).each { |doc| doc.send(:run_callbacks, kind, *args, &block) }
+          elsif meta.association == Mongoid::Associations::EmbedsOne
+            self.send(name).send(:run_callbacks, kind, *args, &block)
+          end
+        end
+        super(kind, *args, &block) # defer to parent
+      end
+
+    end
+  end
 end

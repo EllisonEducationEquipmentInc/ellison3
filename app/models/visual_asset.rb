@@ -28,7 +28,7 @@ class VisualAsset
 	
 	validates :name, :asset_type, :systems_enabled, :start_date, :end_date, :presence => true
 	
-	after_save :extract_filename
+  # before_save :force_extract_filename, :if => Proc.new {|obj| obj.asset_type == 'image'}
 	
 	def display_order
 		read_attribute(:display_order) || self._index
@@ -56,15 +56,15 @@ class VisualAsset
 	
 private
 
-  def extract_filename
-    self.class.skip_callback(:save, :after, :extract_filename)
+  def force_extract_filename
+    # self.class.skip_callback(:save, :after, :extract_filename)
 
     @image_original_filename = image.instance_variable_get("@original_filename")
     if @image_original_filename.present?
       self.update_attributes :image_filename => @image_original_filename
     end
 
-    self.class.set_callback(:save, :after, :extract_filename)
+    # self.class.set_callback(:save, :after, :extract_filename)
   end
 	
 end

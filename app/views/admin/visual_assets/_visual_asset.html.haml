@@ -1,5 +1,6 @@
 - child_index = f.object._index || f.options[:child_index]
-.visual_asset{:id => "visual_asset_#{child_index}"}
+.visual_asset{:id => "visual_asset_#{f.object.id}", :class => "visual_asset_#{child_index}"}
+  %h2{:style => "cursor:move"}= f.object.name
   = f.error_messages
   .field
     = f.label :systems_enabled
@@ -15,7 +16,7 @@
   .field
     = required_field f.label(:name, "Name/Label")
     %br
-    = f.text_field :name
+    = f.text_field :name, :onchange => "$(this).closest('.visual_asset').children('h2').text(this.value)"
   .field
     = f.label "start_date"
     %br
@@ -61,7 +62,7 @@
 :javascript
   $(function (){  
       $(".wymeditor:visible").wymeditor();
-      $('#visual_asset_#{child_index} .datetimepicker').datetimepicker({
+      $('.visual_asset_#{child_index} .datetimepicker').datetimepicker({
             dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true

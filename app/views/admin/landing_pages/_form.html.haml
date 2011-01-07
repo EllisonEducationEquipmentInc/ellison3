@@ -41,11 +41,15 @@
     = f.label :short_desc
     %br
     = f.text_field :short_desc
-    
-  = f.fields_for :visual_assets do |visual_asset_fields|
-    = render 'admin/visual_assets/visual_asset', :f => visual_asset_fields
-  = link_to_add_fields "Add Visual Asset", f, :visual_assets
+  #visual_assets  
+    = f.fields_for :visual_assets do |visual_asset_fields|
+      = render 'admin/visual_assets/visual_asset', :f => visual_asset_fields
+    = link_to_add_fields "Add Visual Asset", f, :visual_assets
   %br
   %br
   .actions
     = f.submit :class => 'wymupdate jqui_save'
+:javascript
+  $('#visual_assets').sortable({tolerance: 'pointer', start: function(event, ui) {$('.visual_asset').css({height:"22px",overflow:"hidden"})}, stop: function(event, ui) {$('.visual_asset').css({height:"auto"})}, update: function(event, ui) {
+    $.ajax({url:"/admin/landing_pages/reorder_visual_assets?id=#{@landing_page.id}&"+$("#visual_assets").sortable('serialize')});
+  }})

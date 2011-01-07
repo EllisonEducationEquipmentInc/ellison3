@@ -90,5 +90,12 @@ class Admin::LandingPagesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def reorder_visual_assets
+    @landing_page = LandingPage.find(params[:id])
+    @landing_page.visual_assets.resort! params[:visual_asset]
+    @landing_page.save
+    render :text => params[:visual_asset].inspect
+  end
 
 end

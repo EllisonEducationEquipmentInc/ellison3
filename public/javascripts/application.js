@@ -542,6 +542,11 @@ function megamenuHoverOut(){
   });
 }
 
+function toggle_visual_asset_type(child_index) {
+	$('.visual_asset_'+child_index+' .type_specific').hide();
+	$('.visual_asset_'+child_index+' .'+$('#landing_page_visual_assets_attributes_'+child_index+'_asset_type').val()).show();
+}
+
 var payment_validator_options = {
     errorClass: "invalid",
     rules: { 
