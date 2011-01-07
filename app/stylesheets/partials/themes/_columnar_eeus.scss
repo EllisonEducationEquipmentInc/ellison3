@@ -1,7 +1,7 @@
 // ELLISON EDUCATION US THEME
 
 body.bp {
-  background: url("/images/ui-backgrounds/_#{$system}_site.png") top left fixed;
+  background: url("/images/ui-backgrounds/_#{$system}_bkg_col.png") top left fixed;
   
   h1, h2, h3, h4, h5 {
     font-family: 'PT Sans', Helvetica, Arial, sans-serif;
@@ -12,12 +12,12 @@ body.bp {
   
   .container {
     margin-top: 6px;
-    background: url("/images/ui-backgrounds/_#{$system}_root.png") no-repeat center top;
+    background: url("/images/ui-backgrounds/_#{$system}_root2.png") no-repeat center top;
   }
 }
 
 #header {
-  margin: 18px 0 10px 0;
+  margin: 18px 0 0 0;
   height:118px;
   
   #logo_masthead {
@@ -42,9 +42,9 @@ body.bp {
   }
   
   #searchbar {
-    width: 467px;
-    height: 62px;
-    margin: 5px 8px 0 0;
+    width: 493px;
+    height: 60px;
+    margin: 7px 26px 0 0;
     
 
     
@@ -59,10 +59,10 @@ body.bp {
       left: 15px;
     }
     input.submitbutton {
+      left: 57px;
       margin: 0;
       position: relative;
-      top: 19px;
-      left: 24px;
+      top: 16px;
     }
   }
   
@@ -134,6 +134,8 @@ body.bp {
 }
 
 #content {
+  border-top: 1px solid #9cf;
+  padding-top: 12px;
   
   .item_detail {
     
@@ -141,14 +143,19 @@ body.bp {
       border-bottom:1px solid $catalog_detail_border;
     }
   }
+  #frame_gallery {
   
-  
+    img {
+      width: 951px;
+      height: 320px;
+    }
+  }  
 }
 
 #footer {
   
   .container {
-    background: url("/images/ui-backgrounds/_#{$system}_footer.png") no-repeat center top;
+    background: url("/images/ui-backgrounds/_#{$system}_footer.gif") no-repeat center top;
     color: $footer_text;
   
     h2, h3, h4 {
