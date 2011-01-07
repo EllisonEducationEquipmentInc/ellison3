@@ -97,7 +97,7 @@ class Admin::LandingPagesController < ApplicationController
     @landing_page.save
     render :text => params[:visual_asset].inspect
   rescue Exception => e
-    render :js => "alert('ERROR saving visual asset order: make sure all visual assets are saved before you resort them. (save/update landing page first and then resort)')"
+    render :js => "alert('ERROR saving visual asset order: make sure all visual assets are saved before you resort them. (save/update landing page first and then come back to resort them)')"
   end
 
 end
