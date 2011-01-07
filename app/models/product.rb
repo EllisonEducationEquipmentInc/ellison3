@@ -135,7 +135,7 @@ class Product
 		end
 		
 		def related_to(outlet = false)
-		  available.where(:outlet => outlet, :"quantity_#{is_us? ? 'us' : 'uk'}".gt => 0, :life_cycle.in => ['available']).limit(4)
+		  available.where(:systems_enabled.in => [current_system], :outlet => outlet, :"quantity_#{is_us? ? 'us' : 'uk'}".gt => 0, :life_cycle.in => ['available']).limit(4)
 		end
 	end
 		
