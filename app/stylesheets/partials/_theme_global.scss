@@ -397,7 +397,7 @@ ul.ui-tabs-nav {
       width: 47px;
       height: 34px;
       padding: 3px 0 0 8px;
-      background:url("/images/ui-buttons/_#{$system}_arrow_prev_red-ribbon.png") no-repeat 0 0;
+      background:url("/images/ui-buttons/_#{$system}_arrow_prev_button.png") no-repeat 0 0;
     }
     a.nextBtn { @extend a.prevBtn;
       top: 145px;
@@ -405,7 +405,7 @@ ul.ui-tabs-nav {
       width: 45px;
       height: 35px;
       padding: 5px 0 0 10px;
-      background:url("/images/ui-buttons/_#{$system}_arrow_next_red-ribbon.png") no-repeat 0 0;
+      background:url("/images/ui-buttons/_#{$system}_arrow_next_button.png") no-repeat 0 0;
     }
   }
   
