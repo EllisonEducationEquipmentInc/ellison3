@@ -33,7 +33,7 @@ class LandingPage
 
   embeds_many :visual_assets do
     def current
-			@target.select {|asset| asset.available?}.sort {|x,y| x.display_order <=> y.display_order}
+			ordered.select {|asset| asset.available?} #.sort {|x,y| x.display_order <=> y.display_order}
     end
 
 		def ordered

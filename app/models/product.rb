@@ -94,7 +94,7 @@ class Product
   end
 	embeds_many :tabs do
     def current
-			@target.select {|tab| tab.available?}.sort {|x,y| x.display_order <=> y.display_order}
+			ordered.select {|tab| tab.available?}.sort {|x,y| x.display_order <=> y.display_order}
     end
 
 		def ordered
