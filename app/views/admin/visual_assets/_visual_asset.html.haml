@@ -1,4 +1,4 @@
-- child_index = f.object._index || f.options[:child_index]
+- child_index = f.object_name.match(/\[([0-9a-f]+)\]$/).try(:[], 1) || f.options[:child_index]
 .visual_asset{:id => "visual_asset_#{f.object.id}", :class => "visual_asset_#{child_index}"}
   %h2{:style => "cursor:move"}= f.object.name
   = f.error_messages

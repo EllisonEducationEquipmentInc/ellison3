@@ -1,5 +1,5 @@
 - if visual_asset.asset_type == 'image' && visual_asset.image?
-  = link_to_unless visual_asset.link.blank?, image_tag(visual_asset.image_url, :alt => visual_asset.name), :title => visual_asset.name
+  = link_to_unless visual_asset.link.blank?, image_tag(visual_asset.image_url, :alt => visual_asset.name), visual_asset.link, :title => visual_asset.name
 - elsif visual_asset.asset_type == 'text'
   .asset_text= visual_asset.content.html_safe
 - elsif visual_asset.asset_type == 'freeform'
