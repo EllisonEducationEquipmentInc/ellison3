@@ -9,7 +9,9 @@
   -# utility navigation menu (customer account management, shopping cart, UK currency selector, etc)  
   %ul.nav_utility
     - if is_uk? && !@cart_locked
-      %li= link_to "change locale", "#", :class => "tooltip_locale"
+      %li{:style => "padding-left: 0"}
+        = link_to "#", :class => "btn-masthead btn-locale", :onclick => "return false;", :title => "switch currency", :alt => "switch currency" do
+          %span= image_tag("/images/ui-icons/flags/24/#{current_locale}.png")
     - if user_signed_in?
       %li= link_to "<span>Sign Out</span>".html_safe, destroy_session_path('user'), :class => "btn-masthead btn-signout", :title => "Sign Out", :alt => "Sign Out" 
       %li= link_to "<span>#{admin_signed_in? ? 'Customer\'s' : 'My'} Account</span>".html_safe, myaccount_path(:secure => true), :class => "btn-masthead btn-myaccount", :title => "My Account", :alt => "My Account"
@@ -22,7 +24,7 @@
       %li= link_to "<span>Log Out Dashboard</span>".html_safe, destroy_session_path('admin'), :class => "btn-masthead btn-admin-logout", :title => "Log Out Dashboard", :alt => "Log Out Dashboard"
   :javascript
     $(document).ready(function(){
-      $('.tooltip_locale').CreateBubblePopup({
+      $('.btn-locale').CreateBubblePopup({
         position: 'bottom',
         align: 'right',
         tail: {
@@ -30,12 +32,12 @@
           hidden: false
         },
         selectable: true,
-        innerHtml: '#{link_to_unless current_currency == "gbp", "GBP", "#{uri_append_or_first}locale=en-UK"}<br />#{link_to_unless current_currency == "eur", "EUR", "#{uri_append_or_first}locale=en-EU"}',
+        innerHtml: '#{link_to_unless current_currency == "gbp", image_tag("/images/ui-buttons/currency_en-UK.png", :title => "#{current_currency == "gbp" ? "currently set" : "switch"} to British Pounds", :alt => "#{current_currency == "gbp" ? "currently set" : "switch"} to British Pounds"), "#{uri_append_or_first}locale=en-UK"}<br />#{link_to_unless current_currency == "eur", image_tag("/images/ui-buttons/currency_en-EU.png", :title => "#{current_currency == "eur" ? "currently set" : "switch"} to the Euro", :alt => "#{current_currency == "eur" ? "currently set" : "switch"} to the Euro"), "#{uri_append_or_first}locale=en-EU"}',
         innerHtmlStyle: {
           color: '#FFFFFF',
           'text-align': 'center'
         },
-        themeName: 'all-azure',
+        themeName: 'azure',
         themePath: '/images/ui-plugins/bubblepopup'
       });
     });
