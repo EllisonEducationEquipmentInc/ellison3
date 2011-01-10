@@ -55,9 +55,9 @@ function initialize_facets() {
 
 function shadow_on() {
 	// shadowOn
-	$(".cardpanelshadow").shadowOn({ imageset: 6, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadows for cardpanel layout archetype
-	$(".item-block").shadowOn({ imageset: 1, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadow for product blocks on catalog pages
-	$(".item_images").shadowOn({ imageset: 1, imagepath: "/images/ui-backgrounds/shadowOn" });  // drop shadow for product blocks on catalog pages
+	$(".cardpanelshadow").shadowOn({ imageset: 6, imagepath: "/images/ui-plugins/shadowOn" });  // drop shadows for cardpanel layout archetype
+	$(".item-block").shadowOn({ imageset: 1, imagepath: "/images/ui-plugins/shadowOn" });  // drop shadow for product blocks on catalog pages
+	$(".item_images").shadowOn({ imageset: 1, imagepath: "/images/ui-plugins/shadowOn" });  // drop shadow for product blocks on catalog pages
 }
 
 function bind_hashchange () {
@@ -136,6 +136,24 @@ $(document).ready(function(){
 	$(function() {
 		$(".accordion-block").accordion();
 	});
+	
+	// bubble tooltips
+  $('.bubble').CreateBubblePopup({
+    position: 'left',
+    align: 'center',
+    tail: {
+      align: 'middle',
+      hidden: false
+    },
+    selectable: true,
+    innerHtml: 'Take a look to the HTML source of this page <br />to learn how the plugin works!',
+    innerHtmlStyle: {
+      color: '#333333',
+      'text-align': 'center'
+    },
+    themeName: 'azure',
+    themePath: '/images/ui-plugins/bubblepopup'
+  });
 	
 	// mega menu
 	$("#nav_megamenu").find('.resize').each(function(){
@@ -525,7 +543,7 @@ function calculate_sale_price(price, discount, discount_type) {
 	}
 }
 
-var megapanel_shadow_options = { autoresize: false, imageset: 6, imagepath: "/images/ui-backgrounds/shadowOn" }
+var megapanel_shadow_options = { autoresize: false, imageset: 6, imagepath: "/images/ui-plugins/shadowOn" }
 
 // Mega Menu Hover functions
 function megamenuHoverOver() {

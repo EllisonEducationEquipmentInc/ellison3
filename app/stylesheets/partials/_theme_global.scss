@@ -46,6 +46,19 @@ body.bp {
       padding: 0;
     }
   }
+  
+  //bubble popups
+  .jquerybubblepopup {
+    table {
+      margin-bottom: 0;
+    }
+    th, td {
+      padding: 0;
+    }
+    td.jquerybubblepopup-top-left, td.jquerybubblepopup-top-middle, td.jquerybubblepopup-top-right, td.jquerybubblepopup-bottom-left, td.jquerybubblepopup-bottom-middle, td.jquerybubblepopup-bottom-right {
+      line-height: 0;
+    }
+  }
 }
 
 // hidden classes for print & page breaks
