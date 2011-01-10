@@ -49,6 +49,8 @@ body.bp {
   
   //bubble popups
   .jquerybubblepopup {
+    z-index: 300;
+    
     table {
       margin-bottom: 0;
     }

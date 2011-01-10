@@ -136,25 +136,7 @@ $(document).ready(function(){
 	$(function() {
 		$(".accordion-block").accordion();
 	});
-	
-	// bubble tooltips
-  $('.bubble').CreateBubblePopup({
-    position: 'left',
-    align: 'center',
-    tail: {
-      align: 'middle',
-      hidden: false
-    },
-    selectable: true,
-    innerHtml: 'Take a look to the HTML source of this page <br />to learn how the plugin works!',
-    innerHtmlStyle: {
-      color: '#333333',
-      'text-align': 'center'
-    },
-    themeName: 'azure',
-    themePath: '/images/ui-plugins/bubblepopup'
-  });
-	
+		
 	// mega menu
 	$("#nav_megamenu").find('.resize').each(function(){
 	  $(this).css({
