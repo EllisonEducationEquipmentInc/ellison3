@@ -134,7 +134,7 @@ class IndexController < ApplicationController
     @static_page = StaticPage.where(:system_enabled => current_system, :permalink => params[:id]).first
     raise "Invalid StaticPage" unless @static_page.present?
     @title = @static_page.name
-    # expires_in 1.hours, 'max-stale' => 1.hours, :public => true
+    expires_in 1.hours, 'max-stale' => 1.hours, :public => true
   rescue Exception => e
     Rails.logger.info e.message
     go_404
