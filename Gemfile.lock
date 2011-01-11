@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: git://github.com/jnicklas/carrierwave.git
-  revision: 85ddee1014806dd4ccea7d122fe23d14f0adc43e
+  revision: 7361f97be97e5cd0986ccf41f9e96b47571f8daa
   specs:
     carrierwave (0.5.1)
       activesupport (~> 3.0)
@@ -81,7 +81,7 @@ GEM
     activesupport (3.0.3)
     archive-tar-minitar (0.5.2)
     arel (2.0.6)
-    bcrypt-ruby (2.1.3)
+    bcrypt-ruby (2.1.4)
     bson (1.1.5)
     bson_ext (1.1.5)
     builder (2.1.2)
@@ -100,7 +100,7 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (>= 0.0.27)
       xpath (~> 0.1.2)
-    celerity (0.8.6)
+    celerity (0.8.7)
     columnize (0.3.2)
     compass (0.10.6)
       haml (>= 3.0.4)
@@ -124,10 +124,10 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     escape (0.0.4)
-    factory_girl (1.3.2)
-    factory_girl_rails (1.0)
+    factory_girl (1.3.3)
+    factory_girl_rails (1.0.1)
       factory_girl (~> 1.3)
-      rails (>= 3.0.0.beta4)
+      railties (>= 3.0.0)
     fastthread (1.0.7)
     ffi (1.0.4)
       rake (>= 0.8.7)
@@ -149,7 +149,7 @@ GEM
       rake (>= 0.8.1)
     linecache19 (0.5.11)
       ruby_core_source (>= 0.1.4)
-    mail (2.2.13)
+    mail (2.2.14)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -259,7 +259,7 @@ GEM
       rack (>= 1.0)
       rack-test (>= 0.5.3)
     will_paginate (3.0.pre2)
-    xpath (0.1.2)
+    xpath (0.1.3)
       nokogiri (~> 1.3)
 
 PLATFORMS

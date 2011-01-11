@@ -16,6 +16,10 @@
     %br
     = f.text_field :name
   .field
+    = f.label :use_tabs
+    %br
+    = f.check_box :use_tabs
+  .field
     = f.label "start_date_#{current_system}", "Start Date #{current_system.upcase}", :class => 'overrideable'
     %br
     = f.text_field "start_date_#{current_system}", :class => 'datetimepicker'

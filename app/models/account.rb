@@ -3,7 +3,7 @@ class Account
   include Mongoid::Document
 	include Mongoid::Timestamps
 	
-	references_many :users, :index => true
+	references_many :users, :autosave => true, :index => true
 	
 	field :active, :type => Boolean, :default => true
 	field :school

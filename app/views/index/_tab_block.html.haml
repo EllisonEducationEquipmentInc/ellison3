@@ -1,3 +1,33 @@
-- object.tabs.current.each do |tab|
-  %h4= tab.name
-  %div{:id => "tabs-#{tab.id}"}= render 'tabs/tab', :tab => tab
+.tab-block
+  %ul
+    - object.tabs.current.each do |tab|
+      %li= link_to tab.name, "#tabs-#{tab.id}"
+      
+    - if object.respond_to?(:ideas) && object.ideas.present?
+      %li= link_to "Related Ideas", "#tabs-related_ideas_#{object.id}"
+      
+    - if object.respond_to?(:products) && object.products.present?
+      %li= link_to "Related Products", "#tabs-related_products_#{object.id}"
+      
+    - if object.send("four_related_#{object.class.to_s.downcase.pluralize}").present?
+      %li= link_to "Related #{object.class.to_s.pluralize}", "#tabs-four_related_#{object.class.to_s.downcase.pluralize}_#{object.id}"
+      
+  - object.tabs.current.each do |tab|
+    %div{:id => "tabs-#{tab.id}"}= render 'tabs/tab', :tab => tab
+    .clear
+    
+  - if object.respond_to?(:ideas) && object.ideas.present?
+    %div{:id => "tabs-related_ideas_#{object.id}"}= render :partial => 'ideas/idea', :collection => object.ideas
+    .clear
+    
+  - if object.respond_to?(:products) && object.products.present?
+    %div{:id => "tabs-related_products_#{object.id}"}= render :partial => 'products/product', :collection => object.products
+    .clear
+    
+  - if object.send("four_related_#{object.class.to_s.downcase.pluralize}").present?
+    %div{:id => "tabs-four_related_#{object.class.to_s.downcase.pluralize}_#{object.id}"}= render :partial => "#{object.class.to_s.downcase.pluralize}/#{object.class.to_s.downcase}", :collection => object.send("four_related_#{object.class.to_s.downcase.pluralize}")
+    .clear
+:javascript
+  $(function() {
+    $(".tab-block").tabs({ select: function(event, ui) {_gaq.push(['_trackEvent', 'Product', 'Click Tab', $(ui.tab).text()])}});
+  });

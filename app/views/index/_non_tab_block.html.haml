@@ -1,0 +1,3 @@
+- object.tabs.current.each do |tab|
+  %h4= tab.name
+  %div{:id => "tabs-#{tab.id}"}= render 'tabs/tab', :tab => tab

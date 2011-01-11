@@ -65,10 +65,12 @@ class Product
 	field :width, :type => Float
 	field :height, :type => Float
 	field :keywords
+	field :use_tabs, :type => Boolean, :default => false
 	field :old_id, :type => Integer
 	field :old_id_edu, :type => Integer
 	field :old_id_szuk, :type => Integer
 	field :old_id_er, :type => Integer
+	
 	
 	field :item_code
 	field :default_config, :type => Boolean, :default => false
@@ -134,8 +136,8 @@ class Product
 		  active.where(:item_num => item_num).cache.first
 		end
 		
-		def related_to(outlet = false)
-		  available.where(:systems_enabled.in => [current_system], :outlet => outlet, :"quantity_#{is_us? ? 'us' : 'uk'}".gt => 0, :life_cycle.in => ['available']).limit(4)
+		def related_to(exluded_product, outlet = false)
+		  available.where(:_id.ne => exluded_product.id, :systems_enabled.in => [current_system], :outlet => outlet, :"quantity_#{is_us? ? 'us' : 'uk'}".gt => 0, :life_cycle.in => ['available']).limit(4)
 		end
 	end
 		
@@ -463,7 +465,7 @@ class Product
 	end
 	
 	def four_related_products
-	  related_tag.products.related_to(self.outlet) rescue []
+	  related_tag.products.related_to(self, self.outlet) rescue []
 	end
 	
 private 

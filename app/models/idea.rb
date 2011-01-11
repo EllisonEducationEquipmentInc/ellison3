@@ -32,6 +32,7 @@ class Idea
 	field :long_desc
 	field :grade_level, :type => Array
 	field :related_idea_tag
+	field :use_tabs, :type => Boolean, :default => false
 	
 	index :idea_num, :unique => true, :background => true
 	index :systems_enabled
@@ -207,7 +208,7 @@ class Idea
 	end
 	
 	def four_related_ideas
-	  related_tag.ideas.send(current_system).available.limit(4) rescue []
+	  related_tag.ideas.send(current_system).available.where(:_id.ne => self.id).limit(4) rescue []
 	end
 	
 private 
