@@ -118,14 +118,28 @@ class IndexController < ApplicationController
   
   def twitter_feed
     @feed = Feed.where(:name => 'twitter').first || Feed.new(:name => 'twitter')
-    process_feed("http://www.appleinsider.com/appleinsider.rss")
+    process_feed("http://twitter.com/statuses/user_timeline/46690271.rss")
     expires_in 3.minutes, 'max-stale' => 3.minutes, :public => true
     render :partial => 'index/feed', :collection => @feed.entries
   end
   
   def blog_feed
     @feed = Feed.where(:name => 'blog').first || Feed.new(:name => 'blog')
-    process_feed("http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&num=3&output=rss")
+    process_feed("http://sizzixblog.blogspot.com/atom.xml")
+    expires_in 3.minutes, 'max-stale' => 3.minutes, :public => true
+    render :partial => 'index/feed', :collection => @feed.entries
+  end
+
+  def twitter_feed_uk
+    @feed = Feed.where(:name => 'twitter_uk').first || Feed.new(:name => 'twitter_uk')
+    process_feed("http://twitter.com/statuses/user_timeline/45567009.rss")
+    expires_in 3.minutes, 'max-stale' => 3.minutes, :public => true
+    render :partial => 'index/feed', :collection => @feed.entries
+  end
+  
+  def blog_feed_uk
+    @feed = Feed.where(:name => 'blog_uk').first || Feed.new(:name => 'blog_uk')
+    process_feed("http://www.dacio.us/feed/")
     expires_in 3.minutes, 'max-stale' => 3.minutes, :public => true
     render :partial => 'index/feed', :collection => @feed.entries
   end
