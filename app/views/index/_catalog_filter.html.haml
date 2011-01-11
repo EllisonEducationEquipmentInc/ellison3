@@ -37,14 +37,17 @@
         } else {
           location.hash = $.param.fragment( location.hash, {facets: $.deparam.fragment()['facets']+","+$(this).attr('rel'), page: 1}, 0 );
         }
+        disable_facet_link($(this), "ell3_ui-check-box-tick--disabled");
         return false;
       });
       $(".price_query_facet_value").click(function() {
         location.hash = $.param.fragment( location.hash, {price: $(this).attr('rel'), page: 1}, 0 );
+        disable_facet_link($(this), "ell3_ui-check-box-tick--disabled");
         return false;
       });
       $(".saving_query_facet_value").click(function() {
         location.hash = $.param.fragment( location.hash, {saving: $(this).attr('rel'), page: 1}, 0 );
+        disable_facet_link($(this), "ell3_ui-check-box-tick--disabled");
         return false;
       });
       $('#keyword').change(function() {
@@ -55,10 +58,19 @@
         }
       });
       $('.multifacet_remove').click(function() {
-          var facets = $.deparam.fragment()['facets'].split(',');
-          facets.splice(facets.indexOf($(this).attr('rel')),1);        
-          location.hash = $.param.fragment( location.hash, {facets: facets.join(','), page: 1}, 0 );
-          return false;
-        });
+        var facets = $.deparam.fragment()['facets'].split(',');
+        facets.splice(facets.indexOf($(this).attr('rel')),1);        
+        location.hash = $.param.fragment( location.hash, {facets: facets.join(','), page: 1}, 0 );
+        disable_facet_link($(this), "ell3_cross-small--disabled");
+        return false;
+      });
     });
+    
+    function disable_facet_link(link, icon) {
+      $(link).css({
+        'background' : 'url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/' + icon + '.png") top left no-repeat',
+        'cursor' : 'text',
+        'color' : '#ccc'
+      });
+    }
   

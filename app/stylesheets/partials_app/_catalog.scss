@@ -216,7 +216,7 @@ body.bp {
         color: $catalog_filter_hover;
       }
       
-      &.facet_value, &.price_query_facet_value {
+      &.facet_value, &.price_query_facet_value, &.saving_query_facet_value {
         padding-left: 16px;
         background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/ui-check-box-uncheck.png") top left no-repeat;
         
@@ -236,6 +236,13 @@ body.bp {
           color: $catalog_filter_link;
         }
       }      
+      
+      &.facet_data_updating {
+        padding-left: 16px;
+        background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/fruit.png") top left no-repeat;
+        cursor: text;
+        color: #ccc;
+      }
     }
   }
   
