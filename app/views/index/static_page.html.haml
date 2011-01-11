@@ -1,0 +1,2 @@
+= @static_page.content.html_safe
+= Haml::Engine.new(@static_page.haml_content).render(self) if @static_page.haml_content.present?

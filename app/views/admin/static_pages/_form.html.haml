@@ -1,0 +1,35 @@
+- form_for([:admin, @static_page], :html => {:multipart => true}) do |f|
+  = f.error_messages
+  .field
+    = f.label :system_enabled
+    = f.select :system_enabled, ELLISON_SYSTEMS
+  .field
+    = f.label :active
+    %br
+    = f.check_box :active
+  .field
+    = f.label :name
+    %br
+    = f.text_field :name
+  .field
+    = f.label :permalink, "Permalink URL. Ex: st-patrick-day-sale"
+    %br
+    == This will be the url of the page. Ex: http://#{request.host_with_port}/<strong>st-patrick-day-sale</strong>
+    %br
+    = f.text_field :permalink
+  .field
+    = f.label :short_desc
+    %br
+    = f.text_field :short_desc
+  .field{:style => "width:850px"}
+    = f.label :content
+    %br
+    = f.text_area :content, :class => 'wymeditor'
+  .field
+    = f.label :haml_content
+    %br
+    = f.text_area :haml_content, :cols => 100, :rows => 100
+  %br
+  %br
+  .actions
+    = f.submit :class => 'wymupdate jqui_save'

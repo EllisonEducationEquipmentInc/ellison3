@@ -11,6 +11,10 @@ class StaticPage
 	field :content
 	field :haml_content
 	
+	index :permalink
+	index :name
+	index :system_enabled
+	
 	validates :name, :system_enabled, :permalink, :presence => true
 	validates_inclusion_of :system_enabled, :in => ELLISON_SYSTEMS
 	validates_format_of :permalink, :with => /^[_a-z0-9-]+$/, :message => "Use only alphanumeric characters, dash and underscore (all lowercase, no spaces or special characters). Examle: st-patrick-day-sale"
@@ -19,7 +23,7 @@ class StaticPage
 private 
 	
 	def permalink_uniqueness
-	  errors.add(:permalink, "Permalink %s already exists in #{self.system_enabled}") if self.class.where(:permalink => self.permalink, :system_enabled => self.system_enabled).count > 0
+	  errors.add(:permalink, "Permalink %s already exists in #{self.system_enabled}") if self.class.where(:_id.ne => self.id, :permalink => self.permalink, :system_enabled => self.system_enabled).count > 0
 	end
 
 end

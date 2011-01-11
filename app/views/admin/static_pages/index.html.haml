@@ -15,6 +15,7 @@
     %thead
       %tr
         = sortable "name"
+        %th Short Desc.
         = sortable "permalink"
         %th System
         %th Active
@@ -26,6 +27,7 @@
       - for static_page in @static_pages
         %tr{ :class => cycle(:odd, :even) }
           %td= static_page.name
+          %td= static_page.short_desc
           %td= static_page.permalink
           %td= static_page.system_enabled
           %td= static_page.active

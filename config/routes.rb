@@ -168,6 +168,10 @@ Ellison3::Application.routes.draw do |map|
   match ':controller(/:action(/:id(.:format)))'
   match ':controller(/:action(.:format))'
   
+  
 	# static and 404 pages middleware route
-	match "*path" => "static_pages#serve"
+	match "*path.html" => "static_pages#serve"
+
+  match ':id' => 'index#static_page'
+
 end
