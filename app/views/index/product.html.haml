@@ -23,33 +23,88 @@
   %h4 Compatibility
   %p This die is compatible with these machines:
   %ul.plain
-    %li= link_to image_tag("/images/ui-objects/machines/BIGkick_periwinkle.jpg", :class => "thumbnail"), "#"
-    %li= link_to image_tag("/images/ui-objects/machines/BIGkick_red-white.jpg", :class => "thumbnail"), "#"
     %li
       = link_to "#" do
-        %span.compatibility-plus Compatibility Plus
+        %span.compatibility-plus.tooltip_bigshot Compatibility Plus
+        = image_tag("/images/ui-objects/machines/BigShot.jpg", :class => "thumbnail")
+    %li
+      = link_to "#" do
+        %span.compatibility-plus.tooltip_vagabond Compatibility Plus
         = image_tag("/images/ui-objects/machines/Vagabond.jpg", :class => "thumbnail")
     %li
       = link_to "#" do
-        %span.compatibility-plus Compatibility Plus
-        = image_tag("/images/ui-objects/machines/BigShot_WestminsterFibers.jpg", :class => "thumbnail")
-    %li= link_to image_tag("/images/ui-objects/machines/eclips_v1.jpg", :class => "thumbnail"), "#"
-    %li= link_to image_tag("/images/ui-objects/machines/eclips_v2.jpg", :class => "thumbnail"), "#"
-    %li= link_to image_tag("/images/ui-objects/machines/BIGkick_periwinkle.jpg", :class => "thumbnail"), "#"
-    %li= link_to image_tag("/images/ui-objects/machines/BIGkick_red-white.jpg", :class => "thumbnail"), "#"
-    %li
-      = link_to "#" do
-        %span.compatibility-plus Compatibility Plus
-        = image_tag("/images/ui-objects/machines/Vagabond.jpg", :class => "thumbnail")
-    %li
-      = link_to "#" do
-        %span.compatibility-plus Compatibility Plus
-        = image_tag("/images/ui-objects/machines/BigShot_WestminsterFibers.jpg", :class => "thumbnail")
-    %li= link_to image_tag("/images/ui-objects/machines/eclips_v1.jpg", :class => "thumbnail"), "#"
-    %li= link_to image_tag("/images/ui-objects/machines/eclips_v2.jpg", :class => "thumbnail"), "#"
+        %span.compatibility-plus.tooltip_bigshotpro Compatibility Plus
+        = image_tag("/images/ui-objects/machines/BigShotPro.jpg", :class => "thumbnail")
+    
+    :javascript
+      $('.tooltip_bigshot').CreateBubblePopup({
+        position: 'top',
+        align: 'center',
+        tail: {
+          align: 'middle',
+          hidden: false
+        },
+        selectable: true,
+        innerHtml: '<strong>#{link_to image_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/shopping-basket--plus.png"), "#"} Sizzix Big Shot Machine</strong><br />#{link_to image_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/shopping-basket--plus.png"), "#"} Sizzix Accessory - Premium Crease Pad, Extended<br />#{link_to image_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/shopping-basket--plus.png"), "#"} Sizzix Accessory - Cutting Pad, Extended, 1 Pair',
+        innerHtmlStyle: {
+          color: '#333333',
+          'text-align': 'left'
+        },
+        themeName: 'azure',
+        themePath: '/images/ui-plugins/bubblepopup'
+      });
+      $('.tooltip_vagabond').CreateBubblePopup({
+        position: 'top',
+        align: 'center',
+        tail: {
+          align: 'middle',
+          hidden: false
+        },
+        selectable: true,
+        innerHtml: '<strong>#{link_to image_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/shopping-basket--plus.png"), "#"} Sizzix Vagabond Machine - inspired by Tim Holtz&reg;</strong><br />#{link_to image_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/shopping-basket--plus.png"), "#"} Sizzix Accessory - Premium Crease Pad, Extended<br />#{link_to image_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/shopping-basket--plus.png"), "#"} Sizzix Accessory - Cutting Pad, Extended, 1 Pair',
+        innerHtmlStyle: {
+          color: '#333333',
+          'text-align': 'left'
+        },
+        themeName: 'azure',
+        themePath: '/images/ui-plugins/bubblepopup'
+      });
+      $('.tooltip_bigshotpro').CreateBubblePopup({
+        position: 'top',
+        align: 'center',
+        tail: {
+          align: 'middle',
+          hidden: false
+        },
+        selectable: true,
+        innerHtml: '<strong>#{link_to image_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/shopping-basket--plus.png"), "#"} Sizzix Big Shot Pro Machine</strong><br />#{link_to image_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/shopping-basket--plus.png"), "#"} Sizzix Accessory - Premium Crease Pad, Extended<br />#{link_to image_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/shopping-basket--plus.png"), "#"} Sizzix Accessory - Cutting Pad, Extended, 1 Pair',
+        innerHtmlStyle: {
+          color: '#333333',
+          'text-align': 'left'
+        },
+        themeName: 'azure',
+        themePath: '/images/ui-plugins/bubblepopup'
+      });
 
   .clear
-  %p== What does #{image_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/plus-octagon-frame.png", :alt => "Compatibility Plus", :title => "Compatibility Plus")} mean?
+  %p== What does #{image_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/plus-octagon-frame.png", :alt => "Compatibility Plus", :title => "Compatibility Plus", :class => "tooltip_plusinfo")} mean?
+  :javascript
+    $('.tooltip_plusinfo').CreateBubblePopup({
+      position: 'top',
+      align: 'center',
+      tail: {
+        align: 'middle',
+        hidden: false
+      },
+      selectable: true,
+      innerHtml: '<div style="width:175px;">Machines with this symbol require a few additional accessories before they can be used with this die.</div>',
+      innerHtmlStyle: {
+        color: '#333333',
+        'text-align': 'center'
+      },
+      themeName: 'azure',
+      themePath: '/images/ui-plugins/bubblepopup'
+    });
 
 %div{ :class => "item_detail#{'-tabbed' if @product.use_tabs}"}
   = render :partial => "#{'non_' unless @product.use_tabs}tab_block", :locals => {:object => @product}
