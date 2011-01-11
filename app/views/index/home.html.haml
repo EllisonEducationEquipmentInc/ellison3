@@ -271,28 +271,29 @@
     %li Sizzix On the Edge Die - Plaque & Postage
   %p handpicked by Sizzix Staff
 
-#blog-posts
-  %h2.decorative
-    %span News from our Blog  
-    %ul#blog_feeds
-  .poll
-    %h4 Take This Month's Poll!
-    %p
-      Which Sizzix Machines do you currently own? 
-      = link_to "launch poll", "#"
+- unless is_er? || is_ee?
+  #blog-posts
+    %h2.decorative
+      %span News from our Blog  
+    %ul#blog_feeds.plain
+    .poll
+      %h4 Take This Month's Poll!
+      %p
+        Which Sizzix Machines do you currently own? 
+        = link_to "launch poll", "#"
 
-#social-media
-  %h2.decorative
-    %span Sizzix Tweets
-  %ul.tweets#sizzix_tweets
-  :javascript
-    $(document).ready(function(){
-      $('#sizzix_tweets').load('/index/twitter_feed');
-      $('#blog_feeds').load('/index/blog_feed');
-    });
-  %ul#connect-with-sizzix
-    %li= link_to "Follow Us on Twitter", "http://www.twitter.com/sizzix_us", :target => "blank"
-    %li= link_to "Join Us on Facebook", "http://www.facebook.com/Sizzix", :target => "blank"
-    %li= link_to "Watch Us on YouTube", "http://www.youtube.com/sizzix", :target => "blank"
-    %li= link_to "Sign Up for our Newsletter", "#", :target => "blank"
-    %li= link_to "Email Us", "/contact"
+  #social-media
+    %h2.decorative
+      %span Sizzix Tweets
+    %ul.tweets#sizzix_tweets
+    :javascript
+      $(document).ready(function(){
+        $('#sizzix_tweets').load('/index/twitter_feed#{"_uk" if is_uk?}');
+        $('#blog_feeds').load('/index/blog_feed#{"_uk" if is_uk?}');
+      });
+    %ul#connect-with-sizzix
+      %li= link_to "Follow Us on Twitter", "http://www.twitter.com/sizzix_us", :target => "blank"
+      %li= link_to "Join Us on Facebook", "http://www.facebook.com/Sizzix", :target => "blank"
+      %li= link_to "Watch Us on YouTube", "http://www.youtube.com/sizzix", :target => "blank"
+      %li= link_to "Sign Up for our Newsletter", "#", :target => "blank"
+      %li= link_to "Email Us", "/contact"

@@ -1,6 +1,6 @@
 %li
-  = link_to feed["title"].html_safe, feed["url"]
-  %br/
-  = feed["summary"].html_safe
-  %br/
-  %span.timestamp= l(Time.parse(feed["published"]), :format => :custom) rescue feed["published"]
+  %h3= link_to feed["title"].html_safe, feed["url"]
+  %p
+    = feed["summary"].html_safe unless feed["title"].html_safe == feed["summary"].html_safe
+    %br/
+    %span.timestamp= l(Time.parse(feed["published"]), :format => :custom) rescue feed["published"]
