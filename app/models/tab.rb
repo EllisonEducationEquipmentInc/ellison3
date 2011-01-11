@@ -15,7 +15,7 @@ class Tab
 	field :description
 	field :active, :type => Boolean, :default => true
 	field :systems_enabled, :type => Array
-	field :reusable, :type => Boolean, :default => false
+	#field :reusable, :type => Boolean, :default => false
 	field :text
 	field :products, :type => Array
 	field :ideas, :type => Array
