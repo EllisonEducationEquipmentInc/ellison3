@@ -274,18 +274,7 @@
 #blog-posts
   %h2.decorative
     %span News from our Blog  
-  %p
-    %strong Halloween Banner
-    %br/
-    I have been having a lot of fun lately with all the new Halloween dies and Texture Fades. I mean, after all, Halloween is almost around the corner..
-  %p 
-    %strong Frames and Phrases Dies
-    %br/
-    Beth is always coming up with amazing die designs. She had a BIG hit with the 3-D Flower, which has been so popular it's been out of stock over and over again..
-  %p
-    %strong Eclips Pen Tool
-    %br/
-    The pen tool is a great new feature on our eclips machine. I used it to create my own patterned paper for this birthday card I made..
+    %ul#blog_feeds
   .poll
     %h4 Take This Month's Poll!
     %p
@@ -299,6 +288,7 @@
   :javascript
     $(document).ready(function(){
       $('#sizzix_tweets').load('/index/twitter_feed');
+      $('#blog_feeds').load('/index/blog_feed');
     });
   %ul#connect-with-sizzix
     %li= link_to "Follow Us on Twitter", "http://www.twitter.com/sizzix_us", :target => "blank"

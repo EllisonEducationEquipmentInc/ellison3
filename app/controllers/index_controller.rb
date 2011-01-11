@@ -118,17 +118,28 @@ class IndexController < ApplicationController
   
   def twitter_feed
     @feed = Feed.where(:name => 'twitter').first || Feed.new(:name => 'twitter')
-    if @feed.new_record? || @feed.updated_at < 5.minutes.ago
-      feed = Feedzirra::Feed.fetch_and_parse("http://www.appleinsider.com/appleinsider.rss")
-      feed.sanitize_entries!
-      @feed.feeds = feed.entries.to_json
-      @feed.save
-    end
+    process_feed("http://www.appleinsider.com/appleinsider.rss")
+    expires_in 3.minutes, 'max-stale' => 3.minutes, :public => true
+    render :partial => 'index/feed', :collection => @feed.entries
+  end
+  
+  def blog_feed
+    @feed = Feed.where(:name => 'blog').first || Feed.new(:name => 'blog')
+    process_feed("http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&num=3&output=rss")
     expires_in 3.minutes, 'max-stale' => 3.minutes, :public => true
     render :partial => 'index/feed', :collection => @feed.entries
   end
   
 private
+
+  def process_feed(source)
+    if @feed.new_record? || @feed.updated_at < 5.minutes.ago
+      feed = Feedzirra::Feed.fetch_and_parse(source)
+      feed.sanitize_entries!
+      @feed.feeds = feed.entries.to_json
+      @feed.save
+    end
+  end
   
   def get_search
     get_search_objects
