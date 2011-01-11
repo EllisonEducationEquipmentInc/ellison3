@@ -11,4 +11,5 @@
 .item_compatibility { @include column(12, true);}
 
 .item_detail { @include column(19); }
+.item_detail-tabbed { @include column(24, true); }
 .item_cross-sell { @include column(5, true);}

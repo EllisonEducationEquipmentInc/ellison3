@@ -923,6 +923,18 @@ select#sort, input#select_all_products {
 }
 
 /* line 14, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
+.item_detail-tabbed {
+  display: inline;
+  float: left;
+  margin-right: 0;
+  width: 950px;
+}
+/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html .item_detail-tabbed {
+  overflow-x: hidden;
+}
+
+/* line 15, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
 .item_cross-sell {
   display: inline;
   float: left;
