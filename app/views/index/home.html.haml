@@ -295,37 +295,11 @@
 #social-media
   %h2.decorative
     %span Sizzix Tweets
-  %ul.tweets
-    %li
-      Rare savings from 20%-87% off our most essential items!
-      =link_to "www.sizzix.com/catalog/campaign/essentially%20yours/?utm_source=twitter", "www.sizzix.com/catalog/campaign/essentially%20yours/?utm_source=twitter"
-      %br/
-      %span.timestamp
-        11:36 AM Sep 17th via web
-    %li
-      Sizzix.com Coupon Code: SC820 Valid thru 8-15
-      =link_to "http://bit.ly/atccYn","http://bit.ly/atccYn"
-      %br/
-      %span.timestamp
-        7:57 AM Aug 10th  via web
-    %li
-      Tuesday Teasers
-      =link_to "http://www.sizzix.com/catalog/campaign/tuesday%20teasers?utm_source=Twitter&utm_medium=social&utm_campaign=tuesday+teasers", "http://www.sizzix.com/catalog/campaign/tuesday%20teasers?utm_source=Twitter&utm_medium=social&utm_campaign=tuesday+teasers"
-      %br/
-      %span.timestamp
-        7:55 AM Aug 10th via web
-    %li
-      New Tim Holtz products available this Fall.
-      =link_to "http://www.sizzix.com/catalog/campaign/Tim%20Holtz%20Coming%20Soon", "http://www.sizzix.com/catalog/campaign/Tim%20Holtz%20Coming%20Soon"
-      %br/
-      %span.timestamp
-        1:59 PM Jul 27th via web
-    %li
-      Want to see the newest Sizzix releases being previewed right now at CHA Summer 2010? See what’s headed your way!
-      =link_to "www.sizzix.com/news", "www.sizzix.com/news"
-      %br/
-      %span.timestamp
-        11:56 AM Jul 27th via web
+  %ul.tweets#sizzix_tweets
+  :javascript
+    $(document).ready(function(){
+      $('#sizzix_tweets').load('/index/twitter_feed');
+    });
   %ul#connect-with-sizzix
     %li= link_to "Follow Us on Twitter", "http://www.twitter.com/sizzix_us", :target => "blank"
     %li= link_to "Join Us on Facebook", "http://www.facebook.com/Sizzix", :target => "blank"

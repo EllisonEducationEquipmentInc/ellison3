@@ -1,9 +1,10 @@
 source 'http://rubygems.org'
+source 'http://gemcutter.org'
+source 'http://gems.github.com'
 require 'rubygems'
 require 'image_science'
 require 'mongo'
 require 'csv'
-source 'http://gemcutter.org'
 
 gem 'bundler', '>=1.0.0'
 gem 'rails', '3.0.3'
@@ -48,6 +49,7 @@ gem 'httparty'
 gem 'shippinglogic', :git => 'git://github.com/computadude/shippinglogic.git', :branch => "master"
 gem 'sunspot_mongoid', :git => 'git://github.com/jugyo/sunspot_mongoid.git', :branch => "master"
 #gem 'event-calendar', :require => 'event_calendar'
+gem 'feedzirra'
 
 # Use unicorn as the web server
 # gem 'unicorn'

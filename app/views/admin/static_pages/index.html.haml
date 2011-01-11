@@ -1,0 +1,38 @@
+%h1 Listing Static Pages
+= link_to 'New Static Page', new_admin_static_page_path, :class => 'jqui_new' if has_write_permissions?
+%br
+%h3 Filters
+- unless params[:q].blank?
+  = link_to 'all', admin_static_pages_path, :class => 'jqui_button'
+= form_tag(admin_static_pages_path, :method => :get) do
+  = admin_systems_checkboxes
+  = text_field_tag :q, nil, :placeholder => "name, short desc, permalink"
+  = check_box_tag :inactive, "1", params[:inactive] == "1"
+  Incl. inactive
+  = submit_tag "search", :class => 'jqui_search'
+.highlightable
+  %table
+    %thead
+      %tr
+        = sortable "name"
+        = sortable "permalink"
+        %th System
+        %th Active
+        %th &nbsp;
+        - if has_write_permissions?
+          %th &nbsp;
+          %th &nbsp;
+    %tbody
+      - for static_page in @static_pages
+        %tr{ :class => cycle(:odd, :even) }
+          %td= static_page.name
+          %td= static_page.permalink
+          %td= static_page.system_enabled
+          %td= static_page.active
+          - if has_write_permissions?
+            %td= link_to 'Edit', edit_admin_static_page_path(static_page)
+            %td= link_to 'Destroy', admin_static_page_path(static_page), :confirm => 'Are you sure?', :method => :delete
+%br
+= will_paginate @static_pages
+%br
+= link_to 'New Static Page', new_admin_static_page_path, :class => 'jqui_new' if has_write_permissions?
