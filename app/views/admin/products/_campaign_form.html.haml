@@ -1,4 +1,4 @@
-- form_for @campaign, :url => {:action => @campaign.new_record? ? 'create_campaign' : 'update_campaign', :id => @campaign.id}, :remote => true do |f| 
+= form_for @campaign, :url => {:action => @campaign.new_record? ? 'create_campaign' : 'update_campaign', :id => @campaign.id}, :remote => true do |f| 
   .field
     = f.label :name
     = f.text_field :name

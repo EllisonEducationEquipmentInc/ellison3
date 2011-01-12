@@ -2,7 +2,7 @@
 %br
 - unless params[:q].blank?
   = link_to 'all', admin_quotes_path, :class => 'jqui_button'
-- form_tag(admin_quotes_path, :method => :get) do
+= form_tag(admin_quotes_path, :method => :get) do
   = admin_systems_checkboxes
   = text_field_tag :q, nil, :placeholder => "shipping name, address"
   = submit_tag "search", :class => 'jqui_search'

@@ -4,7 +4,7 @@
 %h3 Filters
 - unless params[:q].blank?
   = link_to 'all', admin_tags_path, :class => 'jqui_button'
-- form_tag(admin_tags_path, :method => :get) do
+= form_tag(admin_tags_path, :method => :get) do
   = admin_systems_checkboxes
   = select_tag :tag_type, options_for_select([["- type -", nil]] + Tag.all_types.map {|t| [t.humanize, t]}, params[:tag_type])
   = text_field_tag :q, nil, :placeholder => "name"

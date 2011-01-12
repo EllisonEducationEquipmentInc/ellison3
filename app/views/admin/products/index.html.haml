@@ -4,7 +4,7 @@
 %h3 Filters
 - unless params[:q].blank?
   = link_to 'all', admin_products_path, :class => 'jqui_button'
-- form_tag(admin_products_path, :method => :get) do
+= form_tag(admin_products_path, :method => :get) do
   = admin_systems_checkboxes
   = select_tag :life_cycle, options_for_select([["- life cycle -", nil]] + Product::LIFE_CYCLES, params[:life_cycle])
   = text_field_tag :q, nil, :placeholder => "item num, name, desc"

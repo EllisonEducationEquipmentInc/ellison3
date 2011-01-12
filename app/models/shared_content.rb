@@ -35,4 +35,12 @@ class SharedContent
   
   accepts_nested_attributes_for :visual_assets, :allow_destroy => true, :reject_if => proc { |attributes| attributes['name'].blank?}
 	validates_associated :visual_assets
+	
+	def products
+	  Product.where('tabs.shared_content_id' => self.id)
+	end
+	
+	def ideas
+	  Idea.where('tabs.shared_content_id' => self.id)
+	end
 end
