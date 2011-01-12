@@ -125,7 +125,7 @@ class IndexController < ApplicationController
   
   def blog_feed
     @feed = Feed.where(:name => 'blog').first || Feed.new(:name => 'blog')
-    process_feed("http://sizzixblog.blogspot.com/atom.xml")
+    process_feed("http://sizzixblog.blogspot.com/feeds/posts/default?alt=rss")
     expires_in 3.minutes, 'max-stale' => 3.minutes, :public => true
     render :partial => 'index/feed', :collection => @feed.entries
   end
@@ -145,7 +145,7 @@ class IndexController < ApplicationController
   end
   
   def static_page
-    @static_page = StaticPage.where(:system_enabled => current_system, :permalink => params[:id]).first
+    @static_page = StaticPage.active.where(:system_enabled => current_system, :permalink => params[:id]).first
     raise "Invalid StaticPage" unless @static_page.present?
     @title = @static_page.name
     expires_in 1.hours, 'max-stale' => 1.hours, :public => true
