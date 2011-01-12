@@ -19,7 +19,6 @@
         = sortable "permalink"
         %th System
         %th Active
-        %th &nbsp;
         - if has_write_permissions?
           %th &nbsp;
           %th &nbsp;
@@ -32,8 +31,8 @@
           %td= static_page.system_enabled
           %td= static_page.active
           - if has_write_permissions?
-            %td= link_to 'Edit', edit_admin_static_page_path(static_page)
-            %td= link_to 'Destroy', admin_static_page_path(static_page), :confirm => 'Are you sure?', :method => :delete
+            %td= link_to 'Edit', edit_admin_static_page_path(static_page), :class => "jqui_edit_min"
+            %td= link_to 'Destroy', admin_static_page_path(static_page), :confirm => 'Are you sure?', :method => :delete, :class => "jqui_destroy_min"
 %br
 = will_paginate @static_pages
 %br
