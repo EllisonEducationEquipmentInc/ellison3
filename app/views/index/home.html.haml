@@ -275,7 +275,7 @@
   #blog-posts
     %h2.decorative
       %span News from our Blog  
-    %ul#blog_feeds.plain
+    %ul#blog_feeds.plain= spinner
     .poll
       %h4 Take This Month's Poll!
       %p
@@ -285,15 +285,15 @@
   #social-media
     %h2.decorative
       %span Sizzix Tweets
-    %ul.tweets#sizzix_tweets
-    :javascript
-      $(document).ready(function(){
-        $('#sizzix_tweets').load('/index/twitter_feed#{"_uk" if is_uk?}');
-        $('#blog_feeds').load('/index/blog_feed#{"_uk" if is_uk?}');
-      });
+    %ul.tweets#sizzix_tweets= spinner
     %ul#connect-with-sizzix
       %li= link_to "Follow Us on Twitter", "http://www.twitter.com/sizzix_us", :target => "blank"
       %li= link_to "Join Us on Facebook", "http://www.facebook.com/Sizzix", :target => "blank"
       %li= link_to "Watch Us on YouTube", "http://www.youtube.com/sizzix", :target => "blank"
       %li= link_to "Sign Up for our Newsletter", "#", :target => "blank"
       %li= link_to "Email Us", "/contact"
+  :javascript
+    $(document).ready(function(){
+      $('#sizzix_tweets').load('/index/twitter_feed#{"_uk" if is_uk?}');
+      $('#blog_feeds').load('/index/blog_feed#{"_uk" if is_uk?}');
+    });
