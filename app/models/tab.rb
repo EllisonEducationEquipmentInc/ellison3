@@ -28,6 +28,8 @@ class Tab
 	embedded_in :idea, :inverse_of => :tabs
 	embeds_many :images
 	
+	referenced_in :shared_content
+	
 	accepts_nested_attributes_for :images, :allow_destroy => true
 	
 	scope :active, :where => { :active => true }

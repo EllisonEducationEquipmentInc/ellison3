@@ -23,6 +23,7 @@ class VisualAsset
 	field :display_order, :type => Integer
 	
 	embedded_in :landing_page, :inverse_of => :visual_assets
+	embedded_in :shared_content, :inverse_of => :visual_assets
 	
 	mount_uploader :image, PrivateAttachmentUploader
 	

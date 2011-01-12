@@ -14,11 +14,14 @@ class StaticPage
 	index :permalink
 	index :name
 	index :system_enabled
+	index :active
 	
 	validates :name, :system_enabled, :permalink, :presence => true
 	validates_inclusion_of :system_enabled, :in => ELLISON_SYSTEMS
 	validates_format_of :permalink, :with => /^[_a-z0-9-]+$/, :message => "Use only alphanumeric characters, dash and underscore (all lowercase, no spaces or special characters). Examle: st-patrick-day-sale"
 	validate :permalink_uniqueness
+	
+	scope :active, :where => { :active => true }
 	
 private 
 	

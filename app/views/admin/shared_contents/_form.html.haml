@@ -1,0 +1,29 @@
+- form_for([:admin, @shared_content], :html => {:multipart => true}) do |f|
+  = f.error_messages
+  .field
+    = f.label :systems_enabled
+    = system_enabled('shared_content')
+  .field
+    = f.label :active
+    %br
+    = f.check_box :active
+  .field
+    = f.label :name
+    %br
+    = f.text_field :name
+  .field
+    = f.label :short_desc
+    %br
+    = f.text_field :short_desc
+  #visual_assets  
+    = f.fields_for :visual_assets, @shared_content.visual_assets.ordered do |visual_asset_fields|
+      = render 'admin/visual_assets/visual_asset', :f => visual_asset_fields
+    = link_to_add_fields "Add Visual Asset", f, :visual_assets
+  %br
+  %br
+  .actions
+    = f.submit :class => 'wymupdate jqui_save'
+:javascript
+  $('#visual_assets').sortable({tolerance: 'pointer', start: function(event, ui) {$('.visual_asset').css({height:"22px",overflow:"hidden"})}, stop: function(event, ui) {$('.visual_asset').css({height:"auto"})}, update: function(event, ui) {
+    $.ajax({url:"/admin/shared_contents/reorder_visual_assets?id=#{@shared_content.id}&"+$("#visual_assets").sortable('serialize')});
+  }})

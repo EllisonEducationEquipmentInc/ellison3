@@ -25,6 +25,9 @@
   .clear
   :javascript
     shadow_on();
+- if tab.shared_content.present?
+  = render tab.shared_content.visual_assets.current
+  .clear
   
         
         

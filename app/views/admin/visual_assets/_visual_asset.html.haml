@@ -5,8 +5,8 @@
   .field
     = f.label :systems_enabled
     - ELLISON_SYSTEMS.each do |sys|
-      = hidden_field_tag("landing_page[visual_assets_attributes][#{child_index}][systems_enabled][]", sys) if f.object.systems_enabled.try(:include?, sys) && !has_write_permissions?(sys)
-      = check_box_tag("landing_page[visual_assets_attributes][#{child_index}][systems_enabled][]", sys, f.object.systems_enabled.try(:include?, sys), :disabled => !has_write_permissions?(sys))
+      = hidden_field_tag("#{f.object_name[/^(\w+)/]}[visual_assets_attributes][#{child_index}][systems_enabled][]", sys) if f.object.systems_enabled.try(:include?, sys) && !has_write_permissions?(sys)
+      = check_box_tag("#{f.object_name[/^(\w+)/]}[visual_assets_attributes][#{child_index}][systems_enabled][]", sys, f.object.systems_enabled.try(:include?, sys), :disabled => !has_write_permissions?(sys))
       %span{:class => sys == current_system ? "current_system" : nil}= sys
   .field
     = f.label :active

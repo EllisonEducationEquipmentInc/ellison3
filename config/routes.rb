@@ -137,6 +137,11 @@ Ellison3::Application.routes.draw do |map|
 			end
 			resources :coupons
 			resources :static_pages
+			resources :shared_contents do
+			  collection do
+			    get :shared_contents_autocomplete
+			  end
+			end
 			resources :landing_pages do
 			  collection do
 			    get :reorder_visual_assets

@@ -544,7 +544,8 @@ function megamenuHoverOut(){
 
 function toggle_visual_asset_type(child_index) {
 	$('.visual_asset_'+child_index+' .type_specific').hide();
-	$('.visual_asset_'+child_index+' .'+$('#landing_page_visual_assets_attributes_'+child_index+'_asset_type').val()).show();
+	if ($('#landing_page_visual_assets_attributes_'+child_index+'_asset_type').length > 0) $('.visual_asset_'+child_index+' .'+$('#landing_page_visual_assets_attributes_'+child_index+'_asset_type').val()).show();
+	if ($('#shared_content_visual_assets_attributes_'+child_index+'_asset_type').length > 0) $('.visual_asset_'+child_index+' .'+$('#shared_content_visual_assets_attributes_'+child_index+'_asset_type').val()).show();
 }
 
 var payment_validator_options = {
