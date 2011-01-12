@@ -114,7 +114,7 @@ private
 	end
 	
 	def get_layout
-	  'application'
+	  is_er? && params[:tp].present? ? 'application_corp' : 'application'
 	end
 	
 	# define default meta title here. overrite @title at the action level. 
