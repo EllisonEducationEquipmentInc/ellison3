@@ -23,3 +23,10 @@
 // for mega nav layout ONLY
 .megasublist { @include column(4); }
 .contentwrap_17col { @include column(17, true); }
+
+
+// two column page layout (sidebar + main content area)
+.sidebar {
+  @include column(5); }
+.mainbar {
+  @include column(19); }

@@ -1,8 +1,6 @@
 // catalog results
 #products_filter {
   @include column(5); }
-.sidebar {
-  @include column(5); }
 .products_grid {
   @include column(19, true); }
   

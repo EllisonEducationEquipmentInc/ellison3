@@ -733,6 +733,18 @@ select#sort, input#select_all_products {
   overflow-x: hidden;
 }
 
+/* line 728, ../../../app/stylesheets/partials_app/_catalog.scss */
+#quick_search {
+  margin: 7px 0 16px 0;
+  padding: 6px 0;
+  text-align: center;
+}
+/* line 733, ../../../app/stylesheets/partials_app/_catalog.scss */
+#quick_search select {
+  width: 175px;
+  margin-bottom: 2px;
+}
+
 /* line 2, ../../../app/stylesheets/partials/_layout_content_products.scss */
 #products_filter {
   display: inline;
@@ -746,18 +758,6 @@ select#sort, input#select_all_products {
 }
 
 /* line 4, ../../../app/stylesheets/partials/_layout_content_products.scss */
-.sidebar {
-  display: inline;
-  float: left;
-  margin-right: 10px;
-  width: 190px;
-}
-/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html .sidebar {
-  overflow-x: hidden;
-}
-
-/* line 6, ../../../app/stylesheets/partials/_layout_content_products.scss */
 .products_grid {
   display: inline;
   float: left;
@@ -769,7 +769,7 @@ select#sort, input#select_all_products {
   overflow-x: hidden;
 }
 
-/* line 10, ../../../app/stylesheets/partials/_layout_content_products.scss */
+/* line 8, ../../../app/stylesheets/partials/_layout_content_products.scss */
 #checkout_shipping {
   display: inline;
   float: left;
@@ -781,7 +781,7 @@ select#sort, input#select_all_products {
   overflow-x: hidden;
 }
 
-/* line 12, ../../../app/stylesheets/partials/_layout_content_products.scss */
+/* line 10, ../../../app/stylesheets/partials/_layout_content_products.scss */
 #checkout_billing {
   display: inline;
   float: left;
@@ -793,7 +793,7 @@ select#sort, input#select_all_products {
   overflow-x: hidden;
 }
 
-/* line 14, ../../../app/stylesheets/partials/_layout_content_products.scss */
+/* line 12, ../../../app/stylesheets/partials/_layout_content_products.scss */
 #new_billing {
   display: inline;
   float: left;
@@ -805,7 +805,7 @@ select#sort, input#select_all_products {
   overflow-x: hidden;
 }
 
-/* line 16, ../../../app/stylesheets/partials/_layout_content_products.scss */
+/* line 14, ../../../app/stylesheets/partials/_layout_content_products.scss */
 #checkout_summary {
   display: inline;
   float: left;
@@ -817,7 +817,7 @@ select#sort, input#select_all_products {
   overflow-x: hidden;
 }
 
-/* line 18, ../../../app/stylesheets/partials/_layout_content_products.scss */
+/* line 16, ../../../app/stylesheets/partials/_layout_content_products.scss */
 #checkout_cc {
   display: inline;
   float: left;
@@ -829,7 +829,7 @@ select#sort, input#select_all_products {
   overflow-x: hidden;
 }
 
-/* line 20, ../../../app/stylesheets/partials/_layout_content_products.scss */
+/* line 18, ../../../app/stylesheets/partials/_layout_content_products.scss */
 #checkout_shipping_options {
   display: inline;
   float: left;

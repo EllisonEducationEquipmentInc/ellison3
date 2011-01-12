@@ -723,3 +723,15 @@ select#sort, input#select_all_products {
 .data_value {
   @include column(14, true);
 }
+
+// landing page styles
+#quick_search {
+  margin: 7px 0 16px 0;
+  padding: 6px 0;
+	text-align: center;
+	
+	select {
+		width: 175px;
+		margin-bottom: 2px;
+	}
+}

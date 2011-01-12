@@ -1,5 +1,6 @@
-%h3 Search Within These Results
-= text_field_tag :keyword, nil, :autocomplete => "off", :value => "enter keywords", :onfocus => "if (this.value == 'enter keywords'){this.value='';}", :onblur => "if (this.value == ''){this.value='enter keywords';}", :style => "width:183px;" unless params[:action] == "shop"
+- unless params[:action] == "shop"
+  %h3 Search Within These Results
+  = text_field_tag :keyword, nil, :autocomplete => "off", :value => "enter keywords", :onfocus => "if (this.value == 'enter keywords'){this.value='';}", :onblur => "if (this.value == ''){this.value='enter keywords';}", :style => "width:183px;"
 :javascript
   $("#keyword").addClass("idlefield");
   $("#keyword").focus(function(){

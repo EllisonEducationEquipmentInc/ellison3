@@ -1,4 +1,3 @@
-%h3== Quick #{@landing_page ? @landing_page.name : 'Products'} Search
 - @search.facets.each do |facet|
   - next if facet.rows.length < 1 || @landing_page.search_query.split(",").any? {|e| e[/^([a-z_]+)~/,1] == facet_to_param(facet.name)} || (facet.name == :price && !params[:price].blank?)
   - if facet.class == Sunspot::Search::FieldFacet

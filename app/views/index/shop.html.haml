@@ -1,9 +1,9 @@
-%h1= @landing_page.name
-%h3= @landing_page.short_desc
-%br
-#products_filter= render :partial => "index/catalog_filter"
-#landing_middle= render @landing_page.visual_assets.current
-- if @landing_page.quick_search
-  #landing_right
-    .buybox.rounded
-      #quick_search.rounded= render :partial => 'quick_search'
+#products_filter
+  - if @landing_page.quick_search
+    %h3== Quick #{@landing_page ? @landing_page.name : 'Products'} Search
+    #quick_search{ :class => "ui-widget ui-widget-content ui-corner-all" }= render :partial => 'quick_search'
+  = render :partial => "index/catalog_filter"
+.mainbar.last
+  %h1= @landing_page.name
+  %h3= @landing_page.short_desc
+  = render @landing_page.visual_assets.current
