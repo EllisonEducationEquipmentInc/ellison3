@@ -1,7 +1,7 @@
 // ELLISON EDUCATION US THEME
 
 body.bp {
-  background: url("/images/ui-backgrounds/_#{$system}_bkg_col.png") top left fixed;
+  background: #f5f5f5;
   
   h1, h2, h3, h4, h5 {
     font-family: 'PT Sans', Helvetica, Arial, sans-serif;
@@ -12,7 +12,7 @@ body.bp {
   
   .container {
     margin-top: 6px;
-    background: url("/images/ui-backgrounds/_#{$system}_root2.png") no-repeat center top;
+    background: url("/images/ui-backgrounds/_#{$system}_root.png") no-repeat center top;
   }
 }
 
@@ -68,7 +68,7 @@ body.bp {
   }
   
   #shoppingcart_icon {
-    width: 66px;
+    width: 55px;
     height: 62px;
     margin: 5px 0 0 0;
   }

@@ -1,7 +1,7 @@
-// ELLISON EDUCATION UK THEME
+// ELLISON EDUCATION US THEME
 
 body.bp {
-  background: url("/images/ui-backgrounds/_#{$system}_site.png") top left fixed;
+  background: #f5f5f5;
   
   h1, h2, h3, h4, h5 {
     font-family: 'PT Sans', Helvetica, Arial, sans-serif;
@@ -17,7 +17,7 @@ body.bp {
 }
 
 #header {
-  margin: 18px 0 10px 0;
+  margin: 18px 0 0 0;
   height:118px;
   
   #logo_masthead {
@@ -42,32 +42,33 @@ body.bp {
   }
   
   #searchbar {
-    width: 467px;
-    height: 62px;
-    margin: 5px 8px 0 0;
+    width: 493px;
+    height: 60px;
+    margin: 7px 26px 0 0;
     
 
     
     input.textfield {
       border: none;
+      background: none;
       font-size: 14px;
       font-weight: normal;
       width:394px;
       margin: 0 0 0 1px;
       position: relative;
-      top: 13px;
+      top: 10px;
       left: 15px;
     }
     input.submitbutton {
+      left: 57px;
       margin: 0;
       position: relative;
-      top: 19px;
-      left: 24px;
+      top: 16px;
     }
   }
   
   #shoppingcart_icon {
-    width: 66px;
+    width: 55px;
     height: 62px;
     margin: 5px 0 0 0;
   }
@@ -134,6 +135,8 @@ body.bp {
 }
 
 #content {
+  border-top: 1px solid #ccc;
+  padding-top: 12px;
   
   .item_detail {
     
@@ -141,15 +144,33 @@ body.bp {
       border-bottom:1px solid $catalog_detail_border;
     }
   }
+  #frame_gallery {
   
-  
+    img {
+      width: 951px;
+      height: 320px;
+    }
+  }  
+}
+
+.ui-buttonset {
+  .ui-button {
+    margin-right: -0.5em;
+  }
 }
 
 #footer {
   
   .container {
-    background: url("/images/ui-backgrounds/_#{$system}_footer.png") no-repeat center top;
+    background: url("/images/ui-backgrounds/_#{$system}_footer.gif") no-repeat center top;
     color: $footer_text;
+      
+      .main {
+        .column_left,.column_middle,.column_right {
+          margin-top: 20px;
+        }
+        
+      }
   
     h2, h3, h4 {
       color: $footer_headings;
