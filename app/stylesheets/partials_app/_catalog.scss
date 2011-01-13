@@ -736,9 +736,10 @@ select#sort, input#select_all_products {
 	}
 }
 
-// product carousel styles
-.product_carousel {
+// item carousel styles
+.item_carousel {
   width: 750px;
+  margin-bottom: 10px;
   font-weight: normal;
   
   .controls {
@@ -783,5 +784,19 @@ select#sort, input#select_all_products {
 		p {
 		  margin: 0;
 		}
+  }
+}
+
+#carousels {
+  .item_carousel {@extend .item_carousel;
+    width: 950px;
+    
+    .controls {
+      left: 837px;
+    }
+    
+    .item_element {
+      width: 168px;
+    }
   }
 }

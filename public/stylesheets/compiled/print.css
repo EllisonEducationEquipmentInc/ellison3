@@ -746,18 +746,19 @@ select#sort, input#select_all_products {
 }
 
 /* line 740, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product_carousel {
+.item_carousel, #carousels .item_carousel {
   width: 750px;
+  margin-bottom: 10px;
   font-weight: normal;
 }
-/* line 744, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product_carousel .controls {
+/* line 745, ../../../app/stylesheets/partials_app/_catalog.scss */
+.item_carousel .controls, #carousels .item_carousel .controls {
   position: relative;
   left: 637px;
   margin: 0 5px 2px 5px;
 }
-/* line 749, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product_carousel .controls a.prev_button, .product_carousel .controls a.next_button {
+/* line 750, ../../../app/stylesheets/partials_app/_catalog.scss */
+.item_carousel .controls a.prev_button, #carousels .item_carousel .controls a.prev_button, .item_carousel .controls a.next_button, #carousels .item_carousel .controls a.next_button, #carousels .item_carousel .controls a.next_button, #carousels .item_carousel .controls a.next_button {
   display: inline-block;
   height: 16px;
   padding: 0 0 0 18px;
@@ -765,23 +766,23 @@ select#sort, input#select_all_products {
   color: black;
   text-transform: uppercase;
 }
-/* line 757, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product_carousel .controls a.prev_button:hover, .product_carousel .controls a.next_button:hover {
+/* line 758, ../../../app/stylesheets/partials_app/_catalog.scss */
+.item_carousel .controls a.prev_button:hover, #carousels .item_carousel .controls a.prev_button:hover, .item_carousel .controls a.next_button:hover, #carousels .item_carousel .controls a.next_button:hover, #carousels .item_carousel .controls a.next_button:hover, #carousels .item_carousel .controls a.next_button:hover {
   color: black;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation-180-frame.png") no-repeat left;
 }
-/* line 763, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product_carousel .controls a.next_button {
+/* line 764, ../../../app/stylesheets/partials_app/_catalog.scss */
+.item_carousel .controls a.next_button, #carousels .item_carousel .controls a.next_button {
   padding: 0 18px 0 0;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation.png") no-repeat right;
 }
-/* line 767, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product_carousel .controls a.next_button:hover {
+/* line 768, ../../../app/stylesheets/partials_app/_catalog.scss */
+.item_carousel .controls a.next_button:hover, #carousels .item_carousel .controls a.next_button:hover {
   color: black;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation-000-frame.png") no-repeat right;
 }
-/* line 774, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product_carousel .item_element {
+/* line 775, ../../../app/stylesheets/partials_app/_catalog.scss */
+.item_carousel .item_element, #carousels .item_carousel .item_element {
   background-color: white;
   width: 165px;
   padding: 5px;
@@ -790,9 +791,22 @@ select#sort, input#select_all_products {
   border: 1px solid #D4D1BF;
   margin: 5px;
 }
-/* line 783, ../../../app/stylesheets/partials_app/_catalog.scss */
-.product_carousel .item_element p, .product_carousel .item_element body.bp .item-block h3, body.bp .item-block .product_carousel .item_element h3 {
+/* line 784, ../../../app/stylesheets/partials_app/_catalog.scss */
+.item_carousel .item_element p, #carousels .item_carousel .item_element p, .item_carousel .item_element body.bp .item-block h3, body.bp .item-block .item_carousel .item_element h3, #carousels .item_carousel .item_element body.bp .item-block h3, body.bp .item-block #carousels .item_carousel .item_element h3 {
   margin: 0;
+}
+
+/* line 791, ../../../app/stylesheets/partials_app/_catalog.scss */
+#carousels .item_carousel, #carousels .item_carousel {
+  width: 950px;
+}
+/* line 794, ../../../app/stylesheets/partials_app/_catalog.scss */
+#carousels .item_carousel .controls, #carousels .item_carousel .controls {
+  left: 837px;
+}
+/* line 798, ../../../app/stylesheets/partials_app/_catalog.scss */
+#carousels .item_carousel .item_element, #carousels .item_carousel .item_element {
+  width: 168px;
 }
 
 /* line 2, ../../../app/stylesheets/partials/_layout_content_products.scss */

@@ -82,195 +82,200 @@
         Etiam ut metus orci. In vulputate placerat mi et blandit. Nullam vitae cursus orci. In rutrum elit ac magna ultricies viverra.
         %br/
         =link_to "Pellentesque consectetur malesuada sagittis", "http://www.google.com"
-        
-.product-carousel
+#carousels
   %h2.bestsellers.decorative
     %span What's Hot!
-  .frame_carousel
-    #bestsellers
+  .item_carousel.ui-widget.ui-widget-header.ui-corner-all
+    %div{:id => "asset_carousel_12341234"}
       %ul
-        %li
-          %p.caption
-            = image_tag("/images/_temp/bs_1.jpg", :class => "thumbnail")
-            Sizzix Textured Impressions Embossing Folders 2PK - Birds, Flowers & Branches Set (Item #656503)
-            %br/
-            $10.99
-        %li
-          %p.caption
-            = image_tag("/images/_temp/bs_2.jpg", :class => "thumbnail")
-            Sizzix Sizzlits Die - Poinsettia (Item #655251)
-            %br/
-            %span.old-price== $4.99
-            %span.sale-price== $2.49
-        %li
-          %p.caption
-            = image_tag("/images/_temp/bs_3.jpg", :class => "thumbnail")
-            Sizzix Accessory - Bigz Storage Rack (Item #655809)
-            %br/
-            %span.old-price== $24.99
-            %span.sale-price== $12.49
-        %li
-          %p.caption
-            = image_tag("/images/_temp/bs_4.jpg", :class => "thumbnail")
-            Sizzix Sizzlits Die Set 3PK - Flowers, Branches & Leaves Set (Item #656064)
-            %br/
-            $19.99
-        %li
-          %p.caption
-            = image_tag("/images/_temp/bs_5.jpg", :class => "thumbnail")
-            Sizzix Sizzlits Die - Butterfly #12 (Item #656512)
-            %br/
-            %span.old-price== $4.99
-            %span.sale-price== $2.49
-        %li
-          %p.caption
-            = image_tag("/images/_temp/bs_6.jpg", :class => "thumbnail")
-            Sizzix Bigz Die - Bow, Create-a-Bow (Item #656544)
-            %br/
-            %span.old-price== $19.99
-            %span.sale-price== $10.00
-        %li
-          %p.caption
-            = image_tag("/images/_temp/bs_7.jpg", :class => "thumbnail")
-            Sizzix Textured Impressions Embossing Folders 2PK - Birds, Flowers & Branches Set (Item #656503)
-            %br/
-            $10.99
-        %li
-          %p.caption
-            = image_tag("/images/_temp/bs_8.jpg", :class => "thumbnail")
-            Sizzix Sizzlits Die - Poinsettia (Item #655251)
-            %br/
-            %span.old-price== $4.99
-            %span.sale-price== $2.49
-        %li
-          %p.caption
-            = image_tag("/images/_temp/bs_9.jpg", :class => "thumbnail")
-            Sizzix Accessory - Bigz Storage Rack (Item #655809)
-            %br/
-            %span.old-price== $24.99
-            %span.sale-price== $12.49
-        %li
-          %p.caption
-            = image_tag("/images/_temp/bs_10.jpg", :class => "thumbnail")
-            Sizzix Sizzlits Die Set 3PK - Flowers, Branches & Leaves Set (Item #656064)
-            %br/
-            $19.99
-        %li
-          %p.caption
-            = image_tag("/images/_temp/bs_11.jpg", :class => "thumbnail")
-            Sizzix Sizzlits Die - Butterfly #12 (Item #656512)
-            %br/
-            %span.old-price== $4.99
-            %span.sale-price== $2.49
-        %li
-          %p.caption
-            = image_tag("/images/_temp/bs_12.jpg", :class => "thumbnail")
-            Sizzix Bigz Die - Bow, Create-a-Bow (Item #656544)
-            %br/
-            %span.old-price== $19.99
-            %span.sale-price== $10.00
-  =link_to "Down", "#", :alt => "Down", :title => "Down", :class => "down_bestsellers"
-  =link_to "Up", "#", :alt => "Up", :title => "Up", :class => "up_bestsellers"
-
-.product-carousel
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #1", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+      %ul
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #2", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+      %ul
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #3", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+      %ul
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #4", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+      %ul
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #5", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+      %ul
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #6", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+      %ul
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #4", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+      %ul
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #4", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+      %ul
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #4", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+      %ul
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #4", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+    .controls
+      = link_to "prev", "#", :class => "prev_button", :id => "prev_button_12341234"
+      |
+      = link_to "next", "#", :class => "next_button", :id => "next_button_12341234"
+  :javascript
+    $(function() {
+      $("#asset_carousel_12341234").jCarouselLite({
+        btnPrev: "#prev_button_12341234",
+        btnNext: "#next_button_12341234",
+        visible: 5
+      });
+    });
   %h2.newarrivals.decorative
     %span Just Arrived!
-  .frame_carousel_blue
-    #newarrivals
+  .item_carousel.ui-widget.ui-widget-header.ui-corner-all
+    %div{:id => "asset_carousel_56785678"}
       %ul
-        %li
-          %p.caption
-            = image_tag("/images/_temp/na_1.jpg", :class => "thumbnail")
-            Sizzix Textured Impressions Embossing Folders 2PK - Birds, Flowers & Branches Set (Item #656503)
-            %br/
-            $10.99
-        %li
-          %p.caption
-            = image_tag("/images/_temp/na_2.jpg", :class => "thumbnail")
-            Sizzix Sizzlits Die - Poinsettia (Item #655251)
-            %br/
-            %span.old-price== $4.99
-            %span.sale-price== $2.49
-        %li
-          %p.caption
-            = image_tag("/images/_temp/na_3.jpg", :class => "thumbnail")
-            Sizzix Accessory - Bigz Storage Rack (Item #655809)
-            %br/
-            %span.old-price== $24.99
-            %span.sale-price== $12.49
-        %li
-          %p.caption
-            = image_tag("/images/_temp/na_4.jpg", :class => "thumbnail")
-            Sizzix Sizzlits Die Set 3PK - Flowers, Branches & Leaves Set (Item #656064)
-            %br/
-            $19.99
-        %li
-          %p.caption
-            = image_tag("/images/_temp/na_5.jpg", :class => "thumbnail")
-            Sizzix Sizzlits Die - Butterfly #12 (Item #656512)
-            %br/
-            %span.old-price== $4.99
-            %span.sale-price== $2.49
-        %li
-          %p.caption
-            = image_tag("/images/_temp/na_6.jpg", :class => "thumbnail")
-            Sizzix Bigz Die - Bow, Create-a-Bow (Item #656544)
-            %br/
-            %span.old-price== $19.99
-            %span.sale-price== $10.00
-        %li
-          %p.caption
-            = image_tag("/images/_temp/na_7.jpg", :class => "thumbnail")
-            Sizzix Textured Impressions Embossing Folders 2PK - Birds, Flowers & Branches Set (Item #656503)
-            %br/
-            $10.99
-        %li
-          %p.caption
-            = image_tag("/images/_temp/na_8.jpg", :class => "thumbnail")
-            Sizzix Sizzlits Die - Poinsettia (Item #655251)
-            %br/
-            %span.old-price== $4.99
-            %span.sale-price== $2.49
-        %li
-          %p.caption
-            = image_tag("/images/_temp/na_9.jpg", :class => "thumbnail")
-            Sizzix Accessory - Bigz Storage Rack (Item #655809)
-            %br/
-            %span.old-price== $24.99
-            %span.sale-price== $12.49
-        %li
-          %p.caption
-            = image_tag("/images/_temp/na_10.jpg", :class => "thumbnail")
-            Sizzix Sizzlits Die Set 3PK - Flowers, Branches & Leaves Set (Item #656064)
-            %br/
-            $19.99
-        %li
-          %p.caption
-            = image_tag("/images/_temp/na_11.jpg", :class => "thumbnail")
-            Sizzix Sizzlits Die - Butterfly #12 (Item #656512)
-            %br/
-            %span.old-price== $4.99
-            %span.sale-price== $2.49
-        %li
-          %p.caption
-            = image_tag("/images/_temp/na_12.jpg", :class => "thumbnail")
-            Sizzix Bigz Die - Bow, Create-a-Bow (Item #656544)
-            %br/
-            %span.old-price== $19.99
-            %span.sale-price== $10.00
-  =link_to "Down", "#", :alt => "Down", :title => "Down", :class => "down_newarrivals"
-  =link_to "Up", "#", :alt => "Up", :title => "Up", :class => "up_newarrivals"
-
-#staffpicks
-  %h2.decorative
-    %span Halloween Favorites
-  %ul
-    %li Sizzix Sizzlits Die Set 4PK - Snowflakes Set 
-    %li Sizzix Sizzlits Decorative Strip Die - Grass 
-    %li Sizzix Sizzlits Die - Phrase, 'Tis the Season 
-    %li Sizzix On the Edge Die - Plaque & Postage
-  %p handpicked by Sizzix Staff
-
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #1", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+      %ul
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #2", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+      %ul
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #3", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+      %ul
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #4", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+      %ul
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #5", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+      %ul
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #6", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+      %ul
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #4", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+      %ul
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #4", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+      %ul
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #4", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+      %ul
+        %li.item_element
+          %p= link_to image_tag("/images/products/medium/114531.jpg"), "/product/4cf89b2be1b8326863000e96"
+          %p= link_to "Sizzix Texturz Texture Plates - Kit #4", "/product/4cf89b2be1b8326863000e96"
+          %p
+            %span.msrp $11.06
+            %span.special-price
+            %span.sale-price
+    .controls
+      = link_to "prev", "#", :class => "prev_button", :id => "prev_button_56785678"
+      |
+      = link_to "next", "#", :class => "next_button", :id => "next_button_56785678"
+  :javascript
+    $(function() {
+      $("#asset_carousel_56785678").jCarouselLite({
+        btnPrev: "#prev_button_56785678",
+        btnNext: "#next_button_56785678",
+        visible: 5
+      });
+    });
+        
 - unless is_er? || is_ee?
   #blog-posts
     %h2.decorative

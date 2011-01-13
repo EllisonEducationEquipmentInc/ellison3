@@ -169,30 +169,6 @@ $(document).ready(function(){
   	$(".cover", this).stop().animate({top:'188px'},{queue:false,duration:160});
   });
   
-  // product carousels
-  $(function() {
-    $("#bestsellers").jCarouselLite({
-      btnNext: ".up_bestsellers",
-      btnPrev: ".down_bestsellers",
-      vertical: true,
-      auto: false,
-      speed: 2500,
-      visible: 1,
-      scroll: 1
-    });
-  });
-  $(function() {
-    $("#newarrivals").jCarouselLite({
-      btnNext: ".up_newarrivals",
-      btnPrev: ".down_newarrivals",
-      vertical: true,
-      auto: false,
-      speed: 2500,
-      visible: 1,
-      scroll: 1
-    });
-  });
-  
   // jqueryui tables
   $("table").each(function() {
     $(this).addClass("ui-widget ui-widget-content ui-corner-all");

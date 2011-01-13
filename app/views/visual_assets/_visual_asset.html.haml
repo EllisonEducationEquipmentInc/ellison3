@@ -9,7 +9,7 @@
     %h2
       = visual_asset.name
       = link_to "View All", catalog_path(:anchor => visual_asset.search_query), :class => "minilink"
-    .product_carousel.ui-widget.ui-widget-header.ui-corner-all
+    .item_carousel.ui-widget.ui-widget-header.ui-corner-all
       %div{:id => "asset_carousel_#{visual_asset.id}"}
       .controls
         = link_to "prev", "#", :class => "prev_button", :id => "prev_button_#{visual_asset.id}"
@@ -24,12 +24,11 @@
             visible: 4
           });
         });
-
       });
 - elsif visual_asset.asset_type == 'products' || visual_asset.asset_type == 'ideas'
   .asset_items
     %h2= visual_asset.name
-    .product_carousel.ui-widget.ui-widget-header.ui-corner-all{:id => "asset_carousel_#{visual_asset.id}"}
+    .item_carousel.ui-widget.ui-widget-header.ui-corner-all{:id => "asset_carousel_#{visual_asset.id}"}
       %ul= render :partial => 'index/item', :collection => visual_asset.asset_type == 'products' ? Product.available.where(:item_num.in => visual_asset.products).cache : Idea.available.where(:idea_num.in => visual_asset.ideas).cache
       .controls
         = link_to "prev", "#", :class => "prev_button", :id => "prev_button_#{visual_asset.id}"
