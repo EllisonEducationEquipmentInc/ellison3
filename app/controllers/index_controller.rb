@@ -62,13 +62,12 @@ class IndexController < ApplicationController
     if %w(product_lines artists themes designers categories curriculums).include? params[:id]
       get_search_objects
       @search = perform_search(@klass, :facets => [params[:id].singularize], :facet_sort => :index)
-      @tags = [] #Tag.send(params[:id]).available.any_of({:list_page_image => /\w+/}, {:image_filename.exists => true}).order_by(:name)
 		else
 			raise "invalid tag_type: #{params[:id]}"
 		end
-  # rescue Exception => e
-  #     Rails.logger.info e.message
-  #     go_404
+  rescue Exception => e
+    Rails.logger.info e.message
+    go_404
   end
   
   def catalog
