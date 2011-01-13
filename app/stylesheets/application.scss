@@ -165,55 +165,6 @@ body.bp th, body.bp td, body.bp caption {
 		position: absolute;
 	}
 	.sortable_header {margin-left:18px;}
-	#landing_middle{
-		float:left;
-		margin-right: 10px;
-		width: 540px;
-	}
-	#landing_right{
-		float:right;
-		width: 230px;
-	}
-	.product_carousel {
-		height: 250px;
-		width: 300px;
-		margin-left:25px;
-		background-color: #DFDFDF;
-		border: 1px solid black;
-		.product_element {
-			background-color: white;
-			width: 135px;
-			padding:5px;
-			text-align:center;
-			height: 215px;
-			border:1px solid gray;
-			margin:5px;
-		}
-	}
-	a.prev_button {
-	  font-family: Georgia, serif;
-	  font-size: 12px;
-	  font-style: italic;
-	  font-weight: bold;
-	  line-height: 2em;
-	  color: #fff;
-	  text-decoration: none;
-	  &:hover { color: #ff9ac4;};
-		position:absolute;
-	  margin-top: 100px;
-	  width: 47px;
-	  height: 34px;
-	  padding: 3px 0 0 8px;
-	  background:url("/images/ui-buttons/arrow_prev_red-ribbon.png") no-repeat 0 0;
-		z-index: 9999;
-	}
-	a.next_button { @extend a.prev_button;
-		margin-left:480px;
-	  width: 45px;
-	  height: 35px;
-	  padding: 5px 0 0 10px;
-	  background:url("/images/ui-buttons/arrow_next_red-ribbon.png") no-repeat 0 0;
-	}
 	
 	.admin_checkboxes{
 		width:450px;

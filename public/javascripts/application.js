@@ -56,8 +56,8 @@ function initialize_facets() {
 function shadow_on() {
 	// shadowOn
 	$(".cardpanelshadow").shadowOn({ imageset: 6, imagepath: "/images/ui-plugins/shadowOn" });  // drop shadows for cardpanel layout archetype
-	$(".item-block").shadowOn({ imageset: 1, imagepath: "/images/ui-plugins/shadowOn" });  // drop shadow for product blocks on catalog pages
-	$(".item_images").shadowOn({ imageset: 1, imagepath: "/images/ui-plugins/shadowOn" });  // drop shadow for product blocks on catalog pages
+	$(".item-block").shadowOn({ imageset: 1, imagepath: "/images/ui-plugins/shadowOn" });  // drop shadow for item blocks on catalog pages
+	$(".item_images").shadowOn({ imageset: 1, imagepath: "/images/ui-plugins/shadowOn" });  // drop shadow for item images on item detail pages
 }
 
 function bind_hashchange () {
