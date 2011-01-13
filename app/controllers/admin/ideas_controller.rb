@@ -160,7 +160,7 @@ class Admin::IdeasController < ApplicationController
 	  else  
 	    []
 		end
-    @ideas = Idea.available.only(:name, :idea_num, :id).any_of({:idea_num => Regexp.new("^#{params[:term]}.*")}, {:name => Regexp.new("#{params[:term]}", "i")}).asc(:name).limit(20).all.map {|p| {:label => "#{p.idea_num} #{p.name}", :value => p.idea_num, :id => p.id}}
+    @ideas = Idea.active.only(:name, :idea_num, :id).any_of({:idea_num => Regexp.new("^#{params[:term]}.*")}, {:name => Regexp.new("#{params[:term]}", "i")}).asc(:name).limit(20).all.map {|p| {:label => "#{p.idea_num} #{p.name}", :value => p.idea_num, :id => p.id}}
 		render :json => (@by_tag + @ideas).to_json
 	end
 	
