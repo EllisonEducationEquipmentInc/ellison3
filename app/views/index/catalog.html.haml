@@ -1,3 +1,5 @@
+.mini-banner
+  = image_tag("/images/_temp/stolen/CP_IMG_BANNER_25571561.gif")
 #products_filter.dontprint= spinner
 #product_catalog.products_grid= spinner
 :javascript
@@ -6,4 +8,3 @@
       $.ajax({url:"/index/search?lang="+$('html').attr('lang')+'&'+$.param.fragment()});
     });
   });
-  

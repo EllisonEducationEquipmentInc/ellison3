@@ -1,3 +1,6 @@
+.mini-banner
+  = image_tag("/images/_temp/stolen/CP_IMG_BANNER_25571561.gif")
+.clear
 #frame_gallery
   = image_tag("/images/ui-objects/_#{current_system}_frame_gallery.png", :id => "frame_gallery")
   #gallery
@@ -83,7 +86,7 @@
         %br/
         =link_to "Pellentesque consectetur malesuada sagittis", "http://www.google.com"
 #carousels
-  %h2.bestsellers.decorative
+  %h2.bestsellers
     %span What's Hot!
   .item_carousel.ui-widget.ui-corner-all{ :class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
     %div{:id => "asset_carousel_12341234"}
@@ -179,7 +182,7 @@
         visible: 5
       });
     });
-  %h2.newarrivals.decorative
+  %h2.newarrivals
     %span Just Arrived!
   .item_carousel.ui-widget.ui-corner-all{ :class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
     %div{:id => "asset_carousel_56785678"}

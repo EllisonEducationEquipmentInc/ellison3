@@ -30,3 +30,6 @@
   @include column(5); }
 .mainbar {
   @include column(19); }
+  
+// advertisements
+.mini-banner { @include column(24, true); }
