@@ -745,19 +745,30 @@ select#sort, input#select_all_products {
   margin-bottom: 2px;
 }
 
-/* line 740, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 739, ../../../app/stylesheets/partials_app/_catalog.scss */
+.asset_text {
+  background: #369;
+  color: white;
+  font-size: 16px;
+  height: 24px;
+  padding: 4px 2px 4px;
+  text-align: center;
+  width: 750px;
+}
+
+/* line 750, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_carousel, #carousels .item_carousel {
   width: 750px;
   margin-bottom: 10px;
   font-weight: normal;
 }
-/* line 745, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 755, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_carousel .controls, #carousels .item_carousel .controls {
   position: relative;
   left: 637px;
   margin: 0 5px 2px 5px;
 }
-/* line 750, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 760, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_carousel .controls a.prev_button, #carousels .item_carousel .controls a.prev_button, .item_carousel .controls a.next_button, #carousels .item_carousel .controls a.next_button, #carousels .item_carousel .controls a.next_button, #carousels .item_carousel .controls a.next_button {
   display: inline-block;
   height: 16px;
@@ -766,22 +777,22 @@ select#sort, input#select_all_products {
   color: black;
   text-transform: uppercase;
 }
-/* line 758, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 768, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_carousel .controls a.prev_button:hover, #carousels .item_carousel .controls a.prev_button:hover, .item_carousel .controls a.next_button:hover, #carousels .item_carousel .controls a.next_button:hover, #carousels .item_carousel .controls a.next_button:hover, #carousels .item_carousel .controls a.next_button:hover {
   color: black;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation-180-frame.png") no-repeat left;
 }
-/* line 764, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 774, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_carousel .controls a.next_button, #carousels .item_carousel .controls a.next_button {
   padding: 0 18px 0 0;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation.png") no-repeat right;
 }
-/* line 768, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 778, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_carousel .controls a.next_button:hover, #carousels .item_carousel .controls a.next_button:hover {
   color: black;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation-000-frame.png") no-repeat right;
 }
-/* line 775, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 785, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_carousel .item_element, #carousels .item_carousel .item_element {
   background-color: white;
   width: 165px;
@@ -791,20 +802,20 @@ select#sort, input#select_all_products {
   border: 1px solid #D4D1BF;
   margin: 5px;
 }
-/* line 784, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 794, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_carousel .item_element p, #carousels .item_carousel .item_element p, .item_carousel .item_element body.bp .item-block h3, body.bp .item-block .item_carousel .item_element h3, #carousels .item_carousel .item_element body.bp .item-block h3, body.bp .item-block #carousels .item_carousel .item_element h3 {
   margin: 0;
 }
 
-/* line 791, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 802, ../../../app/stylesheets/partials_app/_catalog.scss */
 #carousels .item_carousel, #carousels .item_carousel {
   width: 950px;
 }
-/* line 794, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 805, ../../../app/stylesheets/partials_app/_catalog.scss */
 #carousels .item_carousel .controls, #carousels .item_carousel .controls {
   left: 837px;
 }
-/* line 798, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 809, ../../../app/stylesheets/partials_app/_catalog.scss */
 #carousels .item_carousel .item_element, #carousels .item_carousel .item_element {
   width: 168px;
 }

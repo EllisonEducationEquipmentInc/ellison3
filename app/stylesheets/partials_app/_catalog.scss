@@ -253,7 +253,7 @@ body.bp {
   }
 }
 
-// catalog tabs (toggle between products & ideas)
+// catalog tabs (toggle between products, ideas & outlet)
 #catalogtabs { @extend ul.plain;
   font-family:  'PT Sans', Helvetica, Arial, sans-serif;
   font-weight: bold;
@@ -736,7 +736,17 @@ select#sort, input#select_all_products {
 	}
 }
 
-// item carousel styles
+.asset_text{
+	background: #369;
+	color: white;
+	font-size: 16px;
+	height: 24px;
+	padding: 4px 2px 4px;
+	text-align: center;
+	width: 750px;
+}
+
+// item carousel styles (landing pages)
 .item_carousel {
   width: 750px;
   margin-bottom: 10px;
@@ -787,6 +797,7 @@ select#sort, input#select_all_products {
   }
 }
 
+// item carousel styles (homepage)
 #carousels {
   .item_carousel {@extend .item_carousel;
     width: 950px;

@@ -85,7 +85,7 @@
 #carousels
   %h2.bestsellers.decorative
     %span What's Hot!
-  .item_carousel.ui-widget.ui-widget-header.ui-corner-all
+  .item_carousel.ui-widget.ui-corner-all{ :class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
     %div{:id => "asset_carousel_12341234"}
       %ul
         %li.item_element
@@ -181,7 +181,7 @@
     });
   %h2.newarrivals.decorative
     %span Just Arrived!
-  .item_carousel.ui-widget.ui-widget-header.ui-corner-all
+  .item_carousel.ui-widget.ui-corner-all{ :class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
     %div{:id => "asset_carousel_56785678"}
       %ul
         %li.item_element
