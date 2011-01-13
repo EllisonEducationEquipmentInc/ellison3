@@ -24,6 +24,7 @@ class VisualAsset
 	
 	embedded_in :landing_page, :inverse_of => :visual_assets
 	embedded_in :shared_content, :inverse_of => :visual_assets
+	embedded_in :tag, :inverse_of => :visual_assets
 	
 	mount_uploader :image, PrivateAttachmentUploader
 	

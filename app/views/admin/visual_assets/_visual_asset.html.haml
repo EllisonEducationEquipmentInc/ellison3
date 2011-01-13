@@ -57,8 +57,8 @@
     = f.label :link
     %br
     = f.text_field :link
-  = products_helper_tag "landing_page[visual_assets_attributes][#{child_index}][product_item_nums]", f.object.product_item_nums, :label => "Products (item nums only)", :class => "type_specific products"
-  = ideas_helper_tag "landing_page[visual_assets_attributes][#{child_index}][idea_idea_nums]", f.object.idea_idea_nums, :label => "Ideas (idea nums only)", :class => "type_specific ideas"
+  = products_helper_tag "#{f.object_name[/^(\w+)/]}[visual_assets_attributes][#{child_index}][product_item_nums]", f.object.product_item_nums, :label => "Products (item nums only)", :class => "type_specific products"
+  = ideas_helper_tag "#{f.object_name[/^(\w+)/]}[visual_assets_attributes][#{child_index}][idea_idea_nums]", f.object.idea_idea_nums, :label => "Ideas (idea nums only)", :class => "type_specific ideas"
 :javascript
   $(function (){  
       $(".wymeditor:visible").wymeditor();

@@ -150,7 +150,7 @@ Ellison3::Application.routes.draw do |map|
 			end
 			resources :tags do
 				collection do
-			    get :tags_autocomplete
+			    get :tags_autocomplete, :reorder_visual_assets
 			  end
 			end
 			resources :profiles, :as => 'admins'

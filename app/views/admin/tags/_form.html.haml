@@ -68,13 +68,21 @@
   = text_field_tag "tag_ideas_helper"
   %br
   %br
+  #visual_assets  
+    = f.fields_for :visual_assets, @tag.visual_assets.ordered do |visual_asset_fields|
+      = render 'admin/visual_assets/visual_asset', :f => visual_asset_fields
+    = link_to_add_fields "Add Visual Asset", f, :visual_assets
+  %br
+  %br
   .actions
-    = f.submit :class => 'jqui_save'
+    = f.submit :class => 'wymupdate jqui_save'
 :javascript
   function update_campaign(){
     if ($('#tag_campaign_individual').attr('checked')) {$('.discount').hide();$('.individual').show();} else {$('.discount').show();$('.individual').hide()}
   };
-  
+  $('#visual_assets').sortable({tolerance: 'pointer', start: function(event, ui) {$('.visual_asset').css({height:"22px",overflow:"hidden"})}, stop: function(event, ui) {$('.visual_asset').css({height:"auto"})}, update: function(event, ui) {
+    $.ajax({url:"/admin/tags/reorder_visual_assets?id=#{@tag.id}&"+$("#visual_assets").sortable('serialize')});
+  }})
   $("#tag_products_helper").autocomplete({
   	source: function(request, response) {
   		$.getJSON("/admin/products/products_autocomplete", {

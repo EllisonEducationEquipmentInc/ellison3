@@ -38,7 +38,7 @@ module Mongoid #:nodoc:
           if meta.association == Mongoid::Associations::EmbedsMany
             self.send(name).each { |doc| doc.send(:run_callbacks, kind, *args, &block) }
           elsif meta.association == Mongoid::Associations::EmbedsOne
-            self.send(name).send(:run_callbacks, kind, *args, &block)
+            self.send(name).send(:run_callbacks, kind, *args, &block) unless self.send(name).blank?
           end
         end
         super(kind, *args, &block) # defer to parent

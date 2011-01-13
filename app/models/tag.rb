@@ -4,6 +4,7 @@ class Tag
 	include Mongoid::Timestamps
 	include ActiveModel::Validations
 	include ActiveModel::Translation
+	include Mongoid::Associations::EmbeddedCallbacks
 	
 	attr_accessor :embed_campaign
 	
@@ -13,6 +14,23 @@ class Tag
   references_many :products, :stored_as => :array, :inverse_of => :tags, :index => true
   references_many :ideas, :stored_as => :array, :inverse_of => :tags, :index => true
   embeds_one :campaign
+  
+  embeds_many :visual_assets do
+    def current
+			ordered.select {|asset| asset.available?}
+    end
+
+		def ordered
+			@target.sort {|x,y| x.display_order <=> y.display_order}
+		end
+
+		def resort!(ids)
+			@target.each {|t| t.display_order = ids.index(t.id.to_s)}
+		end
+  end
+  
+  accepts_nested_attributes_for :visual_assets, :allow_destroy => true, :reject_if => proc { |attributes| attributes['name'].blank?}
+	validates_associated :visual_assets
   
   validates :name, :tag_type, :systems_enabled, :permalink, :presence => true
   validates_format_of :permalink, :with => /^[\w\d-]+$/

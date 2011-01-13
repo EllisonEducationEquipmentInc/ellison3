@@ -103,6 +103,15 @@ class Admin::TagsController < ApplicationController
 		@tags = Tag.available.only(:name, :tag_type, :id).where({:name => Regexp.new("#{params[:term]}", "i")}).asc(:name).limit(20).all.map {|p| {:label => "#{p.name} (#{p.tag_type.humanize})", :value => p.name, :id => p.id}}
 		render :json => @tags.to_json
 	end
+	
+	def reorder_visual_assets
+    @tag = Tag.find(params[:id])
+    @tag.visual_assets.resort! params[:visual_asset]
+    @tag.save
+    render :text => params[:visual_asset].inspect
+  rescue Exception => e
+    render :js => "alert('ERROR saving visual asset order: make sure all visual assets are saved before you resort them. (save/update landing page first and then come back to resort them)')"
+  end
 
 private
   
