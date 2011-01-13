@@ -1,2 +1,30 @@
-corporate layout template
-= yield
+-# GLOBAL LAYOUT for the ELLISON CORPORATE WEBSITE
+
+!!!
+%html{:lang => current_locale}
+  %head
+    %title
+      = @title
+      \| 
+      = get_domain.capitalize
+    = render 'layouts/common_head'
+  %body.bp
+    #root
+      .container
+        .design-gutter.dontprint
+          \&nbsp;
+        .main
+          #header
+          #content
+            = yield
+        .design-gutter.dontprint.last
+          \&nbsp;
+      #root_footer
+    #footer.dontprint
+      .container
+        .design-gutter.dontprint
+          \&nbsp;
+        .main
+          = render 'layouts/footer'
+        .design-gutter.dontprint.last
+          \&nbsp;

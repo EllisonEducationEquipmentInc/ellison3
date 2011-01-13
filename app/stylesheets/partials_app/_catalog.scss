@@ -88,6 +88,7 @@ body.bp {
       float: right;
     }
   }
+  
   .item_compatibility, .item_cross-sell, .item_detail {
     h4 {
       text-transform: uppercase;
@@ -96,6 +97,7 @@ body.bp {
       color: $heading;      
     }
   }
+  
   .item_cross-sell {
     h4 {
       margin-bottom: 8px;
@@ -105,6 +107,10 @@ body.bp {
         font-weight: normal;
       }
     }
+  }
+  
+  .tag_list_wrapper p {
+    margin-bottom: 6px;
   }
 }
 
@@ -746,6 +752,24 @@ select#sort, input#select_all_products {
 	width: 750px;
 }
 
+
+// tag landing page styles
+.tag_list_wrapper{
+	float: left;
+	height: 190px;
+	margin: 12px 12px 0 0;
+	padding: 6px 10px 4px;
+	width: 156px;
+	text-align:center;
+
+  font-weight: normal;
+	
+	img {
+  	background: white;
+  	border: 1px solid $catalog_buybox_border;
+	}
+}
+
 // item carousel styles (landing pages)
 .item_carousel {
   width: 750px;
@@ -788,7 +812,7 @@ select#sort, input#select_all_products {
 		padding: 5px;
 		text-align: center;
 		height: 210px;
-		border: 1px solid #D4D1BF;
+		border: 1px solid $catalog_buybox_border;
 		margin: 5px;
 		
 		p {
