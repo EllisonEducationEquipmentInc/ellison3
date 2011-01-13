@@ -205,6 +205,7 @@ private
     @facets_hash.each {|e| @multi_facets_hash[e.split("~")[0]].blank? ? @multi_facets_hash[e.split("~")[0]] = e.split("~")[1] : @multi_facets_hash[e.split("~")[0]] << ",#{e.split("~")[1]}"}
   end
   
+  # @Example: perform_search Product, :outlet => true, :facets => ["theme", "category"], :facet_sort => :index
   def perform_search(klass, options = {})
     outlet = options.delete(:outlet) ? true : false
     facets = options[:facets] || tag_types

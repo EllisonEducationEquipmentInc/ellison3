@@ -10,6 +10,7 @@ class Idea
 	include Sunspot::Mongoid
 	
 	validates :name, :idea_num, :systems_enabled, :presence => true
+	validates :related_idea_tag, :object_id_validity => true, :allow_blank => true
 	validates_uniqueness_of :idea_num
 	
 	before_save :inherit_system_specific_attributes
@@ -200,10 +201,10 @@ class Idea
 	end
 	
 	def related_tag
-	  if self.related_idea_tag.blank?
-	    tags.available.send(is_ee? ? :subcurriculums : :themes).first
-	  else
+	  if self.related_idea_tag.valid_bson_object_id?
 	    Tag.find(self.related_idea_tag)
+	  else
+	    tags.available.send(is_ee? ? :subcurriculums : :themes).first	    
 	  end
 	end
 	

@@ -14,7 +14,7 @@ class Campaign
 	validates_numericality_of :discount, :greater_than => 0.0, :if => Proc.new {|obj| !obj.individual}
 	validates_presence_of :discount, :discount_type, :if => Proc.new {|obj| !obj.individual}
 	
-	accepts_nested_attributes_for :individual_discounts, :allow_destroy => true, :reject_if => proc { |attributes| attributes['product_id'].blank? && attributes['item_num'].blank?}
+	accepts_nested_attributes_for :individual_discounts, :allow_destroy => true, :reject_if => proc { |attributes| !attributes['product_id'].valid_bson_object_id?}
 	
 	# field definitions
 	field :name

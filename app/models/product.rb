@@ -26,6 +26,7 @@ class Product
 	
 	# validations
 	validates :name, :item_num, :life_cycle, :systems_enabled, :presence => true
+	validates :related_product_tag, :object_id_validity => true, :allow_blank => true
 	validates_presence_of :discount_category_id, :if => Proc.new {|obj| obj.systems_enabled && obj.systems_enabled.include?("er")}
   # validates_presence_of :volume, :if => Proc.new {|obj| obj.length.blank? || obj.width.blank? || obj.height.blank?}, :message => "Either volume or length + width + height is required" 
   # validates_presence_of :length, :width, :height, :if => Proc.new {|obj| obj.volume.blank?}, :message => "Either volume or length + width + height is required" 
@@ -457,10 +458,10 @@ class Product
 	end
 	
 	def related_tag
-	  if self.related_product_tag.blank?
-	    tags.available.send(is_ee? ? :subcurriculums : :themes).first || tags.available.categories.first
-	  else
+	  if self.related_product_tag.valid_bson_object_id?
 	    Tag.find(self.related_product_tag)
+	  else
+	    tags.available.send(is_ee? ? :subcurriculums : :themes).first || tags.available.categories.first
 	  end
 	end
 	
