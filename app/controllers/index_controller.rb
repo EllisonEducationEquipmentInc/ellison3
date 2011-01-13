@@ -42,6 +42,7 @@ class IndexController < ApplicationController
     go_404
   end
   
+  # landing page
   def shop
     @landing_page = LandingPage.send(current_system).available.find params[:id]
     params[:facets] = @landing_page.search_query
@@ -54,6 +55,20 @@ class IndexController < ApplicationController
   rescue Exception => e
     Rails.logger.info e.message
     go_404
+  end
+  
+  # /lp/:id
+  def tag_group
+    if %w(product_lines artists themes designers categories curriculums).include? params[:id]
+      get_search_objects
+      @search = perform_search(@klass, :facets => [params[:id].singularize], :facet_sort => :index)
+      @tags = [] #Tag.send(params[:id]).available.any_of({:list_page_image => /\w+/}, {:image_filename.exists => true}).order_by(:name)
+		else
+			raise "invalid tag_type: #{params[:id]}"
+		end
+  # rescue Exception => e
+  #     Rails.logger.info e.message
+  #     go_404
   end
   
   def catalog
@@ -111,7 +126,7 @@ class IndexController < ApplicationController
   def limited_search
     get_search_objects
     @per_page = params[:per_page] if params[:per_page].to_i > 0
-    @search = perform_search(@klass, outlet?)
+    @search = perform_search(@klass, :outlet => outlet?)
     @items = @search.results
     render :layout => false
   end
@@ -172,7 +187,7 @@ private
                       [["Relevance", nil], ["New Arrivals", "start_date_#{current_system}:desc"], ["Best Sellers", "quantity_sold:desc"], ["Lowest Price", "price_#{current_system}_#{current_currency}:asc"], ["Highest Price", "price_#{current_system}_#{current_currency}:desc"], ["Product Name [A-Z]", "sort_name:asc"], ["Product Name [Z-A]", "sort_name:desc"]]
     @product_search = perform_search(Product)
     @idea_search = perform_search(Idea)
-    @outlet_search = perform_search(Product, true) if is_sizzix_us?
+    @outlet_search = perform_search(Product, :outlet => true) if is_sizzix_us?
     @search = if outlet?
       @outlet_search
     elsif idea?
@@ -191,7 +206,9 @@ private
     @facets_hash.each {|e| @multi_facets_hash[e.split("~")[0]].blank? ? @multi_facets_hash[e.split("~")[0]] = e.split("~")[1] : @multi_facets_hash[e.split("~")[0]] << ",#{e.split("~")[1]}"}
   end
   
-  def perform_search(klass, outlet = false)
+  def perform_search(klass, options = {})
+    outlet = options.delete(:outlet) ? true : false
+    facets = options[:facets] || tag_types
     klass.search do |query|
       query.keywords params[:q] unless params[:q].blank?
       query.adjust_solr_params do |params|
@@ -209,8 +226,8 @@ private
           query.with :"#{f.split("~")[0]}_#{current_system}", f
         end
       end
-      tag_types.each do |e|
-        query.facet :"#{e.to_s}_#{current_system}", :exclude => @filter_conditions[e]
+      facets.each do |e|
+        query.facet :"#{e.to_s}_#{current_system}", :exclude => @filter_conditions[e], :sort => options[:facet_sort] || :count
       end
       unless klass == Idea
         query.with :outlet, outlet if is_sizzix_us?

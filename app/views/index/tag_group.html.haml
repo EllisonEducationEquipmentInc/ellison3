@@ -1,0 +1,9 @@
+%h2== #{@klass} #{params[:id].humanize}
+=# this is the header image. dynamic, based on the tag group and system. ex: "/images/landing/themes_szus.jpg"
+%div= image_tag("/images/landing/#{params[:id]}_#{current_system}.jpg")
+- @search.facet(:"#{params[:id].singularize}_#{current_system}").rows.each do |row|
+  - next if row.instance.list_page_img.blank?
+  .tag_list_wrapper
+    = link_to image_tag(row.instance.list_page_img), catalog_path(:anchor => "facets=#{row.instance.facet_param}&ideas=#{idea? ? '1' : ''}&page=1")
+    = link_to row.instance.name, catalog_path(:anchor => "facets=#{row.instance.facet_param}&ideas=#{idea? ? '1' : ''}&page=1")
+  

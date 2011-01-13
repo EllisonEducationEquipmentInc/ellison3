@@ -112,6 +112,10 @@ class Tag
 	def campaign?
 	  self.tag_type == "special" #|| self.tag_type == "exclusive"
 	end
+	
+	def list_page_img
+	  image? ? image_url(:medium) : self.list_page_image
+	end
 
 private 
 
