@@ -761,6 +761,11 @@ select#sort, input#select_all_products {
 }
 
 /* line 757, ../../../app/stylesheets/partials_app/_catalog.scss */
+.tag_landing_header {
+  height: 150px;
+}
+
+/* line 760, ../../../app/stylesheets/partials_app/_catalog.scss */
 .tag_list_wrapper {
   float: left;
   height: 190px;
@@ -770,25 +775,25 @@ select#sort, input#select_all_products {
   text-align: center;
   font-weight: normal;
 }
-/* line 767, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 770, ../../../app/stylesheets/partials_app/_catalog.scss */
 .tag_list_wrapper img {
   background: white;
   border: 1px solid white;
 }
 
-/* line 774, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 777, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_carousel, #carousels .item_carousel {
   width: 750px;
   margin-bottom: 10px;
   font-weight: normal;
 }
-/* line 779, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 782, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_carousel .controls, #carousels .item_carousel .controls {
   position: relative;
   left: 637px;
   margin: 0 5px 2px 5px;
 }
-/* line 784, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 787, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_carousel .controls a.prev_button, #carousels .item_carousel .controls a.prev_button, .item_carousel .controls a.next_button, #carousels .item_carousel .controls a.next_button, #carousels .item_carousel .controls a.next_button, #carousels .item_carousel .controls a.next_button {
   display: inline-block;
   height: 16px;
@@ -797,22 +802,22 @@ select#sort, input#select_all_products {
   color: black;
   text-transform: uppercase;
 }
-/* line 792, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 795, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_carousel .controls a.prev_button:hover, #carousels .item_carousel .controls a.prev_button:hover, .item_carousel .controls a.next_button:hover, #carousels .item_carousel .controls a.next_button:hover, #carousels .item_carousel .controls a.next_button:hover, #carousels .item_carousel .controls a.next_button:hover {
   color: black;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation-180-frame.png") no-repeat left;
 }
-/* line 798, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 801, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_carousel .controls a.next_button, #carousels .item_carousel .controls a.next_button {
   padding: 0 18px 0 0;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation.png") no-repeat right;
 }
-/* line 802, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 805, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_carousel .controls a.next_button:hover, #carousels .item_carousel .controls a.next_button:hover {
   color: black;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation-000-frame.png") no-repeat right;
 }
-/* line 809, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 812, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_carousel .item_element, #carousels .item_carousel .item_element {
   background-color: white;
   width: 165px;
@@ -822,20 +827,20 @@ select#sort, input#select_all_products {
   border: 1px solid white;
   margin: 5px;
 }
-/* line 818, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 821, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_carousel .item_element p, #carousels .item_carousel .item_element p, .item_carousel .item_element body.bp .item-block h3, body.bp .item-block .item_carousel .item_element h3, #carousels .item_carousel .item_element body.bp .item-block h3, body.bp .item-block #carousels .item_carousel .item_element h3 {
   margin: 0;
 }
 
-/* line 826, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 829, ../../../app/stylesheets/partials_app/_catalog.scss */
 #carousels .item_carousel, #carousels .item_carousel {
   width: 950px;
 }
-/* line 829, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 832, ../../../app/stylesheets/partials_app/_catalog.scss */
 #carousels .item_carousel .controls, #carousels .item_carousel .controls {
   left: 837px;
 }
-/* line 833, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 836, ../../../app/stylesheets/partials_app/_catalog.scss */
 #carousels .item_carousel .item_element, #carousels .item_carousel .item_element {
   width: 168px;
 }
