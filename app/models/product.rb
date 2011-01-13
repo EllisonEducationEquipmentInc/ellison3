@@ -35,6 +35,8 @@ class Product
 	validates_uniqueness_of :upc, :allow_blank => true
 	validate :must_have_msrp
 	
+	validates_associated :tabs
+	
 	before_save :inherit_system_specific_attributes
 	before_save :clean_up_tags
 	before_save :timestamp_outlet

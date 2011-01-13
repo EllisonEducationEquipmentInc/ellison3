@@ -73,4 +73,5 @@ class Tab
 	def data_column_fields=(data_column_fields)
 		write_attribute :data_column, data_column_fields.sort {|a, b| a[0].to_i <=> b[0].to_i}.map {|a| a[1].values}
 	end
+
 end
