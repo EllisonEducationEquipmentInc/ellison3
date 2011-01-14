@@ -1,6 +1,6 @@
 - if get_user.save_for_later_list.products.count > 0
   %h2== You have #{pluralize get_user.save_for_later_list.products.count, 'item'} saved for purchase later
-  %table{:cellpadding => 10}
+  %table#saved_list_table{:cellpadding => 10}
     %thead
       %tr
         %th{:width => 60} Item No.
