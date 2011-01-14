@@ -5,5 +5,6 @@
   %td{ :style => "text-align: right"}= product.msrp
   %td.cart_item_price{ :style => "text-align: right"}= product.price
   %td
-    %p.buttonset
-      %button.move_to_cart{:id => "move_to_cart_#{product.id}", :rel => "#{product.item_num}"} Move to cart
+    %button.move_to_cart{:id => "move_to_cart_#{product.id}", :rel => "#{product.item_num}"} Move to cart
+  %td
+    .delete_from_saved_list{:id => "delete_from_saved_list_#{product.id}", :rel => "#{product.item_num}"} Delete

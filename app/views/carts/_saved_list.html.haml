@@ -9,6 +9,7 @@
         %th{:style => "text-align: right", :width => 75} Retail Price
         %th{:style => "text-align: right", :width => 75} Our Price
         %th{:style => "text-align: right", :width => 115}
+        %th{:style => "text-align: right"}
     %tbody= render :partial => 'carts/saved_item', :collection => get_user.save_for_later_list.products, :as => :product
   :javascript
     $(".move_to_cart").button({icons: {primary: 'ui-icon-plus'}})
@@ -17,3 +18,10 @@
         $(this).button({disabled: true});
         _gaq.push(['_trackEvent', 'Cart', 'Move To Cart', $(this).attr('rel')]);
       })
+    $(".delete_from_saved_list")
+      .button({icons: {primary: 'ui-icon-close'}, text: false})
+      .click( function() {
+        $.ajax({url:"/carts/delete_from_saved_list?id="+this.id.replace('delete_from_saved_list_', '')});
+        _gaq.push(['_trackEvent', 'Cart', 'Delete from saved for later list', $(this).attr('rel')]);
+        $(this).button({ disabled: true });
+      });

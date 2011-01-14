@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-	before_filter :authenticate_user!, :only => [:checkout, :proceed_checkout, :quote, :proceed_quote, :quote_2_order, :move_to_cart]
+	before_filter :authenticate_user!, :only => [:checkout, :proceed_checkout, :quote, :proceed_quote, :quote_2_order, :move_to_cart, :delete_from_saved_list]
 	before_filter :authenticate_admin!, :only => [:custom_price]
 	before_filter :admin_user_as_permissions!, :only => [:remove_order_reference, :use_previous_orders_card]
 	before_filter :trackable
@@ -9,7 +9,7 @@ class CartsController < ApplicationController
 	
 	ssl_required :checkout, :proceed_checkout, :quote, :proceed_quote
 	ssl_allowed :index, :get_shipping_options, :change_shipping_method, :copy_shipping_address, :change_shipping_method, :get_shipping_service, :get_shipping_amount, :get_tax_amount, :get_total_amount,
-	  :custom_price, :create_shipping, :create_billing, :activate_coupon, :remove_coupon, :shopping_cart, :change_quantity, :add_selected_to_cart, :move_to_cart
+	  :custom_price, :create_shipping, :create_billing, :activate_coupon, :remove_coupon, :shopping_cart, :change_quantity, :add_selected_to_cart, :move_to_cart, :delete_from_saved_list
 	
 	verify :xhr => true, :only => [:get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :use_previous_orders_card, :remove_order_reference, :shopping_cart, :change_quantity, :add_selected_to_cart], :redirect_to => {:action => :index}
 	
@@ -26,9 +26,12 @@ class CartsController < ApplicationController
 	
 	def move_to_cart
 	  add_to_cart_do
-	  @list = get_user.save_for_later_list
-	  @list.product_ids.delete_if {|e| e.to_s == params[:id]}
-	  @list.save
+    remove_from_saved_list
+	end
+	
+	def delete_from_saved_list
+	  remove_from_saved_list
+	  render :move_to_cart
 	end
 	
 	def add_selected_to_cart
@@ -281,6 +284,12 @@ private
 	  qty = params[:qty].blank? ? is_er? ? @product.minimum_quantity : 1 : params[:qty].to_i
 	  qty = @product.minimum_quantity if is_er? && qty < @product.minimum_quantity
 		add_2_cart(@product, qty)
+	end
+	
+	def remove_from_saved_list
+	  @list = get_user.save_for_later_list
+	  @list.product_ids.delete_if {|e| e.to_s == params[:id]}
+	  @list.save
 	end
 
 end
