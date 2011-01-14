@@ -1,25 +1,6 @@
 #cart_container= render :partial => 'cart'
-
-.mini-banner{ :style => "margin: 10px 0;"}
-  = image_tag("/images/_temp/stolen/CP_IMG_BANNER_25571561.gif")
-
-.clear
-#save_list
-  %h2== You have 1 item saved for purchase later
-  %table{:cellpadding => 10}
-    %thead
-      %tr
-        %th{:width => 60} Item No.
-        %th{:width => 70} Item Name
-        %th
-        %th{:style => "text-align: right", :width => 75} Retail Price
-        %th{:style => "text-align: right", :width => 75} Our Price
-        %th{:style => "text-align: right", :width => 115}
-    %tbody
-      %tr#cart_item_4d2f5102e1b8327448000002
-        %td 654468
-        %td= link_to image_tag("/images/products/small/654468.jpg?1216140684"), "/product/4cf841a9e1b83268630000d5"
-        %td= link_to "Sizzix Sizzlits Decorative Strip Die - Grass", "/product/4cf841a9e1b83268630000d5"
-        %td{ :style => "text-align: right"} $9999.99
-        %td.cart_item_price{ :style => "text-align: right", :id => "cart_item_price_4d2f5102e1b8327448000002"} $19.99
-        %td= link_to "Add Back to Cart", "#", :class => "jqui_button"
+- unless request.xhr?
+  .mini-banner{ :style => "margin: 10px 0;"}
+    = image_tag("/images/_temp/stolen/CP_IMG_BANNER_25571561.gif")
+  .clear
+#save_list= render 'carts/saved_list' if user_signed_in? && !request.xhr?

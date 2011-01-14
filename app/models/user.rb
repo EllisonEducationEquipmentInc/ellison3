@@ -56,6 +56,10 @@ class User
 			@target.detect {|list| list.owns}
     end
     
+    def save_for_later
+			@target.detect {|list| list.save_for_later}
+    end
+    
     def default
 			@target.detect {|list| list.default_list}
     end
@@ -125,6 +129,25 @@ class User
     l = lists.owns
     l.product_ids = (l.product_ids + product_ids).compact.uniq
     l.save
+  end
+  
+  def create_save_for_later_list
+    return unless lists.save_for_later.blank?
+    l = List.new :save_for_later => true, :name => "Saved Items - To Buy Later", :comments => "List of products I saved to purchase later"
+    l.user = self
+    l.save
+  end
+  
+  def add_to_save_for_later_list(product_ids)
+    create_save_for_later_list
+    l = lists.save_for_later
+    l.product_ids = (l.product_ids + product_ids).compact.uniq
+    l.save
+  end
+  
+  def save_for_later_list
+    create_save_for_later_list
+    lists.save_for_later
   end
   
   def list_set_to_default(list_id)

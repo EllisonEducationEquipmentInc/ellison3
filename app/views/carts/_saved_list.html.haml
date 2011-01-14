@@ -1,0 +1,19 @@
+- if get_user.save_for_later_list.products.count > 0
+  %h2== You have #{pluralize get_user.save_for_later_list.products.count, 'item'} saved for purchase later
+  %table{:cellpadding => 10}
+    %thead
+      %tr
+        %th{:width => 60} Item No.
+        %th{:width => 70} Item Name
+        %th
+        %th{:style => "text-align: right", :width => 75} Retail Price
+        %th{:style => "text-align: right", :width => 75} Our Price
+        %th{:style => "text-align: right", :width => 115}
+    %tbody= render :partial => 'carts/saved_item', :collection => get_user.save_for_later_list.products, :as => :product
+  :javascript
+    $(".move_to_cart").button({icons: {primary: 'ui-icon-plus'}})
+      .click( function() {
+        $.ajax({url:"/carts/move_to_cart?id="+this.id.replace('move_to_cart_', '')});
+        $(this).button({disabled: true});
+        _gaq.push(['_trackEvent', 'Cart', 'Move To Cart', $(this).attr('rel')]);
+      })

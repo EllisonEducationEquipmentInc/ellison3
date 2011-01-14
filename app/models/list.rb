@@ -14,6 +14,7 @@ class List
 	field :active, :type => Boolean, :default => true
 	field :default_list, :type => Boolean, :default => false
 	field :owns, :type => Boolean, :default => false
+	field :save_for_later, :type => Boolean, :default => false
 	field :product_ids, :type => Array, :default => []
 	field :comments
 	field :old_permalink

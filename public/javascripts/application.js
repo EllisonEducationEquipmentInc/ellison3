@@ -211,7 +211,7 @@ function initialize_buttons(){
 				_gaq.push(['_trackEvent', 'Cart', 'Add To Cart', $(this).attr('rel')]);
 			})
 	});
-	
+		
 	$(function() {
 	  $(".wishlist").button()
 	    .click(function() {

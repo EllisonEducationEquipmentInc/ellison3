@@ -8,9 +8,9 @@
         %th{:width => 60} Item No.
         %th{:width => 70} Item Name
         %th{:width => 400}
-        - if !request.xhr?
+        - unless @cart_locked
           %th{:width => 200} Move
-          %th{:style => "text-align: right", :width => 75} Retail Price
+        %th{:style => "text-align: right", :width => 75} Retail Price
         %th{:style => "text-align: right", :width => 75} You Pay
         %th{:style => "text-align: right", :width => 70} Quantity
         %th{:style => "text-align: right", :width => 75} Total Price
@@ -93,6 +93,12 @@
       			_gaq.push(['_trackEvent', 'Cart', 'Remove From Cart', this.id.replace('remove_from_cart_', '')]);
       			$(this).button({ disabled: true });
       		}); 
+      		$(".save_for_later").button({icons: {primary: 'ui-icon-plus'}})
+      			.click( function() {
+      				$.ajax({url:"/users/save_for_later?item_num="+$(this).attr('rel')});
+      				$(this).button({disabled: true});
+      				_gaq.push(['_trackEvent', 'Cart', 'Save for Later', $(this).attr('rel')]);
+      			});
       		$(".save_as_quote")
         	  .button({icons: {primary: 'ui-icon-clipboard'}})
         		.click( function() {

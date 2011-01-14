@@ -1,13 +1,13 @@
 class UsersController < ApplicationController
 	prepend_before_filter :require_no_authentication, :only => [ :new, :create]
-  prepend_before_filter :authenticate_scope!, :except => [ :new, :create, :checkout_requested, :signin_signup, :quote_requested, :add_to_list, :list, :get_lists]
+  prepend_before_filter :authenticate_scope!, :except => [ :new, :create, :checkout_requested, :signin_signup, :quote_requested, :add_to_list, :save_for_later, :list, :get_lists]
   before_filter :trackable
   include Devise::Controllers::InternalHelpers
   
   ssl_exceptions :signin_signup, :checkout_requested, :quote_requested
   ssl_allowed :signin_signup, :checkout_requested, :quote_requested
 
-  verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list, :add_to_wishlist, :list_set_to_default, :remove_from_list, :move_to_list, :email_list, :view_retailer_application], :redirect_to => {:action => :myaccount}
+  verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list, :save_for_later, :add_to_list, :list_set_to_default, :remove_from_list, :move_to_list, :email_list, :view_retailer_application], :redirect_to => {:action => :myaccount}
   verify :post => true, :only => [:create_retailer_application]
   
   # GET /resource/sign_up  
@@ -103,6 +103,16 @@ class UsersController < ApplicationController
 	    @list.add_product params[:id]
 	  else
 	    @message = I18n.t :list_not_logged_in
+	  end
+	end
+	
+	def save_for_later
+	  if user_signed_in?
+      @list = get_user.save_for_later_list
+	    @list.add_product get_cart.cart_items.find_item(params[:item_num]).product_id
+      @cart_item_id = remove_cart(params[:item_num])
+	  else
+	    @message = I18n.t :save_for_later_not_logged_in
 	  end
 	end
 	

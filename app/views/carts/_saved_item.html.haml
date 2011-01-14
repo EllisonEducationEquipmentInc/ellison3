@@ -1,0 +1,9 @@
+%tr{:id => "saved_item_#{product.id}"}
+  %td= product.item_num
+  %td= link_to image_tag(product.small_image), product_path(product)
+  %td= link_to product.name, product_path(product)
+  %td{ :style => "text-align: right"}= product.msrp
+  %td.cart_item_price{ :style => "text-align: right"}= product.price
+  %td
+    %p.buttonset
+      %button.move_to_cart{:id => "move_to_cart_#{product.id}", :rel => "#{product.item_num}"} Move to cart
