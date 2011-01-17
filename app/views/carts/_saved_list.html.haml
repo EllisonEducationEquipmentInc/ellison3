@@ -8,7 +8,7 @@
         %th
         %th{:style => "text-align: right", :width => 75} Retail Price
         %th{:style => "text-align: right", :width => 75} Our Price
-        %th{:style => "text-align: right", :width => 115}
+        %th{:style => "text-align: right", :width => 100}
         %th{:style => "text-align: right"}
     %tbody= render :partial => 'carts/saved_item', :collection => get_user.save_for_later_list.products, :as => :product
   :javascript
@@ -25,3 +25,10 @@
         _gaq.push(['_trackEvent', 'Cart', 'Delete from saved for later list', $(this).attr('rel')]);
         $(this).button({ disabled: true });
       });
+  :javascript 
+    $("table").each(function() {
+      $(this).addClass("ui-widget ui-widget-content ui-corner-all");
+    });
+    $("table thead").each(function() {
+      $(this).addClass("ui-state-hover");
+    });

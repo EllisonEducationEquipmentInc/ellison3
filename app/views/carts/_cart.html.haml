@@ -8,12 +8,12 @@
         %th{:width => 60} Item No.
         %th{:width => 70} Item Name
         %th{:width => 400}
-        - unless @cart_locked
-          %th{:width => 200} Move
-        %th{:style => "text-align: right", :width => 75} Retail Price
+        %th{:style => "text-align: right", :width => 80} Retail Price
         %th{:style => "text-align: right", :width => 75} You Pay
         %th{:style => "text-align: right", :width => 70} Quantity
         %th{:style => "text-align: right", :width => 75} Total Price
+        - unless @cart_locked
+          %th{:width => 130}
         %th
     %tbody
       = render :partial => 'carts/cart_item', :collection => @cart.cart_items
@@ -21,12 +21,12 @@
         %td
         %td
         %td
-        - if !request.xhr?
-          %td
-          %td
+        %td
         %td
         %td{:style => "text-align: right", :class => "cart_extended_price"} Subtotal:
         %td#cart_subtotal{:style => "text-align: right", :class => "cart_extended_price"}= number_to_currency gross_price(@cart.sub_total)
+        - unless @cart_locked
+          %td
         %td        
     - unless @cart_locked
       :javascript
