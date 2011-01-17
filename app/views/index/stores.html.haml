@@ -1,0 +1,4 @@
+- content_for :gmap_header do
+  = GMap.header :host => request.host
+  = @map.to_html
+= @map.div(:width => 610, :height => 500)

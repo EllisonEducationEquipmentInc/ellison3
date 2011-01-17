@@ -3,8 +3,6 @@ require 'digest/sha1'
 
 class Product
 	include EllisonSystem
-	include ActiveModel::Validations
-	include ActiveModel::Translation
 	include Mongoid::Document
 	# NOTE: to be able to skip Versioning and/or Timestamps, use my patched mongoid: git://github.com/computadude/mongoid.git
 	include Mongoid::Timestamps

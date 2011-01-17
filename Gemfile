@@ -50,6 +50,7 @@ gem 'shippinglogic', :git => 'git://github.com/computadude/shippinglogic.git', :
 gem 'sunspot_mongoid', :git => 'git://github.com/jugyo/sunspot_mongoid.git', :branch => "master"
 #gem 'event-calendar', :require => 'event_calendar'
 gem 'feedzirra'
+gem 'geokit'
 
 # Use unicorn as the web server
 # gem 'unicorn'

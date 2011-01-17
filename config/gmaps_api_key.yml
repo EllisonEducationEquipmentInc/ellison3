@@ -1,0 +1,17 @@
+#Fill here the Google Maps API keys for your application
+#In this sample:
+#For development and test, we have only one possible host (localhost:3000), so there is only a single key associated with the mode.
+#In production, the app can be accessed through 2 different hosts: thepochisuperstarmegashow.com and exmaple.com. There then needs a 2-key hash. If you deployed to one host, only the API key would be needed (as in development and test).
+
+development:
+ ABQIAAAAtyiLyK9Cbal-PI_2SQxQhhRewOnpN0rJLlx1Kc7XLpm4rjRi8hTwo9zN3wp-hXNx6mFx7wc0Dv_kqA
+
+test:
+ ABQIAAAAzMUFFnT9uH0xq39J0Y4kbhTJQa0g3IQ9GZqIMmInSLzwtGDKaBR6j135zrztfTGVOm2QlWnkaidDIQ
+
+production:
+ sizzix.com: ABQIAAAAFZCGX6wLhPVZW47kTjFighSdQJvGbeZU4QZJl32pr5dpeXATIRR0fg_2FshIheWTW7t0O2glkfwb3g
+ ellisonretailers.com: ABQIAAAAFZCGX6wLhPVZW47kTjFighRFV1pRiQgslUtTIul8sDKBQtKxORQn2bElQNJmCPFuWed3L2coZsyYOQ
+ ellison.com: ABQIAAAAFZCGX6wLhPVZW47kTjFighRFV1pRiQgslUtTIul8sDKBQtKxORQn2bElQNJmCPFuWed3L2coZsyYOQ
+ sizzix.co.uk: ABQIAAAAFZCGX6wLhPVZW47kTjFighR4uEsvXQHXe244tkjkuDPF1SruARSyz-oUydoi-0xScpImFamUh8yXFg
+ ellisoneducation.com: ABQIAAAAtyiLyK9Cbal-PI_2SQxQhhRJJsSX7JWSQ-TCbEBIgKqu-vU7TxQYYln8pBzfPI41nqpfBg3OqMkmFA
