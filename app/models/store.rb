@@ -40,7 +40,7 @@ class Store
   index :active
   index :physical_store
   index :webstore
-  index :location
+  index [[ :location, Mongo::GEO2D ]], :min => -300, :max => 300
   index :brands
   
   mount_uploader :image, GenericImageUploader
@@ -52,6 +52,10 @@ class Store
   scope :active, :where => { :active => true }
   scope :physical_stores, :where => { :physical_store => true }
   scope :webstores, :where => { :webstore => true }
+  
+  def logo
+    image? ? image_url(:logo) : self.logo_url
+  end
   
   #Red=AllStar, Green=Prestige, Purple=RollModel
 

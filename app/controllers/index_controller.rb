@@ -1,5 +1,7 @@
 class IndexController < ApplicationController
   
+  include Geokit::Geocoders
+	
   before_filter :trackable, :except => [:catalog]
   before_filter :store_path!
   
@@ -173,7 +175,14 @@ class IndexController < ApplicationController
   end
   
   def update_map
-    @stores = Store.active.physical_stores.where(:country => 'United States').map {|e| e}
+    criteria = Mongoid::Criteria.new(Store)
+    criteria = criteria.where.physical_stores
+    if params[:country]
+      @stores = criteria.where(:country => params[:country]).map {|e| e}
+    else
+      zip_geo = MultiGeocoder.geocode('92627')
+      @stores = criteria.where(:location.within => { "$center" => [ [zip_geo.lat, zip_geo.lng], 5] }).map {|e| e}
+    end
     render :partial => "store", :collection => @stores
   end
   

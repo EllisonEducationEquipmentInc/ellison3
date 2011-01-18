@@ -1,3 +1,9 @@
+- if tab.no_image_details?
+  - tab.images.each do |image|
+    .floating_image
+      = link_to image_tag(image.image_url(:medium)), image.image_url, :class => 'lightbox'
+      .caption= image.caption
+  .clear
 - if tab.text
   = youtube_video tab.text.html_safe
 - if tab.products
@@ -6,7 +12,7 @@
 - if tab.ideas
   = render :partial => 'ideas/idea', :collection => Idea.available.where(:idea_num.in => tab.ideas).cache
   .clear
-- if tab.images
+- if tab.images && !tab.no_image_details?
   - tab.images.each do |image|
     .tab_row
       .image_details= image.details
