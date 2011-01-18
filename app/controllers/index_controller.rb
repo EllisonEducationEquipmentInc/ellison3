@@ -169,24 +169,12 @@ class IndexController < ApplicationController
   end
   
   def stores
-    @map = GMap.new("store_map")  
-    @map.control_init(:large_map => true, :map_type => true)  
-    @point = Geocoding.get(is_us? ? "USA" : "United Kingdom")
-    # @map.icon_global_init( GIcon.new( :image => "/images/ui-icons/ico_gmap_sizzix.png", :icon_size => GSize.new( 17,18 ), :icon_anchor => GPoint.new(9,17), :info_window_anchor => GPoint.new(9,2) ), "icon_sizzix")  
-    @countries = Store.active.physical_stores.distinct(:country)
-    if is_us?
-      zoom = 3
-    else
-      zoom = 5
-      @stores = Store.active.all(:conditions => ["country = 'United Kingdom'"], :order => 'name')
-      @where = 'in United Kingdom'
-      @icon_sizzix = Variable.new("icon_sizzix")
-      for store in @stores
-        @map.record_init @map.add_overlay(GMarker.new("#{store.address1} #{store.city} #{store.state} #{store.zip} #{store.country}",{:info_window => "<b>#{store.name}</b><br>#{store.address1} <br>#{store.city} <br>#{store.state} #{store.zip} <br>#{store.phone}<br>#{store.website}", :icon => @icon_sizzix}))
-      end
-    end
-    @map.center_zoom_init(@point[0].latlon, zoom)  
     @title = 'Store Locator'
+  end
+  
+  def update_map
+    @stores = Store.active.physical_stores.where(:country => 'United States').map {|e| e}
+    render :partial => "store", :collection => @stores
   end
   
 private

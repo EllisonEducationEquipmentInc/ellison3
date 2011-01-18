@@ -27,7 +27,7 @@
 - if is_ee_uk?
   = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Vollkorn:regular,italic,bold,bolditalic&subset=latin'
 =# javascript_include_tag :defaults
-= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", "jquery.rails.js", 'jquery-ui-1.8.6.custom.min.js', 'jquery-ui-timepicker-addon-0.5', 'wymeditor/jquery.wymeditor.min.js'
+= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js", "jquery.rails.js", 'jquery-ui-1.8.6.custom.min.js', 'jquery-ui-timepicker-addon-0.5', 'wymeditor/jquery.wymeditor.min.js'
 -# javascript_include_tag 'curvycorners.js'
 = javascript_include_tag 'jqzoom.pack.1.0.1.js', 'jquery.form.js', 'jquery.remotipart.js', 'fancybox/jquery.fancybox-1.3.1.pack.js', 'fancybox/jquery.easing-1.3.pack.js', 'jquery.validate.min.js', 'jquery.validate.password', 'jquery.ba-bbq.min.js'
 = javascript_include_tag 'jquery.editinplace', 'iphone-style-checkboxes', 'jquery.tooltip.min.js', 'bubblepopup/jquery.bubblepopup.v2.3.1.min.js'
@@ -37,6 +37,7 @@
 = javascript_include_tag 'jcarousellite/jcarousellite_1.0.1.min.js'
 = javascript_include_tag 'fonteffect/jquery-fonteffect-1.0.0.min.js'
 = javascript_include_tag 'hoverintent/jquery.hoverIntent.minified.js'
+
 = csrf_meta_tag
 = render :partial => 'layouts/ga' if @trackable
 :javascript

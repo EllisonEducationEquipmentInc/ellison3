@@ -1,4 +1,25 @@
 - content_for :gmap_header do
-  = GMap.header :host => request.host
-  = @map.to_html
-= @map.div(:width => 610, :height => 500)
+  = javascript_include_tag 'http://maps.google.com/maps/api/js?v=3.3&sensor=false'
+  = javascript_include_tag '/javascripts/vendor/markermanager.js'
+  = javascript_include_tag '/javascripts/vendor/StyledMarker.js'
+  / = javascript_include_tag '/javascripts/vendor/jquery.metadata.js'
+  = javascript_include_tag 'jquery.jmapping.js'
+#store_info
+  = link_to "/index/update_map"
+  #map-side-bar
+#map
+:javascript
+  $(document).ready(function(){
+    $.getScript('/javascripts/vendor/jquery.metadata.js', function() {
+      $('#map').jMapping({default_point: {lat: 40.513799, lng:-98.876953}, default_zoom_level: 3});
+    });
+    $('#store_info a').attach(Remote.Link, {
+        success: function(html){
+          $('#map-side-bar').html(html);
+          $('#map').jMapping('update');
+        }
+      });
+  }).bind('afterMapping.jMapping', function(e,m) {
+    setTimeout("$('#map').data('jMapping').map.setZoom(4)", 1200);
+  });
+

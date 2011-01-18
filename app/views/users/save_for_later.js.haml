@@ -3,7 +3,7 @@
   == $('#cart_subtotal').html('#{number_to_currency gross_price(get_cart.sub_total)}');
   == $('#shoppingcart_info').html('#{escape_javascript(render(:partial => "carts/shopping_cart"))}');
   == $('#cart_container').html('#{escape_javascript(render(:partial => "carts/cart"))}');
-  if ($('#saved_list_table').length > 0){
+  if ($('#save_list').length > 0){
   == $('#save_list').html('#{escape_javascript(render(:partial => "carts/saved_list"))}');
   } else {
   setTimeout("$.fancybox.resize()", 600);

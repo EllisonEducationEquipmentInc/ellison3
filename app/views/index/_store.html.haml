@@ -1,0 +1,4 @@
+.map-location{"data-jmapping" => "{id: #{@stores.index(store)}, point: {lat: #{store.location[0]}, lng: #{store.location[1]}}, category: 'Stores'}"}
+  %a{:href => "#", :class => "map-link"}= store.name
+  .info-box
+    %p= store.name

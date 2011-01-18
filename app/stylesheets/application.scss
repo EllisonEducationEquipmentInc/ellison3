@@ -206,6 +206,15 @@ body.bp th, body.bp td, body.bp caption {
 		margin-bottom: 10px;
 		width:850px;
 	}
+	#map{
+		float: left;
+		height: 460px;
+		width: 600px;
+	}
+	#store_info{
+		width: 300px;
+		float: left;
+	}
 }
 p.show_cart{cursor:pointer;}
 #guest_checkout {
