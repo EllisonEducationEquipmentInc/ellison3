@@ -17,6 +17,10 @@
       = store.country
       %br
       = link_to store.website if store.website.present?
+      - if @zip_geo.present?
+        %br
+        %br
+        = link_to 'directions', "http://maps.google.com/maps?saddr=#{@zip_geo.lat},#{@zip_geo.lng}&daddr=#{store.address1} #{store.city} #{store.state} #{store.zip_code} #{store.country}", :target => '_blank'
       
       
       

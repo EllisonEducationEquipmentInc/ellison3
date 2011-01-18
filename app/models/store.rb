@@ -45,7 +45,9 @@ class Store
   
   mount_uploader :image, GenericImageUploader
   
-  validates_presence_of :name, :brands, :address1, :city, :country
+  validates_presence_of :name, :brands
+  validates_presence_of :address1, :city, :country, :if => Proc.new {|obj| obj.physical_store}
+  validates_presence_of :website, :if => Proc.new {|obj| obj.webstore}
   
   before_save :get_geo_location, :if => Proc.new {|obj| obj.physical_store}
   

@@ -171,6 +171,8 @@ class IndexController < ApplicationController
   end
   
   def stores
+    params[:country] ||= is_us? ? 'United States' : 'United Kingdom'
+    @countries = Store.active.physical_stores.order_by(:country, :desc).distinct(:country).sort {|x,y| x <=> y}
     @title = 'Store Locator'
   end
   
@@ -179,9 +181,9 @@ class IndexController < ApplicationController
     criteria = criteria.where.physical_stores
     if params[:country] && params[:country] != 'United States'
       @stores = criteria.where(:country => params[:country]).map {|e| e}
-    else
-      zip_geo = MultiGeocoder.geocode('92627')
-      @stores = criteria.where(:location.within => { "$center" => [ [zip_geo.lat, zip_geo.lng], 5] }).map {|e| e}
+    elsif params[:zip_code].present? && params[:zip_code] =~ /^\d{5,}/
+      @zip_geo = MultiGeocoder.geocode(params[:zip_code])
+      @stores = criteria.where(:location.within => { "$center" => [ [@zip_geo.lat, @zip_geo.lng], params[:radius].to_i] }).map {|e| e}
     end
     render :partial => "store", :collection => @stores
   end
