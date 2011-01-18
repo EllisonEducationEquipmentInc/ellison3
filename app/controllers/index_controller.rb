@@ -141,7 +141,7 @@ class IndexController < ApplicationController
   
   def blog_feed
     @feed = Feed.where(:name => 'blog').first || Feed.new(:name => 'blog')
-    process_feed("http://sizzixblog.blogspot.com/feeds/posts/default?alt=rss")
+    process_feed("http://sizzixblog.blogspot.com/feeds/posts/default?max-results=5")
     expires_in 3.minutes, 'max-stale' => 3.minutes, :public => true
     render :partial => 'index/feed', :collection => @feed.entries
   end
@@ -177,7 +177,7 @@ class IndexController < ApplicationController
   def update_map
     criteria = Mongoid::Criteria.new(Store)
     criteria = criteria.where.physical_stores
-    if params[:country]
+    if params[:country] && params[:country] != 'United States'
       @stores = criteria.where(:country => params[:country]).map {|e| e}
     else
       zip_geo = MultiGeocoder.geocode('92627')
