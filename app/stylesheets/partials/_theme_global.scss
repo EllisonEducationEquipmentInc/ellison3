@@ -47,7 +47,19 @@ body.bp {
     }
   }
   
-  //bubble popups
+  // jquery calendar popups
+  // overwriting blueprint th & td padding, reinstating jqueryui settings for this class
+  table.ui-datepicker-calendar {
+    th {
+      padding: .7em .3em;
+    }
+    td {
+      padding: 1px;
+    }
+  }
+  
+  // bubble popups
+  // overwriting blueprint th & td padding, reinstating jquerybubblepopup settings for this class
   .jquerybubblepopup {
     z-index: 300;
     
