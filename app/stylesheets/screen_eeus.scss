@@ -7,7 +7,3 @@ $system: eeus;
 
 // Import the common application partials shared by ALL systems 
 @import "master";
-
-
-// Import system-specific override styles here
-@import "partials_eeus/overrides"
