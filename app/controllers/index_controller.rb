@@ -238,6 +238,7 @@ private
   
   # @Example: perform_search Product, :outlet => true, :facets => ["theme", "category"], :facet_sort => :index
   def perform_search(klass, options = {})
+    params[:sort] = "orderable_#{current_system}:desc" if params[:sort].blank?
     outlet = options.delete(:outlet) ? true : false
     facets = options[:facets] || tag_types
     klass.search do |query|
@@ -282,7 +283,7 @@ private
         end
       end
       query.paginate(:page => params[:page] || 1, :per_page => @per_page || per_page)
-      query.order_by(*params[:sort].split(":")) unless params[:sort].blank?
+      query.order_by(*params[:sort].split(":")) unless params[:sort].blank? || klass == Idea && ['quantity_sold', 'price', 'orderable'].any? {|e| params[:sort].include? e}
     end
   end
   
