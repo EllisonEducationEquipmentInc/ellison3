@@ -1,4 +1,4 @@
-- if store.logo.present? #&& File.exists?(store.logo)
+- if store.logo.present? && File.exists?("#{Rails.root}/public/#{store.logo}")
   = image_tag(store.logo)
   %br
 %h3.map-link= store.name

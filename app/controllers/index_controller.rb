@@ -182,6 +182,7 @@ class IndexController < ApplicationController
     @countries = Store.active.physical_stores.order_by(:country, :desc).distinct(:country).sort {|x,y| x <=> y}
     @online_stores = Store.active.webstores.order_by(:name, :asc).cache
     @distributors = Store.active.distributors.order_by(:name, :asc).cache
+    @store_locator_content = SharedContent.active.where(:systems_enabled.in => [current_system], :name => 'store_locator_content').cache.first
     @title = 'Store Locator'
   end
   
