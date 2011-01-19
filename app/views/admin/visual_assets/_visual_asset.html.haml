@@ -26,6 +26,13 @@
     %br
     = f.text_field "end_date", :class => 'datetimepicker'
   .field
+    = f.label :recurring
+    = f.check_box :recurring, :onclick => "if (this.checked) {$('.visual_asset_#{child_index} .recurring').show()} else {$('.visual_asset_#{child_index} .recurring').hide()}"
+  .field.recurring{:style => "display:#{f.object.recurring ? 'block' : 'none'}"}
+    - Date::DAYNAMES.each do |day|
+      = f.check_box :"#{day.downcase}"
+      = day
+  .field
     = f.label :short_desc
     %br
     = f.text_field :short_desc

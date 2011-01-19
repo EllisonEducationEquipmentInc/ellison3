@@ -23,6 +23,11 @@ class VisualAsset
 	field :asset_type
 	field :display_order, :type => Integer
 	field :images, :type => Array, :default => []
+	field :recurring, :type => Boolean, :default => false
+	
+	Date::DAYNAMES.each do |day|
+	  field :"#{day.downcase}", :type => Boolean, :default => false
+	end
 	
 	embedded_in :landing_page, :inverse_of => :visual_assets
 	embedded_in :shared_content, :inverse_of => :visual_assets
@@ -40,7 +45,7 @@ class VisualAsset
 	end
 	
 	def available?(time = Time.zone.now)
-		self.start_date <= time && self.end_date >= time && self.active && self.systems_enabled.include?(current_system)
+		self.start_date <= time && self.end_date >= time && self.active && self.systems_enabled.include?(current_system) && (!self.recurring || self.recurring && self.send(Time.zone.now.strftime("%A").downcase))
 	end
 	
 	def product_item_nums
