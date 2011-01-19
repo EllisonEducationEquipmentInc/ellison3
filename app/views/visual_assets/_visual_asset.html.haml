@@ -6,9 +6,9 @@
   .asset_freeform= visual_asset.content.html_safe
 - elsif visual_asset.asset_type == 'catalog_search'
   .asset_catalog_search
-    %h2
-      = visual_asset.name
-      = link_to "View All", catalog_path(:anchor => visual_asset.search_query), :class => "minilink"
+    %h2{:class => cycle('newarrivals', 'bestsellers')}
+      %span= visual_asset.name
+      %span= link_to "View All", catalog_path(:anchor => visual_asset.search_query), :class => "minilink"
     .item_carousel.ui-widget.ui-corner-all{ :class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
       %div{:id => "asset_carousel_#{visual_asset.id}"}
       .controls
