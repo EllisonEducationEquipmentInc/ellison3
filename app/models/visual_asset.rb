@@ -5,7 +5,7 @@ class VisualAsset
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	
-	ASSET_TYPES = ["catalog_search", "image", "text", "products", "ideas", "freeform", "gallery"]
+	ASSET_TYPES = ["catalog_search", "image", "text", "products", "ideas", "freeform", "gallery", "billboard"]
 	
 	field :name
 	field :systems_enabled, :type => Array

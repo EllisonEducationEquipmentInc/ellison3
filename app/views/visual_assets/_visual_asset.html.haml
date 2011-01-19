@@ -46,7 +46,7 @@
 - elsif visual_asset.asset_type == 'gallery'
   .frame_gallery
     = image_tag("/images/ui-objects/_#{current_system}_frame_gallery.png", :class => "frame_gallery")
-    .gallery{:id => "gallery_#{visual_asset.id}"}
+    .gallery_asset{:id => "gallery_#{visual_asset.id}"}
     :javascript
       $(document).ready(function(){
         $("#gallery_#{visual_asset.id}").sudoSlider({

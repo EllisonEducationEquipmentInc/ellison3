@@ -446,7 +446,7 @@ ul.ui-tabs-nav {
     }
   }
   
-  .gallery {
+  .gallery_asset {
     margin-bottom: 12px;
     height: 18*18px;
     width: 950px;
@@ -491,30 +491,30 @@ ul.ui-tabs-nav {
     }
   }
   
-  .billboard {
+  .billboard_asset {
     margin-bottom: 10px;
     height: 18*11px;
   }
   
-  .billboard_XS { @extend .billboard;
+  .billboard_XS { @extend .billboard_asset;
     background: transparent url('/images/ui-objects/frame_billboard_XS.png') no-repeat; }
     
-  .billboard_small { @extend .billboard;
+  .billboard_small { @extend .billboard_asset;
     background: transparent url('/images/ui-objects/frame_billboard_small.png') no-repeat; }
   
-  .billboard_medium { @extend .billboard;
+  .billboard_medium { @extend .billboard_asset;
     background: transparent url('/images/ui-objects/frame_billboard_medium.png') no-repeat; }
   
-  .billboard_large { @extend .billboard;
+  .billboard_large { @extend .billboard_asset;
     background: transparent url('/images/ui-objects/frame_billboard_large.png') no-repeat; }
   
-  .billboard_XL { @extend .billboard;
+  .billboard_XL { @extend .billboard_asset;
     background: transparent url('/images/ui-objects/frame_billboard_XL.png') no-repeat; }
   
-  .billboard_XXL { @extend .billboard;
+  .billboard_XXL { @extend .billboard_asset;
     background: transparent url('/images/ui-objects/frame_billboard_XXL.png') no-repeat; }
   
-  .billboard_XXXL { @extend .billboard;
+  .billboard_XXXL { @extend .billboard_asset;
     background: transparent url('/images/ui-objects/frame_billboard_XXXL.png') no-repeat; }
 
   .boxgrid { 
