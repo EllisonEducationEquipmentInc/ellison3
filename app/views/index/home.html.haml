@@ -7,7 +7,7 @@
         = image_tag(billboard.image_url) if billboard.image?
         .cover{:class => "boxcaption#{billboard.wide ? '-large' : nil}"}
           %h4= billboard.name
-          %p
+          %div
             = billboard.content.html_safe
             - if billboard.link.present?
               %br/
