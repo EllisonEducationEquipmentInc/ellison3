@@ -12,7 +12,7 @@ class IndexController < ApplicationController
   helper_method :idea?, :per_page
   
   def home
-
+    @home_content = SharedContent.home
   end
   
   def products

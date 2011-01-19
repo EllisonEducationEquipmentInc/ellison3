@@ -5,7 +5,7 @@ class VisualAsset
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	
-	ASSET_TYPES = ["catalog_search", "image", "text", "products", "ideas", "freeform"]
+	ASSET_TYPES = ["catalog_search", "image", "text", "products", "ideas", "freeform", "gallery"]
 	
 	field :name
 	field :systems_enabled, :type => Array
@@ -21,6 +21,7 @@ class VisualAsset
 	field :end_date, :type => DateTime
 	field :asset_type
 	field :display_order, :type => Integer
+	field :images, :type => Array, :default => []
 	
 	embedded_in :landing_page, :inverse_of => :visual_assets
 	embedded_in :shared_content, :inverse_of => :visual_assets
@@ -29,6 +30,7 @@ class VisualAsset
 	mount_uploader :image, PrivateAttachmentUploader
 	
 	validates :name, :asset_type, :systems_enabled, :start_date, :end_date, :presence => true
+	validates_presence_of :images, :if => Proc.new {|obj| obj.asset_type == "gallery"}
 	
   # before_save :force_extract_filename, :if => Proc.new {|obj| obj.asset_type == 'image'}
 	

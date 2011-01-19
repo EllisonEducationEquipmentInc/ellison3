@@ -364,21 +364,21 @@ ul.ui-tabs-nav {
   .container {
     background-color: white
   }
-
-  #frame_gallery {
+	
+  .frame_gallery {
     position: relative;
     overflow: hidden;
     height: 299px;
     margin-bottom: 12px;
     
-    img#frame_gallery {
+    img.frame_gallery {
       position: absolute;
       top: 0px;
       left: 0px;
       z-index: 21;
     }
     
-    #controls {
+    .controls {
       position: absolute;
       top:0px;
       left:0px;
@@ -446,7 +446,7 @@ ul.ui-tabs-nav {
     }
   }
   
-  #gallery {
+  .gallery {
     margin-bottom: 12px;
     height: 18*18px;
     width: 950px;

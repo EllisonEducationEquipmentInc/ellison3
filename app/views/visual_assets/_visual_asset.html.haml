@@ -42,3 +42,19 @@
             visible: #{visual_asset.wide? ? 5 : 4}
         });
       });
+- elsif visual_asset.asset_type == 'gallery'
+  .frame_gallery
+    = image_tag("/images/ui-objects/_#{current_system}_frame_gallery.png", :class => "frame_gallery")
+    .gallery{:id => "gallery_#{visual_asset.id}"}
+    :javascript
+      $(document).ready(function(){
+        $("#gallery_#{visual_asset.id}").sudoSlider({
+          controlsFade: false,
+          prevHtml: '<a href="#" class="prevBtn"> prev </a>',
+          ajax: [#{visual_asset.images.map {|e| "'#{e}'"} * ', '}],
+          numeric: false,
+          preloadAjax: true,
+          fade: true,
+          auto: true
+        });
+      });

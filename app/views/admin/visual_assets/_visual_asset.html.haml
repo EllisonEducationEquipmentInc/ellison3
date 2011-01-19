@@ -57,6 +57,13 @@
     = f.label :link
     %br
     = f.text_field :link
+  .field.type_specific.gallery
+    = f.label :images, :gallery_images
+    %ul.gallery_images
+      - if f.object.images.present?
+        - f.object.images.each do |i|
+          %li= text_field_tag "#{f.object_name[/^(\w+)/]}[visual_assets_attributes][#{child_index}][images][]", i, :id => nil
+    = link_to_function "add image field", %Q($(this).siblings('ul').append('<li><input name="#{f.object_name[/^(\w+)/]}[visual_assets_attributes][#{child_index}][images][]" type="text"></li>'))
   = products_helper_tag "#{f.object_name[/^(\w+)/]}[visual_assets_attributes][#{child_index}][product_item_nums]", f.object.product_item_nums, :label => "Products (item nums only)", :class => "type_specific products"
   = ideas_helper_tag "#{f.object_name[/^(\w+)/]}[visual_assets_attributes][#{child_index}][idea_idea_nums]", f.object.idea_idea_nums, :label => "Ideas (idea nums only)", :class => "type_specific ideas"
 :javascript
@@ -68,5 +75,6 @@
             changeYear: true
           });
       toggle_visual_asset_type('#{child_index}');
+      $('.visual_asset_#{child_index} .gallery_images').sortable()
   });
   
