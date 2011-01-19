@@ -172,13 +172,23 @@ class IndexController < ApplicationController
   
   def stores
     params[:country] ||= is_us? ? 'United States' : 'United Kingdom'
+    params[:brands] ||= if is_sizzix? 
+        'sizzix' 
+      elsif is_ee?
+        'ellison'
+      else
+        'sizzix,ellison'
+      end
     @countries = Store.active.physical_stores.order_by(:country, :desc).distinct(:country).sort {|x,y| x <=> y}
+    @online_stores = Store.active.webstores.order_by(:name, :asc).cache
+    @distributors = Store.active.distributors.order_by(:name, :asc).cache
     @title = 'Store Locator'
   end
   
   def update_map
     criteria = Mongoid::Criteria.new(Store)
     criteria = criteria.where.physical_stores
+    criteria = criteria.where(:brands.in => params[:brands]) if params[:brands].present?
     if params[:country] && params[:country] != 'United States'
       @stores = criteria.where(:country => params[:country]).map {|e| e}
     elsif params[:zip_code].present? && params[:zip_code] =~ /^\d{5,}/

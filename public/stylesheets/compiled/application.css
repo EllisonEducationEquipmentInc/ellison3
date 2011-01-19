@@ -263,40 +263,52 @@ body.bp th, body.bp td, body.bp caption {
   text-align: center;
   margin-right: 10px;
 }
+/* line 224, ../../../app/stylesheets/application.scss */
+#content .map-location {
+  width: 260px;
+  border-bottom: 1px solid gray;
+  margin-bottom: 10px;
+}
+/* line 229, ../../../app/stylesheets/application.scss */
+#content .online_store {
+  float: left;
+  width: 250px;
+  margin: 5px 5px;
+}
 
-/* line 225, ../../../app/stylesheets/application.scss */
+/* line 235, ../../../app/stylesheets/application.scss */
 p.show_cart {
   cursor: pointer;
 }
 
-/* line 226, ../../../app/stylesheets/application.scss */
+/* line 236, ../../../app/stylesheets/application.scss */
 #guest_checkout {
   float: right;
   width: 375px;
 }
 
-/* line 230, ../../../app/stylesheets/application.scss */
+/* line 240, ../../../app/stylesheets/application.scss */
 #returning_cuctomer {
   float: left;
   width: 375px;
 }
 
-/* line 235, ../../../app/stylesheets/application.scss */
+/* line 245, ../../../app/stylesheets/application.scss */
 #cart_total {
   font-size: 1.4em;
 }
 
-/* line 240, ../../../app/stylesheets/application.scss */
+/* line 250, ../../../app/stylesheets/application.scss */
 li#cart_total {
   border-top: 1px double gray;
 }
 
-/* line 241, ../../../app/stylesheets/application.scss */
+/* line 251, ../../../app/stylesheets/application.scss */
 .item_changed {
   background: #FBE3E4;
 }
 
-/* line 243, ../../../app/stylesheets/application.scss */
+/* line 253, ../../../app/stylesheets/application.scss */
 td.pre_order {
   color: red;
 }

@@ -221,6 +221,16 @@ body.bp th, body.bp td, body.bp caption {
 		text-align:center;
 		margin-right:10px;
 	}
+	.map-location{
+		width: 260px;
+		border-bottom: 1px solid gray;
+		margin-bottom:10px;
+	}
+	.online_store{
+		float:left;
+		width: 250px;
+		margin: 5px 5px;
+	}
 }
 p.show_cart{cursor:pointer;}
 #guest_checkout {

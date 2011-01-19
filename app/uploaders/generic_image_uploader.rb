@@ -46,7 +46,7 @@ class GenericImageUploader < CarrierWave::Uploader::Base
   end
   
   version :logo do
-    process :resize_to_fill => [260, 125]
+    process :resize_to_limit => [260, 125]
   end
 
   # Add a white list of extensions which are allowed to be uploaded,

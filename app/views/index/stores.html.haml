@@ -25,14 +25,26 @@
           = select_tag :radius, options_for_select([5,10,20,30,50], params[:radius] || 5)
           miles
         .field
+          Brands:
+          = check_box_tag 'brands[]', "sizzix", params[:brands].present? && params[:brands].include?('sizzix'), :id => "brands_sizzix", :class => 'brands'
+          Sizzix
+          = check_box_tag 'brands[]', "ellison", params[:brands].present? && params[:brands].include?('ellison'), :id => "brands_ellison", :class => 'brands'
+          Ellison
+        .field
           = link_to 'search', '#', :id => 'map_search_submit'
       #map-side-bar
     #map
   .clear
   #online_retailers
     %h2 Online Retailers
+    - @online_stores.each do |store|
+      .online_store= render store
+    .clear
   #distributors 
     %h2 Distributors
+    - @distributors.each do |store|
+      .online_store= render store
+    .clear
   #major_retailers 
     %h2 Major Retailers
 
@@ -41,19 +53,26 @@
     $(".tab-block").tabs();
     toggle_store_fields();
     $.getScript('/javascripts/vendor/jquery.metadata.js', function() {
-      $('#map').jMapping({default_point: {lat: 40.513799, lng:-98.876953}, default_zoom_level: 3});
+      $('#map').jMapping({default_point: {lat: 40.513799, lng:-98.876953}, default_zoom_level: 3, link_selector: '.map-link'});
     });
     $('#map_search_submit').click( function() {
       if ($('#country').val() == 'United States' && $('#zip_code').val().length < 5) {
         alert('invalid zip code');
         return false;
       }
+      if ($('.brands:checked').length < 1){
+        alert('please select at least one brand');
+        return false;
+      }
       $.ajax({url:'/index/update_map?'+$(this).parents('form').serialize(), success: function(html){
         $('#map-side-bar').html(html);
         $('#map').jMapping('update');
+        $('.info-box').show();
+        $('.info-box h3').css('cursor', 'pointer');
       }});
       return false;
     });
+    if ($('#country').val() != 'United States') $('#map_search_submit').trigger('click');
   }).bind('afterMapping.jMapping', function(e,m) {
     setTimeout("$('#map').data('jMapping').map.setZoom(4)", 1200);
   });

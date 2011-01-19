@@ -1,0 +1,28 @@
+- if store.logo.present? #&& File.exists?(store.logo)
+  = image_tag(store.logo)
+  %br
+%h3.map-link= store.name
+- if store.product_line && store.product_line.include?("AllStar")
+  %span{:style => "color:green"} &bull;
+- if store.product_line && store.product_line.include?("Prestige")
+  %span{:style => "color:blue"} &bull;
+- if store.product_line && store.product_line.include?("RollModel")
+  %span{:style => "color:red"} &bull;
+%br
+Product Line:
+= store.product_line * ', '
+%br
+= store.address1
+= store.address2
+%br
+= store.city
+= store.state
+= store.zip_code
+%br
+= store.country
+%br
+= link_to store.website, store.website, :target => '_blank' if store.website.present?
+- if @zip_geo.present?
+  %br
+  %br
+  = link_to 'get directions', "http://maps.google.com/maps?saddr=#{@zip_geo.lat},#{@zip_geo.lng}&daddr=#{store.address1} #{store.city} #{store.state} #{store.zip_code} #{store.country}", :target => '_blank'

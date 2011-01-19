@@ -6,7 +6,7 @@ class Store
 	
 	AGENT_TYPES = ["Distributor", "Sales Representative", "Authorized Reseller"]
 	AUTHORIZED_RESELLER_TYPES = ["Catalog sales only", "Web sales only", "Brick and Mortar Store", "Combination"]
-	PRODUCT_LINES = %w(AllStar Prestige RollModel)
+	PRODUCT_LINES = %w(Sizzix AllStar Prestige RollModel)
 	BRANDS = %w(sizzix ellison)
 	
 	field :store_number
@@ -16,7 +16,7 @@ class Store
   field :webstore, :type => Boolean, :default => false
   field :physical_store, :type => Boolean, :default => false
   field :brands, :type => Array
-  field :product_line, :type => Array
+  field :product_line, :type => Array, :default => []
   field :agent_type
   field :authorized_reseller_type
   field :excellence_level
@@ -42,18 +42,22 @@ class Store
   index :webstore
   index [[ :location, Mongo::GEO2D ]], :min => -300, :max => 300
   index :brands
+  index :agent_type
+  index :name
   
   mount_uploader :image, GenericImageUploader
   
-  validates_presence_of :name, :brands
+  validates_presence_of :name, :brands, :agent_type
   validates_presence_of :address1, :city, :country, :if => Proc.new {|obj| obj.physical_store}
   validates_presence_of :website, :if => Proc.new {|obj| obj.webstore}
+  validates_inclusion_of :agent_type, :in => AGENT_TYPES
   
   before_save :get_geo_location, :if => Proc.new {|obj| obj.physical_store}
   
   scope :active, :where => { :active => true }
   scope :physical_stores, :where => { :physical_store => true }
   scope :webstores, :where => { :webstore => true }
+  scope :distributors, :where => { :agent_type => "Distributor" }
   
   def logo
     image? ? image_url(:logo) : self.logo_url

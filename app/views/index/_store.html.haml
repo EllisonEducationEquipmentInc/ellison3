@@ -1,26 +1,5 @@
 .map-location{"data-jmapping" => "{id: #{@stores.index(store)}, point: {lat: #{store.location[0]}, lng: #{store.location[1]}}, category: 'Stores'}"}
-  %a{:href => "#", :class => "map-link"}= store.name
-  .info-box
-    %p
-      - if store.logo.present? && File.exists?(store.logo)
-        = image_tag(store.logo)
-        %br
-      %strong= store.name
-      %br
-      = store.address1
-      = store.address2
-      %br
-      = store.city
-      = store.state
-      = store.zip_code
-      %br
-      = store.country
-      %br
-      = link_to store.website if store.website.present?
-      - if @zip_geo.present?
-        %br
-        %br
-        = link_to 'directions', "http://maps.google.com/maps?saddr=#{@zip_geo.lat},#{@zip_geo.lng}&daddr=#{store.address1} #{store.city} #{store.state} #{store.zip_code} #{store.country}", :target => '_blank'
+  .info-box= render store
       
       
       
