@@ -75,6 +75,9 @@
       .save_as_quote.right Pre-Order
     #empty_cart.right Empty Cart
     :javascript
+      $(document).ready(function(){
+        if ($("#fancybox-wrap:visible").length > 0) $('.save_for_later').hide();
+      });
       $(function() {
         $("#checkout_button").button({icons: {primary: 'ui-icon-check'}})
           .click( function() {

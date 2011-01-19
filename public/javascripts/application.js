@@ -325,7 +325,10 @@ function show_cart() {
 			'width'	: 860,
 			'autoDimensions': true,
 			'title'			: false,
-			'onComplete' : function(){setTimeout("$.fancybox.resize()", 100)}
+			'onComplete' : function(){
+        if ($("#fancybox-wrap:visible").length > 0) $('.save_for_later').hide();
+				setTimeout("$.fancybox.resize()", 100);
+			}
 		});
 	setTimeout("$.fancybox.resize()", 900);
 	return false;
