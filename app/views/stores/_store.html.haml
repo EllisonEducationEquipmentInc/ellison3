@@ -3,11 +3,11 @@
   %br
 %h3.map-link= store.name
 - if store.product_line && store.product_line.include?("AllStar")
-  %span{:style => "color:green"} &bull;
-- if store.product_line && store.product_line.include?("Prestige")
-  %span{:style => "color:blue"} &bull;
-- if store.product_line && store.product_line.include?("RollModel")
   %span{:style => "color:red"} &bull;
+- if store.product_line && store.product_line.include?("Prestige")
+  %span{:style => "color:green"} &bull;
+- if store.product_line && store.product_line.include?("RollModel")
+  %span{:style => "color:purple"} &bull;
 %br
 Product Line:
 = store.product_line * ', '
