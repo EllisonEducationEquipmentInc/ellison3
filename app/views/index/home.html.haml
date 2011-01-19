@@ -1,55 +1,17 @@
 - if @home_content.present?
   #carousels= render @home_content.visual_assets.current
-  .clear     
-.billboard_XS
-  .boxgrid.captionfull
-    = image_tag("/images/_temp/billboard_happythoughts.jpg")
-    .cover.boxcaption
-      %h4 Mattis eu scelerisque turpis
-      %p
-        Morbi et metus et mauris imperdiet dictum.
-        %br/
-        =link_to "Diam sagittis nisi", "http://www.google.com"
-
-.billboard_XS
-  .boxgrid.captionfull
-    = image_tag("/images/_temp/billboard_tinbox.jpg")
-    .cover.boxcaption
-      %h4 Donec eu massa
-      %p
-        Pellentesque tellus tortor, scelerisque non libero. 
-        %br/
-        =link_to "pulvinar non elementum quis", "http://www.google.com"
-
-.billboard_XS
-  .boxgrid.captionfull
-    = image_tag("/images/_temp/billboard_timholtz-ideaology.jpg")
-    .cover.boxcaption
-      %h4 fermentum mauris
-      %p
-        Suspendisse neque elit, dictum sit amet turpis.
-        %br/
-        =link_to "Elementum quis", "http://www.google.com"
-
-.billboard_XS
-  .boxgrid.captionfull
-    = image_tag("/images/_temp/billboard_boy-volcanos.jpg")
-    .cover.boxcaption
-      %h4 Duis Pretium
-      %p
-        Etiam eget purus semper justo vulputate facilisis in ut mauris.
-        %br/
-        =link_to "Nullam vitae", "http://www.google.com"
-
-.billboard_medium.last
-  .boxgrid-large.captionfull
-    = image_tag("/images/_temp/billboard_babycard.jpg")
-    .cover.boxcaption-large
-      %h4 Sed Lorem Lacus
-      %p
-        Etiam ut metus orci. In vulputate placerat mi et blandit. Nullam vitae cursus orci. In rutrum elit ac magna ultricies viverra.
-        %br/
-        =link_to "Pellentesque consectetur malesuada sagittis", "http://www.google.com"
+  .clear
+  - @home_content.visual_assets.billboards.each do |billboard|
+    %div{:class => "billboard_#{billboard.wide ? 'medium' : 'XS'} #{'last' if @home_content.visual_assets.billboards.last == billboard}"}
+      .captionfull{:class => "boxgrid#{billboard.wide ? '-large' : nil}"}
+        = image_tag(billboard.image_url) if billboard.image?
+        .cover{:class => "boxcaption#{billboard.wide ? '-large' : nil}"}
+          %h4= billboard.name
+          %p
+            = billboard.content.html_safe
+            - if billboard.link.present?
+              %br/
+              = link_to "more", billboard.link
 
 - unless is_er? || is_ee?
   #blog-posts

@@ -32,6 +32,11 @@ class SharedContent
   references_many :tabs, :index => true
   
   embeds_many :visual_assets do
+    
+    def billboards
+      current.select {|asset| asset.asset_type == "billboard"}
+    end
+    
     def current
 			ordered.select {|asset| asset.available?}
     end

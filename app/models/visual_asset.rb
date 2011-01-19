@@ -17,6 +17,7 @@ class VisualAsset
   field :products, :type => Array
 	field :ideas, :type => Array
 	field :active, :type => Boolean, :default => true
+	field :wide, :type => Boolean, :default => false
 	field :start_date, :type => DateTime
 	field :end_date, :type => DateTime
 	field :asset_type
