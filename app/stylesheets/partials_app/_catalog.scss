@@ -836,6 +836,9 @@ select#sort, input#select_all_products {
 
 // item carousel styles (homepage)
 #carousels {
+	.asset_text{@extend .asset_text;
+		width: 950px;
+	}
   .item_carousel {@extend .item_carousel;
     width: 950px;
     
