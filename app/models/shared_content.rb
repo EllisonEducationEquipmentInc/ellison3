@@ -4,24 +4,36 @@ class SharedContent
   include Mongoid::Timestamps
   include Mongoid::Associations::EmbeddedCallbacks
   
+  PLACEMENTS = ["store_locator", "cart", "home"]
+  
   field :name
   field :active, :type => Boolean, :default => true
   field :short_desc
   field :systems_enabled, :type => Array
+  field :placement
   
   scope :active, :where => { :active => true }
   
   index :active
   index :systems_enabled
   index :name
+  index :placement
+  
+  class << self
+    PLACEMENTS.each do |e|                                                                                                                   # def store_locator(sys = current_system)
+      class_eval "def #{e}(sys = current_system)\n active.where(:systems_enabled.in => [sys], :placement => '#{e}').cache.first \n end"      #   active.where(:systems_enabled.in => [sys], :placement => "store_locator").cache.first
+    end                                                                                                                                      # end
+  end
   
   validates :name, :systems_enabled, :presence => true
+  validates_inclusion_of :placement, :in => PLACEMENTS, :allow_blank => true
+  validate :placement_uniqueness, :if => Proc.new {|obj| obj.placement.present?}
   
   references_many :tabs, :index => true
   
   embeds_many :visual_assets do
     def current
-			ordered.select {|asset| asset.available?} #.sort {|x,y| x.display_order <=> y.display_order}
+			ordered.select {|asset| asset.available?}
     end
 
 		def ordered
@@ -42,5 +54,11 @@ class SharedContent
 	
 	def ideas
 	  Idea.where('tabs.shared_content_id' => self.id)
+	end
+
+private 
+
+	def placement_uniqueness
+	  errors.add(:placement, "already exists for any of these systems: #{self.systems_enabled * ', '}") if self.class.where(:_id.ne => self.id, :placement => self.placement, :systems_enabled.in => self.systems_enabled).count > 0
 	end
 end

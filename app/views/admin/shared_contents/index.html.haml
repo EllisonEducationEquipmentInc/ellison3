@@ -6,9 +6,10 @@
   = link_to 'all', admin_shared_contents_path, :class => 'jqui_button'
 = form_tag(admin_shared_contents_path, :method => :get) do
   = admin_systems_checkboxes
-  = text_field_tag :q, nil, :placeholder => "name, search query, permalink"
+  = text_field_tag :q, nil, :placeholder => "name, short_desc"
   = check_box_tag :inactive, "1", params[:inactive] == "1"
   Incl. inactive
+  = select_tag :placement, options_for_select([["- none -", nil]] + SharedContent::PLACEMENTS, params[:placement])
   = submit_tag "search", :class => 'jqui_search'
 .highlightable
   %table
@@ -17,6 +18,7 @@
         = sortable "name"
         %th Short desc
         %th Systems
+        %th Placement
         %th Active
         - if has_write_permissions?
           %th &nbsp;
@@ -27,6 +29,7 @@
           %td= shared_content.name
           %td= shared_content.short_desc
           %td= shared_content.systems_enabled.join(", ") rescue ''
+          %td= shared_content.placement
           %td= shared_content.active
           - if has_write_permissions?
             %td= link_to 'Edit', edit_admin_shared_content_path(shared_content), :class => "jqui_edit_min"

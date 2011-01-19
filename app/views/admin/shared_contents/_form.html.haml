@@ -4,6 +4,10 @@
     = f.label :systems_enabled
     = system_enabled('shared_content')
   .field
+    = f.label :placement, "Placement - only one is allowed for each/system "
+    %br
+    = f.select :placement, SharedContent::PLACEMENTS, :include_blank => true
+  .field
     = f.label :active
     %br
     = f.check_box :active

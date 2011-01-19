@@ -142,7 +142,7 @@ Ellison3::Application.routes.draw do |map|
 			resources :static_pages
 			resources :shared_contents do
 			  collection do
-			    get :shared_contents_autocomplete
+			    get :shared_contents_autocomplete, :reorder_visual_assets
 			  end
 			end
 			resources :landing_pages do

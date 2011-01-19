@@ -16,6 +16,7 @@ class CartsController < ApplicationController
 	def index
 		@title = "Shopping #{I18n.t(:cart).titleize}"
 		@cart_locked = true if params[:locked] == "1"
+		@shared_content = SharedContent.cart
 		get_cart
 		render :index, :layout => false if request.xhr?
 	end
