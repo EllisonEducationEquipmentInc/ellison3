@@ -56,6 +56,10 @@ class VisualAsset
 		write_attribute(:ideas, idea_idea_nums.split(/,\s*/)) unless idea_idea_nums.nil?
 	end
 	
+	def wide?
+	  shared_content.present? && shared_content.respond_to?(:placement) && shared_content.placement.present?
+	end
+	
 private
 
   def force_extract_filename

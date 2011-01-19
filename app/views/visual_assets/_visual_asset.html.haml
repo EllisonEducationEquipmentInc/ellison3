@@ -21,7 +21,7 @@
           $("#asset_carousel_#{visual_asset.id}").jCarouselLite({
             btnPrev: "#prev_button_#{visual_asset.id}",
             btnNext: "#next_button_#{visual_asset.id}",
-            visible: 4
+            visible: #{visual_asset.wide? ? 5 : 4}
           });
         });
       });
@@ -39,6 +39,6 @@
         $("#asset_carousel_#{visual_asset.id}").jCarouselLite({
           btnPrev: "#prev_button_#{visual_asset.id}",
           btnNext: "#next_button_#{visual_asset.id}",
-            visible: 4
+            visible: #{visual_asset.wide? ? 5 : 4}
         });
       });
