@@ -177,7 +177,7 @@ module EllisonSystem
 	end
 	
 	def youtube_user
-	  is_sizzix? ? 'madhavi1974' : 'madhavi1974'
+	  is_sizzix? ? 'sizzix' : 'sizzix'
 	end
 	
 end
