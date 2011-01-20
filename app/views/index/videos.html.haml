@@ -5,6 +5,7 @@
       %li= link_to "Recent Uploads", "#recent_uploads"
     - @videos.each do |playlist|
       %li= link_to playlist.title, "##{playlist.title.parameterize}"
+    %li= link_to "Search Videos", "#search_videos"
   - if @recent_uploads.present?
     #recent_uploads
       %h3 Recent Uploads
@@ -13,7 +14,11 @@
     %div{:id => playlist.title.parameterize}
       %h3= playlist.title
       %ul.videolist= render :partial => 'video', :collection => playlist.videos
-
+  #search_videos
+    %h3 Search Videos
+    = text_field_tag :video_keyword, nil, :autocomplete => "off", :placeholder => 'enter keyword', :size => 50
+    %span.jqui_search Search
+    %ul.videolist#video_search
 :javascript
   $(".fancyvideo").click(function() {
   	$.fancybox({
