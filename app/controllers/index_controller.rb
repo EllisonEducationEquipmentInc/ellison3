@@ -160,6 +160,14 @@ class IndexController < ApplicationController
     render :partial => 'index/feed', :collection => @feed.entries
   end
   
+  def videos
+    @feed = Feed.where(:name => "video_paylist_#{current_system}").first || Feed.new(:name => "video_paylist_#{current_system}")
+    process_feed("http://gdata.youtube.com/feeds/api/users/#{youtube_user}/playlists", 60)
+    client = YouTubeIt::Client.new
+    # TODO: cache
+    @videos = @feed.entries.inject([]) {|arr, e| arr << client.playlist(e["entry_id"][/\w+$/])}
+  end
+  
   def static_page
     @static_page = StaticPage.active.where(:system_enabled => current_system, :permalink => params[:id]).first
     raise "Invalid StaticPage" unless @static_page.present?
@@ -201,8 +209,8 @@ class IndexController < ApplicationController
   
 private
 
-  def process_feed(source)
-    if @feed.new_record? || @feed.updated_at < 5.minutes.ago
+  def process_feed(source, mins = 5)
+    if @feed.new_record? || @feed.updated_at < mins.minutes.ago
       feed = Feedzirra::Feed.fetch_and_parse(source)
       feed.sanitize_entries!
       @feed.feeds = feed.entries.to_json

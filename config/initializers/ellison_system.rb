@@ -176,6 +176,10 @@ module EllisonSystem
 	  is_er? ? "Pre-order" : "Quote"
 	end
 	
+	def youtube_user
+	  is_sizzix? ? 'madhavi1974' : 'madhavi1974'
+	end
+	
 end
 
 # class ActiveRecord::Base

@@ -19,6 +19,12 @@ GIT
       httparty (>= 0.4.4)
 
 GIT
+  remote: git://github.com/jasondoucette/youtube_it.git
+  revision: cba6823d9030b933248c769e960d567640298732
+  specs:
+    youtube_it (0.0.8)
+
+GIT
   remote: git://github.com/jnicklas/carrierwave.git
   revision: 7361f97be97e5cd0986ccf41f9e96b47571f8daa
   specs:
@@ -322,3 +328,4 @@ DEPENDENCIES
   warden
   webrat
   will_paginate (>= 3.0.pre2)
+  youtube_it!

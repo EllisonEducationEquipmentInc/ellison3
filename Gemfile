@@ -51,6 +51,7 @@ gem 'sunspot_mongoid', :git => 'git://github.com/jugyo/sunspot_mongoid.git', :br
 #gem 'event-calendar', :require => 'event_calendar'
 gem 'feedzirra'
 gem 'geokit'
+gem 'youtube_it', :git => "git://github.com/jasondoucette/youtube_it.git"
 
 # Use unicorn as the web server
 # gem 'unicorn'
