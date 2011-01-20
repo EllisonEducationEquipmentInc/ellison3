@@ -161,6 +161,7 @@ class IndexController < ApplicationController
   end
   
   def videos
+    @title = "Videos"
     @feed = Feed.where(:name => "video_paylist_#{current_system}").first || Feed.new(:name => "video_paylist_#{current_system}")
     process_feed("http://gdata.youtube.com/feeds/api/users/#{youtube_user}/playlists", 60)
     client = YouTubeIt::Client.new

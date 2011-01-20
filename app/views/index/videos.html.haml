@@ -2,9 +2,9 @@
 .tab-block
   %ul
     - @videos.each do |playlist|
-      %li= link_to playlist.title, "##{playlist.playlist_id}"
+      %li= link_to playlist.title, "##{playlist.title.parameterize}"
   - @videos.each do |playlist|
-    %div{:id => playlist.playlist_id}
+    %div{:id => playlist.title.parameterize}
       %h3= playlist.title
       %ul.videolist
         - playlist.videos.each do |video|
