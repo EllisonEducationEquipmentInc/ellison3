@@ -9,9 +9,11 @@
       %ul.videolist
         - playlist.videos.each do |video|
           %li
-            %p.thumbnail= link_to image_tag(video.thumbnails.first.try :url), video.embed_url, :class => "fancyvideo" 
+            %p.thumbnail= link_to image_tag(video.thumbnails.first.try :url), video.embed_url, :class => "fancyvideo", :id => video.embed_url[/v\/([^&]+)/, 1]
             %p.videoinfo
-              %strong= video.title
+              %strong
+                = video.title
+                == #{video.duration/60}:#{video.duration%60}
               %br
               == #{l video.published_at || video.updated_at, :format => :custom}  | #{video.view_count} views
               %br
@@ -37,3 +39,7 @@
 
   	return false;
   });
+- if params[:v].present?
+  :javascript
+    $(document).ready(function(){$('##{params[:v]}').trigger('click')});
+    
