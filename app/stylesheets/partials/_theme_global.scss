@@ -378,7 +378,7 @@ ul.ui-tabs-nav {
       z-index: 21;
     }
     
-    .controls {
+    #controls {
       position: absolute;
       top:0px;
       left:0px;
@@ -429,16 +429,16 @@ ul.ui-tabs-nav {
       text-decoration: none;
       &:hover { color: $home_gallery_ctrl_hover;};
 
-      top: 153px;
-      left: 0px;
+      top: 140px;
+      left: -2px;
       width: 47px;
       height: 34px;
       padding: 3px 0 0 8px;
       background:url("/images/ui-buttons/_#{$system}_arrow_prev_button.png") no-repeat 0 0;
     }
     a.nextBtn { @extend a.prevBtn;
-      top: 145px;
-      left: 907px;
+      top: 138px;
+      left: 906px;
       width: 45px;
       height: 35px;
       padding: 5px 0 0 10px;
