@@ -46,3 +46,10 @@ ul.cart_summary {
     font-weight: bold;
   }
 }
+
+// push order button to right justify with page
+#payment_submit {
+  position: relative;
+  top: -25px;
+  left: 863px;
+}
