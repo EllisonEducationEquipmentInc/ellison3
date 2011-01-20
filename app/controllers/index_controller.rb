@@ -168,6 +168,9 @@ class IndexController < ApplicationController
     @videos = Rails.cache.fetch("videos_#{current_system}", :expires_in => 60.minutes) do
       @feed.entries.inject([]) {|arr, e| arr << client.playlist(e["entry_id"][/\w+$/])}
     end
+    @recent_uploads = Rails.cache.fetch("recent_uploads_#{current_system}", :expires_in => 60.minutes) do
+      client.videos_by(:author => youtube_user, :order_by => 'published', :time => 'this_week').videos
+    end
   end
   
   def static_page

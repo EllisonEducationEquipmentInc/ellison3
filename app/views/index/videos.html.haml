@@ -1,24 +1,18 @@
 %h2 Videos
 .tab-block
   %ul
+    - if @recent_uploads.present?
+      %li= link_to "Recent Uploads", "#recent_uploads"
     - @videos.each do |playlist|
       %li= link_to playlist.title, "##{playlist.title.parameterize}"
+  - if @recent_uploads.present?
+    #recent_uploads
+      %h3 Recent Uploads
+      %ul.videolist= render :partial => 'video', :collection => @recent_uploads
   - @videos.each do |playlist|
     %div{:id => playlist.title.parameterize}
       %h3= playlist.title
-      %ul.videolist
-        - playlist.videos.each do |video|
-          %li
-            %p.thumbnail= link_to image_tag(video.thumbnails.first.try :url), video.embed_url, :class => "fancyvideo", :id => video.embed_url[/v\/([^&]+)/, 1]
-            %p.videoinfo
-              %strong
-                = video.title
-              %br
-              == #{video.duration/60} min #{video.duration%60} seconds
-              %br
-              == #{l video.published_at || video.updated_at, :format => :date_short}  | #{video.view_count} views
-              %br
-              = snippet(video.description, 20)
+      %ul.videolist= render :partial => 'video', :collection => playlist.videos
 
 :javascript
   $(".fancyvideo").click(function() {
