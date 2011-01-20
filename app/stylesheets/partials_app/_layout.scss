@@ -67,6 +67,13 @@
 }
 
 // iconified links
+.link_back {
+  display: inline-block;
+  height: 16px;
+  padding-left: 18px;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/arrow-curve-180-left.png") no-repeat left bottom;
+}
+
 .link_download {
   display: inline-block;
   height: 16px;

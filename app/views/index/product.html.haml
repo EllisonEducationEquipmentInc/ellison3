@@ -1,5 +1,5 @@
 .breadcrumbs.dontprint
-  = link_to_function 'back', "window.history.back()"
+  = link_to_function 'back', "window.history.back()", :class => "link_back"
 .item_images
   #large_image= image_tag(@product.large_image)
   .dontprint

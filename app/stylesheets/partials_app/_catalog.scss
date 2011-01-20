@@ -148,6 +148,15 @@ body.bp {
   text-transform: uppercase;
 }
 
+// idea item number
+.idea-number {
+  color: $catalog_idea-num;
+  font-size: .6em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+
 .minibtn-cancel {
   display: inline-block;
   position: relative;
