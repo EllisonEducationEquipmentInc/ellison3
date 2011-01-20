@@ -165,7 +165,7 @@ module EllisonSystem
 			set_current_system 'eeus'
 		when /ellisoneducation\.co\.uk$/
 			set_current_system 'eeuk'
-		when /ellison\.com$/
+		when /ellison\.com$/ || /ellisonretailers\.com$/
 			set_current_system 'er'
 		else
 			set_current_system 'szus'

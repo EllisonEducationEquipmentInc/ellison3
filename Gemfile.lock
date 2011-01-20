@@ -172,6 +172,8 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    memcache (1.2.13)
+    memcache-client (1.8.5)
     mime-types (1.16)
     mongo (1.1.5)
       bson (>= 1.1.5)
@@ -306,6 +308,8 @@ DEPENDENCIES
   httparty
   image_science (>= 1.2.1)
   launchy
+  memcache
+  memcache-client
   mini_magick!
   mongo (>= 1.0.8)
   mongo_session_store (>= 2.0.0)

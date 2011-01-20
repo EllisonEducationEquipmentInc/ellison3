@@ -52,6 +52,8 @@ gem 'sunspot_mongoid', :git => 'git://github.com/jugyo/sunspot_mongoid.git', :br
 gem 'feedzirra'
 gem 'geokit'
 gem 'youtube_it', :git => "git://github.com/jasondoucette/youtube_it.git"
+gem 'memcache'
+gem 'memcache-client'
 
 # Use unicorn as the web server
 # gem 'unicorn'

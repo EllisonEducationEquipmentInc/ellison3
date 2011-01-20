@@ -26,6 +26,7 @@ Ellison3::Application.configure do
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
+  config.cache_store = :compressed_mem_cache_store, 'localhost:11211', {:namespace => 'ellison3'}
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this

@@ -165,8 +165,9 @@ class IndexController < ApplicationController
     @feed = Feed.where(:name => "video_paylist_#{current_system}").first || Feed.new(:name => "video_paylist_#{current_system}")
     process_feed("http://gdata.youtube.com/feeds/api/users/#{youtube_user}/playlists", 60)
     client = YouTubeIt::Client.new
-    # TODO: cache
-    @videos = @feed.entries.inject([]) {|arr, e| arr << client.playlist(e["entry_id"][/\w+$/])}
+    @videos = Rails.cache.fetch("videos_#{current_system}", :expires_in => 60.minutes) do
+      @feed.entries.inject([]) {|arr, e| arr << client.playlist(e["entry_id"][/\w+$/])}
+    end
   end
   
   def static_page
