@@ -11,7 +11,7 @@ body.bp {
     }
   }
   
-  .item-block, .buybox {
+  .item-block, .item-block_related, .buybox {
     
     p, h4 {
       margin:0;
@@ -57,7 +57,7 @@ body.bp {
 
   }
   
-  .item-block {
+  .item-block, .item-block_related {
 
     h3 {
       color: $catalog_item-num;
@@ -645,14 +645,66 @@ select#sort, input#select_all_products {
   margin-top: 10px;
 }
 
+// cross sell sidebar
 .item_cross-sell {
+	background: $catalog_buybox_bg;
+	border: 1px solid $catalog_buybox_border;  
   margin-top: 10px;
+  padding: 6px;
   
-  .item-block {
-    margin: 0 0 8px 5px;
+  .related_ideas {
+    margin-bottom: 16px;
+  }
+  
+  .related_products {
+    margin-bottom: 4px;
   }
 }
 
+.item-block_related {
+	position: relative;
+  width: 140px;
+  margin: 8px 0 0 8px;
+  padding: 10px;
+  background: white;
+  text-align: center;
+	color: $catalog_text;
+  font-family: Verdana,Arial,sans-serif;        
+  font-size: 10.2px;
+	overflow: visible;
+	z-index: 200;
+	
+	&.product { height: 180px;}
+	&.idea { height: 160px;}
+
+	.life-cycle {
+    position: absolute;
+    top: 3px;
+    top: -24px\9;
+    left: -19px;
+    padding-top: 4px;
+    width: 117px;
+    height: 29px;
+    z-index: 201;
+    background: url("/images/ui-backgrounds/lifecycle.png") no-repeat;
+    background: url("/images/ui-backgrounds/lifecycle.gif") no-repeat\9;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.86602540, M12=0.50000000, M21=-0.50000000, M22=0.86602540,sizingMethod='auto expand')";
+    filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.86602540, M12=0.50000000, M21=-0.50000000, M22=0.86602540,sizingMethod='auto expand');
+    -moz-transform:  matrix(0.86602540, -0.50000000, 0.50000000, 0.86602540, 0, 0);
+    -webkit-transform:  matrix(0.86602540, -0.50000000, 0.50000000, 0.86602540, 0, 0);
+    -o-transform:  matrix(0.86602540, -0.50000000, 0.50000000, 0.86602540, 0, 0);
+    font-family:  'PT Sans', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+
+    span {
+      position: relative;
+      left: -6px;
+    }
+	}
+}
+
+// machine/die compatibility information
 .item_compatibility {
 
   ul.plain {
@@ -836,9 +888,6 @@ select#sort, input#select_all_products {
 
 // item carousel styles (homepage)
 #carousels {
-	.asset_text{@extend .asset_text;
-		width: 950px;
-	}
   .item_carousel {@extend .item_carousel;
     width: 950px;
     

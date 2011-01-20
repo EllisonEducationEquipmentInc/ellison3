@@ -109,7 +109,7 @@
 %div{ :class => "item_detail#{'-tabbed' if @product.use_tabs}"}
   = render :partial => "#{'non_' unless @product.use_tabs}tab_block", :locals => {:object => @product}
 - unless @product.use_tabs
-  .item_cross-sell
+  .item_cross-sell.rounded
     - unless @product.ideas.blank?
       %h4 Related Ideas:
       .related_ideas= render :partial => 'ideas/related_idea', :collection => @product.ideas, :as => :idea

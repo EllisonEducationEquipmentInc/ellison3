@@ -1,5 +1,5 @@
-.item-block.product{:style => !ecommerce_allowed? ? "height:210px" : nil, :class => "product_#{product.id}"}
-  %h3.item_number= product.item_num
+.item-block_related.product{:style => !ecommerce_allowed? ? "height:210px" : nil, :class => "product_#{product.id}"}
+  -#%h3.item_number= product.item_num
   - if outlet?
     .life-cycle
       %span== Save #{product.saving}%
@@ -9,7 +9,7 @@
   %p.item_image= link_to image_tag(product.medium_image), product_url(:id => product), :class => outlet? ? 'lightbox' : nil
   %p.item_name= link_to product.name.html_safe, product_url(:id => product), :class => outlet? ? 'lightbox' : nil
   %p.item_price= display_product_price(product)
-  .item_description= product.description.try :html_safe
-  .cart-buttons= add_to_cart_button(product)
-  - if ecommerce_allowed? && product.pre_order?
-    .release_available= product.release_dates.map {|e| e.name} * ", "
+  -#.item_description= product.description.try :html_safe
+  -#.cart-buttons= add_to_cart_button(product)
+  -#- if ecommerce_allowed? && product.pre_order?
+    -#.release_available= product.release_dates.map {|e| e.name} * ", "
