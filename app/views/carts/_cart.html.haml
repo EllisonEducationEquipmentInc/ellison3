@@ -73,7 +73,6 @@
       #checkout_button.right= "Checkout"
     - elsif get_cart.pre_order?
       .save_as_quote.right Pre-Order
-    #empty_cart.right Empty Cart
     :javascript
       $(document).ready(function(){
         if ($("#fancybox-wrap:visible").length > 0) $('.save_for_later').hide();
@@ -82,12 +81,6 @@
         $("#checkout_button").button({icons: {primary: 'ui-icon-check'}})
           .click( function() {
             $.ajax({url:"#{checkout_requested_path}", complete: function(){$.fancybox.resize()}});
-      		});
-        $("#empty_cart").button({icons: {primary: 'ui-icon-trash'}})
-          .click( function() {
-            $.ajax({url:"/carts/empty_cart", complete: function(){$.fancybox.resize()}});
-            _gaq.push(['_trackEvent', 'Cart', 'Empty Cart']);
-      			$(this).button({ disabled: true });
       		});
       	$(".remove_from_cart")
       	  .button({icons: {primary: 'ui-icon-close'}, text: false})

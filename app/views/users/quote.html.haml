@@ -64,7 +64,9 @@
       %td{:class => item.product.quantity < item.quantity ? 'pre_order' : nil}= item.quantity
       %td= number_to_currency item.sale_price
       %td= number_to_currency item.item_total
-.contentwrap_XL &nbsp;
+%p.contentwrap_XL
+  = link_to "Print a copy of this invoice.", "javascript:window.print()", :class => "link_print"
+
 %ul.plain.cart_summary.contentwrap_medium.last
   %li
     Subtotal:

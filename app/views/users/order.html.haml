@@ -71,7 +71,19 @@
       %td= item.quantity
       %td= number_to_currency item.gross_price
       %td= number_to_currency item.item_total
-.contentwrap_XL &nbsp;
+%p.contentwrap_XL
+  %strong
+    - if @order.payment.try(:purchase_order)
+      Purchase Order
+      = @order.payment.purchase_order_number
+      = link_to "download", @order.payment.attachment_url, :class => "link_download", :target => "_blank" if @order.payment.attachment
+    - else
+      This order was charged to: 
+      = @order.payment.card_name
+      == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
+  %br
+  %br
+  = link_to "Print a copy of this invoice.", "javascript:window.print()", :class => "link_print"
 %ul.plain.cart_summary.contentwrap_medium.last
   %li
     Subtotal:
@@ -88,15 +100,4 @@
   %li#cart_total
     Total:
     %span#total_amount.amount.right= number_to_currency @order.total_amount
-  %li &nbsp;
-  - if @order.payment.try(:purchase_order)
-    %li
-      Purchase Order
-      = @order.payment.purchase_order_number
-      = link_to "download", @order.payment.attachment_url, :class => "link_download", :target => "_blank" if @order.payment.attachment
-  - else
-    %li
-      This order was charged to: 
-      = @order.payment.card_name
-      == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
 - I18n.locale = @current_locale
