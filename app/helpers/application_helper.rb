@@ -253,4 +253,11 @@ HTML
 	def idea_name
 	  is_ee? ? 'lesson' : 'idea'
 	end
+
+  def snippet(thought, wordcount)
+    unless thought.blank?
+      thought.split[0..(wordcount-1)].join(" ") +(thought.split.size > wordcount ? "..." : "")
+    end
+  end
+  
 end

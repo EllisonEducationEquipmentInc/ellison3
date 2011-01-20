@@ -13,11 +13,12 @@
             %p.videoinfo
               %strong
                 = video.title
-                == #{video.duration/60}:#{video.duration%60}
               %br
-              == #{l video.published_at || video.updated_at, :format => :custom}  | #{video.view_count} views
+              == #{video.duration/60} min #{video.duration%60} seconds
               %br
-              = video.description 
+              == #{l video.published_at || video.updated_at, :format => :date_short}  | #{video.view_count} views
+              %br
+              = snippet(video.description, 20)
 
 :javascript
   $(".fancyvideo").click(function() {
