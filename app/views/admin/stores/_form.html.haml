@@ -1,0 +1,109 @@
+= form_for([:admin, @store], :html => {:multipart => true}) do |f|
+  = f.error_messages
+  .field
+    = f.label :active
+    %br
+    = f.check_box :active
+  .field
+    = f.label :store_number
+    %br
+    = f.text_field :store_number
+  .field
+    = f.label :name
+    %br
+    = f.text_field :name
+  .field
+    = f.label :logo_url
+    %br
+    = f.text_field :logo_url
+  .field
+    = f.label :image
+    = image_tag(@store.image_url(:logo)) if @store.image? 
+    = f.file_field :image
+    = f.hidden_field :image_cache
+    %br
+    = f.label :remove_image
+    = f.check_box :remove_image
+  .field
+    = f.label :webstore
+    %br
+    = f.check_box :webstore
+  .field
+    = f.label :physical_store
+    %br
+    = f.check_box :physical_store
+  .field
+    = f.label :brands
+    %br
+    = select_tag :"store[brands][]", options_for_select(Store::BRANDS, @store.brands), :multiple => true
+  .field
+    = f.label :product_line
+    %br
+    = select_tag :"store[product_line][]", options_for_select(Store::PRODUCT_LINES, @store.product_line), :multiple => true
+  .field
+    = f.label :agent_type
+    %br
+    = f.select :agent_type, Store::AGENT_TYPES
+  .field
+    = f.label :authorized_reseller_type
+    %br
+    = f.text_field :authorized_reseller_type
+  .field
+    = f.label :excellence_level
+    %br
+    = f.text_field :excellence_level
+  .field
+    = f.label :has_ellison_design_centers
+    %br
+    = f.check_box :has_ellison_design_centers
+  .field
+    = f.label :address1
+    %br
+    = f.text_field :address1
+  .field
+    = f.label :address2
+    %br
+    = f.text_field :address2
+  .field
+    = f.label :city
+    %br
+    = f.text_field :state
+  .field
+    = f.label :zip_code
+    %br
+    = f.text_field :zip_code
+  .field
+    = f.label :country
+    %br
+    = f.select :country, countries
+  .field
+    = f.label :contact_person
+    %br
+    = f.text_field :contact_person
+  .field
+    = f.label :phone
+    %br
+    = f.text_field :phone
+  .field
+    = f.label :fax
+    %br
+    = f.text_field :fax
+  .field
+    = f.label :email
+    %br
+    = f.text_field :email
+  .field
+    = f.label :website
+    %br
+    = f.text_field :website
+  .field
+    = f.label :keyword
+    %br
+    = f.text_field :keyword
+  .field
+    = f.label :internal_comments
+    %br
+    = f.text_area :internal_comments
+                          
+  .actions
+    = f.submit :class => 'jqui_save'

@@ -138,7 +138,7 @@ Ellison3::Application.routes.draw do |map|
 			    get :update_active_status, :recreate
 			  end
 			end
-			resources :coupons
+			resources :coupons, :stores
 			resources :static_pages
 			resources :shared_contents do
 			  collection do

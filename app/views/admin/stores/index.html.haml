@@ -1,0 +1,45 @@
+%h1 Listing stores
+= link_to 'New store', new_admin_store_path, :class => 'jqui_new' if has_write_permissions?
+%br
+- unless params[:q].blank?
+  = link_to 'all', admin_stores_path, :class => 'jqui_button'
+= form_tag(admin_stores_path, :method => :get) do
+  = text_field_tag :q
+  = select_tag :brands, options_for_select([["- brand -", nil]] + Store::BRANDS, params[:brands])
+  = select_tag :product_line, options_for_select([["- product line -", nil]] + Store::PRODUCT_LINES, params[:product_line])
+  = check_box_tag :inactive, "1", params[:inactive] == "1"
+  Incl. inactive
+  = check_box_tag :webstores, "1", params[:webstores] == "1"
+  Webstores
+  = check_box_tag :physical_stores, "1", params[:physical_stores] == "1"
+  Physical Stores
+  = submit_tag "search", :class => 'jqui_search'
+.highlightable
+  %table
+    %thead
+      %tr
+        = sortable "name"
+        %th Store #
+        %th Address
+        %th City
+        %th State
+        %th Country
+        - if has_write_permissions?
+          %th &nbsp;
+          %th &nbsp;
+    %tbody
+      - for store in @stores
+        %tr{ :class => cycle(:odd, :even) }
+          %td= store.name
+          %td= store.store_number
+          %td= store.address1
+          %td= store.city
+          %td= store.state
+          %td= store.country
+          - if has_write_permissions?
+            %td= link_to 'Edit', edit_admin_store_path(store)
+            %td= link_to 'Destroy', admin_store_path(store), :confirm => 'Are you sure?', :method => :delete
+%br
+= will_paginate @stores
+%br
+= link_to 'New store', new_admin_store_path, :class => 'jqui_new' if has_write_permissions?

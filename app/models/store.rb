@@ -20,7 +20,7 @@ class Store
   field :agent_type
   field :authorized_reseller_type
   field :excellence_level
-  field :has_ellison_desig_centers, :type => Boolean, :default => false
+  field :has_ellison_design_centers, :type => Boolean, :default => false
   field :location, :type => Array 
 	field :address1
 	field :address2
