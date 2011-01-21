@@ -7,6 +7,7 @@ body.bp {
     li {
       padding: 6px;
       margin: 0 3px 6px 0;
+      height: 146px;
     }
   }
 }
@@ -29,15 +30,32 @@ ul.videolist { @extend ul.plain;
     border: 1px solid $catalog_buybox_border;
     
     p.thumbnail {
-      margin-right: 6px;
+      margin: 0 6px 0 0;
+      padding: 0;
       float: left;
       width: 120px;
       height: 90px;
     }
 
-    p.videoinfo {
-      width: 157px;
-      float: left;
+    span.videoinfo {
+      width: 100%;
+      
+      div {
+        float:left;
+        margin:4px 0 1px;
+        height:1px;
+        width:100%;
+        border-bottom:1px dotted #ccc;
+      }
+      
+      span {
+        float:left;
+      }
     }
   }
 }
+
+.vidcolor {
+  color:#396;
+}
+

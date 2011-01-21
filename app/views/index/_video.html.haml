@@ -1,11 +1,12 @@
 %li
   %p.thumbnail= link_to image_tag(video.thumbnails.first.try :url), video.embed_url + "&autoplay=1&fs=1", :class => "fancyvideo", :id => video.embed_url[/v\/([^&]+)/, 1]
-  %p.videoinfo
+  %span.videoinfo
     %strong
       = video.title
-    %br
-    == #{video.duration/60} min #{video.duration%60} seconds 
-    %br
-    == #{l video.published_at || video.updated_at, :format => :date_short}  | #{video.view_count} views 
-    %br
+    %span{:class=>"vidcolor"}
+      == #{video.duration/60} min #{video.duration%60} seconds 
+      %br
+      == #{l video.published_at || video.updated_at, :format => :date_short}  | #{video.view_count} views 
+      %br
+    %div
     %span= truncate(video.description, :length => 100, :separator => ' ')
