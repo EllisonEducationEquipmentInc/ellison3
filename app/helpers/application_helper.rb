@@ -254,6 +254,8 @@ HTML
 	  is_ee? ? 'lesson' : 'idea'
 	end
 
+  # there's a rails helper for this: truncate(text, options = {}) 
+  # http://api.rubyonrails.org/classes/ActionView/Helpers/TextHelper.html#method-i-truncate
   def snippet(thought, wordcount)
     unless thought.blank?
       thought.split[0..(wordcount-1)].join(" ") +(thought.split.size > wordcount ? "..." : "")

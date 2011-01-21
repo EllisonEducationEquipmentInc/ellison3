@@ -18,8 +18,21 @@
     %h3 Search Videos
     = text_field_tag :video_keyword, nil, :autocomplete => "off", :placeholder => 'enter keyword', :size => 50
     %span.jqui_search Search
-    %ul.videolist#video_search
+    .highlightable
+      %ul.videolist#video_search
 :javascript
+  $('#video_keyword').change(function() {
+    if (this.value.length < 3) {
+      return false;
+    } else {
+      location.hash = $.param.fragment( location.hash, {q: this.value, page: 1}, 0 );
+      $.ajax({url:'/index/search_videos?q='+this.value, success: function(data){
+        $('#video_search').html(data);
+        highlight_keyword();
+        $('#video_keyword').val('');
+      }});
+    }
+  });
   $(".fancyvideo").click(function() {
   	$.fancybox({
   			'padding'		: 0,

@@ -173,6 +173,16 @@ class IndexController < ApplicationController
     end
   end
   
+  def search_videos
+    client = YouTubeIt::Client.new
+    @videos = client.videos_by(:author => youtube_user, :order_by => 'relevance', :query => params[:q]).videos
+    if @videos.present?
+      render :partial => 'video', :collection => @videos
+    else
+      render :text => "<li>no results found</li>"
+    end
+  end
+  
   def static_page
     @static_page = StaticPage.active.where(:system_enabled => current_system, :permalink => params[:id]).first
     raise "Invalid StaticPage" unless @static_page.present?
