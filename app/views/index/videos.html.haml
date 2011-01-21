@@ -29,6 +29,25 @@
     .highlightable
       %ul.videolist#video_search
 :javascript
+  $('.video-thumbnail').CreateBubblePopup({
+    position: 'top',
+    align: 'center',
+    distance: '50px',
+    tail: {
+      align: 'middle',
+      hidden: false
+    },
+    selectable: true,
+    innerHtml: '<div class="tip_play-video">click this thumbnail to play the video</div>',
+    innerHtmlStyle: {
+      color: '#333333',
+      'text-align': 'center'
+    },
+    themeName: 'azure',
+    themePath: '/images/ui-plugins/bubblepopup'
+  });
+      
+:javascript
   $('#video_keyword').change(function() {
     if (this.value.length < 3) {
       return false;

@@ -12,7 +12,7 @@ body.bp {
       p {
         margin-bottom: 0;
         
-        &.thumbnail { margin-bottom: 6px; }
+        &.video-thumbnail { margin-bottom: 6px; }
       }
     }
   }
@@ -35,7 +35,7 @@ ul.videolist { @extend ul.plain;
     background: white;
     border: 1px solid $catalog_buybox_border;
     
-    p.thumbnail {
+    p.video-thumbnail {
       margin: 0 6px 6px 0;
       padding: 0;
       float: left;

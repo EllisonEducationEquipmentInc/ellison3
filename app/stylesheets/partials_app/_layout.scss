@@ -66,24 +66,30 @@
   }
 }
 
-// iconified links
-.link_back {
+// iconified tooltips & links
+.link, .tip {
   display: inline-block;
-  height: 16px;
-  padding-left: 18px;
+  height: 16px;  
+  padding: 0 0 0 18px;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/smiley-twist.png") no-repeat left bottom;
+  // the evil smiley is the default icon for links & tips
+  // make sure you specify the the icon you really want below
+}
+
+.link_back { @extend .link;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/arrow-curve-180-left.png") no-repeat left bottom;
 }
 
-.link_download {
-  display: inline-block;
-  height: 16px;
-  padding-right: 18px;
+.link_download { @extend .link;
+  padding: 0 18px 0 0;
   background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_document-download.png") no-repeat right bottom;
 }
 
-.link_print {
-  display: inline-block;
-  height: 16px;
-  padding-right: 19px;
+.link_print { @extend .link;
+  padding: 0 19px 0 0;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/printer.png") no-repeat right bottom;
+}
+
+.tip_play-video { @extend .tip;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/film.png") no-repeat left bottom;
 }
