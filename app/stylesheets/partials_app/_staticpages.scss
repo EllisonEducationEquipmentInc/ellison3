@@ -45,6 +45,15 @@ ul.videolist { @extend ul.plain;
     
     p.video-title {
       font-weight: bold;
+      
+      a {
+        color: $text;
+        
+        &:hover {
+          color: $link;
+          text-decoration: none;
+        }
+      }
     }
     
     p.video-detail {
