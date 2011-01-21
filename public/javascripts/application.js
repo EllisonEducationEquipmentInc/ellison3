@@ -44,6 +44,7 @@ function initialize_lightboxes(){
 		});
 }
 
+/*
 function initialize_facets() {
 	$('.facets .head').click(function() {
 			$(this).find('span').toggleClass('ui-icon-triangle-1-s')
@@ -52,6 +53,7 @@ function initialize_facets() {
 			return false;
 		}).next().show();
 }
+*/
 
 function shadow_on() {
 	// shadowOn
@@ -114,7 +116,8 @@ $(document).ready(function(){
 	
 	bind_hashchange ();
 	
-	initialize_facets();
+	// initialize_facets();
+	
 	// image zoom
 	var options = {
 	    zoomWidth: 300,

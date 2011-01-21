@@ -2,12 +2,21 @@
 // for contact, FAQ, legal, etc pages
 // also for non e-commerce app pages like the YouTube video page
 
+body.bp {
+  ul.videolist {
+    li {
+      padding: 6px;
+      margin: 0 3px 6px 0;
+    }
+  }
+}
+
 // YouTube video page
 ul.videolist { @extend ul.plain;
   vertical-align: top;
   
   li {  // grid layout hacks: http://blog.mozilla.com/webdev/2009/02/20/cross-browser-inline-block/
-    width: 300px;
+    width: 285px;
     min-height: 100px;
     display: -moz-inline-stack;
     display: inline-block;
@@ -15,6 +24,9 @@ ul.videolist { @extend ul.plain;
     zoom: 1;
     *display: inline;
     _height: 100px;
+    
+    background: white;
+    border: 1px solid $catalog_buybox_border;
     
     p.thumbnail {
       margin-right: 6px;
@@ -24,7 +36,7 @@ ul.videolist { @extend ul.plain;
     }
 
     p.videoinfo {
-      width: 172px;
+      width: 157px;
       float: left;
     }
   }
