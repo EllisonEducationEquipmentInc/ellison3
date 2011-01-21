@@ -1,0 +1,95 @@
+= form_for([:admin, @event], :html => {:multipart => true}) do |f|
+  = f.error_messages
+  .field
+    = f.label :systems_enabled
+    = system_enabled('event')
+  .field
+    = f.label :active
+    %br
+    = f.check_box :active
+  .field
+    = f.label "start_date"
+    %br
+    = f.text_field "start_date", :class => 'datetimepicker'
+  .field
+    = f.label "end_date"
+    %br
+    = f.text_field "end_date", :class => 'datetimepicker'
+  .field
+    = f.label :event_number
+    %br
+    = f.text_field :event_number
+  .field
+    = f.label :name
+    %br
+    = f.text_field :name
+  .field
+    = f.label :sponsor
+    %br
+    = f.text_area :sponsor, :class => 'wymeditor'
+  .field
+    = f.label "event_start_date"
+    %br
+    = f.text_field "event_start_date", :class => 'datetimepicker'
+  .field
+    = f.label "event_end_date"
+    %br
+    = f.text_field "event_end_date", :class => 'datetimepicker'
+  .field
+    = f.label :location
+    %br
+    = f.text_field :location
+  .field
+    = f.label :address1
+    %br
+    = f.text_field :address1
+  .field
+    = f.label :address2
+    %br
+    = f.text_field :address2
+  .field
+    = f.label :city
+    %br
+    = f.text_field :state
+  .field
+    = f.label :zip_code
+    %br
+    = f.text_field :zip_code
+  .field
+    = f.label :country
+    %br
+    = f.select :country, countries
+  .field
+    = f.label :uploaded_logo_url
+    %br
+    = f.text_field :uploaded_logo_url
+  .field
+    = f.label :logo
+    = image_tag(@event.logo_url(:logo)) if @event.logo? 
+    = f.file_field :logo
+    = f.hidden_field :logo_cache
+    %br
+    = f.label :remove_logo
+    = f.check_box :remove_logo
+  .field
+    = f.label :uploaded_image_url
+    %br
+    = f.text_field :uploaded_image_url
+  .field
+    = f.label :image
+    = image_tag(@event.image_url(:event)) if @event.image? 
+    = f.file_field :image
+    = f.hidden_field :image_cache
+    %br
+    = f.label :remove_image
+    = f.check_box :remove_image
+  .field
+    = f.label :keywords
+    %br
+    = f.text_field :keywords
+  .field
+    = f.label :description
+    %br
+    = f.text_area :description
+  .actions
+    = f.submit :class => 'wymupdate jqui_save'

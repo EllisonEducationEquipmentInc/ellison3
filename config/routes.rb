@@ -45,6 +45,8 @@ Ellison3::Application.routes.draw do |map|
   match 'shop/:id' => 'index#shop', :as => :shop
   match 'lp/:id' => 'index#tag_group'
 	match 'products' => 'index#products'
+	match 'events' => 'index#events'
+	match 'event/:id' => 'index#event', :as => :event
 	match 'catalog' => 'index#catalog', :as => :catalog
 	match 'outlet' => 'index#shop', :defaults => { :id => 'outlet' }, :as => :outlet
 	match 'product/:id' => 'index#product', :as => :product
@@ -138,7 +140,7 @@ Ellison3::Application.routes.draw do |map|
 			    get :update_active_status, :recreate
 			  end
 			end
-			resources :coupons, :stores
+			resources :coupons, :stores, :events
 			resources :static_pages
 			resources :shared_contents do
 			  collection do

@@ -12,6 +12,7 @@ class Admin::StoresController < ApplicationController
 	  criteria.where :deleted_at => nil
 	  criteria = criteria.where.physical_stores if params[:physical_stores].present?
 	  criteria = criteria.where.webstores if params[:webstores].present?
+	  criteria.where(:active => true) if params[:inactive].blank?
 	  criteria.where(:brands.in => [params[:brands]]) unless params[:brands].blank?
 	  criteria.where(:product_line.in => [params[:product_line]]) unless params[:product_line].blank?
 	  unless params[:q].blank?
@@ -67,7 +68,6 @@ class Admin::StoresController < ApplicationController
   # PUT /stores/1.xml
   def update
     @store = Store.find(params[:id])
-    params[:store][:my_tag_ids] ||= []
     respond_to do |format|
       if @store.update_attributes(params[:store])
         format.html { redirect_to(admin_stores_url, :notice => 'Store was successfully updated.') }

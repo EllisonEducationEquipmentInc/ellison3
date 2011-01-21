@@ -1,0 +1,43 @@
+%h1 Listing events
+= link_to 'New event', new_admin_event_path, :class => 'jqui_new' if has_write_permissions?
+%br
+- unless params[:q].blank?
+  = link_to 'all', admin_events_path, :class => 'jqui_button'
+= form_tag(admin_events_path, :method => :get) do
+  = text_field_tag :q, nil, :placeholder => "event num, name, keyword"
+  = check_box_tag :inactive, "1", params[:inactive] == "1"
+  Incl. inactive
+  = submit_tag "search", :class => 'jqui_search'
+.highlightable
+  %table
+    %thead
+      %tr
+        = sortable "name"
+        %th Event #
+        %th Location
+        %th City
+        %th State
+        %th Country
+        %th Start
+        %th End
+        - if has_write_permissions?
+          %th &nbsp;
+          %th &nbsp;
+    %tbody
+      - for event in @events
+        %tr{ :class => cycle(:odd, :even) }
+          %td= event.name
+          %td= event.event_number
+          %td= event.location
+          %td= event.city
+          %td= event.state
+          %td= event.country
+          %td= l event.event_start_date, :format => :date
+          %td= l event.event_end_date, :format => :date
+          - if has_write_permissions?
+            %td= link_to 'Edit', edit_admin_event_path(event)
+            %td= link_to 'Destroy', admin_event_path(event), :confirm => 'Are you sure?', :method => :delete
+%br
+= will_paginate @events
+%br
+= link_to 'New event', new_admin_event_path, :class => 'jqui_new' if has_write_permissions?

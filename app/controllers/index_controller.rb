@@ -222,6 +222,16 @@ class IndexController < ApplicationController
     render :partial => "store", :collection => @stores
   end
   
+  def events
+    @events = Event.available.cache
+    @title = "Events"
+  end
+  
+  def event
+    @event = Event.find(params[:id])
+    @title = "Event - #{@event.name}"
+  end
+  
 private
 
   def process_feed(source, mins = 5)
