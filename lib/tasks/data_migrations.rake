@@ -175,6 +175,18 @@ namespace :data_migrations do
     end
   end
   
+  desc "fix EDU calendar tags"
+  task :tags_fix_calendar => [:set_edu, :load_dep] do
+    set_current_system "eeus"
+    OldData::PolymorphicTag.not_deleted.find_each(:conditions => ["tag_type = ?", 19]) do |tag|
+      new_tag = Tag.where(:old_id_edu => tag.id).first 
+      next unless new_tag
+      new_tag.write_attributes :calendar_start_date_eeus => tag.calendar_start_date, :calendar_end_date_eeus => tag.calendar_end_date - 8.hours, :color => tag.color
+      print new_tag.save
+      p tag.id
+    end
+  end
+  
   desc "migrate EEUS products"
   task :products_eeus => [:set_edu, :load_dep] do
     set_current_system "eeus"
