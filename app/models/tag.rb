@@ -151,7 +151,7 @@ class Tag
 	end
 
   def adjust_all_day_dates
-    if self.all_day
+    if self.tag_type == 'calendar_event' && self.all_day
       original_system = current_system
       ELLISON_SYSTEMS.each do |sys|
         set_current_system sys
