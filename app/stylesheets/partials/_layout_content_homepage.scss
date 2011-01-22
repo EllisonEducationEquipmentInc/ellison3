@@ -1,3 +1,9 @@
+//!!!EDIT NEED TO CONSOLIDATE ALL _layout_content_**** into one partial.
+
+// LAYOUT PARTIAL FOR ENTIRE SITE
+
+// HOMEPAGE
+
 #gallery { @include column(24); }
 #customer-outreach { @include column(24, true); }
 //#email-signup {  @include column(16); }
@@ -17,3 +23,11 @@
 
 // carousels
 #carousels { @include column(24, true); }
+
+
+
+
+
+// VIDEO PAGE
+#featured_video { @include column(10); }
+#recent_videos { @include column(14, true); }

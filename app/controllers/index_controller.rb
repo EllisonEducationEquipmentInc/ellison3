@@ -179,7 +179,7 @@ class IndexController < ApplicationController
     if @videos.present?
       render :partial => 'video', :collection => @videos
     else
-      render :text => "<li>no results found</li>"
+      render :text => "<li style='width: 900px;'>Sorry, there are no #{system_name.titleize} videos about <strong>#{params[:q]}</strong>.<br />Please try another search.</li>"
     end
   end
   
