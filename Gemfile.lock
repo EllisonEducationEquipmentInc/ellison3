@@ -19,6 +19,13 @@ GIT
       httparty (>= 0.4.4)
 
 GIT
+  remote: git://github.com/elevation/event_calendar.git
+  revision: 10ead274f5961844e1b9ce5426c5f8add60f7ed8
+  branch: master
+  specs:
+    event-calendar (2.3.2)
+
+GIT
   remote: git://github.com/jasondoucette/youtube_it.git
   revision: cba6823d9030b933248c769e960d567640298732
   specs:
@@ -300,6 +307,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   devise (= 1.1.3)
+  event-calendar!
   factory_girl_rails
   feedzirra
   geokit

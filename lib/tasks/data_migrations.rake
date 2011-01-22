@@ -14,7 +14,7 @@ namespace :data_migrations do
   task :tags => :load_dep do
     OldData::PolymorphicTag.not_deleted.all(:conditions => ["tag_type NOT IN (?)", [1,16]]).each do |tag|
       tag.name.force_encoding("UTF-8") if tag.name.encoding.name == "ASCII-8BIT"
-      new_tag = Tag.new :old_id => tag.id, :name => tag.name, :tag_type => tag.old_type_to_new, :active => tag.active, :systems_enabled => ELLISON_SYSTEMS, :description => tag.short_desc, :start_date_szus => tag.start_date, :all_day => tag.all_day,
+      new_tag = Tag.new :old_id => tag.id, :name => tag.name, :tag_type => tag.old_type_to_new, :active => tag.active, :systems_enabled => ELLISON_SYSTEMS, :description => tag.short_desc, :start_date_szus => tag.start_date, :all_day => tag.all_day, :color => tag.color,
         :end_date_szus => tag.end_date, :banner => tag.banner, :list_page_image => tag.list_page_image, :medium_image => tag.medium_image, :calendar_start_date_szus => tag.calendar_start_date, :calendar_end_date_szus => tag.calendar_end_date, :keywords => tag.keywords
       print new_tag.save
       p tag.id
@@ -169,7 +169,7 @@ namespace :data_migrations do
       systems = ["eeus", "er"]
       systems << "eeuk" unless ["calendar", "calendar_event", "theme", "curriculum", "subcurriculum", "subtheme"].include?(tag.old_type_to_new)
       new_tag = Tag.where(:name => tag.name, :tag_type => tag.old_type_to_new).first || Tag.new(:name => tag.name, :tag_type => tag.old_type_to_new, :active => tag.active, :systems_enabled => systems, :description => tag.short_desc, :start_date_eeus => tag.start_date,  :end_date_eeus => tag.end_date, :banner => tag.banner, :list_page_image => tag.list_page_image, :medium_image => tag.medium_image)
-      new_tag.write_attributes :old_id_edu => tag.id, :all_day => tag.all_day, :calendar_start_date_eeus => tag.calendar_start_date, :calendar_end_date_eeus => tag.calendar_end_date, :keywords => tag.keywords
+      new_tag.write_attributes :old_id_edu => tag.id, :all_day => tag.all_day, :calendar_start_date_eeus => tag.calendar_start_date, :calendar_end_date_eeus => tag.calendar_end_date, :keywords => tag.keywords, :color => tag.color
       print new_tag.save
       p tag.id
     end

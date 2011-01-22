@@ -232,6 +232,15 @@ class IndexController < ApplicationController
     @title = "Event - #{@event.name}"
   end
   
+  def calendar
+    @month = (params[:month] || Time.zone.now.month).to_i
+    @year = (params[:year] || Time.zone.now.year).to_i
+
+    @shown_month = Date.civil(@year, @month)
+
+    @event_strips = Tag.event_strips_for_month(@shown_month)
+  end
+  
 private
 
   def process_feed(source, mins = 5)

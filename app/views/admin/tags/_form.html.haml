@@ -9,7 +9,7 @@
     = f.check_box :active
   .field
     = f.label :tag_type
-    = f.select :tag_type, Tag.all_types.map {|t| [t.humanize, t]}, {}, :onchange => "if (this.value == 'special') {$('#new_campaign').show();$('#tag_embed_campaign').attr('checked', true)} else {$('#new_campaign').hide()}"
+    = f.select :tag_type, Tag.all_types.map {|t| [t.humanize, t]}, {}, :onchange => "toggle_tag_type_fields()"
   #new_campaign{:style => "display:#{@tag.campaign? ? 'block' : 'none'}"}
     .field
       = f.label :embed_campaign, "Embed/update campaign"
@@ -50,6 +50,18 @@
     = f.label :description
     %br
     = f.text_area :description
+  .field.calendar_event
+    = f.label "calendar_start_date_#{current_system}", "Calendar Start Date #{current_system.upcase}", :class => 'overrideable'
+    %br
+    = f.text_field "calendar_start_date_#{current_system}", :class => 'datetimepicker'
+  .field.calendar_event
+    = f.label "calendar_end_date_#{current_system}", "Calendar End Date #{current_system.upcase}", :class => 'overrideable'
+    %br
+    = f.text_field "calendar_end_date_#{current_system}", :class => 'datetimepicker'
+  .field.calendar_event
+    = f.label :all_day
+    %br
+    = f.check_box :all_day
   .field
     = f.label :image, "List page image"
     = image_tag(@tag.image_url(:small)) if @tag.image? 
@@ -125,3 +137,9 @@
   	}});
   
   update_campaign();
+  toggle_tag_type_fields();
+  
+  function toggle_tag_type_fields(){
+    if ($('#tag_tag_type').val() == 'special') {$('#new_campaign').show();$('#tag_embed_campaign').attr('checked', true)} else {$('#new_campaign').hide()}
+    if ($('#tag_tag_type').val() == 'calendar_event') {$('.calendar_event').show();} else {$('.calendar_event').hide()}
+  }

@@ -6,6 +6,9 @@ class Tag
 	include ActiveModel::Translation
 	include Mongoid::Associations::EmbeddedCallbacks
 	
+	extend EventCalendar::ClassMethods
+	has_event_calendar :start_at_field  => 'calendar_start_date', :end_at_field => 'calendar_end_date'
+	
 	attr_accessor :embed_campaign
 	
 	TYPES = ["artist", "category", "curriculum", "designer", "machine_compatibility", "material_compatibility", "product_family", "product_line", "special", "subcategory", "subcurriculum", "subtheme", "theme", "release_date", "size"]
@@ -85,6 +88,10 @@ class Tag
 	end
 	
 	class << self
+	  
+	  def events_for_date_range(start_d, end_d, find_options = {})
+	    Tag.available.calendar_events
+	  end
 		
 		def all_types
 		  Tag::TYPES + Tag::HIDDEN_TYPES
@@ -111,6 +118,14 @@ class Tag
 	  scope type.pluralize.to_sym, :where => { :tag_type => type }  # scope :calendar_events, :where => { :tag_type => "calendar_event" } #dynaically create a scope for each type. ex.:  Tag.calendar_events => scope for calendar event tags
 	end
 	
+	def calendar_start_date
+	  send(:"calendar_start_date_#{current_system}")
+	end
+	
+	def calendar_end_date
+	  send(:"calendar_end_date_#{current_system}")
+	end
+	
 	def facet_param
 	  tag_type.to_s.gsub(/_(#{ELLISON_SYSTEMS.join("|")})$/, "") + "~" + permalink
 	end
@@ -135,6 +150,23 @@ class Tag
 	  image? ? image_url(:medium) : self.list_page_image
 	end
 
+  def adjust_all_day_dates
+    if self.all_day
+      original_system = current_system
+      ELLISON_SYSTEMS.each do |sys|
+        set_current_system sys
+        self.send(:"calendar_start_date_#{sys}=", self.send(:"calendar_start_date_#{sys}").beginning_of_day) if self.send(:"calendar_start_date_#{sys}").present?
+    
+        if self.send(:"calendar_end_date_#{sys}").present?
+          self.send(:"calendar_end_date_#{sys}=", self.send(:"calendar_end_date_#{sys}").beginning_of_day + 1.day - 1.second)
+        else
+          self.send(:"calendar_end_date_#{sys}=", self.send(:"calendar_start_date_#{sys}").beginning_of_day + 1.day - 1.second) if self.send(:"calendar_start_date_#{sys}").present?
+        end
+      end
+      set_current_system original_system
+    end
+  end
+  
 private 
 
   def update_campaign
