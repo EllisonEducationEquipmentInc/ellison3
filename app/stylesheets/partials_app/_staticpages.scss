@@ -3,8 +3,15 @@
 // also for non e-commerce app pages like the YouTube video page
 
 body.bp {
+  
+  // YouTube video page
   #featured_video ul.videolist li {
     padding-bottom: 6px;
+  }
+  
+  #recent_videos ul.videolist li {
+    margin-bottom: 8px;
+    padding: 6px;
   }
   
   ul.videolist {
@@ -58,6 +65,32 @@ body.bp {
       }
     }
   }
+}
+
+#recent_videos {
+  margin-bottom: 12px;
+  
+  ul.videolist { @extend ul.plain;
+    
+    li {
+      width: 100%;
+      height: 100px;
+      p {
+        
+        &.video-detail, &.video-description {
+          font-family: Verdana,Arial,sans-serif;
+          font-size: 10.2px;
+          padding: 0;
+        }        
+      }
+      
+      &:hover { border: 1px solid $link; }
+    }
+  }
+}
+
+#search_videos {
+
 }
 
 

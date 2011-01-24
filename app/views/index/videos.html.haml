@@ -20,22 +20,27 @@
       
 #recent_videos
   %h3 Our Most Recent Uploads
+  - @videos.each do |playlist|
+    - if playlist.title == "Machines"
+      %ul.videolist= render :partial => 'video', :collection => playlist.videos
+    
   - if @recent_uploads.present?
     %ul.videolist= render :partial => 'video', :collection => @recent_uploads
   - else
     No videos have been uploaded within the past week.
   
-  %h3== Search #{system_name.capitalize} Videos
-  = text_field_tag :video_keyword, nil, :autocomplete => "off", :value => "enter keywords", :onfocus => "if (this.value == 'enter keywords'){this.value='';}", :onblur => "if (this.value == ''){this.value='enter keywords';}", :size => 50
-  :javascript
-    $("#video_keyword").addClass("idlefield");
-    $("#video_keyword").focus(function(){
-      $(this).addClass("activefield").removeClass("idlefield");
-    }).blur(function(){
-      $(this).removeClass("activefield").addClass("idlefield");
-    });
+  #search_videos
+    %h3== Search #{system_name.capitalize} Videos
+    = text_field_tag :video_keyword, nil, :autocomplete => "off", :value => "enter keywords", :onfocus => "if (this.value == 'enter keywords'){this.value='';}", :onblur => "if (this.value == ''){this.value='enter keywords';}", :size => 50
+    :javascript
+      $("#video_keyword").addClass("idlefield");
+      $("#video_keyword").focus(function(){
+        $(this).addClass("activefield").removeClass("idlefield");
+      }).blur(function(){
+        $(this).removeClass("activefield").addClass("idlefield");
+      });
 
-  %span.jqui_search Search
+    %span.jqui_search Search
 
 .contentwrap_XXXL.last
   .tab-block
