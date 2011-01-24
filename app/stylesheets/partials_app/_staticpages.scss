@@ -3,6 +3,10 @@
 // also for non e-commerce app pages like the YouTube video page
 
 body.bp {
+  #featured_video ul.videolist li {
+    padding-bottom: 6px;
+  }
+  
   ul.videolist {
     li {
       padding: 6px;
@@ -19,6 +23,44 @@ body.bp {
 }
 
 // YouTube video page
+#featured_video {
+  
+  ul.videolist { @extend ul.plain;
+
+    li {
+      width: 100%;
+      height: auto;
+      
+      p {
+        margin: 0 6px;
+        
+        &.video-thumbnail {
+          float: none;
+          width: 390px;
+          height: 291px;
+          margin: 0;
+        }
+        
+        &.video-title {
+          padding: 0;
+          
+          span {
+            font-style: italic;
+            font-weight: normal;
+          }
+        }
+        
+        &.video-detail {
+          font-family: Verdana,Arial,sans-serif;
+          font-size: 10.2px;
+          padding: 0;
+        }      
+      }
+    }
+  }
+}
+
+
 ul.videolist { @extend ul.plain;
   vertical-align: top;
   
@@ -40,10 +82,17 @@ ul.videolist { @extend ul.plain;
       padding: 0;
       float: left;
       width: 120px;
-      height: 90px;
+      height: 66px;
+      
+      a {
+        display: block;
+        width: 120px;
+        height: 66px;        
+      }
     }
     
     p.video-title {
+      padding-left: 125px;
       font-weight: bold;
       
       a {
@@ -57,6 +106,7 @@ ul.videolist { @extend ul.plain;
     }
     
     p.video-detail {
+      padding-left: 125px;
       color: $link;
     }
     
