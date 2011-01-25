@@ -42,15 +42,42 @@ body.bp {
       width: 100%;
       height: auto;
       
+      .video-thumbnail {
+        float: none;
+        position: relative;
+        width: 390px;
+        height: 215px;
+        margin: 0;
+        overflow: hidden;
+        
+        img {
+          display: block;
+          position: relative;
+          top: -38px;
+        }
+        
+        .play-button {
+          height: 131px;
+          width: 131px;
+          background: url("/images/ui-buttons/play_featured-video_off.png") no-repeat center center;
+          position: absolute;
+          top: 45px;
+          left: 129px;
+          z-index: 1;
+          
+          a {
+            display: block;
+            height: 131px;
+            width: 131px;
+            text-indent: -99999px;            
+          }
+          
+          &:hover { background: url("/images/ui-buttons/play_featured-video_on.png") no-repeat center center; }
+        }
+      }
+
       p {
         margin: 0 6px;
-        
-        &.video-thumbnail {
-          float: none;
-          width: 390px;
-          height: 291px;
-          margin: 0;
-        }
         
         &.video-title {
           padding: 0;

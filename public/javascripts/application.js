@@ -534,17 +534,17 @@ function toggle_visual_asset_type(child_index) {
 function youtube_video_links() {
 	$(".fancyvideo").click(function() {
   	$.fancybox({
-  			'padding'		: 0,
-  			'autoScale'		: false,
-  			'transitionIn'	: 'none',
-  			'transitionOut'	: 'none',
-  			'title'			: this.title,
-  			'width'		: 680,
-  			'height'		: 495,
-  			'href'			: this.href.replace(new RegExp("watch\\?v=", "i"), 'v/'),
-  			'type'			: 'swf',
-  			'swf'			: {
-  			   	 'wmode'		: 'transparent',
+  			'padding' : 0,
+  			'autoScale' : false,
+  			'transitionIn' : 'none',
+  			'transitionOut' : 'none',
+  			'title' : this.title,
+  			'width' : 680,
+  			'height' : 495,
+  			'href' : this.href.replace(new RegExp("watch\\?v=", "i"), 'v/'),
+  			'type' : 'swf',
+  			'swf' : {
+  			  'wmode' : 'transparent',
   				'allowfullscreen'	: 'true', 
   				'allownetworking' : 'internal'
   			}
