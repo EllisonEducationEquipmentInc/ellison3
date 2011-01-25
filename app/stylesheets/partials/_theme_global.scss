@@ -653,6 +653,7 @@ ul.ui-tabs-nav {
       
       li {
         margin-bottom: 5px;
+        padding: 0 0 0 44px;
         
         a {
           color: #67b7f9;
@@ -677,9 +678,15 @@ ul.ui-tabs-nav {
     }
     
     #connect-with-sizzix {
+      background: url("/images/ui-backgrounds/s_paper_feed.png") no-repeat scroll 0 0 transparent;
       font-size:12px;
       font-style: normal;
       text-transform: uppercase;
+      height: 196px;
+      padding-top: 34px;
+      position: relative;
+      right: 6px;
+      width: 322px;
       
       li a {
         color: #0e61bf;
