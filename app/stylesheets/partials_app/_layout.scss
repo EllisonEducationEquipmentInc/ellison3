@@ -101,6 +101,10 @@
   padding: 0 0 0 21px;
   background: url("/images/ui-icons/set_social-media/16x16/facebook.png") no-repeat left bottom;
 }
+.link_blogspot { @extend .link;
+  padding: 0 0 0 21px;
+  background: url("/images/ui-icons/set_social-media/16x16/blogger.png") no-repeat left bottom;
+}
 .link_youtube { @extend .link;
   padding: 0 0 0 21px;
   background: url("/images/ui-icons/set_social-media/16x16/youtube.png") no-repeat left bottom;

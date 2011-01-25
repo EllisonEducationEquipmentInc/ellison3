@@ -631,68 +631,63 @@ ul.ui-tabs-nav {
       background: url('/images/ui-objects/leaf_fall.png') no-repeat;
     }
   }
-
-  #blog-posts {
-    h2 { background: url('/images/ui-objects/flower_pink-geometric.png') no-repeat; }
-  }
-
-  #social-media {
+  
+  #blog-posts, #social-media {
     
-    h2 { background: url('/images/ui-objects/bird_blue-twitter.png') no-repeat; }
-    
-    .tweets, #connect-with-sizzix {
-      margin:0;
-      padding:0;
-      list-style: none;
-      font-family: Georgia, serif;
-      font-size: 10px;
-      font-style: italic;
-      font-weight: bold;
-      color: #4591cf;
-      height:auto;
-      
+    ul#blog_feeds, ul#connect-with-sizzix { @extend ul.plain;
+
       li {
-        margin-bottom: 5px;
+        font-family: Georgia, serif !important;
+        font-size: 1em !important;
+
+        h3 {
+          font-family: Georgia, serif !important;
+          font-size: 1em !important;
+          font-style: normal;
+          font-weight: bold;
+          text-transform: uppercase;          
+        }
         padding: 0 0 0 44px;
         
         a {
-          color: #67b7f9;
+          color: #0e61bf;
           text-decoration: none;
           
           &:hover {
             color: #ea81ce;
             text-decoration: none;
-          };
+          }
         }
         
         .timestamp {
           font-family: Helvetica, Arial, sans-serif;
-          font-size: 10px;
-          font-style: normal;
-          font-weight: normal;
-          text-transform: normal;
-          letter-spacing: normal;
-          color: #8592ee;
+          font-size: .9em;
+          font-style: italic;
         }
       }
     }
     
-    #connect-with-sizzix {
+    ul#connect-with-sizzix {
       background: url("/images/ui-backgrounds/s_paper_feed.png") no-repeat scroll 0 0 transparent;
-      font-size:12px;
-      font-style: normal;
-      text-transform: uppercase;
       height: 196px;
-      padding-top: 34px;
+      padding-top: 34px !important;
       position: relative;
       right: 6px;
       width: 322px;
       
-      li a {
-        color: #0e61bf;
+      li {
+        margin-bottom: 5px !important;
+        padding-left: 44px !important;
+        font-weight: bold;
+        text-transform: uppercase;
       }
     }
   }
+
+  #blog-posts h2 { background: url('/images/ui-objects/flower_pink-geometric.png') no-repeat;  }
+
+  #social-media h2 { background: url('/images/ui-objects/bird_blue-twitter.png') no-repeat; }
+
 }
 
 #footer {
@@ -734,8 +729,12 @@ ul.ui-tabs-nav {
     .column_right {
       @extend .column;
       
-      ul.social-icons { @extend .horizontal; 
-        margin: 0 0 0 70px !important;
+      ul.social-icons { @extend .horizontal;
+        @if $system == szus {
+          margin: 0 0 0 50px !important;
+        } @else {
+          margin: 0 0 0 70px !important;
+        }
         
         li { margin: 0 12px 0 0 !important; }
       }

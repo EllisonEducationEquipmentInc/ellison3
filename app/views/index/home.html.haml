@@ -17,7 +17,7 @@
   #blog-posts
     %h2.decorative
       %span News from our Blog  
-    %ul#blog_feeds.plain= spinner
+    %ul#blog_feeds= spinner
     .poll
       %h4 Take This Month's Poll!
       %p
@@ -56,11 +56,13 @@
           avatars: false,
           behavior: 'all'
         }
-      }).render().setUser('sizzix_us').start();
+      }).render().setUser('sizzix_#{ is_us? ? "us" : "uk" }').start();
 
     %ul#connect-with-sizzix
-      %li= link_to "Follow Us on Twitter", "http://www.twitter.com/sizzix_us", :target => "blank", :class => "link_twitter"
+      %li= link_to "Follow Us on Twitter", "http://www.twitter.com/sizzix_#{ is_us? ? "us" : "uk" }", :target => "blank", :class => "link_twitter"
       %li= link_to "Join Us on Facebook", "http://www.facebook.com/Sizzix", :target => "blank", :class => "link_facebook"
+      - if is_sizzix_us?
+        %li= link_to "Read Our Blog", "http://sizzixblog.blogspot.com/", :target => "blank", :class => "link_blogspot"
       %li= link_to "Watch Us on YouTube", "http://www.youtube.com/sizzix", :target => "blank", :class => "link_youtube"
       %li= link_to "Sign Up for our Newsletter", "#", :target => "blank", :class => "link_newsletter"
       %li= link_to "Email Us", "/contact", :class => "link_contact"
