@@ -51,8 +51,8 @@ class Store
   validates_presence_of :address1, :city, :country, :if => Proc.new {|obj| obj.physical_store}
   validates_presence_of :website, :if => Proc.new {|obj| obj.webstore}
   validates_inclusion_of :agent_type, :in => AGENT_TYPES
-  validates_inclusion_of :brands, :in => BRANDS
-  validates_inclusion_of :product_line, :in => PRODUCT_LINES
+  #validates_inclusion_of :brands, :in => BRANDS
+  #validates_inclusion_of :product_line, :in => PRODUCT_LINES
   
   before_save :get_geo_location, :if => Proc.new {|obj| obj.physical_store}
   
