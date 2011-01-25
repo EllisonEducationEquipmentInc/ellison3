@@ -118,9 +118,18 @@
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/film.png") no-repeat left bottom;
 }
 
-// third-party widgets
+
+// THIRD PARTY WIDGETS
 
 // twitter
 .twtr-widget {
   margin-bottom: 12px;
+}
+
+.twtr-tweet {
+  border-bottom: 1px dashed #3e5791 !important;
+}
+
+.twtr-tweet:last-child {
+  border-bottom-width: 0 !important;
 }

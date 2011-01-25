@@ -87,6 +87,13 @@ body.bp {
 // hidden classes for print & page breaks
 .dontdisplay, .page-break { display: none; }
 
+#content {
+	.dontdisplay, .page-break {
+	  display: none;
+	}
+}
+
+// search box active/idle text field color
 .activefield {
   color: $input_active;
 }
@@ -95,12 +102,7 @@ body.bp {
   color: $input_idle;
 }
 
-#content {
-	.dontdisplay, .page-break {
-	  display: none;
-	}
-}
-
+// jqueryui tab text color
 ul.ui-tabs-nav {
   li.ui-state-hover {
     a { color: $jqui_tab_hover; }
@@ -109,6 +111,7 @@ ul.ui-tabs-nav {
     a { color: $jqui_tab_active; }
   }
 }
+
 
 #tips li {
   display: none;
