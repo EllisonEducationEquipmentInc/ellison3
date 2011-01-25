@@ -206,6 +206,7 @@ body.bp th, body.bp td, body.bp caption {
 		margin-bottom: 10px;
 		width:850px;
 	}
+	.compatibility{@extend .visual_asset;}
 	#map{
 		float: left;
 		height: 460px;

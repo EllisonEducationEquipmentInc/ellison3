@@ -18,6 +18,8 @@ class Tag
   references_many :ideas, :stored_as => :array, :inverse_of => :tags, :index => true
   embeds_one :campaign
   
+  embeds_many :compatibilities
+  
   embeds_many :visual_assets do
     def current
 			ordered.select {|asset| asset.available?}
@@ -34,6 +36,9 @@ class Tag
   
   accepts_nested_attributes_for :visual_assets, :allow_destroy => true, :reject_if => proc { |attributes| attributes['name'].blank?}
 	validates_associated :visual_assets
+	
+	accepts_nested_attributes_for :compatibilities, :allow_destroy => true, :reject_if => proc { |attributes| attributes['tag_id'].blank?}
+	validates_associated :compatibilities
   
   validates :name, :tag_type, :systems_enabled, :permalink, :presence => true
   validates_format_of :permalink, :with => /^[\w\d-]+$/

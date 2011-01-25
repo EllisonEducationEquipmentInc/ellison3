@@ -1,0 +1,25 @@
+%h1 Listing compatibility Product Line Tags
+- unless params[:q].blank?
+  = link_to 'all', admin_compatibilities_path, :class => 'jqui_button'
+= form_tag(admin_compatibilities_path, :method => :get) do
+  = text_field_tag :q, nil, :placeholder => "tag name (product line), item num"
+  = submit_tag "search", :class => 'jqui_search'
+.highlightable
+  %table
+    %thead
+      %tr
+        = sortable "name"
+        %th # of compatibility
+        - if has_write_permissions?
+          %th &nbsp;
+    %tbody
+      - for compatibility in @compatibilities
+        %tr{ :class => cycle(:odd, :even) }
+          %td= compatibility.name
+          %td= compatibility.compatibilities.length
+          - if has_write_permissions?
+            %td= link_to 'Edit', edit_admin_compatibility_path(compatibility)
+%br
+= will_paginate @compatibilities
+%br
+= link_to 'New compatibility', new_admin_compatibility_path, :class => 'jqui_new' if has_write_permissions?

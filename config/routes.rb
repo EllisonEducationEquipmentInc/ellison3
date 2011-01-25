@@ -159,6 +159,11 @@ Ellison3::Application.routes.draw do |map|
 			    get :tags_autocomplete, :reorder_visual_assets
 			  end
 			end
+			resources :compatibilities do
+				collection do
+			    get :tags_autocomplete
+			  end
+			end
 			resources :profiles, :as => 'admins'
 			resources :feedbacks do
 			  collection do

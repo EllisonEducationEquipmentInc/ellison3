@@ -1,0 +1,3 @@
+.item-block_related.product{:class => "product_#{product.id}"}
+  %p.item_image= link_to image_tag(product.medium_image), product_url(:id => product)
+  %p.item_name= link_to product.name.html_safe, product_url(:id => product)

@@ -1,0 +1,11 @@
+= form_for( @compatibility, :as => :compatibility, :url => admin_compatibility_path(@compatibility), :html => {:multipart => true}) do |f|
+  = f.error_messages
+  %h3 Compatible with:
+  #compatibilities  
+    = f.fields_for :compatibilities, @compatibility.compatibilities.each do |compatibility_fields|
+      = render 'admin/compatibilities/compatibility', :f => compatibility_fields
+    = link_to_add_fields "Add Compatibility", f, :compatibilities
+  %br
+  %br
+  .actions
+    = f.submit :class => 'jqui_save'

@@ -1,0 +1,11 @@
+- child_index = f.object_name.match(/\[([0-9a-f]+)\]$/).try(:[], 1) || f.options[:child_index]
+.compatibility{:id => "compatibility_#{f.object.id}", :class => "compatibility_#{child_index}"}
+  = f.error_messages
+  .field
+    = f.label :_destroy, "Destroy this compatibility"
+    = f.check_box :_destroy
+  .field
+    = f.label(:tag_id, "Compatible With")
+    %br
+    = f.select :tag_id, Tag.product_lines.order_by(:name).map {|e| [e.name, e.id]}
+  = products_helper_tag "#{f.object_name[/^(\w+)/]}[compatibilities_attributes][#{child_index}][product_item_nums]", f.object.product_item_nums, :label => "Additional Required Products (item nums only)", :class => "type_specific products"
