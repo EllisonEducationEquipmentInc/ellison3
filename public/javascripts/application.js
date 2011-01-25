@@ -545,7 +545,8 @@ function youtube_video_links() {
   			'type'			: 'swf',
   			'swf'			: {
   			   	 'wmode'		: 'transparent',
-  				'allowfullscreen'	: 'true'
+  				'allowfullscreen'	: 'true', 
+  				'allownetworking' : 'internal'
   			}
   		});
 

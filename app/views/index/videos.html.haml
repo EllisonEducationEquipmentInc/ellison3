@@ -20,14 +20,10 @@
       
 #recent_videos
   %h3 Our Most Recent Uploads
-  - @videos.each do |playlist|
-    - if playlist.title == "Machines"
-      %ul.videolist= render :partial => 'video', :collection => playlist.videos
-    
   - if @recent_uploads.present?
     %ul.videolist= render :partial => 'video', :collection => @recent_uploads
   - else
-    No videos have been uploaded within the past week.
+    %p.msg No videos have been uploaded within the past month.
   
   #search_videos
     %h3== Search #{system_name.capitalize} Videos

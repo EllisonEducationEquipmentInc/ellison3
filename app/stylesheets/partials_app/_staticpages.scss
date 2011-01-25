@@ -9,9 +9,13 @@ body.bp {
     padding-bottom: 6px;
   }
   
-  #recent_videos ul.videolist li {
-    margin-bottom: 8px;
-    padding: 6px;
+  #recent_videos ul.videolist {
+    margin-bottom: 18px;
+    
+    li {
+      margin-bottom: 8px;
+      padding: 6px;
+    }
   }
   
   ul.videolist {
@@ -68,12 +72,13 @@ body.bp {
 }
 
 #recent_videos {
-  margin-bottom: 12px;
+  
+  p.msg { margin-bottom: 24px; }
   
   ul.videolist { @extend ul.plain;
-    
+        
     li {
-      width: 100%;
+      width: 536px;
       height: 100px;
       p {
         
