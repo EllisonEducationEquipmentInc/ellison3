@@ -13,7 +13,7 @@ class Admin::CompatibilitiesController < ApplicationController
 	  criteria.where :deleted_at => nil
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria.any_of({ :name => regexp}, { 'compatibilities.products'.in => [regexp] })
+  	  criteria.any_of({ :name => regexp}, { :'compatibilities.products'.in => [regexp] })
 	  end
 		@compatibilities = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
 	end
