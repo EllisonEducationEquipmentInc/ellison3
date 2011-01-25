@@ -851,7 +851,7 @@ select#sort, input#select_all_products {
   .controls {
     position: relative;
     left: 637px;
-    margin: 0 5px 2px 5px;
+    margin: 0 5px 5px 5px;
     
     a.prev_button { @extend minilink;
       display: inline-block;
@@ -899,7 +899,7 @@ select#sort, input#select_all_products {
     width: 950px;
     
     .controls {
-      left: 837px;
+      left: 830px;
     }
     
     .item_element {
