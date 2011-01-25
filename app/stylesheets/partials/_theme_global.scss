@@ -48,6 +48,14 @@ body.bp {
     }
   }
   
+  ul.horizontal { @extend ul.plain;
+    
+    li {
+      display: inline;
+      float: left;
+    }
+  }
+  
   // jquery calendar popups
   // overwriting blueprint th & td padding, reinstating jqueryui settings for this class
   table.ui-datepicker-calendar {
@@ -672,6 +680,54 @@ ul.ui-tabs-nav {
       
       li a {
         color: #0e61bf;
+      }
+    }
+  }
+}
+
+#footer {
+  
+  .container {
+    color: $footer_text;
+  
+    h2, h3, h4 {
+      color: $footer_headings;
+      margin-bottom: 0;
+    }
+  
+    a {
+      color: $footer_link;
+    
+      &:hover {
+        color: $footer_hover;
+      };
+    }
+  
+    .column {
+      margin-top: 45px;
+      margin-bottom: 20px;
+      height: 205px;
+    
+      p {
+        padding-right: 10px;
+      }
+    }
+  
+    .column_left, .column_middle { @extend .column;
+      border-right: 1px solid $footer_divider;
+    }
+  
+    .column_middle {
+      padding-right: 38px;  // to help push .column_right to it's 'right'-ful position
+    }
+    
+    .column_right {
+      @extend .column;
+      
+      ul.social-icons { @extend .horizontal; 
+        margin: 0 0 0 70px !important;
+        
+        li { margin: 0 12px 0 0 !important; }
       }
     }
   }

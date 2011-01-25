@@ -27,13 +27,43 @@
   #social-media
     %h2.decorative
       %span Sizzix Tweets
-    %ul.tweets#sizzix_tweets= spinner
+    = javascript_include_tag 'http://widgets.twimg.com/j/2/widget.js'
+    :javascript
+      new TWTR.Widget({
+        version: 2,
+        type: 'profile',
+        rpp: 5,
+        interval: 6000,
+        width: 'auto',
+        height: 300,
+        theme: {
+          shell: {
+            background: '#243250',
+            color: '#ffffff'
+          },
+          tweets: {
+            background: '#040f28',
+            color: '#ffffff',
+            links: '#4aed05'
+          }
+        },
+        features: {
+          scrollbar: false,
+          loop: false,
+          live: false,
+          hashtags: true,
+          timestamp: true,
+          avatars: false,
+          behavior: 'all'
+        }
+      }).render().setUser('sizzix_us').start();
+
     %ul#connect-with-sizzix
-      %li= link_to "Follow Us on Twitter", "http://www.twitter.com/sizzix_us", :target => "blank"
-      %li= link_to "Join Us on Facebook", "http://www.facebook.com/Sizzix", :target => "blank"
-      %li= link_to "Watch Us on YouTube", "http://www.youtube.com/sizzix", :target => "blank"
-      %li= link_to "Sign Up for our Newsletter", "#", :target => "blank"
-      %li= link_to "Email Us", "/contact"
+      %li= link_to "Follow Us on Twitter", "http://www.twitter.com/sizzix_us", :target => "blank", :class => "link_twitter"
+      %li= link_to "Join Us on Facebook", "http://www.facebook.com/Sizzix", :target => "blank", :class => "link_facebook"
+      %li= link_to "Watch Us on YouTube", "http://www.youtube.com/sizzix", :target => "blank", :class => "link_youtube"
+      %li= link_to "Sign Up for our Newsletter", "#", :target => "blank", :class => "link_newsletter"
+      %li= link_to "Email Us", "/contact", :class => "link_contact"
   :javascript
     $(document).ready(function(){
       $('#sizzix_tweets').load('/index/twitter_feed#{"_uk" if is_uk?}');

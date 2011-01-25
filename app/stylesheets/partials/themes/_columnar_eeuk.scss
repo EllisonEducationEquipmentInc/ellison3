@@ -160,49 +160,15 @@ body.bp {
 }
 
 #footer {
-  
+
   .container {
     background: url("/images/ui-backgrounds/_#{$system}_footer.gif") no-repeat center top;
-    color: $footer_text;
-      
-      .main {
-        .column_left,.column_middle,.column_right {
-          margin-top: 20px;
-        }
-        
-      }
-  
-    h2, h3, h4 {
-      color: $footer_headings;
-      margin-bottom: 0;
+
+    .main {
+
+      .column_left, .column_middle, .column_right {
+        margin-top: 20px;
+      }    
     }
-  
-    a {
-      color: $footer_link;
-    
-      &:hover {
-        color: $footer_hover;
-      };
-    }
-  
-    .column {
-      margin-top: 45px;
-      margin-bottom: 20px;
-      height: 205px;
-    
-      p {
-        padding-right: 10px;
-      }
-    }
-  
-    .column_left, .column_middle { @extend .column;
-      border-right: 1px solid $footer_divider;
-    }
-  
-    .column_middle {
-      padding-right: 38px;  // to help push .column_right to it's 'right'-ful position
-    }
-    
-    .column_right { @extend .column;}
   }
 }
