@@ -20,6 +20,7 @@
   .dontprint
     = add_to_cart_button(@product, 'add_to_cart detail')
 - if @product.product_line.present? && @product.product_line.compatibilities.length > 0
+  -# TODO: cache + move to a helper
   .item_compatibility
     %h4 Compatibility
     %p This [TODO: @product.item_type] is compatible with the following items:
