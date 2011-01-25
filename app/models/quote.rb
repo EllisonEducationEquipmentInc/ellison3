@@ -7,7 +7,7 @@ class Quote
 
   validates :subtotal_amount, :shipping_amount, :tax_amount, :address, :order_items, :presence => true
 
-	embeds_one :address
+	embeds_one :address, :validate => false
 	embeds_many :order_items
 	referenced_in :user
 	referenced_in :coupon

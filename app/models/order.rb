@@ -15,11 +15,10 @@ class Order
 	
 	validates :status, :subtotal_amount, :shipping_amount, :tax_amount, :address, :order_items, :payment, :presence => true
 	validates_inclusion_of :status, :in => STATUSES
-	validates_associated :payment
 	validates_uniqueness_of :order_number, :on => :create, :message => "must be unique"
 	
 	embeds_one :payment
-	embeds_one :address
+	embeds_one :address, :validate => false
 	embeds_many :order_items
 	referenced_in :user
 	referenced_in :coupon
