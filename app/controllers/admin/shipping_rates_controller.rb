@@ -9,15 +9,15 @@ class Admin::ShippingRatesController < ApplicationController
 	
 	def index
 	  criteria = Mongoid::Criteria.new(ShippingRate)
-	  criteria.where :deleted_at => nil
-	  if params[:systems_enabled].blank?
+	  criteria = criteria.where :deleted_at => nil
+	  criteria = if params[:systems_enabled].blank?
 	    criteria.where(:system => current_system)
 	  else
 	    criteria.where(:system.in => params[:systems_enabled]) 
 	  end
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria.any_of({ :zone_or_country => regexp})
+  	  criteria = criteria.any_of({ :zone_or_country => regexp})
 	  end
 		@shipping_rates = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
 	end

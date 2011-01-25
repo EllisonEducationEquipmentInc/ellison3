@@ -9,17 +9,17 @@ class Admin::TagsController < ApplicationController
 	
 	def index
 	  criteria = Mongoid::Criteria.new(Tag)
-	  criteria.where :deleted_at => nil
-	  if params[:systems_enabled].blank?
+	  criteria = criteria.where :deleted_at => nil
+	  criteria = if params[:systems_enabled].blank?
 	    criteria.where(:systems_enabled.in => admin_systems)
 	  else
 	    criteria.where(:systems_enabled.in => params[:systems_enabled]) 
 	  end
-	  criteria.where(:active => true) if params[:inactive].blank?
-	  criteria.where(:tag_type => params[:tag_type]) unless params[:tag_type].blank?
+	  criteria = criteria.where(:active => true) if params[:inactive].blank?
+	  criteria = criteria.where(:tag_type => params[:tag_type]) unless params[:tag_type].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria.any_of({ :name => regexp})
+  	  criteria = criteria.any_of({ :name => regexp})
 	  end
 		@tags = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
 	end

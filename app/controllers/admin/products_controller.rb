@@ -9,18 +9,18 @@ class Admin::ProductsController < ApplicationController
 	
 	def index
 	  criteria = Mongoid::Criteria.new(Product)
-	  criteria.where :deleted_at => nil
-	  if params[:systems_enabled].blank?
+	  criteria = criteria.where :deleted_at => nil
+	  criteria = if params[:systems_enabled].blank?
 	    criteria.where(:systems_enabled.in => admin_systems)
 	  else
 	    criteria.where(:systems_enabled.in => params[:systems_enabled]) 
 	  end
-	  criteria.where(:active => true) if params[:inactive].blank?
-	  criteria.where(:outlet => true) if params[:outlet] == "1"
-	  criteria.where(:life_cycle => params[:life_cycle]) unless params[:life_cycle].blank?
+	  criteria = criteria.where(:active => true) if params[:inactive].blank?
+	  criteria = criteria.where(:outlet => true) if params[:outlet] == "1"
+	  criteria = criteria.where(:life_cycle => params[:life_cycle]) unless params[:life_cycle].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria.any_of({ :item_num => regexp}, { :name => regexp }, {:short_desc => regexp})
+  	  criteria = criteria.any_of({ :item_num => regexp}, { :name => regexp }, {:short_desc => regexp})
 	  end
 		@products = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
 	end

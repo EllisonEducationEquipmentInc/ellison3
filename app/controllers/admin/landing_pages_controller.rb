@@ -9,16 +9,16 @@ class Admin::LandingPagesController < ApplicationController
 	
 	def index
 	  criteria = Mongoid::Criteria.new(LandingPage)
-	  criteria.where :deleted_at => nil
-	  if params[:systems_enabled].blank?
+	  criteria = criteria.where :deleted_at => nil
+	  criteria = if params[:systems_enabled].blank?
 	    criteria.where(:systems_enabled.in => admin_systems)
 	  else
 	    criteria.where(:systems_enabled.in => params[:systems_enabled]) 
 	  end
-	  criteria.where(:active => true) if params[:inactive].blank?
+	  criteria = criteria.where(:active => true) if params[:inactive].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria.any_of({ :name => regexp}, { :search_query => regexp}, { :permalink => regexp})
+  	  criteria = criteria.any_of({ :name => regexp}, { :search_query => regexp}, { :permalink => regexp})
 	  end
 		@landing_pages = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 100
 	end

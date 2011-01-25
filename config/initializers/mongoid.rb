@@ -35,9 +35,9 @@ module Mongoid #:nodoc:
       def run_callbacks(kind, *args, &block)
         # now bubble callbacks down
         self.associations.each_pair do |name, meta|
-          if meta.association == Mongoid::Associations::EmbedsMany
+          if meta.relation == Mongoid::Relations::Embedded::Many #Mongoid::Associations::EmbedsMany
             self.send(name).each { |doc| doc.send(:run_callbacks, kind, *args, &block) }
-          elsif meta.association == Mongoid::Associations::EmbedsOne
+          elsif meta.relation == Mongoid::Relations::Embedded::One #Mongoid::Associations::EmbedsOne
             self.send(name).send(:run_callbacks, kind, *args, &block) unless self.send(name).blank?
           end
         end

@@ -9,17 +9,17 @@ class Admin::CouponsController < ApplicationController
 	
 	def index
 	  criteria = Mongoid::Criteria.new(Coupon)
-	  criteria.where :deleted_at => nil
-	  if params[:systems_enabled].blank?
+	  criteria = criteria.where :deleted_at => nil
+	  criteria = if params[:systems_enabled].blank?
 	    criteria.where(:systems_enabled.in => admin_systems)
 	  else
 	    criteria.where(:systems_enabled.in => params[:systems_enabled]) 
 	  end
-	  criteria.where(:active => true) if params[:inactive].blank?
-	  criteria.where(:level => params[:level]) unless params[:level].blank?
+	  criteria = criteria.where(:active => true) if params[:inactive].blank?
+	  criteria = criteria.where(:level => params[:level]) unless params[:level].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria.any_of({ :codes => regexp}, { :name => regexp })
+  	  criteria = criteria.any_of({ :codes => regexp}, { :name => regexp })
 	  end
 		@coupons = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
 	end

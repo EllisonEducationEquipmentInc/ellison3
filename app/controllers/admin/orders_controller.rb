@@ -11,16 +11,16 @@ class Admin::OrdersController < ApplicationController
 	def index
 	  @current_locale = current_locale
 	  criteria = Mongoid::Criteria.new(Order)
-	  criteria.where :deleted_at => nil
-	  if params[:systems_enabled].blank?
+	  criteria = criteria.where :deleted_at => nil
+	  criteria = if params[:systems_enabled].blank?
 	    criteria.where(:system.in => admin_systems)
 	  else
 	    criteria.where(:system.in => params[:systems_enabled]) 
 	  end
-	  criteria.where(:status => params[:status]) unless params[:status].blank?
+	  criteria = criteria.where(:status => params[:status]) unless params[:status].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria.any_of({'address.email' => regexp},  {'address.first_name' => regexp}, { 'address.last_name' => regexp }, { 'address.city' => regexp }, { 'address.address' => regexp })
+  	  criteria = criteria.any_of({'address.email' => regexp},  {'address.first_name' => regexp}, { 'address.last_name' => regexp }, { 'address.city' => regexp }, { 'address.address' => regexp })
 	  end
 	  order = params[:sort] ? {sort_column => sort_direction} : [[:created_at, :desc]]
 		@orders = criteria.order_by(order).paginate :page => params[:page], :per_page => 50

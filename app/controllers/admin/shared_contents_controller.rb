@@ -9,17 +9,17 @@ class Admin::SharedContentsController < ApplicationController
 	
 	def index
 	  criteria = Mongoid::Criteria.new(SharedContent)
-	  criteria.where :deleted_at => nil
-	  if params[:systems_enabled].blank?
+	  criteria = criteria.where :deleted_at => nil
+	  criteria = if params[:systems_enabled].blank?
 	    criteria.where(:systems_enabled.in => admin_systems)
 	  else
 	    criteria.where(:systems_enabled.in => params[:systems_enabled]) 
 	  end
-	  criteria.where(:active => true) if params[:inactive].blank?
-	  criteria.where(:placement => params[:placement]) unless params[:placement].blank?
+	  criteria = criteria.where(:active => true) if params[:inactive].blank?
+	  criteria = criteria.where(:placement => params[:placement]) unless params[:placement].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria.any_of({ :name => regexp}, { :short_desc => regexp})
+  	  criteria = criteria.any_of({ :name => regexp}, { :short_desc => regexp})
 	  end
 		@shared_contents = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 100
 	end

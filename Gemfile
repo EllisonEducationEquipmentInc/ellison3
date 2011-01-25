@@ -26,9 +26,9 @@ gem 'rspec-rails', '>=2.0.0.beta.20'
 gem 'spork'
 gem 'launchy'    # So you can do Then show me the page
 gem "mongo_session_store", ">=2.0.0"
-#gem "mongoid", :git => "http://github.com/mongoid/mongoid.git", :branch => "master"
+gem "mongoid", :git => "http://github.com/mongoid/mongoid.git", :branch => "master"
 #gem "mongoid", "2.0.0.rc.3"
-gem "mongoid", :git => "git://github.com/computadude/mongoid.git", :branch => "master"
+#gem "mongoid", :git => "git://github.com/computadude/mongoid.git", :branch => "master"
 gem "nifty-generators"
 gem "compass", ">= 0.10.5"
 gem 'rb-inotify', ">= 0.5.1"
@@ -44,11 +44,9 @@ gem 'ruby_parser'
 gem 'devise', '1.1.3'
 gem 'warden' #, '1.0.2'
 gem 'active_merchant'
-#gem 'fasterer-csv'
 gem 'httparty'
 gem 'shippinglogic', :git => 'git://github.com/computadude/shippinglogic.git', :branch => "master"
 gem 'sunspot_mongoid', :git => 'git://github.com/jugyo/sunspot_mongoid.git', :branch => "master"
-#gem 'event-calendar', :require => 'event_calendar'
 gem 'feedzirra'
 gem 'geokit'
 gem 'youtube_it', :git => "git://github.com/jasondoucette/youtube_it.git"

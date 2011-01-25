@@ -9,15 +9,15 @@ class Admin::StoresController < ApplicationController
 	
 	def index
 	  criteria = Mongoid::Criteria.new(Store)
-	  criteria.where :deleted_at => nil
+	  criteria = criteria.where :deleted_at => nil
 	  criteria = criteria.where.physical_stores if params[:physical_stores].present?
 	  criteria = criteria.where.webstores if params[:webstores].present?
-	  criteria.where(:active => true) if params[:inactive].blank?
-	  criteria.where(:brands.in => [params[:brands]]) unless params[:brands].blank?
-	  criteria.where(:product_line.in => [params[:product_line]]) unless params[:product_line].blank?
+	  criteria = criteria.where(:active => true) if params[:inactive].blank?
+	  criteria = criteria.where(:brands.in => [params[:brands]]) unless params[:brands].blank?
+	  criteria = criteria.where(:product_line.in => [params[:product_line]]) unless params[:product_line].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria.any_of({ :name => regexp}, { :contact_person => regexp }, {:store_number => regexp})
+  	  criteria = criteria.any_of({ :name => regexp}, { :contact_person => regexp }, {:store_number => regexp})
 	  end
 		@stores = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
 	end

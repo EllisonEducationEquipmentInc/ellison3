@@ -9,15 +9,15 @@ class Admin::UsersController < ApplicationController
 	
 	def index
 	  criteria = Mongoid::Criteria.new(User)
-	  criteria.where :deleted_at => nil
-	  if params[:systems_enabled].blank?
+	  criteria = criteria.where :deleted_at => nil
+	  criteria = if params[:systems_enabled].blank?
 	    criteria.where(:systems_enabled.in => admin_systems)
 	  else
 	    criteria.where(:systems_enabled.in => params[:systems_enabled]) 
 	  end
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria.any_of({ :name => regexp}, { :email => regexp })
+  	  criteria = criteria.any_of({ :name => regexp}, { :email => regexp })
 	  end
 		@users = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
 	end

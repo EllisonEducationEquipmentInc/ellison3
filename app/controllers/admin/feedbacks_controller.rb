@@ -9,18 +9,18 @@ class Admin::FeedbacksController < ApplicationController
 	
 	def index
 	  criteria = Mongoid::Criteria.new(Feedback)
-	  criteria.where :deleted_at => nil
-	  if params[:systems_enabled].blank?
+	  criteria = criteria.where :deleted_at => nil
+	  criteria = if params[:systems_enabled].blank?
 	    criteria.where(:system.in => admin_systems)
 	  else
 	    criteria.where(:system.in => params[:systems_enabled]) 
 	  end
-	  criteria.where(:status => params[:status]) unless params[:status].blank?
-	  criteria.where(:department => params[:department]) unless params[:department].blank?
-	  criteria.where(:subject => params[:subject]) unless params[:subject].blank?
+	  criteria = criteria.where(:status => params[:status]) unless params[:status].blank?
+	  criteria = criteria.where(:department => params[:department]) unless params[:department].blank?
+	  criteria = criteria.where(:subject => params[:subject]) unless params[:subject].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria.any_of({ :email => regexp}, { 'comments.message' => regexp })
+  	  criteria = criteria.any_of({ :email => regexp}, { 'comments.message' => regexp })
 	  end
 	  order = params[:sort] ? {sort_column => sort_direction} : [[:status, :asc], [:created_at, :desc]]
 		@feedbacks = criteria.order_by(order).paginate :page => params[:page], :per_page => 50

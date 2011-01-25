@@ -9,15 +9,15 @@ class Admin::ProfilesController < ApplicationController
 	
 	def index
 	  criteria = Mongoid::Criteria.new(Admin)
-	  if params[:systems_enabled].blank?
+	  criteria = if params[:systems_enabled].blank?
 	    criteria.where(:systems_enabled.in => admin_systems)
 	  else
 	    criteria.where(:systems_enabled.in => params[:systems_enabled]) 
 	  end
-	  criteria.where(:active => true) if params[:inactive].blank?
+	  criteria = criteria.where(:active => true) if params[:inactive].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria.any_of({ :name => regexp}, { :email => regexp }, {:employee_number => regexp})
+  	  criteria = criteria.any_of({ :name => regexp}, { :email => regexp }, {:employee_number => regexp})
 	  end
 		@admins = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
 	end

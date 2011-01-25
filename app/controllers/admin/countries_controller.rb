@@ -11,14 +11,14 @@ class Admin::CountriesController < ApplicationController
 	  params[:sort] ||= 'name'
 	  params[:direction] ||= 'asc'
 	  criteria = Mongoid::Criteria.new(Country)
-	  if params[:systems_enabled].blank?
+	  criteria = if params[:systems_enabled].blank?
 	    criteria.where(:systems_enabled.in => admin_systems)
 	  else
 	    criteria.where(:systems_enabled.in => params[:systems_enabled]) 
 	  end
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria.any_of({ :iso => regexp}, { :name => regexp })
+  	  criteria = criteria.any_of({ :iso => regexp}, { :name => regexp })
 	  end
 		@countries = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
 	end

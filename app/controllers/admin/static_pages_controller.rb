@@ -9,16 +9,16 @@ class Admin::StaticPagesController < ApplicationController
 	
 	def index
 	  criteria = Mongoid::Criteria.new(StaticPage)
-	  criteria.where :deleted_at => nil
-	  if params[:system_enabled].blank?
+	  criteria = criteria.where :deleted_at => nil
+	  criteria = if params[:system_enabled].blank?
 	    criteria.where(:system_enabled.in => admin_systems)
 	  else
 	    criteria.where(:system_enabled.in => params[:systems_enabled]) 
 	  end
-	  criteria.where(:active => true) if params[:inactive].blank?
+	  criteria = criteria.where(:active => true) if params[:inactive].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria.any_of({ :name => regexp}, { :short_desc => regexp}, { :permalink => regexp})
+  	  criteria = criteria.any_of({ :name => regexp}, { :short_desc => regexp}, { :permalink => regexp})
 	  end
 		@static_pages = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 100
 	end

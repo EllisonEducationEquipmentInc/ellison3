@@ -63,8 +63,8 @@ class Idea
   end
 	embeds_many :images
 	
-	references_many :tags, :stored_as => :array, :inverse_of => :ideas, :index => true
-	references_many :products, :stored_as => :array, :inverse_of => :ideas, :index => true
+	references_and_referenced_in_many :tags, :index => true
+	references_and_referenced_in_many :products, :index => true
   
 	# scopes
 	scope :active, :where => { :active => true }
