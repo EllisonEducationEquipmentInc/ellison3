@@ -1,9 +1,7 @@
 class VisualAsset
   include EllisonSystem
-	include ActiveModel::Validations
-	include ActiveModel::Translation
 	include Mongoid::Document
-	include Mongoid::Timestamps
+	#include Mongoid::Timestamps
 	
 	ASSET_TYPES = ["catalog_search", "image", "text", "products", "ideas", "freeform", "gallery", "billboard"]
 	

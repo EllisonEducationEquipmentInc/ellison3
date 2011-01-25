@@ -36,7 +36,7 @@ class Product
 	validates_associated :tabs
 	
 	before_save :inherit_system_specific_attributes
-	before_save :clean_up_tags
+	#before_save :clean_up_tags
 	before_save :timestamp_outlet
 	
 	# system specific validations
@@ -170,7 +170,7 @@ class Product
 	mount_uploader :image, ImageUploader	
 	
 	# solr fields:
-	searchable :auto_index => true, :auto_remove => true do
+	searchable :auto_index => true, :auto_remove => true, :ignore_attribute_changes_of => WAREHOUSES.map {|e| "quantity_#{e}".to_sym} + [:updated_at] do
 	  boolean :active
 	  boolean :outlet
 		text :tag_names do
@@ -416,13 +416,19 @@ class Product
   
   # temporary many-to-many association fix until patch is released
 	def my_tag_ids=(ids)
-	  self.tag_ids = []
-	  self.tags = Tag.where(:_id.in => ids.compact.uniq.map {|i| BSON::ObjectId(i)}).uniq.map {|p| p}
+	  ids = ids.compact.uniq.map {|i| BSON::ObjectId(i)}
+	  unless ids == self.tag_ids
+	    self.tag_ids = []
+	    self.tags = Tag.where(:_id.in => ids).uniq.map {|p| p}
+	  end
 	end
 	
 	def my_idea_ids=(ids)
-	  self.idea_ids = []
-	  self.ideas = Idea.where(:_id.in => ids.compact.uniq.map {|i| BSON::ObjectId(i)}).uniq.map {|p| p}
+	  ids = ids.compact.uniq.map {|i| BSON::ObjectId(i)}
+	  unless ids == self.idea_ids
+	    self.idea_ids = []
+	    self.ideas = Idea.where(:_id.in => ids).uniq.map {|p| p}
+	  end
 	end
 	
 	def idea_ids

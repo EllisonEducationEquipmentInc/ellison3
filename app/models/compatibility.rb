@@ -1,7 +1,6 @@
 class Compatibility
 	include EllisonSystem
   include Mongoid::Document
-	include Mongoid::Timestamps
 	
 	field :tag_id, :type => BSON::ObjectId
 	field :products, :type => Array, :default => []

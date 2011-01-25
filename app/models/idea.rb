@@ -95,7 +95,7 @@ class Idea
 	mount_uploader :image, ImageUploader
 	
 	# solr fields:
-	searchable :auto_index => true, :auto_remove => true do
+	searchable :auto_index => true, :auto_remove => true, :ignore_attribute_changes_of => [:updated_at] do
 	  boolean :active
 		text :tag_names do
 			tags.map { |tag| tag.name }
@@ -167,13 +167,19 @@ class Idea
   
   # temporary many-to-many association fix until patch is released
 	def my_tag_ids=(ids)
-	  self.tag_ids = []
-	  self.tags = Tag.where(:_id.in => ids.compact.uniq.map {|i| BSON::ObjectId(i)}).uniq.map {|p| p}
+	  ids = ids.compact.uniq.map {|i| BSON::ObjectId(i)}
+	  unless ids == self.tag_ids
+	    self.tag_ids = []
+	    self.tags = Tag.where(:_id.in => ids).uniq.map {|p| p}
+	  end
 	end
 	
 	def my_product_ids=(ids)
-	  self.product_ids = []
-	  self.products = Product.where(:_id.in => ids.compact.uniq.map {|i| BSON::ObjectId(i)}).uniq.map {|p| p}
+	  ids = ids.compact.uniq.map {|i| BSON::ObjectId(i)}
+	  unless ids == self.product_ids
+	    self.product_ids = []
+	    self.products = Product.where(:_id.in => ids).uniq.map {|p| p}
+	  end
 	end
 	
 	def product_ids

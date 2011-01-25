@@ -2,8 +2,6 @@ class Tag
 	include EllisonSystem
   include Mongoid::Document
 	include Mongoid::Timestamps
-	include ActiveModel::Validations
-	include ActiveModel::Translation
 	include Mongoid::Associations::EmbeddedCallbacks
 	
 	extend EventCalendar::ClassMethods
@@ -137,14 +135,20 @@ class Tag
 	
 	# temporary many-to-many association fix until patch is released
 	def my_product_ids=(ids)
-	  self.product_ids = []
-	  self.products = Product.where(:_id.in => ids.compact.uniq.map {|i| BSON::ObjectId(i)}).uniq.map {|p| p}
+	  ids = ids.compact.uniq.map {|i| BSON::ObjectId(i)}
+	  unless ids == self.product_ids
+	    self.product_ids = []
+  	  self.products = Product.where(:_id.in => ids).uniq.map {|p| p}
+	  end
 	end
 
 	# temporary many-to-many association fix until patch is released	
 	def my_idea_ids=(ids)
-	  self.idea_ids = []
-	  self.ideas = Idea.where(:_id.in => ids.compact.uniq.map {|i| BSON::ObjectId(i)}).uniq.map {|p| p}
+	  ids = ids.compact.uniq.map {|i| BSON::ObjectId(i)}
+	  unless ids == self.idea_ids
+	    self.idea_ids = []
+	    self.ideas = Idea.where(:_id.in => ids).uniq.map {|p| p}
+	  end
 	end
 	
 	def campaign?
