@@ -34,7 +34,7 @@
               - if compatibility.products.length > 0
                 = render :partial => 'products/compatibility_product', :collection => Product.available.where(:item_num.in => compatibility.products).cache, :spacer_template => 'tabs/separator', :as => :product
               .clear
-              .search_related.ui-corner-all.ui-widget-header
+              .search_related.ui-corner-all{:class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
                 %ul
                   %li
                     == Search for more #{link_to compatibility.compatible_tag.name.html_safe, catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")} in our catalog
