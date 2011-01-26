@@ -689,6 +689,17 @@ select#sort, input#select_all_products {
     bottom: $item-block_rel-padding;
     left: 50%;
     margin-left: -($item-block_rel-width/2) - $item-block_rel-padding;
+    
+	  .message {
+	    font-size: .85em;
+	  }
+    
+	  .users_lists_container {
+	    width: $item-block_rel-width + 2;
+      position: absolute;
+      bottom: 0px;
+      left: -2px;
+	  }    
   }
 	
 	&.product { height: 180px;}
