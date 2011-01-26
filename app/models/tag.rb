@@ -12,8 +12,8 @@ class Tag
   TYPES = ["artist", "category", "curriculum", "designer", "machine_compatibility", "material_compatibility", "product_family", "product_line", "special", "subcategory", "subcurriculum", "subtheme", "theme", "release_date", "size"]
   HIDDEN_TYPES = ["exclusive", "calendar_event"]
   
-  references_and_referenced_in_many :products, :index => true, :validate => false, :autosave => false
-  references_and_referenced_in_many :ideas, :index => true, :validate => false, :autosave => false
+  references_and_referenced_in_many :products, :index => true
+  references_and_referenced_in_many :ideas, :index => true
   embeds_one :campaign
   
   embeds_many :compatibilities

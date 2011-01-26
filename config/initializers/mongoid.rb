@@ -40,7 +40,7 @@ module Mongoid #:nodoc:
       attr_accessor :_skip_timestamps
       
       set_callback :create, :before, :set_created_at
-      set_callback :save, :before, :set_updated_at, :unless => Proc.new {|p| p._skip_timestamps}
+      set_callback :save, :before, :set_updated_at, :unless => Proc.new {|p| p._skip_timestamps || !p.changed?}
 
       class_attribute :record_timestamps
       self.record_timestamps = true
