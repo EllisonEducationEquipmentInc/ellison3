@@ -636,6 +636,12 @@ ul.ui-tabs-nav {
   }
   
   #blog-posts, #social-media {
+  
+    h2.decorative {
+      border-bottom: 1px dotted #CCCCCC;
+      margin-bottom: 6px;
+      padding-bottom: 3px;
+    }
     
     ul#blog_feeds, ul#connect-with-sizzix { @extend ul.plain;
 
