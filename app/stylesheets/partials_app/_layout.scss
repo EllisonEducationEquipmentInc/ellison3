@@ -123,7 +123,8 @@
 }
 
 .link_compatibility { @extend .link;
-  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/star.png") no-repeat left bottom;
+  padding: 0 19px 0 0;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/plus.png") no-repeat right bottom;
 }
 
 .tip_play-video { @extend .tip;
