@@ -1,5 +1,5 @@
-%li.ui-menu-item
-  = link_to_function "x", "$(this).parent().remove()"
+%li.ui-menu-item{:id => "idea_#{idea.id}"}
+  = link_to_function "x", "$('#idea_#{idea.id}').css('color', 'gray');$.ajax({url:'/admin/tags/remove_idea?idea_id=#{idea.id}&id=#{tag_id}'})"
   = idea.idea_num
   = idea.name
-  = hidden_field_tag "tag[my_idea_ids][]", idea.id
+  =# hidden_field_tag "tag[my_idea_ids][]", idea.id

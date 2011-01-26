@@ -111,8 +111,8 @@ class Product
 	embeds_many :images
 	embeds_one :product_config
 	
-	references_and_referenced_in_many :tags, :index => true
-	references_and_referenced_in_many :ideas, :index => true
+	references_and_referenced_in_many :tags, :index => true, :validate => false, :autosave => false
+	references_and_referenced_in_many :ideas, :index => true, :validate => false, :autosave => false
   #references_many :order_items, :index => true
   #references_many :cart_items, :index => true
   

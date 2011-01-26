@@ -184,6 +184,7 @@ GEM
     mime-types (1.16)
     mongo (1.2.0)
       bson (>= 1.2.0)
+    mongo_ext (0.19.3)
     mongo_session_store (2.0.0)
       actionpack (~> 3.0)
     mysql (2.8.1)
@@ -319,7 +320,7 @@ DEPENDENCIES
   memcache
   memcache-client
   mini_magick!
-  mongo (>= 1.0.8)
+  mongo_ext
   mongo_session_store (>= 2.0.0)
   mongoid!
   mysql

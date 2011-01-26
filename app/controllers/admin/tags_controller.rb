@@ -72,7 +72,6 @@ class Admin::TagsController < ApplicationController
   # PUT /tags/1.xml
   def update
     @tag = Tag.find(params[:id])
-    params[:tag][:my_product_ids] ||= []
     @tag.write_attributes(params[:tag])
     populate_campaign
     respond_to do |format|
@@ -113,6 +112,42 @@ class Admin::TagsController < ApplicationController
     render :js => "alert('ERROR saving visual asset order: make sure all visual assets are saved before you resort them. (save/update landing page first and then come back to resort them)')"
   end
 
+  def remove_product
+    @tag = Tag.find(params[:id])
+    @product = Product.find(params[:product_id])
+    @tag.product_ids.delete @product.id
+    @product.tag_ids.delete @tag.id
+    @tag.save
+    @product.save
+    render :js => "$('li#product_#{@product.id}').remove()"
+  end
+  
+  def add_product
+    @tag = Tag.find(params[:id])
+    @product = Product.find(params[:product_id])
+    @tag.products << @product
+    @tag.save
+    render(:partial => 'product', :object => @product, :locals => {:tag_id => @tag.id})
+  end
+  
+  def remove_idea
+    @tag = Tag.find(params[:id])
+    @idea = Idea.find(params[:idea_id])
+    @tag.idea_ids.delete @idea.id
+    @idea.tag_ids.delete @tag.id
+    @tag.save
+    @idea.save
+    render :js => "$('li#idea_#{@idea.id}').remove()"
+  end
+  
+  def add_idea
+    @tag = Tag.find(params[:id])
+    @idea = Idea.find(params[:idea_id])
+    @tag.ideas << @idea
+    @tag.save
+    render(:partial => 'idea', :object => @idea, :locals => {:tag_id => @tag.id})
+  end
+  
 private
   
   def populate_campaign

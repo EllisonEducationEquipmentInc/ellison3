@@ -70,14 +70,15 @@
     %br
     = f.label :remove_image
     = f.check_box :remove_image
-  %h3 Products
-  %ul#tag_products= render :partial => 'product', :collection => @tag.products
-  = text_field_tag "tag_products_helper"
-  %br
-  %br
-  %h3 Ideas
-  %ul#tag_ideas= render :partial => 'idea', :collection => @tag.ideas
-  = text_field_tag "tag_ideas_helper"
+  - unless @tag.new_record?
+    %h3 Products
+    %ul#tag_products= render :partial => 'product', :collection => @tag.products, :locals => {:tag_id => @tag.id}
+    = text_field_tag "tag_products_helper"
+    %br
+    %br
+    %h3 Ideas
+    %ul#tag_ideas= render :partial => 'idea', :collection => @tag.ideas, :locals => {:tag_id => @tag.id}
+    = text_field_tag "tag_ideas_helper"
   %br
   %br
   #visual_assets  
@@ -112,7 +113,7 @@
     			},
   	select: function(event, ui) {
   	  this.value = '';
-  	  $("#tag_products").append("<li class='ui-menu-item'><a href='#' onclick='$(this).parent().remove();return false;'>x</a> "+ui.item.label+"<input name=\"tag[my_product_ids][]\" type=\"hidden\" value=\""+ui.item.id+"\" /></li>");
+  		$.ajax({url:'/admin/tags/add_product?product_id='+ui.item.id+'&id=#{@tag.id}', success: function(html) {$('#tag_products').append(html)}});
   		return false;
   	}});
   $("#tag_ideas_helper").autocomplete({
@@ -132,7 +133,7 @@
     			},
   	select: function(event, ui) {
   	  this.value = '';
-  	  $("#tag_ideas").append("<li class='ui-menu-item'><a href='#' onclick='$(this).parent().remove();return false;'>x</a> "+ui.item.label+"<input name=\"tag[my_idea_ids][]\" type=\"hidden\" value=\""+ui.item.id+"\" /></li>");
+  	  $.ajax({url:'/admin/tags/add_idea?idea_id='+ui.item.id+'&id=#{@tag.id}', success: function(html){$('#tag_ideas').append(html)}});
   		return false;
   	}});
   

@@ -47,16 +47,17 @@
     = f.label :remove_image
     = f.check_box :remove_image
   %br
-  %h3 Tags
-  %ul#idea_tags= render :partial => 'tag', :collection => @idea.tags
-  = label_tag :idea_tags_helper
-  = text_field_tag "idea_tags_helper"
-  %br
-  %br
-  %h3 Products
-  %ul#idea_products= render :partial => 'product', :collection => @idea.products
-  = label_tag :idea_products_helper
-  = text_field_tag "idea_products_helper"
+  - unless @idea.new_record?
+    %h3 Tags
+    %ul#idea_tags= render :partial => 'tag', :collection => @idea.tags, :locals => {:idea_id => @idea.id}
+    = label_tag :idea_tags_helper
+    = text_field_tag "idea_tags_helper"
+    %br
+    %br
+    %h3 Products
+    %ul#idea_products= render :partial => 'product', :collection => @idea.products, :locals => {:idea_id => @idea.id}
+    = label_tag :idea_products_helper
+    = text_field_tag "idea_products_helper"
   %br
   %br
   %h3 Related Idea Tag
@@ -108,7 +109,7 @@
       			},
     	select: function(event, ui) {
     	  this.value = '';
-    	  $("#idea_tags").append("<li class='ui-menu-item'><a href='#' onclick='$(this).parent().remove();return false;'>x</a> "+ui.item.label+"<input name=\"idea[my_tag_ids][]\" type=\"hidden\" value=\""+ui.item.id+"\" /></li>");
+    	  $.ajax({url:'/admin/ideas/add_tag?tag_id='+ui.item.id+'&id=#{@idea.id}', success: function(html) {$('#idea_tags').append(html)}});
     		return false;
     	}});
     	
@@ -129,6 +130,6 @@
         			},
       	select: function(event, ui) {
       	  this.value = '';
-      	  $("#idea_products").append("<li class='ui-menu-item'><a href='#' onclick='$(this).parent().remove();return false;'>x</a> "+ui.item.label+"<input name=\"idea[my_product_ids][]\" type=\"hidden\" value=\""+ui.item.id+"\" /></li>");
+      	  $.ajax({url:'/admin/ideas/add_product?product_id='+ui.item.id+'&id=#{@idea.id}', success: function(html) {$('#idea_products').append(html)}});
       		return false;
       	}});

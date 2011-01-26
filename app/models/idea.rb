@@ -14,7 +14,7 @@ class Idea
 	validates_uniqueness_of :idea_num
 	
 	before_save :inherit_system_specific_attributes
-	before_save :clean_up_tags
+	#before_save :clean_up_tags
 	
 	# system specific validations
 	ELLISON_SYSTEMS.each do |system|
@@ -63,8 +63,8 @@ class Idea
   end
 	embeds_many :images
 	
-	references_and_referenced_in_many :tags, :index => true
-	references_and_referenced_in_many :products, :index => true
+	references_and_referenced_in_many :tags, :index => true, :validate => false, :autosave => false
+	references_and_referenced_in_many :products, :index => true, :validate => false, :autosave => false
   
 	# scopes
 	scope :active, :where => { :active => true }

@@ -114,15 +114,16 @@
     = f.label :remove_image
     = f.check_box :remove_image
   %br
-  %h3 Tags
-  %ul#product_tags= render :partial => 'tag', :collection => @product.tags
-  = text_field_tag "product_tags_helper"
-  %br
-  %br
-  %h3 Ideas
-  %ul#product_ideas= render :partial => 'idea', :collection => @product.ideas
-  = label_tag :product_ideas_helper
-  = text_field_tag "product_ideas_helper"
+  - unless @product.new_record?
+    %h3 Tags
+    %ul#product_tags= render :partial => 'tag', :collection => @product.tags, :locals => {:product_id => @product.id}
+    = text_field_tag "product_tags_helper"
+    %br
+    %br
+    %h3 Ideas
+    %ul#product_ideas= render :partial => 'idea', :collection => @product.ideas, :locals => {:product_id => @product.id}
+    = label_tag :product_ideas_helper
+    = text_field_tag "product_ideas_helper"
   %br
   %br
   %h3 Related Product Tag
@@ -179,7 +180,7 @@
       			},
     	select: function(event, ui) {
     	  this.value = '';
-    	  $("#product_tags").append("<li class='ui-menu-item'><a href='#' onclick='$(this).parent().remove();return false;'>x</a> "+ui.item.label+"<input name=\"product[my_tag_ids][]\" type=\"hidden\" value=\""+ui.item.id+"\" /></li>");
+    	  $.ajax({url:'/admin/products/add_tag?tag_id='+ui.item.id+'&id=#{@product.id}', success: function(html) {$('#product_tags').append(html)}});
     		return false;
     	}});
     	
@@ -200,6 +201,6 @@
         			},
       	select: function(event, ui) {
       	  this.value = '';
-      	  $("#product_ideas").append("<li class='ui-menu-item'><a href='#' onclick='$(this).parent().remove();return false;'>x</a> "+ui.item.label+"<input name=\"product[my_idea_ids][]\" type=\"hidden\" value=\""+ui.item.id+"\" /></li>");
+      	  $.ajax({url:'/admin/products/add_idea?idea_id='+ui.item.id+'&id=#{@product.id}', success: function(html){$('#product_ideas').append(html)}});
       		return false;
       	}});

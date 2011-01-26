@@ -1,42 +1,42 @@
 class Tag
-	include EllisonSystem
+  include EllisonSystem
   include Mongoid::Document
-	include Mongoid::Timestamps
-	include Mongoid::Associations::EmbeddedCallbacks
-	
-	extend EventCalendar::ClassMethods
-	has_event_calendar :start_at_field  => 'calendar_start_date', :end_at_field => 'calendar_end_date'
-	
-	attr_accessor :embed_campaign
-	
-	TYPES = ["artist", "category", "curriculum", "designer", "machine_compatibility", "material_compatibility", "product_family", "product_line", "special", "subcategory", "subcurriculum", "subtheme", "theme", "release_date", "size"]
+  include Mongoid::Timestamps
+  include Mongoid::Associations::EmbeddedCallbacks
+  
+  extend EventCalendar::ClassMethods
+  has_event_calendar :start_at_field  => 'calendar_start_date', :end_at_field => 'calendar_end_date'
+  
+  attr_accessor :embed_campaign
+  
+  TYPES = ["artist", "category", "curriculum", "designer", "machine_compatibility", "material_compatibility", "product_family", "product_line", "special", "subcategory", "subcurriculum", "subtheme", "theme", "release_date", "size"]
   HIDDEN_TYPES = ["exclusive", "calendar_event"]
   
-  references_and_referenced_in_many :products, :index => true
-  references_and_referenced_in_many :ideas, :index => true
+  references_and_referenced_in_many :products, :index => true, :validate => false, :autosave => false
+  references_and_referenced_in_many :ideas, :index => true, :validate => false, :autosave => false
   embeds_one :campaign
   
   embeds_many :compatibilities
   
   embeds_many :visual_assets do
     def current
-			ordered.select {|asset| asset.available?}
+      ordered.select {|asset| asset.available?}
     end
 
-		def ordered
-			@target.sort {|x,y| x.display_order <=> y.display_order}
-		end
+    def ordered
+      @target.sort {|x,y| x.display_order <=> y.display_order}
+    end
 
-		def resort!(ids)
-			@target.each {|t| t.display_order = ids.index(t.id.to_s)}
-		end
+    def resort!(ids)
+      @target.each {|t| t.display_order = ids.index(t.id.to_s)}
+    end
   end
   
   accepts_nested_attributes_for :visual_assets, :allow_destroy => true, :reject_if => proc { |attributes| attributes['name'].blank?}
-	validates_associated :visual_assets
-	
-	accepts_nested_attributes_for :compatibilities, :allow_destroy => true, :reject_if => proc { |attributes| attributes['tag_id'].blank?}
-	validates_associated :compatibilities
+  validates_associated :visual_assets
+  
+  accepts_nested_attributes_for :compatibilities, :allow_destroy => true, :reject_if => proc { |attributes| attributes['tag_id'].blank?}
+  validates_associated :compatibilities
   
   validates :name, :tag_type, :systems_enabled, :permalink, :presence => true
   validates_format_of :permalink, :with => /^[\w\d-]+$/
@@ -53,111 +53,111 @@ class Tag
   field :description
   field :permalink
   ELLISON_SYSTEMS.each do |system|
-	  field "start_date_#{system}".to_sym, :type => DateTime
-	  field "end_date_#{system}".to_sym, :type => DateTime
-	end
-	field :banner
-	field :list_page_image
-	field :medium_image
-	field :all_day, :type => Boolean
-	field :old_id, :type => Integer
-	field :old_id_edu, :type => Integer
-	field :color
-	field :keywords
-	
-	index :systems_enabled
-	index :permalink
-	index :tag_type
-	index :active
-	index :name
-	index :old_id
-	ELLISON_SYSTEMS.each do |system|
-	  index :"start_date_#{system}"
-	  index :"end_date_#{system}"
-	  field :"calendar_start_date_#{system}", :type => DateTime
-  	field :"calendar_end_date_#{system}", :type => DateTime
-	end
-	index :image_filename
-	index :updated_at
-	
-	mount_uploader :image, GenericImageUploader	
-	
-	# scopes
-	scope :active, :where => { :active => true }
-	scope :inactive, :where => { :active => false }
-	#scope :available, lambda { |sys = current_system| where(:active => true, :systems_enabled.in => [sys], :"start_date_#{sys}".lte => Time.zone.now, :"end_date_#{sys}".gte => Time.zone.now) }
-	ELLISON_SYSTEMS.each do |sys|
-		scope sys.to_sym, :where => { :systems_enabled.in => [sys] }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex.:  Tag.szus => scope for sizzix US tags
-	end
-	
-	class << self
-	  
-	  def events_for_date_range(start_d, end_d, find_options = {})
-	    Tag.available.calendar_events
-	  end
-		
-		def all_types
-		  Tag::TYPES + Tag::HIDDEN_TYPES
-		end
-		  
-		def available(sys = current_system)
-			active.where(:systems_enabled.in => [sys], :"start_date_#{sys}".lte => Time.zone.now.change(:sec => 1), :"end_date_#{sys}".gte => Time.zone.now.change(:sec => 1))
-		end
-		
-		def keywords(sys = current_system)
-			available(sys).where(:tag_type.nin => HIDDEN_TYPES)
-		end
-		
-		def have_image(sys = current_system)
-		  keywords(sys).excludes(:image_filename => nil)
-		end
-		
-		def find_by_permalink(facet, permalink)
-		  active.where(:tag_type => facet.to_s.gsub(Regexp.new("_#{current_system}$"), ""), :permalink => permalink).cache.first
-		end
-	end
-	
-	all_types.each do |type|
-	  scope type.pluralize.to_sym, :where => { :tag_type => type }  # scope :calendar_events, :where => { :tag_type => "calendar_event" } #dynaically create a scope for each type. ex.:  Tag.calendar_events => scope for calendar event tags
-	end
-	
-	def calendar_start_date
-	  send(:"calendar_start_date_#{current_system}")
-	end
-	
-	def calendar_end_date
-	  send(:"calendar_end_date_#{current_system}")
-	end
-	
-	def facet_param
-	  tag_type.to_s.gsub(/_(#{ELLISON_SYSTEMS.join("|")})$/, "") + "~" + permalink
-	end
-	
-	# temporary many-to-many association fix until patch is released
-	def my_product_ids=(ids)
-	  ids = ids.compact.uniq.map {|i| BSON::ObjectId(i)}
-	  unless ids == self.product_ids
-	    self.product_ids = []
-  	  self.products = Product.where(:_id.in => ids).uniq.map {|p| p}
-	  end
-	end
+    field "start_date_#{system}".to_sym, :type => DateTime
+    field "end_date_#{system}".to_sym, :type => DateTime
+  end
+  field :banner
+  field :list_page_image
+  field :medium_image
+  field :all_day, :type => Boolean
+  field :old_id, :type => Integer
+  field :old_id_edu, :type => Integer
+  field :color
+  field :keywords
+  
+  index :systems_enabled
+  index :permalink
+  index :tag_type
+  index :active
+  index :name
+  index :old_id
+  ELLISON_SYSTEMS.each do |system|
+    index :"start_date_#{system}"
+    index :"end_date_#{system}"
+    field :"calendar_start_date_#{system}", :type => DateTime
+    field :"calendar_end_date_#{system}", :type => DateTime
+  end
+  index :image_filename
+  index :updated_at
+  
+  mount_uploader :image, GenericImageUploader 
+  
+  # scopes
+  scope :active, :where => { :active => true }
+  scope :inactive, :where => { :active => false }
+  #scope :available, lambda { |sys = current_system| where(:active => true, :systems_enabled.in => [sys], :"start_date_#{sys}".lte => Time.zone.now, :"end_date_#{sys}".gte => Time.zone.now) }
+  ELLISON_SYSTEMS.each do |sys|
+    scope sys.to_sym, :where => { :systems_enabled.in => [sys] }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex.:  Tag.szus => scope for sizzix US tags
+  end
+  
+  class << self
+    
+    def events_for_date_range(start_d, end_d, find_options = {})
+      Tag.available.calendar_events
+    end
+    
+    def all_types
+      Tag::TYPES + Tag::HIDDEN_TYPES
+    end
+      
+    def available(sys = current_system)
+      active.where(:systems_enabled.in => [sys], :"start_date_#{sys}".lte => Time.zone.now.change(:sec => 1), :"end_date_#{sys}".gte => Time.zone.now.change(:sec => 1))
+    end
+    
+    def keywords(sys = current_system)
+      available(sys).where(:tag_type.nin => HIDDEN_TYPES)
+    end
+    
+    def have_image(sys = current_system)
+      keywords(sys).excludes(:image_filename => nil)
+    end
+    
+    def find_by_permalink(facet, permalink)
+      active.where(:tag_type => facet.to_s.gsub(Regexp.new("_#{current_system}$"), ""), :permalink => permalink).cache.first
+    end
+  end
+  
+  all_types.each do |type|
+    scope type.pluralize.to_sym, :where => { :tag_type => type }  # scope :calendar_events, :where => { :tag_type => "calendar_event" } #dynaically create a scope for each type. ex.:  Tag.calendar_events => scope for calendar event tags
+  end
+  
+  def calendar_start_date
+    send(:"calendar_start_date_#{current_system}")
+  end
+  
+  def calendar_end_date
+    send(:"calendar_end_date_#{current_system}")
+  end
+  
+  def facet_param
+    tag_type.to_s.gsub(/_(#{ELLISON_SYSTEMS.join("|")})$/, "") + "~" + permalink
+  end
+  
+  # temporary many-to-many association fix until patch is released
+  def my_product_ids=(ids)
+    ids = ids.compact.uniq.map {|i| BSON::ObjectId(i)}
+    unless ids == self.product_ids
+      self.product_ids = []
+      self.products = Product.where(:_id.in => ids).uniq.map {|p| p}
+    end
+  end
 
-	# temporary many-to-many association fix until patch is released	
-	def my_idea_ids=(ids)
-	  ids = ids.compact.uniq.map {|i| BSON::ObjectId(i)}
-	  unless ids == self.idea_ids
-	    self.idea_ids = []
-	    self.ideas = Idea.where(:_id.in => ids).uniq.map {|p| p}
-	  end
-	end
-	
-	def campaign?
-	  self.tag_type == "special" #|| self.tag_type == "exclusive"
-	end
-	
-	def list_page_img
-	  image? ? image_url(:medium) : self.list_page_image
-	end
+  # temporary many-to-many association fix until patch is released  
+  def my_idea_ids=(ids)
+    ids = ids.compact.uniq.map {|i| BSON::ObjectId(i)}
+    unless ids == self.idea_ids
+      self.idea_ids = []
+      self.ideas = Idea.where(:_id.in => ids).uniq.map {|p| p}
+    end
+  end
+  
+  def campaign?
+    self.tag_type == "special" #|| self.tag_type == "exclusive"
+  end
+  
+  def list_page_img
+    image? ? image_url(:medium) : self.list_page_image
+  end
 
   def adjust_all_day_dates
     if self.tag_type == 'calendar_event' && self.all_day

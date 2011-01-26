@@ -1,5 +1,4 @@
-%li.ui-menu-item
-  = link_to_function "x", "$(this).parent().remove()"
+%li.ui-menu-item{:id => "tag_#{tag.id}"}
+  = link_to_function "x", "$('#tag_#{tag.id}').css('color', 'gray');$.ajax({url:'/admin/products/remove_tag?tag_id=#{tag.id}&id=#{product_id}'})"
   = tag.name
   == (#{tag.tag_type.humanize})
-  = hidden_field_tag "product[my_tag_ids][]", tag.id

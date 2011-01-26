@@ -69,7 +69,6 @@ class Admin::IdeasController < ApplicationController
   # PUT /ideas/1.xml
   def update
     @idea = Idea.find(params[:id])
-    params[:idea][:my_tag_ids] ||= []
     respond_to do |format|
       if @idea.update_attributes(params[:idea])
         format.html { redirect_to(admin_ideas_url, :notice => 'Idea was successfully updated.') }
@@ -190,4 +189,40 @@ class Admin::IdeasController < ApplicationController
   rescue
     render :js => "alert('make sure both idea and tab are selected')" and return
 	end
+	
+	def remove_product
+    @idea = Idea.find(params[:id])
+    @product = Product.find(params[:product_id])
+    @idea.product_ids.delete @product.id
+    @product.idea_ids.delete @idea.id
+    @idea.save
+    @product.save
+    render :js => "$('li#product_#{@product.id}').remove()"
+  end
+  
+  def add_product
+    @idea = Idea.find(params[:id])
+    @product = Product.find(params[:product_id])
+    @idea.products << @product
+    @idea.save
+    render(:partial => 'product', :object => @product, :locals => {:idea_id => @idea.id})
+  end
+  
+  def remove_tag
+    @idea = Idea.find(params[:id])
+    @tag = Tag.find(params[:tag_id])
+    @tag.idea_ids.delete @idea.id
+    @idea.tag_ids.delete @tag.id
+    @tag.save
+    @idea.save
+    render :js => "$('li#tag_#{@tag.id}').remove()"
+  end
+  
+  def add_tag
+    @idea = Idea.find(params[:id])
+    @tag = Tag.find(params[:tag_id])
+    @idea.tags << @tag
+    @idea.save
+    render(:partial => 'tag', :object => @tag, :locals => {:idea_id => @idea.id})
+  end
 end

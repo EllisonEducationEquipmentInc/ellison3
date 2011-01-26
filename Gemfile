@@ -12,7 +12,8 @@ gem 'rails', '3.0.3'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mongo', '>=1.0.8'
+#gem 'mongo', '>=1.0.8'
+gem 'mongo_ext'
 gem "bson_ext", ">=1.0.7"
 gem 'passenger'
 gem 'mysql'

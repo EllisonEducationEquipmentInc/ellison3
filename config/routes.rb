@@ -108,7 +108,7 @@ Ellison3::Application.routes.draw do |map|
       # (app/controllers/admin/products_controller.rb)
       resources :products do
 				collection do
-			    get :new_campaign, :edit_campaign, :new_image, :new_tab, :products_autocomplete, :reorder_tabs, :show_tabs, :product_helper, :product_helper_by_tag
+			    get :new_campaign, :edit_campaign, :new_image, :new_tab, :products_autocomplete, :reorder_tabs, :show_tabs, :product_helper, :product_helper_by_tag, :remove_tag, :add_tag, :remove_idea, :add_idea
 					post :create_campaign, :update_campaign, :upload_image, :create_tab, :update_tab, :clone_existing_tab
 					delete :delete_campaign, :delete_image, :delete_tab
 					put :update_campaign, :update_tab
@@ -116,7 +116,7 @@ Ellison3::Application.routes.draw do |map|
 			end
 			resources :ideas do
 				collection do
-			    get :new_image, :new_tab, :ideas_autocomplete, :reorder_tabs, :show_tabs, :idea_helper, :idea_helper_by_tag
+			    get :new_image, :new_tab, :ideas_autocomplete, :reorder_tabs, :show_tabs, :idea_helper, :idea_helper_by_tag, :remove_product, :add_product, :remove_tag, :add_tag
 					post :upload_image, :create_tab, :update_tab, :clone_existing_tab
 					delete :delete_image, :delete_tab
 					put :update_tab
@@ -156,7 +156,7 @@ Ellison3::Application.routes.draw do |map|
 			end
 			resources :tags do
 				collection do
-			    get :tags_autocomplete, :reorder_visual_assets
+			    get :tags_autocomplete, :reorder_visual_assets, :remove_product, :add_product, :remove_idea, :add_idea
 			  end
 			end
 			resources :compatibilities do
