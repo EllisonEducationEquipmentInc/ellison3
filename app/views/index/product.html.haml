@@ -30,7 +30,10 @@
         %li
           %div{:style => "display:none"}
             %div{:id => "compatible_tag_#{compatibility.id}", :class => "compatibility_detail"}
-              %h4== #{@product.name.html_safe} requires #{pluralize compatibility.products.length, "additional accessory"} for full compatibility
+              %h4
+                == #{@product.name.html_safe} requires
+                %strong==#{pluralize compatibility.products.length, "additional accessory"}
+                for full compatibility
               - if compatibility.products.length > 0
                 = render :partial => 'products/compatibility_product', :collection => Product.available.where(:item_num.in => compatibility.products).cache, :spacer_template => 'tabs/separator', :as => :product
               .clear

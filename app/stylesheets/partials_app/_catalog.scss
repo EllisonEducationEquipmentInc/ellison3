@@ -744,7 +744,11 @@ select#sort, input#select_all_products {
     margin-top: 12px;
     padding: 8px;
     
+    &.ui-widget-header { font-weight: normal;}
+    
     ul { @extend ul.plain; }
+    
+    a { font-weight: bold; }
   }
 }
 
