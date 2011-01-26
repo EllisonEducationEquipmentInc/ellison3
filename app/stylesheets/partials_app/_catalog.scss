@@ -669,20 +669,32 @@ select#sort, input#select_all_products {
 }
 
 .item-block_related {
+  $item-block_rel-width: 140px;
+  $item-block_rel-padding: 8px;
+  
 	position: relative;
-  width: 140px;
+  width: $item-block_rel-width;
   margin: 8px 0 0 8px;
-  padding: 10px;
+  padding: $item-block_rel-padding;
   background: white;
   text-align: center;
 	color: $catalog_text;
   font-family: Verdana,Arial,sans-serif;        
-  font-size: 10.2px;
 	overflow: visible;
 	z-index: 200;
 	
+  .cart-buttons {
+    width: 100%;
+    position: absolute;
+    bottom: $item-block_rel-padding;
+    left: 50%;
+    margin-left: -($item-block_rel-width/2) - $item-block_rel-padding;
+  }
+	
 	&.product { height: 180px;}
 	&.idea { height: 160px;}
+	
+	p.item_name, p.item_image, p.item_price { font-size: 10.2px; }
 
 	.life-cycle {
     position: absolute;
@@ -732,6 +744,7 @@ select#sort, input#select_all_products {
   .item-block_related {
     float: left;
     border: 1px solid $catalog_buybox_border;
+    height: 240px;    
   }
 
   .plus_sign {
