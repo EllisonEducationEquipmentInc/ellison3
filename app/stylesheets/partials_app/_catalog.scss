@@ -713,29 +713,38 @@ select#sort, input#select_all_products {
 
 // machine/die compatibility information
 .item_compatibility {
-
-  ul.plain {
+  p { margin-bottom: 0 !important;}
   
+  p.icon-info { @extend .minilink; }
+  
+  ul { @extend ul.horizontal;
+    margin-left: 16px !important;;
+    
     li {
-      display: inline;
-      float: left;
-      overflow: hidden;
-      position: relative;
-      
-      a {
-        float: left;
-      }
-      
-      .compatibility-plus {
-        width: 16px;
-        height: 16px;
-        background: transparent url('/images/ui-icons/set_fugue/16x16/no-shadow/plus-octagon-frame.png') no-repeat;
-        position: absolute;
-        top: 6px;
-        right: 3px;
-        text-indent: -99999px;
-      }
+      width: 50%;
     }
+  }  
+}
+
+.compatibility_detail {
+  width: 750px;
+  
+  .item-block_related {
+    float: left;
+    border: 1px solid $catalog_buybox_border;
+  }
+
+  .plus_sign {
+    float: left;
+    margin: 100px 0px 0 8px; // for equal distance between blocks, set left padding +8px more than right
+  }
+  
+  .search_related {
+    height: 125px;
+    margin-top: 12px;
+    padding: 8px;
+    
+    ul { @extend ul.plain; }
   }
 }
 

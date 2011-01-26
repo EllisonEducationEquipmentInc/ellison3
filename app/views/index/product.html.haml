@@ -24,57 +24,47 @@
   .item_compatibility
     %h4 Compatibility
     %p This [TODO: @product.item_type] is compatible with the following items:
-    %ul.plain
+    %ul
       - @product.product_line.compatibilities.each do |compatibility|
         - next unless compatibility.compatible_tag.present?
         %li
-          %div{:id => "compatible_tag_#{compatibility.id}", :style => "display:none"}
-            .item-block_related.product
-              %p.item_image= link_to image_tag(compatibility.compatible_tag.list_page_img), catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")
-              %p.item_name= link_to compatibility.compatible_tag.name.html_safe, catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")
-            - if compatibility.products.length > 0
-              .plus_sign.ui-icon.ui-icon-plusthick
-              = render :partial => 'products/compatibility_product', :collection => Product.available.where(:item_num.in => compatibility.products).cache, :spacer_template => 'tabs/separator', :as => :product
-          = link_to "#", :id => "compatibility_thumbnail_#{compatibility.id}" do
-            %span{:class => compatibility.products.present? ? 'compatibility-plus' : nil}
-            = image_tag(compatibility.compatible_tag.try(:list_page_img), :class => "thumbnail", :size => "65x65")    
-          :javascript
-            $('#compatibility_thumbnail_#{compatibility.id}').CreateBubblePopup({
-              position: 'top',
-              align: 'center',
-              tail: {
-                align: 'middle',
-                hidden: false
-              },
-              selectable: true,
-              innerHtml: $('#compatible_tag_#{compatibility.id}').html(),
-              innerHtmlStyle: {
-                color: '#333333',
-                'text-align': 'left'
-              },
-              themeName: 'azure',
-              themePath: '/images/ui-plugins/bubblepopup'
-            });
+          %div{:style => "display:none"}
+            %div{:id => "compatible_tag_#{compatibility.id}", :class => "compatibility_detail"}
+              %h4== #{@product.name.html_safe} requires #{pluralize compatibility.products.length, "additional accessory"} for full compatibility
+              - if compatibility.products.length > 0
+                = render :partial => 'products/compatibility_product', :collection => Product.available.where(:item_num.in => compatibility.products).cache, :spacer_template => 'tabs/separator', :as => :product
+              .clear
+              .search_related.ui-corner-all.ui-widget-header
+                %ul
+                  %li
+                    == Search for more #{link_to compatibility.compatible_tag.name.html_safe, catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")} in our catalog
+                    %span.right= link_to image_tag(compatibility.compatible_tag.list_page_img), catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")
+
+          = link_to "#compatible_tag_#{compatibility.id}", :id => "compatibility_thumbnail_#{compatibility.id}", :class => compatibility.products.present? ? "link_compatibility lightbox tooltip_#{compatibility.products.length}-items" : "link_blank" do
+            = compatibility.compatible_tag.name.html_safe
+            :javascript
+              $('.tooltip_#{compatibility.products.length}-items').CreateBubblePopup({
+                position: 'top',
+                align: 'center',
+                tail: {
+                  align: 'middle',
+                  hidden: false
+                },
+                selectable: true,
+                innerHtml: '<div style="width:175px;"><strong>#{pluralize compatibility.products.length, "additional accessory"}</strong> required</div>',
+                innerHtmlStyle: {
+                  color: '#333333',
+                  'text-align': 'center'
+                },
+                themeName: 'azure',
+                themePath: '/images/ui-plugins/bubblepopup'
+              });
 
     .clear
-    %p== What does #{image_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/plus-octagon-frame.png", :alt => "Compatibility Plus", :title => "Compatibility Plus", :class => "tooltip_plusinfo")} mean?
-    :javascript
-      $('.tooltip_plusinfo').CreateBubblePopup({
-        position: 'top',
-        align: 'center',
-        tail: {
-          align: 'middle',
-          hidden: false
-        },
-        selectable: true,
-        innerHtml: '<div style="width:175px;">Machines with this symbol require a few additional accessories before they can be used with this die.</div>',
-        innerHtmlStyle: {
-          color: '#333333',
-          'text-align': 'center'
-        },
-        themeName: 'azure',
-        themePath: '/images/ui-plugins/bubblepopup'
-      });
+    %p.icon-info
+      == Items denoted by the #{image_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/star.png", :alt => "Compatibility Info", :title => "Compatibility Info")} icon require additional accessories for complete compatibility.
+      %br
+      Click on each for full details    
 
 %div{ :class => "item_detail#{'-tabbed' if @product.use_tabs}"}
   = render :partial => "#{'non_' unless @product.use_tabs}tab_block", :locals => {:object => @product}

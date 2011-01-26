@@ -79,6 +79,10 @@
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/smiley-twist.png") no-repeat left bottom;
 }
 
+.link_blank { @extend .link;
+  background: none;
+}
+
 .link_back { @extend .link;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/arrow-curve-180-left.png") no-repeat left bottom;
 }
@@ -116,6 +120,10 @@
 .link_contact { @extend .link;
   padding: 0 0 0 21px;
   background: url("/images/ui-icons/set_social-media/16x16/email.png") no-repeat left bottom;
+}
+
+.link_compatibility { @extend .link;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/star.png") no-repeat left bottom;
 }
 
 .tip_play-video { @extend .tip;
