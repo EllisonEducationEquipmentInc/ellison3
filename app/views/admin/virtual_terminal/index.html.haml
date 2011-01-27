@@ -1,0 +1,162 @@
+#virtual_terminal_message.notice{:style => "display:none"}
+#virtual_terminal.accordion-block
+  %h3= link_to "CCH Calculate", "#cch_calculate"
+  #cch_calculate
+    = form_for @order, :url => {:action => "cch_calculate"}, :html => {:id => "cch_calculate_form", 'data-type' => 'html'}, :as => :cch_calculate, :remote => true do |f|
+      = render :partial => 'order', :locals => {:f => f}
+      = f.fields_for @order.address do |address_fields|
+        = render :partial => 'address_form', :locals => {:f => address_fields}
+      .actions
+        = f.submit "CCH Calculate", :class => 'jqui_save', :disable_with => "please wait..."
+      :javascript
+        $(document).ready(function() { 
+            $("##{f.object_name[/^\w+/]}_form").validate({ 
+                errorClass: "invalid",
+                rules: { 
+                    "#{f.object_name[/^\w+/]}[address][zip_code]": { 
+                        required: true
+                    }, 
+                    "#{f.object_name[/^\w+/]}[address][state]": { 
+                        required: true
+                    }, 
+                    "#{f.object_name[/^\w+/]}[address][address1]": { 
+                        required: true, 
+                    }, 
+                    "#{f.object_name[/^\w+/]}[address][city]": { 
+                        required: true, 
+                    },
+                   "#{f.object_name[/^\w+/]}[subtotal_amount]": { 
+                        required: true, 
+                    },
+                    "#{f.object_name[/^\w+/]}[shipping_amount]": { 
+                        required: true, 
+                    },
+
+
+                }, 
+                success: function(label) { 
+                    label.html(" ").addClass("checked"); 
+                },
+                submitHandler: function(form) {
+                  $("##{f.object_name[/^\w+/]}_form").callRemote();
+                },
+            });
+            $("##{f.object_name[/^\w+/]}_form").bind('ajax:success', function(e, data) {$('#virtual_terminal_message').show().html(data)}); 
+        });
+  %h3= link_to "CCH Commit", "#cch_commit"
+  #cch_commit
+    CCH Commit
+  %h3= link_to "CCH Return", "#cch_return"
+  #cch_return
+    CCH Return
+  %h3= link_to "Credit Card Purchase/Authorize", "#cc_purchase"
+  #cc_purchase
+    = form_for @order, :url => {:action => "cc_purchase"}, :html => {:id => "cc_purchase_form"}, :as => :cc_purchase, :remote => true do |f|
+      .field
+        = label_tag :purchase_system, "System"
+        = select_tag :purchase_system, options_for_select(ELLISON_SYSTEMS, current_system)
+      .field
+        = label_tag :purchase_transaction_type
+        = select_tag :purchase_transaction_type, options_for_select(%w(purchase authorize))
+      .field
+        = label_tag :purchase_total_amount
+        = text_field_tag :purchase_total_amount
+      .field
+        = label_tag :purchase_order_id, "Order id"
+        = text_field_tag :purchase_order_id
+      = f.fields_for @order.payment do |payment_fields| 
+        = render :partial => 'address_form', :locals => {:f => payment_fields}
+        .clear_left
+        .field.credit_card
+          .left
+            = required_field(payment_fields.label :card_name)
+            %br
+            = payment_fields.select :card_name, Payment.cards, {:prompt => "--- card type ---"}, :class => "cc"
+          .left
+            = required_field(payment_fields.label :full_card_number, "Credit Card Number")
+            %br
+            = payment_fields.text_field :full_card_number, :class => "cc"
+          .left
+            = required_field(payment_fields.label :card_security_code)
+            %br
+            = payment_fields.text_field :card_security_code, :size => 4, :class => "cc"
+          .clear_left
+          .field
+            = required_field(payment_fields.label :card_expiration_month, "Expires")
+            %br
+            = payment_fields.select :card_expiration_month, Payment.months, { :prompt => "month" }, :class => "cc"
+            = payment_fields.select :card_expiration_year, Payment.years, { :prompt => "year" }, :class => "cc"
+          .field.credit_card
+            = payment_fields.label :card_issue_month, "Card Start Date"
+            = payment_fields.select :card_issue_month, Payment.months, { :include_blank => true }, :class => "cc"
+            \/
+            = payment_fields.select :card_issue_year, Payment.issue_years, { :include_blank => true }, :class => "cc"
+          .field.credit_card
+            = payment_fields.label :card_issue_number
+            = payment_fields.text_field :card_issue_number, :size => 2, :maxlength => 2, :class => "cc"
+      .actions
+        = f.submit "Charge CC", :class => 'jqui_save', :disable_with => "please wait..."
+      :javascript
+        $(document).ready(function() { 
+            $("##{f.object_name[/^\w+/]}_form").validate({ 
+                errorClass: "invalid",
+                rules: { 
+                    "#{f.object_name[/^\w+/]}[payment][first_name]": { 
+                        required: true
+                    }, 
+                    "#{f.object_name[/^\w+/]}[payment][last_name]": { 
+                        required: true
+                    }, 
+                    "#{f.object_name[/^\w+/]}[payment][address1]": { 
+                        required: true, 
+                    }, 
+                    "#{f.object_name[/^\w+/]}[payment][city]": { 
+                        required: true, 
+                    },
+                    "#{f.object_name[/^\w+/]}[payment][card_name]": { 
+                        required: true, 
+                    },
+                    "#{f.object_name[/^\w+/]}[payment][full_card_number]": { 
+                        required: true, 
+                    },
+                    "#{f.object_name[/^\w+/]}[payment][card_security_code]": { 
+                        required: true, 
+                    },
+                    "#{f.object_name[/^\w+/]}[payment][card_expiration_month]": { 
+                        required: true, 
+                    },
+                    "#{f.object_name[/^\w+/]}[payment][card_expiration_year]": { 
+                        required: true, 
+                    },
+                   "purchase_total_amount": { 
+                        required: true, 
+                    },
+                    "purchase_order_id": { 
+                        required: true, 
+                    },
+                    "purchase_transaction_type": { 
+                        required: true, 
+                    },
+                    
+                }, 
+                success: function(label) { 
+                    label.html(" ").addClass("checked"); 
+                },
+                submitHandler: function(form) {
+                  $("##{f.object_name[/^\w+/]}_form").callRemote();
+                },
+            }); 
+        });
+  %h3= link_to "Credit Card Capture", "#cc_capture"
+  #cc_capture
+    Credit Card Capture
+  %h3= link_to "Credit Card Refund", "#cc_refund"
+  #cc_refund
+    Credit Card Refund
+  %h3= link_to "Shipping Rate Calculator", "#shipping_rate_calculator"
+  #shipping_rate_calculator
+    Shipping Rate Calculator
+
+:javascript
+  $( "#virtual_terminal" ).accordion({ navigation: true, autoHeight: false  });
+  

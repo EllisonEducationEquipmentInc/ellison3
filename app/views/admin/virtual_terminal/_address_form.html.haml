@@ -1,0 +1,40 @@
+.field
+  = (f.label :first_name)
+  %br
+  = f.text_field :first_name
+.field
+  = (f.label :last_name)
+  %br
+  = f.text_field :last_name
+.field
+  = f.label(:company, "Company/School/Organization")
+  %br
+  = f.text_field :company
+.field
+  = required_field(f.label :address1)
+  %br
+  = f.text_field :address1
+.field
+  = f.label :address2
+  %br
+  = f.text_field :address2
+.field
+  = required_field(f.label :city)
+  %br
+  = f.text_field :city
+.field
+  = f.label :state
+  %br
+  = f.select :state, states, :prompt => "--- select state ---"
+.field
+  = required_field(f.label :zip_code, "Zip/Postal code")
+  %br
+  = f.text_field :zip_code
+.field
+  = required_field(f.label :country)
+  %br
+  = f.select :country, Country.all.cache.order_by(:display_order.asc, :name.asc).map {|e| e.name}
+.field
+  = f.label :email
+  %br
+  = f.text_field :email
