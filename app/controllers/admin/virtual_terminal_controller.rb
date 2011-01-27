@@ -34,6 +34,18 @@ class Admin::VirtualTerminalController < ApplicationController
     render :text => e  
 	end
 	
+	def cch_commit
+    @cch = CCH::Cch.new(:action => 'commit', :transaction_id => params[:cch_commit_tax_transaction_id])
+    if @cch.success?
+      VirtualTransaction.create(:user => current_admin.employee_number, :transaction_type => "cch_commit", :result => "Committed", :raw_result => @cch.pretty, :transaction_id => params[:cch_commit_tax_transaction_id], :details => {:transaction_id => params[:cch_commit_tax_transaction_id]})
+      render :text => "#{params[:cch_commit_tax_transaction_id]} committed"
+    else
+      render :text => @cch.errors
+    end
+	rescue Exception => e
+    render :text => e
+	end
+	
 	def cc_purchase
 	  
 	end

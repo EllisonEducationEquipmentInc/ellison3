@@ -45,7 +45,31 @@
         });
   %h3= link_to "CCH Commit", "#cch_commit"
   #cch_commit
-    CCH Commit
+    = form_tag url_for(:action => "cch_commit"), :id => "cch_commit_form", 'data-type' => 'html', :remote => true do
+      .field
+        = label_tag :cch_commit_tax_transaction_id, "Tax Transaction ID"
+        = text_field_tag :cch_commit_tax_transaction_id
+      .actions
+        = submit_tag "CCH Commit", :class => 'jqui_save', :disable_with => "please wait..."
+    :javascript
+      $(document).ready(function() { 
+          $("#cch_commit_form").validate({ 
+              errorClass: "invalid",
+              rules: { 
+                  "cch_commit_tax_transaction_id": { 
+                      required: true,
+                      rangelength: [16, 17]
+                  }, 
+              }, 
+              success: function(label) { 
+                  label.html(" ").addClass("checked"); 
+              },
+              submitHandler: function(form) {
+                $("#cch_commit_form").callRemote();
+              },
+          });
+          $("#cch_commit_form").bind('ajax:success', function(e, data) {$('#virtual_terminal_message').show().html(data)}); 
+      });
   %h3= link_to "CCH Return", "#cch_return"
   #cch_return
     CCH Return
