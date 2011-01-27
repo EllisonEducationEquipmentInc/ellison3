@@ -51,7 +51,7 @@
     CCH Return
   %h3= link_to "Credit Card Purchase/Authorize", "#cc_purchase"
   #cc_purchase
-    = form_for @order, :url => {:action => "cc_purchase"}, :html => {:id => "cc_purchase_form"}, :as => :cc_purchase, :remote => true do |f|
+    = form_for @order, :url => {:action => "cc_purchase"}, :html => {:id => "cc_purchase_form", 'data-type' => 'html'}, :as => :cc_purchase, :remote => true do |f|
       .field
         = label_tag :purchase_system, "System"
         = select_tag :purchase_system, options_for_select(ELLISON_SYSTEMS, current_system)
@@ -146,6 +146,7 @@
                   $("##{f.object_name[/^\w+/]}_form").callRemote();
                 },
             }); 
+            $("##{f.object_name[/^\w+/]}_form").bind('ajax:success', function(e, data) {$('#virtual_terminal_message').show().html(data)}); 
         });
   %h3= link_to "Credit Card Capture", "#cc_capture"
   #cc_capture

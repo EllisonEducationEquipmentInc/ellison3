@@ -22,7 +22,7 @@ class Admin::VirtualTerminalController < ApplicationController
     if calculate_tax?(@order.address.state) || @order.address.country == "Canada"
       @cch = CCH::Cch.new(:action => 'calculate', :customer => @order.address, :shipping_charge => @order.shipping_amount, :handling_charge => @order.handling_amount.present? ? @order.handling_amount : 0.0, :total => @order.subtotal_amount, :exempt => @order.tax_exempt, :tax_exempt_certificate => @order.tax_exempt_number)
       if @cch.success?
-        #VirtualTransaction.create(:user => current_user, :transaction_type => "cch_calculate", :result => @cch.total_tax, :raw_result => @cch.pretty, :transaction_id => @cch.transaction_id, :details => {:order => order.attributes})
+        VirtualTransaction.create(:user => current_admin.employee_number, :transaction_type => "cch_calculate", :result => @cch.total_tax.to_s, :raw_result => @cch.pretty, :transaction_id => @cch.transaction_id, :details => {:order => @order.attributes.to_hash})
         render :text => "Total Tax: #{@cch.total_tax} CCH Transaction ID: #{@cch.transaction_id}"
       else
         render :text => @cch.errors
@@ -32,5 +32,9 @@ class Admin::VirtualTerminalController < ApplicationController
     end
 	rescue Exception => e
     render :text => e  
+	end
+	
+	def cc_purchase
+	  
 	end
 end
