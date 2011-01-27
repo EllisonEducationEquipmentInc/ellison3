@@ -4,6 +4,14 @@
   #cch_calculate
     = form_for @order, :url => {:action => "cch_calculate"}, :html => {:id => "cch_calculate_form", 'data-type' => 'html'}, :as => :cch_calculate, :remote => true do |f|
       = render :partial => 'order', :locals => {:f => f}
+      .field
+        = f.label :tax_exempt
+        %br
+        = f.check_box :tax_exempt
+      .field
+        = f.label :tax_exempt_number
+        %br
+        = f.text_field :tax_exempt_number
       = f.fields_for @order.address do |address_fields|
         = render :partial => 'address_form', :locals => {:f => address_fields}
       .actions
@@ -72,7 +80,38 @@
       });
   %h3= link_to "CCH Return", "#cch_return"
   #cch_return
-    CCH Return
+    = form_for @order, :url => {:action => "cch_return"}, :html => {:id => "cch_return_form", 'data-type' => 'html'}, :as => :cch_return, :remote => true do |f|
+      .field
+        = f.label :tax_transaction, "Tax Transaction ID"
+        = f.text_field :tax_transaction
+      = render :partial => 'order', :locals => {:f => f}
+      .actions
+        = submit_tag "CCH Commit", :class => 'jqui_save', :disable_with => "please wait..."
+      :javascript
+        $(document).ready(function() { 
+            $("#cch_return_form").validate({ 
+                errorClass: "invalid",
+                "#{f.object_name[/^\w+/]}[subtotal_amount]": { 
+                     required: true, 
+                 },
+                 "#{f.object_name[/^\w+/]}[shipping_amount]": { 
+                     required: true, 
+                 },
+                rules: { 
+                    "#{f.object_name[/^\w+/]}[tax_transaction]": { 
+                        required: true,
+                        rangelength: [16, 17]
+                    }, 
+                }, 
+                success: function(label) { 
+                    label.html(" ").addClass("checked"); 
+                },
+                submitHandler: function(form) {
+                  $("#cch_return_form").callRemote();
+                },
+            });
+            $("#cch_return_form").bind('ajax:success', function(e, data) {$('#virtual_terminal_message').show().html(data)}); 
+        });
   %h3= link_to "Credit Card Purchase/Authorize", "#cc_purchase"
   #cc_purchase
     = form_for @order, :url => {:action => "cc_purchase"}, :html => {:id => "cc_purchase_form", 'data-type' => 'html'}, :as => :cc_purchase, :remote => true do |f|

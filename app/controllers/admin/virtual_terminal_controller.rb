@@ -46,6 +46,19 @@ class Admin::VirtualTerminalController < ApplicationController
     render :text => e
 	end
 	
+	def cch_return
+    order = Order.new(params[:cch_return])
+    @cch = CCH::Cch.new(:action => 'ProcessAttributedReturn', :shipping_charge => order.shipping_amount, :handling_charge => order.handling_amount.present? ? order.handling_amount : 0.0, :total => order.subtotal_amount, :transaction_id => order.tax_transaction)
+    if @cch.success?
+      VirtualTransaction.create(:user => current_user, :transaction_type => "cch_return", :result => @cch.total_tax.to_s, :raw_result => @cch.pretty, :transaction_id => @cch.transaction_id, :details => {:order => order.attributes.to_hash})
+      render :text => "Total Tax: #{@cch.total_tax} CCH Transaction ID: #{@cch.transaction_id}"
+    else
+      render :text => @cch.errors #pretty(:request)
+    end
+	rescue Exception => e
+    render :text => e
+  end
+	
 	def cc_purchase
 	  
 	end
