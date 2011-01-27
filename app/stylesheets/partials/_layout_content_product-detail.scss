@@ -2,7 +2,7 @@
 .item_title { @include column(12, true); }
 .item_description { @include column(12, true);}
 .item_sociallinks { @include column(7);}
-.buybox, .item_cross-sell {
+.buybox {
   display: inline;
   float: left;
   margin-right: 0;
@@ -12,4 +12,4 @@
 
 .item_detail { @include column(19); }
 .item_detail-tabbed { @include column(24, true); }
-//.item_cross-sell { @include column(5, true);}
+.item_cross-sell { @include column(5, true);}

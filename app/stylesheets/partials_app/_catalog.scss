@@ -89,7 +89,7 @@ body.bp {
     }
   }
   
-  .item_compatibility, .item_cross-sell, .item_detail {
+  .item_compatibility, .item_cross-sell .rounded, .item_detail {
     h4 {
       text-transform: uppercase;
       font-size: 1.1em;
@@ -98,7 +98,7 @@ body.bp {
     }
   }
   
-  .item_cross-sell {
+  .item_cross-sell .rounded {
     h4 {
       margin-bottom: 8px;
       
@@ -656,18 +656,21 @@ select#sort, input#select_all_products {
 
 // cross sell sidebar
 .item_cross-sell {
-	background: $catalog_buybox_bg;
-	border: 1px solid $catalog_buybox_border;  
-  margin-top: 10px;
-  padding: 6px;
   
-  .related_ideas {
-    margin-bottom: 16px;
-  }
+  .rounded {
+  	background: $catalog_buybox_bg;
+  	border: 1px solid $catalog_buybox_border;  
+    margin-top: 10px;
+    padding: 6px;    
+
+    .related_ideas {
+      margin-bottom: 16px;
+    }
   
-  .related_products {
-    margin-bottom: 4px;
-  }
+    .related_products {
+      margin-bottom: 4px;
+    }
+  }  
 }
 
 .item-block_related {

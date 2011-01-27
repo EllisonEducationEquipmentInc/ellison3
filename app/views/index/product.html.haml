@@ -77,12 +77,14 @@
 %div{ :class => "item_detail#{'-tabbed' if @product.use_tabs}"}
   = render :partial => "#{'non_' unless @product.use_tabs}tab_block", :locals => {:object => @product}
 - unless @product.use_tabs
-  .item_cross-sell.rounded
+  .item_cross-sell
     - unless @product.ideas.blank?
-      %h4 Related Ideas:
-      .related_ideas= render :partial => 'ideas/related_idea', :collection => @product.ideas, :as => :idea
+      .rounded
+        %h4 Related Ideas:
+        .related_ideas= render :partial => 'ideas/related_idea', :collection => @product.ideas, :as => :idea
     - unless @product.four_related_products.blank?
-      %h4
-        Related Products
-        = link_to "View All", catalog_path(:anchor => "facets=#{@product.related_tag.facet_param}&page=1#{'&outlet=1' if @product.outlet}"), :class => "minilink"
-      .related_products= render :partial => 'products/related_product', :collection => @product.four_related_products, :as => :product
+      .rounded
+        %h4
+          Related Products
+          = link_to "View All", catalog_path(:anchor => "facets=#{@product.related_tag.facet_param}&page=1#{'&outlet=1' if @product.outlet}"), :class => "minilink"
+        .related_products= render :partial => 'products/related_product', :collection => @product.four_related_products, :as => :product
