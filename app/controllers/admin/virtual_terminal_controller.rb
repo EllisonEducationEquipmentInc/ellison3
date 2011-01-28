@@ -74,4 +74,17 @@ class Admin::VirtualTerminalController < ApplicationController
   rescue Exception => e
     render :text => e.to_s #+ "\n" + e.backtrace.join("\n")
 	end
+	
+	def cc_capture
+    get_gateway params[:cc_capture_system]
+    @net_response = @gateway.capture(params[:cc_capture_total_amount].to_f * 100, params[:authorization])
+    if @net_response.success?
+      VirtualTransaction.create(:user => current_admin.employee_number, :transaction_type => "cc_capture", :result => @net_response.params.inspect, :raw_result => @net_response.inspect, :transaction_id => @net_response.authorization, :details => {:amount_to_charge => params[:cc_capture_total_amount], :authorization => params[:authorization]})
+    else
+      raise @net_response.message
+    end
+    render :text => "Authorization: #{@net_response.authorization}, #{@net_response.params.inspect} <br>AX URL Encoded Authorization string: #{CGI::escape(@net_response.authorization)}"
+  rescue Exception => e
+    render :text => e
+	end
 end
