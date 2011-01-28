@@ -86,7 +86,7 @@
         = f.text_field :tax_transaction
       = render :partial => 'order', :locals => {:f => f}
       .actions
-        = submit_tag "CCH Commit", :class => 'jqui_save', :disable_with => "please wait..."
+        = submit_tag "CCH Return", :class => 'jqui_save', :disable_with => "please wait..."
       :javascript
         $(document).ready(function() { 
             $("#cch_return_form").validate({ 
@@ -119,14 +119,14 @@
         = label_tag :purchase_system, "System"
         = select_tag :purchase_system, options_for_select(ELLISON_SYSTEMS, current_system)
       .field
-        = label_tag :purchase_transaction_type
+        = label_tag :purchase_transaction_type, "Transaction type"
         = select_tag :purchase_transaction_type, options_for_select(%w(purchase authorize))
       .field
-        = label_tag :purchase_total_amount
-        = text_field_tag :purchase_total_amount
+        = label_tag :purchase_total_amount, "Total Amount"
+        = text_field_tag :purchase_total_amount, params[:total_amount]
       .field
         = label_tag :purchase_order_id, "Order id"
-        = text_field_tag :purchase_order_id
+        = text_field_tag :purchase_order_id, params[:order_id]
       = f.fields_for @order.payment do |payment_fields| 
         = render :partial => 'address_form', :locals => {:f => payment_fields}
         .clear_left
@@ -174,6 +174,9 @@
                         required: true, 
                     }, 
                     "#{f.object_name[/^\w+/]}[payment][city]": { 
+                        required: true, 
+                    },
+                    "#{f.object_name[/^\w+/]}[payment][email]": { 
                         required: true, 
                     },
                     "#{f.object_name[/^\w+/]}[payment][card_name]": { 
