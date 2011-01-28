@@ -969,6 +969,7 @@ p.text-banner_green-fabric { @extend .text-banner_georgia;
   background: transparent url('/images/ui-backgrounds/text-banner_green-fabric.png') no-repeat;
   padding-top: 6px !important;
   height: 43px; // top padding + height is usually = height of bg image
+  color: white;
   
   a {
     color: white;
@@ -981,6 +982,7 @@ p.text-banner_brown-fabric { @extend .text-banner_georgia;
   background: transparent url('/images/ui-backgrounds/text-banner_brown-fabric.png') no-repeat;
   padding-top: 26px !important;
   height: 45px;
+  color: #b12a2a; // burgundy red
 
   a {
     color: #b12a2a; // burgundy red
@@ -993,6 +995,7 @@ p.text-banner_paper-strip { @extend .text-banner_georgia;
   background: transparent url('/images/ui-backgrounds/text-banner_paper-strip.png') no-repeat;
   padding-top: 14px !important;
   height: 42px;
+  color: #89473C; // medium brown
 
   a {
     color: #89473C; // medium brown
@@ -1005,6 +1008,7 @@ p.text-banner_red-border { @extend .text-banner_pt-sans;
   background: transparent url('/images/ui-backgrounds/text-banner_red-border.png') no-repeat;
   padding-top: 3px;
   height: 47px;
+  color: #dc0000; // bright red
 
   a {
     color: #dc0000; // bright red
