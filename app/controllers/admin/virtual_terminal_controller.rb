@@ -87,4 +87,19 @@ class Admin::VirtualTerminalController < ApplicationController
   rescue Exception => e
     render :text => e
 	end
+	
+	def cc_refund
+    get_gateway params[:cc_refund_system]
+    timeout(50) do
+			@net_response = @gateway.credit(params[:amount_to_refund].to_f * 100, params[:refund_authorization])
+		end
+    if @net_response.success?
+      VirtualTransaction.create(:user => current_admin.employee_number, :transaction_type => "cc_refund", :result => @net_response.params.inspect, :raw_result => @net_response.inspect, :transaction_id => @net_response.authorization, :details => {:amount_to_refund => params[:amount_to_refund], :authorization => params[:refund_authorization]})
+    else
+      raise @net_response.message
+    end
+    render :text => "Authorization: #{@net_response.authorization}, #{@net_response.params.inspect}"
+  rescue Exception => e
+    render :text => e
+	end
 end
