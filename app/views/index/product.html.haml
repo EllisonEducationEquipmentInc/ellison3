@@ -30,6 +30,11 @@
         %li
           %div{:style => "display:none"}
             %div{:id => "compatible_tag_#{compatibility.id}", :class => "compatibility_detail"}
+              .search_related.ui-corner-all{:class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
+                %h4== If you have #{compatibility.compatible_tag.name.html_safe}
+                == Search for more #{link_to compatibility.compatible_tag.name.html_safe, catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")} in our catalog
+                = link_to image_tag(compatibility.compatible_tag.list_page_img), catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")
+              .clear
               - if compatibility.products.length > 0
                 %h4
                   == #{@product.name.html_safe} requires
@@ -41,12 +46,6 @@
                   == #{compatibility.compatible_tag.name.html_safe} is
                   %strong fully compatible
                   == with #{@product.name.html_safe}
-              .clear
-              .search_related.ui-corner-all{:class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
-                %ul
-                  %li
-                    == Search for more #{link_to compatibility.compatible_tag.name.html_safe, catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")} in our catalog
-                    %span.right= link_to image_tag(compatibility.compatible_tag.list_page_img), catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")
 
           = link_to "#compatible_tag_#{compatibility.id}", :id => "compatibility_thumbnail_#{compatibility.id}", :class => "lightbox #{compatibility.products.present? ? 'link_compatibility' : nil} tooltip_#{compatibility.products.length}-items" do
             = compatibility.compatible_tag.name.html_safe
@@ -70,9 +69,7 @@
 
     .clear
     %p.icon-info
-      == Items denoted by the #{image_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/star.png", :alt => "Compatibility Info", :title => "Compatibility Info")} icon require additional accessories for complete compatibility.
-      %br
-      Click on each for full details    
+      == Items denoted by the #{image_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/star.png", :alt => "Compatibility Info", :title => "Compatibility Info")} icon require additional accessories for complete compatibility. Click on each for full details.
 
 %div{ :class => "item_detail#{'-tabbed' if @product.use_tabs}"}
   = render :partial => "#{'non_' unless @product.use_tabs}tab_block", :locals => {:object => @product}

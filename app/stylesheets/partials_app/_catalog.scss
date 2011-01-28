@@ -943,14 +943,48 @@ select#sort, input#select_all_products {
 // visual assets
 
 // freeform
-p.text-banner_green-fabric {
-  background: transparent url('/images/_temp/stolen/bg_footer_bar.png') no-repeat;
+p.text-banner {
+  text-align: center;
+  margin-bottom: 12px !important;
+}
+
+p.text-banner_georgia { @extend .text-banner;
   font-family: Georgia, serif;
   font-size: 22px;
   font-style: italic;
   font-weight: bold;
-  line-height: 2em;
-  color: white;
+}
+
+p.text-banner_pt-sans { @extend .text-banner;
+  font-family: 'PT Sans',Helvetica,Arial,sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+p.text-banner_green-fabric { @extend .text-banner_georgia;
+  background: transparent url('/images/ui-backgrounds/text-banner_green-fabric.png') no-repeat;
+  padding-top: 6px !important;
   height: 49px;
-  text-align: center;
+  color: white;
+}
+
+p.text-banner_brown-fabric { @extend .text-banner_georgia;
+  background: transparent url('/images/ui-backgrounds/text-banner_brown-fabric.png') no-repeat;
+  padding-top: 26px !important;
+  height: 45px;
+  color: #b12a2a; // burgundy red
+}
+
+p.text-banner_paper-strip { @extend .text-banner_georgia;
+  background: transparent url('/images/ui-backgrounds/text-banner_paper-strip.png') no-repeat;
+  padding-top: 14px !important;
+  height: 42px;
+  color: #89473C; // medium brown
+}
+
+p.text-banner_red-border { @extend .text-banner_pt-sans;
+  background: transparent url('/images/ui-backgrounds/text-banner_red-border.png') no-repeat;
+  padding-top: 3px;
+  height: 47px;
+  color: #dc0000; // bright red
 }
