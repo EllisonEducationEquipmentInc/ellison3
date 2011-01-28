@@ -286,8 +286,65 @@
       });
   %h3= link_to "Shipping Rate Calculator", "#shipping_rate_calculator"
   #shipping_rate_calculator
-    Shipping Rate Calculator
-
+    = form_for @order, :url => {:action => "shipping_rate_calculator"}, :html => {:id => "shipping_rate_calculator_form", 'data-type' => 'html'}, :as => :shipping_rate, :remote => true do |f|
+      .field
+        = label_tag :weight
+        = text_field_tag :weight, params[:weight]
+      .field
+        = f.label :subtotal_amount
+        = f.text_field :subtotal_amount
+      .field
+        = label_tag :service
+        = select_tag :service, options_for_select(["FEDEX", "SAIA", "WEB"] , params[:service])
+      .field
+        = label_tag :request_type
+        = select_tag :request_type, options_for_select(["ACCOUNT", "LIST"])
+      .field
+        = label_tag :packaging_type
+        = select_tag :packaging_type, options_for_select(Shippinglogic::FedEx::Enumerations::PACKAGE_TYPES.map {|e| [e.humanize, e]}, "FEDEX_BOX"), :onchange => "if (this.value == 'YOUR_PACKAGING') {$('.your_packaging').show()} else {$('.your_packaging').hide()} "
+      .field.your_packaging{:style => "display:none"}
+        = label_tag :package_length
+        = text_field_tag :package_length, 12
+      .field.your_packaging{:style => "display:none"}
+        = label_tag :package_height
+        = text_field_tag :package_height, 12
+      .field.your_packaging{:style => "display:none"}
+        = label_tag :package_width
+        = text_field_tag :package_width, 12
+      = f.fields_for @order.address do |address_fields|
+        = render :partial => 'address_form', :locals => {:f => address_fields}
+      .actions
+        = submit_tag "Get Shipping Rate", :class => 'jqui_save', :disable_with => "please wait..."
+      :javascript
+        $(document).ready(function() { 
+            $("#shipping_rate_calculator_form").validate({ 
+                errorClass: "invalid",
+                rules: { 
+                    "weight": { 
+                        required: true,
+                    }, 
+                    "#{f.object_name[/^\w+/]}[address][zip_code]": { 
+                        required: true
+                    }, 
+                    "#{f.object_name[/^\w+/]}[address][state]": { 
+                        required: true
+                    }, 
+                    "#{f.object_name[/^\w+/]}[address][address1]": { 
+                        required: true, 
+                    }, 
+                    "#{f.object_name[/^\w+/]}[address][city]": { 
+                        required: true, 
+                    },
+                }, 
+                success: function(label) { 
+                    label.html(" ").addClass("checked"); 
+                },
+                submitHandler: function(form) {
+                  $("#shipping_rate_calculator_form").callRemote();
+                },
+            });
+            $("#shipping_rate_calculator_form").bind('ajax:success', function(e, data) {$('#virtual_terminal_message').show().html(data)}); 
+        });
 :javascript
   $( "#virtual_terminal" ).accordion({ navigation: true, autoHeight: false  });
   

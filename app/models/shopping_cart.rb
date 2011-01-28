@@ -225,7 +225,8 @@ module ShoppingCart
 		
 		# shipping rates based on cart subtotal
 		def shipping_rate(address, options={})
-		  rate = ShippingRate.where(:system => current_system, :"price_min_#{current_currency}".lte => subtotal_cart, :"price_max_#{current_currency}".gte => subtotal_cart, :zone_or_country => address.us? ? FedexZone.find_by_address(address).try(:zone).try(:to_s) : address.country).first
+		  shipping_subtotal_amount = options[:subtotal_amount] || subtotal_cart
+		  rate = ShippingRate.where(:system => current_system, :"price_min_#{current_currency}".lte => shipping_subtotal_amount, :"price_max_#{current_currency}".gte => shipping_subtotal_amount, :zone_or_country => address.us? ? FedexZone.find_by_address(address).try(:zone).try(:to_s) : address.country).first
 		  if rate.blank?
 		    msg = if is_sizzix_us? && !address.us?
 	          "Sizzix.com only ships to U.S addresses. Please change your shipping address, or place your order on sizzix.co.uk"
@@ -262,7 +263,7 @@ module ShoppingCart
 		def fedex_rate(address, options={})			
 		  Rails.logger.info "Getting Fedex rate for #{address.inspect}"											
 			@fedex = Shippinglogic::FedEx.new(FEDEX_AUTH_KEY, FEDEX_SECURITY_CODE, FEDEX_ACCOUNT_NUMBER, FEDEX_METER_NUMBER, :test => false)
-			@rates = @fedex.rate(:shipper_company_name => "Ellison", :shipper_streets => '25862 Commercentre Drive', :shipper_city => 'Lake Forest', :shipper_state => 'CA', :shipper_postal_code => "92630", :shipper_country => "US", 
+			@rates = @fedex.rate(:service_type => options[:service_type], :shipper_company_name => "Ellison", :shipper_streets => '25862 Commercentre Drive', :shipper_city => 'Lake Forest', :shipper_state => 'CA', :shipper_postal_code => "92630", :shipper_country => "US", 
 													:recipient_name => "#{address.first_name} #{address.last_name}", :recipient_company_name => address.company, :recipient_streets => "#{address.address1} #{address.address2}", :recipient_city => address.city,  :recipient_postal_code => address.zip_code, :recipient_state => address.state, :recipient_country => country_2_code(address.country), :recipient_residential => options[:residential], 
 													:package_weight => options[:weight], :rate_request_types => options[:request_type] || "ACCOUNT", :packaging_type => options[:packaging_type] || "FEDEX_BOX", :package_length => options[:package_length] || 12, :package_width => options[:package_width] || 12, :package_height => options[:package_height] || 12, :ship_time => options[:ship_time] || skip_weekends(Time.now, 3.days))													
 	    raise "unable to calculate shipping rates. please check your shipping address or call customer service to place an order." if @rates.blank?

@@ -102,4 +102,26 @@ class Admin::VirtualTerminalController < ApplicationController
   rescue Exception => e
     render :text => e
 	end
+	
+	def shipping_rate_calculator
+	  order = Order.new(params[:shipping_rate])	
+	  case params[:service]
+	  when "FEDEX"
+	    fedex_rate order.address, :request_type => params[:request_type], :weight => params[:weight], :package_width => params[:package_width], :package_length => params[:package_length], :package_height => params[:package_height] 
+  	  render :text => fedex_rates_to_a(@rates) * '<br />'
+	  when "SAIA"
+	    @saia = Saia::Saia.new(:user_id => "somchine", :password => "ellison2", :account_number => "0855387", :destination_city => order.address.city, :destination_state => order.address.state, :destination_zip_code => order.address.zip_code, :weight => params[:weight], :test => Rails.env != "production")
+      render :text => @saia.rate.inspect
+	  when "WEB"
+	    if is_us? #address.us?
+			  us_shipping_rate(order.address, :weight => params[:weight]) || fedex_rate(order.address, :request_type => params[:request_type], :weight => params[:weight], :package_width => params[:package_width], :package_length => params[:package_length], :package_height => params[:package_height])
+			else
+			  shipping_rate(order.address, :subtotal_amount => params[:subtotal_amount])
+			end
+			render :text => fedex_rates_to_a(@rates) * '<br />'
+	  end
+	rescue Exception => e
+    render :text => e
+	end
+	
 end
