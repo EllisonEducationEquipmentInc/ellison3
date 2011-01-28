@@ -770,8 +770,10 @@ select#sort, input#select_all_products {
     margin: 130px 0px 0 8px; // for equal distance between blocks, set left padding +8px more than right
   }
   
-  .search_related {
-    height: 125px;
+  .compatible_tag {
+    float: left;
+    width: 140px;
+    height: 240px;
     margin-top: 12px;
     padding: 8px;
     
@@ -971,7 +973,7 @@ p.text-banner_green-fabric { @extend .text-banner_georgia;
   a {
     color: white;
     
-    &:hover { color: black;}
+    &:hover { color: black; }
   }  
 }
 
@@ -983,7 +985,7 @@ p.text-banner_brown-fabric { @extend .text-banner_georgia;
   a {
     color: #b12a2a; // burgundy red
     
-    &:hover { color: black;}
+    &:hover { color: black; }
   }  
 }
 
@@ -995,7 +997,7 @@ p.text-banner_paper-strip { @extend .text-banner_georgia;
   a {
     color: #89473C; // medium brown
     
-    &:hover { color: black;}
+    &:hover { color: black; }
   }  
 }
 
@@ -1007,6 +1009,6 @@ p.text-banner_red-border { @extend .text-banner_pt-sans;
   a {
     color: #dc0000; // bright red
     
-    &:hover { color: black;}
+    &:hover { color: black; }
   }  
 }

@@ -30,22 +30,22 @@
         %li
           %div{:style => "display:none"}
             %div{:id => "compatible_tag_#{compatibility.id}", :class => "compatibility_detail"}
-              .search_related.ui-corner-all{:class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
-                %h4== If you have #{compatibility.compatible_tag.name.html_safe}
-                == Search for more #{link_to compatibility.compatible_tag.name.html_safe, catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")} in our catalog
-                = link_to image_tag(compatibility.compatible_tag.list_page_img), catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")
-              .clear
-              - if compatibility.products.length > 0
-                %h4
-                  == #{@product.name.html_safe} requires
+              %h4
+                %strong== #{compatibility.compatible_tag.name.html_safe}
+                - if compatibility.products.length > 0
+                  requires
                   %strong==#{pluralize compatibility.products.length, "additional accessory"}
-                  for full compatibility
+                  == for full compatibility
+                - else
+                  %strong is fully compatible
+                == with #{@product.name.html_safe}
+              .compatible_tag.ui-corner-all{:class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
+                = link_to image_tag(compatibility.compatible_tag.list_page_img), catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")
+              .plus_sign.ui-icon.ui-icon-plusthick
+              - if compatibility.products.length > 0
                 = render :partial => 'products/compatibility_product', :collection => Product.available.where(:item_num.in => compatibility.products).cache, :spacer_template => 'tabs/separator', :as => :product
-              - else
-                %h4
-                  == #{compatibility.compatible_tag.name.html_safe} is
-                  %strong fully compatible
-                  == with #{@product.name.html_safe}
+              .clear
+              %p== Search for more #{link_to compatibility.compatible_tag.name.html_safe, catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")} in our catalog
 
           = link_to "#compatible_tag_#{compatibility.id}", :id => "compatibility_thumbnail_#{compatibility.id}", :class => "lightbox #{compatibility.products.present? ? 'link_compatibility' : nil} tooltip_#{compatibility.products.length}-items" do
             = compatibility.compatible_tag.name.html_safe
