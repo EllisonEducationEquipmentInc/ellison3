@@ -19,6 +19,7 @@ class Product
 	
 	QUANTITY_THRESHOLD = 0
 	LIFE_CYCLES = ['pre-release', 'available', 'discontinued', 'unvailable']
+	ITEM_TYPES = ['machine', 'die', 'supply', 'accessory']
 	
 	cattr_accessor :retailer_discount_level
 	
@@ -66,6 +67,7 @@ class Product
 	field :width, :type => Float
 	field :height, :type => Float
 	field :keywords
+	field :item_type
 	field :use_tabs, :type => Boolean, :default => false
 	field :old_id, :type => Integer
 	field :old_id_edu, :type => Integer

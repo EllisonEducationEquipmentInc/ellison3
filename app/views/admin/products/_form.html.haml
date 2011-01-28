@@ -16,6 +16,10 @@
     %br
     = f.text_field :item_num
   .field
+    = f.label :item_type
+    %br
+    = f.select :item_type, Product::ITEM_TYPES
+  .field
     = f.label :upc
     %br
     = f.text_field :upc
