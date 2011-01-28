@@ -78,7 +78,10 @@
   = ideas_helper_tag "#{f.object_name[/^(\w+)/]}[visual_assets_attributes][#{child_index}][idea_idea_nums]", f.object.idea_idea_nums, :label => "Ideas (idea nums only)", :class => "type_specific ideas"
 :javascript
   $(function (){  
-      $(".wymeditor:visible").wymeditor();
+      $(".wymeditor:visible").wymeditor({
+        stylesheet: '/stylesheets/wymeditor/styles.css',
+        logoHtml: ''
+      });
       $('.visual_asset_#{child_index} .datetimepicker').datetimepicker({
             dateFormat: 'yy-mm-dd',
             changeMonth: true,

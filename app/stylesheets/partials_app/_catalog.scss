@@ -845,18 +845,6 @@ select#sort, input#select_all_products {
 	}
 }
 
-.asset_text{
-	background: #369;
-	color: white;
-	font-size: 16px;
-	height: 24px;
-	padding: 4px 2px 4px;
-	text-align: center;
-	width: 750px;
-	height: 24px;
-	margin:4px 0 6px;
-}
-
 .mainbar{
   h3 {
     margin:6px 0 8px;
@@ -950,4 +938,19 @@ select#sort, input#select_all_products {
       width: 168px;
     }
   }
+}
+
+// visual assets
+
+// freeform
+p.text-banner_green-fabric {
+  background: transparent url('/images/_temp/stolen/bg_footer_bar.png') no-repeat;
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-style: italic;
+  font-weight: bold;
+  line-height: 2em;
+  color: white;
+  height: 49px;
+  text-align: center;
 }

@@ -6,7 +6,11 @@ body.bp {
   h1, h2, h3, h4, h5 {
     margin-bottom: 2px;
   }
-  h2 { font-size: 1.8em; }
+  h1 { text-transform: capitalize; }
+  h2 {
+    font-size: 1.8em;
+    text-transform: capitalize;
+  }
   
   h2.decorative {
     height: 45px;
@@ -477,30 +481,6 @@ ul.ui-tabs-nav {
     }
   }
 
-  .customer-outreach {
-    background: transparent url('/images/_temp/stolen/bg_footer_bar.png') no-repeat;
-    margin-bottom: 12px;    
-    height: 49px;
-    text-align: center;
-    
-    p {
-      margin: 3px 0 0 0;
-      font-family: Georgia, serif;
-      font-size: 22px;
-      font-style: italic;
-      font-weight: bold;
-      line-height: 2em;
-      color: white;
-    }
-    
-    &:hover {
-      p {
-        color: #000;
-        cursor: pointer; cursor: hand;
-      }
-    }
-  }
-  
   .billboard_asset {
     margin-bottom: 10px;
     height: 18*11px;

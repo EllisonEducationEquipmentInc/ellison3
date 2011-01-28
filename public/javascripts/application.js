@@ -7,7 +7,10 @@ var number_only = function(e){if (e.keyCode != 46 && e.keyCode != 8 && e.keyCode
 var outlet = location.pathname.indexOf("/outlet") >= 0;
 
 $(function() {
-  $(".wymeditor").wymeditor();
+  $(".wymeditor").wymeditor({
+    stylesheet: '/stylesheets/wymeditor/styles.css',
+    logoHtml: ''
+  });
 });
 
 $(function (){  
@@ -19,7 +22,7 @@ $(function (){
 });
 
 $(function() {
-		$(".product_admin_thumbnail").bind('mouseover mouseout', function() {
+		$(".product_admin_thumbnail").bind('mouseover mouseout', function() { 
 			$(this).toggleClass('to_delete');
 		});
 });

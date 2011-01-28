@@ -5,9 +5,6 @@
 // HOMEPAGE
 
 #gallery { @include column(24); }
-#customer-outreach { @include column(24, true); }
-//#email-signup {  @include column(16); }
-//#store-locator {  @include column(8, true); }
 #staffpicks {  @include column(8, true); }
 #blog-posts {  @include column(16); }
 #social-media {  @include column(8, true); }
