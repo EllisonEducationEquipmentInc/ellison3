@@ -4,7 +4,7 @@
     #quick_search.ui-widget.ui-widget-content.ui-corner-all= render :partial => 'quick_search'
   = render :partial => "index/catalog_filter"
 .mainbar.last
-  %h1= @landing_page.name
+  %h2= @landing_page.name
   - unless @landing_page.short_desc.blank?
     %h3= @landing_page.short_desc
   = render @landing_page.visual_assets.current

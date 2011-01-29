@@ -928,7 +928,7 @@ select#sort, input#select_all_products {
 }
 
 // item carousel styles (homepage)
-#carousels {
+#current_visual_assets {
   .item_carousel {@extend .item_carousel;
     width: 950px;
     
@@ -940,79 +940,4 @@ select#sort, input#select_all_products {
       width: 168px;
     }
   }
-}
-
-// visual assets
-
-// text banner styles
-p.text-banner {
-  text-align: center;
-  margin-bottom: 12px !important;
-  
-  a:hover { text-decoration: none; }
-}
-
-p.text-banner_georgia { @extend .text-banner;
-  font-family: Georgia, serif;
-  font-size: 22px;
-  font-style: italic;
-  font-weight: bold;
-}
-
-p.text-banner_pt-sans { @extend .text-banner;
-  font-family: 'PT Sans',Helvetica,Arial,sans-serif;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-p.text-banner_green-fabric { @extend .text-banner_georgia;
-  background: transparent url('/images/ui-backgrounds/text-banner_green-fabric.png') no-repeat;
-  padding-top: 6px !important;
-  height: 43px; // top padding + height is usually = height of bg image
-  color: white;
-  
-  a {
-    color: white;
-    
-    &:hover { color: black; }
-  }  
-}
-
-p.text-banner_brown-fabric { @extend .text-banner_georgia;
-  background: transparent url('/images/ui-backgrounds/text-banner_brown-fabric.png') no-repeat;
-  padding-top: 26px !important;
-  height: 45px;
-  color: #b12a2a; // burgundy red
-
-  a {
-    color: #b12a2a; // burgundy red
-    
-    &:hover { color: black; }
-  }  
-}
-
-p.text-banner_paper-strip { @extend .text-banner_georgia;
-  background: transparent url('/images/ui-backgrounds/text-banner_paper-strip.png') no-repeat;
-  padding-top: 14px !important;
-  height: 42px;
-  color: #89473C; // medium brown
-
-  a {
-    color: #89473C; // medium brown
-    
-    &:hover { color: black; }
-  }  
-}
-
-p.text-banner_red-border { @extend .text-banner_pt-sans;
-  background: transparent url('/images/ui-backgrounds/text-banner_red-border.png') no-repeat;
-  padding-top: 3px;
-  height: 47px;
-  color: #dc0000; // bright red
-
-  a {
-    color: #dc0000; // bright red
-    
-    &:hover { color: black; }
-  }  
 }

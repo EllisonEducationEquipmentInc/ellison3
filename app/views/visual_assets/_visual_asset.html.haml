@@ -1,12 +1,13 @@
 - if visual_asset.asset_type == 'image' && visual_asset.image?
-  = link_to_unless visual_asset.link.blank?, image_tag(visual_asset.image_url, :alt => visual_asset.name), visual_asset.link, :title => visual_asset.name
+  %p= link_to_unless visual_asset.link.blank?, image_tag(visual_asset.image_url, :alt => visual_asset.name), visual_asset.link, :title => visual_asset.name
 - elsif visual_asset.asset_type == 'text'
   .asset_text= visual_asset.content.html_safe
 - elsif visual_asset.asset_type == 'freeform'
   .asset_freeform= visual_asset.content.html_safe
+  .clear
 - elsif visual_asset.asset_type == 'catalog_search'
   .asset_catalog_search
-    %h2{:class => cycle('newarrivals', 'bestsellers')}
+    %h2{:class => "#{visual_asset.name.parameterize(sep = '-') }"}
       %span= visual_asset.name
       %span= link_to "View All", catalog_path(:anchor => visual_asset.search_query), :class => "minilink"
     .item_carousel.ui-widget.ui-corner-all{ :class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
@@ -27,7 +28,7 @@
       });
 - elsif visual_asset.asset_type == 'products' || visual_asset.asset_type == 'ideas'
   .asset_items
-    %h2{:class => cycle('newarrivals', 'bestsellers')}
+    %h2{:class => "#{visual_asset.name.parameterize(sep = '-') }"}
       %span= visual_asset.name
     .item_carousel.ui-widget.ui-corner-all{ :class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}", :id => "asset_carousel_#{visual_asset.id}"}
       %ul= render :partial => 'index/item', :collection => visual_asset.asset_type == 'products' ? Product.available.where(:item_num.in => visual_asset.products).cache : Idea.available.where(:idea_num.in => visual_asset.ideas).cache
@@ -40,7 +41,7 @@
         $("#asset_carousel_#{visual_asset.id}").jCarouselLite({
           btnPrev: "#prev_button_#{visual_asset.id}",
           btnNext: "#next_button_#{visual_asset.id}",
-            visible: #{visual_asset.wide? ? 5 : 4}
+          visible: #{visual_asset.wide? ? 5 : 4}
         });
       });
 - elsif visual_asset.asset_type == 'gallery'

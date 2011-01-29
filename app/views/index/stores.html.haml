@@ -49,7 +49,7 @@
     %h2 Major Retailers
     have no clue what goes here
 - if @store_locator_content.present?
-  #carousels= render @store_locator_content.visual_assets.current
+  #current_visual_assets= render @store_locator_content.visual_assets.current
 :javascript
   $(document).ready(function(){
     $(".tab-block").tabs();

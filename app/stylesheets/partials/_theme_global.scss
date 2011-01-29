@@ -600,17 +600,6 @@ ul.ui-tabs-nav {
     left: 0;
   }
   
-  #carousels {
-    
-    h2.bestsellers { @extend .decorative;
-      background: url('/images/ui-objects/heart_pink.png') no-repeat;
-    }
-
-    h2.newarrivals { @extend .decorative;
-      background: url('/images/ui-objects/leaf_fall.png') no-repeat;
-    }
-  }
-  
   #blog-posts, #social-media {
   
     h2.decorative {

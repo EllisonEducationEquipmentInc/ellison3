@@ -1,5 +1,5 @@
 - if @home_content.present?
-  #carousels= render @home_content.visual_assets.current
+  #current_visual_assets= render @home_content.visual_assets.current
   .clear
   - @home_content.visual_assets.billboards.each do |billboard|
     %div{:class => "billboard_#{billboard.wide ? 'medium' : 'XS'} #{'last' if @home_content.visual_assets.billboards.last == billboard}"}
