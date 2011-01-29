@@ -927,17 +927,15 @@ select#sort, input#select_all_products {
   }
 }
 
-// item carousel styles (homepage)
-#current_visual_assets {
-  .item_carousel {@extend .item_carousel;
-    width: 950px;
-    
-    .controls {
-      left: 830px;
-    }
-    
-    .item_element {
-      width: 168px;
-    }
+// item carousel styles (wide version for non-landing pages like homepage or store locator)
+.item_carousel_wide {@extend .item_carousel;
+  width: 950px;
+  
+  .controls {
+    left: 830px;
+  }
+  
+  .item_element {
+    width: 168px;
   }
 }

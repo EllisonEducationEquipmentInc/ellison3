@@ -10,7 +10,7 @@
     %h2{:class => "#{visual_asset.name.parameterize(sep = '-') }"}
       %span= visual_asset.name
       %span= link_to "View All", catalog_path(:anchor => visual_asset.search_query), :class => "minilink"
-    .item_carousel.ui-widget.ui-corner-all{ :class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
+    %div{ :class => "item_carousel#{visual_asset.wide? ? '_wide' : nil} ui-widget-#{ is_sizzix? ? 'header' : 'content'} ui-widget ui-corner-all" }
       %div{:id => "asset_carousel_#{visual_asset.id}"}
       .controls
         = link_to "prev", "#", :class => "prev_button", :id => "prev_button_#{visual_asset.id}"
@@ -30,7 +30,7 @@
   .asset_items
     %h2{:class => "#{visual_asset.name.parameterize(sep = '-') }"}
       %span= visual_asset.name
-    .item_carousel.ui-widget.ui-corner-all{ :class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}", :id => "asset_carousel_#{visual_asset.id}"}
+    %div{ :class => "item_carousel#{visual_asset.wide? ? '_wide' : nil} ui-widget-#{ is_sizzix? ? 'header' : 'content'} ui-widget ui-corner-all" }
       %ul= render :partial => 'index/item', :collection => visual_asset.asset_type == 'products' ? Product.available.where(:item_num.in => visual_asset.products).cache : Idea.available.where(:idea_num.in => visual_asset.ideas).cache
       .controls
         = link_to "prev", "#", :class => "prev_button", :id => "prev_button_#{visual_asset.id}"
