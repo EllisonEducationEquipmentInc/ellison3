@@ -326,11 +326,11 @@ body.bp {
   $item-block-width: 163px;
   $item-block-padding: 6px;
 
-	background: $catalog_product_bg;
 	float: left;
+	width: $item-block-width;
 	margin: 0 0 12px 12px;
 	padding: $item-block-padding;
-	width: $item-block-width;
+	background: $catalog_product_bg;
 	text-align: center;
 	overflow: visible;
 	z-index: 200;
@@ -874,68 +874,4 @@ select#sort, input#select_all_products {
   	background: white;
   	border: 1px solid $catalog_buybox_border;
 	}
-}
-
-// item carousel styles (landing pages)
-.item_carousel {
-  width: 750px;
-  margin-bottom: 10px;
-  font-weight: normal;
-  
-  .controls {
-    position: relative;
-    left: 637px;
-    margin: 0 5px 5px 5px;
-    
-    a.prev_button { @extend minilink;
-      display: inline-block;
-      height: 16px;
-      padding: 0 0 0 18px;
-      background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation-180.png") no-repeat left;
-  	  color: $catalog_link;
-  	  text-transform: uppercase;
-  
-  	  &:hover{
-  	    color: $catalog_hover;
-  	    background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation-180-frame.png") no-repeat left;
-  	  }
-    }
-  
-    a.next_button { @extend a.prev_button;
-      padding: 0 18px 0 0;
-      background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation.png") no-repeat right;
-
-  	  &:hover{
-  	    color: $catalog_hover;
-  	    background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation-000-frame.png") no-repeat right;
-  	  }
-    }
-  }
-    
-  .item_element {
-    background-color: white;
-		width: 165px;
-		padding: 5px;
-		text-align: center;
-		height: 210px;
-		border: 1px solid $catalog_buybox_border;
-		margin: 5px;
-		
-		p {
-		  margin: 0;
-		}
-  }
-}
-
-// item carousel styles (wide version for non-landing pages like homepage or store locator)
-.item_carousel_wide {@extend .item_carousel;
-  width: 950px;
-  
-  .controls {
-    left: 830px;
-  }
-  
-  .item_element {
-    width: 168px;
-  }
 }

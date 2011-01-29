@@ -1,6 +1,87 @@
 // Ellison3 Web Application Visual Asset CSS
 // style settings for things like carousel headers, text banners, billboards, etc
 
+// content gallery
+.frame_gallery {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 12px;
+  
+  img.frame_gallery {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 21;
+  }
+  
+  #controls {
+    position: absolute;
+    top:0px;
+    left:0px;
+    z-index: 22;
+    
+    ol {
+      position: relative;
+      top: 322px;
+      margin: 0;
+      padding: 0 0 0 13px;
+      height:20px;  
+
+      
+      li {
+        display: inline;
+        margin-right: 4px;
+        height: 20px;
+        line-height: 20px;
+        
+        a { text-decoration: none;}
+        
+        img {
+          height:20px;
+          line-height:20px;
+          border:1px solid #d9e5f7;
+          background: #eff5fd;
+          padding:3px;
+          text-decoration:none;
+          
+          &:hover { background: #b2c7e7; };
+        }
+      }
+      
+      li.current img { background: #b2c7e7; }
+    }
+
+  }
+  
+  a.prevBtn {
+    position:absolute;
+    display: block;
+    font-family: Georgia, serif;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: bold;
+    line-height: 2em;
+    color: $home_gallery_ctrl_btn;
+    text-decoration: none;
+    &:hover { color: $home_gallery_ctrl_hover;};
+
+    top: 140px;
+    left: -2px;
+    width: 47px;
+    height: 34px;
+    padding: 3px 0 0 8px;
+    background:url("/images/ui-buttons/_#{$system}_arrow_prev_button.png") no-repeat 0 0;
+  }
+  a.nextBtn { @extend a.prevBtn;
+    top: 138px;
+    left: 906px;
+    width: 45px;
+    height: 35px;
+    padding: 5px 0 0 10px;
+    background:url("/images/ui-buttons/_#{$system}_arrow_next_button.png") no-repeat 0 0;
+  }
+}
+
 // decorative headers
 h2.whats-hot { @extend .decorative;
   background: url('/images/ui-objects/heart_pink.png') no-repeat;
@@ -19,7 +100,70 @@ h2.tim-holtz-outlet-items { @extend .decorative;
 }
 
 
+// item carousel styles (landing pages)
+.item_carousel {
+  width: 750px;
+  margin-bottom: 10px;
+  font-weight: normal;
+  
+  .controls {
+    position: relative;
+    left: 637px;
+    margin: 0 5px 5px 5px;
+    
+    a.prev_button { @extend minilink;
+      display: inline-block;
+      height: 16px;
+      padding: 0 0 0 18px;
+      background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation-180.png") no-repeat left;
+  	  color: $catalog_link;
+  	  text-transform: uppercase;
+  
+  	  &:hover{
+  	    color: $catalog_hover;
+  	    background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation-180-frame.png") no-repeat left;
+  	  }
+    }
+  
+    a.next_button { @extend a.prev_button;
+      padding: 0 18px 0 0;
+      background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation.png") no-repeat right;
 
+  	  &:hover{
+  	    color: $catalog_hover;
+  	    background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation-000-frame.png") no-repeat right;
+  	  }
+    }
+  }
+    
+  .item_element {
+    background-color: white;
+		width: 165px;
+		padding: 5px;
+		text-align: center;
+		height: 210px;
+		border: 1px solid $catalog_buybox_border;
+		margin: 5px;
+		
+		p {
+		  margin: 0;
+		}
+  }
+}
+
+// item carousel styles (wide)
+// for use on non-landing pages like homepage or store locator)
+.item_carousel_wide {@extend .item_carousel;
+  width: 950px;
+  
+  .controls {
+    left: 830px;
+  }
+  
+  .item_element {
+    width: 168px;
+  }
+}
 
 // text banners
 p.text-banner {
