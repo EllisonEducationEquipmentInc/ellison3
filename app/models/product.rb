@@ -142,6 +142,7 @@ class Product
 		def related_to(exluded_product, outlet = false)
 		  available.where(:_id.ne => exluded_product.id, :systems_enabled.in => [current_system], :outlet => outlet, :"quantity_#{is_us? ? 'us' : 'uk'}".gt => 0, :life_cycle.in => ['available']).limit(4)
 		end
+
 	end
 		
 	# define 

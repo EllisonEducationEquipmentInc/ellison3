@@ -1,3 +1,14 @@
+- if machines_owned.blank?
+  #machines_owned.floating_survey{:style => "position:absolute;padding:10px;border:1px solid gray;background:white;z-index:9999;"}
+    .right= link_to_function "close", "$('#machines_owned').remove()"
+    %h2 Help us serve you better - Which machines do you currently own?
+    = form_tag "/index/machines_survey", :remote => true do
+      - MACHINES.each do |k,v|
+        = check_box_tag 'machines[]', k
+        = v
+        %br
+      = submit_tag "Submit", :replace_with => "please wait...", :class => 'jqui_save'
+    
 - if @home_content.present?
   #current_visual_assets= render @home_content.visual_assets.current
   .clear

@@ -37,6 +37,10 @@
     %br
     = f.text_field :short_desc
   .field
+    = f.label :must_own
+    %br
+    = select_tag "#{f.object_name[/^(\w+)/]}[visual_assets_attributes][#{child_index}][must_own][]", options_for_select(MACHINES.map {|k,v| [v,k]}, f.object.must_own), :multiple => true
+  .field
     = f.label :asset_type
     %br
     = f.select :asset_type, VisualAsset::ASSET_TYPES, {}, :onchange => "toggle_visual_asset_type('#{child_index}')"

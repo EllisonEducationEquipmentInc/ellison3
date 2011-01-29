@@ -1,62 +1,63 @@
-- if visual_asset.asset_type == 'image' && visual_asset.image?
-  %p= link_to_unless visual_asset.link.blank?, image_tag(visual_asset.image_url, :alt => visual_asset.name), visual_asset.link, :title => visual_asset.name
-- elsif visual_asset.asset_type == 'text'
-  .asset_text= visual_asset.content.html_safe
-- elsif visual_asset.asset_type == 'freeform'
-  .asset_freeform= visual_asset.content.html_safe
-  .clear
-- elsif visual_asset.asset_type == 'catalog_search'
-  .asset_catalog_search
-    %h2{:class => "#{visual_asset.name.parameterize(sep = '-') }"}
-      %span= visual_asset.name
-      %span= link_to "View All", catalog_path(:anchor => visual_asset.search_query), :class => "minilink"
-    %div{ :class => "item_carousel#{visual_asset.wide? ? '_wide' : nil} ui-widget-#{ is_sizzix? ? 'header' : 'content'} ui-widget ui-corner-all" }
-      %div{:id => "asset_carousel_#{visual_asset.id}"}
-      .controls
-        = link_to "prev", "#", :class => "prev_button", :id => "prev_button_#{visual_asset.id}"
-        |
-        = link_to "next", "#", :class => "next_button", :id => "next_button_#{visual_asset.id}"
-    :javascript
-      $(function() {
-        $('#asset_carousel_#{visual_asset.id}').load('/index/limited_search?#{visual_asset.search_query}&per_page=#{visual_asset.item_limit}' ,function() {
+- if visual_asset.must_own.blank? || machines_owned.any? {|e| visual_asset.must_own.include?(e)}
+  - if visual_asset.asset_type == 'image' && visual_asset.image?
+    %p= link_to_unless visual_asset.link.blank?, image_tag(visual_asset.image_url, :alt => visual_asset.name), visual_asset.link, :title => visual_asset.name
+  - elsif visual_asset.asset_type == 'text'
+    .asset_text= visual_asset.content.html_safe
+  - elsif visual_asset.asset_type == 'freeform'
+    .asset_freeform= visual_asset.content.html_safe
+    .clear
+  - elsif visual_asset.asset_type == 'catalog_search'
+    .asset_catalog_search
+      %h2{:class => "#{visual_asset.name.parameterize(sep = '-') }"}
+        %span= visual_asset.name
+        %span= link_to "View All", catalog_path(:anchor => visual_asset.search_query), :class => "minilink"
+      %div{ :class => "item_carousel#{visual_asset.wide? ? '_wide' : nil} ui-widget-#{ is_sizzix? ? 'header' : 'content'} ui-widget ui-corner-all" }
+        %div{:id => "asset_carousel_#{visual_asset.id}"}
+        .controls
+          = link_to "prev", "#", :class => "prev_button", :id => "prev_button_#{visual_asset.id}"
+          |
+          = link_to "next", "#", :class => "next_button", :id => "next_button_#{visual_asset.id}"
+      :javascript
+        $(function() {
+          $('#asset_carousel_#{visual_asset.id}').load('/index/limited_search?#{visual_asset.search_query}&per_page=#{visual_asset.item_limit}' ,function() {
+            $("#asset_carousel_#{visual_asset.id}").jCarouselLite({
+              btnPrev: "#prev_button_#{visual_asset.id}",
+              btnNext: "#next_button_#{visual_asset.id}",
+              visible: #{visual_asset.wide? ? 5 : 4}
+            });
+          });
+        });
+  - elsif visual_asset.asset_type == 'products' || visual_asset.asset_type == 'ideas'
+    .asset_items
+      %h2{:class => "#{visual_asset.name.parameterize(sep = '-') }"}
+        %span= visual_asset.name
+      %div{ :class => "item_carousel#{visual_asset.wide? ? '_wide' : nil} ui-widget-#{ is_sizzix? ? 'header' : 'content'} ui-widget ui-corner-all" }
+        %ul= render :partial => 'index/item', :collection => visual_asset.asset_type == 'products' ? Product.available.where(:item_num.in => visual_asset.products).cache : Idea.available.where(:idea_num.in => visual_asset.ideas).cache
+        .controls
+          = link_to "prev", "#", :class => "prev_button", :id => "prev_button_#{visual_asset.id}"
+          |
+          = link_to "next", "#", :class => "next_button", :id => "next_button_#{visual_asset.id}"
+      :javascript
+        $(function() {
           $("#asset_carousel_#{visual_asset.id}").jCarouselLite({
             btnPrev: "#prev_button_#{visual_asset.id}",
             btnNext: "#next_button_#{visual_asset.id}",
             visible: #{visual_asset.wide? ? 5 : 4}
           });
         });
-      });
-- elsif visual_asset.asset_type == 'products' || visual_asset.asset_type == 'ideas'
-  .asset_items
-    %h2{:class => "#{visual_asset.name.parameterize(sep = '-') }"}
-      %span= visual_asset.name
-    %div{ :class => "item_carousel#{visual_asset.wide? ? '_wide' : nil} ui-widget-#{ is_sizzix? ? 'header' : 'content'} ui-widget ui-corner-all" }
-      %ul= render :partial => 'index/item', :collection => visual_asset.asset_type == 'products' ? Product.available.where(:item_num.in => visual_asset.products).cache : Idea.available.where(:idea_num.in => visual_asset.ideas).cache
-      .controls
-        = link_to "prev", "#", :class => "prev_button", :id => "prev_button_#{visual_asset.id}"
-        |
-        = link_to "next", "#", :class => "next_button", :id => "next_button_#{visual_asset.id}"
-    :javascript
-      $(function() {
-        $("#asset_carousel_#{visual_asset.id}").jCarouselLite({
-          btnPrev: "#prev_button_#{visual_asset.id}",
-          btnNext: "#next_button_#{visual_asset.id}",
-          visible: #{visual_asset.wide? ? 5 : 4}
+  - elsif visual_asset.asset_type == 'gallery'
+    .frame_gallery
+      = image_tag("/images/ui-objects/_#{current_system}_frame_gallery.png", :class => "frame_gallery")
+      .gallery_asset{:id => "gallery_#{visual_asset.id}"}
+      :javascript
+        $(document).ready(function(){
+          $("#gallery_#{visual_asset.id}").sudoSlider({
+            controlsFade: false,
+            prevHtml: '<a href="#" class="prevBtn"> prev </a>',
+            ajax: [#{visual_asset.images.map {|e| "'#{e}'"} * ', '}],
+            numeric: false,
+            preloadAjax: true,
+            fade: true,
+            auto: true
+          });
         });
-      });
-- elsif visual_asset.asset_type == 'gallery'
-  .frame_gallery
-    = image_tag("/images/ui-objects/_#{current_system}_frame_gallery.png", :class => "frame_gallery")
-    .gallery_asset{:id => "gallery_#{visual_asset.id}"}
-    :javascript
-      $(document).ready(function(){
-        $("#gallery_#{visual_asset.id}").sudoSlider({
-          controlsFade: false,
-          prevHtml: '<a href="#" class="prevBtn"> prev </a>',
-          ajax: [#{visual_asset.images.map {|e| "'#{e}'"} * ', '}],
-          numeric: false,
-          preloadAjax: true,
-          fade: true,
-          auto: true
-        });
-      });

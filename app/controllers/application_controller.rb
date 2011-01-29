@@ -12,9 +12,13 @@ class ApplicationController < ActionController::Base
   layout :get_layout
 
 	helper_method :vat, :gross_price, :calculate_vat, :get_user, :countries, :states, :sort_column, :sort_direction, :ga_tracker_id, :has_write_permissions?, :has_read_permissions?, :admin_systems,
-	              :quote_allowed?, :chekout_allowed?, :currency_correct?, :vat_exempt?, :outlet?
+	              :quote_allowed?, :chekout_allowed?, :currency_correct?, :vat_exempt?, :outlet?, :machines_owned
 
 private
+
+  def machines_owned
+    cookies[:machines].split(",") rescue []
+  end
 
   def outlet?
     is_sizzix_us? && params[:controller] == "index" && (params[:action] == 'outlet' || params[:outlet] == "1")

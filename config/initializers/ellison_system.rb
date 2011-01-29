@@ -8,6 +8,8 @@ module EllisonSystem
 	
 	WAREHOUSES = %w(us uk sz)
 	
+	MACHINES = {"A10000" => "AllStar", "A10800" => "AllStar SuperStar", "655210" => "BIGkick", "655268" => "Big Shot", "655750" => "Big Shot Express", "656250" => "Big Shot Pro", "15569" => "LetterMachine Original", "15575" => "LetterMachine XL", "19101" => "Prestige Pro", "19528" => "Prestige Select", "19528" => "Prestige SpaceSaver", "26868" => "RollModel", "655397" => "Sidekick", "656225" => "Texture Boutique", "656850" => "Vagabond", "655934" => "eclips"}
+	
 	MULTIFACETS = true #false
 
 	def current_system

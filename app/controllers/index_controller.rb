@@ -241,6 +241,11 @@ class IndexController < ApplicationController
     @event_strips = Tag.event_strips_for_month(@shown_month)
   end
   
+  def machines_survey
+    cookies[:machines] = {:value => params[:machines].join(","), :expires => 30.days.from_now}
+    render :js => "alert('Thank you.');$('#machines_owned').remove();"
+  end
+  
 private
 
   def process_feed(source, mins = 5)
