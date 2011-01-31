@@ -49,15 +49,37 @@
     .frame_gallery
       = image_tag("/images/ui-objects/_#{current_system}_frame_gallery.png", :class => "frame_gallery")
       .gallery_asset{:id => "gallery_#{visual_asset.id}"}
-      :javascript
-        $(document).ready(function(){
-          $("#gallery_#{visual_asset.id}").sudoSlider({
-            controlsFade: false,
-            prevHtml: '<a href="#" class="prevBtn"> prev </a>',
-            ajax: [#{visual_asset.images.map {|e| "'#{e}'"} * ', '}],
-            numeric: false,
-            preloadAjax: true,
-            fade: true,
-            auto: true
+      - if is_sizzix_uk?
+        :javascript
+          $(document).ready(function(){
+            $("#gallery_#{visual_asset.id}").sudoSlider({
+              controlsFade: false,
+              prevHtml: '<a href="#" class="prevBtn" alt="previous" title="previous"> prev </a>',
+              nextHtml: '<a href="#" class="nextBtn" alt="next" title="next"> next </a>',
+              ajax: [#{visual_asset.images.map {|e| "'#{e}'"} * ', '}],
+              speed: 'slow',
+              numeric: true,
+              preloadAjax: true,
+              auto: true,
+              pause: '6000',
+              imgAjaxFunction: function(t){
+                var url = $(this).children().attr('src');
+                $('.controls li a span').eq(t-1).html('<img src="' + url + '" width="60" height="20" />');
+              }
+            });
+          });      
+      - else      
+        :javascript
+          $(document).ready(function(){
+            $("#gallery_#{visual_asset.id}").sudoSlider({
+              controlsFade: false,
+              prevHtml: '<a href="#" class="prevBtn" alt="previous" title="previous"> prev </a>',
+              nextHtml: '<a href="#" class="nextBtn" alt="next" title="next"> next </a>',
+              ajax: [#{visual_asset.images.map {|e| "'#{e}'"} * ', '}],
+              speed: 'slow',
+              numeric: false,
+              preloadAjax: true,
+              fade: true,
+              auto: true
+            });
           });
-        });
