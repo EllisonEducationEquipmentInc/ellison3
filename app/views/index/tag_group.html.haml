@@ -2,7 +2,7 @@
 =# this is the header image. dynamic, based on the tag group and system. ex: "/images/landing/themes_szus.jpg"
 .tag_landing_header.ui-corner-all{ :class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}", :style => "background: url('/images/landing/#{params[:id]}_#{current_system}.jpg') no-repeat top center;"} &nbsp;
 - @search.facet(:"#{params[:id].singularize}_#{current_system}").rows.each do |row|
-  - next if row.instance.list_page_img.blank?
+  - next if row.instance.blank? || row.instance.list_page_img.blank?
   .tag_list_wrapper.ui-corner-all{ :class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
     %p= link_to image_tag(row.instance.list_page_img), catalog_path(:anchor => "facets=#{row.instance.facet_param}&ideas=#{idea? ? "1&sort=start_date_#{current_system}:desc" : ''}&page=1")
     %p= link_to row.instance.name, catalog_path(:anchor => "facets=#{row.instance.facet_param}&ideas=#{idea? ? '1' : ''}&page=1")
