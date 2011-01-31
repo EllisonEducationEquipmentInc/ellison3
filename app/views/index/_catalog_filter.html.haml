@@ -19,6 +19,7 @@
         - facet.rows.each do |row|
           %li
             - if facet.class == Sunspot::Search::FieldFacet
+              - next if row.instance.blank?
               - facet_selected = MULTIFACETS && @facets_hash.include?(row.value) 
               - if facet_selected
                 = link_to(row.instance.name, "#", :title => "remove #{row.instance.name}", :rel => row.value, :class => "multifacet_remove facet_selected")
