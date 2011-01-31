@@ -1,9 +1,9 @@
 - if machines_owned.blank?
-  #machines_owned.floating_survey{:style => "position:absolute;padding:10px;border:1px solid gray;background:white;z-index:9999;"}
-    .right= link_to_function "close", "$('#machines_owned').remove()"
-    %h2 Help us serve you better - Which machines do you currently own?
-    = render :partial => 'users/machines_poll'
-    
+  #machines_owned.floating_survey{:style => "position:absolute;padding:10px; width:418px; height:621px; background:url(/images/ui-backgrounds/sizzix_poll_bkg.png) no-repeat top left;z-index:9999;"}
+    .right{:style=>" position: relative;right: 12px;text-align: right;top: 4px; width: 100%;"}= link_to_function "close", "$('#machines_owned').remove()"
+    %div{:style=>"background:url('/images/color_tan.gif'); border:1px solid white; height:auto;margin-top:70px;padding: 16px;width: 376px;"}
+      %h2{:style=>"border-bottom:1px dotted #6C5941; margin-bottom:8px; padding-bottom:8px"} Help us serve you better - Which machines do you currently own?
+      = render :partial => 'users/machines_poll'    
 - if @home_content.present?
   #current_visual_assets= render @home_content.visual_assets.current
   .clear
