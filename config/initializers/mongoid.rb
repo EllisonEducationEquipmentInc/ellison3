@@ -73,7 +73,7 @@ module Mongoid #:nodoc:
       # bubble callbacks to embedded associations
       def run_callbacks(kind, *args, &block)
         # now bubble callbacks down
-        self.associations.each_pair do |name, meta|
+        self.relations.each_pair do |name, meta|
           if meta.relation == Mongoid::Relations::Embedded::Many #Mongoid::Associations::EmbedsMany
             self.send(name).each { |doc| doc.send(:run_callbacks, kind, *args, &block) }
           elsif meta.relation == Mongoid::Relations::Embedded::One #Mongoid::Associations::EmbedsOne
