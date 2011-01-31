@@ -21,7 +21,7 @@ class DiscountCategory
 	
 	index :old_id
 	
-	references_many :products, :index => true
+	references_many :products, :validate => false, :index => true
 	
 	scope :active, :where => { :active => true }
 	

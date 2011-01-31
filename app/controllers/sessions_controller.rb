@@ -31,6 +31,8 @@ class SessionsController < ApplicationController
 		end
     set_flash_message :notice, :signed_in
     session[:user_return_to] = retailer_application_path if is_er? && !resource.application_complete?
+    resource.update_attribute(:machines_owned, machines_owned) if machines_owned.present? && resource.machines_owned != machines_owned
+    cookies[:machines] = {:value => resource.machines_owned.join(","), :expires => 30.days.from_now} if resource.machines_owned.present? && machines_owned != resource.machines_owned
     if request.xhr? 
 			sign_in(resource_name, resource)
 			render :js => "window.location.href = '#{stored_location_for(:user) || root_path}'" 

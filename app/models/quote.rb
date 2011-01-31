@@ -11,7 +11,7 @@ class Quote
 	embeds_many :order_items
 	referenced_in :user
 	referenced_in :coupon
-	references_one :order
+	references_one :order, :validate => false
 
 	index :system
 	index :created_at

@@ -67,7 +67,7 @@ class UsersController < ApplicationController
 		@title = "My Account - Profile"
     @tabs = []
 		@tabs += [[:view_retailer_application, "Your Application"]] if is_er?
-		@tabs += [[:billing, "My Billing Info"], [:shipping, "My Shipping Info"], [:orders, "Order Status"], [:mylists, "My Lists"]]
+		@tabs += [[:billing, "My Billing Info"], [:shipping, "My Shipping Info"], [:orders, "Order Status"], [:mylists, "My Lists"], [:machines_i_own, "Machines I own"]]
 		@tabs += [[:quotes, quote_name.pluralize], [:materials, "Materials"]] unless is_sizzix?
 	end
 	
@@ -274,6 +274,10 @@ class UsersController < ApplicationController
 	  else
 	    render :retailer_application
 	  end
+	end
+	
+	def machines_i_own
+	  render :partial => 'users/machines_poll'
 	end
 	
 protected

@@ -42,9 +42,9 @@ class Coupon
 	end
 	index :updated_at
 	
-	references_many :carts
-	references_many :orders, :index => true
-	references_many :quotes, :index => true
+	references_many :carts, :validate => false
+	references_many :orders, :validate => false, :index => true
+	references_many :quotes, :validate => false, :index => true
 
 	validates :name, :systems_enabled, :level, :presence => true
 	validates_presence_of :codes, :unless => Proc.new {|obj| obj.no_code_required && obj.level == "shipping"}, :message => "can't be blank. Only shipping promotions can be setup with no_code_required option"

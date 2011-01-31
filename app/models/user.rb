@@ -26,6 +26,7 @@ class User
 	field :real_deal, :type => Boolean, :default => false
 	field :default_user, :type => Boolean, :default => false
 	field :internal_comments
+	field :machines_owned, :type => Array
 	
 	field :old_account_id, :type => Integer
 	field :old_id_szus, :type => Integer
@@ -48,9 +49,9 @@ class User
 
   referenced_in :account
   
-  references_many :feedbacks, :index => true
-	references_many :orders, :index => true
-	references_many :quotes, :index => true
+  references_many :feedbacks, :validate => false, :index => true
+	references_many :orders, :validate => false, :index => true
+	references_many :quotes, :validate => false, :index => true
 	references_many :lists, :index => true do
 	  def owns
 			@target.detect {|list| list.owns}
