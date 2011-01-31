@@ -144,13 +144,29 @@ body.bp {
       border-bottom:1px solid $catalog_detail_border;
     }
   }
-  #frame_gallery {
-  
-    img {
-      width: 951px;
-      height: 320px;
-    }
-  }  
+}
+
+// content gallery
+.frame_gallery {
+  a.prevBtn {
+    top: 133px;
+    left: 6px;
+    width: 20px;
+    height: 27px;
+    padding: 0;
+    text-indent: -9999px;
+    
+    &:hover { background:url("/images/ui-buttons/_#{$system}_gallery-arrow_prev_on.png") no-repeat 0 0; }
+  }
+  a.nextBtn { @extend a.prevBtn;
+    top: 133px;
+    left: 922px;
+    width: 20px;
+    height: 27px;
+    padding: 0;
+    
+    &:hover { background:url("/images/ui-buttons/_#{$system}_gallery-arrow_next_on.png") no-repeat 0 0; }
+  }
 }
 
 .ui-buttonset {
