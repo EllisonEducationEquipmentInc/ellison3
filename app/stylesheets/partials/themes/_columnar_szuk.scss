@@ -131,8 +131,30 @@ body.bp {
   }  
 }
 
+// content gallery
 .frame_gallery {
   height: 360px;
+
+  a.prevBtn {
+    font-family: Georgia, serif;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: bold;
+    line-height: 2em;
+
+    top: 140px;
+    left: -2px;
+    width: 47px;
+    height: 34px;
+    padding: 3px 0 0 8px;
+  }
+  a.nextBtn { @extend a.prevBtn;
+    top: 138px;
+    left: 906px;
+    width: 45px;
+    height: 35px;
+    padding: 5px 0 0 10px;
+  }
 }
 
 #footer {

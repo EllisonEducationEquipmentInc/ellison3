@@ -56,29 +56,13 @@
   a.prevBtn {
     position:absolute;
     display: block;
-    font-family: Georgia, serif;
-    font-size: 12px;
-    font-style: italic;
-    font-weight: bold;
-    line-height: 2em;
     color: $home_gallery_ctrl_btn;
     text-decoration: none;
     &:hover { color: $home_gallery_ctrl_hover;};
-
-    top: 140px;
-    left: -2px;
-    width: 47px;
-    height: 34px;
-    padding: 3px 0 0 8px;
-    background:url("/images/ui-buttons/_#{$system}_arrow_prev_button.png") no-repeat 0 0;
+    background:url("/images/ui-buttons/_#{$system}_gallery-arrow_prev.png") no-repeat 0 0;
   }
   a.nextBtn { @extend a.prevBtn;
-    top: 138px;
-    left: 906px;
-    width: 45px;
-    height: 35px;
-    padding: 5px 0 0 10px;
-    background:url("/images/ui-buttons/_#{$system}_arrow_next_button.png") no-repeat 0 0;
+    background:url("/images/ui-buttons/_#{$system}_gallery-arrow_next.png") no-repeat 0 0;
   }
 }
 
