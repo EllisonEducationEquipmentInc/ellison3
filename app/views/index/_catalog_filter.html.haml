@@ -61,10 +61,6 @@
               = link_to "#{row.value.label} (#{row.count})", "/catalog#facets=#{@facets_hash.join(",")}&saving=#{row.value.min}~#{row.value.max}", :title => row.value.label, :rel => "#{row.value.min}~#{row.value.max}", :class => "saving_query_facet_value"
             - else
               = link_to "#{row.value.label} (#{row.count})", "/catalog#facets=#{@facets_hash.join(",")}&price=#{row.value.min}~#{row.value.max}", :title => row.value.label, :rel => "#{row.value.min}~#{row.value.max}", :class => "price_query_facet_value"
-  :javascript
-    $(document).ready(function(){
-      initialize_facets();
-    });
 
 - unless params[:action] == "shop"
   :javascript

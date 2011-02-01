@@ -118,7 +118,7 @@ $(document).ready(function(){
 	
 	bind_hashchange ();
 	
-	// initialize_facets();
+	initialize_facets();
 	
 	// image zoom
 	var options = {
