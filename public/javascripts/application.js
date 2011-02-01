@@ -72,7 +72,7 @@ function bind_hashchange () {
 			var event_name = outlet ? "Outlet" : 'Catalog'
 			var outlet_param = outlet ? "outlet=1&" : ''
 			_gaq.push(['_trackEvent', event_name, 'Search', $.param.fragment()]);
-			$.ajax({url:"/index/search?lang="+$('html').attr('lang')+'&'+outlet_param+$.param.fragment(), beforeSend: function(){$("#product_catalog").css({opacity: 0.3})}, complete: function(){$("#product_catalog").css({opacity: 1})}});
+			$.ajax({url:"/index/search?lang="+$('html').attr('lang')+'&'+outlet_param+$.param.fragment(), beforeSend: function(){$("#product_catalog").css({opacity: 0.3});$("#products_filter").css({opacity: 0.3})}, complete: function(){$("#product_catalog").css({opacity: 1});$("#products_filter").css({opacity: 1})}});
 		}
 	});
 }

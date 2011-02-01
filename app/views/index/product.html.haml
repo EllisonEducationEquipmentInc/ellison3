@@ -23,7 +23,7 @@
   -# TODO: cache + move to a helper
   .item_compatibility
     %h4 Compatibility
-    %p This [TODO: @product.item_type] is compatible with these product lines:
+    %p== This #{@product.item_type} is compatible with these product lines:
     %ul
       - @product.product_line.compatibilities.each do |compatibility|
         - next unless compatibility.compatible_tag.present?
