@@ -210,7 +210,12 @@ body.bp {
   }
   
   h4 {
-    margin: 3px 0 0 0;
+    @if $system == eeuk {
+      margin: 3px 0 0 0;
+    } @else {
+      margin: 7px 0 0 0;
+    }
+    
     text-transform: uppercase;
     font-family:  'PT Sans', Helvetica, Arial, sans-serif;
     font-size: 10.5px;
@@ -263,6 +268,11 @@ body.bp {
   
   .ui-accordion-content {
     padding: 6px 0px;
+    
+    @if $system == eeuk {
+      margin-bottom: 10px;
+      font-size: 10.2px;       
+    }
   }
 }
 

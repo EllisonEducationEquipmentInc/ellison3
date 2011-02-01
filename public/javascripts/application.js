@@ -47,7 +47,7 @@ function initialize_lightboxes(){
 		});
 }
 
-/*
+// catalog facet filter collapsible menus
 function initialize_facets() {
 	$('.facets .head').click(function() {
 			$(this).find('span').toggleClass('ui-icon-triangle-1-s')
@@ -56,7 +56,6 @@ function initialize_facets() {
 			return false;
 		}).next().show();
 }
-*/
 
 function shadow_on() {
 	// shadowOn
