@@ -242,6 +242,7 @@ p.text-banner_red-border { @extend .text-banner_pt-sans;
     text-transform: uppercase !important;
     font-weight: bold !important;
     line-height: 1.2em !important;
+    cursor: move;
   }
   
   ul { @extend ul.horizontal;

@@ -132,6 +132,9 @@
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/film.png") no-repeat left bottom;
 }
 
+.tip_drag { @extend .tip;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/arrow-move.png") no-repeat left bottom;
+}
 
 // THIRD PARTY WIDGETS
 

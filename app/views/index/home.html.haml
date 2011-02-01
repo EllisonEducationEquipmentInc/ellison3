@@ -2,7 +2,7 @@
   #machines_owned.floating_survey
     .right= link_to_function "close", "$('#machines_owned').remove()", :class => "minibtn-cancel"
     %div
-      %h2
+      %h2.tooltip_drag
         Help us serve you better...
         %br
         Which machines do you currently own?
@@ -10,6 +10,23 @@
   :javascript
     $(function() {
       $( "#machines_owned" ).draggable();
+    });
+    $('.tooltip_drag').CreateBubblePopup({
+      position: 'top',
+      align: 'center',
+      distance: '50px',
+      tail: {
+        align: 'middle',
+        hidden: false
+      },
+      selectable: true,
+      innerHtml: '<div class="tip_drag">click to drag & move</div>',
+      innerHtmlStyle: {
+        color: '#333333',
+        'text-align': 'center'
+      },
+      themeName: 'azure',
+      themePath: '/images/ui-plugins/bubblepopup'
     });
 
 - if @home_content.present?

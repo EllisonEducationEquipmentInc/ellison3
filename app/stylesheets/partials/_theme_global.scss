@@ -73,7 +73,7 @@ body.bp {
   // bubble popups
   // overwriting blueprint th & td padding, reinstating jquerybubblepopup settings for this class
   .jquerybubblepopup {
-    z-index: 300;
+    z-index: 9999;
     
     table {
       margin-bottom: 0;
