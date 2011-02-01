@@ -62,6 +62,7 @@ function shadow_on() {
 	// shadowOn
 	$(".item-block").shadowOn({ imageset: 1, imagepath: "/images/ui-plugins/shadowOn" });  // drop shadow for item blocks on catalog pages
 	$(".item_images").shadowOn({ imageset: 1, imagepath: "/images/ui-plugins/shadowOn" });  // drop shadow for item images on item detail pages
+	$(".floating_survey").shadowOn({ imageset: 46, imagepath: "/images/ui-plugins/shadowOn" });  // drop shadow for item images on item detail pages
 }
 
 function bind_hashchange () {

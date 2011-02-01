@@ -1,5 +1,5 @@
 // Ellison3 Web Application Visual Asset CSS
-// style settings for things like carousel headers, text banners, billboards, etc
+// style settings for things like carousel headers, text banners, billboards, floating surveys, etc
 
 // content gallery
 .frame_gallery {
@@ -227,4 +227,24 @@ p.text-banner_red-border { @extend .text-banner_pt-sans;
     
     &:hover { color: black; }
   }  
+}
+
+// floating surveys
+.floating_survey {
+  position:absolute;
+  width: 320px;
+  padding:10px;
+  background:white;
+  z-index:9999;
+  
+  h2 {
+    font-size: 1.2em !important;
+    text-transform: uppercase !important;
+    font-weight: bold !important;
+    line-height: 1.2em !important;
+  }
+  
+  ul { @extend ul.horizontal;
+    li { width: 160px; }
+  }
 }
