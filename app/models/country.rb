@@ -20,7 +20,7 @@ class Country
 	index :display_order
 
 	validates_presence_of :iso_name, :iso, :name, :iso3, :numcode
-	validates_uniqueness_of :iso_name, :iso, :name, :iso3
+	validates_uniqueness_of :iso_name, :iso, :name, :iso3, :on => :create, :message => "must be unique"
 	
 	ELLISON_SYSTEMS.each do |sys|
 		scope sys.to_sym, :where => { :systems_enabled.in => [sys] }  # scope :szuk, :where => { :systems_enabled => "szuk" } # dynaically create a scope for each system. ex.:  Country.szus => scope for sizzix US countries

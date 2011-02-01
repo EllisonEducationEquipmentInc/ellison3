@@ -161,26 +161,47 @@ module Ax
 		end
 		
 		def update_inventory_from_ax(xml)
-			begin
-				doc = REXML::Document.new(xml)
-		    doc.root.elements.each('items') do |items|
-		      items.elements.each('item') do |item|
-		        item_number = item.attributes['number']
-		        quantity = item.attributes['onhand_qty'].to_i
-						
-						product = Product.find_by_axapta_id item_number
-						unless product.blank?
-		          product.set_quantity(quantity) 
-							ActionController::Base.logger.info "*** updating inventory on-hand quantity of #{product.id} #{product.axapta_id}, quantity: #{quantity}" 
-						else
-							ActionController::Base.logger.info "!!! inventory on-hand quantity of #{item_number} could not be updated"
-						end
-		      end
-		    end
-				return 1
-			rescue Exception => e
-				return e
-			end
+			doc = REXML::Document.new(xml)
+	    doc.root.elements.each('items') do |items|
+	      items.elements.each('item') do |item|
+	        item_number = item.attributes['number']
+	        onhand_qty_wh01 = item.attributes['onhand_qty_wh01'].to_i
+	        onhand_qty_wh11 = item.attributes['onhand_qty_wh11'].to_i
+	        onhand_qty_uk = item.attributes['onhand_qty_uk'].to_i
+					new_life_cycle = case item.attributes['life_cycle']
+					when "Pre-Release"
+					  'pre-release'
+					when 'Active'
+					  'available'
+					when 'Discontinued'
+					  'discontinued'
+					when 'Inactive'
+					  'unvailable'
+					else
+					  nil
+					end
+					product = Product.find_by_item_num item_number
+					unless product.blank?
+					  product.quantity_us =  onhand_qty_wh01
+					  product.quantity_sz =  onhand_qty_wh11
+					  product.quantity_uk =  onhand_qty_uk
+					  if new_life_cycle
+					    product.life_cycle = new_life_cycle
+					    if item.attributes['life_cycle_date'].present? && item.attributes['life_cycle_date'] =~ /^\d{2}\/\d{2}\/\d{2,4}$/
+					      life_cycle_date = Date.new(item.attributes['life_cycle_date'].split("/")[2].to_i, item.attributes['life_cycle_date'].split("/")[0].to_i, item.attributes['life_cycle_date'].split("/")[1].to_i) 
+					      product.life_cycle_date = life_cycle_date
+					    end
+					  end
+					  product.save(:validate => false)
+						Rails.logger.info "*** updating #{product.id} #{product.item_num}, life_cycle: #{new_life_cycle ? new_life_cycle : '--- not changed ---'}, onhand_qty_wh01: #{onhand_qty_wh01}, onhand_qty_wh11: #{onhand_qty_wh11}, onhand_qty_uk: #{onhand_qty_uk}" 
+					else
+						Rails.logger.info "!!! inventory on-hand quantity of #{item_number} could not be updated"
+					end
+	      end
+	    end
+			return 1
+		rescue Exception => e
+			return e
 		end
 		
 		def create_status_update_xml(orders, options = {})

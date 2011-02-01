@@ -144,13 +144,15 @@ namespace :ax do
   
   desc "create order status update xml (FOR TEST PURPOSES ONLY)"
   task :create_inventory_update_xml => :include_ax do
-    file = ENV['FILE'] || 'quantities.csv'
     xml = Builder::XmlMarkup.new(:indent => 2)
     xml.instruct!
     xml.inventory_update do
       xml.items do 
-        FasterCSV.foreach("#{PATH}/from_ax/#{file}", :headers => :first_row) do |row|
-          xml.item(:number => row['item_num'], :onhand_qty => row['onhand_qty'])
+        Product.active.limit(10).each do |product|
+          onhand_qty_wh11 = rand(100)
+          onhand_qty_wh01 = rand(100)
+          onhand_qty_uk = rand(100)
+          xml.item(:number => product.item_num, :onhand_qty => onhand_qty_wh11 + onhand_qty_wh01, :onhand_qty_wh01 => onhand_qty_wh01, :onhand_qty_wh11 => onhand_qty_wh11, :onhand_qty_uk => onhand_qty_uk, :life_cycle_date => Time.now.strftime("%m/%d/%y"), :life_cycle => random_life_cycle)
         end
       end
     end
@@ -159,5 +161,19 @@ namespace :ax do
     p "#{PATH}/from_ax/#{filename} has been created" 
   end
 
+  def random_life_cycle
+    case rand 10
+    when 9
+      "Inactive"
+    when 8
+      "Discontinued"
+    when 7
+      "Pre-Release"
+    when 6
+      ''
+    else
+      "Active"
+    end
+  end
   
 end

@@ -49,7 +49,7 @@ class LandingPage
 	validates_associated :visual_assets
 	
 	validates :name, :permalink, :systems_enabled, :start_date, :end_date, :presence => true
-	validates_uniqueness_of :permalink
+	validates_uniqueness_of :permalink, :if => Proc.new {|obj| obj.new_record? || obj.permalink_changed?}
 	validates_format_of :permalink, :with => /^[a-z0-9-]+$/, :message => "Use only alphanumeric characters (all lowercase, no spaces or special characters). Examle: st-patrick-day-sale"
 	
 	# scopes
