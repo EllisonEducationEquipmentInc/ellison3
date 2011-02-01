@@ -20,7 +20,7 @@ class Admin::OrdersController < ApplicationController
 	  criteria = criteria.where(:status => params[:status]) unless params[:status].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria = criteria.any_of({'address.email' => regexp},  {'address.first_name' => regexp}, { 'address.last_name' => regexp }, { 'address.city' => regexp }, { 'address.address' => regexp })
+  	  criteria = criteria.any_of({'order_number' => params[:q][/\d+/].to_i}, {'address.email' => regexp},  {'address.first_name' => regexp}, { 'address.last_name' => regexp }, { 'address.city' => regexp }, { 'address.address' => regexp })
 	  end
 	  order = params[:sort] ? {sort_column => sort_direction} : [[:created_at, :desc]]
 		@orders = criteria.order_by(order).paginate :page => params[:page], :per_page => 50

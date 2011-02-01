@@ -14,7 +14,7 @@
           %td= l order.created_at, :format => :custom
           %td= link_to order.public_order_number, order_path(order, :page => params[:page])
           %td= number_to_currency order.total_amount
-          %td= order.status
+          %td= order.public_status
   - I18n.locale = @current_locale
   = will_paginate @orders, :class => 'pagination ajax'
 :javascript

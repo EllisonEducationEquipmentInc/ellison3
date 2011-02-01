@@ -54,6 +54,7 @@ gem 'youtube_it', :git => "git://github.com/jasondoucette/youtube_it.git"
 gem 'memcache'
 gem 'memcache-client'
 gem 'event-calendar', :require => 'event_calendar', :git => 'git://github.com/elevation/event_calendar.git', :branch => "master"
+gem 'newrelic_rpm'
 
 # Use unicorn as the web server
 # gem 'unicorn'

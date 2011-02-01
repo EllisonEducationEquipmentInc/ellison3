@@ -1,7 +1,5 @@
 class Country
 	include EllisonSystem
-	include ActiveModel::Validations
-	include ActiveModel::Translation
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	
@@ -34,7 +32,9 @@ class Country
 		end
 		
 		def name_2_code(name)
-		  find_by_name(name).try :iso
+		  Rails.cache.fetch("country_2_code_#{name}", :expires_in => 1.days) do
+		    find_by_name(name).try :iso
+		  end
 		end
 	end
 end

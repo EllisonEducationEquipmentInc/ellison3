@@ -20,9 +20,9 @@ class Order
 	embeds_one :payment
 	embeds_one :address, :validate => false
 	embeds_many :order_items
-	referenced_in :user
-	referenced_in :coupon
-	referenced_in :quote
+	referenced_in :user, :validate => false
+	referenced_in :coupon, :validate => false
+	referenced_in :quote, :validate => false
 	
 	index :status 
 	index :system
@@ -79,6 +79,12 @@ class Order
 	
 	before_create :set_system
 	
+	class << self
+	  def find_by_public_order_number(public_order_number)
+	    Order.where(:system => public_order_number[/[a-z]{2,4}/i].downcase, :order_number => public_order_number[/\d+/]).first
+	  end
+	end
+	
 	def gross_subtotal_amount
 	  self.vat_exempt || self.vat_exempt.nil?  ? subtotal_amount : subtotal_amount + tax_amount
 	rescue
@@ -106,6 +112,17 @@ class Order
 	# if status can no longer be changed on the web
 	def status_frozen?
 	  !(new? || pending?)
+	end
+	
+	def public_status
+	  case self.status
+	  when "Processing"
+	    "Open"
+	  when "To Refund" || "Refunded"
+	    "Cancelled"
+	  else
+	    self.status
+	  end
 	end
 	
 	def public_order_number

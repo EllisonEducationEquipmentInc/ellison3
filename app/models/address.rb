@@ -23,8 +23,8 @@ class Address
 	field :avs_result
 	
 	embedded_in :user, :inverse_of => :addresses
-	embedded_in :order, :inverse_of => :addresses
-	embedded_in :quote, :inverse_of => :addresses
+	embedded_in :order, :inverse_of => :address
+	embedded_in :quote, :inverse_of => :address
 	
 	validates :address_type, :first_name, :last_name, :address1, :city, :zip_code, :phone, :country, :presence => true
 	validate :not_verified

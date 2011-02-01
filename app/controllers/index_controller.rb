@@ -27,7 +27,7 @@ class IndexController < ApplicationController
     if request.xhr?
       render :product_min, :layout => false and return 
     else
-      fresh_when(:etag => [current_locale, current_system, @product, current_user, request.xhr?], :last_modified => @product.updated_at.utc)
+      #fresh_when(:etag => [current_locale, current_system, @product, current_user, request.xhr?], :last_modified => @product.updated_at.utc)
     end
   rescue Exception => e
     Rails.logger.info e.message
@@ -38,7 +38,7 @@ class IndexController < ApplicationController
     @idea = Idea.send(current_system).criteria.id(params[:id]).first
     raise "Invalid idea" unless @idea.listable?
     @title = @idea.name
-    fresh_when(:etag => [current_system, @idea], :last_modified => @idea.updated_at.utc)
+    #fresh_when(:etag => [current_system, @idea], :last_modified => @idea.updated_at.utc)
   rescue Exception => e
     Rails.logger.info e.message
     go_404
@@ -86,7 +86,7 @@ class IndexController < ApplicationController
     get_search
     session[:user_return_to] = catalog_path + "#" + request.env["QUERY_STRING"]
     @products = @search.results
-    expires_in 1.hours, 'max-stale' => 1.hours
+    #expires_in 1.hours, 'max-stale' => 1.hours
   end
   
   def quick_search
