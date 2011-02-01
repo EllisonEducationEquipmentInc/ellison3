@@ -81,7 +81,7 @@ module Ax
               }
 
               xml.delivery {
-                xml.delivery_mode(order.shipping_service)
+                xml.delivery_mode(ax_shipping_code(order.shipping_service))
                 xml.priority(order.shipping_priority)
                 xml.delivery_term('PP')
                 xml.delivery_contact_first order.address.first_name
@@ -217,6 +217,30 @@ module Ax
 	    }
 	    xml.target!
 	  end
+	  
+	  def ax_shipping_code(shipping_service)
+	    case shipping_service
+	    when "EXPRESS_SAVER", "FEDEX_EXPRESS_SAVER"
+	      "FDXES"
+	    when "FEDEX_GROUND", "GROUND"
+	      "FXGround"
+	    when "FEDEX_2_DAY", "SECOND_DAY"
+	      "FDX2D"
+	    when "FIRST_OVERNIGHT"
+	      "FXDFONIGHT"
+	    when "STANDARD_OVERNIGHT", "OVERNIGHT"
+	      "FDXSO"
+	    when "PRIORITY_OVERNIGHT"
+	      "FDXPO"
+	    when "INTERNATIONAL_ECONOMY"
+	      "FDXIE"
+	    when "FEDEX_3_DAY_FREIGHT"
+	      "FDXTHRDFR"
+	    else
+	      shipping_service
+	    end
+	  end
+	  
 	
 	end
 	
