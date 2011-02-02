@@ -1,6 +1,6 @@
 - if machines_owned.blank?
   #machines_owned.floating_survey
-    .right= link_to_function "close", "$('#machines_owned').remove()", :class => "minibtn-cancel"
+    .right= link_to_function "close", "$('#machines_owned').remove()", :class => "minibtn-cancel", :onclick => "$('.tooltip_drag').RemoveBubblePopup();"
     %div
       %h2.tooltip_drag
         Help us serve you better...
@@ -28,6 +28,7 @@
       themeName: 'azure',
       themePath: '/images/ui-plugins/bubblepopup'
     });
+    
 
 - if @home_content.present?
   #current_visual_assets= render @home_content.visual_assets.current
