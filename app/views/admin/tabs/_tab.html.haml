@@ -3,8 +3,8 @@
     = hidden_field_tag :id, @tab.id
     = f.label :name
     = f.text_field :name
-    = hidden_field_tag :product_id, @tab.product.id
-    = hidden_field_tag :idea_id, @tab.idea.id
+    = hidden_field_tag :product_id, @tab.product.try(:id)
+    = hidden_field_tag :idea_id, @tab.idea.try(:id)
   .field
     = f.label :active
     %br
