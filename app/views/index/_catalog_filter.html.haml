@@ -45,7 +45,7 @@
     - @search.facets.each do |facet|
       - next if facet.rows.length < 1 || !MULTIFACETS && @facets_hash.any? {|h| h.include?(facet_to_param(facet.name))} || (facet.name == :price && !params[:price].blank?) || (facet.name == :saving && !params[:saving].blank?)
       %h4.head.ui-accordion-header.ui-helper-reset.ui-state-default.ui-corner-top
-        %span.ui-icon.ui-icon-triangle-1-s
+        %span.ui-icon.ui-icon-triangle-1-e
         = link_to facet.name.to_s.gsub("_#{current_system}", "").humanize, "#"
       %ul.ui-accordion-content.ui-helper-reset.ui-widget-content.ui-corner-bottom.ui-accordion-content-active
         - facet.rows.each do |row|

@@ -50,11 +50,11 @@ function initialize_lightboxes(){
 // catalog facet filter collapsible menus
 function initialize_facets() {
 	$('.facets .head').click(function() {
-			$(this).find('span').toggleClass('ui-icon-triangle-1-s')
 			$(this).find('span').toggleClass('ui-icon-triangle-1-e')
+			$(this).find('span').toggleClass('ui-icon-triangle-1-s')
 			$(this).next().toggle();
 			return false;
-		}).next().show();
+		}).next().hide();
 }
 
 function shadow_on() {
