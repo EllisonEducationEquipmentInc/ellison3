@@ -123,6 +123,18 @@
   background: url("/images/ui-icons/set_social-media/16x16/email.png") no-repeat left bottom;
 }
 
+.link_expand {
+  @extend .link;
+  @extend .minilink;
+  margin: 3px 0 0 6px;
+  padding: 0 0 0 15px;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/toggle-small-expand.png") no-repeat left bottom;
+}
+
+.link_collapse { @extend .link_expand;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/toggle-small.png") no-repeat left bottom;
+}
+
 .link_compatibility { @extend .link;
   padding: 0 15px 0 0;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/star-small.png") no-repeat right bottom;

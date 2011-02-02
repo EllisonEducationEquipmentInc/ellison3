@@ -41,6 +41,9 @@
     	});
     });
 - else
+  = link_to "collapse all", "#", :class => "link_collapse", :style => "display: none"
+  = link_to "expand all", "#", :class => "link_expand"
+  .clear
   .facets.ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
     - @search.facets.each do |facet|
       - next if facet.rows.length < 1 || !MULTIFACETS && @facets_hash.any? {|h| h.include?(facet_to_param(facet.name))} || (facet.name == :price && !params[:price].blank?) || (facet.name == :saving && !params[:saving].blank?)
@@ -98,6 +101,22 @@
         disable_facet_link($(this), "ell3_cross-small--disabled");
         return false;
       });
+      $('.link_collapse').click(function() {
+        $('.facets').find('ul').hide();
+        $(this).hide();
+        $('.link_expand').show();
+        $('.facets .head').find('span').toggleClass('ui-icon-triangle-1-e');
+        $('.facets .head').find('span').toggleClass('ui-icon-triangle-1-s');
+        return false;
+      });
+      $('.link_expand').click(function() {
+        $('.facets').find('ul').show();
+        $(this).hide();
+        $('.link_collapse').show();
+        $('.facets .head').find('span').toggleClass('ui-icon-triangle-1-e');
+        $('.facets .head').find('span').toggleClass('ui-icon-triangle-1-s');
+        return false;
+      });
     });
     
     function disable_facet_link(link, icon) {
@@ -107,4 +126,4 @@
         'color' : '#ccc'
       });
     }
-  
+-#TODO: will DRY collapse/expand code above 
