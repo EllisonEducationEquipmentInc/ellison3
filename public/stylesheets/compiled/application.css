@@ -240,7 +240,7 @@ body.bp th, body.bp td, body.bp caption {
 }
 /* line 203, ../../../app/stylesheets/application.scss */
 #content .visual_asset, #content .compatibility {
-  border: 1px solid gray;
+  border: 2px solid gray;
   padding: 3px;
   margin-bottom: 10px;
   width: 850px;
@@ -249,71 +249,73 @@ body.bp th, body.bp td, body.bp caption {
 #content .child_visual_asset {
   border: 1px dashed green;
   width: 830px;
+  background: #E7E7E7;
+  margin-bottom: 5px;
 }
-/* line 214, ../../../app/stylesheets/application.scss */
+/* line 216, ../../../app/stylesheets/application.scss */
 #content #map {
   float: left;
   height: 460px;
   width: 600px;
 }
-/* line 219, ../../../app/stylesheets/application.scss */
+/* line 221, ../../../app/stylesheets/application.scss */
 #content #store_info {
   width: 300px;
   float: left;
 }
-/* line 223, ../../../app/stylesheets/application.scss */
+/* line 225, ../../../app/stylesheets/application.scss */
 #content .floating_image {
   float: left;
   width: 125px;
   text-align: center;
   margin-right: 10px;
 }
-/* line 229, ../../../app/stylesheets/application.scss */
+/* line 231, ../../../app/stylesheets/application.scss */
 #content .map-location {
   width: 260px;
   border-bottom: 1px solid gray;
   margin-bottom: 10px;
 }
-/* line 234, ../../../app/stylesheets/application.scss */
+/* line 236, ../../../app/stylesheets/application.scss */
 #content .online_store {
   float: left;
   width: 250px;
   margin: 5px 5px;
 }
 
-/* line 240, ../../../app/stylesheets/application.scss */
+/* line 242, ../../../app/stylesheets/application.scss */
 p.show_cart {
   cursor: pointer;
 }
 
-/* line 241, ../../../app/stylesheets/application.scss */
+/* line 243, ../../../app/stylesheets/application.scss */
 #guest_checkout {
   float: right;
   width: 375px;
 }
 
-/* line 245, ../../../app/stylesheets/application.scss */
+/* line 247, ../../../app/stylesheets/application.scss */
 #returning_cuctomer {
   float: left;
   width: 375px;
 }
 
-/* line 250, ../../../app/stylesheets/application.scss */
+/* line 252, ../../../app/stylesheets/application.scss */
 #cart_total {
   font-size: 1.4em;
 }
 
-/* line 255, ../../../app/stylesheets/application.scss */
+/* line 257, ../../../app/stylesheets/application.scss */
 li#cart_total {
   border-top: 1px double gray;
 }
 
-/* line 256, ../../../app/stylesheets/application.scss */
+/* line 258, ../../../app/stylesheets/application.scss */
 .item_changed {
   background: #FBE3E4;
 }
 
-/* line 258, ../../../app/stylesheets/application.scss */
+/* line 260, ../../../app/stylesheets/application.scss */
 td.pre_order {
   color: red;
 }

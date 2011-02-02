@@ -50,7 +50,7 @@ class SharedContent
 		end
   end
   
-  accepts_nested_attributes_for :visual_assets, :allow_destroy => true, :reject_if => proc { |attributes| attributes['name'].blank?}
+  accepts_nested_attributes_for :visual_assets, :allow_destroy => true , :reject_if => proc { |attributes| attributes['name'].blank? && attributes['systems_enabled'].blank?}
 	validates_associated :visual_assets
 	
 	def products

@@ -5,7 +5,7 @@ class VisualAsset
 	
 	include Mongoid::Associations::EmbeddedCallbacks
 	
-	ASSET_TYPES = ["catalog_search", "image", "text", "products", "ideas", "freeform"]
+	ASSET_TYPES = ["catalog_search", "image", "products", "ideas", "freeform"]
 	CHILD_ASSET_TYPES = ["gallery", "billboard"]
 	PARENT_ASSET_TYPES = ["galleries", "billboards"]
 	
@@ -33,7 +33,7 @@ class VisualAsset
 	end
 	
 	recursively_embeds_many
-	accepts_nested_attributes_for :child_visual_assets, :allow_destroy => true, :reject_if => proc { |attributes| attributes['name'].blank?}
+	accepts_nested_attributes_for :child_visual_assets, :allow_destroy => true #, :reject_if => proc { |attributes| attributes['name'].blank?}
 	
 	embedded_in :landing_page, :inverse_of => :visual_assets
 	embedded_in :shared_content, :inverse_of => :visual_assets
