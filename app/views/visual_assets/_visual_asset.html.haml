@@ -1,5 +1,38 @@
 - if visual_asset.must_own.blank? || machines_owned.any? {|e| visual_asset.must_own.include?(e)}
-  - if visual_asset.asset_type == 'image' && visual_asset.image?
+  - if visual_asset.asset_type == 'galleries' && visual_asset.child_visual_assets.present?
+    .frame_gallery
+      = image_tag("/images/ui-objects/_#{current_system}_frame_gallery.png", :class => "frame_gallery")
+      .gallery_asset{:id => "gallery_#{visual_asset.id}"}
+        %ul
+          - visual_asset.child_visual_assets.select {|asset| asset.available?}.sort {|x,y| x.display_order <=> y.display_order}.each do |child_visual_asset|
+            %li= link_to_unless child_visual_asset.link.blank?, image_tag(child_visual_asset.image_url, :alt => child_visual_asset.name), child_visual_asset.link, :title => child_visual_asset.name
+      :javascript
+        $(document).ready(function(){
+          $("#gallery_#{visual_asset.id}").sudoSlider({
+            controlsFade: false,
+            prevHtml: '<a href="#" class="prevBtn" alt="previous" title="previous"> prev </a>',
+            nextHtml: '<a href="#" class="nextBtn" alt="next" title="next"> next </a>',
+            speed: '#{is_sizzix_uk? ? 1600 : "slow"}',
+            numeric: #{is_sizzix_uk? ? 'true' : "false"},
+            preloadAjax: true,
+            auto: true,
+            #{is_sizzix_uk? ? "pause: '12000'" : "fade: true"},
+
+          });
+        });      
+  - elsif visual_asset.asset_type == 'billboards' && visual_asset.child_visual_assets.present?
+    - visual_asset.child_visual_assets.select {|asset| asset.available?}.sort {|x,y| x.display_order <=> y.display_order}.each do |billboard|
+      %div{:class => "billboard_#{billboard.wide ? 'medium' : 'XS'} #{'last' if visual_asset.child_visual_assets.last == billboard}"}
+        .captionfull{:class => "boxgrid#{billboard.wide ? '-large' : nil}"}
+          = image_tag(billboard.image_url) if billboard.image?
+          .cover{:class => "boxcaption#{billboard.wide ? '-large' : nil}"}
+            %h4= billboard.name
+            %div
+              = billboard.content.html_safe
+              - if billboard.link.present?
+                %br/
+                = link_to "more", billboard.link
+  - elsif visual_asset.asset_type == 'image' && visual_asset.image?
     %p= link_to_unless visual_asset.link.blank?, image_tag(visual_asset.image_url, :alt => visual_asset.name), visual_asset.link, :title => visual_asset.name
   - elsif visual_asset.asset_type == 'text'
     .asset_text= visual_asset.content.html_safe
@@ -45,41 +78,3 @@
             visible: #{visual_asset.wide? ? 5 : 4}
           });
         });
-  - elsif visual_asset.asset_type == 'gallery'
-    .frame_gallery
-      = image_tag("/images/ui-objects/_#{current_system}_frame_gallery.png", :class => "frame_gallery")
-      .gallery_asset{:id => "gallery_#{visual_asset.id}"}
-      - if is_sizzix_uk?
-        :javascript
-          $(document).ready(function(){
-            $("#gallery_#{visual_asset.id}").sudoSlider({
-              controlsFade: false,
-              prevHtml: '<a href="#" class="prevBtn" alt="previous" title="previous"> prev </a>',
-              nextHtml: '<a href="#" class="nextBtn" alt="next" title="next"> next </a>',
-              ajax: [#{visual_asset.images.map {|e| "'#{e}'"} * ', '}],
-              speed: '1600',
-              numeric: true,
-              preloadAjax: true,
-              auto: true,
-              pause: '12000',
-              imgAjaxFunction: function(t){
-                var url = $(this).children().attr('src');
-                $('.controls li a span').eq(t-1).html('<img src="' + url + '" width="60" height="20" />');
-              }
-            });
-          });      
-      - else      
-        :javascript
-          $(document).ready(function(){
-            $("#gallery_#{visual_asset.id}").sudoSlider({
-              controlsFade: false,
-              prevHtml: '<a href="#" class="prevBtn" alt="previous" title="previous"> prev </a>',
-              nextHtml: '<a href="#" class="nextBtn" alt="next" title="next"> next </a>',
-              ajax: [#{visual_asset.images.map {|e| "'#{e}'"} * ', '}],
-              speed: 'slow',
-              numeric: false,
-              preloadAjax: true,
-              fade: true,
-              auto: true
-            });
-          });

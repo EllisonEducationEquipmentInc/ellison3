@@ -176,7 +176,7 @@ module Ax
 					when 'Discontinued'
 					  'discontinued'
 					when 'Inactive'
-					  'unvailable'
+					  'unavailable'
 					else
 					  nil
 					end

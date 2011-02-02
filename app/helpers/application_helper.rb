@@ -77,8 +77,8 @@ HTML
     Haml::Engine.new(html).render(self)
 	end
 	
-	def link_to_add_fields(name, f, association)  		
-	  new_object = f.object.relations[association.to_s].klass.new 
+	def link_to_add_fields(name, f, association, build = false)  		
+	  new_object = build ? f.object.send(association).build : f.object.relations[association.to_s].klass.new 
 	  fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|  
 	    render(new_object, :f => builder)  
 	  end  

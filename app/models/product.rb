@@ -18,7 +18,7 @@ class Product
 	
 	
 	QUANTITY_THRESHOLD = 0
-	LIFE_CYCLES = ['pre-release', 'available', 'discontinued', 'unvailable']
+	LIFE_CYCLES = ['pre-release', 'available', 'discontinued', 'unavailable']
 	ITEM_TYPES = ['machine', 'die', 'supply', 'accessory']
 	
 	cattr_accessor :retailer_discount_level
@@ -351,7 +351,7 @@ class Product
 	end
 	
 	def orderable?(sys = current_system)
-	  (self.send("orderable_#{sys}") && life_cycle != "unvailable") #|| life_cycle == "available" 
+	  (self.send("orderable_#{sys}") && life_cycle != "unavailable") #|| life_cycle == "available" 
 	end
 	
 	def not_reselable?
@@ -363,7 +363,7 @@ class Product
 	end
 	
 	def suspended?
-	  life_cycle == "unvailable"
+	  life_cycle == "unavailable"
 	end
 	
 	# if product can be displayed on the product detail page (regardless of availablitity)

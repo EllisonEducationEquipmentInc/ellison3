@@ -32,17 +32,6 @@
 - if @home_content.present?
   #current_visual_assets= render @home_content.visual_assets.current
   .clear
-  - @home_content.visual_assets.billboards.each do |billboard|
-    %div{:class => "billboard_#{billboard.wide ? 'medium' : 'XS'} #{'last' if @home_content.visual_assets.billboards.last == billboard}"}
-      .captionfull{:class => "boxgrid#{billboard.wide ? '-large' : nil}"}
-        = image_tag(billboard.image_url) if billboard.image?
-        .cover{:class => "boxcaption#{billboard.wide ? '-large' : nil}"}
-          %h4= billboard.name
-          %div
-            = billboard.content.html_safe
-            - if billboard.link.present?
-              %br/
-              = link_to "more", billboard.link
 
 - unless is_er? || is_ee?
   #blog-posts

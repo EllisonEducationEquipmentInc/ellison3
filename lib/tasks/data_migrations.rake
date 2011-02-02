@@ -415,7 +415,7 @@ namespace :data_migrations do
         new_product.systems_enabled.delete("szus") 
       end
       new_product.active = true if product.new_active_status
-      if product.new_life_cycle != 'unvailable' && new_product.life_cycle == 'unvailable' && product.new_active_status
+      if product.new_life_cycle != 'unavailable' && new_product.life_cycle == 'unavailable' && product.new_active_status
         p "...product is available -- changing life cycle to discontinued"
         new_product.life_cycle = 'discontinued' 
       end

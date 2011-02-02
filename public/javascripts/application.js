@@ -532,6 +532,10 @@ function toggle_visual_asset_type(child_index) {
 	if ($('#shared_content_visual_assets_attributes_'+child_index+'_asset_type').length > 0) $('.visual_asset_'+child_index+' .'+$('#shared_content_visual_assets_attributes_'+child_index+'_asset_type').val()).show();
 	if ($('#tag_visual_assets_attributes_'+child_index+'_asset_type').length > 0) $('.visual_asset_'+child_index+' .'+$('#tag_visual_assets_attributes_'+child_index+'_asset_type').val()).show();
 }
+function toggle_child_visual_asset_type(child_index, value) {
+	$('.visual_asset_child_'+child_index+' .type_specific').hide();
+	$('.visual_asset_child_'+child_index+' .'+value).show();
+}
 
 function youtube_video_links() {
 	$(".fancyvideo").click(function() {

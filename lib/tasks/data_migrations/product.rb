@@ -151,7 +151,7 @@ module OldData
   	  return 'pre-release' if self.pre_order
   	  return 'discontinued' if self.life_cycle == 'Clearance-Discontinued'
   	  if self.availability == 0
-  	    'unvailable'
+  	    'unavailable'
   	  elsif self.availability == 2
   	    'discontinued'
   	  elsif self.availability == 1 || self.availability == 3

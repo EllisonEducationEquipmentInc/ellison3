@@ -1,12 +1,12 @@
 - child_index = f.object_name.match(/\[([0-9a-f]+)\]$/).try(:[], 1) || f.options[:child_index]
-.visual_asset{:id => "visual_asset_#{f.object.id}", :class => "visual_asset_#{child_index}"}
+.visual_asset{:id => "visual_asset_#{f.object.id}", :class => "visual_asset_#{'child_' if f.object.is_child?}#{child_index} #{'child_visual_asset' if f.object.is_child?}"}
   %h2{:style => "cursor:move"}= f.object.name
   = f.error_messages
   .field
     = f.label :systems_enabled
     - ELLISON_SYSTEMS.each do |sys|
-      = hidden_field_tag("#{f.object_name[/^(\w+)/]}[visual_assets_attributes][#{child_index}][systems_enabled][]", sys) if f.object.systems_enabled.try(:include?, sys) && !has_write_permissions?(sys)
-      = check_box_tag("#{f.object_name[/^(\w+)/]}[visual_assets_attributes][#{child_index}][systems_enabled][]", sys, f.object.systems_enabled.try(:include?, sys), :disabled => !has_write_permissions?(sys))
+      = hidden_field_tag("#{f.object_name}[systems_enabled][]", sys) if f.object.systems_enabled.try(:include?, sys) && !has_write_permissions?(sys)
+      = check_box_tag("#{f.object_name}[systems_enabled][]", sys, f.object.systems_enabled.try(:include?, sys), :disabled => !has_write_permissions?(sys))
       %span{:class => sys == current_system ? "current_system" : nil}= sys
   .field
     = f.label :active
@@ -43,7 +43,7 @@
   .field
     = f.label :asset_type
     %br
-    = f.select :asset_type, VisualAsset::ASSET_TYPES, {}, :onchange => "toggle_visual_asset_type('#{child_index}')"
+    = f.select :asset_type, f.object.asset_types_list, {}, :onchange => f.object.is_child? ? "toggle_child_visual_asset_type('#{child_index}', this.value)" : "toggle_visual_asset_type('#{child_index}')", :class => "#{'child_' if f.object.is_child?}visual_asset_asset_type_#{child_index} visual_asset_type"
   .field.type_specific.catalog_search
     = f.label :search_query, "Complete search query after #. ex: outlet=1&page=1&ideas=0&facets=category~shape-cutting&sort=start_date_szus%3Adesc"
     %br
@@ -56,7 +56,7 @@
     = f.label :content
     %br
     = f.text_area :content, :class => 'wymeditor'
-  .field.type_specific.image.billboard
+  .field.type_specific.image.billboard.gallery
     = required_field(f.label :image)
     = image_tag(f.object.image_url) if f.object.image? 
     = f.file_field :image
@@ -67,11 +67,11 @@
   .field.type_specific.billboard
     = f.label :wide
     = f.check_box :wide
-  .field.type_specific.image.billboard
+  .field.type_specific.image.billboard.gallery
     = f.label :link
     %br
     = f.text_field :link
-  .field.type_specific.gallery
+  .field.type_specific.gallery_old
     = f.label :images, :gallery_images
     %ul.gallery_images
       - if f.object.images.present?
@@ -80,6 +80,11 @@
     = link_to_function "add image field", %Q($(this).siblings('ul').append('<li><input name="#{f.object_name[/^(\w+)/]}[visual_assets_attributes][#{child_index}][images][]" type="text"></li>'))
   = products_helper_tag "#{f.object_name[/^(\w+)/]}[visual_assets_attributes][#{child_index}][product_item_nums]", f.object.product_item_nums, :label => "Products (item nums only)", :class => "type_specific products"
   = ideas_helper_tag "#{f.object_name[/^(\w+)/]}[visual_assets_attributes][#{child_index}][idea_idea_nums]", f.object.idea_idea_nums, :label => "Ideas (idea nums only)", :class => "type_specific ideas"
+  .field.type_specific.galleries.billboards
+    - unless f.object.is_child?
+      = f.fields_for :child_visual_assets, f.object.child_visual_assets do |child_visual_asset_fields|
+        = render 'admin/visual_assets/visual_asset', :f => child_visual_asset_fields
+      = link_to_add_fields "Add Child Visual Asset", f, :child_visual_assets, true 
 :javascript
   $(function (){  
       $(".wymeditor:visible").wymeditor({
@@ -90,8 +95,11 @@
             dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true
-          });
+          });   
       toggle_visual_asset_type('#{child_index}');
-      $('.visual_asset_#{child_index} .gallery_images').sortable()
+      toggle_child_visual_asset_type('#{child_index}', $(".child_visual_asset_asset_type_#{child_index}").val());   
+      $('.visual_asset_#{child_index} .gallery_images').sortable()      
   });
-  
+  $(document).ready(function(){
+    $('.visual_asset_type').trigger('change');
+  });

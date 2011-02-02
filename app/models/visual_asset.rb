@@ -3,7 +3,11 @@ class VisualAsset
 	include Mongoid::Document
 	#include Mongoid::Timestamps
 	
-	ASSET_TYPES = ["catalog_search", "image", "text", "products", "ideas", "freeform", "gallery", "billboard"]
+	include Mongoid::Associations::EmbeddedCallbacks
+	
+	ASSET_TYPES = ["catalog_search", "image", "text", "products", "ideas", "freeform"]
+	CHILD_ASSET_TYPES = ["gallery", "billboard"]
+	PARENT_ASSET_TYPES = ["galleries", "billboards"]
 	
 	field :name
 	field :systems_enabled, :type => Array
@@ -28,6 +32,9 @@ class VisualAsset
 	  field :"#{day.downcase}", :type => Boolean, :default => false
 	end
 	
+	recursively_embeds_many
+	accepts_nested_attributes_for :child_visual_assets, :allow_destroy => true, :reject_if => proc { |attributes| attributes['name'].blank?}
+	
 	embedded_in :landing_page, :inverse_of => :visual_assets
 	embedded_in :shared_content, :inverse_of => :visual_assets
 	embedded_in :tag, :inverse_of => :visual_assets
@@ -35,10 +42,16 @@ class VisualAsset
 	mount_uploader :image, PrivateAttachmentUploader
 	
 	validates :name, :asset_type, :systems_enabled, :start_date, :end_date, :presence => true
-	validates_presence_of :images, :if => Proc.new {|obj| obj.asset_type == "gallery"}
+	#validates_presence_of :images, :if => Proc.new {|obj| obj.asset_type == "gallery"}
 	
   # before_save :force_extract_filename, :if => Proc.new {|obj| obj.asset_type == 'image'}
 	
+	def initialize(attributes = nil)
+	  super
+	  self.start_date ||= 1.month.ago
+	  self.end_date ||= 10.years.since
+	end
+
 	def display_order
 		read_attribute(:display_order) || self._index
 	end
@@ -65,6 +78,14 @@ class VisualAsset
 	
 	def wide?
 	  shared_content.present? && shared_content.respond_to?(:placement) && shared_content.placement.present?
+	end
+	
+	def is_child?
+	  parent_visual_asset.present?
+	end
+	
+	def asset_types_list
+	   is_child? ? CHILD_ASSET_TYPES : ASSET_TYPES + PARENT_ASSET_TYPES
 	end
 	
 private

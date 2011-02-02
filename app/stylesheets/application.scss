@@ -206,6 +206,10 @@ body.bp th, body.bp td, body.bp caption {
 		margin-bottom: 10px;
 		width:850px;
 	}
+	.child_visual_asset{
+		border: 1px dashed green;
+		width:830px;
+	}
 	.compatibility{@extend .visual_asset;}
 	#map{
 		float: left;

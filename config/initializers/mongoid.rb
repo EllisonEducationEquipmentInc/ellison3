@@ -53,7 +53,7 @@ module Mongoid #:nodoc:
     #   person.set_created_at
     def set_created_at
       return if self.class.record_timestamps == false
-      self.created_at = Time.now.utc if !created_at
+      self.created_at = self.updated_at = Time.now.utc if !created_at
     end
 
     # Update the updated_at field on the Document to the current time.
