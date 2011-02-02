@@ -77,5 +77,10 @@ class Tab
 	def no_image_details?
 	  self.images && images.all? {|e| e.details.blank?}
 	end
+	
+	def shared_content_id=(scid)
+	  return unless scid.valid_bson_object_id?
+	  self.shared_content_id = scid
+	end
 
 end
