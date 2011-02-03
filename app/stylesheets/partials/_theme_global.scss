@@ -128,16 +128,13 @@ ul.ui-tabs-nav {
   
   h1 { margin-bottom: 0; }
   
-  ul.nav_utility {
-    margin: 6px 0 0 0;
-    padding: 0;
+  ul.nav_utility { @extend ul.horizontal;
+    margin: 6px 0 0 0 !important;
     overflow: visible;
   
     li {
-      list-style: none;
-      display: inline;
-      float: right;
-      padding: 0 0 0 8px;  // padding left to space links apart
+      float: right !important;
+      padding: 0 0 0 6px !important;  // padding left to space links apart
     
       a.btn-masthead {
         color: $navutil_link;
@@ -152,7 +149,7 @@ ul.ui-tabs-nav {
 
         span {
           display: block;
-          padding: 0 10px 0 20px;  // padding left to accomodate link icon; padding right to space away from link divider
+          padding: 0 7px 0 20px;  // padding left to accomodate link icon; padding right to space away from link divider
         }
       }
     
@@ -199,6 +196,7 @@ ul.ui-tabs-nav {
         border-right: 0px;  // last item on list - no divider required
 
         span {
+          padding: 0 3px 0 20px;
           background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/lock.png') no-repeat;
         }        
       }
@@ -282,7 +280,7 @@ ul.ui-tabs-nav {
   ul#nav_utility_admin { @extend .nav_utility;
     
     li {
-      float: left;
+      float: left !important;
     }
   }
     
