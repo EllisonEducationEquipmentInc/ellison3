@@ -48,11 +48,12 @@ function initialize_lightboxes(){
 }
 
 // catalog facet filter collapsible menus
-function initialize_facets() {
+function initialize_facets(accordion) {
 	$('.facets .head').click(function() {
+	    if (accordion) $('.facets').find('ul').slideUp();
 			$(this).find('span').toggleClass('ui-icon-triangle-1-e')
 			$(this).find('span').toggleClass('ui-icon-triangle-1-s')
-			$(this).next().toggle();
+			accordion ? $(this).next().slideToggle() : $(this).next().toggle()
 			return false;
 		}).next().hide();
 }

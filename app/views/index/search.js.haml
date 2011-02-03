@@ -9,8 +9,7 @@
 _gaq.push(['_trackPageview', location.pathname + location.hash + location.search]);
 shadow_on();
 initialize_buttons();
-- unless is_ee_uk?
-  initialize_facets();
+initialize_facets(#{'true' if is_ee_uk?});
 highlight_keyword();
 initialize_lightboxes();
 er_number_only();
