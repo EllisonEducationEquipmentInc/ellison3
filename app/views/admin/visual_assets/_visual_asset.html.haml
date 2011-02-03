@@ -2,6 +2,7 @@
 %div{:id => "visual_asset_#{f.object.new_record? ? child_index : f.object.id}", :class => "visual_asset_#{'child_' if f.object.is_child?}#{child_index} #{'child_' if f.object.is_child?}visual_asset"}
   - if f.object.new_record?
     .right= link_to_function "x", "$(this).parents('.#{'child_' if f.object.is_child?}visual_asset').remove()"
+  = link_to "-", "#", :class => "va_open_close"
   -# important: h2 is the sort handler for parent VA's, h3 for children
   - if f.object.is_child?
     %h3{:style => "cursor:move"}= f.object.name
@@ -26,7 +27,7 @@
   .field
     = required_field f.label(:name, "Name/Label")
     %br
-    = f.text_field :name, :onchange => "$(this).closest('.visual_asset').children('h#{f.object.is_child? ? 3 : 2}').text(this.value)"
+    = f.text_field :name, :onchange => "$(this).closest('.#{'child_' if f.object.is_child?}visual_asset').children('h#{f.object.is_child? ? 3 : 2}').text(this.value)"
   .field
     = f.label "start_date"
     %br
@@ -89,7 +90,7 @@
         = render 'admin/visual_assets/visual_asset', :f => child_visual_asset_fields
       = link_to_add_fields "Add Child Visual Asset", f, :child_visual_assets, true
       :javascript
-        $('#child_va_sortable_#{f.object.new_record? ? child_index : f.object.id}').sortable({handle: 'h3', tolerance: 'pointer', start: function(event, ui) {$('.child_visual_asset').css({height:"40px",overflow:"hidden"})}, stop: function(event, ui) {$('.child_visual_asset').css({height:"auto"})}, update: function(event, ui) {
+        $('#child_va_sortable_#{f.object.new_record? ? child_index : f.object.id}').sortable({handle: 'h3', tolerance: 'pointer', update: function(event, ui) {
           $('#child_va_sortable_#{f.object.new_record? ? child_index : f.object.id} > div').each(function(index) {
             $('#'+this.id.replace('visual_asset', 'display_order')).val(index);
           });
@@ -97,15 +98,23 @@
         }});
 :javascript
   $(function (){  
-      $(".wymeditor:visible").wymeditor({
-        stylesheet: '/stylesheets/wymeditor/styles.css',
-        logoHtml: ''
-      });
-      $('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .datetimepicker').datetimepicker({
-            dateFormat: 'yy-mm-dd',
-            changeMonth: true,
-            changeYear: true
-          });   
+    $(".wymeditor:visible").wymeditor({
+      stylesheet: '/stylesheets/wymeditor/styles.css',
+      logoHtml: ''
+    });
+    $('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .datetimepicker').datetimepicker({
+      dateFormat: 'yy-mm-dd',
+      changeMonth: true,
+      changeYear: true
+    });
+    $('.va_open_close').toggle(function () {
+      $(this).html('+');
+      $(this).closest('.child_visual_asset, .visual_asset').css({height:"50px",overflow:"hidden"});
+    }, function () {
+      $(this).html('-');
+      $(this).closest('.child_visual_asset, .visual_asset').css({height:"auto"});
+    });
+
 
   });
   $(document).ready(function(){
