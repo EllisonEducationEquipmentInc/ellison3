@@ -1,10 +1,7 @@
 class VisualAsset
   include EllisonSystem
 	include Mongoid::Document
-	#include Mongoid::Timestamps
-	
-	include Mongoid::Associations::EmbeddedCallbacks
-	
+		
 	ASSET_TYPES = ["catalog_search", "image", "products", "ideas", "freeform"]
 	CHILD_ASSET_TYPES = ["gallery", "billboard"]
 	PARENT_ASSET_TYPES = ["galleries", "billboards"]
@@ -33,7 +30,7 @@ class VisualAsset
 	end
 	
 	recursively_embeds_many
-	accepts_nested_attributes_for :child_visual_assets, :allow_destroy => true #, :reject_if => proc { |attributes| attributes['name'].blank?}
+	accepts_nested_attributes_for :child_visual_assets, :allow_destroy => true, :reject_if => proc { |attributes| attributes['name'].blank? && attributes['systems_enabled'].blank?}
 	
 	embedded_in :landing_page, :inverse_of => :visual_assets
 	embedded_in :shared_content, :inverse_of => :visual_assets
@@ -45,6 +42,8 @@ class VisualAsset
 	#validates_presence_of :images, :if => Proc.new {|obj| obj.asset_type == "gallery"}
 	
   # before_save :force_extract_filename, :if => Proc.new {|obj| obj.asset_type == 'image'}
+  
+  before_save :run_callbacks_on_children, :if => Proc.new {|obj| obj.asset_type == 'billboards' || obj.asset_type == 'galleries'}
 	
 	def initialize(attributes = nil)
 	  super
@@ -89,6 +88,10 @@ class VisualAsset
 	end
 	
 private
+
+  def run_callbacks_on_children
+    self.child_visual_assets.select {|obj| obj.asset_type == 'billboard' || obj.asset_type == 'gallery'}.each { |doc| doc.run_callbacks(:save) } if self.child_visual_assets.present?
+  end
 
   def force_extract_filename
     # self.class.skip_callback(:save, :after, :extract_filename)
