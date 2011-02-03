@@ -8,6 +8,10 @@
   - else
     %h2{:style => "cursor:move"}= f.object.name
   = f.error_messages
+  - if f.object.is_child?
+    .field
+      = f.label :display_order
+      = f.text_field :display_order, :id => "display_order_#{f.object.new_record? ? child_index : f.object.id}"
   .field
     = f.label :systems_enabled
     - ELLISON_SYSTEMS.each do |sys|
@@ -22,7 +26,7 @@
   .field
     = required_field f.label(:name, "Name/Label")
     %br
-    = f.text_field :name, :onchange => "$(this).closest('.visual_asset').children('h2').text(this.value)"
+    = f.text_field :name, :onchange => "$(this).closest('.visual_asset').children('h#{f.object.is_child? ? 3 : 2}').text(this.value)"
   .field
     = f.label "start_date"
     %br
@@ -79,11 +83,18 @@
     = f.text_field :link
   = products_helper_tag "#{f.object_name}[product_item_nums]", f.object.product_item_nums, :label => "Products (item nums only)", :class => "type_specific products"
   = ideas_helper_tag "#{f.object_name}[idea_idea_nums]", f.object.idea_idea_nums, :label => "Ideas (idea nums only)", :class => "type_specific ideas"
-  .field.type_specific.galleries.billboards
+  .field.type_specific.galleries.billboards{:id => "child_va_sortable_#{f.object.new_record? ? child_index : f.object.id}"}
     - unless f.object.is_child?
-      = f.fields_for :child_visual_assets, f.object.child_visual_assets do |child_visual_asset_fields|
+      = f.fields_for :child_visual_assets, f.object.child_visual_assets.sort {|x,y| x.display_order <=> y.display_order} do |child_visual_asset_fields|
         = render 'admin/visual_assets/visual_asset', :f => child_visual_asset_fields
-      = link_to_add_fields "Add Child Visual Asset", f, :child_visual_assets, true 
+      = link_to_add_fields "Add Child Visual Asset", f, :child_visual_assets, true
+      :javascript
+        $('#child_va_sortable_#{f.object.new_record? ? child_index : f.object.id}').sortable({handle: 'h3', tolerance: 'pointer', start: function(event, ui) {$('.child_visual_asset').css({height:"40px",overflow:"hidden"})}, stop: function(event, ui) {$('.child_visual_asset').css({height:"auto"})}, update: function(event, ui) {
+          $('#child_va_sortable_#{f.object.new_record? ? child_index : f.object.id} > div').each(function(index) {
+            $('#'+this.id.replace('visual_asset', 'display_order')).val(index);
+          });
+          
+        }});
 :javascript
   $(function (){  
       $(".wymeditor:visible").wymeditor({
