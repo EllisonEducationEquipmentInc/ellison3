@@ -94,8 +94,8 @@ class Admin::SharedContentsController < ApplicationController
   
   def reorder_visual_assets
     @shared_content = SharedContent.find(params[:id])
-    # @shared_content.visual_assets.resort! params[:visual_asset]
-    # @shared_content.save
+    @shared_content.visual_assets.resort! params[:visual_asset]
+    @shared_content.save
     render :text => params[:visual_asset].inspect
   rescue Exception => e
     render :js => "alert('ERROR saving visual asset order: make sure all visual assets are saved before you resort them. (save/update landing page first and then come back to resort them)')"
