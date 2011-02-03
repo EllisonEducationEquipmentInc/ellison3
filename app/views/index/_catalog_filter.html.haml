@@ -71,22 +71,7 @@
         disable_facet_link($(this), "ell3_cross-small--disabled");
         return false;
       });
-      $('.link_collapse').click(function() {
-        $('.facets').find('ul').hide();
-        $(this).hide();
-        $('.link_expand').show();
-        $('.facets .head').find('span').toggleClass('ui-icon-triangle-1-e');
-        $('.facets .head').find('span').toggleClass('ui-icon-triangle-1-s');
-        return false;
-      });
-      $('.link_expand').click(function() {
-        $('.facets').find('ul').show();
-        $(this).hide();
-        $('.link_collapse').show();
-        $('.facets .head').find('span').toggleClass('ui-icon-triangle-1-e');
-        $('.facets .head').find('span').toggleClass('ui-icon-triangle-1-s');
-        return false;
-      });
+
     });
     
     function disable_facet_link(link, icon) {
@@ -96,4 +81,23 @@
         'color' : '#ccc'
       });
     }
+:javascript
+  $(function() {
+    $('.link_collapse').click(function() {
+      $('.facets').find('ul').hide();
+      $(this).hide();
+      $('.link_expand').show();
+      $('.facets .head').find('span').toggleClass('ui-icon-triangle-1-e');
+      $('.facets .head').find('span').toggleClass('ui-icon-triangle-1-s');
+      return false;
+    });
+    $('.link_expand').click(function() {
+      $('.facets').find('ul').show();
+      $(this).hide();
+      $('.link_collapse').show();
+      $('.facets .head').find('span').toggleClass('ui-icon-triangle-1-e');
+      $('.facets .head').find('span').toggleClass('ui-icon-triangle-1-s');
+      return false;
+    });
+  });
 -#TODO: will DRY collapse/expand code above 
