@@ -18,7 +18,9 @@ class FedexZone
 	
 	class << self
 	  def find_by_zip(zip)
-	    where({:zip_start.lte => zip.to_i, :zip_end.gte => zip.to_i}).first
+	    Rails.cache.fetch("fedex_zone_#{zip}", :expires_in => 1.days) do
+	      where({:zip_start.lte => zip.to_i, :zip_end.gte => zip.to_i}).first
+	    end
 	  end
 	  
 	  def find_by_address(address)

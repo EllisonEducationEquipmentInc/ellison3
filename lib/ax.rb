@@ -81,6 +81,7 @@ module Ax
               }
 
               xml.delivery {
+                xml.delivery_zone(order.address.us? && order.address.try(:zip_code) ? FedexZone.find_by_zip(order.address.zip_code).try(:zone) : '')
                 xml.delivery_mode(ax_shipping_code(order.shipping_service))
                 xml.priority(order.shipping_priority)
                 xml.delivery_term('PP')
