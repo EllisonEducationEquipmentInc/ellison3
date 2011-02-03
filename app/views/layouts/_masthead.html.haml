@@ -23,7 +23,8 @@
     %li= link_to "<span>Support</span>".html_safe, "#", :class => "btn-support", :title => "Support", :alt => "Support"
     %li= link_to "<span>Community</span>".html_safe, "#", :class => "btn-community", :title => "Community", :alt => "Community"
     %li= link_to "<span>Store Locator</span>".html_safe, "#", :class => "btn-storelocator", :title => "Store Locator", :alt => "Store Locator"
-    %li= link_to "<span>Limited Time Offers</span>".html_safe, "#", :class => "btn-offers", :title => "Limited Time Offers", :alt => "Limited Time Offers"
+    - if is_sizzix?
+      %li= link_to "<span>Limited Time Offers</span>".html_safe, "#", :class => "btn-offers", :title => "Limited Time Offers", :alt => "Limited Time Offers"
     - if admin_signed_in?
       %li= link_to "<span>Edit Admin Profile</span>".html_safe, edit_admin_registration_path(current_admin), :class => "btn-myaccount", :title => "Edit Admin Profile", :alt => "Edit Admin Profile"
       %li= link_to "<span>Log Out Dashboard</span>".html_safe, destroy_session_path('admin'), :class => "btn-admin-logout", :title => "Log Out Dashboard", :alt => "Log Out Dashboard"
