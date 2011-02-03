@@ -39,9 +39,6 @@ class VisualAsset
 	mount_uploader :image, PrivateAttachmentUploader
 	
 	validates :name, :asset_type, :systems_enabled, :start_date, :end_date, :presence => true
-	#validates_presence_of :images, :if => Proc.new {|obj| obj.asset_type == "gallery"}
-	
-  # before_save :force_extract_filename, :if => Proc.new {|obj| obj.asset_type == 'image'}
   
   before_save :run_callbacks_on_children, :if => Proc.new {|obj| obj.asset_type == 'billboards' || obj.asset_type == 'galleries'}
 	
@@ -91,17 +88,6 @@ private
 
   def run_callbacks_on_children
     self.child_visual_assets.select {|obj| obj.asset_type == 'billboard' || obj.asset_type == 'gallery'}.each { |doc| doc.run_callbacks(:save) } if self.child_visual_assets.present?
-  end
-
-  def force_extract_filename
-    # self.class.skip_callback(:save, :after, :extract_filename)
-
-    @image_original_filename = image.instance_variable_get("@original_filename")
-    if @image_original_filename.present?
-      self.update_attributes :image_filename => @image_original_filename
-    end
-
-    # self.class.set_callback(:save, :after, :extract_filename)
   end
 	
 end
