@@ -15,7 +15,7 @@ highlight_keyword();
 initialize_lightboxes();
 er_number_only();
 $(document).ready(function(){
-$('#facet_category, #facet_theme').trigger('click');
+$('#{(@facets_hash.map {|e| e[/\w+/]} | ["category", "theme"]).map {|e| "#facet_#{e}"} * ', '}').trigger('click');
 });
 - if is_er? && ecommerce_allowed?
   $('.add_to_cart_multi').show();
