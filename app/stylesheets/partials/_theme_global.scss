@@ -37,6 +37,10 @@ body.bp {
       color: $hover;
       text-decoration: underline;
     }
+    
+    &:visited {
+      color: $link;
+    }
   }
   
   ul.plain {
@@ -133,7 +137,7 @@ ul.ui-tabs-nav {
       list-style: none;
       display: inline;
       float: right;
-      padding: 0 0 0 12px;  // padding left to space links apart
+      padding: 0 0 0 10px;  // padding left to space links apart
       
       a.btn-masthead {
         color: $navutil_link;
@@ -148,41 +152,57 @@ ul.ui-tabs-nav {
 
         span {
           display: block;
-          padding: 0 18px 0 20px;  // padding left to accomodate link icon; padding right to space away from link divider
+          padding: 0 15px 0 20px;  // padding left to accomodate link icon; padding right to space away from link divider
         }
       }
       
-      a.btn-admin-logout span {
-        background: transparent url('/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_logout-admin.png') no-repeat;
+      a.btn-admin-logout { @extend a.btn-masthead;
+
+        span {
+          background: transparent url('/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_logout-admin.png') no-repeat;
+        } 
       }      
-      a.btn-admin-login span {
-        background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/dashboard.png') no-repeat;
+
+      a.btn-admin-login { @extend a.btn-masthead;
+
+        span {
+          background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/dashboard.png') no-repeat;
+        } 
       }
-      a.btn-myaccount span {
-        background: transparent url('/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_myaccount.png') no-repeat;
+      
+      a.btn-myaccount { @extend a.btn-masthead;
+
+        span {
+          background: transparent url('/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_myaccount.png') no-repeat;
+        } 
       }
-      a.btn-signin {
+
+      a.btn-signin { @extend a.btn-masthead;
         border-right: 0px;  // last item on list - no divider required
 
         span {
+          padding: 0 10px 0 20px;
           background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/key.png') no-repeat;
         }        
       }
-      a.btn-signup {
+
+      a.btn-signup { @extend a.btn-masthead;
         border-right: 0px;  // last item on list - no divider required
 
         span {
           background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/notebook--pencil.png') no-repeat;
         }        
       }
-      a.btn-signout {
+
+      a.btn-signout { @extend a.btn-masthead;
         border-right: 0px;  // last item on list - no divider required
 
         span {
           background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/lock.png') no-repeat;
         }        
       }
-      a.btn-plaintext {
+
+      a.btn-plaintext { @extend a.btn-masthead;
         border-right: 0px;  // last item on list - no divider required
         
         span {
@@ -195,7 +215,8 @@ ul.ui-tabs-nav {
 					cursor: text;
 				}
       }
-      a.btn-locale {
+
+      a.btn-locale { @extend a.btn-masthead;
         border-right: 0px;  // last item on list - no divider required
 
         span {
@@ -203,6 +224,38 @@ ul.ui-tabs-nav {
           background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/chevron-small-expand.png') no-repeat right;
           &:hover { background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/chevron-small.png') no-repeat right; }
         }
+      }
+
+      a.btn-contact { @extend a.btn-masthead;
+
+        span {
+          background: transparent url('/images/ui-icons/set_silk/16x16/telephone.png') no-repeat;
+        } 
+      }
+
+      a.btn-support { @extend a.btn-masthead;
+
+        span {
+          background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/lifebuoy.png') no-repeat;
+        } 
+      }
+
+      a.btn-community { @extend a.btn-masthead;
+
+        span {
+          background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/balloons-white.png') no-repeat;
+        } 
+      }
+
+      a.btn-storelocator { @extend a.btn-masthead;
+
+        span {
+          background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/store.png') no-repeat;
+        } 
+      }
+
+      a.btn-offers { @extend a.btn-masthead;
+
       }
 
       &.plaintext { padding: 0; }
