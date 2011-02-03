@@ -1,3 +1,3 @@
 .masthead { @include column(4); }
-.nav_utility { @include column(20, true); }
+#nav_utility_user { @include column(20, true); }
 #nav_megamenu { @include column(24, true); }

@@ -7,7 +7,7 @@
       = link_to system_name, root_path, :id => "logo_masthead", :title => system_name, :alt => system_name
 
   -# utility navigation menu (customer account management, shopping cart, UK currency selector, etc)  
-  %ul.nav_utility
+  %ul#nav_utility_user
     - if is_uk? && !@cart_locked
       %li{:style => "padding-left: 0"}
         = link_to "#", :class => "btn-locale", :onclick => "return false;", :title => "switch currency", :alt => "switch currency" do
@@ -25,9 +25,6 @@
     %li= link_to "<span>Store Locator</span>".html_safe, "#", :class => "btn-storelocator", :title => "Store Locator", :alt => "Store Locator"
     - if is_sizzix?
       %li= link_to "<span>Limited Time Offers</span>".html_safe, "#", :class => "btn-offers", :title => "Limited Time Offers", :alt => "Limited Time Offers"
-    - if admin_signed_in?
-      %li= link_to "<span>Edit Admin Profile</span>".html_safe, edit_admin_registration_path(current_admin), :class => "btn-myaccount", :title => "Edit Admin Profile", :alt => "Edit Admin Profile"
-      %li= link_to "<span>Log Out Dashboard</span>".html_safe, destroy_session_path('admin'), :class => "btn-admin-logout", :title => "Log Out Dashboard", :alt => "Log Out Dashboard"
   - if is_uk?
     :javascript
       $(document).ready(function(){

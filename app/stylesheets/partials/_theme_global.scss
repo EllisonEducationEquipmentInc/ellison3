@@ -126,26 +126,26 @@ ul.ui-tabs-nav {
 
 #header {
   
-  h1 { margin-bottom: 0;}
+  h1 { margin-bottom: 0; }
   
-  .nav_utility {
+  ul.nav_utility {
     margin: 6px 0 0 0;
     padding: 0;
     overflow: visible;
-    
+  
     li {
       list-style: none;
       display: inline;
       float: right;
       padding: 0 0 0 8px;  // padding left to space links apart
-      
+    
       a.btn-masthead {
         color: $navutil_link;
         display: block;
         text-transform: uppercase;
         text-decoration: none;
         border-right: 1px solid $navutil_divider;
-        
+      
         &:hover {
           color: $navutil_hover;
         }
@@ -155,8 +155,9 @@ ul.ui-tabs-nav {
           padding: 0 10px 0 20px;  // padding left to accomodate link icon; padding right to space away from link divider
         }
       }
-      
+    
       a.btn-admin-logout { @extend a.btn-masthead;
+        border-right: 0px;  // last item on list - no divider required
 
         span {
           background: transparent url('/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_logout-admin.png') no-repeat;
@@ -169,7 +170,7 @@ ul.ui-tabs-nav {
           background: transparent url('/images/ui-icons/set_fugue/16x16/drop-shadow/dashboard.png') no-repeat;
         } 
       }
-      
+    
       a.btn-myaccount { @extend a.btn-masthead;
 
         span {
@@ -204,16 +205,16 @@ ul.ui-tabs-nav {
 
       a.btn-plaintext { @extend a.btn-masthead;
         border-right: 0px;  // no divider required
-        
+      
         span {
           padding: 0;
           text-transform: none;
         }
 
-				&:hover {
-					color: $navutil_link;
-					cursor: text;
-				}
+  			&:hover {
+  				color: $navutil_link;
+  				cursor: text;
+  			}
       }
 
       a.btn-locale { @extend a.btn-masthead;
@@ -257,7 +258,7 @@ ul.ui-tabs-nav {
       a.btn-offers { @extend a.btn-masthead;
         color: $home_gallery_ctrl_btn;
         border-right: 0px; // no divider required
-        
+      
         span {
           position: relative;
           top: -5px;
@@ -267,15 +268,24 @@ ul.ui-tabs-nav {
           margin: 0;
           background: transparent url('/images/ui-backgrounds/_#{$system}_navutil-LTO.png') no-repeat;
         }
-        
+      
         &:hover { color: $home_gallery_ctrl_hover; }
       }
 
       &.plaintext { padding: 0; }
 
     }
-  }
+  }  
+
+  ul#nav_utility_user { @extend .nav_utility; }
   
+  ul#nav_utility_admin { @extend .nav_utility;
+    
+    li {
+      float: left;
+    }
+  }
+    
   #searchbar {
     float: right;
     background: url('/images/ui-backgrounds/_#{$system}_search.png') no-repeat left;
