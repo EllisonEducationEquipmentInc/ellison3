@@ -68,8 +68,7 @@ class UsersController < ApplicationController
     @tabs = []
 		@tabs += [[:view_retailer_application, "Your Application"]] if is_er?
 		@tabs += [[:billing, "My Billing Info"], [:shipping, "My Shipping Info"], [:orders, "Order Status"], [:mylists, "My Lists"], [:machines_i_own, "Machines I own"]]
-		@tabs += [[:quotes, quote_name.pluralize]] if is_ee?
-		@tabs += [[:materials, "Materials"]] unless is_sizzix?
+		@tabs += [[:quotes, quote_name.pluralize], [:materials, "Materials"]] if is_ee?
 	end
 	
 	def billing

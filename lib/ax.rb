@@ -41,43 +41,45 @@ module Ax
               xml.sales_origin(order.order_prefix(order.system))
 
               xml.payment {
-                xml.freight_charges(format_with_precision(order.shipping_amount))
-                xml.surcharge(format_with_precision(order.handling_amount))
+                if order.payment.present?
+                  xml.freight_charges(format_with_precision(order.shipping_amount))
+                  xml.surcharge(format_with_precision(order.handling_amount))
 
-                xml.tax {
-                  xml.tax_transaction_id(order.tax_transaction)
-                  xml.tax_amount(format_with_precision(order.tax_amount + order.shipping_vat))
-                  tax_calculated_at = order.tax_calculated_at.in_time_zone("America/Chicago").strftime("%m/%d/%Y") unless order.tax_calculated_at.blank?
-                  xml.tax_trans_date(tax_calculated_at)
-									xml.tax_exempt_num(order.tax_exempt_number)
-									xml.VAT_percentage(order.vat_percentage)
-                }
+                  xml.tax {
+                    xml.tax_transaction_id(order.tax_transaction)
+                    xml.tax_amount(format_with_precision(order.tax_amount + order.shipping_vat))
+                    tax_calculated_at = order.tax_calculated_at.in_time_zone("America/Chicago").strftime("%m/%d/%Y") unless order.tax_calculated_at.blank?
+                    xml.tax_trans_date(tax_calculated_at)
+  									xml.tax_exempt_num(order.tax_exempt_number)
+  									xml.VAT_percentage(order.vat_percentage)
+                  }
 
-                if order.payment.try :purchase_order
-									xml.payment_method('Terms')
-                  xml.payment_id(order.payment.purchase_order_number)
-								elsif order.payment.try :deferred
-									xml.payment_method('3EZ')
-                  xml.payment_id(order.payment.vpstx_id)
-                else
-									xml.payment_method('CC')
-									xml.card_type(order.payment.card_name)
-                  xml.payment_id(order.payment.vpstx_id)
+                  if order.payment.try :purchase_order
+  									xml.payment_method('Terms')
+                    xml.payment_id(order.payment.purchase_order_number)
+  								elsif order.payment.try :deferred
+  									xml.payment_method('3EZ')
+                    xml.payment_id(order.payment.vpstx_id)
+                  else
+  									xml.payment_method('CC')
+  									xml.card_type(order.payment.card_name)
+                    xml.payment_id(order.payment.vpstx_id)
+                  end
+                  xml.cybersource_merchant_ref_num(order.payment.vendor_tx_code)
+                  xml.amount_charged(format_with_precision(order.total_amount))
+
+                  xml.invoice_address {
+                    xml.invoice_contact_first(order.payment.first_name)
+                    xml.invoice_contact_last(order.payment.last_name)
+                    xml.invoice_company(order.payment.company)
+                    xml.street(order.payment.address2.blank? ? order.payment.address1 : "#{order.payment.address1} #{order.payment.address2}")
+                    xml.zip_code(order.payment.zip_code)
+                    xml.city(order.payment.city)
+                    xml.state(order.payment.state)
+                    xml.country(country_2_code order.payment.country)
+                    xml.phone_num(order.payment.phone)
+                  }
                 end
-                xml.cybersource_merchant_ref_num(order.payment.vendor_tx_code)
-                xml.amount_charged(format_with_precision(order.total_amount))
-
-                xml.invoice_address {
-                  xml.invoice_contact_first(order.payment.first_name)
-                  xml.invoice_contact_last(order.payment.last_name)
-                  xml.invoice_company(order.payment.company)
-                  xml.street(order.payment.address2.blank? ? order.payment.address1 : "#{order.payment.address1} #{order.payment.address2}")
-                  xml.zip_code(order.payment.zip_code)
-                  xml.city(order.payment.city)
-                  xml.state(order.payment.state)
-                  xml.country(country_2_code order.payment.country)
-                  xml.phone_num(order.payment.phone)
-                }
               }
 
               xml.delivery {
