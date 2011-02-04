@@ -11,8 +11,7 @@
     $('#quick_search').load("/index/quick_search?id="+$('#landing_page_id').val()+"&facets="+facets);
   });
   $("#quick_search_submit").click(function(){
-    var initial_query = $('#initial_query').val().length > 0 ? ($('#initial_query').val()+",") : '';
-    location.href = "/catalog##{'outlet=1&' if @landing_page.outlet}facets="+initial_query+$('#quick_search select').map(function (){return this.value}).filter(function() {return this.length > 0}).get().join(',')
+    location.href = "/catalog##{'outlet=1&' if @landing_page.outlet}facets="+$('#initial_query, #quick_search select').map(function (){return this.value}).filter(function() {return this.length > 0}).get().join(',')
   });
   initialize_buttons();
   er_number_only();
