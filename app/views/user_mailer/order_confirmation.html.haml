@@ -6,21 +6,22 @@
     %td.threecol.first
       %h3.secondary-heading Billing Address
       %p
-        - unless @order.payment.company.blank?
-          = @order.payment.company
+        - if @order.payment.present?
+          - unless @order.payment.company.blank?
+            = @order.payment.company
+            %br
+          == #{@order.payment.first_name} #{@order.payment.last_name}
           %br
-        == #{@order.payment.first_name} #{@order.payment.last_name}
-        %br
-        = @order.payment.address1
-        %br
-        - unless @order.payment.address2.blank?
-          = @order.payment.address2
+          = @order.payment.address1
           %br
-        == #{@order.payment.city}, #{@order.payment.state} #{@order.payment.zip_code}
-        %br
-        = @order.payment.country
-        %br
-        = @order.payment.phone
+          - unless @order.payment.address2.blank?
+            = @order.payment.address2
+            %br
+          == #{@order.payment.city}, #{@order.payment.state} #{@order.payment.zip_code}
+          %br
+          = @order.payment.country
+          %br
+          = @order.payment.phone
     %td.threecol
       %h3.secondary-heading Shipping Address
       %p
@@ -85,14 +86,15 @@
       %strong TOTAL
     %td{ :align => "right"}
       %strong= number_to_currency @order.total_amount
-  %tr
-    %td{ :colspan => "4", :align => "left" }
-      This order was charged to:
-      %strong
-        - if @order.payment.try(:purchase_order)
-          %strong Purchase Order
-          = @order.payment.purchase_order_number
-        - else
-          = @order.payment.card_name
-          == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
+  - if @order.payment.present?
+    %tr
+      %td{ :colspan => "4", :align => "left" }
+        This order was charged to:
+        %strong
+          - if @order.payment.try(:purchase_order)
+            %strong Purchase Order
+            = @order.payment.purchase_order_number
+          - else
+            = @order.payment.card_name
+            == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
     %td{ :align => "right"}

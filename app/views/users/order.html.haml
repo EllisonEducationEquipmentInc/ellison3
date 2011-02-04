@@ -3,21 +3,22 @@
 .contentwrap_medium
   %h3 Billing Address
   %p
-    - unless @order.payment.company.blank?
-      = @order.payment.company
+    - if @order.payment.present?
+      - unless @order.payment.company.blank?
+        = @order.payment.company
+        %br
+      == #{@order.payment.first_name} #{@order.payment.last_name}
       %br
-    == #{@order.payment.first_name} #{@order.payment.last_name}
-    %br
-    = @order.payment.address1
-    %br
-    - unless @order.payment.address2.blank?
-      = @order.payment.address2
+      = @order.payment.address1
       %br
-    == #{@order.payment.city}, #{@order.payment.state} #{@order.payment.zip_code}
-    %br
-    = @order.payment.country
-    %br
-    = @order.payment.phone
+      - unless @order.payment.address2.blank?
+        = @order.payment.address2
+        %br
+      == #{@order.payment.city}, #{@order.payment.state} #{@order.payment.zip_code}
+      %br
+      = @order.payment.country
+      %br
+      = @order.payment.phone
 
 .contentwrap_medium
   %h3 Shipping Address
@@ -71,19 +72,20 @@
       %td= item.quantity
       %td= number_to_currency item.gross_price
       %td= number_to_currency item.item_total
-%p.contentwrap_XL
-  %strong
-    - if @order.payment.try(:purchase_order)
-      Purchase Order
-      = @order.payment.purchase_order_number
-      = link_to "download", @order.payment.attachment_url, :class => "link_download", :target => "_blank" if @order.payment.attachment
-    - else
-      This order was charged to: 
-      = @order.payment.card_name
-      == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
-  %br
-  %br
-  = link_to "Print a copy of this invoice.", "javascript:window.print()", :class => "link_print"
+- if @order.payment.present?
+  %p.contentwrap_XL
+    %strong
+      - if @order.payment.try(:purchase_order)
+        Purchase Order
+        = @order.payment.purchase_order_number
+        = link_to "download", @order.payment.attachment_url, :class => "link_download", :target => "_blank" if @order.payment.attachment
+      - else
+        This order was charged to: 
+        = @order.payment.card_name
+        == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
+    %br
+    %br
+    = link_to "Print a copy of this invoice.", "javascript:window.print()", :class => "link_print"
 %ul.plain.cart_summary.contentwrap_medium.last
   %li
     Subtotal:

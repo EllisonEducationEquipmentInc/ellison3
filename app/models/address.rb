@@ -1,8 +1,6 @@
 class Address
 	include EllisonSystem
   include Mongoid::Document
-	include ActiveModel::Validations
-	include ActiveModel::Translation
 	
 	attr_accessor :enable_avs_bypass
 		
@@ -45,6 +43,10 @@ class Address
 	
 	def enable_avs_bypass
 		@enable_avs_bypass ||= false
+	end
+	
+	def enable_avs_bypass=(v)
+		@enable_avs_bypass = Boolean.set(v)
 	end
 	
 	def bypass_avs
@@ -118,4 +120,6 @@ class Address
 	def set_avs_result
 		self.avs_result = "BYPASSED" if self.bypass_avs
 	end
+
+  
 end

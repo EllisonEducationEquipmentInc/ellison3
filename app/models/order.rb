@@ -11,9 +11,9 @@ class Order
   sequence :order_number
   
 	# have to be titlized
-	STATUSES = ["New", "Pending", "Open", "Processing", "In Process", "Shipped", "To Refund", "Refunded", "Cancelled"]
+	STATUSES = ["New", "Pending", "Open", "Processing", "In Process", "Shipped", "To Refund", "Refunded", "Cancelled", "On Hold", "Off Hold"]
 	
-	validates :status, :subtotal_amount, :shipping_amount, :tax_amount, :address, :order_items, :payment, :presence => true
+	validates :status, :subtotal_amount, :shipping_amount, :tax_amount, :address, :order_items, :presence => true
 	validates_inclusion_of :status, :in => STATUSES
 	validates_uniqueness_of :order_number, :on => :create, :message => "must be unique"
 	
@@ -111,14 +111,14 @@ class Order
 	
 	# if status can no longer be changed on the web
 	def status_frozen?
-	  !(new? || pending?)
+	  !(self.status == 'New' || pending?)
 	end
 	
 	def public_status
 	  case self.status
 	  when "Processing"
 	    "Open"
-	  when "To Refund" || "Refunded"
+	  when "To Refund", "Refunded"
 	    "Cancelled"
 	  else
 	    self.status
@@ -129,7 +129,12 @@ class Order
 	  "#{order_prefix(self.system)}#{self.order_number}"
 	end
 	
-	# to this format to change status:
+	# true if On Hold pre-order can be paid now because all items became available
+	def can_be_paid?
+	  on_hold? && order_items.all? {|e| e.product.available?(self.system) && e.product.quantity(self.system) >= e.quantity}
+	end
+	
+	# use this format to change status:
 	#   @order.in_process! 
 	#   p @order.status # => "In Process"
 	#

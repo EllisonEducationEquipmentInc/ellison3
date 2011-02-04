@@ -346,8 +346,8 @@ class Product
 	# product visibility is determined by 'active', "start_date_#{current_system}", "end_date_#{current_system}" attributes
 	
 	# available for purchase on the website (regardless of available quantity)?
-	def available?
-		displayable? && orderable?
+	def available?(sys = current_system)
+		displayable?(sys) && orderable?(sys)
 	end
 	
 	def orderable?(sys = current_system)

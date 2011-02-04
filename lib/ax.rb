@@ -144,6 +144,8 @@ module Ax
 	              order_status = "Processing"
 	            elsif state =~ /^in(\s|-)process$/i
 	              order_status = "In Process"
+              elsif state =~ /^on(\s|-)hold$/i
+	              order_status = "On Hold"
 	            else
 	              next
 	            end

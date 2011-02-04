@@ -68,7 +68,8 @@ class UsersController < ApplicationController
     @tabs = []
 		@tabs += [[:view_retailer_application, "Your Application"]] if is_er?
 		@tabs += [[:billing, "My Billing Info"], [:shipping, "My Shipping Info"], [:orders, "Order Status"], [:mylists, "My Lists"], [:machines_i_own, "Machines I own"]]
-		@tabs += [[:quotes, quote_name.pluralize], [:materials, "Materials"]] unless is_sizzix?
+		@tabs += [[:quotes, quote_name.pluralize]] if is_ee?
+		@tabs += [[:materials, "Materials"]] unless is_sizzix?
 	end
 	
 	def billing
@@ -250,7 +251,7 @@ class UsersController < ApplicationController
 	end
 	
 	def quote_requested
-	  session[:user_return_to] = quote_path(:secure => true)
+	  session[:user_return_to] = get_cart.pre_order? ? pre_order_path(:secure => true) : quote_path(:secure => true)
 	  render :checkout_requested
 	end
 	

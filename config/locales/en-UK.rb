@@ -82,7 +82,7 @@
       },
 		},
 		
-    :activemodel => {
+    :mongoid => {
       :errors => {
         :template => {
           :header => {

@@ -3,7 +3,7 @@ class Admin::OrdersController < ApplicationController
 	
 	before_filter :set_admin_title
 	before_filter :admin_read_permissions!
-  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :authorize_cc, :change_order_status, :recalculate_tax, :change_amount]
+  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :authorize_cc, :change_order_status, :recalculate_tax, :change_amount, :make_payment]
 	before_filter :admin_user_as_permissions!, :only => [:recreate]
 	
 	ssl_exceptions
@@ -31,6 +31,7 @@ class Admin::OrdersController < ApplicationController
   def show
     @current_locale = current_locale
     @order = Order.find(params[:id])
+    new_payment(@order.user) if @order.can_be_paid?
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @order }
@@ -97,7 +98,9 @@ class Admin::OrdersController < ApplicationController
   end
   
   def authorize_cc
+    @current_locale = current_locale
     @order = Order.find(params[:id])
+    change_current_system @order.system
     @order.payment.use_saved_credit_card = true
     I18n.locale = @order.locale
     raise "This order cannot be changed" if @order.status_frozen?
@@ -109,7 +112,7 @@ class Admin::OrdersController < ApplicationController
     # TODO: UserNotifier.deliver_declined_cc(@order, e.to_s.gsub(/^.+\<br\>\<br\>\s/, '').gsub("<br>", "\n")) if is_ee_us? && e.to_s.include?("could not be authorized")
     flash[:alert] = e #exp_msg(e)
   ensure
-    I18n.locale = @locale
+    I18n.locale = @current_locale
     redirect_to admin_order_path(@order)
   end
   
@@ -140,5 +143,22 @@ class Admin::OrdersController < ApplicationController
     	get_cart.update_attributes :order_reference => @order.id
 		end
     redirect_to checkout_path
+  end
+  
+  def make_payment
+    @current_locale = current_locale
+    @order = Order.find(params[:order][:id])
+    change_current_system @order.system
+    I18n.locale = @order.locale
+    @order.payment = Payment.new(params[:order][:payment])
+    process_card(:amount => (@order.total_amount * 100).round, :payment => @order.payment, :order => @order.id.to_s, :capture => true, :use_payment_token => false, :system => @order.system)
+    @order.off_hold!
+    @order.save
+    @order.decrement_items! 
+	  @order.user.add_to_owns_list @order.order_items.map {|e| e.product_id}
+    flash[:notice] = "Successful transaction..."
+    render :js => "window.location.href = '#{admin_orders_path}'" and return
+  rescue Exception => e
+    @error_message = e.to_s #exp_msg(e)
   end
 end

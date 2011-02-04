@@ -3,22 +3,25 @@
 - I18n.locale = @order.locale
 .contentwrap_medium
   %h3 Billing Address
-  %p
-    - unless @order.payment.company.blank?
-      = @order.payment.company
+  - if @order.payment.present?
+    %p
+      - unless @order.payment.company.blank?
+        = @order.payment.company
+        %br
+      == #{@order.payment.first_name} #{@order.payment.last_name}
       %br
-    == #{@order.payment.first_name} #{@order.payment.last_name}
-    %br
-    = @order.payment.address1
-    %br
-    - unless @order.payment.address2.blank?
-      = @order.payment.address2
+      = @order.payment.address1
       %br
-    == #{@order.payment.city}, #{@order.payment.state} #{@order.payment.zip_code}
-    %br
-    = @order.payment.country
-    %br
-    = @order.payment.phone
+      - unless @order.payment.address2.blank?
+        = @order.payment.address2
+        %br
+      == #{@order.payment.city}, #{@order.payment.state} #{@order.payment.zip_code}
+      %br
+      = @order.payment.country
+      %br
+      = @order.payment.phone
+  - else
+    .error No Billing Info Available
 .contentwrap_medium
   %h3 Shipping Address
   %p
@@ -81,6 +84,74 @@
     %br
   #order_actions= render :partial => 'order_actions'
 .clear
+- if @order.can_be_paid?
+  #make_payment{:style => "display:none"}
+    #payment_errors.error{:style => "display:none"}
+    %h3 Billing Info
+    = form_for @order, :url => {:action => "make_payment"}, :html => {:id => 'make_payment_form', :method => :post, :multipart => true, 'data-type' => 'html'}, :remote => true do |f|
+      = f.hidden_field :id
+      = f.fields_for :payment, @payment do |payment_fields| 
+        = render :partial => 'admin/virtual_terminal/address_form', :locals => {:f => payment_fields}
+        .clear_left
+        .field
+          = payment_fields.check_box :purchase_order, :onclick => "if (this.checked){$('#po_info').show();$('#cc_info').hide();$('#order_payment_attachment').rules('add',{required: true});$('#order_payment_purchase_order_number').rules('add',{required: true});$('.cc').each(function(){$(this).rules('remove')})} else {$('#po_info').hide();$('#cc_info').show();$('.cc').each(function(){$(this).rules('add',{required: true})});$('#order_payment_full_card_number').rules('add',{creditcard: true});$('#order_payment_card_security_code').rules('add',{cvv: true});$('#order_payment_attachment').rules('remove');$('#order_payment_purchase_order_number').rules('remove');}"
+          = payment_fields.label :purchase_order, "Check if you would like to pay your order by Purchase Order."
+        .field#po_info{:style => "display:none"}
+          = payment_fields.label :purchase_order_number
+          = payment_fields.text_field :purchase_order_number
+          %br
+          = payment_fields.label :attachment, "Upload Purchase Order: (doc, pdf)"
+          %br
+          = payment_fields.file_field :attachment
+          = payment_fields.hidden_field :attachment_cache
+        #cc_info= render :partial => 'admin/virtual_terminal/cc_form', :locals => {:f => payment_fields}
+      .actions
+        = f.submit "Make Payment", :class => 'jqui_save', :disable_with => "please wait..."
+      :javascript
+        $(document).ready(function() { 
+            $("#make_payment_form").validate({ 
+                errorClass: "invalid",
+                rules: { 
+                    "#{f.object_name[/^\w+/]}[payment][first_name]": { 
+                        required: true
+                    }, 
+                    "#{f.object_name[/^\w+/]}[payment][last_name]": { 
+                        required: true
+                    }, 
+                    "#{f.object_name[/^\w+/]}[payment][address1]": { 
+                        required: true, 
+                    }, 
+                    "#{f.object_name[/^\w+/]}[payment][city]": { 
+                        required: true, 
+                    },
+                    "#{f.object_name[/^\w+/]}[payment][email]": { 
+                        required: true, 
+                    },
+                    "#{f.object_name[/^\w+/]}[payment][card_name]": { 
+                        required: true, 
+                    },
+                    "#{f.object_name[/^\w+/]}[payment][full_card_number]": { 
+                        required: true, 
+                    },
+                    "#{f.object_name[/^\w+/]}[payment][card_security_code]": { 
+                        required: true, 
+                    },
+                    "#{f.object_name[/^\w+/]}[payment][card_expiration_month]": { 
+                        required: true, 
+                    },
+                    "#{f.object_name[/^\w+/]}[payment][card_expiration_year]": { 
+                        required: true, 
+                    },
+
+                }, 
+                success: function(label) { 
+                    label.html(" ").addClass("checked"); 
+                },
+                submitHandler: function(form) {
+                  $("##{f.object_name[/^\w+/]}_form").callRemote();
+                },
+              });
+            }); 
 %table
   %tr
     %th Item No.
@@ -117,15 +188,18 @@
     TOTAL:
     %span.right#total_amount.amount= number_to_currency @order.total_amount
   %li    
-    - if @order.payment.try(:purchase_order)
-      .error
-        %strong Purchase Order
-        = @order.payment.purchase_order_number
-        = link_to "download", @order.payment.attachment_url, :class => "link_download", :target => "_blank" if @order.payment.attachment
+    - if @order.payment.present?
+      - if @order.payment.try(:purchase_order)
+        .error
+          %strong Purchase Order
+          = @order.payment.purchase_order_number
+          = link_to "download", @order.payment.attachment_url, :class => "link_download", :target => "_blank" if @order.payment.attachment
+      - else
+        This order was charged to:
+        = @order.payment.card_name
+        == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
     - else
-      This order was charged to:
-      = @order.payment.card_name
-      == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
+      No Payment Info Available
 %br
 %br
 - if @order.coupon
@@ -133,18 +207,21 @@
     %strong Coupon:
     = link_to @order.coupon_code || @order.coupon.codes.join(", "), admin_coupon_path(@order.coupon)
     = @order.coupon.name
-.field{:class => @order.payment.paid_amount && @order.payment.paid_amount < @order.total_amount ? 'error' : nil}
-  %strong Paid Amount:
-  = number_to_currency @order.payment.paid_amount rescue "N/A"
-.field
-  %strong Paid At:
-  = l @order.payment.paid_at, :format => :custom rescue ""
-.field
-  %strong Merchant Reference Number:
-  = @order.payment.vendor_tx_code
-.field
-  %strong Transaction ID:
-  = is_us? ? @order.payment.vpstx_id : @order.payment.tx_auth_no
+- if @order.payment.present?
+  .field{:class => @order.payment.paid_amount && @order.payment.paid_amount < @order.total_amount ? 'error' : nil}
+    %strong Paid Amount:
+    = number_to_currency @order.payment.paid_amount rescue "N/A"
+  .field
+    %strong Paid At:
+    = l @order.payment.paid_at, :format => :custom rescue ""
+  .field
+    %strong Merchant Reference Number:
+    = @order.payment.vendor_tx_code
+  .field
+    %strong Transaction ID:
+    = is_us? ? @order.payment.vpstx_id : @order.payment.tx_auth_no
+- else
+  .error No Payment Info Available
 .field
   %strong Tax Transaction ID:
   %span#tax_transaction= @order.tax_transaction

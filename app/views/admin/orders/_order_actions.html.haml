@@ -1,5 +1,7 @@
 - if has_write_permissions?
   .success
+    - if @order.can_be_paid?
+      = link_to_function "Make Payment", "$('#make_payment').slideDown()", :class => 'jqui_button'
     = link_to "Recreate", {:action => 'recreate', :id => @order}, :class => 'jqui_button'
     - if !@order.status_frozen?
       = link_to "Authorize CC", {:action => 'authorize_cc', :id => @order}, :class => 'jqui_button' if !@order.payment.blank? && @order.payment.subscriptionid  && !@order.user.erp.blank? && !@order.user.invoice_account.blank?

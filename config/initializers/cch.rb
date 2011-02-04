@@ -45,7 +45,7 @@ module CCH
       @transaction_id = attributes[:transaction_id]
       @exempt = attributes[:exempt] || false            # tax exempt: boolean
       @referred_id = attributes[:referred_id] 
-      @tax_exempt_certificate = attributes[:tax_exempt_certificate] || "Unknown"
+      @tax_exempt_certificate = attributes[:tax_exempt_certificate].present? ? attributes[:tax_exempt_certificate] : "Unknown"
       @merchant_transaction_id = attributes[:merchant_transaction_id] || order_prefix
 			@confirm_address = attributes[:confirm_address].nil? ? false : attributes[:confirm_address]
       if  (attributes[:action] == 'ProcessAttributedReturn' || attributes[:action] == 'calculate_ds')# && !@items.blank? 

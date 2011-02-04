@@ -104,7 +104,7 @@ module ShoppingCart
   		  get_user.save
   		end
   		order.save!
-  		if order.is_a?(Order)
+  		if order.is_a?(Order) && order.payment
   		  order.decrement_items! 
   		  order.user.add_to_owns_list order.order_items.map {|e| e.product_id}
   		end
@@ -552,13 +552,13 @@ module ShoppingCart
 		  date
 		end
 		
-		def new_payment
+		def new_payment(user = get_user)
   		@payment = Payment.new
-  		@payment.copy_common_attributes(get_user.billing_address) if get_user.billing_address
-  		@payment.use_saved_credit_card = true if get_user.token && get_user.token.current?
+  		@payment.copy_common_attributes(user.billing_address) if user.billing_address
+  		@payment.use_saved_credit_card = true if user.token && user.token.current?
   		@payment.attributes = params[:payment] if params[:payment]
   		raise "Purchase Order is missing" if @payment.purchase_order && (!@payment.attachment? || @payment.purchase_order_number.blank?)
-  		@payment.subscriptionid = get_user.token.subscriptionid if get_user.token && get_user.token.current?
+  		@payment.subscriptionid = user.token.subscriptionid if user.token && user.token.current?
   	end
   	
   	def can_use_previous_payment?

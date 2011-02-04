@@ -130,33 +130,7 @@
       = f.fields_for @order.payment do |payment_fields| 
         = render :partial => 'address_form', :locals => {:f => payment_fields}
         .clear_left
-        .field.credit_card
-          .left
-            = required_field(payment_fields.label :card_name)
-            %br
-            = payment_fields.select :card_name, Payment.cards, {:prompt => "--- card type ---"}, :class => "cc"
-          .left
-            = required_field(payment_fields.label :full_card_number, "Credit Card Number")
-            %br
-            = payment_fields.text_field :full_card_number, :class => "cc"
-          .left
-            = required_field(payment_fields.label :card_security_code)
-            %br
-            = payment_fields.text_field :card_security_code, :size => 4, :class => "cc"
-          .clear_left
-          .field
-            = required_field(payment_fields.label :card_expiration_month, "Expires")
-            %br
-            = payment_fields.select :card_expiration_month, Payment.months, { :prompt => "month" }, :class => "cc"
-            = payment_fields.select :card_expiration_year, Payment.years, { :prompt => "year" }, :class => "cc"
-          .field.credit_card
-            = payment_fields.label :card_issue_month, "Card Start Date"
-            = payment_fields.select :card_issue_month, Payment.months, { :include_blank => true }, :class => "cc"
-            \/
-            = payment_fields.select :card_issue_year, Payment.issue_years, { :include_blank => true }, :class => "cc"
-          .field.credit_card
-            = payment_fields.label :card_issue_number
-            = payment_fields.text_field :card_issue_number, :size => 2, :maxlength => 2, :class => "cc"
+        = render :partial => 'cc_form', :locals => {:f => payment_fields}
       .actions
         = f.submit "Charge CC", :class => 'jqui_save', :disable_with => "please wait..."
       :javascript

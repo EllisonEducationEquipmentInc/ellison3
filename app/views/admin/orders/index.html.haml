@@ -28,7 +28,7 @@
           %td== #{order.address.first_name} #{order.address.last_name}
           %td= number_to_currency order.gross_subtotal_amount
           %td= order.system
-          %td= order.status
+          %td{:style => order.on_hold? ? order.can_be_paid? ? 'color:green' : 'color:red' : nil}= order.status
           - if has_write_permissions?
             %td= link_to 'View', admin_order_path(order)
 - I18n.locale = @current_locale
