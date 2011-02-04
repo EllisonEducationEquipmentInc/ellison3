@@ -361,7 +361,7 @@ ul.ui-tabs-nav {
         }
         
         .megapanel {
-          background: $meganav_bg_panel url("/images/ui-backgrounds/_#{$system}_megapanel.png") no-repeat center bottom;
+          background: $meganav_bg_panel;
           text-align: left;
           position:absolute;
           width: 950px;
