@@ -47,9 +47,15 @@ ul.cart_summary {
   }
 }
 
+// buttons
+#checkout_button { @extend .button_large;
+  margin-bottom: 10px;
+  letter-spacing: .5px;
+}
+
 // push order button to right justify with page
-#payment_submit {
+#payment_submit { @extend .button_large;
   position: relative;
   top: -25px;
-  left: 863px;
+  left: 773px;
 }

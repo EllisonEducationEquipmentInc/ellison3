@@ -812,22 +812,11 @@ select#sort, input#select_all_products {
   
   &:hover { background: url('/images/ui-buttons/addtocart_on.png') no-repeat; };
 
-  &.detail {
-    width: 176px;
-    height: 30px;
-    background: url('/images/ui-buttons/addtocart_detail_off.png') no-repeat;
-    border: none;
-    font-family: 'PT Sans', Helvetica, Arial, sans-serif;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 1.1em;
-    color: white;
+  &.detail { @extend .button_large;
   
     .ui-icon {
       background-image: none;
-    }
-  
-    &:hover { background: url('/images/ui-buttons/addtocart_detail_on.png') no-repeat; }
+    }  
   }
 }
 

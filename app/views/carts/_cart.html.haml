@@ -78,7 +78,7 @@
         if ($("#fancybox-wrap:visible").length > 0) $('.save_for_later').hide();
       });
       $(function() {
-        $("#checkout_button").button({icons: {primary: 'ui-icon-check'}})
+        $("#checkout_button").button()
           .click( function() {
             $.ajax({url:"#{checkout_requested_path}", complete: function(){$.fancybox.resize()}});
       		});
