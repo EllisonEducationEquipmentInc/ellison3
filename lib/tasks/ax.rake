@@ -28,13 +28,30 @@ namespace :ax do
   
   desc "create ax xml from open UK orders"
   task :uk_orders_to_ax => :include_ax do
-    new_relic_wrapper "orders_to_ax" do
+    new_relic_wrapper "uk_orders_to_ax" do
       @orders = Order.where(:status => "Open", :system.in => ["szuk", "eeuk"])
     
       if @orders.count > 0
         xml = build_ax_xml @orders
         filename = "orders_download_response_#{Time.now.strftime("%d%m%y_%H%M%S")}.xml"
         File.open("#{PATH}/uk_to_ax/#{filename}", "w") { |f| f.puts(xml)}
+        @orders.update_all(:status => "Processing")
+        p "#{filename} has been created"
+      else
+        p "there are no open orders in the system"
+      end
+    end
+  end
+  
+  desc "create ax xml from off hold US orders"
+  task :paid_pre_orders_to_ax => :include_ax do
+    new_relic_wrapper "paid_pre_orders_to_ax" do
+      @orders = Order.where(:status => "Off Hold", :system.in => ["szus", "eeus", "er"])
+    
+      if @orders.count > 0
+        xml = build_ax_xml @orders
+        filename = "paid_pre_orders_download_response_#{Time.now.strftime("%d%m%y_%H%M%S")}.xml"
+        File.open("#{PATH}/to_ax/#{filename}", "w") { |f| f.puts(xml)}
         @orders.update_all(:status => "Processing")
         p "#{filename} has been created"
       else
