@@ -9,7 +9,7 @@
     $(this).removeClass("activefield").addClass("idlefield");
   });
 
-%h3== Filter #{@landing_page ? @landing_page.name : 'Products'} Results By:
+%h3== Filter #{@landing_page ? nil : 'Products'} Results By:
 
 = link_to "collapse all", "#", :class => "link_collapse", :style => "display: none"
 = link_to "expand all", "#", :class => "link_expand"
