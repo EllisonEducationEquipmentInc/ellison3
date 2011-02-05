@@ -159,7 +159,7 @@ $(document).ready(function(){
     timeout: 500, // number = milliseconds delay before onMouseOut
     out: megamenuHoverOut // function = onMouseOut callback (REQUIRED)
   };
-  $("#nav_megamenu li").hoverIntent(hoverconfig); // trigger hover intent with custom configurations	
+  $("#nav_megamenu li.megaitem").hoverIntent(hoverconfig); // trigger hover intent with custom configurations	
 	  
   // billboard sliders
 	// Full Caption Sliding (Hidden to Visible)
@@ -533,11 +533,14 @@ function megamenuHoverOver() {
 
   $(this).find('.megapanel').css({ "left": (xCoord) + "px" }); // reset the left coordinate of the subpanel
   
+  $(this).css({ "background-color": "#dbd5c3" });
+  
   $(this).find('.megapanel').stop().slideDown('fast', function() {
   $(this).shadowOn(megapanel_shadow_options);  // drop shadow for mega menu subpanel
   });
 }
 function megamenuHoverOut(){
+  $(this).css({ "background-color": "transparent" });
   $(this).find('.megapanel').stop().slideUp('fast', function() {
     $(this).shadowOff();
   });
