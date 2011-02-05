@@ -16,7 +16,7 @@ namespace :ax do
     
       if @orders.count > 0
         xml = build_ax_xml @orders
-        filename = "orders_download_response_#{Time.now.strftime("%d%m%y_%H%M%S")}.xml"
+        filename = "global_orders_download_#{Time.now.strftime("%d%m%y_%H%M%S")}.xml"
         File.open("#{PATH}/to_ax/#{filename}", "w") { |f| f.puts(xml)}
         @orders.update_all(:status => "Processing")
         p "#{filename} has been created"
@@ -33,7 +33,7 @@ namespace :ax do
     
       if @orders.count > 0
         xml = build_ax_xml @orders
-        filename = "orders_download_response_#{Time.now.strftime("%d%m%y_%H%M%S")}.xml"
+        filename = "global_orders_download_#{Time.now.strftime("%d%m%y_%H%M%S")}.xml"
         File.open("#{PATH}/uk_to_ax/#{filename}", "w") { |f| f.puts(xml)}
         @orders.update_all(:status => "Processing")
         p "#{filename} has been created"
@@ -50,7 +50,7 @@ namespace :ax do
     
       if @orders.count > 0
         xml = build_ax_xml @orders
-        filename = "paid_pre_orders_download_response_#{Time.now.strftime("%d%m%y_%H%M%S")}.xml"
+        filename = "paid_pre_orders_download_#{Time.now.strftime("%d%m%y_%H%M%S")}.xml"
         File.open("#{PATH}/to_ax/#{filename}", "w") { |f| f.puts(xml)}
         @orders.update_all(:status => "Processing")
         p "#{filename} has been created"
