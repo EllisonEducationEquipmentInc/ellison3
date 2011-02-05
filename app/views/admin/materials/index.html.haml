@@ -1,0 +1,34 @@
+%h1 Listing materials
+= link_to 'New material', new_admin_material_path, :class => 'jqui_new' if has_write_permissions?
+%br
+%h3 Filters
+- unless params[:q].blank?
+  = link_to 'all', admin_materials_path, :class => 'jqui_button'
+= form_tag(admin_materials_path, :method => :get) do
+  = text_field_tag :q, nil, :placeholder => "item num, name, desc"
+  = check_box_tag :inactive, "1", params[:inactive] == "1"
+  Incl. inactive
+  = submit_tag "search", :class => 'jqui_search'
+.highlightable
+  %table
+    %thead
+      %tr
+        = sortable 'name'
+        %th Active
+        %th Document
+        - if has_write_permissions?
+          %th &nbsp;
+          %th &nbsp;
+    %tbody
+      - for material in @materials
+        %tr{ :class => cycle(:odd, :even) }
+          %td= material.name
+          %td= material.active
+          %td= link_to('download', material.document_url) if material.document? 
+          - if has_write_permissions?
+            %td= link_to 'Edit', edit_admin_material_path(material), :class => 'jqui_edit_min'
+            %td= link_to 'Destroy', admin_material_path(material), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
+%br
+= will_paginate @materials
+%br
+= link_to 'New material', new_admin_material_path, :class => 'jqui_new' if has_write_permissions?
