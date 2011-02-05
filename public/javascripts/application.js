@@ -514,11 +514,27 @@ var megapanel_shadow_options = { autoresize: false, imageset: 6, imagepath: "/im
 
 // Mega Menu Hover functions
 function megamenuHoverOver() {
-  var xCoord  = Math.abs($('#nav_megamenu ul').position().left) - $(this).position().left // calculate correct left coordinate of the subpanel
+  var xCoord = 0;
+  var panelWidth = 0;
+  
+  if ($(this).find('.megapanel').hasClass('full-width')) { // for full-width megapanels
+    xCoord = Math.abs($('#nav_megamenu ul').position().left) - $(this).position().left; // calculate correct left coordinate of the subpanel
+  } else { // for all other (content-width) megapanels
+    $(this).find('.megapanel ul[class*="wrap"]').each(function(){
+      panelWidth += $(this).width();
+      panelWidth += parseInt($(this).css("padding-left"), 10);
+    })
+    $(this).find('.megapanel').css({ "width": (panelWidth) + "px" }); // resize megapanel to fit content width
+    
+    if ($(this).find('.megapanel').hasClass('reverse')) { // for 'reverse layout' megapanels
+      xCoord = $(this).width() - panelWidth;
+    }
+  }
+
   $(this).find('.megapanel').css({ "left": (xCoord) + "px" }); // reset the left coordinate of the subpanel
   
   $(this).find('.megapanel').stop().slideDown('fast', function() {
-   $(this).shadowOn(megapanel_shadow_options);  // drop shadow for mega menu subpanel
+  $(this).shadowOn(megapanel_shadow_options);  // drop shadow for mega menu subpanel
   });
 }
 function megamenuHoverOut(){

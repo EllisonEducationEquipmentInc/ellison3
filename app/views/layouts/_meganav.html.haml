@@ -10,7 +10,7 @@
     - if admin_signed_in?
       %li.megaitem
         = link_to "Dashboard", "#", :class => "megalink-admin", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
-        .megapanel
+        .megapanel.full-width
           .contentwrap_XL.resize
             %h3== Admin Dashboard ~ #{system_name}
             %ul#nav_utility_admin
