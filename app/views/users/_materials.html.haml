@@ -1,1 +1,9 @@
-%p Ellison offers several different publications to help address your curriculum needs:
+%h3 Ellison offers several different publications to help address your curriculum needs:
+- Material.active.cache.each do |material|
+  .material{:id => "material_#{material.id}"}
+    %p.material_name= material.name
+    %p.material_image= image_tag(material.image_url(:medium)) if material.image?
+    %p.material_name= link_to('download', material.document_url) if material.document? 
+    %p.material_select= check_box_tag(:material_checkbox, material.id, false, :id => nil, :class => 'material_checkbox') unless material.download_only
+.clear
+%p Please check the box(es) of the publications you wish to receive via mail.

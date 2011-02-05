@@ -15,4 +15,6 @@ class Material
   validates_presence_of :document, :if => Proc.new {|obj| obj.download_only}
   
   field :index
+  
+  scope :active, :where => { :active => true }
 end
