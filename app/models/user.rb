@@ -51,6 +51,7 @@ class User
   
   references_many :feedbacks, :validate => false, :index => true
 	references_many :orders, :validate => false, :index => true
+	references_many :material_orders, :validate => false, :index => true
 	references_many :quotes, :validate => false, :index => true
 	references_many :lists, :index => true do
 	  def owns

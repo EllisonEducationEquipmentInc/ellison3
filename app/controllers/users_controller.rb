@@ -68,7 +68,7 @@ class UsersController < ApplicationController
     @tabs = []
 		@tabs += [[:view_retailer_application, "Your Application"]] if is_er?
 		@tabs += [[:billing, "My Billing Info"], [:shipping, "My Shipping Info"], [:orders, "Order Status"], [:mylists, "My Lists"], [:machines_i_own, "Machines I own"]]
-		@tabs += [[:quotes, quote_name.pluralize], [:materials, "Materials"]] if is_ee?
+	  @tabs += [[:quotes, quote_name.pluralize], [:materials, "Materials"]] if is_ee?
 	end
 	
 	def billing
@@ -220,6 +220,8 @@ class UsersController < ApplicationController
 	end
 	
 	def materials
+	  @material_order = MaterialOrder.new
+	  @material_order.address = get_user.shipping_address || Address.new
 		render :partial => 'materials'
 	end
 	

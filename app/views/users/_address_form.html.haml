@@ -58,32 +58,32 @@
       var validator = $("#edit_#{f.object.address_type}_address").validate({ 
           errorClass: "invalid",
           rules: { 
-              "#{f.object.address_type}_address[first_name]": { 
+              "#{f.object_name}[first_name]": { 
                   required: true
               }, 
-              "#{f.object.address_type}_address[last_name]": { 
+              "#{f.object_name}[last_name]": { 
                   required: true
               }, 
-              "#{f.object.address_type}_address[address1]": { 
+              "#{f.object_name}[address1]": { 
                   required: true, 
               }, 
-              "#{f.object.address_type}_address[city]": { 
+              "#{f.object_name}[city]": { 
                   required: true, 
               },
-              "#{f.object.address_type}_address[email]": { 
+              "#{f.object_name}[email]": { 
                   required: true, 
                   email: true
               },
-              "#{f.object.address_type}_address[phone]": { 
+              "#{f.object_name}[phone]": { 
                   required: true, 
                   minlength: 5,
                   phoneUS: #{f.object.us? ? 'true' : 'false'}
               },
-              "#{f.object.address_type}_address[zip_code]": { 
+              "#{f.object_name}[zip_code]": { 
                   required: true, 
                   zipUS: #{f.object.us? ? 'true' : 'false'}
               },
-              "#{f.object.address_type}_address[state]": { 
+              "#{f.object_name}[state]": { 
                   required: #{f.object.us? ? 'true' : 'false'}, 
               },
           }, 

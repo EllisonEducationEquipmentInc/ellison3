@@ -2,8 +2,6 @@ class Order
 	include EllisonSystem
   include Mongoid::Document
 	include Mongoid::Timestamps
-	include ActiveModel::Validations
-	include ActiveModel::Translation
   
   include Mongoid::Sequence
 	
