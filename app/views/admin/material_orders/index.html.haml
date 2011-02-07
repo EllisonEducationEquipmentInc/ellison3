@@ -1,10 +1,16 @@
 %h1 Listing material orders
 %br
+%h3 export
+= form_tag({:action=> 'export_to_csv'}, :method => 'post') do
+  = text_field_tag :start_date, Time.zone.now.beginning_of_day, :class => 'datetimepicker'
+  = text_field_tag :end_date, Time.zone.now.end_of_day, :class => 'datetimepicker'
+  = submit_tag "Export to CSV", :class => 'jqui_search'
 %h3 Filters
 - unless params[:q].blank?
   = link_to 'all', admin_material_orders_path, :class => 'jqui_button'
 = form_tag(admin_material_orders_path, :method => :get) do
-  = text_field_tag :q, nil, :placeholder => "order num, address1"
+  = text_field_tag :q, nil, :placeholder => "request #, address1"
+  = select_tag :status, options_for_select([['All', nil]] + MaterialOrder::STATUSES, params[:status])
   = submit_tag "search", :class => 'jqui_search'
 .highlightable
   %table

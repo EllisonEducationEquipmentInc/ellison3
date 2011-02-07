@@ -26,5 +26,10 @@ class FedexZone
 	  def find_by_address(address)
 	    address.apo? ? "APO" : find_by_zip(address.zip_code)
 	  end
+	  
+	  def get_zone_by_address(address)
+	    z = find_by_address(address)
+	    z.respond_to?(:zone) ? z.zone : z
+	  end
 	end
 end

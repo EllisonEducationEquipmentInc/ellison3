@@ -141,7 +141,7 @@ Ellison3::Application.routes.draw do |map|
 			end
 			resources :material_orders do
 			  collection do
-			    post :change_order_status
+			    post :change_order_status, :export_to_csv
 			  end
 			end
 			resources :quotes do
