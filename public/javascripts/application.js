@@ -116,7 +116,7 @@ function er_number_only() {
 }
 
 $(document).ready(function(){
-	
+
 	bind_hashchange ();
 	
 	initialize_facets();
@@ -517,6 +517,15 @@ function megamenuHoverOver() {
   var xCoord = 0;
   var panelWidth = 0;
   
+  if (current_system == "szus") {
+    var meganav_hover_bg = "#e3dfd1";
+    var meganav_hover_border = "#d0c7a9";
+      } else if (current_system == "eeus" || current_system == "eeuk") {
+    var meganav_hover_bg = "#e1e1e1";
+  } else {
+    var meganav_hover_bg = "transparent";
+  }
+  
   if ($(this).find('.megapanel').hasClass('full-width')) { // for full-width megapanels
     xCoord = Math.abs($('#nav_megamenu ul').position().left) - $(this).position().left; // calculate correct left coordinate of the subpanel
   } else { // for all other (content-width) megapanels
@@ -532,15 +541,27 @@ function megamenuHoverOver() {
   }
 
   $(this).find('.megapanel').css({ "left": (xCoord) + "px" }); // reset the left coordinate of the subpanel
-  
-  $(this).css({ "background-color": "#dbd5c3" });
+  $(this).css({ "background-color": meganav_hover_bg });
+  if (current_system == "szus") {
+    $(this).css({ "border": "1px solid " + meganav_hover_border });
+  }
   
   $(this).find('.megapanel').stop().slideDown('fast', function() {
   $(this).shadowOn(megapanel_shadow_options);  // drop shadow for mega menu subpanel
   });
 }
-function megamenuHoverOut(){
+function megamenuHoverOut() {
+  if (current_system == "szus") {
+    var meganav_hoverout_border = "#f7f7f5";
+  } else {
+    var meganav_hover_bg = "transparent";
+  }
+  
   $(this).css({ "background-color": "transparent" });
+  if (current_system == "szus") {
+    $(this).css({ "border-color": meganav_hoverout_border });
+  }
+
   $(this).find('.megapanel').stop().slideUp('fast', function() {
     $(this).shadowOff();
   });

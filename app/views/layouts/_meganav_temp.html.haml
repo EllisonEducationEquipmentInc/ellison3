@@ -1,6 +1,6 @@
 %li.megaitem
   = link_to "Shop Sizzix", catalog_path, :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
-  .megapanel
+  .megapanel.full-width
     %ul.megasublist.resize
       %li= link_to "Product Catalog", "#", :class => "megasublink", :onclick => "return false;"
       %li= link_to "Phasellus Dapibus", "#", :class => "megasublink", :onclick => "return false;"
@@ -101,7 +101,7 @@
       .contentwrap_XXS= image_tag("http://placehold.it/110x400")
 %li.megaitem
   = link_to "Craft Ideas", catalog_path(:anchor => "ideas=1"), :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
-  .megapanel
+  .megapanel.full-width
     %ul.contentwrap_medium
       %li elementum
       %li feugiat tristique
@@ -124,7 +124,7 @@
       %li massa interdum
 %li.megaitem
   = link_to "What's New?", "#", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
-  .megapanel
+  .megapanel.full-width
     %ul.contentwrap_XXXL.last.resize
       %li= link_to "eclips", shop_path("eclips")
       %li= link_to "eclips", shop_path("eclips")
@@ -134,12 +134,12 @@
       %li= link_to "eclips", shop_path("eclips")
 %li.megaitem
   = link_to "Community", "#", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
-  .megapanel
+  .megapanel.full-width
     %p.contentwrap_XXXL.last.resize
       5 Nam semper porttitor arcu, ut molestie diam gravida vitae. Suspendisse et nisi quis turpis molestie faucibus a a risus. Nulla rutrum felis vel nisi accumsan vitae auctor mauris pharetra. Praesent a accumsan libero. Aenean mi nunc, convallis vestibulum euismod in, lobortis non sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Duis bibendum interdum felis, ut dictum risus ornare vel.
 %li.megaitem
   = link_to "Customer Care", "#", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
-  .megapanel
+  .megapanel.full-width
     %p.contentwrap_XXXL.last.resize
       The next thing was to eat the comfits: this caused some noise and  confusion, as the large birds complained that they could not taste  theirs, and the small ones choked and had to be patted on the back.  However, it was over at last, and they sat down again in a ring, and  begged the Mouse to tell them something more.
     %p.contentwrap_large.first.resize
@@ -153,7 +153,7 @@
       'I beg your pardon,' said Alice very humbly: 'you had got to the fifth  bend, I think?'
 %li.megaitem
   = link_to "Shop the Outlet", outlet_path, :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
-  .megapanel
+  .megapanel.full-width
     %ul.contentwrap_small
       %li massa interdum
       %li Phasellus dapibus

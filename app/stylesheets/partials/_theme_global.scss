@@ -354,6 +354,10 @@ ul.ui-tabs-nav {
         position: relative;
         left: 50%;
         
+        @if $system == szus {
+          border: 1px solid $meganav_hoverout_border;
+        }
+        
         a.megalink {
           display: block;
           margin: 0 0 0 1px;
@@ -364,7 +368,7 @@ ul.ui-tabs-nav {
           background: $meganav_bg_panel;
           text-align: left;
           position:absolute;
-          // width: 950px;
+          top: 23px;
           display: none;
           padding: 8px 0 0 0;
           

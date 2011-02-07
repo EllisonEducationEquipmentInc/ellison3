@@ -3,6 +3,8 @@
   %ul.megalist
     - if is_sizzix_us?
       = render :partial => 'layouts/meganav_szus'
+    - elsif is_ee?
+      = render :partial => 'layouts/meganav_eeus-uk_temp'
     - else
       = render :partial => 'layouts/meganav_temp'
 
