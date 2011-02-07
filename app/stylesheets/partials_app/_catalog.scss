@@ -694,9 +694,14 @@ select#sort, input#select_all_products {
   background: white;
   text-align: center;
 	color: $catalog_text;
-  font-family: Verdana,Arial,sans-serif;        
+  font-family: Verdana,Arial,sans-serif;
 	overflow: visible;
 	z-index: 200;
+	
+	h3 {
+	  font-family: Verdana,Arial,sans-serif !important;
+	  font-size: .85em !important;
+	}
 	
   .cart-buttons {
     width: 100%;

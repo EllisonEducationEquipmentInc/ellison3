@@ -1,5 +1,5 @@
 .item-block_related.product{:class => "product_#{product.id}"}
-  -#%h3.item_number= product.item_num
+  %h3.item_number= product.item_num
   - if outlet?
     .life-cycle
       %span== Save #{product.saving}%

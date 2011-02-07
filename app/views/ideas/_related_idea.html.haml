@@ -1,5 +1,5 @@
 .item-block_related.idea{:class => "idea_#{idea.id}"}
-  -#%h3.item_number= idea.item_num
+  %h3.item_number= idea.item_num
   - unless idea.public_life_cycle.blank?
     .life-cycle
       %span= idea.public_life_cycle
