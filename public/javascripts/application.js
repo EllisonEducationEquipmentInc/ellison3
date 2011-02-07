@@ -514,17 +514,10 @@ var megapanel_shadow_options = { autoresize: false, imageset: 6, imagepath: "/im
 
 // Mega Menu Hover functions
 function megamenuHoverOver() {
+  
+  // resize & position the megapanel
   var xCoord = 0;
   var panelWidth = 0;
-  
-  if (current_system == "szus") {
-    var meganav_hover_bg = "#e3dfd1";
-    var meganav_hover_border = "#d0c7a9";
-      } else if (current_system == "eeus" || current_system == "eeuk") {
-    var meganav_hover_bg = "#e1e1e1";
-  } else {
-    var meganav_hover_bg = "transparent";
-  }
   
   if ($(this).find('.megapanel').hasClass('full-width')) { // for full-width megapanels
     xCoord = Math.abs($('#nav_megamenu ul').position().left) - $(this).position().left; // calculate correct left coordinate of the subpanel
@@ -541,16 +534,43 @@ function megamenuHoverOver() {
   }
 
   $(this).find('.megapanel').css({ "left": (xCoord) + "px" }); // reset the left coordinate of the subpanel
+  
+  // set mega-item hover styles for Sizzix US & Ellison Education
+  if (current_system == "szus") {
+    var meganav_hover_bg = "#e3dfd1";
+    var meganav_hover_border = "#d0c7a9";
+  } else if (current_system == "eeus" || current_system == "eeuk") {
+    var meganav_hover_bg = "#e1e1e1";
+  } else {
+    var meganav_hover_bg = "transparent";
+  }
+
   $(this).css({ "background-color": meganav_hover_bg });
   if (current_system == "szus") {
     $(this).css({ "border": "1px solid " + meganav_hover_border });
   }
   
+  // set mega-item hover styles for Sizzix UK & Ellison Retailers
+  if (current_system == "szuk") {
+    var meganav_hover = "#cc0000";
+  }
+  if (current_system == "er") {
+    var meganav_hover = "#6382e0";
+  }
+  
+  if (current_system == "szuk" || current_system == "er") {
+    $(this).find('a.megalink').css({ "color": meganav_hover });
+  }
+  
+  // render the megapanel
   $(this).find('.megapanel').stop().slideDown('fast', function() {
-  $(this).shadowOn(megapanel_shadow_options);  // drop shadow for mega menu subpanel
+    $(this).shadowOn(megapanel_shadow_options);  // drop shadow for mega menu subpanel
   });
 }
+
 function megamenuHoverOut() {
+  
+  // reset mega-item hover styles for Sizzix US & Ellison Education
   if (current_system == "szus") {
     var meganav_hoverout_border = "#f7f7f5";
   } else {
@@ -561,7 +581,20 @@ function megamenuHoverOut() {
   if (current_system == "szus") {
     $(this).css({ "border-color": meganav_hoverout_border });
   }
+  
+  // set mega-item hover styles for Sizzix UK & Ellison Retailers
+  if (current_system == "szuk") {
+    var meganav_hoverout = "#eeeeee";
+  }
+  if (current_system == "er") {
+    var meganav_hoverout = "#eeeeee";
+  }
+  
+  if (current_system == "szuk" || current_system == "er") {
+    $(this).find('a.megalink').css({ "color": meganav_hoverout });
+  }  
 
+  // hide the megapanel
   $(this).find('.megapanel').stop().slideUp('fast', function() {
     $(this).shadowOff();
   });
