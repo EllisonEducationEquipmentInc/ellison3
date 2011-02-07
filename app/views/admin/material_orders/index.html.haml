@@ -1,0 +1,74 @@
+%h1 Listing material orders
+%br
+%h3 Filters
+- unless params[:q].blank?
+  = link_to 'all', admin_material_orders_path, :class => 'jqui_button'
+= form_tag(admin_material_orders_path, :method => :get) do
+  = text_field_tag :q, nil, :placeholder => "order num, address1"
+  = submit_tag "search", :class => 'jqui_search'
+.highlightable
+  %table
+    %thead
+      %tr
+        = sortable 'created_at', "Request Date"
+        = sortable 'order_number', "Request #"
+        %th User
+        %th Company
+        %th Name
+        %th Shipped On
+        %th Status
+    %tbody
+      - for material_order in @material_orders
+        %tr{ :class => cycle(:odd, :even) }
+          %td= l material_order.created_at, :format => :date
+          %td
+            %span.material_order_number= material_order.order_number
+            .material_order_details{:style => 'display:none'}
+              == #{material_order.address.address1} #{material_order.address.address2} #{material_order.address.city} #{material_order.address.state} #{material_order.address.zip_code} #{material_order.address.country}
+              %br
+              = material_order.materials.map {|e| e.name} * ", "
+          %td= link_to 'view', edit_admin_admin_path(material_order.user_id)
+          %td= material_order.address.company
+          %td== #{material_order.address.first_name} #{material_order.address.last_name}
+          %td= l material_order.shipped_at rescue ''
+          %td
+            %span.material_order_status{:id => material_order.id}= material_order.status
+%br
+= will_paginate @material_orders
+%br
+:javascript
+  $(document).ready(function(){
+    $('.material_order_number').CreateBubblePopup();
+    $('.material_order_number').mouseover(function(){
+      var popup_content = $(this).siblings('.material_order_details').html();
+      $(this).ShowBubblePopup({
+        position: 'top',
+        align: 'center',
+        distance: '50px',
+        tail: {
+          align: 'middle',
+          hidden: false
+        },
+        selectable: true,
+        innerHtml: popup_content,
+        innerHtmlStyle: {
+          color: '#333333',
+          'text-align': 'center'
+        },
+        themeName: 'azure',
+        themePath: '/images/ui-plugins/bubblepopup'
+      });
+    });
+  });
+- if has_write_permissions?
+  :javascript
+    $(document).ready(function(){
+      $(".material_order_status").editInPlace({
+        url: "/admin/material_orders/change_order_status",
+        field_type: "select",
+        select_options: "#{MaterialOrder::STATUSES * ', '}", 
+        show_buttons: true,
+        value_required: true,
+        saving_animation_color: "#ECF2F8"
+      });
+    });

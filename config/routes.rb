@@ -139,6 +139,11 @@ Ellison3::Application.routes.draw do |map|
 			    get :recalculate_tax, :recreate
 			  end
 			end
+			resources :material_orders do
+			  collection do
+			    post :change_order_status
+			  end
+			end
 			resources :quotes do
 			  collection do
 			    post :update_internal_comment
