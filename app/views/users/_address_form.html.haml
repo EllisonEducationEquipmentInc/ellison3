@@ -74,6 +74,9 @@
                   required: true, 
                   email: true
               },
+              "#{f.object_name}[company]": { 
+                  required: #{is_sizzix? ? 'false' : 'true'}, 
+              },
               "#{f.object_name}[phone]": { 
                   required: true, 
                   minlength: 5,
