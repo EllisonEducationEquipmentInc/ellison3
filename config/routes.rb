@@ -39,6 +39,7 @@ Ellison3::Application.routes.draw do |map|
 		post "users/create_retailer_application", :to => "users#create_retailer_application"
 		get 'users/view_retailer_application', :to => "users#view_retailer_application"
 		get 'users/machines_i_own', :to => "users#machines_i_own"
+		post 'users/order_material', :to => "users#order_material"
   end
 
   match 'admin' => 'admin#index'

@@ -1,0 +1,9 @@
+$.fancybox.close();
+- if @material_order.address.valid? && @material_order.address.save
+  $('.material_ids:checked').each(function(){this.checked = false});
+  $('#material_address').slideUp();  
+  == $('#material_orders').append('#{escape_javascript render(:partial => 'material_order', :object => @material_order)}')
+- else
+  - if @material_order.address.enable_avs_bypass
+    $('#bypass_avs').show();
+  == alert('#{escape_javascript @material_order.address.errors.full_messages.join("\n")}');

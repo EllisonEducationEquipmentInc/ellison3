@@ -9,7 +9,7 @@
   .clear
   :javascript
     $('.material_ids').click(function(){
-      $('.material_ids:checked').length > 0 ? $('#material_address').show() : $('#material_address').hide()
+      $('.material_ids:checked').length > 0 ? $('#material_address').slideDown() : $('#material_address').hide()
     })
   %p Please check the box(es) of the publications you wish to receive via mail.
   #material_address{:style => 'display:none'}
@@ -17,5 +17,12 @@
       = render :partial => 'users/address_form', :locals => {:f => address_fields}
     .actions
       = f.submit "Request Material", :class => 'jqui_save'
-  #material_orders
-    material orders: TODO
+%table#material_orders
+  %thead
+    %tr
+      %th Order #
+      %th Materials
+      %th Ordered on
+      %th Status
+  %tbody= render :partial => 'material_order', :collection => get_user.material_orders
+    

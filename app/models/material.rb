@@ -11,6 +11,8 @@ class Material
   mount_uploader :image, GenericImageUploader
   mount_uploader :document, PrivateAttachmentUploader
 	
+	#references_many :material_orders, :validate => false, :index => true
+	
 	validates :name, :presence => true
   validates_presence_of :document, :if => Proc.new {|obj| obj.download_only}
   
