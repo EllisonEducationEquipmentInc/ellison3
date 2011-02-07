@@ -154,9 +154,9 @@ $(document).ready(function(){
   var hoverconfig = { // hover intent custom configurations
 		autoresize: false,
     sensitivity: 2, // number = sensitivity threshold (must be 1 or higher)
-    interval: 200, // number = milliseconds for onMouseOver polling interval
+    interval: 60, // number = milliseconds for onMouseOver polling interval
     over: megamenuHoverOver, // function = onMouseOver callback (REQUIRED)
-    timeout: 500, // number = milliseconds delay before onMouseOut
+    timeout: 100, // number = milliseconds delay before onMouseOut
     out: megamenuHoverOut // function = onMouseOut callback (REQUIRED)
   };
   $("#nav_megamenu li.megaitem").hoverIntent(hoverconfig); // trigger hover intent with custom configurations	
