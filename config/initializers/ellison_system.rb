@@ -182,6 +182,10 @@ module EllisonSystem
 	  is_sizzix? ? 'sizzix' : 'sizzix'
 	end
 	
+	def tracking_logger
+  	@tracking_logger ||= ActiveSupport::BufferedLogger.new("#{Rails.root}/log/tracking.log")
+  end
+	
 end
 
 # class ActiveRecord::Base

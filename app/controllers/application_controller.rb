@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 	before_filter :get_system
 	before_filter :set_retailer_discount_level
 	before_filter :page_title
+	before_filter :set_clickid
 	
 	include ShoppingCart
 	include SslRequirement
@@ -236,5 +237,20 @@ private
   def set_retailer_discount_level
     Product.retailer_discount_level = is_er? && user_signed_in? && get_user.status == 'active' && get_user.discount_level ? get_user.discount_level : nil
   end
+  
+  def set_clickid
+		cookies[:clickid] = {:value => params[:clickid], :expires => 30.days.from_now} unless params[:clickid].blank?
+		source = params[:utm_source] || "ORGANIC"
+		cookies[:utm_source] = source if params[:utm_source]
+		referrer = request.referer[/http(s)?:\/\/[a-z0-9.]+./] rescue ''
+		other_utm = "&utm_campaign=#{params[:utm_campaign]}&utm_medium=#{params[:utm_medium]}" if params[:utm_campaign] || params[:utm_medium]
+		if cookies[:tracking].blank?
+			cookies[:tracking] = {:value => "date=#{Time.zone.now}&utm_source=#{source}#{other_utm}&clickid=#{cookies[:clickid]}&referrer=#{referrer}", :expires => 10.years.from_now} 
+			tracking_logger.info cookies[:tracking]
+		elsif params[:utm_source]
+			cookies[:tracking] += ";date=#{Time.zone.now}&utm_source=#{source}#{other_utm}&clickid=#{cookies[:clickid]}&referrer=#{referrer}"
+			tracking_logger.info cookies[:tracking]
+		end
+	end
   
 end

@@ -31,9 +31,8 @@
         = pluralize get_cart.total_quantity, "item"
     == in your shopping #{(t :cart)} 
     = link_to "review #{(t :cart)}", "#", :class => "review_cart minilink", :id => 'review_bag'
-  %p
-    #cart_coupon= render :partial => "carts/coupon"
-    %br
+  #cart_coupon= render :partial => "carts/coupon"
+  %br
   :javascript
     $('.review_cart').click(function(){
       $('html, body').animate({ scrollTop: $("#checkout_cart").offset().top }, 500);

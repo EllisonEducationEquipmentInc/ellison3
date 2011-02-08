@@ -92,6 +92,9 @@ module ShoppingCart
   		order.ip_address = request.remote_ip
   		if order.is_a?(Order)
   		  payment_can_be_run? ? order.open! : order.new!
+  		  order.clickid = cookies[:clickid]
+  			order.utm_source = cookies[:utm_source]
+  			order.tracking = cookies[:tracking]
   		end
   		order.comments = params[:comments] if params
   		if admin_signed_in?
