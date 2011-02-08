@@ -6,7 +6,11 @@ class Payment
 	include Mongoid::Timestamps
 	
 	attr_accessor :full_card_number, :card_issue_year, :card_issue_month, :card_issue_number, :use_previous_orders_card
-
+  
+  # deferred payment constants
+	NUMBER_OF_PAYMENTS = 2 	# not including first time 'setup' fee
+	FREQUENCY = 'monthly'
+	
 	field :first_name
 	field :last_name
 	field :company

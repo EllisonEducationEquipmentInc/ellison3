@@ -208,6 +208,28 @@
     = link_to @order.coupon_code || @order.coupon.codes.join(", "), admin_coupon_path(@order.coupon)
     = @order.coupon.name
 - if @order.payment.present?
+  - if @order.payment.deferred
+    Three Easy Payments
+    %table
+      %tr
+        %th
+          Payment 1
+          = l @order.payment.paid_at, :format => :date
+        - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
+          %th
+            Payment 
+            = i+1 
+            = l @order.payment.paid_at.since(i.month), :format => :date
+      %tr
+        %td
+          = number_to_currency @order.payment.paid_amount
+        - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
+          %td= number_to_currency(@order.payment.deferred_payment_amount)
+    %br
+    Deferred Payment!
+    %br
+    Subscription ID:
+    = @order.payment.subscriptionid
   .field{:class => @order.payment.paid_amount && @order.payment.paid_amount < @order.total_amount ? 'error' : nil}
     %strong Paid Amount:
     = number_to_currency @order.payment.paid_amount rescue "N/A"

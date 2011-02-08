@@ -5,6 +5,7 @@ var _gaq = _gaq || [];
 var button_label = button_label || '';
 var number_only = function(e){if (e.keyCode != 46 && e.keyCode != 8 && e.keyCode != 9 && !String.fromCharCode(e.keyCode).match(/\d+/)) return false}
 var outlet = location.pathname.indexOf("/outlet") >= 0;
+var current_system = current_system || "szus";
 
 $(function() {
   $(".wymeditor").wymeditor({

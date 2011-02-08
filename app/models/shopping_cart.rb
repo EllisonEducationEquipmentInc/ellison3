@@ -314,6 +314,13 @@ module ShoppingCart
     def calculate_tax?(state)
       %w(CA IN WA UT).include?(state)
     end
+    
+    def calculate_setup_fee(subtotal, shipping_and_handling, tax)
+      total = subtotal + shipping_and_handling + tax
+      monthly_payment = (subtotal/(Payment::NUMBER_OF_PAYMENTS + 1.0)).round(2)
+      setup_fee = monthly_payment + shipping_and_handling + tax
+      setup_fee += total - setup_fee - monthly_payment * Payment::NUMBER_OF_PAYMENTS
+    end
 
 		def process_card(options = {})
       amount, billing, order, tokenize_only = options[:amount], options[:payment], options[:order], options[:tokenize_only]
@@ -329,13 +336,13 @@ module ShoppingCart
         gw_options[:billing_address] = {:company => billing.company, :phone => billing.phone,  :address1 => billing.address1, :city => billing.city, :state => billing.state, :country => billing.country, :zip => billing.zip_code} unless billing.use_saved_credit_card
       	gw_options[:subscription_id] = billing.subscriptionid
       	if billing.deferred
-					gw_options[:setup_fee] = (calculate_setup_fee(subtotal_cart, calculate_shipping_and_handling(get_cart, get_ship_to,  get_cart.shipping_method), calculate_tax(get_cart, get_ship_to, true)) * 100).round
+					gw_options[:setup_fee] = (calculate_setup_fee(total_cart, get_cart.shipping_amount + calculate_handling, get_cart.tax_amount) * 100).round
 					gw_options[:number_of_payments] = billing.number_of_payments
 					gw_options[:frequency] = billing.frequency
 					gw_options[:start_date] = 1.months.since.strftime("%Y%m%d")
 					gw_options[:subscription_title] = "#{get_domain.capitalize} Three Easy Payments"
 					gw_options[:customer_account_id] = get_user.id
-					amount = amount ? amount : (subtotal_cart/(billing.number_of_payments + 1.0) * 100 ).round
+					amount = (billing.deferred_payment_amount * 100).round
 				end
 			else
         gw_options = {
@@ -566,11 +573,11 @@ module ShoppingCart
   	end
   	
   	def can_tokenize_payment?
-  	  is_us?
+  	  is_us? && !is_sizzix?
   	end
   	
   	def purchase_order_allowed?
-  	  is_ee? || user_signed_in? && get_user.purchase_order
+  	  is_ee? || !is_sizzix? && user_signed_in? && get_user.purchase_order
   	end
   	
   	def tax_exempt?

@@ -79,6 +79,11 @@ class Cart
 	  cart_items.any? {|e| e.pre_order}
 	end
 	
+	# if cart qualifies for deferred payments
+	def allow_deferred?
+		is_sizzix_us? && sub_total < 1000.01 && cart_items.any? {|o| o.eclips?}
+	end
+	
 	def changed_item_attributes
 		self.changed_items.map {|e| e[1]}.flatten.uniq rescue nil
 	end

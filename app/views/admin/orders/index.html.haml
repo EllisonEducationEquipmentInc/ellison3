@@ -6,6 +6,7 @@
   = admin_systems_checkboxes
   = text_field_tag :q, nil, :placeholder => "shipping name, address"
   = select_tag :status, options_for_select([['All', nil]] + Order::STATUSES, params[:status])
+  = select_tag :deferred, options_for_select([['All', nil]] + [['deferred', 1], ['not-deferred', 0]], params[:deferred])
   = submit_tag "search", :class => 'jqui_search'
 .highlightable
   %table
@@ -17,6 +18,7 @@
         = sortable "subtotal_amount"
         %th System
         = sortable "status"
+        = sortable "payment.deferred", 'Deferred'
         - if has_write_permissions?
           %th &nbsp;
     %tbody
@@ -29,6 +31,7 @@
           %td= number_to_currency order.gross_subtotal_amount
           %td= order.system
           %td{:style => order.on_hold? ? order.can_be_paid? ? 'color:green' : 'color:red' : nil}= order.status
+          %td= order.payment.try :deferred
           - if has_write_permissions?
             %td= link_to 'View', admin_order_path(order)
 - I18n.locale = @current_locale

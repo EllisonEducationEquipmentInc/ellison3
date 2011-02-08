@@ -483,6 +483,7 @@ class Product
 	  self.product_lines.first
 	end
 	
+	
 private 
 
   # automatically set system specific attributes (if not set) of all other enabled systems. Values are inherited from the current system

@@ -1,5 +1,38 @@
 = form_for(@payment, :url => {:controller => :carts, :action => @quote ? "quote_2_order" : "proceed_checkout", :id => @quote, :secure => true}, :remote => true, :html => {:id => "proceed_checkout", :method => :post, :multipart => true}) do |f|
   = f.error_messages
+  - if get_cart.allow_deferred?
+    #deferred_options
+      = radio_button_tag :deferred, 0, !@payment.deferred, :onclick => "$('#payment_deferred').val(this.value)"
+      Single Payment
+      %table
+        %tr
+          %th
+            Payment Due 
+            = l Date.today
+        %tr
+          %td
+            %span#deferred_single_total_amount= render :partial => 'deferred_single_total_amount'
+            %span (incl S&H +Tax)
+      = radio_button_tag :deferred, 1, @payment.deferred, :onclick => "$('#payment_deferred').val(this.value)"
+      Three Easy Payments
+      %table
+        %tr
+          %th
+            Payment 1 Due 
+            = l Date.today
+          - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
+            %th
+              Payment 
+              = i+1 
+              Due
+              = l i.months.since, :format => :date
+        %tr
+          %td
+            %span#deferred_first_payment= render :partial => 'deferred_first_payment'
+            %span (incl S&H +Tax)
+          - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
+            %td= number_to_currency((gross_price(get_cart.sub_total)/(Payment::NUMBER_OF_PAYMENTS + 1.0)).round(2))
+    = f.hidden_field :deferred
   - if purchase_order_allowed?
     .field
       = f.check_box :purchase_order, :onclick => "if (this.checked){$('#po_info').show();$('#cc_info').hide();$('#payment_attachment').rules('add',{required: true});$('#payment_purchase_order_number').rules('add',{required: true});$('.cc').each(function(){$(this).rules('remove')})} else {$('#po_info').hide();$('#cc_info').show();$('.cc').each(function(){$(this).rules('add',{required: true})});$('#payment_full_card_number').rules('add',{creditcard: true});$('#payment_card_security_code').rules('add',{cvv: true});$('#payment_attachment').rules('remove');$('#payment_purchase_order_number').rules('remove');}"

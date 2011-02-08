@@ -6,6 +6,9 @@ $.fancybox.close();
   == $('#cart_shipping').html('#{escape_javascript(render(:partial => "shipping_amount"))}');
   == $('#cart_tax').html('#{escape_javascript(render(:partial => "tax_amount"))}');
   == $('#cart_total').html('#{escape_javascript(render(:partial => "total_amount"))}');
+	- if get_cart.allow_deferred?
+		== $('#deferred_single_total_amount').html('#{escape_javascript(render(:partial => "carts/deferred_single_total_amount"))}');
+		== $('#deferred_first_payment').html('#{escape_javascript(render(:partial => "carts/deferred_first_payment"))}');
   $('#new_billing').slideDown('slow');
 - else
   - if @shipping_address.enable_avs_bypass

@@ -30,6 +30,7 @@ class Order
 	index "order_items.item_num"
 	index :order_number
 	index :subtotal_amount
+	index "payment.deferred"
 	
 	field :status, :default => "New"
 	field :system

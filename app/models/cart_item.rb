@@ -50,4 +50,8 @@ class CartItem
 	def coupon?
 	  self.item_num == Coupon::COUPON_ITEM_NUM
 	end
+	
+	def eclips?
+		item_num == "655934" || item_num == "999999" || (item_num == "654427" && Rails.env == 'development')
+	end
 end

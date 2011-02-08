@@ -1,0 +1,2 @@
+:javascript
+  $.ajax({url:'/carts/get_deferred_first_payment', success: function(data) {$('#deferred_first_payment').html(data);$('#payment_submit').button({disabled: false, label: button_label});}, beforeSend: function() {$('#payment_submit').button({disabled: true, label: 'please wait...'});$('#deferred_first_payment').html('#{escape_javascript loader_bar}')}})

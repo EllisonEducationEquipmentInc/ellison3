@@ -129,6 +129,12 @@ class CartsController < ApplicationController
 		  use_payment_token = false
 		  new_payment
 		end
+		@payment.deferred = false if @payment.present? && !get_cart.allow_deferred?
+		if @payment.try :deferred
+		  @payment.number_of_payments = Payment::NUMBER_OF_PAYMENTS
+			@payment.frequency = Payment::FREQUENCY
+			@payment.deferred_payment_amount = (gross_price(get_cart.sub_total)/(@payment.number_of_payments + 1.0)).round(2)
+		end
 		cart_to_order(:address => get_user.shipping_address)
     process_card(:amount => (total_cart * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?, :use_payment_token => use_payment_token) unless @payment.purchase_order && purchase_order_allowed? || get_cart.pre_order?
 		@order.payment = @payment unless get_cart.pre_order?
@@ -236,6 +242,23 @@ class CartsController < ApplicationController
 		  end
 		end
 		render :inline => "<%= number_to_currency @total %>"
+	end
+	
+	def get_deferred_first_payment
+	  return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
+		tries = 0
+		begin
+			tries += 1
+			@first_payment = calculate_setup_fee(total_cart, get_delayed_shipping + calculate_handling, get_cart.tax_amount)
+		rescue Exception => e
+			Rails.logger.error e #.backtrace.join("\n")
+			if tries < 15        
+		    sleep(tries)            
+			  get_cart.reload
+		    retry                      
+		  end
+		end
+		render :inline => "<%= number_to_currency @first_payment %>"
 	end
 	
 	def custom_price

@@ -18,6 +18,7 @@ class Admin::OrdersController < ApplicationController
 	    criteria.where(:system.in => params[:systems_enabled]) 
 	  end
 	  criteria = criteria.where(:status => params[:status]) unless params[:status].blank?
+	  criteria = criteria.where('payment.deferred' => Boolean.set(params[:deferred])) unless params[:deferred].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
   	  criteria = criteria.any_of({'order_number' => params[:q][/\d+/].to_i}, {'address.email' => regexp},  {'address.first_name' => regexp}, { 'address.last_name' => regexp }, { 'address.city' => regexp }, { 'address.address' => regexp })
