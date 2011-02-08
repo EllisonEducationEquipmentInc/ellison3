@@ -532,6 +532,8 @@ function megamenuHoverOver() {
     if ($(this).find('.megapanel').hasClass('reverse')) { // for 'reverse layout' megapanels
       xCoord = $(this).width() - panelWidth;
     }
+
+    xCoord = xCoord -= 1; // nudge to align with tab
   }
 
   $(this).find('.megapanel').css({ "left": (xCoord) + "px" }); // reset the left coordinate of the subpanel
