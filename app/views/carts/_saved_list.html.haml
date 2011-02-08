@@ -8,11 +8,11 @@
         %th
         %th{:style => "text-align: right", :width => 75} Retail Price
         %th{:style => "text-align: right", :width => 75} Our Price
-        %th{:style => "text-align: right", :width => 100}
+        %th{:style => "text-align: right"}
         %th{:style => "text-align: right"}
     %tbody= render :partial => 'carts/saved_item', :collection => get_user.save_for_later_list.products, :as => :product
   :javascript
-    $(".move_to_cart").button({icons: {primary: 'ui-icon-plus'}})
+    $(".move_to_cart").button({icons: {primary: 'ui-icon-arrowreturnthick-1-s'}, text: false})
       .click( function() {
         $.ajax({url:"/carts/move_to_cart?id="+this.id.replace('move_to_cart_', '')});
         $(this).button({disabled: true});

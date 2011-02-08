@@ -13,7 +13,7 @@
         %th{:style => "text-align: right", :width => 70} Quantity
         %th{:style => "text-align: right", :width => 75} Total Price
         - unless @cart_locked
-          %th{:width => 130}
+          %th
         %th
     %tbody
       = render :partial => 'carts/cart_item', :collection => @cart.cart_items
@@ -89,7 +89,7 @@
       			_gaq.push(['_trackEvent', 'Cart', 'Remove From Cart', this.id.replace('remove_from_cart_', '')]);
       			$(this).button({ disabled: true });
       		}); 
-      		$(".save_for_later").button({icons: {primary: 'ui-icon-plus'}})
+      		$(".save_for_later").button({icons: {primary: 'ui-icon-arrowreturnthick-1-w'}, text: false})
       			.click( function() {
       				$.ajax({url:"/users/save_for_later?item_num="+$(this).attr('rel')});
       				$(this).button({disabled: true});
