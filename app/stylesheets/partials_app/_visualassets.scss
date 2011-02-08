@@ -61,6 +61,8 @@
     background:url("/images/ui-buttons/_#{$system}_gallery-arrow_prev.png") no-repeat 0 0;
     
     &:hover { color: $home_gallery_ctrl_hover; }
+    
+    &:focus { color: $home_gallery_ctrl_btn !important;}
   }
   a.nextBtn { @extend a.prevBtn;
     background:url("/images/ui-buttons/_#{$system}_gallery-arrow_next.png") no-repeat 0 0;

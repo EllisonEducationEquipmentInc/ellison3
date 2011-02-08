@@ -92,7 +92,7 @@ body.bp {
     
     .megalink {
       font-family:  'PT Sans', Helvetica, Arial, sans-serif;
-      font-size: 1.3em;
+      font-size: 1.29em;
       font-weight: bold;
       color: $meganav_link;
       text-transform: uppercase;
@@ -165,7 +165,7 @@ body.bp {
     font-style: italic;
     font-weight: bold;
     line-height: 2em;
-    top: 155px;
+    top: 140px;
     left: -2px;
     width: 47px;
     height: 34px;
@@ -173,7 +173,7 @@ body.bp {
   }
   a.nextBtn { @extend a.prevBtn;
     top: 138px;
-    left: 906px;
+    left: 706px;
     width: 45px;
     height: 35px;
     padding: 5px 0 0 10px;

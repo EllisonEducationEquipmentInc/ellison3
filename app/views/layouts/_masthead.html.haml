@@ -64,6 +64,15 @@
       }).blur(function(){
         $(this).removeClass("activefield").addClass("idlefield");
       });
+      
+      $('#keyword').change(function() {
+        if (this.value.length < 3) {
+          return false;
+        } else {
+          location.hash = $.param.fragment( location.hash, {q: this.value, page: 1}, 0 );
+        }
+      });
+
 
 #printmasthead.dontdisplay
   %h1== #{system_name.capitalize}.com
