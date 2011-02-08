@@ -180,29 +180,28 @@ private
 
   def update_campaign
     if campaign? && Boolean.set(embed_campaign) && !campaign.blank? && !products.blank?
+      Rails.logger.info "!!! updating tag's campaign"
       # TODO: DRY
       if campaign.individual
         campaign.individual_discounts.each do |individual_discount|
           product = Product.find(individual_discount.product_id) rescue next
-          c = product.campaigns.find(campaign.id) || Campaign.new
-          c.write_attributes campaign.attributes
+          c = product.campaigns.where( :_id => campaign.id).first || product.campaigns.build
+          c.copy_common_attributes campaign
           c.id = campaign.id
           c.discount_type = individual_discount.discount_type
           c.discount = individual_discount.discount
           c.individual_discounts = []
           c.start_date = campaign.start_date
           c.end_date = campaign.end_date
-          c.product = product
           c.save
         end
       else
         products.each do |product|
-          c = product.campaigns.find(campaign.id) || Campaign.new
-          c.write_attributes campaign.attributes
+          c = product.campaigns.where( :_id => campaign.id).first || product.campaigns.build
+          c.copy_common_attributes campaign
           c.id = campaign.id
           c.start_date = campaign.start_date
           c.end_date = campaign.end_date
-          c.product = product
           c.save
         end
       end

@@ -58,7 +58,7 @@ class Admin::TagsController < ApplicationController
     populate_campaign
     respond_to do |format|
       if @tag.save
-        format.html { redirect_to(admin_tags_url, :notice => 'Tag was successfully created.') }
+        format.html { redirect_to(edit_admin_tag_url(@tag), :notice => 'Tag was successfully created.') }
         format.xml  { render :xml => @tag, :status => :created, :location => @tag }
       else
         @tag.build_campaign if @tag.campaign.blank?

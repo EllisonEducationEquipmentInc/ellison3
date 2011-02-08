@@ -11,10 +11,11 @@
     = f.label :tag_type
     = f.select :tag_type, Tag.all_types.map {|t| [t.humanize, t]}, {}, :onchange => "toggle_tag_type_fields()"
   #new_campaign{:style => "display:#{@tag.campaign? ? 'block' : 'none'}"}
-    .field
-      = f.label :embed_campaign, "Embed/update campaign"
-      = f.check_box :embed_campaign
-      (if checked, discount will be batch applied to associated products. If not checked, this "campaign" will have no effect on product pricing whatsoever)
+    - unless f.object.new_record?
+      .field
+        = f.label :embed_campaign, "Embed/update campaign"
+        = f.check_box :embed_campaign, :disabled => f.object.new_record?
+        (if checked, discount will be batch applied to associated products. If not checked, this "campaign" will have no effect on product pricing whatsoever)
     = f.fields_for :campaign, @tag.campaign do |campaign_fields|
       .field
         = campaign_fields.label :individual, "Individual Pricing (each product has individual discount)"
