@@ -47,7 +47,7 @@
       });
 
   -# shopping cart
-  #shoppingcart_icon= link_to image_tag("/images/ui-objects/_#{current_system}_shoppingcart#{ (get_cart.total_quantity > 0 && is_ee? ) ? '-full' : nil }.png", :border =>0, :alt => "Shopping #{(t :cart).capitalize}"), "#", :title => "View #{(t :cart).capitalize}", :alt => "View #{(t :cart).capitalize}", :class => "#{params[:controller] == 'carts' ? 'review_cart' : 'show_cart'}"
+  #shoppingcart_icon= link_to image_tag("/images/ui-objects/_#{current_system}_shoppingcart#{ (get_cart.total_quantity > 0 && is_ee? ) ? '-full' : nil }.png", :border =>0, :alt => "Shopping #{(t :cart).capitalize}"), "#{cart_path unless get_cart.cart_items.blank?}", :title => "View #{(t :cart).capitalize}", :alt => "View #{(t :cart).capitalize}", :class => "#{params[:controller] == 'carts' ? 'review_cart' : nil}"
   #shoppingcart_info
     #cartspinner= spinner
   :javascript
