@@ -234,6 +234,8 @@ GEM
     rb-inotify (0.8.4)
       ffi (>= 0.5.0)
     remotipart (0.2.1)
+    rpm_contrib (1.0.13)
+      newrelic_rpm (>= 2.13.1)
     rsolr (0.12.1)
       builder (>= 2.1.2)
     rspec (2.4.0)
@@ -328,7 +330,6 @@ DEPENDENCIES
   mongo_session_store (>= 2.0.0)
   mongoid!
   mysql
-  newrelic_rpm
   nifty-generators
   passenger
   rack-bug
@@ -336,6 +337,7 @@ DEPENDENCIES
   rails3-generators
   rb-inotify (>= 0.5.1)
   remotipart
+  rpm_contrib
   rspec-rails (>= 2.0.0.beta.20)
   ruby-debug19
   ruby_parser
