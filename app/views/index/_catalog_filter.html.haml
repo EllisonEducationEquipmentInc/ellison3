@@ -1,6 +1,5 @@
 - unless params[:action] == "shop"
-  %h3 Search Within These Results
-  = text_field_tag :keyword, nil, :autocomplete => "off", :value => "enter keywords", :onfocus => "if (this.value == 'enter keywords'){this.value='';}", :onblur => "if (this.value == ''){this.value='enter keywords';}", :style => "width:183px;"
+  = text_field_tag :keyword, nil, :autocomplete => "off", :value => "search within these results...", :onfocus => "if (this.value == 'search within these results...'){this.value='';}", :onblur => "if (this.value == ''){this.value='search within these results...';}", :style => "width:183px;"
 :javascript
   $("#keyword").addClass("idlefield");
   $("#keyword").focus(function(){
@@ -9,10 +8,9 @@
     $(this).removeClass("activefield").addClass("idlefield");
   });
 
-%h3== Filter #{@landing_page ? nil : 'Products'} Results By:
-
-= link_to "collapse all", "#", :class => "link_collapse", :style => "display: none"
-= link_to "expand all", "#", :class => "link_expand"
+%h3
+  = link_to "Filter Results By:", "#", :class => "link_collapse", :style => "display: none"
+  = link_to "Filter Results By:", "#", :class => "link_expand"
 .clear
 .facets.ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
   - @search.facets.each do |facet|

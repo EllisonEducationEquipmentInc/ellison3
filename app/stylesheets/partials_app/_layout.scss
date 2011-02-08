@@ -143,10 +143,10 @@
 
 .link_expand {
   @extend .link;
-  @extend .minilink;
-  margin: 3px 0 0 6px;
-  padding: 0 0 0 15px;
+  color: $text !important;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/toggle-small-expand.png") no-repeat left bottom;
+  
+  &:hover { color: $link !important; }
 }
 
 .link_collapse { @extend .link_expand;
