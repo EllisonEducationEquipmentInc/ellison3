@@ -131,29 +131,42 @@ body.bp {
   }  
 }
 
-// content gallery
+// content gallery (landing pages)
 .frame_gallery {
-  height: 360px;
-
   a.prevBtn {
     font-family: Georgia, serif;
     font-size: 12px;
     font-style: italic;
     font-weight: bold;
     line-height: 2em;
-
     top: 140px;
-    left: 8px;
+    left: -2px;
     width: 47px;
     height: 34px;
     padding: 3px 0 0 8px;
   }
   a.nextBtn { @extend a.prevBtn;
     top: 138px;
-    left: 899px;
+    left: 706px;
     width: 45px;
     height: 35px;
     padding: 5px 0 0 10px;
+  }
+}
+
+// content gallery (wide)
+// for use on non-landing pages like homepage or store locator
+.frame_gallery_wide { @extend .frame_gallery;
+  height: 360px;
+
+  a.prevBtn {
+    top: 155px;
+    left: 8px;    
+  }
+  
+  a.nextBtn {
+    top: 138px;
+    left: 899px;
   }
 }
 

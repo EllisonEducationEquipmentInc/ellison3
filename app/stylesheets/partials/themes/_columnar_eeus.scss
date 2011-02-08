@@ -146,7 +146,7 @@ body.bp {
   }
 }
 
-// content gallery
+// content gallery (landing pages)
 .frame_gallery {
   a.prevBtn {
     top: 133px;
@@ -160,12 +160,20 @@ body.bp {
   }
   a.nextBtn { @extend a.prevBtn;
     top: 133px;
-    left: 922px;
+    left: 722px;
     width: 20px;
     height: 27px;
     padding: 0;
     
     &:hover { background:url("/images/ui-buttons/_#{$system}_gallery-arrow_next_on.png") no-repeat 0 0; }
+  }
+}
+
+// content gallery (wide)
+// for use on non-landing pages like homepage or store locator
+.frame_gallery_wide { @extend .frame_gallery;
+  a.nextBtn {
+    left: 922px;
   }
 }
 
