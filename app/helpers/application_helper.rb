@@ -251,7 +251,7 @@ HTML
 	end
 	
 	def idea_name
-	  is_ee? ? 'lesson' : 'idea'
+	  Idea.public_name
 	end
 
 end

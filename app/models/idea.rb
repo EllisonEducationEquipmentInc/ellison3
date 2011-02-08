@@ -82,6 +82,10 @@ class Idea
 		def find_by_idea_num(idea_num)
 		  active.where(:idea_num => idea_num).cache.first
 		end
+		
+		def public_name
+		  is_ee? ? 'lesson' : 'project'
+		end
 	end
 
 	ELLISON_SYSTEMS.each do |system|

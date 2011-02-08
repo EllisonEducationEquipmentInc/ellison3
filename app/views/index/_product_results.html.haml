@@ -1,4 +1,4 @@
-%h3.dontdisplay== #{pluralize @search.total, @klass.to_s} Showing
+%h3.dontdisplay== #{pluralize @search.total, @klass.public_name} Showing
 .dontprint
   #catalog_breadcrumbs
   - if @breadcrumb_tags.present? && @breadcrumb_tags.reverse.detect {|e| e.visual_assets.present?}.present? # display tag's visual asset if any has visual asset. If we want to display the last selected filter tag's visual assets, change the conditional to: @breadcrumb_tags.last.try(:visual_assets).try(:present?)
