@@ -2,7 +2,7 @@
   - next if facet.rows.length < 1 || @landing_page.search_query.split(",").any? {|e| e[/^([a-z_]+)~/,1] == facet_to_param(facet.name)} || (facet.name == :price && !params[:price].blank?)
   - if facet.class == Sunspot::Search::FieldFacet
     = select_tag "facets[#{facet.name}]", options_for_select([[facet.name.to_s.gsub("_#{current_system}", "").humanize, nil]] + facet.rows.select {|e| e.instance.present?}.map {|r| [r.instance.name, r.value]}, @facets_hash.detect {|e| facet.rows.map {|r| r.value}.include?(e)})
-.jqui_search#quick_search_submit Search
+.jqui_search#quick_search_submit Quick Search
 = hidden_field_tag :landing_page_id, @landing_page.id
 = hidden_field_tag :initial_query, @landing_page.search_query
 :javascript
