@@ -85,23 +85,25 @@
         == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
     %br
     %br
-    - if @order.payment.deferred
-      %table
-        %tr
-          %th
-            Payment 1
-            = l @order.payment.paid_at, :format => :date
-          - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
-            %th
-              Payment 
-              = i+1 
-              = l @order.payment.paid_at.since(i.month), :format => :date
-        %tr
-          %td
-            = number_to_currency @order.payment.paid_amount
-          - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
-            %td= number_to_currency(@order.payment.deferred_payment_amount)
     = link_to "Print a copy of this invoice.", "javascript:window.print()", :class => "link_print"
+  - if @order.payment.deferred
+    %br
+    %br
+    %table
+      %tr
+        %th
+          Payment 1
+          = l @order.payment.paid_at, :format => :date
+        - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
+          %th
+            Payment 
+            = i+1 
+            = l @order.payment.paid_at.since(i.month), :format => :date
+      %tr
+        %td
+          = number_to_currency @order.payment.paid_amount
+        - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
+          %td= number_to_currency(@order.payment.deferred_payment_amount)
 %ul.plain.cart_summary.contentwrap_medium.last
   %li
     Subtotal:
