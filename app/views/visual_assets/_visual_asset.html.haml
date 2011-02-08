@@ -1,7 +1,7 @@
 - if visual_asset.must_own.blank? || machines_owned.any? {|e| visual_asset.must_own.include?(e)}
   - if visual_asset.asset_type == 'galleries' && visual_asset.child_visual_assets.present?
-    .frame_gallery
-      = image_tag("/images/ui-objects/_#{current_system}_frame_gallery.png", :class => "frame_gallery")
+    %div{ :class => "frame_gallery#{visual_asset.wide? ? '_wide' : nil}" }
+      = image_tag("/images/ui-objects/_#{current_system}_frame_gallery#{visual_asset.wide? ? '_wide' : nil}.png", :class => "frame_gallery")
       .gallery_asset{:id => "gallery_#{visual_asset.id}"}
         %ul
           - visual_asset.child_visual_assets.select {|asset| asset.available?}.sort {|x,y| x.display_order <=> y.display_order}.each do |child_visual_asset|

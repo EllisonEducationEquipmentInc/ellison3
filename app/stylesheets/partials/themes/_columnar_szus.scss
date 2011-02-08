@@ -157,7 +157,7 @@ body.bp {
     }
 }
 
-// content gallery
+// content gallery (landing pages)
 .frame_gallery {
   a.prevBtn {
     font-family: Georgia, serif;
@@ -177,6 +177,14 @@ body.bp {
     width: 45px;
     height: 35px;
     padding: 5px 0 0 10px;
+  }
+}
+
+// content gallery (wide)
+// for use on non-landing pages like homepage or store locator
+.frame_gallery_wide { @extend .frame_gallery;
+  a.nextBtn {
+    left: 906px;
   }
 }
 
