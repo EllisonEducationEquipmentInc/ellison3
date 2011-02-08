@@ -112,7 +112,7 @@ namespace :ax do
             end
             if @cch.success?
               print "done\n"
-              Order.find_by_order_number(order_number).try(:update_attribute, :tax_committed, true)
+              Order.find_by_public_order_number(order_number).try(:update_attribute, :tax_committed, true)
             else
               print "ERROR: #{@cch.errors}\n"
             end
