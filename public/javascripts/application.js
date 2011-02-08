@@ -547,7 +547,7 @@ function megamenuHoverOver() {
 
   $(this).css({ "background-color": meganav_hover_bg });
   if (current_system == "szus") {
-    $(this).css({ "border": "1px solid " + meganav_hover_border });
+    $(this).css({ "border": "1px solid " + meganav_hover_border, "border-bottom": "0px" });
   }
   
   // set mega-item hover styles for Sizzix UK & Ellison Retailers
@@ -564,7 +564,9 @@ function megamenuHoverOver() {
   
   // render the megapanel
   $(this).find('.megapanel').stop().slideDown('fast', function() {
-    $(this).shadowOn(megapanel_shadow_options);  // drop shadow for mega menu subpanel
+    if (current_system != "szus") {
+      $(this).shadowOn(megapanel_shadow_options);  // drop shadow for mega menu subpanel
+    }
   });
 }
 

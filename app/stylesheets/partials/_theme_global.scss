@@ -371,6 +371,12 @@ ul.ui-tabs-nav {
           top: 23px;
           display: none;
           padding: 8px 0 0 0;
+          z-index: 301;
+          @if $system == szus {
+            border: 1px solid $meganav_hover_border;
+            border-top: 0px;
+          }
+
           
           &.full-width { width: 950px; }
 
