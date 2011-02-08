@@ -77,7 +77,7 @@
   .item_cross-sell
     - unless @product.ideas.blank?
       .rounded
-        %h4== Related #{Idea.public_name.pluralize}:
+        %h4== Related #{idea_name.pluralize}:
         .related_ideas= render :partial => 'ideas/related_idea', :collection => @product.ideas, :as => :idea
     - unless @product.four_related_products.blank?
       .rounded

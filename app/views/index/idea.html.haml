@@ -10,7 +10,7 @@
     .clear  
 %h3.item_title
   = @idea.name
-  %span.idea-number== #{Idea.public_name} ##{@idea.idea_num}
+  %span.idea-number== #{idea_name} ##{@idea.idea_num}
   %span.life-cycle= @idea.public_life_cycle
 .item_description
   = @idea.description.try :html_safe
@@ -27,6 +27,6 @@
     - unless @idea.four_related_ideas.blank?
       .rounded
         %h4
-          == Related #{Idea.public_name.pluralize}
+          == Related #{idea_name.pluralize}
           = link_to "View All", catalog_path(:anchor => "facets=#{@idea.related_tag.facet_param}&ideas=1&page=1"), :class => "minilink"
         .related_ideas= render :partial => 'ideas/related_idea', :collection => @idea.four_related_ideas, :as => :idea
