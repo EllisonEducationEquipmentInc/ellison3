@@ -474,12 +474,16 @@ class Product
 	  if self.related_product_tag.valid_bson_object_id?
 	    Tag.find(self.related_product_tag)
 	  else
-	    tags.available.send(is_ee? ? :subcurriculums : :themes).first || tags.available.categories.first
+	    tags.available.send(is_ee? ? :subcurriculums : :themes).first || tags.available.send("#{'sub' unless is_ee?}categories").first
 	  end
 	end
 	
 	def four_related_products
-	  related_tag.products.related_to(self, self.outlet) rescue []
+	  criteria = related_tag.products.related_to(self, self.outlet) 
+	  skip_limit = criteria.count > 4 ? criteria.count - 4 : 1
+	  criteria = criteria.limit(4).skip(rand(skip_limit))
+	rescue 
+	  []
 	end
 	
 	def product_line

@@ -219,7 +219,11 @@ class Idea
 	end
 	
 	def four_related_ideas
-	  related_tag.ideas.send(current_system).available.where(:_id.ne => self.id).limit(4) rescue []
+	  criteria = related_tag.ideas.send(current_system).available.where(:_id.ne => self.id)
+	  skip_limit = criteria.count > 4 ? criteria.count - 4 : 1
+	  criteria = criteria.limit(4).skip(rand(skip_limit))	  
+	rescue 
+	  []
 	end
 	
 private 
