@@ -53,6 +53,8 @@ Ellison3::Application.routes.draw do |map|
 	match 'outlet' => 'index#shop', :defaults => { :id => 'outlet' }, :as => :outlet
 	match 'product/:id' => 'index#product', :as => :product
 	match 'idea/:id' => 'index#idea', :as => :idea
+	#match 'lesson/:id' => 'index#idea', :as => :idea, :constraints => Proc.new {|obj| obj.is_ee?}
+	#match 'project/:id' => 'index#idea', :as => :idea, :constraints => Proc.new {|obj| !obj.is_ee?}
 	match 'contact' => 'index#contact', :as => :contact
 	match 'reply_to_feedback/:id' => 'index#reply_to_feedback', :as => :reply_to_feedback
 	match 'videos' => 'index#videos', :as => :videos
