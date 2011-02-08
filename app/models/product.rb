@@ -474,7 +474,7 @@ class Product
 	  if self.related_product_tag.valid_bson_object_id?
 	    Tag.find(self.related_product_tag)
 	  else
-	    tags.available.send(is_ee? ? :subcurriculums : "#{'sub' unless is_ee?}themes").first || tags.available.send("#{'sub' unless is_ee?}categories").first
+	    tags.available.send(is_ee? ? :subcurriculums : :subthemes).first || tags.available.send("#{'sub' unless is_ee?}categories").first
 	  end
 	end
 	
