@@ -34,6 +34,7 @@ class Idea
 	field :grade_level, :type => Array
 	field :related_idea_tag
 	field :use_tabs, :type => Boolean, :default => true
+	field :video
 	
 	index :idea_num, :unique => true, :background => true
 	index :systems_enabled

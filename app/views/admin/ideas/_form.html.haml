@@ -40,12 +40,20 @@
     %br
     = f.text_area :description, :class => 'wymeditor'
   .field
+    = f.label :objective
+    %br
+    = f.text_area :objective, :class => 'wymeditor'
+  .field
     = image_tag(@idea.image_url(:small)) if @idea.image? 
     = f.file_field :image
     = f.hidden_field :image_cache
     %br
     = f.label :remove_image
     = f.check_box :remove_image
+  .field
+    = f.label :video, "Youtube video ID. Example: iOGVK7Mih7w"
+    %br
+    = f.text_field :video
   %br
   - unless @idea.new_record?
     %h3 Tags

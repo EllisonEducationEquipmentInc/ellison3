@@ -212,6 +212,26 @@ $(document).ready(function(){
 	}, "Security Code is invalid");	
 
 	er_number_only();
+	
+	$('.tooltip_playvideo').CreateBubblePopup({
+    position: 'top',
+    align: 'center',
+    distance: '50px',
+    tail: {
+      align: 'middle',
+      hidden: false
+    },
+    selectable: true,
+    innerHtml: '<div class="tip_play-video">click to play this video</div>',
+    innerHtmlStyle: {
+      color: '#333333',
+      'text-align': 'center'
+    },
+    themeName: 'azure',
+    themePath: '/images/ui-plugins/bubblepopup'
+  });
+  youtube_video_links();
+  
 });
 
 

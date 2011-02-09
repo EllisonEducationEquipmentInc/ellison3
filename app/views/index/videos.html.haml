@@ -61,26 +61,7 @@
     #search_results
       %h3 Search Results
       .highlightable
-        %ul.videolist#video_search
-  :javascript
-    $('.tooltip_playvideo').CreateBubblePopup({
-      position: 'top',
-      align: 'center',
-      distance: '50px',
-      tail: {
-        align: 'middle',
-        hidden: false
-      },
-      selectable: true,
-      innerHtml: '<div class="tip_play-video">click to play this video</div>',
-      innerHtmlStyle: {
-        color: '#333333',
-        'text-align': 'center'
-      },
-      themeName: 'azure',
-      themePath: '/images/ui-plugins/bubblepopup'
-    });
-      
+        %ul.videolist#video_search      
   :javascript
     $('#video_keyword').change(function() {
       if (this.value.length < 3) {
@@ -96,7 +77,6 @@
         }});
       }
     });
-    youtube_video_links();
   - if params[:v].present?
     :javascript
       $(document).ready(function(){$('##{params[:v]}').trigger('click')});

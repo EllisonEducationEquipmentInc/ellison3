@@ -69,6 +69,7 @@ class Product
 	field :height, :type => Float
 	field :keywords
 	field :item_type
+	field :video
 	field :use_tabs, :type => Boolean, :default => true
 	field :old_id, :type => Integer
 	field :old_id_edu, :type => Integer

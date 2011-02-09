@@ -111,6 +111,10 @@
     %br
     = f.text_area :description, :class => 'wymeditor'
   .field
+    = f.label :video, "Youtube video ID. Example: iOGVK7Mih7w"
+    %br
+    = f.text_field :video
+  .field
     = image_tag(@product.image_url(:small)) if @product.image? 
     = f.file_field :image
     = f.hidden_field :image_cache

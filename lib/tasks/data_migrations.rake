@@ -873,7 +873,7 @@ namespace :data_migrations do
       tags = Tag.grade_levels.where(:name.in => row['grade'].split(","))
       if tags.count > 0
         idea.tags.concat tags
-        p idea.save
+        p idea.save(:validate => false)
         p "-------- idea #{idea.idea_num} has been saved ----------------- "
       end
     end
