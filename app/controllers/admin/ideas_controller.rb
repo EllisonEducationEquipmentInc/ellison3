@@ -123,7 +123,6 @@ class Admin::IdeasController < ApplicationController
 	def create_tab
 		@idea = Idea.find(params[:idea_id])
 		@tab = @idea.tabs.build(params[:tab])
-		@tab.images.each {|i| i.save}
 	end
 	
 	def edit_tab
@@ -136,7 +135,6 @@ class Admin::IdeasController < ApplicationController
 		@tab = @idea.tabs.find(params[:id])
 		@tab.write_attributes params[:tab]
 		@tab.save
-		@tab.images.each {|i| i.save}
 	end
 	
 	def delete_tab

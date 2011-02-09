@@ -1,9 +1,6 @@
 class Tab
 	include EllisonSystem
 	include Mongoid::Document
-	# include Mongoid::Versioning
-	# include Mongoid::Timestamps
-	# include Mongoid::Paranoia
 				
 	# validations
 	validates :name, :systems_enabled, :presence => true
@@ -29,6 +26,8 @@ class Tab
 	referenced_in :shared_content
 	
 	accepts_nested_attributes_for :images, :allow_destroy => true
+	
+	before_save :run_callbacks_on_children
 	
 	scope :active, :where => { :active => true }
 	
@@ -80,4 +79,9 @@ class Tab
 	  write_attribute :shared_content_id, scid if scid.valid_bson_object_id?
 	end
 
+private
+
+  def run_callbacks_on_children
+    self.images.each { |doc| doc.run_callbacks(:save) } if self.images.present?
+  end
 end

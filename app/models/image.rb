@@ -2,8 +2,6 @@ require 'carrierwave/orm/mongoid'
 
 class Image
 	include EllisonSystem
-	include ActiveModel::Validations
-	include ActiveModel::Translation
 	include Mongoid::Document
 		
 	field :caption

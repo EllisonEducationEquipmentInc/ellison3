@@ -155,7 +155,6 @@ class Admin::ProductsController < ApplicationController
 	def create_tab
 		@product = Product.find(params[:product_id])
 		@tab = @product.tabs.build(params[:tab])
-		@tab.images.each {|i| i.save}
 	end
 	
 	def edit_tab
@@ -168,7 +167,6 @@ class Admin::ProductsController < ApplicationController
 		@tab = @product.tabs.find(params[:id])
 		@tab.write_attributes params[:tab]
 		@tab.save
-		@tab.images.each {|i| i.save}
 	end
 	
 	def delete_tab
