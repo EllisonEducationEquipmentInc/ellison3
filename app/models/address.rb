@@ -84,7 +84,7 @@ class Address
 		if @fedex.address.changes.include?("INSUFFICIENT_DATA") || @fedex.address.changes.include?("BOX_NUMBER_MATCH") 
 			self.avs_failed = true
 		else
-			self.avs_result = @fedex.address.changes
+			self.avs_result = @fedex.address.changes * ', '
 			correct_address(@fedex.address.address)
 		end
 	end

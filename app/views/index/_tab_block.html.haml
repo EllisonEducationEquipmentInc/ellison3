@@ -16,12 +16,12 @@
     %div{:id => "tabs-#{tab.id}"}= render 'tabs/tab', :tab => tab
     .clear
     
-  - if object.respond_to?(:ideas) && object.ideas.present?
-    %div{:id => "tabs-related_ideas_#{object.id}"}= render :partial => 'ideas/idea', :collection => object.ideas
+  - if object.respond_to?(:ideas) && object.ideas.send(current_system).present?
+    %div{:id => "tabs-related_ideas_#{object.id}"}= render :partial => 'ideas/idea', :collection => object.ideas.send(current_system)
     .clear
     
-  - if object.respond_to?(:products) && object.products.present?
-    %div{:id => "tabs-related_products_#{object.id}"}= render :partial => 'products/product', :collection => object.products
+  - if object.respond_to?(:products) && object.products.send(current_system).present?
+    %div{:id => "tabs-related_products_#{object.id}"}= render :partial => 'products/product', :collection => object.products.send(current_system)
     .clear
     
   - if object.send("four_related_#{object.class.to_s.downcase.pluralize}").present?
