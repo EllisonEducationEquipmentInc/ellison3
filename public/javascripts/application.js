@@ -7,6 +7,15 @@ var number_only = function(e){if (e.keyCode != 46 && e.keyCode != 8 && e.keyCode
 var outlet = location.pathname.indexOf("/outlet") >= 0;
 var current_system = current_system || "szus";
 
+$(document).ajaxSend(function(e, xhr, options) {
+  var token = $("meta[name='csrf-token']").attr("content");
+  xhr.setRequestHeader("X-CSRF-Token", token);
+});
+$.ajaxSetup({
+  headers: {
+    "X-CSRF-Token": $("meta[name='csrf-token']").attr('content')
+  }
+});
 $(function() {
   $(".wymeditor").wymeditor({
     stylesheet: '/stylesheets/wymeditor/styles.css',
