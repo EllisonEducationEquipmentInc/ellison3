@@ -29,7 +29,7 @@ class SharedContent
   validates_inclusion_of :placement, :in => PLACEMENTS, :allow_blank => true
   validate :placement_uniqueness, :if => Proc.new {|obj| obj.placement.present?}
   
-  #references_many :tabs, :index => true
+  references_many :tabs, :index => true, :validate => false
   
   embeds_many :visual_assets do
     

@@ -1,7 +1,5 @@
 class Tab
 	include EllisonSystem
-	include ActiveModel::Validations
-	include ActiveModel::Translation
 	include Mongoid::Document
 	# include Mongoid::Versioning
 	# include Mongoid::Timestamps
@@ -79,8 +77,7 @@ class Tab
 	end
 	
 	def shared_content_id=(scid)
-	  return unless scid.valid_bson_object_id?
-	  self.shared_content_id = scid
+	  write_attribute :shared_content_id, scid if scid.valid_bson_object_id?
 	end
 
 end
