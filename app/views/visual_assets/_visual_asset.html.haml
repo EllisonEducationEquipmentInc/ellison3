@@ -1,7 +1,7 @@
 - if visual_asset.must_own.blank? || machines_owned.any? {|e| visual_asset.must_own.include?(e)}
   - if visual_asset.asset_type == 'galleries' && visual_asset.child_visual_assets.present?
     %div{ :class => "frame_gallery#{visual_asset.wide? ? '_wide' : nil}" }
-      = image_tag("/images/ui-objects/_#{current_system}_frame_gallery#{visual_asset.wide? ? '_wide' : nil}.png", :class => "frame_gallery")
+      = link_to image_tag("/images/ui-objects/_#{current_system}_frame_gallery#{visual_asset.wide? ? '_wide' : nil}.png", :class => "frame_gallery"), "#", :id => "gallery_link"
       .gallery_asset{:id => "gallery_#{visual_asset.id}"}
         %ul
           - visual_asset.child_visual_assets.select {|asset| asset.available?}.sort {|x,y| x.display_order <=> y.display_order}.each do |child_visual_asset|
@@ -17,7 +17,10 @@
             preloadAjax: true,
             auto: true,
             #{is_sizzix_uk? ? "pause: '12000'" : "fade: true"},
-
+            
+            beforeAniFunc: function(t){
+              $('#gallery_link').attr("href", $(this).find('a').attr("href"));
+            }
           });
         });      
   - elsif visual_asset.asset_type == 'billboards' && visual_asset.child_visual_assets.present?
