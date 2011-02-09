@@ -22,8 +22,8 @@
   .item_cross-sell
     - unless @idea.products.blank?
       .rounded
-        %h4 Related Products:
-        .related_products= render :partial => 'products/related_product', :collection => @idea.products, :as => :product
+        %h4 Products Used:
+        .related_products= render :partial => 'products/related_product', :collection => @idea.products.send(current_system).not_outlet.available, :as => :product
     - unless @idea.four_related_ideas.blank?
       .rounded
         %h4

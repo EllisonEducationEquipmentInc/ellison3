@@ -78,7 +78,7 @@
     - unless @product.ideas.blank?
       .rounded
         %h4== Related #{idea_name.pluralize}:
-        .related_ideas= render :partial => 'ideas/related_idea', :collection => @product.ideas, :as => :idea
+        .related_ideas= render :partial => 'ideas/related_idea', :collection => @product.ideas.send(current_system).available, :as => :idea
     - unless @product.four_related_products.blank?
       .rounded
         %h4
