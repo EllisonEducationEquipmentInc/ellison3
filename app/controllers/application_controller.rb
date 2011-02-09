@@ -1,3 +1,4 @@
+# encoding: utf-8
 class ApplicationController < ActionController::Base
 	
 	before_filter :get_system
@@ -134,6 +135,16 @@ private
 			"Dies, Die Cutting Machines & Scrapbooking Tools"
 		end
 	end
+	
+	def get_meta_tags
+  	if is_sizzix_uk?
+  		@keywords = "arts and crafts, art and craft, card making, cardmaking, card making instructions, make greetings cards, make cards, scrapbooking, rubber stamps, paper crafts, papercraft, home décor, quilting, appliqué, wedding stationery, embellishments, embellish, Fiona Williams, Pete Hughes, QVC, Hobbycraft, eclips, eclipse, Cuttlebug, cricut, die cutting, cutting die, shape cutter, shape cutting, scrapbooking, scrap booking, scrap book, scrapbook, embossing, tim holtz, alterations, rub ons, design, ideas, craft, crafting, card cutting, inspiration, texture boutique, top tips, hobby, christmas, halloween, xmas, card cutting, sizzix, ellison, big shot, hello kitty, embossing, present box, gift boxes, bigz xl, cutting pad, sizzlits, bags & boxes, cutting dies, bigz dies, textures, emboslits, clearlits, little sizzles, texturz, texture plates, alphabet sets, discount craft, embossing folders, cutting mat, XL cutting plates, shape-cutting, die cut, shape cut, cut out shapes, quilting, fabric, felt, paper, cardstock, chip board, mount board, texture, textured paper, jelly rolls, patch work squares, card designs, card ideas"
+	    @description = "There's no bigger or better place for craft materials, equipment and inspiration. Sizzix.co.uk has 1000's of different ideas and craft activities from exclusive Sizzix designers. Get creative with Sizzix, make light work of crafting and turn your hobby into a passion. Sizzix products are so versatile - your not restricted to paper, you can cut anything from paper and cardstock to fabric and chip board. In fact any bigz die with the steel rule blade technology will cut paper, fabric, card, felt, chip board and much, much more. You are never on your own with Sizzix we have a huge section of inspirational project ideas using a huge selection of die and embossing technologies. Creative ideas are always being added using all the die and embossing technologies. The eclips electronic shape cutter is perfect for all your crafting projects whether you love scrapbooking, cardmaking or home decor"
+  	elsif is_ee?
+			@description = "Ellison Education - Curriculum-Based Die-Cutting for the Classroom | Create memorable visuals and essential hands-on activities for all ages and stages of K-12 student education. Fun Free Lesson Plans. Online deals."
+			@keywords = "Educational Die-Cutting for Preschools, Elementary, Jr High, High School, Shape-cutting, Printable Free Lesson Plans for Educators, Teacher Lesson Ideas, Promotions, Coupons, Teacher Tools, Classroom Décor, Classroom Decorating, Education Standards, Curriculum Development, Children, Homeschool, Early Childhood Education, Bulletin Boards, Learning, Fundraising, Resources, Visual Aids, Cut Outs, Teacher Supplies, Custom Dies"
+		end
+  end
 	
 	def go_404
 		render :file => "#{Rails.root}/public/404_#{current_system}.html", :layout => false, :status => 404
