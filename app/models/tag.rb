@@ -9,7 +9,7 @@ class Tag
   
   attr_accessor :embed_campaign
   
-  TYPES = ["artist", "category", "curriculum", "designer", "machine_compatibility", "material_compatibility", "product_family", "product_line", "special", "subcategory", "subcurriculum", "subtheme", "theme", "release_date", "size"]
+  TYPES = ["artist", "category", "curriculum", "designer", "machine_compatibility", "material_compatibility", "product_family", "product_line", "special", "subcategory", "subcurriculum", "subtheme", "theme", "release_date", "size", "grade_level"]
   HIDDEN_TYPES = ["exclusive", "calendar_event"]
   
   references_and_referenced_in_many :products, :index => true

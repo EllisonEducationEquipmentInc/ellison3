@@ -81,6 +81,14 @@ namespace :migrations do |ns|
     p h.save
 	end
 	
+	desc "create grade level tags"
+	task :grade_levels => :environment do
+    set_current_system "eeus"
+	  ["Pre-K", "K-2", "3-5", "6-8", "9-12"].each do |grade|
+	    p Tag.create :name => grade, :tag_type => 'grade_level', :systems_enabled => ["eeus", "er"], :start_date_eeus => 1.year.ago, :end_date_eeus => 30.years.since
+	  end
+	end
+	
 	
 	#======== migration tasks end here ========
 	

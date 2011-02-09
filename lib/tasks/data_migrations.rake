@@ -863,6 +863,22 @@ namespace :data_migrations do
     Tag.calendar_events.each {|e| p e.update_attributes :systems_enabled => ["eeus", "er"]}
   end
   
+  desc "import grade levels from lib/tasks/migrations/gradelevel_tags_grouped.csv"
+  task :import_grade_levels  => [:set_edu, :load_dep] do
+    set_current_system "eeus"
+    CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/gradelevel_tags_grouped.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
+      idea = Idea.eeus.where(:idea_num => row['idea_num']).first
+      #idea = Idea.eeus.where(:old_id_edu => row['id'].to_i).first
+      next unless idea
+      tags = Tag.grade_levels.where(:name.in => row['grade'].split(","))
+      if tags.count > 0
+        idea.tags.concat tags
+        p idea.save
+        p "-------- idea #{idea.idea_num} has been saved ----------------- "
+      end
+    end
+  end
+  
   task :set_edu do
     ENV['SYSTEM'] = "edu"
   end
