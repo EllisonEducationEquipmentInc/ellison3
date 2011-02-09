@@ -1,7 +1,7 @@
 - if visual_asset.must_own.blank? || machines_owned.any? {|e| visual_asset.must_own.include?(e)}
   - if visual_asset.asset_type == 'galleries' && visual_asset.child_visual_assets.present?
     %div{ :class => "frame_gallery#{visual_asset.wide? ? '_wide' : nil}" }
-      = link_to image_tag("/images/ui-objects/_#{current_system}_frame_gallery#{visual_asset.wide? ? '_wide' : nil}.png", :class => "frame_gallery"), "#", :id => "gallery_link"
+      = link_to image_tag("/images/ui-objects/_#{current_system}_frame_gallery#{visual_asset.wide? ? '_wide' : nil}.png", :class => "frame_gallery"), "#", :id => "gallery_link", :onclick => "if ($(this).attr('href') == '#') { return false; }"
       .gallery_asset{:id => "gallery_#{visual_asset.id}"}
         %ul
           - visual_asset.child_visual_assets.select {|asset| asset.available?}.sort {|x,y| x.display_order <=> y.display_order}.each do |child_visual_asset|
@@ -19,7 +19,12 @@
             #{is_sizzix_uk? ? "pause: '12000'" : "fade: true"},
             
             beforeAniFunc: function(t){
-              $('#gallery_link').attr("href", $(this).find('a').attr("href"));
+              var gallery_link = $(this).find('a').attr("href");
+              if (gallery_link == undefined) {
+                $('#gallery_link').attr("href", "#");
+              } else {{
+                $('#gallery_link').attr("href", gallery_link);
+              }}
             }
           });
         });      

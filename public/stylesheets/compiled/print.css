@@ -1,10 +1,10 @@
 /*
 Syntax error: Undefined variable: "$catalog_idea-num".
-        on line 153 of /home/jose/ELLISON3/app/stylesheets/partials_app/_catalog.scss
+        on line 154 of /home/jose/ELLISON3/app/stylesheets/partials_app/_catalog.scss
         from line 7 of /home/jose/ELLISON3/app/stylesheets/print.scss
 
 Backtrace:
-/home/jose/ELLISON3/app/stylesheets/partials_app/_catalog.scss:153
+/home/jose/ELLISON3/app/stylesheets/partials_app/_catalog.scss:154
 /home/jose/ELLISON3/app/stylesheets/print.scss:7
 /usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/haml-3.0.25/lib/sass/script/variable.rb:39:in `_perform'
 /usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/haml-3.0.25/lib/sass/script/node.rb:61:in `perform'
@@ -95,4 +95,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$catalog_idea-num\".\A         on line 153 of /home/jose/ELLISON3/app/stylesheets/partials_app/_catalog.scss\A         from line 7 of /home/jose/ELLISON3/app/stylesheets/print.scss"; }
+  content: "Syntax error: Undefined variable: \"$catalog_idea-num\".\A         on line 154 of /home/jose/ELLISON3/app/stylesheets/partials_app/_catalog.scss\A         from line 7 of /home/jose/ELLISON3/app/stylesheets/print.scss"; }
