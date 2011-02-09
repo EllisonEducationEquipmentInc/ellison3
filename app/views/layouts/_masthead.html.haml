@@ -71,6 +71,9 @@
         } else {
           location.hash = $.param.fragment( location.hash, {q: this.value, page: 1}, 0 );
         }
+        
+        $(this).removeClass("activefield").addClass("idlefield");
+        this.value = "Search for Sizzix Products & Ideas";        
       });
 
 
