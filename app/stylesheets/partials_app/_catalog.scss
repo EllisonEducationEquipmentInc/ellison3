@@ -830,7 +830,15 @@ select#sort, input#select_all_products {
   margin-bottom: 5px;
 }
 
-// product & idea detail page styles
+// product & idea detail page styles (tabbed version)
+.ui-tabs-panel {
+  
+  // adjust item blocks in tabs to fit five across
+  .item-block {
+    width: 159px;
+  }
+}
+
 .data_key {
   font-weight: bold;
   @include column(5);
@@ -839,6 +847,7 @@ select#sort, input#select_all_products {
 .data_value {
   @include column(14, true);
 }
+
 
 // landing page styles
 #quick_search {
