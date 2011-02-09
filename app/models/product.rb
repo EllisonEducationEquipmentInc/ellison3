@@ -177,7 +177,7 @@ class Product
 	mount_uploader :image, ImageUploader	
 	
 	# solr fields:
-	searchable :auto_index => true, :auto_remove => true, :ignore_attribute_changes_of => WAREHOUSES.map {|e| "quantity_#{e}".to_sym} + [:updated_at] do
+	searchable :auto_index => true, :auto_remove => true, :ignore_attribute_changes_of => WAREHOUSES.map {|e| "quantity_#{e}".to_sym} + [:updated_at, :use_tabs] do
 	  boolean :active
 	  boolean :outlet
 		text :tag_names do

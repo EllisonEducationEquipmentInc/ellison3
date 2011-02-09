@@ -99,7 +99,7 @@ class Idea
 	mount_uploader :image, ImageUploader
 	
 	# solr fields:
-	searchable :auto_index => true, :auto_remove => true, :ignore_attribute_changes_of => [:updated_at] do
+	searchable :auto_index => true, :auto_remove => true, :ignore_attribute_changes_of => [:updated_at, :use_tabs] do
 	  boolean :active
 		text :tag_names do
 			tags.map { |tag| tag.name }
