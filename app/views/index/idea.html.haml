@@ -16,6 +16,22 @@
   %span.life-cycle= @idea.public_life_cycle
 .item_description
   = @idea.description.try :html_safe
+- if (is_ee_us? || is_er?) && @idea.grade_levels.count > 0
+  .item_description
+    %h4== Recommended Grade Level#{'s' if @idea.grade_levels.count > 1}:
+    = @idea.grade_levels.map {|e| e.name} * ', '
+- if (is_ee_us? || is_er?) && @idea.curriculums.count > 0
+  .item_description
+    %h4== Curriculum#{'s' if @idea.curriculums.count > 1}:
+    = @idea.curriculums.map {|e| e.name} * ', '
+- if (is_sizzix? || is_er?) && @idea.artists.count > 0
+  .item_description
+    %h4== Artist#{'s' if @idea.artists.count > 1}:
+    = @idea.artists.map {|e| e.name} * ', '
+- if (is_sizzix? || is_er?) && @idea.themes.count > 0
+  .item_description
+    %h4== Theme#{'s' if @idea.themes.count > 1}:
+    = @idea.themes.map {|e| e.name} * ', '
 .item_sociallinks.dontprint= facebook_like
 
 %div{ :class => "item_detail#{'-tabbed' if @idea.use_tabs}"}
