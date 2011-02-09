@@ -54,9 +54,9 @@
     $('#shoppingcart_info').load('/carts/shopping_cart');
 
   -# search bar
-  %form#searchbar{:action => "/catalog", :method => "get", :name => "searchbar"}
-    %input{ :class =>"textfield", :name => "q", :type => "text", :value => "Search for Sizzix Products & Ideas", :onfocus => "if (this.value == 'Search for Sizzix Products & Ideas'){this.value='';}", :onblur => "if (this.value == ''){this.value='Search for Sizzix Products & Ideas';}" }
-    %input{ :class => "submitbutton", :name => "submit", :src => "/images/ui-icons/set_fugue/24x24/drop-shadow/magnifier-left.png", :type => "image", :height => "24", :width => "24" }
+  %form#searchbar{:action => "/catalog", :method => "get", :name => "searchbar", :onsubmit => "return false;" }
+    %input{ :class =>"textfield", :name => "q", :id => "q", :type => "text", :value => "Search for Sizzix Products & Ideas", :onfocus => "if (this.value == 'Search for Sizzix Products & Ideas'){this.value='';}", :onblur => "if (this.value == ''){this.value='Search for Sizzix Products & Ideas';}" }
+    %input{ :class => "submitbutton", :name => "submit", :src => "/images/ui-icons/set_fugue/24x24/drop-shadow/magnifier-left.png", :type => "image", :height => "24", :width => "24", :onclick => "return false;" }
     :javascript
       $("input.textfield").addClass("idlefield");
       $("input.textfield").focus(function(){
@@ -65,7 +65,7 @@
         $(this).removeClass("activefield").addClass("idlefield");
       });
       
-      $('#keyword').change(function() {
+      $('#q').change(function() {
         if (this.value.length < 3) {
           return false;
         } else {
