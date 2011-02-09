@@ -92,9 +92,10 @@ body.bp {
   .item_compatibility, .item_cross-sell .rounded, .item_detail {
     h4 {
       text-transform: uppercase;
-      font-size: 1.1em;
+      font-size: 1.2em;
       font-weight: bold;
-      color: $heading;      
+      color: $heading;
+      padding-bottom: 4px;    
     }
   }
   
