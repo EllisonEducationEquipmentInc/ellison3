@@ -18,7 +18,7 @@
             auto: true,
             #{is_sizzix_uk? ? "pause: '12000'" : "fade: true"},
             
-            beforeAniFunc: function(t){
+            afterAniFunc: function(t){
               var gallery_link = $(this).find('a').attr("href");
               if (gallery_link == undefined) {
                 $('#gallery_link').attr("href", "#");
