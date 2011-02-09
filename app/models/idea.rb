@@ -33,7 +33,7 @@ class Idea
 	field :long_desc
 	field :grade_level, :type => Array
 	field :related_idea_tag
-	field :use_tabs, :type => Boolean, :default => false
+	field :use_tabs, :type => Boolean, :default => true
 	
 	index :idea_num, :unique => true, :background => true
 	index :systems_enabled
