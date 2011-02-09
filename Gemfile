@@ -6,8 +6,8 @@ require 'image_science'
 require 'mongo'
 require 'csv'
 
-gem 'bundler', '>=1.0.0'
-gem 'rails', '3.0.3'
+gem 'bundler', '>=1.0.10'
+gem 'rails', '3.0.4'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
