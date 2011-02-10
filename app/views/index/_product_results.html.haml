@@ -4,7 +4,7 @@
   - if @breadcrumb_tags.present? && @breadcrumb_tags.reverse.detect {|e| e.visual_assets.present?}.present? # display tag's visual asset if any has visual asset. If we want to display the last selected filter tag's visual assets, change the conditional to: @breadcrumb_tags.last.try(:visual_assets).try(:present?)
     #tag_visual_assets= render @breadcrumb_tags.reverse.detect {|e| e.visual_assets.present?}.visual_assets.current
   .right= select_tag :sort, options_for_select(@sort_options, params[:sort]), :onchange => "location.hash = $.param.fragment( location.hash, {sort: this.value, page: 1}, 0 )"
-  .toggleview.right.minilink= link_to "switch to list view", "#", :class => "toggle_view"
+  .toggleview.right.minilink= link_to "list view", "#", :class => "toggle_view"
   %ul#catalogtabs
     %li= link_to "<span>#{pluralize @product_search.total, "Product"} #{outlet? || idea? ? 'Found' : 'Showing'}</span>".html_safe, "#", :id => "toggle_product", :class => "tab #{'in' if outlet? || idea?}active"
     %li= link_to "<span>#{pluralize @idea_search.total, idea_name.capitalize} #{idea? ? 'Showing' : 'Found'}</span>".html_safe, "#", :id => "toggle_idea", :class => "tab #{'in' unless idea?}active"

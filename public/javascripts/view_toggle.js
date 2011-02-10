@@ -18,7 +18,7 @@ $.fn.toggleView.defaults = {
 	toggled_class:		"toggled",
 	state_attribute: 	'data-current-state',
 	list_view_class: 	'listview',
-	toggle_text: 			"switch to %state% view",
+	toggle_text: 			"%state% view",
 	states: 					["grid", "list"],
 	collection_container: '.highlightable',
 	initial_state: "grid", 
