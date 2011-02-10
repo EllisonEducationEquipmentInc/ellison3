@@ -193,8 +193,8 @@ class Admin::IdeasController < ApplicationController
     @product = Product.find(params[:product_id])
     @idea.product_ids.delete @product.id
     @product.idea_ids.delete @idea.id
-    @idea.save
-    @product.save
+    @idea.save(:validate => false)
+    @product.save(:validate => false)
     render :js => "$('li#product_#{@product.id}').remove()"
   end
   
@@ -202,7 +202,7 @@ class Admin::IdeasController < ApplicationController
     @idea = Idea.find(params[:id])
     @product = Product.find(params[:product_id])
     @idea.products << @product
-    @idea.save
+    @idea.save(:validate => false)
     render(:partial => 'product', :object => @product, :locals => {:idea_id => @idea.id})
   end
   
@@ -211,8 +211,8 @@ class Admin::IdeasController < ApplicationController
     @tag = Tag.find(params[:tag_id])
     @tag.idea_ids.delete @idea.id
     @idea.tag_ids.delete @tag.id
-    @tag.save
-    @idea.save
+    @tag.save(:validate => false)
+    @idea.save(:validate => false)
     render :js => "$('li#tag_#{@tag.id}').remove()"
   end
   
@@ -220,7 +220,7 @@ class Admin::IdeasController < ApplicationController
     @idea = Idea.find(params[:id])
     @tag = Tag.find(params[:tag_id])
     @idea.tags << @tag
-    @idea.save
+    @idea.save(:validate => false)
     render(:partial => 'tag', :object => @tag, :locals => {:idea_id => @idea.id})
   end
 end
