@@ -26,8 +26,8 @@
       %strong== #{quote_name} Number:
       = @quote.id
       %br
-      %strong Web Customer Number:
-      = @quote.user.id
+      %strong Web Customer:
+      = @quote.user.email
       %br
       %strong Order Date:
       = l @quote.created_at, :format => :custom

@@ -48,8 +48,8 @@
     %strong== #{quote_name.capitalize} Reference Number:
     = @order.quote.id
     %br
-  %strong Web Customer Number:
-  = @order.user.id
+  %strong Web Customer:
+  = @order.user.email
   %br
   %strong Order Date:
   = l @order.created_at, :format => :custom
@@ -85,7 +85,7 @@
         == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
     %br
     %br
-    = link_to "Print a copy of this invoice.", "javascript:window.print()", :class => "link_print"
+    = link_to "Print a copy of this order receipt.", "javascript:window.print()", :class => "link_print"
   - if @order.payment.deferred
     %br
     %br

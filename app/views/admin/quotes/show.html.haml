@@ -31,8 +31,8 @@
     %strong== Order Reference Number:
     = link_to @quote.order.id, admin_order_path(@quote.order)
     %br
-  %strong Web Customer Number:
-  = @quote.user.id rescue "User NOT found"
+  %strong Web Customer:
+  = @quote.user.email rescue "User NOT found"
   %br
   %strong Quote Date:
   = l @quote.created_at, :format => :custom
