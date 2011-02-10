@@ -479,10 +479,13 @@ class Product
 	  end
 	end
 	
+	def four_related_criteria
+	  @four_related_criteria ||= related_tag.products.related_to(self, self.outlet) 
+	end
+	
 	def four_related_products
-	  criteria = related_tag.products.related_to(self, self.outlet) 
-	  skip_limit = criteria.count > 4 ? criteria.count - 4 : 1
-	  criteria = criteria.limit(4).skip(rand(skip_limit))
+	  skip_limit = four_related_criteria.count > 4 ? four_related_criteria.count - 4 : 1
+	  criteria = four_related_criteria.limit(4).skip(rand(skip_limit))
 	rescue 
 	  []
 	end

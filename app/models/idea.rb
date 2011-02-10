@@ -220,10 +220,13 @@ class Idea
 	  end
 	end
 	
+	def four_related_criteria
+	  @four_related_criteria ||= related_tag.ideas.send(current_system).available.where(:_id.ne => self.id)
+	end
+	
 	def four_related_ideas
-	  criteria = related_tag.ideas.send(current_system).available.where(:_id.ne => self.id)
-	  skip_limit = criteria.count > 4 ? criteria.count - 4 : 1
-	  criteria = criteria.limit(4).skip(rand(skip_limit))	  
+	  skip_limit = four_related_criteria.count > 4 ? four_related_criteria.count - 4 : 1
+	  criteria = four_related_criteria.limit(4).skip(rand(skip_limit))	  
 	rescue 
 	  []
 	end

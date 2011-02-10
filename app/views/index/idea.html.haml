@@ -40,13 +40,13 @@
   = render :partial => "#{'non_' unless @idea.use_tabs}tab_block", :locals => {:object => @idea}
 - unless @idea.use_tabs
   .item_cross-sell
-    - unless @idea.products.blank?
+    - if @idea.products.send(current_system).count > 0
       .rounded
         %h4 Products Used:
         .related_products= render :partial => 'products/related_product', :collection => @idea.products.send(current_system), :as => :product
-    - unless @idea.four_related_ideas.blank?
+    - if @idea.four_related_criteria.count > 0
       .rounded
         %h4
           == Related #{idea_name.pluralize}
-          = link_to "View All", catalog_path(:anchor => "facets=#{@idea.related_tag.facet_param}&ideas=1&page=1"), :class => "minilink"
+          = link_to "View All", catalog_path(:anchor => "facets=#{@idea.related_tag.facet_param}&ideas=1&page=1"), :class => "minilink" if @idea.four_related_criteria.count > 4
         .related_ideas= render :partial => 'ideas/related_idea', :collection => @idea.four_related_ideas, :as => :idea
