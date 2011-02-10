@@ -134,7 +134,11 @@ class Product
 	
 	class << self		
 		def available
-			active.where(:life_cycle.in => LIFE_CYCLES[0,3], :"start_date_#{current_system}".lte => Time.zone.now.change(:sec => 1), :"end_date_#{current_system}".gte => Time.zone.now.change(:sec => 1))
+			displayable.where(:life_cycle.in => LIFE_CYCLES[0,3])
+		end
+		
+		def displayable
+			active.where(:"start_date_#{current_system}".lte => Time.zone.now.change(:sec => 1), :"end_date_#{current_system}".gte => Time.zone.now.change(:sec => 1))		  
 		end
 		
 		def find_by_item_num(item_num)
