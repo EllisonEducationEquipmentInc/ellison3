@@ -70,12 +70,6 @@ body.bp {
   	}    
   }
 
-  h3.item_title {
-    font-size: 1.8em;
-    font-weight: normal;
-    text-transform: none;
-  }
-  
   .buybox {
     h4 {
       margin: 0 0 7px 0;
@@ -399,8 +393,8 @@ body.bp {
 
 	.clearance_flag {
 	  position: absolute;
-	  top: 0;
-	  right: 0;
+	  top: -4px;
+	  right: -9px;
 	}
 	
 	.list_actions {
@@ -610,7 +604,14 @@ select#sort, input#select_all_products {
 }
 
 
-// product detail page
+// item detail page (products & ideas)
+h3.item_title {
+  margin-bottom: .6em !important;
+  font-size: 1.8em !important;
+  font-weight: normal !important;
+  text-transform: none !important;
+}
+
 .item_images {
   background: $catalog_product_bg;
   overflow: visible;
