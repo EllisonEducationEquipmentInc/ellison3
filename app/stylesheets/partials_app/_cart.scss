@@ -55,8 +55,10 @@ ul.cart_summary {
 
 // push order button to right justify with page
 #checkout_cc {
-  @if $system == szus or $system == szuk {
+  @if $system == szus {
     height: 270px;
+  } @else if $system == szuk {
+    height: 360px;
   } @else {
     height: 330px;
   }
