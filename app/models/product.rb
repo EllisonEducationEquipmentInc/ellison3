@@ -133,12 +133,19 @@ class Product
 	end
 	
 	class << self		
-		def available
-			displayable.where(:life_cycle.in => LIFE_CYCLES[0,3])
+	  # displayable and life_cycle is in ['pre-release', 'available', 'discontinued']
+		def available(sys = current_system)
+			displayable(sys).where(:life_cycle.in => LIFE_CYCLES[0,3])
 		end
 		
-		def displayable
-			active.where(:"start_date_#{current_system}".lte => Time.zone.now.change(:sec => 1), :"end_date_#{current_system}".gte => Time.zone.now.change(:sec => 1))		  
+		# displayable and life_cycle is in ['pre-release', 'available', 'discontinued'], or discontinued but in-stock
+    def listable(sys = current_system)
+      displayable(sys).any_of({:life_cycle => 'discontinued', "$where" => sys == "szus" ? "this.quantity_sz > 0 || this.quantity_us > 0" : "this.quantity_#{sys == "eeus" || sys == "er" ? 'us' : 'uk'} > 0"}, {:life_cycle.in => Product::LIFE_CYCLES[0,2]})
+    end
+    
+    # enabled for current system and active, and between start and end date
+		def displayable(sys = current_system)
+			active.where(:systems_enabled.in => [sys], :"start_date_#{current_system}".lte => Time.zone.now.change(:sec => 1), :"end_date_#{current_system}".gte => Time.zone.now.change(:sec => 1))		  
 		end
 		
 		def find_by_item_num(item_num)
@@ -385,7 +392,6 @@ class Product
 	def listable?(sys = current_system)
 	  displayable?(sys) && (LIFE_CYCLES[0,2].include?(life_cycle) || self.life_cycle == 'discontinued' && quantity(sys) > 0)
 	end
-	
 	
 	def quantity(sys = current_system)
 	  if sys == "szus"

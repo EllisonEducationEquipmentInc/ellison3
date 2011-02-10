@@ -15,7 +15,7 @@ namespace :data_export do
   				 						'xmlns' => 'http://www.w3.org/2005/Atom', 'xmlns:g' => 'http://base.google.com/ns/1.0'}) do |feed|
   			  feed.title("#{current_system}_product_feed.xml")
   			  feed.updated(Time.zone.now)
-  				Product.send(current_system).available.in_batches(100) do |group|
+  				Product.listable.in_batches(100) do |group|
   				  group.each do |product|
 							print "."
 					    feed.entry(product, :id => product.id, :url => "http://www.#{get_domain}/product/#{product.id}") do |entry|

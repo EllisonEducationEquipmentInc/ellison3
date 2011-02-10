@@ -40,10 +40,10 @@
   = render :partial => "#{'non_' unless @idea.use_tabs}tab_block", :locals => {:object => @idea}
 - unless @idea.use_tabs
   .item_cross-sell
-    - if @idea.products.send(current_system).count > 0
+    - if @idea.products.displayable.count > 0
       .rounded
         %h4 Products Used:
-        .related_products= render :partial => 'products/related_product', :collection => @idea.products.send(current_system).displayable, :as => :product
+        .related_products= render :partial => 'products/related_product', :collection => @idea.products.displayable, :as => :product
     - if @idea.four_related_criteria.count > 0
       .rounded
         %h4

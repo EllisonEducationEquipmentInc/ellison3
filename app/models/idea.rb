@@ -77,8 +77,8 @@ class Idea
 	end
 	
 	class << self		
-		def available
-			active.where(:"start_date_#{current_system}".lte => Time.zone.now.change(:sec => 1), :"end_date_#{current_system}".gte => Time.zone.now.change(:sec => 1))
+		def available(sys = current_system)
+			active.where(:systems_enabled.in => [sys], :"start_date_#{current_system}".lte => Time.zone.now.change(:sec => 1), :"end_date_#{current_system}".gte => Time.zone.now.change(:sec => 1))
 		end
 		
 		def find_by_idea_num(idea_num)
@@ -221,7 +221,7 @@ class Idea
 	end
 	
 	def four_related_criteria
-	  @four_related_criteria ||= related_tag.ideas.send(current_system).available.where(:_id.ne => self.id) rescue []
+	  @four_related_criteria ||= related_tag.ideas.available.where(:_id.ne => self.id) rescue []
 	end
 	
 	def four_related_ideas

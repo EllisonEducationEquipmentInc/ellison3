@@ -16,7 +16,7 @@ class IndexController < ApplicationController
   end
   
   def products
-    @products = Product.send(current_system).available.all.paginate :page => params[:page], :per_page => 24
+    @products = Product.available.paginate :page => params[:page], :per_page => 24
   end
   
   def product
@@ -39,7 +39,7 @@ class IndexController < ApplicationController
     raise "Invalid idea" unless @idea.listable?
     @title = @idea.name
     @keywords = @idea.keywords if @idea.keywords.present?
-    @keywords << @idea.tags.available.map {|e| e.name} * ', '
+    @keywords << @idea.tags.keywords.map {|e| e.name} * ', '
     @description = @idea.description if @idea.description.present?
     #fresh_when(:etag => [current_system, @idea], :last_modified => @idea.updated_at.utc)
   rescue Exception => e

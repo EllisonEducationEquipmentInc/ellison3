@@ -85,7 +85,7 @@ class Quote
 	end
 	
 	def products
-	  Product.send(current_system).available.any_in(:item_num => order_items.map {|e| e.item_num}).cache
+	  Product.available.any_in(:item_num => order_items.map {|e| e.item_num}).cache
 	end
 
 private
