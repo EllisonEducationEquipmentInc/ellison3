@@ -183,7 +183,14 @@ body.bp {
 // content gallery (wide)
 // for use on non-landing pages like homepage or store locator
 .frame_gallery_wide { @extend .frame_gallery;
+
+  a.prevBtn {
+    top: 155px;
+    left: -2px;
+  }
+
   a.nextBtn {
+    top: 138px;
     left: 906px;
   }
 }
