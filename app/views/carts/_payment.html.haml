@@ -121,3 +121,9 @@
         order_comment();
         $('#proceed_checkout').validate(payment_validator_options);
     });
+    
+    $('#order_comment').toggle(function () {
+      $("#payment_submit").css({top: "-44px"});
+    }, function () {
+      $("#payment_submit").css({top: "60px"});
+    });

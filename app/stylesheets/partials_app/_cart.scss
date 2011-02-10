@@ -48,14 +48,29 @@ ul.cart_summary {
 }
 
 // buttons
-#checkout_button { @extend .button_large;
+#checkout_button, .save_as_quote { @extend .button_large;
   margin-bottom: 10px;
   letter-spacing: .5px;
 }
 
 // push order button to right justify with page
-#payment_submit { @extend .button_large;
-  position: relative;
-  top: -25px;
-  left: 773px;
+#checkout_cc {
+  @if $system == szus or $system == szuk {
+    height: 270px;
+  } @else {
+    height: 330px;
+  }
+  
+  #payment_submit { @extend .button_large;
+    position: relative;
+    top: 60px;
+    left: 773px;
+  }  
+}
+
+#checkout_summary {
+  #payment_submit { @extend .button_large;
+    float: right;
+    margin: 12px 0;
+  }  
 }

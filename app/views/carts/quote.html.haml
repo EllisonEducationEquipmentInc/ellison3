@@ -48,6 +48,6 @@
 %hr
 #checkout_cart
   = link_to_function "top", "$('html, body').animate({ scrollTop: 0 }, 500);", :class => "minilink"
-  .right.minilink= link_to 'Edit Cart', cart_path
+  .right.minilink= link_to "Edit #{(t :cart)}", cart_path
   #cart_contents= render :partial => 'cart'
 %iframe{:style =>"height:0px;width:0px;visibility:hidden", :src=>"about:blank"} this frame prevents back forward cache
