@@ -159,6 +159,8 @@ body.bp {
 
 // content gallery (landing pages)
 .frame_gallery {
+  margin-bottom: 6px;
+  
   a.prevBtn {
     font-family: Georgia, serif;
     font-size: 12px;
@@ -183,6 +185,7 @@ body.bp {
 // content gallery (wide)
 // for use on non-landing pages like homepage or store locator
 .frame_gallery_wide { @extend .frame_gallery;
+  margin-bottom: 6px;
 
   a.prevBtn {
     top: 155px;
@@ -196,6 +199,13 @@ body.bp {
 }
 
 #footer {
+
+  h2 {
+    font-size:1.5em;
+    }
+  .bold {
+    font-weight:bold;
+    }
   
   .container {
     background: url("/images/ui-backgrounds/_#{$system}_footer.jpg") no-repeat center top;
