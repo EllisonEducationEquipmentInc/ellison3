@@ -57,6 +57,8 @@
 .thumbnail {
   border: $layout_thumbnail_border;
   margin: 3px 0 3px 3px;
+  width: 65px;
+  height: 65px;
 }
 
 #content {
@@ -167,6 +169,15 @@
 }
 
 // THIRD PARTY WIDGETS
+
+// jquery UI
+ul.ui-widget-header {
+  @if $system == szus or $system == szuk {
+    border-color: #eae8de !important;
+  } @else {
+    border-color: #fff !important;
+  }
+}
 
 // twitter
 .twtr-widget {
