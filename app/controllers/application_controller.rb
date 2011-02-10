@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 	before_filter :set_retailer_discount_level
 	before_filter :page_title
 	before_filter :set_clickid
+	before_filter :get_meta_tags
 	
 	include ShoppingCart
 	include SslRequirement
@@ -143,6 +144,9 @@ private
   	elsif is_ee?
 			@description = "Ellison Education - Curriculum-Based Die-Cutting for the Classroom | Create memorable visuals and essential hands-on activities for all ages and stages of K-12 student education. Fun Free Lesson Plans. Online deals."
 			@keywords = "Educational Die-Cutting for Preschools, Elementary, Jr High, High School, Shape-cutting, Printable Free Lesson Plans for Educators, Teacher Lesson Ideas, Promotions, Coupons, Teacher Tools, Classroom Décor, Classroom Decorating, Education Standards, Curriculum Development, Children, Homeschool, Early Childhood Education, Bulletin Boards, Learning, Fundraising, Resources, Visual Aids, Cut Outs, Teacher Supplies, Custom Dies"
+		else
+		  @keywords = ''
+		  @description = ''
 		end
   end
 	
