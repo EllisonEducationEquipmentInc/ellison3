@@ -7,10 +7,10 @@
 - if tab.text
   = youtube_video tab.text.html_safe
 - if tab.products
-  = render :partial => 'products/product', :collection => Product.available.where(:item_num.in => tab.products).cache
+  = render :partial => 'products/product', :collection => Product.send(current_system).available.where(:item_num.in => tab.products).cache
   .clear
 - if tab.ideas
-  = render :partial => 'ideas/idea', :collection => Idea.available.where(:idea_num.in => tab.ideas).cache
+  = render :partial => 'ideas/idea', :collection => Idea.send(current_system).available.where(:idea_num.in => tab.ideas).cache
   .clear
 - if tab.images && !tab.no_image_details?
   - tab.images.each do |image|
@@ -27,7 +27,7 @@
   .clear
 - if tab.compatibility
   - tab.compatibility.each do |compatibility|
-    .compatibility_row= render :partial => 'products/product', :collection => Product.available.where(:item_num.in => compatibility).cache, :spacer_template => 'tabs/separator'
+    .compatibility_row= render :partial => 'products/product', :collection => Product.send(current_system).available.where(:item_num.in => compatibility).cache, :spacer_template => 'tabs/separator'
   .clear
   :javascript
     shadow_on();
