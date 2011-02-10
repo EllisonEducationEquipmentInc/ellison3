@@ -248,7 +248,7 @@ private
 		if image?
 			image_url(version)
 		else
-		  return image.default_url_edu(version) if is_ee? && FileTest.exists?("#{Rails.root}/public/#{image.default_url_edu(version)}")
+		  return image.default_url_edu(version) if (is_ee? || is_er?) && FileTest.exists?("#{Rails.root}/public/#{image.default_url_edu(version)}")
 			FileTest.exists?("#{Rails.root}/public/#{image.default_url(version)}") ? image.default_url(version) : "/images/ideas/#{version}/noimage.jpg"
 		end
 	end
