@@ -480,7 +480,7 @@ class Product
 	end
 	
 	def four_related_criteria
-	  @four_related_criteria ||= related_tag.products.related_to(self, self.outlet) 
+	  @four_related_criteria ||= related_tag.products.related_to(self, self.outlet) rescue []
 	end
 	
 	def four_related_products

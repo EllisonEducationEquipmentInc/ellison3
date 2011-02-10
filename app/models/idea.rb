@@ -221,7 +221,7 @@ class Idea
 	end
 	
 	def four_related_criteria
-	  @four_related_criteria ||= related_tag.ideas.send(current_system).available.where(:_id.ne => self.id)
+	  @four_related_criteria ||= related_tag.ideas.send(current_system).available.where(:_id.ne => self.id) rescue []
 	end
 	
 	def four_related_ideas
