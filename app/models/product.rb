@@ -496,8 +496,8 @@ class Product
 	end
 	
 	def four_related_products
-	  skip_limit = four_related_criteria.count > 4 ? four_related_criteria.count - 4 : 1
-	  criteria = four_related_criteria.limit(4).skip(rand(skip_limit))
+	  skip_limit = four_related_criteria.count > 5 ? four_related_criteria.count - 5 : 1
+	  criteria = four_related_criteria.limit(5).skip(rand(skip_limit))
 	rescue 
 	  []
 	end
