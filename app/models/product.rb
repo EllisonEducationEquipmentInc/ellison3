@@ -138,7 +138,7 @@ class Product
 			displayable(sys).where(:life_cycle.in => LIFE_CYCLES[0,3])
 		end
 		
-		# displayable and life_cycle is in ['pre-release', 'available', 'discontinued'], or discontinued but in-stock
+		# displayable and life_cycle is in ['pre-release', 'available'], or discontinued but in-stock
     def listable(sys = current_system)
       displayable(sys).any_of({:life_cycle => 'discontinued', "$where" => sys == "szus" ? "this.quantity_sz > 0 || this.quantity_us > 0" : "this.quantity_#{sys == "eeus" || sys == "er" ? 'us' : 'uk'} > 0"}, {:life_cycle.in => Product::LIFE_CYCLES[0,2]})
     end
@@ -154,7 +154,7 @@ class Product
 		
 		def related_to(exluded_product, outlet = false)
 		  criteria = available.where(:_id.ne => exluded_product.id, :systems_enabled.in => [current_system], :"quantity_#{is_us? ? 'us' : 'uk'}".gt => 0, :life_cycle.in => ['available']).limit(4)
-		  criteria = criteria.where(:outlet => outlet) if is_sizzix_us?
+		  #criteria = criteria.where(:outlet => outlet) if is_sizzix_us?
 		  criteria
 		end
     
@@ -388,7 +388,7 @@ class Product
 	  active && systems_enabled.include?(sys) && self.send("start_date_#{sys}") < Time.zone.now && self.send("end_date_#{sys}") > Time.zone.now
 	end
 	
-	# if product can be displayed on the product list page (regardless of availablitity) - current products whose life_cycle is NOT "unvailable"
+	# if product can be displayed on the catalog list page 
 	def listable?(sys = current_system)
 	  displayable?(sys) && (LIFE_CYCLES[0,2].include?(life_cycle) || self.life_cycle == 'discontinued' && quantity(sys) > 0)
 	end
