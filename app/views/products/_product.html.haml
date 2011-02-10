@@ -25,5 +25,5 @@
   %p.item_price= display_product_price(product)
   .item_description= product.description.try :html_safe
   .cart-buttons= add_to_cart_button(product)
-  - if ecommerce_allowed? && product.pre_order?
-    %span.release_available== Available #{product.release_dates.map {|e| e.name} * ", "}
+  - if ecommerce_allowed? && product.pre_order? && product.release_dates.available.count > 0
+    %span.release_available== Available #{product.release_dates.available.map {|e| e.name} * ", "}
