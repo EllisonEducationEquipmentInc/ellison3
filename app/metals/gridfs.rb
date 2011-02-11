@@ -22,7 +22,7 @@ class Gridfs
             fresh = false if etags.include?(etag) || etags.include?('*')
           end
           
-          response_headers = {'Content-Type' => gridfs_file.content_type, "Connection" => "keep-alive", "ETag" => etag,
+          response_headers = {'Content-Type' => gridfs_file.content_type, "ETag" => etag,
               "Cache-Control" => "public, max-age=315360000", "Date" => Time.now.httpdate, "Last-Modified" => gridfs_file.upload_date.httpdate}
               
           if fresh
