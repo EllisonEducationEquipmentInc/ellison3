@@ -191,7 +191,7 @@ Ellison3::Application.routes.draw do |map|
   # just remember to delete public/index.html.
   root :to => "index#home"
 
-	match "/grid/*path" => "gridfs#serve"
+	match "/grid/*path" => Gridfs #"gridfs#serve"
 	
   # See how all your routes lay out with "rake routes"
 
