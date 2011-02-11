@@ -67,17 +67,24 @@
 
 #content {
   .pagination {
-    font-family: Georgia,serif;
+    @if $system == szus or $system == szuk {
+      font-family: Georgia,serif;
+    }
+    
     font-weight: bold;
     text-transform: lowercase;
     text-decoration: none;
   
     a {
       text-decoration:none;
-      color: #6C5941;
+      @if $system == szus or $system == szuk {
+        color: $heading;
+      } @else {
+        color: $text;
+      }
   
       &:hover {
-        color: #b60000;
+        color: $link;
         text-decoration: underline;
       }
     }
@@ -86,7 +93,7 @@
       color: #CCC;
     }
     em {
-      color: #b60000;
+      color: $link;
     }
   }
 }
