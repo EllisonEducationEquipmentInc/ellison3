@@ -76,9 +76,9 @@
 					var offset1 = $(el).offset();
 					if (t != offset1.top || l != offset1.left || w != $(el).outerWidth() || h != $(el).outerHeight()) {
 						jQuery.removeData(el);
-						$(el).doTimeout(guid);
-						$(el).shadowOff();
-						$(el).shadowOn({ 'imagepath': imagepath, 'imageset': imageset, 'autoresize': autoresize, 'resizetimer': resizetimer });
+						$(this).shadowOff();
+						$(this).doTimeout(guid);
+						$(this).shadowOn({ 'imagepath': imagepath, 'imageset': imageset, 'autoresize': autoresize, 'resizetimer': resizetimer });
 						return false;
 					}
 					return true;
