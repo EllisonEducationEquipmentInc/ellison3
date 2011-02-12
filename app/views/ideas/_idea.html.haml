@@ -5,4 +5,4 @@
       %span= idea.public_life_cycle
   %p.item_image= link_to image_tag(idea.medium_image), idea_url(:id => idea)
   %p.item_name= link_to idea.name.html_safe, idea_url(:id => idea)
-  .item_description= idea.description.try :html_safe
+  .item_description= truncate(strip_tags(idea.description.html_safe), :length => 250, :separator => ' ') if idea.description.present?

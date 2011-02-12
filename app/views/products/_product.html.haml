@@ -23,7 +23,7 @@
   %p.item_image= link_to image_tag(product.medium_image), product_url(:id => product)
   %p.item_name= link_to product.name.html_safe, product_url(:id => product)
   %p.item_price= display_product_price(product)
-  .item_description= truncate(strip_tags(product.description), :length => 250, :separator => ' ') if product.description.present?
+  .item_description= truncate(strip_tags(product.description.html_safe), :length => 250, :separator => ' ') if product.description.present?
   .cart-buttons= add_to_cart_button(product)
   - if ecommerce_allowed? && product.pre_order? && product.release_dates.available.count > 0
     %span.release_available== Available #{product.release_dates.available.map {|e| e.name} * ", "}
