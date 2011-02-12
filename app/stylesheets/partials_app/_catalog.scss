@@ -530,6 +530,7 @@ body.bp {
         display: block;
         height: 70px;
         overflow: hidden;
+				font-size: .85em;
       }
       
       &.product {
@@ -557,7 +558,7 @@ body.bp {
     
       .cart-buttons {
         position: absolute;
-        bottom: 0px;
+        top: 30px;
         left: 600px;
         margin: 8px;
         width: auto;

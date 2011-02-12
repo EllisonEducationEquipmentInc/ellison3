@@ -86,7 +86,7 @@ class Idea
 		end
 		
 		def public_name
-		  is_ee? ? 'lesson' : 'project'
+		  is_ee? ? 'Lesson' : 'Project'
 		end
 	end
 
