@@ -23,6 +23,9 @@ class IndexController < ApplicationController
     @product = Product.send(current_system).find(params[:id])
     raise "Invalid product" unless @product.displayable?
     @title = @product.name
+    @keywords = @product.keywords if @product.keywords.present?
+    @keywords << @product.tags.keywords.map {|e| e.name} * ', '
+    @description = @product.description if @product.description.present?
     #redirect_to :action => "outlet", :anchor => "q=#{@product.item_num}" and return if !request.xhr? && is_sizzix_us? && @product && @product.outlet 
     if request.xhr?
       render :product_min, :layout => false and return 
