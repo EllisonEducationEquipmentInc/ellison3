@@ -530,6 +530,7 @@ body.bp {
         display: block;
         height: 70px;
         overflow: hidden;
+        font-family: Verdana,Arial,sans-serif;
 				font-size: .85em;
       }
       
@@ -627,6 +628,23 @@ h3.item_title {
   
   .thumbnail {
     float: left;
+  }
+
+	.video-thumbnail { @extend .thumbnail;
+    width: 120px;
+    height: 66px;
+    
+    a {
+      display: block;
+      width: 120px;
+      height: 66px;        
+    }
+  }
+}
+
+.item_description {
+  p {
+    margin-bottom: 8px !important;
   }
 }
 
