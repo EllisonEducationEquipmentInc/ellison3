@@ -879,6 +879,15 @@ namespace :data_migrations do
     end
   end
   
+  desc "import instructions from product_instructions.csv"
+  task :instructions => :load_dep do
+    CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/product_instructions.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
+      @product = Product.find_by_item_num row['item_num']
+      next unless @product
+      p @product.update_attribute :instructions, row['pdf']
+    end
+  end
+  
   task :set_edu do
     ENV['SYSTEM'] = "edu"
   end
