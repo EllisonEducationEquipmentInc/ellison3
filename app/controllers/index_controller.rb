@@ -254,7 +254,7 @@ class IndexController < ApplicationController
   end
   
   def instructions
-    @products = Product.available.where(:instructions.exists => true, :instructions.ne => '').cache
+    @products = Product.available.where(:instructions.exists => true, :instructions.ne => '').asc(:name).cache
   end
   
 private
