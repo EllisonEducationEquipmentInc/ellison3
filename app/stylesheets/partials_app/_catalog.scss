@@ -618,6 +618,12 @@ h3.item_title {
   background: $catalog_product_bg;
   overflow: visible;
   z-index: 200;
+  
+	.clearance_flag {
+	  position: absolute;
+	  top: 0;
+	  right: 0;
+	}
 
   #large_image {
     width: 450px;

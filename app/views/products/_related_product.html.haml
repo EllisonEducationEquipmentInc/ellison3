@@ -1,4 +1,6 @@
 .item-block_related.product{:class => "product_#{product.id}"}
+  - if product.outlet
+    .clearance_flag= image_tag("/images/ui-objects/pricetag_outlet.png", :alt => "On Sale!", :title => "On Sale!")
   %h3.item_number= product.item_num
   - if outlet?
     .life-cycle

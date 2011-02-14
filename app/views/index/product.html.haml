@@ -1,8 +1,8 @@
 .breadcrumbs.dontprint
   = link_to_function 'back', "window.history.back()", :class => "link_back"
 .item_images
-  .div{:style=>"right:4px; top:0; position:absolute;"}
-    = image_tag("/images/catalog/designers/eileen_hull.png")
+  - if @product.outlet
+    .clearance_flag= image_tag("/images/ui-objects/pricetag_outlet.png", :alt => "On Sale!", :title => "On Sale!")
   #large_image= image_tag(@product.large_image)
   .dontprint
     .thumbnail.selected= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}'); return false;"
