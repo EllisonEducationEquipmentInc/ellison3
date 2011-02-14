@@ -17,6 +17,7 @@
   %span.life-cycle= @product.public_life_cycle
 .item_description
   = @product.description.try :html_safe
+  = link_to image_tag('/images/ui-objects/pdf_icon.gif'), @product.instructions, :target => '_blank', :title => "Instructions" if @product.instructions.present?
 .item_sociallinks.dontprint= facebook_like
 .buybox.rounded
   %h4.itemnumber== Item ##{@product.item_num}

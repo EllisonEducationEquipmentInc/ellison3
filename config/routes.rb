@@ -67,6 +67,7 @@ Ellison3::Application.routes.draw do |map|
 	match 'activate_coupon' => 'carts#activate_coupon', :as => :activate_coupon
 	match 'remove_coupon' => 'carts#remove_coupon', :as => :remove_coupon
 	match 'remove_order_reference' => 'carts#remove_order_reference', :as => :remove_order_reference
+	match 'instructions' => 'index#instructions'
 	
 	match '/calendar(/:year(/:month))' => 'index#calendar', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
 	

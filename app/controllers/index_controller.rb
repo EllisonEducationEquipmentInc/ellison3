@@ -253,6 +253,10 @@ class IndexController < ApplicationController
     render :js => "alert('Thank you.');$('#machines_owned').remove();"
   end
   
+  def instructions
+    @products = Product.available.where(:instructions.exists => true, :instructions.ne => '').cache
+  end
+  
 private
 
   def process_feed(source, mins = 5)

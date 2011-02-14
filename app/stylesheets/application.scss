@@ -261,6 +261,12 @@ body.bp th, body.bp td, body.bp caption {
       height: 66px;        
     }
   }
+	.instructions{
+		float:left;
+		text-align:center;
+		margin:5px;
+		width:100px;
+	}
 }
 p.show_cart{cursor:pointer;}
 #guest_checkout {

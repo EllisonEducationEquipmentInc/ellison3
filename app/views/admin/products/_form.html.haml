@@ -20,6 +20,10 @@
     %br
     = f.select :item_type, Product::ITEM_TYPES
   .field
+    = f.label :item_group
+    %br
+    = f.select :item_group, Product::ITEM_GROUPS
+  .field
     = f.label :upc
     %br
     = f.text_field :upc
@@ -114,6 +118,10 @@
     = f.label :description, :class => 'overrideable'
     %br
     = f.text_area :description, :class => 'wymeditor'
+  .field
+    = f.label :instructions
+    %br
+    = f.text_field :instructions
   .field
     = f.label :video, "Youtube video ID. Example: iOGVK7Mih7w"
     %br

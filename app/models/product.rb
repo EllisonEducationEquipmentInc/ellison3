@@ -19,7 +19,8 @@ class Product
 	
 	QUANTITY_THRESHOLD = 0
 	LIFE_CYCLES = ['pre-release', 'available', 'discontinued', 'unavailable']
-	ITEM_TYPES = ['machine', 'die', 'supply', 'accessory']
+	ITEM_TYPES = ['die', 'machine', 'supply', 'accessory', 'bundle']
+	ITEM_GROUPS = ['Sizzix', 'Ellison', 'Ellison Designs', 'AllStar', 'Third Party']
 	
 	cattr_accessor :retailer_discount_level
 	
@@ -69,8 +70,10 @@ class Product
 	field :height, :type => Float
 	field :keywords
 	field :item_type
+	field :item_group
 	field :video
 	field :use_tabs, :type => Boolean, :default => true
+	field :instructions
 	field :old_id, :type => Integer
 	field :old_id_edu, :type => Integer
 	field :old_id_szuk, :type => Integer
