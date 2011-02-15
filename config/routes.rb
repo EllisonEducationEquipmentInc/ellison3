@@ -193,6 +193,7 @@ Ellison3::Application.routes.draw do |map|
   root :to => "index#home"
 
 	match "/grid/*path" => Gridfs #"gridfs#serve"
+  # match "/solr_terms/:term" => SolrTerms
 	
   # See how all your routes lay out with "rake routes"
 

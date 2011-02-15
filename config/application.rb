@@ -46,6 +46,7 @@ module Ellison3
     end
 
 		config.autoload_paths << File.join(Rails.root, "app", "uploaders")
+    # config.autoload_paths << File.join(Rails.root, "app", "middlewares")
 		
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
@@ -56,5 +57,7 @@ module Ellison3
     config.filter_parameters += [:password, :password_confirmation, :full_card_number, :card_security_code]
       	
     config.action_mailer.default :charset => "utf-8"
+    
+    config.middleware.insert_before ActionDispatch::Static, "SolrTerms" 
   end
 end

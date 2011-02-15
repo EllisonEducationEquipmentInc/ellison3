@@ -56,6 +56,8 @@ gem 'memcache-client'
 gem 'event-calendar', :require => 'event_calendar', :git => 'git://github.com/elevation/event_calendar.git', :branch => "master"
 gem 'rpm_contrib'
 #gem 'newrelic_rpm'
+gem 'delayed_job'
+gem 'delayed_job_mongoid'
 
 # Use unicorn as the web server
 # gem 'unicorn'
