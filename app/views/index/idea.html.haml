@@ -48,5 +48,6 @@
       .rounded
         %h4
           == Related #{idea_name.pluralize}
+          %br
           = link_to "View All", catalog_path(:anchor => "facets=#{@idea.related_tag.facet_param}&ideas=1&page=1"), :class => "minilink" if @idea.four_related_criteria.count > 4
         .related_ideas= render :partial => 'ideas/related_idea', :collection => @idea.four_related_ideas, :as => :idea

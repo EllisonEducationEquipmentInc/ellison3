@@ -88,5 +88,6 @@
       .rounded
         %h4
           Related Products
+          %br
           = link_to "View All", catalog_path(:anchor => "facets=#{@product.related_tag.facet_param}&page=1#{'&outlet=1' if @product.outlet}"), :class => "minilink" if @product.four_related_criteria.count > 4
         .related_products= render :partial => 'products/related_product', :collection => @product.four_related_products, :as => :product
