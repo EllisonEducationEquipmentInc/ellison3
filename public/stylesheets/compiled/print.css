@@ -1,16 +1,10 @@
 /*
 Syntax error: Undefined variable: "$catalog_idea-num".
-        on line 148 of /home/jose/ELLISON3/app/stylesheets/partials_app/_catalog.scss
+        on line 154 of /home/jose/ELLISON3/app/stylesheets/partials_app/_catalog.scss
         from line 7 of /home/jose/ELLISON3/app/stylesheets/print.scss
 
-143: 
-144: .buybox {
-145:   background-color: transparent;
-146:   border: 0px;
-147: }
-
 Backtrace:
-/home/jose/ELLISON3/app/stylesheets/partials_app/_catalog.scss:148
+/home/jose/ELLISON3/app/stylesheets/partials_app/_catalog.scss:154
 /home/jose/ELLISON3/app/stylesheets/print.scss:7
 /usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/haml-3.0.25/lib/sass/script/variable.rb:39:in `_perform'
 /usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/haml-3.0.25/lib/sass/script/node.rb:61:in `perform'
@@ -101,4 +95,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$catalog_idea-num\".\A         on line 148 of /home/jose/ELLISON3/app/stylesheets/partials_app/_catalog.scss\A         from line 7 of /home/jose/ELLISON3/app/stylesheets/print.scss\A \A 143: \A 144: .buybox {\A 145:   background-color: transparent;\A 146:   border: 0px;\A 147: }"; }
+  content: "Syntax error: Undefined variable: \"$catalog_idea-num\".\A         on line 154 of /home/jose/ELLISON3/app/stylesheets/partials_app/_catalog.scss\A         from line 7 of /home/jose/ELLISON3/app/stylesheets/print.scss"; }

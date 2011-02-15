@@ -25,17 +25,11 @@ body.bp {
   }
 }
 
-#cart_container {
+#cart_container, #cart_contents {
   .thumbnail {
     position: relative;
     margin: 0;
-  }
-  
-	.clearance_flag {
-	  position: absolute;
-	  top: 0;
-	  right: 0;
-	}
+  }  
 }
 
 .cart_item_price {
