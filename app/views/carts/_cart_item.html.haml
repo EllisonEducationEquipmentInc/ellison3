@@ -8,7 +8,10 @@
       %br
       Out of stock
   %td
-    = link_to(image_tag(cart_item.small_image), product_url(:id => cart_item.product_id)) unless cart_item.small_image.blank?
+    .thumbnail
+      = link_to(image_tag(cart_item.small_image), product_url(:id => cart_item.product_id)) unless cart_item.small_image.blank?
+      - if cart_item.product.outlet
+        .clearance_flag= link_to(image_tag("/images/ui-objects/pricetag_outlet.png", :alt => "On Sale!", :title => "On Sale!"), product_url(:id => cart_item.product_id)) unless cart_item.small_image.blank?
   %td= cart_item.product_id.blank? ? cart_item.name : link_to(cart_item.name, product_url(:id => cart_item.product_id))
   %td{:style => "text-align: right"}= number_to_currency cart_item.msrp
   %td{:style => "text-align: right", :id => "cart_item_price_#{cart_item.id}", :class => get_cart.is_cart_item_changed?(cart_item.id, "price") ? 'cart_item_price item_changed' : 'cart_item_price'}= display_product_price_cart cart_item

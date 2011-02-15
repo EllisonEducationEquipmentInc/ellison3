@@ -25,6 +25,19 @@ body.bp {
   }
 }
 
+#cart_container {
+  .thumbnail {
+    position: relative;
+    margin: 0;
+  }
+  
+	.clearance_flag {
+	  position: absolute;
+	  top: 0;
+	  right: 0;
+	}
+}
+
 .cart_item_price {
   .msrp {
     font-weight: normal;
