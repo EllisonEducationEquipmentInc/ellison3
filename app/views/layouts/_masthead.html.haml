@@ -54,8 +54,8 @@
     $('#shoppingcart_info').load('/carts/shopping_cart');
 
   -# search bar
-  %form#searchbar{:action => "/catalog", :method => "get", :name => "searchbar", :onsubmit => "return false;" }
-    %input{ :class =>"textfield", :name => "q", :id => "q", :type => "text", :value => "Search for Sizzix Products & Ideas", :onfocus => "if (this.value == 'Search for Sizzix Products & Ideas'){this.value='';}", :onblur => "if (this.value == ''){this.value='Search for Sizzix Products & Ideas';}" }
+  %form#searchbar{:action => "/catalog", :method => "get", :name => "searchbar", :onsubmit => "return false;", :autocomplete => 'off' }
+    %input{ :class =>"textfield noautocomplete", :name => "q", :id => "q", :type => "text", :value => "Search for Sizzix Products & Ideas", :autocomplete => 'off', :onfocus => "if (this.value == 'Search for Sizzix Products & Ideas'){this.value='';};$(this).attr('autocomplete', 'off');", :onblur => "if (this.value == ''){this.value='Search for Sizzix Products & Ideas';}" }
     %input{ :class => "submitbutton", :name => "submit", :src => "/images/ui-icons/set_fugue/24x24/drop-shadow/magnifier-left.png", :type => "image", :height => "24", :width => "24", :onclick => "return false;" }
     :javascript
       $("input.textfield").addClass("idlefield");
@@ -75,6 +75,24 @@
         $(this).removeClass("activefield").addClass("idlefield");
         this.value = "Search for Sizzix Products & Ideas";        
       });
+      $("#q").autocomplete({
+      	source: function(request, response) {
+      		$.getJSON("/solr_terms/"+request.term, {}, function(data) {response(data.terms[0][1].map(function(n,i){return n[0]}))});
+      	},
+      	search: function() {
+      		if (this.value.length < 1) {
+      			return false;
+      		}
+      	},
+      	focus: function( event, ui ) {
+                $(this).val( ui.item.label );
+        				return false;
+        			},
+      	select: function(event, ui) {
+      	  this.value = ui.item.value;
+      	  this.form.submit();
+      		return false;
+      	}});
 
 
 #printmasthead.dontdisplay

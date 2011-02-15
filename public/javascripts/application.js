@@ -231,6 +231,9 @@ $(document).ready(function(){
     themePath: '/images/ui-plugins/bubblepopup'
   });
   youtube_video_links();
+  $('input.noautocomplete').doTimeout(2000, function(){
+    $(this).attr("autocomplete", 'off');
+  });
   
 });
 
