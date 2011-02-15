@@ -65,13 +65,7 @@
         $(this).removeClass("activefield").addClass("idlefield");
       });
       
-      $('#q').change(function() {
-        if (this.value.length < 3) {
-          return false;
-        } else {
-          location.hash = $.param.fragment( location.hash, {q: this.value, page: 1}, 0 );
-        }
-        
+      $('#q').change(function() {        
         $(this).removeClass("activefield").addClass("idlefield");
         this.value = "Search for Sizzix Products & Ideas";        
       });
