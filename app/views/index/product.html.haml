@@ -2,7 +2,7 @@
   = link_to_function 'back', "window.history.back()", :class => "link_back"
 .item_images
   - if @product.outlet
-    .clearance_flag= image_tag("/images/ui-objects/pricetag_outlet.png", :alt => "On Sale!", :title => "On Sale!")
+    .clearance_flag= image_tag("/images/ui-objects/pricetag_outlet_detail.png", :alt => "On Sale!", :title => "On Sale!")
   #large_image= image_tag(@product.large_image)
   .dontprint
     .thumbnail.selected= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}'); return false;"

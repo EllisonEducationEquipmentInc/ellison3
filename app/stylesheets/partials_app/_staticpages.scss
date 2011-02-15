@@ -59,7 +59,7 @@ body.bp {
         .play-button {
           height: 131px;
           width: 131px;
-          background: url("/images/ui-buttons/play_featured-video_off.png") no-repeat center center;
+          background: url("/images/ui-buttons/play-video_large_off.png") no-repeat center center;
           position: absolute;
           top: 45px;
           left: 129px;
@@ -72,7 +72,7 @@ body.bp {
             text-indent: -99999px;            
           }
           
-          &:hover { background: url("/images/ui-buttons/play_featured-video_on.png") no-repeat center center; }
+          &:hover { background: url("/images/ui-buttons/play-video_large_on.png") no-repeat center center; }
         }
       }
 

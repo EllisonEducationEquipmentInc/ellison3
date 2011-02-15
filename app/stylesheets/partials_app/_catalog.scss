@@ -637,14 +637,7 @@ h3.item_title {
   }
 
 	.video-thumbnail { @extend .thumbnail;
-    width: 120px;
-    height: 66px;
-    
-    a {
-      display: block;
-      width: 120px;
-      height: 66px;        
-    }
+
   }
 }
 
