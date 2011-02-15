@@ -59,5 +59,6 @@ module Ellison3
     config.action_mailer.default :charset => "utf-8"
     
     config.middleware.insert_before ActionDispatch::Static, "SolrTerms" 
+    config.middleware.insert_after ActionDispatch::Static, "Gridfs"
   end
 end

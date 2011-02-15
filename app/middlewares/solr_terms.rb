@@ -1,9 +1,6 @@
 require 'sunspot'
 require 'net/http'
 
-# Allow the metal piece to run in isolation
-#require(File.dirname(__FILE__) + "/../../config/environment") unless defined?(Rails)
-
 class SolrTerms
   
   def initialize(app)  

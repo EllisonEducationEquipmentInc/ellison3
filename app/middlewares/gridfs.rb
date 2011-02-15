@@ -1,12 +1,12 @@
-# rails metal to be used with carrierwave (gridfs) and MongoMapper
-
 require 'mongo'
 
-# Allow the metal piece to run in isolation
-require(File.dirname(__FILE__) + "/../../config/environment") unless defined?(Rails)
-
 class Gridfs
-  def self.call(env)
+  
+  def initialize(app)  
+    @app = app  
+  end
+  
+  def call(env)
     if env["PATH_INFO"] =~ /^\/grid\/(.+)$/
       gridfs_path = $1
       begin
@@ -36,7 +36,7 @@ class Gridfs
         [404, {'Content-Type' => 'text/plain'}, ["File not found. #{e}"]]
       end
     else
-      [404, {'Content-Type' => 'text/plain'}, ['File not found.']]
+      @app.call(env)
     end
   end
 end
