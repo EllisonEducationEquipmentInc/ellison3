@@ -244,7 +244,7 @@ private
 	    remove_instance_variable(:@marked_for_auto_indexing)
 	  end
     index_dates = []
-	  @marked_for_scheduled_auto_indexing.each do |d|
+	  @marked_for_scheduled_auto_indexing && @marked_for_scheduled_auto_indexing.each do |d|
       if self.send(d).is_a?(DateTime) && !index_dates.include?(self.send(d).utc)
         scheduled_at = self.send(d).utc > Time.now.utc ? self.send(d) : Time.now
         Rails.logger.info "FUTURE REINDEX!!! scheduled at #{scheduled_at}"
