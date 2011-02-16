@@ -266,7 +266,10 @@ private
 	end
 	
 	def reindex?
-	  @marked_for_auto_indexing = self.changed? && self.changed.any? {|e| (["systems_enabled", "active", "tag_ids"] + ELLISON_SYSTEMS.map {|e| ["start_date_#{e}", "end_date_#{e}"]}.flatten).include?(e)}
+	  @marked_for_auto_indexing = self.changed? && self.changed.any? {|e| (["systems_enabled", "active", "tag_ids"]).include?(e)}
+	  if self.errors.blank? && self.changed? && self.changed.any? {|e| ELLISON_SYSTEMS.map {|s| ["start_date_#{s}", "end_date_#{s}"]}.flatten.include?(e)}
+	    @marked_for_scheduled_auto_indexing = self.changed.select {|e| e =~ /^(start|end)_date/}
+	  end
 	  ''
 	end
 	
@@ -275,5 +278,16 @@ private
 	    self.delay.index!
 	    remove_instance_variable(:@marked_for_auto_indexing)
 	  end
+	  index_dates = []
+	  @marked_for_scheduled_auto_indexing.each do |d|
+      if self.send(d).is_a?(DateTime) && !index_dates.include?(self.send(d).utc)
+        scheduled_at = self.send(d).utc > Time.now.utc ? self.send(d) : Time.now
+        Rails.logger.info "FUTURE REINDEX!!! scheduled at #{scheduled_at}"
+        self.delay(:run_at => scheduled_at).index!
+        index_dates << self.send(d).utc
+      end
+	  end
+    remove_instance_variable(:@marked_for_scheduled_auto_indexing) if @marked_for_scheduled_auto_indexing
+    ''
 	end
 end
