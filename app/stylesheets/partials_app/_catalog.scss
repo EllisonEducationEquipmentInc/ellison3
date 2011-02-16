@@ -899,6 +899,7 @@ h3.item_title {
 
 // tag landing page styles
 .tag_landing_header {
+  @include column(24, true);
   height: 150px;
 }
 .tag_list_wrapper{
