@@ -581,6 +581,8 @@ body.bp {
 }
 
 .toggleview {
+  @extend .right;
+  @extend .minilink;
   margin: 14px 10px 0 0;
   a.toggle_view {
     display: block;
