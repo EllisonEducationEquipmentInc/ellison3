@@ -40,6 +40,8 @@ class Product
 	before_save :inherit_system_specific_attributes
 	#before_save :clean_up_tags
 	before_save :timestamp_outlet
+	before_save :reindex?
+	after_save :maybe_index
 	
 	# system specific validations
 	ELLISON_SYSTEMS.each do |system|
@@ -198,7 +200,7 @@ class Product
 	  boolean :active
 	  boolean :outlet
 		text :tag_names do
-			tags.map { |tag| tag.name }
+			tags.available.map { |tag| tag.name }
 		end
 		text :name, :boost => 2
 		#text :keywords, :boost => 1.5
@@ -553,5 +555,17 @@ private
 	
 	def timestamp_outlet
 	  self.outlet_since ||= Time.zone.now if changed.include?("outlet") && self.outlet
+	end
+	
+	def reindex?
+	  @marked_for_auto_indexing = self.changed? && self.changed.any? {|e| (["systems_enabled", "active", "outlet", "life_cycle", "tag_ids"] + ELLISON_SYSTEMS.map {|s| ["orderable_#{s}", "start_date_#{s}", "end_date_#{s}"]}.flatten + LOCALES_2_CURRENCIES.values.map {|c| ["msrp_#{c}", "wholesale_price_#{c}"]}.flatten).include?(e)}
+	  ''
+	end
+	
+	def maybe_index
+	  if @marked_for_auto_indexing
+	    self.delay.index!
+	    remove_instance_variable(:@marked_for_auto_indexing)
+	  end
 	end
 end

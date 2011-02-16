@@ -41,11 +41,14 @@ class Tag
   validates :name, :tag_type, :systems_enabled, :permalink, :presence => true
   validates_format_of :permalink, :with => /^[\w\d-]+$/
   validate :permalink_uniqueness
-  
+
+  after_validation :reindex?  
   before_save :inherit_system_specific_attributes
   before_validation :set_permalink
-  after_save :update_campaign
+  after_save :maybe_index
   
+  after_save :update_campaign
+
   field :name
   field :tag_type
   field :active, :type => Boolean, :default => true
@@ -223,4 +226,33 @@ private
       end      
     end
   end
+  
+  def reindex?
+	  @marked_for_auto_indexing = self.errors.blank? && self.changed? && self.changed.any? {|e| (["systems_enabled", "active"]).include?(e)}
+	  if self.errors.blank? && self.changed? && self.changed.any? {|e| ELLISON_SYSTEMS.map {|s| ["start_date_#{s}", "end_date_#{s}"]}.flatten.include?(e)}
+	    @marked_for_scheduled_auto_indexing = self.changed.select {|e| e =~ /^(start|end)_date/}
+	  end
+	  ''
+	end
+	
+	def maybe_index
+	  if @marked_for_auto_indexing
+	    Rails.logger.info "REINDEX!!! Tag's products/ideas are scheduled for reindexing"
+	    self.products.each {|e| e.delay.index!}
+	    self.ideas.each {|e| e.delay.index!}
+	    remove_instance_variable(:@marked_for_auto_indexing)
+	  end
+    index_dates = []
+	  @marked_for_scheduled_auto_indexing.each do |d|
+      if self.send(d).is_a?(DateTime) && !index_dates.include?(self.send(d).utc)
+        scheduled_at = self.send(d).utc > Time.now.utc ? self.send(d) : Time.now
+        Rails.logger.info "FUTURE REINDEX!!! scheduled at #{scheduled_at}"
+        self.products.each {|e| e.delay(:run_at => scheduled_at).index!}
+  	    self.ideas.each {|e| e.delay(:run_at => scheduled_at).index!}
+        index_dates << self.send(d).utc
+      end
+	  end
+    remove_instance_variable(:@marked_for_scheduled_auto_indexing) if @marked_for_scheduled_auto_indexing
+	  ''
+	end
 end

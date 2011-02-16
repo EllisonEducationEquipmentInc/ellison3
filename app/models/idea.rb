@@ -15,6 +15,8 @@ class Idea
 	
 	before_save :inherit_system_specific_attributes
 	#before_save :clean_up_tags
+	before_save :reindex?
+	after_save :maybe_index
 	
 	# system specific validations
 	ELLISON_SYSTEMS.each do |system|
@@ -104,7 +106,7 @@ class Idea
 	searchable :auto_index => false, :auto_remove => true, :ignore_attribute_changes_of => [:updated_at, :use_tabs] do
 	  boolean :active
 		text :tag_names do
-			tags.map { |tag| tag.name }
+			tags.available.map { |tag| tag.name }
 		end
 		text :name, :boost => 2
 		text :idea_num
@@ -261,5 +263,17 @@ private
 
 	def clean_up_tags
 	  self.tag_ids = self.tag_ids.compact.uniq
+	end
+	
+	def reindex?
+	  @marked_for_auto_indexing = self.changed? && self.changed.any? {|e| (["systems_enabled", "active", "tag_ids"] + ELLISON_SYSTEMS.map {|e| ["start_date_#{e}", "end_date_#{e}"]}.flatten).include?(e)}
+	  ''
+	end
+	
+	def maybe_index
+	  if @marked_for_auto_indexing
+	    self.delay.index!
+	    remove_instance_variable(:@marked_for_auto_indexing)
+	  end
 	end
 end
