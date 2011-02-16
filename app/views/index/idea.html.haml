@@ -11,7 +11,7 @@
         - next unless image.image?
         %li= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;", :class => "thumbnail"
       .clear
-  .controls
+  .controls{ :style => "display: none"}
     = link_to "prev", "#", :class => "prev_button", :id => "prev_button", :onclick => "return false;"
     |
     = link_to "next", "#", :class => "next_button", :id => "next_button", :onclick => "return false;"
@@ -26,9 +26,9 @@
         circular: false
       });
       
-      var test = $("item_thumbnails").find("ul li").length();
-      
-      alert(test);
+      if ($("#item_thumbnails").find("ul li").length > 6) {
+        $(".controls").slideDown();
+      }
     });    
 %h3.item_title
   = @idea.name
