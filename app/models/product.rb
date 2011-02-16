@@ -558,11 +558,9 @@ private
 	end
 	
 	def reindex?
-	  @marked_for_auto_indexing = self.changed? && self.changed.any? {|e| (["systems_enabled", "active", "outlet", "life_cycle", "tag_ids"] + ELLISON_SYSTEMS.map {|s| ["orderable_#{s}"]}.flatten + LOCALES_2_CURRENCIES.values.map {|c| ["msrp_#{c}", "wholesale_price_#{c}"]}.flatten).include?(e)}
-	  if self.errors.blank? && self.changed? && self.changed.any? {|e| ELLISON_SYSTEMS.map {|s| ["start_date_#{s}", "end_date_#{s}"]}.flatten.include?(e)}
-	    @marked_for_scheduled_auto_indexing = self.changed.select {|e| e =~ /^(start|end)_date/}
-	  end
-	  ''
+	  @marked_for_auto_indexing = self.changed? && self.changed.any? {|e| (["systems_enabled", "active", "outlet", "life_cycle", "tag_ids"] + ELLISON_SYSTEMS.map {|s| ["orderable_#{s}"]}.flatten + LOCALES_2_CURRENCIES.values.map {|c| ["msrp_#{c}", "wholesale_price_#{c}"]}.flatten).include?(e)} || campaigns.any? {|c| c.reindex?}
+	  @scheduled_indexing_campaign_dates = campaigns.map {|c| c.scheduled_reindex}.flatten.uniq
+	  @marked_for_scheduled_auto_indexing = self.changed.select {|e| e =~ /^(start|end)_date/}
 	end
 	
 	def maybe_index
@@ -579,7 +577,7 @@ private
         index_dates << self.send(d).utc
       end
 	  end
-    remove_instance_variable(:@marked_for_scheduled_auto_indexing) if @marked_for_scheduled_auto_indexing
-    ''
+	  @scheduled_indexing_campaign_dates.each {|d| self.delay(:run_at => d > Time.now ? d : Time.now).index!}
+    @marked_for_scheduled_auto_indexing = []
 	end
 end

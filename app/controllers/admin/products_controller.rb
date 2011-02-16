@@ -123,6 +123,7 @@ class Admin::ProductsController < ApplicationController
 	def delete_campaign
 		@product = Product.find(params[:product_id])
 		@product.campaigns.find(params[:id]).delete
+		@product.delay.index!
 	end
 	
 	# image methods

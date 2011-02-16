@@ -229,10 +229,7 @@ private
   
   def reindex?
 	  @marked_for_auto_indexing = self.errors.blank? && self.changed? && self.changed.any? {|e| (["systems_enabled", "active"]).include?(e)}
-	  if self.errors.blank? && self.changed? && self.changed.any? {|e| ELLISON_SYSTEMS.map {|s| ["start_date_#{s}", "end_date_#{s}"]}.flatten.include?(e)}
-	    @marked_for_scheduled_auto_indexing = self.changed.select {|e| e =~ /^(start|end)_date/}
-	  end
-	  ''
+	  @marked_for_scheduled_auto_indexing = self.changed.select {|e| e =~ /^(start|end)_date/}
 	end
 	
 	def maybe_index
@@ -252,7 +249,6 @@ private
         index_dates << self.send(d).utc
       end
 	  end
-    remove_instance_variable(:@marked_for_scheduled_auto_indexing) if @marked_for_scheduled_auto_indexing
-	  ''
+    @marked_for_scheduled_auto_indexing = []
 	end
 end
