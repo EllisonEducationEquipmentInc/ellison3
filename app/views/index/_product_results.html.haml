@@ -10,7 +10,7 @@
     %li= link_to "<span>#{pluralize @product_search.total, "Product"} #{outlet? || idea? ? 'Found' : 'Showing'}</span>".html_safe, "#", :id => "toggle_product", :class => "tab #{'in' if outlet? || idea?}active"
     %li= link_to "<span>#{pluralize @idea_search.total, idea_name.capitalize} #{idea? ? 'Showing' : 'Found'}</span>".html_safe, "#", :id => "toggle_idea", :class => "tab #{'in' unless idea?}active"
     - if is_sizzix_us?
-      %li= link_to "<span>#{pluralize @outlet_search.total, "Outlet Item"} #{outlet? ? 'Showing' : 'Found'}</span>".html_safe, "#", :id => "toggle_outlet", :class => "tab #{'in' unless outlet?}active"
+      %li= link_to "<span>#{pluralize @outlet_search.total, "Outlet Product"} #{outlet? ? 'Showing' : 'Found'}</span>".html_safe, "#", :id => "toggle_outlet", :class => "tab #{'in' unless outlet?}active"
   - if is_er? && ecommerce_allowed? && !idea?
     = check_box_tag :select_all_products, "1", false, :onclick => "$('input.add_to_cart_checkbox').attr('checked', this.checked);toggle_add_checked_to_cart();"
     = label_tag :select_all_products, nil, :class => "minilink"
@@ -39,6 +39,17 @@
       %strong== We're sorry, we found 0 matching #{@klass}s
     - if !@search.correctly_spelled? && @search.spell_collation
       %p== Did you mean #{link_to_function @search.spell_collation, "location.hash = $.param.fragment( location.hash, {q: '#{@search.spell_collation}'}, 0 )"}?
+    %p Try these search Tips:
+    %ul
+      %li Double check your spelling. 
+      %li Try using single words(eg. flower, embossing) 
+      %li Try searching for a term that is less specific. You can always narrow your search results by filtering later. 
+      %li To browse all products visit our Catalog. (hyperlink catalog to /catalog).
+    - if is_ee?
+      %p
+        == ...or, have you considered a #{link_to "Custom Die", "/customdie"}? You can create your own one-of-a-kind design for any SureCut Die or order an Ellison SureCut design that has been retired from our current in-stock inventory.
+        %br
+        (Sorry, this option is not available for ClearCrop and AllStar dies.)
   = render @products
 .clear
 - unless @search.total < 24
