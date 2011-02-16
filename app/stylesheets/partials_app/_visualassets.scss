@@ -96,31 +96,7 @@ h2.tim-holtz-outlet-items { @extend .decorative;
   .controls {
     position: relative;
     left: 637px;
-    margin: 0 5px 5px 5px;
-    
-    a.prev_button { @extend minilink;
-      display: inline-block;
-      height: 16px;
-      padding: 0 0 0 18px;
-      background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation-180.png") no-repeat left;
-  	  color: $catalog_link;
-  	  text-transform: uppercase;
-  
-  	  &:hover{
-  	    color: $catalog_hover;
-  	    background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation-180-frame.png") no-repeat left;
-  	  }
-    }
-  
-    a.next_button { @extend a.prev_button;
-      padding: 0 18px 0 0;
-      background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation.png") no-repeat right;
-
-  	  &:hover{
-  	    color: $catalog_hover;
-  	    background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation-000-frame.png") no-repeat right;
-  	  }
-    }
+    margin: 0 5px 5px 5px;    
   }
     
   .item_element {

@@ -4,14 +4,30 @@
   - if @product.outlet
     .clearance_flag= image_tag("/images/ui-objects/pricetag_outlet_detail.png", :alt => "On Sale!", :title => "On Sale!")
   #large_image= image_tag(@product.large_image)
-  .dontprint
-    .thumbnail.selected= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}'); return false;"
-    - @product.images.each do |image|
-      - next unless image.image?
-      .thumbnail= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;"
-    - unless @product.video.blank?
-      = video_thumbnail(@product.video)
-    .clear  
+  #item_thumbnails.dontprint
+    %ul
+      - unless @product.video.blank?
+        %li= video_thumbnail(@product.video)
+      %li= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}'); return false;", :class => "thumbnail"
+      - @product.images.each do |image|
+        - next unless image.image?
+        %li= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;", :class => "thumbnail"
+      .clear
+  .controls
+    = link_to "prev", "#", :class => "prev_button", :id => "prev_button", :onclick => "return false;"
+    |
+    = link_to "next", "#", :class => "next_button", :id => "next_button", :onclick => "return false;"
+  :javascript
+    $(function() {
+      $("#item_thumbnails").jCarouselLite({
+        btnPrev: "#prev_button",
+        btnNext: "#next_button",
+        scroll: 1,
+        speed: 900,
+        visible: 6,
+        circular: false
+      });
+    });    
 %h3.item_title
   = @product.name.html_safe
   %span.life-cycle= @product.public_life_cycle

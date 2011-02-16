@@ -618,6 +618,7 @@ h3.item_title {
   background: $catalog_product_bg;
   overflow: visible;
   z-index: 200;
+  height: 400px;
   
 	.clearance_flag {
 	  position: absolute;
@@ -627,17 +628,23 @@ h3.item_title {
 
   #large_image {
     width: 450px;
-    min-height: 300px;
+    height: 300px;
     margin: 3px 0 0 3px;
     text-align: center;
+    overflow: hidden;
   }
   
-  .thumbnail {
-    float: left;
+  #item_thumbnails {
+    visibility: hidden;
+  
+    .thumbnail { float: left; }
+  	.video-thumbnail { @extend .thumbnail; }
   }
-
-	.video-thumbnail { @extend .thumbnail;
-
+  
+  .controls {
+    margin: 0 0 3px 4px;
+    
+    a { @extend .minilink; }
   }
 }
 

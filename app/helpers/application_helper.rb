@@ -247,8 +247,8 @@ HTML
 	end
 	
 	def video_thumbnail(youtube_id)
-	  content_tag :div, :class => "video-thumbnail tooltip_playvideo", :style => "background: url('http://i1.ytimg.com/vi/#{youtube_id}/default.jpg') no-repeat center center;" do
-	    link_to image_tag("/images/ui-buttons/play-video_on.png"), "http://www.youtube.com/v/#{youtube_id}&amp;feature=youtube_gdata_player&amp;autoplay=1&amp;fs=1", :class => "fancyvideo", :id => youtube_id
+	  content_tag :div, :class => "thumbnail", :style => "background: url('http://i1.ytimg.com/vi/#{youtube_id}/default.jpg') no-repeat center center;" do
+	    link_to image_tag("/images/ui-buttons/play-video_on.png"), "http://www.youtube.com/v/#{youtube_id}&amp;feature=youtube_gdata_player&amp;autoplay=1&amp;fs=1", :class => "fancyvideo", :id => youtube_id, :alt => "click to play this video", :title => "click to play this video"
 	  end
 	end
 	
