@@ -2,7 +2,7 @@ class Tag
   include EllisonSystem
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::Associations::EmbeddedCallbacks
+  #include Mongoid::Associations::EmbeddedCallbacks
   
   extend EventCalendar::ClassMethods
   has_event_calendar :start_at_field  => 'calendar_start_date', :end_at_field => 'calendar_end_date'
@@ -44,6 +44,8 @@ class Tag
 
   after_validation :reindex?  
   before_save :inherit_system_specific_attributes
+  before_save :run_callbacks_on_children
+  
   before_validation :set_permalink
   after_save :maybe_index
   
@@ -182,7 +184,8 @@ class Tag
 private 
 
   def update_campaign
-    if campaign? && Boolean.set(embed_campaign) && !campaign.blank? && !products.blank?
+    debugger
+    if campaign? && Boolean.set(embed_campaign) && !campaign.blank? #&& !products.blank?
       Rails.logger.info "!!! updating tag's campaign"
       # TODO: DRY
       if campaign.individual
@@ -196,7 +199,8 @@ private
           c.individual_discounts = []
           c.start_date = campaign.start_date
           c.end_date = campaign.end_date
-          c.save
+          self.products << product unless self.products.include?(product)
+          product.save
         end
       else
         products.each do |product|
@@ -205,7 +209,7 @@ private
           c.id = campaign.id
           c.start_date = campaign.start_date
           c.end_date = campaign.end_date
-          c.save
+          product.save
         end
       end
     end
@@ -251,4 +255,8 @@ private
 	  end
     @marked_for_scheduled_auto_indexing = []
 	end
+	
+	def run_callbacks_on_children
+    self.visual_assets.each { |doc| doc.run_callbacks(:save) }
+  end
 end

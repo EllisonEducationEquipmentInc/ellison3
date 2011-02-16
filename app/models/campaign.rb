@@ -1,9 +1,6 @@
 class Campaign
   include EllisonSystem
   include Mongoid::Document
-  # include Mongoid::Versioning
-  # include Mongoid::Timestamps
-  # include Mongoid::Paranoia
     
   DISCOUNT_TYPES = [["Percent", 0], ["Absolute", 1], ["Fixed", 2]]
   

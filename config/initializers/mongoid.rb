@@ -75,8 +75,10 @@ module Mongoid #:nodoc:
         # now bubble callbacks down
         self.relations.each_pair do |name, meta|
           if meta.relation == Mongoid::Relations::Embedded::Many #Mongoid::Associations::EmbedsMany
+            Rails.logger.info "!!! running callback #{kind} #{args} for #{name} called by #{self.class}"
             self.send(name).each { |doc| doc.send(:run_callbacks, kind, *args, &block) }
           elsif meta.relation == Mongoid::Relations::Embedded::One #Mongoid::Associations::EmbedsOne
+            Rails.logger.info "!!! running callback #{kind} #{args} for #{name} called by #{self.class}"
             self.send(name).send(:run_callbacks, kind, *args, &block) unless self.send(name).blank?
           end
         end

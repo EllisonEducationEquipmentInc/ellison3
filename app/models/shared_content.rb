@@ -2,7 +2,7 @@ class SharedContent
   include EllisonSystem
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::Associations::EmbeddedCallbacks
+  #include Mongoid::Associations::EmbeddedCallbacks
   
   PLACEMENTS = ["store_locator", "cart", "home"]
   
@@ -53,6 +53,8 @@ class SharedContent
   accepts_nested_attributes_for :visual_assets, :allow_destroy => true , :reject_if => proc { |attributes| attributes['name'].blank? && attributes['systems_enabled'].blank?}
 	validates_associated :visual_assets
 	
+	before_save :run_callbacks_on_children
+	
 	def products
 	  Product.where('tabs.shared_content_id' => self.id)
 	end
@@ -62,6 +64,10 @@ class SharedContent
 	end
 
 private 
+
+  def run_callbacks_on_children
+    self.visual_assets.each { |doc| doc.run_callbacks(:save) }
+  end
 
 	def placement_uniqueness
 	  errors.add(:placement, "already exists for any of these systems: #{self.systems_enabled * ', '}") if self.class.where(:_id.ne => self.id, :placement => self.placement, :systems_enabled.in => self.systems_enabled).count > 0

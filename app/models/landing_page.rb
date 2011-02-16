@@ -5,7 +5,7 @@ class LandingPage
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	include Mongoid::Paranoia
-	include Mongoid::Associations::EmbeddedCallbacks
+	#include Mongoid::Associations::EmbeddedCallbacks
 	
 	field :name
 	field :permalink
@@ -29,8 +29,6 @@ class LandingPage
 	index :updated_at
 	index :systems_enabled
 	
-  # before_save :save_image_visual_assets
-
   embeds_many :visual_assets do
     def current
 			ordered.select {|asset| asset.available?} #.sort {|x,y| x.display_order <=> y.display_order}
@@ -44,6 +42,8 @@ class LandingPage
 			@target.each {|t| t.display_order = ids.index(t.id.to_s)}
 		end
   end
+  
+  before_save :run_callbacks_on_children
   
   accepts_nested_attributes_for :visual_assets, :allow_destroy => true, :reject_if => proc { |attributes| attributes['name'].blank? && attributes['systems_enabled'].blank?}
 	validates_associated :visual_assets
@@ -68,7 +68,7 @@ class LandingPage
 
 private
   
-  def save_image_visual_assets
-    visual_assets.select {|e| e.asset_type == 'image'}.each {|asset| asset.valid?}
+  def run_callbacks_on_children
+    self.visual_assets.each { |doc| doc.run_callbacks(:save) }
   end
 end
