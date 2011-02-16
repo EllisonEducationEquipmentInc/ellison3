@@ -33,7 +33,7 @@ class Campaign
     
   validates_associated :individual_discounts
   
-  #after_validation :trigger_reindex_callback
+  # after_validation :trigger_reindex_callback
     
   def available?(time = Time.zone.now)
     start_date <= time && end_date >= time && active && systems_enabled.include?(current_system)
@@ -61,7 +61,7 @@ class Campaign
   end
   
   def scheduled_reindex
-    self.changed.select {|e| (["start_date", "end_date"]).include?(e)}.map { |m| self.send(m) }.uniq
+    new_record? ? [self.start_date, self.end_date] : self.changed.select {|e| (["start_date", "end_date"]).include?(e)}.map { |m| self.send(m) }.uniq
   end
   
   def trigger_reindex_callback

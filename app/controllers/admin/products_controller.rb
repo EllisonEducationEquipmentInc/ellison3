@@ -99,14 +99,12 @@ class Admin::ProductsController < ApplicationController
 	# campaign methods
 	def new_campaign
 		@product = Product.find(params[:id])
-		@campaign = Campaign.new
-		@campaign.product = @product
+		@campaign = @product.campaigns.build
 	end
 	
 	def create_campaign
 		@product = Product.find(params[:product_id])
-		@campaign = Campaign.new(params[:campaign])
-		@campaign.product = @product
+		@campaign = @product.campaigns.build(params[:campaign])
 	end
 	
 	def edit_campaign
