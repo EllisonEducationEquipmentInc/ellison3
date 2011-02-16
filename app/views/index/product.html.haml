@@ -6,12 +6,12 @@
   #large_image= image_tag(@product.large_image)
   #item_thumbnails.dontprint
     %ul
-      - unless @product.video.blank?
-        %li= video_thumbnail(@product.video)
       %li= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}'); return false;", :class => "thumbnail"
       - @product.images.each do |image|
         - next unless image.image?
         %li= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;", :class => "thumbnail"
+      - unless @product.video.blank?
+        %li= video_thumbnail(@product.video)
       .clear
   .controls
     = link_to "prev", "#", :class => "prev_button", :id => "prev_button", :onclick => "return false;"

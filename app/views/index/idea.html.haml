@@ -4,12 +4,12 @@
   #large_image= image_tag(@idea.large_image)
   #item_thumbnails.dontprint
     %ul
-      - unless @idea.video.blank?
-        %li= video_thumbnail(@idea.video)
       %li= link_to image_tag(@idea.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@idea.large_image)}'); return false;", :class => "thumbnail"
       - @idea.images.each do |image|
         - next unless image.image?
         %li= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;", :class => "thumbnail"
+      - unless @idea.video.blank?
+        %li= video_thumbnail(@idea.video)
       .clear
   .controls{ :style => "display: none"}
     = link_to "prev", "#", :class => "prev_button", :id => "prev_button", :onclick => "return false;"
