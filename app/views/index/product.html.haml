@@ -27,6 +27,10 @@
         visible: 6,
         circular: false
       });
+      
+      if ($("#item_thumbnails").find("ul li").length > 6) {
+        $(".controls").slideDown();
+      }
     });    
 %h3.item_title
   = @product.name.html_safe
