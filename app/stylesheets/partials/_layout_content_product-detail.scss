@@ -1,12 +1,12 @@
 .item_images { @include column(12); }
 .item_title { @include column(12, true); }
 .item_description { @include column(12, true);}
-.item_sociallinks { @include column(7);}
+.item_sociallinks { @include column(4);}
 .buybox {
   display: inline;
   float: left;
   margin-right: 0;
-  width: 176px;
+  width: 296px;
 }
 .item_compatibility { @include column(12, true);}
 

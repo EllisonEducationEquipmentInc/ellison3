@@ -620,7 +620,7 @@ h3.item_title {
   background: $catalog_product_bg;
   overflow: visible;
   z-index: 200;
-  height: 400px;
+  min-height: 377px;
   
 	.clearance_flag {
 	  position: absolute;
@@ -657,15 +657,22 @@ h3.item_title {
 }
 
 .item_sociallinks {
-	margin-top: 10px;
+  
+  iframe { margin: 6px 0 0 10px };
 }
 
-.buybox {
+.buybox { @extend .rounded;
   position: relative;
 	background: $catalog_buybox_bg;
 	border: 1px solid $catalog_buybox_border;
 	padding: 6px;
 	margin-bottom: 10px;
+	
+	.left {
+	  width: 113px;
+	  height: 60px;
+	  border-right: 1px solid $catalog_buybox_border;
+	}
 	
 	h4 {
 	  margin-top: 7px;

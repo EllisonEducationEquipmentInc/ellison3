@@ -8,7 +8,7 @@
     - @product.images.each do |image|
       - next unless image.image?
       .thumbnail= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;"
-  .buybox.rounded
+  .buybox
     %h4.itemnumber
       Item #
       = @product.item_num

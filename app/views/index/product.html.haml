@@ -13,7 +13,7 @@
       - unless @product.video.blank?
         %li= video_thumbnail(@product.video)
       .clear
-  .controls
+  .controls{ :style => "display: none"}
     = link_to "prev", "#", :class => "prev_button", :id => "prev_button", :onclick => "return false;"
     |
     = link_to "next", "#", :class => "next_button", :id => "next_button", :onclick => "return false;"
@@ -35,15 +35,16 @@
 %h3.item_title
   = @product.name.html_safe
   %span.life-cycle= @product.public_life_cycle
+.item_sociallinks.dontprint= facebook_like
+.buybox
+  .left.dontprint
+    %h4== Item ##{@product.item_num}
+    %h4= display_product_price(@product)
+  .right.dontprint
+    = add_to_cart_button(@product, 'add_to_cart detail')
 .item_description
   = @product.description.try :html_safe
   = link_to image_tag('/images/ui-objects/pdf_icon.gif'), @product.instructions, :target => '_blank', :title => "Instructions" if @product.instructions.present?
-.item_sociallinks.dontprint= facebook_like
-.buybox.rounded
-  %h4.itemnumber== Item ##{@product.item_num}
-  %h4= display_product_price(@product)
-  .dontprint
-    = add_to_cart_button(@product, 'add_to_cart detail')
 - if @product.product_line.present? && @product.product_line.compatibilities.length > 0
   -# TODO: cache + move to a helper
   .item_compatibility
