@@ -36,7 +36,7 @@
             hidden: false
           },
           selectable: true,
-          innerHtml: '#{link_to_unless current_currency == "gbp", image_tag("/images/ui-buttons/currency_en-UK.png", :title => "#{current_currency == "gbp" ? "currently set" : "switch"} to British Pounds", :alt => "#{current_currency == "gbp" ? "currently set" : "switch"} to British Pounds"), "#{uri_append_or_first}locale=en-UK"}<br />#{link_to_unless current_currency == "eur", image_tag("/images/ui-buttons/currency_en-EU.png", :title => "#{current_currency == "eur" ? "currently set" : "switch"} to the Euro", :alt => "#{current_currency == "eur" ? "currently set" : "switch"} to the Euro"), "#{uri_append_or_first}locale=en-EU"}',
+          innerHtml: '#{link_to_unless current_currency == "gbp", image_tag("/images/ui-buttons/currency_en-UK.png", :title => "#{current_currency == "gbp" ? "currently set" : "switch"} to British Pounds", :alt => "#{current_currency == "gbp" ? "currently set" : "switch"} to British Pounds"), "?#{request.query_parameters.merge("locale" => "en-UK").to_params}"}<br />#{link_to_unless current_currency == "eur", image_tag("/images/ui-buttons/currency_en-EU.png", :title => "#{current_currency == "eur" ? "currently set" : "switch"} to the Euro", :alt => "#{current_currency == "eur" ? "currently set" : "switch"} to the Euro"), "?#{request.query_parameters.merge("locale" => "en-EU").to_params}"}',
           innerHtmlStyle: {
             color: '#FFFFFF',
             'text-align': 'center'
