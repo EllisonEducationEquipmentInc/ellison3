@@ -206,7 +206,7 @@
     	
     	$("#product_ideas_helper").autocomplete({
       	source: function(request, response) {
-      		$.getJSON("/admin/ideas/ideas_autocomplete", {
+      		$.getJSON("/ideas_autocomplete", {
       			term: request.term
       		}, response);
       	},
