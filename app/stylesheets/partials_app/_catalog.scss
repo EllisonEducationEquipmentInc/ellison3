@@ -650,10 +650,23 @@ h3.item_title {
   }  
 }
 
-.item_description {
-  p {
+.item_description, .item_categories {
+  
+  h4, p {
     margin-bottom: 8px !important;
   }
+}
+
+.item_designers {
+  
+  #item_designers_thumbnails { @extend .thumbnail;
+    visibility: hidden;
+    
+    ul li {
+      float: left;
+      margin: 0;
+    }
+  }  
 }
 
 .item_sociallinks {

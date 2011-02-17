@@ -44,6 +44,40 @@
 .item_description
   = @product.description.try :html_safe
   %p= link_to "Download Instructions", @product.instructions, :target => '_blank', :title => "Download Instructions", :class => "link_instructions" if @product.instructions.present?
+.item_categories
+  - if @product.categories.count > 0
+    %p
+      %strong Categories: 
+      = @product.categories.map {|e| e.name} * ', '
+  - if @product.themes.count > 0
+    %p
+      %strong Themes: 
+      = @product.themes.map {|e| e.name} * ', '
+.item_designers
+  #item_designers_thumbnails.right.thumbnail
+    %ul
+      %li= link_to image_tag("/images/catalog/designers/dena_designs_sizzix_logo.jpg", :width => 65, :height => 65), '#'
+      %li= link_to image_tag("/images/catalog/designers/debi_potter_logo.jpg", :width => 65, :height => 65), '#'
+      %li= link_to image_tag("/images/catalog/designers/rachael_bright.jpg", :width => 65, :height => 65), '#'
+    :javascript
+      $(function() {
+        $("#item_designers_thumbnails").jCarouselLite({
+          scroll: 1,
+          visible: 1,
+          circular: true,
+          auto: 12000,
+          circular: true,
+          beforeStart: function(a) {
+            $(a).parent().fadeTo(1000, 0);
+            var bg = $(a).find('img').attr('src');
+            $('.banner_images_slider').css({backgroundImage: "url("+bg+")"}, 1000);
+          },
+          afterEnd: function(a) {
+            $(a).parent().fadeTo(1000, 1);
+          }
+        });
+      });
+
 - if @product.product_line.present? && @product.product_line.compatibilities.length > 0
   -# TODO: cache + move to a helper
   .item_compatibility
@@ -73,7 +107,7 @@
                 .clear
                 %p== Search for more #{link_to compatibility.compatible_tag.name.html_safe, catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")} in our catalog
 
-            = link_to image_tag(compatibility.compatible_tag.list_page_img, :width => "65", :height => "65"), "#compatible_tag_#{compatibility.id}", :id => "compatibility_thumbnail_#{compatibility.id}", :class => "lightbox thumbnail"
+            = link_to image_tag(compatibility.compatible_tag.list_page_img, :width => "65", :height => "65"), "#compatible_tag_#{compatibility.id}", :id => "compatibility_thumbnail_#{compatibility.id}", :class => "lightbox thumbnail", :alt => "#{compatibility.compatible_tag.name.html_safe}", :title => "#{compatibility.compatible_tag.name.html_safe}"
       .controls{ :style => "display: none"}
         = link_to "prev", "#", :class => "prev_button", :id => "prev_compat_thumb", :onclick => "return false;"
         |

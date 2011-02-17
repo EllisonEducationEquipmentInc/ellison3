@@ -8,6 +8,8 @@
   margin-right: 0;
   width: 296px;
 }
+.item_categories { @include column(9);}
+.item_designers { @include column(3, true);}
 .item_compatibility { @include column(12, true);}
 .item_detail { @include column(19); }
 .item_detail-tabbed { @include column(24, true); }

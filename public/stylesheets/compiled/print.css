@@ -67,7 +67,7 @@ Backtrace:
 <internal:prelude>:10:in `synchronize'
 /usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/rack-1.2.1/lib/rack/lock.rb:11:in `call'
 /home/jose/ELLISON3/app/middlewares/gridfs.rb:39:in `call'
-/home/jose/ELLISON3/app/middlewares/solr_terms.rb:22:in `call'
+/home/jose/ELLISON3/app/middlewares/solr_terms.rb:27:in `call'
 /usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/actionpack-3.0.4/lib/action_dispatch/middleware/static.rb:30:in `call'
 /usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/railties-3.0.4/lib/rails/application.rb:168:in `call'
 /usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/railties-3.0.4/lib/rails/application.rb:77:in `method_missing'
