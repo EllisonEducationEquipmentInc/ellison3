@@ -55,8 +55,8 @@ module Ellison3
       	
     config.action_mailer.default :charset => "utf-8"
     
-    config.middleware.insert_before ActionDispatch::Static, "SolrTerms" 
-    config.middleware.insert_after ActionDispatch::Static, "Gridfs"
-    #config.middleware.insert_after ActionDispatch::Flash, "DynamicCache"
+    config.middleware.insert_before Rack::Lock, "SolrTerms" 
+    config.middleware.insert_before Rack::Lock, "Gridfs"
+    config.middleware.insert_after ActionDispatch::Flash, "DynamicCache"
   end
 end
