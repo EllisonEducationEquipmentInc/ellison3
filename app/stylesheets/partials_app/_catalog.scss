@@ -641,13 +641,13 @@ h3.item_title {
   
     .thumbnail { float: left; }
   	.video-thumbnail { @extend .thumbnail; }
-  }
-  
-  .controls {
-    margin: 0 0 3px 4px;
+  	
+    .controls {
+      margin: 0 0 3px 4px;
     
-    a { @extend .minilink; }
-  }
+      a { @extend .minilink; }
+    }
+  }  
 }
 
 .item_description {
@@ -807,11 +807,12 @@ h3.item_title {
     visibility: hidden;
   
     .thumbnail { float: left; }
-  }
-  .controls {
-    margin: 0 0 3px 4px;
+    
+    .controls {
+      margin: 0 0 3px 4px;
   
-    a { @extend .minilink; }
+      a { @extend .minilink; }
+    }
   }
 }
 
