@@ -74,7 +74,11 @@ module AdminHelper
             $.ajax({url:'/admin/ideas/idea_helper', context: $(e.currentTarget).parent(), beforeSend: function(){$(this).find('.idea_helper_link').replaceWith('#{escape_javascript spinner}')}, success: function(data){$(this).find('.spinner').replaceWith(data);check_items_checkboxes(this, 'idea')}});
             return false;
           });
-          $('##{sanitize_to_id(name)}').autocomplete(auto_complete_options);
+          $('##{sanitize_to_id(name)}').autocomplete($.extend({}, auto_complete_options, {source: function(request, response) {
+          		$.getJSON("/ideas_autocomplete", {
+          			term: extractLast(request.term)
+          		}, response);
+          	}}));
           
           $('.idea_search_by_tag').autocomplete({
             source: function(request, response) {
