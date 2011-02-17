@@ -9,7 +9,7 @@ class DynamicCache
     if should_cache?(env)
       
       domain_to_system(env['HTTP_HOST'])
-      set_current_system env["rack.session"]["system"] if Rails.env == 'development'
+      set_current_system env["rack.session"]["system"] #if Rails.env == 'development'
       
       I18n.locale = env["rack.session"]["locale"] if env["rack.session"]["locale"] && allowed_locales.include?(env["rack.session"]["locale"].to_s)
   		set_default_locale unless allowed_locales.include?(I18n.locale.to_s)
