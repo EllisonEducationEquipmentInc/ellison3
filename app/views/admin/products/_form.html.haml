@@ -155,7 +155,7 @@
     :javascript
       $('#product_related_product_tag').autocomplete({
       	source: function(request, response) {
-      		$.getJSON("/admin/tags/tags_autocomplete", {
+      		$.getJSON("/tags_autocomplete", {
       			term: request.term
       		}, response);
       	},
@@ -185,7 +185,7 @@
     });
     $("#product_tags_helper").autocomplete({
     	source: function(request, response) {
-    		$.getJSON("/admin/tags/tags_autocomplete", {
+    		$.getJSON("/tags_autocomplete", {
     			term: request.term
     		}, response);
     	},

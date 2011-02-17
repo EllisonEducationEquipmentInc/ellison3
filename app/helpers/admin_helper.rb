@@ -31,7 +31,7 @@ module AdminHelper
           
           $('.product_search_by_tag').autocomplete({
             source: function(request, response) {
-          		$.getJSON("/admin/tags/tags_autocomplete", {
+          		$.getJSON("/tags_autocomplete", {
           			term: request.term
           		}, response);
           	},
@@ -82,7 +82,7 @@ module AdminHelper
           
           $('.idea_search_by_tag').autocomplete({
             source: function(request, response) {
-          		$.getJSON("/admin/tags/tags_autocomplete", {
+          		$.getJSON("/tags_autocomplete", {
           			term: request.term
           		}, response);
           	},

@@ -23,6 +23,11 @@ class SolrTerms
       solr_response = Net::HTTP.get(URI.parse("#{solr_path}/select?fq=type%3AIdea&fq=active_b%3Atrue&q=#{term.strip.gsub(/\+$/, '')}*&fl=id+idea_num_ss+stored_name_ss&qf=idea_num_ss+stored_name_ss&start=0&rows=10&wt=ruby&omitHeader=true&json.nl=arrarr"))
       hash = eval(solr_response)
       [200, {"Content-Type" => 'text/plain; charset=utf-8'}, hash["response"]["docs"].inject([]) {|arr, e| arr << {"id" => e['id'].gsub("Idea ", ''), "label" => "#{e['idea_num_ss']} - #{e['stored_name_ss']}", "value" => e['idea_num_ss']}}.to_json]
+    elsif env["REQUEST_URI"] =~ /^\/tags_autocomplete\?term=(.+)$/
+      term = $1
+      solr_response = Net::HTTP.get(URI.parse("#{solr_path}/select?fq=type%3ATag&fq=active_b%3Atrue&q=#{term.strip.gsub(/\+$/, '')}*&fl=id+stored_name_ss+tag_type_ss&qf=stored_name_ss&start=0&rows=10&wt=ruby&omitHeader=true&json.nl=arrarr"))
+      hash = eval(solr_response)
+      [200, {"Content-Type" => 'text/plain; charset=utf-8'}, hash["response"]["docs"].inject([]) {|arr, e| arr << {"id" => e['id'].gsub("Tag ", ''), "label" => "#{e['stored_name_ss']} (#{e['tag_type_ss']})", "value" => e['stored_name_ss']}}.to_json]
     else
       @app.call(env)
     end
