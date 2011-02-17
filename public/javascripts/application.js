@@ -388,13 +388,13 @@ function extractLast(term) {
 
 var single_auto_complete_options = {
 	source: function(request, response) {
-		$.getJSON("/admin/products/products_autocomplete", {
+		$.getJSON("/products_autocomplete", {
 			term: extractLast(request.term)
 		}, response);
 	},
 	search: function() {
 		var term = extractLast(this.value);
-		if (term.length < 3) {
+		if (term.length < 2) {
 			return false;
 		}
 	},
@@ -409,14 +409,14 @@ var single_auto_complete_options = {
 
 var auto_complete_options = {
 	source: function(request, response) {
-		$.getJSON("/admin/products/products_autocomplete", {
+		$.getJSON("/products_autocomplete", {
 			term: extractLast(request.term)
 		}, response);
 	},
 	search: function() {
 		// custom minLength
 		var term = extractLast(this.value);
-		if (term.length < 2 || term.replace(/^All\s?/, '').length < 3) {
+		if (term.length < 2 || term.replace(/^All\s?/, '').length < 2) {
 			return false;
 		}
 	},

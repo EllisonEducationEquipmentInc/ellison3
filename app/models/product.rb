@@ -216,7 +216,7 @@ class Product
 		integer :saving, :stored => true
 		time :outlet_since
 		LOCALES_2_CURRENCIES.values.each do |currency|
-      float :"msrp_#{currency}" do
+      float :"msrp_#{currency}", :stored => true do
         msrp :currency => currency
       end
     end

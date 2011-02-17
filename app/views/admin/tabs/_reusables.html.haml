@@ -15,7 +15,7 @@ Search for product whose tab needs to be cloned:
   initialize_buttons();
   $("#reusable_tab_helper").autocomplete({
   	source: function(request, response) {
-  		$.getJSON("/admin/products/products_autocomplete", {
+  		$.getJSON("/products_autocomplete", {
   			term: request.term
   		}, response);
   	},
