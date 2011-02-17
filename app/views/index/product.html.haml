@@ -47,7 +47,7 @@
   %p= link_to "Download Instructions", @product.instructions, :target => '_blank', :title => "Download Instructions", :class => "link_instructions" if @product.instructions.present?
 - if @product.product_line.present? && @product.product_line.compatibilities.length > 0
   -# TODO: cache + move to a helper
-  .item_compatibility
+  .item_compatibility.ui-corner-all{ :class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
     %h4 Compatibility
     %p== This #{@product.item_type} is compatible with these product lines:
     %ul

@@ -9,6 +9,13 @@
   width: 296px;
 }
 .item_compatibility { @include column(12, true);}
+.item_compatibility {
+  display: inline;
+  float: left;
+  margin-right: 0;
+  width: 458px;
+}
+
 
 .item_detail { @include column(19); }
 .item_detail-tabbed { @include column(24, true); }

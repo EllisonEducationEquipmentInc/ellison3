@@ -800,6 +800,10 @@ h3.item_title {
 
 // machine/die compatibility information
 .item_compatibility {
+  padding: 5px;
+  
+  &.ui-widget-header { font-weight: normal; }
+  
   p { margin-bottom: 0 !important;}
   
   p.icon-info { @extend .minilink; }
