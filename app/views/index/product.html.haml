@@ -44,7 +44,7 @@
     = add_to_cart_button(@product, 'add_to_cart detail')
 .item_description
   = @product.description.try :html_safe
-  = link_to image_tag('/images/ui-objects/pdf_icon.gif'), @product.instructions, :target => '_blank', :title => "Instructions" if @product.instructions.present?
+  %p= link_to "Download Instructions", @product.instructions, :target => '_blank', :title => "Download Instructions", :class => "link_instructions" if @product.instructions.present?
 - if @product.product_line.present? && @product.product_line.compatibilities.length > 0
   -# TODO: cache + move to a helper
   .item_compatibility

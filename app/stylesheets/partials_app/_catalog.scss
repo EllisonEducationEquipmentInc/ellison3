@@ -668,10 +668,15 @@ h3.item_title {
 	padding: 6px;
 	margin-bottom: 10px;
 	
-	.left {
-	  width: 113px;
-	  height: 60px;
-	  border-right: 1px solid $catalog_buybox_border;
+	.right {
+	  width: 176px;
+	  padding-left: 6px;
+	  border-left: 1px solid $catalog_buybox_border;
+	  
+	  span.message {
+      font-family: Verdana,Arial,sans-serif;
+      font-size: .85em;
+	  }
 	}
 	
 	h4 {

@@ -138,7 +138,7 @@ HTML
 
 	
 	def facebook_like
-		%(<iframe src="http://www.facebook.com/plugins/like.php?href=#{request.url}&amp;layout=box_count&amp;show_faces=true&amp;width=140&amp;action=like&amp;colorscheme=light&amp;height=65" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:140px; height:65px;" allowTransparency="true"></iframe>).html_safe
+		%(<iframe src="http://www.facebook.com/plugins/like.php?href=#{request.url}&amp;layout=box_count&amp;show_faces=false&amp;width=140&amp;action=like&amp;colorscheme=light&amp;height=65" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:140px; height:65px;" allowTransparency="true"></iframe>).html_safe
 	end
 	
 	def facet_to_param(facet)
