@@ -7,31 +7,30 @@
   #item_thumbnails.dontprint
     %ul
       %li= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}'); return false;", :class => "thumbnail"
+      - unless @product.video.blank?
+        %li= video_thumbnail(@product.video)
       - @product.images.each do |image|
         - next unless image.image?
         %li= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;", :class => "thumbnail"
-      - unless @product.video.blank?
-        %li= video_thumbnail(@product.video)
-      .clear
-  .controls{ :style => "display: none"}
-    = link_to "prev", "#", :class => "prev_button", :id => "prev_button", :onclick => "return false;"
-    |
-    = link_to "next", "#", :class => "next_button", :id => "next_button", :onclick => "return false;"
-  :javascript
-    $(function() {
-      $("#item_thumbnails").jCarouselLite({
-        btnPrev: "#prev_button",
-        btnNext: "#next_button",
-        scroll: 1,
-        speed: 900,
-        visible: 6,
-        circular: false
-      });
+    .controls{ :style => "display: none"}
+      = link_to "prev", "#", :class => "prev_button", :id => "prev_item_thumb", :onclick => "return false;"
+      |
+      = link_to "next", "#", :class => "next_button", :id => "next_item_thumb", :onclick => "return false;"
+    :javascript
+      $(function() {
+        $("#item_thumbnails").jCarouselLite({
+          btnPrev: "#prev_item_thumb",
+          btnNext: "#next_item_thumb",
+          scroll: 1,
+          speed: 900,
+          visible: 6,
+          circular: false
+        });
       
-      if ($("#item_thumbnails").find("ul li").length > 6) {
-        $(".controls").slideDown();
-      }
-    });    
+        if ($("#item_thumbnails").find("ul li").length > 6) {
+          $("#item_thumbnails .controls").slideDown();
+        }
+      });    
 %h3.item_title
   = @product.name.html_safe
   %span.life-cycle= @product.public_life_cycle
@@ -47,56 +46,53 @@
   %p= link_to "Download Instructions", @product.instructions, :target => '_blank', :title => "Download Instructions", :class => "link_instructions" if @product.instructions.present?
 - if @product.product_line.present? && @product.product_line.compatibilities.length > 0
   -# TODO: cache + move to a helper
-  .item_compatibility.ui-corner-all{ :class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
+  .item_compatibility
     %h4 Compatibility
     %p== This #{@product.item_type} is compatible with these product lines:
-    %ul
-      - @product.product_line.compatibilities.each do |compatibility|
-        - next unless compatibility.compatible_tag.present?
-        %li
-          %div{:style => "display:none"}
-            %div{:id => "compatible_tag_#{compatibility.id}", :class => "compatibility_detail"}
-              %h4
-                %strong== #{compatibility.compatible_tag.name.html_safe}
+    #item_compatibility_thumbnails
+      %ul
+        - @product.product_line.compatibilities.each do |compatibility|
+          - next unless compatibility.compatible_tag.present?
+          %li
+            %div{:style => "display:none"}
+              %div{:id => "compatible_tag_#{compatibility.id}", :class => "compatibility_detail"}
+                %h4
+                  %strong== #{compatibility.compatible_tag.name.html_safe}
+                  - if compatibility.products.length > 0
+                    requires
+                    %strong==#{pluralize compatibility.products.length, "additional accessory"}
+                    == for full compatibility
+                  - else
+                    %strong is fully compatible
+                  == with #{@product.name.html_safe}
+                .compatible_tag.ui-corner-all{:class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
+                  = link_to image_tag(compatibility.compatible_tag.list_page_img), catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")
+                .plus_sign.ui-icon.ui-icon-plusthick
                 - if compatibility.products.length > 0
-                  requires
-                  %strong==#{pluralize compatibility.products.length, "additional accessory"}
-                  == for full compatibility
-                - else
-                  %strong is fully compatible
-                == with #{@product.name.html_safe}
-              .compatible_tag.ui-corner-all{:class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
-                = link_to image_tag(compatibility.compatible_tag.list_page_img), catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")
-              .plus_sign.ui-icon.ui-icon-plusthick
-              - if compatibility.products.length > 0
-                = render :partial => 'products/compatibility_product', :collection => Product.available.where(:item_num.in => compatibility.products).cache, :spacer_template => 'tabs/separator', :as => :product
-              .clear
-              %p== Search for more #{link_to compatibility.compatible_tag.name.html_safe, catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")} in our catalog
+                  = render :partial => 'products/compatibility_product', :collection => Product.available.where(:item_num.in => compatibility.products).cache, :spacer_template => 'tabs/separator', :as => :product
+                .clear
+                %p== Search for more #{link_to compatibility.compatible_tag.name.html_safe, catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")} in our catalog
 
-          = link_to "#compatible_tag_#{compatibility.id}", :id => "compatibility_thumbnail_#{compatibility.id}", :class => "lightbox #{compatibility.products.present? ? 'link_compatibility' : nil} tooltip_#{compatibility.products.length}-items" do
-            = compatibility.compatible_tag.name.html_safe
-            :javascript
-              $('.tooltip_#{compatibility.products.length}-items').CreateBubblePopup({
-                position: 'top',
-                align: 'center',
-                tail: {
-                  align: 'middle',
-                  hidden: false
-                },
-                selectable: true,
-                innerHtml: '<div style="width:175px;"><strong>#{pluralize compatibility.products.length, "additional accessory"}</strong> required</div>',
-                innerHtmlStyle: {
-                  color: '#333333',
-                  'text-align': 'center'
-                },
-                themeName: 'azure',
-                themePath: '/images/ui-plugins/bubblepopup'
-              });
-
-    .clear
-    %p.icon-info
-      == Items denoted by the #{image_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/star.png", :alt => "Compatibility Info", :title => "Compatibility Info")} icon require additional accessories for complete compatibility. Click on each for full details.
-
+            = link_to image_tag(compatibility.compatible_tag.list_page_img, :width => "65", :height => "65"), "#compatible_tag_#{compatibility.id}", :id => "compatibility_thumbnail_#{compatibility.id}", :class => "lightbox thumbnail"
+      .controls{ :style => "display: none"}
+        = link_to "prev", "#", :class => "prev_button", :id => "prev_compat_thumb", :onclick => "return false;"
+        |
+        = link_to "next", "#", :class => "next_button", :id => "next_compat_thumb", :onclick => "return false;"
+      :javascript
+        $(function() {
+          $("#item_compatibility_thumbnails").jCarouselLite({
+            btnPrev: "#prev_compat_thumb",
+            btnNext: "#next_compat_thumb",
+            scroll: 1,
+            speed: 900,
+            visible: 6,
+            circular: false
+          });
+      
+          if ($("#item_compatibility_thumbnails").find("ul li").length > 6) {
+            $("#item_compatibility_thumbnails .controls").slideDown();
+          }
+        });
 %div{ :class => "item_detail#{'-tabbed' if @product.use_tabs}"}
   = render :partial => "#{'non_' unless @product.use_tabs}tab_block", :locals => {:object => @product}
 - unless @product.use_tabs
