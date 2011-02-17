@@ -30,7 +30,7 @@ class DynamicCache
   end
   
   def should_cache?(env)
-    (env["PATH_INFO"] =~ /^\/$/ || env["PATH_INFO"] =~ /^\/index\/(limited_|quick_)?search/) && env["rack.session"].present? && env["rack.session"]["system"].present? && env["rack.session"]["system"] != 'er' && env["rack.session"]["locale"].present? #&& env['QUERY_STRING'].blank?
+    (env["PATH_INFO"] =~ /^\/index\/(limited_|quick_)?search/) && env["rack.session"].present? && env["rack.session"]["system"].present? && env["rack.session"]["system"] != 'er' && env["rack.session"]["locale"].present? #&& env['QUERY_STRING'].blank?
   end
   
 end
