@@ -68,8 +68,8 @@ class Idea
   end
 	embeds_many :images
 	
-	references_and_referenced_in_many :tags, :index => true
-	references_and_referenced_in_many :products, :index => true
+	references_and_referenced_in_many :tags, :index => true, :validate => false
+	references_and_referenced_in_many :products, :index => true, :validate => false
   
 	# scopes
 	scope :active, :where => { :active => true }
