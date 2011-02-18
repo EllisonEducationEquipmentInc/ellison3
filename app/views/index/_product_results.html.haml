@@ -5,7 +5,8 @@
     #tag_visual_assets= render @breadcrumb_tags.reverse.detect {|e| e.visual_assets.present?}.visual_assets.current
   - if @search.total > 1
     .right= select_tag :sort, options_for_select(@sort_options, params[:sort]), :onchange => "location.hash = $.param.fragment( location.hash, {sort: this.value, page: 1}, 0 )"
-  .toggleview= link_to "list view", "#", :class => "toggle_view"
+  - if @search.total > 0
+    .toggleview= link_to "list view", "#", :class => "toggle_view"
   %ul#catalogtabs
     %li= link_to "<span>#{pluralize @product_search.total, "Product"} #{outlet? || idea? ? 'Found' : 'Showing'}</span>".html_safe, "#", :id => "toggle_product", :class => "tab #{'in' if outlet? || idea?}active"
     %li= link_to "<span>#{pluralize @idea_search.total, idea_name.capitalize} #{idea? ? 'Showing' : 'Found'}</span>".html_safe, "#", :id => "toggle_idea", :class => "tab #{'in' unless idea?}active"
