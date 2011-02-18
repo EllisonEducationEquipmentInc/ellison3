@@ -4,10 +4,10 @@
   %meta{ :name => "keywords", :content => "#{@keywords}" }
 - if @description.present?
   %meta{ :name => "description", :content => "#{strip_tags @description}" }
-- if current_system == 'er' || current_system == 'eeus' || current_system == 'eeuk'
-  = stylesheet_link_tag 'jqui-er/jquery-ui-1.8.6.custom.css', :media => 'all'
-- else
+- if current_system == 'szus'
   = stylesheet_link_tag 'jqui-ellison3/jquery-ui-1.8.4.custom.css', :media => 'all'
+- else
+  = stylesheet_link_tag 'jqui-er/jquery-ui-1.8.6.custom.css', :media => 'all'
 = stylesheet_link_tag :all
 = stylesheet_link_tag "compiled/screen_#{current_system}.css", :media => 'screen, projection'
 = stylesheet_link_tag 'compiled/application.css', :media => 'screen, projection'
