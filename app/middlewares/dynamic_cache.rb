@@ -25,8 +25,6 @@ class DynamicCache
     else
       @app.call(env)
     end
-  rescue Exception => e
-    [500, {"Content-Type" => 'text/plain; charset=utf-8'}, [e.to_s]]
   end
   
   def should_cache?(env)
