@@ -158,7 +158,7 @@ class Product
 		end
 		
 		def related_to(exluded_product, outlet = false)
-		  criteria = available.where(:_id.ne => exluded_product.id, :systems_enabled.in => [current_system], :"quantity_#{is_us? ? 'us' : 'uk'}".gt => 0, :life_cycle.in => ['available']).limit(4)
+		  criteria = listable.where(:_id.ne => exluded_product.id).limit(5)
 		  #criteria = criteria.where(:outlet => outlet) if is_sizzix_us?
 		  criteria
 		end
