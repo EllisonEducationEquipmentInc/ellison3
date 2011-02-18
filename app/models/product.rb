@@ -282,7 +282,7 @@ class Product
 	
 	def wholesale_price(options = {})
 	 	currency = options[:currency] || current_currency
-		send("wholesale_price_#{currency}") || (msrp(:currency => currency)/2.0).round(2)
+		send("wholesale_price_#{currency}") || (msrp(:currency => currency)/2.0).round(2) rescue msrp(:currency => currency)
 	end
 
 	def handling_price=(p)
