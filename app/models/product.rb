@@ -20,7 +20,7 @@ class Product
 	QUANTITY_THRESHOLD = 0
 	LIFE_CYCLES = ['pre-release', 'available', 'discontinued', 'unavailable']
 	ITEM_TYPES = ['die', 'machine', 'supply', 'accessory', 'bundle']
-	ITEM_GROUPS = ['Sizzix', 'Ellison', 'Ellison Designs', 'AllStar', 'Third Party']
+	ITEM_GROUPS = ['Sizzix', 'Ellison']
 	
 	cattr_accessor :retailer_discount_level
 	
@@ -211,6 +211,7 @@ class Product
 		string :stored_name, :stored => true do
 		  name
 		end
+		string :item_group
 		string :systems_enabled, :multiple => true
     # integer :quantity, :stored => true
 		integer :saving, :stored => true

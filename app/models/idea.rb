@@ -37,6 +37,7 @@ class Idea
 	field :related_idea_tag
 	field :use_tabs, :type => Boolean, :default => true
 	field :video
+	field :item_group
 	
 	index :idea_num, :unique => true, :background => true
 	index :systems_enabled
@@ -116,6 +117,7 @@ class Idea
 		string :stored_name, :stored => true do
 		  name
 		end
+		string :item_group
 		string :systems_enabled, :multiple => true
     ELLISON_SYSTEMS.each do |system|
       # system specific facets: ex: theme_szus
