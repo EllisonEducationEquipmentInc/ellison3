@@ -217,11 +217,9 @@ class Idea
 	end
 	
 	def related_tag
-	  if self.related_idea_tag.valid_bson_object_id?
-	    Tag.find(self.related_idea_tag)
-	  else
-	    tags.available.send(is_ee? ? :subcurriculums : :themes).first	    
-	  end
+	  Tag.find(self.related_idea_tag)
+	rescue
+	  tags.available.send(is_ee? ? :subcurriculums : :themes).first
 	end
 	
 	def four_related_criteria

@@ -490,11 +490,9 @@ class Product
 	end
 	
 	def related_tag
-	  if self.related_product_tag.valid_bson_object_id?
-	    Tag.available.find(self.related_product_tag)
-	  else
-	    tags.available.send(is_ee? ? :subcurriculums : :subthemes).first || tags.available.send("#{'sub' unless is_ee?}categories").first
-	  end
+	  Tag.available.find(self.related_product_tag)
+  rescue
+    tags.available.send(is_ee? ? :subcurriculums : :subthemes).first || tags.available.send("#{'sub' unless is_ee?}categories").first
 	end
 	
 	def four_related_criteria
