@@ -1,4 +1,4 @@
-%h2== #{@klass} #{params[:id].humanize}
+%h2== #{@klass.public_name} #{params[:id].humanize}
 =# this is the header image. dynamic, based on the tag group and system. ex: "/images/landing/themes_szus.jpg"
 .tag_landing_header.ui-corner-all{ :class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}", :style => "background: url('/images/landing/#{params[:id]}_#{current_system}.jpg') no-repeat top center;"} &nbsp;
 - @search.facet(:"#{params[:id].singularize}_#{current_system}").rows.each do |row|
