@@ -49,12 +49,14 @@
     %p
       %strong Categories: 
       = @product.categories.map {|e| e.name} * ', '
+  - else
+    &nbsp;
   - if @product.themes.count > 0
     %p
       %strong Themes: 
       = @product.themes.map {|e| e.name} * ', '
 .item_designers
-  #item_designers_thumbnails.right.thumbnail
+  #item_designers_thumbnails
     %ul
       %li= link_to image_tag("/images/catalog/designers/dena_designs_sizzix_logo.jpg", :width => 65, :height => 65), '#'
       %li= link_to image_tag("/images/catalog/designers/debi_potter_logo.jpg", :width => 65, :height => 65), '#'

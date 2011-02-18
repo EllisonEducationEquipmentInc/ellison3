@@ -659,7 +659,9 @@ h3.item_title {
 
 .item_designers {
   
-  #item_designers_thumbnails { @extend .thumbnail;
+  #item_designers_thumbnails {
+    @extend .right;
+    @extend .thumbnail;
     visibility: hidden;
     
     ul li {
