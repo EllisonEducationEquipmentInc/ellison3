@@ -12,20 +12,20 @@ body.bp {
   
   .container {
     padding-bottom: 20px;
-    background: url("/images/ui-backgrounds/_#{$system}_root.gif") no-repeat center top;
+    background: url("/images/ui-backgrounds/_#{$system}_root.png") no-repeat center top;
   }
 }
 
 #header {
   margin: 8px 0 0 0;
-  height:118px;
+  height:144px;
   
   #logo_masthead {
   	background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
   	display: block;
   	width: 177px; 
   	height: 98px;
-  	margin: 2px 0 0 17px;
+  	margin: 2px 0 0 22px;
   	text-indent: -9999em;
   }
   
@@ -44,7 +44,7 @@ body.bp {
   #searchbar {
     width: 467px;
     height: 62px;
-    margin: 7px 6px 0 0;
+    margin: 0 10px 0 0;
     
     input.textfield {
       border: none;
@@ -67,13 +67,13 @@ body.bp {
   #shoppingcart_icon {
     width: 52px;
     height: 62px;
-    margin: 7px 0 0 0;
+    margin: 0 0 0 0;
   }
 
   #shoppingcart_info {
     width: 158px;
     height: 62px;
-    margin: 7px 0 0 0;
+    margin: 0 0 0 0;
     
     #cartspinner, p {
       margin: 15px 0 0 5px;
@@ -81,7 +81,7 @@ body.bp {
   }
   
   #nav_megamenu {
-    
+
     .megalink {
       font-family:  'PT Sans', Helvetica, Arial, sans-serif;
       font-size: 1.1em;
@@ -160,13 +160,13 @@ body.bp {
   height: 360px;
 
   a.prevBtn {
-    top: 155px;
-    left: 8px;    
+    top: 136px;
+    left: -1;    
   }
   
   a.nextBtn {
     top: 138px;
-    left: 899px;
+    left: 907px;
   }
 }
 
