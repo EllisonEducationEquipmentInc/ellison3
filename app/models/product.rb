@@ -510,6 +510,10 @@ class Product
 	  self.product_lines.first
 	end
 	
+	# returns true if product became out-of-stock, or in-stock
+	def stock_status_changed?
+	  self.changes.select {|k,v| WAREHOUSES.map {|e| "quantity_#{e}"}.include?(k)}.values.any? {|e| e[0] > QUANTITY_THRESHOLD && e[1] <= QUANTITY_THRESHOLD || e[0] <= QUANTITY_THRESHOLD && e[1] > QUANTITY_THRESHOLD}
+	end
 	
 private 
 
@@ -557,7 +561,7 @@ private
 	end
 	
 	def reindex?
-	  @marked_for_auto_indexing = self.changed? && self.changed.any? {|e| (["systems_enabled", "active", "outlet", "life_cycle", "tag_ids"] + ELLISON_SYSTEMS.map {|s| ["orderable_#{s}"]}.flatten + LOCALES_2_CURRENCIES.values.map {|c| ["msrp_#{c}", "wholesale_price_#{c}"]}.flatten).include?(e)} || campaigns.any? {|c| c.reindex?}
+	  @marked_for_auto_indexing = self.changed? && self.changed.any? {|e| (["systems_enabled", "active", "outlet", "life_cycle", "tag_ids"] + ELLISON_SYSTEMS.map {|s| ["orderable_#{s}"]}.flatten + LOCALES_2_CURRENCIES.values.map {|c| ["msrp_#{c}", "wholesale_price_#{c}"]}.flatten).include?(e)} || campaigns.any? {|c| c.reindex?} || stock_status_changed?
 	  @scheduled_indexing_campaign_dates = campaigns.map {|c| c.scheduled_reindex}.flatten.uniq
     Rails.logger.info "!!! reindex? called @scheduled_indexing_campaign_dates: #{@scheduled_indexing_campaign_dates.inspect}"
 	  @marked_for_scheduled_auto_indexing = self.changed.select {|e| e =~ /^(start|end)_date/}
@@ -580,4 +584,5 @@ private
 	  @scheduled_indexing_campaign_dates.each {|d| self.delay(:run_at => d > Time.now ? d : Time.now).index!}
     @marked_for_scheduled_auto_indexing = []
 	end
+	
 end
