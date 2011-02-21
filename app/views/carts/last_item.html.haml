@@ -1,0 +1,42 @@
+%h2== The following item has been successfully added to your shopping #{(t :cart)}
+%table{:cellpadding => 10}
+  %thead
+    %tr
+      %th{:width => 60} Item No.
+      %th{:width => 70} Item Name
+      %th{:width => 400}
+      %th{:style => "text-align: right", :width => 80} Retail Price
+      %th{:style => "text-align: right", :width => 75} You Pay
+      %th{:style => "text-align: right", :width => 70} Quantity
+      %th{:style => "text-align: right", :width => 75} Total Price
+      - unless @cart_locked
+        %th
+      %th
+  %tbody
+    %tr{:id => "cart_item_#{get_cart.cart_items.last.id}"}
+      %td{:class => get_cart.cart_items.last.pre_order ? 'pre_order' : nil}
+        = get_cart.cart_items.last.item_num
+        - if get_cart.cart_items.last.pre_order
+          %br
+          Pre-order
+        - elsif get_cart.cart_items.last.out_of_stock
+          %br
+          Out of stock
+      %td
+        .thumbnail
+          = link_to(image_tag(get_cart.cart_items.last.small_image), product_url(:id => get_cart.cart_items.last.product_id)) unless get_cart.cart_items.last.small_image.blank?
+          - if get_cart.cart_items.last.product.outlet
+            .clearance_flag= link_to(image_tag("/images/ui-objects/pricetag_outlet.png", :alt => "On Sale!", :title => "On Sale!"), product_url(:id => get_cart.cart_items.last.product_id)) unless get_cart.cart_items.last.small_image.blank?
+      %td= get_cart.cart_items.last.product_id.blank? ? get_cart.cart_items.last.name : link_to(get_cart.cart_items.last.name, product_url(:id => get_cart.cart_items.last.product_id))
+      %td{:style => "text-align: right"}= number_to_currency get_cart.cart_items.last.msrp
+      %td{:style => "text-align: right", :id => "cart_item_price_#{get_cart.cart_items.last.id}", :class => get_cart.is_cart_item_changed?(get_cart.cart_items.last.id, "price") ? 'cart_item_price item_changed' : 'cart_item_price'}= display_product_price_cart get_cart.cart_items.last
+      %td{:style => "text-align: right", :class => get_cart.is_cart_item_changed?(get_cart.cart_items.last.id, "quantity") ? 'item_changed' : nil}= get_cart.cart_items.last.quantity
+      %td{:style => "text-align: right", :id => "cart_item_total_#{get_cart.cart_items.last.id}", :class => "cart_extended_price"}= number_to_currency gross_price(get_cart.cart_items.last.total)
+    %tr
+      %td
+      %td
+      %td
+      %td
+      %td
+      %td{:style => "text-align: right", :class => "cart_extended_price"} Subtotal:
+      %td#cart_subtotal{:style => "text-align: right", :class => "cart_extended_price"}= number_to_currency gross_price(get_cart.sub_total)
