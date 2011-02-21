@@ -13,13 +13,13 @@
   :javascript
     $(".product_autocomplete").autocomplete({
       source: function(request, response) {
-        $.getJSON("/admin/products/products_autocomplete", {
+        $.getJSON("/products_autocomplete", {
           term: extractLast(request.term)
         }, response);
       },
       search: function() {
         var term = extractLast(this.value);
-        if (term.length < 3) {
+        if (term.length < 2) {
           return false;
         }
       },
@@ -29,7 +29,7 @@
       select: function(event, ui) {
         this.value = split(ui.item.value).pop(); 
         $(this).siblings('.product_info').val(ui.item.label+' MSRP: '+ui.item.msrp);
-        $(this).siblings('input.individual_product_msrp').val(ui.item.msrp_#{current_locale});
+        $(this).siblings('input.individual_product_msrp').val(ui.item.msrp_#{current_currency});
         $(this).siblings('input.individual_product_id').val(ui.item.id);
         $(this).siblings('select.individual_discount_type').focus();
         $("#tag_products").append("<li class='ui-menu-item'><a href='#' onclick='$(this).parent().remove();return false;'>x</a> "+ui.item.label+"<input name=\"tag[my_product_ids][]\" type=\"hidden\" value=\""+ui.item.id+"\" /></li>");
