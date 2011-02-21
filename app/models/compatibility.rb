@@ -18,7 +18,11 @@ class Compatibility
 	end
 	
 	def compatible_tag
-	  Tag.find(self.tag_id) if self.tag_id.present?
+	  Tag.available.find(self.tag_id) if self.tag_id.present? rescue nil
+	end
+	
+	def get_products
+	  Product.displayable.where(:item_num.in => self.products).cache
 	end
 	
 end

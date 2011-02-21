@@ -105,8 +105,8 @@
                 .compatible_tag.ui-corner-all{:class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
                   = link_to image_tag(compatibility.compatible_tag.list_page_img), catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")
                 .plus_sign.ui-icon.ui-icon-plusthick
-                - if compatibility.products.length > 0
-                  = render :partial => 'products/compatibility_product', :collection => Product.available.where(:item_num.in => compatibility.products).cache, :spacer_template => 'tabs/separator', :as => :product
+                - if compatibility.get_products.count > 0
+                  = render :partial => 'products/compatibility_product', :collection => compatibility.get_products, :spacer_template => 'tabs/separator', :as => :product
                 .clear
                 %p== Search for more #{link_to compatibility.compatible_tag.name.html_safe, catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}&page=1")} in our catalog
 
