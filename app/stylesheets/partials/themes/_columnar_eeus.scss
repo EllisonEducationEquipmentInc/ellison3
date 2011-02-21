@@ -187,12 +187,22 @@ body.bp {
 
   .container {
     background: url("/images/ui-backgrounds/_#{$system}_footer.gif") no-repeat center top;
-
+    
     .main {
 
       .column_left, .column_middle, .column_right {
         margin-top: 20px;
       }    
+    }
+    
+    .column {
+      margin-top: 45px;
+      margin-bottom: 20px;
+      height: 205px;
+    
+      p {
+        padding-right: 10px;
+      }
     }
   }
 }

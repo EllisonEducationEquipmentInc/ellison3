@@ -168,7 +168,7 @@ body.bp {
 // content gallery (wide)
 // for use on non-landing pages like homepage or store locator
 .frame_gallery_wide { @extend .frame_gallery;
-  height: 314px;
+  height: 306px;
 
   a.prevBtn {
     top: 136px;
@@ -185,5 +185,15 @@ body.bp {
   
   .container {
     background: url("/images/ui-backgrounds/_#{$system}_footer.png") no-repeat center top;
+    
+    .column {
+      margin-top: 26px;
+      margin-bottom: 20px;
+      height: 205px;
+    
+      p {
+        padding-right: 10px;
+      }
+    }
   }
 }

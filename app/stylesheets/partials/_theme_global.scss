@@ -700,16 +700,6 @@ ul.ui-tabs-nav {
       };
     }
   
-    .column {
-      margin-top: 45px;
-      margin-bottom: 20px;
-      height: 205px;
-    
-      p {
-        padding-right: 10px;
-      }
-    }
-  
     .column_left, .column_middle { @extend .column;
       border-right: 1px solid $footer_divider;
     }
