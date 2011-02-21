@@ -180,7 +180,7 @@ private
   
   # Google Analytics tracking methods
 	def ga_tracker_id
-	  if Rails.env == "development"
+	  if true #Rails.env == "development"
 	    "UA-12678772-3"
 	  else
 	    if is_sizzix?

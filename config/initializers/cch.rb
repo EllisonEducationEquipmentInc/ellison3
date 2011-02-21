@@ -8,7 +8,7 @@ module CCH
   require 'rexml/formatters/pretty'
 	#require 'system_timer'
     
-  if ENV['RAILS_ENV'] == 'production'
+  if false #Rails.env == 'production'
     SERIAL_NUMBER = '7400-9802-FFEC-9187' #LIVE
   else
     SERIAL_NUMBER = '7404-7806-FFD8-F807'
