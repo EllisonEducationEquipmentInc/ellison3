@@ -59,7 +59,10 @@ module ApplicationHelper
 - if @product_obj.pre_order?
   %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}"}== Pre-Order
 - elsif @product_obj.out_of_stock?
-  .jqui_out_of_stock Out of Stock
+  - if is_uk?
+    = link_to "Check availability at your Local Retailer", stores_path
+  - else
+    .jqui_out_of_stock Out of Stock
 - elsif @product_obj.suspended?
   .jqui_out_of_stock Suspended
 - elsif @product_obj.available?
