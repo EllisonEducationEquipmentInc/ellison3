@@ -44,19 +44,19 @@
   - if (is_ee_us? || is_er?) && @idea.grade_levels.count > 0
     %p
       %strong== Recommended Grade Level#{'s' if @idea.grade_levels.count > 1}: 
-      = @idea.grade_levels.map {|e| e.name} * ', '
+      = raw @idea.grade_levels.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1&ideas=1"))} * ', '
   - if (is_ee_us? || is_er?) && @idea.curriculums.count > 0
     %p
       %strong== Curriculum#{'s' if @idea.curriculums.count > 1}: 
-      = @idea.curriculums.map {|e| e.name} * ', '
+      = raw @idea.curriculums.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1&ideas=1"))} * ', '
   - if (is_sizzix? || is_er?) && @idea.artists.count > 0
     %p
       %strong== Artist#{'s' if @idea.artists.count > 1}: 
-      = @idea.artists.map {|e| e.name} * ', '
+      = raw @idea.artists.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1&ideas=1"))} * ', '
   - if (is_sizzix? || is_er?) && @idea.themes.count > 0
     %p
       %strong== Theme#{'s' if @idea.themes.count > 1}: 
-      = @idea.themes.map {|e| e.name} * ', '
+      = raw @idea.themes.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1&ideas=1"))} * ', '
 .item_sociallinks.dontprint= facebook_like
 
 %div{ :class => "item_detail#{'-tabbed' if @idea.use_tabs}"}

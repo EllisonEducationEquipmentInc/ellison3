@@ -47,14 +47,14 @@
 .item_categories
   - if @product.categories.count > 0
     %p
-      %strong Categories: 
-      = @product.categories.map {|e| e.name} * ', '
+      %strong= @product.categories.count > 1 ? 'Categories:' : 'Category:'
+      = raw @product.categories.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}"))} * ', '
   - else
     &nbsp;
   - if @product.themes.count > 0
     %p
-      %strong Themes: 
-      = @product.themes.map {|e| e.name} * ', '
+      %strong== Theme#{'s' if @product.themes.count > 1}: 
+      = raw @product.themes.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}"))} * ', '
 .item_designers
   #item_designers_thumbnails
     %ul
