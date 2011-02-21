@@ -4,6 +4,15 @@ body.bp {
 //  background: url("/images/ui-backgrounds/uk_dots_blue.gif") top left;
   background: url("/images/ui-backgrounds/uk_dots_yellow.gif") top left;
   
+  .frame_gallery_wide {
+    a {
+      color:white;
+    }
+    a:visited {
+      color:white;
+    }
+  }
+  
   
   h1, h2, h3, h4, h5 {
     font-family: 'PT Sans', Helvetica, Arial, sans-serif;
@@ -159,7 +168,7 @@ body.bp {
 // content gallery (wide)
 // for use on non-landing pages like homepage or store locator
 .frame_gallery_wide { @extend .frame_gallery;
-  height: 360px;
+  height: 314px;
 
   a.prevBtn {
     top: 136px;

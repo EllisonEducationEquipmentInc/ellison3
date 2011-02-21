@@ -34,7 +34,7 @@
   #current_visual_assets= render @home_content.visual_assets.current
   .clear
 
-- unless is_er? || is_ee?
+- if is_sizzix_us?
   #blog-posts
     %h2.decorative
       %span News from our Blog  
@@ -44,6 +44,7 @@
       %p
         Which Sizzix Machines do you currently own? 
         = link_to "launch poll", "#"
+        
 
   #social-media
     %h2.decorative
