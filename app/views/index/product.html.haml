@@ -5,13 +5,13 @@
     .clearance_flag= image_tag("/images/ui-objects/pricetag_outlet_detail.png", :alt => "On Sale!", :title => "On Sale!")
   #large_image= image_tag(@product.large_image)
   #item_thumbnails.dontprint
-    %ul
-      %li= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}'); return false;", :class => "thumbnail"
+    %ul{:style => "padding:0;margin:0;"}
+      %li.left= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}'); return false;", :class => "thumbnail"
       - unless @product.video.blank?
-        %li= video_thumbnail(@product.video)
+        %li.left= video_thumbnail(@product.video)
       - @product.images.each do |image|
         - next unless image.image?
-        %li= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;", :class => "thumbnail"
+        %li.left= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;", :class => "thumbnail"
     .controls{ :style => "display: none"}
       = link_to "prev", "#", :class => "prev_button", :id => "prev_item_thumb", :onclick => "return false;"
       |

@@ -193,8 +193,6 @@ $(document).ready(function(){
     $(this).addClass("ui-state-hover");
   });
 
-	shadow_on();
-
 	highlight_keyword();
 	
 	jQuery.validator.addMethod("phoneUS", function(phone_number, element) {
@@ -234,6 +232,9 @@ $(document).ready(function(){
   $('input.noautocomplete').doTimeout(2000, function(){
     $(this).attr("autocomplete", 'off');
   });
+  
+  shadow_on();
+	
   
 });
 
