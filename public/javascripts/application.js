@@ -247,7 +247,7 @@ function initialize_buttons(){
 	            }})
 			.click( function() {
 				var qty = $(this).siblings('input.er_product_quantity').val() == undefined ? '' : "&qty="+$(this).siblings('input.er_product_quantity').val()
-				$.ajax({url:"/carts/add_to_cart?id="+this.id.replace('add_to_cart_', '')+qty});
+				$.ajax({url:"/carts/add_to_cart?id="+this.id.replace('add_to_cart_', '')+qty, beforeSend: function(){console.log($(this))}});
 				_gaq.push(['_trackEvent', 'Cart', 'Add To Cart', $(this).attr('rel')]);
 			})
 	});

@@ -226,15 +226,6 @@ module OldData
   		product_config.try :additional_name
   	end
 
-    # name attribute overwrite to include product_config.name
-    def name
-      if is_ee? && product_config
-        read_attribute(:name) + " - " + product_config.additional_name
-      else
-        read_attribute(:name)
-      end
-    end
-
   	def saving
   		s = ((msrp - price)/msrp * 100).round rescue 0
   		s.respond_to?(:nan?) && s.nan? ? 0 : s
