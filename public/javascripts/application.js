@@ -245,9 +245,10 @@ function initialize_buttons(){
 	            icons: {
 	                primary: 'ui-icon-plus'
 	            }})
-			.click( function() {
+			.click( function(e) {
 				var qty = $(this).siblings('input.er_product_quantity').val() == undefined ? '' : "&qty="+$(this).siblings('input.er_product_quantity').val()
-				$.ajax({url:"/carts/add_to_cart?id="+this.id.replace('add_to_cart_', '')+qty, beforeSend: function(){console.log($(this))}});
+				$.ajax({url:"/carts/add_to_cart?id="+this.id.replace('add_to_cart_', '')+qty});
+				$(this).button({disabled: true});
 				_gaq.push(['_trackEvent', 'Cart', 'Add To Cart', $(this).attr('rel')]);
 			})
 	});

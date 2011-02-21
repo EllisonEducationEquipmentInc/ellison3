@@ -1,3 +1,4 @@
 == $('#shoppingcart_info').html('#{escape_javascript(render(:partial => "carts/shopping_cart"))}');
 show_cart();
+== $('#add_to_cart_#{params[:id]}').button({disabled: false});
 setTimeout("$.fancybox.resize()", 1200);

@@ -304,7 +304,7 @@ class CartsController < ApplicationController
 private
 	
 	def add_to_cart_do
-	  @product = Product.find(params[:id])
+	  @product = Product.available.find(params[:id])
 	  qty = params[:qty].blank? ? is_er? ? @product.minimum_quantity : 1 : params[:qty].to_i
 	  qty = @product.minimum_quantity if is_er? && qty < @product.minimum_quantity
 		add_2_cart(@product, qty)
