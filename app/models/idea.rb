@@ -217,7 +217,7 @@ class Idea
 	end
 	
 	def related_tag
-	  Tag.find(self.related_idea_tag)
+	  Tag.available.find(self.related_idea_tag)
 	rescue
 	  tags.available.send(is_ee? ? :subcurriculums : :themes).first
 	end
