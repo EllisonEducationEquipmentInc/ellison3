@@ -18,7 +18,7 @@ namespace :data_export do
   				Product.listable.in_batches(100) do |group|
   				  group.each do |product|
 							print "."
-					    feed.entry(product, :id => product.id, :url => "http://www.#{get_domain}/product/#{product.id}") do |entry|
+					    feed.entry(product, :id => product.id, :url => "http://www.#{get_domain}/product/#{product.item_num}/#{product.name.parameterize}") do |entry|
 					      entry.title(product.name)
 					      entry.description(product.description)
 								entry.tag!("g:image_link", "http://www.#{get_domain}#{product.medium_image}")

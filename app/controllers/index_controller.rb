@@ -24,7 +24,11 @@ class IndexController < ApplicationController
   end
   
   def product
-    @product = Product.send(current_system).find(params[:id])
+    @product = if params[:id].present?
+      Product.send(current_system).find(params[:id])
+    else
+      Product.displayable.where(:item_num => params[:item_num]).first
+    end
     raise "Invalid product" unless @product.displayable?
     @title = @product.name
     @keywords = @product.keywords if @product.keywords.present?

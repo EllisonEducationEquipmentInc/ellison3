@@ -53,7 +53,8 @@ Ellison3::Application.routes.draw do |map|
 	match 'event/:id' => 'index#event', :as => :event
 	match 'catalog' => 'index#catalog', :as => :catalog
 	match 'outlet' => 'index#shop', :defaults => { :id => 'outlet' }, :as => :outlet
-	match 'product/:id' => 'index#product', :as => :product
+	match 'product/:id' => 'index#product', :id => /[0-9a-f]{24}/
+	match 'product/:item_num(/:name)' => 'index#product', :item_num => /(A|38-)?\d{4,6}-?[A-Z0-9.]{0,8}/, :as => :product
 	match 'idea/:id' => 'index#idea', :as => :idea
 	#match 'lesson/:id' => 'index#idea', :as => :idea, :constraints => Proc.new {|obj| obj.is_ee?}
 	#match 'project/:id' => 'index#idea', :as => :idea, :constraints => Proc.new {|obj| !obj.is_ee?}
