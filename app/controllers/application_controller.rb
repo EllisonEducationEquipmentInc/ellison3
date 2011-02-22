@@ -41,7 +41,9 @@ private
 	
 	# TODO: CMS for this
 	def vat
-		@vat ||= SystemSetting.value_at("vat").to_f
+		Rails.cache.fetch 'vat', :expires_in => 1.hour.since do
+		  SystemSetting.value_at("vat").to_f
+		end
 	end
 	
 	def gross_price(price, vat_exempt = false)

@@ -118,6 +118,7 @@
     $(document).ready(function() { 
         $(".jqui_save").button({icons: {primary: 'ui-icon-disk'}});
         //initialize_buttons();
+        $('#payment_submit').button({disabled: true, label: 'please wait...'});
         order_comment();
         $('#proceed_checkout').validate(payment_validator_options);
     });

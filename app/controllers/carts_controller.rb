@@ -70,8 +70,7 @@ class CartsController < ApplicationController
 	end
 	
 	def checkout
-    # get_cart.update_items true
-    # flash[:alert] = ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
+	  return unless real_time_cart
     session[:user_return_to] = nil
 		redirect_to(catalog_path, :alert => flash[:alert] || I18n.t(:empty_cart)) and return if get_cart.cart_items.blank? || !ecommerce_allowed?
 		set_proper_currency!
@@ -124,8 +123,7 @@ class CartsController < ApplicationController
 		
 	def proceed_checkout
 	  redirect_to :checkout and return unless get_user.shipping_address && !get_cart.cart_items.blank?
-		get_cart.update_items true
-		raise RealTimeCartError, ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
+		return unless real_time_cart
 		if can_use_previous_payment? && params[:payment] && params[:payment][:use_previous_orders_card] 
       @payment = Order.find(get_cart.order_reference).payment.dup
       use_payment_token = true
@@ -158,8 +156,7 @@ class CartsController < ApplicationController
 	
 	def proceed_quote
 	  redirect_to :quote and return unless (quote_allowed? || get_cart.pre_order?) && get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
-	  get_cart.update_items true, true
-    raise RealTimeCartError, ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
+	  return unless real_time_cart(true)
 	  cart_to_quote(:address => get_user.shipping_address)
     process_order @quote
 		clear_cart
@@ -306,6 +303,18 @@ class CartsController < ApplicationController
   end
   
 private
+
+  def real_time_cart(quote = false)
+    get_cart.update_items true, quote
+    flash[:alert] = ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
+    # raise RealTimeCartError, ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
+    if request.xhr?
+      render :js => "window.location.href = '#{cart_path}'" and return false if @cart.cart_errors.present?
+    else
+      redirect_to(cart_path, :alert => flash[:alert] || I18n.t(:empty_cart)) and return false if @cart.cart_errors.present?
+    end
+    true
+  end
 	
 	def add_to_cart_do
 	  @product = Product.available.find(params[:id])
