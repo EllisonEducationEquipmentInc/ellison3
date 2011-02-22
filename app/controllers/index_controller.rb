@@ -15,6 +15,10 @@ class IndexController < ApplicationController
     @home_content = SharedContent.home
   end
   
+  def campaigns
+    @campaign = SharedContent.campaigns
+  end
+  
   def products
     @products = Product.available.paginate :page => params[:page], :per_page => 24
   end
