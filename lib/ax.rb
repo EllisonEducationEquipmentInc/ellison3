@@ -170,7 +170,7 @@ module Ax
 	    doc.root.elements.each('items') do |items|
 	      items.elements.each('item') do |item|
 	        item_number = item.attributes['number']
-	        onhand_qty_wh01 = item.attributes['onhand_qty_wh01'].to_i
+	        onhand_qty_wh01 = item.attributes['onhand_qty_wh1'].to_i
 	        onhand_qty_wh11 = item.attributes['onhand_qty_wh11'].to_i
 	        onhand_qty_uk = item.attributes['onhand_qty_uk'].to_i
 					new_life_cycle = case item.attributes['life_cycle']
