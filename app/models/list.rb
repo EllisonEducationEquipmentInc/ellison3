@@ -17,7 +17,7 @@ class List
 	field :old_permalink
 	
 	def products
-	  Product.available.where(:_id.in => self.product_ids).cache
+	  Product.displayable.where(:_id.in => self.product_ids).cache
 	end
 	
 	def add_product(product_id)
