@@ -86,7 +86,7 @@
     	  this.form.submit();
     		return false;
     	}});
-    $('#searchbar').submit(function() {location.href = 'http://carbon/catalog#q='+$('#q').val();return false;});
+    $('#searchbar').submit(function() {location.href = 'http://'+location.host+'/catalog#q='+$('#q').val();return false;});
 
 #printmasthead.dontdisplay
   %h1== #{system_name.capitalize}.com
