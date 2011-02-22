@@ -50,6 +50,10 @@
           %li= link_to "Tim Holtz", "#"
           %li= link_to "eclips Electronic Shape Cutting", "#"
           %li= link_to "Texture Boutique", "#"
+      .contentwrap_medium.resize= link_to image_tag("/images/_temp/meganav_eclips.jpg", :width => 290), "/shop/eclips"
+      .contentwrap_medium.resize.last
+        %p Sizzix award-winning artwork is now available electronically! The eclips Electronic Shape-Cutting Machine and Handheld Remote Control creates completely customizable shapes and letters to adorn almost anything. No computer required!
+        %p= link_to "View the eclips videos", "/shop/eclips"
     .subpanel{:style => "display: none;"}
       %ul.contentwrap_XS
         %li.listtitle.first Electronic Cutting
@@ -141,6 +145,9 @@
       %ul
         %li= link_to "Latest Clearance Arrivals", "#"
         %li= link_to "See All Clearance", "#"
+    .contentwrap_XS
+      = image_tag("/images/_temp/meganav_valentines.png", :width => 300)
+
 
 %li.megaitem.ui-corner-top
   = link_to "Featured", "#", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
@@ -168,6 +175,9 @@
         %li= link_to "Latest Dies", "#"
         %li= link_to "Tim Holtz Videos", "#"
         %li= link_to "Tim Holtz Blog", "#"
+    .clear
+    .contentwrap_XS
+      = image_tag("/images/_temp/meganav_timholtz.png", :width => 460)
 
 %li.megaitem.ui-corner-top
   = link_to "Support", "#", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
