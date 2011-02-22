@@ -46,7 +46,11 @@ class IndexController < ApplicationController
   end
   
   def idea
-    @idea = Idea.send(current_system).find(params[:id])
+    @idea = if params[:id].present?
+      Idea.send(current_system).find(params[:id])
+    else
+      Idea.available.where(:idea_num => params[:idea_num]).first
+    end
     raise "Invalid idea" unless @idea.listable?
     @title = @idea.name
     @keywords = @idea.keywords if @idea.keywords.present?

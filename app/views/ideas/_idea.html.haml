@@ -3,6 +3,6 @@
   - unless idea.public_life_cycle.blank?
     .life-cycle
       %span= idea.public_life_cycle
-  %p.item_image= link_to image_tag(idea.medium_image), idea_url(:id => idea)
-  %p.item_name= link_to idea.name.html_safe, idea_url(:id => idea)
+  %p.item_image= link_to image_tag(idea.medium_image), idea_url(:idea_num => idea.idea_num, :name => idea.name.parameterize)
+  %p.item_name= link_to idea.name.html_safe, idea_url(:idea_num => idea.idea_num, :name => idea.name.parameterize)
   .item_description= truncate(strip_tags(idea.description.html_safe), :length => 250, :separator => ' ') if idea.description.present?
