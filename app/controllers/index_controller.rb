@@ -303,8 +303,11 @@ private
     klass.search do |query|
       query.keywords params[:q] unless params[:q].blank?
       query.adjust_solr_params do |params|
+        # enable spellcheck:
         params[:"spellcheck"] = true
         params[:"spellcheck.collate"] = true
+        # keyword search minimum should match: 0 = OR. http://wiki.apache.org/solr/DisMaxQParserPlugin
+        # params[:mm] = 0 unless params[:q].blank?
       end
       query.with :"listable_#{current_system}", true
       @filter_conditions = {}
