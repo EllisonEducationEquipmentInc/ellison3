@@ -3,6 +3,8 @@
   %ul.megalist
     - if is_sizzix_us?
       = render :partial => 'layouts/meganav_szus'
+    - if is_sizzix_uk?
+      = render :partial => 'layouts/meganav_szuk'
     - elsif is_ee?
       = render :partial => 'layouts/meganav_eeus-uk_temp'
     - else
@@ -25,7 +27,7 @@
                 - (ELLISON_SYSTEMS & current_admin.systems_enabled).each do |sys|
                   = link_to_unless current_system == sys, sys, "?#{request.query_parameters.merge('system' => sys).to_params}"
           .clear
-          %ul.megasublist.resize
+          %ul.megasublist.contentwrap_XS.resize
             %li= link_to "Product Catalog", "#", :class => "megasublink", :onclick => "return false;"
             %li= link_to "Customer Orders", "#", :class => "megasublink", :onclick => "return false;"
             %li= link_to "User Accounts", "#", :class => "megasublink", :onclick => "return false;"
