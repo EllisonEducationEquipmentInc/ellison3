@@ -57,7 +57,7 @@
         if (this.value.length < 3) {
           return false;
         } else {
-          location.hash = $.param.fragment( location.hash, {q: this.value, page: 1}, 0 );
+          location.hash = $.param.fragment( location.hash, {q: $.deparam.fragment()['q'] ? $.deparam.fragment()['q']+' '+this.value : this.value, page: 1}, 0 );
         }
       });
       $('.multifacet_remove').click(function() {
