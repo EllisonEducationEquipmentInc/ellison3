@@ -5,7 +5,7 @@ $.fancybox({
 'scrolling' : 'auto',
 'speedIn'		:	500, 
 'speedOut'		:	200,
-'href' 	: '/carts/last_item',
+'content' 	: '#{escape_javascript(render(:partial => "carts/last_item"))}',
 'width'	: 860,
 'autoDimensions': true,
 'title'			: false,

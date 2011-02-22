@@ -1,0 +1,38 @@
+%h2== The following item has been successfully added to your shopping #{(t :cart)}
+%table{:cellpadding => 10}
+  %thead
+    %tr
+      %th{:width => 60} Item No.
+      %th{:width => 70} Item Name
+      %th{:width => 400}
+      %th{:style => "text-align: right", :width => 80} Retail Price
+      %th{:style => "text-align: right", :width => 75} You Pay
+  %tbody
+    %tr{:id => "cart_item_#{@product.id}"}
+      %td{:class => @product.pre_order? ? 'pre_order' : nil}
+        = @product.item_num
+        - if @product.pre_order?
+          %br
+          Pre-order
+        - elsif @product.out_of_stock?
+          %br
+          Out of stock
+      %td
+        .thumbnail
+          = link_to(image_tag(@product.small_image), product_url(:id => @product.id)) unless @product.small_image.blank?
+          - if @product.outlet
+            .clearance_flag= link_to(image_tag("/images/ui-objects/pricetag_outlet.png", :alt => "On Sale!", :title => "On Sale!"), product_url(:id => @product.id)) unless @product.small_image.blank?
+      %td= link_to(@product.name, product_url(:id => @product.id))
+      %td{:style => "text-align: right"}= number_to_currency @product.msrp
+      %td{:style => "text-align: right", :id => "cart_item_price_#{@product.id}", :class => 'cart_item_price'}= display_product_price @product
+    %tr
+      %td= pluralize get_cart.total_quantity, "item"
+      %td
+      %td
+      %td{:style => "text-align: right", :class => "cart_extended_price"} Subtotal:
+      %td#cart_subtotal{:style => "text-align: right", :class => "cart_extended_price"}= number_to_currency gross_price(get_cart.sub_total)
+%p.cart_shipmsg
+  \&nbsp;
+  = link_to_unless_current "Check Out Now", cart_path, :id => 'checkout_now'
+:javascript
+  $("#checkout_now").button();
