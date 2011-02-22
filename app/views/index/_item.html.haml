@@ -1,5 +1,5 @@
 %li.item_element
-  %p= link_to image_tag(item.medium_image), send("#{item.class.to_s.downcase}_url", :id => item)
-  %p= link_to item.name, send("#{item.class.to_s.downcase}_url", :id => item)
+  %p= link_to image_tag(item.medium_image), send("#{item.class.to_s.downcase}_url", item.is_a?(Product) ? {:item_num => item.item_num, :name => item.name} : {:idea_num => item.idea_num, :name => item.name} )
+  %p= link_to item.name, send("#{item.class.to_s.downcase}_url", item.is_a?(Product) ? {:item_num => item.item_num, :name => item.name} : {:idea_num => item.idea_num, :name => item.name})
   - if item.class == Product
     %p= display_product_price(item)
