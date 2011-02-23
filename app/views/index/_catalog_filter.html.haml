@@ -1,4 +1,4 @@
-- unless params[:action] == "shop"
+- if params[:action] != "shop" && @search.total > 1
   = text_field_tag :keyword, nil, :autocomplete => "off", :value => "search within these results...", :onfocus => "if (this.value == 'search within these results...'){this.value='';}", :onblur => "if (this.value == ''){this.value='search within these results...';}", :style => "width:183px;"
 :javascript
   $("#keyword").addClass("idlefield");
