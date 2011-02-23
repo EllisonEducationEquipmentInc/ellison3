@@ -434,6 +434,16 @@ class Product
 	def pre_order?
 		available? && life_cycle == "pre-release"
 	end
+	
+	def can_be_added_to_cart?
+	  if is_ee?
+	    available?
+	  elsif is_er?
+	    available? || pre_order?
+	  else
+	    in_stock?
+	  end
+	end
 
   # system specific distribution life cycle - before its expiriation (distribution_life_cycle_ends_#{sys})
   def public_life_cycle(sys = current_system)

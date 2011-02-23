@@ -118,7 +118,7 @@ class UsersController < ApplicationController
 	
 	def get_lists
 	  if user_signed_in?
-  	  @lists = get_user.lists
+  	  @lists = get_user.lists.listable
   	  @lists << get_user.build_default_mylist if @lists.blank? || (@lists.length == 1 && @lists.first.owns)
   	  @lists = @lists.map {|e| ["#{e.name} #{' (default)' if e.default_list}", e.id]}
   	  render :partial => 'lists'
@@ -149,7 +149,7 @@ class UsersController < ApplicationController
 	def list
 		@list = List.find params[:id]
 		@users_list = user_signed_in? && get_user.lists.include?(@list)
-		@lists = user_signed_in? && get_user.lists.map {|e| [e.name, e.id]}
+		@lists = user_signed_in? && get_user.lists.listable.map {|e| [e.name, e.id]}
 		@title = "List: #{@list.name}"
 	rescue
 		redirect_to(myaccount_path('mylists'))
@@ -215,7 +215,7 @@ class UsersController < ApplicationController
 	
 	def mylists
 	  get_user.create_owns_list if get_user.lists.owns.blank?
-	  @lists = get_user.lists
+	  @lists = get_user.lists.listable
 		render :partial => 'mylists'
 	end
 	

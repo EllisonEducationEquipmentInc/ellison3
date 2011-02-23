@@ -1,10 +1,18 @@
 %tr{:id => "saved_item_#{product.id}"}
-  %td= product.item_num
+  %td{:class => product.pre_order? ? 'pre_order' : nil}
+    = product.item_num
+    - if product.pre_order?
+      %br
+      Pre-order
+    - elsif product.out_of_stock?
+      %br
+      Out of stock
   %td= link_to image_tag(product.small_image), product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize)
   %td= link_to product.name, product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize)
   %td{ :style => "text-align: right"}= product.msrp
   %td.cart_item_price{ :style => "text-align: right"}= product.price
   %td
-    %button.move_to_cart{:id => "move_to_cart_#{product.id}", :rel => "#{product.item_num}"} Move Back to Cart
+    - if product.can_be_added_to_cart?
+      %button.move_to_cart{:id => "move_to_cart_#{product.id}", :rel => "#{product.item_num}"} Move Back to Cart
   %td
     .delete_from_saved_list{:id => "delete_from_saved_list_#{product.id}", :rel => "#{product.item_num}"} Delete

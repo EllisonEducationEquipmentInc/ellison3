@@ -120,7 +120,7 @@ class User
   
   def create_owns_list
     return unless lists.owns.blank?
-    l = List.new :owns => true, :name => "Products I own", :comments => "List of products I already own. The list is automatically generated from your order history."
+    l = List.new :owns => true, :name => "Items I own", :comments => "List of items I already own. The list is automatically generated from your order history."
     l.product_ids = orders.only(:status, "order_items.product_id").where(:status.in => ["Open", "Processing", "In Process", "Shipped"]).inject([]) {|all,e| all += e.order_items.map {|i| i.product_id}}.compact.uniq
     l.user = self
     l.save

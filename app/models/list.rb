@@ -16,6 +16,8 @@ class List
 	field :comments
 	field :old_permalink
 	
+	scope :listable, :where => { :active => true,  :save_for_later.ne => true}
+	
 	def products
 	  Product.displayable.where(:_id.in => self.product_ids).cache
 	end
