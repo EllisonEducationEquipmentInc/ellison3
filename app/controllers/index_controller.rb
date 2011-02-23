@@ -23,6 +23,30 @@ class IndexController < ApplicationController
     @products = Product.available.paginate :page => params[:page], :per_page => 24
   end
   
+  def old_product
+    old_id_field = if is_ee?
+      :old_id_edu
+    elsif is_er?
+      :old_id_er
+    elsif is_sizzix_uk?
+      :old_id_szuk
+    else
+      :old_id
+    end
+    @product = Product.displayable.where(old_id_field => params[:old_id]).first
+    redirect_to product_path(:item_num => @product.item_num, :name => @product.name.parameterize), :status => 301
+  rescue Exception => e
+    go_404
+  end
+  
+  def old_idea
+    old_id_field = is_ee? ? :old_id_edu : :old_id
+    @idea = Idea.available.where(old_id_field => params[:old_id]).first
+    redirect_to idea_path(:idea_num => @idea.idea_num, :name => @idea.name.parameterize), :status => 301
+  rescue Exception => e
+    go_404
+  end
+  
   def product
     @product = if params[:id].present?
       Product.send(current_system).find(params[:id])

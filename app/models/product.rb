@@ -92,6 +92,8 @@ class Product
 	index :name
 	index :old_id
 	index :old_id_edu
+	index :old_id_szuk
+	index :old_id_er
 	ELLISON_SYSTEMS.each do |system|
 	  index :"start_date_#{system}"
 	  index :"end_date_#{system}"
