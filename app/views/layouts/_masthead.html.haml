@@ -56,7 +56,11 @@
   -# search bar
   %form#searchbar{:action => "/catalog", :method => "get", :name => "searchbar", :autocomplete => 'off' }
     %input{ :class =>"textfield noautocomplete", :name => "q", :id => "q", :type => "text", :value => "Search for Sizzix Products & Ideas", :autocomplete => 'off', :onfocus => "if (this.value == 'Search for Sizzix Products & Ideas'){this.value='';};$(this).attr('autocomplete', 'off');", :onblur => "if (this.value == ''){this.value='Search for Sizzix Products & Ideas';}" }
-    %input{ :class => "submitbutton", :name => "submit", :src => "/images/ui-icons/set_fugue/24x24/drop-shadow/magnifier-left.png", :type => "image", :height => "24", :width => "24"}
+      
+    - if is_sizzix_uk?
+      %input{ :class => "submitbutton", :name => "submit", :src => "/images/ui-icons/magnifier-left_uk.png", :type => "image", :height => "29", :width => "37"}
+      - else
+        %input{ :class => "submitbutton", :name => "submit", :src => "/images/ui-icons/set_fugue/24x24/drop-shadow/magnifier-left.png", :type => "image", :height => "24", :width => "24"}
   :javascript
     $("input.textfield").addClass("idlefield");
     $("input.textfield").focus(function(){
