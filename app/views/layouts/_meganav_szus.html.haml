@@ -1,5 +1,5 @@
 %li.megaitem.ui-corner-top
-  = link_to "Projects", "#", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
+  = link_to "Projects", catalog_path(:anchor => "ideas=1"), :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
   .megapanel
     %ul.contentwrap_XS
       %h3 Get Inspired!
@@ -83,7 +83,7 @@
         %li=link_to "Machine Storage", "#"
 
 %li.megaitem.ui-corner-top
-  = link_to "All Products", "#", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
+  = link_to "All Products", catalog_path, :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
   .megapanel
     %h4.paneltitle Shop Our Entire Product Catalog
     %ul.contentwrap_XS
@@ -136,7 +136,7 @@
         %li= link_to "Westminster Fibers", "#"
 
 %li.megaitem.ui-corner-top
-  = link_to "Electronic Cutting", "#", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
+  = link_to "Electronic Cutting", "/shop/eclips", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
   .megapanel
     %ul.contentwrap_small
       %h4 Cutting Edge Technology by eclips
