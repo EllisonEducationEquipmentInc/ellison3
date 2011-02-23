@@ -86,42 +86,44 @@ body.bp th, body.bp td, body.bp caption {
 }
 /* line 84, ../../../app/stylesheets/application.scss */
 #content ul.ui-autocomplete {
-  padding-left: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+  z-index: 300 !important;
 }
-/* line 87, ../../../app/stylesheets/application.scss */
+/* line 89, ../../../app/stylesheets/application.scss */
 #content #tabs ul {
   margin-left: 0;
 }
-/* line 91, ../../../app/stylesheets/application.scss */
+/* line 93, ../../../app/stylesheets/application.scss */
 #content li.ui-state-default {
   list-style-type: none;
 }
-/* line 96, ../../../app/stylesheets/application.scss */
+/* line 98, ../../../app/stylesheets/application.scss */
 #content #tabs li.ui-state-default {
   font-size: 1.2em;
   color: #1C94C4;
 }
-/* line 100, ../../../app/stylesheets/application.scss */
+/* line 102, ../../../app/stylesheets/application.scss */
 #content li.ui-state-default span {
   position: absolute;
   margin-left: -1.3em;
 }
-/* line 105, ../../../app/stylesheets/application.scss */
+/* line 107, ../../../app/stylesheets/application.scss */
 #content .field .caption {
   float: right;
   width: 600px;
 }
-/* line 110, ../../../app/stylesheets/application.scss */
+/* line 112, ../../../app/stylesheets/application.scss */
 #content .save {
   border: 1px solid green;
 }
-/* line 115, ../../../app/stylesheets/application.scss */
+/* line 117, ../../../app/stylesheets/application.scss */
 #content .field_with_errors {
   padding: 2px;
   background-color: red;
   display: table;
 }
-/* line 121, ../../../app/stylesheets/application.scss */
+/* line 123, ../../../app/stylesheets/application.scss */
 #content #errorExplanation {
   width: 400px;
   border: 2px solid red;
@@ -130,7 +132,7 @@ body.bp th, body.bp td, body.bp caption {
   margin-bottom: 20px;
   background-color: #f0f0f0;
 }
-/* line 130, ../../../app/stylesheets/application.scss */
+/* line 132, ../../../app/stylesheets/application.scss */
 #content #errorExplanation h2 {
   text-align: left;
   font-weight: bold;
@@ -140,119 +142,119 @@ body.bp th, body.bp td, body.bp caption {
   background-color: #c00;
   color: #fff;
 }
-/* line 140, ../../../app/stylesheets/application.scss */
+/* line 142, ../../../app/stylesheets/application.scss */
 #content #errorExplanation p {
   color: #333;
   margin-bottom: 0;
   padding: 5px;
 }
-/* line 146, ../../../app/stylesheets/application.scss */
+/* line 148, ../../../app/stylesheets/application.scss */
 #content #errorExplanation ul li {
   font-size: 12px;
   list-style: square;
 }
-/* line 151, ../../../app/stylesheets/application.scss */
+/* line 153, ../../../app/stylesheets/application.scss */
 #content div.field, #content div.actions {
   margin-bottom: 10px;
 }
-/* line 155, ../../../app/stylesheets/application.scss */
+/* line 157, ../../../app/stylesheets/application.scss */
 #content input.invalid, #content select.invalid {
   border: 1px dotted red;
   background: #ffffd5;
 }
-/* line 156, ../../../app/stylesheets/application.scss */
+/* line 158, ../../../app/stylesheets/application.scss */
 #content input.valid, #content select.valid {
   border: 1px solid green;
 }
-/* line 157, ../../../app/stylesheets/application.scss */
+/* line 159, ../../../app/stylesheets/application.scss */
 #content label.invalid {
   float: none;
   color: red;
   padding-left: .5em;
   vertical-align: top;
 }
-/* line 160, ../../../app/stylesheets/application.scss */
+/* line 162, ../../../app/stylesheets/application.scss */
 #content .clear_left {
   clear: left;
 }
-/* line 161, ../../../app/stylesheets/application.scss */
+/* line 163, ../../../app/stylesheets/application.scss */
 #content .overrideable {
   border: 1px solid #090;
 }
-/* line 162, ../../../app/stylesheets/application.scss */
+/* line 164, ../../../app/stylesheets/application.scss */
 #content .current_system {
   font-weight: bold;
   color: blue;
 }
-/* line 163, ../../../app/stylesheets/application.scss */
+/* line 165, ../../../app/stylesheets/application.scss */
 #content .bordered {
   border: 1px solid #390;
   background: white;
 }
-/* line 164, ../../../app/stylesheets/application.scss */
+/* line 166, ../../../app/stylesheets/application.scss */
 #content .arrow {
   position: absolute;
 }
-/* line 167, ../../../app/stylesheets/application.scss */
+/* line 169, ../../../app/stylesheets/application.scss */
 #content .sortable_header {
   margin-left: 18px;
 }
-/* line 169, ../../../app/stylesheets/application.scss */
+/* line 171, ../../../app/stylesheets/application.scss */
 #content .admin_checkboxes {
   width: 450px;
   height: 400px;
   overflow: auto;
 }
-/* line 174, ../../../app/stylesheets/application.scss */
+/* line 176, ../../../app/stylesheets/application.scss */
 #content .admin_tag_selectors {
   width: 150px;
   float: left;
 }
-/* line 178, ../../../app/stylesheets/application.scss */
+/* line 180, ../../../app/stylesheets/application.scss */
 #content .admin_tag_checkboxes {
   width: 150px;
   height: 200px;
   overflow: auto;
 }
-/* line 183, ../../../app/stylesheets/application.scss */
+/* line 185, ../../../app/stylesheets/application.scss */
 #content div.products_helper {
   border: 1px solid gray;
   padding: 3px;
   background: white;
 }
-/* line 188, ../../../app/stylesheets/application.scss */
+/* line 190, ../../../app/stylesheets/application.scss */
 #content div.ideas_helper {
   border: 1px solid gray;
   padding: 3px;
   background: white;
 }
-/* line 193, ../../../app/stylesheets/application.scss */
+/* line 195, ../../../app/stylesheets/application.scss */
 #content input.transperent {
   border: none;
   background: none;
 }
-/* line 196, ../../../app/stylesheets/application.scss */
+/* line 198, ../../../app/stylesheets/application.scss */
 #content #tag_images {
   width: 135px;
   height: 125px;
   overflow: hidden;
   float: left;
 }
-/* line 203, ../../../app/stylesheets/application.scss */
+/* line 205, ../../../app/stylesheets/application.scss */
 #content .visual_asset, #content .compatibility {
   border: 2px solid gray;
   padding: 3px;
   margin-bottom: 10px;
   width: 850px;
 }
-/* line 209, ../../../app/stylesheets/application.scss */
+/* line 211, ../../../app/stylesheets/application.scss */
 #content .child_visual_asset {
   border: 1px dashed green;
   width: 830px;
   background: #E7E7E7;
   margin-bottom: 5px;
 }
-/* line 216, ../../../app/stylesheets/application.scss */
+/* line 218, ../../../app/stylesheets/application.scss */
 #content .material {
   margin: 8px 0px 0px 10px;
   padding: 5px;
@@ -262,37 +264,37 @@ body.bp th, body.bp td, body.bp caption {
   height: 265px;
   background: white;
 }
-/* line 225, ../../../app/stylesheets/application.scss */
+/* line 227, ../../../app/stylesheets/application.scss */
 #content #map {
   float: left;
   height: 460px;
   width: 600px;
 }
-/* line 230, ../../../app/stylesheets/application.scss */
+/* line 232, ../../../app/stylesheets/application.scss */
 #content #store_info {
   width: 300px;
   float: left;
 }
-/* line 234, ../../../app/stylesheets/application.scss */
+/* line 236, ../../../app/stylesheets/application.scss */
 #content .floating_image {
   float: left;
   width: 125px;
   text-align: center;
   margin-right: 10px;
 }
-/* line 240, ../../../app/stylesheets/application.scss */
+/* line 242, ../../../app/stylesheets/application.scss */
 #content .map-location {
   width: 260px;
   border-bottom: 1px solid gray;
   margin-bottom: 10px;
 }
-/* line 245, ../../../app/stylesheets/application.scss */
+/* line 247, ../../../app/stylesheets/application.scss */
 #content .online_store {
   float: left;
   width: 250px;
   margin: 5px 5px;
 }
-/* line 250, ../../../app/stylesheets/application.scss */
+/* line 252, ../../../app/stylesheets/application.scss */
 #content .instructions {
   float: left;
   text-align: center;
@@ -300,39 +302,39 @@ body.bp th, body.bp td, body.bp caption {
   width: 100px;
 }
 
-/* line 257, ../../../app/stylesheets/application.scss */
+/* line 259, ../../../app/stylesheets/application.scss */
 p.show_cart {
   cursor: pointer;
 }
 
-/* line 258, ../../../app/stylesheets/application.scss */
+/* line 260, ../../../app/stylesheets/application.scss */
 #guest_checkout {
   float: right;
   width: 375px;
 }
 
-/* line 262, ../../../app/stylesheets/application.scss */
+/* line 264, ../../../app/stylesheets/application.scss */
 #returning_cuctomer {
   float: left;
   width: 375px;
 }
 
-/* line 267, ../../../app/stylesheets/application.scss */
+/* line 269, ../../../app/stylesheets/application.scss */
 #cart_total {
   font-size: 1.4em;
 }
 
-/* line 272, ../../../app/stylesheets/application.scss */
+/* line 274, ../../../app/stylesheets/application.scss */
 li#cart_total {
   border-top: 1px double gray;
 }
 
-/* line 273, ../../../app/stylesheets/application.scss */
+/* line 275, ../../../app/stylesheets/application.scss */
 .item_changed {
   background: #FBE3E4;
 }
 
-/* line 275, ../../../app/stylesheets/application.scss */
+/* line 277, ../../../app/stylesheets/application.scss */
 td.pre_order {
   color: red;
 }
