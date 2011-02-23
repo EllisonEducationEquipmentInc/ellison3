@@ -116,7 +116,7 @@ HTML
   .compatibility_info
     .item_num= product.item_num
     = image_tag(product.medium_image)
-    .title= link_to product.name, product_url(:id => product)
+    .title= link_to product.name, product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize)
     .price= display_product_price(product)
   = add_to_cart_button(product)
 HTML

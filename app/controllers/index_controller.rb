@@ -27,7 +27,7 @@ class IndexController < ApplicationController
     @product = if params[:id].present?
       Product.send(current_system).find(params[:id])
     else
-      Product.displayable.where(:item_num => params[:item_num]).first
+      Product.displayable.where(:item_num => params[:item_num].gsub("point", ".")).first
     end
     raise "Invalid product" unless @product.displayable?
     @title = @product.name
@@ -282,7 +282,7 @@ class IndexController < ApplicationController
       :old_id
     end
     @product = Product.displayable.where(old_id_field => params[:old_id]).first
-    redirect_to product_path(:item_num => @product.item_num, :name => @product.name.parameterize), :status => 301
+    redirect_to product_path(:item_num => @product.url_safe_item_num, :name => @product.name.parameterize), :status => 301
   rescue Exception => e
     go_404
   end

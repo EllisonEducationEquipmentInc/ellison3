@@ -1,6 +1,6 @@
 .item-block_related.product{:class => "product_#{product.id}"}
   - if product.outlet && is_sizzix_us?
     .clearance_flag= image_tag("/images/ui-objects/pricetag_outlet.png", :alt => "On Sale!", :title => "On Sale!")
-  %p.item_image= link_to image_tag(product.medium_image), product_url(:item_num => product.item_num, :name => product.name.parameterize)
-  %p.item_name= link_to product.name.html_safe, product_url(:item_num => product.item_num, :name => product.name.parameterize)
+  %p.item_image= link_to image_tag(product.medium_image), product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize)
+  %p.item_name= link_to product.name.html_safe, product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize)
   %p.item_price= display_product_price(product)

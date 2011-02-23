@@ -517,6 +517,11 @@ class Product
 	  self.changes.select {|k,v| WAREHOUSES.map {|e| "quantity_#{e}"}.include?(k)}.values.any? {|e| e[0] > QUANTITY_THRESHOLD && e[1] <= QUANTITY_THRESHOLD || e[0] <= QUANTITY_THRESHOLD && e[1] > QUANTITY_THRESHOLD}
 	end
 	
+	# url safe item_num. ex: 19557-1.25IN becomes 19557-1point25IN for friendy url's
+	def url_safe_item_num
+	  self.item_num.gsub(".", "point")
+	end
+	
 private 
 
   # automatically set system specific attributes (if not set) of all other enabled systems. Values are inherited from the current system
