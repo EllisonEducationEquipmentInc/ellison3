@@ -64,17 +64,21 @@
                 %li= link_to "Manage Customer Accounts", admin_users_path
                 %li= link_to "Manage Website Administrators", admin_admins_path
           .subpanel{:style => "display: none;"}
-            .contentwrap_XXL.last
-              %ul
-                %li= link_to "Create & Edit Landing Pages", admin_landing_pages_path
-              %ul
-                %li= link_to "Manage US Shipping Rates (by weight)", admin_fedex_rates_path
-                %li= link_to "Manage Shipping Rates (by #{t 'number.currency.format.unit'})", admin_shipping_rates_path
-                %li= link_to "Edit International Settings", admin_countries_path
-                %li= link_to "Manage Stores", admin_stores_path
-                %li= link_to "Manage Events", admin_events_path
-                %li= link_to "Manage Materials", admin_materials_path
-                %li= link_to "Material Orders", admin_material_orders_path
+            %ul.contentwrap_medium
+              %li= link_to "Create & Edit Landing Pages", admin_landing_pages_path
+              %li= link_to "Edit Shared Contents", admin_shared_contents_path
+              %li= link_to "Edit Homepage", admin_shared_contents_path(:placement => 'home')
+              %li= link_to "Edit Campaigns", admin_shared_contents_path(:placement => 'campaigns')
+            %ul.contentwrap_medium
+              %li= link_to "Manage US Shipping Rates (by weight)", admin_fedex_rates_path
+              %li= link_to "Manage Shipping Rates (by #{t 'number.currency.format.unit'})", admin_shipping_rates_path
+              %li= link_to "Edit International Settings", admin_countries_path
+              %li= link_to "Manage Stores", admin_stores_path
+              %li= link_to "Manage Events", admin_events_path
+              %li= link_to "Manage Materials", admin_materials_path
+              %li= link_to "Material Orders", admin_material_orders_path
+            %ul.contentwrap_XS
+              %li &nbsp;
 
 -# Sizzix UK mega menu link styles
 - if is_sizzix_uk?
