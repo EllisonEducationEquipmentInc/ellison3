@@ -54,8 +54,10 @@ Ellison3::Application.routes.draw do |map|
 	match 'catalog' => 'index#catalog', :as => :catalog
 	match 'outlet' => 'index#shop', :defaults => { :id => 'outlet' }, :as => :outlet
 	
+	# redirects from rails 2 url's
 	match 'product/:old_id' => 'index#old_product', :old_id => /\d{1,5}/
 	match 'idea/:old_id' => 'index#old_idea', :old_id => /\d{1,4}/
+	match 'catalog/:tag_type/:name' => 'index#old_catalog'
 	
 	match 'product/:id' => 'index#product', :id => /[0-9a-f]{24}/
 	match 'product/:item_num(/:name)' => 'index#product', :as => :product
