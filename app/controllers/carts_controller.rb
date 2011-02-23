@@ -282,7 +282,7 @@ class CartsController < ApplicationController
 	end
 	
 	def remove_coupon
-	  get_cart.coupon, get_cart.coupon_code = nil
+	  get_cart.coupon_id, get_cart.coupon_code = nil
 	  @cart.reset_tax_and_shipping
 	  @cart.apply_coupon_discount
 	  render :activate_coupon
