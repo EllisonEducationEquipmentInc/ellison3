@@ -888,6 +888,26 @@ namespace :data_migrations do
     end
   end
   
+  desc "remove unnecessary tabs"
+  task :remove_unnecessary_tabs => :load_dep do
+    p 'removing Product Compatibility tabs...'
+    Product.collection.update({'tabs.name' => 'Compatibility'}, {:$pull => {:tabs => {:name => 'Compatibility'}}}, :multi => true)
+    p 'removing Idea Dies Used tabs...'
+    Idea.collection.update({'tabs.name' => 'Dies Used'}, {:$pull => {:tabs => {:name => 'Dies Used'}}}, :multi => true)
+    p 'removing Product Related Products tabs...'
+    Product.collection.update({'tabs.name' => 'Related Products'}, {:$pull => {:tabs => {:name => 'Related Products'}}}, :multi => true)
+    p 'removing Product Related Ideas tabs...'
+    Product.collection.update({'tabs.name' => 'Related Ideas'}, {:$pull => {:tabs => {:name => 'Related Ideas'}}}, :multi => true)
+    p 'renaming Idea Products Used to Other Supplies...'
+    Idea.collection.update({'tabs.name' => 'Products Used'}, {:$set => {'tabs.$.name' => 'Other Supplies'}}, :multi => true)
+    p "removing Idea products from Other Supplies tabs..."
+    Idea.collection.update({'tabs.name' => 'Other Supplies'}, {:$set => {'tabs.$.products' => nil}}, :multi => true)
+    p "deleting Idea empty Other Supplies tabs"
+    Idea.where('tabs.name' => 'Other Supplies', :'tabs.text' => '').select {|e| e.tabs.detect {|t| t.name == 'Other Supplies' && t.text.blank?}}.each {|i| i.tabs.detect {|t| t.name == 'Other Supplies' && t.text.blank?}.delete}
+    p 'removing Idea Related Ideas tabs...'
+    Idea.collection.update({'tabs.name' => 'Related Ideas'}, {:$pull => {:tabs => {:name => 'Related Ideas'}}}, :multi => true)
+  end
+  
   task :set_edu do
     ENV['SYSTEM'] = "edu"
   end

@@ -468,7 +468,7 @@ module OldData
   		sp
   	end
 
-    memoize :coupon_discount, :regular_price, :msrp, :outlet_price, :campaign_title, :config_name, :name, :promo_text, :abs_sale_discount, :availability_msg
+    memoize :coupon_discount, :regular_price, :msrp, :outlet_price, :campaign_title, :config_name, :promo_text, :abs_sale_discount, :availability_msg
 
     def destroy
     	update_attribute :deleted, true
