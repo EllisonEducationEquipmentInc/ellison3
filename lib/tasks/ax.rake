@@ -7,6 +7,7 @@ namespace :ax do
     ['to_ax', 'from_ax', 'processed_ax', 'uk_to_ax'].each do |dir|
 		  FileUtils.mkdir "#{PATH}/#{dir}" unless File.exists? "#{PATH}/#{dir}"
 		end
+		FileUtils.mkdir "#{PATH}/to_ax/pre_orders" unless File.exists? "#{PATH}/to_ax/pre_orders"
   end
   
   desc "create ax xml from open US orders"
@@ -51,7 +52,7 @@ namespace :ax do
       if @orders.count > 0
         xml = build_ax_xml @orders
         filename = "paid_pre_orders_download_#{Time.now.strftime("%d%m%y_%H%M%S")}.xml"
-        File.open("#{PATH}/to_ax/#{filename}", "w") { |f| f.puts(xml)}
+        File.open("#{PATH}/to_ax/pre_orders/#{filename}", "w") { |f| f.puts(xml)}
         @orders.update_all(:status => "Processing")
         p "#{filename} has been created"
       else
