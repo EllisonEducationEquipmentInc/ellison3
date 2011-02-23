@@ -211,6 +211,18 @@ a.next_button { @extend a.prev_button;
 // THIRD PARTY WIDGETS
 
 // jquery UI
+ul.ui-autocomplete {
+  list-style: none !important;
+  margin: 0 !important;
+	padding: 0 !important;
+	
+  li {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }	
+}
+
 ul.ui-widget-header {
   @if $system == szus or $system == szuk {
     border-color: #eae8de !important;
