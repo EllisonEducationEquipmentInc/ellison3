@@ -191,6 +191,8 @@ body.bp {
   
   a.price_breadcrumb_remove { @extend a.tag_breadcrumb_remove; }
   
+  a.keyword_remove { @extend a.tag_breadcrumb_remove; }
+  
   .breadcrumb_arrow { @extend a.tag_breadcrumb_remove;
     background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/arrow-000-small.png");
   }
