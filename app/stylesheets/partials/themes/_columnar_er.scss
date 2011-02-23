@@ -111,7 +111,7 @@ body.bp {
           
           // &.last { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_last.png") no-repeat; }
           
-          // &:hover { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_hover.png") no-repeat; }
+          &:hover { background-color: $table_td_even; }
         }
       }
       

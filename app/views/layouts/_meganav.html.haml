@@ -6,7 +6,9 @@
     - elsif is_sizzix_uk?
       = render :partial => 'layouts/meganav_szuk'
     - elsif is_ee?
-      = render :partial => 'layouts/meganav_eeus-uk_temp'
+      = render :partial => 'layouts/meganav_eeus-uk'
+    - elsif is_er?
+      = render :partial => 'layouts/meganav_er'
     - else
       = render :partial => 'layouts/meganav_temp'
 

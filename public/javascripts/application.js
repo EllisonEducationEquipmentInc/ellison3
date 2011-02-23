@@ -554,8 +554,12 @@ function megamenuHoverOver() {
   var xCoord = 0;
   var panelWidth = 0;
   
-  if ($(this).find('.megapanel').hasClass('full-width')) { // for full-width megapanels
-    xCoord = Math.abs($('#nav_megamenu ul').position().left) - $(this).position().left; // calculate correct left coordinate of the subpanel
+  if ($(this).find('.megapanel').hasClass('full-width')) { // for full-width megapanels; calculate correct left coordinate
+    if ($('#nav_megamenu ul').position().left < 0) {
+      xCoord = Math.abs($('#nav_megamenu ul').position().left) - $(this).position().left;
+    } else {
+      xCoord = -(Math.abs($('#nav_megamenu ul').position().left) + $(this).position().left);
+    }
   } else { // for all other (content-width) megapanels
     $(this).find('.megapanel ul[class*="wrap"]').each(function(){
       panelWidth += $(this).width();
