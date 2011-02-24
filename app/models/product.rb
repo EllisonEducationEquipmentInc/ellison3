@@ -437,7 +437,7 @@ class Product
 	
 	def can_be_added_to_cart?
 	  if is_ee?
-	    available?
+	    listable?
 	  elsif is_er?
 	    available? || pre_order?
 	  else
