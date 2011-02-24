@@ -1,0 +1,6 @@
+%tr{:id => "firmware_range_#{firmware_range.id}"}
+  %td= l firmware_range.created_at, :format => :custom
+  %td= firmware_range.prefix
+  %td= firmware_range.start_from
+  %td= firmware_range.end_to
+  %td= link_to 'x', {:action => 'destroy_firmware_range', :id => firmware_range.id}, :confirm => 'Are you sure?', :method => :delete, :remote => true, :class => 'jqui_destroy_min'

@@ -14,7 +14,7 @@ class PrivateAttachmentUploader < CarrierWave::Uploader::Base
 	end	
 
   def extension_white_list
-    %w(jpg jpeg png pdf doc docx rtf txt gif)
+    model.class == Firmware ? %w(exe dmg zip) : %w(jpg jpeg png pdf doc docx rtf txt gif)
   end
   
   def store_dir

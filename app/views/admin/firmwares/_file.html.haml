@@ -1,0 +1,4 @@
+%tr{:id => "firmware_file_#{file.id}"}
+  %td= file.name
+  %td= file.file_filename
+  %td= link_to 'x', {:action => 'destroy', :id => file.id}, :confirm => 'Are you sure?', :method => :delete, :remote => true, :class => 'jqui_destroy_min'

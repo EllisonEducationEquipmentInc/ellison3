@@ -1,0 +1,6 @@
+= remotipart_response do
+  - if @firmware.save
+    == $("#firmware_files").append("#{escape_javascript(render :partial => 'file', :object => @firmware)}");
+    $('#upload_fw_file_form').resetForm();
+  - else
+    == alert('#{escape_javascript @firmware.errors.full_messages.join("\n")}');

@@ -178,11 +178,11 @@ namespace :data_migrations do
   desc "fix EDU calendar tags"
   task :tags_fix_calendar => [:set_edu, :load_dep] do
     set_current_system "eeus"
-    OldData::PolymorphicTag.not_deleted.find_each(:conditions => ["tag_type = ?", 19]) do |tag|
+    OldData::PolymorphicTag.not_deleted.find_each(:conditions => "calendar_start_date IS NOT NULL") do |tag|
       new_tag = Tag.where(:old_id_edu => tag.id).first 
       next unless new_tag
       new_tag.write_attributes :calendar_start_date_eeus => tag.calendar_start_date, :calendar_end_date_eeus => tag.calendar_end_date - 8.hours, :color => tag.color
-      print new_tag.save
+      print new_tag.save(:validate => false)
       p tag.id
     end
   end
