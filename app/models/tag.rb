@@ -71,6 +71,8 @@ class Tag
   field :old_id_edu, :type => Integer
   field :color
   field :keywords
+  # field :calendar_start_date, :type => DateTime
+  # field :calendar_end_date, :type => DateTime
   
   index :systems_enabled
   index :permalink
@@ -100,7 +102,7 @@ class Tag
   class << self
     
     def events_for_date_range(start_d, end_d, find_options = {})
-      Tag.available.calendar_events
+      Tag.available.where(:"calendar_end_date_#{current_system}".gte => start_d.to_time.utc,  :"calendar_start_date_#{current_system}".lt => end_d.to_time.utc).asc(:"calendar_start_date_#{current_system}")
     end
     
     def all_types
