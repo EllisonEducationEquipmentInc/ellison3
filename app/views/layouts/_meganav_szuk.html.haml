@@ -2,8 +2,8 @@
   = link_to "Sizzix Products", catalog_path, :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
   .megapanel.full-width
     %ul.megasublist.contentwrap_XS
-      %li= link_to "Product Catalog", "/catalog", :class => "megasublink", :onclick => "return false;"
-      %li= link_to "Electronic Cutting", "/catalog#q=eclips&page=1", :class => "megasublink", :onclick => "return false;"
+      %li= link_to "Product Catalog", "#", :class => "megasublink", :onclick => "return false;"
+      %li= link_to "Electronic Cutting", "#", :class => "megasublink", :onclick => "return false;"
       %li.last= link_to "Machines & Accessories", "#", :class => "megasublink", :onclick => "return false;"
     .subpanel
       %ul.contentwrap_XS

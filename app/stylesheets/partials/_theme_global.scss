@@ -440,11 +440,14 @@ ul.ui-tabs-nav {
           ul.contentwrap_XXS, ul.contentwrap_XS, ul.contentwrap_small, ul.contentwrap_medium, ul.contentwrap_large, ul.contentwrap_XL, ul.contentwrap_XXL, ul.contentwrap_XXXL {
             padding: 0 0 8px 10px;
             
-            li.listtitle {
-              text-transform: uppercase;
+            li.listitem {
               font-weight: bold;
               font-size: .9em;
-              margin-top: 8px;
+              margin-top: 8px;              
+            }
+            
+            li.listtitle { @extend li.listitem;
+              text-transform: uppercase;
             }
             li.listtitle.first { @extend li.listtitle;
               margin-top: 0px;
