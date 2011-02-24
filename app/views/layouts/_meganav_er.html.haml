@@ -2,8 +2,8 @@
   = link_to "Sizzix Crafts", "/shop/crafts", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
   .megapanel.full-width
     %ul.megasublist.contentwrap_XS
-      %li= link_to "Crafts Products", "#", :class => "megasublink", :onclick => "return false;"
-      %li.last= link_to "Crafts Projects", "#", :class => "megasublink", :onclick => "return false;"
+      %li= link_to "Craft Products", "#", :class => "megasublink", :onclick => "return false;"
+      %li.last= link_to "Craft Projects", "#", :class => "megasublink", :onclick => "return false;"
     .subpanel
       %ul.contentwrap_XS
         %li.listtitle.first Shop by Product Line
@@ -50,9 +50,11 @@
           %li= link_to "eclips Electronic Shape Cutting", "#"
           %li= link_to "Texture Boutique", "#"
       .contentwrap_medium.resize.last
-        %h4 Featured Video
+        %h4.first Featured Video
         %p= link_to image_tag("/images/_temp/meganav_eclips.jpg", :width => 290), "http://www.youtube.com/v/UQtK5KE5Eac&feature=youtube_gdata_player&autoplay=1&fs=1", :class => "fancyvideo"
         %p== Get up and running quickly with the revolutionary eclips machine! Visit our complete online library of all #{ link_to "eclips tutorial videos", "/videos"}
+        %h4 Craft Specials
+        %p= image_tag("/images/_temp/meganav_internet-specials.png", :width => 290)
     .subpanel{:style => "display: none;"}
       %ul.contentwrap_XS
         %h3 Get Inspired!
@@ -96,9 +98,6 @@
           %li=link_to "Deena Ziegler", "#"
           %li=link_to "Pete Hughes", "#"
           %li=link_to "Tim Holtz", "#"
-      .contentwrap_medium.resize.last
-        %h4 Craft Specials
-        %p= image_tag("/images/_temp/meganav_internet-specials.png", :width => 290)
 
 %li.megaitem.ui-corner-top
   = link_to "Ellison Education", "/shop/education", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
@@ -159,9 +158,11 @@
       %ul.contentwrap_XS
         %li.listitem.first= link_to "View All Education Products", "#"
       .contentwrap_medium.resize.last
-        %h4 Featured Video
+        %h4.first Featured Video
         %p= link_to image_tag("/images/_temp/meganav_eclips.jpg", :width => 290), "http://www.youtube.com/v/UQtK5KE5Eac&feature=youtube_gdata_player&autoplay=1&fs=1", :class => "fancyvideo"
         %p== Get up and running quickly with the revolutionary eclips machine! Visit our complete online library of all #{ link_to "eclips tutorial videos", "/videos"}
+        %h4 Craft Specials
+        %p= image_tag("/images/_temp/meganav_internet-specials.png", :width => 290)
     .subpanel{:style => "display: none;"}
       %ul.contentwrap_XS
         %li.listtitle.first By Curriculum
@@ -204,9 +205,11 @@
           %li= link_to "Water", "#"
           %li= link_to "World Travels", "#"
         %li.listitem= link_to "View All Lessons", "#"
-      .contentwrap_medium.resize.last
-        %h4 Craft Specials
-        %p= image_tag("/images/_temp/meganav_internet-specials.png", :width => 290)
+    %ul.contentwrap_medium.resize.last
+      %li= image_tag("/images/_temp/meganav_eyemask-girl.png", :width => 290)
+      %li.listitem= link_to "Fundraising Ideas", "#"
+      %li.listitem= link_to "Tips & Techniques", "#"
+
 
 %li.megaitem.ui-corner-top
   = link_to "Support", "/support", :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"

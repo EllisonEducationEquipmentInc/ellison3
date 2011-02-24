@@ -391,6 +391,13 @@ ul.ui-tabs-nav {
           }
           
           h4 {
+            margin-top: 10px;
+            font-weight: bold;
+            line-height: 1em;
+          }
+
+          h4.first {
+            margin-top: 0px;
             font-weight: bold;
             line-height: 1em;
           }
