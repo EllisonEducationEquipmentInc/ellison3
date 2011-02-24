@@ -33,3 +33,6 @@
   
 // advertisements
 .mini-banner { @include column(24, true); }
+
+// for three equal column layouts (like the footer)
+.column { @include column(8); }

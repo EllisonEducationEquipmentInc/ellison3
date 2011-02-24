@@ -9,7 +9,7 @@
       = @title
       \| 
       = get_domain.capitalize
-    = render 'layouts/common_head'
+    = render "layouts/common_head"
     = yield :gmap_header
   %body.bp
     #root
@@ -18,10 +18,10 @@
           \&nbsp;
         .main
           #header
-            = render 'layouts/masthead'
-            = render 'layouts/meganav'
+            = render "layouts/masthead"
+            = render "layouts/meganav"
           #content
-            = render 'layouts/content'
+            = render "layouts/content"
         .design-gutter.dontprint.last
           \&nbsp;
       #root_footer
@@ -30,6 +30,6 @@
         .design-gutter.dontprint
           \&nbsp;
         .main
-          = render 'layouts/footer'
+          = render "layouts/footer_#{current_system}"
         .design-gutter.dontprint.last
           \&nbsp;

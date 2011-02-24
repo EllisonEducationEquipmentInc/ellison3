@@ -177,16 +177,6 @@ body.bp {
 #footer {
   
   .container {
-    background: url("/images/ui-backgrounds/_#{$system}_footer.png") no-repeat center top;
-    
-    .column {
-      margin-top: 45px;
-      margin-bottom: 20px;
-      height: 205px;
-    
-      p {
-        padding-right: 10px;
-      }
-    }
+    background: url("/images/ui-backgrounds/_#{$system}_footer.png") no-repeat center top;    
   }
 }

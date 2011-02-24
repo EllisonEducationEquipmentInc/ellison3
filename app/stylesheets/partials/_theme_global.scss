@@ -708,17 +708,22 @@ ul.ui-tabs-nav {
         color: $footer_hover;
       };
     }
-  
-    .column_left, .column_middle { @extend .column;
-      border-right: 1px solid $footer_divider;
-    }
-  
-    .column_middle {
-      padding-right: 38px;  // to help push .column_right to it's 'right'-ful position
-    }
     
-    .column_right {
-      @extend .column;
+    .column {
+      margin-top: 45px;
+      margin-bottom: 20px;
+      height: 205px;
+      border-right: 1px solid $footer_divider;
+    
+      p {
+        padding-right: 10px;
+      }
+    }
+      
+    .column_right { @extend .column;
+      margin-right: 0;
+      width: 308px;
+      border-right: none;
       
       ul.social-icons { @extend .horizontal;
         @if $system == szus {

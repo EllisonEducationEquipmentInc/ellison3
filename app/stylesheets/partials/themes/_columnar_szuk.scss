@@ -184,15 +184,12 @@ body.bp {
   
   .container {
     background: url("/images/ui-backgrounds/_#{$system}_footer.png") no-repeat center top;
-    
-    .column {
-      margin-top: 26px;
-      margin-bottom: 20px;
-      height: 205px;
-    
-      p {
-        padding-right: 10px;
-      }
-    }
+
+    .main {
+
+      .column, .column_right {
+        margin-top: 26px;
+      }    
+    }     
   }
 }
