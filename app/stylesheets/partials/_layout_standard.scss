@@ -36,3 +36,7 @@
 
 // for three equal column layouts (like the footer)
 .column { @include column(8); }
+
+
+// footer
+.copyright { @include column(24, true); }

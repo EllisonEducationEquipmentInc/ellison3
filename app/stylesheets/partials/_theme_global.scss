@@ -699,6 +699,10 @@ ul.ui-tabs-nav {
     h2, h3, h4 {
       color: $footer_headings;
       margin-bottom: 0;
+      
+      &.solo {
+        margin-bottom: 1.5em;
+      }
     }
   
     a {
@@ -709,10 +713,13 @@ ul.ui-tabs-nav {
       };
     }
     
+    ul { @extend ul.plain;
+      margin-bottom: 1.5em !important;
+    }
+    
     .column {
       margin-top: 45px;
-      margin-bottom: 20px;
-      height: 205px;
+      margin-bottom: 10px;
       border-right: 1px solid $footer_divider;
     
       p {
@@ -734,6 +741,11 @@ ul.ui-tabs-nav {
         
         li { margin: 0 12px 0 0 !important; }
       }
+    }
+    
+    .copyright { @extend .legalese;
+      margin-bottom: 18px;
+      text-align: center;
     }
   }
 }

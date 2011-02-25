@@ -1,38 +1,48 @@
 .column
-  %h2== #{current_system.upcase} Customer Care
-  %p Call or e-mail our Customer Care Center for help with any issues or concerns.
-  %h3 Sizzix Customer Care Hours
+  %h2 Customer Care
+  %p Contact us for help with any issues or concerns
+  %p= link_to "Contact us online 24x7", "/contact"
+
+  %h3 Call Center Hours
   %p
     6:30 a.m. to 4:00 p.m., Pacific Time,
     %br/
     Monday through Friday
+
+  %h3 By Phone
+  %ul
+    %li (800) 253-2238 (Toll Free in the USA)
+    %li (949) 598-8822 (Outside of the USA)
+
+  %h3 By Fax
+  %ul
+    %li (800) 253-2240 (Toll free in the USA)
+    %li (949) 598-8840 (Outside of the USA) 
+
+  %h3 By Mail:
   %p
-    - if is_uk?
-      0844 499 8181 (Within UK)
-      %br/
-      + 44 (0) 845 345 2277 (Outside of the UK)
-    - else
-      (877) 355-4766 (Toll Free in the USA)
-      %br/
-      (949) 598-8821 (Outside of the USA)
+    %strong Ellison Education Customer Service
+    %br/
+    25862 Commercentre Drive
+    %br/
+    Lake Forest, California 92630-8804 USA
 
 .column
   %h2 Learn More
-  %p Take a peek to find out what Creative Designers are creating with our products.
-
-  %h2 Store Locator:
-
-  %p== #{link_to "Click here", "/stores"} for our convenient Store Locator which can locate the nearest Sizzix Store near you!
+  %p More useful resources
+  %ul
+    %li= link_to "Custom Dies", "#"
+    %li= link_to "Request a Catalog", "#"
+    %li= link_to "Ellison Resellers", "#"
+    %li= link_to "FAQs", "#"
+    %li= link_to "Privacy Policy", "#"
+    %li= link_to "Legal Notices", "#"
 
 .column_right
-  %h2 Subscribe to the Sizzix Scoop
-    
-  %p==  Click #{link_to "here", "/register"} to sign up with us.
-  
+  %h2 Subscribe to Connection
+  %p Get informed with regular email updates
   %h2 Follow Along With Us
-
   %p Connect with us in social media or join our Sizzix Scoop newsletter list to receive special offers, promotions, exclusive products information and news.
-  
   %ul.social-icons
     %li= link_to image_tag("/images/ui-icons/set_social-media/32x32/twitter.png"), "http://www.twitter.com/sizzix#{ is_us? ? "us" : "uk" }", :target => "blank", :title => "Follow us on Twitter", :alt => "Follow us on Twitter"
     %li= link_to image_tag("/images/ui-icons/set_social-media/32x32/facebook.png"), "http://www.facebook.com/Sizzix", :target => "blank", :title => "Join us on Facebook", :alt => "Join us on Facebook"
