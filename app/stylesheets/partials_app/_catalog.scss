@@ -663,11 +663,14 @@ h3.item_title {
   #item_designers_thumbnails {
     @extend .right;
     @extend .thumbnail;
+    
+    width: 125px;
+    height: 125px;
     visibility: hidden;
     
-    ul li {
-      float: left;
-      margin: 0;
+    ul { @extend ul.plain;
+      
+      li { float: left; }
     }
   }  
 }

@@ -44,7 +44,7 @@
 .item_description
   = @product.description.try :html_safe
   %p= link_to "Download Instructions", @product.instructions, :target => '_blank', :title => "Download Instructions", :class => "link_instructions" if @product.instructions.present?
-.item_categories
+.item_categories{ :style => "#{@product.designers.length > 0 ? nil : 'width: 470px; margin-right: 0'}"}
   - if @product.categories.count > 0
     %p
       %strong= @product.categories.count > 1 ? 'Categories:' : 'Category:'
@@ -59,34 +59,40 @@
     %p
       %strong== Curriculum#{'s' if @product.curriculums.count > 1}: 
       = raw @product.curriculums.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}"))} * ', '
-.item_designers
-  - if @product.designers.count > 0
+- if @product.designers.count > 0
+  .item_designers
     %p.right
       %strong Designed by
     #item_designers_thumbnails
       %ul
         - @product.designers.each do |designer|
           - next if designer.list_page_img.blank?
-          %li= link_to image_tag(designer.list_page_img, :width => 65, :height => 65), catalog_path(:anchor => "facets=#{designer.facet_param}&page=1#{'&outlet=1' if @product.outlet}"), :title => designer.name
-      :javascript
-        $(function() {
-          $("#item_designers_thumbnails").jCarouselLite({
-            scroll: 1,
-            visible: 1,
-            circular: true,
-            auto: 8000,
-            circular: true,
-            beforeStart: function(a) {
-              $(a).parent().fadeTo(1000, 0);
-              var bg = $(a).find('img').attr('src');
-              $('.banner_images_slider').css({backgroundImage: "url("+bg+")"}, 1000);
-            },
-            afterEnd: function(a) {
-              $(a).parent().fadeTo(1000, 1);
-            }
+          %li= link_to image_tag(designer.list_page_img, :width => 125, :height => 125), catalog_path(:anchor => "facets=#{designer.facet_param}&page=1#{'&outlet=1' if @product.outlet}"), :title => designer.name
+      - if @product.designers.count > 1
+        :javascript
+          $(function() {
+            $("#item_designers_thumbnails").jCarouselLite({
+              scroll: 1,
+              visible: 1,
+              circular: true,
+              auto: 8000,
+              circular: true,
+              beforeStart: function(a) {
+                $(a).parent().fadeTo(1000, 0);
+                var bg = $(a).find('img').attr('src');
+                $('#item_designers_thumbnails').css({backgroundImage: "url("+bg+")"}, 1000);
+              },
+              afterEnd: function(a) {
+                $(a).parent().fadeTo(1000, 1);
+              }
+            });
           });
-        });
-
+      - else
+        :javascript
+          $(function() {
+            $("#item_designers_thumbnails").css({visibility: "visible"});
+          });
+          
 - if @product.product_line.present? && @product.product_line.compatibilities.length > 0
   -# TODO: cache + move to a helper
   .item_compatibility
