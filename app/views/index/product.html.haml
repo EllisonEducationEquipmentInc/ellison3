@@ -55,7 +55,7 @@
     %p
       %strong== Theme#{'s' if @product.themes.count > 1}: 
       = raw @product.themes.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}"))} * ', '
-  - if (is_ee? && is_er?) && @product.curriculums.count > 0
+  - if is_ee? && @product.curriculums.count > 0
     %p
       %strong== Curriculum#{'s' if @product.curriculums.count > 1}: 
       = raw @product.curriculums.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}"))} * ', '
