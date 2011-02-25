@@ -64,6 +64,10 @@
     %br
     = f.check_box :all_day
   .field
+    = f.label :color
+    %br
+    = f.select :color, %w(#336699 #339933 #ff9900 #ff0000 #ff00cc #3399cc #33cc33 #993333), :include_blank => true
+  .field
     = f.label :image, "List page image"
     = image_tag(@tag.image_url(:small)) if @tag.image? 
     = f.file_field :image

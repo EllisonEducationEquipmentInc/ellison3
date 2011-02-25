@@ -257,6 +257,8 @@ class IndexController < ApplicationController
     @shown_month = Date.civil(@year, @month)
 
     @event_strips = Tag.event_strips_for_month(@shown_month)
+    @title = "Lesson calendar"
+    @calendar_content = SharedContent.calendar
   end
   
   def machines_survey

@@ -4,7 +4,7 @@ class SharedContent
   include Mongoid::Timestamps
   #include Mongoid::Associations::EmbeddedCallbacks
   
-  PLACEMENTS = ["store_locator", "cart", "home", "campaigns"]
+  PLACEMENTS = ["store_locator", "cart", "home", "campaigns", "calendar"]
   
   field :name
   field :active, :type => Boolean, :default => true
