@@ -816,9 +816,11 @@ h3.item_title {
 }
 
 // machine/die compatibility information
-.item_compatibility {
-  
+.item_compatibility, .item_designers {
   p { margin-bottom: 0 !important;}
+}
+
+.item_compatibility {
   
   #item_compatibility_thumbnails {
     visibility: hidden;

@@ -55,12 +55,14 @@
     %p
       %strong== Theme#{'s' if @product.themes.count > 1}: 
       = raw @product.themes.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}"))} * ', '
-  - if is_ee? && is_er? && @product.curriculums.count > 0
+  - if (is_ee? && is_er?) && @product.curriculums.count > 0
     %p
       %strong== Curriculum#{'s' if @product.curriculums.count > 1}: 
       = raw @product.curriculums.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}"))} * ', '
 .item_designers
   - if @product.designers.count > 0
+    %p.right
+      %strong Designed by:
     #item_designers_thumbnails
       %ul
         - @product.designers.each do |designer|
@@ -88,8 +90,9 @@
 - if @product.product_line.present? && @product.product_line.compatibilities.length > 0
   -# TODO: cache + move to a helper
   .item_compatibility
-    %h4 Compatibility
-    %p== This #{@product.item_type} is compatible with these product lines:
+    %p
+      %strong Machine Compatibility: 
+      == This #{@product.item_type} is compatible with these product lines
     #item_compatibility_thumbnails
       %ul
         - @product.product_line.compatibilities.each do |compatibility|
