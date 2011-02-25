@@ -13,7 +13,6 @@ body.bp {
     }
   }
   
-  
   h1, h2, h3, h4, h5 {
     font-family: 'PT Sans', Helvetica, Arial, sans-serif;
   }
@@ -35,7 +34,7 @@ body.bp {
   	display: block;
   	width: 177px; 
   	height: 98px;
-  	margin: 2px 0 0 22px;
+  	margin: 2px 0 0 24px;
   	text-indent: -9999em;
   }
   
@@ -54,7 +53,7 @@ body.bp {
   #searchbar {
     width: 467px;
     height: 62px;
-    margin: 0 10px 0 0;
+    margin: 2px 24px 0 0;
     
     input.textfield {
       border: none;
@@ -114,6 +113,10 @@ body.bp {
     .megapanel {
       top: 29px;
       margin-top: 4px;
+      
+      a:visited, a.hover {
+        color:#ffffcc;
+      }
 
       .megasublist {
         li {
