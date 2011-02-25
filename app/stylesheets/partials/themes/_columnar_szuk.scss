@@ -91,14 +91,16 @@ body.bp {
   }
   
   #nav_megamenu {
+    top: -3px;
 
     .megalink {
       font-family:  'PT Sans', Helvetica, Arial, sans-serif;
-      font-size: 1.1em;
+      font-size: 1.4em;
       font-weight: bold;
       color: $meganav_link;
       text-transform: uppercase;
       text-decoration: none;
+      width:auto
       
       &:hover { color: $meganav_hover; };
     }
