@@ -74,6 +74,7 @@
       = render @list.products
 :javascript
   $(document).ready(function(){
+    $("a.toggle_view").click(function(){$('.item-block').shadowOff();setTimeout("shadow_on()", 300);});
     $("a.toggle_view").toggleView({initial_state: $.deparam.fragment()['view']});
   })
 .clear
