@@ -16,7 +16,7 @@ class FirmwareRange
 
   def self.valid?(serial_number)
     return false unless serial_number =~ /^[a-z]{1}((0\d)|(1[0-2]{1}))\d{4}$/i
-    active.find_all_by_prefix(serial_number[0,3]).any? {|r| r.to_range.include?(serial_number[3,8].to_i)}
+    active.where(:prefix => serial_number[0,3]).any? {|r| r.to_range.include?(serial_number[3,8].to_i)}
   end
 
   def to_range

@@ -1,0 +1,8 @@
+%h1 eclips sowtware update
+= @text.html_safe
+= form_tag({:action => 'show_fw_files'}, :remote => true) do
+  .field
+    = label_tag :serial_number
+    = text_field_tag :serial_number
+    = submit_tag 'Go!', :class => 'jqui_save'
+#firmware_files

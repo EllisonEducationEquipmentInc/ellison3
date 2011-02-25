@@ -287,6 +287,30 @@ class UsersController < ApplicationController
 	  @material_order.user = get_user
 	end
 	
+	def eclipsware
+	  @text = SystemSetting.value_at("firmware_text") || SystemSetting.new(:key => "firmware_text").value
+	  @title = "eclips Software"
+	end
+	
+	def show_fw_files
+	  if FirmwareRange.valid? params[:serial_number]
+	    @files = Firmware.active.asc(:created_at)
+	    cookies[:serial_number] = { :value => params[:serial_number], :expires => 1.hour.from_now }
+	  else
+	    render :js => "alert('Invalid Serial Number');"
+	  end
+	end
+	
+	def download_firmware
+	  @firmware = Firmware.find(params[:id])
+	  redirect_to :action => "eclipsware" and return unless cookies[:serial_number] && @firmware
+	  unless File.exists? "/data/shared/firmware_files/#{@firmware.id}"
+	    @gridfs_file = Mongo::GridFileSystem.new(Mongoid.database).open(@firmware.file_url.gsub(/^\/grid\//,''), 'r')
+	    File.open("/data/shared/firmware_files/#{@firmware.id}", "wb") {|file| file.write(@gridfs_file.read)}
+	  end
+	  send_file "/data/shared/firmware_files/#{@firmware.id}", :filename => @firmware.file_filename
+	end
+	
 protected
 
   # Authenticates the current scope and gets a copy of the current resource.

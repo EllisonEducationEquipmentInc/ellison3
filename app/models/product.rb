@@ -439,7 +439,7 @@ class Product
 	  if is_ee?
 	    listable?
 	  elsif is_er?
-	    available? || pre_order?
+	    in_stock? || pre_order?
 	  else
 	    in_stock?
 	  end

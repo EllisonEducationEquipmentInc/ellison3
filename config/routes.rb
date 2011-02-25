@@ -40,6 +40,9 @@ Ellison3::Application.routes.draw do |map|
 		get 'users/view_retailer_application', :to => "users#view_retailer_application"
 		get 'users/machines_i_own', :to => "users#machines_i_own"
 		post 'users/order_material', :to => "users#order_material"
+		get 'eclipsware', :to => "users#eclipsware"
+		post 'users/show_fw_files', :to => "users#show_fw_files"
+		get 'users/download_firmware', :to => "users#download_firmware"
   end
 
   match 'admin' => 'admin#index'
