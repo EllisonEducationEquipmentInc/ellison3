@@ -18,9 +18,9 @@
           %br
           Out of stock
       %td
-        .thumbnail
+        .thumbnail{ :style => "position: relative" }
           = link_to(image_tag(@product.small_image), product_url(:item_num => @product.url_safe_item_num, :name => @product.name.parameterize)) unless @product.small_image.blank?
-          - if @product.outlet
+          - if @product.outlet && is_sizzix_us?
             .clearance_flag= link_to(image_tag("/images/ui-objects/pricetag_outlet.png", :alt => "On Sale!", :title => "On Sale!"), product_url(:item_num => @product.url_safe_item_num, :name => @product.name.parameterize)) unless @product.small_image.blank?
       %td= link_to(@product.name, product_url(:item_num => @product.url_safe_item_num, :name => @product.name.parameterize))
       %td{:style => "text-align: right"}= number_to_currency @product.msrp
@@ -33,6 +33,12 @@
       %td#cart_subtotal{:style => "text-align: right", :class => "cart_extended_price"}= number_to_currency gross_price(get_cart.sub_total)
 %p.cart_shipmsg
   \&nbsp;
-  = link_to_unless_current "Check Out Now", cart_path, :id => 'checkout_now'
+  = link_to_unless_current "Check Out Now", cart_path, :id => 'checkout_now', :class => "right"
 :javascript
   $("#checkout_now").button();
+  $("table").each(function() {
+    $(this).addClass("ui-widget ui-widget-content ui-corner-all");
+  });
+  $("table thead").each(function() {
+    $(this).addClass("ui-state-hover");
+  });

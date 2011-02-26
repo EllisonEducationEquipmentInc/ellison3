@@ -55,7 +55,7 @@ ul.cart_summary {
 }
 
 // buttons
-#checkout_button, .save_as_quote { @extend .button_large;
+#checkout_button, #checkout_now, .save_as_quote { @extend .button_large;
   margin-bottom: 10px;
   letter-spacing: .5px;
 }
