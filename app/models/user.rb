@@ -53,6 +53,7 @@ class User
 	references_many :orders, :validate => false, :index => true
 	references_many :material_orders, :validate => false, :index => true
 	references_many :quotes, :validate => false, :index => true
+	references_many :messages, :validate => false, :index => true
 	references_many :lists, :index => true do
 	  def owns
 			@target.detect {|list| list.owns}

@@ -24,7 +24,7 @@ Ellison3::Application.configure do
 	config.action_mailer.perform_deliveries = true
 	config.action_mailer.raise_delivery_errors = false
 	
-	config.cache_store = :mem_cache_store, 'localhost:11211', {:namespace => 'ellison3', :compress => true}
+	config.cache_store = :mem_cache_store, '192.168.2.171:11211', {:namespace => 'ellison3', :compress => true}
 	
 	config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
 	

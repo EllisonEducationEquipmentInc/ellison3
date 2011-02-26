@@ -3,7 +3,7 @@ source 'http://gemcutter.org'
 source 'http://gems.github.com'
 require 'rubygems'
 require 'image_science'
-require 'mongo'
+#require 'mongo'
 require 'csv'
 
 gem 'bundler', '>=1.0.10'
@@ -32,7 +32,7 @@ gem "mongoid", :git => "http://github.com/mongoid/mongoid.git", :branch => "mast
 #gem "mongoid", :git => "git://github.com/computadude/mongoid.git", :branch => "master"
 gem "nifty-generators"
 gem "compass", ">= 0.10.5"
-gem 'rb-inotify', ">= 0.5.1"
+#gem 'rb-inotify', ">= 0.5.1"
 #gem 'inline'
 gem 'RubyInline'
 gem 'image_science', ">=1.2.1" #, :git => 'git://github.com/perezd/image_science.git', :branch => 'master', :require => 'inline'
@@ -51,7 +51,7 @@ gem 'sunspot_mongoid', :git => 'git://github.com/jugyo/sunspot_mongoid.git', :br
 gem 'feedzirra'
 gem 'geokit'
 gem 'youtube_it', :git => "git://github.com/jasondoucette/youtube_it.git"
-gem 'memcache'
+#gem 'memcache'
 gem 'memcache-client'
 gem 'event-calendar', :require => 'event_calendar', :git => 'git://github.com/elevation/event_calendar.git', :branch => "master"
 gem 'rpm_contrib'

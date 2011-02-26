@@ -3,8 +3,6 @@
 # TODO: admin for this
 class DiscountCategory
   include EllisonSystem
-	include ActiveModel::Validations
-	include ActiveModel::Translation
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	

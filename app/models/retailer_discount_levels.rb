@@ -49,6 +49,10 @@ class RetailerDiscountLevels
     @levels.detect {|e| e.id == id}
   end
   
+  def find_all(ids)
+    @levels.select {|e| ids.include?(e.id)}
+  end
+  
   def find_by_group(group)
     @levels.select {|e| e.group == group}
   end

@@ -1,0 +1,19 @@
+= form_for([:admin, @message], :html => {:multipart => true}) do |f|
+  = f.error_messages
+  .field
+    = f.label :active
+    %br
+    = f.check_box :active
+  .field
+    = select_tag 'message[discount_levels]', grouped_options_for_select(retailer_discount_levels.grouped_hash, @message.discount_levels), :multiple => true
+  .field
+    = f.label :subject
+    %br
+    = f.text_field :subject
+  .field
+    = f.label :body
+    %br
+    = f.text_area :body, :class => 'wymeditor'
+
+  .actions
+    = f.submit :class => 'wymupdate jqui_save'
