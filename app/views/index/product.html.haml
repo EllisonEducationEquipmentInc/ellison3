@@ -61,7 +61,7 @@
       = raw @product.curriculums.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}"))} * ', '
 - if @product.designers.count > 0
   .item_designers
-    %p.right
+    %p
       %strong Designed by
     #item_designers_thumbnails
       %ul

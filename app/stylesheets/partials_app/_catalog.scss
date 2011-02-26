@@ -660,6 +660,8 @@ h3.item_title {
 
 .item_designers {
   
+  p { margin-left: 28px !important;}
+  
   #item_designers_thumbnails {
     @extend .right;
     @extend .thumbnail;

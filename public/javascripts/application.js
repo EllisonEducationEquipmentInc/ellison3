@@ -593,7 +593,7 @@ function megamenuHoverOver() {
   
   // set mega-item hover styles for Sizzix UK & Ellison Retailers
   if (current_system == "szuk") {
-    var meganav_hover = "#6382e0";
+    var meganav_hover = "#ffffcc";
   }
   if (current_system == "er") {
     var meganav_hover = "#6382e0";
