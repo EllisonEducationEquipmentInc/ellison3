@@ -3,7 +3,7 @@
   %tr
     %th Subject
     %th Date
-  = render :partial => 'message', :collection => get_user.messages
+  = render :partial => 'message', :collection => get_user.messages.active
 %h2 Group messages
 %table
   %tr
