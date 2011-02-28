@@ -43,6 +43,7 @@ Ellison3::Application.routes.draw do |map|
 		get 'eclipsware', :to => "users#eclipsware"
 		post 'users/show_fw_files', :to => "users#show_fw_files"
 		get 'users/download_firmware', :to => "users#download_firmware"
+		get 'users/messages', :to => "users#messages"
   end
 
   match 'admin' => 'admin#index'

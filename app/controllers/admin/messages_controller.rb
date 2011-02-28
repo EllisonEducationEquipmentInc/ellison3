@@ -52,7 +52,7 @@ class Admin::MessagesController < ApplicationController
     @message = Message.new(params[:message])
     respond_to do |format|
       if @message.save
-        format.html { redirect_to(edit_admin_message_url(@message), :notice => 'Message was successfully created.') }
+        format.html { redirect_to(admin_messages_url, :notice => 'Message was successfully created.') }
         format.xml  { render :xml => @message, :status => :created, :location => @message }
       else
         format.html { render :action => "new" }

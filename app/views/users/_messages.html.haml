@@ -1,0 +1,15 @@
+%h2 Private messages
+%table
+  %tr
+    %th Subject
+    %th Date
+  = render :partial => 'message', :collection => get_user.messages
+%h2 Group messages
+%table
+  %tr
+    %th Subject
+    %th Date
+  = render :partial => 'message', :collection => Message.get_group_messages(get_user.discount_level)
+:javascript
+  $('.message_subject').click(function(){$('#message_body_'+this.id.replace('message_subject_','')).toggle()})
+  

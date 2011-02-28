@@ -66,7 +66,7 @@ class UsersController < ApplicationController
 		# to open a tab from the url, pass the key in the :tab parameter like this: /myaccount/orders or myaccount/mylists or myaccount/quotes etc.
 		@title = "My Account - Profile"
     @tabs = []
-		@tabs += [[:view_retailer_application, "Your Application"]] if is_er?
+		@tabs += [[:view_retailer_application, "Your Application"], [:messages, "Messages"]] if is_er?
 		@tabs += [[:billing, "My Billing Info"], [:shipping, "My Shipping Info"], [:orders, "Order Status"], [:mylists, "My Lists"], [:machines_i_own, "Machines I own"]]
 	  @tabs += [[:quotes, quote_name.pluralize], [:materials, "Materials"]] if is_ee?
 	end
@@ -91,6 +91,10 @@ class UsersController < ApplicationController
 		@title = "Order: #{@order.id}"
 	rescue
 		redirect_to(myaccount_path('orders'))
+	end
+	
+	def messages
+	  render :partial => 'messages'
 	end
 	
 	def add_to_list

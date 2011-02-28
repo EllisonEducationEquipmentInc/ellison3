@@ -1,0 +1,5 @@
+%tr{:class => "message_subject #{cycle('odd', 'even')}", :id => "message_subject_#{message.id}"}
+  %td= message.subject
+  %td= l message.created_at, :format => :custom
+%tr{:id => "message_body_#{message.id}", :style =>"display:none"}
+  %td{:colspan => 2, :class => 'message_body'}= message.body.html_safe
