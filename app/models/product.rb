@@ -313,7 +313,7 @@ class Product
 	def price(options = {})
 		time = options[:time] || Time.zone.now
 		best_price = campaign_price(time) && base_price(options) > campaign_price(time) ? campaign_price(time) : base_price(options)
-		if is_er? && !retailer_discount_level.blank?
+		if is_er? && !new_record? && !retailer_discount_level.blank?
 		  rp = retailer_price(retailer_discount_level, options)
 		  rp < best_price ? rp : best_price
 		else
@@ -342,7 +342,7 @@ class Product
 	end
 	
 	def retailer_price(discount_level = retailer_discount_level, options = {})
-	  (wholesale_price(options) - retailer_discount(discount_level, options)).round(2)
+	  (wholesale_price(options) - retailer_discount(discount_level, options)).round(2) rescue msrp
 	end
 	
 	def retailer_discount_percentage(discount_level = retailer_discount_level)
@@ -586,7 +586,7 @@ private
 	end
 	
 	def reindex?
-	  @marked_for_auto_indexing = self.changed? && self.changed.any? {|e| (["systems_enabled", "active", "outlet", "life_cycle", "tag_ids"] + ELLISON_SYSTEMS.map {|s| ["orderable_#{s}"]}.flatten + LOCALES_2_CURRENCIES.values.map {|c| ["msrp_#{c}", "wholesale_price_#{c}"]}.flatten).include?(e)} || campaigns.any? {|c| c.reindex?} || stock_status_changed?
+	  @marked_for_auto_indexing = self.changed? && self.changed.any? {|e| (["systems_enabled", "active", "outlet", "life_cycle", "tag_ids"] + ELLISON_SYSTEMS.map {|s| ["orderable_#{s}"]}.flatten + LOCALES_2_CURRENCIES.values.map {|c| ["msrp_#{c}", "wholesale_price_#{c}"]}.flatten).include?(e)} || campaigns.any? {|c| c.reindex?} || stock_status_changed? || new_record?
 	  @scheduled_indexing_campaign_dates = campaigns.map {|c| c.scheduled_reindex}.flatten.uniq
     Rails.logger.info "!!! reindex? called @scheduled_indexing_campaign_dates: #{@scheduled_indexing_campaign_dates.inspect}"
 	  @marked_for_scheduled_auto_indexing = self.changed.select {|e| e =~ /^(start|end)_date/}
