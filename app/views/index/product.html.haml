@@ -61,13 +61,13 @@
       = raw @product.curriculums.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}"))} * ', '
 - if @product.designers.count > 0
   .item_designers
-    %p
+    %p.right
       %strong Designed by
     #item_designers_thumbnails
       %ul
         - @product.designers.each do |designer|
           - next if designer.list_page_img.blank?
-          %li= link_to image_tag(designer.list_page_img, :width => 125, :height => 125), catalog_path(:anchor => "facets=#{designer.facet_param}&page=1#{'&outlet=1' if @product.outlet}"), :title => designer.name
+          %li= link_to image_tag(designer.list_page_img, :width => 65, :height => 65), catalog_path(:anchor => "facets=#{designer.facet_param}&page=1#{'&outlet=1' if @product.outlet}"), :title => designer.name
       - if @product.designers.count > 1
         :javascript
           $(function() {
@@ -79,8 +79,6 @@
               circular: true,
               beforeStart: function(a) {
                 $(a).parent().fadeTo(1000, 0);
-                var bg = $(a).find('img').attr('src');
-                $('#item_designers_thumbnails').css({backgroundImage: "url("+bg+")"}, 1000);
               },
               afterEnd: function(a) {
                 $(a).parent().fadeTo(1000, 1);
