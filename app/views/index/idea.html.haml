@@ -45,7 +45,7 @@
     %p
       %strong== Recommended Grade Level#{'s' if @idea.grade_levels.count > 1}: 
       = raw @idea.grade_levels.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1&ideas=1"))} * ', '
-  - if (is_ee_us? || is_er?) && @idea.curriculums.count > 0
+  - if (is_ee? || is_er?) && @idea.curriculums.count > 0
     %p
       %strong== Curriculum#{'s' if @idea.curriculums.count > 1}: 
       = raw @idea.curriculums.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1&ideas=1"))} * ', '
