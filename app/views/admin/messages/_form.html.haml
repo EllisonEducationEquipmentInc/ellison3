@@ -5,7 +5,12 @@
     %br
     = f.check_box :active
   .field
-    = select_tag 'message[discount_levels]', grouped_options_for_select(retailer_discount_levels.grouped_hash, @message.discount_levels), :multiple => true
+    - if @message.user.present?
+      = f.label :user_id, 'To'
+      = @message.user.email
+      = f.hidden_field :user_id
+    - else
+      = select_tag 'message[discount_levels]', grouped_options_for_select(retailer_discount_levels.grouped_hash, @message.discount_levels), :multiple => true
   .field
     = f.label :subject
     %br

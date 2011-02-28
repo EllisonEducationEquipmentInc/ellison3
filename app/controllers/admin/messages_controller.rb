@@ -11,7 +11,13 @@ class Admin::MessagesController < ApplicationController
 	  criteria = Mongoid::Criteria.new(Message)
 	  criteria = criteria.where :deleted_at => nil
 	  criteria = criteria.where(:active => true) if params[:inactive].blank?
-	  criteria = criteria.where(:discount_level.in => [params[:discount_level]]) unless params[:discount_level].blank?
+	  if params[:user_id].present? && params[:user_id].valid_bson_object_id?
+	    criteria = criteria.where(:user_id => params[:user_id])
+	  else
+  	  criteria = criteria.where(:discount_level.in => [params[:discount_level]]) unless params[:discount_level].blank?
+	    criteria = criteria.group_message
+	  end
+	  
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
   	  criteria = criteria.any_of({ :subject => regexp})
@@ -34,7 +40,7 @@ class Admin::MessagesController < ApplicationController
   # GET /messages/new.xml
   def new
     @message = Message.new
-
+    @message.user_id = params[:user_id] if params[:user_id].present? && params[:user_id].valid_bson_object_id?
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @message }

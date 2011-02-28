@@ -17,6 +17,10 @@ class Message
   index :discount_levels
   index :active
   
+  validates_presence_of :body, :subject
+  validates_presence_of :discount_levels, :if => Proc.new {|obj| obj.user_id.blank?}
+  validates_presence_of :user_id, :if => Proc.new {|obj| obj.discount_levels.blank?}
+  
   def self.get_group_messages(discount_level)
     return [] if discount_level.nil?
     active.group_message.where(:discount_levels.in => [discount_level]).desc(:created_at)

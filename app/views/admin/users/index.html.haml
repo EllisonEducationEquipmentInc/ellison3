@@ -18,6 +18,7 @@
         - if is_er?
           = sortable "status"
           %th Application
+          %th Messages
         - if has_write_permissions?
           %th &nbsp;
           %th &nbsp;
@@ -31,6 +32,7 @@
           - if is_er?
             %td= user.status
             %td= link_to 'view', :action => 'view_retailer_application', :id => user if user.application_complete?
+            %td= link_to 'messages', admin_messages_path(:user_id => user.id)
           - if has_write_permissions?
             %td= link_to 'Edit', edit_admin_user_path(user)
             %td= link_to 'Destroy', admin_user_path(user), :confirm => 'Are you sure?', :method => :delete
