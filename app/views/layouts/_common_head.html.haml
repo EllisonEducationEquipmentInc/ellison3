@@ -37,8 +37,16 @@
 = javascript_include_tag 'jcarousellite/jcarousellite_1.0.1.min.js'
 = javascript_include_tag 'fonteffect/jquery-fonteffect-1.0.0.min.js'
 = javascript_include_tag 'hoverintent/jquery.hoverIntent.minified.js', 'event_calendar'
-
 = csrf_meta_tag
+
+/ System Favicons
+- if is_sizzix?
+  %link{ :href => "/images/favicons/s_favicon.ico", :rel => "icon", :type => "image/x-icon" }
+  %link{ :href => "/images/favicons/s_favicon.ico", :rel => "shortcut icon", :type => "image/x-icon" }
+- else
+  %link{:href => "/images/favicons/e_favicon.ico", :rel => "icon", :type => "image/x-icon"}/
+  %link{:href => "/images/favicons/e_favicon.ico", :rel => "shortcut icon", :type => "image/x-icon"}/
+
 = render :partial => 'layouts/ga' if @trackable
 :javascript
   (function() {
