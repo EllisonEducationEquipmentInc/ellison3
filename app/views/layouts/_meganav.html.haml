@@ -29,59 +29,60 @@
                 - (ELLISON_SYSTEMS & current_admin.systems_enabled).each do |sys|
                   = link_to_unless current_system == sys, sys, "?#{request.query_parameters.merge('system' => sys).to_params}"
           .clear
-          %ul.megasublist.contentwrap_XS.resize
-            %li= link_to "Product Catalog", "#", :class => "megasublink", :onclick => "return false;"
-            %li= link_to "Customer Orders", "#", :class => "megasublink", :onclick => "return false;"
-            %li= link_to "User Accounts", "#", :class => "megasublink", :onclick => "return false;"
-            %li.last= link_to "Website Settings", "#", :class => "megasublink", :onclick => "return false;"
-          .subpanel
-            .contentwrap_XXL.last
-              %ul
-                %li= link_to "Manage Product Catalog", admin_products_path
-                %li= link_to "Manage Compatibility", admin_compatibilities_path
-                %li= link_to "Manage Ideas", admin_ideas_path
-                %li= link_to "Create & Associate Product Tags", admin_tags_path
-                %li= link_to "Create & Edit Coupons", admin_coupons_path
-          .subpanel{:style => "display: none;"}
-            #user_as= render :partial => 'layouts/user_as'
-            .contentwrap_XXL.last
-              %ul
-                %li= link_to "Review Customer Orders", admin_orders_path
-                %li= link_to "Review Customer Quotes", admin_quotes_path
-                %li= link_to "Customer Feedback", admin_feedbacks_path
-            - if get_cart.order_reference
-              #previous_order_reference.contentwrap_XXL.last
-                previous order reference:
-                = link_to get_cart.order_reference, admin_order_path(get_cart.order_reference)
-                = link_to 'reset', remove_order_reference_path, :remote => true
-            - if current_admin.can_act_as_customer
-              = form_tag('/user_as', :remote => true, :class => 'contentwrap_XXL last') do
-                = label_tag :user_as_email, "Login as customer:"
-                = text_field_tag :user_as_email, nil, :placeholder => "enter customer email"
-                = submit_tag 'login', :class => 'jqui_save'
-                
-          .subpanel{:style => "display: none;"}
-            .contentwrap_XXL.last
-              %ul
-                %li= link_to "Manage Customer Accounts", admin_users_path
-                %li= link_to "Manage Website Administrators", admin_admins_path
-          .subpanel{:style => "display: none;"}
-            %ul.contentwrap_medium
-              %li= link_to "Create & Edit Landing Pages", admin_landing_pages_path
-              %li= link_to "Edit Shared Contents", admin_shared_contents_path
-              %li= link_to "Edit Homepage", admin_shared_contents_path(:placement => 'home')
-              %li= link_to "Edit Campaigns", admin_shared_contents_path(:placement => 'campaigns')
-            %ul.contentwrap_medium
-              %li= link_to "Manage US Shipping Rates (by weight)", admin_fedex_rates_path
-              %li= link_to "Manage Shipping Rates (by #{t 'number.currency.format.unit'})", admin_shipping_rates_path
-              %li= link_to "Edit International Settings", admin_countries_path
-              %li= link_to "Manage Stores", admin_stores_path
+          %ul.contentwrap_small
+            %li.listtitle.first Catalog Management
+            %ul
+              %li= link_to "Products Catalog", admin_products_path
+              %li= link_to "Projects Catalog", admin_ideas_path
+              %li= link_to "Product Compatibility", admin_compatibilities_path
+              %li= link_to "Tag Management", admin_tags_path
+              %li= link_to "New Products", new_admin_product_path
+              %li= link_to "New Projects/Lessons", new_admin_idea_path
+              %li= link_to "New Tags", new_admin_tag_path
+          %ul.contentwrap_small
+            %li.listtitle.first Promotional Content
+            %ul
+              %li= link_to "Home Page", admin_shared_contents_path(:placement => 'home')
+              %li= link_to "Dynamic Landing Pages", admin_landing_pages_path
+              %li= link_to "Static Pages", admin_static_pages_path
               %li= link_to "Manage Events", admin_events_path
-              %li= link_to "Manage Materials", admin_materials_path
+              %li= link_to "Campaigns", admin_shared_contents_path(:placement => 'campaigns')
+              %li= link_to "Coupons", admin_coupons_path
+              %li= link_to "Shared Content", admin_shared_contents_path
+          %ul.contentwrap_small
+            %li.listtitle.first Customer Related
+            %ul
+              %li= link_to "Customer Orders", admin_orders_path
+              %li= link_to "Customer Quotes", admin_quotes_path
               %li= link_to "Material Orders", admin_material_orders_path
-              %li= link_to "eclips firmwares", :controller => 'admin/firmwares'
-            %ul.contentwrap_XS
-              %li &nbsp;
+              %li= link_to "Customer Accounts", admin_users_path
+              %li= link_to "Customer Feedback", admin_feedbacks_path
+              %li= link_to "Login as Customer", "#"
+              %li= link_to "eclips Firmware", :controller => 'admin/firmwares'
+          %ul.contentwrap_small.resize.last
+            %li.listtitle.first Website Settings
+            %ul
+              %li= link_to "Admin Access", admin_admins_path
+              %li= link_to "Custom Reports", "/admin_reports_path"
+              %li= link_to "Shipping Rates (by #{t 'number.currency.format.unit'})", admin_shipping_rates_path
+              %li= link_to "Shipping Rates (by weight)", admin_fedex_rates_path
+              %li= link_to "Store List/Stockist List", admin_stores_path
+              %li= link_to "Print Material Catalogs", admin_materials_path
+              %li= link_to "Country Listing", admin_countries_path
+          %hr
+          - if get_cart.order_reference
+            #previous_order_reference.contentwrap_XXXL.last
+              previous order reference:
+              = link_to get_cart.order_reference, admin_order_path(get_cart.order_reference)
+              = link_to 'reset', remove_order_reference_path, :remote => true
+          - if current_admin.can_act_as_customer && !user_signed_in?
+            = form_tag('/user_as', :remote => true, :class => 'contentwrap_XXXL last') do
+              = label_tag :user_as_email, "Login as customer:"
+              = text_field_tag :user_as_email, nil, :placeholder => "enter customer email"
+              = submit_tag 'login', :class => 'jqui_save'
+          #user_as= render :partial => 'layouts/user_as'
+
+
 
 -# Sizzix UK mega menu link styles
 - if is_sizzix_uk?

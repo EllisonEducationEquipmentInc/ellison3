@@ -430,6 +430,12 @@ ul.ui-tabs-nav {
             list-style: none;
           }
           
+          hr {
+            background-color: $megapanel_hr;
+            width: 930px;
+            margin: 0 10px 10px 10px;
+          }
+          
           .megasublist, .contentwrap_17col {
             margin: 0;
             padding: 0 0 8px 10px;            
