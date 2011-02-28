@@ -1,7 +1,6 @@
 class ShippingRate
   include EllisonSystem
   include Mongoid::Document
-	include ActiveModel::Validations
 	
 	LOCALES_2_CURRENCIES.values.each do |currency|
 		field "price_min_#{currency}".to_sym, :type => Float

@@ -21,7 +21,6 @@
           %th Messages
         - if has_write_permissions?
           %th &nbsp;
-          %th &nbsp;
     %tbody
       - for user in @users
         %tr{ :class => cycle(:odd, :even) }
@@ -35,7 +34,6 @@
             %td= link_to 'messages', admin_messages_path(:user_id => user.id)
           - if has_write_permissions?
             %td= link_to 'Edit', edit_admin_user_path(user)
-            %td= link_to 'Destroy', admin_user_path(user), :confirm => 'Are you sure?', :method => :delete
 %br
 = will_paginate @users
 %br

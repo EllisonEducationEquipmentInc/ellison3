@@ -65,6 +65,10 @@ class LandingPage
 			active.where(:"start_date".lte => Time.zone.now.change(:sec => 1), :"end_date".gte => Time.zone.now.change(:sec => 1))
 		end
 	end
+	
+	def destroy
+    update_attribute :active, false
+  end
 
 private
   

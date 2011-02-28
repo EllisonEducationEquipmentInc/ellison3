@@ -138,6 +138,10 @@ class Coupon
 	  write_attribute :codes, c.is_a?(Array) ? c : c.split(/,\s*/)
 	end
 	
+	def destroy
+    update_attribute :active, false
+  end
+	
 private
   
   def inherit_system_specific_attributes

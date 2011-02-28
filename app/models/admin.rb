@@ -61,6 +61,10 @@ class Admin
   def has_write_access?(admin_module, sys = current_system)
     !permissions.write_access_to(admin_module, sys).blank?
   end
+  
+  def destroy
+    update_attribute :active, false
+  end
 
 protected
   def password_required?

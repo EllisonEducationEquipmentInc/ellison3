@@ -2,7 +2,6 @@ class SharedContent
   include EllisonSystem
   include Mongoid::Document
   include Mongoid::Timestamps
-  #include Mongoid::Associations::EmbeddedCallbacks
   
   PLACEMENTS = ["store_locator", "cart", "home", "campaigns", "calendar"]
   
@@ -62,6 +61,10 @@ class SharedContent
 	def ideas
 	  Idea.where('tabs.shared_content_id' => self.id)
 	end
+	
+	def destroy
+    update_attribute :active, false
+  end
 
 private 
 

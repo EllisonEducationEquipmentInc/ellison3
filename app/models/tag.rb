@@ -194,6 +194,10 @@ class Tag
     end
   end
   
+  def destroy
+    update_attribute :active, false
+  end
+  
 private 
 
   def update_campaign

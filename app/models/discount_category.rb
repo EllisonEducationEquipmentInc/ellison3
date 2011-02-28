@@ -26,4 +26,8 @@ class DiscountCategory
   def discount(discount_level)
     send("discount_#{discount_level}")
   end
+  
+  def destroy
+    update_attribute :active, false
+  end
 end

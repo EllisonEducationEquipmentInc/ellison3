@@ -19,4 +19,8 @@ class Material
   field :index
   
   scope :active, :where => { :active => true }
+  
+  def destroy
+    update_attribute :active, false
+  end
 end

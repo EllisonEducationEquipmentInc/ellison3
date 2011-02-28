@@ -70,18 +70,6 @@ class Admin::OrdersController < ApplicationController
       end
     end
   end
-
-  # DELETE /orders/1
-  # DELETE /orders/1.xml
-  def destroy
-    @order = Order.find(params[:id])
-    @order.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(admin_orders_url) }
-      format.xml  { head :ok }
-    end
-  end
   
   def update_internal_comment
     @order = Order.find(params[:id])

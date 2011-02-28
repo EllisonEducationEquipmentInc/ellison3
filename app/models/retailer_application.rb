@@ -1,7 +1,5 @@
 class RetailerApplication
   include EllisonSystem
-	include ActiveModel::Validations
-	include ActiveModel::Translation
 	include Mongoid::Document
 	
 	attr_accessor :agreed_to_policy, :agreed_to_terms

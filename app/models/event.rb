@@ -50,4 +50,8 @@ class Event
   def actual_logo
     logo? ? logo_url(:logo) : self.uploaded_logo_url
   end
+  
+  def destroy
+    update_attribute :active, false
+  end
 end

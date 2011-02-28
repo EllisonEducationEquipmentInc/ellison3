@@ -2,8 +2,6 @@ class Quote
 	include EllisonSystem
   include Mongoid::Document
 	include Mongoid::Timestamps
-	include ActiveModel::Validations
-	include ActiveModel::Translation
 
   validates :subtotal_amount, :shipping_amount, :tax_amount, :address, :order_items, :presence => true
 
@@ -87,6 +85,10 @@ class Quote
 	def products
 	  Product.available.any_in(:item_num => order_items.map {|e| e.item_num}).cache
 	end
+	
+	def destroy
+    update_attribute :active, false
+  end
 
 private
 

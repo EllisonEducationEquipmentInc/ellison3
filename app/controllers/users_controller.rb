@@ -170,7 +170,7 @@ class UsersController < ApplicationController
 	
 	def delete_list
 	  @list = get_user.lists.find params[:id]
-	  @list.delete
+	  @list.destroy
 	  render :js => "$('#list_row_#{@list.id}').remove()"
 	end
 	

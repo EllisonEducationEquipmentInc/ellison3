@@ -65,6 +65,10 @@ class Store
     image? ? image_url(:logo) : self.logo_url
   end
   
+  def destroy
+    update_attribute :active, false
+  end
+  
 private  
 
   def get_geo_location

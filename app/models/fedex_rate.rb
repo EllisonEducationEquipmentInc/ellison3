@@ -1,8 +1,7 @@
 class FedexRate
   include EllisonSystem
   include Mongoid::Document
-	include ActiveModel::Validations
-	
+
 	field :weight_min, :type => Float
 	field :weight_max, :type => Float
 	field :rates, :type => Hash

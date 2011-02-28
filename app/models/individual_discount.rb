@@ -1,7 +1,5 @@
 class IndividualDiscount
   include EllisonSystem
-	include ActiveModel::Validations
-	include ActiveModel::Translation
 	include Mongoid::Document
 	
 	validates :discount, :discount_type, :presence => true

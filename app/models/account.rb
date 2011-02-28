@@ -31,4 +31,8 @@ class Account
   field :old_id, :type => Integer
   
   index :old_id
+  
+  def destroy
+    update_attribute :active, false
+  end
 end

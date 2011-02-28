@@ -2,8 +2,6 @@ require 'carrierwave/orm/mongoid'
 
 class Idea
   include EllisonSystem
-	include ActiveModel::Validations
-	include ActiveModel::Translation
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	
@@ -240,6 +238,10 @@ class Idea
 	rescue 
 	  []
 	end
+	
+	def destroy
+    update_attribute :active, false
+  end
 	
 private 
 

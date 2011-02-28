@@ -23,6 +23,10 @@ class StaticPage
 	
 	scope :active, :where => { :active => true }
 	
+	def destroy
+    update_attribute :active, false
+  end
+  
 private 
 	
 	def permalink_uniqueness

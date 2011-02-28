@@ -29,4 +29,8 @@ class List
 	    save
 	  end
 	end
+	
+	def destroy
+    update_attribute :active, false
+  end
 end
