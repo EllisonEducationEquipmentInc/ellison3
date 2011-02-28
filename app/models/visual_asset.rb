@@ -2,7 +2,7 @@ class VisualAsset
   include EllisonSystem
 	include Mongoid::Document
 		
-	ASSET_TYPES = ["catalog_search", "image", "products", "ideas", "freeform"]
+	ASSET_TYPES = ["catalog_search", "image", "products", "ideas", "freeform", "image_with_text"]
 	CHILD_ASSET_TYPES = ["gallery", "billboard"]
 	PARENT_ASSET_TYPES = ["galleries", "billboards"]
 	

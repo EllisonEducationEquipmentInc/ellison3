@@ -63,11 +63,11 @@
     = f.label :item_limit
     %br
     = f.text_field :item_limit
-  .field.type_specific.freeform.billboard
+  .field.type_specific.freeform.billboard.image_with_text
     = f.label :content
     %br
     = f.text_area :content, :class => 'wymeditor'
-  .field.type_specific.image.billboard.gallery
+  .field.type_specific.image.billboard.gallery.image_with_text
     = required_field(f.label :image)
     = image_tag(f.object.image_url) if f.object.image? 
     = f.file_field :image
@@ -78,7 +78,7 @@
   .field.type_specific.billboard
     = f.label :wide
     = f.check_box :wide
-  .field.type_specific.image.billboard.gallery
+  .field.type_specific.image.billboard.gallery.image_with_text
     = f.label :link
     %br
     = f.text_field :link
