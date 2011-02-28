@@ -381,6 +381,16 @@ private
           end
         end
       end
+      query.with(:item_group, params[:item_group]) unless params[:item_group].blank?
+      if is_er?
+        query.facet(:item_group) do |qf|
+          Product::ITEM_GROUPS.each do |item_group|
+            qf.row(item_group) do
+              with(:item_group, item_group)
+            end
+          end
+        end
+      end
       if outlet && klass != Idea
         query.facet(:saving) do |qf|
           PriceFacet.instance.savings.each do |saving|

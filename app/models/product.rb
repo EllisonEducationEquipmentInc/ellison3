@@ -496,6 +496,14 @@ class Product
 	  product_config.additional_name if product_config && product_config.config_group == 'size'
 	end
 	
+	def ellison?
+	  self.item_group == 'Ellison'
+	end
+	
+	def sizzix?
+	  self.item_group == 'Sizzix'
+	end
+	
 	def related_product_tag_name
 	  return if self.related_product_tag.blank?
 	  related_tag.try :name
@@ -504,7 +512,7 @@ class Product
 	def related_tag
 	  Tag.available.find(self.related_product_tag)
   rescue
-    tags.available.send(is_ee? ? :subcurriculums : :subthemes).first || tags.available.send("#{'sub' unless is_ee?}categories").first
+    tags.available.send(is_ee? || self.ellison? ? :subcurriculums : :subthemes).first || tags.available.send("#{'sub' unless is_ee?}categories").first
 	end
 	
 	def four_related_criteria

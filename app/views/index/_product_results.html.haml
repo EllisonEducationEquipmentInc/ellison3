@@ -12,7 +12,7 @@
     %li= link_to "<span>#{pluralize @idea_search.total, idea_name.capitalize} #{idea? ? 'Showing' : 'Found'}</span>".html_safe, "#", :id => "toggle_idea", :class => "tab #{'in' unless idea?}active"
     - if is_sizzix_us?
       %li= link_to "<span>#{pluralize @outlet_search.total, "Outlet Product"} #{outlet? ? 'Showing' : 'Found'}</span>".html_safe, "#", :id => "toggle_outlet", :class => "tab #{'in' unless outlet?}active"
-  - if is_er? && ecommerce_allowed? && !idea?
+  - if @search.total > 1 && is_er? && ecommerce_allowed? && !idea?
     = check_box_tag :select_all_products, "1", false, :onclick => "$('input.add_to_cart_checkbox').attr('checked', this.checked);toggle_add_checked_to_cart();"
     = label_tag :select_all_products, nil, :class => "minilink"
     %br

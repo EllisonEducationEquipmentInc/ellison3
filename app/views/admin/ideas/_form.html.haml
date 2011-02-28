@@ -8,9 +8,13 @@
     %br
     = f.check_box :active
   .field
-    = f.label :idea_num
+    = f.label :idea_num, "Idea Group"
     %br
     = f.text_field :idea_num
+  .field
+    = f.label :item_group
+    %br
+    = f.select :item_group, Product::ITEM_GROUPS
   .field
     = f.label :name
     %br

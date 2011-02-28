@@ -158,13 +158,14 @@ HTML
 	    r << link_to_function("x", "location.hash = $.param.fragment( location.hash, {q: '', facets: $.deparam.fragment()['facets'], page: 1}, 0 )", :class => "keyword_remove")
 	    r << "<br />"
 	  end 
-	  unless @breadcrumb_tags.blank? && params[:price].blank? && params[:saving].blank?
+	  unless @breadcrumb_tags.blank? && params[:price].blank? && params[:saving].blank? && params[:item_group].blank?
 	    breadcrumbs = [link_to_function("<span class='dontprint'>All</span><span class='dontdisplay'>Search Filters: </span>".html_safe, "location.hash = ''")] #[]
 	    @breadcrumb_tags.each do |tag|
 	      breadcrumbs << link_to(tag.name, "#", :rel => tag.facet_param, :class => "tag_breadcrumb") + "<span class='dontdisplay'>, </span> ".html_safe + link_to("x", "#", :title => "remove #{tag.name}", :rel => tag.facet_param, :class => "tag_breadcrumb_remove")
 	    end
 	    breadcrumbs << price_label + ' ' + link_to("x", "#", :rel => params[:price], :title => "remove price", :class => "price_breadcrumb_remove") unless params[:price].blank?
 	    breadcrumbs << saving_label + ' ' + link_to("x", "#", :rel => params[:saving], :title => "remove saving", :class => "saving_breadcrumb_remove") unless params[:saving].blank?
+	    breadcrumbs << params[:item_group]  + ' ' + link_to("x", "#", :rel => params[:item_group], :title => "remove item_group", :class => "item_group_breadcrumb_remove") unless params[:item_group].blank?
 	    r << breadcrumbs.join("<span class='breadcrumb_arrow dontprint'> > </span>".html_safe)
 	    r << javascript_tag do
 	      <<-JS
@@ -187,6 +188,10 @@ HTML
         		});
       		$('.saving_breadcrumb_remove').click(function() {       
               location.hash = $.param.fragment( location.hash, {saving: '', page: 1}, 0 );
+        			return false;
+        		});
+      		$('.item_group_breadcrumb_remove').click(function() {       
+              location.hash = $.param.fragment( location.hash, {item_group: '', page: 1}, 0 );
         			return false;
         		});
       	});

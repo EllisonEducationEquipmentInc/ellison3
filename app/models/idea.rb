@@ -211,6 +211,14 @@ class Idea
 	  self.idea_num #.gsub(/^L/, "")
 	end
 	
+	def ellison?
+	  self.item_group == 'Ellison'
+	end
+	
+	def sizzix?
+	  self.item_group == 'Sizzix'
+	end
+	
 	def related_idea_tag_name
 	  return if self.related_idea_tag.blank?
 	  related_tag.try :name
@@ -219,7 +227,7 @@ class Idea
 	def related_tag
 	  Tag.available.find(self.related_idea_tag)
 	rescue
-	  tags.available.send(is_ee? ? :subcurriculums : :themes).first
+	  tags.available.send(is_ee? || ellison? ? :subcurriculums : :themes).first
 	end
 	
 	def four_related_criteria
