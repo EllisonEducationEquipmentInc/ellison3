@@ -67,7 +67,7 @@ class IndexController < ApplicationController
     @landing_page = LandingPage.send(current_system).available.find params[:id]
     params[:facets] = @landing_page.search_query
     params[:outlet] = "1" if @landing_page.outlet
-    params[:sort] = "start_date_#{current_system}:desc"
+    #params[:sort] = "start_date_#{current_system}:desc"
     @title = @landing_page.name
     get_search
     @products = @search.results
@@ -318,7 +318,7 @@ private
   def get_search
     get_search_objects
     @breadcrumb_tags = @facets_hash.blank? ? [] : Tag.any_of(*@facets_hash.map {|e| {:tag_type => e.split("~")[0], :permalink => e.split("~")[1]}}).cache
-    @sort_options = idea? ? [["Relevance", nil], ["New Ideas", "start_date_#{current_system}:desc"], ["Idea Name [A-Z]", "sort_name:asc"], ["Idea Name [Z-A]", "sort_name:desc"]] :
+    @sort_options = idea? ? [["Relevance", nil], ["New #{Idea.public_name.pluralize}", "start_date_#{current_system}:desc"], ["#{Idea.public_name} Name [A-Z]", "sort_name:asc"], ["#{Idea.public_name} Name [Z-A]", "sort_name:desc"]] :
                       [["Relevance", nil], ["New Arrivals", "start_date_#{current_system}:desc"], ["Best Sellers", "quantity_sold:desc"], ["Lowest Price", "price_#{current_system}_#{current_currency}:asc"], ["Highest Price", "price_#{current_system}_#{current_currency}:desc"], ["Product Name [A-Z]", "sort_name:asc"], ["Product Name [Z-A]", "sort_name:desc"]]
     @product_search = perform_search(Product)
     @idea_search = perform_search(Idea)
@@ -343,7 +343,6 @@ private
   
   # @Example: perform_search Product, :outlet => true, :facets => ["theme", "category"], :facet_sort => :index
   def perform_search(klass, options = {})
-    params[:sort] = "orderable_#{current_system}:desc" if params[:sort].blank?
     outlet = options.delete(:outlet) ? true : false
     facets = options[:facets] || tag_types
     klass.search do |query|
@@ -401,7 +400,7 @@ private
         end
       end
       query.paginate(:page => params[:page] || 1, :per_page => @per_page || per_page)
-      query.order_by(*params[:sort].split(":")) unless params[:sort].blank? || klass == Idea && ['quantity_sold', 'price', 'orderable'].any? {|e| params[:sort].include? e}
+      query.order_by(*default_sort(klass).split(":")) unless default_sort(klass).blank? || klass == Idea && ['quantity_sold', 'price', 'orderable'].any? {|e| default_sort(klass).include? e}
     end
   end
   
@@ -416,6 +415,11 @@ private
   
   def idea?
     params[:ideas] == "1"
+  end
+  
+  def default_sort(klass)
+    return params[:sort] if params[:sort].present? || params[:q].present?
+    klass == Idea ? "start_date_#{current_system}:desc" : "orderable_#{current_system}:desc"
   end
   
   def per_page
