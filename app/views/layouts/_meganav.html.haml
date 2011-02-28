@@ -57,7 +57,6 @@
               %li= link_to "Material Orders", admin_material_orders_path
               %li= link_to "Customer Accounts", admin_users_path
               %li= link_to "Customer Feedback", admin_feedbacks_path
-              %li= link_to "Login as Customer", "#"
               %li= link_to "eclips Firmware", :controller => 'admin/firmwares'
           %ul.contentwrap_small.resize.last
             %li.listtitle.first Website Settings
@@ -81,8 +80,6 @@
               = text_field_tag :user_as_email, nil, :placeholder => "enter customer email"
               = submit_tag 'login', :class => 'jqui_save'
           #user_as= render :partial => 'layouts/user_as'
-
-
 
 -# Sizzix UK mega menu link styles
 - if is_sizzix_uk?
