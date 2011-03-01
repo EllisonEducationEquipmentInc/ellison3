@@ -5,13 +5,13 @@
   %h3.contentwrap_XXXL.last System Visibility
   .contentwrap_large
     .field
-      = f.label :active, "This product is"
+      = f.label :active, "This product is", :class => "autosize"
       active
       = f.radio_button(:active, true)
       disabled
       = f.radio_button(:active, false)
     .field
-      = f.label :systems_enabled, "Enabled for"
+      = f.label :systems_enabled, "Enabled for", :class => "autosize"
       = system_enabled('product')
   .contentwrap_large.last
     .field
@@ -59,12 +59,11 @@
       no
       = f.radio_button(:tax_exempt, false)
     .field
-      = f.label :discount_category_id, "Product Discount Category"
+      = f.label :discount_category_id, "Product Discount Category", :class => "autosize"
       %br
       = f.select :discount_category_id, DiscountCategory.active.cache.map {|e| [e.name, e.id]}, :prompt => "--select--"
     .field
       = f.label :video, "YouTube Video ID", :class => "link_youtube"
-      %br
       = f.text_field :video
       
   .contentwrap_XXXL.last
@@ -168,8 +167,6 @@
       %br
       = f.label :remove_image
       = f.check_box :remove_image
-    .actions
-      = f.submit :class => 'wymupdate jqui_save'
 
   %hr
   %h3.contentwrap_XXXL.last Tags, Ideas & Keywords
@@ -236,7 +233,7 @@
     %br
     %br
     .field
-      = f.label :related_product_tag, "Related Product Tag ID"
+      = f.label :related_product_tag, "Related Product Tag ID", :class => "autosize"
       %br
       = f.text_field :related_product_tag
       %span#related_product_tag_name= @product.related_product_tag_name
@@ -263,9 +260,13 @@
     =# products_helper_tag('product[related_product_item_nums]', @product.related_product_item_nums, :label => 'Related Products (item_num only)')
   .contentwrap_medium.last
     .field
-      = f.label :keywords, "Meta Tag Keywords"
+      = f.label :keywords, "Meta Tag Keywords", :class => "autosize"
       %br
       = f.text_area :keywords, :cols => "37"
+
+  %hr
+  .actions
+    = f.submit :class => 'wymupdate jqui_save'
 
   :javascript
     $(function() {
