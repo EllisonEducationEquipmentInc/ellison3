@@ -174,10 +174,13 @@
   %hr
   %h3.contentwrap_XXXL.last Tags, Ideas & Keywords
   .contentwrap_medium
-    - unless @product.new_record?
-      %strong Tags
+    %strong Tags
+    - if @product.new_record?
+      %p
+        %em Please save this product first before assigning tags.
+    - else
       %ul#product_tags= render :partial => 'tag', :collection => @product.tags, :locals => {:product_id => @product.id}
-      = label_tag :product_tags_helper, "Add Another Tag"
+      = label_tag :product_tags_helper, "<strong>Add A#{ @product.ideas.count >= 1 ? 'nother' : nil } Tag</strong".html_safe
       = text_field_tag "product_tags_helper"
       :javascript
         $("#product_tags_helper").autocomplete({
@@ -201,10 +204,13 @@
         		return false;
         	}});
   .contentwrap_medium
-    - unless @product.new_record?
-      %strong Ideas
+    %strong Ideas
+    - if @product.new_record?
+      %p
+        %em Please save this product first before assigning ideas.
+    - else
       %ul#product_ideas= render :partial => 'idea', :collection => @product.ideas, :locals => {:product_id => @product.id}
-      = label_tag :product_ideas_helper, "Add Another Idea"
+      = label_tag :product_ideas_helper, "<strong>Add An#{ @product.ideas.count >= 1 ? 'other' : nil } Idea</strong>".html_safe
       = text_field_tag "product_ideas_helper"
       :javascript
         $("#product_ideas_helper").autocomplete({
@@ -227,6 +233,8 @@
         	  $.ajax({url:'/admin/products/add_idea?idea_id='+ui.item.id+'&id=#{@product.id}', success: function(html){$('#product_ideas').append(html)}});
         		return false;
         	}});
+    %br
+    %br
     .field
       = f.label :related_product_tag, "Related Product Tag ID"
       %br
@@ -259,6 +267,7 @@
       %br
       = f.text_area :keywords, :cols => "37"
 
+  :javascript
     $(function() {
       var avail_messages = [{value: '<a href="/contact">Call now to place your order</a>', label: "Call now to place your order"}, {value: '<a href="/stores">Check Your Local Craft Store</a>', label: 'Check Your Local Craft Store'}, {label: 'Available at your Local Retailer', value: '<a href="/stores">Available at your Local Retailer</a>'}, {value: '<a href="http://www.stampinup.com/ECWeb/CategoryPage.aspx?categoryID=180" target="_blank">Stampin\' Up! Exclusive Product</a>', label: 'Stampin\' Up! Exclusive Product'}];
       $('#product_availability_message_#{current_system}').autocomplete({source: avail_messages});

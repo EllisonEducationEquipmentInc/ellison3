@@ -17,7 +17,7 @@
 }
 
 ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products { @extend ul.plain;
-  
+  margin-bottom: 10px !important;
 }
 
 .remove_tag, .remove_idea, .remove_product {
