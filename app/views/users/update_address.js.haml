@@ -13,6 +13,8 @@ $.fancybox.close();
         == $('#deferred_single_total_amount').html('#{escape_javascript(render(:partial => "carts/deferred_single_total_amount"))}');
         == $('#deferred_first_payment').html('#{escape_javascript(render(:partial => "carts/deferred_first_payment"))}');
       - if is_uk?
+        == $('#shoppingcart_info').html('#{escape_javascript(render(:partial => "carts/shopping_cart"))}');
+        == $('#cart_sub_total').html('#{escape_javascript(number_to_currency gross_price(get_cart.sub_total))}');
         == $('#cart_contents').html('#{escape_javascript(render(:partial => "carts/cart"))}');
     - elsif @address.address_type == 'billing' && !currency_correct?
       alert('Currency will be adjusted based on your billing address country');

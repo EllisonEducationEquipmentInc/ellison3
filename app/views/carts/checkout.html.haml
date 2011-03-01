@@ -42,7 +42,7 @@
   %ul.plain.cart_summary
     %li
       Subtotal:
-      %span.amount.right= number_to_currency gross_price(@cart.sub_total)
+      %span.amount.right#cart_sub_total= number_to_currency gross_price(@cart.sub_total)
     %li#cart_shipping= render :partial => 'shipping_amount' if get_user.shipping_address
     %li#cart_handling{:style => "display:#{calculate_handling > 0.0 ? 'block' : 'none'}"}= render :partial => 'handling_amount'
     %li#cart_tax= render :partial => 'tax_amount' if get_user.shipping_address
