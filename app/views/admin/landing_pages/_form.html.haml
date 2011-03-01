@@ -20,11 +20,9 @@
     - if @landing_page.new_record?
       %span.error WARNING: cannot be changed later!
   .field
-    = f.label :search_query, "Catalog facet query parameter. Ex: category~embossing,machine_compatibility~sidekick"
+    = f.label :search_query, "Complete search query after #. ex: outlet=1&page=1&ideas=0&facets=category~shape-cutting&sort=start_date_szus%3Adesc"
     %br
     = f.text_field :search_query
-    = f.label :outlet
-    = f.check_box :outlet
   .field
     = f.label :quick_search
     %br

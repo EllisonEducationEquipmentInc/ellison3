@@ -64,10 +64,8 @@ class IndexController < ApplicationController
   
   # landing page
   def shop
-    @landing_page = LandingPage.send(current_system).available.find params[:id]
-    params[:facets] = @landing_page.search_query
-    params[:outlet] = "1" if @landing_page.outlet
-    #params[:sort] = "start_date_#{current_system}:desc"
+    @landing_page = LandingPage.available.find params[:id]
+    params.merge! @landing_page.to_params
     @title = @landing_page.name
     get_search
     @products = @search.results
@@ -109,8 +107,10 @@ class IndexController < ApplicationController
   
   def quick_search
     @landing_page = LandingPage.find params[:id]
-    params[:facets] = (params[:facets].split(",") << @landing_page.search_query).join(",")
-    params[:outlet] = "1" if @landing_page.outlet
+    new_facets = params[:facets].present? ? params[:facets].split(",") : []
+    original_facets = @landing_page.to_params["facets"].present? ? @landing_page.to_params["facets"].split(",") : []
+    params.merge! @landing_page.to_params
+    params[:facets] = (new_facets | original_facets).join(",")
     get_search
     render :partial => 'quick_search'
   end

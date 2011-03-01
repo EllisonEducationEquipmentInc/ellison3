@@ -61,14 +61,25 @@ class LandingPage
 	end
 	
 	class << self		
-		def available
-			active.where(:"start_date".lte => Time.zone.now.change(:sec => 1), :"end_date".gte => Time.zone.now.change(:sec => 1))
+		def available(sys = current_system)
+			active.where(:systems_enabled.in => [sys], :"start_date".lte => Time.zone.now.change(:sec => 1), :"end_date".gte => Time.zone.now.change(:sec => 1))
 		end
 	end
 	
 	def destroy
     update_attribute :active, false
   end
+  
+  def to_params
+    h = {}
+    search_query_to_params.each {|k,v| h[k]=v.join}
+    h
+  end
+  
+  def search_query_to_params
+    CGI::parse(self.search_query)
+  end
+
 
 private
   

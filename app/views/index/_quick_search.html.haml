@@ -1,17 +1,18 @@
 - @search.facets.each do |facet|
-  - next if facet.rows.length < 1 || @landing_page.search_query.split(",").any? {|e| e[/^([a-z_]+)~/,1] == facet_to_param(facet.name)} || (facet.name == :price && !params[:price].blank?)
+  - next if facet.rows.length < 1 || @landing_page.to_params["facets"].present? && @landing_page.to_params["facets"].split(",").any? {|e| e[/^([a-z_]+)~/,1] == facet_to_param(facet.name)} || (facet.name == :price && !params[:price].blank?)
   - if facet.class == Sunspot::Search::FieldFacet
     = select_tag "facets[#{facet.name}]", options_for_select([[facet.name.to_s.gsub("_#{current_system}", "").humanize, nil]] + facet.rows.select {|e| e.instance.present?}.map {|r| [r.instance.name, r.value]}, @facets_hash.detect {|e| facet.rows.map {|r| r.value}.include?(e)})
 .jqui_search#quick_search_submit Quick Search
 = hidden_field_tag :landing_page_id, @landing_page.id
-= hidden_field_tag :initial_query, @landing_page.search_query
+= hidden_field_tag :initial_query, @landing_page.to_params.delete_if {|k,v| k=="facets"}.to_params
+= hidden_field_tag :initial_facets, @landing_page.to_params["facets"]
 :javascript
   $('#quick_search select').change(function(){
     var facets = $('#quick_search select').map(function (){return this.value}).filter(function() {return this.length > 0}).get().join(',');
     $('#quick_search').load("/index/quick_search?id="+$('#landing_page_id').val()+"&facets="+facets);
   });
   $("#quick_search_submit").click(function(){
-    location.href = "/catalog##{'outlet=1&' if @landing_page.outlet}facets="+$('#initial_query, #quick_search select').map(function (){return this.value}).filter(function() {return this.length > 0}).get().join(',')
+    location.href = "/catalog#"+$('#initial_query').val()+"&facets="+$('#initial_facets, #quick_search select').map(function (){return this.value}).filter(function() {return this.length > 0}).get().join(',')
   });
   initialize_buttons();
   er_number_only();
