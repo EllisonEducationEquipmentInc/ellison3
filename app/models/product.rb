@@ -40,6 +40,7 @@ class Product
 	before_save :inherit_system_specific_attributes
 	#before_save :clean_up_tags
 	before_save :timestamp_outlet
+	before_save :remove_outlet_price #if outlet p becomes non-outlet
 	before_save :reindex?
 	after_save :maybe_index
 	
@@ -322,7 +323,7 @@ class Product
 	end
 	
 	def price=(p)
-		send("price_#{current_system}_#{current_currency}=", p) unless p.blank?
+		send("price_#{current_system}_#{current_currency}=", p) if p.present? && p.outlet
 	end
 
 	def campaign_price(time = Time.zone.now)
@@ -587,6 +588,10 @@ private
 	
 	def timestamp_outlet
 	  self.outlet_since ||= Time.zone.now if changed.include?("outlet") && self.outlet
+	end
+	
+	def remove_outlet_price
+	  self.price_szus_usd = nil if self.outlet_changed? && self.outlet_change == [true, false]
 	end
 	
 	def reindex?

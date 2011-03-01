@@ -77,11 +77,11 @@
   .field
     = f.label :outlet
     %br
-    = f.check_box :outlet, :onclick => "if (this.checked) {$('#outlet_price').show()} else {$('#outlet_price').hide()}"
+    = f.check_box :outlet, :onclick => "if (this.checked) {$('#outlet_price').show();$('#price_szus_usd').attr('disabled', false)} else {$('#outlet_price').hide();$('#price_szus_usd').attr('disabled', true)}"
   .field#outlet_price{:style => "display:#{@product.outlet ? 'block' : 'none'}"}
-    = f.label :price
+    = f.label :price_szus_usd, "Outlet Price (szus usd)"
     %br
-    = f.text_field :price
+    = f.text_field :price_szus_usd
   .field
     = f.label :use_tabs
     %br
