@@ -194,7 +194,7 @@ namespace :data_migrations do
     OldData::Product.not_deleted.find_each do |product|
       #product = OldData::Product.find 8059
       new_product = Product.new :name => product.name, :description_eeus => product.short_desc, :old_id_edu => product.id, :systems_enabled => ["eeus"], :item_num => product.item_num, :long_desc => product.long_desc, :upc => product.upc, :active => product.new_active_status, 
-        :life_cycle => product.new_life_cycle, :orderable_eeus => product.new_orderable, :msrp_usd => product.msrp, :keywords => product.keywords, :start_date_eeus => product.start_date, :end_date_eeus => product.end_date, :item_code => product.item_code, :default_config => product.default_config,
+        :life_cycle => product.new_life_cycle, :orderable_eeus => product.new_orderable, :msrp_usd => product.msrp, :keywords => product.keywords, :start_date_eeus => product.start_date, :end_date_eeus => product.end_date, :item_code => product.item_code, :default_config => product.default_config, :handling_price_usd => product.handling_price,
         :quantity_us => product.quantity, :distribution_life_cycle_eeus => product.clearance_discontinued ? "Clearance" : product.life_cycle, :distribution_life_cycle_ends_eeus => !product.life_cycle.blank? && product.life_cycle_ends, :availability_message_eeus => product.availability_msg
       new_product.build_product_config(:name => product.product_config.name, :description => product.product_config.description, :additional_name => product.product_config.additional_name, :additional_description => product.product_config.additional_description, :config_group => product.product_config.config_group, :display_order => product.product_config.display_order, :icon => product.product_config.icon) if product.product_config
 
@@ -886,6 +886,15 @@ namespace :data_migrations do
       @product = Product.find_by_item_num row['item_num']
       next unless @product
       p @product.update_attribute :instructions, row['pdf']
+    end
+  end
+  
+  desc "import product_item_types from product_item_types.csv"
+  task :product_item_types => :load_dep do
+    CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/product_item_types.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
+      @product = Product.where(:item_num => row['item_num']).cache.first 
+      next unless @product
+      p @product.update_attribute :item_type, row['item_type']
     end
   end
   
