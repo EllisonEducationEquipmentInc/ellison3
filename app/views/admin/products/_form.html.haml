@@ -1,226 +1,266 @@
 = form_for([:admin, @product], :html => {:multipart => true}) do |f|
   = f.error_messages
-  .field
-    = f.label :systems_enabled
-    = system_enabled('product')
-  .field
-    = f.label :active
-    %br
-    = f.check_box :active
-  .field
-    = f.label "orderable_#{current_system}", "Orderable/Salable on #{current_system.upcase}", :class => 'overrideable'
-    %br
-    = f.check_box "orderable_#{current_system}"
-  .field
-    = f.label :item_num
-    %br
-    = f.text_field :item_num
-  .field
-    = f.label :item_type
-    %br
-    = f.select :item_type, Product::ITEM_TYPES
-  .field
-    = f.label :item_group
-    %br
-    = f.select :item_group, Product::ITEM_GROUPS
-  .field
-    = f.label :upc
-    %br
-    = f.text_field :upc
-  .field
-    = f.label :name
-    %br
-    = f.text_field :name
-  .field
-    = f.label :tax_exempt
-    %br
-    = f.check_box :tax_exempt
-  .field
-    = f.label :weight, "Weight (lbs.)"
-    %br
-    = f.text_field :weight
+
+  %hr
+  %h3.contentwrap_XXXL.last System Visibility
+  .contentwrap_large
+    .field
+      = f.label :active, "This product is"
+      active
+      = f.radio_button(:active, true)
+      disabled
+      = f.radio_button(:active, false)
+    .field
+      = f.label :systems_enabled, "Enabled for"
+      = system_enabled('product')
+  .contentwrap_large.last
+    .field
+      = f.label "start_date_#{current_system}", "Start Date #{current_system.upcase}", :class => 'overrideable'
+      = f.text_field "start_date_#{current_system}", :class => 'datetimepicker'
+    .field
+      = f.label "end_date_#{current_system}", "End Date #{current_system.upcase}", :class => 'overrideable'
+      = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
+
+  %hr
+  %h3.contentwrap_XXXL.last Basic Information
+  .contentwrap_large
+    .field
+      = f.label :item_num, "Product Number"
+      = f.text_field :item_num
+    .field
+      = f.label :name, "Product Name"
+      = f.text_field :name
+    .field
+      = f.label :upc, "UPC"
+      = f.text_field :upc
+    .field
+      = f.label :use_tabs, "Product Layout"
+      %span{:class => "icon_tabbed-view"}
+        tabbed view
+      = f.radio_button(:use_tabs, true)
+      %span{:class => "icon_full-view"}
+        full view
+      = f.radio_button(:use_tabs, false)
+    .field
+      = f.label :instructions
+      = f.text_field :instructions
   
-  - currencies.each  do |currency|
+  .contentwrap_large.last
     .field
-      = f.label "handling_price_#{currency}"
-      %br
-      = f.text_field "handling_price_#{currency}"
-  - WAREHOUSES.each do |warehouse|
+      = f.label :item_type, "Product Type"
+      = f.select :item_type, Product::ITEM_TYPES
     .field
-      = f.label "quantity_#{warehouse}"
-      %br
-      = f.text_field "quantity_#{warehouse}"
-  .field
-    = f.label :minimum_quantity, "Minimum Quantity for Retailers"
-    %br
-    = f.text_field :minimum_quantity
-  .field
-    = f.label :discount_category_id
-    %br
-    = f.select :discount_category_id, DiscountCategory.active.cache.map {|e| [e.name, e.id]}, :prompt => "--select--"
-  - currencies.each  do |currency|
+      = f.label :item_group, "Product Group"
+      = f.select :item_group, Product::ITEM_GROUPS
     .field
-      = f.label "msrp_#{currency}", "MSRP #{currency.upcase}"
+      = f.label :tax_exempt, "Tax Exempt?"
+      yes
+      = f.radio_button(:tax_exempt, true)
+      no
+      = f.radio_button(:tax_exempt, false)
+    .field
+      = f.label :discount_category_id, "Product Discount Category"
       %br
-      = f.text_field "msrp_#{currency}", :onkeyup => gross_prices?(currency) ? "update_gross($(this), '#{currency}', #{vat})" : nil
-      - if gross_prices? currency
+      = f.select :discount_category_id, DiscountCategory.active.cache.map {|e| [e.name, e.id]}, :prompt => "--select--"
+    .field
+      = f.label :video, "YouTube Video ID", :class => "link_youtube"
+      %br
+      = f.text_field :video
+      
+  .contentwrap_XXXL.last
+    .field
+      = f.label :description, :class => 'overrideable'
+      %br
+      = f.text_area :description, :class => 'wymeditor'
+
+  %hr
+  %h3.contentwrap_XXXL.last Pricing
+  .contentwrap_large
+    - currencies.each  do |currency|
+      .field
+        = f.label "msrp_#{currency}", "MSRP #{currency.upcase}"
         %br
-        = label_tag "msrp_#{currency}_gross", "MSRP #{currency.upcase} (incl. VAT)"
+        = f.text_field "msrp_#{currency}", :onkeyup => gross_prices?(currency) ? "update_gross($(this), '#{currency}', #{vat})" : nil
+        - if gross_prices? currency
+          %br
+          = label_tag "msrp_#{currency}_gross", "MSRP #{currency.upcase} (incl. VAT)"
+          %br
+          = text_field_tag "msrp_#{currency}_gross", nil, :onKeyUp => "update_net($(this), '#{currency}', #{vat})"
+          :javascript
+            $(document).ready(function(){update_gross($('#product_msrp_#{currency}'), '#{currency}', #{vat})});
+  .contentwrap_large.last
+    - currencies.each  do |currency|
+      .field
+        = f.label "wholesale_price_#{currency}", "Wholesale Price #{currency.upcase}"
         %br
-        = text_field_tag "msrp_#{currency}_gross", nil, :onKeyUp => "update_net($(this), '#{currency}', #{vat})"
-        :javascript
-          $(document).ready(function(){update_gross($('#product_msrp_#{currency}'), '#{currency}', #{vat})});
+        = f.text_field "wholesale_price_#{currency}"
+  .contentwrap_large
     .field
-      = f.label "wholesale_price_#{currency}"
+      = f.label :outlet
       %br
-      = f.text_field "wholesale_price_#{currency}"
-  .field
-    = f.label :outlet
-    %br
-    = f.check_box :outlet, :onclick => "if (this.checked) {$('#outlet_price').show();$('#price_szus_usd').attr('disabled', false)} else {$('#outlet_price').hide();$('#price_szus_usd').attr('disabled', true)}"
-  .field#outlet_price{:style => "display:#{@product.outlet ? 'block' : 'none'}"}
-    = f.label :price_szus_usd, "Outlet Price (szus usd)"
-    %br
-    = f.text_field :price_szus_usd
-  .field
-    = f.label :use_tabs
-    %br
-    = f.check_box :use_tabs
-  .field
-    = f.label "start_date_#{current_system}", "Start Date #{current_system.upcase}", :class => 'overrideable'
-    %br
-    = f.text_field "start_date_#{current_system}", :class => 'datetimepicker'
-  .field
-    = f.label "end_date_#{current_system}", "End Date #{current_system.upcase}", :class => 'overrideable'
-    %br
-    = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
-  .field
-    = f.label "availability_message_#{current_system}", "Availability Message #{current_system.upcase}", :class => 'overrideable'
-    %br
-    = f.text_field "availability_message_#{current_system}", :class => 'overrideable', :size => 100
-  .field
-    = f.label "distribution_life_cycle_#{current_system}", "Distribution Life Cycle #{current_system.upcase}", :class => 'overrideable'
-    %br
-    = f.text_field "distribution_life_cycle_#{current_system}", :class => 'overrideable', :size => 100
-  .field
-    = f.label "distribution_life_cycle_ends_#{current_system}", "Distribution Life Cycle Ends #{current_system.upcase}", :class => 'overrideable'
-    %br
-    = f.text_field "distribution_life_cycle_ends_#{current_system}", :class => 'datetimepicker'
-  .field
-    = f.label :life_cycle
-    %br
-    = f.select :life_cycle, Product::LIFE_CYCLES
-  .field
-    = f.label :keywords
-    %br
-    = f.text_area :keywords
-  .field
-    = f.label :description, :class => 'overrideable'
-    %br
-    = f.text_area :description, :class => 'wymeditor'
-  .field
-    = f.label :instructions
-    %br
-    = f.text_field :instructions
-  .field
-    = f.label :video, "Youtube video ID. Example: iOGVK7Mih7w"
-    %br
-    = f.text_field :video
-  .field
-    = image_tag(@product.image_url(:small)) if @product.image? 
-    = f.file_field :image
-    = f.hidden_field :image_cache
-    %br
-    = f.label :remove_image
-    = f.check_box :remove_image
-  %br
-  - unless @product.new_record?
-    %h3 Tags
-    %ul#product_tags= render :partial => 'tag', :collection => @product.tags, :locals => {:product_id => @product.id}
-    = text_field_tag "product_tags_helper"
-    %br
-    %br
-    %h3 Ideas
-    %ul#product_ideas= render :partial => 'idea', :collection => @product.ideas, :locals => {:product_id => @product.id}
-    = label_tag :product_ideas_helper
-    = text_field_tag "product_ideas_helper"
-  %br
-  %br
-  %h3 Related Product Tag
-  .field
-    = f.label :related_product_tag, "Related Product Tag ID"
-    %br
-    = f.text_field :related_product_tag
-    %span#related_product_tag_name= @product.related_product_tag_name
-    :javascript
-      $('#product_related_product_tag').autocomplete({
-      	source: function(request, response) {
-      		$.getJSON("/tags_autocomplete", {
-      			term: request.term
-      		}, response);
-      	},
-      	search: function() {
-      		if (this.value.length < 2) {
-      			return false;
-      		}
-      	},
-      	focus: function( event, ui ) {
-        				return false;
-        			},
-      	select: function(event, ui) {
-      	  $("#related_product_tag_name").html( ui.item.label );
-          $(this).val( ui.item.id );
-          return false;
-        }});
-  =# products_helper_tag('product[related_product_item_nums]', @product.related_product_item_nums, :label => 'Related Products (item_num only)')
-  %br
-  %br
-  .actions
-    = f.submit :class => 'wymupdate jqui_save'
-  :javascript
+      = f.check_box :outlet, :onclick => "if (this.checked) {$('#outlet_price').show();$('#price_szus_usd').attr('disabled', false)} else {$('#outlet_price').hide();$('#price_szus_usd').attr('disabled', true)}"
+  .contentwrap_large.last
+    .field#outlet_price{:style => "display:#{@product.outlet ? 'block' : 'none'}"}
+      = f.label :price_szus_usd, "Outlet Price (szus usd)"
+      %br
+      = f.text_field :price_szus_usd
+
+  %hr
+  %h3.contentwrap_XXXL.last Availability
+  .contentwrap_large
+    - WAREHOUSES.each do |warehouse|
+      .field
+        = f.label "quantity_#{warehouse}", "Quantity #{warehouse.upcase}"
+        %br
+        = f.text_field "quantity_#{warehouse}"
+  .contentwrap_large.last
+    .field
+      = f.label :minimum_quantity, "Minimum Quantity for Retailers"
+      %br
+      = f.text_field :minimum_quantity
+  .contentwrap_XXXL.last
+    .field
+      = f.label "orderable_#{current_system}", "Orderable/Salable on #{current_system.upcase}", :class => 'overrideable'
+      %br
+      = f.check_box "orderable_#{current_system}"
+    .field
+      = f.label "availability_message_#{current_system}", "Availability Message #{current_system.upcase}", :class => 'overrideable'
+      %br
+      = f.text_field "availability_message_#{current_system}", :size => 100
+    .field
+      = f.label "distribution_life_cycle_#{current_system}", "Distribution Life Cycle #{current_system.upcase}", :class => 'overrideable'
+      %br
+      = f.text_field "distribution_life_cycle_#{current_system}", :size => 100
+    .field
+      = f.label "distribution_life_cycle_ends_#{current_system}", "Distribution Life Cycle Ends #{current_system.upcase}", :class => 'overrideable'
+      %br
+      = f.text_field "distribution_life_cycle_ends_#{current_system}", :class => 'datetimepicker'
+    .field
+      = f.label :life_cycle
+      %br
+      = f.select :life_cycle, Product::LIFE_CYCLES
+      
+  %hr
+  %h3.contentwrap_XXXL.last Shipping & Handling
+  .contentwrap_large
+    .field
+      = f.label :weight, "Weight (lbs.)"
+      %br
+      = f.text_field :weight
+  
+    - currencies.each  do |currency|
+      .field
+        = f.label "handling_price_#{currency}"
+        %br
+        = f.text_field "handling_price_#{currency}"
+
+  .contentwrap_large.last
+    &nbsp;
+    
+    
+  %hr
+  %h3.contentwrap_XXXL.last Product Images
+  .contentwrap_XXXL
+    .field
+      = image_tag(@product.image_url(:small)) if @product.image? 
+      = f.file_field :image
+      = f.hidden_field :image_cache
+      %br
+      = f.label :remove_image
+      = f.check_box :remove_image
+    .actions
+      = f.submit :class => 'wymupdate jqui_save'
+
+  %hr
+  %h3.contentwrap_XXXL.last Tags, Ideas & Keywords
+  .contentwrap_medium
+    - unless @product.new_record?
+      %strong Tags
+      %ul#product_tags= render :partial => 'tag', :collection => @product.tags, :locals => {:product_id => @product.id}
+      = label_tag :product_tags_helper, "Add Another Tag"
+      = text_field_tag "product_tags_helper"
+      :javascript
+        $("#product_tags_helper").autocomplete({
+        	source: function(request, response) {
+        		$.getJSON("/tags_autocomplete", {
+        			term: request.term
+        		}, response);
+        	},
+        	search: function() {
+        		if (this.value.length < 2) {
+        			return false;
+        		}
+        	},
+        	focus: function( event, ui ) {
+          				$( "#product_tags_helper" ).val( ui.item.label );
+          				return false;
+          			},
+        	select: function(event, ui) {
+        	  this.value = '';
+        	  $.ajax({url:'/admin/products/add_tag?tag_id='+ui.item.id+'&id=#{@product.id}', success: function(html) {$('#product_tags').append(html)}});
+        		return false;
+        	}});
+  .contentwrap_medium
+    - unless @product.new_record?
+      %strong Ideas
+      %ul#product_ideas= render :partial => 'idea', :collection => @product.ideas, :locals => {:product_id => @product.id}
+      = label_tag :product_ideas_helper, "Add Another Idea"
+      = text_field_tag "product_ideas_helper"
+      :javascript
+        $("#product_ideas_helper").autocomplete({
+        	source: function(request, response) {
+        		$.getJSON("/ideas_autocomplete", {
+        			term: request.term
+        		}, response);
+        	},
+        	search: function() {
+        		if (this.value.length < 2) {
+        			return false;
+        		}
+        	},
+        	focus: function( event, ui ) {
+          				$( "#product_ideas_helper" ).val( ui.item.label );
+          				return false;
+          			},
+        	select: function(event, ui) {
+        	  this.value = '';
+        	  $.ajax({url:'/admin/products/add_idea?idea_id='+ui.item.id+'&id=#{@product.id}', success: function(html){$('#product_ideas').append(html)}});
+        		return false;
+        	}});
+    .field
+      = f.label :related_product_tag, "Related Product Tag ID"
+      %br
+      = f.text_field :related_product_tag
+      %span#related_product_tag_name= @product.related_product_tag_name
+      :javascript
+        $('#product_related_product_tag').autocomplete({
+        	source: function(request, response) {
+        		$.getJSON("/tags_autocomplete", {
+        			term: request.term
+        		}, response);
+        	},
+        	search: function() {
+        		if (this.value.length < 2) {
+        			return false;
+        		}
+        	},
+        	focus: function( event, ui ) {
+          				return false;
+          			},
+        	select: function(event, ui) {
+        	  $("#related_product_tag_name").html( ui.item.label );
+            $(this).val( ui.item.id );
+            return false;
+          }});
+    =# products_helper_tag('product[related_product_item_nums]', @product.related_product_item_nums, :label => 'Related Products (item_num only)')
+  .contentwrap_medium.last
+    .field
+      = f.label :keywords, "Meta Tag Keywords"
+      %br
+      = f.text_area :keywords, :cols => "37"
+
     $(function() {
       var avail_messages = [{value: '<a href="/contact">Call now to place your order</a>', label: "Call now to place your order"}, {value: '<a href="/stores">Check Your Local Craft Store</a>', label: 'Check Your Local Craft Store'}, {label: 'Available at your Local Retailer', value: '<a href="/stores">Available at your Local Retailer</a>'}, {value: '<a href="http://www.stampinup.com/ECWeb/CategoryPage.aspx?categoryID=180" target="_blank">Stampin\' Up! Exclusive Product</a>', label: 'Stampin\' Up! Exclusive Product'}];
       $('#product_availability_message_#{current_system}').autocomplete({source: avail_messages});
       $('#product_distribution_life_cycle_#{current_system}').autocomplete({source: ["New", "Sale", "Discountinued", "Clearance", "Coming Soon"]});
     });
-    $("#product_tags_helper").autocomplete({
-    	source: function(request, response) {
-    		$.getJSON("/tags_autocomplete", {
-    			term: request.term
-    		}, response);
-    	},
-    	search: function() {
-    		if (this.value.length < 2) {
-    			return false;
-    		}
-    	},
-    	focus: function( event, ui ) {
-      				$( "#product_tags_helper" ).val( ui.item.label );
-      				return false;
-      			},
-    	select: function(event, ui) {
-    	  this.value = '';
-    	  $.ajax({url:'/admin/products/add_tag?tag_id='+ui.item.id+'&id=#{@product.id}', success: function(html) {$('#product_tags').append(html)}});
-    		return false;
-    	}});
-    	
-    	$("#product_ideas_helper").autocomplete({
-      	source: function(request, response) {
-      		$.getJSON("/ideas_autocomplete", {
-      			term: request.term
-      		}, response);
-      	},
-      	search: function() {
-      		if (this.value.length < 2) {
-      			return false;
-      		}
-      	},
-      	focus: function( event, ui ) {
-        				$( "#product_ideas_helper" ).val( ui.item.label );
-        				return false;
-        			},
-      	select: function(event, ui) {
-      	  this.value = '';
-      	  $.ajax({url:'/admin/products/add_idea?idea_id='+ui.item.id+'&id=#{@product.id}', success: function(html){$('#product_ideas').append(html)}});
-      		return false;
-      	}});

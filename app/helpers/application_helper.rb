@@ -7,7 +7,7 @@ module ApplicationHelper
 		ELLISON_SYSTEMS.inject("") do |buffer, sys|
 			checked = instance_eval("@#{object}").try(:systems_enabled).include?(sys) rescue false
 		  buffer << hidden_field_tag(object + '[systems_enabled][]', sys) if checked && !has_write_permissions?(sys)
-			buffer << "#{check_box_tag(object + '[systems_enabled][]', sys, checked, :id => "#{object}_systems_enabled_#{sys}", :disabled => !has_write_permissions?(sys))} <span #{'class="current_system"' if sys == current_system}>#{sys}</span>"
+			buffer << "#{check_box_tag(object + '[systems_enabled][]', sys, checked, :id => "#{object}_systems_enabled_#{sys}", :disabled => !has_write_permissions?(sys))} <span #{'class="current_system"' if sys == current_system}>#{sys.upcase}</span>"
 		end.html_safe
 	end
 	

@@ -1,6 +1,29 @@
 // Ellison3 Web Application Dashboard CSS
 
+.field {
 
+  label {
+    margin-right: 8px;
+  	font-weight: bold;
+  }
+
+  input[type="checkbox"] {
+    margin: 0 1px 0 12px;
+  } 
+  
+  input[type="radio"] {
+    margin: 0 10px 0 0;
+  } 
+}
+
+ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products { @extend ul.plain;
+  
+}
+
+.remove_tag, .remove_idea, .remove_product {
+  padding-left: 16px;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/cross-small.png") top left no-repeat;
+}
 
 // WYMeditor
 .wym_box {
