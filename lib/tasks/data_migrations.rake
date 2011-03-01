@@ -927,6 +927,34 @@ namespace :data_migrations do
     Idea.collection.update({'tabs.name' => 'Related Ideas'}, {:$pull => {:tabs => {:name => 'Related Ideas'}}}, :multi => true)
   end
   
+  desc "populate retailer discount matrix starting from 17 Prestige & RollModel Accessories. -- not needed for live migration"
+	task :fix_discount_matrix => :environment do
+	  @matrix = CSV.open(File.expand_path(File.dirname(__FILE__) + "/migrations/discount_matrix.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"').to_a
+	  CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/discount_categories.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
+      next if row["id"].to_i < 17
+      @discount_category = DiscountCategory.new(:name => row["name"], :old_id => row["id"])
+      RetailerDiscountLevels.instance.levels.each do |level|
+        @discount_category.send("discount_#{level.id}=", @matrix.detect {|e| e["discount_level_id"] == "#{level.id}" && e["discount_category_id"] == row["id"]}["discount"])
+      end
+      @discount_category.save!
+	  end
+	end
+	
+	desc "import education_products_on_er from education_products_on_er.csv"
+  task :education_products_on_er => [:set_er, :load_dep] do
+    set_current_system "eeus"
+    CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/education_products_on_er.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
+      @product = Product.where(:item_num => row['item_num']).first 
+      next unless @product
+      @product.minimum_quantity = row['min_qty_er'].to_i
+      @product.discount_category_id = DiscountCategory.where(:old_id => row['discount_id']).first.try(:id)
+      @product.systems_enabled << "er" unless @product.systems_enabled.include?("er")
+      @product.send :inherit_system_specific_attributes
+      p @product.changes
+      p @product.save(:validate => false)
+    end
+  end
+  
   task :set_edu do
     ENV['SYSTEM'] = "edu"
   end
