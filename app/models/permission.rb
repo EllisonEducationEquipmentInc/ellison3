@@ -3,7 +3,7 @@ class Permission
 	include Mongoid::Document
 	
 	ADMIN_MODULES = ["products", "ideas", "tags", "landing_pages", "static_pages", "shared_contents", "profiles", "users", "orders", "quotes", "coupons", "countries", 
-	  "us_shipping_rates", "shipping_rates", "feedbacks", "stores", "events", "compatibilities", "virtual_terminal", "materials", "material_orders", "firmwares", "messages"]
+	  "us_shipping_rates", "shipping_rates", "feedbacks", "stores", "events", "compatibilities", "virtual_terminal", "materials", "material_orders", "firmwares", "messages", "discount_categories"]
 		
 	validates :name, :systems_enabled, :presence => true
 	

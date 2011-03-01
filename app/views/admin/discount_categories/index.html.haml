@@ -1,0 +1,22 @@
+%h1 Retailer Discount Matrix
+%div{:style => "position:absolute;z-index:1000;"}
+  %table
+    %thead
+      %tr
+        %th &nbsp;
+        - retailer_discount_levels.grouped_hash.each do |k, v|
+          %th{:colspan => v.length}= k
+      %tr
+        %th Name
+        - retailer_discount_levels.levels.each do |level|
+          %th= level.name
+    %tbody
+      = render :partial => 'discount_category', :collection => @discount_categories
+- if has_write_permissions?
+  :javascript
+    $("td.editable").editInPlace({
+      url: "/admin/discount_categories/update",
+      show_buttons: true,
+      value_required: true,
+      saving_animation_color: "#ECF2F8"
+    }); 

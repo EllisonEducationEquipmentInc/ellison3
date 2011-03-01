@@ -200,6 +200,7 @@ Ellison3::Application.routes.draw do |map|
       
       match 'virtual_terminal(/:action(/:id(.:format)))' => "virtual_terminal"
       match 'firmwares(/:action(.:format))' => "firmwares"
+      match 'discount_categories(/:action(.:format))' => "discount_categories"
     
     end
 

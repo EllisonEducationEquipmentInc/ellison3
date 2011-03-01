@@ -1,6 +1,5 @@
 # require 'retailer_discount_levels'
 
-# TODO: admin for this
 class DiscountCategory
   include EllisonSystem
 	include Mongoid::Document
@@ -14,6 +13,7 @@ class DiscountCategory
 	  validates_presence_of :"discount_#{level.id}"
 	  validates_numericality_of :"discount_#{level.id}", :only_integer => true
 	end
+	validates_presence_of :name
 	
 	cache
 	
