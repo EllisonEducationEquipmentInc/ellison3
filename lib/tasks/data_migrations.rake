@@ -892,9 +892,18 @@ namespace :data_migrations do
   desc "import product_item_types from product_item_types.csv"
   task :product_item_types => :load_dep do
     CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/product_item_types.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
-      @product = Product.where(:item_num => row['item_num']).cache.first 
+      @product = Product.where(:item_num => row['item_num']).first 
       next unless @product
       p @product.update_attribute :item_type, row['item_type']
+    end
+  end
+  
+  desc "import product_item_groups from product_item_groups.csv"
+  task :product_item_groups => :load_dep do
+    CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/product_item_groups.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
+      @product = Product.where(:item_num => row['item_num']).first 
+      next unless @product
+      p @product.update_attribute :item_group, row['item_group']
     end
   end
   
