@@ -950,8 +950,16 @@ namespace :data_migrations do
       @product.discount_category_id = DiscountCategory.where(:old_id => row['discount_id']).first.try(:id)
       @product.systems_enabled << "er" unless @product.systems_enabled.include?("er")
       @product.send :inherit_system_specific_attributes
-      p @product.changes
       p @product.save(:validate => false)
+    end
+  end
+  
+  desc "import product_item_weights from product_item_weight.csv"
+  task :product_item_weights => :load_dep do
+    CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/product_item_weight.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
+      @product = Product.where(:item_num => row['item_num']).first 
+      next unless @product
+      p @product.update_attribute :weight, row['weight']
     end
   end
   

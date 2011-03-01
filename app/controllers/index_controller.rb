@@ -365,6 +365,16 @@ private
           query.with :"#{f.split("~")[0]}_#{current_system}", f
         end
       end
+      query.with(:item_group, params[:item_group]) unless params[:item_group].blank?
+      if is_er?
+        query.facet(:item_group) do |qf|
+          Product::ITEM_GROUPS.each do |item_group|
+            qf.row(item_group) do
+              with(:item_group, item_group)
+            end
+          end
+        end
+      end
       facets.each do |e|
         query.facet :"#{e.to_s}_#{current_system}", :exclude => @filter_conditions[e], :sort => options[:facet_sort] || :count
       end
@@ -376,16 +386,6 @@ private
           PriceFacet.instance.facets(outlet).each do |price_range|
             qf.row(price_range) do
               with(:"price_#{current_system}_#{current_currency}", price_range.min..price_range.max)
-            end
-          end
-        end
-      end
-      query.with(:item_group, params[:item_group]) unless params[:item_group].blank?
-      if is_er?
-        query.facet(:item_group) do |qf|
-          Product::ITEM_GROUPS.each do |item_group|
-            qf.row(item_group) do
-              with(:item_group, item_group)
             end
           end
         end
