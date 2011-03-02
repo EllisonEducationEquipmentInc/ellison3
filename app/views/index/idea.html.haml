@@ -44,19 +44,19 @@
   - if (is_ee_us? || is_er?) && @idea.grade_levels.count > 0
     %p
       %strong== Recommended Grade Level#{'s' if @idea.grade_levels.count > 1}: 
-      = raw @idea.grade_levels.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}#{'&item_group='+ @idea.item_group if @idea.item_group.present? && is_er?}&page=1&ideas=1"))} * ', '
+      = raw @idea.grade_levels.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}#{'&brand='+ @idea.item_group if @idea.item_group.present? && is_er?}&page=1&ideas=1"))} * ', '
   - if (is_ee? || is_er?) && @idea.curriculums.count > 0
     %p
       %strong== Curriculum#{'s' if @idea.curriculums.count > 1}: 
-      = raw @idea.curriculums.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}#{'&item_group='+ @idea.item_group if @idea.item_group.present? && is_er?}&page=1&ideas=1"))} * ', '
+      = raw @idea.curriculums.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}#{'&brand='+ @idea.item_group if @idea.item_group.present? && is_er?}&page=1&ideas=1"))} * ', '
   - if (is_sizzix? || is_er?) && @idea.artists.count > 0
     %p
       %strong== Artist#{'s' if @idea.artists.count > 1}: 
-      = raw @idea.artists.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}#{'&item_group='+ @idea.item_group if @idea.item_group.present? && is_er?}&page=1&ideas=1"))} * ', '
+      = raw @idea.artists.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}#{'&brand='+ @idea.item_group if @idea.item_group.present? && is_er?}&page=1&ideas=1"))} * ', '
   - if (is_sizzix? || is_er?) && @idea.themes.count > 0
     %p
       %strong== Theme#{'s' if @idea.themes.count > 1}: 
-      = raw @idea.themes.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}#{'&item_group='+ @idea.item_group if @idea.item_group.present? && is_er?}&page=1&ideas=1"))} * ', '
+      = raw @idea.themes.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}#{'&brand='+ @idea.item_group if @idea.item_group.present? && is_er?}&page=1&ideas=1"))} * ', '
 .item_sociallinks.dontprint= facebook_like
 
 %div{ :class => "item_detail#{'-tabbed' if @idea.use_tabs}"}
@@ -72,5 +72,5 @@
         %h4
           == Related #{idea_name.pluralize}
           %br
-          = link_to "View All", catalog_path(:anchor => "facets=#{@idea.related_tag.facet_param}#{'&item_group='+ @idea.item_group if @idea.item_group.present? && is_er?}&ideas=1&page=1"), :class => "minilink" if @idea.four_related_criteria.count > 4
+          = link_to "View All", catalog_path(:anchor => "facets=#{@idea.related_tag.facet_param}#{'&brand='+ @idea.item_group if @idea.item_group.present? && is_er?}&ideas=1&page=1"), :class => "minilink" if @idea.four_related_criteria.count > 4
         .related_ideas= render :partial => 'ideas/related_idea', :collection => @idea.four_related_ideas, :as => :idea

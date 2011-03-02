@@ -365,9 +365,9 @@ private
           query.with :"#{f.split("~")[0]}_#{current_system}", f
         end
       end
-      query.with(:item_group, params[:item_group]) unless params[:item_group].blank?
+      query.with(:item_group, params[:brand]) unless params[:brand].blank?
       if is_er?
-        query.facet(:item_group) do |qf|
+        query.facet(:brand) do |qf|
           Product::ITEM_GROUPS.each do |item_group|
             qf.row(item_group) do
               with(:item_group, item_group)

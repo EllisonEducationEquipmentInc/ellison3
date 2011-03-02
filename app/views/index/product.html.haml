@@ -48,17 +48,17 @@
   - if @product.categories.count > 0
     %p
       %strong= @product.categories.count > 1 ? 'Categories:' : 'Category:'
-      = raw @product.categories.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}#{'&item_group='+ @product.item_group if @product.item_group.present? && is_er?}"))} * ', '
+      = raw @product.categories.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}"))} * ', '
   - else
     &nbsp;
   - if !is_ee? && @product.themes.count > 0
     %p
       %strong== Theme#{'s' if @product.themes.count > 1}: 
-      = raw @product.themes.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}#{'&item_group='+ @product.item_group if @product.item_group.present? && is_er?}"))} * ', '
+      = raw @product.themes.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}"))} * ', '
   - if (is_ee? || is_er?) && @product.curriculums.count > 0
     %p
       %strong== Curriculum#{'s' if @product.curriculums.count > 1}: 
-      = raw @product.curriculums.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}#{'&item_group='+ @product.item_group if @product.item_group.present? && is_er?}"))} * ', '
+      = raw @product.curriculums.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}"))} * ', '
 - if @product.designers.count > 0
   .item_designers
     %p.right
@@ -67,7 +67,7 @@
       %ul
         - @product.designers.each do |designer|
           - next if designer.list_page_img.blank?
-          %li= link_to image_tag(designer.list_page_img, :width => 65, :height => 65), catalog_path(:anchor => "facets=#{designer.facet_param}&page=1#{'&outlet=1' if @product.outlet}#{'&item_group='+ @product.item_group if @product.item_group.present? && is_er?}"), :title => designer.name
+          %li= link_to image_tag(designer.list_page_img, :width => 65, :height => 65), catalog_path(:anchor => "facets=#{designer.facet_param}&page=1#{'&outlet=1' if @product.outlet}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}"), :title => designer.name
       - if @product.designers.count > 1
         :javascript
           $(function() {
@@ -114,12 +114,12 @@
                     %strong is fully compatible
                   == with #{@product.name.html_safe}
                 .compatible_tag.ui-corner-all{:class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
-                  = link_to image_tag(compatibility.compatible_tag.list_page_img), catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}#{'&item_group='+ @product.item_group if @product.item_group.present? && is_er?}&page=1")
+                  = link_to image_tag(compatibility.compatible_tag.list_page_img), catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}&page=1")
                 .plus_sign.ui-icon.ui-icon-plusthick
                 - if compatibility.get_products.count > 0
                   = render :partial => 'products/compatibility_product', :collection => compatibility.get_products, :spacer_template => 'tabs/separator', :as => :product
                 .clear
-                %p== Search for more #{link_to compatibility.compatible_tag.name.html_safe, catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}#{'&item_group='+ @product.item_group if @product.item_group.present? && is_er?}&page=1")} in our catalog
+                %p== Search for more #{link_to compatibility.compatible_tag.name.html_safe, catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}&page=1")} in our catalog
 
             = link_to image_tag(compatibility.compatible_tag.list_page_img, :width => "65", :height => "65"), "#compatible_tag_#{compatibility.id}", :id => "compatibility_thumbnail_#{compatibility.id}", :class => "lightbox thumbnail", :alt => "#{compatibility.compatible_tag.name.html_safe}", :title => "#{compatibility.compatible_tag.name.html_safe}"
       .controls{ :style => "display: none"}
