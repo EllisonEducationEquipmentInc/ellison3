@@ -71,7 +71,7 @@
       %br
       %p.formhelp{ :style => "margin-left: 132px"} sample YouTube ID: ndspni2cVqg
     .field
-      = f.label :instructions, "Instructions Path", :class => "w121"
+      = f.label :instructions, "Instructions Path", :class => "icon_pdf-upload", :style => "width: 101px"
       = f.text_field :instructions
       %br
       %p.formhelp{ :style => "margin-left: 132px"} sample path: /images/pdf/instructions/<filename>.pdf
@@ -172,7 +172,7 @@
     
     
   %hr
-  %h3.contentwrap_XXXL.last Product Images
+  %h3.contentwrap_XXXL.last Default Product Image
   .contentwrap_XXXL
     .field
       = image_tag(@product.image_url(:small)) if @product.image? 
@@ -215,7 +215,9 @@
         		return false;
         	}});
   .contentwrap_medium
-    %strong Ideas
+    %strong
+      Related Ideas
+      %span.formhelp.tip_related-ideas (Ideas created using this product)
     - if @product.new_record?
       %p
         %em Please save this product first before assigning ideas.
@@ -297,10 +299,28 @@
         hidden: false
       },
       selectable: true,
-      innerHtml: '<div class="tip_drag">click to drag & move</div>',
+      innerHtml: 'this property may be overwritten for #{system_name}',
       innerHtmlStyle: {
         color: '#333333',
         'text-align': 'center'
+      },
+      themeName: 'azure',
+      themePath: '/images/ui-plugins/bubblepopup'
+    });
+    $('.tip_related-ideas').CreateBubblePopup({
+      position: 'top',
+      align: 'center',
+      distance: '50px',
+      tail: {
+        align: 'middle',
+        hidden: false
+      },
+      selectable: true,
+      innerHtml: 'All ideas entered here will have products and other ideas associated with them.',
+      innerHtmlStyle: {
+        color: '#333333',
+        'text-align': 'center',
+        width: '150px'
       },
       themeName: 'azure',
       themePath: '/images/ui-plugins/bubblepopup'
