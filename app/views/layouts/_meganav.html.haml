@@ -75,7 +75,7 @@
               previous order reference:
               = link_to get_cart.order_reference, admin_order_path(get_cart.order_reference)
               = link_to 'reset', remove_order_reference_path, :remote => true
-          - if current_admin.can_act_as_customer && !user_signed_in?
+          - if current_admin.can_act_as_customer #&& !user_signed_in?
             = form_tag('/user_as', :remote => true, :class => 'contentwrap_XXXL last') do
               = label_tag :user_as_email, "Login as customer:"
               = text_field_tag :user_as_email, nil, :placeholder => "enter customer email"
