@@ -149,6 +149,10 @@ HTML
 	  facet.to_s.gsub(/_(#{ELLISON_SYSTEMS.join("|")})$/, "")
 	end
 	
+	def facet_2_filtername(facet)
+	  facet.name == :item_group ? "Brand" : facet.name.to_s.gsub("_#{current_system}", "").humanize
+	end
+	
 	def catalog_breadcrumbs
 	  r = ''
 	  unless params[:q].blank?
@@ -163,7 +167,9 @@ HTML
 	    end
 	    breadcrumbs << price_label + ' ' + link_to("x", "#", :rel => params[:price], :title => "remove price", :class => "price_breadcrumb_remove") unless params[:price].blank?
 	    breadcrumbs << saving_label + ' ' + link_to("x", "#", :rel => params[:saving], :title => "remove saving", :class => "saving_breadcrumb_remove") unless params[:saving].blank?
-	    breadcrumbs << params[:brand]  + ' ' + link_to("x", "#", :rel => params[:brand], :title => "remove item_group", :class => "item_group_breadcrumb_remove") unless params[:brand].blank?
+	    params[:brand].present? && params[:brand].split(",").each do |brand| 
+	      breadcrumbs << brand  + ' ' + link_to("x", "#", :rel => brand.gsub(" ", "+"), :title => "remove item_group", :class => "item_group_breadcrumb_remove") 
+	    end
 	    r << breadcrumbs.join("<span class='breadcrumb_arrow dontprint'> > </span>".html_safe)
 	    r << javascript_tag do
 	      <<-JS
@@ -189,7 +195,9 @@ HTML
         			return false;
         		});
       		$('.item_group_breadcrumb_remove').click(function() {       
-              location.hash = $.param.fragment( location.hash, {brand: '', page: 1}, 0 );
+      		    var brands = $.deparam.fragment()['brand'].split(',');
+      		    brands.splice(brands.indexOf($(this).attr('rel'))+1);
+              location.hash = $.param.fragment( location.hash, {brand: brands.join(','), page: 1}, 0 );
         			return false;
         		});
       	});

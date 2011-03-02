@@ -15,19 +15,19 @@
     - next if facet.rows.length < 1 || !MULTIFACETS && @facets_hash.any? {|h| h.include?(facet_to_param(facet.name))} || (facet.name == :price && (params[:price].present? || is_er?)) || (facet.name == :saving && !params[:saving].blank?) || (facet.name == :brand && params[:brand].present?)
     %h4.head.ui-accordion-header.ui-helper-reset.ui-state-default.ui-corner-top
       %span.ui-icon.ui-icon-triangle-1-e
-      = link_to facet.name.to_s.gsub("_#{current_system}", "").humanize, "#", :id => "facet_#{facet.name.to_s.gsub("_#{current_system}", "")}"
+      = link_to facet_2_filtername(facet), "#", :id => "facet_#{facet.name.to_s.gsub("_#{current_system}", "")}"
     %ul.ui-accordion-content.ui-helper-reset.ui-widget-content.ui-corner-bottom.ui-accordion-content-active
       - facet.rows.each do |row|
         %li
-          - if facet.class == Sunspot::Search::FieldFacet
+          - if facet.class == Sunspot::Search::FieldFacet && facet.name != :item_group
             - next if row.instance.blank?
             - facet_selected = MULTIFACETS && @facets_hash.include?(row.value) 
             - if facet_selected
               = link_to(row.instance.name, "#", :title => "remove #{row.instance.name}", :rel => row.value, :class => "multifacet_remove facet_selected")
             - else  
               = link_to "#{row.instance.name} (#{row.count})", "/catalog##{'outlet=1&' if outlet?}facets=#{(@facets_hash + [row.value]).join(",")}",  :rel => "#{row.value}", :title =>  row.instance.name, :class => "facet_value"
-          - elsif facet.name == :brand
-            = link_to "#{row.value} (#{row.count})", "/catalog##{'outlet=1&' if outlet?}facets=#{@facets_hash.join(",")}&brand=#{row.value}", :title => row.value, :rel => row.value, :class => "item_group_facet_value"
+          - elsif facet.name == :brand || facet.name == :item_group
+            = link_to "#{row.value} (#{row.count})", "/catalog##{'outlet=1&' if outlet?}facets=#{@facets_hash.join(",")}&brand=#{((params[:brand].present? ? params[:brand].split(",") : []) + [row.value]).join(",")}", :title => row.value, :rel => row.value, :class => params[:brand].present? && params[:brand].split(",").include?(row.value) ? "facet_selected multibrand_remove" : "item_group_facet_value"
           - elsif row.value.respond_to?(:saving) && row.value.saving
             = link_to "#{row.value.label} (#{row.count})", "/catalog##{'outlet=1&' if outlet?}facets=#{@facets_hash.join(",")}&saving=#{row.value.min}~#{row.value.max}", :title => row.value.label, :rel => "#{row.value.min}~#{row.value.max}", :class => "saving_query_facet_value"
           - else
@@ -56,7 +56,11 @@
         return false;
       });
       $(".item_group_facet_value").click(function() {
-        location.hash = $.param.fragment( location.hash, {brand: $(this).attr('rel'), page: 1}, 0 );
+        if ($.deparam.fragment()['brand'] == undefined || $.deparam.fragment()['brand'] == '') {
+          location.hash = $.param.fragment( location.hash, {brand: $(this).attr('rel'), page: 1}, 0 );
+        } else {
+          location.hash = $.param.fragment( location.hash, {brand: $.deparam.fragment()['brand']+","+$(this).attr('rel'), page: 1}, 0 );
+        }
         disable_facet_link($(this), "ell3_ui-check-box-tick--disabled");
         return false;
       });
@@ -71,6 +75,13 @@
         var facets = $.deparam.fragment()['facets'].split(',');
         facets.splice(facets.indexOf($(this).attr('rel')),1);        
         location.hash = $.param.fragment( location.hash, {facets: facets.join(','), page: 1}, 0 );
+        disable_facet_link($(this), "ell3_cross-small--disabled");
+        return false;
+      });
+      $('.multibrand_remove').click(function() {
+        var brands = $.deparam.fragment()['brand'].split(',');
+        brands.splice(brands.indexOf($(this).attr('rel')),1);        
+        location.hash = $.param.fragment( location.hash, {brand: brands.join(','), page: 1}, 0 );
         disable_facet_link($(this), "ell3_cross-small--disabled");
         return false;
       });
