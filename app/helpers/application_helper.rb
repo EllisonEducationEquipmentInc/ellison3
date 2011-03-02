@@ -34,8 +34,8 @@ module ApplicationHelper
 		coupon = show_coupon #&& product.coupon_price(get_cart) < product.price
 		
 		msrp = gross_price product.msrp
-		regular_price = gross_price(product.price) if product.price < product.msrp && product.sale_price(date) != product.price
-		sale_price = gross_price(product.sale_price(date)) if product.sale_price(date)
+		regular_price = gross_price(product.price(:time => date)) if product.price(:time => date) < product.msrp && product.sale_price(date) != product.price(:time => date)
+		sale_price = gross_price(product.sale_price(date)) if product.sale_price(date) && product.sale_price(date) <= product.price(:time => date)
 		
     p = ""
     p << "<span class='msrp#{' old-price' if ecommerce_allowed? && (coupon || regular_price || sale_price)}'>#{number_to_currency msrp}</span> "
