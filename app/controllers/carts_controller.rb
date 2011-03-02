@@ -14,10 +14,12 @@ class CartsController < ApplicationController
 	verify :xhr => true, :only => [:get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :use_previous_orders_card, :remove_order_reference, :shopping_cart, :change_quantity, :add_selected_to_cart], :redirect_to => {:action => :index}
 	
 	def index
+	  if get_cart.last_check_at.blank? || get_cart.last_check_at.present? && get_cart.last_check_at.utc < 5.minute.ago.utc
+	    return unless real_time_cart
+	  end
 		@title = "Shopping #{I18n.t(:cart).titleize}"
 		@cart_locked = true if params[:locked] == "1"
 		@shared_content = SharedContent.cart
-		get_cart
 		render :index, :layout => false if request.xhr?
 	end
 	

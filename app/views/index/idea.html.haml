@@ -1,5 +1,7 @@
 .breadcrumbs.dontprint
   = link_to_function 'back', "window.history.back()", :class => "link_back"
+  - if admin_signed_in?
+    .right= link_to 'edit', edit_admin_idea_path(@idea), :class => "minilink"
 .item_images
   #large_image= image_tag(@idea.large_image)
   #item_thumbnails.dontprint
