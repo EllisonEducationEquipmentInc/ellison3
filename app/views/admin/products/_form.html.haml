@@ -15,131 +15,143 @@
       = system_enabled('product')
   .contentwrap_large.last
     .field
-      = f.label "start_date_#{current_system}", "Start Date #{current_system.upcase}", :class => 'overrideable'
-      = f.text_field "start_date_#{current_system}", :class => 'datetimepicker'
+      = f.label "start_date_#{current_system}", "Start Date #{current_system.upcase}", :class => 'overrideable ui-corner-all'
+      %span.icon_datefield
+        = f.text_field "start_date_#{current_system}", :class => 'datetimepicker'
     .field
-      = f.label "end_date_#{current_system}", "End Date #{current_system.upcase}", :class => 'overrideable'
-      = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
+      = f.label "end_date_#{current_system}", "End Date #{current_system.upcase}", :class => 'overrideable ui-corner-all'
+      %span.icon_datefield
+        = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
 
   %hr
   %h3.contentwrap_XXXL.last Basic Information
+  .field
+    = f.label :name, "Product Name"
+    = f.text_field :name, :size => 52, :style => "font-weight: bold;"
   .contentwrap_large
     .field
       = f.label :item_num, "Product Number"
-      = f.text_field :item_num
-    .field
-      = f.label :name, "Product Name"
-      = f.text_field :name
+      = f.text_field :item_num, :size => 10
     .field
       = f.label :upc, "Product UPC"
-      = f.text_field :upc
+      = f.text_field :upc, :size => 20
     .field
       = f.label :item_type, "Product Type"
       = f.select :item_type, Product::ITEM_TYPES
     .field
       = f.label :item_group, "Product Group"
       = f.select :item_group, Product::ITEM_GROUPS
+    .field
+      = f.label :discount_category_id, "Product Discount Category", :class => "autosize"
+      %br
+      = f.select :discount_category_id, DiscountCategory.active.cache.map {|e| [e.name, e.id]}, :prompt => "--select--"
   
   .contentwrap_large.last
     .field
-      = f.label :tax_exempt, "Tax Exempt?", :class => "autosize"
+      = f.label :minimum_quantity, "Minimum Quantity for Retailers", :class => "autosize"
+      = f.text_field :minimum_quantity, :size => 5
+    .field
+      = f.label :tax_exempt, "Tax Exempt?", :class => "w121"
       yes
       = f.radio_button(:tax_exempt, true)
       no
       = f.radio_button(:tax_exempt, false)
-    .field
-      = f.label :discount_category_id, "Discount Category", :class => "autosize"
-      %br
-      = f.select :discount_category_id, DiscountCategory.active.cache.map {|e| [e.name, e.id]}, :prompt => "--select--"
     %hr
     .field
-      = f.label :use_tabs, "Page Layout", :style => "width: 121px"
-      %span{:class => "icon_tabbed-view"}
+      = f.label :use_tabs, "Page Layout", :class => "w121"
+      %span.icon_tabbed-view
         tabbed view
       = f.radio_button(:use_tabs, true)
-      %span{:class => "icon_full-view"}
+      %span.icon_full-view
         full view
       = f.radio_button(:use_tabs, false)
     .field
       = f.label :video, "YouTube Video ID", :class => "link_youtube"
       = f.text_field :video
+      %br
+      %p.formhelp{ :style => "margin-left: 132px"} sample YouTube ID: ndspni2cVqg
     .field
-      = f.label :instructions, :style => "width: 121px"
+      = f.label :instructions, "Instructions Path", :class => "w121"
       = f.text_field :instructions
+      %br
+      %p.formhelp{ :style => "margin-left: 132px"} sample path: /images/pdf/instructions/<filename>.pdf
       
   .contentwrap_XXXL.last
     .field
-      = f.label :description, :class => 'overrideable'
+      = f.label :description, :class => 'overrideable ui-corner-all'
       %br
       = f.text_area :description, :class => 'wymeditor'
 
   %hr
   %h3.contentwrap_XXXL.last Pricing & Availability
-  .contentwrap_medium
+  %div{ :class => "contentwrap_#{ is_sizzix_us? ? 'medium' : 'large'}"}
     - currencies.each do |currency|
       .field
         .left
-          = f.label "msrp_#{currency}", "MSRP #{currency.upcase}"
+          = f.label "msrp_#{currency}", "MSRP #{currency.upcase}", :class => "w147"
           %br
-          = f.text_field "msrp_#{currency}", :onkeyup => gross_prices?(currency) ? "update_gross($(this), '#{currency}', #{vat})" : nil, :size => 8
+          %span{ :class => "icon_pricefield_#{currency}" }
+            = f.text_field "msrp_#{currency}", :onkeyup => gross_prices?(currency) ? "update_gross($(this), '#{currency}', #{vat})" : nil, :size => 8
         - if gross_prices? currency
-          .right
-            = label_tag "msrp_#{currency}_gross", "MSRP #{currency.upcase} (incl. VAT)", :class => "autosize"
+          .left
+            = label_tag "msrp_#{currency}_gross", "MSRP #{currency.upcase} <span class='formhelp'>(includes VAT)</span>".html_safe, :class => "w147"
             %br
-            = text_field_tag "msrp_#{currency}_gross", nil, :onKeyUp => "update_net($(this), '#{currency}', #{vat})", :size => 8
+            %span{ :class => "icon_pricefield_#{currency}" }
+              = text_field_tag "msrp_#{currency}_gross", nil, :onKeyUp => "update_net($(this), '#{currency}', #{vat})", :size => 8
             :javascript
               $(document).ready(function(){update_gross($('#product_msrp_#{currency}'), '#{currency}', #{vat})});
         .clear
-    - currencies.each  do |currency|
-      .field
-        %div{ :class => cycle(:left, :right) }
-          = f.label "wholesale_price_#{currency}", "Wholesale Price #{currency.upcase}", :class => "autosize"
-          %br
-          = f.text_field "wholesale_price_#{currency}", :size => 8
-  .contentwrap_medium
+      %hr{ :style => "width: 310px" }
     .field
-      = f.label :outlet, "Sell on the Outlet?", :class => "autosize"
-      yes
-      = f.radio_button(:outlet, true, :onchange => "if (this.checked) {$('#outlet_price').show();$('#price_szus_usd').attr('disabled', false)}")
-      no
-      = f.radio_button(:outlet, false, :onchange => "if (this.checked) {$('#outlet_price').hide();$('#price_szus_usd').attr('disabled', true)}")
-    .field#outlet_price{:style => "display:#{@product.outlet ? 'block' : 'none'}"}
-      = f.label :price_szus_usd, "Outlet Price (szus usd)", :class => "autosize"
-      %br
-      = f.text_field :price_szus_usd, :size => 8
-  .contentwrap_medium.last
+      - currencies.each  do |currency|
+        .left
+          = f.label "wholesale_price_#{currency}", "Wholesale Price #{currency.upcase}", :class => "w147"
+          %br
+          %span{ :class => "icon_pricefield_#{currency}" }
+            = f.text_field "wholesale_price_#{currency}", :size => 8
+      .clear
+  - if is_sizzix_us?
+    .contentwrap_medium
+      .field
+        = f.label :outlet, "Sell on the Outlet?", :class => "autosize"
+        yes
+        = f.radio_button(:outlet, true, :onchange => "if (this.checked) {$('#outlet_price').show();$('#price_szus_usd').attr('disabled', false)}")
+        no
+        = f.radio_button(:outlet, false, :onchange => "if (this.checked) {$('#outlet_price').hide();$('#price_szus_usd').attr('disabled', true)}")
+      .field#outlet_price{:style => "display:#{@product.outlet ? 'block' : 'none'}"}
+        = f.label :price_szus_usd, "Outlet Price <span class='formhelp'>(szus usd)</span>".html_safe, :class => "autosize"
+        %span.icon_pricefield_usd
+          = f.text_field :price_szus_usd, :size => 8
+  %div{ :class => "contentwrap_#{ is_sizzix_us? ? 'medium' : 'large'} last"}
     - WAREHOUSES.each do |warehouse|
       .field
-        = f.label "quantity_#{warehouse}", "Quantity #{warehouse.upcase}"
-        %br
+        = f.label "quantity_#{warehouse}", "Quantity #{warehouse.upcase}", :class => "w70"
         = f.text_field "quantity_#{warehouse}", :size => 5
-    .field
-      = f.label :minimum_quantity, "Minimum Quantity for Retailers", :class => "autosize"
-      %br
-      = f.text_field :minimum_quantity, :size => 5
-      
   %hr
-  .contentwrap_XXXL.last
+  .contentwrap_large
     .field
-      = f.label "orderable_#{current_system}", "Orderable/Salable on #{current_system.upcase}", :class => 'overrideable'
-      %br
-      = f.check_box "orderable_#{current_system}"
+      = f.label "orderable_#{current_system}", "Orderable/Salable on #{current_system.upcase}?", :class => 'overrideable ui-corner-all autosize'
+      yes
+      = f.radio_button("orderable_#{current_system}", true)
+      no
+      = f.radio_button("orderable_#{current_system}", false)
     .field
-      = f.label "availability_message_#{current_system}", "Availability Message #{current_system.upcase}", :class => 'overrideable'
+      = f.label "availability_message_#{current_system}", "Availability Message #{current_system.upcase}", :class => 'overrideable ui-corner-all autosize'
       %br
-      = f.text_field "availability_message_#{current_system}", :size => 100
+      = f.text_field "availability_message_#{current_system}", :size => 43
     .field
-      = f.label "distribution_life_cycle_#{current_system}", "Distribution Life Cycle #{current_system.upcase}", :class => 'overrideable'
-      %br
-      = f.text_field "distribution_life_cycle_#{current_system}", :size => 100
-    .field
-      = f.label "distribution_life_cycle_ends_#{current_system}", "Distribution Life Cycle Ends #{current_system.upcase}", :class => 'overrideable'
-      %br
-      = f.text_field "distribution_life_cycle_ends_#{current_system}", :class => 'datetimepicker'
-    .field
-      = f.label :life_cycle
-      %br
+      = f.label :life_cycle, "Product Life Cycle", :class => "autosize"
       = f.select :life_cycle, Product::LIFE_CYCLES
+  .contentwrap_large.last
+    .field
+      = f.label "distribution_life_cycle_#{current_system}", "Life Cycle Message #{current_system.upcase}", :class => 'overrideable ui-corner-all autosize'
+      %br
+      = f.text_field "distribution_life_cycle_#{current_system}"
+    .field
+      = f.label "distribution_life_cycle_ends_#{current_system}", "Life Cycle Message End Date #{current_system.upcase}", :class => 'overrideable ui-corner-all autosize'
+      %br
+      %span.icon_datefield
+        = f.text_field "distribution_life_cycle_ends_#{current_system}", :class => 'datetimepicker'
       
   %hr
   %h3.contentwrap_XXXL.last Shipping & Handling
@@ -275,4 +287,21 @@
       var avail_messages = [{value: '<a href="/contact">Call now to place your order</a>', label: "Call now to place your order"}, {value: '<a href="/stores">Check Your Local Craft Store</a>', label: 'Check Your Local Craft Store'}, {label: 'Available at your Local Retailer', value: '<a href="/stores">Available at your Local Retailer</a>'}, {value: '<a href="http://www.stampinup.com/ECWeb/CategoryPage.aspx?categoryID=180" target="_blank">Stampin\' Up! Exclusive Product</a>', label: 'Stampin\' Up! Exclusive Product'}];
       $('#product_availability_message_#{current_system}').autocomplete({source: avail_messages});
       $('#product_distribution_life_cycle_#{current_system}').autocomplete({source: ["New", "Sale", "Discountinued", "Clearance", "Coming Soon"]});
+    });
+    $('.overrideable').CreateBubblePopup({
+      position: 'top',
+      align: 'center',
+      distance: '50px',
+      tail: {
+        align: 'middle',
+        hidden: false
+      },
+      selectable: true,
+      innerHtml: '<div class="tip_drag">click to drag & move</div>',
+      innerHtmlStyle: {
+        color: '#333333',
+        'text-align': 'center'
+      },
+      themeName: 'azure',
+      themePath: '/images/ui-plugins/bubblepopup'
     });

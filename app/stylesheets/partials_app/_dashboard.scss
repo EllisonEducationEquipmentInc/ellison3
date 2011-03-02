@@ -9,6 +9,9 @@
   	width: 100px;
   	
   	&.autosize { width: auto;}
+  	&.w70 { width: 70px; }
+  	&.w121 { width: 121px; }
+  	&.w147 { width: 147px;}
   }
 
   input[type="checkbox"] {
@@ -18,6 +21,12 @@
   input[type="radio"] {
     margin: 0 10px 0 0;
   } 
+}
+
+.overrideable {
+  padding: 3px 8px 2px 8px;
+  background: url("/images/ui-backgrounds/_#{$system}_diagonal-stripes.png");
+  border: 1px solid #D9D6C4;
 }
 
 ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products { @extend ul.plain;

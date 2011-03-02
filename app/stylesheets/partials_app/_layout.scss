@@ -5,6 +5,10 @@
   font-family: Verdana,Arial,sans-serif;
   font-size: .85em;
 }
+.formhelp { @extend .keyword;
+  color: #999;
+  font-weight: normal;
+}
 .minilink {
   font-family: Verdana,Arial,sans-serif;
   font-size: 9px;
@@ -213,6 +217,12 @@ a.next_button { @extend a.prev_button;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/arrow-move.png") no-repeat left bottom;
 }
 
+.icon_datefield { @extend .icon;
+  padding: 0 19px 0 0;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/calendar-select.png") no-repeat right 3px;
+  height: 21px;
+}
+
 .icon_tabbed-view { @extend .icon;
   padding: 0 0 0 20px;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/ui-tab-content.png") no-repeat left bottom;
@@ -221,6 +231,20 @@ a.next_button { @extend a.prev_button;
 .icon_full-view { @extend .icon;
   padding: 0 0 0 20px;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/ui-scroll-pane.png") no-repeat left bottom;
+}
+
+.icon_pricefield_usd { @extend .icon;
+  padding: 0 0 0 18px;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/currency.png") no-repeat 0px 3px;
+  height: 21px;
+}
+
+.icon_pricefield_gbp { @extend .icon_pricefield_usd;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/currency-pound.png") no-repeat 0px 3px;
+}
+
+.icon_pricefield_eur { @extend .icon_pricefield_usd;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/currency-euro.png") no-repeat 0px 3px;
 }
 
 
