@@ -4,20 +4,20 @@
 %hr
 %br
 .field
-  %h2 Campaigns
+  %h3 Campaigns
   = link_to 'new campaign', {:action => 'new_campaign', :id => @product.id}, :remote => true, :class => 'jqui_new'
   #new_campaign
   %ul#campaigns= render :partial => 'campaign', :collection => @product.campaigns
 %hr
 .field
-  %h2 Additional Images
+  %h3 Additional Images
   = link_to 'upload new image', {:action => 'new_image', :id => @product.id}, :remote => true, :class => 'jqui_new'
   #new_image
   #images= render :partial => 'image', :collection => @product.images
   .clear
 %hr
 .field
-  %h2 Tabs
+  %h3 Tabs
   = link_to 'new tab', {:action => 'new_tab', :id => @product.id}, :remote => true, :class => 'jqui_new'
   = link_to 'clone existing', {:action => 'reusable_tab', :id => @product.id}, :remote => true, :class => 'jqui_clone'
   %br

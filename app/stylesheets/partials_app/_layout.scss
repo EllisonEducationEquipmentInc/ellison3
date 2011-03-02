@@ -15,6 +15,11 @@
   margin-bottom: 4px;
 }
 
+.current_system {
+  font-weight:bold;
+  color: $link;
+}
+
 #content {
   .pagination {
     @if $system == szus or $system == szuk {
@@ -209,10 +214,12 @@ a.next_button { @extend a.prev_button;
 }
 
 .icon_tabbed-view { @extend .icon;
+  padding: 0 0 0 20px;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/ui-tab-content.png") no-repeat left bottom;
 }
 
 .icon_full-view { @extend .icon;
+  padding: 0 0 0 20px;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/ui-scroll-pane.png") no-repeat left bottom;
 }
 
