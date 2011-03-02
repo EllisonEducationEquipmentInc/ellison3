@@ -15,6 +15,7 @@ initialize_lightboxes();
 er_number_only();
 $(document).ready(function(){
 $('#{(@facets_hash.map {|e| e[/\w+/]} | ["category", "theme"]).map {|e| "#facet_#{e}"} * ', '}').trigger('click');
+$('#facet_item_group').trigger('click');
 });
 - if is_er? && ecommerce_allowed?
   $('.add_to_cart_multi').show();
