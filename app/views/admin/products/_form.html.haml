@@ -211,7 +211,7 @@
           			},
         	select: function(event, ui) {
         	  this.value = '';
-        	  $.ajax({url:'/admin/products/add_tag?tag_id='+ui.item.id+'&id=#{@product.id}', success: function(html) {$('#product_tags').append(html)}});
+        	  $.ajax({url:'/admin/products/add_tag?tag_id='+ui.item.id+'&id=#{@product.id}', success: function(html) {$('#product_tags').append(html);$('#product_tags').find('.spinner').remove();}, beforeSend: function(){$('#product_tags').append('#{escape_javascript loader_bar}')}});
         		return false;
         	}});
   .contentwrap_medium
@@ -243,7 +243,7 @@
           			},
         	select: function(event, ui) {
         	  this.value = '';
-        	  $.ajax({url:'/admin/products/add_idea?idea_id='+ui.item.id+'&id=#{@product.id}', success: function(html){$('#product_ideas').append(html)}});
+        	  $.ajax({url:'/admin/products/add_idea?idea_id='+ui.item.id+'&id=#{@product.id}', success: function(html){$('#product_ideas').append(html);$('#product_ideas').find('.spinner').remove();}, beforeSend: function(){$('#product_ideas').append('#{escape_javascript loader_bar}')}});
         		return false;
         	}});
     %br
@@ -253,11 +253,11 @@
       %br
       = f.text_field :related_product_tag
       %br
+      %span#related_product_tag_name= @product.related_product_tag_name
       %span.formhelp
         If this field is left blank, default tag logic
         %br
         will dictate which related products are displayed.
-      %span#related_product_tag_name= @product.related_product_tag_name
       :javascript
         $('#product_related_product_tag').autocomplete({
         	source: function(request, response) {
@@ -274,7 +274,7 @@
           				return false;
           			},
         	select: function(event, ui) {
-        	  $("#related_product_tag_name").html( ui.item.label );
+        	  $("#related_product_tag_name").html( ui.item.label + '<br />' );
             $(this).val( ui.item.id );
             return false;
           }});
