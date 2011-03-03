@@ -365,17 +365,10 @@ private
           query.with :"#{f.split("~")[0]}_#{current_system}", f
         end
       end
-      item_group_query = query.with(:item_group, params[:brand].split(",")) unless params[:brand].blank?
-      query.facet(:item_group, :exclude => item_group_query)
-      # if is_er?
-      #   query.facet(:brand) do |qf|
-      #     Product::ITEM_GROUPS.each do |item_group|
-      #       qf.row(item_group) do
-      #         with(:item_group, item_group)
-      #       end
-      #     end
-      #   end
-      # end
+      if is_er?
+        item_group_query = query.with(:item_group, params[:brand].split(",")) unless params[:brand].blank?
+        query.facet(:item_group, :exclude => item_group_query)
+      end
       facets.each do |e|
         query.facet :"#{e.to_s}_#{current_system}", :exclude => @filter_conditions[e], :sort => options[:facet_sort] || :index
       end
