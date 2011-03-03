@@ -38,10 +38,17 @@ module ApplicationHelper
 		sale_price = gross_price(product.sale_price(date)) if product.sale_price(date) && product.sale_price(date) <= product.price(:time => date)
 		
     p = ""
-    p << "<span class='msrp#{' old-price' if ecommerce_allowed? && (coupon || regular_price || sale_price)}'>#{number_to_currency msrp}</span> "
+    p << "#{'Regular Price: ' if with_text}<span class='msrp#{' old-price' if ecommerce_allowed? && (coupon || regular_price || sale_price)}'>#{number_to_currency msrp}</span> #{'<br />' if line_break}"
     if ecommerce_allowed?
-      p << "<span class='special-price#{' old-price' if coupon || sale_price} #{'sale-price' if is_sizzix_us? && product.outlet}'>#{number_to_currency regular_price}</span> "
-      p << "<span class='sale-price'>#{number_to_currency sale_price}</span> "
+      if regular_price
+        p << "#{(product.outlet ? 'Closeout: ' : is_er? ? 'Special Price: ' : 'Sale Price: ') if with_text}<span class='special-price#{' old-price' if coupon || sale_price} #{'sale-price' if is_sizzix_us? && product.outlet}'>#{number_to_currency regular_price}</span> "
+        if product.outlet && with_text
+          p << "<br /><span class='sale-price'>You Save #{product.saving}%</span>"
+        end
+      end
+      if sale_price
+        p << "#{'Sale Price: ' if with_text}<span class='sale-price'>#{number_to_currency sale_price}</span> "
+      end
     end
     p.html_safe
 	end

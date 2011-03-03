@@ -40,7 +40,7 @@
 .buybox
   .left.dontprint
     %h4== Item ##{@product.item_num}
-    %h4= display_product_price(@product)
+    %h4= display_product_price(@product, { :with_text  => true, :line_break => true })
   .right.dontprint
     = add_to_cart_button(@product, 'add_to_cart detail')
 .item_description
