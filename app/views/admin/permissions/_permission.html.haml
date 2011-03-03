@@ -1,12 +1,12 @@
 .field
-  = f.label :name
+  = f.label :name, :class => "autosize"
   = f.select :name, Permission::ADMIN_MODULES
   - ELLISON_SYSTEMS.each do |sys|
-    = sys
     = check_box_tag "#{f.object_name}[systems_enabled][]", sys, f.object.systems_enabled && f.object.systems_enabled.include?(sys)
-  = f.label :read
+    = sys.upcase
   = f.check_box :read, :disabled => f.object.write
-  = f.label :write
+  = f.label :read, :class => "autosize"
   = f.check_box :write, :onclick => "if (this.checked) {$(this).prevAll('input:checkbox').first().attr({checked: true, disabled: true})} else {$(this).prevAll('input:checkbox').first().attr({disabled: false})}"
-  = f.label :_destroy, "Destroy this permission"
+  = f.label :write, :class => "autosize"
   = f.check_box :_destroy
+  = f.label :_destroy, "Destroy this permission", :class => "autosize"

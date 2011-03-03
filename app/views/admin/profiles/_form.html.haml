@@ -16,30 +16,39 @@
     %br
     = f.text_field :name
   .field
-    = f.label :employee_number
+    = f.label :employee_number, :class => "autosize"
     %br
     = f.text_field :employee_number
   .field
-    = f.label :password
-    %i (leave blank if you don't want to change it)
+    = f.label :password, :class => "autosize"
     %br/
     = f.password_field :password
+    %br
+    %span.formhelp
+      leave this field blank if you don't want to change the password for
+      %em this
+      account
   .field
-    = f.label :password_confirmation
+    = f.label :password_confirmation, :class => "autosize"
     %br/
     = f.password_field :password_confirmation
   .field
-    = f.label :current_password
-    %i (we need your current password to confirm your changes)
+    = f.label :current_password, :class => "autosize"
     %br/
     = f.password_field :current_password
+    %br
+    %span.formhelp
+      provide
+      %em your
+      current password to confirm changes to this account
+
   %h3 Permissions
   .field
     = f.check_box :can_act_as_customer
-    = f.label :can_act_as_customer
+    = f.label :can_act_as_customer, :class => "autosize"
   .field
     = f.check_box :can_change_prices
-    = f.label :can_change_prices
+    = f.label :can_change_prices, :class => "autosize"
   - f.fields_for :permissions do |permission_fields|
     = render 'admin/permissions/permission', :f => permission_fields
   = link_to_add_fields "Add Permission", f, :permissions

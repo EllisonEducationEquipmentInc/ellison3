@@ -20,7 +20,6 @@
         = sortable "current_sign_in_at", "Last sign in at"
         = sortable "created_at"
         = sortable "failed_attempts", "Failed Login"
-        %th &nbsp;
         - if has_write_permissions?
           %th &nbsp;
           %th &nbsp;
@@ -36,8 +35,8 @@
           %td= l user.created_at, :format => :custom rescue ''
           %td= user.failed_attempts
           - if has_write_permissions?
-            %td= link_to 'Edit', edit_admin_admin_path(user)
-            %td= link_to 'Deactivate', admin_admin_path(user), :confirm => 'Are you sure?', :method => :delete
+            %td= link_to 'Edit', edit_admin_admin_path(user), :class => "jqui_edit_min"
+            %td= link_to 'Deactivate', admin_admin_path(user), :confirm => 'Are you sure?', :method => :delete, :class => "jqui_destroy_min"
 %br
 = will_paginate @admins
 %br
