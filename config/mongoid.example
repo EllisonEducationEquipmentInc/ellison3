@@ -8,6 +8,8 @@ defaults: &defaults
   reconnect_time: 3
   autocreate_indexes: false
   include_root_in_json: false
+  use_activesupport_time_zone: true
+  use_utc: false
 
 development:
   <<: *defaults
