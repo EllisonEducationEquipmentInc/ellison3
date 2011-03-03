@@ -180,7 +180,7 @@ class Product
 		field "handling_price_#{currency}".to_sym, :type => Float, :default => 0.0
 	end
 	ELLISON_SYSTEMS.each do |system|
-	  field "orderable_#{system}", :type => Boolean
+	  field "orderable_#{system}", :type => Boolean, :default => false
 	  field "start_date_#{system}".to_sym, :type => DateTime
 	  field "end_date_#{system}".to_sym, :type => DateTime
 		field "description_#{system}".to_sym

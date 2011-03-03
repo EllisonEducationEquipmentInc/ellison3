@@ -39,7 +39,7 @@
       = f.label :item_type, "Product Type"
       = f.select :item_type, Product::ITEM_TYPES
     .field
-      = f.label :item_group, "Product Group"
+      = f.label :item_group, "Brand"
       = f.select :item_group, Product::ITEM_GROUPS
     .field
       = f.label :discount_category_id, "Product Discount Category", :class => "autosize"
@@ -252,6 +252,11 @@
       = f.label :related_product_tag, "Related Product Tag ID", :class => "autosize"
       %br
       = f.text_field :related_product_tag
+      %br
+      %span.formhelp
+        If this field is left blank, default tag logic
+        %br
+        will dictate which related products are displayed.
       %span#related_product_tag_name= @product.related_product_tag_name
       :javascript
         $('#product_related_product_tag').autocomplete({
@@ -316,11 +321,11 @@
         hidden: false
       },
       selectable: true,
-      innerHtml: 'All ideas entered here will have products and other ideas associated with them.',
+      innerHtml: 'All ideas specified here will list this product as Products Used.',
       innerHtmlStyle: {
         color: '#333333',
         'text-align': 'center',
-        width: '150px'
+        width: '125px'
       },
       themeName: 'azure',
       themePath: '/images/ui-plugins/bubblepopup'
