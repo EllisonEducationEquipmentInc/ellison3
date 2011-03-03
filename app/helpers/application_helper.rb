@@ -40,7 +40,7 @@ module ApplicationHelper
     p = ""
     p << "<span class='msrp#{' old-price' if ecommerce_allowed? && (coupon || regular_price || sale_price)}'>#{number_to_currency msrp}</span> "
     if ecommerce_allowed?
-      p << "<span class='special-price#{' old-price' if coupon || sale_price}'>#{number_to_currency regular_price}</span> "
+      p << "<span class='special-price#{' old-price' if coupon || sale_price} #{'sale-price' if product.outlet}'>#{number_to_currency regular_price}</span> "
       p << "<span class='sale-price'>#{number_to_currency sale_price}</span> "
     end
     p.html_safe
