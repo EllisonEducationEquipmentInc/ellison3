@@ -14,7 +14,7 @@
           = select_tag :move_to, options_for_select(@lists), :style => "max-width:150px"
           = image_submit_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/notebook--arrow.png", :alt => "Move Item to Another List", :title => "Move Item to Another List")
   %h3.item_number= product.item_num
-  - if outlet?
+  - if outlet? && product.saving > 0
     .life-cycle
       %span== Save #{product.saving}%
   - elsif !product.public_life_cycle.blank?
