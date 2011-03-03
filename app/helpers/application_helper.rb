@@ -12,9 +12,9 @@ module ApplicationHelper
 	end
 	
   def display_product_price_cart(product)
-    if product.custom_price
+    if product.respond_to?(:custom_price) && product.custom_price
       "<span class='custom-price'>#{number_to_currency(gross_price(product.price))}</span>"
-    elsif product.coupon_price
+    elsif product.respond_to?(:coupon_price) && product.coupon_price
       "<span class='coupon-price'>#{number_to_currency(gross_price(product.price))}</span>"
     elsif product.sale_price && gross_price(product.sale_price) < gross_price(product.msrp) && product.sale_price <= product.price
       "<span class='sale-price'>#{number_to_currency(gross_price(product.price))}</span>"
