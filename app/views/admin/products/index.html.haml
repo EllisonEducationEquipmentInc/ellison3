@@ -7,6 +7,7 @@
 = form_tag(admin_products_path, :method => :get) do
   = admin_systems_checkboxes
   = select_tag :life_cycle, options_for_select([["- life cycle -", nil]] + Product::LIFE_CYCLES, params[:life_cycle])
+  = select_tag :item_group, options_for_select([["- brand -", nil]] + Product::ITEM_GROUPS, params[:item_group])
   = text_field_tag :q, nil, :placeholder => "item num, name, desc"
   = check_box_tag :inactive, "1", params[:inactive] == "1"
   Incl. inactive
@@ -27,12 +28,13 @@
         %th Orderable
         - WAREHOUSES.each do |warehouse|
           = sortable "quantity_#{warehouse}", "Qty. #{warehouse.upcase}"
-        %th Outlet
+        - if is_sizzix_us?
+          %th Outlet
         %th Systems
         %th &nbsp;
         - if has_write_permissions?
           %th &nbsp;
-          %th &nbsp;
+          -#%th &nbsp;
     %tbody
       - for product in @products
         %tr{ :class => cycle(:odd, :even) }
@@ -46,12 +48,13 @@
           %td= product.send "orderable_#{current_system}"
           - WAREHOUSES.each do |warehouse|
             %td= product.send "quantity_#{warehouse}"
-          %td= product.outlet
+          - if is_sizzix_us?
+            %td= product.outlet
           %td= product.systems_enabled.join(", ") rescue ''
           %td= link_to 'Show', admin_product_path(product), :class => 'jqui_show_min'
           - if has_write_permissions?
             %td= link_to 'Edit', edit_admin_product_path(product), :class => 'jqui_edit_min'
-            %td= link_to 'Destroy', admin_product_path(product), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
+            -#%td= link_to 'Destroy', admin_product_path(product), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
 %br
 = will_paginate @products
 %br
