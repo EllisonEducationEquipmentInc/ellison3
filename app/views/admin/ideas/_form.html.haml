@@ -192,3 +192,38 @@
     $(function() {
       $('#idea_distribution_life_cycle_#{current_system}').autocomplete({source: ["New", "Featured"]});
     });
+    $('.overrideable').CreateBubblePopup({
+      position: 'top',
+      align: 'center',
+      distance: '50px',
+      tail: {
+        align: 'middle',
+        hidden: false
+      },
+      selectable: true,
+      innerHtml: 'this property may be overwritten for #{system_name}',
+      innerHtmlStyle: {
+        color: '#333333',
+        'text-align': 'center'
+      },
+      themeName: 'azure',
+      themePath: '/images/ui-plugins/bubblepopup'
+    });
+    $('.tip_related-ideas').CreateBubblePopup({
+      position: 'top',
+      align: 'center',
+      distance: '50px',
+      tail: {
+        align: 'middle',
+        hidden: false
+      },
+      selectable: true,
+      innerHtml: 'All ideas specified here will list this product as Products Used.',
+      innerHtmlStyle: {
+        color: '#333333',
+        'text-align': 'center',
+        width: '125px'
+      },
+      themeName: 'azure',
+      themePath: '/images/ui-plugins/bubblepopup'
+    });
