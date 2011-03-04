@@ -191,7 +191,7 @@
         %em Please save this product first before assigning tags.
     - else
       %ul#product_tags= render :partial => 'tag', :collection => @product.tags, :locals => {:product_id => @product.id}
-      = label_tag :product_tags_helper, "<strong>Add A#{ @product.ideas.count >= 1 ? 'nother' : nil } Tag</strong".html_safe
+      = label_tag :product_tags_helper, "<strong>Add A#{ @product.tags.count >= 1 ? 'nother' : nil } Tag</strong".html_safe
       = text_field_tag "product_tags_helper"
       :javascript
         $("#product_tags_helper").autocomplete({

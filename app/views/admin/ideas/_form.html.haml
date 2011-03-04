@@ -1,151 +1,194 @@
 = form_for([:admin, @idea], :html => {:multipart => true}) do |f|
   = f.error_messages
-  .field
-    = f.label :systems_enabled
-    = system_enabled('idea')
-  .field
-    = f.label :active
-    %br
-    = f.check_box :active
-  .field
-    = f.label :idea_num, "Idea Group"
-    %br
-    = f.text_field :idea_num
-  .field
-    = f.label :item_group
-    %br
-    = f.select :item_group, Product::ITEM_GROUPS
-  .field
-    = f.label :name
-    %br
-    = f.text_field :name
-  .field
-    = f.label :use_tabs
-    %br
-    = f.check_box :use_tabs
-  .field
-    = f.label "start_date_#{current_system}", "Start Date #{current_system.upcase}", :class => 'overrideable'
-    %br
-    = f.text_field "start_date_#{current_system}", :class => 'datetimepicker'
-  .field
-    = f.label "end_date_#{current_system}", "End Date #{current_system.upcase}", :class => 'overrideable'
-    %br
-    = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
-  .field
-    = f.label "distribution_life_cycle_#{current_system}", "Distribution Life Cycle #{current_system.upcase}", :class => 'overrideable'
-    %br
-    = f.text_field "distribution_life_cycle_#{current_system}", :class => 'overrideable', :size => 100
-  .field
-    = f.label "distribution_life_cycle_ends_#{current_system}", "Distribution Life Cycle Ends #{current_system.upcase}", :class => 'overrideable'
-    %br
-    = f.text_field "distribution_life_cycle_ends_#{current_system}", :class => 'datetimepicker'
-  .field
-    = f.label :keywords
-    %br
-    = f.text_area :keywords
-  .field
-    = f.label :description, :class => 'overrideable'
-    %br
-    = f.text_area :description, :class => 'wymeditor'
-  .field
-    = f.label :objective
-    %br
-    = f.text_area :objective, :class => 'wymeditor'
-  .field
+
+  %hr
+  %h3.contentwrap_XXXL.last System Visibility
+  .contentwrap_large
+    .field
+      = f.label :active, "This product is", :class => "autosize"
+      active
+      = f.radio_button(:active, true)
+      disabled
+      = f.radio_button(:active, false)
+    .field
+      = f.label :systems_enabled, "Enabled for", :class => "autosize"
+      = system_enabled('idea')
+  .contentwrap_large.last
+    .field
+      = f.label "start_date_#{current_system}", "Start Date #{current_system.upcase}", :class => 'overrideable ui-corner-all'
+      %span.icon_datefield
+        = f.text_field "start_date_#{current_system}", :class => 'datetimepicker'
+    .field
+      = f.label "end_date_#{current_system}", "End Date #{current_system.upcase}", :class => 'overrideable ui-corner-all'
+      %span.icon_datefield
+        = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
+
+  %hr
+  %h3.contentwrap_XXXL.last Basic Information
+  .contentwrap_large
+    .field
+      = f.label :name, "Idea Name"
+      = f.text_field :name, :size => 50, :style => "font-weight: bold;"
+    .field
+      = f.label :idea_num, "Idea Number"
+      = f.text_field :idea_num, :size => "8"
+    .field
+      = f.label :item_group, "Brand"
+      = f.select :item_group, Product::ITEM_GROUPS
+  .contentwrap_large.last
+    .field
+      = f.label :use_tabs, "Page Layout", :class => "w121"
+      %span.icon_tabbed-view
+        tabbed view
+      = f.radio_button(:use_tabs, true)
+      %span.icon_full-view
+        full view
+      = f.radio_button(:use_tabs, false)
+    .field
+      = f.label :video, "YouTube Video ID", :class => "link_youtube"
+      = f.text_field :video
+      %br
+      %p.formhelp{ :style => "margin-left: 132px"} sample YouTube ID: ndspni2cVqg
+  
+  %hr
+  .contentwrap_XXXL.last
+    .field
+      = f.label :description, :class => 'overrideable ui-corner-all'
+      %br
+      = f.text_area :description, :class => 'wymeditor'
+    .field
+      = f.label :objective
+      %br
+      = f.text_area :objective, :class => 'wymeditor'
+      
+  %hr
+  .contentwrap_large
+    %h3.contentwrap_XXXL.last Default Idea Image
+    .field
     = image_tag(@idea.image_url(:small)) if @idea.image? 
     = f.file_field :image
     = f.hidden_field :image_cache
     %br
     = f.label :remove_image
     = f.check_box :remove_image
-  .field
-    = f.label :video, "Youtube video ID. Example: iOGVK7Mih7w"
+  .contentwrap_large.last
+    %h3 Catalog Messages
+    .field
+      = f.label "distribution_life_cycle_#{current_system}", "Life Cycle Message #{current_system.upcase}", :class => 'overrideable ui-corner-all autosize'
+      %br
+      = f.text_field "distribution_life_cycle_#{current_system}"
+    .field
+      = f.label "distribution_life_cycle_ends_#{current_system}", "Life Cycle Message End Date #{current_system.upcase}", :class => 'overrideable ui-corner-all autosize'
+      %br
+      %span.icon_datefield
+        = f.text_field "distribution_life_cycle_ends_#{current_system}", :class => 'datetimepicker'
+      
+  %hr
+  %h3.contentwrap_XXXL.last Tags, Ideas & Keywords
+  .contentwrap_medium
+    %strong Tags
+    - if @idea.new_record?
+      %p
+        %em Please save this idea first before assigning tags.
+    - else
+      %ul#idea_tags= render :partial => 'tag', :collection => @idea.tags, :locals => {:idea_id => @idea.id}
+      = label_tag :idea_tags_helper, "<strong>Add A#{ @idea.tags.count >= 1 ? 'nother' : nil } Tag</strong".html_safe
+      = text_field_tag "idea_tags_helper"
+      :javascript
+        $("#idea_tags_helper").autocomplete({
+        	source: function(request, response) {
+        		$.getJSON("/tags_autocomplete", {
+        			term: request.term
+        		}, response);
+        	},
+        	search: function() {
+        		if (this.value.length < 2) {
+        			return false;
+        		}
+        	},
+        	focus: function( event, ui ) {
+          				$( "#idea_tags_helper" ).val( ui.item.label );
+          				return false;
+          			},
+        	select: function(event, ui) {
+        	  this.value = '';
+        	  $.ajax({url:'/admin/ideas/add_tag?tag_id='+ui.item.id+'&id=#{@idea.id}', success: function(html) {$('#idea_tags').append(html);$('#idea_tags').find('.spinner').remove();}, beforeSend: function(){$('#idea_tags').append('#{escape_javascript loader_bar}')}});
+        		return false;
+        	}});
+
+  .contentwrap_XL.last
+    %strong
+      Related Products
+      %span.formhelp.tip_related-ideas (Products used creating this idea)
+    - if @idea.new_record?
+      %p
+        %em Please save this idea first before assigning products.
+    - else
+      %ul#idea_products= render :partial => 'product', :collection => @idea.products, :locals => {:idea_id => @idea.id}
+      = label_tag :idea_products_helper, "<strong>Add A#{ @idea.products.count >= 1 ? 'nother' : nil } Product</strong>".html_safe
+      = text_field_tag "idea_products_helper"
+      :javascript
+        $("#idea_products_helper").autocomplete({
+        	source: function(request, response) {
+        		$.getJSON("/products_autocomplete", {
+        			term: request.term
+        		}, response);
+        	},
+        	search: function() {
+        		if (this.value.length < 2) {
+        			return false;
+        		}
+        	},
+        	focus: function( event, ui ) {
+          				$( "#idea_products_helper" ).val( ui.item.label );
+          				return false;
+          			},
+        	select: function(event, ui) {
+        	  this.value = '';
+        	  $.ajax({url:'/admin/ideas/add_product?product_id='+ui.item.id+'&id=#{@idea.id}', success: function(html) {$('#idea_products').append(html);$('#idea_products').find('.spinner').remove();}, beforeSend: function(){$('#idea_products').append('#{escape_javascript loader_bar}')}});
+        		return false;
+        	}});
     %br
-    = f.text_field :video
-  %br
-  - unless @idea.new_record?
-    %h3 Tags
-    %ul#idea_tags= render :partial => 'tag', :collection => @idea.tags, :locals => {:idea_id => @idea.id}
-    = label_tag :idea_tags_helper
-    = text_field_tag "idea_tags_helper"
     %br
-    %br
-    %h3 Products
-    %ul#idea_products= render :partial => 'product', :collection => @idea.products, :locals => {:idea_id => @idea.id}
-    = label_tag :idea_products_helper
-    = text_field_tag "idea_products_helper"
-  %br
-  %br
-  %h3 Related Idea Tag
-  .field
-    = f.label :related_idea_tag, "Related Idea Tag ID"
-    %br
-    = f.text_field :related_idea_tag
-    %span#related_idea_tag_name= @idea.related_idea_tag_name
-    :javascript
-      $('#idea_related_idea_tag').autocomplete({
-      	source: function(request, response) {
-      		$.getJSON("/tags_autocomplete", {
-      			term: request.term
-      		}, response);
-      	},
-      	search: function() {
-      		if (this.value.length < 2) {
-      			return false;
-      		}
-      	},
-      	focus: function( event, ui ) {
-        				return false;
-        			},
-      	select: function(event, ui) {
-      	  $("#related_idea_tag_name").html( ui.item.label );
-          $(this).val( ui.item.id );
-          return false;
-        }});
+    %hr
+    .field.contentwrap_medium
+      = f.label :related_idea_tag, "Related Idea Tag ID", :class => "autosize"
+      %br
+      = f.text_field :related_idea_tag
+      %br
+      %span#related_idea_tag_name= @idea.related_idea_tag_name
+      %span.formhelp
+        If this field is left blank, default tag logic
+        %br
+        will dictate which related ideas are displayed.
+      :javascript
+        $('#idea_related_idea_tag').autocomplete({
+        	source: function(request, response) {
+        		$.getJSON("/tags_autocomplete", {
+        			term: request.term
+        		}, response);
+        	},
+        	search: function() {
+        		if (this.value.length < 2) {
+        			return false;
+        		}
+        	},
+        	focus: function( event, ui ) {
+          				return false;
+          			},
+        	select: function(event, ui) {
+        	  $("#related_idea_tag_name").html( ui.item.label + '<br />' );
+            $(this).val( ui.item.id );
+            return false;
+          }});
+    .field.contentwrap_medium.last
+      = f.label :keywords, "Meta Tag Keywords", :class => "autosize"
+      %br
+      = f.text_area :keywords, :rows => 10, :cols => 37
+
   .actions
     = f.submit :class => 'wymupdate jqui_save'
   :javascript
     $(function() {
       $('#idea_distribution_life_cycle_#{current_system}').autocomplete({source: ["New", "Featured"]});
     });
-    $("#idea_tags_helper").autocomplete({
-    	source: function(request, response) {
-    		$.getJSON("/tags_autocomplete", {
-    			term: request.term
-    		}, response);
-    	},
-    	search: function() {
-    		if (this.value.length < 2) {
-    			return false;
-    		}
-    	},
-    	focus: function( event, ui ) {
-      				$( "#idea_tags_helper" ).val( ui.item.label );
-      				return false;
-      			},
-    	select: function(event, ui) {
-    	  this.value = '';
-    	  $.ajax({url:'/admin/ideas/add_tag?tag_id='+ui.item.id+'&id=#{@idea.id}', success: function(html) {$('#idea_tags').append(html)}});
-    		return false;
-    	}});
-    	
-    	$("#idea_products_helper").autocomplete({
-      	source: function(request, response) {
-      		$.getJSON("/products_autocomplete", {
-      			term: request.term
-      		}, response);
-      	},
-      	search: function() {
-      		if (this.value.length < 2) {
-      			return false;
-      		}
-      	},
-      	focus: function( event, ui ) {
-        				$( "#idea_products_helper" ).val( ui.item.label );
-        				return false;
-        			},
-      	select: function(event, ui) {
-      	  this.value = '';
-      	  $.ajax({url:'/admin/ideas/add_product?product_id='+ui.item.id+'&id=#{@idea.id}', success: function(html) {$('#idea_products').append(html)}});
-      		return false;
-      	}});
