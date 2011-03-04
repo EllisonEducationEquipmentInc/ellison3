@@ -43,7 +43,7 @@ module ApplicationHelper
       if regular_price
         p << "#{(product.outlet ? 'Closeout: ' : is_er? ? 'Special Price: ' : 'Sale Price: ') if with_text}<span class='special-price#{' old-price' if coupon || sale_price} #{'sale-price' if is_sizzix_us? && product.outlet}'>#{number_to_currency regular_price}</span> "
         if product.outlet && with_text
-          p << "<br /><span class='sale-price'>You Save #{product.saving}%</span>"
+          p << "<br /><span class='percent-saved'>You Save #{product.saving}%</span>"
         end
       end
       if sale_price

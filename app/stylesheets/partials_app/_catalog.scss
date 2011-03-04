@@ -71,12 +71,19 @@ body.bp {
   }
 
   .buybox {
+    .left { width: 147px; }
+
     h4 {
-      margin: 0 0 7px 0;
+      margin: 0;
       font-size: 1em;
       color: $catalog_buybox_item-num;
-      
       font-weight: bold;
+      
+      .itemnumber { margin-bottom: 7px; }
+      
+      span { float: right; }
+      
+      span.percent-saved { float: none; }
     }
   }
   
@@ -117,7 +124,7 @@ body.bp {
 	text-decoration: line-through;
 }
 
-.sale-price { @extend .msrp;
+.sale-price, .percent-saved { @extend .msrp;
 	color: $catalog_sale-price;
 	font-weight: bold;
 }
