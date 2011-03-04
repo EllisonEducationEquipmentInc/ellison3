@@ -1,7 +1,7 @@
 .breadcrumbs.dontprint
   = link_to_function 'back', "window.history.back()", :class => "link_back"
   - if admin_signed_in?
-    .right= link_to 'edit', edit_admin_idea_path(@idea), :class => "minilink"
+    .right= link_to 'edit', edit_admin_idea_path(@idea), :class => "link_edit-record"
 .item_images
   #large_image= image_tag(@idea.large_image)
   #item_thumbnails.dontprint
@@ -23,11 +23,11 @@
           btnNext: "#next_button",
           scroll: 1,
           speed: 900,
-          visible: 6,
+          visible: 4,
           circular: false
         });
       
-        if ($("#item_thumbnails").find("ul li").length > 6) {
+        if ($("#item_thumbnails").find("ul li").length > 4) {
           $("#item_thumbnails .controls").slideDown();
         }
       });    

@@ -1,18 +1,18 @@
-.item_images { @include column(12); }
-.item_title { @include column(12, true); }
-.item_description { @include column(12, true);}
-.item_sociallinks { @include column(4);}
+.item_images { @include column(8); }
+.item_title { @include column(16, true); }
+.item_description { @include column(16, true);}
+.item_sociallinks { @include column(7);}
 .buybox {
   display: inline;
   float: left;
   margin-right: 0;
-  width: 296px;
+  width: 336px;
 }
 .item_categories {
   display: inline;
   float: left;
   margin-right: 10px;
-  width: 333px;
+  width: 493px;
 }
 .item_designers {
   display: inline;
@@ -20,7 +20,7 @@
   margin-right: 0;
   width: 127px;
 }
-.item_compatibility { @include column(12, true);}
+.item_compatibility { @include column(16, true);}
 .item_detail { @include column(19); }
 .item_detail-tabbed { @include column(24, true); }
 .item_cross-sell { @include column(5, true);}
