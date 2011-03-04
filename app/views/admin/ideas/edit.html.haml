@@ -3,14 +3,14 @@
 = render 'form'
 %hr
 .field
-  %h2 Additional Images
+  %h3 Additional Images
   = link_to 'upload new image', {:action => 'new_image', :id => @idea.id}, :remote => true, :class => 'jqui_new'
   #new_image
   #images= render :partial => 'image', :collection => @idea.images
   .clear
 %hr
 .field
-  %h2 Tabs
+  %h3 Tabs
   = link_to 'new tab', {:action => 'new_tab', :id => @idea.id}, :remote => true, :class => 'jqui_new'
   = link_to 'clone existing', {:action => 'reusable_tab', :id => @idea.id}, :remote => true, :class => 'jqui_clone'
   %br
