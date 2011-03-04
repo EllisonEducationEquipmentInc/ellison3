@@ -75,11 +75,11 @@ body.bp {
       margin: 0 0 7px 0;
       font-size: 1em;
       color: $catalog_buybox_item-num;
-      text-transform: uppercase;
+      
       font-weight: bold;
     }
     h4.itemnumber {
-      float: right;
+      text-transform: uppercase;
     }
   }
   
