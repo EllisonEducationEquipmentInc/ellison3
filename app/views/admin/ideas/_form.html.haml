@@ -119,7 +119,7 @@
   .contentwrap_XL.last
     %strong
       Related Products
-      %span.formhelp.tip_related-ideas (Products used creating this idea)
+      %span.formhelp.tip_related-products (Products used creating this idea)
     - if @idea.new_record?
       %p
         %em Please save this idea first before assigning products.
@@ -209,7 +209,7 @@
       themeName: 'azure',
       themePath: '/images/ui-plugins/bubblepopup'
     });
-    $('.tip_related-ideas').CreateBubblePopup({
+    $('.tip_related-products').CreateBubblePopup({
       position: 'top',
       align: 'center',
       distance: '50px',
@@ -218,7 +218,7 @@
         hidden: false
       },
       selectable: true,
-      innerHtml: 'All ideas specified here will list this product as Products Used.',
+      innerHtml: 'All products specified here will list this idea as a Related Idea.',
       innerHtmlStyle: {
         color: '#333333',
         'text-align': 'center',
