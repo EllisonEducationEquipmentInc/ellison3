@@ -18,6 +18,8 @@
       = link_to "next", "#", :class => "next_button", :id => "next_button", :onclick => "return false;"
     :javascript
       $(function() {
+        $('.item-images').shadowOff();
+        setTimeout("shadow_on()", 300);
         $("#item_thumbnails").jCarouselLite({
           btnPrev: "#prev_button",
           btnNext: "#next_button",
