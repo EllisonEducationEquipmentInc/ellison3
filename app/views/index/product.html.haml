@@ -41,14 +41,18 @@
 .item_sociallinks.dontprint= facebook_like
 .buybox
   .left.dontprint
-    %h4.itemnumber== Item # #{@product.item_num}
+    %h4.itemnumber
+      Item # 
+      %strong= @product.item_num
     %h4= display_product_price(@product, { :with_text  => true, :line_break => true })
   .right.dontprint
     = add_to_cart_button(@product, 'add_to_cart detail')
-.item_description
+.item_description{ :style => "#{@product.designers.count > 0 ? 'width: 493px; margin-right: 10px' : nil}"}
   = @product.description.try :html_safe
-  %p= link_to "Download Instructions", @product.instructions, :target => '_blank', :title => "Download Instructions", :class => "link_instructions" if @product.instructions.present?
-.item_categories{ :style => "#{@product.designers.length > 0 ? nil : 'width: 470px; margin-right: 0'}"}
+  - if @product.instructions.present?
+    %p
+      %strong Instructions: 
+      = link_to "Download PDF", @product.instructions, :target => '_blank', :title => "Download Instructions", :class => "link_instructions"
   - if @product.categories.count > 0
     %p
       %strong= @product.categories.count > 1 ? 'Categories:' : 'Category:'
@@ -63,45 +67,12 @@
     %p
       %strong== Curriculum#{'s' if @product.curriculums.count > 1}: 
       = raw @product.curriculums.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}"))} * ', '
-- if @product.designers.count > 0
-  .item_designers
-    %p.right
-      %strong Designed by
-    #item_designers_thumbnails
-      %ul
-        - @product.designers.each do |designer|
-          - next if designer.list_page_img.blank?
-          %li= link_to image_tag(designer.list_page_img, :width => 65, :height => 65), catalog_path(:anchor => "facets=#{designer.facet_param}&page=1#{'&outlet=1' if @product.outlet}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}"), :title => designer.name
-      - if @product.designers.count > 1
-        :javascript
-          $(function() {
-            $("#item_designers_thumbnails").jCarouselLite({
-              scroll: 1,
-              visible: 1,
-              circular: true,
-              auto: 8000,
-              circular: true,
-              beforeStart: function(a) {
-                $(a).parent().fadeTo(1000, 0);
-              },
-              afterEnd: function(a) {
-                $(a).parent().fadeTo(1000, 1);
-              }
-            });
-          });
-      - else
-        :javascript
-          $(function() {
-            $("#item_designers_thumbnails").css({visibility: "visible"});
-          });
-          
-- if @product.product_line.present? && @product.product_line.compatibilities.length > 0
-  -# TODO: cache + move to a helper
-  .item_compatibility
+  - if @product.product_line.present? && @product.product_line.compatibilities.length > 0
+    -# TODO: cache + move to a helper
     %p
       %strong Machine Compatibility: 
       == This #{@product.item_type} is compatible with these product lines
-    #item_compatibility_thumbnails
+    #item_compatibility
       %ul
         - @product.product_line.compatibilities.each do |compatibility|
           - next unless compatibility.compatible_tag.present?
@@ -132,7 +103,7 @@
         = link_to "next", "#", :class => "next_button", :id => "next_compat_thumb", :onclick => "return false;"
       :javascript
         $(function() {
-          $("#item_compatibility_thumbnails").jCarouselLite({
+          $("#item_compatibility").jCarouselLite({
             btnPrev: "#prev_compat_thumb",
             btnNext: "#next_compat_thumb",
             scroll: 1,
@@ -141,10 +112,42 @@
             circular: false
           });
       
-          if ($("#item_compatibility_thumbnails").find("ul li").length > 6) {
-            $("#item_compatibility_thumbnails .controls").slideDown();
+          if ($("#item_compatibility").find("ul li").length > 6) {
+            $("#item_compatibility .controls").slideDown();
           }
         });
+- if @product.designers.count > 0
+  .item_designers
+    #item_designers_thumbnails
+      %ul
+        - @product.designers.each do |designer|
+          - next if designer.list_page_img.blank?
+          %li= link_to image_tag(designer.list_page_img, :width => 125, :height => 125), catalog_path(:anchor => "facets=#{designer.facet_param}&page=1#{'&outlet=1' if @product.outlet}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}"), :title => designer.name
+      - if @product.designers.count > 1
+        :javascript
+          $(function() {
+            $("#item_designers_thumbnails").jCarouselLite({
+              scroll: 1,
+              visible: 1,
+              circular: true,
+              auto: 8000,
+              circular: true,
+              beforeStart: function(a) {
+                $(a).parent().fadeTo(1000, 0);
+                var bg = $(a).find('img').attr('src');
+                $('#item_designers_thumbnails').css({backgroundImage: "url("+bg+")"}, 1000);
+              },
+              afterEnd: function(a) {
+                $(a).parent().fadeTo(1000, 1);
+              }
+            });
+          });
+      - else
+        :javascript
+          $(function() {
+            $("#item_designers_thumbnails").css({visibility: "visible"});
+          });
+
 %div{ :class => "item_detail#{'-tabbed' if @product.use_tabs}"}
   = render :partial => "#{'non_' unless @product.use_tabs}tab_block", :locals => {:object => @product}
 - unless @product.use_tabs

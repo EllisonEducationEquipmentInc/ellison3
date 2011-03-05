@@ -8,19 +8,12 @@
   margin-right: 0;
   width: 336px;
 }
-.item_categories {
-  display: inline;
-  float: left;
-  margin-right: 10px;
-  width: 493px;
-}
 .item_designers {
   display: inline;
   float: left;
   margin-right: 0;
   width: 127px;
 }
-.item_compatibility { @include column(16, true);}
 .item_detail { @include column(19); }
 .item_detail-tabbed { @include column(24, true); }
 .item_cross-sell { @include column(5, true);}
