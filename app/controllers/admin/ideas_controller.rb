@@ -224,6 +224,7 @@ class Admin::IdeasController < ApplicationController
     @tag = Tag.find(params[:tag_id])
     @idea.tags << @tag
     @idea.save(:validate => false)
+    @idea.index_by_tag @tag
     render(:partial => 'tag', :object => @tag, :locals => {:idea_id => @idea.id})
   end
 end

@@ -257,6 +257,7 @@ class Admin::ProductsController < ApplicationController
     @tag = Tag.find(params[:tag_id])
     @product.tags << @tag
     @product.save(:validate => false)
+    @product.index_by_tag @tag
     render(:partial => 'tag', :object => @tag, :locals => {:product_id => @product.id})
   end
 end

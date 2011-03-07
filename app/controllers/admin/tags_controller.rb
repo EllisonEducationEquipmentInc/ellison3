@@ -129,6 +129,7 @@ class Admin::TagsController < ApplicationController
     @product = Product.find(params[:product_id])
     @tag.products << @product
     @tag.save(:validate => false)
+    @product.index_by_tag @tag
     render(:partial => 'product', :object => @product, :locals => {:tag_id => @tag.id})
   end
   
@@ -147,6 +148,7 @@ class Admin::TagsController < ApplicationController
     @idea = Idea.find(params[:idea_id])
     @tag.ideas << @idea
     @tag.save(:validate => false)
+    @idea.index_by_tag @tag
     render(:partial => 'idea', :object => @idea, :locals => {:tag_id => @tag.id})
   end
   
