@@ -23,3 +23,4 @@ $.fancybox.close();
   - if @address.enable_avs_bypass
     $('#bypass_avs').show();
   == alert('#{escape_javascript @address.errors.full_messages.join("\n")}');
+setTimeout("$.fancybox.close()", 1000);  
