@@ -17,8 +17,8 @@ $table_thead_link: #2779AA;
 $table_thead_hover: #222;
 $table_td_even: #f2f5f7; // same as jQueryUI .ui-widget-content 
 
-$jqui_tab_active: #6c5941;
-$jqui_tab_hover: #fff;
+$jqui_tab_active: #fff;
+$jqui_tab_hover: #222;
 
 $navutil_link: darken($secondary, 14%);
 $navutil_hover: darken($secondary, 30%);
@@ -44,9 +44,9 @@ $catalog_tab_hover: #346da3;
 $catalog_filter_link: #140F06;
 $catalog_filter_hover: darken($secondary, 15%);
 
-$catalog_item-num: #6C5941;
-$catalog_idea-num: #6C5941;
-$catalog_price: #6C5941;
+$catalog_item-num: #69c;
+$catalog_idea-num: #69c;
+$catalog_price: #69c;
 $catalog_hover: $secondary;
 
 $catalog_buybox_bg: #f2f5f7;

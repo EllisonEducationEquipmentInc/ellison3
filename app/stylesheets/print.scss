@@ -102,7 +102,7 @@ body.bp {
 .item-block {  
 	overflow: visible;
 	margin: 0;
-	padding: 8px 14px;
+	padding: 6px 11px;
 	border-bottom: 1px dashed #ccc;
 	border-right: 1px dashed #ccc;
   page-break-before: auto;
@@ -112,7 +112,7 @@ body.bp {
 	}
 	
 	&.product, &.idea {
-	  height: 220px;
+	  height: 215px;
 	}
 }
 
