@@ -52,6 +52,8 @@ class Tag
   after_save :maybe_index
   
   after_save :update_campaign
+  
+  after_create :index!
 
   field :name
   field :tag_type
@@ -133,7 +135,7 @@ class Tag
     scope type.pluralize.to_sym, :where => { :tag_type => type }  # scope :calendar_events, :where => { :tag_type => "calendar_event" } #dynaically create a scope for each type. ex.:  Tag.calendar_events => scope for calendar event tags
   end
   
-  searchable :auto_index => true, :auto_remove => true, :ignore_attribute_changes_of => ["created_at", "updated_at", "product_ids", "idea_ids", "description", "permalink", "start_date_szus", "end_date_szus", "start_date_szuk", "end_date_szuk", "start_date_eeus", "end_date_eeus", "start_date_eeuk", "end_date_eeuk", "start_date_er", "end_date_er", "banner", "list_page_image", "medium_image", "all_day", "old_id", "old_id_edu", "color", "keywords", "calendar_start_date_szus", "calendar_end_date_szus", "calendar_start_date_szuk", "calendar_end_date_szuk", "calendar_start_date_eeus", "calendar_end_date_eeus", "calendar_start_date_eeuk", "calendar_end_date_eeuk", "calendar_start_date_er", "calendar_end_date_er", "image_filename"] do
+  searchable :auto_index => true, :auto_remove => true, :ignore_attribute_changes_of => ["updated_at", "product_ids", "idea_ids", "description", "permalink", "start_date_szus", "end_date_szus", "start_date_szuk", "end_date_szuk", "start_date_eeus", "end_date_eeus", "start_date_eeuk", "end_date_eeuk", "start_date_er", "end_date_er", "banner", "list_page_image", "medium_image", "all_day", "old_id", "old_id_edu", "color", "keywords", "calendar_start_date_szus", "calendar_end_date_szus", "calendar_start_date_szuk", "calendar_end_date_szuk", "calendar_start_date_eeus", "calendar_end_date_eeus", "calendar_start_date_eeuk", "calendar_end_date_eeuk", "calendar_start_date_er", "calendar_end_date_er", "image_filename"] do
     boolean :active
     text :name
     string :stored_name, :stored => true do
