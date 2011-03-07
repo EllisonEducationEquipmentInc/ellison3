@@ -31,8 +31,8 @@ class Product
   # validates_presence_of :volume, :if => Proc.new {|obj| obj.length.blank? || obj.width.blank? || obj.height.blank?}, :message => "Either volume or length + width + height is required" 
   # validates_presence_of :length, :width, :height, :if => Proc.new {|obj| obj.volume.blank?}, :message => "Either volume or length + width + height is required" 
 	validates_inclusion_of :life_cycle, :in => LIFE_CYCLES, :message => "%s is not included in the list"
-	validates_uniqueness_of :item_num, :if => Proc.new {|obj| obj.new_record? || obj.item_num_changed?}
-	validates_uniqueness_of :upc, :allow_blank => true, :if => Proc.new {|obj| obj.new_record? || obj.upc_changed?}
+	validates_uniqueness_of :item_num, :if => Proc.new {|obj| obj.new_record? || obj.item_num_changed?}, :case_sensitive => false
+	validates_uniqueness_of :upc, :allow_blank => true, :if => Proc.new {|obj| obj.new_record? || obj.upc_changed?}, :case_sensitive => false
 	validate :must_have_msrp
 	
 	validates_associated :tabs

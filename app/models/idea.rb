@@ -9,7 +9,7 @@ class Idea
 	
 	validates :name, :idea_num, :systems_enabled, :presence => true
 	validates :related_idea_tag, :object_id_validity => true, :allow_blank => true
-	validates_uniqueness_of :idea_num, :if => Proc.new {|obj| obj.new_record? || obj.idea_num_changed?}
+	validates_uniqueness_of :idea_num, :if => Proc.new {|obj| obj.new_record? || obj.idea_num_changed?}, :case_sensitive => false
 	
 	before_save :inherit_system_specific_attributes
 	#before_save :clean_up_tags
