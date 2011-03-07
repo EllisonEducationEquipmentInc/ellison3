@@ -13,7 +13,7 @@
         - next unless image.image?
         %li.left= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;", :class => "thumbnail"
     .controls{ :style => "display: none"}
-      = link_to "prev", "#", :class => "prev_button", :id => "prev_button", :onclick => "return false;"
+      = link_to "prev", "#", :class => "prev_button disabled", :id => "prev_button", :onclick => "return false;"
       |
       = link_to "next", "#", :class => "next_button", :id => "next_button", :onclick => "return false;"
     :javascript
