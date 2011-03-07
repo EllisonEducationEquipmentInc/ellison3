@@ -32,7 +32,6 @@
         $(this).siblings('input.individual_product_msrp').val(ui.item.msrp_#{current_currency});
         $(this).siblings('input.individual_product_id').val(ui.item.id);
         $(this).siblings('select.individual_discount_type').focus();
-        $("#tag_products").append("<li class='ui-menu-item'><a href='#' onclick='$(this).parent().remove();return false;'>x</a> "+ui.item.label+"<input name=\"tag[my_product_ids][]\" type=\"hidden\" value=\""+ui.item.id+"\" /></li>");
         return false;
       }
     });
