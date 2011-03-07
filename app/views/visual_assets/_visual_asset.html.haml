@@ -59,20 +59,24 @@
         %span= link_to "View All", catalog_path(:anchor => visual_asset.search_query), :class => "minilink"
       %div{ :class => "item_carousel#{visual_asset.wide? ? '_wide' : nil} ui-widget-#{ is_sizzix? ? 'header' : 'content'} ui-widget ui-corner-all" }
         %div{:id => "asset_carousel_#{visual_asset.id}"}
-        .controls
-          = link_to "prev", "#", :class => "prev_button", :id => "prev_button_#{visual_asset.id}"
+        .controls{ :style => "display: none"}
+          = link_to "prev", "#", :class => "prev_button", :id => "prev_button_#{visual_asset.id}", :onclick => "return false;"
           |
-          = link_to "next", "#", :class => "next_button", :id => "next_button_#{visual_asset.id}"
+          = link_to "next", "#", :class => "next_button", :id => "next_button_#{visual_asset.id}", :onclick => "return false;"
       :javascript
         $(function() {
           $('#asset_carousel_#{visual_asset.id}').load('/index/limited_search?#{visual_asset.search_query}&per_page=#{visual_asset.item_limit}' ,function() {
             $("#asset_carousel_#{visual_asset.id}").jCarouselLite({
               btnPrev: "#prev_button_#{visual_asset.id}",
               btnNext: "#next_button_#{visual_asset.id}",
-              scroll: #{visual_asset.wide? ? 5 : 4},
+              circular: false,
               speed: 900,
+              scroll: #{visual_asset.wide? ? 5 : 4},
               visible: #{visual_asset.wide? ? 5 : 4}
-            });
+            });  
+            if ($("#asset_carousel_#{visual_asset.id}").find("ul li").length > #{visual_asset.wide? ? 5 : 4}) {
+              $("#asset_carousel_#{visual_asset.id}").next(".controls").slideDown();
+            }
           });
         });
   - elsif visual_asset.asset_type == 'products' || visual_asset.asset_type == 'ideas'
@@ -81,17 +85,21 @@
         %span= visual_asset.name
       %div{ :class => "item_carousel#{visual_asset.wide? ? '_wide' : nil} ui-widget-#{ is_sizzix? ? 'header' : 'content'} ui-widget ui-corner-all", :id => "asset_carousel_#{visual_asset.id}" }
         %ul= render :partial => 'index/item', :collection => visual_asset.asset_type == 'products' ? Product.listable.where(:item_num.in => visual_asset.products).cache : Idea.available.where(:idea_num.in => visual_asset.ideas).cache
-        .controls
-          = link_to "prev", "#", :class => "prev_button", :id => "prev_button_#{visual_asset.id}"
+        .controls{ :style => "display: none"}
+          = link_to "prev", "#", :class => "prev_button", :id => "prev_button_#{visual_asset.id}", :onclick => "return false;"
           |
-          = link_to "next", "#", :class => "next_button", :id => "next_button_#{visual_asset.id}"
+          = link_to "next", "#", :class => "next_button", :id => "next_button_#{visual_asset.id}", :onclick => "return false;"
       :javascript
         $(function() {
           $("#asset_carousel_#{visual_asset.id}").jCarouselLite({
             btnPrev: "#prev_button_#{visual_asset.id}",
             btnNext: "#next_button_#{visual_asset.id}",
-            scroll: #{visual_asset.wide? ? 5 : 4},
+            circular: false,
             speed: 900,
+            scroll: #{visual_asset.wide? ? 5 : 4},
             visible: #{visual_asset.wide? ? 5 : 4}
           });
+          if ($("#asset_carousel_#{visual_asset.id}").find("ul li").length > #{visual_asset.wide? ? 5 : 4}) {
+            $("#asset_carousel_#{visual_asset.id}").next(".controls").slideDown();
+          }
         });
