@@ -52,6 +52,7 @@ class Admin::StaticPagesController < ApplicationController
   # POST /static_pages.xml
   def create
     @static_page = StaticPage.new(params[:static_page])
+    @static_page.created_by = current_admin.email
     respond_to do |format|
       if @static_page.save
         format.html { redirect_to(admin_static_pages_url, :notice => 'StaticPage was successfully created.') }
@@ -68,6 +69,7 @@ class Admin::StaticPagesController < ApplicationController
   def update
     @static_page = StaticPage.find(params[:id])
     @static_page.attributes = params[:static_page]
+    @static_page.updated_by = current_admin.email
     respond_to do |format|
       if @static_page.save
         format.html { redirect_to(admin_static_pages_url, :notice => 'StaticPage was successfully updated.') }

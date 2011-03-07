@@ -51,6 +51,7 @@ class Admin::ShippingRatesController < ApplicationController
   # POST /shipping_rates.xml
   def create
     @shipping_rate = ShippingRate.new(params[:shipping_rate])
+    @shipping_rate.created_by = current_admin.email
     respond_to do |format|
       if @shipping_rate.save
         format.html { redirect_to(edit_admin_shipping_rate_path(@shipping_rate), :notice => 'ShippingRate was successfully created.') }
@@ -66,6 +67,7 @@ class Admin::ShippingRatesController < ApplicationController
   # PUT /shipping_rates/1.xml
   def update
     @shipping_rate = ShippingRate.find(params[:id])
+    @shipping_rate.updated_by = current_admin.email
     respond_to do |format|
       if @shipping_rate.update_attributes(params[:shipping_rate])
         format.html { redirect_to(admin_shipping_rates_path, :notice => 'ShippingRate was successfully updated.') }

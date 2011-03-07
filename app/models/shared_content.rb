@@ -11,6 +11,9 @@ class SharedContent
   field :systems_enabled, :type => Array
   field :placement
   
+	field :created_by
+	field :updated_by
+  
   scope :active, :where => { :active => true }
   
   index :active

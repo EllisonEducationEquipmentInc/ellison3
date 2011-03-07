@@ -8,6 +8,9 @@ class FirmwareRange
   field :start_from
   field :end_to
   
+  field :created_by
+	field :updated_by
+  
   validates_presence_of :prefix, :start_from, :end_to
   validates_format_of :prefix, :with => /^[a-z]{1}((0\d)|(1[0-2]{1}))$/i, :message => "is invalid. Format: XNN  Example: B02"
   validates_format_of :start_from, :end_to, :with => /^\d{4}$/, :message => "is invalid. Format: NNNN Example: 0001)"

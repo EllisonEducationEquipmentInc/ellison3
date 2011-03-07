@@ -52,6 +52,7 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     mass_assign_protected_attributes
+    @user.created_by = current_admin.email
     respond_to do |format|
       if @user.save
         format.html { redirect_to(admin_users_url, :notice => 'User was successfully created.') }
@@ -68,6 +69,7 @@ class Admin::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     mass_assign_protected_attributes
+    @user.updated_by = current_admin.email
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to(admin_users_url, :notice => 'User was successfully updated.') }

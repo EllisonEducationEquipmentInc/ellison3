@@ -50,7 +50,10 @@ class Quote
 	field :old_id_eeus, :type => Integer
 
   field :expires_at, :type => DateTime
-
+	
+	field :created_by
+	field :updated_by
+	
 	ELLISON_SYSTEMS.each do |sys|
 		scope sys.to_sym, :where => { :system => sys }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex
 	end

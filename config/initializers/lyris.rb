@@ -28,7 +28,7 @@ class Lyris
 	#  action       #=> returns the requested soap action 
 	attr_accessor :request, :response, :ns, :action
 
-  # list of available SOAP actions. The action is automatically converted form :under_score symbol format to CamelizedFormat.
+  # list of available SOAP actions. The action is automatically converted from :under_score symbol format to CamelizedFormat.
 	SOAP_ACTIONS = [:api_version, :current_user_email_address, :delete_members, :get_member_id, :create_single_member, :create_many_members, :sql_select, :sql_insert, :sql_update, :sql_delete, :update_member_password,
 		 :check_member_password, :copy_member, :create_list, :delete_list, :email_on_what_lists, :email_password_on_what_lists, :create_list_admin, :create_member_ban, :get_email_from_member_id, :get_list_id, 
 			:get_listname_from_member_id, :import_content, :select_members, :select_simple_members, :send_mailing, :mailing_status, :schedule_mailing, :moderate_mailing, :select_content, :select_lists, :select_segments, 

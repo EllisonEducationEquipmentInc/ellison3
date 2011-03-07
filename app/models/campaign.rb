@@ -1,7 +1,8 @@
 class Campaign
   include EllisonSystem
   include Mongoid::Document
-    
+  include Mongoid::Timestamps
+  
   DISCOUNT_TYPES = [["Percent", 0], ["Absolute", 1], ["Fixed", 2]]
   
   # validations
@@ -22,6 +23,9 @@ class Campaign
   field :discount_type, :type => Integer, :default => 0
   field :systems_enabled, :type => Array
   field :individual, :type => Boolean, :default => false
+  
+  field :created_by
+	field :updated_by
   
   # associations
   embedded_in :product, :inverse_of => :campaigns

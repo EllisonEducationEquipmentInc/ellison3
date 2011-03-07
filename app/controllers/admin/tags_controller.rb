@@ -55,6 +55,7 @@ class Admin::TagsController < ApplicationController
   # POST /tags.xml
   def create
     @tag = Tag.new(params[:tag])
+    @tag.created_by = current_admin.email
     populate_campaign
     respond_to do |format|
       if @tag.save
@@ -73,6 +74,7 @@ class Admin::TagsController < ApplicationController
   def update
     @tag = Tag.find(params[:id])
     @tag.write_attributes(params[:tag])
+    @tag.updated_by = current_admin.email
     populate_campaign
     respond_to do |format|
       if @tag.save #update_attributes(params[:tag])
@@ -152,8 +154,8 @@ private
   
   def populate_campaign
     if @tag.campaign? 
-      @tag.campaign ||= Campaign.new 
-      @tag.campaign.write_attributes(:name => @tag.name, :systems_enabled => @tag.systems_enabled, :start_date => @tag.send("start_date_#{current_system}"), :end_date => @tag.send("end_date_#{current_system}"), :short_desc => @tag.description)
+      @tag.campaign ||= Campaign.new(:created_by = current_admin.email)
+      @tag.campaign.write_attributes(:name => @tag.name, :systems_enabled => @tag.systems_enabled, :start_date => @tag.send("start_date_#{current_system}"), :end_date => @tag.send("end_date_#{current_system}"), :short_desc => @tag.description, :updated_by => current_admin.email)
       @tag.embed_campaign = true if @tag.new_record? && @tag.campaign.individual
     else
       params[:tag].delete :campaign

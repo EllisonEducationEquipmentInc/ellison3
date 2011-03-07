@@ -52,6 +52,7 @@ class Admin::ProfilesController < ApplicationController
   def create
     @admin = Admin.new(params[:admin])
     mass_assign_protected_attributes
+    @admin.created_by = current_admin.email
     respond_to do |format|
       if @admin.save
         format.html { redirect_to(admin_admins_url, :notice => 'Admin was successfully created.') }
@@ -100,5 +101,6 @@ private
 		@admin.permissions_attributes = params[:admin][:permissions_attributes]
 		@admin.can_act_as_customer = params[:admin][:can_act_as_customer]
 		@admin.can_change_prices = params[:admin][:can_change_prices]
+		@admin.updated_by = current_admin.email
 	end
 end

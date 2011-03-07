@@ -74,6 +74,9 @@ class Tag
   # field :calendar_start_date, :type => DateTime
   # field :calendar_end_date, :type => DateTime
   
+	field :created_by
+	field :updated_by
+  
   index :systems_enabled
   index :permalink
   index :tag_type

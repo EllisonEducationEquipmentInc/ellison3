@@ -1,7 +1,5 @@
 class Comment
   include EllisonSystem
-	include ActiveModel::Validations
-	include ActiveModel::Translation
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	

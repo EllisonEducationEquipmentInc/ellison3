@@ -54,6 +54,7 @@ class Admin::CouponsController < ApplicationController
   def create
     process_cart_must_have
     @coupon = Coupon.new(params[:coupon])
+    @coupon.created_by = current_admin.email
     respond_to do |format|
       if @coupon.save
         format.html { redirect_to(edit_admin_coupon_url(@coupon), :notice => 'Coupon was successfully created.') }
@@ -70,6 +71,7 @@ class Admin::CouponsController < ApplicationController
   def update
     @coupon = Coupon.find(params[:id])
     process_cart_must_have
+    @coupon.updated_by = current_admin.email
     respond_to do |format|
       if @coupon.update_attributes(params[:coupon])
         format.html { redirect_to(admin_coupons_url, :notice => 'Coupon was successfully updated.') }

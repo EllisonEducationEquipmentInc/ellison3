@@ -11,6 +11,9 @@ class StaticPage
 	field :content
 	field :haml_content
 	
+	field :created_by
+	field :updated_by
+	
 	index :permalink
 	index :name
 	index :system_enabled

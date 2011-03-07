@@ -6,6 +6,9 @@ class Firmware
   field :name
   field :active, :type => Boolean, :default => true
   
+  field :created_by
+	field :updated_by
+  
   scope :active, :where => { :active => true }
   
   validates_presence_of :name, :file

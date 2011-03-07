@@ -17,6 +17,9 @@ class Admin
 	field :can_change_prices, :type => Boolean, :default => false
 	field :systems_enabled, :type => Array
 	
+	field :created_by
+	field :updated_by
+	
 	index :email
 	index :name
 	index :employee_number

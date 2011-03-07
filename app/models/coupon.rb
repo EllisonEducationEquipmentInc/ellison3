@@ -25,6 +25,9 @@ class Coupon
 	field :shipping_countries, :type => Array
 	field :shipping_states, :type => Array
 	
+	field :created_by
+	field :updated_by
+	
 	ELLISON_SYSTEMS.each do |system|
 	  field "start_date_#{system}".to_sym, :type => DateTime
 	  field "end_date_#{system}".to_sym, :type => DateTime

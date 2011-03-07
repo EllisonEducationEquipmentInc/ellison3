@@ -42,6 +42,7 @@ class Admin::UsShippingRatesController < ApplicationController
   # POST /fedex_rates.xml
   def create
     @fedex_rate = FedexRate.new(params[:fedex_rate])
+    @fedex_rate.created_by = current_admin.email
     respond_to do |format|
       if @fedex_rate.save
         format.html { redirect_to(edit_admin_fedex_rate_path(@fedex_rate), :notice => 'FedexRate was successfully created.') }
@@ -57,6 +58,7 @@ class Admin::UsShippingRatesController < ApplicationController
   # PUT /fedex_rates/1.xml
   def update
     @fedex_rate = FedexRate.find(params[:id])
+    @fedex_rate.updated_by = current_admin.email
     respond_to do |format|
       if @fedex_rate.update_attributes(params[:fedex_rate])
         format.html { redirect_to(admin_fedex_rates_path, :notice => 'FedexRate was successfully updated.') }

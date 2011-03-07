@@ -1,6 +1,7 @@
 class Tab
 	include EllisonSystem
 	include Mongoid::Document
+	include Mongoid::Timestamps
 				
 	# validations
 	validates :name, :systems_enabled, :presence => true
@@ -17,6 +18,9 @@ class Tab
 	field :compatibility, :type => Array
 	field :data_column, :type => Array
 	field :display_order, :type => Integer
+	
+	field :created_by
+	field :updated_by
 	
 	# associations
 	embedded_in :product, :inverse_of => :tabs

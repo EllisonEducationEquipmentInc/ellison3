@@ -1,5 +1,6 @@
 %tr{:id => "firmware_range_#{firmware_range.id}"}
   %td= l firmware_range.created_at, :format => :custom
+  %td= firmware_range.created_by
   %td= firmware_range.prefix
   %td= firmware_range.start_from
   %td= firmware_range.end_to

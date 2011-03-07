@@ -36,6 +36,9 @@ class Store
   field :keyword
   field :internal_comments
   
+	field :created_by
+	field :updated_by
+  
   index :country
   index :active
   index :physical_store

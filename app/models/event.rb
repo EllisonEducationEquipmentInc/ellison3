@@ -24,6 +24,9 @@ class Event
   field :zip_code
   field :country
   
+  field :created_by
+	field :updated_by
+  
   index :name
   index :systems_enabled
   index :event_number

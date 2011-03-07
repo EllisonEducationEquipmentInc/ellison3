@@ -10,15 +10,22 @@ class SystemSetting
 	field :key
 	field :value
 	
+	field :created_by
+	field :updated_by
+	
 	index :key, :unique => true
 	
 	class << self
 		def value_at(key)
-			first(:conditions => { :key => key}).try :value
+			find_by_key(key).try :value
 		end
 		
 		def update(key, value)
-			first(:conditions => { :key => key}).try :update_attributes, :value => value
+			find_by_key(key).try :update_attributes, :value => value
+		end
+		
+		def find_by_key(key)
+		  first(:conditions => { :key => key})
 		end
 	end
 end

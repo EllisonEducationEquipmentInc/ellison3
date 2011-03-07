@@ -9,6 +9,9 @@ class FedexZone
 	field :zone, :type => Integer
 	field :express_zone, :type => Integer
 	
+	field :created_by
+	field :updated_by
+	
 	index :zip_start
 	index :zip_end
 	

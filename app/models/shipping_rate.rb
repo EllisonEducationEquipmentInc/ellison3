@@ -1,6 +1,7 @@
 class ShippingRate
   include EllisonSystem
   include Mongoid::Document
+	include Mongoid::Timestamps
 	
 	LOCALES_2_CURRENCIES.values.each do |currency|
 		field "price_min_#{currency}".to_sym, :type => Float
@@ -10,7 +11,10 @@ class ShippingRate
 	end
 	field :system
 	field :zone_or_country
-			
+	
+	field :created_by
+	field :updated_by
+	
 	validates :system, :zone_or_country, :presence => true
 	validates_inclusion_of :system, :in => ELLISON_SYSTEMS
 	validate :range_and_rate_must_be_set_for_all_currencies 

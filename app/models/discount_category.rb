@@ -13,6 +13,10 @@ class DiscountCategory
 	  validates_presence_of :"discount_#{level.id}"
 	  validates_numericality_of :"discount_#{level.id}", :only_integer => true
 	end
+	
+	field :created_by
+	field :updated_by
+	
 	validates_presence_of :name
 	
 	cache

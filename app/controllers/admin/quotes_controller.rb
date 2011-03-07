@@ -57,6 +57,7 @@ class Admin::QuotesController < ApplicationController
   # PUT /quotes/1.xml
   def update
     @quote = Quote.find(params[:id])
+    @quote.updated_by = current_admin.email
     respond_to do |format|
       if @quote.update_attributes(params[:quote])
         format.html { redirect_to(admin_quotes_url, :notice => 'Quote was successfully updated.') }
@@ -82,12 +83,14 @@ class Admin::QuotesController < ApplicationController
   
   def update_internal_comment
     @quote = Quote.find(params[:id])
+    @quote.updated_by = current_admin.email
     @quote.update_attributes :internal_comments => params[:update_value]
     render :text => @quote.internal_comments
   end
   
   def update_active_status
     @quote = Quote.find(params[:id])
+    @quote.updated_by = current_admin.email
     @quote.update_attributes :active => params[:active]
     render :nothing => true
   end
@@ -99,6 +102,7 @@ class Admin::QuotesController < ApplicationController
     sign_in("user", @quote.user)
     get_cart.clear
     order_to_cart @quote
+    @quote.updated_by = current_admin.email
     @quote.update_attributes :active => false
     redirect_to checkout_path
   end

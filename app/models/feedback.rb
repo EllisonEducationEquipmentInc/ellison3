@@ -28,6 +28,9 @@ class Feedback
 	field :department
 	field :system
 	
+	field :created_by
+	field :updated_by
+	
 	index :subject
 	index :email
 	index :status

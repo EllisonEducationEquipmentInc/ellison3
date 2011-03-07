@@ -52,7 +52,7 @@ class Admin::StoresController < ApplicationController
   # POST /stores.xml
   def create
     @store = Store.new(params[:store])
-
+    @store.created_by = current_admin.email
     respond_to do |format|
       if @store.save
         format.html { redirect_to(edit_admin_store_url(@store), :notice => 'Store was successfully created.') }
@@ -68,6 +68,7 @@ class Admin::StoresController < ApplicationController
   # PUT /stores/1.xml
   def update
     @store = Store.find(params[:id])
+    @store.updated_by = current_admin.email
     respond_to do |format|
       if @store.update_attributes(params[:store])
         format.html { redirect_to(admin_stores_url, :notice => 'Store was successfully updated.') }

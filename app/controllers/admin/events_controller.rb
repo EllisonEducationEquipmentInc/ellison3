@@ -53,7 +53,7 @@ class Admin::EventsController < ApplicationController
   # POST /events.xml
   def create
     @event = Event.new(params[:event])
-
+    @event.created_by = current_admin.email
     respond_to do |format|
       if @event.save
         format.html { redirect_to(edit_admin_event_url(@event), :notice => 'Event was successfully created.') }
@@ -69,6 +69,7 @@ class Admin::EventsController < ApplicationController
   # PUT /events/1.xml
   def update
     @event = Event.find(params[:id])
+    @event.updated_by = current_admin.email
     respond_to do |format|
       if @event.update_attributes(params[:event])
         format.html { redirect_to(admin_events_url, :notice => 'Event was successfully updated.') }

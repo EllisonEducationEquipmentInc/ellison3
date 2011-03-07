@@ -56,7 +56,7 @@ class Admin::ProductsController < ApplicationController
   # POST /products.xml
   def create
     @product = Product.new(params[:product])
-
+    @product.created_by = current_admin.email
     respond_to do |format|
       if @product.save
         format.html { redirect_to(edit_admin_product_url(@product), :notice => 'Product was successfully created.') }
@@ -72,6 +72,7 @@ class Admin::ProductsController < ApplicationController
   # PUT /products/1.xml
   def update
     @product = Product.find(params[:id])
+    @product.updated_by = current_admin.email
     respond_to do |format|
       if @product.update_attributes(params[:product])
         format.html { redirect_to(admin_products_url, :notice => 'Product was successfully updated.') }
@@ -105,6 +106,7 @@ class Admin::ProductsController < ApplicationController
 	def create_campaign
 		@product = Product.find(params[:product_id])
 		@campaign = @product.campaigns.build(params[:campaign])
+		@campaign.created_by = current_admin.email
 	end
 	
 	def edit_campaign
@@ -116,6 +118,7 @@ class Admin::ProductsController < ApplicationController
 		@product = Product.find(params[:product_id])
 		@campaign = @product.campaigns.find(params[:id])
 		@campaign.attributes = params[:campaign]
+		@campaign.updated_by = current_admin.email
 	end
 	
 	def delete_campaign
@@ -154,6 +157,7 @@ class Admin::ProductsController < ApplicationController
 	def create_tab
 		@product = Product.find(params[:product_id])
 		@tab = @product.tabs.build(params[:tab])
+		@tab.created_by = current_admin.email
 	end
 	
 	def edit_tab
@@ -165,6 +169,7 @@ class Admin::ProductsController < ApplicationController
 		@product = Product.find(params[:product_id])
 		@tab = @product.tabs.find(params[:id])
 		@tab.write_attributes params[:tab]
+		@tab.updated_by = current_admin.email
 		@tab.save
 	end
 	

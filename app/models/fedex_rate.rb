@@ -1,10 +1,14 @@
 class FedexRate
   include EllisonSystem
   include Mongoid::Document
+  include Mongoid::Timestamps
 
 	field :weight_min, :type => Float
 	field :weight_max, :type => Float
 	field :rates, :type => Hash
+	
+	field :created_by
+	field :updated_by
 	
 	SERVICES = ["ground", "express_saver", "second_day", "overnight"]
 		

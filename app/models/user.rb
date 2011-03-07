@@ -38,6 +38,9 @@ class User
 	field :old_salt
 	field :old_user, :type => Boolean, :default => false
 	
+	field :created_by
+	field :updated_by
+	
 	validates_uniqueness_of :email, :case_sensitive => false, :if => Proc.new {|obj| obj.new_record? || obj.email_changed?}
 	validates_presence_of :tax_exempt_certificate, :if => Proc.new {|obj| obj.tax_exempt}
 		

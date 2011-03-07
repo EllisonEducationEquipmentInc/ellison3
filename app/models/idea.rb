@@ -37,6 +37,9 @@ class Idea
 	field :video
 	field :item_group
 	
+	field :created_by
+	field :updated_by
+	
 	index :idea_num, :unique => true, :background => true
 	index :systems_enabled
 	index :active

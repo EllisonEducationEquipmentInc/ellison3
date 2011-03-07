@@ -18,13 +18,16 @@ class Admin::FirmwaresController < ApplicationController
 	end
 	
 	def update_text
-	  @text = SystemSetting.value_at("firmware_text") || SystemSetting.new(:key => "firmware_text")
-	  @text.update_attribute :value, params[:text]
+	  @text = SystemSetting.find_by_key("firmware_text") || SystemSetting.new(:key => "firmware_text")
+	  @text.updated_by = current_admin.email
+	  @text.value = params[:text]
+	  @text.save
 	  render :nothing => true
 	end
 	
 	def upload_file
 	  @firmware = Firmware.new(params[:firmware])
+	  @firmware.created_by = current_admin.email
 	end
 	
 	def destroy
@@ -35,6 +38,7 @@ class Admin::FirmwaresController < ApplicationController
 	
 	def create_range
 	  @firmware_range = FirmwareRange.new(params[:firmware_range])
+	  @firmware_range.created_by = current_admin.email
 	end
 	
 	def destroy_firmware_range

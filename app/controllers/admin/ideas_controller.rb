@@ -53,7 +53,7 @@ class Admin::IdeasController < ApplicationController
   # POST /ideas.xml
   def create
     @idea = Idea.new(params[:idea])
-
+    @idea.created_by = current_admin.email
     respond_to do |format|
       if @idea.save
         format.html { redirect_to(edit_admin_idea_url(@idea), :notice => 'Idea was successfully created.') }
@@ -69,6 +69,7 @@ class Admin::IdeasController < ApplicationController
   # PUT /ideas/1.xml
   def update
     @idea = Idea.find(params[:id])
+    @idea.updated_by = current_admin.email
     respond_to do |format|
       if @idea.update_attributes(params[:idea])
         format.html { redirect_to(admin_ideas_url, :notice => 'Idea was successfully updated.') }
@@ -123,6 +124,7 @@ class Admin::IdeasController < ApplicationController
 	def create_tab
 		@idea = Idea.find(params[:idea_id])
 		@tab = @idea.tabs.build(params[:tab])
+		@tab.updated_by = current_admin.email
 	end
 	
 	def edit_tab
@@ -134,6 +136,7 @@ class Admin::IdeasController < ApplicationController
 		@idea = Idea.find(params[:idea_id])
 		@tab = @idea.tabs.find(params[:id])
 		@tab.write_attributes params[:tab]
+		@tab.updated_by = current_admin.email
 		@tab.save
 	end
 	

@@ -53,6 +53,7 @@ class Admin::SharedContentsController < ApplicationController
   # POST /shared_contents.xml
   def create
     @shared_content = SharedContent.new(params[:shared_content])
+    @shared_content.created_by = current_admin.email
     respond_to do |format|
       if @shared_content.save
         format.html { redirect_to(admin_shared_contents_url, :notice => 'SharedContent was successfully created.') }
@@ -69,6 +70,7 @@ class Admin::SharedContentsController < ApplicationController
   def update
     @shared_content = SharedContent.find(params[:id])
     @shared_content.attributes = params[:shared_content]
+    @shared_content.updated_by = current_admin.email
     respond_to do |format|
       if @shared_content.save
         format.html { redirect_to(admin_shared_contents_url, :notice => 'SharedContent was successfully updated.') }
