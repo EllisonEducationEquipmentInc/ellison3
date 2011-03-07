@@ -56,10 +56,11 @@
       = f.label :description, :class => 'overrideable ui-corner-all'
       %br
       = f.text_area :description, :class => 'wymeditor'
-    .field
-      = f.label :objective
-      %br
-      = f.text_area :objective, :class => 'wymeditor'
+    - unless is_sizzix?
+      .field
+        = f.label :objective
+        %br
+        = f.text_area :objective, :class => 'wymeditor'
       
   %hr
   .contentwrap_large
@@ -118,8 +119,8 @@
 
   .contentwrap_XL.last
     %strong
-      Related Products
-      %span.formhelp.tip_related-products (Products used creating this idea)
+      Products Used
+      %span.formhelp.tip_related-products (Products used to create this idea)
     - if @idea.new_record?
       %p
         %em Please save this idea first before assigning products.

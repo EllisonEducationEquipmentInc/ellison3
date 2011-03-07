@@ -654,9 +654,16 @@ h3.item_title {
   }  
 }
 
-.item_description, .item_categories {
+.item_description {
   
-  h4, p {
+  h4 {
+    font-family: "Helvetica Neue",Arial,Helvetica,sans-serif !important;
+    font-size: 1em !important;
+    font-weight: bold !important;
+    margin: 0 !important;
+  }
+  
+  p {
     margin-bottom: 8px !important;
   }
 }

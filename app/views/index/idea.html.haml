@@ -39,10 +39,10 @@
   - unless @idea.public_life_cycle.blank?
     %span.life-cycle= @idea.public_life_cycle
 .item_description
-  - if is_ee? && @idea.description.present?
-    %h4 Concept:
-  = @idea.description.try :html_safe
-  - if @idea.objective.present? 
+  - if @idea.description.present?
+    %h4== #{is_er? || is_ee? ? 'Concept' : nil}#{is_er? || is_sizzix? ? "#{is_er? ? '/' : nil}Short Description" : nil}: 
+    = @idea.description.try :html_safe
+  - if @idea.objective.present? && !is_sizzix?
     %h4 Objective:
     = @idea.objective.try :html_safe  
   - if (is_ee_us? || is_er?) && @idea.grade_levels.count > 0
