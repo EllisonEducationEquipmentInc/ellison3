@@ -17,7 +17,7 @@
   - if !is_er? && product.saving > 0 || is_er? && ecommerce_allowed? && product.sale_price && product.sale_price < product.retailer_price
     .life-cycle
       %span
-        - if is_sizzix? && !product.outlet || is_er? 
+        - if is_sizzix_us? && !product.outlet || is_er? || is_sizzix_uk?
           Sale
         - else
           == Save #{product.saving}%
