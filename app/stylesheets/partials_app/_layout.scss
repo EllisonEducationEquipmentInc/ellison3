@@ -116,6 +116,18 @@ a.prev_button {
     color: $catalog_hover;
     background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation-180-frame.png") no-repeat left;
   }
+  
+  &.disabled {
+    color: $link_dead;
+    background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/#{$system}_navigation-180-disabled.png") no-repeat left;
+    
+    &:hover, &:focus {
+      color: $link_dead;
+      background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/#{$system}_navigation-180-disabled.png") no-repeat left;
+      cursor: text;
+      text-decoration: none;
+    }
+  }
 }
 
 a.next_button { @extend a.prev_button;
@@ -124,6 +136,14 @@ a.next_button { @extend a.prev_button;
 
   &:hover{
     background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/navigation-000-frame.png") no-repeat right;
+  }
+  
+  &.disabled {
+    background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/#{$system}_navigation-disabled.png") no-repeat right;
+    
+    &:hover, &:focus {
+      background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/#{$system}_navigation-disabled.png") no-repeat right;
+    }
   }
 }
 
