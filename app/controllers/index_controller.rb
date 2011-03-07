@@ -268,7 +268,7 @@ class IndexController < ApplicationController
   end
   
   def instructions
-    @products = Product.available.where(:instructions.exists => true, :instructions.ne => '').asc(:name).cache
+    @products = Product.displayable.where(:instructions.exists => true, :instructions.ne => '').asc(:name).cache
     #expires_in 3.hours, 'max-stale' => 5.hours
   end
   
