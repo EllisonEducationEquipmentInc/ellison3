@@ -22,7 +22,7 @@
         %th &nbsp;
         - if has_write_permissions?
           %th &nbsp;
-          %th &nbsp;
+          -#%th &nbsp;
     %tbody
       - for idea in @ideas
         %tr{ :class => cycle(:odd, :even) }
@@ -34,7 +34,7 @@
           %td= link_to 'Show', admin_idea_path(idea), :class => 'jqui_show_min'
           - if has_write_permissions?
             %td= link_to 'Edit', edit_admin_idea_path(idea), :class => 'jqui_edit_min'
-            %td= link_to 'Destroy', admin_idea_path(idea), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
+            -#%td= link_to 'Destroy', admin_idea_path(idea), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
 %br
 = will_paginate @ideas
 %br

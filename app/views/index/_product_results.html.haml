@@ -8,10 +8,10 @@
   - if @search.total > 0
     .toggleview= link_to "list view", "#", :class => "toggle_view"
   %ul#catalogtabs
-    %li= link_to "<span>#{pluralize @product_search.total, "Product"} #{outlet? || idea? ? 'Found' : 'Showing'}</span>".html_safe, "#", :id => "toggle_product", :class => "tab #{'in' if outlet? || idea?}active"
-    %li= link_to "<span>#{pluralize @idea_search.total, idea_name.capitalize} #{idea? ? 'Showing' : 'Found'}</span>".html_safe, "#", :id => "toggle_idea", :class => "tab #{'in' unless idea?}active"
+    %li= link_to "<span>#{pluralize @product_search.total, "Product"} #{outlet? || idea? ? 'Found' : 'Showing'}</span>".html_safe, "#", :class => "toggle_product tab #{'in' if outlet? || idea?}active"
+    %li= link_to "<span>#{pluralize @idea_search.total, idea_name.capitalize} #{idea? ? 'Showing' : 'Found'}</span>".html_safe, "#", :class => "toggle_idea tab #{'in' unless idea?}active"
     - if is_sizzix_us?
-      %li= link_to "<span>#{pluralize @outlet_search.total, "Outlet Product"} #{outlet? ? 'Showing' : 'Found'}</span>".html_safe, "#", :id => "toggle_outlet", :class => "tab #{'in' unless outlet?}active"
+      %li= link_to "<span>#{pluralize @outlet_search.total, "Outlet Product"} #{outlet? ? 'Showing' : 'Found'}</span>".html_safe, "#", :class => "toggle_outlet tab #{'in' unless outlet?}active"
   - if @search.total > 1 && is_er? && ecommerce_allowed? && !idea?
     = check_box_tag :select_all_products, "1", false, :onclick => "$('input.add_to_cart_checkbox').attr('checked', this.checked);toggle_add_checked_to_cart();"
     = label_tag :select_all_products, nil, :class => "minilink"
@@ -38,6 +38,17 @@
   - if @search.total < 1
     %p
       %strong== We're sorry, we found 0 matching #{@klass}s
+      - if is_sizzix_us?
+        - if @product_search.total < 1 && @outlet_search.total > 0
+          %strong== ... But good news! We found #{link_to "#{pluralize @outlet_search.total, "Product"} in the Outlet", "#", :class => "toggle_outlet"}!
+        - if @product_search.total < 1 && @outlet_search.total < 1 && @idea_search.total > 0
+          %strong== ... But good news! We found #{link_to "#{pluralize @idea_search.total, idea_name.capitalize}", "#", :class => "toggle_idea"}!
+      - else
+        - if @product_search.total < 1 && @idea_search.total > 0
+          %strong== ... But good news! We found #{link_to "#{pluralize @idea_search.total, idea_name.capitalize}", "#", :class => "toggle_idea"}!
+        - if @idea_search.total < 1 && @product_search.total > 0
+          %strong== ... But good news! We found #{link_to "#{pluralize @product_search.total, "Product"}", "#", :class => "toggle_product"}!
+    
     - if !@search.correctly_spelled? && @search.spell_collation
       %p== Did you mean #{link_to_function @search.spell_collation, "location.hash = $.param.fragment( location.hash, {q: '#{@search.spell_collation}'}, 0 )"}?
     %p Try these search Tips:
@@ -45,7 +56,7 @@
       %li Double check your spelling. 
       %li Try using single words(eg. flower, embossing) 
       %li Try searching for a term that is less specific. You can always narrow your search results by filtering later. 
-      %li To browse all products visit our Catalog. (hyperlink catalog to /catalog).
+      %li== To browse all products visit our #{link_to "Catalog", catalog_path}.
     - if is_ee?
       %p
         == ...or, have you considered a #{link_to "Custom Die", "/customdie"}? You can create your own one-of-a-kind design for any SureCut Die or order an Ellison SureCut design that has been retired from our current in-stock inventory.
@@ -66,15 +77,15 @@
       location.hash = $.param.fragment( location.hash, {page: $.deparam.querystring(this.href)['page']}, 0 );
       return false;
     })
-    $('#toggle_product').click(function() {
+    $('.toggle_product').click(function() {
       location.hash = $.param.fragment( location.hash.replace(/\&?outlet=\d/,'').replace(/^#\&/, '#'), {ideas: 0, page: 1}, 0 );
       return false;
     });
-    $('#toggle_idea').click(function() {
+    $('.toggle_idea').click(function() {
       location.hash = $.param.fragment( location.hash.replace(/\&?outlet=\d/,'').replace(/^#\&/, '#'), {ideas: 1, page: 1}, 0 );
       return false;
     });
-    $('#toggle_outlet').click(function() {
+    $('.toggle_outlet').click(function() {
       location.hash = $.param.fragment( location.hash, {outlet: 1, page: 1, ideas: 0}, 0 );
       return false;
     });
