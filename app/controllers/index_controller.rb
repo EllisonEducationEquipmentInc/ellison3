@@ -99,6 +99,12 @@ class IndexController < ApplicationController
   end
   
   def search
+    if params[:q].present? && params[:q] =~ /^(a|A)*[0-9]{3,6}($|-[a-zA-Z0-9\.]{1,10}$)/
+      @product = Product.displayable.where(:item_num => params[:q]).first
+      render :js => "location.href='#{product_url(:item_num => @product.item_num, :name => @product.name.parameterize)}'" and return if @product
+      @idea = Idea.available.where(:idea_num => params[:q]).first
+      render :js => "location.href='#{idea_url(:idea_num => @idea.idea_num, :name => @idea.name.parameterize)}'" and return if @idea
+    end
     get_search
     session[:user_return_to] = catalog_path + "#" + request.env["QUERY_STRING"]
     @products = @search.results
