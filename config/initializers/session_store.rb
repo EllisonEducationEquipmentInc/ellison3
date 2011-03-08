@@ -8,4 +8,4 @@
 # Rails.application.config.session_store :active_record_store
 
 require "mongo_session_store/mongoid"
-Rails.application.config.session_store :mongoid_store, :key => '_ellison3_session'
+Rails.application.config.session_store :mongoid_store, :key => '_ellison3_session', :expire_after => 7.days
