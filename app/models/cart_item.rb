@@ -54,4 +54,16 @@ class CartItem
 	def eclips?
 		item_num == "655934" || item_num == "29184" || (item_num == "654427" && Rails.env == 'development')
 	end
+	
+	def calculate_coupon_discount(coupon)
+	  return if coupon.blank?
+	  p = if coupon.percent?
+			self.msrp - (0.01 * coupon.discount_value * self.msrp).round(2)
+		elsif coupon.absolute?
+			self.msrp - coupon.discount_value > 0 ? self.msrp - coupon.discount_value : 0.0
+		elsif coupon.fixed?
+			coupon.discount_value
+		end
+		write_attributes :coupon_price => true, :price => p if p < self.price 
+	end
 end

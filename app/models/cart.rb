@@ -153,7 +153,7 @@ class Cart
 	  if !coupon.blank? && coupon_conditions_met?
   	  if coupon.product? 
   	    cart_items.where(:item_num.in => coupon.products).each do |item|
-  	      item.write_attributes :coupon_price => true, :price => calculate_coupon_discount(item.price)
+  	      item.calculate_coupon_discount(coupon)
   	    end
   	  elsif coupon.order?
   	    # === if order level coupon is a line item:
@@ -163,11 +163,11 @@ class Cart
 				
 				# === if order level discount is distributed:
 				cart_items.where(:item_num.nin => coupon.products_excluded).each do |item|
-          item.write_attributes :coupon_price => true, :price => calculate_coupon_discount(item.price)
+          item.calculate_coupon_discount(coupon)
         end
       elsif coupon.highest_priced_product?
         item = cart_items.where(:item_num.nin => coupon.products_excluded).order_by(:price.desc).first
-        item.write_attributes :coupon_price => true, :price => calculate_coupon_discount(item.price) if item
+        item.calculate_coupon_discount(coupon) if item
   	  end
   	end
 	  save
@@ -191,15 +191,5 @@ class Cart
 	  cart_items.find_item(Coupon::COUPON_ITEM_NUM).try :delete
 	  cart_items.select {|i| i.coupon_price}.each {|i| i.write_attributes(:coupon_price => false, :price => i.sale_price || i.msrp)}
 	end
-	
-	def calculate_coupon_discount(price)
-	  return if coupon.blank?
-	  if coupon.percent?
-			price - (0.01 * coupon.discount_value * price).round(2)
-		elsif coupon.absolute?
-			price - coupon.discount_value > 0 ? price - coupon.discount_value : 0.0
-		elsif coupon.fixed?
-			coupon.discount_value
-		end
-	end
+
 end
