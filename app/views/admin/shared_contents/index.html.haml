@@ -20,6 +20,7 @@
         %th Systems
         %th Placement
         %th Active
+        %th &nbsp;
         - if has_write_permissions?
           %th &nbsp;
           %th &nbsp;
@@ -31,9 +32,10 @@
           %td= shared_content.systems_enabled.join(", ") rescue ''
           %td= shared_content.placement
           %td= shared_content.active
+          %td= link_to 'Show', admin_shared_content_path(shared_content), :class => "jqui_show_min"
           - if has_write_permissions?
             %td= link_to 'Edit', edit_admin_shared_content_path(shared_content), :class => "jqui_edit_min"
-            %td= link_to 'Destroy', admin_shared_content_path(shared_content), :confirm => 'Are you sure?', :method => :delete, :class => "jqui_destroy_min"
+            %td=# link_to 'Destroy', admin_shared_content_path(shared_content), :confirm => 'Are you sure?', :method => :delete, :class => "jqui_destroy_min"
 %br
 = will_paginate @shared_contents
 %br

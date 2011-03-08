@@ -39,8 +39,8 @@ class SharedContent
       current.select {|asset| asset.asset_type == "billboard"}
     end
     
-    def current
-			ordered.select {|asset| asset.available?}
+    def current(time = Time.zone.now)
+			ordered.select {|asset| asset.available?(time)}
     end
 
 		def ordered

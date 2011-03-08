@@ -1,0 +1,3 @@
+%h2== Shared Content Preview: #{@shared_content.id}
+%p= text_field_tag :time, @time, :class => 'datetimepicker', :onchange => "window.location='#{admin_shared_content_path(@shared_content)}?time='+this.value"
+= render :partial => 'visual_assets/visual_asset', :collection => @shared_content.visual_assets.current(@time)

@@ -28,6 +28,7 @@ class Admin::SharedContentsController < ApplicationController
   # GET /shared_contents/1.xml
   def show
     @shared_content = SharedContent.find(params[:id])
+    @time = params[:time].blank? ? Time.zone.now : Time.zone.parse(params[:time])
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @shared_content }
