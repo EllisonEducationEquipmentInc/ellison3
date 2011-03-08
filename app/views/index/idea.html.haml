@@ -64,7 +64,7 @@
 .item_sociallinks.dontprint= facebook_like
 
 %div{ :class => "item_detail#{'-tabbed' if @idea.use_tabs}"}
-  = render :partial => "#{'non_' unless @idea.use_tabs}tab_block", :locals => {:object => @idea}
+  = render :partial => "index/#{'non_' unless @idea.use_tabs}tab_block", :locals => {:object => @idea}
 - unless @idea.use_tabs
   .item_cross-sell
     - if @idea.products.displayable.count > 0

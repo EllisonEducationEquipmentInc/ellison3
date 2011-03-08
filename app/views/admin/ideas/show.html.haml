@@ -1,5 +1,7 @@
-%h2== Product: #{@idea.id}
-= image_tag @idea.medium_image
+%h2{:style => "color:#{@idea.displayable?(current_system, @time) ? 'green' : 'red'}"}== Idea Preview: #{@idea.id}
+%p= text_field_tag :time, @time, :class => 'datetimepicker', :onchange => "window.location='#{admin_idea_path(@idea)}?time='+this.value"
+= render :file => '/index/idea'
+.clear
 %p= @idea.systems_enabled.join(", ")      
 - @idea.attributes.keys.reject {|k| %w(versions campaigns).include? k}.each do |attribute|
   %p

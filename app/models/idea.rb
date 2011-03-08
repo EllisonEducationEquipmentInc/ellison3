@@ -253,6 +253,10 @@ class Idea
       self.delay(:run_at => d).index!
     end
   end
+  
+  def displayable?(sys = current_system, time = Time.zone.now)
+		active && systems_enabled.include?(sys) && self.send("start_date_#{sys}") < time && self.send("end_date_#{sys}") > time
+	end
 	
 private 
 
