@@ -57,7 +57,7 @@
       %li Try using single words(eg. flower, embossing) 
       %li Try searching for a term that is less specific. You can always narrow your search results by filtering later. 
       %li== To browse all products visit #{link_to "our Catalog", catalog_path}.
-    - if is_ee?
+    - if is_ee? && !idea?
       %p
         == ...or, have you considered a #{link_to "Custom Die", "/customdie"}? You can create your own one-of-a-kind design for any SureCut Die or order an Ellison SureCut design that has been retired from our current in-stock inventory. (Sorry, this option is not available for ClearCrop and AllStar dies.)
   = render @products
