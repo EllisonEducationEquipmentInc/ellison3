@@ -53,7 +53,7 @@ class VisualAsset
 	end
 	
 	def available?(time = Time.zone.now)
-		self.start_date <= time && self.end_date >= time && self.active && self.systems_enabled.include?(current_system) && (!self.recurring || self.recurring && self.send(Time.zone.now.strftime("%A").downcase))
+		self.start_date <= time && self.end_date >= time && self.active && self.systems_enabled.include?(current_system) && (!self.recurring || self.recurring && self.send(time.strftime("%A").downcase))
 	end
 	
 	def product_item_nums

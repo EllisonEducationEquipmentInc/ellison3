@@ -1,0 +1,23 @@
+.right= link_to 'edit', edit_admin_tag_path(@tag), :class => "link_edit-record"
+%h2{:style => "color:#{@tag.displayable?(current_system, @time) ? 'green' : 'red'}"}== Tag Preview: #{@tag.id}
+%p= text_field_tag :time, @time, :class => 'datetimepicker', :onchange => "window.location='#{admin_tag_path(@tag)}?time='+this.value"
+- if @tag.visual_assets.current(@time).present?
+  #tag_visual_assets{:style => "width:750px;"}= render :partial => 'visual_assets/visual_asset', :collection => @tag.visual_assets.current(@time)
+.clear
+- if @tag.campaign?
+  %table
+    %tr
+      %th Item num
+      %th Name
+      %th Price
+    - @tag.products.available(current_system, @time).each do |product|
+      %tr
+        %td= link_to product.item_num, edit_admin_product_path(product)
+        %td= link_to product.name, admin_product_path(product)
+        %td= display_product_price product, :date => @time
+    
+%p= @tag.systems_enabled.join(", ")      
+- @tag.attributes.keys.reject {|k| %w(versions campaigns).include? k}.each do |attribute|
+  %p
+    %b== #{attribute.humanize}:
+    = @tag.send attribute

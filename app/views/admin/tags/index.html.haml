@@ -33,9 +33,10 @@
           %td= l tag.send("start_date_#{current_system}"), :format => :custom rescue ''
           %td= l tag.send("end_date_#{current_system}"), :format => :custom rescue ''
           %td= tag.systems_enabled.join(", ") rescue ''
+          %td= link_to 'Show', admin_tag_path(tag), :class => 'jqui_show_min'
           - if has_write_permissions?
-            %td= link_to 'Edit', edit_admin_tag_path(tag)
-            %td= link_to 'Destroy', admin_tag_path(tag), :confirm => 'Are you sure?', :method => :delete
+            %td= link_to 'Edit', edit_admin_tag_path(tag), :class => 'jqui_edit_min'
+            %td=# link_to 'Destroy', admin_tag_path(tag), :confirm => 'Are you sure?', :method => :delete
 %br
 = will_paginate @tags
 %br

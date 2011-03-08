@@ -28,6 +28,7 @@ class Admin::TagsController < ApplicationController
   # GET /tags/1.xml
   def show
     @tag = Tag.find(params[:id])
+    @time = params[:time].blank? ? Time.zone.now : Time.zone.parse(params[:time])
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @tag }

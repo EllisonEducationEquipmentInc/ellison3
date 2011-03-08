@@ -21,8 +21,8 @@ class Tag
   embeds_many :compatibilities
   
   embeds_many :visual_assets do
-    def current
-      ordered.select {|asset| asset.available?}
+    def current(time = Time.zone.now)
+      ordered.select {|asset| asset.available?(time)}
     end
 
     def ordered
@@ -203,6 +203,10 @@ class Tag
     update_attribute :active, false
   end
   
+  def displayable?(sys = current_system, time = Time.zone.now)
+		active && systems_enabled.include?(sys) && self.send("start_date_#{sys}") < time && self.send("end_date_#{sys}") > time
+	end
+	
 private 
 
   def update_campaign
