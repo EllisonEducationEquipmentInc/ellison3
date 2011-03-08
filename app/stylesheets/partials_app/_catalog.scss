@@ -919,11 +919,23 @@ h3.item_title {
   @include column(14, true);
 }
 
-.tab_image { @extend .thumbnail;
-  width: 125px;
-  height: 125px;
+.tab_image {
+  width: 127px;
   margin-right: 10px;
+  text-align: center;
   float: left;
+  
+  .lightbox { @extend .thumbnail;
+    width: 125px;
+    height: 125px;
+    margin: 0;
+    display: inline-block;
+  }
+  
+  .caption {
+    margin-bottom: 10px;
+    font-style: italic;
+  }
 }
 
 .image_details {

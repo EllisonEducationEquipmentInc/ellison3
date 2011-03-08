@@ -627,7 +627,7 @@ h3.item_title {
   visibility: hidden;
 }
 /* line 646, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item_images #item_thumbnails .thumbnail, .item_images #item_thumbnails .video-thumbnail, .item_images #item_thumbnails .item_designers #item_designers_thumbnails, .item_designers .item_images #item_thumbnails #item_designers_thumbnails, .item_images #item_thumbnails .tab_image {
+.item_images #item_thumbnails .thumbnail, .item_images #item_thumbnails .video-thumbnail, .item_images #item_thumbnails .item_designers #item_designers_thumbnails, .item_designers .item_images #item_thumbnails #item_designers_thumbnails, .item_images #item_thumbnails .tab_image .lightbox, .tab_image .item_images #item_thumbnails .lightbox {
   float: left;
 }
 /* line 649, ../../../app/stylesheets/partials_app/_catalog.scss */
@@ -811,7 +811,7 @@ h3.item_title {
   visibility: hidden;
 }
 /* line 837, ../../../app/stylesheets/partials_app/_catalog.scss */
-#item_compatibility .thumbnail, #item_compatibility .item_images #item_thumbnails .video-thumbnail, .item_images #item_thumbnails #item_compatibility .video-thumbnail, #item_compatibility .item_designers #item_designers_thumbnails, .item_designers #item_compatibility #item_designers_thumbnails, #item_compatibility .tab_image {
+#item_compatibility .thumbnail, #item_compatibility .item_images #item_thumbnails .video-thumbnail, .item_images #item_thumbnails #item_compatibility .video-thumbnail, #item_compatibility .item_designers #item_designers_thumbnails, .item_designers #item_compatibility #item_designers_thumbnails, #item_compatibility .tab_image .lightbox, .tab_image #item_compatibility .lightbox {
   float: left;
 }
 /* line 839, ../../../app/stylesheets/partials_app/_catalog.scss */
@@ -913,44 +913,56 @@ h3.item_title {
 
 /* line 922, ../../../app/stylesheets/partials_app/_catalog.scss */
 .tab_image {
-  width: 125px;
-  height: 125px;
+  width: 127px;
   margin-right: 10px;
+  text-align: center;
   float: left;
 }
+/* line 928, ../../../app/stylesheets/partials_app/_catalog.scss */
+.tab_image .lightbox {
+  width: 125px;
+  height: 125px;
+  margin: 0;
+  display: inline-block;
+}
+/* line 935, ../../../app/stylesheets/partials_app/_catalog.scss */
+.tab_image .caption {
+  margin-bottom: 10px;
+  font-style: italic;
+}
 
-/* line 929, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 941, ../../../app/stylesheets/partials_app/_catalog.scss */
 .image_details {
   float: left;
   width: 610px;
 }
 
-/* line 934, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 946, ../../../app/stylesheets/partials_app/_catalog.scss */
 .ui-tabs-panel .image_details {
   float: left;
   width: 775px;
 }
 
-/* line 941, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 953, ../../../app/stylesheets/partials_app/_catalog.scss */
 #quick_search {
   margin: 7px 0 16px 0;
   padding: 6px 0;
   text-align: center;
 }
-/* line 946, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 958, ../../../app/stylesheets/partials_app/_catalog.scss */
 #quick_search select {
   width: 175px;
   margin-bottom: 2px;
 }
 
-/* line 953, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 965, ../../../app/stylesheets/partials_app/_catalog.scss */
 .mainbar h3 {
   margin: 6px 0 8px;
   font-weight: normal;
   font-size: 1em;
 }
 
-/* line 962, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 974, ../../../app/stylesheets/partials_app/_catalog.scss */
 .tag_landing_header {
   display: inline;
   float: left;
@@ -963,7 +975,7 @@ h3.item_title {
   overflow-x: hidden;
 }
 
-/* line 966, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 978, ../../../app/stylesheets/partials_app/_catalog.scss */
 .tag_list_wrapper {
   float: left;
   height: 190px;
@@ -973,7 +985,7 @@ h3.item_title {
   text-align: center;
   font-weight: normal;
 }
-/* line 976, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 988, ../../../app/stylesheets/partials_app/_catalog.scss */
 .tag_list_wrapper img {
   background: white;
   border: 1px solid white;
