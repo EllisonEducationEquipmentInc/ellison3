@@ -395,8 +395,8 @@ class Product
   end
   
   # if product can be displayed on the product detail page (regardless of availablitity)
-  def displayable?(sys = current_system)
-    active && systems_enabled.include?(sys) && self.send("start_date_#{sys}") < Time.zone.now && self.send("end_date_#{sys}") > Time.zone.now
+  def displayable?(sys = current_system, time = Time.zone.now)
+    active && systems_enabled.include?(sys) && self.send("start_date_#{sys}") < time && self.send("end_date_#{sys}") > time
   end
   
   # if product can be displayed on the catalog list page 

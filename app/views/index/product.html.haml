@@ -44,7 +44,7 @@
     %h4.itemnumber
       Item # 
       %strong= @product.item_num
-    %h4= display_product_price(@product, { :with_text  => true, :line_break => true })
+    %h4= display_product_price(@product, { :with_text  => true, :line_break => true, :date => @time })
   .right.dontprint
     = add_to_cart_button(@product, 'add_to_cart detail')
 .item_description{ :style => "#{@product.designers.count > 0 ? 'width: 493px; margin-right: 10px' : nil}"}
@@ -149,7 +149,7 @@
           });
 
 %div{ :class => "item_detail#{'-tabbed' if @product.use_tabs}"}
-  = render :partial => "#{'non_' unless @product.use_tabs}tab_block", :locals => {:object => @product}
+  = render :partial => "index/#{'non_' unless @product.use_tabs}tab_block", :locals => {:object => @product}
 - unless @product.use_tabs
   .item_cross-sell
     - if @product.ideas.available.count > 0

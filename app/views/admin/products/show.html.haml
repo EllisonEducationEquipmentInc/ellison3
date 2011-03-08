@@ -1,7 +1,10 @@
-%h2== Product: #{@product.id}
-= image_tag @product.medium_image
-%p= @product.systems_enabled.join(", ") 
+%h2{:style => "color:#{@product.displayable?(current_system, @time) ? 'green' : 'red'}"}== Product Preview: #{@product.id}
 %p= text_field_tag :time, @time, :class => 'datetimepicker', :onchange => "window.location='#{admin_product_path(@product)}?time='+this.value"
+= render :file => '/index/product'
+.clear
+%p
+  %b Systems:
+  = @product.systems_enabled.join(", ") 
 %p
   %b MSRP:
   = number_to_currency @product.msrp

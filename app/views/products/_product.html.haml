@@ -26,7 +26,7 @@
       %span= product.public_life_cycle
   %p.item_image= link_to image_tag(product.medium_image), product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize)
   %p.item_name= link_to product.name.html_safe, product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize)
-  %p.item_price= display_product_price(product)
+  %p.item_price= display_product_price(product, :date => @time)
   .item_description= truncate(strip_tags(product.description.html_safe), :length => 250, :separator => ' ') if product.description.present?
   .cart-buttons= add_to_cart_button(product)
   - if ecommerce_allowed? && product.pre_order? && product.release_dates.available.count > 0

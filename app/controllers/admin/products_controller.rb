@@ -34,6 +34,8 @@ class Admin::ProductsController < ApplicationController
       format.html # show.html.erb
       format.xml  { render :xml => @product }
     end
+  rescue
+    redirect_to(edit_admin_product_path(@product), :alert => "Product is invalid in #{current_system}. Make sure all required attributes exist. (EX: MSRP for this system/currency)")
   end
 
   # GET /products/new
