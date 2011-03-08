@@ -35,9 +35,10 @@
       });    
 %h3.item_title
   = @idea.name
-  %span.idea-number== #{idea_name} ##{@idea.idea_num}
   - unless @idea.public_life_cycle.blank?
     %span.life-cycle= @idea.public_life_cycle
+  %br
+  %span.idea-number== #{idea_name} ##{@idea.idea_num}
 .item_description
   - if @idea.description.present?
     %h4== #{is_er? || is_ee? ? 'Concept' : nil}#{is_er? || is_sizzix? ? "#{is_er? ? '/' : nil}Short Description" : nil}: 
@@ -64,7 +65,7 @@
 .item_sociallinks.dontprint= facebook_like
 
 %div{ :class => "item_detail#{'-tabbed' if @idea.use_tabs}"}
-  = render :partial => "index/#{'non_' unless @idea.use_tabs}tab_block", :locals => {:object => @idea}
+  = render :partial => "#{'non_' unless @idea.use_tabs}tab_block", :locals => {:object => @idea}
 - unless @idea.use_tabs
   .item_cross-sell
     - if @idea.products.displayable.count > 0
