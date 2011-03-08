@@ -37,7 +37,7 @@
 .highlightable
   - if @search.total < 1
     %p
-      %strong== We're sorry, we found 0 matching #{@klass}s for #{params[:q]}
+      %strong== We're sorry, we found 0 matching #{@klass.public_name}s for #{params[:q]}
       - if is_sizzix_us?
         - if @product_search.total < 1 && @outlet_search.total > 0
           %strong== ... But good news! We found #{link_to "#{pluralize @outlet_search.total, "Product"} in the Outlet", "#", :class => "toggle_outlet"}!
