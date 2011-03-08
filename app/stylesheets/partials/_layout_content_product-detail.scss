@@ -1,12 +1,21 @@
-.item_images { @include column(8); }
-.item_title { @include column(16, true); }
-.item_description { @include column(16, true);}
-.item_sociallinks { @include column(7);}
+.item_images { @include column(9); }
+.item_title { @include column(15, true); }
+.item_sociallinks { @include column(6);}
 .buybox {
   display: inline;
   float: left;
   margin-right: 0;
   width: 336px;
+}
+.item_description { @include column(15, true);
+  &.designer-width {
+    margin-right: 10px;
+    width: 453px;
+    // 453px = 590px - 127px - 10px
+    // 590px -> 15 columns
+    // 127px -> .item_designers width
+    // 10px -> .item_description margin-right
+  }
 }
 .item_designers {
   display: inline;

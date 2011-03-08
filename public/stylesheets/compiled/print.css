@@ -93,7 +93,7 @@ body.bp .item_cross-sell .rounded h4, body.bp .item_cross-sell .buybox h4 {
   margin-bottom: 8px;
 }
 /* line 103, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item_cross-sell .rounded h4 a.minilink, body.bp .item_cross-sell .buybox h4 a.minilink, body.bp .item_cross-sell .rounded h4 .item-block a.release_available, .item-block body.bp .item_cross-sell .rounded h4 a.release_available, body.bp .item_cross-sell .buybox h4 .item-block a.release_available, .item-block body.bp .item_cross-sell .buybox h4 a.release_available, body.bp .item_cross-sell .rounded h4 a.toggleview, body.bp .item_cross-sell .buybox h4 a.toggleview, body.bp .item_cross-sell .rounded h4 .item_images #item_thumbnails .controls a, .item_images #item_thumbnails .controls body.bp .item_cross-sell .rounded h4 a, body.bp .item_cross-sell .buybox h4 .item_images #item_thumbnails .controls a, .item_images #item_thumbnails .controls body.bp .item_cross-sell .buybox h4 a, body.bp .item_cross-sell .rounded h4 #item_compatibility .controls a, #item_compatibility .controls body.bp .item_cross-sell .rounded h4 a, body.bp .item_cross-sell .buybox h4 #item_compatibility .controls a, #item_compatibility .controls body.bp .item_cross-sell .buybox h4 a {
+body.bp .item_cross-sell .rounded h4 a.minilink, body.bp .item_cross-sell .buybox h4 a.minilink, body.bp .item_cross-sell .rounded h4 .item-block a.release_available, .item-block body.bp .item_cross-sell .rounded h4 a.release_available, body.bp .item_cross-sell .buybox h4 .item-block a.release_available, .item-block body.bp .item_cross-sell .buybox h4 a.release_available, body.bp .item_cross-sell .rounded h4 a.toggleview, body.bp .item_cross-sell .buybox h4 a.toggleview, body.bp .item_cross-sell .rounded h4 .item_images a.prev_button, .item_images body.bp .item_cross-sell .rounded h4 a.prev_button, body.bp .item_cross-sell .buybox h4 .item_images a.prev_button, .item_images body.bp .item_cross-sell .buybox h4 a.prev_button, body.bp .item_cross-sell .rounded h4 .item_images a.next_button, .item_images body.bp .item_cross-sell .rounded h4 a.next_button, body.bp .item_cross-sell .buybox h4 .item_images a.next_button, .item_images body.bp .item_cross-sell .buybox h4 a.next_button, body.bp .item_cross-sell .rounded h4 #item_compatibility .controls a, #item_compatibility .controls body.bp .item_cross-sell .rounded h4 a, body.bp .item_cross-sell .buybox h4 #item_compatibility .controls a, #item_compatibility .controls body.bp .item_cross-sell .buybox h4 a {
   font-family: Verdana,Arial,sans-serif;
   font-weight: normal;
 }
@@ -607,63 +607,80 @@ h3.item_title {
   overflow: visible;
   z-index: 200;
   min-height: 377px;
+  text-align: center;
 }
-/* line 629, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 630, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_images .clearance_flag {
   position: absolute;
   top: 0;
   right: 0;
 }
-/* line 635, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 636, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_images #large_image {
   width: 300px;
   height: 300px;
-  margin: 3px 0 0 5px;
+  margin: 3px auto 0;
   text-align: center;
   overflow: hidden;
 }
-/* line 643, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item_images #item_thumbnails {
-  visibility: hidden;
-}
-/* line 646, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item_images #item_thumbnails .thumbnail, .item_images #item_thumbnails .video-thumbnail, .item_images #item_thumbnails .item_designers #item_designers_thumbnails, .item_designers .item_images #item_thumbnails #item_designers_thumbnails, .item_images #item_thumbnails .tab_image .lightbox, .tab_image .item_images #item_thumbnails .lightbox {
-  float: left;
+/* line 644, ../../../app/stylesheets/partials_app/_catalog.scss */
+.item_images .thumbnail_carousel {
+  width: 315px;
+  margin: auto;
 }
 /* line 649, ../../../app/stylesheets/partials_app/_catalog.scss */
-.item_images #item_thumbnails .controls {
-  margin: 0 0 3px 187px;
+.item_images a.prev_button, .item_images a.next_button {
+  display: none;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  margin-top: 28px;
+  float: left;
+  text-indent: -99999px;
+}
+/* line 659, ../../../app/stylesheets/partials_app/_catalog.scss */
+.item_images a.next_button {
+  margin-left: 3px;
+}
+/* line 661, ../../../app/stylesheets/partials_app/_catalog.scss */
+.item_images #thumbnail_list {
+  float: left;
+  visibility: hidden;
+}
+/* line 665, ../../../app/stylesheets/partials_app/_catalog.scss */
+.item_images #thumbnail_list .thumbnail, .item_images #thumbnail_list .video-thumbnail, .item_images #thumbnail_list .item_designers #item_designers_thumbnails, .item_designers .item_images #thumbnail_list #item_designers_thumbnails, .item_images #thumbnail_list .tab_image .lightbox, .tab_image .item_images #thumbnail_list .lightbox {
+  float: left;
 }
 
-/* line 659, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 672, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_description h4 {
   font-family: "Helvetica Neue",Arial,Helvetica,sans-serif !important;
   font-size: 1em !important;
   font-weight: bold !important;
   margin: 0 !important;
 }
-/* line 666, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 679, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_description p, .item_description body.bp .item-block h3, body.bp .item-block .item_description h3 {
   margin-bottom: 8px !important;
 }
 
-/* line 673, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 686, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_designers #item_designers_thumbnails {
   width: 125px;
   height: 125px;
   visibility: hidden;
 }
-/* line 682, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 695, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_designers #item_designers_thumbnails ul li {
   float: left;
 }
 
-/* line 689, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 702, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_sociallinks iframe {
   margin: 6px 0 0 10px;
 }
 
-/* line 692, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 705, ../../../app/stylesheets/partials_app/_catalog.scss */
 .buybox {
   position: relative;
   background: white;
@@ -671,65 +688,65 @@ h3.item_title {
   padding: 6px;
   margin-bottom: 10px;
 }
-/* line 699, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 712, ../../../app/stylesheets/partials_app/_catalog.scss */
 .buybox .right, .buybox .toggleview, .buybox .item_designers #item_designers_thumbnails, .item_designers .buybox #item_designers_thumbnails {
   width: 176px;
   padding-left: 6px;
   border-left: 1px solid white;
 }
-/* line 704, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 717, ../../../app/stylesheets/partials_app/_catalog.scss */
 .buybox .right span.message, .buybox .toggleview span.message, .buybox .item_designers #item_designers_thumbnails span.message, .item_designers .buybox #item_designers_thumbnails span.message {
   font-family: Verdana,Arial,sans-serif;
   font-size: .85em;
 }
-/* line 710, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 723, ../../../app/stylesheets/partials_app/_catalog.scss */
 .buybox h4 {
   margin-top: 7px;
 }
-/* line 714, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 727, ../../../app/stylesheets/partials_app/_catalog.scss */
 .buybox label {
   font-family: Verdana,Arial,sans-serif;
   font-size: .85em;
   color: #404040;
 }
-/* line 720, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 733, ../../../app/stylesheets/partials_app/_catalog.scss */
 .buybox .users_lists_container {
   position: absolute;
   top: 62px;
   left: 0px;
 }
-/* line 726, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 739, ../../../app/stylesheets/partials_app/_catalog.scss */
 .buybox a {
   font-family: Verdana,Arial,sans-serif;
   font-size: .85em;
 }
 
-/* line 732, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 745, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_detail {
   margin-top: 10px;
 }
 
-/* line 739, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 752, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_cross-sell .rounded, .item_cross-sell .buybox {
   background: white;
   border: 1px solid white;
   margin-top: 10px;
   padding: 6px;
 }
-/* line 745, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 758, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_cross-sell .rounded h4, .item_cross-sell .buybox h4 {
   line-height: .9em !important;
 }
-/* line 749, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 762, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_cross-sell .rounded .related_ideas, .item_cross-sell .buybox .related_ideas {
   margin-bottom: 16px;
 }
-/* line 753, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 766, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item_cross-sell .rounded .related_products, .item_cross-sell .buybox .related_products {
   margin-bottom: 4px;
 }
 
-/* line 759, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 772, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item-block_related {
   position: relative;
   width: 140px;
@@ -742,12 +759,12 @@ h3.item_title {
   overflow: visible;
   z-index: 200;
 }
-/* line 774, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 787, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item-block_related h3 {
   font-family: Verdana,Arial,sans-serif !important;
   font-size: .85em !important;
 }
-/* line 779, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 792, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item-block_related .cart-buttons {
   width: 100%;
   position: absolute;
@@ -755,26 +772,26 @@ h3.item_title {
   left: 50%;
   margin-left: -78px;
 }
-/* line 786, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 799, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item-block_related .cart-buttons .message {
   font-size: .85em;
 }
-/* line 790, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 803, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item-block_related .cart-buttons .users_lists_container {
   width: 142px;
   position: absolute;
   bottom: 0px;
   left: -2px;
 }
-/* line 796, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 809, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item-block_related .cart-buttons .users_lists_container select#id {
   max-width: 135px;
 }
-/* line 800, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 813, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item-block_related p.item_name, .item-block_related .highlightable.listview .item-block h3.item_number, .highlightable.listview .item-block .item-block_related h3.item_number, .item-block_related .highlightable.listview .item-block .item_description, .highlightable.listview .item-block .item-block_related .item_description, .item-block_related body.bp .item-block h3.item_name, body.bp .item-block .item-block_related h3.item_name, .item-block_related p.item_image, .item-block_related body.bp .item-block h3.item_image, body.bp .item-block .item-block_related h3.item_image, .item-block_related p.item_price, .item-block_related body.bp .item-block h3.item_price, body.bp .item-block .item-block_related h3.item_price {
   font-size: 10.2px;
 }
-/* line 802, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 815, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item-block_related .life-cycle {
   position: absolute;
   top: 3px;
@@ -795,46 +812,46 @@ h3.item_title {
   font-size: 11px;
   font-weight: bold;
 }
-/* line 822, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 835, ../../../app/stylesheets/partials_app/_catalog.scss */
 .item-block_related .life-cycle span {
   position: relative;
   left: -6px;
 }
 
-/* line 831, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 844, ../../../app/stylesheets/partials_app/_catalog.scss */
 #item_compatibility p, #item_compatibility body.bp .item-block h3, body.bp .item-block #item_compatibility h3, .item_designers p, .item_designers body.bp .item-block h3, body.bp .item-block .item_designers h3 {
   margin-bottom: 0 !important;
 }
 
-/* line 834, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 847, ../../../app/stylesheets/partials_app/_catalog.scss */
 #item_compatibility {
   visibility: hidden;
 }
-/* line 837, ../../../app/stylesheets/partials_app/_catalog.scss */
-#item_compatibility .thumbnail, #item_compatibility .item_images #item_thumbnails .video-thumbnail, .item_images #item_thumbnails #item_compatibility .video-thumbnail, #item_compatibility .item_designers #item_designers_thumbnails, .item_designers #item_compatibility #item_designers_thumbnails, #item_compatibility .tab_image .lightbox, .tab_image #item_compatibility .lightbox {
+/* line 850, ../../../app/stylesheets/partials_app/_catalog.scss */
+#item_compatibility .thumbnail, #item_compatibility .item_images #thumbnail_list .video-thumbnail, .item_images #thumbnail_list #item_compatibility .video-thumbnail, #item_compatibility .item_designers #item_designers_thumbnails, .item_designers #item_compatibility #item_designers_thumbnails, #item_compatibility .tab_image .lightbox, .tab_image #item_compatibility .lightbox {
   float: left;
 }
-/* line 839, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 852, ../../../app/stylesheets/partials_app/_catalog.scss */
 #item_compatibility .controls {
   margin: 0 0 3px 4px;
 }
 
-/* line 846, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 859, ../../../app/stylesheets/partials_app/_catalog.scss */
 .compatibility_detail {
   width: 750px;
 }
-/* line 849, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 862, ../../../app/stylesheets/partials_app/_catalog.scss */
 .compatibility_detail .item-block_related {
   float: left;
   border: 1px solid white;
   height: 240px;
 }
-/* line 855, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 868, ../../../app/stylesheets/partials_app/_catalog.scss */
 .compatibility_detail .plus_sign {
   float: left;
   margin: 130px 0px 0 8px;
 }
-/* line 860, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 873, ../../../app/stylesheets/partials_app/_catalog.scss */
 .compatibility_detail .compatible_tag {
   float: left;
   width: 140px;
@@ -842,16 +859,16 @@ h3.item_title {
   margin-top: 12px;
   padding: 8px;
 }
-/* line 867, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 880, ../../../app/stylesheets/partials_app/_catalog.scss */
 .compatibility_detail .compatible_tag.ui-widget-header {
   font-weight: normal;
 }
-/* line 871, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 884, ../../../app/stylesheets/partials_app/_catalog.scss */
 .compatibility_detail .compatible_tag a {
   font-weight: bold;
 }
 
-/* line 875, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 888, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart {
   width: 121px;
   height: 25px;
@@ -859,34 +876,34 @@ h3.item_title {
   border: none;
   color: white;
 }
-/* line 882, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 895, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart .ui-icon {
   background-image: none;
 }
-/* line 886, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 899, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart.ui-button {
   margin-right: 0;
 }
-/* line 890, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 903, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart:hover {
   background: url("/images/ui-buttons/addtocart_on.png") no-repeat;
 }
-/* line 894, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 907, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart.detail .ui-icon {
   background-image: none;
 }
 
-/* line 900, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 913, ../../../app/stylesheets/partials_app/_catalog.scss */
 #jump_to_list {
   margin-bottom: 5px;
 }
 
-/* line 908, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 921, ../../../app/stylesheets/partials_app/_catalog.scss */
 .ui-tabs-panel .item-block {
   width: 159px;
 }
 
-/* line 913, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 926, ../../../app/stylesheets/partials_app/_catalog.scss */
 .data_key {
   font-weight: bold;
   display: inline;
@@ -899,7 +916,7 @@ h3.item_title {
   overflow-x: hidden;
 }
 
-/* line 918, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 931, ../../../app/stylesheets/partials_app/_catalog.scss */
 .data_value {
   display: inline;
   float: left;
@@ -911,58 +928,58 @@ h3.item_title {
   overflow-x: hidden;
 }
 
-/* line 922, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 935, ../../../app/stylesheets/partials_app/_catalog.scss */
 .tab_image {
   width: 127px;
   margin-right: 10px;
   text-align: center;
   float: left;
 }
-/* line 928, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 941, ../../../app/stylesheets/partials_app/_catalog.scss */
 .tab_image .lightbox {
   width: 125px;
   height: 125px;
   margin: 0;
   display: inline-block;
 }
-/* line 935, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 948, ../../../app/stylesheets/partials_app/_catalog.scss */
 .tab_image .caption {
   margin-bottom: 10px;
   font-style: italic;
 }
 
-/* line 941, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 954, ../../../app/stylesheets/partials_app/_catalog.scss */
 .image_details {
   float: left;
   width: 610px;
 }
 
-/* line 946, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 959, ../../../app/stylesheets/partials_app/_catalog.scss */
 .ui-tabs-panel .image_details {
   float: left;
   width: 775px;
 }
 
-/* line 953, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 966, ../../../app/stylesheets/partials_app/_catalog.scss */
 #quick_search {
   margin: 7px 0 16px 0;
   padding: 6px 0;
   text-align: center;
 }
-/* line 958, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 971, ../../../app/stylesheets/partials_app/_catalog.scss */
 #quick_search select {
   width: 175px;
   margin-bottom: 2px;
 }
 
-/* line 965, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 978, ../../../app/stylesheets/partials_app/_catalog.scss */
 .mainbar h3 {
   margin: 6px 0 8px;
   font-weight: normal;
   font-size: 1em;
 }
 
-/* line 974, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 987, ../../../app/stylesheets/partials_app/_catalog.scss */
 .tag_landing_header {
   display: inline;
   float: left;
@@ -975,7 +992,7 @@ h3.item_title {
   overflow-x: hidden;
 }
 
-/* line 978, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 991, ../../../app/stylesheets/partials_app/_catalog.scss */
 .tag_list_wrapper {
   float: left;
   height: 190px;
@@ -985,7 +1002,7 @@ h3.item_title {
   text-align: center;
   font-weight: normal;
 }
-/* line 988, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 1001, ../../../app/stylesheets/partials_app/_catalog.scss */
 .tag_list_wrapper img {
   background: white;
   border: 1px solid white;
@@ -1093,7 +1110,7 @@ h3.item_title {
   display: inline;
   float: left;
   margin-right: 10px;
-  width: 310px;
+  width: 350px;
 }
 /* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html .item_images {
@@ -1105,7 +1122,7 @@ h3.item_title {
   display: inline;
   float: left;
   margin-right: 0;
-  width: 630px;
+  width: 590px;
 }
 /* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html .item_title {
@@ -1113,30 +1130,18 @@ h3.item_title {
 }
 
 /* line 3, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
-.item_description {
-  display: inline;
-  float: left;
-  margin-right: 0;
-  width: 630px;
-}
-/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html .item_description {
-  overflow-x: hidden;
-}
-
-/* line 4, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
 .item_sociallinks {
   display: inline;
   float: left;
   margin-right: 10px;
-  width: 270px;
+  width: 230px;
 }
 /* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html .item_sociallinks {
   overflow-x: hidden;
 }
 
-/* line 5, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
+/* line 4, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
 .buybox {
   display: inline;
   float: left;
@@ -1144,7 +1149,24 @@ h3.item_title {
   width: 336px;
 }
 
+/* line 10, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
+.item_description {
+  display: inline;
+  float: left;
+  margin-right: 0;
+  width: 590px;
+}
+/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html .item_description {
+  overflow-x: hidden;
+}
 /* line 11, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
+.item_description.designer-width {
+  margin-right: 10px;
+  width: 453px;
+}
+
+/* line 20, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
 .item_designers {
   display: inline;
   float: left;
@@ -1152,7 +1174,7 @@ h3.item_title {
   width: 127px;
 }
 
-/* line 17, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
+/* line 26, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
 .item_detail {
   display: inline;
   float: left;
@@ -1164,7 +1186,7 @@ h3.item_title {
   overflow-x: hidden;
 }
 
-/* line 18, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
+/* line 27, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
 .item_detail-tabbed {
   display: inline;
   float: left;
@@ -1176,7 +1198,7 @@ h3.item_title {
   overflow-x: hidden;
 }
 
-/* line 19, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
+/* line 28, ../../../app/stylesheets/partials/_layout_content_product-detail.scss */
 .item_cross-sell {
   display: inline;
   float: left;

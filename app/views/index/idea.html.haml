@@ -4,35 +4,36 @@
     .right= link_to 'edit', edit_admin_idea_path(@idea), :class => "link_edit-record"
 .item_images
   #large_image= image_tag(@idea.large_image)
-  #item_thumbnails.dontprint
-    %ul{:style => "padding:0;margin:0;"}
-      %li.left= link_to image_tag(@idea.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@idea.large_image)}'); return false;", :class => "thumbnail"
-      - unless @idea.video.blank?
-        %li.left= video_thumbnail(@idea.video)
-      - @idea.images.each do |image|
-        - next unless image.image?
-        %li.left= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;", :class => "thumbnail"
-    .controls{ :style => "display: none"}
-      = link_to "prev", "#", :class => "prev_button disabled", :id => "prev_button", :onclick => "return false;"
-      |
-      = link_to "next", "#", :class => "next_button", :id => "next_button", :onclick => "return false;"
-    :javascript
-      $(function() {
-        $('.item-images').shadowOff();
-        setTimeout("shadow_on()", 300);
-        $("#item_thumbnails").jCarouselLite({
-          btnPrev: "#prev_button",
-          btnNext: "#next_button",
-          scroll: 1,
-          speed: 900,
-          visible: 4,
-          circular: false
-        });
-      
-        if ($("#item_thumbnails").find("ul li").length > 4) {
-          $("#item_thumbnails .controls").slideDown();
-        }
-      });    
+  .thumbnail_carousel.dontprint
+    = link_to "prev", "#", :class => "prev_button carousel_control disabled", :id => "prev_button", :onclick => "return false;"
+    #thumbnail_list
+      %ul{:style => "padding:0;margin:0;"}
+        %li.left= link_to image_tag(@idea.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@idea.large_image)}')", :onclick => "return false;", :class => "thumbnail"
+        - unless @idea.video.blank?
+          %li.left= video_thumbnail(@idea.video)
+        - @idea.images.each do |image|
+          - next unless image.image?
+          %li.left= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}')", :onclick => "return false;", :class => "thumbnail"
+    = link_to "next", "#", :class => "next_button carousel_control", :id => "next_button", :onclick => "return false;"
+  :javascript
+    $(function() {
+      $('.item-images').shadowOff();
+      setTimeout("shadow_on()", 300);
+      $("#thumbnail_list").jCarouselLite({
+        btnPrev: "#prev_button",
+        btnNext: "#next_button",
+        scroll: 1,
+        speed: 900,
+        visible: 4,
+        circular: false
+      });
+    
+      if ($("#thumbnail_list").find("ul li").length > 4) {
+        $(".thumbnail_carousel .carousel_control").show();
+      } else {
+        $(".thumbnail_carousel").css({width: "auto"});
+      }
+    });    
 %h3.item_title
   = @idea.name
   - unless @idea.public_life_cycle.blank?

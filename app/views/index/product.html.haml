@@ -6,35 +6,36 @@
   - if @product.outlet && is_sizzix_us?
     .clearance_flag= image_tag("/images/ui-objects/pricetag_outlet_detail.png", :alt => "On Sale!", :title => "On Sale!")
   #large_image= image_tag(@product.large_image)
-  #item_thumbnails.dontprint
-    %ul{:style => "padding:0;margin:0;"}
-      %li.left= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}'); return false;", :class => "thumbnail"
-      - unless @product.video.blank?
-        %li.left= video_thumbnail(@product.video)
-      - @product.images.each do |image|
-        - next unless image.image?
-        %li.left= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;", :class => "thumbnail"
-    .controls{ :style => "display: none"}
-      = link_to "prev", "#", :class => "prev_button disabled", :id => "prev_item_thumb", :onclick => "return false;"
-      |
-      = link_to "next", "#", :class => "next_button", :id => "next_item_thumb", :onclick => "return false;"
-    :javascript
-      $(function() {
-        $('.item-images').shadowOff();
-        setTimeout("shadow_on()", 300);
-        $("#item_thumbnails").jCarouselLite({
-          btnPrev: "#prev_item_thumb",
-          btnNext: "#next_item_thumb",
-          scroll: 1,
-          speed: 900,
-          visible: 4,
-          circular: false
-        });
-      
-        if ($("#item_thumbnails").find("ul li").length > 4) {
-          $("#item_thumbnails .controls").slideDown();
-        }
-      });    
+  .thumbnail_carousel.dontprint
+    = link_to "prev", "#", :class => "prev_button carousel_control disabled", :id => "prev_item_thumb", :onclick => "return false;"
+    #thumbnail_list
+      %ul{:style => "padding:0;margin:0;"}
+        %li.left= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}')", :onclick => "return false;", :class => "thumbnail"
+        - unless @product.video.blank?
+          %li.left= video_thumbnail(@product.video)
+        - @product.images.each do |image|
+          - next unless image.image?
+          %li.left= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}')", :onclick => "return false;", :class => "thumbnail"
+    = link_to "next", "#", :class => "next_button carousel_control", :id => "next_item_thumb", :onclick => "return false;"
+  :javascript
+    $(function() {
+      $('.item-images').shadowOff();
+      setTimeout("shadow_on()", 300);
+      $("#thumbnail_list").jCarouselLite({
+        btnPrev: "#prev_item_thumb",
+        btnNext: "#next_item_thumb",
+        scroll: 1,
+        speed: 900,
+        visible: 4,
+        circular: false
+      });
+  
+      if ($("#thumbnail_list").find("ul li").length > 4) {
+        $(".thumbnail_carousel .carousel_control").show();
+      } else {
+        $(".thumbnail_carousel").css({width: "auto"});      
+      }
+    });    
 %h3.item_title
   = @product.name.html_safe
   %span.life-cycle= @product.public_life_cycle
@@ -47,7 +48,7 @@
     %h4= display_product_price(@product, { :with_text  => true, :line_break => true, :date => @time })
   .right.dontprint
     = add_to_cart_button(@product, 'add_to_cart detail')
-.item_description{ :style => "#{@product.designers.count > 0 ? 'width: 493px; margin-right: 10px' : nil}"}
+.item_description{ :class => "#{@product.designers.count > 0 ? 'designer-width' : nil}"}
   = @product.description.try :html_safe
   - if @product.instructions.present?
     %p

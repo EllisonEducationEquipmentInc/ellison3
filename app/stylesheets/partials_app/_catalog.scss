@@ -625,6 +625,7 @@ h3.item_title {
   overflow: visible;
   z-index: 200;
   min-height: 377px;
+  text-align: center;
   
 	.clearance_flag {
 	  position: absolute;
@@ -635,22 +636,34 @@ h3.item_title {
   #large_image {
     width: 300px;
     height: 300px;
-    margin: 3px 0 0 5px;
+    margin: 3px auto 0;
     text-align: center;
     overflow: hidden;
   }
   
-  #item_thumbnails {
+  .thumbnail_carousel {
+    width: 315px;
+    margin: auto;
+  }
+  
+  a.prev_button, a.next_button { @extend .minilink;
+    display: none; // hide unless needed
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin-top: 28px;
+    float: left;
+    text-indent: -99999px;
+  }
+  
+  a.next_button { margin-left: 3px; }
+    
+  #thumbnail_list {
+    float: left;
     visibility: hidden;
   
     .thumbnail { float: left; }
-  	.video-thumbnail { @extend .thumbnail; }
-  	
-    .controls {
-      margin: 0 0 3px 187px;
-    
-      a { @extend .minilink; }
-    }
+  	.video-thumbnail { @extend .thumbnail; }  	
   }  
 }
 
