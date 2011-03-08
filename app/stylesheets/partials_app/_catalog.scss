@@ -919,6 +919,23 @@ h3.item_title {
   @include column(14, true);
 }
 
+.tab_image { @extend .thumbnail;
+  width: 125px;
+  height: 125px;
+  margin-right: 10px;
+  float: left;
+}
+
+.image_details {
+  float: left;
+  width: 610px;
+}
+
+.ui-tabs-panel .image_details {
+  float: left;
+  width: 775px;
+}
+
 
 // landing page styles
 #quick_search {
