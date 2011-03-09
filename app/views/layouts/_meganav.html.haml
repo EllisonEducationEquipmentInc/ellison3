@@ -69,6 +69,7 @@
               %li= link_to "Print Material Catalogs", admin_materials_path
               %li= link_to "Country Listing", admin_countries_path
               %li= link_to "Retailers Discount Matrix", :controller => 'admin/discount_categories'
+              %li= link_to "Search Phrase Redirects", admin_search_phrases_path
           %hr
           - if get_cart.order_reference
             #previous_order_reference.contentwrap_XXXL.last

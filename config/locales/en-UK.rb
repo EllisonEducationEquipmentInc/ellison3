@@ -45,16 +45,16 @@
     :datetime => {
       :distance_in_words => {
         :half_a_minute => 'half a minute',
-        :less_than_x_seconds => {:zero => 'less than a second', :one => 'less than a second', :other => 'less than {{count}} seconds'},
-        :x_seconds => {:one => '1 second', :other => '{{count}} seconds'},
-        :less_than_x_minutes => {:zero => 'less than a minute', :one => 'less than a minute', :other => 'less than {{count}} minutes'},
-        :x_minutes => {:one => "1 minute", :other => "{{count}} minutes"},
-        :about_x_hours => {:one => 'about 1 hour', :other => 'about {{count}} hours'},
-        :x_days => {:one => '1 day', :other => '{{count}} days'},
-        :about_x_months => {:one => 'about 1 month', :other => 'about {{count}} months'},
-        :x_months => {:one => '1 month', :other => '{{count}} months'},
-        :about_x_years => {:one => 'about 1 year', :other => 'about {{count}} years'},
-        :over_x_years => {:one => 'over 1 year', :other => 'over {{count}} years'}
+        :less_than_x_seconds => {:zero => 'less than a second', :one => 'less than a second', :other => 'less than %{count} seconds'},
+        :x_seconds => {:one => '1 second', :other => '%{count} seconds'},
+        :less_than_x_minutes => {:zero => 'less than a minute', :one => 'less than a minute', :other => 'less than %{count} minutes'},
+        :x_minutes => {:one => "1 minute", :other => "%{count} minutes"},
+        :about_x_hours => {:one => 'about 1 hour', :other => 'about %{count} hours'},
+        :x_days => {:one => '1 day', :other => '%{count} days'},
+        :about_x_months => {:one => 'about 1 month', :other => 'about %{count} months'},
+        :x_months => {:one => '1 month', :other => '%{count} months'},
+        :about_x_years => {:one => 'about 1 year', :other => 'about %{count} years'},
+        :over_x_years => {:one => 'over 1 year', :other => 'over %{count} years'}
       }
     },
     :number => {
@@ -75,8 +75,8 @@
 		:errors => {
       :template => {
         :header => {
-          :one => "1 error prohibited this {{model}} from being saved",
-          :other =>  "{{count}} errors prohibited this {{model}} from being saved."
+          :one => "1 error prohibited this %{model} from being saved",
+          :other =>  "%{count} errors prohibited this %{model} from being saved."
         },
         :body => "There were problems with the following fields:"
       },
@@ -86,8 +86,8 @@
       :errors => {
         :template => {
           :header => {
-            :one => "1 error prohibited this {{model}} from being saved",
-            :other =>  "{{count}} errors prohibited this {{model}} from being saved."
+            :one => "1 error prohibited this %{model} from being saved",
+            :other =>  "%{count} errors prohibited this %{model} from being saved."
           },
           :body => "There were problems with the following fields:"
         },
@@ -96,21 +96,21 @@
           :blank => "can't be blank",
           :confirmation => "doesn't match confirmation",
           :empty => "can't be empty",
-          :equal_to => "must be equal to {{count}}",
+          :equal_to => "must be equal to %{count}",
           :even => "must be even",
           :exclusion => "is reserved",
-          :greater_than => "must be greater than {{count}}",
-          :greater_than_or_equal_to => "must be greater than or equal to {{count}}",
+          :greater_than => "must be greater than %{count}",
+          :greater_than_or_equal_to => "must be greater than or equal to %{count}",
           :inclusion => "is not included in the list",
           :invalid => "is invalid",
-          :less_than => "must be less than {{count}}",
-          :less_than_or_equal_to => "must be less than or equal to {{count}}",
+          :less_than => "must be less than %{count}",
+          :less_than_or_equal_to => "must be less than or equal to %{count}",
           :not_a_number => "is not a number",
           :odd => "must be odd",
           :taken => "is already taken",
-          :too_long => "is too long (maximum is {{count}} characters)",
-          :too_short => "is too short (minimum is {{count}} characters)",
-          :wrong_length => "is the wrong length (should be {{count}} characters)"
+          :too_long => "is too long (maximum is %{count} characters)",
+          :too_short => "is too short (minimum is %{count} characters)",
+          :wrong_length => "is the wrong length (should be %{count} characters)"
         }
       }
     }

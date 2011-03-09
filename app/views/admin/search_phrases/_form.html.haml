@@ -1,0 +1,19 @@
+= form_for([:admin, @search_phrase], :html => {:multipart => true}) do |f|
+  = f.error_messages
+  .field
+    = f.label :systems_enabled
+    = system_enabled('search_phrase')
+  .field
+    = f.label :active
+    %br
+    = f.check_box :active
+  .field
+    = f.label :phrase
+    %br
+    = f.text_field :phrase
+  .field
+    = f.label :destination
+    %br
+    = f.text_field :destination
+  .actions
+    = f.submit :class => 'jqui_save'
