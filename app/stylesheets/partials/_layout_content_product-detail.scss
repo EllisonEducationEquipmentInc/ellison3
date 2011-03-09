@@ -9,12 +9,12 @@
 }
 .item_description { @include column(15, true);
   &.designer-width {
-    margin-right: 10px;
-    width: 453px;
-    // 453px = 590px - 127px - 10px
+    margin-right: 5px;
+    width: 458px;
+    // 458px = 590px - 127px - 5px
     // 590px -> 15 columns
     // 127px -> .item_designers width
-    // 10px -> .item_description margin-right
+    // 5px -> .item_description margin-right
   }
 }
 .item_designers {

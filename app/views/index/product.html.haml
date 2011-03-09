@@ -6,7 +6,7 @@
   - if @product.outlet && is_sizzix_us?
     .clearance_flag= image_tag("/images/ui-objects/pricetag_outlet_detail.png", :alt => "On Sale!", :title => "On Sale!")
   #large_image= image_tag(@product.large_image)
-  .thumbnail_carousel.dontprint
+  #image_thumbs.thumbnail_carousel.dontprint
     = link_to "prev", "#", :class => "prev_button carousel_control disabled", :id => "prev_item_thumb", :onclick => "return false;"
     #thumbnail_list
       %ul{:style => "padding:0;margin:0;"}
@@ -31,9 +31,9 @@
       });
   
       if ($("#thumbnail_list").find("ul li").length > 4) {
-        $(".thumbnail_carousel .carousel_control").show();
+        $("#image_thumbs .carousel_control").show();
       } else {
-        $(".thumbnail_carousel").css({width: "auto"});      
+        $("#image_thumbs").css({width: "auto"});      
       }
     });    
 %h3.item_title
@@ -70,53 +70,52 @@
       = raw @product.curriculums.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}"))} * ', '
   - if @product.product_line.present? && @product.product_line.compatibilities.length > 0
     -# TODO: cache + move to a helper
-    %p
-      %strong Machine Compatibility: 
-      == This #{@product.item_type} is compatible with these product lines
-    #item_compatibility
-      %ul
-        - @product.product_line.compatibilities.each do |compatibility|
-          - next unless compatibility.compatible_tag.present?
-          %li
-            %div{:style => "display:none"}
-              %div{:id => "compatible_tag_#{compatibility.id}", :class => "compatibility_detail"}
-                %h4
-                  %strong== #{compatibility.compatible_tag.name.html_safe}
-                  - if compatibility.products.length > 0
-                    requires
-                    %strong==#{pluralize compatibility.products.length, "additional accessory"}
-                    == for full compatibility
-                  - else
-                    %strong is fully compatible
-                  == with #{@product.name.html_safe}
-                .compatible_tag.ui-corner-all{:class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
-                  = link_to image_tag(compatibility.compatible_tag.list_page_img), catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}&page=1")
-                .plus_sign.ui-icon.ui-icon-plusthick
-                - if compatibility.get_products.count > 0
-                  = render :partial => 'products/compatibility_product', :collection => compatibility.get_products, :spacer_template => 'tabs/separator', :as => :product
-                .clear
-                %p== Search for more #{link_to compatibility.compatible_tag.name.html_safe, catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}&page=1")} in our catalog
+    %p{ :style => "margin-bottom: 0 !important;"}== This #{@product.item_type} is compatible with these product lines
+    #compat_thumbs.thumbnail_carousel.dontprint
+      = link_to "prev", "#", :class => "prev_button carousel_control disabled", :id => "prev_compat_thumb", :onclick => "return false;"
+      #item_compatibility
+        %ul
+          - @product.product_line.compatibilities.each do |compatibility|
+            - next unless compatibility.compatible_tag.present?
+            %li
+              %div{:style => "display:none"}
+                %div{:id => "compatible_tag_#{compatibility.id}", :class => "compatibility_detail"}
+                  %h4
+                    %strong== #{compatibility.compatible_tag.name.html_safe}
+                    - if compatibility.products.length > 0
+                      requires
+                      %strong==#{pluralize compatibility.products.length, "additional accessory"}
+                      == for full compatibility
+                    - else
+                      %strong is fully compatible
+                    == with #{@product.name.html_safe}
+                  .compatible_tag.ui-corner-all{:class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
+                    = link_to image_tag(compatibility.compatible_tag.list_page_img), catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}&page=1")
+                  .plus_sign.ui-icon.ui-icon-plusthick
+                  - if compatibility.get_products.count > 0
+                    = render :partial => 'products/compatibility_product', :collection => compatibility.get_products, :spacer_template => 'tabs/separator', :as => :product
+                  .clear
+                  %p== Search for more #{link_to compatibility.compatible_tag.name.html_safe, catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}&page=1")} in our catalog
 
-            = link_to image_tag(compatibility.compatible_tag.list_page_img, :width => "65", :height => "65"), "#compatible_tag_#{compatibility.id}", :id => "compatibility_thumbnail_#{compatibility.id}", :class => "lightbox thumbnail", :alt => "#{compatibility.compatible_tag.name.html_safe}", :title => "#{compatibility.compatible_tag.name.html_safe}"
-      .controls{ :style => "display: none"}
-        = link_to "prev", "#", :class => "prev_button disabled", :id => "prev_compat_thumb", :onclick => "return false;"
-        |
-        = link_to "next", "#", :class => "next_button", :id => "next_compat_thumb", :onclick => "return false;"
-      :javascript
-        $(function() {
-          $("#item_compatibility").jCarouselLite({
-            btnPrev: "#prev_compat_thumb",
-            btnNext: "#next_compat_thumb",
-            scroll: 1,
-            speed: 900,
-            visible: 6,
-            circular: false
-          });
-      
-          if ($("#item_compatibility").find("ul li").length > 6) {
-            $("#item_compatibility .controls").slideDown();
-          }
+              = link_to image_tag(compatibility.compatible_tag.list_page_img, :width => "65", :height => "65"), "#compatible_tag_#{compatibility.id}", :id => "compatibility_thumbnail_#{compatibility.id}", :class => "lightbox thumbnail", :alt => "#{compatibility.compatible_tag.name.html_safe}", :title => "#{compatibility.compatible_tag.name.html_safe}"
+      = link_to "next", "#", :class => "next_button carousel_control", :id => "next_compat_thumb", :onclick => "return false;"
+    :javascript
+      $(function() {
+        $("#item_compatibility").jCarouselLite({
+          btnPrev: "#prev_compat_thumb",
+          btnNext: "#next_compat_thumb",
+          scroll: 1,
+          speed: 900,
+          visible: 6,
+          circular: false
         });
+    
+        if ($("#item_compatibility").find("ul li").length > 6) {
+          $("#compat_thumbs .carousel_control").show();
+        } else {
+          $("#compat_thumbs").css({width: "auto"});      
+        }
+      });
 - if @product.designers.count > 0
   .item_designers
     #item_designers_thumbnails

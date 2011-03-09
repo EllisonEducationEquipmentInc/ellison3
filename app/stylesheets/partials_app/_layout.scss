@@ -104,6 +104,7 @@
   &:hover { background: url('/images/ui-buttons/green-large_on.png') no-repeat; }
 }
 
+// for visual asset carousels
 a.prev_button {
   display: inline-block;
   height: 16px;
@@ -145,6 +146,21 @@ a.next_button { @extend a.prev_button;
       background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/#{$system}_navigation-disabled.png") no-repeat right;
     }
   }
+}
+
+// for thumbnail carousels
+.thumbnail_carousel {
+  a.prev_button, a.next_button { @extend .minilink;
+    display: none; // hide unless needed
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin-top: 28px;
+    float: left;
+    text-indent: -99999px;
+  }
+  
+  a.next_button { margin-left: 3px; }  
 }
 
 .jqui_back {

@@ -641,23 +641,11 @@ h3.item_title {
     overflow: hidden;
   }
   
-  .thumbnail_carousel {
+  #image_thumbs {
     width: 315px;
     margin: auto;
   }
   
-  a.prev_button, a.next_button { @extend .minilink;
-    display: none; // hide unless needed
-    width: 16px;
-    height: 16px;
-    padding: 0;
-    margin-top: 28px;
-    float: left;
-    text-indent: -99999px;
-  }
-  
-  a.next_button { margin-left: 3px; }
-    
   #thumbnail_list {
     float: left;
     visibility: hidden;
@@ -846,14 +834,9 @@ h3.item_title {
 
 #item_compatibility {
   visibility: hidden;
+  float: left;
 
-  .thumbnail { float: left; }
-  
-  .controls {
-    margin: 0 0 3px 4px;
-
-    a { @extend .minilink; }
-  }
+  .thumbnail { float: left; }  
 }
 
 .compatibility_detail {
