@@ -2,7 +2,7 @@
 #nav_megamenu.dontprint
   %ul.megalist
     - if is_sizzix_us?
-      = render :partial => 'layouts/meganav_dynamic'
+      = render :partial => 'layouts/meganav_szus'
     - elsif is_sizzix_uk?
       = render :partial => 'layouts/meganav_szuk'
     - elsif is_ee?
