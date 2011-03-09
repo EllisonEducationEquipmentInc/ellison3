@@ -11,7 +11,7 @@
       disabled
       = f.radio_button(:active, false)
     .field
-      = f.label :systems_enabled, "Enabled for", :class => "autosize"
+      = f.label :systems_enabled, "<span class='required'>Enabled for</span>".html_safe, :class => "autosize"
       = system_enabled('product')
   .contentwrap_large.last
     .field
@@ -25,21 +25,21 @@
 
   %hr
   %h3.contentwrap_XXXL.last Basic Information
-  .field
-    = f.label :name, "Product Name"
-    = f.text_field :name, :size => 52, :style => "font-weight: bold;"
+  .field.contentwrap_XXXL.last
+    = f.label :name, "<span class='required'>Product Name</span>".html_safe, :class => "w111"
+    = f.text_field :name, :size => 50, :style => "font-weight: bold;"
   .contentwrap_large
     .field
-      = f.label :item_num, "Product Number"
+      = f.label :item_num, "<span class='required'>Product Number</span>".html_safe, :class => "w111"
       = f.text_field :item_num, :size => 10
     .field
-      = f.label :upc, "Product UPC"
+      = f.label :upc, "Product UPC", :class => "w111"
       = f.text_field :upc, :size => 20
     .field
-      = f.label :item_type, "Product Type"
+      = f.label :item_type, "Product Type", :class => "w111"
       = f.select :item_type, Product::ITEM_TYPES
     .field
-      = f.label :item_group, "Brand"
+      = f.label :item_group, "Brand", :class => "w111"
       = f.select :item_group, Product::ITEM_GROUPS
     .field
       = f.label :discount_category_id, "Product Discount Category", :class => "autosize"
@@ -88,7 +88,7 @@
     - currencies.each do |currency|
       .field
         .left
-          = f.label "msrp_#{currency}", "MSRP #{currency.upcase}", :class => "w147"
+          = f.label "msrp_#{currency}", "<span class='required'>MSRP #{currency.upcase}</span>".html_safe, :class => "w147"
           %br
           %span{ :class => "icon_pricefield_#{currency}" }
             = f.text_field "msrp_#{currency}", :onkeyup => gross_prices?(currency) ? "update_gross($(this), '#{currency}', #{vat})" : nil, :size => 8
@@ -296,6 +296,22 @@
       var avail_messages = [{value: '<a href="/contact">Call now to place your order</a>', label: "Call now to place your order"}, {value: '<a href="/stores">Check Your Local Craft Store</a>', label: 'Check Your Local Craft Store'}, {label: 'Available at your Local Retailer', value: '<a href="/stores">Available at your Local Retailer</a>'}, {value: '<a href="http://www.stampinup.com/ECWeb/CategoryPage.aspx?categoryID=180" target="_blank">Stampin\' Up! Exclusive Product</a>', label: 'Stampin\' Up! Exclusive Product'}];
       $('#product_availability_message_#{current_system}').autocomplete({source: avail_messages});
       $('#product_distribution_life_cycle_#{current_system}').autocomplete({source: ["New", "Sale", "Discountinued", "Clearance", "Coming Soon"]});
+    });
+    $('.required').CreateBubblePopup({
+      position: 'top',
+      align: 'center',
+      distance: '50px',
+      tail: {
+        align: 'middle',
+        hidden: false
+      },
+      selectable: true,
+      innerHtml: 'this field is required',
+      innerHtmlStyle: {
+        'text-align': 'center'
+      },
+      themeName: 'all-orange',
+      themePath: '/images/ui-plugins/bubblepopup'
     });
     $('.overrideable').CreateBubblePopup({
       position: 'top',
