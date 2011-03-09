@@ -1,0 +1,7 @@
+- if @navigation.save
+  == $('#td_nav_#{@navigation.top_nav}_#{@navigation.column}').html('#{escape_javascript render(:partial => 'navigation', :object => @navigation)}');
+  $('.navigation_type').trigger('change');
+  initialize_buttons();
+  alert('navigation has been saved');
+- else
+  alert('#{escape_javascript @navigation.errors.full_messages.join("\n")}')
