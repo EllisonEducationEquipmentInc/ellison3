@@ -211,6 +211,7 @@ $(document).ready(function(){
 
 	er_number_only();
 	
+	// YouTube video
 	$('.tooltip_playvideo').CreateBubblePopup({
     position: 'top',
     align: 'center',
@@ -232,6 +233,13 @@ $(document).ready(function(){
   $('input.noautocomplete').doTimeout(2000, function(){
     $(this).attr("autocomplete", 'off');
   });
+  
+  // error fields
+  $(".field_with_errors, .errorExplanation").each(function() {
+    $(this).addClass("ui-corner-all");
+  });
+
+  
   
   shadow_on();
 	

@@ -1,33 +1,46 @@
+.errors {
+  
+}
+
 .field_with_errors {
-  background-color: red;
+  padding: 3px 8px 2px 8px;
+  background: url("/images/ui-backgrounds/diagonal-stripes_error.png");
+  border: 1px solid #f6a5ac;
   display: inline-block;
+  
+  span.required { color: #000; }
 }
 
-#errorExplanation { @extend .rounded;
-  border: 2px solid red;
+#errorExplanation {
+  border: 1px solid #f00;
   padding: 7px;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
-}
-
-#errorExplanation h2 {
-  text-align: left;
-  font-weight: bold;
-  padding: 5px 5px 5px 15px;
-  font-size: 12px;
-  margin: -7px;
-  background-color: #c00;
-  color: #fff;
-}
-
-#errorExplanation p {
+  margin-bottom: 10px;
+  background-color: #fff;
   color: #333;
-  margin-bottom: 0;
-  padding: 5px;
-}
-
-#errorExplanation ul li {
-  font-size: 12px;
-  list-style: square;
+  
+  h2 {
+    font-family: "Helvetica Neue",Arial,Helvetica,sans-serif !important;
+    font-size: 1.1em;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    margin: -7px;
+    background: url("/images/ui-backgrounds/diagonal-stripes_error.png");
+    border-bottom: 1px solid #f6babf;
+    color: #000;    
+  }
+  
+  p {
+    margin: 15px 0 0 0;
+    padding: 0 5px;
+  }
+  
+  ul { @extend ul.plain;
+    padding: 5px 5px 0 5px !important;
+    
+    li { @extend .icon_error;
+      display: block;
+      margin-bottom: 6px !important;
+      padding-left: 20px !important;
+    }
+  }
 }

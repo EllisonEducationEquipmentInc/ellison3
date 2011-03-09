@@ -270,6 +270,10 @@ a.next_button { @extend a.prev_button;
 
 .required { @extend .icon_requiredfield; }
 
+.icon_error { @extend .icon;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/exclamation-red.png") no-repeat left top;
+}
+
 .icon_datefield { @extend .icon;
   padding: 0 19px 0 0;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/calendar-select.png") no-repeat right 3px;
