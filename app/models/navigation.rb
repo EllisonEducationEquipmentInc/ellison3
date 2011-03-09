@@ -3,14 +3,13 @@ class Navigation
 	include Mongoid::Document
 	include Mongoid::Timestamps
   
-  NAVIGATION_TYPES = ["solr_tag", "static"]
+  NAVIGATION_TYPES = ["product_tag", "idea_tag", "static"]
   
   field :active, :type => Boolean, :default => true
   field :label
   field :link
   field :tag_type
   field :navigation_type
-  #field :display_order, :type => Integer
   field :system, :default => lambda {current_system}
   field :top_nav, :type => Integer
   field :column, :type => Integer

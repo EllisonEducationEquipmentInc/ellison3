@@ -9,7 +9,7 @@ class IndexController < ApplicationController
   
   verify :xhr => true, :only => [:search, :quick_search, :send_feedback, :add_comment], :redirect_to => {:action => :home}
     
-  helper_method :idea?, :per_page
+  helper_method :idea?, :per_page, :perform_search
   
   def home
     @home_content = SharedContent.home

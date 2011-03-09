@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 	before_filter :page_title
 	before_filter :set_clickid
 	before_filter :get_meta_tags
+	before_filter :get_navigation
 	
 	include ShoppingCart
 	include SslRequirement
@@ -270,6 +271,11 @@ private
 			cookies[:tracking] += ";date=#{Time.zone.now}&utm_source=#{source}#{other_utm}&clickid=#{cookies[:clickid]}&referrer=#{referrer}"
 			tracking_logger.info cookies[:tracking]
 		end
+	end
+	
+	def get_navigation
+	  @multi_facets_hash ||= {}
+	  @top_navigations = TopNavigation.instance.list
 	end
   
 end
