@@ -184,9 +184,6 @@
       = f.label :remove_image
       = f.check_box :remove_image
 
-  .actions
-    = f.submit :class => 'wymupdate jqui_save right'
-
   %hr
   %h3.contentwrap_XXXL.last Tags, Ideas & Keywords
   .contentwrap_medium
@@ -289,6 +286,10 @@
       = f.label :keywords, "Meta Tag Keywords", :class => "autosize"
       %br
       = f.text_area :keywords, :rows => 10, :cols => 37
+  
+  .clear
+  .actions
+    = f.submit :class => 'wymupdate jqui_save'
 
   :javascript
     $(function() {

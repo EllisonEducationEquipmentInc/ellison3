@@ -49,7 +49,10 @@ ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products { @extend ul.p
 .to_delete { border-color: red; }
 
 // buttons
-#product_submit { @extend .button_large;
+#product_submit, #idea_submit {
+  @extend .button_large;
+  @extend .right;
+  
   margin-bottom: 10px;
   letter-spacing: .5px;
 }

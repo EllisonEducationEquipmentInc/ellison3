@@ -83,7 +83,7 @@
       %br
       %span.icon_datefield
         = f.text_field "distribution_life_cycle_ends_#{current_system}", :class => 'datetimepicker'
-      
+
   %hr
   %h3.contentwrap_XXXL.last Tags, Ideas & Keywords
   .contentwrap_medium
@@ -186,9 +186,11 @@
       = f.label :keywords, "Meta Tag Keywords", :class => "autosize"
       %br
       = f.text_area :keywords, :rows => 10, :cols => 37
-
+  
+  .clear    
   .actions
     = f.submit :class => 'wymupdate jqui_save'
+
   :javascript
     $(function() {
       $('#idea_distribution_life_cycle_#{current_system}').autocomplete({source: ["New", "Featured"]});
