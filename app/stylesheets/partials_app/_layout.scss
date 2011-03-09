@@ -327,6 +327,13 @@ ul.ui-widget-header {
   }
 }
 
+.ui-tabs-panel {
+  
+  .add_to_cart { @extend .add_to_cart; 
+    margin-left: 3px;
+  }
+}
+
 // twitter
 .twtr-widget {
   margin-bottom: 12px;
