@@ -159,13 +159,15 @@
     .field
       = f.label :weight, "Weight (lbs.)"
       %br
-      = f.text_field :weight
+      %span{ :class => "icon_pricefield_weight" }
+        = f.text_field :weight
   
     - currencies.each  do |currency|
       .field
-        = f.label "handling_price_#{currency}"
+        = f.label "handling_price_#{currency}", "Handling Price #{currency.upcase}", :class => "autosize"
         %br
-        = f.text_field "handling_price_#{currency}"
+        %span{ :class => "icon_pricefield_#{currency}" }
+          = f.text_field "handling_price_#{currency}"
 
   .contentwrap_large.last
     &nbsp;
@@ -181,6 +183,9 @@
       %br
       = f.label :remove_image
       = f.check_box :remove_image
+
+  .actions
+    = f.submit :class => 'wymupdate jqui_save right'
 
   %hr
   %h3.contentwrap_XXXL.last Tags, Ideas & Keywords
@@ -284,10 +289,6 @@
       = f.label :keywords, "Meta Tag Keywords", :class => "autosize"
       %br
       = f.text_area :keywords, :rows => 10, :cols => 37
-
-  %hr
-  .actions
-    = f.submit :class => 'wymupdate jqui_save'
 
   :javascript
     $(function() {

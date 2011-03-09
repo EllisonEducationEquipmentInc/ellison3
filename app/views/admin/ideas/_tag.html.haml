@@ -1,3 +1,5 @@
 %li.ui-menu-item{:id => "tag_#{tag.id}"}
-  = link_to_function tag.name, "$('#tag_#{tag.id}').css('color', 'gray');$.ajax({url:'/admin/ideas/remove_tag?tag_id=#{tag.id}&id=#{idea_id}'})", :class => "remove_tag"
+  = link_to_function "x", "$('#tag_#{tag.id}').css('color', 'gray');$.ajax({url:'/admin/ideas/remove_tag?tag_id=#{tag.id}&id=#{idea_id}'})", :class => "remove_tag", :alt => "remove tag", :title => "remove tag"
+  = link_to 'Show Tag', admin_tag_path(tag.id), :class => "show_idea", :alt => "show tag", :title => "show tag"
+  = tag.name
   %span.keyword== (#{tag.tag_type.humanize})

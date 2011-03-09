@@ -1,3 +1,5 @@
 %li.ui-menu-item{:id => "product_#{product.id}"}
-  = link_to_function "##{product.item_num} - #{product.name}", "$('#product_#{product.id}').css('color', 'gray');$.ajax({url:'/admin/ideas/remove_product?product_id=#{product.id}&id=#{idea_id}'})", :class => "remove_product"
+  = link_to_function "x", "$('#product_#{product.id}').css('color', 'gray');$.ajax({url:'/admin/ideas/remove_product?product_id=#{product.id}&id=#{idea_id}'})", :class => "remove_product"
+  = link_to 'Show Product', admin_product_path(product.id), :class => "show_product", :alt => "show product", :title => "show product"
+  == ##{product.item_num} - #{product.name}
   =# hidden_field_tag "idea[my_product_ids][]", product.id
