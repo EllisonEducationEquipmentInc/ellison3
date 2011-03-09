@@ -1,5 +1,13 @@
 // Ellison3 Web Application Dashboard CSS
 
+ul.record_info {
+  @extend ul.plain;
+  @extend .byline;
+  @extend .right;
+  
+  li span { font-weight: bold; }
+}
+
 .field {
 
   label {

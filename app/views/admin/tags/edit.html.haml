@@ -2,4 +2,18 @@
 
 = render 'form'
 
+%hr
+%ul.record_info
+  %li
+    Created By 
+    %strong= @tag.created_by
+  %li
+    Created On
+    %strong= @tag.created_at
+  %li
+    Updated By
+    %strong= @tag.updated_by
+  %li
+    Updated On
+    %strong= @tag.updated_at
 = link_to 'Back', admin_tags_path, :class => 'jqui_back'

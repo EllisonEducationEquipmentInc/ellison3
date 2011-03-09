@@ -27,4 +27,18 @@
   #info
   :javascript
     sortable_tabs("#{@product.id}")
+%hr
+%ul.record_info
+  %li
+    Created By 
+    %strong= @product.created_by
+  %li
+    Created On
+    %strong= @product.created_at
+  %li
+    Updated By
+    %strong= @product.updated_by
+  %li
+    Updated On
+    %strong= @product.updated_at
 = link_to 'Back', admin_products_path, :class => 'jqui_back'

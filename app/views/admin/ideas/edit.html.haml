@@ -20,4 +20,18 @@
   #info
   :javascript
     sortable_tabs("#{@idea.id}")
+%hr
+%ul.record_info
+  %li
+    Created By 
+    %strong= @idea.created_by
+  %li
+    Created On
+    %strong= @idea.created_at
+  %li
+    Updated By
+    %strong= @idea.updated_by
+  %li
+    Updated On
+    %strong= @idea.updated_at
 = link_to 'Back', admin_ideas_path, :class => 'jqui_back'
