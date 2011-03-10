@@ -1,7 +1,7 @@
 module ApplicationHelper
 		
 	include ShoppingCart
-	
+		
 	# returns checkboxes for systems
 	def system_enabled(object)
 		ELLISON_SYSTEMS.inject("") do |buffer, sys|

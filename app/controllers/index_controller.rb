@@ -9,7 +9,7 @@ class IndexController < ApplicationController
   
   verify :xhr => true, :only => [:search, :quick_search, :send_feedback, :add_comment], :redirect_to => {:action => :home}
     
-  helper_method :idea?, :per_page, :perform_search
+  helper_method :idea?, :per_page
   
   def home
     @home_content = SharedContent.home
@@ -352,92 +352,5 @@ private
     @multi_facets_hash = {}
     @facets_hash.each {|e| @multi_facets_hash[e.split("~")[0]].blank? ? @multi_facets_hash[e.split("~")[0]] = e.split("~")[1] : @multi_facets_hash[e.split("~")[0]] << ",#{e.split("~")[1]}"}
   end
-  
-  # @Example: perform_search Product, :outlet => true, :facets => ["theme", "category"], :facet_sort => :index
-  def perform_search(klass, options = {})
-    outlet = options.delete(:outlet) ? true : false
-    facets = options[:facets] || tag_types
-    klass.search do |query|
-      query.keywords params[:q] unless params[:q].blank?
-      query.adjust_solr_params do |params|
-        # enable spellcheck:
-        params[:"spellcheck"] = true
-        params[:"spellcheck.collate"] = true
-        # if keywords are item nums separated by spaces, keyword search minimum should match = 0. same as OR. see http://wiki.apache.org/solr/DisMaxQParserPlugin
-        params[:mm] = 0 if params[:q].present? && params[:q].split(/\s+/).all? {|e| e =~ /^(A|38-)?\d{4,6}-?[A-Z0-9.]{0,8}$/}
-      end
-      query.with :"listable_#{current_system}", true
-      @filter_conditions = {}
-      if MULTIFACETS
-        @multi_facets_hash.each do |k,v|
-          @filter_conditions[k] = query.with :"#{k}_#{current_system}", v.split(",").map {|e| "#{k}~#{e}"}
-        end
-      else
-        @facets_hash.each do |f|
-          query.with :"#{f.split("~")[0]}_#{current_system}", f
-        end
-      end
-      if is_er?
-        item_group_query = query.with(:item_group, params[:brand].split(",")) unless params[:brand].blank?
-        query.facet(:item_group, :exclude => item_group_query)
-      end
-      facets.each do |e|
-        query.facet :"#{e.to_s}_#{current_system}", :exclude => @filter_conditions[e], :sort => options[:facet_sort] || :index
-      end
-      unless klass == Idea
-        query.with :outlet, outlet if is_sizzix_us?
-        query.with(:"price_#{current_system}_#{current_currency}", params[:price].split("~")[0]..params[:price].split("~")[1]) unless params[:price].blank?
-        query.with(:"saving_#{current_system}_#{current_currency}", params[:saving].split("~")[0]..params[:saving].split("~")[1]) unless params[:saving].blank?
-        query.facet(:price) do |qf|
-          PriceFacet.instance.facets(outlet).each do |price_range|
-            qf.row(price_range) do
-              with(:"price_#{current_system}_#{current_currency}", price_range.min..price_range.max)
-            end
-          end
-        end
-      end
-      if outlet && klass != Idea
-        query.facet(:saving) do |qf|
-          PriceFacet.instance.savings.each do |saving|
-            qf.row(saving) do
-              with(:"saving_#{current_system}_#{current_currency}", saving.min..saving.max)
-            end
-          end
-        end
-      end
-      query.paginate(:page => params[:page] || 1, :per_page => @per_page || per_page)
-      query.order_by(*default_sort(klass).split(":")) unless default_sort(klass).blank? || klass == Idea && ['quantity_sold', 'price', 'orderable'].any? {|e| default_sort(klass).include? e}
-    end
-  end
-  
-  # solr filter display logic
-  def tag_types
-    @filter_names = @facets.split(",").map {|e| e[/^(\w+)/]}
-    tags = Tag::TYPES.reject {|e| e =~ /^sub/ unless @filter_names.include?(e.gsub(/^sub/,''))} - Tag::HIDDEN_TYPES
-    tags -= ["product_family"] unless @filter_names.include?("product_line")
-    tags -= ["release_date", "special"] unless ecommerce_allowed?
-    tags
-  end
-  
-  def idea?
-    params[:ideas] == "1"
-  end
-  
-  def default_sort(klass)
-    return params[:sort] if params[:sort].present? || params[:q].present?
-    klass == Idea ? "start_date_#{current_system}:desc" : "orderable_#{current_system}:desc"
-  end
-  
-  def per_page
-    case params[:per_page]
-    when "48"
-      48
-    when "72"
-      72
-    when "96"
-      96
-    else
-      24
-    end
-  end
+    
 end
