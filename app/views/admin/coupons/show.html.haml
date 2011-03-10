@@ -1,0 +1,19 @@
+%h2== Coupon Preview - #{@coupon.id}
+%p= text_field_tag :time, @time, :class => 'datetimepicker', :onchange => "window.location='#{admin_coupon_path(@coupon)}?time='+this.value"
+- if @coupon.product?
+  %table
+    %tr
+      %th Item num
+      %th Name
+      %th Price
+      %th Coupon Price
+    - @products.each do |product|
+      %tr
+        %td= link_to product.item_num, edit_admin_product_path(product)
+        %td= link_to product.name, admin_product_path(product)
+        %td= display_product_price product, :date => @time
+        %td= number_to_currency product.calculate_coupon_discount(@coupon)
+- @coupon.attributes.keys.reject {|k| %w(versions campaigns).include? k}.each do |attribute|
+  %p
+    %b== #{attribute.humanize}:
+    = @coupon.send attribute

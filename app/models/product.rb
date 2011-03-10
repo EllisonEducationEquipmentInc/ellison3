@@ -555,6 +555,18 @@ class Product
     end
   end
   
+  def calculate_coupon_discount(coupon)
+	  return if coupon.blank?
+	  p = if coupon.percent?
+			self.msrp - (0.01 * coupon.discount_value * self.msrp).round(2)
+		elsif coupon.absolute?
+			self.msrp - coupon.discount_value > 0 ? self.msrp - coupon.discount_value : 0.0
+		elsif coupon.fixed?
+			coupon.discount_value
+		end
+		p < self.price ? p : self.price
+	end
+  
 private 
 
   # automatically set system specific attributes (if not set) of all other enabled systems. Values are inherited from the current system

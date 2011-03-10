@@ -258,7 +258,7 @@ class CartsController < ApplicationController
 			if tries < 15        
 		    sleep(tries)            
 			  get_cart.reload
-		    retry                      
+		    retry    
 		  end
 		end
 		render :inline => "<%= number_to_currency @first_payment %>"

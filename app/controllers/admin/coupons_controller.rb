@@ -28,6 +28,8 @@ class Admin::CouponsController < ApplicationController
   # GET /coupons/1.xml
   def show
     @coupon = Coupon.find(params[:id])
+    @time = params[:time].blank? ? Time.zone.now : Time.zone.parse(params[:time])
+    @products = Product.where(:item_num.in => @coupon.products) if @coupon.product?
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @coupon }

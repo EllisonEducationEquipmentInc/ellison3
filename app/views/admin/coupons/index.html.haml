@@ -33,7 +33,7 @@
           %td= coupon.level.humanize
           %td= coupon.systems_enabled.join(", ") rescue ''
           %td= coupon.active
-          %td= link_to 'Show', admin_coupon_path(coupon), :class => 'jqui_show_min'
+          %td= link_to 'Show', admin_coupon_path(coupon), :class => 'jqui_show_min' if coupon.product?
           - if has_write_permissions?
             %td= link_to 'Edit', edit_admin_coupon_path(coupon), :class => 'jqui_edit_min'
             %td= link_to 'Destroy', admin_coupon_path(coupon), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
