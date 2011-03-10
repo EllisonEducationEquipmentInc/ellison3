@@ -127,6 +127,11 @@ HTML
 HTML
 		products.map {|e| Haml::Engine.new(html).render(self, :product => e)}.join("<div class='plus_sign ui-icon ui-icon-plusthick'></div>").html_safe
 	end
+	
+	def required_label(f, field, label = nil)
+	  label ||= field.to_s.humanize
+	  f.label field, "<span class='required'>#{label}</span>".html_safe, :class => "w111"
+	end
 
 	def required_field(label = '')
 		label + content_tag(:span, " * ", :style => "color:#FF0000")

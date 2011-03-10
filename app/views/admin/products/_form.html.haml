@@ -30,7 +30,7 @@
     = f.text_field :name, :size => 50, :style => "font-weight: bold;"
   .contentwrap_large
     .field
-      = f.label :item_num, "<span class='required'>Product Number</span>".html_safe, :class => "w111"
+      = required_label f, :item_num, 'Product Number'
       = f.text_field :item_num, :size => 10
     .field
       = f.label :upc, "Product UPC", :class => "w111"
