@@ -91,7 +91,7 @@ class Cart
 	
 	def cart_errors
 		@cart_errors = []
-		if !self.changed_items.blank? || self.removed > 0
+		if self.changed_items.present? || self.removed > 0 || self.coupon_removed
 			@cart_errors << "The price on one or more of the items in your order has been adjusted since you last placed it in your Shopping Cart. Items in your cart will always reflect the most recent price displayed on their corresponding product detail pages." if changed_item_attributes.include?("price")
 			@cart_errors << "Some items placed in your cart are greater than the quantity available for sale. The most current quantity available has been updated in your Shopping Cart." if changed_item_attributes.include?("quantity")
 			@cart_errors << "Items #{self.removed_items * ', '} placed in your Shopping Cart are no longer available for purchase and have been removed. If you are still interested in this item(s), please check back again at a later date for availability." if self.removed > 0
@@ -138,6 +138,7 @@ class Cart
 			self.removed = cart_items.delete_all(:conditions => {:quantity.lt => 1}) 
 			self.changed_items = cart_items.select(&:updated?).map {|i| [i.id, i.updated]}
 			self.coupon = Coupon.available.with_coupon.where(:_id => self.coupon_id).first
+			self.coupon_id = Coupon.available.with_coupon.where(:_id => self.coupon_id).first.try :id
 			self.coupon_removed = self.changed.include? "coupon_id"
 			self.coupon_code = nil if self.coupon_removed
 			self.last_check_at = Time.now.utc
