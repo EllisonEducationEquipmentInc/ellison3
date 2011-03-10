@@ -272,10 +272,11 @@ class CartsController < ApplicationController
 	end
 	
 	def activate_coupon
-	  @coupon = Coupon.available.with_coupon.where(:codes.in => [params[:coupon_code]]).first
+	  coupon_code = params[:coupon_code].gsub(/[^a-zA-Z0-9]/, '')
+	  @coupon = Coupon.available.with_coupon.where(:codes.in => [/^#{coupon_code}$/i]).first
 	  if @coupon
 	    get_cart.coupon = @coupon
-	    @cart.coupon_code = params[:coupon_code]
+	    @cart.coupon_code = coupon_code
 	    @cart.reset_tax_and_shipping
 	    @cart.apply_coupon_discount
 	  else

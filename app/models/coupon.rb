@@ -57,6 +57,7 @@ class Coupon
 	validates_inclusion_of :discount_type, :in => ["fixed", "percent"], :message => "must be 'fixed' or 'percent' for shipping coupons", :if => Proc.new {|obj| obj.level == "shipping" }
 	validates_numericality_of :discount_value
 	validates_exclusion_of :no_code_required, :in => [true], :unless => Proc.new {|obj| obj.level == "shipping"}, :message => "Only shipping promotions can be setup with no_code_required option"
+	validate :codes_uniqueness
 	
 	before_save Proc.new {|obj| obj.order_has_to_be.delete_if {|k,v| v.delete_if {|k,v| v.blank?}.blank?}}
 	before_save :inherit_system_specific_attributes
@@ -146,6 +147,10 @@ class Coupon
   end
 	
 private
+
+  def codes_uniqueness
+    errors.add(:codes, "Coupon code already exists") if self.class.where(:codes.in => Array.wrap(self.codes).map {|e| /^#{e}$/i}, :_id.ne => self.id).count > 0
+  end
   
   def inherit_system_specific_attributes
     self.systems_enabled.reject {|e| e == current_system}.each do |sys|
