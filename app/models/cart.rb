@@ -138,7 +138,7 @@ class Cart
 			self.removed = cart_items.delete_all(:conditions => {:quantity.lt => 1}) 
 			self.changed_items = cart_items.select(&:updated?).map {|i| [i.id, i.updated]}
 			self.coupon = Coupon.available.with_coupon.where(:_id => self.coupon_id).first
-			self.coupon_id = Coupon.available.with_coupon.where(:_id => self.coupon_id).first.try :id
+			self.coupon_id = Coupon.available.with_coupon.where(:_id => self.coupon_id).first.try :id #lame!
 			self.coupon_removed = self.changed.include? "coupon_id"
 			self.coupon_code = nil if self.coupon_removed
 			self.last_check_at = Time.now.utc
