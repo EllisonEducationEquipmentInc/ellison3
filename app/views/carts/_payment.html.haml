@@ -55,30 +55,30 @@
         = f.hidden_field :use_saved_credit_card
     - else
       .left.field.credit_card
-        = required_field(f.label :first_name)
+        = required_label f, :first_name, { :label => "First Name", :label_size => "autosize" }
         %br
         = f.text_field :first_name, :class => "cc"
       .left.field.credit_card
-        = required_field(f.label :last_name)
+        = required_label f, :last_name, { :label => "Last Name", :label_size => "autosize" }
         %br
         = f.text_field :last_name, :class => "cc"
       .clear_left
       .field.credit_card
         .left
-          = required_field(f.label :card_name)
+          = required_label f, :card_name, { :label => "Credit Card Type", :label_size => "autosize" }
           %br
           = select :payment, :card_name, Payment.cards, {:prompt => "--- card type ---"}, :class => "cc"
         .left
-          = required_field(f.label :full_card_number, "Credit Card Number")
+          = required_label f, :full_card_number, { :label => "Credit Card Number", :label_size => "autosize" }
           %br
           = text_field :payment, :full_card_number, :class => "cc"
         .left
-          = required_field(f.label :card_security_code)
+          = required_label f, :card_security_code, { :label => "Credit Card Security Code", :label_size => "autosize" }
           %br
           = text_field :payment, :card_security_code, :size => 4, :class => "cc"
         .clear_left
         .field
-          = required_field(f.label :card_expiration_month, "Expires")
+          = required_label f, :card_expiration_month, { :label => "Expiration Date", :label_size => "autosize" }
           %br
           = select :payment, :card_expiration_month, Payment.months, { :prompt => "month" }, :class => "cc"
           = select :payment, :card_expiration_year, Payment.years, { :prompt => "year" }, :class => "cc"

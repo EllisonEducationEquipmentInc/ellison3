@@ -11,7 +11,7 @@
       disabled
       = f.radio_button(:active, false)
     .field
-      = f.label :systems_enabled, "<span class='required'>Enabled for</span>".html_safe, :class => "autosize"
+      = required_label f, :systems_enabled, { :label => "Enabled for", :label_size => "autosize" }
       = system_enabled('product')
   .contentwrap_large.last
     .field
@@ -26,11 +26,11 @@
   %hr
   %h3.contentwrap_XXXL.last Basic Information
   .field.contentwrap_XXXL.last
-    = f.label :name, "<span class='required'>Product Name</span>".html_safe, :class => "w111"
+    = required_label f, :name, { :label => 'Product Name', :label_size => 'w111'}
     = f.text_field :name, :size => 50, :style => "font-weight: bold;"
   .contentwrap_large
     .field
-      = required_label f, :item_num, 'Product Number'
+      = required_label f, :item_num, { :label => 'Product Number', :label_size => "w111" }
       = f.text_field :item_num, :size => 10
     .field
       = f.label :upc, "Product UPC", :class => "w111"
@@ -88,7 +88,7 @@
     - currencies.each do |currency|
       .field
         .left
-          = f.label "msrp_#{currency}", "<span class='required'>MSRP #{currency.upcase}</span>".html_safe, :class => "w147"
+          = required_label f, "msrp_#{currency}", { :label => "MSRP #{currency.upcase}", :label_size => 'w147' }
           %br
           %span{ :class => "icon_pricefield_#{currency}" }
             = f.text_field "msrp_#{currency}", :onkeyup => gross_prices?(currency) ? "update_gross($(this), '#{currency}', #{vat})" : nil, :size => 8

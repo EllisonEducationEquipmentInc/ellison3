@@ -54,6 +54,11 @@ ul.cart_summary {
   }
 }
 
+#cc_info {
+  
+  input, select { margin-right: 6px; }
+}
+
 // buttons
 #checkout_button, #checkout_now, .save_as_quote { @extend .button_large;
   margin-bottom: 10px;

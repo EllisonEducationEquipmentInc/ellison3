@@ -11,7 +11,7 @@
       disabled
       = f.radio_button(:active, false)
     .field
-      = f.label :systems_enabled, "<span class='required'>Enabled for</span>".html_safe, :class => "autosize"
+      = required_label f, :systems_enabled, { :label => "Enabled for", :label_size => "autosize" }
       = system_enabled('idea')
   .contentwrap_large.last
     .field
@@ -27,10 +27,10 @@
   %h3.contentwrap_XXXL.last Basic Information
   .contentwrap_large
     .field
-      = f.label :name, "<span class='required'>Idea Name</span>".html_safe
+      = required_label f, :name, { :label => "Idea Name" }
       = f.text_field :name, :size => 46, :style => "font-weight: bold;"
     .field
-      = f.label :idea_num, "<span class='required'>Idea Number</span>".html_safe
+      = required_label f, :idea_num, { :label => "Idea Number"}
       = f.text_field :idea_num, :size => "8"
     .field
       = f.label :item_group, "Brand"
