@@ -11,7 +11,7 @@
       disabled
       = f.radio_button(:active, false)
     .field
-      = f.label :systems_enabled, "Enabled for", :class => "autosize"
+      = f.label :systems_enabled, "<span class='required'>Enabled for</span>".html_safe, :class => "autosize"
       = system_enabled('idea')
   .contentwrap_large.last
     .field
@@ -27,10 +27,10 @@
   %h3.contentwrap_XXXL.last Basic Information
   .contentwrap_large
     .field
-      = f.label :name, "Idea Name"
-      = f.text_field :name, :size => 50, :style => "font-weight: bold;"
+      = f.label :name, "<span class='required'>Idea Name</span>".html_safe
+      = f.text_field :name, :size => 46, :style => "font-weight: bold;"
     .field
-      = f.label :idea_num, "Idea Number"
+      = f.label :idea_num, "<span class='required'>Idea Number</span>".html_safe
       = f.text_field :idea_num, :size => "8"
     .field
       = f.label :item_group, "Brand"
@@ -194,6 +194,22 @@
   :javascript
     $(function() {
       $('#idea_distribution_life_cycle_#{current_system}').autocomplete({source: ["New", "Featured"]});
+    });
+    $('.required').CreateBubblePopup({
+      position: 'top',
+      align: 'center',
+      distance: '50px',
+      tail: {
+        align: 'middle',
+        hidden: false
+      },
+      selectable: true,
+      innerHtml: 'this field is required',
+      innerHtmlStyle: {
+        'text-align': 'center'
+      },
+      themeName: 'all-orange',
+      themePath: '/images/ui-plugins/bubblepopup'
     });
     $('.overrideable').CreateBubblePopup({
       position: 'top',
