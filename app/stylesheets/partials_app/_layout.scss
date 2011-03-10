@@ -274,6 +274,11 @@ a.next_button { @extend a.prev_button;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/exclamation-red.png") no-repeat left top;
 }
 
+.icon_searchfield { @extend .icon;
+  padding: 0 20px 0 0;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/magnifier-left.png") no-repeat right center;
+}
+
 .icon_datefield { @extend .icon;
   padding: 0 19px 0 0;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/calendar-select.png") no-repeat right 3px;

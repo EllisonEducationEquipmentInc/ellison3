@@ -204,8 +204,13 @@ body.bp {
 // catalog filter column
 #products_filter {
   
-  #keyword {
+  span.icon_searchfield {
+    height: 21px;
     margin: 5px 0 15px 0;
+    
+    #keyword {
+      width: 165px;
+    }    
   }
   
   h3 {

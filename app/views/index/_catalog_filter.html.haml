@@ -1,5 +1,8 @@
+- if @search.total > 0
+  %h3= link_to "Narrow Results By:", "#", :class => "link_expand"
 - if params[:action] != "shop" && @search.total > 1
-  = text_field_tag :keyword, nil, :autocomplete => "off", :value => "search within these results...", :onfocus => "if (this.value == 'search within these results...'){this.value='';}", :onblur => "if (this.value == ''){this.value='search within these results...';}", :style => "width:183px;"
+  %span.icon_searchfield
+    = text_field_tag :keyword, nil, :autocomplete => "off", :value => "search within these results...", :onfocus => "if (this.value == 'search within these results...'){this.value='';}", :onblur => "if (this.value == ''){this.value='search within these results...';}"
 :javascript
   $("#keyword").addClass("idlefield");
   $("#keyword").focus(function(){
@@ -7,8 +10,6 @@
   }).blur(function(){
     $(this).removeClass("activefield").addClass("idlefield");
   });
-- if @search.total > 0
-  %h3= link_to "Narrow Results By:", "#", :class => "link_expand"
 .clear
 .facets.ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
   - @search.facets.each do |facet|
