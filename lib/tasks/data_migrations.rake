@@ -77,6 +77,8 @@ namespace :data_migrations do
       new_tab.data_column ||= []
       for i in 1..OldData::Tab::MAX_GRID do
         new_tab.data_column << [tab.column_grid["left_#{i}"][0], tab.column_grid["left_#{i}"][1]] unless tab.column_grid["left_#{i}"].blank?
+      end
+      for i in 1..OldData::Tab::MAX_GRID do
         new_tab.data_column << [tab.column_grid["right_#{i}"][0], tab.column_grid["right_#{i}"][1]] unless tab.column_grid["right_#{i}"].blank?
       end
     end
