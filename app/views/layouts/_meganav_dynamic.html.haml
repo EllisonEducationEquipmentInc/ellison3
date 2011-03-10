@@ -2,7 +2,7 @@
 - @top_navigations.each do |top_nav|
   %li.megaitem.ui-corner-top
     = link_to top_nav.label, top_nav.link, :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
-    .megapanel
+    .megapanel{:class => @top_navigations.index(top_nav) > 4 ? 'reverse' : nil}
       - Navigation.where(:system => current_system, :top_nav => @top_navigations.index(top_nav)).asc(:column).each do |nav|
         %ul.contentwrap_XS
           %li.listtitle.first= nav.label
