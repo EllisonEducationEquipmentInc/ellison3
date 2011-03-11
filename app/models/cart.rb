@@ -123,7 +123,7 @@ class Cart
 		cart_items.each do |item|
 		  next if item.coupon?
 			product = item.product
-			item.write_attributes :sale_price => product.sale_price, :msrp => product.msrp_or_wholesale_price, :currency => current_currency, :small_image => product.small_image, :tax_exempt => product.tax_exempt, :handling_price => product.handling_price
+			item.write_attributes :sale_price => product.sale_price, :msrp => product.msrp_or_wholesale_price, :currency => current_currency, :small_image => product.small_image, :tax_exempt => product.tax_exempt, :handling_price => product.handling_price, :retailer_price => product.retailer_price
 			item.price = product.price unless item.custom_price
 			if check
 			  if quote
@@ -190,7 +190,7 @@ class Cart
 	
 	def reset_coupon_items
 	  cart_items.find_item(Coupon::COUPON_ITEM_NUM).try :delete
-	  cart_items.select {|i| i.coupon_price}.each {|i| i.write_attributes(:coupon_price => false, :price => i.sale_price || i.msrp)}
+	  cart_items.select {|i| i.coupon_price}.each {|i| i.write_attributes(:coupon_price => false, :price => i.sale_price || is_er? ? i.retailer_price : i.msrp)}
 	end
 
 end

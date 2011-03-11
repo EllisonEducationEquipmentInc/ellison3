@@ -4,9 +4,10 @@ class CartItem
 	
 	field :item_num
 	field :name
-	field :msrp, :type => Float
+	field :msrp, :type => Float                                 # product.msrp_or_wholesale_price
 	field :sale_price, :type => Float
 	field :price, :type => Float
+	field :retailer_price, :type => Float
 	field :custom_price, :type => Boolean, :default => false
 	field :coupon_price, :type => Boolean, :default => false
 	field :currency

@@ -305,7 +305,7 @@ class Product
   end
   
   def msrp_or_wholesale_price(options = {})
-    is_er? ? retailer_price(retailer_discount_level, options) : msrp(options)
+    is_er? ? wholesale_price(options) : msrp(options)
   end
   
   def base_price(options = {})

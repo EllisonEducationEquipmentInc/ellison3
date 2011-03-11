@@ -20,7 +20,7 @@ module ShoppingCart
 				item.quantity += qty
 			else
 				get_cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.sale_price, :msrp => product.msrp_or_wholesale_price, :price => product.price, 
-				  :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product => product, :weight => product.weight, 
+				  :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product => product, :weight => product.weight, :retailer_price => product.retailer_price,
 				  :tax_exempt => product.tax_exempt, :handling_price => product.handling_price, :pre_order => product.pre_order?, :out_of_stock => product.out_of_stock?, :minimum_quantity => product.minimum_quantity)
 			end
 			get_cart.reset_tax_and_shipping true
