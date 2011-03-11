@@ -483,6 +483,13 @@ body.bp {
 	  
 	  .message {
 	    font-size: .85em;
+	    
+	    a {
+	      color: $link;
+	      text-decoration: underline;
+	      
+	      &:hover { color: $text; }
+	    }
 	  }
 	  	  
 	  .users_lists_container {
@@ -709,7 +716,14 @@ h3.item_title {
 	  
 	  span.message {
       font-family: Verdana,Arial,sans-serif;
-      font-size: .85em;
+//      font-size: .85em;
+      
+	    a {
+	      color: $link;
+	      text-decoration: underline;
+	      
+	      &:hover { color: $text; }
+	    }
 	  }
 	}
 	
@@ -791,6 +805,13 @@ h3.item_title {
     
 	  .message {
 	    font-size: .85em;
+	    
+	    a {
+	      color: $link;
+	      text-decoration: underline;
+	      
+	      &:hover { color: $text; }
+	    }
 	  }
     
 	  .users_lists_container {

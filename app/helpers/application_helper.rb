@@ -175,7 +175,7 @@ HTML
 	  unless @breadcrumb_tags.blank? && params[:price].blank? && params[:saving].blank? && params[:brand].blank?
 	    breadcrumbs = [link_to_function("<span class='dontprint'>All</span><span class='dontdisplay'>Search Filters: </span>".html_safe, "location.hash = ''")] #[]
 	    @breadcrumb_tags.each do |tag|
-	      breadcrumbs << link_to(tag.name, "#", :rel => tag.facet_param, :class => "tag_breadcrumb") + "<span class='dontdisplay'>, </span> ".html_safe + link_to("x", "#", :title => "remove #{tag.name}", :rel => tag.facet_param, :class => "tag_breadcrumb_remove")
+	      breadcrumbs << link_to(tag.name, "#", :rel => tag.facet_param, :class => "tag_breadcrumb") + "<span class='dontdisplay'>, </span> ".html_safe + link_to("x", "#", :title => "Remove #{tag.name}", :rel => tag.facet_param, :class => "tag_breadcrumb_remove")
 	    end
 	    breadcrumbs << price_label + ' ' + link_to("x", "#", :rel => params[:price], :title => "remove price", :class => "price_breadcrumb_remove") unless params[:price].blank?
 	    breadcrumbs << saving_label + ' ' + link_to("x", "#", :rel => params[:saving], :title => "remove saving", :class => "saving_breadcrumb_remove") unless params[:saving].blank?
