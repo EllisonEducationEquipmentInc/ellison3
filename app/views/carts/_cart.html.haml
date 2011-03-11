@@ -8,7 +8,7 @@
         %th{:width => 60} Item No.
         %th{:width => 70} Item Name
         %th{:width => 400}
-        %th{:style => "text-align: right", :width => 80} Retail Price
+        %th{:style => "text-align: right", :width => 80}== #{is_er? ? 'Wholesale' : 'Retail'} Price
         %th{:style => "text-align: right", :width => 75} You Pay
         %th{:style => "text-align: right", :width => 70} Quantity
         %th{:style => "text-align: right", :width => 75} Total Price

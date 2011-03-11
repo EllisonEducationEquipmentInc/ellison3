@@ -6,7 +6,7 @@
         %th{:width => 60} Item No.
         %th{:width => 70} Item Name
         %th
-        %th{:style => "text-align: right", :width => 75} Retail Price
+        %th{:style => "text-align: right", :width => 75}== #{is_er? ? 'Wholesale' : 'Retail'} Price
         %th{:style => "text-align: right", :width => 75} You Pay
         %th{:style => "text-align: right"}
         %th{:style => "text-align: right"}

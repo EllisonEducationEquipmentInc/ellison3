@@ -34,6 +34,7 @@ class Product
   validates_uniqueness_of :item_num, :if => Proc.new {|obj| obj.new_record? || obj.item_num_changed?}, :case_sensitive => false
   validates_uniqueness_of :upc, :allow_blank => true, :if => Proc.new {|obj| obj.new_record? || obj.upc_changed?}, :case_sensitive => false
   validate :must_have_msrp
+  validates_numericality_of :weight, :greater_than => 0.0
   
   validates_associated :tabs
   
@@ -301,6 +302,10 @@ class Product
 
   def msrp=(p)
     send("msrp_#{current_currency}=", p)
+  end
+  
+  def msrp_or_wholesale_price(options = {})
+    is_er? ? retailer_price(retailer_discount_level, options) : msrp(options)
   end
   
   def base_price(options = {})
