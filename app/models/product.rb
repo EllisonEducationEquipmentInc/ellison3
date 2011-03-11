@@ -509,7 +509,7 @@ class Product
   
   def related_product_tag_name
     return if self.related_product_tag.blank?
-    related_tag.try :name
+    related_tag && "#{related_tag.try(:name)} (#{related_tag.try(:tag_type)})"
   end
   
   def related_tag
