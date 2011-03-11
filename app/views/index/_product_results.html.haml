@@ -73,7 +73,7 @@
   $(document).ready(function(){
     $("#product_catalog").css({ opacity: 1.0 });
     $('.pagination.ajax a').click(function() {
-      this.innerHTML='#{escape_javascript spinner}';
+      this.innerHTML='#{escape_javascript loader_bar}';
       location.hash = $.param.fragment( location.hash, {page: $.deparam.querystring(this.href)['page']}, 0 );
       return false;
     })
