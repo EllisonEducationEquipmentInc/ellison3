@@ -55,7 +55,7 @@
 
   -# search bar
   %form#searchbar{:action => "/catalog", :method => "get", :name => "searchbar", :autocomplete => 'off' }
-    %input{ :class =>"textfield noautocomplete", :name => "q", :id => "q", :type => "text", :value => "Search for #{is_sizzix? ? 'Sizzix ' : is_ee? ? 'Ellison ' : nil }Products & #{is_ee? ? 'Lessons' : 'Projects'}", :autocomplete => 'off', :onfocus => "if (this.value == 'Search for #{is_sizzix? ? 'Sizzix ' : is_ee? ? 'Ellison ' : nil }Products & #{is_ee? ? 'Lessons' : 'Projects'}'){this.value='';};$(this).attr('autocomplete', 'off');", :onblur => "if (this.value == ''){this.value='Search for #{is_sizzix? ? 'Sizzix ' : is_ee? ? 'Ellison ' : nil }Products & #{is_ee? ? 'Lessons' : 'Projects'}';}" }  
+    %input{ :class =>"textfield noautocomplete", :name => "q", :id => "q", :type => "text", :value => "Search for #{is_sizzix? ? 'Sizzix ' : is_ee? ? 'Ellison ' : nil }Products &amp; #{is_ee? ? 'Lessons' : 'Projects'}", :autocomplete => 'off', :onfocus => "if (this.value == 'Search for #{is_sizzix? ? 'Sizzix ' : is_ee? ? 'Ellison ' : nil }Products &amp; #{is_ee? ? 'Lessons' : 'Projects'}'){this.value='';};$(this).attr('autocomplete', 'off');", :onblur => "if (this.value == ''){this.value='Search for #{is_sizzix? ? 'Sizzix ' : is_ee? ? 'Ellison ' : nil }Products &amp; #{is_ee? ? 'Lessons' : 'Projects'}';}" }  
     - if is_sizzix_uk?
       %input{ :class => "submitbutton", :name => "submit", :src => "/images/ui-icons/set_fugue_custom/24x24/drop-shadow/szuk_magnifier-left.png", :type => "image", :height => "29", :width => "37"}
     - else
@@ -89,7 +89,15 @@
     	  $(this.form).trigger('submit');
     		return false;
     	}});
-    $('#searchbar').submit(function() {location.href = 'http://'+location.host+'/catalog#q='+$('#q').val();return false;});
+    $('#searchbar').submit(function() {
+      var default_value = "Search for #{is_sizzix? ? 'Sizzix ' : is_ee? ? 'Ellison ' : nil }Products & #{is_ee? ? 'Lessons' : 'Projects'}";
+      var search_value = $('#q').val();
+      if (search_value == default_value) {
+        return false;
+      } else {
+        location.href = 'http://'+location.host+'/catalog#q='+$('#q').val();return false;
+      }
+    });
 
 #printmasthead.dontdisplay
   %h1== #{system_name.capitalize}.com
