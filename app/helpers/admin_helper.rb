@@ -15,7 +15,7 @@ module AdminHelper
       r += tag("br")
       r += text_field_tag(name, value, :size => 150, :class => 'product_autocomplete').html_safe
       r += tag("br")
-      r += link_to("All Products Helper", "#", :class => "product_helper_link").html_safe
+      #r += link_to("All Products Helper", "#", :class => "product_helper_link").html_safe
       r += text_field_tag(:tag_search, nil, :placeholder => "get products by tag name", :class => "product_search_by_tag").html_safe
       r += content_tag(:span, '', :class => 'product_search_selected_tag').html_safe
       r += content_tag(:div, '', :class => 'product_search_by_tag_area').html_safe
@@ -62,7 +62,7 @@ module AdminHelper
       r += tag("br")
       r += text_field_tag(name, value, :size => 150, :class => 'idea_autocomplete').html_safe
       r += tag("br")
-      r += link_to("All Ideas Helper", "#", :class => "idea_helper_link").html_safe
+      #r += link_to("All Ideas Helper", "#", :class => "idea_helper_link").html_safe
       r += text_field_tag(:tag_search, nil, :placeholder => "get ideas by tag name", :class => "idea_search_by_tag").html_safe
       r += content_tag(:span, '', :class => 'idea_search_selected_tag').html_safe
       r += content_tag(:div, '', :class => 'idea_search_by_tag_area').html_safe
