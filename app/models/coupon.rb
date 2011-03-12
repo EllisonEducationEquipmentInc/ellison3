@@ -5,7 +5,7 @@ class Coupon
 	
 	COUPON_ITEM_NUM = "coupon23ew323dsd3d"   # coupon as line item disabled
 	
-	LEVELS = %w( product order highest_priced_product shipping  )
+	LEVELS = %w( product order highest_priced_product shipping group)
 	DISCOUNT_TYPES = %w( percent absolute fixed )
 	
 	field :name
@@ -18,6 +18,8 @@ class Coupon
 	field :discount_value, :type => Float, :default => 0.0
 	field :products, :type => Array
 	field :free_shipping, :type => Boolean, :default => false
+
+	field :child_ids, :type => Array, :default => []
 	
 	field :cart_must_have, :type => Array                               # ex: [{"any" => ["654395", "654396", "654397"], "all" => ["654380", "654381"]}]
 	field :products_excluded, :type => Array, :default => []            # excluded product for order_has_to_be conditions. (these products will be excluded for weight and sub_total calculations)
@@ -68,6 +70,7 @@ class Coupon
 	scope :with_coupon, :where => { :no_code_required => false }
 	scope :no_code_required, :where => { :no_code_required => true }	
   scope :by_location, lambda { |address| { :where => { :shipping_countries.in => [address.country]}.merge(address.us? ? {:shipping_states.in => [address.state]} : {})} }	
+	scope :product_level, :where => { :level => "product" }
 	
 	ELLISON_SYSTEMS.each do |sys|
 		scope sys.to_sym, :where => { :systems_enabled.in => [sys] }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex.:  Product.szus => scope for sizzix US products
@@ -95,6 +98,14 @@ class Coupon
 	
 	def shipping?
 	  self.level == "shipping" || self.free_shipping
+	end
+	
+	def group?
+	  self.level == "group"
+	end
+	
+	def children
+	  self.class.available.product_level.where(:_id.in => self.child_ids) if group? && self.child_ids
 	end
 	
 	def buy_one_get_another?

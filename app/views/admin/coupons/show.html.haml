@@ -13,6 +13,10 @@
         %td= link_to product.name, admin_product_path(product)
         %td= display_product_price product, :date => @time
         %td= number_to_currency product.calculate_coupon_discount(@coupon)
+- @coupon.group? && @coupon.children.each do |child|
+  = link_to "#{child.name} (#{child.codes * ', '})", admin_coupon_path(child)
+  %br
+%br
 - @coupon.attributes.keys.reject {|k| %w(versions campaigns).include? k}.each do |attribute|
   %p
     %b== #{attribute.humanize}:

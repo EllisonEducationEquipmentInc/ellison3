@@ -156,6 +156,12 @@ class Cart
   	    cart_items.where(:item_num.in => coupon.products).each do |item|
   	      item.calculate_coupon_discount(coupon)
   	    end
+  	  elsif coupon.group?
+  	    coupon.children.select {|c| coupon_conditions_met?(c)}.each do |child|
+  	      cart_items.where(:item_num.in => child.products).each do |item|
+    	      item.calculate_coupon_discount(child)
+    	    end
+  	    end
   	  elsif coupon.order?
   	    # === if order level coupon is a line item:
   	    # order_discount = coupon.percent? ? (0.01 * coupon.discount_value * sub_total(coupon.products_excluded + [Coupon::COUPON_ITEM_NUM])).round(2) : coupon.discount_value

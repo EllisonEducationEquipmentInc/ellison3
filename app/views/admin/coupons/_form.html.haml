@@ -31,14 +31,22 @@
     = required_field f.label(:level, "Level (discount applies to:)")
     %br
     = f.select :level, Coupon::LEVELS.map {|e| [e.humanize, e]}, {}, :onchange => "update_coupon_level()"
-  .field
+  .field.not_group
     = required_field f.label(:discount_type)
     %br
     = f.select :discount_type, Coupon::DISCOUNT_TYPES.map {|e| [e.humanize, e]}
-  .field
+  .field.not_group
     = required_field f.label(:discount_value)
     %br
     = f.text_field :discount_value
+  .field.group_level.level_specific
+    %strong Child Coupons
+    %br
+    - Coupon.active.product_level.cache.each do |coupon|
+      = check_box_tag "coupon[child_ids][]", coupon.id, @coupon.child_ids.include?(coupon.id.to_s)
+      = coupon.name
+      == (#{coupon.codes * ', '})
+      %br
   .field.product_level.order_level.highest_priced_product_level.level_specific
     = f.label :free_shipping, "Free Shipping (check if you want to combine this offer with free shipping)"
     %br
@@ -95,6 +103,7 @@
       $('.level_specific').hide();
       $('.'+$('#coupon_level').attr('value')+'_level').show();
       if ($('#coupon_level').attr('value') != 'shipping') $('#coupon_no_code_required').attr('checked', false);
+      if ($('#coupon_level').attr('value') == 'group') { $('.not_group').hide(); } else { $('.not_group').show(); }
       switch ($('#coupon_level').attr('value')) {
         case 'order':
           $('#coupon_discount_type').val('percent');
