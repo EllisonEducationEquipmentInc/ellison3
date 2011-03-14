@@ -546,8 +546,6 @@ body.bp {
         display: block;
         height: 70px;
         overflow: hidden;
-        font-family: Verdana,Arial,sans-serif;
-				font-size: .85em;
       }
       
       &.product {
@@ -716,7 +714,7 @@ h3.item_title {
 	  
 	  span.message {
       font-family: Verdana,Arial,sans-serif;
-//      font-size: .85em;
+      font-size: .85em;
       
 	    a {
 	      color: $link;
@@ -741,11 +739,6 @@ h3.item_title {
     position: absolute;
     top: 62px;
     left: 0px;
-	}
-	
-	a {
-	  font-family: Verdana,Arial,sans-serif;
-	  font-size: .85em;
 	}
 }
 
