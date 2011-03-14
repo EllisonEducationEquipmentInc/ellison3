@@ -15,6 +15,10 @@
           = sortable "price_min_#{currency}"
           = sortable "price_max_#{currency}"
         = sortable "zone_or_country"
+        = sortable "percentage", "%"
+        - currencies.each do |currency|
+          %th= "Standard Rate #{currency.upcase}"
+          %th= "Rush Rate #{currency.upcase}"
         = sortable "system"
         - if has_write_permissions?
           %th &nbsp;
@@ -26,6 +30,10 @@
             %td= shipping_rate.send "price_min_#{currency}"
             %td= shipping_rate.send "price_max_#{currency}"
           %td= shipping_rate.zone_or_country
+          %td= shipping_rate.percentage
+          - currencies.each do |currency|
+            %td= shipping_rate.send "standard_rate_#{currency}"
+            %td= shipping_rate.send "rush_rate_#{currency}"
           %td= shipping_rate.system
           - if has_write_permissions?
             %td= link_to 'Edit', edit_admin_shipping_rate_path(shipping_rate), :class => 'jqui_edit_min'

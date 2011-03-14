@@ -20,6 +20,10 @@
       %br
       = f.text_field "price_max_#{currency}"
     .field
+      = f.label :percentage
+      %br
+      = f.check_box :percentage
+    .field
       = f.label "standard_rate_#{currency}"
       %br
       = f.text_field "standard_rate_#{currency}"

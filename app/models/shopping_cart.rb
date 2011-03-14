@@ -120,7 +120,7 @@ module ShoppingCart
 		#   SZUS:  US Shipping Rates (by weight/zone) - TBD
 		#   ER: domestic - US Shipping Rates (by weight/zone), international - real fedex call.
 		#   SZUK, EEUK: Shipping Rates (cart subtotal based)
-		#   TODO: EEUS: Shipping Rates (cart subtotal based)
+		#   EEUS: Shipping Rates (cart subtotal based)
 		def calculate_shipping(address, options={})
 			return get_cart.shipping_amount if get_cart.shipping_amount && get_cart.shipping_calculated_at > 1.hour.ago
 			@shipping_discount_percentage = 0.0
@@ -148,7 +148,7 @@ module ShoppingCart
       # options[:package_length] ||= (get_cart.total_volume**(1.0/3.0)).round
       # options[:package_width] ||= (get_cart.total_volume**(1.0/3.0)).round
       # options[:package_height] ||= (get_cart.total_volume**(1.0/3.0)).round
-			if is_us? #address.us?
+			if is_us? && !is_ee? #address.us?
 			  us_shipping_rate(address, options) || fedex_rate(address, options) 
 			else
 			  shipping_rate(address, options)
@@ -245,12 +245,12 @@ module ShoppingCart
 		  @rates = []
 		  standard = Shippinglogic::FedEx::Rate::Service.new
 		  standard.name = standard.type = "STANDARD"
-		  standard.rate = rate.send("standard_rate_#{current_currency}")
+		  standard.rate = rate.percentage ? (shipping_subtotal_amount * rate.send("standard_rate_#{current_currency}")/100.0).round(2) : rate.send("standard_rate_#{current_currency}")
 		  @rates << standard
 		  unless rate.send("rush_rate_#{current_currency}").blank?
 		    rush = Shippinglogic::FedEx::Rate::Service.new
   		  rush.name = rush.type = "RUSH"
-  		  rush.rate = rate.send("rush_rate_#{current_currency}")
+  		  rush.rate = rate.percentage ? (shipping_subtotal_amount * rate.send("rush_rate_#{current_currency}")/100.0).round(2) : rate.send("rush_rate_#{current_currency}")
   		  @rates << rush
 		  end
 		  @rates

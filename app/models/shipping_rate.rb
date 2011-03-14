@@ -11,6 +11,7 @@ class ShippingRate
 	end
 	field :system
 	field :zone_or_country
+	field :percentage, :type => Boolean, :default => false
 	
 	field :created_by
 	field :updated_by
@@ -31,7 +32,7 @@ class ShippingRate
 		index "price_max_#{currency}".to_sym
 	end
 	index :updated_at
-  
+  index :percentage
 
 private
 	
