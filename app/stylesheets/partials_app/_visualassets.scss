@@ -112,6 +112,10 @@ h2.tim-holtz-outlet-items { @extend .decorative;
 		  margin: 0;
 		}
   }
+  
+  .item_element_cart { @extend .item_element;
+    
+  }
 }
 
 // item carousel styles (wide)
