@@ -124,12 +124,14 @@ module ShoppingCart
 		def calculate_shipping(address, options={})
 			return get_cart.shipping_amount if get_cart.shipping_amount && get_cart.shipping_calculated_at > 1.hour.ago
 			@shipping_discount_percentage = 0.0
-			coupon = if !get_cart.coupon.blank? && get_cart.coupon.shipping? && get_cart.coupon_conditions_met? && get_cart.shipping_conditions_met?(address)
+			coupon = if get_cart.coupon.present? && get_cart.coupon.shipping? && get_cart.coupon_conditions_met? && get_cart.shipping_conditions_met?(address)
 			  get_cart.coupon
+			elsif get_cart.coupon.present? && get_cart.coupon.group? && get_cart.coupon_conditions_met? && get_cart.coupon.children.detect {|c| c.shipping? && get_cart.coupon_conditions_met?(c) && get_cart.shipping_conditions_met?(address, c)}.present?
+			  get_cart.coupon.children.detect {|c| c.shipping? && get_cart.coupon_conditions_met?(c) && get_cart.shipping_conditions_met?(address, c)}
 			else
 			  shipping_promotion_coupon_discount(address)
 			end
-			if !coupon.blank?
+			if coupon.present?
 			  if coupon.free_shipping
 			    get_cart.update_attributes :shipping_calculated_at => Time.now, :shipping_amount => 0.0, :shipping_service => "STANDARD", :shipping_rates => [{:name => "STANDARD", :type => "STANDARD", :currency => current_currency, :rate => 0.0}]
 			    return 0.0

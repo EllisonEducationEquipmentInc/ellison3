@@ -44,7 +44,7 @@
     %br
     - Coupon.active.product_level.cache.each do |coupon|
       = check_box_tag "coupon[child_ids][]", coupon.id, @coupon.child_ids.include?(coupon.id.to_s)
-      = coupon.name
+      = link_to coupon.name, edit_admin_coupon_path(coupon)
       == (#{coupon.codes * ', '})
       %br
   .field.product_level.order_level.highest_priced_product_level.level_specific

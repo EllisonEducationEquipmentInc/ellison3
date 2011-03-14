@@ -12,6 +12,7 @@ if ($('#review_bag').length > 0) {
 == $('#cart_shipping').html('#{escape_javascript(render(:partial => "carts/shipping_amount"))}');
 == $('#cart_tax').html('#{escape_javascript(render(:partial => "carts/tax_amount"))}');
 == $('#cart_total').html('#{escape_javascript(render(:partial => "carts/total_amount"))}');
+== $('#cart_sub_total').html('#{escape_javascript(number_to_currency gross_price(get_cart.sub_total))}');
 - if get_cart.allow_deferred?
 	== $('#deferred_single_total_amount').html('#{escape_javascript(render(:partial => "carts/deferred_single_total_amount"))}');
 	== $('#deferred_first_payment').html('#{escape_javascript(render(:partial => "carts/deferred_first_payment"))}');
