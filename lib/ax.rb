@@ -170,7 +170,7 @@ module Ax
 	    doc.root.elements.each('items') do |items|
 	      items.elements.each('item') do |item|
 	        item_number = item.attributes['number']
-	        onhand_qty_wh01 = item.attributes['onhand_qty_wh1'].to_i
+	        onhand_qty_wh01 = item.attributes['onhand_qty_wh1'].to_i 
 	        onhand_qty_wh11 = item.attributes['onhand_qty_wh11'].to_i
 	        onhand_qty_uk = item.attributes['onhand_qty_uk'].to_i
 					new_life_cycle = case item.attributes['life_cycle']
@@ -187,9 +187,9 @@ module Ax
 					end
 					product = Product.find_by_item_num item_number
 					unless product.blank?
-					  product.quantity_us =  onhand_qty_wh01
-					  product.quantity_sz =  onhand_qty_wh11
-					  product.quantity_uk =  onhand_qty_uk
+					  product.quantity_us =  onhand_qty_wh01 < 1 ? 0 : onhand_qty_wh01
+					  product.quantity_sz =  onhand_qty_wh11 < 1 ? 0 : onhand_qty_wh11
+					  product.quantity_uk =  onhand_qty_uk < 1 ? 0 : onhand_qty_uk
 					  if new_life_cycle
 					    product.life_cycle = new_life_cycle
 					    if item.attributes['life_cycle_date'].present? && item.attributes['life_cycle_date'] =~ /^\d{2}\/\d{2}\/\d{2,4}$/

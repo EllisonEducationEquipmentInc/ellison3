@@ -55,6 +55,7 @@ class SessionsController < ApplicationController
     @user = User.where(:systems_enabled.in => [current_system], :email => params[:user_as_email]).first
     if @user
       sign_in(resource_name, @user)
+      get_cart.reset_tax_and_shipping true
       render 'users/user_as'
     else
       render :js => "alert('user not found')"
