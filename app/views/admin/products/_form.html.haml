@@ -161,7 +161,6 @@
       %br
       %span{ :class => "icon_pricefield_weight" }
         = f.text_field :weight
-  
     - currencies.each  do |currency|
       .field
         = f.label "handling_price_#{currency}", "Handling Price #{currency.upcase}", :class => "autosize"
@@ -170,8 +169,16 @@
           = f.text_field "handling_price_#{currency}"
 
   .contentwrap_large.last
-    &nbsp;
-    
+    .field
+      = f.label :"virtual_weight_#{current_system}", "Virtual Weight #{current_system.upcase}", :class => 'overrideable ui-corner-all autosize'
+      %br
+      %span{ :class => "icon_pricefield_weight" }
+        = f.text_field :"virtual_weight_#{current_system}"
+    .field
+      = f.label "virtual_weight_ends_#{current_system}", "Virtual Weight End Date #{current_system.upcase}", :class => 'overrideable ui-corner-all autosize'
+      %br
+      %span.icon_datefield
+        = f.text_field "virtual_weight_ends_#{current_system}", :class => 'datetimepicker'
     
   %hr
   %h3.contentwrap_XXXL.last Default Product Image

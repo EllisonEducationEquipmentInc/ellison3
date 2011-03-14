@@ -123,7 +123,7 @@ class Cart
 		cart_items.each do |item|
 		  next if item.coupon?
 			product = item.product
-			item.write_attributes :sale_price => product.sale_price, :msrp => product.msrp_or_wholesale_price, :currency => current_currency, :small_image => product.small_image, :tax_exempt => product.tax_exempt, :handling_price => product.handling_price, :retailer_price => product.retailer_price
+			item.write_attributes :sale_price => product.sale_price, :msrp => product.msrp_or_wholesale_price, :currency => current_currency, :small_image => product.small_image, :tax_exempt => product.tax_exempt, :handling_price => product.handling_price, :retailer_price => product.retailer_price, :weight => product.virtual_weight
 			item.price = product.price unless item.custom_price
 			if check
 			  if quote

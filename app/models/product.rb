@@ -48,6 +48,7 @@ class Product
   # system specific validations
   ELLISON_SYSTEMS.each do |system|
     validates :"start_date_#{system}", :"end_date_#{system}",  :presence => true, :if => Proc.new {|p| current_system == system}
+    validates_numericality_of :"virtual_weight_#{system}", :greater_than_or_equal_to => 0.0, :allow_nil => true
   end
   
   # field definitions
@@ -193,6 +194,8 @@ class Product
     LOCALES_2_CURRENCIES.values.each do |currency|
       field "price_#{system}_#{currency}".to_sym, :type => Float
     end
+    field "virtual_weight_#{system}".to_sym, :type => Float
+    field "virtual_weight_ends_#{system}".to_sym, :type => DateTime
   end
   WAREHOUSES.each do |warehouse|
     field "quantity_#{warehouse}".to_sym, :type => Integer, :default => 0
@@ -371,7 +374,12 @@ class Product
   
   def large_image
     get_image(:large)
-  end 
+  end
+  
+  # system specific virtual weight has precedence over actual weight
+  def virtual_weight(sys = current_system)
+    self.send("virtual_weight_#{sys}").present? && (self.send("virtual_weight_ends_#{sys}").blank? || self.send("virtual_weight_ends_#{sys}").present? && self.send("virtual_weight_ends_#{sys}") > Time.zone.now) ? self.send("virtual_weight_#{sys}") : self.weight
+  end
   
   # Availability logic:
   # if life_cycle is either 'pre-release', 'available' or 'discontinued' then availability is determined by "orderable_#{current_system}" - (system specific) attribute
@@ -578,12 +586,10 @@ private
   # example: a new product is being created on SZUS. The new product will be pushed to szus and szuk. Those 2 systems are checked on the product admin form, and before save, SZUK will inherit the same attributes (which can be overridden by switching to szuk) 
   def inherit_system_specific_attributes
     self.systems_enabled.reject {|e| e == current_system}.each do |sys|
-      self.send("start_date_#{sys}=", read_attribute("start_date_#{current_system}")) if read_attribute("start_date_#{sys}").blank?
-      self.send("end_date_#{sys}=", read_attribute("end_date_#{current_system}")) if read_attribute("end_date_#{sys}").blank?
+      %w(start_date end_date availability_message distribution_life_cycle distribution_life_cycle_ends).each do |m|
+        self.send("#{m}_#{sys}=", read_attribute("#{m}_#{current_system}")) if read_attribute("#{m}_#{sys}").blank?
+      end
       self.send("orderable_#{sys}=", read_attribute("orderable_#{current_system}")) if read_attribute("orderable_#{sys}").nil?
-      self.send("availability_message_#{sys}=", read_attribute("availability_message_#{current_system}")) if read_attribute("availability_message_#{sys}").blank?
-      self.send("distribution_life_cycle_#{sys}=", read_attribute("distribution_life_cycle_#{current_system}")) if read_attribute("distribution_life_cycle_#{sys}").blank?
-      self.send("distribution_life_cycle_ends_#{sys}=", read_attribute("distribution_life_cycle_ends_#{current_system}")) if read_attribute("distribution_life_cycle_ends_#{sys}").blank?
     end
   end
 
