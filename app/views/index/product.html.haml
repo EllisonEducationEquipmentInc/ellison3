@@ -91,8 +91,9 @@
                     == with #{@product.name.html_safe}
                   .compatible_tag.ui-corner-all{:class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
                     = link_to image_tag(compatibility.compatible_tag.list_page_img), catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}&page=1"), :alt => compatibility.compatible_tag.name.html_safe, :title => compatibility.compatible_tag.name.html_safe
-                  .plus_sign.ui-icon.ui-icon-plusthick
+                    %p.item_name= compatibility.compatible_tag.name.html_safe
                   - if compatibility.get_products.count > 0
+                    .plus_sign.ui-icon.ui-icon-plusthick
                     = render :partial => 'products/compatibility_product', :collection => compatibility.get_products, :spacer_template => 'tabs/separator', :as => :product
                   .clear
                   %p== Search for more #{link_to compatibility.compatible_tag.name.html_safe, catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}&page=1")} in our catalog

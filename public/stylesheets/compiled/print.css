@@ -866,17 +866,18 @@ h3.item_title {
   height: 240px;
   margin-top: 12px;
   padding: 8px;
+  text-align: center;
 }
-/* line 882, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 883, ../../../app/stylesheets/partials_app/_catalog.scss */
 .compatibility_detail .compatible_tag.ui-widget-header {
   font-weight: normal;
 }
-/* line 886, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 887, ../../../app/stylesheets/partials_app/_catalog.scss */
 .compatibility_detail .compatible_tag a {
   font-weight: bold;
 }
 
-/* line 890, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 891, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart {
   width: 121px;
   height: 25px;
@@ -884,34 +885,34 @@ h3.item_title {
   border: none;
   color: white;
 }
-/* line 897, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 898, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart .ui-icon {
   background-image: none;
 }
-/* line 901, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 902, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart.ui-button {
   margin-right: 0;
 }
-/* line 905, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 906, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart:hover {
   background: url("/images/ui-buttons/addtocart_on.png") no-repeat;
 }
-/* line 909, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 910, ../../../app/stylesheets/partials_app/_catalog.scss */
 .add_to_cart.detail .ui-icon {
   background-image: none;
 }
 
-/* line 915, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 916, ../../../app/stylesheets/partials_app/_catalog.scss */
 #jump_to_list {
   margin-bottom: 5px;
 }
 
-/* line 923, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 924, ../../../app/stylesheets/partials_app/_catalog.scss */
 .ui-tabs-panel .item-block {
   width: 159px;
 }
 
-/* line 928, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 929, ../../../app/stylesheets/partials_app/_catalog.scss */
 .data_key {
   font-weight: bold;
   display: inline;
@@ -924,7 +925,7 @@ h3.item_title {
   overflow-x: hidden;
 }
 
-/* line 933, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 934, ../../../app/stylesheets/partials_app/_catalog.scss */
 .data_value {
   display: inline;
   float: left;
@@ -936,58 +937,58 @@ h3.item_title {
   overflow-x: hidden;
 }
 
-/* line 937, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 938, ../../../app/stylesheets/partials_app/_catalog.scss */
 .tab_image {
   width: 127px;
   margin-right: 10px;
   text-align: center;
   float: left;
 }
-/* line 943, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 944, ../../../app/stylesheets/partials_app/_catalog.scss */
 .tab_image .lightbox {
   width: 125px;
   height: 125px;
   margin: 0;
   display: inline-block;
 }
-/* line 950, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 951, ../../../app/stylesheets/partials_app/_catalog.scss */
 .tab_image .caption {
   margin-bottom: 10px;
   font-style: italic;
 }
 
-/* line 956, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 957, ../../../app/stylesheets/partials_app/_catalog.scss */
 .image_details {
   float: left;
   width: 610px;
 }
 
-/* line 961, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 962, ../../../app/stylesheets/partials_app/_catalog.scss */
 .ui-tabs-panel .image_details {
   float: left;
   width: 775px;
 }
 
-/* line 968, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 969, ../../../app/stylesheets/partials_app/_catalog.scss */
 #quick_search {
   margin: 7px 0 16px 0;
   padding: 6px 0;
   text-align: center;
 }
-/* line 973, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 974, ../../../app/stylesheets/partials_app/_catalog.scss */
 #quick_search select {
   width: 175px;
   margin-bottom: 2px;
 }
 
-/* line 980, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 981, ../../../app/stylesheets/partials_app/_catalog.scss */
 .mainbar h3 {
   margin: 6px 0 8px;
   font-weight: normal;
   font-size: 1em;
 }
 
-/* line 989, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 990, ../../../app/stylesheets/partials_app/_catalog.scss */
 .tag_landing_header {
   display: inline;
   float: left;
@@ -1000,7 +1001,7 @@ h3.item_title {
   overflow-x: hidden;
 }
 
-/* line 993, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 994, ../../../app/stylesheets/partials_app/_catalog.scss */
 .tag_list_wrapper {
   float: left;
   height: 190px;
@@ -1010,7 +1011,7 @@ h3.item_title {
   text-align: center;
   font-weight: normal;
 }
-/* line 1003, ../../../app/stylesheets/partials_app/_catalog.scss */
+/* line 1004, ../../../app/stylesheets/partials_app/_catalog.scss */
 .tag_list_wrapper img {
   background: white;
   border: 1px solid white;
