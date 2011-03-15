@@ -77,6 +77,14 @@ class Admin::OrdersController < ApplicationController
     render :text => @order.internal_comments
   end
   
+  def update_estimated_ship_date
+    @order = Order.find(params[:id])
+    @order.update_attribute :estimated_ship_date, params[:update_value]
+    render :text => @order.estimated_ship_date
+  rescue Exception => e
+    render :text => e
+  end
+  
   def change_order_status
     @order = Order.find(params[:id])
     @order.send "#{params[:update_value].parameterize.underscore}!"

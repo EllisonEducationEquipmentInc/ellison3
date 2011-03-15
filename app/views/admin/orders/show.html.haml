@@ -64,6 +64,9 @@
   %strong Order Date:
   = l @order.created_at, :format => :custom
   %br
+  %strong Estimated Ship Date:
+  %span#estimated_ship_date= @order.estimated_ship_date
+  %br
   %strong Status:
   %span#order_status= @order.status
   %br
@@ -274,3 +277,11 @@
       show_buttons: true,
       saving_animation_color: "#ECF2F8"
     });
+    $("#estimated_ship_date").editInPlace({
+      url: "/admin/orders/update_estimated_ship_date",
+      params: "id=#{@order.id}",
+      show_buttons: true,
+      value_required: true,
+      saving_animation_color: "#ECF2F8"
+    });
+    

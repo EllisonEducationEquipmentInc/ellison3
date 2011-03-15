@@ -99,6 +99,7 @@ module ShoppingCart
   		  order.clickid = cookies[:clickid]
   			order.utm_source = cookies[:utm_source]
   			order.tracking = cookies[:tracking]
+  			order.estimated_ship_date = Time.zone.now
   		end
   		order.comments = params[:comments] if params
   		if admin_signed_in?
