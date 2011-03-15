@@ -294,5 +294,9 @@ HTML
 	def estimated_tax
 	  is_uk? && session[:vat_exempt] ? 'Prices do not include V.A.T' : t(:estimated_tax)
 	end
+	
+	def with_buttons?
+	  params[:with_buttons] || params[:controller] == 'carts' && params[:action] == 'index'
+	end
 
 end
