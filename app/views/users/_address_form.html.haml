@@ -8,40 +8,40 @@
   By checking this box, you have verified this shipping address is a correct physical address and not a PO BOX.
   %br
 .field
-  = required_field(f.label :first_name)
+  = required_label f, :first_name, { :label_size => "autosize" }
   %br
   = f.text_field :first_name
 .field
-  = required_field(f.label :last_name)
+  = required_label f, :last_name, { :label_size => "autosize" }
   %br
   = f.text_field :last_name
 .field
-  = required_field_if !is_sizzix?, f.label(:company, "Company/School/Organization")
+  = required_label_if !is_sizzix?, f, :company, { :label => "Company/School/Organization", :label_size => "autosize" }
   %br
   = f.text_field :company
 .field
-  = required_field(f.label :address1)
+  = required_label f, :address1, { :label => "Address 1", :label_size => "autosize"}
   %br
   = f.text_field :address1
 .field
-  = f.label :address2
+  = f.label :address2, "Address 2", :class => "autosize"
   %br
   = f.text_field :address2
 .field
-  = required_field(f.label :city)
+  = required_label f, :city, { :label_size => "autosize"}
   %br
   = f.text_field :city
 .field{:id => "#{f.object.address_type}_state"}= render :partial => f.object.us? ? 'users/state_select' : 'users/state', :locals => {:f => f}
 .field
-  = required_field(f.label :zip_code, "Zip/Postal code")
+  = required_label f, :zip_code, { :label => "Zip/Postal code", :label_size => "autosize" }
   %br
   = f.text_field :zip_code
 .field
-  = required_field(f.label :country)
+  = required_label f, :country, { :label_size => "autosize" }
   %br
   = f.select :country, countries, {}, :onchange => "if (this.value == 'United States') {$('##{f.object.address_type}_state').html('#{escape_javascript(render(:partial => 'users/state_select', :locals => {:f => f}))}');$('##{f.object.address_type}_address_state').rules('add', {required: true});$('##{f.object.address_type}_address_phone').rules('add', {phoneUS: true});$('##{f.object.address_type}_address_zip_code').rules('add', {zipUS: true});} else {$('##{f.object.address_type}_state').html('#{escape_javascript(render(:partial => 'users/state', :locals => {:f => f}))}');$('##{f.object.address_type}_address_state').rules('remove');$('##{f.object.address_type}_address_phone').rules('remove', 'phoneUS');$('##{f.object.address_type}_address_zip_code').rules('remove', 'zipUS');}"
 .field
-  = required_field(f.label :phone)
+  = required_label f, :phone, { :label_size => "autosize" }
   %br
   = f.text_field :phone
 .field

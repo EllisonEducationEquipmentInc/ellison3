@@ -94,94 +94,78 @@ body.bp th, body.bp td, body.bp caption {
   margin-bottom: 10px;
 }
 /* line 97, ../../../app/stylesheets/application.scss */
-#content input.invalid, #content select.invalid {
-  border: 1px dotted red;
-  background: #ffffd5;
-}
-/* line 98, ../../../app/stylesheets/application.scss */
-#content input.valid, #content select.valid {
-  border: 1px solid green;
-}
-/* line 99, ../../../app/stylesheets/application.scss */
-#content label.invalid {
-  float: none;
-  color: red;
-  padding-left: .5em;
-  vertical-align: top;
-}
-/* line 102, ../../../app/stylesheets/application.scss */
 #content .clear_left {
   clear: left;
 }
-/* line 103, ../../../app/stylesheets/application.scss */
+/* line 98, ../../../app/stylesheets/application.scss */
 #content .bordered {
   border: 1px solid #390;
   background: white;
 }
-/* line 104, ../../../app/stylesheets/application.scss */
+/* line 99, ../../../app/stylesheets/application.scss */
 #content .arrow {
   position: absolute;
 }
-/* line 107, ../../../app/stylesheets/application.scss */
+/* line 102, ../../../app/stylesheets/application.scss */
 #content .sortable_header {
   margin-left: 18px;
 }
-/* line 109, ../../../app/stylesheets/application.scss */
+/* line 104, ../../../app/stylesheets/application.scss */
 #content .admin_checkboxes {
   width: 450px;
   height: 400px;
   overflow: auto;
 }
-/* line 114, ../../../app/stylesheets/application.scss */
+/* line 109, ../../../app/stylesheets/application.scss */
 #content .admin_tag_selectors {
   width: 150px;
   float: left;
 }
-/* line 118, ../../../app/stylesheets/application.scss */
+/* line 113, ../../../app/stylesheets/application.scss */
 #content .admin_tag_checkboxes {
   width: 150px;
   height: 200px;
   overflow: auto;
 }
-/* line 123, ../../../app/stylesheets/application.scss */
+/* line 118, ../../../app/stylesheets/application.scss */
 #content div.products_helper {
   border: 1px solid gray;
   padding: 3px;
   background: white;
 }
-/* line 128, ../../../app/stylesheets/application.scss */
+/* line 123, ../../../app/stylesheets/application.scss */
 #content div.ideas_helper {
   border: 1px solid gray;
   padding: 3px;
   background: white;
 }
-/* line 133, ../../../app/stylesheets/application.scss */
+/* line 128, ../../../app/stylesheets/application.scss */
 #content input.transperent {
   border: none;
   background: none;
 }
-/* line 136, ../../../app/stylesheets/application.scss */
+/* line 131, ../../../app/stylesheets/application.scss */
 #content #tag_images {
   width: 135px;
   height: 125px;
   overflow: hidden;
   float: left;
 }
-/* line 143, ../../../app/stylesheets/application.scss */
+/* line 138, ../../../app/stylesheets/application.scss */
 #content .visual_asset, #content .compatibility {
   border: 2px solid gray;
   padding: 3px;
   margin-bottom: 10px;
   width: 850px;
 }
-/* line 149, ../../../app/stylesheets/application.scss */
+/* line 144, ../../../app/stylesheets/application.scss */
 #content .child_visual_asset {
   border: 1px dashed green;
   width: 830px;
   background: #E7E7E7;
   margin-bottom: 5px;
 }
-/* line 156, ../../../app/stylesheets/application.scss */
+/* line 151, ../../../app/stylesheets/application.scss */
 #content .material {
   margin: 8px 0px 0px 10px;
   padding: 5px;
@@ -191,86 +175,86 @@ body.bp th, body.bp td, body.bp caption {
   height: 265px;
   background: white;
 }
-/* line 165, ../../../app/stylesheets/application.scss */
+/* line 160, ../../../app/stylesheets/application.scss */
 #content #map {
   float: left;
   height: 460px;
   width: 600px;
 }
-/* line 170, ../../../app/stylesheets/application.scss */
+/* line 165, ../../../app/stylesheets/application.scss */
 #content #store_info {
   width: 300px;
   float: left;
 }
-/* line 174, ../../../app/stylesheets/application.scss */
+/* line 169, ../../../app/stylesheets/application.scss */
 #content .floating_image {
   float: left;
   width: 125px;
   text-align: center;
   margin-right: 10px;
 }
-/* line 180, ../../../app/stylesheets/application.scss */
+/* line 175, ../../../app/stylesheets/application.scss */
 #content .map-location {
   width: 260px;
   border-bottom: 1px solid gray;
   margin-bottom: 10px;
 }
-/* line 185, ../../../app/stylesheets/application.scss */
+/* line 180, ../../../app/stylesheets/application.scss */
 #content .online_store {
   float: left;
   width: 250px;
   margin: 5px 5px;
 }
-/* line 190, ../../../app/stylesheets/application.scss */
+/* line 185, ../../../app/stylesheets/application.scss */
 #content .instructions {
   float: left;
   text-align: center;
   margin: 5px;
   width: 100px;
 }
-/* line 196, ../../../app/stylesheets/application.scss */
+/* line 191, ../../../app/stylesheets/application.scss */
 #content .message_subject {
   cursor: pointer;
 }
-/* line 197, ../../../app/stylesheets/application.scss */
+/* line 192, ../../../app/stylesheets/application.scss */
 #content .asset_text_for_image {
   float: right;
   width: 600px;
 }
 
-/* line 202, ../../../app/stylesheets/application.scss */
+/* line 197, ../../../app/stylesheets/application.scss */
 p.show_cart {
   cursor: pointer;
 }
 
-/* line 203, ../../../app/stylesheets/application.scss */
+/* line 198, ../../../app/stylesheets/application.scss */
 #guest_checkout {
   float: right;
   width: 375px;
 }
 
-/* line 207, ../../../app/stylesheets/application.scss */
+/* line 202, ../../../app/stylesheets/application.scss */
 #returning_cuctomer {
   float: left;
   width: 375px;
 }
 
-/* line 212, ../../../app/stylesheets/application.scss */
+/* line 207, ../../../app/stylesheets/application.scss */
 #cart_total {
   font-size: 1.4em;
 }
 
-/* line 217, ../../../app/stylesheets/application.scss */
+/* line 212, ../../../app/stylesheets/application.scss */
 li#cart_total {
   border-top: 1px double gray;
 }
 
-/* line 218, ../../../app/stylesheets/application.scss */
+/* line 213, ../../../app/stylesheets/application.scss */
 .item_changed {
   background: #FBE3E4;
 }
 
-/* line 220, ../../../app/stylesheets/application.scss */
+/* line 215, ../../../app/stylesheets/application.scss */
 td.pre_order {
   color: red;
 }

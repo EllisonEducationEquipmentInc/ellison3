@@ -75,6 +75,10 @@ ul.cart_summary {
     height: 330px;
   }
   
+  input[type="checkbox"] {
+    margin: 0;
+  }
+  
   #payment_submit { @extend .button_large;
     position: relative;
     top: 60px;

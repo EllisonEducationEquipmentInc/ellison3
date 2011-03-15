@@ -1,3 +1,3 @@
-= required_field(f.label :state)
+= required_label f, :state, { :label_size => "autosize"}
 %br
 = f.select :state, states, :prompt => "--- select state ---"

@@ -94,11 +94,6 @@ body.bp th, body.bp td, body.bp caption {
 		margin-bottom: 10px;
 	}
 
-	input.invalid, select.invalid{border: 1px dotted red; background: #ffffd5;}
-	input.valid, select.valid{border: 1px solid green;}
-	label.invalid { float: none; color: red; padding-left: .5em; vertical-align: top; }
-
-
 	.clear_left{clear:left;}
 	.bordered{border:1px solid #390;background:white;}
 	.arrow {
