@@ -62,6 +62,35 @@ class Quote
 
 	before_create :set_system
 	before_create :set_expires_at
+	
+	class << self
+    # pre-order report:
+    def pre_orders_report(sys = current_system)
+      map = <<EOF
+        function() {
+          if (this.order_items) {
+            this.order_items.forEach(function(doc) {
+              emit( doc.item_num, { quantity : doc.quantity, item_total: doc.sale_price * doc.quantity} );
+            })
+          }
+        }
+EOF
+
+      reduce = <<EOF
+        function( key , values ){
+          var total = 0;
+          var sum = 0;
+          for ( var i=0; i<values.length; i++ ){
+            total += values[i].quantity;
+            sum += values[i].item_total;
+          }
+          return { quantity : total, item_total: sum};
+        };
+EOF
+
+      collection.mapreduce(map, reduce, {:query => {:system => sys, :active => true, :expires_at => {"$gt" => Time.now.utc}}}).find().sort('value.quantity', :desc).limit(1000).to_a
+    end
+	end
 
   def gross_subtotal_amount
 	  self.vat_exempt ? subtotal_amount : subtotal_amount + tax_amount

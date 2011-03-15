@@ -106,4 +106,19 @@ class Admin::QuotesController < ApplicationController
     @quote.update_attributes :active => false
     redirect_to checkout_path
   end
+  
+  def pre_orders_report
+    FileUtils.mkdir "/data/shared/report_files" unless File.exists? "/data/shared/report_files"
+    filename = "pre_orders_report_#{current_system}_#{Time.now.utc.strftime "%m%d%Y_%H"}.csv"
+	  unless File.exists? "/data/shared/report_files/#{filename}"
+	    csv_string = CSV.generate do |csv|
+        csv << ["item_num", "quantity", "item_total"]
+        Quote.pre_orders_report.each do |item|
+          csv << [item["_id"], item["value"]["quantity"], item["value"]["item_total"]]
+        end
+      end
+	    File.open("/data/shared/report_files/#{filename}", "w") {|file| file.write(csv_string)}
+	  end
+	  send_file "/data/shared/report_files/#{filename}", :filename => filename
+	end
 end
