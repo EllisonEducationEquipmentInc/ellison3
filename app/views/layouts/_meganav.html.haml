@@ -1,17 +1,7 @@
 -# primary navigation menu (product catalog, customer & community outreach, etc)
 #nav_megamenu.dontprint
   %ul.megalist
-    - if is_sizzix_us?
-      = render :partial => 'layouts/meganav_dynamic'
-    - elsif is_sizzix_uk?
-      = render :partial => 'layouts/meganav_szuk'
-    - elsif is_ee?
-      = render :partial => 'layouts/meganav_eeus-uk'
-    - elsif is_er?
-      = render :partial => 'layouts/meganav_er'
-    - else
-      = render :partial => 'layouts/meganav_temp'
-
+    = render :partial => 'layouts/meganav_dynamic'
     -# Ellison3 dashboard menu for admins
     - if admin_signed_in?
       %li.megaitem
