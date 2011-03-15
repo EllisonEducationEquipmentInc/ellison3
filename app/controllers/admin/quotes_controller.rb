@@ -100,7 +100,7 @@ class Admin::QuotesController < ApplicationController
     change_current_system @quote.system
     I18n.locale = @quote.locale
     sign_in("user", @quote.user)
-    get_cart.clear
+    clear_cart
     order_to_cart @quote
     @quote.updated_by = current_admin.email
     @quote.update_attributes :active => false

@@ -124,7 +124,7 @@ class Admin::OrdersController < ApplicationController
     change_current_system @order.system
     I18n.locale = @order.locale
     sign_in("user", @order.user)
-    get_cart.clear
+    clear_cart
     order_to_cart @order
 		unless @order.status_frozen?
     	@order.cancelled!

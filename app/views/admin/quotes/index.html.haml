@@ -17,6 +17,7 @@
         %th System
         = sortable "active"
         = sortable "expires_at"
+        %th Order?
         - if has_write_permissions?
           %th &nbsp;
     %tbody
@@ -30,6 +31,7 @@
           %td= quote.system
           %td= quote.active
           %td= l quote.expires_at, :format => :custom
+          %td= quote.can_be_converted? ? "YES" : "--"
           - if has_write_permissions?
             %td= link_to 'View', admin_quote_path(quote)
 - I18n.locale = @current_locale

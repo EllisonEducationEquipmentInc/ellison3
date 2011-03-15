@@ -84,7 +84,7 @@
     Estimated Total:
     %span#total_amount.amount.right= number_to_currency @quote.total_amount
 .clear
-- if @quote.can_be_converted?
+- if is_ee_us? && @quote.can_be_converted?
   %hr
   #checkout_payment
     #payment_errors.error{:style => "display:none"}
@@ -94,7 +94,7 @@
   #convert_quote_to_order Convert to order
   :javascript
     $("#convert_quote_to_order").button({icons: {primary: 'ui-icon-check'}}).click(function() {
-      #{@billing_address.blank? ? "$('#checkout_cc').slideDown('slow')" : "$('#new_billing').slideDown('slow');$('#billing_address_first_name').focus()"};
+      #{@billing_address.blank? ? "$('#checkout_cc').slideDown('slow');$('#payment_submit').button({disabled: false, label: button_label});" : "$('#new_billing').slideDown('slow');$('#billing_address_first_name').focus()"};
       $(this).remove();
     })
   - if @quote.order_items.any? {|e| e.product.quantity < e.quantity}
