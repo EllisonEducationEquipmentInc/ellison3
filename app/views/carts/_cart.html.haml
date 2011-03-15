@@ -1,7 +1,10 @@
 - if @cart.cart_items.blank?
   %h2= t :empty_cart
 - else
-  %h2== You have #{pluralize get_cart.total_quantity, "item"} in your shopping #{(t :cart)}
+  %h2
+    You have
+    %span#cart_items_qty_header= pluralize get_cart.total_quantity, "item"
+    == in your shopping #{(t :cart)}
   %table{:cellpadding => 10}
     %thead
       %tr

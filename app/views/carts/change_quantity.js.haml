@@ -1,5 +1,6 @@
 == $("#cart_item_total_#{@cart_item.id}").html('#{number_to_currency gross_price(@cart_item.total)}');
 == $('#cart_subtotal').html('#{number_to_currency gross_price(get_cart.sub_total)}');
 == $('#shoppingcart_info').html('#{escape_javascript(render(:partial => "carts/shopping_cart"))}');
+== $('#cart_items_qty_header').html('#{escape_javascript(pluralize get_cart.total_quantity, "item")}')
 - if get_cart.coupon
   == $('#cart_container').html('#{escape_javascript(render(:partial => "carts/cart"))}');
