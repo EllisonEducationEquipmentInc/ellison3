@@ -52,6 +52,7 @@
 #checkout_payment
   #payment_errors.error{:style => "display:none"}
   #checkout_shipping_options
+    #cod_info{:style => "display:#{get_user.shipping_address ? 'block' : 'none'}"}= render :partial => 'users/cod_form' if cod_allowed?
     %h3 Shipping Options
     == weight: #{get_cart.total_weight} lbs
     #shipping_options= render :partial => "shipping_options" if get_user.shipping_address

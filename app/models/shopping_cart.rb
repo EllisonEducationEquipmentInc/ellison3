@@ -62,6 +62,10 @@ module ShoppingCart
 		  order = klass.to_s.classify.constantize.new(:id => options[:order_id], :subtotal_amount => get_cart.sub_total, :shipping_amount => calculate_shipping(options[:address]), :handling_amount => calculate_handling, :tax_amount => calculate_tax(options[:address]), :coupon_code => get_cart.coupon_code,
 			              :tax_transaction => get_cart.reload.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at.try(:utc), :locale => current_locale, :shipping_service => get_cart.shipping_service, :order_reference => get_cart.order_reference, :vat_percentage => vat, :vat_exempt => vat_exempt?)
 			order.coupon = get_cart.coupon
+			if get_cart.cod?
+			  order.cod_account_type = get_user.cod_account_type
+			  order.cod_account = get_user.cod_account
+			end
 			@cart.cart_items.each do |item|
 				order.order_items << OrderItem.new(:name => item.name, :item_num => item.item_num, :sale_price => item.price, :quoted_price => item.msrp, :quantity => item.quantity,
 				    :locale => item.currency, :product => item.product, :tax_exempt => item.tax_exempt, :discount => item.msrp - item.price, :custom_price => item.custom_price, 
@@ -153,6 +157,7 @@ module ShoppingCart
 			else
 			  shipping_rate(address, options)
 			end
+			@rates << get_user.cod_account_info if @rates && cod_allowed? && get_user.cod_account_info
 			@shipping_service = @rates.detect {|r| r.type == options[:shipping_service]} ? options[:shipping_service] : @rates.sort {|x,y| x.rate <=> y.rate}.first.type
 			rate = @rates.detect {|r| r.type == options[:shipping_service]}.try(:rate) || @rates.sort {|x,y| x.rate <=> y.rate}.first.rate
 			rate -= (0.01 * @shipping_discount_percentage * rate).round(2)
@@ -591,6 +596,10 @@ module ShoppingCart
   	
   	def ecommerce_allowed?
   	  !is_er? || user_signed_in? && get_user.status == 'active'
+  	end
+  	
+  	def cod_allowed?
+  	  is_er?
   	end
 
     def retailer_discount_levels

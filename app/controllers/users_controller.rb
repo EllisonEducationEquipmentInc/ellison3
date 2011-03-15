@@ -315,7 +315,7 @@ class UsersController < ApplicationController
 	  end
 	  send_file "/data/shared/firmware_files/#{@firmware.id}", :filename => @firmware.file_filename
 	end
-	
+		
 protected
 
   # Authenticates the current scope and gets a copy of the current resource.

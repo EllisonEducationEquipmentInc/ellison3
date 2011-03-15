@@ -27,6 +27,8 @@ class User
 	field :default_user, :type => Boolean, :default => false
 	field :internal_comments
 	field :machines_owned, :type => Array
+	field :cod_account_type
+	field :cod_account
 	
 	field :old_account_id, :type => Integer
 	field :old_id_szus, :type => Integer
@@ -185,6 +187,14 @@ class User
   
   def old_authenticated?(password)
     old_password_hash == self.class.old_encrypt(password, self.old_salt)
+  end
+  
+  def cod_account_info
+    return if self.cod_account_type.blank? || self.cod_account.blank?
+    shipping_service = Shippinglogic::FedEx::Rate::Service.new
+    shipping_service.name = shipping_service.type = "COD"
+    shipping_service.rate = 0.0
+    shipping_service
   end
 
 protected

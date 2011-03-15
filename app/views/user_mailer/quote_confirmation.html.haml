@@ -56,6 +56,12 @@
   %tr
     %td{ :colspan => "4", :align => "right" }== Shipping & Handling (#{@quote.shipping_service.try :humanize})
     %td{ :align => "right"}= number_to_currency @quote.gross_shipping_amount
+  - if @quote.cod?
+    %tr
+      %td{ :colspan => "4", :align => "right" } COD account:
+      %td{ :align => "right"}
+        = @quote.cod_account_type
+        = @quote.cod_account
   %tr
     %td{ :colspan => "4", :align => "right" } Shipping & Handling Surcharge
     %td{ :align => "right"}= number_to_currency @quote.handling_amount

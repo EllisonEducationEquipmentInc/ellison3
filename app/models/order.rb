@@ -63,6 +63,8 @@ class Order
 	field :customer_rep_id, :type => BSON::ObjectId
 	field :order_reference
 	field :coupon_code
+	field :cod_account_type
+	field :cod_account
 	
 	field :old_quote_id, :type => Integer
 	
@@ -133,6 +135,10 @@ class Order
 	  on_hold? && order_items.all? {|e| e.product.available?(self.system) && e.product.quantity(self.system) >= e.quantity}
 	end
 	
+	def cod?
+    self.shipping_service == "COD"
+  end
+  
 	# use this format to change status:
 	#   @order.in_process! 
 	#   p @order.status # => "In Process"

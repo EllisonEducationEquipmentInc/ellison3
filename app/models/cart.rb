@@ -199,4 +199,7 @@ class Cart
 	  cart_items.select {|i| i.coupon_price}.each {|i| i.write_attributes(:coupon_price => false, :price => i.sale_price || is_er? ? i.retailer_price : i.msrp)}
 	end
 
+  def cod?
+    self.shipping_service == "COD"
+  end
 end

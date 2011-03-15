@@ -13,6 +13,8 @@ $.fancybox.close();
     == $('#deferred_single_total_amount').html('#{escape_javascript(render(:partial => "carts/deferred_single_total_amount"))}');
     == $('#deferred_first_payment').html('#{escape_javascript(render(:partial => "carts/deferred_first_payment"))}');
   $('#new_billing').slideDown('slow');
+  - if cod_allowed?
+    $('#cod_info').show();
 - else
   - if @shipping_address.enable_avs_bypass
     $('#bypass_avs').show();

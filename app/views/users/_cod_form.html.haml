@@ -1,0 +1,31 @@
+%h3 Enter Your COD carrier account
+= form_tag url_for(:controller => 'carts', :action => 'save_cod'), :remote => true, :id => 'cod_account_form' do
+  = label_tag :cod_account_type, "COD account type"
+  = select_tag :cod_account_type, options_for_select([['--- select ---', nil]] + cod_list.map {|e| [e.label, e.id]}, get_user.cod_account_type)
+  %br
+  = label_tag :cod_account, "COD account #"
+  = text_field_tag :cod_account, get_user.cod_account
+  = submit_tag :save, :class => 'jqui_save'
+%br
+:javascript
+  $(".jqui_save").button({icons: {primary: 'ui-icon-disk'}});
+  $(document).ready(function() { 
+      var validator = $("#cod_account_form").validate({ 
+          errorClass: "invalid",
+          rules: { 
+              "cod_account_type": { 
+                  required: true
+              }, 
+              "cod_account": { 
+                  required: true
+              }, 
+             
+          }, 
+          success: function(label) { 
+              label.html(" ").addClass("checked"); 
+          },
+          submitHandler: function(form) {
+            $(form).ajaxSubmit();
+          },
+      }); 
+  });

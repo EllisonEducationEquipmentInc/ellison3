@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-	before_filter :authenticate_user!, :only => [:checkout, :proceed_checkout, :quote, :proceed_quote, :quote_2_order, :move_to_cart, :delete_from_saved_list]
+	before_filter :authenticate_user!, :only => [:checkout, :proceed_checkout, :quote, :proceed_quote, :quote_2_order, :move_to_cart, :delete_from_saved_list, :save_cod]
 	before_filter :authenticate_admin!, :only => [:custom_price]
 	before_filter :admin_user_as_permissions!, :only => [:remove_order_reference, :use_previous_orders_card]
 	before_filter :trackable
@@ -9,9 +9,10 @@ class CartsController < ApplicationController
 	
 	ssl_required :checkout, :proceed_checkout, :quote, :proceed_quote
 	ssl_allowed :index, :get_shipping_options, :change_shipping_method, :copy_shipping_address, :change_shipping_method, :get_shipping_service, :get_shipping_amount, :get_tax_amount, :get_total_amount,
-	  :custom_price, :create_shipping, :create_billing, :activate_coupon, :remove_coupon, :shopping_cart, :change_quantity, :add_selected_to_cart, :move_to_cart, :delete_from_saved_list, :last_item, :add_to_cart, :remove_from_cart
+	  :custom_price, :create_shipping, :create_billing, :activate_coupon, :remove_coupon, :shopping_cart, :change_quantity, :add_selected_to_cart, :move_to_cart, :delete_from_saved_list, :last_item,
+	   :add_to_cart, :remove_from_cart, :save_cod
 	
-	verify :xhr => true, :only => [:get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :use_previous_orders_card, :remove_order_reference, :shopping_cart, :change_quantity, :add_selected_to_cart], :redirect_to => {:action => :index}
+	verify :xhr => true, :only => [:get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :use_previous_orders_card, :remove_order_reference, :shopping_cart, :change_quantity, :add_selected_to_cart, :save_cod], :redirect_to => {:action => :index}
 	
 	def index
 	  if get_cart.last_check_at.blank? || get_cart.last_check_at.present? && get_cart.last_check_at.utc < 5.minute.ago.utc
@@ -304,6 +305,19 @@ class CartsController < ApplicationController
   def shopping_cart
     render :partial => "carts/shopping_cart"
   end
+  
+  def save_cod
+	  if params[:cod_account_type].blank? || params[:cod_account].blank?
+	    render :js => "alert('COD account type and COD account # fields are required');"
+	  else
+	    @user = get_user
+	    @user.cod_account_type = params[:cod_account_type]
+	    @user.cod_account = params[:cod_account]
+	    @user.save(:validate => false)
+	    get_cart.reset_tax_and_shipping true
+	    render :action => 'carts/change_shipping_method'
+	  end
+	end
   
 private
 

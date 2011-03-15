@@ -36,7 +36,9 @@ class Quote
 	field :tax_calculated_at, :type => DateTime
 	field :tax_commited, :type => Boolean, :default => false
 	field :to_review, :type => Boolean, :default => false
-
+	field :cod_account_type
+	field :cod_account
+	
 	field :shipping_priority, :default => "Normal"
 	field :shipping_service
 	field :shipping_overridden, :type => Boolean, :default => false
@@ -120,6 +122,10 @@ EOF
 	
 	def destroy
     update_attribute :active, false
+  end
+  
+  def cod?
+    self.shipping_service == "COD"
   end
 
 private

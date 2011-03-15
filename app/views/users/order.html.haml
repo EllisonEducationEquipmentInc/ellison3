@@ -111,6 +111,12 @@
   %li 
     == Shipping & Handling (#{@order.shipping_service.try :humanize}):
     %span.right= number_to_currency @order.gross_shipping_amount
+  - if @order.cod?
+    %li
+      COD account:
+      %span.right
+        = @order.cod_account_type
+        = @order.cod_account
   %li{:style => "display:#{@order.handling_amount > 0.0 ? 'block' : 'none'}"}
     Shipping & Handling Surcharge:
     %span.right= number_to_currency @order.handling_amount

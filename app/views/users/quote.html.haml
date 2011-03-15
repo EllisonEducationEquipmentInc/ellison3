@@ -74,6 +74,12 @@
   %li 
     == Shipping & Handling (#{@quote.shipping_service.try :humanize}):
     %span.right= number_to_currency @quote.shipping_amount
+  - if @quote.cod?
+    %li
+      COD account:
+      %span.right
+        = @quote.cod_account_type
+        = @quote.cod_account
   %li{:style => "display:#{@quote.handling_amount > 0.0 ? 'block' : 'none'}"}
     Shipping & Handling Surcharge:
     %span.right= number_to_currency @quote.handling_amount

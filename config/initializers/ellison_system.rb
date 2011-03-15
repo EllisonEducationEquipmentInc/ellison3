@@ -185,6 +185,29 @@ module EllisonSystem
 	def tracking_logger
   	@tracking_logger ||= ActiveSupport::BufferedLogger.new("#{Rails.root}/log/tracking.log")
   end
+  
+  # COD accounts
+  COD = Struct.new(:id, :label) 
+  
+  def cod_list
+    [    
+      COD.new('ABF', 'ABF'),
+      COD.new('DH', 'DHL Ww Express'),
+      COD.new('FDX2D', 'FedEx 2Day'),
+      COD.new('FDXES', 'FedEx Express Saver'),
+      COD.new('FDXIE', 'FedEx International Economy'),
+      COD.new('FDXIP', 'FedEx International Priority'),
+      COD.new('FDXPO', 'FedEx Priority Overnight'),
+      COD.new('FDXSO', 'FedEx Standard Overnight'),
+      COD.new('FXGround', 'FedEx Ground'),
+      COD.new('SAIA', 'SAIA'),
+      COD.new('SBA', 'SBS Air'),
+      COD.new('SBO', 'SBS Ocean'),
+      COD.new('UPS', 'UPS'),
+      COD.new('YF', 'Yellow Freight')
+    ]
+  end
+
 	
 end
 
