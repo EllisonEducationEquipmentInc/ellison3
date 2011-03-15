@@ -7,43 +7,43 @@ You're almost there! Just fill out this form, and we'll evaluate your request. W
       = render :partial => 'users/address_form', :locals => {:f => home_address_fields}
   = f.error_messages
   .field
-    = required_field(f.label :company)
-    %br
+    %h3= required_label f, :company, { :label_size => "auto" }
     = f.text_field :company
   = f.fields_for :retailer_application, @user.retailer_application do |retailer_application_fields|
     = retailer_application_fields.error_messages
     .field
-      = required_field(retailer_application_fields.label :signing_up_for)
+      = required_label retailer_application_fields, :signing_up_for, { :label_size => "147px" }
       = retailer_application_fields.select :signing_up_for, RetailerApplication::SIGN_UP_FOR
     %h3 Company Details
     .field
-      = required_field(retailer_application_fields.label :website)
-      = retailer_application_fields.text_field :website, :type => :url, :placeholder => "Example: http://www.ellison.com", :required => true
+      = required_label retailer_application_fields, :website, { :label_size => "147px" }
+      = retailer_application_fields.text_field :website, :type => :url, :required => true
+      %p.formhelp{ :style => "margin: 0 0 6px 159px"} sample URL: http://www.yourwebsite.com
       = retailer_application_fields.check_box :no_website
-      = retailer_application_fields.label :no_website, "I do not have a website"
+      = retailer_application_fields.label :no_website, "I do not have a website", :class => "autosize"
     .field
-      = required_field(retailer_application_fields.label :tax_identifier)
+      = required_label retailer_application_fields, :tax_identifier, { :label_size => "147px" }
       = retailer_application_fields.text_field :tax_identifier, :required => true
     .field
-      = required_field(retailer_application_fields.label :years_in_business)
+      = required_label retailer_application_fields, :years_in_business, { :label_size => "147px" }
       = retailer_application_fields.text_field :years_in_business, :required => true, :type => "number", :min => 0, :size => 7
     .field
-      = required_field(retailer_application_fields.label :number_of_employees)
+      = required_label retailer_application_fields, :number_of_employees, { :label_size => "147px" }
       = retailer_application_fields.text_field :number_of_employees, :required => true, :type => "number", :min => 1, :size => 7
     .field
-      = required_field(retailer_application_fields.label :annual_sales)
+      = required_label retailer_application_fields, :annual_sales, { :label_size => "147px" }
       = retailer_application_fields.text_field :annual_sales, :required => true
     .field
-      = required_field(retailer_application_fields.label :resale_number, "Resale # (International customers, please enter Business Registration ID.)")
-      %br
+      = required_label retailer_application_fields, :resale_number, { :label_size => "147px" }
       = retailer_application_fields.text_field :resale_number, :required => true
+      %p.formhelp{ :style => "margin-left: 159px"} International customers, enter Business Registration ID
     .field
-      = required_field(retailer_application_fields.label :brands_to_resell)
+      = required_label retailer_application_fields, :brands_to_resell, { :label_size => "134px" }
       - RetailerApplication::AVAILABLE_BRANDS.each do |brand|
-        %strong= brand
         = check_box_tag 'user[retailer_application][brands_to_resell][]', brand, @user.retailer_application.brands_to_resell.include?(brand)
+        %strong= brand
     .field
-      = required_field(retailer_application_fields.label :authorized_buyers)
+      = required_label retailer_application_fields, :authorized_buyers, { :label_size => "auto"}
       %br
       = retailer_application_fields.text_area :authorized_buyers, :required => true
     .field
