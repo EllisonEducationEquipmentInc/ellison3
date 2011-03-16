@@ -15,7 +15,7 @@ class User
 	field :tax_exempt, :type => Boolean, :default => false
 	field :tax_exempt_certificate
 	field :invoice_account
-	field :erp
+	field :erp, :default => 'New'
 	field :purchase_order, :type => Boolean, :default => false
 	field :discount_level, :type => Integer
 	field :status, :default => "pending"
