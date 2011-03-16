@@ -4,6 +4,7 @@ class IndexController < ApplicationController
 	
   before_filter :trackable, :except => [:catalog]
   before_filter :store_path!
+  before_filter :register_continue_shopping!, :only => [:home, :campaigns, :shop, :tag_group, :catalog]
   
   ssl_required :contact, :send_feedback
   
@@ -112,7 +113,7 @@ class IndexController < ApplicationController
       render :js => "location.href='#{@search_phrase.destination}'" and return if @search_phrase
     end
     get_search
-    session[:user_return_to] = catalog_path + "#" + request.env["QUERY_STRING"]
+    session[:continue_shopping] = session[:user_return_to] = catalog_path + "#" + request.env["QUERY_STRING"]
     @products = @search.results
     #expires_in 1.hours, 'max-stale' => 1.hours
   end
