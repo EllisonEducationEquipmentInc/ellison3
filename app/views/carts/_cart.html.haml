@@ -1,5 +1,13 @@
 - if @cart.cart_items.blank?
   %h2= t :empty_cart
+  #continue_shopping.right= "Continue Shopping"
+  :javascript
+    $(function() {
+      $("#continue_shopping").button()
+        .click( function() {
+          alert('do something');
+        });
+    });
 - else
   %h2
     You have
