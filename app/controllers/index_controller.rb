@@ -319,12 +319,14 @@ class IndexController < ApplicationController
   
   # UK blog 
   def blog
+    raise "invalid system" unless is_sizzix_uk?
     @page = params[:page].try(:to_i) || 1
     @per_page = 10
     start_index = (@page-1)*@per_page + 1
     @feed = Feed.where(:name => "blog_uk_#{start_index}").first || Feed.new(:name => "blog_uk_#{start_index}")
-    process_feed("http://sizzixukblog.blogspot.com/feeds/posts/default?alt=rss&max-results=#{@per_page}&start-index=#{start_index}", 1)
-    #expires_in 3.minutes, 'max-stale' => 3.minutes, :public => true
+    process_feed("http://sizzixukblog.blogspot.com/feeds/posts/default?alt=rss&max-results=#{@per_page}&start-index=#{start_index}")
+  rescue Exception => e
+    go_404
   end
   
 private
