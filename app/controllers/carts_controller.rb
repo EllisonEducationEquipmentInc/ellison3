@@ -3,6 +3,7 @@ class CartsController < ApplicationController
 	before_filter :authenticate_admin!, :only => [:custom_price]
 	before_filter :admin_user_as_permissions!, :only => [:remove_order_reference, :use_previous_orders_card]
 	before_filter :trackable
+	before_filter :store_path!
 	before_filter :no_cache, :only => [:checkout, :quote]
 	before_filter :set_vat_exempt, :except => [:add_to_cart, :index, :move_to_cart, :remove_from_cart, :change_quantity, :delete_from_saved_list, :saved_list]
 	after_filter(:only => [:checkout, :proceed_checkout, :quote, :proceed_quote]) {|controller| controller.send(:get_cart).reset_item_errors}
