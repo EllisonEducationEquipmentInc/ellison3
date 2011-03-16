@@ -93,7 +93,7 @@
       location.hash = $.param.fragment( location.hash, {per_page: this.value, page: 1}, 0 );
       return false;
     })
-    $("a.toggle_view").click(function(){$('.item-block').shadowOff();setTimeout("shadow_on()", 300);});
+    $("a.toggle_view").click(function(){$('.item-block').shadowOff();setTimeout("shadow_on()", 300);setTimeout("shadow_on()", 3000);});
     $("a.toggle_view").toggleView({initial_state: $.deparam.fragment()['view']});
     
     
