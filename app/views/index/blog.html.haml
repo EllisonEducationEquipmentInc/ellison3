@@ -1,0 +1,12 @@
+%ul
+  - @feed.entries.each do |feed|
+    %li
+      - if feed["title"].present?
+        %h3= feed["title"].html_safe
+      %p
+        %span.timestamp= l(Time.parse(feed["published"]), :format => :blog) rescue feed["published"]
+        %br/    
+        = feed["summary"].try(:html_safe)
+- if @page > 1
+  = link_to "View Newer Posts", "?page=#{@page-1}"
+= link_to "View Older Posts", "?page=#{@page+1}"
