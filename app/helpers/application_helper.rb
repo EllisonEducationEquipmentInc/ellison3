@@ -137,7 +137,7 @@ HTML
 	
 	def required_label_if(condition, f, field, options = {})
 	  label = options[:label] || field.to_s.humanize
-	  condition ? required_label(f, field, {:label => "#{label}", :label_size => options[:label_size]}) : (f.label field, "#{label}", :class => options[:label_size])
+	  condition ? required_label(f, field, {:label => "#{label}", :label_size => options[:label_size]}) : (f.label field, "#{label}", :style => "width: #{options[:label_size]}")
 	end
 
 	def required_field(label = '')
