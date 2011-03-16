@@ -197,3 +197,14 @@ body.bp {
     }     
   }
 }
+
+// for use with Store Locator Styles
+#map {
+  border:1px solid #D9D6C4;
+}
+.storeframe {
+  float:right; width:633px; height:501px; padding:20px 0 0 15px; background:url('/images/ui-backgrounds/storelocator_background_szuk.png') no-repeat top left;
+}
+.storedescription {
+  padding:6px 0 18px; font-size:11px; border-bottom:1px solid #AED0EA;
+}

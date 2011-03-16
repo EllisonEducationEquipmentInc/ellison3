@@ -5,27 +5,28 @@
   / = javascript_include_tag '/javascripts/vendor/jquery.metadata.js'
   = javascript_include_tag 'jquery.jmapping.js'
 .tab-block
+  %h2{:style=>"margin:4px 0 0 14px;"} Search Selection:
   %ul
     %li.rounded_top= link_to "Stores", "#stores"
     %li.rounded_top= link_to "Online Retailers", "#online_retailers"
     %li.rounded_top= link_to "Distributors", "#distributors"
     %li.rounded_top= link_to "Major Retailers", "#major_retailers"
   #stores
-    %h2 Stores
+    %p{:class=>"storedescription"} Most of the products that you love are available through our website or at your local craft store. Although we don't sell selected items online, we'll put you in touch with a retailer who might. Be sure to call ahead for product availability. Can't find a retailer near you? We're always adding new retail locations, so check back soon!
     #store_info
       = form_tag '#', :onsubmit => 'return false' do
         .field 
-          Country: 
+          %h2 Search by Country:
           = select_tag :country, options_for_select(@countries, params[:country]), :onchange => "toggle_store_fields()"
         .field.us_only
-          Zip Code:
+          %h2 Search by Zip Code:
           = text_field_tag :zip_code, params[:zip_code]
         .field.us_only
-          Radius:
+          %h2 Search by Radius:
           = select_tag :radius, options_for_select([5,10,20,30,50], params[:radius] || 5)
           miles
         .field
-          Brands:
+          %h2 Search by Brands:
           = check_box_tag 'brands[]', "sizzix", params[:brands].present? && params[:brands].include?('sizzix'), :id => "brands_sizzix", :class => 'brands'
           Sizzix
           = check_box_tag 'brands[]', "ellison", params[:brands].present? && params[:brands].include?('ellison'), :id => "brands_ellison", :class => 'brands'
@@ -33,7 +34,8 @@
         .field
           = link_to 'search', '#', :id => 'map_search_submit'
       #map-side-bar
-    #map
+    .storeframe
+      #map
   .clear
   #online_retailers
     %h2 Online Retailers
