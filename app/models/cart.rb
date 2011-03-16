@@ -202,4 +202,8 @@ class Cart
   def cod?
     self.shipping_service == "COD"
   end
+  
+  def total_discount
+    cart_items.inject(0) {|sum, item| sum += (item.msrp * item.quantity)} - sub_total
+  end
 end

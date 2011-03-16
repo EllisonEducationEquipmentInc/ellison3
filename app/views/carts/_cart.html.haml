@@ -31,9 +31,9 @@
       %tr
         %td
         %td
+        %td#total_savings= render :partial => 'carts/total_savings'
         %td
-        %td
-        %td
+        %td 
         %td{:style => "text-align: right", :class => "cart_extended_price"} Subtotal:
         %td#cart_subtotal{:style => "text-align: right", :class => "cart_extended_price"}= number_to_currency gross_price(@cart.sub_total)
         - unless @cart_locked
