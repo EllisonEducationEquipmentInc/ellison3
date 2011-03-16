@@ -35,6 +35,7 @@ class Product
   validates_uniqueness_of :upc, :allow_blank => true, :if => Proc.new {|obj| obj.new_record? || obj.upc_changed?}, :case_sensitive => false
   validate :must_have_msrp
   validates_numericality_of :weight, :greater_than => 0.0
+  validates_numericality_of :weight_kgs, :greater_than => 0.0, :allow_nil => true
   
   validates_associated :tabs
   
@@ -60,6 +61,7 @@ class Product
   field :quantity, :type => Integer, :default => 0
   field :minimum_quantity, :type => Integer, :default => 1
   field :weight, :type => Float, :default => 0.0
+  field :weight_kgs, :type => Float
   field :active, :type => Boolean, :default => true
   field :outlet, :type => Boolean, :default => false
   field :outlet_since, :type => DateTime
