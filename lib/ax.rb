@@ -30,7 +30,7 @@ module Ax
           xml.order {
             xml.header {
               xml.sales_id(order.public_order_number)
-              xml.ax_customer(order.system == "szus" ? "SIZZIX.COM" : order.user.try(:invoice_account))      # ax_ship_to
+              xml.ax_customer(order.system == "szus" ? "SIZZIX.COM" : order.user.try(:erp))      # ax_ship_to
               xml.invoice_account(order.system == "szus" ? "SIZZIX.COM" : order.user.try(:invoice_account))     # ax_bill_to
               xml.cust_name("#{order.address.first_name} #{order.address.last_name}")
               xml.email(order.address.email)
@@ -85,9 +85,9 @@ module Ax
               xml.delivery {
                 xml.delivery_zone(order.address.us? && order.address.try(:zip_code) ? FedexZone.find_by_zip(order.address.zip_code).try(:zone) : '')
                 xml.delivery_mode(order.cod? ? order.cod_account_type : ax_shipping_code(order.shipping_service))
-                xml.delivery_ship_account(order.cod_account) if order.cod?
                 xml.priority(order.shipping_priority)
                 xml.delivery_term(order.cod? ? 'CC' : 'PP')
+                xml.delivery_ship_account(order.cod_account) if order.cod?
                 xml.delivery_contact_first order.address.first_name
                 xml.delivery_contact_last order.address.last_name
 
@@ -102,6 +102,7 @@ module Ax
                   xml.city(order.address.city)
                   xml.state(order.address.state)
                   xml.country(country_2_code order.address.country)
+                  xml.ship_phone(order.address.phone)
                 }
               }
 
