@@ -244,7 +244,7 @@ module Ax
 	    when "FEDEX_3_DAY_FREIGHT"
 	      "FDXTHRDFR"
 	    else
-	      shipping_service
+	      'FXGround'
 	    end
 	  end
 	  
