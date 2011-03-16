@@ -92,6 +92,12 @@
       %strong TOTAL
     %td{ :align => "right"}
       %strong= number_to_currency @order.total_amount
+  - if @order.total_discount.present? && @order.total_discount > 0.0
+    %tr
+      %td{ :colspan => "4", :align => "right" }
+        %strong Total Savings:
+      %td{ :align => "right"}
+        %strong= number_to_currency @order.total_discount
   - if @order.payment.present?
     %tr
       %td{ :colspan => "4", :align => "left" }

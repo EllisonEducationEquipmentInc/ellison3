@@ -196,6 +196,10 @@
   %li#cart_total
     TOTAL:
     %span.right#total_amount.amount= number_to_currency @order.total_amount
+  - if @order.total_discount.present? && @order.total_discount > 0.0
+    %li
+      Total Savings:
+      %span.amount.right= number_to_currency @order.total_discount
   %li    
     - if @order.payment.present?
       - if @order.payment.try(:purchase_order)

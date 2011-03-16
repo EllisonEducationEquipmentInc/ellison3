@@ -126,4 +126,8 @@
   %li#cart_total
     Total:
     %span#total_amount.amount.right= number_to_currency @order.total_amount
+  - if @order.total_discount.present? && @order.total_discount > 0.0
+    %li
+      Total Savings:
+      %span.amount.right= number_to_currency @order.total_discount
 - I18n.locale = @current_locale

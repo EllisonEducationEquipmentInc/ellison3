@@ -73,3 +73,9 @@
       %strong ESTIMATED TOTAL
     %td{ :align => "right"} 
       %strong= number_to_currency @quote.total_amount
+  - if @quote.total_discount.present? && @quote.total_discount > 0.0
+    %tr
+      %td{ :colspan => "4", :align => "right" }
+        %strong Total Savings:
+      %td{ :align => "right"}
+        %strong= number_to_currency @quote.total_discount

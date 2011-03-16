@@ -106,6 +106,10 @@
   %li#cart_total
     ESTIMATED TOTAL:
     %span.right= number_to_currency @quote.total_amount
+  - if @quote.total_discount.present? && @quote.total_discount > 0.0
+    %li
+      Total Savings:
+      %span.amount.right= number_to_currency @quote.total_discount
 %br
 %br
 - if @quote.coupon
