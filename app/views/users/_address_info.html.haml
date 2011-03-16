@@ -4,9 +4,16 @@
   - if instance_eval "@#{address_type}_address_error"
     %p.dontprint.error= instance_eval "@#{address_type}_address_error"
   - if get_user.reload.send("#{address_type}_address")
-    = link_to "Edit #{address_type.capitalize} Address", {:controller => 'users', :action => "edit_address", :address_type => address_type, :checkout => @checkout || params[:checkout]}, :remote => true, :class => "minilink"
+    = link_to "Edit #{address_type.capitalize} Address", {:controller => 'users', :action => "edit_address", :address_type => address_type, :checkout => @checkout || params[:checkout]}, :remote => true, :class => "minilink edit_address"
     - address = get_user.send("#{address_type}_address")
     %br
     = render :partial => 'users/address_details', :locals => {:address => address}
   - else
     = link_to "Add #{address_type} address", {:controller => 'users', :action => "edit_address", :address_type => address_type}, :remote => true
+  :javascript
+    $(function(){
+      $(".edit_address").click(function(){
+        $("#checkout_shipping").removeClass("contentwrap_medium").addClass("contentwrap_XL last");
+        $("#checkout_billing").removeClass("contentwrap_medium").addClass("contentwrap_XL last");
+      });
+    });

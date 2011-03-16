@@ -1042,42 +1042,18 @@ h3.item_title {
 }
 
 /* line 8, ../../../app/stylesheets/partials/_layout_content_products.scss */
-#logistics {
+#customer_info {
   display: inline;
   float: left;
   margin-right: 10px;
   width: 630px;
 }
 /* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html #logistics {
+* html #customer_info {
   overflow-x: hidden;
 }
 
 /* line 10, ../../../app/stylesheets/partials/_layout_content_products.scss */
-#checkout_shipping {
-  display: inline;
-  float: left;
-  margin-right: 10px;
-  width: 310px;
-}
-/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html #checkout_shipping {
-  overflow-x: hidden;
-}
-
-/* line 12, ../../../app/stylesheets/partials/_layout_content_products.scss */
-#checkout_billing {
-  display: inline;
-  float: left;
-  margin-right: 10px;
-  width: 310px;
-}
-/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html #checkout_billing {
-  overflow-x: hidden;
-}
-
-/* line 14, ../../../app/stylesheets/partials/_layout_content_products.scss */
 #checkout_summary {
   display: inline;
   float: left;
@@ -1089,7 +1065,7 @@ h3.item_title {
   overflow-x: hidden;
 }
 
-/* line 16, ../../../app/stylesheets/partials/_layout_content_products.scss */
+/* line 12, ../../../app/stylesheets/partials/_layout_content_products.scss */
 #checkout_cc {
   display: inline;
   float: left;
@@ -1101,7 +1077,7 @@ h3.item_title {
   overflow-x: hidden;
 }
 
-/* line 18, ../../../app/stylesheets/partials/_layout_content_products.scss */
+/* line 14, ../../../app/stylesheets/partials/_layout_content_products.scss */
 #checkout_shipping_options {
   display: inline;
   float: left;
@@ -1111,42 +1087,6 @@ h3.item_title {
 }
 /* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html #checkout_shipping_options {
-  overflow-x: hidden;
-}
-
-/* line 23, ../../../app/stylesheets/partials/_layout_content_products.scss */
-#new_billing {
-  display: inline;
-  float: left;
-  margin-right: 10px;
-  width: 310px;
-}
-/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html #new_billing {
-  overflow-x: hidden;
-}
-
-/* line 26, ../../../app/stylesheets/partials/_layout_content_products.scss */
-#checkout_shipping #new_shipping {
-  display: inline;
-  float: left;
-  margin-right: 10px;
-  width: 630px;
-}
-/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html #checkout_shipping #new_shipping {
-  overflow-x: hidden;
-}
-
-/* line 29, ../../../app/stylesheets/partials/_layout_content_products.scss */
-#checkout_billing #new_billing {
-  display: inline;
-  float: left;
-  margin-right: 10px;
-  width: 630px;
-}
-/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.2-p136@global/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html #checkout_billing #new_billing {
   overflow-x: hidden;
 }
 

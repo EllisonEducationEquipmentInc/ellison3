@@ -7,14 +7,15 @@
   %br
   By checking this box, you have verified this shipping address is a correct physical address and not a PO BOX.
   %br
-.field
+.field.left
   = required_label f, :first_name, { :label_size => "auto" }
   %br
-  = f.text_field :first_name
-.field
+  = f.text_field :first_name, :style => "margin-right: 6px"
+.field.left
   = required_label f, :last_name, { :label_size => "auto" }
   %br
   = f.text_field :last_name
+.clear
 .field
   = required_label_if !is_sizzix?, f, :company, { :label => "Company/School/Organization", :label_size => "auto" }
   %br
@@ -27,31 +28,35 @@
   = f.label :address2, "Address 2", :class => "autosize"
   %br
   = f.text_field :address2
-.field
+.clear
+.field.left
   = required_label f, :city, { :label_size => "auto"}
   %br
-  = f.text_field :city
-.field{:id => "#{f.object.address_type}_state"}= render :partial => f.object.us? ? 'users/state_select' : 'users/state', :locals => {:f => f}
-.field
+  = f.text_field :city, :style => "margin-right: 6px"
+.field.left{:id => "#{f.object.address_type}_state", :style => "margin-right: 6px"}= render :partial => f.object.us? ? 'users/state_select' : 'users/state', :locals => {:f => f}
+.field.left
   = required_label f, :zip_code, { :label => "Zip/Postal code", :label_size => "auto" }
   %br
-  = f.text_field :zip_code
+  = f.text_field :zip_code, :size => 15
+.clear
 .field
   = required_label f, :country, { :label_size => "auto" }
   %br
   = f.select :country, countries, {}, :onchange => "if (this.value == 'United States') {$('##{f.object.address_type}_state').html('#{escape_javascript(render(:partial => 'users/state_select', :locals => {:f => f}))}');$('##{f.object.address_type}_address_state').rules('add', {required: true});$('##{f.object.address_type}_address_phone').rules('add', {phoneUS: true});$('##{f.object.address_type}_address_zip_code').rules('add', {zipUS: true});} else {$('##{f.object.address_type}_state').html('#{escape_javascript(render(:partial => 'users/state', :locals => {:f => f}))}');$('##{f.object.address_type}_address_state').rules('remove');$('##{f.object.address_type}_address_phone').rules('remove', 'phoneUS');$('##{f.object.address_type}_address_zip_code').rules('remove', 'zipUS');}"
-.field
+.clear
+.field.left
   = required_label f, :phone, { :label_size => "auto" }
   %br
-  = f.text_field :phone
-.field
+  = f.text_field :phone, :size => 15, :style => "margin-right: 6px"
+.field.left
   = f.label :fax
   %br
-  = f.text_field :fax
-.field
+  = f.text_field :fax, :size => 15, :style => "margin-right: 6px"
+.field.left
   = f.label :email
   %br
   = f.text_field :email
+.clear
 :javascript
   initialize_buttons();
   $(document).ready(function() { 
@@ -96,6 +101,8 @@
           submitHandler: function(form) {
             $('#edit_#{f.object.address_type}_address').ajaxSubmit();
             fancyloader('Please wait while we validate your address.');
+            $("#checkout_shipping").removeClass("contentwrap_XL last").addClass("contentwrap_medium");
+            $("#checkout_billing").removeClass("contentwrap_XL last").addClass("contentwrap_medium last");
           },
       }); 
   });

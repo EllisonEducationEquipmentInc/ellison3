@@ -4,13 +4,9 @@
 .products_grid {
   @include column(19, true); }
   
-// shopping cart 
-#checkout_shipping {
-  @include column(8); }
-#checkout_billing {
-  @include column(8); }
-#new_billing {
-  @include column(8); }
+// shopping cart
+#customer_info {
+  @include column(16); }
 #checkout_summary {
   @include column(8, true); }
 #checkout_cc {
