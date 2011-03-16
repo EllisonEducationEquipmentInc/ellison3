@@ -60,7 +60,8 @@ module ShoppingCart
 		
 		def cart_to_order_or_quote(klass, options = {})
 		  order = klass.to_s.classify.constantize.new(:id => options[:order_id], :subtotal_amount => get_cart.sub_total, :shipping_amount => calculate_shipping(options[:address]), :handling_amount => calculate_handling, :tax_amount => calculate_tax(options[:address]), :coupon_code => get_cart.coupon_code,
-			              :tax_transaction => get_cart.reload.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at.try(:utc), :locale => current_locale, :shipping_service => get_cart.shipping_service, :order_reference => get_cart.order_reference, :vat_percentage => vat, :vat_exempt => vat_exempt?)
+			              :tax_transaction => get_cart.reload.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at, :locale => current_locale, :shipping_service => get_cart.shipping_service, :order_reference => get_cart.order_reference, :vat_percentage => vat, :vat_exempt => vat_exempt?, 
+			              :tax_exempt => tax_exempt?, :tax_exempt_number => tax_exempt? ? get_user.tax_exempt_certificate : nil)
 			order.coupon = get_cart.coupon
 			if get_cart.cod?
 			  order.cod_account_type = get_user.cod_account_type
@@ -209,7 +210,7 @@ module ShoppingCart
 			else
 				0.0
 			end
-			get_cart.update_attributes :tax_amount => total_tax, :tax_transaction => @cch ? @cch.transaction_id : nil, :tax_calculated_at => Time.now #, :vat_percentage => 
+			get_cart.update_attributes :tax_amount => total_tax, :tax_transaction => @cch ? @cch.transaction_id : nil, :tax_calculated_at => Time.zone.now #, :vat_percentage => 
 			total_tax
 		end
 		

@@ -168,7 +168,7 @@ class User
   end
   
   def tax_exempt?
-    self.tax_exempt || is_er? && self.systems_enabled.include?("er")
+    !is_sizzix? && self.tax_exempt || is_er? && self.systems_enabled.include?("er")
   end
   
   def application_complete?
