@@ -330,6 +330,10 @@ class IndexController < ApplicationController
     go_404
   end
   
+  def mark
+    render :text => '[ { "id": "Botaurus stellaris", "label": "Great Bittern", "value": "Great Bittern" }, { "id": "Ixobrychus minutus", "label": "Little Bittern", "value": "Little Bittern" }, { "id": "Platalea leucorodia", "label": "Spoonbill", "value": "Spoonbill" }, { "id": "Turdus merula", "label": "Common Blackbird", "value": "Common Blackbird" }, { "id": "Erithacus rubecula", "label": "European Robin", "value": "European Robin" }, { "id": "Alca torda", "label": "Razorbill", "value": "Razorbill" }, { "id": "Loxia curvirostra", "label": "Common Crossbill", "value": "Common Crossbill" }, { "id": "Loxia leucoptera", "label": "Two-barred Crossbill", "value": "Two-barred Crossbill" }, { "id": "Gelochelidon nilotica", "label": "Gull-billed Tern", "value": "Gull-billed Tern" }, { "id": "Gavia adamsii", "label": "Yellow-billed Loon", "value": "Yellow-billed Loon" }, { "id": "Botaurus lentiginosus", "label": "American Bittern", "value": "American Bittern" }, { "id": "Plegadis falcinellus", "label": "Glossy Ibis", "value": "Glossy Ibis" } ]'
+  end
+  
 private
 
   def process_feed(source, mins = 5)

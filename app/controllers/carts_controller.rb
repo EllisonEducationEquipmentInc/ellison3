@@ -233,19 +233,9 @@ class CartsController < ApplicationController
 	
 	def get_total_amount
 		return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
-		tries = 0
-		begin
-			tries += 1
-			@total = total_cart
-		rescue Exception => e
-			Rails.logger.error e #.backtrace.join("\n")
-			if tries < 15        
-		    sleep(tries)            
-			  get_cart.reload
-		    retry                      
-		  end
-		end
-		render :inline => "<%= number_to_currency @total %>"
+		render :inline => "<%= number_to_currency total_cart %>"
+	rescue Exception => e
+	  render :nothing => true, :status => 100
 	end
 	
 	def get_deferred_first_payment

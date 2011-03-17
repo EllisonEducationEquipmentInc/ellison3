@@ -13,9 +13,12 @@
   :javascript
     $(".product_autocomplete").autocomplete({
       source: function(request, response) {
-        $.getJSON("/products_autocomplete", {
-          term: extractLast(request.term)
-        }, response);
+        $.ajax({
+        	url: "/products_autocomplete",
+        	dataType: 'text json',
+        	data: {term: request.term},
+        	success: function( data ) {response(data)}
+        });
       },
       search: function() {
         var term = extractLast(this.value);

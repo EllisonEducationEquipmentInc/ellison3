@@ -31,9 +31,12 @@ module AdminHelper
           
           $('.product_search_by_tag').autocomplete({
             source: function(request, response) {
-          		$.getJSON("/tags_autocomplete", {
-          			term: request.term
-          		}, response);
+              $.ajax({
+              	url: "/tags_autocomplete",
+              	dataType: 'text json',
+              	data: {term: request.term},
+              	success: function( data ) {response(data)}
+              });
           	},
           	search: function() {
           		if (this.value.length < 2) {
@@ -75,16 +78,22 @@ module AdminHelper
             return false;
           });
           $('##{sanitize_to_id(name)}').autocomplete($.extend({}, auto_complete_options, {source: function(request, response) {
-          		$.getJSON("/ideas_autocomplete", {
-          			term: extractLast(request.term)
-          		}, response);
+          		$.ajax({
+              	url: "/ideas_autocomplete",
+              	dataType: 'text json',
+              	data: {term: extractLast(request.term)},
+              	success: function( data ) {response(data)}
+              });
           	}}));
           
           $('.idea_search_by_tag').autocomplete({
             source: function(request, response) {
-          		$.getJSON("/tags_autocomplete", {
-          			term: request.term
-          		}, response);
+              $.ajax({
+              	url: "/tags_autocomplete",
+              	dataType: 'text json',
+              	data: {term: request.term},
+              	success: function( data ) {response(data)}
+              });
           	},
           	search: function() {
           		if (this.value.length < 2) {

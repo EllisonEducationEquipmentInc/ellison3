@@ -22,6 +22,14 @@ if (!Array.prototype.indexOf)
     return -1;
   };
 }
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 var _gaq = _gaq || [];
 var button_label = button_label || '';
 var number_only = function(e){if (!(e.keyCode >= 96 && e.keyCode <= 105) && e.keyCode != 46 && e.keyCode != 8 && e.keyCode != 9 && !String.fromCharCode(e.keyCode).match(/\d+/)) return false}
@@ -419,9 +427,12 @@ function extractLast(term) {
 
 var single_auto_complete_options = {
 	source: function(request, response) {
-		$.getJSON("/products_autocomplete", {
-			term: extractLast(request.term)
-		}, response);
+	  $.ajax({
+    	url: "/products_autocomplete",
+    	dataType: 'text json',
+    	data: {term: extractLast(request.term)},
+    	success: function( data ) {response(data)}
+    });
 	},
 	search: function() {
 		var term = extractLast(this.value);
@@ -440,9 +451,12 @@ var single_auto_complete_options = {
 
 var auto_complete_options = {
 	source: function(request, response) {
-		$.getJSON("/products_autocomplete", {
-			term: extractLast(request.term)
-		}, response);
+	  $.ajax({
+    	url: "/products_autocomplete",
+    	dataType: 'text json',
+    	data: {term: extractLast(request.term)},
+    	success: function( data ) {response(data)}
+    });
 	},
 	search: function() {
 		// custom minLength

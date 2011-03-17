@@ -210,9 +210,12 @@
       :javascript
         $("#product_tags_helper").autocomplete({
         	source: function(request, response) {
-        		$.getJSON("/tags_autocomplete", {
-        			term: request.term
-        		}, response);
+            $.ajax({
+            	url: "/tags_autocomplete",
+            	dataType: 'text json',
+            	data: {term: request.term},
+            	success: function( data ) {response(data)}
+            });
         	},
         	search: function() {
         		if (this.value.length < 2) {
@@ -242,9 +245,12 @@
       :javascript
         $("#product_ideas_helper").autocomplete({
         	source: function(request, response) {
-        		$.getJSON("/ideas_autocomplete", {
-        			term: request.term
-        		}, response);
+            $.ajax({
+            	url: "/ideas_autocomplete",
+            	dataType: 'text json',
+            	data: {term: request.term},
+            	success: function( data ) {response(data)}
+            });
         	},
         	search: function() {
         		if (this.value.length < 2) {
@@ -275,9 +281,12 @@
       :javascript
         $('#product_related_product_tag').autocomplete({
         	source: function(request, response) {
-        		$.getJSON("/tags_autocomplete", {
-        			term: request.term
-        		}, response);
+          	$.ajax({
+            	url: "/tags_autocomplete",
+            	dataType: 'text json',
+            	data: {term: request.term},
+            	success: function( data ) {response(data)}
+            });
         	},
         	search: function() {
         		if (this.value.length < 2) {

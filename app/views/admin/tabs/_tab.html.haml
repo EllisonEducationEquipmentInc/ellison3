@@ -50,9 +50,12 @@
   $("#tab_text").wymeditor();
   $('#tab_shared_content_id').autocomplete({
   	source: function(request, response) {
-  		$.getJSON("/admin/shared_contents/shared_contents_autocomplete", {
-  			term: request.term
-  		}, response);
+  	  $.ajax({
+      	url: "/admin/shared_contents/shared_contents_autocomplete",
+      	dataType: 'text json',
+      	data: {term: request.term},
+      	success: function( data ) {response(data)}
+      });
   	},
   	search: function() {
   		if (this.value.length < 2) {

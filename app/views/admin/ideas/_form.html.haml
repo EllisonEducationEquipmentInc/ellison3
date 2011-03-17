@@ -98,9 +98,12 @@
       :javascript
         $("#idea_tags_helper").autocomplete({
         	source: function(request, response) {
-        		$.getJSON("/tags_autocomplete", {
-        			term: request.term
-        		}, response);
+          	$.ajax({
+            	url: "/tags_autocomplete",
+            	dataType: 'text json',
+            	data: {term: request.term},
+            	success: function( data ) {response(data)}
+            });
         	},
         	search: function() {
         		if (this.value.length < 2) {
@@ -131,9 +134,12 @@
       :javascript
         $("#idea_products_helper").autocomplete({
         	source: function(request, response) {
-        		$.getJSON("/products_autocomplete", {
-        			term: request.term
-        		}, response);
+        	  $.ajax({
+            	url: "/products_autocomplete",
+            	dataType: 'text json',
+            	data: {term: request.term},
+            	success: function( data ) {response(data)}
+            });
         	},
         	search: function() {
         		if (this.value.length < 2) {
@@ -165,9 +171,12 @@
       :javascript
         $('#idea_related_idea_tag').autocomplete({
         	source: function(request, response) {
-        		$.getJSON("/tags_autocomplete", {
-        			term: request.term
-        		}, response);
+        	  $.ajax({
+            	url: "/tags_autocomplete",
+            	dataType: 'text json',
+            	data: {term: request.term},
+            	success: function( data ) {response(data)}
+            });
         	},
         	search: function() {
         		if (this.value.length < 2) {
