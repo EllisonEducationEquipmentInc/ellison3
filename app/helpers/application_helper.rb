@@ -43,13 +43,18 @@ module ApplicationHelper
 		  regular_price = sale_price
 		  sale_price = nil
 		end
-		
     p = ""
     p << "#{is_er? ? 'MSRP' : 'Regular Price: ' if with_text}<span class='msrp#{' old-price' if ecommerce_allowed? && (coupon || regular_price || sale_price)}'>#{number_to_currency msrp}</span> #{'<br />' if line_break}"
     if ecommerce_allowed?
-      p << "#{'Wholesale Price: ' if with_text}<span class='old-price'>#{number_to_currency wholesale_price}</span> "  if is_er? && (regular_price && regular_price < wholesale_price || sale_price && sale_price < wholesale_price)
+      p << "#{'Wholesale Price: ' if with_text}<span class='old-price'>#{number_to_currency wholesale_price}</span> " if is_er? && (regular_price && regular_price < wholesale_price || sale_price && sale_price < wholesale_price)
+      er_label = if regular_price && regular_price == wholesale_price && !sale_price
+        "Wholesale Price: "
+      else
+        "Special Price: "
+      end
+        
       if regular_price
-        p << "#{(product.outlet ? 'Closeout: ' : is_er? ? 'Special Price: ' : 'Sale Price: ') if with_text}<span class='special-price#{' old-price' if coupon || sale_price} #{'sale-price' if is_sizzix_us? && product.outlet}'>#{number_to_currency regular_price}</span> "
+        p << "#{(product.outlet ? 'Closeout: ' : is_er? ? er_label : 'Sale Price: ') if with_text}<span class='special-price#{' old-price' if coupon || sale_price} #{'sale-price' if is_sizzix_us? && product.outlet}'>#{number_to_currency regular_price}</span> "
         if product.outlet && with_text
           p << "<br /><span class='percent-saved'>You Save #{product.saving}%</span>"
         end
