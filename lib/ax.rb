@@ -63,7 +63,7 @@ module Ax
                   else
   									xml.payment_method('CC')
   									xml.card_type(order.payment.card_name)
-                    xml.payment_id(order.payment.vpstx_id)
+                    xml.payment_id(order.system == "szuk" || order.system == "eeuk" ? order.payment.tx_auth_no : order.payment.vpstx_id)
                   end
                   xml.cybersource_merchant_ref_num(order.payment.vendor_tx_code)
                   xml.amount_charged(format_with_precision(order.total_amount))
