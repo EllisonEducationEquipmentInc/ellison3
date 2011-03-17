@@ -235,7 +235,7 @@ class CartsController < ApplicationController
 		return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
 		render :inline => "<%= number_to_currency total_cart %>"
 	rescue Exception => e
-	  render :nothing => true, :status => 100
+	  render :nothing => true, :status => 510
 	end
 	
 	def get_deferred_first_payment
@@ -243,7 +243,7 @@ class CartsController < ApplicationController
 		@first_payment = calculate_setup_fee(total_cart, get_cart.shipping_amount + calculate_handling, get_cart.tax_amount)
 		render :inline => "<%= number_to_currency @first_payment %>"
 	rescue Exception => e
-	  render :nothing => true, :status => 100
+	  render :nothing => true, :status => 510
 	end
 	
 	def custom_price

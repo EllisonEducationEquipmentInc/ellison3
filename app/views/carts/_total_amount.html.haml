@@ -8,10 +8,10 @@ Estimated Total:
     success: function(data) {$('#total_amount').html(data);$('#payment_submit').button({disabled: false, label: button_label});}, 
     beforeSend: function() {$('#payment_submit').button({disabled: true, label: 'please wait...'});$('#total_amount').html('#{escape_javascript loader_bar}')},
     error : function(xhr, textStatus, errorThrown ) {
-      if (xhr.status == 100) {
+      if (xhr.status == 510) {
         this.tryCount++;
         if (this.tryCount <= this.retryLimit) {
-          $(this).doTimeout( 'retrying', 1000, function(){
+          $(this).doTimeout( 'retrying', 500, function(){
             console.log('retrying...');
             $.ajax(this[0]);
           });
