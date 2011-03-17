@@ -59,7 +59,7 @@ module Ax
                     xml.payment_id(order.payment.purchase_order_number)
   								elsif order.payment.try :deferred
   									xml.payment_method('3EZ')
-                    xml.payment_id(order.payment.vpstx_id)
+                    xml.payment_id(order.system == "szuk" || order.system == "eeuk" ? order.payment.tx_auth_no : order.payment.vpstx_id)
                   else
   									xml.payment_method('CC')
   									xml.card_type(order.payment.card_name)
