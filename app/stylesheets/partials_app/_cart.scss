@@ -25,6 +25,14 @@ body.bp {
   }
 }
 
+#shipping_info, #billing_info {
+  overflow: hidden;
+  
+  p#edit_shipping_address, p#edit_billing_address {
+    margin: 0;
+  }
+}
+
 #cart_container, #cart_contents, #saved_list_table {
   .thumbnail {
     position: relative;
