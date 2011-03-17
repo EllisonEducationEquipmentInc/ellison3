@@ -747,9 +747,6 @@ var payment_validator_options = {
             required: true
         },
     }, 
-    success: function(label) { 
-        label.html(" ").addClass("checked"); 
-    },
     submitHandler: function(form) {
       $('#proceed_checkout').callRemote();
 			// $('#proceed_checkout').ajaxSubmit();
