@@ -1,16 +1,16 @@
 %h2 Checkout
 #customer_info
-  #checkout_shipping{ :class => "contentwrap_#{ (get_user.billing_address && get_user.shipping_address) ? 'medium' : 'XL last' }"  }
+  #checkout_shipping{ :class => "contentwrap_#{ (get_user.billing_address && get_user.reload.shipping_address) ? 'medium' : 'XL last' }"  }
     %h3 Shipping Info
     - if get_user.reload.shipping_address
-      = render :partial => 'users/address_info', :locals => {:address_type => "shipping"}
+      = render :partial => 'users/address_info', :locals => {:address_type => "shipping"}      
     - else
       #new_shipping
         = form_for(@shipping_address, :as => "#{@shipping_address.address_type}_address", :url => {:action => "create_shipping", :checkout => true}, :remote => true, :html => {:id => "edit_#{@shipping_address.address_type}_address", :method => :post}) do |f|
           = render :partial => 'users/address_form', :locals => {:f => f}
           .actions
             = f.submit "Continue", :class => 'jqui_save'
-  #checkout_billing{ :class => "contentwrap_#{ (get_user.billing_address && get_user.shipping_address) ? 'medium' : 'XL' } last" }
+  #checkout_billing{ :class => "contentwrap_#{ (get_user.billing_address && get_user.reload.shipping_address) ? 'medium' : 'XL' } last" }
     %h3 Billing Info
     - if get_user.token && get_user.token.current?
       #tokenized_billing_info= render :partial => 'tokenized_billing_info'
@@ -19,8 +19,7 @@
     - else
       #new_billing{:style => "display:#{get_user.shipping_address ? 'block' : 'none'}"}
         = form_for(@billing_address, :as => "#{@billing_address.address_type}_address", :url => {:action => "create_billing"}, :remote => true, :html => {:id => "edit_#{@billing_address.address_type}_address", :method => :post}) do |f|
-          = link_to "same as shipping address", {:action => "copy_shipping_address"}, :remote => true, :class => "minilink left"
-          .clear
+          = link_to "same as shipping address", {:action => "copy_shipping_address"}, :remote => true, :class => "minilink l"
           = render :partial => 'users/address_form', :locals => {:f => f}
           .actions
             = f.submit "Continue", :class => 'jqui_save'

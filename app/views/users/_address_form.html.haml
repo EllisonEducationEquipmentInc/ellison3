@@ -20,11 +20,11 @@
   = required_label_if !is_sizzix?, f, :company, { :label => "Company/School/Organization", :label_size => "auto" }
   %br
   = f.text_field :company
-.field
+.field.left
   = required_label f, :address1, { :label => "Address 1", :label_size => "auto"}
   %br
-  = f.text_field :address1
-.field
+  = f.text_field :address1, :style => "margin-right: 6px"
+.field.left
   = f.label :address2, "Address 2", :class => "autosize"
   %br
   = f.text_field :address2
@@ -32,12 +32,12 @@
 .field.left
   = required_label f, :city, { :label_size => "auto"}
   %br
-  = f.text_field :city, :style => "margin-right: 6px"
+  = f.text_field :city, :size => 24, :style => "margin-right: 6px"
 .field.left{:id => "#{f.object.address_type}_state", :style => "margin-right: 6px"}= render :partial => f.object.us? ? 'users/state_select' : 'users/state', :locals => {:f => f}
 .field.left
   = required_label f, :zip_code, { :label => "Zip/Postal code", :label_size => "auto" }
   %br
-  = f.text_field :zip_code, :size => 15
+  = f.text_field :zip_code, :size => 10
 .clear
 .field
   = required_label f, :country, { :label_size => "auto" }
@@ -47,11 +47,11 @@
 .field.left
   = required_label f, :phone, { :label_size => "auto" }
   %br
-  = f.text_field :phone, :size => 15, :style => "margin-right: 6px"
+  = f.text_field :phone, :size => 12, :style => "margin-right: 6px"
 .field.left
   = f.label :fax
   %br
-  = f.text_field :fax, :size => 15, :style => "margin-right: 6px"
+  = f.text_field :fax, :size => 12, :style => "margin-right: 6px"
 .field.left
   = f.label :email
   %br
@@ -101,8 +101,8 @@
           submitHandler: function(form) {
             $('#edit_#{f.object.address_type}_address').ajaxSubmit();
             fancyloader('Please wait while we validate your address.');
-            $("#checkout_shipping").removeClass("contentwrap_XL last").addClass("contentwrap_medium");
-            $("#checkout_billing").removeClass("contentwrap_XL last").addClass("contentwrap_medium last");
+            $("#checkout_shipping").removeClass().addClass("contentwrap_medium");
+            $("#checkout_billing").removeClass().addClass("contentwrap_medium last");
           },
       }); 
   });
