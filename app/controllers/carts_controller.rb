@@ -240,19 +240,10 @@ class CartsController < ApplicationController
 	
 	def get_deferred_first_payment
 	  return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
-		tries = 0
-		begin
-			tries += 1
-			@first_payment = calculate_setup_fee(total_cart, get_delayed_shipping + calculate_handling, get_cart.tax_amount)
-		rescue Exception => e
-			Rails.logger.error e #.backtrace.join("\n")
-			if tries < 15        
-		    sleep(tries)            
-			  get_cart.reload
-		    retry    
-		  end
-		end
+		@first_payment = calculate_setup_fee(total_cart, get_cart.shipping_amount + calculate_handling, get_cart.tax_amount)
 		render :inline => "<%= number_to_currency @first_payment %>"
+	rescue Exception => e
+	  render :nothing => true, :status => 100
 	end
 	
 	def custom_price

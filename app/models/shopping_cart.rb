@@ -284,7 +284,7 @@ module ShoppingCart
 		
 		def cch_sales_tax(customer, options = {})
 			Rails.logger.info "Getting CCH tax for #{customer.inspect}"
-			options[:shipping_charge] ||= get_delayed_shipping
+			options[:shipping_charge] ||= calculate_shipping(customer, options) #get_delayed_shipping
 			options[:handling_charge] ||= calculate_handling
 			options[:cart] ||= get_cart.reload
 			options[:tax_exempt_certificate] ||= get_user.tax_exempt_certificate
