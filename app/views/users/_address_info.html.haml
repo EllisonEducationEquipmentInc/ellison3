@@ -9,16 +9,3 @@
     = render :partial => 'users/address_details', :locals => {:address => address}
   - else
     = link_to "Add #{address_type} address", {:controller => 'users', :action => "edit_address", :address_type => address_type}, :remote => true
-  :javascript
-    $(function(){
-      $("#edit_shipping_address a").click(function(){
-        $("#edit_billing_address").slideUp();
-        $("#checkout_shipping").removeClass().addClass("contentwrap_large");
-        $("#checkout_billing").removeClass().addClass("contentwrap_XS last");
-      });
-      $("#edit_billing_address a").click(function(){
-        $("#edit_shipping_address").slideUp();
-        $("#checkout_shipping").removeClass().addClass("contentwrap_XS");
-        $("#checkout_billing").removeClass().addClass("contentwrap_large last");
-      });
-    });

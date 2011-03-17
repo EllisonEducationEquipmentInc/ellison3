@@ -1,28 +1,27 @@
 %h2 Checkout
-#customer_info
-  #checkout_shipping{ :class => "contentwrap_#{ (get_user.billing_address.blank? && get_user.shipping_address.blank?) ? 'medium' : 'XL last' }"  }
-    %h3 Shipping Info
-    - if get_user.reload.shipping_address
-      = render :partial => 'users/address_info', :locals => {:address_type => "shipping"}      
-    - else
-      #new_shipping
-        = form_for(@shipping_address, :as => "#{@shipping_address.address_type}_address", :url => {:action => "create_shipping", :checkout => true}, :remote => true, :html => {:id => "edit_#{@shipping_address.address_type}_address", :method => :post}) do |f|
-          = render :partial => 'users/address_form', :locals => {:f => f}
-          .actions
-            = f.submit "Continue", :class => 'jqui_save'
-  #checkout_billing{ :class => "contentwrap_#{ (get_user.billing_address.blank? && get_user.shipping_address.blank?) ? 'medium' : 'XL' } last" }
-    %h3{:style => "display:#{get_user.shipping_address ? 'block' : 'none'}"} Billing Info
-    - if get_user.token && get_user.token.current?
-      #tokenized_billing_info= render :partial => 'tokenized_billing_info'
-    - elsif get_user.billing_address && get_user.shipping_address
-      = render :partial => 'users/address_info', :locals => {:address_type => "billing"}
-    - else
-      #new_billing{:style => "display:#{get_user.shipping_address ? 'block' : 'none'}"}
-        = form_for(@billing_address, :as => "#{@billing_address.address_type}_address", :url => {:action => "create_billing"}, :remote => true, :html => {:id => "edit_#{@billing_address.address_type}_address", :method => :post}) do |f|
-          %p= link_to "same as shipping address", {:action => "copy_shipping_address"}, :remote => true, :class => "minilink"
-          = render :partial => 'users/address_form', :locals => {:f => f}
-          .actions
-            = f.submit "Continue", :class => 'jqui_save'
+#checkout_shipping
+  %h3 Shipping Info
+  - if get_user.reload.shipping_address
+    = render :partial => 'users/address_info', :locals => {:address_type => "shipping"}      
+  - else
+    #new_shipping
+      = form_for(@shipping_address, :as => "#{@shipping_address.address_type}_address", :url => {:action => "create_shipping", :checkout => true}, :remote => true, :html => {:id => "edit_#{@shipping_address.address_type}_address", :method => :post}) do |f|
+        = render :partial => 'users/address_form', :locals => {:f => f}
+        .actions
+          = f.submit "Continue", :class => 'jqui_save'
+#checkout_billing
+  %h3{:style => "display:#{get_user.shipping_address ? 'block' : 'none'}"} Billing Info
+  - if get_user.token && get_user.token.current?
+    #tokenized_billing_info= render :partial => 'tokenized_billing_info'
+  - elsif get_user.billing_address && get_user.shipping_address
+    = render :partial => 'users/address_info', :locals => {:address_type => "billing"}
+  - else
+    #new_billing{:style => "display:#{get_user.shipping_address ? 'block' : 'none'}"}
+      = form_for(@billing_address, :as => "#{@billing_address.address_type}_address", :url => {:action => "create_billing"}, :remote => true, :html => {:id => "edit_#{@billing_address.address_type}_address", :method => :post}) do |f|
+        %p= link_to "same as shipping address", {:action => "copy_shipping_address"}, :remote => true, :class => "minilink"
+        = render :partial => 'users/address_form', :locals => {:f => f}
+        .actions
+          = f.submit "Continue", :class => 'jqui_save'
 #checkout_summary
   %h3 Order Summary
   %p

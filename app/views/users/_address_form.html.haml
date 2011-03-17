@@ -10,35 +10,35 @@
 .field.left
   = required_label f, :first_name, { :label_size => "auto" }
   %br
-  = f.text_field :first_name, :style => "margin-right: 6px"
+  = f.text_field :first_name, :size => 19, :style => "margin-right: 6px"
 .field.left
   = required_label f, :last_name, { :label_size => "auto" }
   %br
-  = f.text_field :last_name
+  = f.text_field :last_name, :size => 19
 .clear
 .field
   = required_label_if !is_sizzix?, f, :company, { :label => "Company/School/Organization", :label_size => "auto" }
   %br
-  = f.text_field :company
+  = f.text_field :company, :size => 42
 .field.left
   = required_label f, :address1, { :label => "Address 1", :label_size => "auto"}
   %br
-  = f.text_field :address1, :style => "margin-right: 6px"
+  = f.text_field :address1, :size => 19, :style => "margin-right: 6px"
 .field.left
   = f.label :address2, "Address 2", :class => "autosize"
   %br
-  = f.text_field :address2
+  = f.text_field :address2, :size => 19
 .clear
 .field.left
   = required_label f, :city, { :label_size => "auto"}
   %br
-  = f.text_field :city, :size => 24, :style => "margin-right: 6px"
-.field.left{:id => "#{f.object.address_type}_state", :style => "margin-right: 6px"}= render :partial => f.object.us? ? 'users/state_select' : 'users/state', :locals => {:f => f}
-.field.left
-  = required_label f, :zip_code, { :label => "Zip/Postal code", :label_size => "auto" }
-  %br
-  = f.text_field :zip_code, :size => 10
+  = f.text_field :city, :size => "#{is_us? ? 17 : 19}", :style => "margin-right: 6px"
+.field.left{:id => "#{f.object.address_type}_state"}= render :partial => f.object.us? ? 'users/state_select' : 'users/state', :locals => {:f => f}
 .clear
+.field.left
+  = required_label f, :zip_code, { :label => "#{is_us? ? 'Zip' : 'Postal'} Code", :label_size => "auto" }
+  %br
+  = f.text_field :zip_code, :size => 10, :style => "margin-right: 6px"
 .field
   = required_label f, :country, { :label_size => "auto" }
   %br
@@ -101,10 +101,6 @@
           submitHandler: function(form) {
             $('#edit_#{f.object.address_type}_address').ajaxSubmit();
             fancyloader('Please wait while we validate your address.');
-            $("#checkout_shipping").removeClass().addClass("contentwrap_medium");
-            $("#checkout_billing").removeClass().addClass("contentwrap_medium last");
-            $('#edit_billing_address').slideDown();
-            $('#edit_shipping_address').slideDown();
           },
       }); 
   });
