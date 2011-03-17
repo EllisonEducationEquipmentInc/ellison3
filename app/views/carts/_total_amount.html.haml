@@ -10,6 +10,7 @@ Estimated Total:
     error : function(xhr, textStatus, errorThrown ) {
       if (xhr.status == 510) {
         this.tryCount++;
+        $('#payment_submit').button({disabled: true, label: 'please wait...'});
         if (this.tryCount <= this.retryLimit) {
           $(this).doTimeout( 'retrying', 500, function(){
             console.log('retrying...');
