@@ -9,7 +9,7 @@
       if (xhr.status == 510) {
         this.tryCount++;
         if (this.tryCount <= this.retryLimit) {
-          $(this).doTimeout( 'retrying_deferred', 1000, function(){
+          $(this).doTimeout( 'retrying_deferred', 500, function(){
             console.log('retrying_deferred...');
             $.ajax(this[0]);
           });
