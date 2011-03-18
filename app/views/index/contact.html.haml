@@ -1,22 +1,23 @@
-%h1 Feedback Form
-%p
-  Contact us online 24 hours a day by using our Feedback Form. Please submit your request below 
-  and a member of our Customer Service department will respond to you via email during our normal 
-  business hours.
-#feedback_form
-  = form_for(@feedback, :url => {:controller => :index, :action => 'send_feedback', :secure => true}, :remote => true, :html => {:id => "contact_form", :method => :post}) do |f|
-    .field
-      = f.label :email
-      = f.text_field :email
-    .field
-      = f.label :subject
-      = f.select :subject, Feedback.subjects
-    = f.fields_for :comments, @feedback.comments.build do |comments_fields|
+.contactframe{:class=>"ui-corner-all"}
+  .contactcontainer
+    %img{:alt => "", :src => "/images/feedback.png"}
+    %h2 Feedback Form
+    %p
+      Contact us online 24 hours a day by using our Feedback Form. Please submit your request below 
+      and a member of our Customer Service department will respond to you via email during our normal 
+      business hours.
+  #feedback_form
+    = form_for(@feedback, :url => {:controller => :index, :action => 'send_feedback', :secure => true}, :remote => true, :html => {:id => "contact_form", :method => :post}) do |f|
       .field
-        = comments_fields.label :message, "Your Comments"
-        %br
-        = comments_fields.text_area :message
-    .actions
-      = f.submit :class => 'jqui_save'
-
-      
+        = f.label :email
+        = f.text_field :email
+      .field
+        = f.label :subject
+        = f.select :subject, Feedback.subjects
+      = f.fields_for :comments, @feedback.comments.build do |comments_fields|
+        .field
+          = comments_fields.label :message, "Your Comments"
+          %br
+          = comments_fields.text_area :message
+      .actions
+        = f.submit :class => 'jqui_save'
