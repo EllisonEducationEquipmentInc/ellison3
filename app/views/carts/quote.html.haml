@@ -9,7 +9,7 @@
         = render :partial => 'users/address_form', :locals => {:f => f}
         .actions
           = f.submit "Continue", :class => 'jqui_save'
-#new_billing{:style => "display:#{get_user.shipping_address ? 'block' : 'none'}"}
+#new_billing
   #cod_info{:style => "display:#{get_user.shipping_address ? 'block' : 'none'}"}= render :partial => 'users/cod_form' if cod_allowed?
   %h3 Shipping Options
   #shipping_options= render :partial => "shipping_options" if get_user.shipping_address

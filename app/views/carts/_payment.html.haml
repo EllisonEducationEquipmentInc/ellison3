@@ -37,14 +37,15 @@
     .field
       = f.check_box :purchase_order, :onclick => "if (this.checked){$('#po_info').show();$('#cc_info').hide();$('#payment_attachment').rules('add',{required: true});$('#payment_purchase_order_number').rules('add',{required: true});$('.cc').each(function(){$(this).rules('remove')})} else {$('#po_info').hide();$('#cc_info').show();$('.cc').each(function(){$(this).rules('add',{required: true})});$('#payment_full_card_number').rules('add',{creditcard: true});$('#payment_card_security_code').rules('add',{cvv: true});$('#payment_attachment').rules('remove');$('#payment_purchase_order_number').rules('remove');}"
       = f.label :purchase_order, "Check if you would like to pay your order by Purchase Order.", :class => "autosize"
-    .field#po_info{:style => "display:none"}
-      = f.label :purchase_order_number
-      = f.text_field :purchase_order_number
-      %br
-      = f.label :attachment, "Upload Purchase Order: (doc, pdf)"
-      %br
-      = f.file_field :attachment
-      = f.hidden_field :attachment_cache
+    #po_info{:style => "display:none"}
+      .field
+        = f.label :purchase_order_number, :class => "w147"
+        = f.text_field :purchase_order_number
+      .field
+        = f.label :attachment, "Upload Purchase Order", :class => "w147"
+        = f.file_field :attachment
+        = f.hidden_field :attachment_cache
+        %p.formhelp{ :style => "margin-left: 158px"} Please upload .doc or .pdf documents only.
   #cc_info
     - if get_user.token && get_user.token.current?
       %strong Credit Card on file:

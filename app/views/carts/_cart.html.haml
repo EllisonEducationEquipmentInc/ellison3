@@ -72,6 +72,7 @@
       %p.error There are items in the cart that are available for pre-order only. If you would like to place a pre-order please click "Pre-Order". For immediate shipping please remove these items.
     - if quote_allowed?
       .save_as_quote.right Save as Quote
+      .right{ :style => "margin: 4px 10px 0 10px; font-weight: bold; text-transform: uppercase" } or
     - if chekout_allowed?
       #checkout_button.right= "Checkout"
     - elsif get_cart.pre_order?
