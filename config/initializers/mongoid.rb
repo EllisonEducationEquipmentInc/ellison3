@@ -18,12 +18,12 @@ module Mongoid #:nodoc:
   class Criteria 
     def in_batches(limit=1000)
       skip = 0
-      objects = Mongoid::Criteria.translate(self).limit(limit).skip(skip*limit)
-      while objects.any?
+      objects = self.limit(limit).skip(skip*limit)
+      while objects.size > 0
         yield objects
         break if objects.size < limit
         skip+=1
-        objects = Mongoid::Criteria.translate(self).limit(limit).skip(skip*limit)
+        objects = self.limit(limit).skip(skip*limit)
       end
     end
   end
