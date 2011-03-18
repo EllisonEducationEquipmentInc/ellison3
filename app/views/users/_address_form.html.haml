@@ -1,60 +1,49 @@
 = f.error_messages
 = f.hidden_field :address_type
-#bypass_avs.field.error{:style => 'display:none'}
+#bypass_avs.field-stacked.error{:style => 'display:none'}
   = f.check_box :bypass_avs
   = f.label :bypass_avs, "Bypass Address Verification"
   = f.hidden_field :enable_avs_bypass
   %br
   By checking this box, you have verified this shipping address is a correct physical address and not a PO BOX.
   %br
-.field.left
+.field-stacked.left
   = required_label f, :first_name, { :label_size => "auto" }
-  %br
   = f.text_field :first_name, :size => 19, :style => "margin-right: 6px"
-.field.left
+.field-stacked.left
   = required_label f, :last_name, { :label_size => "auto" }
-  %br
   = f.text_field :last_name, :size => 19
 .clear
-.field
-  = required_label_if !is_sizzix?, f, :company, { :label => "Company/School/Organization", :label_size => "auto" }
-  %br
+.field-stacked
+  = required_label_if !is_sizzix?, f, :company, { :label => "#{is_sizzix_us? ? 'Attention:' : 'Company/School/Organization'}", :label_size => "auto" }
   = f.text_field :company, :size => 42
-.field.left
+.field-stacked.left
   = required_label f, :address1, { :label => "Address 1", :label_size => "auto"}
-  %br
   = f.text_field :address1, :size => 19, :style => "margin-right: 6px"
-.field.left
+.field-stacked.left
   = f.label :address2, "Address 2", :class => "autosize"
-  %br
   = f.text_field :address2, :size => 19
 .clear
-.field.left
+.field-stacked.left
   = required_label f, :city, { :label_size => "auto"}
-  %br
   = f.text_field :city, :size => "#{is_us? ? 17 : 19}", :style => "margin-right: 6px"
-.field.left{:id => "#{f.object.address_type}_state"}= render :partial => f.object.us? ? 'users/state_select' : 'users/state', :locals => {:f => f}
+.field-stacked.left{:id => "#{f.object.address_type}_state"}= render :partial => f.object.us? ? 'users/state_select' : 'users/state', :locals => {:f => f}
 .clear
-.field.left
+.field-stacked.left
   = required_label f, :zip_code, { :label => "#{is_us? ? 'Zip' : 'Postal'} Code", :label_size => "auto" }
-  %br
   = f.text_field :zip_code, :size => 10, :style => "margin-right: 6px"
-.field
+.field-stacked
   = required_label f, :country, { :label_size => "auto" }
-  %br
   = f.select :country, countries, {}, :onchange => "if (this.value == 'United States') {$('##{f.object.address_type}_state').html('#{escape_javascript(render(:partial => 'users/state_select', :locals => {:f => f}))}');$('##{f.object.address_type}_address_state').rules('add', {required: true});$('##{f.object.address_type}_address_phone').rules('add', {phoneUS: true});$('##{f.object.address_type}_address_zip_code').rules('add', {zipUS: true});} else {$('##{f.object.address_type}_state').html('#{escape_javascript(render(:partial => 'users/state', :locals => {:f => f}))}');$('##{f.object.address_type}_address_state').rules('remove');$('##{f.object.address_type}_address_phone').rules('remove', 'phoneUS');$('##{f.object.address_type}_address_zip_code').rules('remove', 'zipUS');}"
 .clear
-.field.left
+.field-stacked.left
   = required_label f, :phone, { :label_size => "auto" }
-  %br
   = f.text_field :phone, :size => 12, :style => "margin-right: 6px"
-.field.left
+.field-stacked.left
   = f.label :fax
-  %br
   = f.text_field :fax, :size => 12, :style => "margin-right: 6px"
-.field.left
+.field-stacked.left
   = f.label :email
-  %br
   = f.text_field :email
 .clear
 :javascript
@@ -93,11 +82,40 @@
               },
               "#{f.object_name}[state]": { 
                   required: #{f.object.us? ? 'true' : 'false'}, 
-              },
+              }
           }, 
           submitHandler: function(form) {
             $('#edit_#{f.object.address_type}_address').ajaxSubmit();
             fancyloader('Please wait while we validate your address.');
           },
+          messages: {
+              "#{f.object_name}[first_name]": { 
+                  required: "Please provide your First Name."
+              }, 
+              "#{f.object_name}[last_name]": { 
+                  required: "Please provide your Last Name."
+              }, 
+              "#{f.object_name}[address1]": { 
+                  required: "Please provide your Street Address."
+              }, 
+              "#{f.object_name}[city]": { 
+                  required: "Please provide your City."
+              },
+              "#{f.object_name}[email]": { 
+                  required: "What is your E-mail Address?"
+              },
+              "#{f.object_name}[company]": { 
+                  required: "#{is_sizzix? ? 'false' : 'true'}"
+              },
+              "#{f.object_name}[phone]": { 
+                  required: "Please provide your Phone Number."
+              },
+              "#{f.object_name}[zip_code]": { 
+                  required: "Please provide your #{is_us? ? 'Zip' : 'Postal'} Code."
+              },
+              "#{f.object_name}[state]": { 
+                  required: "Please #{f.object.us? ? 'select' : 'provide'} your State."
+              }
+          }
       }); 
   });

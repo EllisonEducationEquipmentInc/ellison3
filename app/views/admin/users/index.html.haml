@@ -31,9 +31,9 @@
           - if is_er?
             %td= user.status
             %td= link_to 'view', :action => 'view_retailer_application', :id => user if user.application_complete?
-            %td= link_to 'messages', admin_messages_path(:user_id => user.id)
+            %td= link_to 'messages', admin_messages_path(:user_id => user.id), :class => 'jqui_messages_min'
           - if has_write_permissions?
-            %td= link_to 'Edit', edit_admin_user_path(user)
+            %td= link_to 'Edit', edit_admin_user_path(user), :class => 'jqui_edit_min'
 %br
 = will_paginate @users
 %br

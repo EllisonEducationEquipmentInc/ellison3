@@ -59,6 +59,7 @@
   %h3 Payment
   #checkout_cc{:style => "display:#{get_user.billing_address && get_user.shipping_address ? 'block' : 'none'}"}= render :partial => 'payment' if get_user.billing_address && get_user.shipping_address
 .clear
+%hr
 #checkout_cart
   = link_to_function "top", "$('html, body').animate({ scrollTop: 0 }, 500);", :class => "minilink"
   .right.minilink= link_to "Edit #{(t :cart)}", cart_path

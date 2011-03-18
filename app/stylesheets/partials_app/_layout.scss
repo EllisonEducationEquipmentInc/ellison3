@@ -1,7 +1,7 @@
 // Ellison3 Web Application Sitewide Layout CSS
 
 // typography styles
-.keyword, .legalese, .byline {
+.keyword, .legalese, .byline, .invalid {
   font-family: Verdana,Arial,sans-serif;
   font-size: .85em;
 }
@@ -75,6 +75,48 @@
   -moz-border-radius-topright:1ex;
   -webkit-border-top-left-radius:1ex;
   -webkit-border-top-right-radius:1ex;
+}
+
+.actions {
+	margin-bottom: 10px;	
+}
+
+.field {
+	margin-bottom: 10px;	
+
+  label {
+    margin-right: 8px;
+  	font-weight: bold;
+  	display: inline-block;
+  	width: 100px;
+  	
+  	&.autosize { width: auto;}
+  	&.w70 { width: 70px; }
+  	&.w111 { width: 111px; }
+  	&.w121 { width: 121px; }
+  	&.w147 { width: 147px;}
+  }
+
+  input[type="checkbox"] {
+    margin: 0 1px 0 12px;
+  } 
+  
+  input[type="radio"] {
+    margin: 0 10px 0 0;
+  } 
+}
+
+.field-stacked { @extend .field;
+
+	label, input {
+	  display: block;
+	  width: auto;
+	}
+	
+	label.invalid {
+	  margin: 0 10px 0 0;
+	  padding: 0;
+	}
 }
 
 .thumbnail {

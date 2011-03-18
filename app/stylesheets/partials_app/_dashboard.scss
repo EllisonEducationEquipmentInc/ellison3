@@ -8,30 +8,6 @@ ul.record_info {
   li span { font-weight: bold; }
 }
 
-.field {
-
-  label {
-    margin-right: 8px;
-  	font-weight: bold;
-  	display: inline-block;
-  	width: 100px;
-  	
-  	&.autosize { width: auto;}
-  	&.w70 { width: 70px; }
-  	&.w111 { width: 111px; }
-  	&.w121 { width: 121px; }
-  	&.w147 { width: 147px;}
-  }
-
-  input[type="checkbox"] {
-    margin: 0 1px 0 12px;
-  } 
-  
-  input[type="radio"] {
-    margin: 0 10px 0 0;
-  } 
-}
-
 .overrideable {
   padding: 3px 8px 2px 8px;
   background: url("/images/ui-backgrounds/_#{$system}_diagonal-stripes.png");

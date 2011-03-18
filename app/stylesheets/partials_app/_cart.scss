@@ -71,6 +71,7 @@ ul.cart_summary {
 
 // push order button to right justify with page
 #checkout_cc {
+  /*
   @if $system == szus {
     height: 270px;
   } @else if $system == szuk {
@@ -78,16 +79,19 @@ ul.cart_summary {
   } @else {
     height: 330px;
   }
+  */
   
   input[type="checkbox"] {
     margin: 0;
   }
   
   #payment_submit { @extend .button_large;
+    /*
     position: relative;
     top: 60px;
     left: 773px;
-  }  
+    */
+  }
 }
 
 #checkout_summary {

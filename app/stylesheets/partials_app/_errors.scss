@@ -1,6 +1,6 @@
-input.invalid {
-  border: 2px solid #eb0000; 
-  background: url("/images/ui-backgrounds/diagonal-stripes_error.png");
+input.invalid, select.invalid {
+  border: 2px solid #fdc9cd; 
+  background: url("/images/ui-backgrounds/diagonal-stripes_error_light.png");
 }
 input.valid {
   border: 2px ridge #00CA5F;
@@ -9,9 +9,11 @@ input.valid {
 label.invalid {
   float: none;
   width: auto;
-  color: red;
+  color: #ea0000;
   padding-left: .5em;
   vertical-align: top;
+  font-style: italic;
+  font-weight: normal;
 }
 
 .field_with_errors {

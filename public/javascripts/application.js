@@ -263,12 +263,10 @@ $(document).ready(function(){
     $(this).attr("autocomplete", 'off');
   });
   
-  // error fields
+  // forms & error fields
   $(".field_with_errors, .errorExplanation").each(function() {
     $(this).addClass("ui-corner-all");
   });
-
-  
   
   shadow_on();
 	
@@ -357,6 +355,9 @@ function initialize_buttons(){
 	});
 	$(function() {
 		$(".jqui_cart_min").button({icons: {primary: 'ui-icon-cart'}, text: false});
+	});	
+	$(function() {
+		$(".jqui_messages_min").button({icons: {primary: 'ui-icon-mail-closed'}, text: false});
 	});	
 	$(function() {
 		$(".jqui_out_of_stock").button({icons: {primary: 'ui-icon-alert'}});
@@ -745,37 +746,36 @@ var payment_validator_options = {
         },
         "payment[card_expiration_year]": { 
             required: true
-        },
-    }, 
+        }
+    },
     submitHandler: function(form) {
       $('#proceed_checkout').callRemote();
 			// $('#proceed_checkout').ajaxSubmit();
       _gaq.push(['_trackEvent', 'Cart', 'Place Order']);
       fancyloader('Your order is being processed. Thank you for your patience!');
     },
-    
     messages: {
         "payment[first_name]": {
-            required: " ",
+            required: "Please provide your First Name."
         },
         "payment[last_name]": {
-            required: " ",
+            required: "Please provide your Last Name."
         },
         "payment[card_name]": { 
-            required: " ",
+            required: "Please select a Credit Card Type."
         },
         "payment[full_card_number]": {
-            required: " ",
-            creditcard: "invalid"
+            required: "Please provide your Credit Card Number.",
+            creditcard: "This not a valid Credit Card Number."
         },
         "payment[card_security_code]": { 
-            required: " ",
+            required: "Please provide your Card's Security Code."
         },
         "payment[card_expiration_month]": { 
-            required: " ",
+            required: "In what Month does your card expire?"
         },
         "payment[card_expiration_year]": { 
-            required: " ",
-        },
-    },
+            required: "In what Year does your card expire?"
+        }
+    }
 };
