@@ -82,7 +82,7 @@ module ApplicationHelper
   - else
     .jqui_out_of_stock Out of Stock
 - elsif @product_obj.suspended?
-  .jqui_out_of_stock Suspended
+  .jqui_out_of_stock Retired
 - elsif @product_obj.available?
   %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "Add Product to Shopping #{(t :cart).capitalize}", :title => "Add Product to Shopping #{(t :cart).capitalize}"}== Add to #{(t :cart).capitalize} +
 - elsif @product_obj.not_reselable?
