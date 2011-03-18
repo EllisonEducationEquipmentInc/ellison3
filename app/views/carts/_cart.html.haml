@@ -1,11 +1,3 @@
-#continue_shopping.right= "Continue Shopping"
-:javascript
-  $(function() {
-    $("#continue_shopping").button()
-      .click( function() {
-        location.href='#{session[:continue_shopping] || '/lp/categories'}';
-      });
-  });
 - if @cart.cart_items.blank?
   %h2= t :empty_cart
 - else
