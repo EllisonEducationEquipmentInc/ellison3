@@ -349,7 +349,7 @@ module ShoppingCart
         gw_options[:billing_address] = {:company => billing.company, :phone => billing.phone,  :address1 => billing.address1, :city => billing.city, :state => billing.state, :country => billing.country, :zip => billing.zip_code} unless billing.use_saved_credit_card
       	gw_options[:subscription_id] = billing.subscriptionid
       	if billing.deferred
-					gw_options[:setup_fee] = (calculate_setup_fee(total_cart, get_cart.shipping_amount + calculate_handling, get_cart.tax_amount) * 100).round
+					gw_options[:setup_fee] = (calculate_setup_fee(get_cart.sub_total, get_cart.shipping_amount + calculate_handling, get_cart.tax_amount) * 100).round
 					gw_options[:number_of_payments] = billing.number_of_payments
 					gw_options[:frequency] = billing.frequency
 					gw_options[:start_date] = 1.months.since.strftime("%Y%m%d")

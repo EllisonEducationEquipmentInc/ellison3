@@ -240,7 +240,7 @@ class CartsController < ApplicationController
 	
 	def get_deferred_first_payment
 	  raise 'invalid' unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
-		@first_payment = calculate_setup_fee(total_cart, get_cart.shipping_amount + calculate_handling, get_cart.tax_amount)
+		@first_payment = calculate_setup_fee(get_cart.sub_total, get_cart.shipping_amount + calculate_handling, get_cart.tax_amount)
 		render :inline => "<%= number_to_currency @first_payment %>"
 	rescue Exception => e
 	  render :nothing => true, :status => 510
