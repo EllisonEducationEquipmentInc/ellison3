@@ -1,12 +1,12 @@
-%h3 Enter Your COD carrier account
+%h3 Collect Carrier Account Information
 = form_tag url_for(:controller => 'carts', :action => 'save_cod'), :remote => true, :id => 'cod_account_form' do
-  = label_tag :cod_account_type, "COD account type"
-  = select_tag :cod_account_type, options_for_select([['--- select ---', nil]] + cod_list.map {|e| [e.label, e.id]}, get_user.cod_account_type)
-  %br
-  = label_tag :cod_account, "COD account #"
-  = text_field_tag :cod_account, get_user.cod_account
-  = submit_tag :save, :class => 'jqui_save'
-%br
+  .field
+    = label_tag :cod_account_type, "Collect Carrier", :style => "font-weight: normal;"
+    = select_tag :cod_account_type, options_for_select([['--- select ---', nil]] + cod_list.map {|e| [e.label, e.id]}, get_user.cod_account_type)
+  .field
+    = label_tag :cod_account, "Collect Account #", :style => "font-weight: normal;"
+    = text_field_tag :cod_account, get_user.cod_account, :size => 17
+    = submit_tag :save, :class => 'jqui_save'
 :javascript
   $(".jqui_save").button({icons: {primary: 'ui-icon-disk'}});
   $(document).ready(function() { 
@@ -19,11 +19,7 @@
               "cod_account": { 
                   required: true
               }, 
-             
           }, 
-          success: function(label) { 
-              label.html(" ").addClass("checked"); 
-          },
           submitHandler: function(form) {
             $(form).ajaxSubmit();
           },
