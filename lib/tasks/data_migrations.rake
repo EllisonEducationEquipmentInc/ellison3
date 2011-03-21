@@ -1,6 +1,7 @@
 # encoding: utf-8
 namespace :data_migrations do
   require "active_record/railtie"  
+  require 'mongoid/railtie'
   
   desc "test"
   task :test => [:set_szuk, :load_dep]  do
