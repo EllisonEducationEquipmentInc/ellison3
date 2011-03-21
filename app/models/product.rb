@@ -27,7 +27,7 @@ class Product
   # validations
   validates :name, :item_num, :life_cycle, :systems_enabled, :presence => true
   validates :related_product_tag, :object_id_validity => true, :allow_blank => true
-  validates_presence_of :discount_category_id, :if => Proc.new {|obj| obj.systems_enabled && obj.systems_enabled.include?("er")}
+  validates_presence_of :discount_category_id, :if => Proc.new {|obj| obj.systems_enabled && obj.systems_enabled.include?("erus")}
   # validates_presence_of :volume, :if => Proc.new {|obj| obj.length.blank? || obj.width.blank? || obj.height.blank?}, :message => "Either volume or length + width + height is required" 
   # validates_presence_of :length, :width, :height, :if => Proc.new {|obj| obj.volume.blank?}, :message => "Either volume or length + width + height is required" 
   validates_inclusion_of :life_cycle, :in => LIFE_CYCLES, :message => "%s is not included in the list"
@@ -154,7 +154,7 @@ class Product
     
     # displayable and life_cycle is in ['pre-release', 'available'], or discontinued but in-stock
     def listable(sys = current_system)
-      displayable(sys).any_of({:life_cycle => 'discontinued', "$where" => sys == "szus" ? "this.quantity_sz > 0 || this.quantity_us > 0" : "this.quantity_#{sys == "eeus" || sys == "er" ? 'us' : 'uk'} > 0"}, {:life_cycle.in => Product::LIFE_CYCLES[0,2]})
+      displayable(sys).any_of({:life_cycle => 'discontinued', "$where" => sys == "szus" ? "this.quantity_sz > 0 || this.quantity_us > 0" : "this.quantity_#{sys == "eeus" || sys == "erus" ? 'us' : 'uk'} > 0"}, {:life_cycle.in => Product::LIFE_CYCLES[0,2]})
     end
     
     # enabled for current system and active, and between start and end date
@@ -423,7 +423,7 @@ class Product
     if sys == "szus"
       self.quantity_us + self.quantity_sz
     else
-      sys == "eeus" || sys == "er" ? self.quantity_us : self.quantity_uk
+      sys == "eeus" || sys == "erus" ? self.quantity_us : self.quantity_uk
     end
   end
   

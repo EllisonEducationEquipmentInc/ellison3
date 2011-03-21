@@ -14,7 +14,7 @@ namespace :data_migrations do
   task :tags => :load_dep do
     OldData::PolymorphicTag.not_deleted.all(:conditions => ["tag_type NOT IN (?)", [1,16]]).each do |tag|
       tag.name.force_encoding("UTF-8") if tag.name.encoding.name == "ASCII-8BIT"
-      new_tag = Tag.new :old_id => tag.id, :name => tag.name, :tag_type => tag.old_type_to_new, :active => tag.active, :systems_enabled => ["szus", "szuk", "er"], :description => tag.short_desc, :start_date_szus => tag.start_date, :all_day => tag.all_day, :color => tag.color,
+      new_tag = Tag.new :old_id => tag.id, :name => tag.name, :tag_type => tag.old_type_to_new, :active => tag.active, :systems_enabled => ["szus", "szuk", "erus"], :description => tag.short_desc, :start_date_szus => tag.start_date, :all_day => tag.all_day, :color => tag.color,
         :end_date_szus => tag.end_date, :banner => tag.banner, :list_page_image => tag.list_page_image, :medium_image => tag.medium_image, :calendar_start_date_szus => tag.calendar_start_date, :calendar_end_date_szus => tag.calendar_end_date, :keywords => tag.keywords
       print new_tag.save
       p tag.id
@@ -62,7 +62,7 @@ namespace :data_migrations do
       old_product.tabs.not_deleted.each do |tab|
         next if product.tabs.where(:name => tab.name).count > 0
         new_tab = product.tabs.build 
-        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ["szus", "szuk", "er"], :active => tab.active, :text => tab.freeform
+        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ["szus", "szuk", "erus"], :active => tab.active, :text => tab.freeform
         process_tab(tab,new_tab)
         p new_tab.save
         p new_tab.errors
@@ -117,7 +117,7 @@ namespace :data_migrations do
   task :ideas_sz => :load_dep do
     #idea = OldData::Idea.find 1820
     OldData::Idea.find_each do |idea|
-      new_idea = Idea.new :name => idea.name, :description_szus => idea.short_desc, :old_id => idea.id, :systems_enabled => ["szus", "szuk", "er"], :idea_num => idea.idea_num.to_s, :long_desc => idea.long_desc, :active => idea.active_status, 
+      new_idea = Idea.new :name => idea.name, :description_szus => idea.short_desc, :old_id => idea.id, :systems_enabled => ["szus", "szuk", "erus"], :idea_num => idea.idea_num.to_s, :long_desc => idea.long_desc, :active => idea.active_status, 
          :keywords => idea.keywords, :start_date_szus => idea.start_date, :end_date_szus => idea.end_date, :objective => idea.objective,
          :distribution_life_cycle_szus => idea.new_lesson ? 'New' : nil, :distribution_life_cycle_ends_szus => idea.new_lesson && idea.new_expires_at
       new_idea.tags = Tag.where(:old_id.in => idea.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
@@ -168,7 +168,7 @@ namespace :data_migrations do
     set_current_system "eeus"
     OldData::PolymorphicTag.not_deleted.find_each(:conditions => ["tag_type NOT IN (?)", [1,16]]) do |tag|
       tag.name.force_encoding("UTF-8") if tag.name.encoding.name == "ASCII-8BIT"
-      systems = ["eeus", "er"]
+      systems = ["eeus", "erus"]
       systems << "eeuk" unless ["calendar", "calendar_event", "theme", "curriculum", "subcurriculum", "subtheme"].include?(tag.old_type_to_new)
       new_tag = Tag.where(:name => tag.name, :tag_type => tag.old_type_to_new).first || Tag.new(:name => tag.name, :tag_type => tag.old_type_to_new, :active => tag.active, :systems_enabled => systems, :description => tag.short_desc, :start_date_eeus => tag.start_date,  :end_date_eeus => tag.end_date, :banner => tag.banner, :list_page_image => tag.list_page_image, :medium_image => tag.medium_image)
       new_tag.write_attributes :old_id_edu => tag.id, :all_day => tag.all_day, :calendar_start_date_eeus => tag.calendar_start_date, :calendar_end_date_eeus => tag.calendar_end_date, :calendar_start_date_er => tag.calendar_start_date, :calendar_end_date_er => tag.calendar_end_date, :keywords => tag.keywords, :color => tag.color
@@ -234,7 +234,7 @@ namespace :data_migrations do
       old_product.tabs.not_deleted.each do |tab|
         next if product.tabs.where(:name => tab.name).count > 0
         new_tab = product.tabs.build 
-        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled =>  ["eeus", "eeuk", "er"], :active => tab.active, :text => tab.freeform
+        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled =>  ["eeus", "eeuk", "erus"], :active => tab.active, :text => tab.freeform
         process_tab(tab,new_tab)
         p new_tab.save
         p new_tab.errors
@@ -248,7 +248,7 @@ namespace :data_migrations do
   task :size_to_tag => [:set_edu, :load_dep] do
     set_current_system "eeus"
     Product.where(:product_config.exists => true, 'product_config.config_group' => 'size').each do |product|
-      tag = Tag.where(:tag_type => "size", :name => product.size).first || Tag.new(:tag_type => 'size', :name => product.size, :start_date_eeus => 1.year.ago, :end_date_eeus => 20.years.since, :systems_enabled => ["eeus", "eeuk", "er"])
+      tag = Tag.where(:tag_type => "size", :name => product.size).first || Tag.new(:tag_type => 'size', :name => product.size, :start_date_eeus => 1.year.ago, :end_date_eeus => 20.years.since, :systems_enabled => ["eeus", "eeuk", "erus"])
       tag.product_ids << product.id
       product_ids = tag.product_ids.dup
       tag.products = Product.where(:_id.in => product_ids).uniq.map {|p| p}
@@ -281,7 +281,7 @@ namespace :data_migrations do
     set_current_system "eeus"
     #idea = OldData::Idea.find 1820
     OldData::Idea.find_each(:conditions => "id > 0") do |idea|
-      new_idea = Idea.new :name => idea.name, :description_eeus => idea.short_desc, :old_id_edu => idea.id, :systems_enabled => ["eeus", "eeuk", "er"], :idea_num => "#{idea.idea_num}", :long_desc => idea.long_desc, :active => idea.active_status, 
+      new_idea = Idea.new :name => idea.name, :description_eeus => idea.short_desc, :old_id_edu => idea.id, :systems_enabled => ["eeus", "eeuk", "erus"], :idea_num => "#{idea.idea_num}", :long_desc => idea.long_desc, :active => idea.active_status, 
          :keywords => idea.keywords, :start_date_eeus => idea.start_date, :end_date_eeus => idea.end_date, :objective => idea.objective, :grade_level => idea.grade_level && idea.grade_level.split(/,\s*/),
          :distribution_life_cycle_eeus => idea.new_lesson ? 'New' : nil, :distribution_life_cycle_ends_eeus => idea.new_lesson && idea.new_expires_at
       new_idea.tags = Tag.where(:old_id_edu.in => idea.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
@@ -355,7 +355,7 @@ namespace :data_migrations do
       old_idea.idea_tabs.not_deleted.each do |tab|
         next if idea.tabs.where(:name => tab.name).count > 0
         new_tab = idea.tabs.build 
-        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ["eeus", "eeuk", "er"], :active => tab.active, :text => tab.freeform
+        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ["eeus", "eeuk", "erus"], :active => tab.active, :text => tab.freeform
         process_tab(tab,new_tab,"edu")
         p new_tab.save
         p new_tab.errors
@@ -584,12 +584,12 @@ namespace :data_migrations do
   
   desc "migrate ER products"
   task :products_er => [:set_er, :load_dep]  do
-    set_current_system "er"
+    set_current_system "erus"
     # product = OldData::Product.find 2648 #2641
     OldData::Product.not_deleted.find_each(:conditions => "id > 0") do |product|
-      new_product = Product.where(:item_num => product.item_num).first || Product.new(:systems_enabled => ["er"], :name => product.name, :item_num => product.item_num, :long_desc => product.long_desc, :upc => product.upc, :keywords => product.keywords, :life_cycle => product.new_life_cycle, :active => product.new_active_status, :quantity_us => product.quantity)
+      new_product = Product.where(:item_num => product.item_num).first || Product.new(:systems_enabled => ["erus"], :name => product.name, :item_num => product.item_num, :long_desc => product.long_desc, :upc => product.upc, :keywords => product.keywords, :life_cycle => product.new_life_cycle, :active => product.new_active_status, :quantity_us => product.quantity)
       new_product.msrp_usd ||= product.msrp
-      new_product.systems_enabled << "er" if product.new_active_status && !new_product.systems_enabled.include?("er")
+      new_product.systems_enabled << "erus" if product.new_active_status && !new_product.systems_enabled.include?("erus")
       new_product.write_attributes :wholesale_price_usd => product.wholesale_price, :minimum_quantity => product.minimum_quantity, :description_er => product.short_desc, :old_id_er => product.id,  :orderable_er => product.new_orderable, :start_date_er => product.start_date, :end_date_er => product.end_date,  :distribution_life_cycle_er => product.life_cycle, :distribution_life_cycle_ends_er => !product.life_cycle.blank? && product.life_cycle_ends, :availability_message_er => product.availability_msg
       discount_category = DiscountCategory.where(:old_id => product.discount_category_id).first
       next if discount_category.blank?
@@ -602,7 +602,7 @@ namespace :data_migrations do
         p new_product.save
       end
       if product.release_date_string
-        tag = Tag.release_dates.where(:name => product.release_date_string).first || Tag.create(:name => product.release_date_string, :tag_type => 'release_date', :systems_enabled => ["er"], :start_date_er => 2.year.ago, :end_date_er => product.release_date.end_of_day)
+        tag = Tag.release_dates.where(:name => product.release_date_string).first || Tag.create(:name => product.release_date_string, :tag_type => 'release_date', :systems_enabled => ["erus"], :start_date_er => 2.year.ago, :end_date_er => product.release_date.end_of_day)
         product_ids = tag.product_ids.map {|e| "#{e}"}
         tag.my_product_ids = (product_ids + [new_product.id.to_s]).uniq.compact.reject {|e| e.blank?}
         tag.save
@@ -636,7 +636,7 @@ namespace :data_migrations do
   
   desc "import ER users - IMPORTANT: copy production 'attachment' folder to the new app's root folder"
   task :users_er => [:set_er, :load_dep] do
-    set_current_system "er"
+    set_current_system "erus"
     # old_user = OldData::User.find 1282
     OldData::User.not_deleted.find_each(:conditions => "id > 1323") do |old_user|
       existing = User.where(:email => old_user.email).first
@@ -645,9 +645,9 @@ namespace :data_migrations do
         p "!!! user #{old_user.email} found. merging..."
         new_user.old_id_er = old_user.id
         new_user.save
-        new_user.systems_enabled << "er" if !new_user.systems_enabled.include?("er") 
+        new_user.systems_enabled << "erus" if !new_user.systems_enabled.include?("erus") 
         unless new_user.orders.count > 0
-          new_user.systems_enabled = ["er"]
+          new_user.systems_enabled = ["erus"]
           new_user.addresses = []
           process_user(old_user,new_user)
           new_user.tax_exempt = false
@@ -703,7 +703,7 @@ namespace :data_migrations do
   
   desc "migrate ER orders"
   task :orders_er => [:set_er, :load_dep] do
-    set_current_system "er"
+    set_current_system "erus"
     #order = OldData::Order.find(511574)
     OldData::Order.find_each(:conditions => "id > 0") do |order|
       new_order = Order.new(:status => order.status_name, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :order_number => order.id, :order_reference => order.order_reference_id.blank? ? nil : Order.where(:order_number => order.order_reference_id).first.try(:id), :tracking_number => order.tracking_number, :tracking_url => order.tracking_url, :customer_rep => order.sales_rep.try(:email), :clickid => order.clickid, :utm_source => order.utm_source, :tracking => order.tracking,
@@ -728,7 +728,7 @@ namespace :data_migrations do
   
   desc "migrate ER wishlists"
   task :lists_er => [:set_er, :load_dep] do
-    set_current_system "er"
+    set_current_system "erus"
     OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
       user = User.where(:old_id_er => old_list.user_id).first
       next unless user
@@ -803,7 +803,7 @@ namespace :data_migrations do
   
   desc "migrate EDU US wishlists"
   task :lists_eeus => [:set_edu, :load_dep] do
-    set_current_system "er"
+    set_current_system "erus"
     OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
       user = User.where(:old_id_eeus => old_list.user_id).first
       next unless user
@@ -816,7 +816,7 @@ namespace :data_migrations do
   
   desc "migrate ER quotes"
   task :quotes_er => [:set_er, :load_dep] do
-    set_current_system "er"
+    set_current_system "erus"
     # order = OldData::Quote.find(48)
     OldData::Quote.find_each(:conditions => "id > 0") do |order|
       new_order = Quote.new(:old_id_er => order.id, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :quote_number => order.quote, :customer_rep => order.sales_rep.try(:email), 
@@ -863,7 +863,7 @@ namespace :data_migrations do
   desc "calendar events only for EEUS"
   task :calendar_events_eeus_only => [:set_edu, :load_dep] do
     set_current_system "eeus"
-    Tag.calendar_events.each {|e| p e.update_attributes :systems_enabled => ["eeus", "er"]}
+    Tag.calendar_events.each {|e| p e.update_attributes :systems_enabled => ["eeus", "erus"]}
   end
   
   desc "import grade levels from lib/tasks/migrations/gradelevel_tags_grouped.csv"
@@ -950,7 +950,7 @@ namespace :data_migrations do
       next unless @product
       @product.minimum_quantity = row['min_qty_er'].to_i
       @product.discount_category_id = DiscountCategory.where(:old_id => row['discount_id']).first.try(:id)
-      @product.systems_enabled << "er" unless @product.systems_enabled.include?("er")
+      @product.systems_enabled << "erus" unless @product.systems_enabled.include?("erus")
       @product.send :inherit_system_specific_attributes
       p @product.save(:validate => false)
     end
@@ -965,6 +965,61 @@ namespace :data_migrations do
     end
   end
   
+  desc "ER to ERUS"
+  task :er_to_erus => [:set_er, :load_dep] do
+    set_current_system "erus"
+    p "updating products..."
+    Product.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating ideas..."
+    Idea.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating admins..."
+    Admin.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating users..."
+    User.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating countries..."
+    Country.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating coupons..."
+    Coupon.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating events..."
+    Event.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating Feedbacks..."
+    Feedback.collection.update({:system => "er"}, {:$set => {"system" => "erus"}}, :multi => true)
+    p "updating LandingPages..."
+    LandingPage.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating Navigation..."
+    Navigation.collection.update({:system => "er"}, {:$set => {"system" => "erus"}}, :multi => true)
+    p "updating Orders..."
+    Order.collection.update({:system => "er"}, {:$set => {"system" => "erus"}}, :multi => true)
+    p "updating Quotes..."
+    Quote.collection.update({:system => "er"}, {:$set => {"system" => "erus"}}, :multi => true)
+    p "updating SearchPhrases..."
+    SearchPhrase.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating SharedContents..."
+    SharedContent.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating ShippingRates..."
+    ShippingRate.collection.update({:system => "er"}, {:$set => {"system" => "erus"}}, :multi => true)
+    p "updating StaticPage..."
+    StaticPage.collection.update({:system_enabled => "er"}, {:$set => {"system" => "erus"}}, :multi => true)
+    p "updating tags..."
+    Tag.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    
+    # embedded:
+    p "updating campaigns..."
+    Product.collection.update({'campaigns.systems_enabled' => 'er'}, {:$pull => {'campaigns.$.systems_enabled' => 'er'}, :$push => {'campaigns.$.systems_enabled' => 'erus'}}, :mutli => true)
+    Tag.collection.update({'campaigns.systems_enabled' => 'er'}, {:$pull => {'campaigns.$.systems_enabled' => 'er'}, :$push => {'campaigns.$.systems_enabled' => 'erus'}}, :mutli => true)
+    p "updating permissions..."
+    Admin.collection.update({'permissions.systems_enabled' => 'er'}, {:$pull => {'permissions.$.systems_enabled' => 'er'}, :$push => {'permissions.$.systems_enabled' => 'erus'}}, :mutli => true)    
+    p "updating tabs..."
+    Product.collection.update({'tabs.systems_enabled' => 'er'}, {:$pull => {'tabs.$.systems_enabled' => 'er'}, :$push => {'tabs.$.systems_enabled' => 'erus'}}, :mutli => true)
+    Idea.collection.update({'tabs.systems_enabled' => 'er'}, {:$pull => {'tabs.$.systems_enabled' => 'er'}, :$push => {'tabs.$.systems_enabled' => 'erus'}}, :mutli => true)
+    p "updating visual_assets..."
+    Tag.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$pull => {'visual_assets.$.systems_enabled' => 'er'}, :$push => {'visual_assets.$.systems_enabled' => 'erus'}}, :mutli => true)
+    LandingPage.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$pull => {'visual_assets.$.systems_enabled' => 'er'}, :$push => {'visual_assets.$.systems_enabled' => 'erus'}}, :mutli => true)
+    SharedContent.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$pull => {'visual_assets.$.systems_enabled' => 'er'}, :$push => {'visual_assets.$.systems_enabled' => 'erus'}}, :mutli => true)
+  
+    
+  end
+  
   task :set_edu do
     ENV['SYSTEM'] = "edu"
   end
@@ -974,7 +1029,7 @@ namespace :data_migrations do
   end
   
   task :set_er do
-    ENV['SYSTEM'] = "er"
+    ENV['SYSTEM'] = "erus"
   end
     
   desc "load dependencies and connect to mysql db"
@@ -990,7 +1045,7 @@ namespace :data_migrations do
       "ellison_education_qa"
     when "szuk"
       "sizzix_2_uk_qa"
-    when "er"
+    when "erus"
       "ellison_global_qa"
     else
       "sizzix_2_us_qa"

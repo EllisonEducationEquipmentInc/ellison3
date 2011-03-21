@@ -639,11 +639,11 @@ function megamenuHoverOver() {
   if (current_system == "szuk") {
     var meganav_hover = "#ffffcc";
   }
-  if (current_system == "er") {
+  if (current_system == "erus") {
     var meganav_hover = "#6382e0";
   }
   
-  if (current_system == "szuk" || current_system == "er") {
+  if (current_system == "szuk" || current_system == "erus") {
     $(this).find('a.megalink').css({ "color": meganav_hover });
   }
   
@@ -673,11 +673,11 @@ function megamenuHoverOut() {
   if (current_system == "szuk") {
     var meganav_hoverout = "#eeeeee";
   }
-  if (current_system == "er") {
+  if (current_system == "erus") {
     var meganav_hoverout = "#eeeeee";
   }
   
-  if (current_system == "szuk" || current_system == "er") {
+  if (current_system == "szuk" || current_system == "erus") {
     $(this).find('a.megalink').css({ "color": meganav_hoverout });
   }  
 

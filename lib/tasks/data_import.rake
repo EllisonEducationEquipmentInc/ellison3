@@ -2,7 +2,7 @@ namespace :data_import do
 
   desc "import tradeshow orders from /data/shared/tradeshow_orders/tradeshow_orders.xml"
   task :tradeshow_orders => :environment do
-    set_current_system "er"
+    set_current_system "erus"
     vat = SystemSetting.value_at("vat").to_f
     File.open("/data/shared/tradeshow_orders/tradeshow_orders.xml", "r") do |file|
       @xml = file.read
@@ -10,7 +10,7 @@ namespace :data_import do
     @doc = Nokogiri::XML @xml
     @doc.xpath("//orders//order").each do |order|
       email = order.children.at_css("email").text.present? ? order.children.at_css("email").text : "tradeshow_#{order.children.at_css('id').text}@ellison.com"
-      @user = User.where(:systems_enabled.in => ["er"], :erp => order.children.at_css("customer_number").text).first || User.where(:systems_enabled.in => ["er"], :email => email).first
+      @user = User.where(:systems_enabled.in => ["erus"], :erp => order.children.at_css("customer_number").text).first || User.where(:systems_enabled.in => ["erus"], :email => email).first
       if @user
         p "User found..."
       else

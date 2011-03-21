@@ -13,7 +13,7 @@ namespace :ax do
   desc "create ax xml from open US orders"
   task :orders_to_ax => :include_ax do
     new_relic_wrapper "orders_to_ax" do
-      @orders = Order.where(:status => "Open", :system.in => ["szus", "eeus", "er"])
+      @orders = Order.where(:status => "Open", :system.in => ["szus", "eeus", "erus"])
     
       if @orders.count > 0
         xml = build_ax_xml @orders
@@ -47,7 +47,7 @@ namespace :ax do
   desc "create ax xml from off hold US orders"
   task :paid_pre_orders_to_ax => :include_ax do
     new_relic_wrapper "paid_pre_orders_to_ax" do
-      @orders = Order.where(:status => "Off Hold", :system.in => ["szus", "eeus", "er"])
+      @orders = Order.where(:status => "Off Hold", :system.in => ["szus", "eeus", "erus"])
     
       if @orders.count > 0
         xml = build_ax_xml @orders

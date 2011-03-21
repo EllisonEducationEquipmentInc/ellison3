@@ -3,7 +3,7 @@
   .field
     = f.label :systems_enabled
     = system_enabled('user')
-  - if is_er? || @user.systems_enabled && @user.systems_enabled.include?("er")
+  - if is_er? || @user.systems_enabled && @user.systems_enabled.include?("erus")
     .field
       = f.label :status, "Status (has affect only on Retailer users)"
       %br

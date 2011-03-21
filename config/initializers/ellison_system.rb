@@ -4,7 +4,7 @@ module EllisonSystem
 	LOCALES_2_CURRENCIES = {'en-US' => 'usd', 'en-UK' => 'gbp', 'en-EU' => 'eur'} unless const_defined?(:LOCALES_2_CURRENCIES)
 	
 	# define systems here
-	ELLISON_SYSTEMS = %w(szus szuk eeus eeuk er) unless const_defined?(:ELLISON_SYSTEMS)
+	ELLISON_SYSTEMS = %w(szus szuk eeus eeuk erus) unless const_defined?(:ELLISON_SYSTEMS)
 	
 	WAREHOUSES = %w(us uk sz)
 	
@@ -69,7 +69,7 @@ module EllisonSystem
 	
   def is_er?
     # is ellison_retailers?
-    current_system == 'er'
+    current_system == 'erus'
   end
   
   def is_ee?
@@ -145,7 +145,7 @@ module EllisonSystem
 	end
 	
 	def system_name
-		{"szus" => "Sizzix",  "szuk" => "Sizzix UK", "eeus" => "Ellison Education", "eeuk" => "Ellison Education UK", "er" => "Ellison Retailers"}[current_system]
+		{"szus" => "Sizzix",  "szuk" => "Sizzix UK", "eeus" => "Ellison Education", "eeuk" => "Ellison Education UK", "erus" => "Ellison Retailers"}[current_system]
 	end
 	
 	def set_default_locale
@@ -168,7 +168,7 @@ module EllisonSystem
 		when /ellisoneducation\.co\.uk$/
 			set_current_system 'eeuk'
 		when /ellison\.com$/ || /ellisonretailers\.com$/
-			set_current_system 'er'
+			set_current_system 'erus'
 		else
 			set_current_system 'szus'
 		end

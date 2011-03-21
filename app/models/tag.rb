@@ -64,6 +64,8 @@ class Tag
   ELLISON_SYSTEMS.each do |system|
     field "start_date_#{system}".to_sym, :type => DateTime
     field "end_date_#{system}".to_sym, :type => DateTime
+    field :"calendar_start_date_#{system}", :type => DateTime
+    field :"calendar_end_date_#{system}", :type => DateTime
   end
   field :banner
   field :list_page_image
@@ -88,8 +90,6 @@ class Tag
   ELLISON_SYSTEMS.each do |system|
     index :"start_date_#{system}"
     index :"end_date_#{system}"
-    field :"calendar_start_date_#{system}", :type => DateTime
-    field :"calendar_end_date_#{system}", :type => DateTime
   end
   index :image_filename
   index :updated_at

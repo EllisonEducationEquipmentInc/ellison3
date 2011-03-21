@@ -19,11 +19,11 @@ namespace :migrations do |ns|
 	desc "setup countries for systems"
 	task :setup_countries => :environment do
 	  us = Country.find_by_name("United States")
-	  us.update_attributes :systems_enabled => ["szus", "eeus", "er"]
+	  us.update_attributes :systems_enabled => ["szus", "eeus", "erus"]
 	  eu_countries = Country.where(:name.in => ["Austria", "Belgium", "Bulgaria", "Croatia", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Italy", "Latvia", "Lithuania", "Luxembourg", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Switzerland", "United Kingdom", "Isle of Man", "Northern Ireland", "Guernsey", "Jersey", "Sweden", "Ireland"])
-	  eu_countries.each {|e| e.update_attributes(:systems_enabled => ["szuk", "eeuk", "er"])}
+	  eu_countries.each {|e| e.update_attributes(:systems_enabled => ["szuk", "eeuk", "erus"])}
 	  all_other_countries = Country.where(:systems_enabled => nil)
-	  all_other_countries.each {|e| e.update_attributes(:systems_enabled => ["er"])}
+	  all_other_countries.each {|e| e.update_attributes(:systems_enabled => ["erus"])}
 	end
 	
 	desc "puts US and UK to the top of country list"
@@ -85,7 +85,7 @@ namespace :migrations do |ns|
 	task :grade_levels => :environment do
     set_current_system "eeus"
 	  ["Pre-K", "K-2", "3-5", "6-8", "9-12"].each do |grade|
-	    p Tag.create :name => grade, :tag_type => 'grade_level', :systems_enabled => ["eeus", "er"], :start_date_eeus => 1.year.ago, :end_date_eeus => 30.years.since
+	    p Tag.create :name => grade, :tag_type => 'grade_level', :systems_enabled => ["eeus", "erus"], :start_date_eeus => 1.year.ago, :end_date_eeus => 30.years.since
 	  end
 	end
 	
