@@ -150,7 +150,7 @@ class Idea
 	
 	def description(options = {})
 		system = options[:system] || current_system
-		send("description_#{system}") || send("description_er") || send("description_szus") || send("description_eeus")
+		send("description_#{system}") || send("description_erus") || send("description_szus") || send("description_eeus")
 	end
 	
 	def description=(d)

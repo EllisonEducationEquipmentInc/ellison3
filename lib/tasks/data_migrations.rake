@@ -1018,7 +1018,7 @@ namespace :data_migrations do
     # SharedContent.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$pull => {'visual_assets.$.systems_enabled' => 'er'}, :$push => {'visual_assets.$.systems_enabled' => 'erus'}}, :mutli => true)
   
     js = <<-EOF
-    use ellison3 
+    use #{Mongoid.database.name} 
     db.coupons.update({start_date_er:  {$exists : true }}, {$rename : {start_date_er : 'start_date_erus'}},false,true)
     db.coupons.update({end_date_er:  {$exists : true }}, {$rename : {end_date_er : 'end_date_erus'}},false,true)
     db.coupons.update({description_er:  {$exists : true }}, {$rename : {description_er : 'description_erus'}},false,true)
