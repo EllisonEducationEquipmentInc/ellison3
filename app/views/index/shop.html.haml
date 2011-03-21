@@ -1,7 +1,7 @@
 #products_filter
   - if @landing_page.quick_search
     -#%h3== Quick #{@landing_page ? nil : 'Products'} Search
-    #quick_search.ui-widget.ui-widget-content.ui-corner-all= render :partial => 'quick_search'
+    -##quick_search.ui-widget.ui-widget-content.ui-corner-all= render :partial => 'quick_search'
   = render :partial => "index/catalog_filter"
 .mainbar.last
   %h2= @landing_page.name
