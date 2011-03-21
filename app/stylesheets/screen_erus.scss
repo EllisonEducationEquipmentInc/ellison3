@@ -1,9 +1,9 @@
-// ELLISON RETAILERS
-$system: er;
+// ELLISON RETAILERS US
+$system: erus;
 
 // Import Ellison Retailers specific partials
-@import "partials_er/colors";
-@import "partials/themes/columnar_er";
+@import "partials_erus/colors";
+@import "partials/themes/columnar_erus";
 
 // Import the common application partials shared by ALL systems
 @import "master";
