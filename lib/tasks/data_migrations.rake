@@ -968,54 +968,54 @@ namespace :data_migrations do
   desc "ER to ERUS"
   task :er_to_erus => [:set_er, :load_dep] do
     set_current_system "erus"
-    # p "updating products..."
-    # Product.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
-    # p "updating ideas..."
-    # Idea.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
-    # p "updating admins..."
-    # Admin.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
-    # p "updating users..."
-    # User.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
-    # p "updating countries..."
-    # Country.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
-    # p "updating coupons..."
-    # Coupon.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
-    # p "updating events..."
-    # Event.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
-    # p "updating Feedbacks..."
-    # Feedback.collection.update({:system => "er"}, {:$set => {"system" => "erus"}}, :multi => true)
-    # p "updating LandingPages..."
-    # LandingPage.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
-    # p "updating Navigation..."
-    # Navigation.collection.update({:system => "er"}, {:$set => {"system" => "erus"}}, :multi => true)
-    # p "updating Orders..."
-    # Order.collection.update({:system => "er"}, {:$set => {"system" => "erus"}}, :multi => true)
-    # p "updating Quotes..."
-    # Quote.collection.update({:system => "er"}, {:$set => {"system" => "erus"}}, :multi => true)
-    # p "updating SearchPhrases..."
-    # SearchPhrase.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
-    # p "updating SharedContents..."
-    # SharedContent.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
-    # p "updating ShippingRates..."
-    # ShippingRate.collection.update({:system => "er"}, {:$set => {"system" => "erus"}}, :multi => true)
-    # p "updating StaticPage..."
-    # StaticPage.collection.update({:system_enabled => "er"}, {:$set => {"system" => "erus"}}, :multi => true)
-    # p "updating tags..."
-    # Tag.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
-    # 
-    # # embedded:
-    # p "updating campaigns..."
-    # Product.collection.update({'campaigns.systems_enabled' => 'er'}, {:$pull => {'campaigns.$.systems_enabled' => 'er'}, :$push => {'campaigns.$.systems_enabled' => 'erus'}}, :mutli => true)
-    # Tag.collection.update({'campaigns.systems_enabled' => 'er'}, {:$pull => {'campaigns.$.systems_enabled' => 'er'}, :$push => {'campaigns.$.systems_enabled' => 'erus'}}, :mutli => true)
-    # p "updating permissions..."
-    # Admin.collection.update({'permissions.systems_enabled' => 'er'}, {:$pull => {'permissions.$.systems_enabled' => 'er'}, :$push => {'permissions.$.systems_enabled' => 'erus'}}, :mutli => true)    
-    # p "updating tabs..."
-    # Product.collection.update({'tabs.systems_enabled' => 'er'}, {:$pull => {'tabs.$.systems_enabled' => 'er'}, :$push => {'tabs.$.systems_enabled' => 'erus'}}, :mutli => true)
-    # Idea.collection.update({'tabs.systems_enabled' => 'er'}, {:$pull => {'tabs.$.systems_enabled' => 'er'}, :$push => {'tabs.$.systems_enabled' => 'erus'}}, :mutli => true)
-    # p "updating visual_assets..."
-    # Tag.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$pull => {'visual_assets.$.systems_enabled' => 'er'}, :$push => {'visual_assets.$.systems_enabled' => 'erus'}}, :mutli => true)
-    # LandingPage.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$pull => {'visual_assets.$.systems_enabled' => 'er'}, :$push => {'visual_assets.$.systems_enabled' => 'erus'}}, :mutli => true)
-    # SharedContent.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$pull => {'visual_assets.$.systems_enabled' => 'er'}, :$push => {'visual_assets.$.systems_enabled' => 'erus'}}, :mutli => true)
+    p "updating products..."
+    Product.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating ideas..."
+    Idea.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating admins..."
+    Admin.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating users..."
+    User.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating countries..."
+    Country.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating coupons..."
+    Coupon.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating events..."
+    Event.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating Feedbacks..."
+    Feedback.collection.update({:system => "er"}, {:$set => {"system" => "erus"}}, :multi => true)
+    p "updating LandingPages..."
+    LandingPage.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating Navigation..."
+    Navigation.collection.update({:system => "er"}, {:$set => {"system" => "erus"}}, :multi => true)
+    p "updating Orders..."
+    Order.collection.update({:system => "er"}, {:$set => {"system" => "erus"}}, :multi => true)
+    p "updating Quotes..."
+    Quote.collection.update({:system => "er"}, {:$set => {"system" => "erus"}}, :multi => true)
+    p "updating SearchPhrases..."
+    SearchPhrase.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating SharedContents..."
+    SharedContent.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    p "updating ShippingRates..."
+    ShippingRate.collection.update({:system => "er"}, {:$set => {"system" => "erus"}}, :multi => true)
+    p "updating StaticPage..."
+    StaticPage.collection.update({:system_enabled => "er"}, {:$set => {"system" => "erus"}}, :multi => true)
+    p "updating tags..."
+    Tag.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
+    
+    # embedded:
+    p "updating campaigns..."
+    Product.collection.update({'campaigns.systems_enabled' => 'er'}, {:$pull => {'campaigns.$.systems_enabled' => 'er'}, :$push => {'campaigns.$.systems_enabled' => 'erus'}}, :mutli => true)
+    Tag.collection.update({'campaigns.systems_enabled' => 'er'}, {:$pull => {'campaigns.$.systems_enabled' => 'er'}, :$push => {'campaigns.$.systems_enabled' => 'erus'}}, :mutli => true)
+    p "updating permissions..."
+    Admin.collection.update({'permissions.systems_enabled' => 'er'}, {:$pull => {'permissions.$.systems_enabled' => 'er'}, :$push => {'permissions.$.systems_enabled' => 'erus'}}, :mutli => true)    
+    p "updating tabs..."
+    Product.collection.update({'tabs.systems_enabled' => 'er'}, {:$pull => {'tabs.$.systems_enabled' => 'er'}, :$push => {'tabs.$.systems_enabled' => 'erus'}}, :mutli => true)
+    Idea.collection.update({'tabs.systems_enabled' => 'er'}, {:$pull => {'tabs.$.systems_enabled' => 'er'}, :$push => {'tabs.$.systems_enabled' => 'erus'}}, :mutli => true)
+    p "updating visual_assets..."
+    Tag.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$pull => {'visual_assets.$.systems_enabled' => 'er'}, :$push => {'visual_assets.$.systems_enabled' => 'erus'}}, :mutli => true)
+    LandingPage.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$pull => {'visual_assets.$.systems_enabled' => 'er'}, :$push => {'visual_assets.$.systems_enabled' => 'erus'}}, :mutli => true)
+    SharedContent.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$pull => {'visual_assets.$.systems_enabled' => 'er'}, :$push => {'visual_assets.$.systems_enabled' => 'erus'}}, :mutli => true)
   
     js = <<-EOF
     use #{Mongoid.database.name} 
@@ -1044,6 +1044,8 @@ EOF
     
     File.open("#{Rails.root}/tmp/er_to_erus.js", "w") {|file| file.write(js)}
     
+    `mondo #{Rails.root}/tmp/er_to_erus.js`
+    `rm #{Rails.root}/tmp/er_to_erus.js`
   end
   
   task :set_edu do
