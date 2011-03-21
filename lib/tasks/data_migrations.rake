@@ -1017,7 +1017,7 @@ namespace :data_migrations do
     # LandingPage.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$pull => {'visual_assets.$.systems_enabled' => 'er'}, :$push => {'visual_assets.$.systems_enabled' => 'erus'}}, :mutli => true)
     # SharedContent.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$pull => {'visual_assets.$.systems_enabled' => 'er'}, :$push => {'visual_assets.$.systems_enabled' => 'erus'}}, :mutli => true)
   
-    js <<-EOF
+    js = <<-EOF
     use ellison3 
     db.coupons.update({start_date_er:  {$exists : true }}, {$rename : {start_date_er : 'start_date_erus'}},false,true)
     db.coupons.update({end_date_er:  {$exists : true }}, {$rename : {end_date_er : 'end_date_erus'}},false,true)
