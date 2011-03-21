@@ -70,7 +70,7 @@ module ShoppingCart
 			@cart.cart_items.each do |item|
 				order.order_items << OrderItem.new(:name => item.name, :item_num => item.item_num, :sale_price => item.price, :quoted_price => item.msrp, :quantity => item.quantity,
 				    :locale => item.currency, :product => item.product, :tax_exempt => item.tax_exempt, :discount => item.msrp - item.price, :custom_price => item.custom_price, 
-				    :coupon_price => item.coupon_price, :vat => calculate_vat(item.price), :vat_percentage => vat, :vat_exempt => vat_exempt?)
+				    :coupon_price => item.coupon_price, :vat => calculate_vat(item.price), :vat_percentage => vat, :vat_exempt => vat_exempt?, :upsell => item.upsell)
 			end
 			order.address ||= get_user.shipping_address.clone
 			order

@@ -164,6 +164,7 @@
     %th Item Subtotal
     %th Custom
     %th Coupon
+    %th Upsell
   - @order.order_items.each do |item|
     %tr{:class => cycle('odd', 'even')}
       %td= item.item_num
@@ -173,6 +174,7 @@
       %td= number_to_currency item.item_total
       %td= item.custom_price
       %td= item.coupon_price
+      %td= item.upsell
 .contentwrap_XL &nbsp;
 %ul.plain.cart_summary.contentwrap_medium.last
   %li

@@ -22,6 +22,7 @@ class CartItem
 	field :changed_attributes, :type => Array
 	field :pre_order, :type => Boolean, :default => false
 	field :out_of_stock, :type => Boolean, :default => false
+	field :upsell, :type => Boolean, :default => false
 	
 	embedded_in :cart, :inverse_of => :cart_items
 	referenced_in :product

@@ -1,7 +1,7 @@
 class CartsController < ApplicationController
 	before_filter :authenticate_user!, :only => [:checkout, :proceed_checkout, :quote, :proceed_quote, :quote_2_order, :move_to_cart, :delete_from_saved_list, :save_cod]
 	before_filter :authenticate_admin!, :only => [:custom_price]
-	before_filter :admin_user_as_permissions!, :only => [:remove_order_reference, :use_previous_orders_card]
+	before_filter :admin_user_as_permissions!, :only => [:remove_order_reference, :use_previous_orders_card, :set_upsell]
 	before_filter :trackable
 	before_filter :no_cache, :only => [:checkout, :quote]
 	before_filter :set_vat_exempt, :except => [:add_to_cart, :index, :move_to_cart, :remove_from_cart, :change_quantity, :delete_from_saved_list, :saved_list]
@@ -10,9 +10,9 @@ class CartsController < ApplicationController
 	ssl_required :checkout, :proceed_checkout, :quote, :proceed_quote
 	ssl_allowed :index, :get_shipping_options, :change_shipping_method, :copy_shipping_address, :change_shipping_method, :get_shipping_service, :get_shipping_amount, :get_tax_amount, :get_total_amount,
 	  :custom_price, :create_shipping, :create_billing, :activate_coupon, :remove_coupon, :shopping_cart, :change_quantity, :add_selected_to_cart, :move_to_cart, :delete_from_saved_list, :last_item,
-	   :add_to_cart, :remove_from_cart, :save_cod, :get_deferred_first_payment, :forget_credit_card
+	   :add_to_cart, :remove_from_cart, :save_cod, :get_deferred_first_payment, :forget_credit_card, :set_upsell
 	
-	verify :xhr => true, :only => [:get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :use_previous_orders_card, :remove_order_reference, :shopping_cart, :change_quantity, :add_selected_to_cart, :save_cod], :redirect_to => {:action => :index}
+	verify :xhr => true, :only => [:set_upsell, :get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :use_previous_orders_card, :remove_order_reference, :shopping_cart, :change_quantity, :add_selected_to_cart, :save_cod], :redirect_to => {:action => :index}
 	
 	def index
 	  if get_cart.last_check_at.blank? || get_cart.last_check_at.present? && get_cart.last_check_at.utc < 5.minute.ago.utc
@@ -252,6 +252,12 @@ class CartsController < ApplicationController
 	  @cart_item.update_attributes(:price => params[:update_value][/[0-9.]+/], :custom_price => true)
 	  get_cart.reset_tax_and_shipping true
 	  render :inline => "<%= display_product_price_cart @cart_item %>"
+	end
+	
+	def set_upsell
+	  @cart_item = get_cart.cart_items.find(params[:id])
+	  @cart_item.update_attribute(:upsell, params[:state])
+	  render :text => @cart_item.upsell
 	end
 	
 	def activate_coupon

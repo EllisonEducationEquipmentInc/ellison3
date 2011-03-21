@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   layout :get_layout
 
 	helper_method :vat, :gross_price, :calculate_vat, :get_user, :countries, :states, :sort_column, :sort_direction, :ga_tracker_id, :has_write_permissions?, :has_read_permissions?, :admin_systems,
-	              :quote_allowed?, :chekout_allowed?, :currency_correct?, :vat_exempt?, :outlet?, :machines_owned, :perform_search
+	              :quote_allowed?, :chekout_allowed?, :currency_correct?, :vat_exempt?, :outlet?, :machines_owned, :perform_search, :admin_user_as_permissions!
 
 private
 
