@@ -1,6 +1,6 @@
 - if @search.total > 0
   %h3= link_to "Narrow Results By:", "#", :class => "link_expand"
-- if params[:action] != "shop" && @search.total > 1
+- if @search.total > 1
   %span.icon_searchfield
     = text_field_tag :keyword, nil, :autocomplete => "off", :value => "search within these results...", :onfocus => "if (this.value == 'search within these results...'){this.value='';}", :onblur => "if (this.value == ''){this.value='search within these results...';}"
 :javascript
@@ -96,6 +96,16 @@
         'color' : '#ccc'
       });
     }
+- else
+  :javascript
+    $('#keyword').change(function() {
+      if (this.value.length < 3) {
+        return false;
+      } else {
+        location.href = 'http://'+location.host+'/catalog##{@landing_page && @landing_page.search_query}&q='+$('#keyword').val();return false;
+      }
+    });
+
 :javascript
   $(function() {
     $('.link_expand').click(function() {
