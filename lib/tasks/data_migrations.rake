@@ -966,7 +966,7 @@ namespace :data_migrations do
     end
   end
   
-  desc "ER to ERUS"
+  desc "change ER to ERUS in the db"
   task :er_to_erus => :environment do
     set_current_system "erus"
     p "updating products..."
