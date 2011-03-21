@@ -1005,17 +1005,26 @@ namespace :data_migrations do
     
     # embedded:
     p "updating campaigns..."
-    Product.collection.update({'campaigns.systems_enabled' => 'er'}, {:$pull => {'campaigns.$.systems_enabled' => 'er'}, :$push => {'campaigns.$.systems_enabled' => 'erus'}}, :mutli => true)
-    Tag.collection.update({'campaigns.systems_enabled' => 'er'}, {:$pull => {'campaigns.$.systems_enabled' => 'er'}, :$push => {'campaigns.$.systems_enabled' => 'erus'}}, :mutli => true)
+    Product.collection.update({'campaigns.systems_enabled' => 'er'}, {:$push => {'campaigns.$.systems_enabled' => 'erus'}}, :multi => true)
+    Product.collection.update({'campaigns.systems_enabled' => 'er'}, {:$pull => {'campaigns.$.systems_enabled' => 'er'}}, :multi => true)
+    Tag.collection.update({'campaigns.systems_enabled' => 'er'}, {:$push => {'campaigns.$.systems_enabled' => 'erus'}}, :multi => true)
+    Tag.collection.update({'campaigns.systems_enabled' => 'er'}, {:$pull => {'campaigns.$.systems_enabled' => 'er'}}, :multi => true)
     p "updating permissions..."
-    Admin.collection.update({'permissions.systems_enabled' => 'er'}, {:$pull => {'permissions.$.systems_enabled' => 'er'}, :$push => {'permissions.$.systems_enabled' => 'erus'}}, :mutli => true)    
+    Admin.collection.update({'permissions.systems_enabled' => 'er'}, {:$push => {'permissions.$.systems_enabled' => 'erus'}}, :multi => true)    
+    Admin.collection.update({'permissions.systems_enabled' => 'er'}, {:$pull => {'permissions.$.systems_enabled' => 'er'}}, :multi => true)    
     p "updating tabs..."
-    Product.collection.update({'tabs.systems_enabled' => 'er'}, {:$pull => {'tabs.$.systems_enabled' => 'er'}, :$push => {'tabs.$.systems_enabled' => 'erus'}}, :mutli => true)
-    Idea.collection.update({'tabs.systems_enabled' => 'er'}, {:$pull => {'tabs.$.systems_enabled' => 'er'}, :$push => {'tabs.$.systems_enabled' => 'erus'}}, :mutli => true)
+    Product.collection.update({'tabs.systems_enabled' => 'er'}, {:$push => {'tabs.$.systems_enabled' => 'erus'}}, :multi => true)
+    Product.collection.update({'tabs.systems_enabled' => 'er'}, {:$pull => {'tabs.$.systems_enabled' => 'er'}}, :multi => true)
+    Idea.collection.update({'tabs.systems_enabled' => 'er'}, {:$push => {'tabs.$.systems_enabled' => 'erus'}}, :multi => true)
+    Idea.collection.update({'tabs.systems_enabled' => 'er'}, {:$pull => {'tabs.$.systems_enabled' => 'er'}}, :multi => true)
     p "updating visual_assets..."
-    Tag.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$pull => {'visual_assets.$.systems_enabled' => 'er'}, :$push => {'visual_assets.$.systems_enabled' => 'erus'}}, :mutli => true)
-    LandingPage.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$pull => {'visual_assets.$.systems_enabled' => 'er'}, :$push => {'visual_assets.$.systems_enabled' => 'erus'}}, :mutli => true)
-    SharedContent.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$pull => {'visual_assets.$.systems_enabled' => 'er'}, :$push => {'visual_assets.$.systems_enabled' => 'erus'}}, :mutli => true)
+    Tag.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$push => {'visual_assets.$.systems_enabled' => 'erus'}}, :multi => true)
+    Tag.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$pull => {'visual_assets.$.systems_enabled' => 'er'}}, :multi => true)
+    LandingPage.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$push => {'visual_assets.$.systems_enabled' => 'erus'}}, :multi => true)
+    LandingPage.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$pull => {'visual_assets.$.systems_enabled' => 'er'}}, :multi => true)
+    SharedContent.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$push => {'visual_assets.$.systems_enabled' => 'erus'}}, :multi => true)
+    SharedContent.collection.update({'visual_assets.systems_enabled' => 'er'}, {:$pull => {'visual_assets.$.systems_enabled' => 'er'}}, :multi => true)
+    
   
     js = <<-EOF
     use #{Mongoid.database.name} 
@@ -1044,7 +1053,7 @@ EOF
     
     File.open("#{Rails.root}/tmp/er_to_erus.js", "w") {|file| file.write(js)}
     
-    `mondo #{Rails.root}/tmp/er_to_erus.js`
+    `mongo #{Rails.root}/tmp/er_to_erus.js`
     `rm #{Rails.root}/tmp/er_to_erus.js`
   end
   

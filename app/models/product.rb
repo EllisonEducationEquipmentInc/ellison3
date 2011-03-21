@@ -283,7 +283,7 @@ class Product
   end
   
   def description=(d)
-    send("description_#{current_system}=", d) unless d.blank? || d == description_er
+    send("description_#{current_system}=", d) unless d.blank? || d == description_erus
   end
   
   def msrp(options = {})
