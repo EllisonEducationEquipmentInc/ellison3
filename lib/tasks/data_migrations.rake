@@ -966,7 +966,7 @@ namespace :data_migrations do
   end
   
   desc "ER to ERUS"
-  task :er_to_erus => [:set_er, :load_dep] do
+  task :er_to_erus => :environment do
     set_current_system "erus"
     p "updating products..."
     Product.collection.update({:systems_enabled => "er"}, {:$set => {"systems_enabled.$" => "erus"}}, :multi => true)
