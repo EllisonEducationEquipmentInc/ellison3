@@ -109,7 +109,7 @@
     })
   - if @quote.order_items.any? {|e| e.product.quantity < e.quantity}
     .error== Some of the items in your quote are temporarily out of stock.  However, you can still convert your #{quote_name} to an Order. A Customer Service Representative will contact you soon with more information regarding these items.
-- else
+- elsif !(is_er? || is_ee_uk?)
   .error== Some of the items in your quote are either out of stock or unavailable at this time. Please Contact Customer Service to convert this #{quote_name} to an Order.
 %br
 %br
