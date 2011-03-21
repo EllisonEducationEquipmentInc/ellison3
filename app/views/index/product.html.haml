@@ -89,7 +89,7 @@
                     - else
                       %strong is fully compatible
                     == with #{@product.name.html_safe}
-                  .compatible_tag.ui-corner-all{:class => "ui-widget-#{ is_sizzix? ? 'header' : 'content'}"}
+                  .compatible_tag.ui-corner-all{:class => "ui-widget-#{ is_sizzix_us? ? 'header' : 'content'}"}
                     = link_to image_tag(compatibility.compatible_tag.list_page_img), catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}&page=1"), :alt => compatibility.compatible_tag.name.html_safe, :title => compatibility.compatible_tag.name.html_safe
                     %p.item_name= compatibility.compatible_tag.name.html_safe
                   - if compatibility.get_products.count > 0
