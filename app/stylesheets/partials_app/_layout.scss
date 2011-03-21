@@ -127,7 +127,6 @@
 }
 
 // buttons
-
 .button_large {
   width: 176px;
   height: 30px;
@@ -144,6 +143,24 @@
   }
 
   &:hover { background: url('/images/ui-buttons/green-large_on.png') no-repeat; }
+}
+
+.button_green {
+  width: 121px;
+  height: 25px;
+  background: url('/images/ui-buttons/green_off.png') no-repeat;
+  border: none;
+  color: white;
+  
+  .ui-icon {
+    background-image: none;
+  }
+  
+  &.ui-button {
+    margin-right: 0;
+  }
+  
+  &:hover { background: url('/images/ui-buttons/green_on.png') no-repeat; };
 }
 
 // for visual asset carousels

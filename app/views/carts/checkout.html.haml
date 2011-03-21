@@ -7,8 +7,8 @@
     #new_shipping
       = form_for(@shipping_address, :as => "#{@shipping_address.address_type}_address", :url => {:action => "create_shipping", :checkout => true}, :remote => true, :html => {:id => "edit_#{@shipping_address.address_type}_address", :method => :post}) do |f|
         = render :partial => 'users/address_form', :locals => {:f => f}
-        .actions
-          = f.submit "Continue", :class => 'jqui_save'
+        .actions.right
+          = f.submit "Continue", :class => 'jqui_save button_green'
 #checkout_billing
   %h3 Billing Info
   - if get_user.token && get_user.token.current?
@@ -20,8 +20,8 @@
       = form_for(@billing_address, :as => "#{@billing_address.address_type}_address", :url => {:action => "create_billing"}, :remote => true, :html => {:id => "edit_#{@billing_address.address_type}_address", :method => :post}) do |f|
         %p= link_to "same as shipping address", {:action => "copy_shipping_address"}, :remote => true, :class => "minilink"
         = render :partial => 'users/address_form', :locals => {:f => f}
-        .actions
-          = f.submit "Continue", :class => 'jqui_save'
+        .actions.right
+          = f.submit "Continue", :class => 'jqui_save button_green'
 #checkout_summary
   %h3 Order Summary
   %p
@@ -62,6 +62,5 @@
 %hr
 #checkout_cart
   = link_to_function "top", "$('html, body').animate({ scrollTop: 0 }, 500);", :class => "minilink"
-  .right.minilink= link_to "Edit #{(t :cart)}", cart_path
   #cart_contents= render :partial => 'cart'
 %iframe{:style =>"height:0px;width:0px;visibility:hidden", :src=>"about:blank"} this frame prevents back forward cache 
