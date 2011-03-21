@@ -250,6 +250,7 @@ class CartsController < ApplicationController
 	  render :nothing => true and return unless current_admin.can_change_prices
 	  @cart_item = get_cart.cart_items.find(params[:element_id].gsub("cart_item_price_", ""))
 	  @cart_item.update_attributes(:price => params[:update_value][/[0-9.]+/], :custom_price => true)
+	  get_cart.reset_tax_and_shipping true
 	  render :inline => "<%= display_product_price_cart @cart_item %>"
 	end
 	
