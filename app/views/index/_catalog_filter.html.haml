@@ -2,7 +2,7 @@
   %h3= link_to "Narrow Results By:", "#", :class => "link_expand"
 - if @search.total > 1
   %span.icon_searchfield
-    = text_field_tag :keyword, nil, :autocomplete => "off", :value => "search #{ params[:action] == "shop" ? @landing_page.name : 'within these results'}...", :onfocus => "if (this.value == 'search within these results...'){this.value='';}", :onblur => "if (this.value == ''){this.value='search within these results...';}"
+    = text_field_tag :keyword, nil, :autocomplete => "off", :value => "search #{ params[:action] == "shop" ? @landing_page.name : 'within these results'}...", :onfocus => "if (this.value == 'search #{ params[:action] == "shop" ? @landing_page.name : 'within these results'}...'){this.value='';}", :onblur => "if (this.value == ''){this.value='search #{ params[:action] == "shop" ? @landing_page.name : 'within these results'}...';}"
 :javascript
   $("#keyword").addClass("idlefield");
   $("#keyword").focus(function(){
