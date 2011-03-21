@@ -1028,7 +1028,7 @@ namespace :data_migrations do
     
   
     js = <<-EOF
-    use #{Mongoid.database.name} 
+    db = db.getSisterDB("#{Mongoid.database.name}")
     db.coupons.update({start_date_er:  {$exists : true }}, {$rename : {start_date_er : 'start_date_erus'}},false,true)
     db.coupons.update({end_date_er:  {$exists : true }}, {$rename : {end_date_er : 'end_date_erus'}},false,true)
     db.coupons.update({description_er:  {$exists : true }}, {$rename : {description_er : 'description_erus'}},false,true)
@@ -1054,7 +1054,7 @@ EOF
     
     File.open("#{Rails.root}/tmp/er_to_erus.js", "w") {|file| file.write(js)}
     
-    `mongo #{Rails.root}/tmp/er_to_erus.js`
+    p `mongo #{Rails.root}/tmp/er_to_erus.js`
     `rm #{Rails.root}/tmp/er_to_erus.js`
   end
   
