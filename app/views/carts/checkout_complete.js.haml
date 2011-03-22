@@ -19,4 +19,4 @@
     '#{item.quantity}'               // quantity - required
     ]);
   _gaq.push(['_trackTrans']);
-  == setTimeout('redirect_to_order("#{order_path(@order, :secure => true)}")',3500);
+  == setTimeout('redirect_to_order("#{order_path(@order)}")',3500);

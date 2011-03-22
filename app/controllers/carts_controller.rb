@@ -8,7 +8,7 @@ class CartsController < ApplicationController
 	before_filter :set_vat_exempt, :except => [:add_to_cart, :index, :move_to_cart, :remove_from_cart, :change_quantity, :delete_from_saved_list, :saved_list]
 	after_filter(:only => [:checkout, :proceed_checkout, :quote, :proceed_quote]) {|controller| controller.send(:get_cart).reset_item_errors}
 	
-	ssl_required :checkout, :proceed_checkout, :quote, :proceed_quote
+	ssl_required :checkout, :proceed_checkout, :quote, :proceed_quote, :quote_2_order
 	ssl_allowed :index, :get_shipping_options, :change_shipping_method, :copy_shipping_address, :change_shipping_method, :get_shipping_service, :get_shipping_amount, :get_tax_amount, :get_total_amount,
 	  :custom_price, :create_shipping, :create_billing, :activate_coupon, :remove_coupon, :shopping_cart, :change_quantity, :add_selected_to_cart, :move_to_cart, :delete_from_saved_list, :last_item,
 	   :add_to_cart, :remove_from_cart, :save_cod, :get_deferred_first_payment, :forget_credit_card, :set_upsell
