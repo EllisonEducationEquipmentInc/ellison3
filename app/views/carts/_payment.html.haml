@@ -45,7 +45,12 @@
         = f.label :attachment, "Upload Purchase Order", :class => "w147"
         = f.file_field :attachment
         = f.hidden_field :attachment_cache
-        %p.formhelp{ :style => "margin-left: 158px"} Please upload .doc or .pdf documents only.
+        %p.formhelp{ :style => "margin-left: 158px"}
+          Please upload .doc or .pdf documents only.
+          %br
+          If a Purchase Order is not attached, then this
+          %br
+          order will not be processed until received.
   #cc_info
     - if get_user.token && get_user.token.current?
       %strong Credit Card on file:
