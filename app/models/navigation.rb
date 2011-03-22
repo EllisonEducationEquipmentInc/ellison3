@@ -39,7 +39,7 @@ class Navigation
 	validates_numericality_of :top_nav, :column, :only_integer => true, :greater_than_or_equal_to => 0
 	validates_inclusion_of :navigation_type, :in => NAVIGATION_TYPES
 	validates_inclusion_of :system, :in => ELLISON_SYSTEMS
-	validates_inclusion_of :tag_type, :in => Tag::TYPES, :if => Proc.new {|obj| obj.navigation_type == 'solr_tag'}
+	validates_inclusion_of :tag_type, :in => Tag::TYPES, :if => Proc.new {|obj| ["product_tag", "idea_tag"].include? obj.navigation_type}
 
 private
   
