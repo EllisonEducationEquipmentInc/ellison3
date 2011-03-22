@@ -1,10 +1,11 @@
 - cache "navigation_#{current_system}", :expires_in => 1.minute do
   - @top_navigations.each do |top_nav|
+    - panel_columns = Navigation.where(:system => current_system, :top_nav => @top_navigations.index(top_nav)).asc(:column)
     %li.megaitem.ui-corner-top
       = link_to top_nav.label, top_nav.link, :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
-      .megapanel{:class => (@top_navigations.index(top_nav) == @top_navigations.length - 1) ? 'reverse' : nil}
+      .megapanel{:class => panel_columns.count == 6 ? 'full-width' : (@top_navigations.index(top_nav) == @top_navigations.length - 1) ? 'reverse' : nil}
         - i=0
-        - Navigation.where(:system => current_system, :top_nav => @top_navigations.index(top_nav)).asc(:column).each do |nav|
+        - panel_columns.each do |nav|
           - i+=1
           %ul.contentwrap_XS{:class => i == 6 ? 'resize last' : nil} 
             %li.listtitle.first= link_to_unless nav.link.blank?, nav.label, nav.link
