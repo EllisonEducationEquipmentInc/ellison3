@@ -56,6 +56,15 @@ ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products { @extend ul.p
     width: 295px;
     margin-right: 10px;
   }
+  
+  .navigation_link {
+    border-top: 1px solid $catalog_buybox_border;
+    padding-top: 10px;
+    
+    input[type=checkbox] {
+      margin: 0;
+    }
+  }
 }
 
 
