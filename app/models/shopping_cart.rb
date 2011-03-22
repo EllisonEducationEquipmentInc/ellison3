@@ -239,7 +239,7 @@ module ShoppingCart
 		# shipping rates based on cart subtotal
 		def shipping_rate(address, options={})
 		  shipping_subtotal_amount = options[:subtotal_amount] || subtotal_cart
-		  rate = ShippingRate.where(:system => current_system, :"price_min_#{current_currency}".lte => shipping_subtotal_amount, :"price_max_#{current_currency}".gte => shipping_subtotal_amount, :zone_or_country => address.us? ? FedexZone.find_by_address(address).try(:zone).try(:to_s) : address.country).first
+		  rate = ShippingRate.where(:system => current_system, :"price_min_#{current_currency}".lte => shipping_subtotal_amount, :"price_max_#{current_currency}".gte => shipping_subtotal_amount, :zone_or_country => address.us? ? FedexZone.get_zone_by_address(address).try(:to_s) : address.country).first
 		  if rate.blank?
 		    msg = if is_sizzix_us? && !address.us?
 	          "Sizzix.com only ships to U.S addresses. Please change your shipping address, or place your order on sizzix.co.uk"
