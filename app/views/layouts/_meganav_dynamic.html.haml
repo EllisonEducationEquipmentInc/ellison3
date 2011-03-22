@@ -5,7 +5,7 @@
       .megapanel{:class => (@top_navigations.index(top_nav) == @top_navigations.length - 1) ? 'reverse' : nil}
         - Navigation.where(:system => current_system, :top_nav => @top_navigations.index(top_nav)).asc(:column).each do |nav|
           %ul.contentwrap_XS
-            %li.listtitle.first= nav.label
+            %li.listtitle.first= link_to_unless nav.link.blank?, nav.label, nav.link
             %ul
               - if nav.navigation_type == 'static'
                 - nav.navigation_links.ordered.each do |link|

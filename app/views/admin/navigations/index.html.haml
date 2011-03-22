@@ -1,16 +1,31 @@
 %h2== Navigation for #{current_system.upcase}
-.tab-block
+#meganav_admin.tab-block
   %ul
     - @top_navigations.each do |top_nav|
       %li.rounded_top= link_to top_nav.label, "#top_nav_#{@top_navigations.index(top_nav)}"
   - @top_navigations.each do |top_nav|
-    %div{:id => "top_nav_#{@top_navigations.index(top_nav)}"}
-      %table
-        %tr
+    .megapanel_admin{:id => "top_nav_#{@top_navigations.index(top_nav)}"}
+      %div{ :id => "carousel_#{@top_navigations.index(top_nav)}"}
+        .controls
+          .left= link_to "prev", "#", :class => "prev_button disabled", :id => "prev_button_#{@top_navigations.index(top_nav)}", :onclick => "return false;"
+          .right= link_to "next", "#", :class => "next_button", :id => "next_button_#{@top_navigations.index(top_nav)}", :onclick => "return false;"
+        .clear
+        %ul
           - (1..6).each do |col|
-            %th== Column #{col}
-        %tr
-          - (1..6).each do |col|
-            %td{:id => "td_nav_#{@top_navigations.index(top_nav)}_#{col}"}= render :partial => 'navigation', :object => Navigation.find_or_initialize_by(:system => current_system, :top_nav => @top_navigations.index(top_nav), :column => col)
+            %li
+              %h3== Column #{col}
+              .panel-column{:id => "td_nav_#{@top_navigations.index(top_nav)}_#{col}"}= render :partial => 'navigation', :object => Navigation.find_or_initialize_by(:system => current_system, :top_nav => @top_navigations.index(top_nav), :column => col)
+        :javascript
+          $(function() {
+            $("#carousel_#{@top_navigations.index(top_nav)}").jCarouselLite({
+              btnPrev: "#prev_button_#{@top_navigations.index(top_nav)}",
+              btnNext: "#next_button_#{@top_navigations.index(top_nav)}",
+              scroll: 1,
+              speed: 900,
+              visible: 3,
+              circular: false
+            });
+          });
+
 :javascript
   $('.navigation_type').trigger('change');

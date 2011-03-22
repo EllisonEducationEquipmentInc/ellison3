@@ -1,10 +1,11 @@
-.navigation_link{:style => "border:1px solid gray;margin-bottom:5px;"}
-  .right
+-#.navigation_link{:style => "border:1px solid gray;margin-bottom:5px;"}
+.navigation_link
+  .field
     = f.label :_destroy
     = f.check_box :_destroy
   .field
-    = f.label :label
+    = f.label :label, "Link Label", :class => "w83"
     = f.text_field :label
   .field
-    = f.label :link
+    = f.label :link, "Link URL", :class => "w83"
     = f.text_field :link

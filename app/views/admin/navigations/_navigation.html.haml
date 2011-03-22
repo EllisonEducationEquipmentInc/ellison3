@@ -1,15 +1,15 @@
 = form_for([:admin, navigation], :html => {:multipart => true, :id => navigation.id}, :remote => true) do |f|
   .field
-    = f.label :navigation_type, :class => "autosize"
-    = f.select :navigation_type, Navigation::NAVIGATION_TYPES, {}, :class => 'navigation_type', :onchange => "$('##{navigation.id} .type_specific').hide();$('##{navigation.id} .'+this.value).show();"
-  .field
-    = f.label :label
+    = f.label :label, "List Label", :class => "w83"
     = f.text_field :label
   .field
-    = f.label :link
+    = f.label :link, "List Label URL", :class => "w83"
     = f.text_field :link
+  .field
+    = f.label :navigation_type, "List Type", :class => "w83"
+    = f.select :navigation_type, Navigation::NAVIGATION_TYPES, {}, :class => 'navigation_type', :onchange => "$('##{navigation.id} .type_specific').hide();$('##{navigation.id} .'+this.value).show();"
   .field.type_specific.product_tag.idea_tag
-    = f.label :tag_type
+    = f.label :tag_type, "Tag Type", :class => "w83"
     = f.select :tag_type, Tag::TYPES.map {|e| [e.humanize, e]}, :prompt => "--- select tag type ---"
   .field.type_specific.static
     = f.fields_for :navigation_links, navigation.navigation_links.ordered do |link_fields|
@@ -18,4 +18,4 @@
   = f.hidden_field :top_nav
   = f.hidden_field :column
   .actions
-    = f.submit :class => 'wymupdate jqui_save'
+    = f.submit "Update Column", :class => 'wymupdate jqui_save'

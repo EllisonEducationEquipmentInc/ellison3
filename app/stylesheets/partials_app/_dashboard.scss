@@ -42,6 +42,23 @@ ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products { @extend ul.p
   letter-spacing: .5px;
 }
 
+// meganav admin
+#meganav_admin {
+  
+  .controls {
+    
+    div {
+      margin-bottom: 10px;      
+    }
+  }
+  
+  .panel-column {
+    width: 295px;
+    margin-right: 10px;
+  }
+}
+
+
 // WYMeditor
 .wym_box {
   ul {
