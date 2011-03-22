@@ -197,6 +197,7 @@ class CartsController < ApplicationController
 	
 	def forget_credit_card
 	  get_user.token.delete
+	  get_user.reload
 	  @quote = params[:quote] unless params[:quote].blank?
 	  new_payment
 	end

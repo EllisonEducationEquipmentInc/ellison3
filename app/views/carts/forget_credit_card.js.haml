@@ -1,2 +1,3 @@
 == $('#checkout_cc').html('#{escape_javascript(render(:partial => "payment"))}');
 == $('#tokenized_billing_info').replaceWith('#{escape_javascript(render(:partial => "users/address_info", :locals => {:address_type => "billing"}))}');
+$('#payment_submit').button({disabled: false, label: button_label});

@@ -1,8 +1,6 @@
 class Token
   include EllisonSystem
   include Mongoid::Document
-	include ActiveModel::Validations
-	include ActiveModel::Translation
 		
 	validates :subscriptionid, :presence => true
 	
