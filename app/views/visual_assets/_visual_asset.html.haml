@@ -33,7 +33,7 @@
       %div{:class => "billboard_#{billboard.wide ? 'medium' : 'XS'} #{'last' if visual_asset.child_visual_assets.last == billboard}"}
         .captionfull{:class => "boxgrid#{billboard.wide ? '-large' : nil}"}
           = image_tag(billboard.image_url) if billboard.image?
-          .cover{:class => "boxcaption#{billboard.wide ? '-large' : nil}"}
+          .cover{:style=>"cursor:pointer", :class => "boxcaption#{billboard.wide ? '-large' : nil}"}
             %h4= billboard.name
             %div
               = billboard.content.html_safe
