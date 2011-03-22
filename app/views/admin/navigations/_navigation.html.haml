@@ -7,7 +7,7 @@
     = f.text_field :link
   .field
     = f.label :navigation_type, "List Type", :class => "w83"
-    = f.select :navigation_type, Navigation::NAVIGATION_TYPES, {}, :class => 'navigation_type', :onchange => "$('##{navigation.id} .type_specific').hide();$('##{navigation.id} .'+this.value).show();"
+    = f.select :navigation_type, Navigation::NAVIGATION_TYPES.map {|e| [e.humanize, e]}, {}, :class => 'navigation_type', :onchange => "$('##{navigation.id} .type_specific').hide();$('##{navigation.id} .'+this.value).show();"
   .field.type_specific.product_tag.idea_tag
     = f.label :tag_type, "Tag Type", :class => "w83"
     = f.select :tag_type, Tag::TYPES.map {|e| [e.humanize, e]}, :prompt => "--- select tag type ---"
