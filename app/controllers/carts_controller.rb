@@ -108,7 +108,7 @@ class CartsController < ApplicationController
 	  end
   	new_payment
 		@order = Order.new
-		@order.copy_common_attributes @quote, :created_at
+		@order.copy_common_attributes @quote, :created_at, :_id
 		@order.order_items = @quote.order_items
 		process_card(:amount => (@quote.total_amount * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?) unless @payment.purchase_order && purchase_order_allowed?
 		@order.payment = @payment
