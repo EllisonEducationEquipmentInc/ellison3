@@ -35,6 +35,7 @@ namespace :migrations do |ns|
 	
 	desc "populate fedex zones"
 	task :fedex_zones => :environment do
+	  FedexZone.delete_all
 	  CSV.parse(fedex_zones_csv, :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
       FedexZone.create(:zip_start => tozip(row['zip'])[0], :zip_end => tozip(row['zip'])[1], :zone => row['zone'], :express_zone => row['express_zone'])
     end
@@ -105,10 +106,19 @@ namespace :migrations do |ns|
 		p "#{t.name} ran successfully..."
 	end
 	
-	def tozip(z)
-    a=z.split("-")
-    a=a.map {|e| to_five(e)}
-    a.length < 2 ? [a[0], a[0]+999 ] : a
+  def tozip(z)
+    if z =~ /^\d{5}$/
+      return [z.to_i, z.to_i]
+    elsif z =~ /^\d{3}-\d{3}$/
+      a=z.split("-")
+      return [a[0].to_i*100, a[1].to_i*100 +99]
+    elsif z =~ /^\d{3}$/
+      return [z.to_i*100, z.to_i*100 +99]
+    else
+      a=z.split("-")
+      a=a.map {|e| to_five(e)}
+      a.length < 2 ? [a[0], a[0]+999 ] : a
+    end
   end
 
   def to_five(z)
