@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
 	
 	before_filter :set_admin_title
 	before_filter :admin_read_permissions!
-  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy]
+  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_token]
 	
 	ssl_exceptions
 	
@@ -85,6 +85,19 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def edit_token
+    @user = User.find(params[:id])
+  end
+  
+  def update_token
+    @user = User.find(params[:id])
+    redirect_to({:action => "edit_token", :id => @user.id}, :alert => "Invalid Token") and return unless params[:subscriptionid] && params[:subscriptionid] =~ /^\d{20,24}$/
+    @user.token.try :delete
+    @user.token = Token.new :subscriptionid => params[:subscriptionid]
+    @user.token.save :validate => false
+    redirect_to({:action => "index"}, :notice => "Token has been saved")
+  end
+  
 private 
 
 	def mass_assign_protected_attributes

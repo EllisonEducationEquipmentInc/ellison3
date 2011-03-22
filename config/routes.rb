@@ -149,7 +149,8 @@ Ellison3::Application.routes.draw do |map|
 			resources :messages
 			resources :users do
 			  collection do
-			    get :view_retailer_application
+			    get :view_retailer_application, :edit_token
+			    put :update_token
 			  end
 			end
 			resources :countries

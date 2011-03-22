@@ -15,6 +15,7 @@
         = sortable "sign_in_count"
         = sortable "created_at"
         %th Systems
+        %th Token?
         - if is_er?
           = sortable "status"
           %th Application
@@ -28,6 +29,7 @@
           %td= user.sign_in_count
           %td= l user.created_at, :format => :custom rescue ''
           %td= user.systems_enabled.join(", ") rescue ''
+          %td= link_to "#{user.token.present?}", :action => 'edit_token', :id => user.id
           - if is_er?
             %td= user.status
             %td= link_to 'view', :action => 'view_retailer_application', :id => user if user.application_complete?

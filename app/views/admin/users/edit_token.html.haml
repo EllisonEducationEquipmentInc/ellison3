@@ -1,0 +1,25 @@
+%h1 Edit user token
+%strong Email:
+= @user.email
+%br
+%strong Company:
+= @user.company
+%br
+%strong Erp:
+= @user.erp
+%br
+%br
+- if @user.token.present?
+  .error 
+    %strong WARNING: 
+    This user already has a token on file. Saving this form will overwrite the current token.
+= form_tag url_for(:action => :update_token, :id => @user), :method => :put do
+  .field
+    = label_tag :subscriptionid
+    %br
+    = text_field_tag :subscriptionid
+  .actions
+    = submit_tag "Save Token", :class => 'jqui_save'
+  
+  
+
