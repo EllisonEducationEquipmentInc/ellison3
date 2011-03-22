@@ -19,6 +19,7 @@ class Quote
 	index :updated_at
 
   field :active, :type => Boolean, :default => true
+  field :name
   field :quote_number
 	field :system
 	field :locale

@@ -103,6 +103,7 @@ module ShoppingCart
   			order.estimated_ship_date = Time.zone.now
   		end
   		order.comments = params[:comments] if params
+  		order.name = params[:quote_name] if order.is_a?(Quote) && params && params[:quote_name]
   		if admin_signed_in?
   		  order.customer_rep = current_admin.employee_number
   		  order.customer_rep_id = current_admin.id
