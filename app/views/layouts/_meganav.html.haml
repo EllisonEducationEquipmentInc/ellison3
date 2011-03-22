@@ -52,6 +52,7 @@
             %li.listtitle.first Website Settings
             %ul
               %li= link_to "Admin Access", admin_admins_path
+              %li= link_to "Site Navigation", admin_navigations_path 
               %li= link_to "Custom Reports", "/admin_reports_path"
               %li= link_to "Shipping Rates (by #{t 'number.currency.format.unit'})", admin_shipping_rates_path
               %li= link_to "Shipping Rates (by weight)", admin_fedex_rates_path
