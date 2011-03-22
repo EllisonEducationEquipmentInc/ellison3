@@ -6,6 +6,7 @@
       %tr
         %th== #{quote_name} Date
         %th== #{quote_name} Number
+        %th Name
         %th Amount
         %th Expires
         - if is_ee_us?
@@ -15,6 +16,7 @@
         %tr{:class => cycle('odd', 'even')}
           %td= l quote.created_at, :format => :custom
           %td= link_to quote.id, myquote_path(quote, :page => params[:page])
+          %td.quote_name{:id => quote.id}= quote.name
           %td= number_to_currency quote.total_amount
           %td= l quote.expires_at, :format => :custom
           - if is_ee_us?
@@ -25,4 +27,9 @@
   $(document).ready(function(){
     $("#quotes").css({ opacity: 1.0 });
     $('.pagination.ajax a').click(function() {$("#quotes").css({ opacity: 0.3 });this.innerHTML='#{escape_javascript spinner}';$('#quotes').load(this.href);return false;})
+  });
+  $(".quote_name").editInPlace({
+    url: "/users/change_quote_name",
+    show_buttons: true,
+    saving_animation_color: "#ECF2F8"
   });

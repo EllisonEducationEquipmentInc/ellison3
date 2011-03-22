@@ -44,6 +44,7 @@ Ellison3::Application.routes.draw do |map|
 		post 'users/show_fw_files', :to => "users#show_fw_files"
 		get 'users/download_firmware', :to => "users#download_firmware"
 		get 'users/messages', :to => "users#messages"
+		post 'users/change_quote_name', :to => "users#change_quote_name"
   end
 
   match 'admin' => 'admin#index'
@@ -165,7 +166,7 @@ Ellison3::Application.routes.draw do |map|
 			end
 			resources :quotes do
 			  collection do
-			    post :update_internal_comment
+			    post :update_internal_comment, :change_quote_name
 			    get :update_active_status, :recreate, :pre_orders_report
 			  end
 			end

@@ -24,6 +24,9 @@
   %strong System:
   = @quote.system
   %br
+  %strong Quote Name:
+  %span.quote_name{:id => @quote.id}= @quote.name
+  %br
   %strong Quote Number:
   = @quote.id
   %br
@@ -138,6 +141,11 @@
       field_type: "textarea",
       textarea_rows: "15",
       textarea_cols: "35",
+      show_buttons: true,
+      saving_animation_color: "#ECF2F8"
+    });
+    $(".quote_name").editInPlace({
+      url: "/admin/quotes/change_quote_name",
       show_buttons: true,
       saving_animation_color: "#ECF2F8"
     });

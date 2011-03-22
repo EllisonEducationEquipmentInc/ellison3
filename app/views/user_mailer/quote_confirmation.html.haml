@@ -23,6 +23,9 @@
         = @quote.address.phone
     %td.twocol-right
       %h3.secondary-heading== #{quote_name.capitalize} Details
+      %strong== #{quote_name} Name:
+      = @quote.name
+      %br
       %strong== #{quote_name} Number:
       = @quote.id
       %br

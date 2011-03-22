@@ -3,7 +3,7 @@ class Admin::QuotesController < ApplicationController
 	
 	before_filter :set_admin_title
 	before_filter :admin_read_permissions!
-  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :update_active_status]
+  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :update_active_status, :change_quote_name]
 	before_filter :admin_user_as_permissions!, :only => [:recreate]
 	
 	ssl_exceptions
@@ -20,7 +20,7 @@ class Admin::QuotesController < ApplicationController
 	  criteria = criteria.where(:status => params[:status]) unless params[:status].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria = criteria.any_of({ 'address.first_name' => regexp}, { 'address.last_name' => regexp }, { 'address.city' => regexp }, { 'address.address' => regexp })
+  	  criteria = criteria.any_of({:name => regexp}, { 'address.first_name' => regexp}, { 'address.last_name' => regexp }, { 'address.city' => regexp }, { 'address.address' => regexp })
 	  end
 		@quotes = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
 	end
@@ -93,6 +93,13 @@ class Admin::QuotesController < ApplicationController
     @quote.updated_by = current_admin.email
     @quote.update_attributes :active => params[:active]
     render :nothing => true
+  end
+  
+  def change_quote_name
+    @quote = Quote.find(params[:element_id])
+    @quote.updated_by = current_admin.email
+    @quote.update_attribute :name, params[:update_value]
+    render :text => @quote.name
   end
   
   def recreate

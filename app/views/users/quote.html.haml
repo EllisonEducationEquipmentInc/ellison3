@@ -37,6 +37,9 @@
     %p== Please contact Customer Service to convert this #{quote_name} to an Order.
 .contentwrap_medium.last
   %h3== #{quote_name.upcase} Details
+  %strong== #{quote_name} Name:
+  %span.quote_name{:id => @quote.id}= @quote.name
+  %br
   %strong== #{quote_name} Number:
   = @quote.id
   %br
@@ -116,4 +119,10 @@
 %br
 %br
 %br
+:javascript
+  $(".quote_name").editInPlace({
+    url: "/users/change_quote_name",
+    show_buttons: true,
+    saving_animation_color: "#ECF2F8"
+  });
 - I18n.locale = @current_locale

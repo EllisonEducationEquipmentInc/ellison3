@@ -12,6 +12,7 @@
     %thead
       %tr
         = sortable "id"
+        %th Name
         = sortable "created_at"
         = sortable "address.last_name"
         = sortable "subtotal_amount"
@@ -26,6 +27,7 @@
         - I18n.locale = quote.locale
         %tr{ :class => cycle(:odd, :even) }
           %td= link_to quote.id, admin_quote_path(quote)
+          %td= quote.name
           %td= l quote.created_at, :format => :custom rescue ''
           %td== #{quote.address.first_name} #{quote.address.last_name}
           %td= number_to_currency quote.gross_subtotal_amount

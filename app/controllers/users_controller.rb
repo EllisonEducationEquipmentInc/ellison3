@@ -8,9 +8,9 @@ class UsersController < ApplicationController
   include Devise::Controllers::InternalHelpers
   
   ssl_exceptions :signin_signup, :checkout_requested, :quote_requested, :add_to_list, :save_for_later, :list, :get_lists
-  ssl_allowed :signin_signup, :checkout_requested, :quote_requested, :add_to_list, :save_for_later, :list, :get_lists
+  ssl_allowed :signin_signup, :checkout_requested, :quote_requested, :add_to_list, :save_for_later, :list, :get_lists, :change_quote_name
 
-  verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list, :save_for_later, :add_to_list, :list_set_to_default, :remove_from_list, :move_to_list, :email_list, :view_retailer_application], :redirect_to => {:action => :myaccount}
+  verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list, :save_for_later, :add_to_list, :list_set_to_default, :remove_from_list, :move_to_list, :email_list, :view_retailer_application, :change_quote_name], :redirect_to => {:action => :myaccount}
   verify :post => true, :only => [:create_retailer_application, :order_material]
   
   # GET /resource/sign_up  
@@ -317,6 +317,12 @@ class UsersController < ApplicationController
 	    File.open("/data/shared/firmware_files/#{@firmware.id}", "wb") {|file| file.write(@gridfs_file.read)}
 	  end
 	  send_file "/data/shared/firmware_files/#{@firmware.id}", :filename => @firmware.file_filename
+	end
+	
+	def change_quote_name
+	  @quote = get_user.quotes.active.find(params[:element_id])
+	  @quote.update_attribute :name, params[:update_value]
+    render :text => @quote.name
 	end
 		
 protected
