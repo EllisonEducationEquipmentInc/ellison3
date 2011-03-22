@@ -91,6 +91,8 @@ class Cart
 	
 	def cart_errors
 		@cart_errors = []
+		@cart_errors << "The cart can only contain 99 items per order." if !is_er? && total_quantity > MAX_ITEMS
+		@cart_errors << "The maximum amount in the cart per order is 100,000" if sub_total > MAX_CART_VALUE
 		if self.changed_items.present? || self.removed > 0 || self.coupon_removed
 			@cart_errors << "The price on one or more of the items in your order has been adjusted since you last placed it in your Shopping Cart. Items in your cart will always reflect the most recent price displayed on their corresponding product detail pages." if changed_item_attributes.include?("price")
 			@cart_errors << "Some items placed in your cart are greater than the quantity available for sale. The most current quantity available has been updated in your Shopping Cart." if changed_item_attributes.include?("quantity")

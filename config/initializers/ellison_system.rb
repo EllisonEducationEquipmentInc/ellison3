@@ -12,6 +12,13 @@ module EllisonSystem
 	
 	MULTIFACETS = true #false
 
+  MAX_CART_VALUE = 100000
+  MAX_ITEMS = 99
+  MAX_PER_ITEM = 20
+  MIN_ORDER = 0.01
+  ER_MIN_ORDER = 100
+  ER_FIRST_MIN_ORDER = 300
+  
 	def current_system
 		Thread.current[:current_system] ||= ELLISON_SYSTEMS.first
 	end

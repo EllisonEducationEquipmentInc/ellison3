@@ -1,6 +1,7 @@
 class CartsController < ApplicationController
 	before_filter :authenticate_user!, :only => [:checkout, :proceed_checkout, :quote, :proceed_quote, :quote_2_order, :move_to_cart, :delete_from_saved_list, :save_cod]
 	before_filter :authenticate_admin!, :only => [:custom_price]
+	before_filter :pre_validate_cart, :only => [:checkout, :quote]
 	before_filter :admin_user_as_permissions!, :only => [:remove_order_reference, :use_previous_orders_card, :set_upsell]
 	before_filter :trackable
 	before_filter :no_cache, :only => [:checkout, :quote]
@@ -332,5 +333,23 @@ private
 	  @list.product_ids.delete_if {|e| e.to_s == params[:id]}
 	  @list.save
 	end
+	
+	def pre_validate_cart
+    min_order = if is_er? && user_signed_in? && get_user.orders.count > 0
+        get_user.order_minimum || ER_MIN_ORDER
+      elsif is_er? && user_signed_in?
+        get_user.first_order_minimum || ER_FIRST_MIN_ORDER
+      else
+        MIN_ORDER
+      end
+    if get_cart.sub_total < min_order
+      flash[:alert] = "Minimum Order Requirement: There is a #{help.number_to_currency(min_order)} minimum order requirement for online shopping. Please add more products to your shopping cart before checking out. To place an order under #{help.number_to_currency(min_order)} for machine parts only, please call Consumer Support toll free #{t :toll_free}."
+      if request.xhr?
+        render :js => "window.location.href = '#{cart_path}'" and return false
+      else
+        redirect_to(cart_path, :alert => flash[:alert]) and return false 
+      end
+    end
+  end
 
 end

@@ -173,6 +173,16 @@ private
     params[:sort] || "updated_at"  
   end
   
+  def help
+    Helper.instance
+  end
+  
+  # include NumberHelper 
+  class Helper
+    include Singleton
+    include ActionView::Helpers::NumberHelper
+  end
+  
   def no_cache
     response.headers["Last-Modified"] = Time.now.httpdate
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"

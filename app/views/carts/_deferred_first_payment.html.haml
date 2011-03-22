@@ -2,14 +2,14 @@
   $.ajax({
     url:'/carts/get_deferred_first_payment', 
     tryCount : 0,
-    retryLimit : 10,
+    retryLimit : 20,
     success: function(data) {$('#deferred_first_payment').html(data);$('#payment_submit').button({disabled: false, label: button_label});},
     beforeSend: function() {$('#payment_submit').button({disabled: true, label: 'please wait...'});$('#deferred_first_payment').html('#{escape_javascript loader_bar}')},
     error : function(xhr, textStatus, errorThrown ) {
       if (xhr.status == 510) {
         this.tryCount++;
         if (this.tryCount <= this.retryLimit) {
-          $(this).doTimeout( 'retrying_deferred_first', 500, function(){
+          $(this).doTimeout( 'retrying_deferred_first', 1000, function(){
             console.log('retrying_deferred_first...');
             $.ajax(this[0]);
           });
