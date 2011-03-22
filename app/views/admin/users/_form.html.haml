@@ -12,6 +12,22 @@
       = f.label :discount_level
       %br
       = select_tag 'user[discount_level]', grouped_options_for_select(retailer_discount_levels.grouped_hash, @user.discount_level)
+    .field
+      = f.label :first_order_minimum
+      %br
+      = f.text_field :first_order_minimum
+    .field
+      = f.label :order_minimum
+      %br
+      = f.text_field :order_minimum
+    .field
+      = f.label :cod_account_type
+      %br
+      = f.select :cod_account_type, cod_list.map {|e| [e.label, e.id]}, :prompt => '--- COD account ---'
+    .field
+      = f.label :cod_account
+      %br
+      = f.text_field :cod_account
   .field
     = f.label :erp, "AX ID"
     %br

@@ -45,6 +45,7 @@ class User
 	
 	validates_uniqueness_of :email, :case_sensitive => false, :if => Proc.new {|obj| obj.new_record? || obj.email_changed?}
 	validates_presence_of :tax_exempt_certificate, :if => Proc.new {|obj| obj.tax_exempt}
+	validates_numericality_of :order_minimum, :first_order_minimum, :allow_nil => true, :only_integer => true
 		
 	attr_accessible :name, :company, :email, :password, :password_confirmation, :addresses_attributes
 	
