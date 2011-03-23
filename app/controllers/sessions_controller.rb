@@ -52,7 +52,10 @@ class SessionsController < ApplicationController
   end
   
   def user_as
-    @user = User.where(:systems_enabled.in => [current_system], :email => params[:user_as_email]).first
+    criteria = Mongoid::Criteria.new(User)
+	  criteria = criteria.where :deleted_at => nil, :systems_enabled.in => [current_system], :email => params[:user_as_email]
+	  criteria = criteria.where :_id.in => current_admin.users.map {|e| e.id} if current_admin.limited_sales_rep
+    @user = criteria.first
     if @user
       sign_in(resource_name, @user)
       get_cart.reset_tax_and_shipping true

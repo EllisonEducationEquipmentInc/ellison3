@@ -47,6 +47,9 @@
     = f.check_box :can_act_as_customer
     = f.label :can_act_as_customer, :class => "autosize"
   .field
+    = f.check_box :limited_sales_rep
+    = f.label :limited_sales_rep, "Limited sales rep (order, quote, user actions are limited (if has permissions) to users that are assigned to this person)", :class => "autosize"
+  .field
     = f.check_box :can_change_prices
     = f.label :can_change_prices, :class => "autosize"
   - f.fields_for :permissions do |permission_fields|

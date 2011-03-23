@@ -10,6 +10,7 @@ class Admin::UsersController < ApplicationController
 	def index
 	  criteria = Mongoid::Criteria.new(User)
 	  criteria = criteria.where :deleted_at => nil
+	  criteria = criteria.where :_id.in => current_admin.users.map {|e| e.id} if current_admin.limited_sales_rep
 	  criteria = if params[:systems_enabled].blank?
 	    criteria.where(:systems_enabled.in => admin_systems)
 	  else
@@ -101,7 +102,7 @@ class Admin::UsersController < ApplicationController
 private 
 
 	def mass_assign_protected_attributes
-	  [:systems_enabled, :invoice_account, :erp, :tax_exempt_certificate, :tax_exempt, :purchase_order, :status, :discount_level].each do |meth|
+	  [:systems_enabled, :invoice_account, :erp, :tax_exempt_certificate, :tax_exempt, :purchase_order, :status, :discount_level, :admin_id].each do |meth|
 	    @user.send("#{meth}=", params[:user][meth])
 	  end
 	end	

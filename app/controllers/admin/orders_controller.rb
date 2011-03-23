@@ -12,6 +12,7 @@ class Admin::OrdersController < ApplicationController
 	  @current_locale = current_locale
 	  criteria = Mongoid::Criteria.new(Order)
 	  criteria = criteria.where :deleted_at => nil
+	  criteria = criteria.where :user_id.in => current_admin.users.map {|e| e.id} if current_admin.limited_sales_rep
 	  criteria = if params[:systems_enabled].blank?
 	    criteria.where(:system.in => admin_systems)
 	  else

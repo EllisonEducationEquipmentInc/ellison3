@@ -54,6 +54,7 @@ class User
 	validates_associated :retailer_application, :addresses
 
   referenced_in :account
+  referenced_in :admin, :validate => false
   
   references_many :feedbacks, :validate => false, :index => true
 	references_many :orders, :validate => false, :index => true

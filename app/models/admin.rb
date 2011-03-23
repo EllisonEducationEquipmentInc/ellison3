@@ -14,6 +14,7 @@ class Admin
 	field :employee_number
 	field :active, :type => Boolean, :default => false
 	field :can_act_as_customer, :type => Boolean, :default => false
+	field :limited_sales_rep, :type => Boolean, :default => false
 	field :can_change_prices, :type => Boolean, :default => false
 	field :systems_enabled, :type => Array
 	
@@ -28,6 +29,8 @@ class Admin
 	index :failed_attempts
 	index :current_sign_in_at
 	index :updated_at
+	
+	references_many :users, :validate => false, :index => true
 	
 	embeds_many :permissions do
 	  
@@ -45,6 +48,8 @@ class Admin
 	validates_format_of :password,	:if => :password_required?, :with => /((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15})/i, :message => "must contain at least one letter and one digit, length must be between 8 and 15 characters"
 	
 	attr_accessible :name, :email, :password, :password_confirmation, :employee_number
+	
+	scope :sales_reps, :where => { :active => true,  :can_act_as_customer => true}
 	
 	def initialize(attributes = nil)
 		super(attributes)

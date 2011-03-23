@@ -101,6 +101,7 @@ private
 		@admin.permissions_attributes = params[:admin][:permissions_attributes]
 		@admin.can_act_as_customer = params[:admin][:can_act_as_customer]
 		@admin.can_change_prices = params[:admin][:can_change_prices]
+		@admin.limited_sales_rep = params[:admin][:limited_sales_rep]
 		@admin.updated_by = current_admin.email
 	end
 end
