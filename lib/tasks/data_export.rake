@@ -39,6 +39,23 @@ namespace :data_export do
   	end
 	end
 	
+	desc "creates pre orders report in /data/shared/report_files/"
+	task :pre_orders_report => :environment do
+	  new_relic_wrapper "pre_orders_report" do
+  	  set_current_system ENV['system'] || "erus"
+      FileUtils.mkdir "/data/shared/report_files" unless File.exists? "/data/shared/report_files"
+      filename = "pre_orders_report_#{current_system}_#{Time.now.utc.strftime "%m%d%Y_%H%M"}.csv"
+      csv_string = CSV.generate do |csv|
+        csv << ["item_num", "quantity", "item_total"]
+        Quote.pre_orders_report.each do |item|
+          csv << [item["_id"], item["value"]["quantity"], item["value"]["item_total"]]
+        end
+      end
+      File.open("/data/shared/report_files/#{filename}", "w") {|file| file.write(csv_string)}
+      p "/data/shared/report_files/#{filename} is ready"
+    end
+	end
+	
 	desc "reindex all products"
 	task :reindex_products => :environment do
 	  new_relic_wrapper "reindex_products" do
