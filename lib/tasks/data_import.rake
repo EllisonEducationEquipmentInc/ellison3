@@ -48,6 +48,7 @@ namespace :data_import do
         p "!!! unable to save quote #{order.children.at_css('id').text} : #{@quote.errors}"
       end      
     end
+    `rm -f /data/shared/tradeshow_orders/tradeshow_orders.xml`
   end
 
 end
