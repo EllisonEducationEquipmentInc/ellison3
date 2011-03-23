@@ -14,7 +14,7 @@
   .field.type_specific.static
     = f.fields_for :navigation_links, navigation.navigation_links.ordered do |link_fields|
       = render :partial => 'admin/navigation_links/navigation_link', :locals => {:f => link_fields}
-    .navigation_link= link_to_add_fields "Add Link", f, :navigation_links
+    = link_to_add_fields "Add Link", f, :navigation_links
   = f.hidden_field :top_nav
   = f.hidden_field :column
   .actions.right

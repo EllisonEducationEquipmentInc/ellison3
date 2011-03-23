@@ -416,7 +416,11 @@ function show_cart() {
 function add_fields(link, association, content) {  
   var new_id = new Date().getTime();  
   var regexp = new RegExp("new_" + association, "g");  
-  $(link).before(content.replace(regexp, new_id));  
+  $(link).before(content.replace(regexp, new_id));
+  
+  // resize the column's height
+  var column_height = $(link).closest("li").height() + 100;
+  $(link).closest("li").css({"height": (column_height) + "px"});
 }
 
 function split(val) {

@@ -14,7 +14,7 @@
             %ul
               - if nav.navigation_type == 'static'
                 - nav.navigation_links.ordered.each do |link|
-                  %li= link_to link.label, link.link
+                  %li= link_to_unless link.link.blank?, link.label, link.link
               - elsif nav.navigation_type == 'product_tag'
                 - perform_search(Product, :facets => [nav.tag_type], :ignore_keyword => true).facet("#{nav.tag_type}_#{current_system}").rows.each do |row|
                   %li= link_to row.instance.name, "/catalog#facets=#{row.value}"
