@@ -31,6 +31,7 @@ class Admin::QuotesController < ApplicationController
   def show
     @current_locale = current_locale
     @quote = Quote.find(params[:id])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@quote.user)
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @quote }
@@ -51,6 +52,7 @@ class Admin::QuotesController < ApplicationController
   # GET /quotes/1/edit
   def edit
     @quote = Quote.find(params[:id])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@quote.user)
   end
 
 
@@ -58,6 +60,7 @@ class Admin::QuotesController < ApplicationController
   # PUT /quotes/1.xml
   def update
     @quote = Quote.find(params[:id])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@quote.user)
     @quote.updated_by = current_admin.email
     respond_to do |format|
       if @quote.update_attributes(params[:quote])
@@ -74,6 +77,7 @@ class Admin::QuotesController < ApplicationController
   # DELETE /quotes/1.xml
   def destroy
     @quote = Quote.find(params[:id])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@quote.user)
     @quote.destroy
 
     respond_to do |format|
@@ -84,6 +88,7 @@ class Admin::QuotesController < ApplicationController
   
   def update_internal_comment
     @quote = Quote.find(params[:id])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@quote.user)
     @quote.updated_by = current_admin.email
     @quote.update_attributes :internal_comments => params[:update_value]
     render :text => @quote.internal_comments
@@ -105,6 +110,7 @@ class Admin::QuotesController < ApplicationController
   
   def recreate
     @quote = Quote.find(params[:id])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@quote.user)
     change_current_system @quote.system
     I18n.locale = @quote.locale
     sign_in("user", @quote.user)

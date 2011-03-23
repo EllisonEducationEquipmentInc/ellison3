@@ -33,6 +33,7 @@ class Admin::OrdersController < ApplicationController
   def show
     @current_locale = current_locale
     @order = Order.find(params[:id])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@order.user)
     new_payment(@order.user) if @order.can_be_paid?
     respond_to do |format|
       format.html # show.html.erb
@@ -61,6 +62,7 @@ class Admin::OrdersController < ApplicationController
   # PUT /orders/1.xml
   def update
     @order = Order.find(params[:id])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@order.user)
     respond_to do |format|
       if @order.update_attributes(params[:order])
         format.html { redirect_to(admin_orders_url, :notice => 'Order was successfully updated.') }
@@ -98,6 +100,7 @@ class Admin::OrdersController < ApplicationController
   def authorize_cc
     @current_locale = current_locale
     @order = Order.find(params[:id])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@order.user)
     change_current_system @order.system
     @order.payment.use_saved_credit_card = true
     I18n.locale = @order.locale
@@ -116,6 +119,7 @@ class Admin::OrdersController < ApplicationController
   
   def recalculate_tax
     @order = Order.find(params[:id])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@order.user)
     raise "This order cannot be changed" if @order.status_frozen?
     tax_from_order(@order)
   rescue Exception => e
@@ -130,6 +134,7 @@ class Admin::OrdersController < ApplicationController
   
   def recreate
     @order = Order.find(params[:id])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@order.user)
     change_current_system @order.system
     I18n.locale = @order.locale
     sign_in("user", @order.user)
@@ -146,6 +151,7 @@ class Admin::OrdersController < ApplicationController
   def make_payment
     @current_locale = current_locale
     @order = Order.find(params[:order][:id])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@order.user)
     change_current_system @order.system
     I18n.locale = @order.locale
     @order.payment = Payment.new(params[:order][:payment])

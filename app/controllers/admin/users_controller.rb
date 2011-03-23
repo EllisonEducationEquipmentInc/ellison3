@@ -27,6 +27,7 @@ class Admin::UsersController < ApplicationController
   # GET /users/1.xml
   def show
     @user = User.find(params[:id])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@user)
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }
@@ -46,12 +47,14 @@ class Admin::UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@user)
   end
 
   # POST /users
   # POST /users.xml
   def create
     @user = User.new(params[:user])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@user)
     mass_assign_protected_attributes
     @user.created_by = current_admin.email
     respond_to do |format|
@@ -69,6 +72,7 @@ class Admin::UsersController < ApplicationController
   # PUT /users/1.xml
   def update
     @user = User.find(params[:id])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@user)
     mass_assign_protected_attributes
     @user.updated_by = current_admin.email
     respond_to do |format|
@@ -92,6 +96,7 @@ class Admin::UsersController < ApplicationController
   
   def update_token
     @user = User.find(params[:id])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@user)
     redirect_to({:action => "edit_token", :id => @user.id}, :alert => "Invalid Token") and return unless params[:subscriptionid] && params[:subscriptionid] =~ /^\d{20,24}$/
     @user.token.try :delete
     @user.token = Token.new :subscriptionid => params[:subscriptionid]
