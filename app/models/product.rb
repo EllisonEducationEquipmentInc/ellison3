@@ -445,12 +445,12 @@ class Product
     available? && quantity > QUANTITY_THRESHOLD
   end
   
-  def out_of_stock?
+  def out_of_stock?(sys = current_system)
     available? && quantity <= QUANTITY_THRESHOLD
   end
 
-  def pre_order?
-    available? && life_cycle == "pre-release"
+  def pre_order?(sys = current_system)
+    available?(sys) && life_cycle == "pre-release"
   end
   
   def can_be_added_to_cart?

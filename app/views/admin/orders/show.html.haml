@@ -160,6 +160,8 @@
             }); 
 %table
   %tr
+    - unless @order.status_frozen?
+      %th
     %th Item No.
     %th Item Name
     %th Quantity
@@ -170,6 +172,14 @@
     %th Upsell
   - @order.order_items.each do |item|
     %tr{:class => cycle('odd', 'even')}
+      - unless @order.status_frozen?
+        %td
+          - if item.product.pre_order?(@order.system)
+            Pre-order
+          - elsif item.product.suspended?
+            Retired
+          - elsif item.product.out_of_stock?(@order.system)
+            Out of stock
       %td= item.item_num
       %td= item.name
       %td= item.quantity
