@@ -12,7 +12,7 @@
         .clear
         %ul
           - (1..6).each do |col|
-            %li
+            %li{:id => "carousel-item_#{@top_navigations.index(top_nav)}_#{col}"}
               %h3== Column #{col}
               .panel-column{:id => "td_nav_#{@top_navigations.index(top_nav)}_#{col}"}= render :partial => 'navigation', :object => Navigation.find_or_initialize_by(:system => current_system, :top_nav => @top_navigations.index(top_nav), :column => col)
         :javascript
@@ -26,6 +26,16 @@
               circular: false
             });
           });
+        
+        - (1..6).each do |col|
+          :javascript
+            $(function() {
+              var column_height = 0;
+              $("#carousel-item_#{@top_navigations.index(top_nav)}_#{col} > *").each(function(){
+                column_height += $(this).height();
+              });
+              $("#carousel-item_#{@top_navigations.index(top_nav)}_#{col}").css({"height": (column_height) + "px"});
+            });
 
 :javascript
   $('.navigation_type').trigger('change');
