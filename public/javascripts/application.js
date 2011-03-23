@@ -625,7 +625,7 @@ function megamenuHoverOver() {
     if (panelOverhang > 0) {
       xCoord = xCoord -= 1; // nudge to align with tab
     } else {
-      xCoord = (siteWidth + xOrigin) - panelOverhang; // right align panel with the site
+      xCoord = panelOverhang; // right align panel with the site
     }
   }
 
