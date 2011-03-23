@@ -357,8 +357,8 @@ body.bp {
 	color: $catalog_text;
 	
 	&.product { 
-	  @if $system == er {
-	    height: 310px;
+	  @if $system == erus {
+	    height: 330px;
 	  } @else {
 	    height: 290px;
 	  }
