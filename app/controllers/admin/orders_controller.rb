@@ -142,7 +142,7 @@ class Admin::OrdersController < ApplicationController
     order_to_cart @order
 		unless @order.status_frozen?
     	@order.cancelled!
-    	#@order.save 
+    	@order.save 
     	get_cart.update_attributes :order_reference => @order.id
 		end
     redirect_to cart_path
