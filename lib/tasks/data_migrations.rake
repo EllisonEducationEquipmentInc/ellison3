@@ -591,7 +591,7 @@ namespace :data_migrations do
       new_product = Product.where(:item_num => product.item_num).first || Product.new(:systems_enabled => ["erus"], :name => product.name, :item_num => product.item_num, :long_desc => product.long_desc, :upc => product.upc, :keywords => product.keywords, :life_cycle => product.new_life_cycle, :active => product.new_active_status, :quantity_us => product.quantity)
       new_product.msrp_usd ||= product.msrp
       new_product.systems_enabled << "erus" if product.new_active_status && !new_product.systems_enabled.include?("erus")
-      new_product.write_attributes :wholesale_price_usd => product.wholesale_price, :minimum_quantity => product.minimum_quantity, :description_er => product.short_desc, :old_id_er => product.id,  :orderable_er => product.new_orderable, :start_date_er => product.start_date, :end_date_er => product.end_date,  :distribution_life_cycle_er => product.life_cycle, :distribution_life_cycle_ends_er => !product.life_cycle.blank? && product.life_cycle_ends, :availability_message_er => product.availability_msg
+      new_product.write_attributes :wholesale_price_usd => product.wholesale_price, :minimum_quantity => product.minimum_quantity, :description_erus => product.short_desc, :old_id_er => product.id,  :orderable_er => product.new_orderable, :start_date_er => product.start_date, :end_date_er => product.end_date,  :distribution_life_cycle_er => product.life_cycle, :distribution_life_cycle_ends_er => !product.life_cycle.blank? && product.life_cycle_ends, :availability_message_er => product.availability_msg
       discount_category = DiscountCategory.where(:old_id => product.discount_category_id).first
       next if discount_category.blank?
       new_product.discount_category = discount_category
