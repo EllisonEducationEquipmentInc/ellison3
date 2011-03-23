@@ -27,7 +27,7 @@ class Order
 	index :created_at
 	index :updated_at
 	index "address.last_name"
-	index "address.address"
+	index "address.address1"
 	index "address.email"
 	index "address.city"
 	index "address.company"
@@ -35,6 +35,10 @@ class Order
 	index :order_number
 	index :subtotal_amount
 	index "payment.deferred"
+	index :tax_transaction
+	index "payment.vpstx_id"
+	index "payment.tx_auth_no"
+	index "payment.purchase_order_number"
 	
 	field :status, :default => "New"
 	field :system
