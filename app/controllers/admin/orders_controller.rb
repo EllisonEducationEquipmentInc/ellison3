@@ -3,7 +3,7 @@ class Admin::OrdersController < ApplicationController
 	
 	before_filter :set_admin_title
 	before_filter :admin_read_permissions!
-  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :authorize_cc, :change_order_status, :recalculate_tax, :change_amount, :make_payment]
+  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :authorize_cc, :change_order_status, :recalculate_tax, :change_amount, :make_payment, :refund_cc]
 	before_filter :admin_user_as_permissions!, :only => [:recreate]
 	
 	ssl_exceptions
@@ -136,11 +136,7 @@ class Admin::OrdersController < ApplicationController
   def recreate
     @order = Order.find(params[:id])
     redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@order.user)
-    change_current_system @order.system
-    I18n.locale = @order.locale
-    sign_in("user", @order.user)
-    clear_cart
-    order_to_cart @order
+		sign_in_and_populate_cart
 		unless @order.status_frozen?
     	@order.cancelled!
     	@order.save 
@@ -165,5 +161,35 @@ class Admin::OrdersController < ApplicationController
     render :js => "window.location.href = '#{admin_orders_path}'" and return
   rescue Exception => e
     @error_message = e.to_s #exp_msg(e)
+  end
+  
+  def refund_cc
+    @order = Order.find(params[:id])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@order.user)
+    change_current_system @order.system
+    net_response = refund_cc_transaction(@order.payment)
+    if net_response.success?
+      @order.refunded!
+      @order.save
+      tax_from_order(@order, true) if @order.tax_committed #CCH 'return'
+			if params[:recreate]
+				sign_in_and_populate_cart
+				get_cart.update_attributes :order_reference => @order.id
+	      redirect_to cart_path, :notice => net_response.message and return 
+			end
+    end
+    redirect_to(admin_order_path(@order), :notice => net_response.message)
+	rescue Exception => e
+		redirect_to(admin_order_path(@order), :alert => e.to_s)
+  end
+
+private
+
+  def sign_in_and_populate_cart
+    change_current_system @order.system
+    I18n.locale = @order.locale
+    sign_in("user", @order.user)
+    clear_cart
+    order_to_cart @order
   end
 end

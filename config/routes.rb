@@ -157,7 +157,7 @@ Ellison3::Application.routes.draw do |map|
 			resources :orders do
 			  collection do
 			    post :update_internal_comment, :change_order_status, :change_shipping, :make_payment, :update_estimated_ship_date
-			    get :recalculate_tax, :recreate
+			    get :recalculate_tax, :recreate, :refund_cc
 			  end
 			end
 			resources :material_orders do

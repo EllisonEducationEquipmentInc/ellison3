@@ -274,6 +274,12 @@
   .field
     %strong Transaction ID:
     = is_us? ? @order.payment.vpstx_id : @order.payment.tx_auth_no
+  .field
+    %strong Refunded Amount:
+    = number_to_currency @order.payment.refunded_amount rescue "N/A"
+  .field
+    %strong Refunded At:
+    = l @order.payment.refunded_at, :format => :custom rescue ""
 - else
   .error No Payment Info Available
 .field
