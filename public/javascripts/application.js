@@ -164,7 +164,7 @@ $(document).ready(function(){
 	var options = {
 	    zoomWidth: 300,
 	    zoomHeight: 300,
-      xOffset: 10,
+      xCoord: 10,
       yOffset: 0,
       position: "right",
 			zoomType: "reverse"
@@ -595,15 +595,20 @@ var megapanel_shadow_options = { autoresize: false, imageset: 6, imagepath: "/im
 function megamenuHoverOver() {
   
   // resize & position the megapanel
-  var xCoord = 0;
+  var siteWidth = 950;
   var panelWidth = 0;
+  var xOrigin = 0;
+  var xCoord = 0;
+  var panelOverhang;
+
+  if ($('#nav_megamenu ul').position().left < 0) {
+    xOrigin = Math.abs($('#nav_megamenu ul').position().left) - $(this).position().left;
+  } else {
+    xOrigin = -(Math.abs($('#nav_megamenu ul').position().left) + $(this).position().left);
+  }
   
   if ($(this).find('.megapanel').hasClass('full-width')) { // for full-width megapanels; calculate correct left coordinate
-    if ($('#nav_megamenu ul').position().left < 0) {
-      xCoord = Math.abs($('#nav_megamenu ul').position().left) - $(this).position().left;
-    } else {
-      xCoord = -(Math.abs($('#nav_megamenu ul').position().left) + $(this).position().left);
-    }
+    xCoord = xOrigin;
   } else { // for all other (content-width) megapanels
     $(this).find('.megapanel ul[class*="wrap"]').each(function(){
       panelWidth += $(this).width();
@@ -614,8 +619,14 @@ function megamenuHoverOver() {
     if ($(this).find('.megapanel').hasClass('reverse')) { // for 'reverse layout' megapanels
       xCoord = $(this).width() - panelWidth;
     }
-
-    xCoord = xCoord -= 1; // nudge to align with tab
+    
+    panelOverhang = (siteWidth + xOrigin) - panelWidth;
+    
+    if (panelOverhang > 0) {
+      xCoord = xCoord -= 1; // nudge to align with tab
+    } else {
+      xCoord = (siteWidth + xOrigin) - panelOverhang; // right align panel with the site
+    }
   }
 
   $(this).find('.megapanel').css({ "left": (xCoord) + "px" }); // reset the left coordinate of the subpanel
