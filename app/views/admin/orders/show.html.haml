@@ -61,6 +61,9 @@
   %strong Customer Account:
   = @order.user.email
   %br
+  %strong Customer Current Tax exempt status:
+  = @order.user.tax_exempt?
+  %br
   %strong Order Date:
   = l @order.created_at, :format => :custom
   %br
