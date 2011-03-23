@@ -28,10 +28,10 @@
       = f.label :cod_account
       %br
       = f.text_field :cod_account
-    .field
-      = f.label :admin_id, "Sales Rep"
-      %br
-      = f.select :admin_id, Admin.sales_reps.asc(:name).map {|e| ["#{e.name} - #{e.email} (#{e.employee_number})", e.id]}, :prompt => '--- select sales rep ---'
+  .field
+    = f.label :admin_id, "Sales Rep"
+    %br
+    = f.select :admin_id, Admin.sales_reps.asc(:name).map {|e| ["#{e.name} - #{e.email} (#{e.employee_number})", e.id]}, :prompt => '--- select sales rep ---'
   .field
     = f.label :erp, "AX ID"
     %br

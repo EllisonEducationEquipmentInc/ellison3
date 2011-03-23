@@ -2,12 +2,12 @@ class UserMailer < ActionMailer::Base
   
   def order_confirmation(order)
     @order = order
-    mail(:to => order.user.email, :subject => "#{get_domain.capitalize} Order Confirmation")
+    mail(:to => order.user.email, :subject => "#{get_domain.capitalize} Order Confirmation", :cc => order.user.try(:admin) ? order.user.admin.email : nil )
   end
   
   def quote_confirmation(quote)
     @quote = quote
-    mail(:to => quote.user.email, :subject => "#{get_domain.capitalize} #{quote_name} Confirmation")
+    mail(:to => quote.user.email, :subject => "#{get_domain.capitalize} #{quote_name} Confirmation", :cc => quote.user.try(:admin) ? quote.user.admin.email : nil)
   end
   
   def email_list(user, name, recipients, wishlist, note)
