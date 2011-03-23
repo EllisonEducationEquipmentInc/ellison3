@@ -145,7 +145,7 @@ class Admin::OrdersController < ApplicationController
     	#@order.save 
     	get_cart.update_attributes :order_reference => @order.id
 		end
-    redirect_to checkout_path
+    redirect_to cart_path
   end
   
   def make_payment
