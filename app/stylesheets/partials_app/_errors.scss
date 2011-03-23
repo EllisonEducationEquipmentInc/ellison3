@@ -22,6 +22,11 @@ label.invalid {
   border: 1px solid #f6a5ac;
   display: inline-block;
   
+  // because IE6/7 is dumb & doesn't understand inline-block
+  zoom: 1;
+  *display: inline;
+  _height: auto;
+  
   span.required { color: #000; }
 }
 

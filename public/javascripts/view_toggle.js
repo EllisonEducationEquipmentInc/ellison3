@@ -21,7 +21,7 @@ $.fn.toggleView.defaults = {
 	toggle_text: 			"%state% view",
 	states: 					["grid", "list"],
 	collection_container: '.highlightable',
-	initial_state: "grid", 
+	initial_state: "grid"
 };
 
 function ViewToggler(settings, dom) {
@@ -77,7 +77,7 @@ $.extend(ViewToggler.prototype, {
 	
 	getOpposite: function() {
 		return (this.settings.states.indexOf(this.current_state) == 0) ? this.settings.states[1] : this.settings.states[0];
-	},
+	}
 	
 });
 })(jQuery);

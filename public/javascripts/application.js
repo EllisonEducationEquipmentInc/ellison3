@@ -741,12 +741,12 @@ var payment_validator_options = {
     rules: { 
         "payment[first_name]": { 
             required: true
-        }, 
+        },
         "payment[last_name]": { 
             required: true
         }, 
         "payment[card_name]": { 
-            required: true,
+            required: true
         },
         "payment[full_card_number]": { 
             required: true,
