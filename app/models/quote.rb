@@ -91,7 +91,7 @@ EOF
         };
 EOF
 
-      collection.mapreduce(map, reduce, {:query => {:system => sys, :active => true, :expires_at => {"$gt" => Time.now.utc}}}).find().sort('value.quantity', :desc).limit(1000).to_a
+      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {:system => sys, :active => true, :expires_at => {"$gt" => Time.now.utc}}})["results"]
     end
 	end
 
