@@ -27,6 +27,10 @@ class Order
 	index :created_at
 	index :updated_at
 	index "address.last_name"
+	index "address.address"
+	index "address.email"
+	index "address.city"
+	index "address.company"
 	index "order_items.item_num"
 	index :order_number
 	index :subtotal_amount

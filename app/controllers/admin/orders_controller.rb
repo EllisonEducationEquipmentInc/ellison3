@@ -12,6 +12,7 @@ class Admin::OrdersController < ApplicationController
 	  @current_locale = current_locale
 	  criteria = Mongoid::Criteria.new(Order)
 	  criteria = criteria.where :deleted_at => nil
+	  criteria = criteria.where(:user_id => params[:user_id]) unless params[:user_id].blank?
 	  criteria = criteria.where :user_id.in => current_admin.users.map {|e| e.id} if current_admin.limited_sales_rep
 	  criteria = if params[:systems_enabled].blank?
 	    criteria.where(:system.in => admin_systems)
@@ -22,7 +23,7 @@ class Admin::OrdersController < ApplicationController
 	  criteria = criteria.where('payment.deferred' => Boolean.set(params[:deferred])) unless params[:deferred].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria = criteria.any_of({'order_number' => params[:q][/\d+/].to_i}, {'address.email' => regexp},  {'address.first_name' => regexp}, { 'address.last_name' => regexp }, { 'address.city' => regexp }, { 'address.address' => regexp })
+  	  criteria = criteria.any_of({'order_number' => params[:q][/\d+/].to_i}, {'address.email' => regexp}, {'address.company' => regexp}, { 'address.last_name' => regexp }, { 'address.city' => regexp }, { 'address.address' => regexp })
 	  end
 	  order = params[:sort] ? {sort_column => sort_direction} : [[:created_at, :desc]]
 		@orders = criteria.order_by(order).paginate :page => params[:page], :per_page => 50
@@ -111,7 +112,7 @@ class Admin::OrdersController < ApplicationController
     flash[:notice] = "Successful transaction..."
   rescue Exception => e
     # TODO: UserNotifier.deliver_declined_cc(@order, e.to_s.gsub(/^.+\<br\>\<br\>\s/, '').gsub("<br>", "\n")) if is_ee_us? && e.to_s.include?("could not be authorized")
-    flash[:alert] = e #exp_msg(e)
+    flash[:alert] = e.to_s.html_safe #exp_msg(e)
   ensure
     I18n.locale = @current_locale
     redirect_to admin_order_path(@order)

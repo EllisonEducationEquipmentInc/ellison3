@@ -14,8 +14,9 @@
       %tr
         = sortable "order_number"
         = sortable "created_at"
-        = sortable "address.last_name"
-        = sortable "subtotal_amount"
+        %th Company
+        = sortable "address.last_name", "Name"
+        = sortable "subtotal_amount", "Subtotal"
         %th System
         = sortable "status"
         = sortable "payment.deferred", 'Deferred'
@@ -27,6 +28,7 @@
         %tr{ :class => cycle(:odd, :even) }
           %td= link_to order.public_order_number, admin_order_path(order)
           %td= l order.created_at, :format => :custom rescue ''
+          %td= order.address.company
           %td== #{order.address.first_name} #{order.address.last_name}
           %td= number_to_currency order.gross_subtotal_amount
           %td= order.system

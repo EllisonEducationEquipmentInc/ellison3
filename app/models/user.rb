@@ -76,6 +76,8 @@ class User
 	end
 	
 	index :email
+	index :erp
+	index :name
 	index :systems_enabled
 	index :sign_in_count
 	index :created_at

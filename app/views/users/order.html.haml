@@ -57,6 +57,9 @@
   %strong Status:
   = @order.public_status
   %br
+  - if @order.tracking_number.present?
+    %strong Tracking #:
+    = link_to @order.tracking_number, @order.tracking_url, :target => '_blank'
 .clear
 %table
   %tr

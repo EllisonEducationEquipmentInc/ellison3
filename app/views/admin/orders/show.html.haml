@@ -73,6 +73,10 @@
   %strong Status:
   %span#order_status= @order.status
   %br
+  - if @order.tracking_number.present?
+    %strong Tracking #:
+    = link_to @order.tracking_number, @order.tracking_url, :target => '_blank'
+    %br
   %strong Customer Rep:
   = @order.customer_rep
   - unless @order.order_reference.blank?
