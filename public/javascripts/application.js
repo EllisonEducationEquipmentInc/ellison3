@@ -614,13 +614,13 @@ function megamenuHoverOver() {
       panelWidth += $(this).width();
       panelWidth += parseInt($(this).css("padding-left"), 10);
     })
-    $(this).find('.megapanel').css({ "width": (panelWidth) + "px" }); // resize megapanel to fit content width
+    $(this).find('.megapanel').css({ "width": (panelWidth) + "px", "padding-right": "10px" }); // resize megapanel to fit content width
     
     if ($(this).find('.megapanel').hasClass('reverse')) { // for 'reverse layout' megapanels
       xCoord = $(this).width() - panelWidth;
     }
     
-    panelOverhang = (siteWidth + xOrigin) - panelWidth;
+    panelOverhang = (siteWidth + xOrigin) - (panelWidth + 10);
     
     if (panelOverhang > 0) {
       xCoord = xCoord -= 1; // nudge to align with tab
