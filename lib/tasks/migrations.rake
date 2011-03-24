@@ -11,9 +11,9 @@ namespace :migrations do |ns|
     end
 	end
 	
-	desc "set VAT value (17.5)"
+	desc "set VAT value (20.0%)"
 	task :set_vat_value => :environment do
-		SystemSetting.create :key => "vat", :value => "17.5"
+		SystemSetting.create :key => "vat", :value => "20.0"
 	end
 	
 	desc "setup countries for systems"

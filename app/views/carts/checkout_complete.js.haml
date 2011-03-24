@@ -2,11 +2,11 @@
   - if is_sizzix_us?
     == $('body').append('<img src="https://clickserve.cc-dt.com/link/order?vid=K161997&oid=#{@order.order_number}&amt=#{number_with_precision @order.subtotal_amount, :precision => 2}&btzip=#{@order.address.zip_code}&prdsku=#{@order.order_items.map(&:item_num).join("^")}&prdqn=#{@order.order_items.map(&:quantity).join("^")}&prdpr=#{@order.order_items.collect {|prpr| number_with_precision(prpr.sale_price, :precision => 2)}.join("^")}">');
   _gaq.push(['_addTrans',
-  '#{@order.id}',           // order ID - required
+  '#{@order.public_order_number}',           // order ID - required
   '#{get_domain}', // affiliation or store name
-  '#{@order.total_amount}',          // total - required
-  '#{@order.tax_amount}',           // tax
-  '#{@order.shipping_amount + @order.shipping_amount}',          // shipping
+  '#{convert_2_gbp @order.total_amount}',          // total - required
+  '#{convert_2_gbp @order.tax_amount}',           // tax
+  '#{convert_2_gbp(@order.shipping_amount + @order.shipping_amount)}',          // shipping
   '#{@order.address.city}',       // city
   '#{@order.address.state}',     // state or province
   '#{@order.address.country}'             // country
@@ -17,7 +17,7 @@
     '#{item.item_num}',           // SKU/code - required
     '#{escape_javascript item.name}',        // product name
     'brand',   // category or variation
-    '#{item.sale_price}',          // unit price - required
+    '#{convert_2_gbp item.sale_price}',          // unit price - required
     '#{item.quantity}'               // quantity - required
     ]);
   _gaq.push(['_trackTrans']);

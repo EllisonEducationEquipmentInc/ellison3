@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   layout :get_layout
 
 	helper_method :vat, :gross_price, :calculate_vat, :get_user, :countries, :states, :sort_column, :sort_direction, :ga_tracker_id, :has_write_permissions?, :has_read_permissions?, :admin_systems,
-	              :quote_allowed?, :chekout_allowed?, :currency_correct?, :vat_exempt?, :outlet?, :machines_owned, :perform_search, :admin_user_as_permissions!
+	              :quote_allowed?, :chekout_allowed?, :currency_correct?, :vat_exempt?, :outlet?, :machines_owned, :perform_search, :admin_user_as_permissions!, :convert_2_gbp
 
 private
 
@@ -46,6 +46,31 @@ private
 		  SystemSetting.value_at("vat").to_f
 		end
 	end
+	
+	def set_eur_gbp_rate
+	  @rate = SystemSetting.find_by_key('eur_gbp_rate') || SystemSetting.new(:key => "eur_gbp_rate")
+	  if @rate.new_record? || @rate.updated_at < Time.now.utc.beginning_of_day
+	    # get actual rate from google
+	    res = Net::HTTP.get_response(URI.parse('http://www.google.com/ig/calculator?hl=en&q=1EUR=?GBP'))
+	    if rate = res.body[/(\d|\.){3,11}/]
+	      @rate.value = rate
+	      @rate.save
+	      rate.to_f
+	    end
+	  else
+	    @rate.value.to_f
+	  end
+  # rescue
+  #   @rate.value.try(:to_f) || 0.873555404
+	end
+	
+	def convert_2_gbp(amt)
+    return amt unless is_eur?
+    rate = Rails.cache.fetch 'eur_gbp_rate', :expires_in => 24.hour.since do
+		  set_eur_gbp_rate
+		end
+    (rate * amt).round(2)
+  end
 	
 	def gross_price(price, vat_exempt = false)
     sess = session[:vat_exempt] rescue vat_exempt

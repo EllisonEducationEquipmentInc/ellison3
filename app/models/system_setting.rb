@@ -1,7 +1,6 @@
 class SystemSetting
 	include EllisonSystem
 	include Mongoid::Document
-	include Mongoid::Versioning
   include Mongoid::Timestamps
 	include Mongoid::Paranoia
 		
