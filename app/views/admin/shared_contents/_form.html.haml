@@ -40,6 +40,6 @@
   .actions
     = f.submit :class => 'wymupdate jqui_save'
 :javascript
-  $('#visual_assets').sortable({handle: 'h2', tolerance: 'pointer', start: function(event, ui) {$('.visual_asset').css({height:"42px",overflow:"hidden"})}, stop: function(event, ui) {$('.visual_asset').css({height:"auto"})}, update: function(event, ui) {
+  $('#visual_assets').sortable({handle: 'h2', tolerance: 'pointer', start: function(event, ui) {$('.visual_asset').css({height:"25px",overflow:"hidden"})}, stop: function(event, ui) {$('.visual_asset').css({height:"auto"})}, update: function(event, ui) {
     $.ajax({url:"/admin/shared_contents/reorder_visual_assets?id=#{@shared_content.id}&"+$("#visual_assets").sortable('serialize')});
   }})
