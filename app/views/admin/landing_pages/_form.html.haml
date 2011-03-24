@@ -40,6 +40,8 @@
     %br
     = f.text_field :short_desc
   #visual_assets  
+    %p.right= link_to "collapse all", "#", :onclick => "$('.visual_asset').css({height:'25px',overflow:'hidden'}); return false;"
+    .clear
     = f.fields_for :visual_assets, @landing_page.visual_assets.ordered do |visual_asset_fields|
       = render 'admin/visual_assets/visual_asset', :f => visual_asset_fields
     = link_to_add_fields "Add Visual Asset", f, :visual_assets

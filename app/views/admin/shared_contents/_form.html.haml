@@ -32,6 +32,8 @@
       = f.text_area :short_desc, :cols => 57, :rows => 5
 
   #visual_assets.contentwrap_XXXL.last
+    %p.right= link_to "collapse all", "#", :onclick => "$('.visual_asset, .child_visual_asset').css({height:'25px',overflow:'hidden'}); return false;"
+    .clear
     = f.fields_for :visual_assets, @shared_content.visual_assets.ordered do |visual_asset_fields|
       = render 'admin/visual_assets/visual_asset', :f => visual_asset_fields
     = link_to_add_fields "Add Visual Asset", f, :visual_assets
