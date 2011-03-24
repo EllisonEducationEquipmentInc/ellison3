@@ -19,6 +19,10 @@ module EllisonSystem
   ER_MIN_ORDER = 100
   ER_FIRST_MIN_ORDER = 300
   
+  def backorder_allowed?
+    is_er? || is_ee?
+  end
+  
 	def current_system
 		Thread.current[:current_system] ||= ELLISON_SYSTEMS.first
 	end
@@ -76,7 +80,7 @@ module EllisonSystem
 	
   def is_er?
     # is ellison_retailers?
-    current_system == 'erus'
+    current_system == 'erus' || current_system == 'eruk'
   end
   
   def is_ee?

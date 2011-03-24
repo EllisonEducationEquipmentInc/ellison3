@@ -80,6 +80,10 @@ class Cart
 	  cart_items.any? {|e| e.pre_order}
 	end
 	
+	def out_of_stock?
+	  cart_items.any? {|e| e.out_of_stock}
+	end
+	
 	# if cart qualifies for deferred payments
 	def allow_deferred?
 		is_sizzix_us? && sub_total < 1000.01 && cart_items.any? {|o| o.eclips?}
@@ -130,6 +134,8 @@ class Cart
 			if check
 			  if quote
 			    item.quantity = 0 if !product.available?
+			  elsif backorder_allowed? && product.out_of_stock? && product.listable?
+			    # do nothing
 			  else
 			   	item.quantity = product.unavailable? ? 0 : product.quantity if product.unavailable? || product.quantity < item.quantity
 			  end

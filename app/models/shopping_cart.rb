@@ -89,7 +89,7 @@ module ShoppingCart
 		
 		# defines logic if payment of an order can be run, or payment has to be tokenized first and payment has to be run manually
 		def payment_can_be_run?
-		  (is_sizzix? || (is_er? && @order && @order.address && @order.address.us?)) && !@order.payment.try(:purchase_order)
+		  !(backorder_allowed? && get_cart.out_of_stock?) && (is_sizzix? || (is_er? && @order && @order.address && @order.address.us?)) && !@order.payment.try(:purchase_order)
 		end
 		
 		def process_order(order)

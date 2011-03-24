@@ -76,6 +76,8 @@ module ApplicationHelper
   %br
 - if @product_obj.pre_order?
   %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "", :title => "Add Product to Shopping Bag to Pre-Order"}== Pre-Order
+- elsif backorder_allowed? && @product_obj.out_of_stock? && @product_obj.listable?
+  %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "Add Product to Shopping #{(t :cart).capitalize}", :title => "Add Product to Shopping #{(t :cart).capitalize}"}== 0 Add to #{(t :cart).capitalize} +
 - elsif @product_obj.out_of_stock?
   - if is_uk?
     = link_to "Check availability at your Local Retailer", stores_path

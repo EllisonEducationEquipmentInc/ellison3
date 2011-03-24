@@ -40,7 +40,7 @@ class Product
   validates_associated :tabs
   
   before_save :inherit_system_specific_attributes
-  #before_save :clean_up_tags
+  before_save :quantity_cannot_be_negative
   before_save :timestamp_outlet
   before_save :remove_outlet_price #if outlet p becomes non-outlet
   before_save :reindex?
@@ -435,10 +435,11 @@ class Product
   def decrement_quantity(qty)
     skip_versioning_and_timestamps
     if is_sizzix? && qty > self.quantity_us
-      update_attributes :quantity_sz => self.quantity_sz + self.quantity_us - qty, :quantity_us => 0
+      write_attributes :quantity_sz => self.quantity_sz + self.quantity_us - qty, :quantity_us => 0
     else
-      is_us? ? update_attributes(:quantity_us => self.quantity_us - qty) : update_attributes(:quantity_uk => self.quantity_uk - qty)
+      is_us? ? write_attributes(:quantity_us => self.quantity_us - qty) : write_attributes(:quantity_uk => self.quantity_uk - qty)
     end
+    save :validate => false
   end
   
   def in_stock?
@@ -583,6 +584,12 @@ class Product
 	end
   
 private 
+
+  def quantity_cannot_be_negative
+    WAREHOUSES.each do |warehouse|
+      self.send("quantity_#{warehouse}=", 0) if self.send("quantity_#{warehouse}") < 0
+    end
+  end
 
   # automatically set system specific attributes (if not set) of all other enabled systems. Values are inherited from the current system
   # example: a new product is being created on SZUS. The new product will be pushed to szus and szuk. Those 2 systems are checked on the product admin form, and before save, SZUK will inherit the same attributes (which can be overridden by switching to szuk) 

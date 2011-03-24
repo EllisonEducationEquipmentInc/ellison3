@@ -66,6 +66,8 @@
     %br
     - if get_cart.pre_order?
       %p.error There are items in the cart that are available for pre-order only. If you would like to place a pre-order please click "Pre-Order". For immediate shipping please remove these items.
+    - elsif backorder_allowed? && get_cart.out_of_stock? && !is_ee_uk?
+      %p.error Due to high demand, some items in your cart are currently at a low stock level. If your order cannot be processed within normal ordering time, we will contact you as soon as possible.
     - if quote_allowed?
       .save_as_quote.right Save as Quote
     - if chekout_allowed? && quote_allowed?
