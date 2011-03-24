@@ -1,30 +1,42 @@
 = form_for([:admin, @shared_content], :html => {:multipart => true}) do |f|
   = f.error_messages
-  .field
-    = f.label :systems_enabled
-    = system_enabled('shared_content')
-  .field
-    = f.label :placement, "Placement - only one is allowed for each/system "
-    %br
-    = f.select :placement, SharedContent::PLACEMENTS, :include_blank => true
-  .field
-    = f.label :active
-    %br
-    = f.check_box :active
-  .field
-    = f.label :name
-    %br
-    = f.text_field :name
-  .field
-    = f.label :short_desc
-    %br
-    = f.text_field :short_desc
-  #visual_assets  
+  
+  %hr
+  %h3.contentwrap_XXXL.last System Visibility
+  .contentwrap_large
+    .field
+      = f.label :active, "This shared content is", :class => "autosize"
+      active
+      = f.radio_button(:active, true)
+      disabled
+      = f.radio_button(:active, false)  
+  .contentwrap_large.last
+    .field
+      = required_label f, :systems_enabled, { :label => "Enabled for", :label_size => "auto" }
+      = system_enabled('shared_content')
+  
+  %hr
+  %h3.contentwrap_XXXL.last Basic Information
+  .contentwrap_large
+    .field
+      = required_label f, :name
+      = f.text_field :name
+    .field
+      = f.label :placement, "Placement"
+      = f.select :placement, SharedContent::PLACEMENTS, :include_blank => true
+      %span.formhelp Only one is allowed for each/system
+  .contentwrap_large.last
+    .field
+      = f.label :short_desc, "Short Description", :class => "autosize"
+      %br
+      = f.text_area :short_desc, :cols => 57, :rows => 5
+
+  #visual_assets.contentwrap_XXXL.last
     = f.fields_for :visual_assets, @shared_content.visual_assets.ordered do |visual_asset_fields|
       = render 'admin/visual_assets/visual_asset', :f => visual_asset_fields
     = link_to_add_fields "Add Visual Asset", f, :visual_assets
   %br
-  %br
+  .clear
   .actions
     = f.submit :class => 'wymupdate jqui_save'
 :javascript

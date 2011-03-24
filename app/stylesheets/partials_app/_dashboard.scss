@@ -42,6 +42,10 @@ ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products { @extend ul.p
   letter-spacing: .5px;
 }
 
+#shared_content_submit { @extend #product_submit;
+  letter-spacing: 0;
+}
+
 // meganav admin
 #meganav_admin {
   
