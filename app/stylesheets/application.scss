@@ -131,19 +131,6 @@ body.bp th, body.bp td, body.bp caption {
 		float:left;
 	}
 	
-	.visual_asset{
-		border: 2px solid gray;
-		padding: 3px;
-		margin-bottom: 10px;
-		width:850px;
-	}
-	.child_visual_asset{
-		border: 1px dashed green;
-		width:830px;
-		background: #E7E7E7;
-		margin-bottom: 5px;
-	}
-	.compatibility{@extend .visual_asset;}
 	.material{
 		margin: 8px 0px 0px 10px;
 		padding:5px;

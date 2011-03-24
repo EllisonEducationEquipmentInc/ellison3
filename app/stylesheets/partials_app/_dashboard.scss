@@ -18,6 +18,10 @@ ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products { @extend ul.p
   margin-bottom: 10px !important;
 }
 
+.product_admin_thumbnail, .idea_admin_thumbnail { @extend .thumbnail; }
+.to_delete { border-color: red; }
+
+// iconified buttons
 .remove_tag, .remove_idea, .remove_product {
   display: inline-block;
   width: 16px;
@@ -30,8 +34,21 @@ ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products { @extend ul.p
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/magnifier-medium.png") top left no-repeat;
 }
 
-.product_admin_thumbnail, .idea_admin_thumbnail { @extend .thumbnail; }
-.to_delete { border-color: red; }
+.show_tag, .show_idea, .show_product { @extend .remove_tag;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/magnifier-medium.png") top left no-repeat;
+}
+
+.va_remove { @extend .remove_tag;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/cross-script.png") top left no-repeat;
+}
+
+.va_open { @extend .remove_tag;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/toggle-expand.png") top left no-repeat;
+}
+
+.va_close { @extend .remove_tag;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/toggle.png") top left no-repeat;
+}
 
 // buttons
 #product_submit, #idea_submit {
@@ -46,7 +63,14 @@ ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products { @extend ul.p
   letter-spacing: 0;
 }
 
-// meganav admin
+// WYMeditor
+.wym_box {
+  ul {
+    padding: 0 !important;
+  }
+}
+
+// MegaNav
 #meganav_admin {
   
   .controls {
@@ -71,10 +95,35 @@ ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products { @extend ul.p
   }
 }
 
+// Visual Assets
+.visual_asset {
+	margin-bottom: 10px;
+	padding: 5px;
+}
 
-// WYMeditor
-.wym_box {
-  ul {
-    padding: 0 !important;
+.child_visual_asset {
+	margin-bottom: 5px;
+	padding: 5px;
+	border: 1px dashed $link;
+	background: #FFF;
+}
+
+.va_collapse {
+  float: left;
+  margin: 6px 6px 0 0;
+}
+
+.va_title {
+  height: 30px;
+  
+  h2, h3 {
+    cursor: move;
+    float: left;      
+  }
+  
+  h3 {
+    margin-top: 8px !important;    
   }
 }
+
+.compatibility { @extend .visual_asset; }

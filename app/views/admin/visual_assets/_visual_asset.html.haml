@@ -1,13 +1,17 @@
 - child_index = f.object_name.match(/\[([0-9a-f]+)\]$/).try(:[], 1) || f.options[:child_index]
-%div{:id => "visual_asset_#{f.object.new_record? ? child_index : f.object.id}", :class => "visual_asset_#{'child_' if f.object.is_child?}#{child_index} #{'child_' if f.object.is_child?}visual_asset"}
-  - if f.object.new_record?
-    .right= link_to_function "x", "$(this).parents('.#{'child_' if f.object.is_child?}visual_asset').remove()"
-  = link_to "-", "#", :class => "va_open_close"
-  -# important: h2 is the sort handler for parent VA's, h3 for children
-  - if f.object.is_child?
-    %h3{:style => "cursor:move"}= f.object.name
-  - else
-    %h2{:style => "cursor:move"}= f.object.name
+%div{:id => "visual_asset_#{f.object.new_record? ? child_index : f.object.id}", :class => "visual_asset_#{'child_' if f.object.is_child?}#{child_index} #{'child_' if f.object.is_child?}visual_asset #{" ui-widget-#{ is_sizzix_us? ? 'header' : 'content'} ui-widget" unless f.object.is_child?} ui-corner-all"}
+  .va_title
+    - if f.object.new_record?
+      .right= link_to_function "x", "$(this).parents('.#{'child_' if f.object.is_child?}visual_asset').remove()", :class => "va_remove"
+    = link_to "-", "#", :class => "va_collapse va_close"
+    - if f.object.new_record?
+      %h2 &nbsp;
+    -# important: h2 is the sort handler for parent VA's, h3 for children
+    - if f.object.is_child?
+      %h3= f.object.name
+    - else
+      %h2= f.object.name
+  %hr
   = f.error_messages
   - if f.object.is_child?
     .field
@@ -107,11 +111,11 @@
       changeMonth: true,
       changeYear: true
     });
-    $('.va_open_close').toggle(function () {
-      $(this).html('+');
-      $(this).closest('.child_visual_asset, .visual_asset').css({height:"50px",overflow:"hidden"});
+    $('.va_collapse').toggle(function () {
+      $(this).removeClass('va_close').addClass('va_open');
+      $(this).closest('.child_visual_asset, .visual_asset').css({height:"25px", overflow:"hidden"});
     }, function () {
-      $(this).html('-');
+      $(this).removeClass('va_open').addClass('va_close');
       $(this).closest('.child_visual_asset, .visual_asset').css({height:"auto"});
     });
 
