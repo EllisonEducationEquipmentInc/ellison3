@@ -410,6 +410,10 @@ ul.ui-widget-header {
   }
 }
 
+.ui-datepicker {
+  z-index: 99999 !important;
+}
+
 // twitter
 .twtr-widget {
   margin-bottom: 12px;

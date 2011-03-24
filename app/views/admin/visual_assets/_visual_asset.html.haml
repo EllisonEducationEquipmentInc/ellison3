@@ -3,6 +3,13 @@
   .va_title
     - if f.object.new_record?
       .right= link_to_function "x", "$(this).parents('.#{'child_' if f.object.is_child?}visual_asset').remove()", :class => "va_remove"
+    - else
+      .field.right{:style => "margin-top: 8px"}
+        = f.label :active, "Activate this asset?", :class => "autosize"
+        yes
+        = f.radio_button(:active, true)
+        no
+        = f.radio_button(:active, false)
     = link_to "-", "#", :class => "va_collapse va_close"
     - if f.object.new_record?
       %h2 &nbsp;
@@ -11,21 +18,25 @@
       %h3{:class => "#{f.object.active == false ? 'disabled' : nil}"}= f.object.name
     - else
       %h2{:class => "#{f.object.active == false ? 'disabled' : nil}"}= f.object.name
-    .field.right{:style => "margin-top: 8px"}
+
+  %hr
+  = f.error_messages
+  .field.left
+    = f.label :systems_enabled
+    - ELLISON_SYSTEMS.each do |sys|
+      = hidden_field_tag("#{f.object_name}[systems_enabled][]", sys) if f.object.systems_enabled.try(:include?, sys) && !has_write_permissions?(sys)
+      = check_box_tag("#{f.object_name}[systems_enabled][]", sys, f.object.systems_enabled.try(:include?, sys), :disabled => !has_write_permissions?(sys))
+      %span{:class => sys == current_system ? "current_system" : nil}= sys
+  - if f.object.new_record?
+    .field.right
       = f.label :active, "Activate this asset?", :class => "autosize"
       yes
       = f.radio_button(:active, true)
       no
       = f.radio_button(:active, false)
 
-  %hr
-  = f.error_messages
-  .field
-    = f.label :systems_enabled
-    - ELLISON_SYSTEMS.each do |sys|
-      = hidden_field_tag("#{f.object_name}[systems_enabled][]", sys) if f.object.systems_enabled.try(:include?, sys) && !has_write_permissions?(sys)
-      = check_box_tag("#{f.object_name}[systems_enabled][]", sys, f.object.systems_enabled.try(:include?, sys), :disabled => !has_write_permissions?(sys))
-      %span{:class => sys == current_system ? "current_system" : nil}= sys
+  .clear
+
   - if f.object.is_child?
     .field
       = f.label :display_order, "Display Order", :class => "autosize"
@@ -35,9 +46,6 @@
     = f.check_box :_destroy
     = f.label :_destroy, "Mark this asset for deletion?", :class => "autosize"
 
-  .field
-    = required_label f, :name, { :label => "Asset Name/Label", :label_size => "auto"}
-    = f.text_field :name, :onchange => "$(this).closest('.#{'child_' if f.object.is_child?}visual_asset').children('h#{f.object.is_child? ? 3 : 2}').text(this.value)"
   .field
     = f.label "start_date"
     %span.icon_datefield
@@ -53,14 +61,17 @@
     - Date::DAYNAMES.each do |day|
       = f.check_box :"#{day.downcase}"
       = day
+
+  %hr
+  .field
+    = required_label f, :name, { :label => "Asset Name/Label", :label_size => "auto"}
+    = f.text_field :name, :onchange => "$(this).closest('.#{'child_' if f.object.is_child?}visual_asset').children('h#{f.object.is_child? ? 3 : 2}').text(this.value)"
   .field
     = f.label :short_desc
     %br
     = f.text_field :short_desc
-  .field
-    = f.label :must_own
-    %br
-    = select_tag "#{f.object_name}[must_own][]", options_for_select(MACHINES.map {|k,v| [v,k]}, f.object.must_own), :multiple => true
+    
+  %hr
   .field
     = f.label :asset_type
     %br
@@ -106,6 +117,12 @@
           });
           
         }});
+  %hr
+  .field
+    = f.label :must_own
+    %br
+    = select_tag "#{f.object_name}[must_own][]", options_for_select(MACHINES.map {|k,v| [v,k]}, f.object.must_own), :multiple => true
+
 :javascript
   $(function (){  
     $(".wymeditor:visible").wymeditor({
