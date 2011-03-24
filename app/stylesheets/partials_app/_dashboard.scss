@@ -118,11 +118,13 @@ ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products { @extend ul.p
   
   h2, h3 {
     cursor: move;
-    float: left;      
+    float: left;
+    
+    &.disabled { color: $link_dead;}
   }
   
   h3 {
-    margin-top: 8px !important;    
+    margin-top: 8px !important;
   }
 }
 

@@ -8,15 +8,17 @@
       %h2 &nbsp;
     -# important: h2 is the sort handler for parent VA's, h3 for children
     - if f.object.is_child?
-      %h3= f.object.name
+      %h3{:class => "#{f.object.active == false ? 'disabled' : nil}"}= f.object.name
     - else
-      %h2= f.object.name
+      %h2{:class => "#{f.object.active == false ? 'disabled' : nil}"}= f.object.name
+    - if f.object.is_child? && !f.object.new_record?
+      .field.right
+        = f.label :display_order, "Display Order", :class => "autosize"
+        = f.text_field :display_order, :id => "display_order_#{f.object.new_record? ? child_index : f.object.id}", :size => 2
+
+
   %hr
   = f.error_messages
-  - if f.object.is_child?
-    .field
-      = f.label :display_order
-      = f.text_field :display_order, :id => "display_order_#{f.object.new_record? ? child_index : f.object.id}"
   .field
     = f.label :systems_enabled
     - ELLISON_SYSTEMS.each do |sys|
@@ -24,9 +26,13 @@
       = check_box_tag("#{f.object_name}[systems_enabled][]", sys, f.object.systems_enabled.try(:include?, sys), :disabled => !has_write_permissions?(sys))
       %span{:class => sys == current_system ? "current_system" : nil}= sys
   .field
-    = f.label :active
-    = f.check_box :active
-    = f.label :_destroy, "Destroy this visual asset"
+    = f.label :active, "This asset is", :class => "autosize"
+    active
+    = f.radio_button(:active, true)
+    disabled
+    = f.radio_button(:active, false)
+  .field
+    = f.label :_destroy, "Mark this asset for deletion?"
     = f.check_box :_destroy
   .field
     = required_field f.label(:name, "Name/Label")
