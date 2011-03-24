@@ -356,9 +356,9 @@ module ShoppingCart
 					gw_options[:frequency] = billing.frequency
 					gw_options[:start_date] = 1.months.since.strftime("%Y%m%d")
 					gw_options[:subscription_title] = "#{get_domain.capitalize} Three Easy Payments"
-					gw_options[:customer_account_id] = get_user.id
 					amount = (billing.deferred_payment_amount * 100).round
 				end
+				gw_options[:customer_account_id] = get_user.erp == 'New' || get_user.erp.blank? ? get_user.id : get_user.erp if billing.deferred || billing.save_credit_card || tokenize_only
 			else
         gw_options = {
           :order_id => order,
@@ -374,7 +374,6 @@ module ShoppingCart
 				elsif (billing.save_credit_card || tokenize_only) && !billing.use_saved_credit_card && !options[:use_payment_token]
 				  gw_options.merge!(:number_of_payments => 0, :frequency=> "on-demand", :shipping_address => {}, :start_date => Time.zone.now.strftime("%Y%m%d"),  :subscription_title => "#{credit_card.first_name} #{credit_card.last_name}", :setup_fee => amount_to_charge)
 				  @net_response = @gateway.recurring_billing(0, credit_card, gw_options)
-				  Rails.logger.info @net_response
 				elsif (billing.use_saved_credit_card || options[:use_payment_token]) && !tokenize_only
 				  Rails.logger.info "use_saved_credit_card: #{amount_to_charge}, #{gw_options}"
 				  @net_response = @gateway.pay_on_demand amount_to_charge, gw_options
@@ -457,7 +456,7 @@ module ShoppingCart
       @net_response
     end
     
-    # example: tokenize_billing_info(credit_card, :billing_address=>{:address1 => @billing.address, :address2 => @billing.address2, :country => @billing.country, :company => @billing.company, :zip => @billing.zip_code, :phone => @billing.phone, :state => @billing.state, :city => @billing.city}, :email => @billing.email, :order_id => get_user.id, :customer_account_id => get_user.erp_id)
+    # example: tokenize_billing_info(credit_card, :billing_address=>{:address1 => @billing.address, :address2 => @billing.address2, :country => @billing.country, :company => @billing.company, :zip => @billing.zip_code, :phone => @billing.phone, :state => @billing.state, :city => @billing.city}, :email => @billing.email, :order_id => get_user.id, :customer_account_id => get_user.erp)
     def tokenize_billing_info(credit_card, options)     
 			subscription_title = credit_card.first_name ? "#{credit_card.first_name} #{credit_card.last_name}" : "create customer"
       options.merge!(:number_of_payments => 0, :frequency=> "on-demand", :shipping_address => {}, :start_date => Time.zone.now.strftime("%Y%m%d"),  :subscription_title => subscription_title, :setup_fee => 0)
