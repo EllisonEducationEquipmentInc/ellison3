@@ -79,11 +79,12 @@ module ShoppingCart
 		def order_to_cart(order)
 		  get_cart
 		  order.order_items.each do |item|
-		    cart_item = CartItem.new(:price => item.sale_price, :small_image => item.product.small_image, :added_at => Time.now, :pre_order => item.product.pre_order?, :out_of_stock => item.product.out_of_stock?, :weight => item.product.virtual_weight, :msrp => item.product.msrp_or_wholesale_price, :minimum_quantity => item.product.minimum_quantity)
+		    cart_item = CartItem.new(:price => item.sale_price, :small_image => item.product.small_image, :added_at => Time.now, :pre_order => item.product.pre_order?, :out_of_stock => item.product.out_of_stock?, :weight => item.product.virtual_weight, :msrp => item.product.msrp_or_wholesale_price, :minimum_quantity => item.product.minimum_quantity, :retailer_price => item.product.retailer_price)
 		    cart_item.copy_common_attributes item
 		    cart_item.custom_price = true if cart_item.price != item.product.price
 		    get_cart.cart_items << cart_item
 		  end
+		  get_cart.coupon = order.coupon
 		  get_cart.save
 		end
 		

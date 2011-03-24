@@ -119,7 +119,7 @@ class Admin::QuotesController < ApplicationController
     order_to_cart @quote
     @quote.updated_by = current_admin.email
     @quote.update_attributes :active => false
-    redirect_to checkout_path
+    redirect_to cart_path
   end
   
   def pre_orders_report
