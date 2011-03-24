@@ -1,8 +1,5 @@
 if ($('#cart_container').length > 0) {
-$.get('/cart', function(data){
-$('#cart_container').replaceWith(data);
-setTimeout("$.fancybox.resize()", 100);
-});
+== $('#cart_container').html('#{escape_javascript(render(:partial => "carts/cart"))}');
 }
 if ($('#review_bag').length > 0) {
 - @cart_locked = true
