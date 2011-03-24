@@ -2,14 +2,16 @@
 
 = render 'form'
 
+.clear
+%hr
 %h3== Shared in #{pluralize @shared_content.products.count, 'product tab'}:
-%ul
+%ul.plain
   - @shared_content.products.each do |product|
     %li= link_to "#{product.name} (#{product.item_num})", edit_admin_product_path(product)
 %br
 %br
 %h3== Shared in #{pluralize @shared_content.ideas.count, 'idea tab'}:
-%ul
+%ul.plain
   - @shared_content.ideas.each do |idea|
     %li= link_to "#{idea.name} (#{idea.idea_num})", edit_admin_idea_path(idea)
 %br

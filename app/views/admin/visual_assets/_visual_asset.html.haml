@@ -11,11 +11,12 @@
       %h3{:class => "#{f.object.active == false ? 'disabled' : nil}"}= f.object.name
     - else
       %h2{:class => "#{f.object.active == false ? 'disabled' : nil}"}= f.object.name
-    - if f.object.is_child? && !f.object.new_record?
-      .field.right
-        = f.label :display_order, "Display Order", :class => "autosize"
-        = f.text_field :display_order, :id => "display_order_#{f.object.new_record? ? child_index : f.object.id}", :size => 2
-
+    .field.right{:style => "margin-top: 8px"}
+      = f.label :active, "Activate this asset?", :class => "autosize"
+      yes
+      = f.radio_button(:active, true)
+      no
+      = f.radio_button(:active, false)
 
   %hr
   = f.error_messages
@@ -25,27 +26,26 @@
       = hidden_field_tag("#{f.object_name}[systems_enabled][]", sys) if f.object.systems_enabled.try(:include?, sys) && !has_write_permissions?(sys)
       = check_box_tag("#{f.object_name}[systems_enabled][]", sys, f.object.systems_enabled.try(:include?, sys), :disabled => !has_write_permissions?(sys))
       %span{:class => sys == current_system ? "current_system" : nil}= sys
+  - if f.object.is_child?
+    .field
+      = f.label :display_order, "Display Order", :class => "autosize"
+      = f.text_field :display_order, :id => "display_order_#{f.object.new_record? ? child_index : f.object.id}", :size => 2
+
   .field
-    = f.label :active, "This asset is", :class => "autosize"
-    active
-    = f.radio_button(:active, true)
-    disabled
-    = f.radio_button(:active, false)
-  .field
-    = f.label :_destroy, "Mark this asset for deletion?"
     = f.check_box :_destroy
+    = f.label :_destroy, "Mark this asset for deletion?", :class => "autosize"
+
   .field
-    = required_field f.label(:name, "Name/Label")
-    %br
+    = required_label f, :name, { :label => "Asset Name/Label", :label_size => "auto"}
     = f.text_field :name, :onchange => "$(this).closest('.#{'child_' if f.object.is_child?}visual_asset').children('h#{f.object.is_child? ? 3 : 2}').text(this.value)"
   .field
     = f.label "start_date"
-    %br
-    = f.text_field "start_date", :class => 'datetimepicker'
+    %span.icon_datefield
+      = f.text_field "start_date", :class => 'datetimepicker'
   .field
     = f.label "end_date"
-    %br
-    = f.text_field "end_date", :class => 'datetimepicker'
+    %span.icon_datefield
+      = f.text_field "end_date", :class => 'datetimepicker'
   .field
     = f.label :recurring
     = f.check_box :recurring, :onclick => "if (this.checked) {$('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .recurring').show()} else {$('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .recurring').hide()}"
