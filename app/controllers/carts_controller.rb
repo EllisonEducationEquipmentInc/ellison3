@@ -146,6 +146,7 @@ class CartsController < ApplicationController
 		@order.payment = @payment unless get_cart.pre_order?
     process_order(@order)
 		clear_cart
+		cookies[:tracking], cookies[:utm_source] = nil
 		UserMailer.order_confirmation(@order).deliver
 		@order.payment.try :save
 		render "checkout_complete"
