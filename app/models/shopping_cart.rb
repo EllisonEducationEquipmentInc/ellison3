@@ -438,13 +438,17 @@ module ShoppingCart
     
     def refund_cc_transaction(payment, options = {})
       get_gateway
-      options.merge!(:order_id => "REFUND#{payment.order.id}", :description => "REFUND#{payment.order.id}", :currency => payment.order.locale == 'en-UK' ? "GBP" : "EUR") if is_uk?
+      options.merge!(:order_id => "REFUND#{payment.order.id}", :description => "REFUND#{payment.order.id}", :currency => payment.order.locale.to_s == 'en-UK' ? "GBP" : "EUR") if is_uk?
       timeout(30) do
 				@net_response = @gateway.credit(payment.paid_amount * 100, payment.authorization, options)
 			end
       if @net_response.success?
         payment.refunded_at = Time.zone.now
-        payment.refunded_amount = @net_response.params['amount'] if @net_response.params['amount']
+        payment.refunded_amount = if @net_response.params['amount'].present?
+            @net_response.params['amount'] 
+          else
+            payment.paid_amount
+          end
         payment.refund_authorization = @net_response.authorization
         payment.status = "REFUND"
         payment.save(:validate => false)
