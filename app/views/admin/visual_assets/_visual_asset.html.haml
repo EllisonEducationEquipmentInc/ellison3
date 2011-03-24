@@ -94,7 +94,7 @@
         = render 'admin/visual_assets/visual_asset', :f => child_visual_asset_fields
       = link_to_add_fields "Add Child Visual Asset", f, :child_visual_assets, true
       :javascript
-        $('#child_va_sortable_#{f.object.new_record? ? child_index : f.object.id}').sortable({handle: 'h3', tolerance: 'pointer', update: function(event, ui) {
+        $('#child_va_sortable_#{f.object.new_record? ? child_index : f.object.id}').sortable({handle: 'h3', tolerance: 'pointer', start: function(event, ui) {$('.child_visual_asset').css({height:"25px",overflow:"hidden"})}, stop: function(event, ui) {$('.child_visual_asset').css({height:"auto"})}, update: function(event, ui) {
           $('#child_va_sortable_#{f.object.new_record? ? child_index : f.object.id} > div').each(function(index) {
             $('#'+this.id.replace('visual_asset', 'display_order')).val(index);
           });
