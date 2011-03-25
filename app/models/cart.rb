@@ -204,7 +204,7 @@ class Cart
 	
 	def reset_coupon_items
 	  cart_items.find_item(Coupon::COUPON_ITEM_NUM).try :delete
-	  cart_items.select {|i| i.coupon_price}.each {|i| i.write_attributes(:coupon_price => false, :price => i.sale_price || is_er? ? i.retailer_price : i.msrp)}
+	  cart_items.select {|i| i.coupon_price}.each {|i| i.write_attributes(:coupon_price => false, :price => i.sale_price || (is_er? ? i.retailer_price : i.msrp))}
 	end
 
   def cod?
