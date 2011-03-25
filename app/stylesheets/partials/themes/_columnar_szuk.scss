@@ -147,6 +147,11 @@ body.bp {
   }  
 }
 
+#content {
+    float: left;
+    margin: 10px 0 12px;
+}
+
 // content gallery (landing pages)
 .frame_gallery {
   a.prevBtn {
