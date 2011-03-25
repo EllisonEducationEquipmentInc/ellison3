@@ -136,6 +136,7 @@ module Ax
 		        tracking_number = order.attributes['tracking_number']
 		        tracking_url = order.attributes['tracking_url']
 		        tracking_url = "http://www.fedex.com/Tracking?ascend_header=1&clienttype=dotcom&cntry_code=us&language=english&tracknumbers=#{tracking_number}" if !tracking_number.blank? && tracking_url =~ /fedex/i
+		        carrier_description = order.attributes['carrier_description']
 		        state = order.attributes['status'].blank? ? '' : order.attributes['status'].strip.downcase
 
 	          dborder = Order.find_by_public_order_number order_number
@@ -155,7 +156,9 @@ module Ax
 	            end
 							
 							# TODO: handle invalid order_status, cch failure
-	            dborder.update_attributes!(:status => order_status, :tracking_number => tracking_number, :tracking_url => tracking_url)
+  						set_current_system dborder.system
+	            dborder.update_attributes!(:status => order_status, :tracking_number => tracking_number, :tracking_url => tracking_url, :carrier_description => carrier_description)							
+  						dborder.send_shipping_confirmation if order_status == "Shipped"
 	            #commit_tax(dborder) if order_status == OrderStatus.shipped && !dborder.tax_committed
 	          end
 

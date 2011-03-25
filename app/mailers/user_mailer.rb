@@ -12,6 +12,12 @@ class UserMailer < ActionMailer::Base
     mail(:to => to, :subject => "#{get_domain.capitalize} #{quote_name} Confirmation", :cc => quote.user.try(:admin) ? quote.user.admin.email : nil)
   end
   
+  def shipping_confirmation(order)
+    @order = order
+    to = [order.address.try(:email), order.payment.try(:email), order.user.email].compact.uniq
+    mail(:to => to, :subject => "#{get_domain.capitalize} Shipping Confirmation", :cc => order.user.try(:admin) ? order.user.admin.email : nil )
+  end
+  
   def email_list(user, name, recipients, wishlist, note)
 		@from = user.email
 		@list = wishlist

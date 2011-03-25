@@ -61,6 +61,7 @@ class Order
 	field :purchase_order
 	field :shipping_priority, :default => "Normal"
 	field :shipping_service
+	field :carrier_description
 	field :shipping_overridden, :type => Boolean, :default => false
 	field :tracking_number
 	field :tracking_url
@@ -145,6 +146,10 @@ class Order
 	
 	def cod?
     self.shipping_service == "COD"
+  end
+  
+  def send_shipping_confirmation
+    
   end
   
 	# use this format to change status:
