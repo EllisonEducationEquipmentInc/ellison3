@@ -34,17 +34,19 @@
       = f.radio_button(:active, true)
       no
       = f.radio_button(:active, false)
-
+    .clear
+  .field.right
+    = f.label :_destroy, "Mark this asset for deletion?", :class => "autosize"
+    yes
+    = f.radio_button(:_destroy, true)
+    no
+    = f.radio_button(:_destroy, false)
   .clear
 
   - if f.object.is_child?
     .field
       = f.label :display_order, "Display Order", :class => "autosize"
       = f.text_field :display_order, :id => "display_order_#{f.object.new_record? ? child_index : f.object.id}", :size => 2
-
-  .field
-    = f.check_box :_destroy
-    = f.label :_destroy, "Mark this asset for deletion?", :class => "autosize"
 
   .field
     = f.label "start_date"
