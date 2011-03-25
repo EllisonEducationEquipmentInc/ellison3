@@ -11,10 +11,10 @@ module AdminHelper
   
   def products_helper_tag(name, value = nil, options = {})
     content_tag :div, :class => "products_helper field #{options[:class].try(:html_safe)}" do
-      r = label_tag(name, options[:label]).html_safe || sanitize_to_id(name).humanize
+      r = label_tag(name, options[:label], :class => "autosize").html_safe || sanitize_to_id(name).humanize
       r += tag("br")
-      r += text_field_tag(name, value, :size => 150, :class => 'product_autocomplete').html_safe
-      r += tag("br")
+      r += text_area_tag(name, value, :cols => 60, :rows => 5, :class => 'product_autocomplete').html_safe
+      r += content_tag(:p, 'list product item numbers only', :class => 'formhelp').html_safe
       #r += link_to("All Products Helper", "#", :class => "product_helper_link").html_safe
       r += text_field_tag(:tag_search, nil, :placeholder => "get products by tag name", :class => "product_search_by_tag").html_safe
       r += content_tag(:span, '', :class => 'product_search_selected_tag').html_safe
@@ -61,10 +61,10 @@ module AdminHelper
   
   def ideas_helper_tag(name, value = nil, options = {})
     content_tag :div, :class => "ideas_helper field #{options[:class].try(:html_safe)}" do
-      r = label_tag(name, options[:label]).html_safe || sanitize_to_id(name).humanize
+      r = label_tag(name, options[:label], :class => "autosize").html_safe || sanitize_to_id(name).humanize
       r += tag("br")
-      r += text_field_tag(name, value, :size => 150, :class => 'idea_autocomplete').html_safe
-      r += tag("br")
+      r += text_area_tag(name, value, :cols => 60, :rows => 5, :class => 'idea_autocomplete').html_safe
+      r += content_tag(:p, 'list idea item numbers only', :class => 'formhelp').html_safe
       #r += link_to("All Ideas Helper", "#", :class => "idea_helper_link").html_safe
       r += text_field_tag(:tag_search, nil, :placeholder => "get ideas by tag name", :class => "idea_search_by_tag").html_safe
       r += content_tag(:span, '', :class => 'idea_search_selected_tag').html_safe

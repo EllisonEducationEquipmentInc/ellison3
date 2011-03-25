@@ -100,8 +100,8 @@
     %p.formhelp (e.g.- outlet=1&page=1&ideas=0&facets=category~shape-cutting&sort=start_date_szus%3Adesc)
 
   .field.type_specific.catalog_search
-    = f.label :item_limit
-    = f.text_field :item_limit, :size => 4
+    = f.label :item_limit, "Item Limit", :class => "autosize"
+    = f.text_field :item_limit, :size => 3
 
   .field.type_specific.freeform.billboard.image_with_text
     = f.label :content
@@ -136,8 +136,8 @@
     narrow
     = f.radio_button(:wide, false)
 
-  = products_helper_tag "#{f.object_name}[product_item_nums]", f.object.product_item_nums, :label => "Products (item nums only)", :class => "type_specific products"
-  = ideas_helper_tag "#{f.object_name}[idea_idea_nums]", f.object.idea_idea_nums, :label => "Ideas (idea nums only)", :class => "type_specific ideas"
+  = products_helper_tag "#{f.object_name}[product_item_nums]", f.object.product_item_nums, :label => "Products to Display", :class => "type_specific products"
+  = ideas_helper_tag "#{f.object_name}[idea_idea_nums]", f.object.idea_idea_nums, :label => "Ideas to Display", :class => "type_specific ideas"
   .field.type_specific.galleries.billboards{:id => "child_va_sortable_#{f.object.new_record? ? child_index : f.object.id}"}
     - unless f.object.is_child?
       = f.fields_for :child_visual_assets, f.object.child_visual_assets.sort {|x,y| x.display_order <=> y.display_order} do |child_visual_asset_fields|
