@@ -79,8 +79,9 @@ namespace :ax do
   desc "update inventory on-hand quantities from AX inventory xml"
   task :inventory_update => :include_ax do
     new_relic_wrapper "inventory_update" do
+      options = {:exclude => ENV['exclude']}
       Dir.glob("#{PATH}/from_ax/inventory_upload_*") do |filename| 
-        result = update_inventory_from_ax(IO.read(filename))
+        result = update_inventory_from_ax(IO.read(filename), options)
         if result == 1
           FileUtils.mv filename, "#{PATH}/processed_ax/"
           p "#{filename} has been successfully proccessed"
