@@ -11,15 +11,19 @@
         no
         = f.radio_button(:active, false)
     = link_to "-", "#", :class => "va_collapse va_close"
-    - if f.object.new_record?
-      %h2 &nbsp;
     -# important: h2 is the sort handler for parent VA's, h3 for children
-    - if f.object.image? && f.object.is_child?
-      .va_thumb_child= link_to image_tag(f.object.image_url, :width => 65, :height => 25), "#"
-    - if f.object.is_child?
-      %h3{:class => "#{f.object.active == false ? 'disabled' : nil}"}= f.object.name
+    - if f.object.new_record?
+      - if f.object.is_child?
+        %h3 &nbsp;
+      - else
+        %h2 &nbsp;
     - else
-      %h2{:class => "#{f.object.active == false ? 'disabled' : nil}"}= f.object.name
+      - if f.object.image? && f.object.is_child?
+        .va_thumb_child= link_to image_tag(f.object.image_url, :width => 65, :height => 25), "#"
+      - if f.object.is_child?
+        %h3{:class => "#{f.object.active == false ? 'disabled' : nil}"}= f.object.name
+      - else
+        %h2{:class => "#{f.object.active == false ? 'disabled' : nil}"}= f.object.name
 
   %hr
   = f.error_messages
@@ -76,7 +80,7 @@
   .left
     .field
       = required_label f, :name, { :label => "Asset Name/Label", :label_size => "125px" }
-      = f.text_field :name, :onchange => "$(this).closest('.#{'child_' if f.object.is_child?}visual_asset').children('h#{f.object.is_child? ? 3 : 2}').text(this.value)"
+      = f.text_field :name, :onchange => "$(this).closest('.#{'child_' if f.object.is_child?}visual_asset').find('.va_title h#{f.object.is_child? ? 3 : 2}').text(this.value)"
     .field
       = f.label :short_desc, "Short Description", :style => "width: 125px"
       = f.text_field :short_desc, :size => 40
