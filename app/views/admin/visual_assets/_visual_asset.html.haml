@@ -92,20 +92,22 @@
     = f.select :asset_type, f.object.asset_types_list, {}, :onchange => "$('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .type_specific').hide();$('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .'+this.value).show();", :class => "#{'child_' if f.object.is_child?}visual_asset_asset_type_#{child_index} visual_asset_type"
   .clear
   
-  -# Asset Types
+  -# Configuration Fields for Specific Asset Types
   .field.type_specific.catalog_search
     = f.label :search_query, "Search Query <span class='formhelp'>Enter the complete search query string after the '#'</span>".html_safe, :class => "autosize"
     %br
     = f.text_field :search_query, :size => 100
     %p.formhelp (e.g.- outlet=1&page=1&ideas=0&facets=category~shape-cutting&sort=start_date_szus%3Adesc)
+
   .field.type_specific.catalog_search
     = f.label :item_limit
-    %br
-    = f.text_field :item_limit
+    = f.text_field :item_limit, :size => 4
+
   .field.type_specific.freeform.billboard.image_with_text
     = f.label :content
     %br
     = f.text_area :content, :class => 'wymeditor'
+
   .field.type_specific.image.billboard.gallery.image_with_text
     %span.icon_imagefield= required_label f, :image, { :label_size => "55px"}
     = f.file_field :image
@@ -123,12 +125,17 @@
           = f.check_box :remove_image
           = f.label :remove_image, :class => "autosize"
 
-  .field.type_specific.billboard
-    = f.label :wide
-    = f.check_box :wide
   .field.type_specific.image.billboard.gallery.image_with_text
     %span.icon_linkfield= f.label :link, :style => "width: 55px"
     = f.text_field :link
+
+  .field.type_specific.billboard
+    = f.label :wide, "Billboard Image Size", :class => "autosize"
+    wide
+    = f.radio_button(:wide, true)
+    narrow
+    = f.radio_button(:wide, false)
+
   = products_helper_tag "#{f.object_name}[product_item_nums]", f.object.product_item_nums, :label => "Products (item nums only)", :class => "type_specific products"
   = ideas_helper_tag "#{f.object_name}[idea_idea_nums]", f.object.idea_idea_nums, :label => "Ideas (idea nums only)", :class => "type_specific ideas"
   .field.type_specific.galleries.billboards{:id => "child_va_sortable_#{f.object.new_record? ? child_index : f.object.id}"}
