@@ -1,10 +1,12 @@
 %tr{:id => "cart_item_#{cart_item.id}"}
-  %td{:class => cart_item.pre_order ? 'pre_order' : nil}
+  - item_class = cart_item.pre_order ? 'pre_order ' : ''
+  - item_class << 'item_changed' if get_cart.is_cart_item_changed?(cart_item.id, "out_of_stock")
+  %td{:class => item_class.present? && item_class}
     = cart_item.item_num
     - if cart_item.pre_order
       %br
       Pre-order
-    - elsif cart_item.out_of_stock
+    - elsif cart_item.out_of_stock && !is_ee_uk?
       %br
       Low stock level
   %td

@@ -153,7 +153,7 @@ class Product
     
     # displayable and life_cycle is in ['pre-release', 'available'], or discontinued but in-stock
     def listable(sys = current_system)
-      displayable(sys).any_of({:life_cycle => 'discontinued', "$where" => sys == "szus" ? "this.quantity_sz > 0 || this.quantity_us > 0" : "this.quantity_#{sys == "eeus" || sys == "erus" ? 'us' : 'uk'} > 0"}, {:life_cycle.in => Product::LIFE_CYCLES[0,2]})
+      displayable(sys).any_of({:life_cycle => 'discontinued', "$where" => sys == "szus" ? "this.quantity_sz > #{QUANTITY_THRESHOLD} || this.quantity_us > #{QUANTITY_THRESHOLD}" : "this.quantity_#{sys == "eeus" || sys == "erus" ? 'us' : 'uk'} > #{QUANTITY_THRESHOLD}"}, {:life_cycle.in => Product::LIFE_CYCLES[0,2]})
     end
     
     # enabled for current system and active, and between start and end date
@@ -414,8 +414,8 @@ class Product
   end
   
   # if product can be displayed on the catalog list page 
-  def listable?(sys = current_system)
-    displayable?(sys) && (LIFE_CYCLES[0,2].include?(life_cycle) || self.life_cycle == 'discontinued' && quantity(sys) > 0)
+  def listable?(sys = current_system, qty = QUANTITY_THRESHOLD)
+    displayable?(sys) && (LIFE_CYCLES[0,2].include?(life_cycle) || self.life_cycle == 'discontinued' && quantity(sys) > qty)
   end
   
   def quantity(sys = current_system)
@@ -445,8 +445,8 @@ class Product
     available? && quantity > QUANTITY_THRESHOLD
   end
   
-  def out_of_stock?(sys = current_system)
-    available? && quantity <= QUANTITY_THRESHOLD
+  def out_of_stock?(sys = current_system, qty = QUANTITY_THRESHOLD)
+    available?(sys) && quantity <= qty
   end
 
   def pre_order?(sys = current_system)
