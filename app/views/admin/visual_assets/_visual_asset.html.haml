@@ -37,13 +37,14 @@
       no
       = f.radio_button(:active, false)
     .clear
-  .field.right
-    = f.label :_destroy, "Mark this asset for deletion?", :class => "autosize"
-    yes
-    = f.radio_button(:_destroy, true)
-    no
-    = f.radio_button(:_destroy, false)
-  .clear
+  - unless f.object.new_record?  
+    .field.right
+      = f.label :_destroy, "Mark this asset for deletion?", :class => "autosize"
+      yes
+      = f.radio_button(:_destroy, true)
+      no
+      = f.radio_button(:_destroy, false)
+    .clear
 
   .field.left
     = f.label "start_date"
