@@ -128,4 +128,8 @@ ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products { @extend ul.p
   }
 }
 
+.recurring {
+  margin: 10px 10px 0 0;
+}
+
 .compatibility { @extend .visual_asset; }

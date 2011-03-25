@@ -43,35 +43,45 @@
     = f.radio_button(:_destroy, false)
   .clear
 
-  - if f.object.is_child?
-    .field
-      = f.label :display_order, "Display Order", :class => "autosize"
-      = f.text_field :display_order, :id => "display_order_#{f.object.new_record? ? child_index : f.object.id}", :size => 2
-
-  .field
+  .field.left
     = f.label "start_date"
     %span.icon_datefield
       = f.text_field "start_date", :class => 'datetimepicker'
-  .field
+    %br
     = f.label "end_date"
     %span.icon_datefield
       = f.text_field "end_date", :class => 'datetimepicker'
-  .field
-    = f.label :recurring
-    = f.check_box :recurring, :onclick => "if (this.checked) {$('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .recurring').show()} else {$('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .recurring').hide()}"
-  .field.recurring{:style => "display:#{f.object.recurring ? 'block' : 'none'}"}
-    - Date::DAYNAMES.each do |day|
-      = f.check_box :"#{day.downcase}"
-      = day
+    - if f.object.is_child?
+      %br
+      = f.label :display_order, "Display Order"
+      = f.text_field :display_order, :id => "display_order_#{f.object.new_record? ? child_index : f.object.id}", :size => 2
+
+  .field.right
+    .right
+      = f.label :recurring, "Is this asset recurring?", :class => "autosize"
+      yes
+      = f.radio_button(:recurring, true, :onclick => "if (this.checked) {$('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .recurring').show()} else {$('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .recurring').hide()}")
+      no
+      = f.radio_button(:recurring, false, :onclick => "if (this.checked) {$('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .recurring').hide()} else {$('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .recurring').show()}")
+    %br
+    .recurring{:style => "display:#{f.object.recurring ? 'block' : 'none'}"}
+      - Date::DAYNAMES.each do |day|
+        = f.check_box :"#{day.downcase}"
+        = day
 
   %hr
-  .field
-    = required_label f, :name, { :label => "Asset Name/Label", :label_size => "auto"}
-    = f.text_field :name, :onchange => "$(this).closest('.#{'child_' if f.object.is_child?}visual_asset').children('h#{f.object.is_child? ? 3 : 2}').text(this.value)"
-  .field
-    = f.label :short_desc
+  .left
+    .field
+      = required_label f, :name, { :label => "Asset Name/Label", :label_size => "125px" }
+      = f.text_field :name, :onchange => "$(this).closest('.#{'child_' if f.object.is_child?}visual_asset').children('h#{f.object.is_child? ? 3 : 2}').text(this.value)"
+    .field
+      = f.label :short_desc, "Short Description", :style => "width: 125px"
+      = f.text_field :short_desc, :size => 40
+  .field.right
+    = f.label :must_own
     %br
-    = f.text_field :short_desc
+    = select_tag "#{f.object_name}[must_own][]", options_for_select(MACHINES.map {|k,v| [v,k]}, f.object.must_own), :multiple => true
+
     
   %hr
   .field
@@ -79,9 +89,10 @@
     %br
     = f.select :asset_type, f.object.asset_types_list, {}, :onchange => "$('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .type_specific').hide();$('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .'+this.value).show();", :class => "#{'child_' if f.object.is_child?}visual_asset_asset_type_#{child_index} visual_asset_type"
   .field.type_specific.catalog_search
-    = f.label :search_query, "Complete search query after #. ex: outlet=1&page=1&ideas=0&facets=category~shape-cutting&sort=start_date_szus%3Adesc"
+    = f.label :search_query, "Search Query <span class='formhelp'>Enter the complete search query string after the '#'</span>".html_safe, :class => "autosize"
     %br
     = f.text_field :search_query, :size => 100
+    %p.formhelp (e.g.- outlet=1&page=1&ideas=0&facets=category~shape-cutting&sort=start_date_szus%3Adesc)
   .field.type_specific.catalog_search
     = f.label :item_limit
     %br
@@ -119,11 +130,6 @@
           });
           
         }});
-  %hr
-  .field
-    = f.label :must_own
-    %br
-    = select_tag "#{f.object_name}[must_own][]", options_for_select(MACHINES.map {|k,v| [v,k]}, f.object.must_own), :multiple => true
 
 :javascript
   $(function (){  
