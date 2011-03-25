@@ -14,6 +14,7 @@ class UserMailer < ActionMailer::Base
   
   def shipping_confirmation(order)
     @order = order
+    set_current_system order.system
     to = [order.address.try(:email), order.payment.try(:email), order.user.email].compact.uniq
     mail(:to => to, :subject => "#{get_domain.capitalize} Shipping Confirmation", :cc => order.user.try(:admin) ? order.user.admin.email : nil )
   end

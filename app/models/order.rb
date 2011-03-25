@@ -149,7 +149,7 @@ class Order
   end
   
   def send_shipping_confirmation
-    
+    UserMailer.delay.shipping_confirmation(self)
   end
   
 	# use this format to change status:
