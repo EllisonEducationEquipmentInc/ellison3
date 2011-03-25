@@ -116,6 +116,11 @@ ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products { @extend ul.p
 .va_title {
   height: 30px;
   
+  .va_thumb_child {
+    float: left;
+    margin: 2px 8px 0 0;
+  }
+  
   h2, h3 {
     cursor: move;
     float: left;

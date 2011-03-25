@@ -14,6 +14,8 @@
     - if f.object.new_record?
       %h2 &nbsp;
     -# important: h2 is the sort handler for parent VA's, h3 for children
+    - if f.object.image? && f.object.is_child?
+      .va_thumb_child= link_to image_tag(f.object.image_url, :width => 65, :height => 25), "#"
     - if f.object.is_child?
       %h3{:class => "#{f.object.active == false ? 'disabled' : nil}"}= f.object.name
     - else
@@ -88,6 +90,9 @@
     = f.label :asset_type
     %br
     = f.select :asset_type, f.object.asset_types_list, {}, :onchange => "$('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .type_specific').hide();$('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .'+this.value).show();", :class => "#{'child_' if f.object.is_child?}visual_asset_asset_type_#{child_index} visual_asset_type"
+  .clear
+  
+  -# Asset Types
   .field.type_specific.catalog_search
     = f.label :search_query, "Search Query <span class='formhelp'>Enter the complete search query string after the '#'</span>".html_safe, :class => "autosize"
     %br
@@ -102,19 +107,25 @@
     %br
     = f.text_area :content, :class => 'wymeditor'
   .field.type_specific.image.billboard.gallery.image_with_text
-    = required_field(f.label :image)
-    = image_tag(f.object.image_url) if f.object.image? 
+    %span.icon_imagefield= required_label f, :image, { :label_size => "55px"}
     = f.file_field :image
     = f.hidden_field :image_cache
-    %br
-    = f.label :remove_image
-    = f.check_box :remove_image
+    - if f.object.image?
+      .right
+        %div{:style => "display: none"}
+          %div{:id => "#{f.object.image_url.parameterize}"}= image_tag(f.object.image_url) 
+        = link_to image_tag(f.object.image_url, :width => 300), "##{f.object.image_url.parameterize}", :class => "lightbox"
+        %br
+        .left= link_to "View this image full-size", "##{f.object.image_url.parameterize}", :class => "lightbox icon_image-fullsize"
+        .right
+          = f.check_box :remove_image
+          = f.label :remove_image
+
   .field.type_specific.billboard
     = f.label :wide
     = f.check_box :wide
   .field.type_specific.image.billboard.gallery.image_with_text
-    = f.label :link
-    %br
+    %span.icon_linkfield= f.label :link, :style => "width: 55px"
     = f.text_field :link
   = products_helper_tag "#{f.object_name}[product_item_nums]", f.object.product_item_nums, :label => "Products (item nums only)", :class => "type_specific products"
   = ideas_helper_tag "#{f.object_name}[idea_idea_nums]", f.object.idea_idea_nums, :label => "Ideas (idea nums only)", :class => "type_specific ideas"
@@ -130,6 +141,7 @@
           });
           
         }});
+  .clear
 
 :javascript
   $(function (){  
@@ -147,6 +159,11 @@
       $(this).closest('.child_visual_asset, .visual_asset').css({height:"25px", overflow:"hidden"});
     }, function () {
       $(this).removeClass('va_open').addClass('va_close');
+      $(this).closest('.child_visual_asset, .visual_asset').css({height:"auto"});
+    });
+    $('.va_thumb_child').toggle(function () {
+      $(this).closest('.child_visual_asset, .visual_asset').css({height:"25px", overflow:"hidden"});
+    }, function () {
       $(this).closest('.child_visual_asset, .visual_asset').css({height:"auto"});
     });
 

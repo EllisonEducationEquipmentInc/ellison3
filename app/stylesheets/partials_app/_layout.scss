@@ -345,6 +345,21 @@ a.next_button { @extend a.prev_button;
   height: 21px;
 }
 
+.icon_imagefield { @extend .icon;
+  padding: 0 0 0 20px;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/image-reflection.png") no-repeat left bottom;
+}
+
+.icon_linkfield { @extend .icon;
+  padding: 0 0 0 20px;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/chain.png") no-repeat left bottom;
+}
+
+.icon_image-fullsize { @extend .icon;
+  padding: 0 0 0 20px;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/image-resize.png") no-repeat left bottom;
+}
+
 .icon_pdf-upload { @extend .icon;
   padding: 0 0 0 20px;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/document-pdf-text.png") no-repeat left bottom;
