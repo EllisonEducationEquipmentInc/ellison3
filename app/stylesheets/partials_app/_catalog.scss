@@ -103,6 +103,7 @@ body.bp {
       a.minilink {
         font-family: Verdana,Arial,sans-serif;
         font-weight: normal;
+        padding-top:2px;
       }
     }
   }
@@ -248,7 +249,9 @@ body.bp {
       }
       
       &.facet_value, &.price_query_facet_value, &.saving_query_facet_value, &.item_group_facet_value {
+        padding-top: 1px;
         padding-left: 16px;
+        display: block;
         background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/ui-check-box-uncheck.png") top left no-repeat;
         
         &:hover {
@@ -257,6 +260,7 @@ body.bp {
       }
       
       &.facet_selected {
+        padding-top: 1px;
         padding-left: 16px;
         background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/tick-small.png") top left no-repeat;
         color: $catalog_filter_hover;
@@ -269,6 +273,7 @@ body.bp {
       }      
       
       &.facet_data_updating {
+        padding-top: 1px;
         padding-left: 16px;
         background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/fruit.png") top left no-repeat;
         cursor: text;
