@@ -113,13 +113,15 @@
     - if f.object.image?
       .right
         %div{:style => "display: none"}
-          %div{:id => "#{f.object.image_url.parameterize}"}= image_tag(f.object.image_url) 
+          %div{:id => "#{f.object.image_url.parameterize}"}
+            = image_tag(f.object.image_url)
+            %p== Image URL: #{f.object.image_url}
         = link_to image_tag(f.object.image_url, :width => 300), "##{f.object.image_url.parameterize}", :class => "lightbox"
         %br
-        .left= link_to "View this image full-size", "##{f.object.image_url.parameterize}", :class => "lightbox icon_image-fullsize"
+        .left= link_to "View this image full-size", "##{f.object.image_url.parameterize}", :class => "lightbox icon_image-fullsize", :style => "font-weight: normal"
         .right
           = f.check_box :remove_image
-          = f.label :remove_image
+          = f.label :remove_image, :class => "autosize"
 
   .field.type_specific.billboard
     = f.label :wide
