@@ -114,7 +114,11 @@ EOF
 	end
 	
 	def can_be_converted?
-	  self.active && self.expires_at > Time.zone.now && products.count == order_items.count && products.all? {|e| e.can_be_added_to_cart?}
+	  active_quote? && products.count == order_items.count && products.all? {|e| e.can_be_added_to_cart?}
+	end
+	
+	def active_quote?
+	  self.active && self.expires_at > Time.zone.now
 	end
 	
 	def products

@@ -14,7 +14,7 @@
         - if @product.pre_order?
           %br
           Pre-order
-        - elsif @product.out_of_stock?
+        - elsif @product.out_of_stock? && !is_ee_uk?
           %br
           Low stock level
       %td

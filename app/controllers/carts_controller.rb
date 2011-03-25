@@ -6,7 +6,8 @@ class CartsController < ApplicationController
 	before_filter :trackable
 	before_filter :no_cache, :only => [:checkout, :quote]
 	before_filter :set_vat_exempt, :except => [:add_to_cart, :index, :move_to_cart, :remove_from_cart, :change_quantity, :delete_from_saved_list, :saved_list]
-	after_filter(:only => [:proceed_checkout, :proceed_quote]) {|controller| controller.send(:get_cart).reset_item_errors}
+	before_filter(:only => [:index]) {|controller| controller.send(:get_cart).reset_item_errors if controller.flash[:alert].blank? }
+	after_filter :reset_cart_item_errors, :only => [:proceed_checkout, :proceed_quote]
 	
 	ssl_required :checkout, :proceed_checkout, :quote, :proceed_quote, :quote_2_order
 	ssl_allowed :index, :get_shipping_options, :change_shipping_method, :copy_shipping_address, :change_shipping_method, :get_shipping_service, :get_shipping_amount, :get_tax_amount, :get_total_amount,
@@ -311,14 +312,20 @@ class CartsController < ApplicationController
   
 private
 
+  def reset_cart_item_errors
+    get_cart.reset_item_errors
+  end
+
   def real_time_cart(quote = false)
     get_cart.update_items true, quote
     flash[:alert] = ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
     # raise RealTimeCartError, ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
-    if request.xhr?
-      render :js => "window.location.href = '#{cart_path}'" and return false if @cart.cart_errors.present?
-    else
-      redirect_to(cart_path, :alert => flash[:alert] || I18n.t(:empty_cart)) and return false if @cart.cart_errors.present?
+    if @cart.cart_errors.present?
+      if request.xhr?
+        render :js => "window.location.href = '#{cart_path}'" and return false 
+      else
+        redirect_to(cart_path, :alert => flash[:alert] || I18n.t(:empty_cart)) and return false
+      end
     end
     true
   end

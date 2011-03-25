@@ -70,6 +70,8 @@
 .clear
 %table
   %tr
+    - if @quote.active_quote?
+      %th
     %th Item No.
     %th Item Name
     %th Quantity
@@ -79,6 +81,14 @@
     %th Coupon
   - @quote.order_items.each do |item|
     %tr{:class => cycle('odd', 'even')}
+      - if @quote.active_quote?
+        %td
+          - if item.product.pre_order?(@quote.system)
+            Pre-order
+          - elsif item.product.suspended?
+            Retired
+          - elsif item.product.out_of_stock?(@quote.system)
+            Out of stock
       %td= item.item_num
       %td= item.name
       %td= item.quantity
