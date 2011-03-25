@@ -21,6 +21,7 @@ class Admin::QuotesController < ApplicationController
 	  end
 	  criteria = criteria.where(:status => params[:status]) unless params[:status].blank?
 	  unless params[:q].blank?
+	    redirect_to(admin_quote_path(:id => params[:q])) if params[:q].valid_bson_object_id?
 	    regexp = Regexp.new(params[:q], "i")
   	  criteria = criteria.any_of({:name => regexp}, { 'address.first_name' => regexp}, { 'address.last_name' => regexp }, { 'address.city' => regexp }, { 'address.address' => regexp })
 	  end
