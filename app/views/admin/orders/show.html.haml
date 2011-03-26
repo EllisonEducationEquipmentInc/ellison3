@@ -180,6 +180,8 @@
         %td
           - if item.product.pre_order?(@order.system)
             Pre-order
+          - elsif !item.product.available?(@order.system)
+            Unavailable
           - elsif item.product.suspended?
             Retired
           - elsif item.product.out_of_stock?(@order.system)
