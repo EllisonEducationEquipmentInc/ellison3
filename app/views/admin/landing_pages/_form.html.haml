@@ -1,52 +1,73 @@
 = form_for([:admin, @landing_page], :html => {:multipart => true}) do |f|
   = f.error_messages
-  .field
-    = f.label :systems_enabled
-    = system_enabled('landing_page')
-  .field
-    = f.label :active
+  
+  %hr
+  %h3.contentwrap_XXXL.last System Visibility
+  .contentwrap_large
+    .field
+      = f.label :active, "This landing page is", :class => "autosize"
+      active
+      = f.radio_button(:active, true)
+      disabled
+      = f.radio_button(:active, false)  
+  .contentwrap_large.last
+    .field
+      = required_label f, :systems_enabled, { :label => "Enabled for", :label_size => "auto" }
+      = system_enabled('landing_page')
+  
+  %hr
+  %h3.contentwrap_XXXL.last Basic Information
+  .contentwrap_large
+    .field
+      = required_label f, :name
+      = f.text_field :name
+    .field
+      - if @landing_page.new_record?
+        %p.error== WARNING: The Permalink URL <strong><em>cannot</em></strong> be changed later!
+      = f.label :permalink, "Permalink URL"
+      = f.text_field :permalink, :disabled => !@landing_page.new_record?
+      %p.formhelp{:style => "margin-left: 112px"}
+        This will be the URL of the landing page.
+        %br
+        ==(e.g.- http://#{request.host_with_port}/shop/<strong>st-patrick-day-sale</strong>)
+    .field
+      = f.label :short_desc, "Short Description", :class => "autosize"
+      %br
+      = f.text_area :short_desc, :cols => 57, :rows => 5
+
+  .contentwrap_large.last
+    .field
+      = f.label "start_date"
+      %span.icon_datefield
+        = f.text_field "start_date", :class => 'datetimepicker'
+      %br
+      = f.label "end_date"
+      %span.icon_datefield
+        = f.text_field "end_date", :class => 'datetimepicker'
+    .field
+      = f.label :quick_search, "Display Quick Search?", :class => "autosize"
+      active
+      = f.radio_button(:quick_search, true)
+      disabled
+      = f.radio_button(:quick_search, false)  
+  
+  %hr
+  .field.contentwrap_XXXL.last
+    = f.label :search_query, "Search Query <span class='formhelp'>Enter the complete search query string after the '#'</span>".html_safe, :class => "autosize"
     %br
-    = f.check_box :active
-  .field
-    = f.label :name
-    %br
-    = f.text_field :name
-  .field
-    = f.label :permalink, "Permalink URL. Ex: st-patrick-day-sale"
-    %br
-    == This will be the url of the landing page. Ex: http://#{request.host_with_port}/shop/<strong>st-patrick-day-sale</strong>
-    %br
-    = f.text_field :permalink, :disabled => !@landing_page.new_record?
-    - if @landing_page.new_record?
-      %span.error WARNING: cannot be changed later!
-  .field
-    = f.label :search_query, "Complete search query after #. ex: outlet=1&page=1&ideas=0&facets=category~shape-cutting&sort=start_date_szus%3Adesc"
-    %br
-    = f.text_field :search_query
-  .field
-    = f.label :quick_search
-    %br
-    = f.check_box :quick_search
-  .field
-    = f.label "start_date"
-    %br
-    = f.text_field "start_date", :class => 'datetimepicker'
-  .field
-    = f.label "end_date"
-    %br
-    = f.text_field "end_date", :class => 'datetimepicker'
-  .field
-    = f.label :short_desc
-    %br
-    = f.text_field :short_desc
-  #visual_assets  
-    %p.right= link_to "collapse all", "#", :onclick => "$('.visual_asset').css({height:'25px',overflow:'hidden'}); return false;"
+    = f.text_field :search_query, :size => 100
+    %p.formhelp (e.g.- outlet=1&page=1&ideas=0&facets=category~shape-cutting&sort=start_date_szus%3Adesc)
+
+  #visual_assets.contentwrap_XXXL.last
+    - unless @landing_page.visual_assets.blank?
+      %h3.left Visual Assets
+      %p.right= link_to "collapse all", "#", :onclick => "$('.visual_asset, .child_visual_asset').css({height:'25px',overflow:'hidden'}); return false;"
     .clear
     = f.fields_for :visual_assets, @landing_page.visual_assets.ordered do |visual_asset_fields|
       = render 'admin/visual_assets/visual_asset', :f => visual_asset_fields
     = link_to_add_fields "Add Visual Asset", f, :visual_assets
   %br
-  %br
+  .clear
   .actions
     = f.submit :class => 'wymupdate jqui_save'
 :javascript

@@ -33,8 +33,8 @@
           %td= landing_page.search_query
           %td= landing_page.systems_enabled.join(", ") rescue ''
           - if has_write_permissions?
-            %td= link_to 'Edit', edit_admin_landing_page_path(landing_page)
-            %td= link_to 'Destroy', admin_landing_page_path(landing_page), :confirm => 'Are you sure?', :method => :delete
+            %td= link_to 'Edit', edit_admin_landing_page_path(landing_page), :class => 'jqui_edit_min'
+            %td= link_to 'Destroy', admin_landing_page_path(landing_page), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
 %br
 = will_paginate @landing_pages
 %br
