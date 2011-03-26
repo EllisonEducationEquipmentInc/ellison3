@@ -108,7 +108,7 @@ module ShoppingCart
   		order.comments = params[:comments] if params
   		order.name = params[:quote_name] if order.is_a?(Quote) && params && params[:quote_name]
   		if admin_signed_in?
-  		  order.customer_rep = current_admin.email
+  		  order.customer_rep = current_admin.employee_number
   		  order.customer_rep_id = current_admin.id
   		end
   		if order.respond_to?(:payment) && order.payment && order.payment.save_credit_card
