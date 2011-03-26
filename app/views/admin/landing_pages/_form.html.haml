@@ -22,14 +22,14 @@
       = required_label f, :name
       = f.text_field :name
     .field
-      - if @landing_page.new_record?
-        %p.error== WARNING: The Permalink URL <strong><em>cannot</em></strong> be changed later!
       = f.label :permalink, "Permalink URL"
       = f.text_field :permalink, :disabled => !@landing_page.new_record?
       %p.formhelp{:style => "margin-left: 112px"}
         This will be the URL of the landing page.
         %br
         ==(e.g.- http://#{request.host_with_port}/shop/<strong>st-patrick-day-sale</strong>)
+      - if @landing_page.new_record?
+        %p.error== WARNING: Word the Permalink URL carefully! It <strong><em>cannot</em></strong> be changed later!
     .field
       = f.label :short_desc, "Short Description", :class => "autosize"
       %br
@@ -46,9 +46,9 @@
         = f.text_field "end_date", :class => 'datetimepicker'
     .field
       = f.label :quick_search, "Display Quick Search?", :class => "autosize"
-      active
+      yes
       = f.radio_button(:quick_search, true)
-      disabled
+      no
       = f.radio_button(:quick_search, false)  
   
   %hr
