@@ -23,13 +23,15 @@
       = f.text_field :name
     .field
       = f.label :permalink, "Permalink URL"
-      = f.text_field :permalink, :disabled => !@landing_page.new_record?
-      %p.formhelp{:style => "margin-left: 112px"}
-        This will be the URL of the landing page.
-        %br
-        ==(e.g.- http://#{request.host_with_port}/shop/<strong>st-patrick-day-sale</strong>)
       - if @landing_page.new_record?
-        %p.error== WARNING: Word the Permalink URL carefully! It <strong><em>cannot</em></strong> be changed later!
+        = f.text_field :permalink
+        %p.formhelp{:style => "margin-left: 112px"}
+          This will be the URL of the landing page.
+          %br
+          ==(e.g.- http://#{request.host_with_port}/shop/<strong>st-patrick-day-sale</strong>)
+          %p.error== WARNING: Word the Permalink URL carefully! It <strong><em>cannot</em></strong> be changed later!
+      - else
+        = link_to "http://#{request.host_with_port}/shop/<strong>#{@landing_page.permalink}</strong>".html_safe, "http://#{request.host_with_port}/shop/#{@landing_page.permalink}"
     .field
       = f.label :short_desc, "Short Description", :class => "autosize"
       %br
@@ -58,6 +60,7 @@
     = f.text_field :search_query, :size => 100
     %p.formhelp (e.g.- outlet=1&page=1&ideas=0&facets=category~shape-cutting&sort=start_date_szus%3Adesc)
 
+  %hr
   #visual_assets.contentwrap_XXXL.last
     - unless @landing_page.visual_assets.blank?
       %h3.left Visual Assets
