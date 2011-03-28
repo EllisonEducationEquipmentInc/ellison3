@@ -60,13 +60,17 @@
   %strong Active:
   - if has_write_permissions?
     .field
-      = check_box_tag :quote_active, "1", @quote.active, :onchange => "$.ajax({url: '/admin/quotes/update_active_status?id=#{@quote.id}&active='+this.checked})"
+      = check_box_tag :quote_active, "1", @quote.active, :disabled => @quote.order.present?,  :onchange => @quote.order.present? ? "this.checked = false;alert('This quote has been converted to an order and cannot be reactivated')" : "$.ajax({url: '/admin/quotes/update_active_status?id=#{@quote.id}&active='+this.checked})"
       :javascript
         $('#quote_active').iphoneStyle({ background: '#F9F3E8',checkedLabel: 'YES', uncheckedLabel: 'NO' })
     .success
       = link_to "Cancel and Recreate", {:action => 'recreate', :id => @quote}, :class => 'jqui_button'
+      - if @quote.active_quote? && calculate_tax?(@quote.address.state)
+        %span#calculate_tax_button= "Run CCH Sales Tax Calculate"
   - else
     = @quote.active
+  - if @quote.can_be_converted? && current_admin.can_act_as_customer 
+    = link_to("Convert To Order", {:action => 'login_as_and_goto_quote', :id => @quote}, :class => 'jqui_button')
 .clear
 %table
   %tr
@@ -105,7 +109,7 @@
     %span.right= number_to_currency @quote.gross_subtotal_amount
   %li
     == Shipping & Handling (#{@quote.shipping_service.try :humanize}):
-    %span.right= number_to_currency @quote.gross_shipping_amount
+    %span#shipping_amount.right= number_to_currency @quote.gross_shipping_amount
   - if @quote.cod?
     %li.error
       COD account:
@@ -117,10 +121,10 @@
     %span.right= number_to_currency @quote.handling_amount
   %li
     == #{t :estimated_tax}:
-    %span.right= number_to_currency @quote.tax_amount
+    %span.right#tax_amount= number_to_currency @quote.tax_amount
   %li#cart_total
     ESTIMATED TOTAL:
-    %span.right= number_to_currency @quote.total_amount
+    %span.right#total_amount= number_to_currency @quote.total_amount
   - if @quote.total_discount.present? && @quote.total_discount > 0.0
     %li
       Total Savings:
@@ -134,10 +138,10 @@
     = @quote.coupon.name
 .field
   %strong Tax Transaction ID:
-  = @quote.tax_transaction
+  %span#tax_transaction= @quote.tax_transaction
 .field
   %strong Tax Calculated at:
-  = l @quote.tax_calculated_at, :format => :custom rescue ''
+  %span#tax_calculated_at= l @quote.tax_calculated_at, :format => :custom rescue ''
 .field
   %strong Quote Comments:
   = @quote.comments
@@ -160,4 +164,19 @@
       url: "/admin/quotes/change_quote_name",
       show_buttons: true,
       saving_animation_color: "#ECF2F8"
+    });
+    $('#shipping_amount').editInPlace({
+      url: "/admin/quotes/change_shipping",
+      params: "id=#{@quote.id}",
+      show_buttons: true,
+      value_required: true,
+      success: function(data){
+        eval(data);
+      },
+      saving_animation_color: "#ECF2F8"
+    });
+    $("#calculate_tax_button").button().click(function(){
+      $(this).button({'disabled': true});
+      $.ajax({url:"#{url_for({:action => "recalculate_tax", :id => @quote})}"});
+      return false;
     });

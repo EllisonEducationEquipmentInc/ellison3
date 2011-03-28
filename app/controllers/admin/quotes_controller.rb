@@ -14,6 +14,7 @@ class Admin::QuotesController < ApplicationController
 	  criteria = criteria.where :deleted_at => nil
 	  criteria = criteria.where(:user_id => params[:user_id]) unless params[:user_id].blank?
 	  criteria = criteria.where :user_id.in => current_admin.users.map {|e| e.id} if current_admin.limited_sales_rep
+	  criteria = criteria.active unless params[:inactive].present?
 	  criteria = if params[:systems_enabled].blank?
 	    criteria.where(:system.in => admin_systems)
 	  else
@@ -130,6 +131,21 @@ class Admin::QuotesController < ApplicationController
     I18n.locale = @quote.locale
     sign_in("user", @quote.user)
     redirect_to myquote_path(@quote)
+  end
+  
+  def recalculate_tax
+    @quote = Quote.find(params[:id])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@quote.user)
+    raise "This quote cannot be changed" unless @quote.active_quote?
+    tax_from_order(@quote)
+  rescue Exception => e
+    render :js => "alert('#{e}')"
+  end
+  
+  def change_shipping
+	  @quote = Quote.find(params[:id])
+	  @quote.update_attributes :shipping_amount => params[:update_value][/[0-9.]+/]
+	  render :inline => "$('#shipping_amount').html('<%= number_to_currency @quote.shipping_amount %>');$('#total_amount').html('<%= number_to_currency @quote.total_amount %>');<% if calculate_tax?(@quote.address.state) %>$('#tax_amount').addClass('error');alert('don\\'t forget to run CCH tax');<% end %>" # "<%= display_product_price_cart @order.shipping_amount %>"
   end
   
   def pre_orders_report

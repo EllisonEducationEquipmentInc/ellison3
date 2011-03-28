@@ -1,0 +1,9 @@
+- if @cch && @cch.success? 
+  == $('#tax_transaction').html('#{@quote.tax_transaction}')
+  == $('#tax_calculated_at').html('#{l @quote.tax_calculated_at, :format => :custom}')
+  == $('#tax_amount').html('#{number_to_currency @quote.tax_amount}')
+  == $('#total_amount').html('#{number_to_currency @quote.total_amount}')
+- elsif @cch
+  == alert('#{@cch.errors}');
+$('#calculate_tax_button').button({'disabled': false});
+$('#tax_amount').removeClass('error');
