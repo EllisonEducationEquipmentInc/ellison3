@@ -19,8 +19,8 @@ module EllisonSystem
   ER_MIN_ORDER = 100
   ER_FIRST_MIN_ORDER = 300
   
-  def backorder_allowed?
-    is_er? || is_ee?
+  def backorder_allowed?(sys = current_system)
+    sys == 'erus' || sys == 'eruk' || sys == 'eeus' || sys == 'eeuk'
   end
   
 	def current_system

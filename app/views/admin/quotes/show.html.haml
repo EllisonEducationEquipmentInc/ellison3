@@ -85,6 +85,8 @@
         %td
           - if item.product.pre_order?(@quote.system)
             Pre-order
+          - if !item.product.available?(@quote.system)
+            Unavailable
           - elsif item.product.suspended?
             Retired
           - elsif item.product.out_of_stock?(@quote.system)

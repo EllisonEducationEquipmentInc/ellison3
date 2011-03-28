@@ -9,7 +9,7 @@
         %th Name
         %th Amount
         %th Expires
-        - if is_ee_us?
+        - if is_ee_us? || admin_signed_in? && current_admin.can_act_as_customer
           %th Available to Order?
       - @quotes.each do |quote|
         - I18n.locale = quote.locale
@@ -19,7 +19,7 @@
           %td.quote_name{:id => quote.id}= quote.name
           %td= number_to_currency quote.total_amount
           %td= l quote.expires_at, :format => :custom
-          - if is_ee_us?
+          - if is_ee_us? || admin_signed_in? && current_admin.can_act_as_customer
             %td= quote.can_be_converted? ? "YES" : "--"
   - I18n.locale = current_locale
   = will_paginate @quotes, :class => 'pagination ajax'

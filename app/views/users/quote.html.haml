@@ -97,7 +97,7 @@
       Total Savings:
       %span.amount.right= number_to_currency @quote.total_discount
 .clear
-- if is_ee_us? && @quote.can_be_converted?
+- if @quote.can_be_converted? && (is_ee_us? || admin_signed_in? && current_admin.can_act_as_customer)
   %hr
   #checkout_payment
     #payment_errors.error{:style => "display:none"}

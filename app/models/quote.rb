@@ -114,7 +114,7 @@ EOF
 	end
 	
 	def can_be_converted?
-	  active_quote? && products.count == order_items.count && products.all? {|e| e.can_be_added_to_cart?}
+	  active_quote? && products.count == order_items.count && order_items.all? {|e| e.product.can_be_purchased?(self.system, e.quantity)}
 	end
 	
 	def active_quote?

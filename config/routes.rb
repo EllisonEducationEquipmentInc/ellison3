@@ -168,7 +168,7 @@ Ellison3::Application.routes.draw do |map|
 			resources :quotes do
 			  collection do
 			    post :update_internal_comment, :change_quote_name
-			    get :update_active_status, :recreate, :pre_orders_report
+			    get :update_active_status, :recreate, :pre_orders_report, :login_as_and_goto_quote
 			  end
 			end
 			resources :coupons, :stores, :events, :materials, :search_phrases

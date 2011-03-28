@@ -462,6 +462,15 @@ class Product
       in_stock?
     end
   end
+  
+  # if pre_order and in stock and have enough qty
+  # or product is available and in stock
+  # or if backorder allowed, and product is listable
+  # or if backorder not allowed, but product is in stock and have enough qty
+  def can_be_purchased?(sys = current_system, qty_needed = 1)
+    pre_order?(sys) && quantity(sys) >= qty_needed || backorder_allowed?(sys) && !pre_order?(sys) && out_of_stock? && listable? || 
+      backorder_allowed?(sys) && !pre_order?(sys) && listable?(sys, qty_needed - 1) && quantity(sys) >= qty_needed || !backorder_allowed?(sys) && available?(sys) && quantity(sys) >= qty_needed
+  end
 
   # system specific distribution life cycle - before its expiriation (distribution_life_cycle_ends_#{sys})
   def public_life_cycle(sys = current_system)

@@ -123,6 +123,15 @@ class Admin::QuotesController < ApplicationController
     redirect_to cart_path
   end
   
+  def login_as_and_goto_quote
+    @quote = Quote.find(params[:id])
+    redirect_to :action => "index" and return if !@quote.active_quote? || current_admin.limited_sales_rep && !current_admin.users.include?(@quote.user)
+    change_current_system @quote.system
+    I18n.locale = @quote.locale
+    sign_in("user", @quote.user)
+    redirect_to myquote_path(@quote)
+  end
+  
   def pre_orders_report
     FileUtils.mkdir "/data/shared/report_files" unless File.exists? "/data/shared/report_files"
     filename = "pre_orders_report_#{current_system}_#{Time.now.utc.strftime "%m%d%Y_%H"}.csv"
