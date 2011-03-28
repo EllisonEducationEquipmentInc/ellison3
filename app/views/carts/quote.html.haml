@@ -20,8 +20,8 @@
     %strong
       %em
         = pluralize get_cart.total_quantity, "item"
-    == in your shopping #{(t :cart)} 
-    = link_to "review #{(t :cart)}", "#", :class => "review_cart minilink", :id => 'review_bag'
+    == in your shopping #{cart_name} 
+    = link_to "review #{cart_name}", "#", :class => "review_cart minilink", :id => 'review_bag'
   :javascript
     $('.review_cart').click(function(){
       $('html, body').animate({ scrollTop: $("#checkout_cart").offset().top }, 500);
@@ -51,6 +51,6 @@
 %hr
 #checkout_cart
   = link_to_function "top", "$('html, body').animate({ scrollTop: 0 }, 500);", :class => "minilink"
-  .right.minilink= link_to "Edit #{(t :cart)}", cart_path
+  .right.minilink= link_to "Edit #{cart_name}", cart_path
   #cart_contents= render :partial => 'cart'
 %iframe{:style =>"height:0px;width:0px;visibility:hidden", :src=>"about:blank"} this frame prevents back forward cache

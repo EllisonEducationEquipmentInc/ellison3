@@ -77,7 +77,7 @@ module ApplicationHelper
 - if @product_obj.pre_order?
   %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "", :title => "Add Product to Shopping Bag to Pre-Order"}== Pre-Order
 - elsif backorder_allowed? && @product_obj.out_of_stock? && @product_obj.listable?
-  %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "Add Product to Shopping #{(t :cart).capitalize}", :title => "Add Product to Shopping #{(t :cart).capitalize}"}== Add to #{(t :cart).capitalize} +
+  %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "Add Product to Shopping #{cart_name.capitalize}", :title => "Add Product to Shopping #{cart_name.capitalize}"}== Add to #{cart_name.capitalize} +
 - elsif @product_obj.out_of_stock?
   - if is_uk?
     = link_to "Check availability at your Local Retailer", stores_path
@@ -86,7 +86,7 @@ module ApplicationHelper
 - elsif @product_obj.suspended?
   .jqui_out_of_stock Retired
 - elsif @product_obj.available?
-  %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "Add Product to Shopping #{(t :cart).capitalize}", :title => "Add Product to Shopping #{(t :cart).capitalize}"}== Add to #{(t :cart).capitalize} +
+  %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "Add Product to Shopping #{cart_name.capitalize}", :title => "Add Product to Shopping #{cart_name.capitalize}"}== Add to #{cart_name.capitalize} +
 - elsif @product_obj.not_reselable?
   %span.message= @product_obj.send "availability_message_#{current_system}"
 - else
@@ -316,5 +316,17 @@ HTML
 	def with_buttons?
 	  params[:with_buttons] || params[:controller] == 'carts' && params[:action] == 'index'
 	end
-
+	
+	def cart_name
+    cart_name = case current_system
+      when "szus" then "bag"
+      when "szuk" then "bag"
+      when "erus" then "cart"
+      when "eeus" then "cart"
+      when "eeuk" then "quote"
+      else "cart"
+    end    
+    return cart_name
+	end
+	
 end

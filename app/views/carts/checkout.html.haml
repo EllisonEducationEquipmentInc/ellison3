@@ -29,8 +29,8 @@
     %strong
       %em
         = pluralize get_cart.total_quantity, "item"
-    == in your shopping #{(t :cart)} 
-    = link_to "review #{(t :cart)}", "#", :class => "review_cart minilink", :id => 'review_bag'
+    == in your shopping #{cart_name} 
+    = link_to "review #{cart_name}", "#", :class => "review_cart minilink", :id => 'review_bag'
   #cart_coupon= render :partial => "carts/coupon"
   %br
   :javascript

@@ -1,10 +1,10 @@
 - if @cart.cart_items.blank?
-  %h2= t :empty_cart
+  %h2== Your Shopping #{cart_name} is empty.
 - else
   %h2
     You have
     %span#cart_items_qty_header= pluralize get_cart.total_quantity, "item"
-    == in your shopping #{(t :cart)}
+    == in your shopping #{cart_name}
   %table{:cellpadding => 10}
     %thead
       %tr
@@ -105,5 +105,5 @@
         		});
       });
   - else
-    .right.minilink= link_to "Edit #{(t :cart)}", cart_path       
+    .right.minilink= link_to "Edit #{cart_name}", cart_path       
 .clear
