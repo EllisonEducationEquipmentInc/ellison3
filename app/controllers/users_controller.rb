@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       session[:user_return_to] = retailer_application_path if is_er?
 			if request.xhr? 
 				sign_in(resource_name, resource)
-				render :js => "window.location.href = '#{stored_location_for(:user) || root_path}'" 
+				render :js => "window.location.href = '#{session[:user_return_to] || root_path}'" 
 			else
 				sign_in_and_redirect(resource_name, resource)
 			end

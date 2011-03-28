@@ -1,12 +1,12 @@
 = remote_multipart_response do
   - if is_sizzix_us?
-    == $('body').append('<img src="https://clickserve.cc-dt.com/link/order?vid=K161997&oid=#{@order.order_number}&amt=#{number_with_precision @order.subtotal_amount, :precision => 2}&btzip=#{@order.address.zip_code}&prdsku=#{@order.order_items.map(&:item_num).join("^")}&prdqn=#{@order.order_items.map(&:quantity).join("^")}&prdpr=#{@order.order_items.collect {|prpr| number_with_precision(prpr.sale_price, :precision => 2)}.join("^")}">');
+    == $('body').append('<img  width="1" height="1" src="https://clickserve.cc-dt.com/link/order?vid=K161997&oid=#{@order.public_order_number}&amt=#{number_with_precision @order.subtotal_amount, :precision => 2}&btzip=#{@order.address.zip_code}&prdsku=#{@order.order_items.map(&:item_num).join("^")}&prdqn=#{@order.order_items.map(&:quantity).join("^")}&prdpr=#{@order.order_items.collect {|prpr| number_with_precision(prpr.sale_price, :precision => 2)}.join("^")}">');
   _gaq.push(['_addTrans',
   '#{@order.public_order_number}',           // order ID - required
   '#{get_domain}', // affiliation or store name
   '#{convert_2_gbp @order.total_amount}',          // total - required
-  '#{convert_2_gbp @order.tax_amount}',           // tax
-  '#{convert_2_gbp(@order.shipping_amount + @order.shipping_amount)}',          // shipping
+  '#{convert_2_gbp(@order.tax_amount + @order.shipping_vat)}',           // tax
+  '#{convert_2_gbp(@order.shipping_amount)}',          // shipping
   '#{@order.address.city}',       // city
   '#{@order.address.state}',     // state or province
   '#{@order.address.country}'             // country
@@ -16,7 +16,7 @@
     '#{@order.public_order_number}',           // order ID - necessary to associate item with transaction
     '#{item.item_num}',           // SKU/code - required
     '#{escape_javascript item.name}',        // product name
-    'brand',   // category or variation
+    '#{escape_javascript(item.product.product_lines.map(&:name) * ', ')}',   // category or variation
     '#{convert_2_gbp item.sale_price}',          // unit price - required
     '#{item.quantity}'               // quantity - required
     ]);
