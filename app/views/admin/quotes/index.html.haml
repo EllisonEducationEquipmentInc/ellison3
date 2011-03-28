@@ -14,7 +14,7 @@
         = sortable "id"
         %th Name
         = sortable "created_at"
-        = sortable "address.last_name"
+        = sortable "address.company", "Company"
         = sortable "subtotal_amount"
         %th System
         = sortable "active"
@@ -29,7 +29,7 @@
           %td= link_to quote.id, admin_quote_path(quote)
           %td= quote.name
           %td= l quote.created_at, :format => :custom rescue ''
-          %td== #{quote.address.first_name} #{quote.address.last_name}
+          %td== #{quote.address.company} (#{quote.address.first_name} #{quote.address.last_name})
           %td= number_to_currency quote.gross_subtotal_amount
           %td= quote.system
           %td= quote.active
