@@ -400,8 +400,8 @@ body.bp .tag_list_wrapper p, body.bp .tag_list_wrapper .item-block h3, body.bp .
 .item-block .list_actions .move_to_another_list {
   position: absolute;
   top: 0;
-  left: -118px;
-  width: 157px;
+  left: -122px;
+  width: 165px;
   border: 1px solid gray;
   background: white;
   padding: 8px;
