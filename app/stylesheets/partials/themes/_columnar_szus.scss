@@ -214,7 +214,9 @@ body.bp {
 }
 
 // for use with Store Locator Styles
-#map {width:548px; height:138px; float:right; margin-bottom:14px;
+#map {
+  border:1px solid #D9D6C4;
+  margin-top: 30px;
 }
 .storeframe {
   float:right; width:633px; height:542px; padding:20px 0 0 15px; background:url('/images/ui-backgrounds/storelocator_background_szus.png') no-repeat top left;
