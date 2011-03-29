@@ -32,7 +32,7 @@ body.bp {
   	  &:hover{ color: $catalog_hover;}
   	}
 
-    .users_lists_container {
+    .users_lists_container, .move_to_another_list {
 
       h4 {
         font-family: Verdana,Arial,sans-serif;        
@@ -421,21 +421,12 @@ body.bp {
 	  .move_to_another_list {
 	    position: absolute;
 	    top: 0;
-	    left: -118px;
-	    width: 157px;
+	    left: -122px;
+	    width: 165px;
 	    border: 1px solid gray;
 	    background: white;
 	    padding: 8px;
 
-	    h4 {
-	      font-family: Verdana,Arial,sans-serif;
-	      font-weight: bold;
-	      font-size: 10px;
-	      text-transform: none;
-	      margin-bottom: 8px;
-	      float: left;
-	    }
-	    
 	    select#move_to {
 	      margin-bottom: 8px;
 	    }
@@ -498,7 +489,7 @@ body.bp {
 	  }
 	  	  
 	  .users_lists_container {
-	    width: $item-block-width + 2;
+	    width: $item-block-width + 10;
       position: absolute;
       bottom: 0px;
       left: -4px;
@@ -514,7 +505,7 @@ body.bp {
 
 .users_lists_container {
   background: white;
-  padding: 8px;
+  padding: 4px;
   border: 1px solid gray;
   text-align: left;
   z-index: 201;

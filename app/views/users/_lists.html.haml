@@ -3,5 +3,5 @@
   = link_to_function 'cancel', "$(this).parents('.users_lists_container').hide()", :class => 'minibtn-cancel', :alt => "Cancel", :title => "Cancel"
   = form_tag({:controller => 'users', :action => 'add_to_list', :id => params[:id]}, :remote => true, :method => :get) do
     = select_tag :list, options_for_select(@lists, get_user.lists.default.try(:id))
-    = link_to "Manage My Lists", myaccount_path('mylists')
-    = image_submit_tag("/images/ui-icons/set_fugue/16x16/drop-shadow/notebook--plus.png", :alt => "Add Item to My List", :title => "Add Item to My List")
+    %p.left= link_to "Manage My Lists", myaccount_path('mylists')
+    %p.right= link_to "Add to My List", "#", :onclick => "$(this).closest('form').submit(); return false;"
