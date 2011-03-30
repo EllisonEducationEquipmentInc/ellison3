@@ -10,6 +10,7 @@ class IndexController < ApplicationController
   ssl_allowed :limited_search
   
   verify :xhr => true, :only => [:search, :quick_search, :send_feedback, :add_comment], :redirect_to => {:action => :home}
+  verify :post => true, :only => [:save_subscription], :redirect_to => {:action => :home}
     
   helper_method :idea?, :per_page
   
@@ -331,7 +332,30 @@ class IndexController < ApplicationController
     go_404
   end
   
+  def newsletter
+    get_list_and_segments
+    @subscription = Subscription.new :list => @list[0], :email => params[:email]
+  end
+  
+  def save_subscription
+    get_list_and_segments
+    @subscription = Subscription.new params[:subscription]
+    @subscription.list = subscription_list
+    if @subscription.save
+      redirect_to(root_path, :notice => "Thank you, your subscription settings have been saved.")
+      @lyris = Lyris.new :create_single_member, :email_address => @subscription.email, :list_name => @subscription.list, :full_name => @subscription.name
+      
+    else
+      render :newsletter
+    end
+  end
+  
 private
+
+  def get_list_and_segments
+    @segments = NEWSLETTER_SEGMENTS[current_system].dup
+    @list = @segments.shift
+  end
 
   def process_feed(source, mins = 5)
     if @feed.new_record? || @feed.updated_at < mins.minutes.ago

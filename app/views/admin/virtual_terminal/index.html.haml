@@ -117,7 +117,7 @@
     = form_for @order, :url => {:action => "cc_purchase"}, :html => {:id => "cc_purchase_form", 'data-type' => 'html'}, :as => :cc_purchase, :remote => true do |f|
       .field
         = label_tag :purchase_system, "System"
-        = select_tag :purchase_system, options_for_select(ELLISON_SYSTEMS, current_system)
+        = select_tag :purchase_system, options_for_select(ELLISON_SYSTEMS, params[:site] || current_system)
       .field
         = label_tag :purchase_transaction_type, "Transaction type"
         = select_tag :purchase_transaction_type, options_for_select(%w(purchase authorize))
@@ -193,7 +193,7 @@
     = form_tag url_for(:action => "cc_capture"), :id => "cc_capture_form", 'data-type' => 'html', :remote => true do
       .field
         = label_tag :cc_capture_system, "System"
-        = select_tag :cc_capture_system, options_for_select(ELLISON_SYSTEMS, current_system)
+        = select_tag :cc_capture_system, options_for_select(ELLISON_SYSTEMS, params[:site] || current_system)
       .field
         = label_tag :cc_capture_total_amount, "Amount"
         = text_field_tag :cc_capture_total_amount, params[:total_amount]

@@ -197,6 +197,32 @@ module EllisonSystem
   	@tracking_logger ||= ActiveSupport::BufferedLogger.new("#{Rails.root}/log/tracking.log")
   end
   
+  def subscription_list
+    return "testsizzix" # TODO: remove
+    case current_system
+    when "szus"
+      "sizzixscoop"
+    when "szuk"
+      "sizzix_uk_consumers"
+    when "eeus"
+      "connection"
+    when "eeuk"
+      "ellison_education_uk"
+    when "erus"
+      "erus_retailers"
+    end
+  end
+  
+  # the first element in the hash is the actual list name ex: :sizzix_scoop =>	"Sizzix Scoop" listname: sizzix_scoop
+  # the other keys represent a column of the members table in lyris, values are the labels displayed on the front-end.
+  # naming convention on lyris: in order to make it work, always name columns in lyris folowing these conventions: capitalize the first letter (and only the first letter) of each word, end separate words with underscores. Ex: Eclip, Education_Uk_Nursery, Sizzix_Uk_Dutch_Retailers etc.
+  NEWSLETTER_SEGMENTS = {"szus" => {:sizzix_scoop =>	"Sizzix Scoop", :sizzix_outlet =>	"Sizzix Outlet", :eclips => "Sizzix eclips", :tim_holtz => "Tim Holtz", :westminster_fabrics => "Westminster Fabrics", :sizzix_events => "Sizzix Events"},
+    "szuk" => {:sizzix_uk_consumers => "Sizzix Newsletter", :eclips => "Sizzix eclips", :tim_holtz => "Tim Holtz"},
+    "eeus" => {:connection => "Ellison Connection"},
+    "eeuk" => {:ellison_education_uk => "Education UK Newsletter", :back_to_school => "Back to School", :education_uk_nursery => "Education UK Nursery", :education_uk_primary => "Education UK Primary", :education_uk_secondary => "Education UK Secondary"},
+    "erus" => {:erus_retailers => "Retailers Newsletter", :sizzix_retailers => "Sizzix Retailers", :ellison_retailers => "Ellison Retailers", :sizzix_retailers_in_spanish => "Sizzix Retailers in Spanish"}
+  }
+  				
   # COD accounts
   COD = Struct.new(:id, :label) 
   

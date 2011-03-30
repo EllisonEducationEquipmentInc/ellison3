@@ -1,0 +1,21 @@
+= form_for @subscription, :url => url_for(:action => :save_subscription) do |f|
+  = f.error_messages
+  Yes, I'd like to subscribe to
+  %strong= @list[1]
+  .field
+    = f.label :email
+    = f.text_field :email
+  .field
+    = f.label :email
+    = f.text_field :email
+  - if @segments.present?
+    Please select additional newsletter segments:
+    %ul
+      - @segments.each do |segment|
+        %li
+          = check_box_tag "subscription[segments][]", segment[0], @subscription.segments.include?(segment[0].to_s)
+          = segment[1]
+  .actions
+    = f.submit :class => 'jqui_save'
+        
+ 
