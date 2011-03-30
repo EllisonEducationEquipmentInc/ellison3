@@ -1,15 +1,15 @@
 = form_for @subscription, :url => url_for(:action => :save_subscription) do |f|
   = f.error_messages
-  Yes, I'd like to subscribe to
-  %strong= @list[1]
   .field
     = f.label :email
     = f.text_field :email
   .field
     = f.label :name
     = f.text_field :name
+  Yes, I'd like to subscribe to
+  %strong= @list[1]
   - if @segments.present?
-    Please select additional newsletter segments:
+    and the following additional newsletter segments:
     %ul
       - @segments.each do |segment|
         %li
