@@ -39,13 +39,11 @@
 
   .contentwrap_large.last
     .field
-      = f.label "start_date", "<span class='required'>Start Date</span>".html_safe
-      %span.icon_datefield
-        = f.text_field "start_date", :class => 'datetimepicker'
+      = f.label "start_date", "<span class='required'><span class='icon_datefield'>Start Date</span></span>".html_safe
+      = f.text_field "start_date", :class => 'datetimepicker'
       %br
-      = f.label "end_date", "<span class='required'>End Date</span>".html_safe
-      %span.icon_datefield
-        = f.text_field "end_date", :class => 'datetimepicker'
+      = f.label "end_date", "<span class='required'><span class='icon_datefield'>End Date</span></span>".html_safe
+      = f.text_field "end_date", :class => 'datetimepicker'
     .field
       = f.label :quick_search, "Display Quick Search?", :class => "autosize"
       yes

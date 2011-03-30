@@ -15,13 +15,11 @@
       = system_enabled('product')
   .contentwrap_large.last
     .field
-      = f.label "start_date_#{current_system}", "Start Date #{current_system.upcase}", :class => 'overrideable ui-corner-all'
-      %span.icon_datefield
-        = f.text_field "start_date_#{current_system}", :class => 'datetimepicker'
+      = f.label "start_date_#{current_system}", "<span class='icon_datefield'>Start Date #{current_system.upcase}</span>".html_safe, :class => 'overrideable ui-corner-all', :style => 'width: 120px'
+      = f.text_field "start_date_#{current_system}", :class => 'datetimepicker'
     .field
-      = f.label "end_date_#{current_system}", "End Date #{current_system.upcase}", :class => 'overrideable ui-corner-all'
-      %span.icon_datefield
-        = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
+      = f.label "end_date_#{current_system}", "<span class='icon_datefield'>End Date #{current_system.upcase}</span>".html_safe, :class => 'overrideable ui-corner-all', :style => 'width: 120px'
+      = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
 
   %hr
   %h3.contentwrap_XXXL.last Basic Information
@@ -148,10 +146,9 @@
       %br
       = f.text_field "distribution_life_cycle_#{current_system}"
     .field
-      = f.label "distribution_life_cycle_ends_#{current_system}", "Life Cycle Message End Date #{current_system.upcase}", :class => 'overrideable ui-corner-all autosize'
+      = f.label "distribution_life_cycle_ends_#{current_system}", "<span class='icon_datefield'>Life Cycle Message End Date #{current_system.upcase}</span>".html_safe, :class => 'overrideable ui-corner-all autosize'
       %br
-      %span.icon_datefield
-        = f.text_field "distribution_life_cycle_ends_#{current_system}", :class => 'datetimepicker'
+      = f.text_field "distribution_life_cycle_ends_#{current_system}", :class => 'datetimepicker'
       
   %hr
   %h3.contentwrap_XXXL.last Shipping & Handling
@@ -180,10 +177,9 @@
       %span{ :class => "icon_pricefield_weight" }
         = f.text_field :"virtual_weight_#{current_system}"
     .field
-      = f.label "virtual_weight_ends_#{current_system}", "Virtual Weight End Date #{current_system.upcase}", :class => 'overrideable ui-corner-all autosize'
+      = f.label "virtual_weight_ends_#{current_system}", "<span class='icon_datefield'>Virtual Weight End Date #{current_system.upcase}</span>".html_safe, :class => 'overrideable ui-corner-all autosize'
       %br
-      %span.icon_datefield
-        = f.text_field "virtual_weight_ends_#{current_system}", :class => 'datetimepicker'
+      = f.text_field "virtual_weight_ends_#{current_system}", :class => 'datetimepicker'
     
   %hr
   %h3.contentwrap_XXXL.last Default Product Image

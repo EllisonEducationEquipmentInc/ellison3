@@ -51,13 +51,11 @@
     .clear
 
   .field.left
-    = f.label "start_date"
-    %span.icon_datefield
-      = f.text_field "start_date", :class => 'datetimepicker'
+    = f.label "start_date", "<span class='icon_datefield'>Start Date</span>".html_safe
+    = f.text_field "start_date", :class => 'datetimepicker'
     %br
-    = f.label "end_date"
-    %span.icon_datefield
-      = f.text_field "end_date", :class => 'datetimepicker'
+    = f.label "end_date", "<span class='icon_datefield'>End Date</span>".html_safe
+    = f.text_field "end_date", :class => 'datetimepicker'
     - if f.object.is_child?
       %br
       = f.label :display_order, "Display Order"
