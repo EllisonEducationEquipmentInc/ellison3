@@ -193,9 +193,9 @@ $(document).ready(function(){
   var hoverconfig = { // hover intent custom configurations
 		autoresize: false,
     sensitivity: 2, // number = sensitivity threshold (must be 1 or higher)
-    interval: 60, // number = milliseconds for onMouseOver polling interval
+    interval: 125, // number = milliseconds for onMouseOver polling interval
     over: megamenuHoverOver, // function = onMouseOver callback (REQUIRED)
-    timeout: 100, // number = milliseconds delay before onMouseOut
+    timeout: 500, // number = milliseconds delay before onMouseOut
     out: megamenuHoverOut // function = onMouseOut callback (REQUIRED)
   };
   $("#nav_megamenu li.megaitem").hoverIntent(hoverconfig); // trigger hover intent with custom configurations	
@@ -663,7 +663,7 @@ function megamenuHoverOver() {
   }
   
   // render the megapanel
-  $(this).find('.megapanel').stop().slideDown('fast', function() {
+  $(this).find('.megapanel').stop().slideDown(15, function() {
     if (current_system != "szus") {
       $(this).shadowOn(megapanel_shadow_options);  // drop shadow for mega menu subpanel
     }
@@ -697,7 +697,7 @@ function megamenuHoverOut() {
   }  
 
   // hide the megapanel
-  $(this).find('.megapanel').stop().slideUp('fast', function() {
+  $(this).find('.megapanel').stop().slideUp(15, function() {
     $(this).shadowOff();
   });
 }
