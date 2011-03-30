@@ -228,7 +228,7 @@
     = form_tag url_for(:action => "cc_refund"), :id => "cc_refund_form", 'data-type' => 'html', :remote => true do
       .field
         = label_tag :cc_refund_system, "System"
-        = select_tag :cc_refund_system, options_for_select(ELLISON_SYSTEMS, current_system)
+        = select_tag :cc_refund_system, options_for_select(ELLISON_SYSTEMS, params[:site] || current_system)
       .field
         = label_tag :amount_to_refund, "Amount"
         = text_field_tag :amount_to_refund, params[:amount_to_refund]
