@@ -343,8 +343,10 @@ class IndexController < ApplicationController
     @subscription.list = subscription_list
     if @subscription.save
       redirect_to(root_path, :notice => "Thank you, your subscription settings have been saved.")
+      # TODO: make it delayed
       @lyris = Lyris.new :create_single_member, :email_address => @subscription.email, :list_name => @subscription.list, :full_name => @subscription.name
-      
+      @lyris = Lyris.new :update_member_status, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :member_status => 'needs-confirm'
+      @lyris = Lyris.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @subscription.segments.map {|e| {:name => e.to_sym, :value => 1}} if @subscription.segments.present?
     else
       render :newsletter
     end
