@@ -19,10 +19,10 @@
   %h3.contentwrap_XXXL.last Basic Information
   .contentwrap_large
     .field
-      = required_label f, :name
+      = required_label f, :name, { :label => "Page Title", :label_size => "105px" }
       = f.text_field :name
     .field
-      = f.label :permalink, "Permalink URL"
+      = required_label f, :permalink, { :label => "Permalink URL", :label_size => "105px"}
       - if @landing_page.new_record?
         = f.text_field :permalink
         %p.formhelp{:style => "margin-left: 112px"}
@@ -39,11 +39,11 @@
 
   .contentwrap_large.last
     .field
-      = f.label "start_date"
+      = f.label "start_date", "<span class='required'>Start Date</span>".html_safe
       %span.icon_datefield
         = f.text_field "start_date", :class => 'datetimepicker'
       %br
-      = f.label "end_date"
+      = f.label "end_date", "<span class='required'>End Date</span>".html_safe
       %span.icon_datefield
         = f.text_field "end_date", :class => 'datetimepicker'
     .field
