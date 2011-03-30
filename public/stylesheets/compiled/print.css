@@ -500,7 +500,7 @@ body.bp .tag_list_wrapper p, body.bp .tag_list_wrapper .item-block h3, body.bp .
 /* line 517, ../../../app/stylesheets/partials_app/_catalog.scss */
 .users_lists_container select#list {
   margin-bottom: 8px;
-  max-width: 165px;
+  width: 165px;
 }
 /* line 522, ../../../app/stylesheets/partials_app/_catalog.scss */
 .users_lists_container input {
