@@ -27,15 +27,13 @@
     %div{:id => "help_#{topic.parameterize}", :class => "infobox ui-widget-#{ is_sizzix_us? ? 'header' : 'content'} ui-widget ui-corner-all", :style => i != 0 ? "display: none" : nil}
       %h3= topic
       
-      
-      
     - i+=1
     
   :javascript
     $(function() {
       $("#feedback_subject").change(function() {
         if ($(this).val()) {
-          $('.infobox').hide();
+          $('.infobox').fadeOut().slideUp();
           $("#help_" + $(this).val().replace(/\s/g, '-').replace(/[^\w/-]/g, '').toLowerCase()).slideDown();
         }
       });
