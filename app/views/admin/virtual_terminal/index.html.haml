@@ -56,7 +56,7 @@
     = form_tag url_for(:action => "cch_commit"), :id => "cch_commit_form", 'data-type' => 'html', :remote => true do
       .field
         = label_tag :cch_commit_tax_transaction_id, "Tax Transaction ID"
-        = text_field_tag :cch_commit_tax_transaction_id
+        = text_field_tag :cch_commit_tax_transaction_id, params[:tax_transaction]
       .actions
         = submit_tag "CCH Commit", :class => 'jqui_save', :disable_with => "please wait..."
     :javascript
