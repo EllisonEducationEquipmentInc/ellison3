@@ -335,7 +335,11 @@ class IndexController < ApplicationController
   def newsletter
     get_list_and_segments
     @subscription = Subscription.new :list => @list[0]
-    @subscription.email = params[:email]
+    @subscription.email = if params[:email]
+        params[:email]
+      elsif user_signed_in?
+        current_user.email
+      end
   end
   
   def create_subscription
