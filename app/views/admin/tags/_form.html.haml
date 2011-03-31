@@ -1,89 +1,109 @@
 = form_for([:admin, @tag], :html => {:multipart => true}) do |f|
   = f.error_messages
-  .field
-    = f.label :systems_enabled
-    = system_enabled('tag')
-  .field
-    = f.label :active
-    %br
-    = f.check_box :active
-  .field
-    = f.label :tag_type
-    = f.select :tag_type, Tag.all_types.map {|t| [t.humanize, t]}, {}, :onchange => "toggle_tag_type_fields()"
+
+  %hr
+  %h3.contentwrap_XXXL.last System Visibility
+  .contentwrap_large
+    .field
+      = f.label :active, "This tag is", :class => "autosize"
+      active
+      = f.radio_button(:active, true)
+      disabled
+      = f.radio_button(:active, false)
+    .field
+      = required_label f, :systems_enabled, { :label => "Enabled for", :label_size => "auto" }
+      = system_enabled('tag')
+  .contentwrap_large.last
+    .field
+      = f.label "start_date_#{current_system}", "<span class='icon_datefield'>Start Date #{current_system.upcase}</span>".html_safe, :class => 'overrideable ui-corner-all', :style => 'width: 120px'
+      = f.text_field "start_date_#{current_system}", :class => 'datetimepicker'
+    .field
+      = f.label "end_date_#{current_system}", "<span class='icon_datefield'>End Date #{current_system.upcase}</span>".html_safe, :class => 'overrideable ui-corner-all', :style => 'width: 120px'
+      = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
+
+  %hr
+  %h3.contentwrap_XXXL Basic Information
+  .contentwrap_XXXL.last
+    .field
+      = required_label f,  :name, { :label => "Tag Name"}
+      = f.text_field :name  
+    .field
+      = f.label :tag_type, "Tag Type"
+      = f.select :tag_type, Tag.all_types.map {|t| [t.humanize, t]}, {}, :onchange => "toggle_tag_type_fields()"  
+  
   #new_campaign{:style => "display:#{@tag.campaign? ? 'block' : 'none'}"}
-    - unless f.object.new_record?
-      .field
-        = f.label :embed_campaign, "Embed/update campaign"
-        = f.check_box :embed_campaign, :disabled => f.object.new_record?
-        (if checked, discount will be batch applied to associated products. If not checked, this "campaign" will have no effect on product pricing whatsoever)
-    = f.fields_for :campaign, @tag.campaign do |campaign_fields|
-      .field
-        = campaign_fields.label :individual, "Individual Pricing (each product has individual discount)"
-        = campaign_fields.check_box :individual, :onclick => "update_campaign()"
-      .field.individual
-        %ul#individual
-          = campaign_fields.fields_for :individual_discounts do |individual_discount_fields|
-            = render :partial => 'admin/individual_discounts/individual_discount', :locals => {:f => individual_discount_fields}
-          = link_to_add_fields "Add Product", campaign_fields, :individual_discounts
-          :javascript
-            function add_individual_discount(){
-              #{add_fields_function('individual', campaign_fields, :individual_discounts)}
-            };
-      .field.discount
-        = campaign_fields.label :discount_type
-        = campaign_fields.select :discount_type, Campaign::DISCOUNT_TYPES
-      .field.discount
-        = campaign_fields.label :discount
-        = campaign_fields.text_field :discount
-  .field
-    = f.label :name
-    %br
-    = f.text_field :name
-  .field
-    = f.label "start_date_#{current_system}", "Start Date #{current_system.upcase}", :class => 'overrideable'
-    %br
-    = f.text_field "start_date_#{current_system}", :class => 'datetimepicker'
-  .field
-    = f.label "end_date_#{current_system}", "End Date #{current_system.upcase}", :class => 'overrideable'
-    %br
-    = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
-  .field
-    = f.label :description
-    %br
-    = f.text_area :description
-  .field
-    = f.label "calendar_start_date_#{current_system}", "Calendar Start Date #{current_system.upcase}", :class => 'overrideable'
-    %br
-    = f.text_field "calendar_start_date_#{current_system}", :class => 'datetimepicker'
-  .field
-    = f.label "calendar_end_date_#{current_system}", "Calendar End Date #{current_system.upcase}", :class => 'overrideable'
-    %br
-    = f.text_field "calendar_end_date_#{current_system}", :class => 'datetimepicker'
-  .field
-    = f.label :all_day
-    %br
-    = f.check_box :all_day
-  .field
-    = f.label :color
-    %br
-    = f.select :color, %w(#336699 #339933 #ff9900 #ff0000 #ff00cc #3399cc #33cc33 #993333), :include_blank => true
-  .field
-    = f.label :image, "List page image"
-    = image_tag(@tag.image_url(:small)) if @tag.image? 
-    = f.file_field :image
-    = f.hidden_field :image_cache
-    %br
-    = f.label :remove_image
-    = f.check_box :remove_image
+    %hr
+    %h3.contentwrap_XXXL.last Campaign
+    .contentwrap_XXXL.last
+      - unless f.object.new_record?
+        .field
+          = f.label :embed_campaign, "Embed/update campaign"
+          = f.check_box :embed_campaign, :disabled => f.object.new_record?
+          (if checked, discount will be batch applied to associated products. If not checked, this "campaign" will have no effect on product pricing whatsoever)
+      = f.fields_for :campaign, @tag.campaign do |campaign_fields|
+        .field
+          = campaign_fields.label :individual, "Individual Pricing (each product has individual discount)"
+          = campaign_fields.check_box :individual, :onclick => "update_campaign()"
+        .field.individual
+          %ul#individual
+            = campaign_fields.fields_for :individual_discounts do |individual_discount_fields|
+              = render :partial => 'admin/individual_discounts/individual_discount', :locals => {:f => individual_discount_fields}
+            = link_to_add_fields "Add Product", campaign_fields, :individual_discounts
+            :javascript
+              function add_individual_discount(){
+                #{add_fields_function('individual', campaign_fields, :individual_discounts)}
+              };
+        .field.discount
+          = campaign_fields.label :discount_type
+          = campaign_fields.select :discount_type, Campaign::DISCOUNT_TYPES
+        .field.discount
+          = required_label campaign_fields, :discount
+          = campaign_fields.text_field :discount
+
   - unless @tag.new_record?
-    %h3 Products
-    %ul#tag_products= render :partial => 'product', :collection => @tag.products, :locals => {:tag_id => @tag.id}
+    %hr
+    %h3.contentwrap_XXXL.last Related Products
+    %ul.contentwrap_XXXL.last#tag_products= render :partial => 'product', :collection => @tag.products, :locals => {:tag_id => @tag.id}
     = text_field_tag "tag_products_helper"
-    %br
-    %br
-    %h3 Ideas
-    %ul#tag_ideas= render :partial => 'idea', :collection => @tag.ideas, :locals => {:tag_id => @tag.id}
+    %hr
+    %h3.contentwrap_XXXL.last Related Ideas
+    %ul.contentwrap_XXXL.last#tag_ideas= render :partial => 'idea', :collection => @tag.ideas, :locals => {:tag_id => @tag.id}
     = text_field_tag "tag_ideas_helper"
+  
+  %hr
+  %h3.contentwrap_XXXL.last asfj lfjsjdfal slkjf Stuff.
+  .contentwrap_medium
+    .field
+      = f.label "calendar_start_date_#{current_system}", "<span class='icon_datefield'>Calendar Start Date #{current_system.upcase}</span>".html_safe, :class => 'overrideable ui-corner-all', :style => 'width: 175px'
+      = f.text_field "calendar_start_date_#{current_system}", :class => 'datetimepicker'
+    .field
+      = f.label "calendar_end_date_#{current_system}", "<span class='icon_datefield'>Calendar End Date #{current_system.upcase}</span>".html_safe, :class => 'overrideable ui-corner-all', :style => 'width: 175px'
+      = f.text_field "calendar_end_date_#{current_system}", :class => 'datetimepicker'
+    -# disabling 'All Day' checkbox
+      .field
+        = f.label :all_day
+        = f.check_box :all_day
+    .field
+      = f.label :color, :class => "autosize"
+      = f.select :color, %w(#336699 #339933 #ff9900 #ff0000 #ff00cc #3399cc #33cc33 #993333), :include_blank => true
+  
+  .contentwrap_medium
+    .field
+      = f.label :image, "List page image"
+      = image_tag(@tag.image_url(:small)) if @tag.image? 
+      = f.file_field :image
+      = f.hidden_field :image_cache
+      %br
+      = f.label :remove_image
+      = f.check_box :remove_image
+  
+  .contentwrap_medium.last
+    .field
+      = f.label :description, "Description <span class='formhelp'><em>for internal admin use only</em></span>".html_safe, :class => "autosize"
+      %br
+      = f.text_area :description, :cols => 57, :rows => 5
+  
+  .clear
   %br
   %br
   #visual_assets  
@@ -91,7 +111,7 @@
       = render 'admin/visual_assets/visual_asset', :f => visual_asset_fields
     = link_to_add_fields "Add Visual Asset", f, :visual_assets
   %br
-  %br
+  .clear
   .actions
     = f.submit :class => 'wymupdate jqui_save'
 :javascript
