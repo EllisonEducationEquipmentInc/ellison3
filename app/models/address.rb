@@ -69,6 +69,10 @@ class Address
 		self.country == "United States"
 	end
 	
+	def with_state?
+	  us? || self.country == "Canada"
+	end
+	
 	def apo?
 	  us? && %w(AA AE AP).include?(self.state.try(:upcase))
 	end
