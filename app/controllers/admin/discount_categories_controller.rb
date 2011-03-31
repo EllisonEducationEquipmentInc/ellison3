@@ -7,7 +7,7 @@ class Admin::DiscountCategoriesController < ApplicationController
 	
 	ssl_exceptions
 	
-	verify :post => true, :only => [:update]
+	verify :method => :post, :only => [:update]
 	
 	def index
 	  @discount_categories = DiscountCategory.active.asc(:created_at)

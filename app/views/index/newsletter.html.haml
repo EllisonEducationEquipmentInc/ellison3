@@ -8,13 +8,7 @@
     = f.text_field :name
   Yes, I'd like to subscribe to
   %strong= @list[1]
-  - if @segments.present?
-    and the following additional newsletter segments:
-    %ul
-      - @segments.each do |segment|
-        %li
-          = check_box_tag "subscription[segments][]", segment[0], @subscription.segments.include?(segment[0].to_s)
-          = segment[1]
+  = render :partial => 'segments'
   .actions
     = f.submit :class => 'jqui_save'
         

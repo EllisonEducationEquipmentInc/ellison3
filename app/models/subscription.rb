@@ -2,13 +2,16 @@ class Subscription
   include EllisonSystem
   include Mongoid::Document
   include Mongoid::Timestamps
-    
+  
+  attr_protected :email, :list, :confirmed, :verification_sent
+  
   field :email
   field :list
   field :list_name
   field :segments, :type => Array, :default => []
   field :name
   field :confirmed, :type => Boolean, :default => false
+  field :unsubscribe, :type => Boolean, :default => false
   field :verification_sent, :type => DateTime
   
   validates_presence_of :email
@@ -17,6 +20,7 @@ class Subscription
  
   before_save :set_list
   
+
 private
 
 	def set_list

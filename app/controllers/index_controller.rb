@@ -10,7 +10,7 @@ class IndexController < ApplicationController
   ssl_allowed :limited_search
   
   verify :xhr => true, :only => [:search, :quick_search, :send_feedback, :add_comment], :redirect_to => {:action => :home}
-  verify :post => true, :only => [:save_subscription, :create_subscription], :redirect_to => {:action => :home}
+  verify :method => :post, :only => [:update_subscription, :create_subscription], :redirect_to => {:action => :home}
     
   helper_method :idea?, :per_page
   
@@ -334,16 +334,18 @@ class IndexController < ApplicationController
   
   def newsletter
     get_list_and_segments
-    @subscription = Subscription.new :list => @list[0], :email => params[:email]
+    @subscription = Subscription.new :list => @list[0]
+    @subscription.email = params[:email]
   end
   
   def create_subscription
     get_list_and_segments
     @subscription = Subscription.new params[:subscription]
+    @subscription.email = params[:subscription][:email]
     @subscription.list = subscription_list
     @subscription.list_name = @list[1]
     if @subscription.save
-      redirect_to(root_path, :notice => "Thank you, your subscription settings have been saved.")
+      redirect_to(root_path, :notice => "Thank you, your subscription settings have been saved. You will receive a confirmation email shortly. please follow the instructions in that email to verify your subscription.")
       # TODO: make them delayed
       @lyris = Lyris.new :create_single_member, :email_address => @subscription.email, :list_name => @subscription.list, :full_name => @subscription.name
       @lyris = Lyris.new :update_member_status, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :member_status => 'confirm'
@@ -360,6 +362,30 @@ class IndexController < ApplicationController
       @lyris = Lyris.new :update_member_status, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :member_status => 'normal'
       @subscription.update_attribute :confirmed, true
       flash.now[:notice] = "Thank you for confirming your email address. Please use this link in the future to manage your subscription settings."
+    end
+    get_list_and_segments
+  end
+  
+  def update_subscription
+    @subscription = Subscription.find(params[:id])
+    get_list_and_segments
+    @subscription.write_attributes(params[:subscription])
+    if @subscription.unsubscribe
+      @lyris = Lyris.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @segments.keys.map {|e| {:name => e, :value => 0}} if @segments.present?
+      @lyris = Lyris.new :update_member_status, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :member_status => 'unsub'
+      if @lyris.success?
+        @subscription.destroy
+        flash[:notice] = "your are unsubscribed from #{@subscription.list_name}"
+        redirect_to(root_path)
+      else
+        flash[:alert] = "an error has occured. please try again."
+        render :subscription
+      end
+    else
+      @lyris = Lyris.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @segments.keys.map {|e| {:name => e, :value => @subscription.segments.include?(e.to_s) ? 1 : 0}} if @segments.present?
+      @subscription.save
+      flash[:notice] = "your subscription settings have been updated"
+      redirect_to :action => "subscription", :id => @subscription.id
     end
   end
   
