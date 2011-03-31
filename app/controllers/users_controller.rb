@@ -73,6 +73,7 @@ class UsersController < ApplicationController
 		@tabs += [[:billing, "My Billing Info"], [:shipping, "My Shipping Info"], [:orders, "Order Status"], [:mylists, "My Lists"], [:machines_i_own, "Machines I own"]]
 	  @tabs += [[:quotes, quote_name.pluralize]] if is_ee? || is_er?
 	  @tabs += [[:materials, "Materials"]] if is_ee?
+	  @tabs += [[:subscriptions, "Newsletter Subscriptions"]]
 	end
 	
 	def billing
@@ -323,6 +324,13 @@ class UsersController < ApplicationController
 	  @quote = get_user.quotes.active.find(params[:element_id])
 	  @quote.update_attribute :name, params[:update_value]
     render :text => @quote.name
+	end
+	
+	def subscriptions
+	  get_list_and_segments
+	  @subscription = Subscription.where(:list => subscription_list, :email => current_user.email).first || Subscription.new(:list => subscription_list, :name => current_user.name)
+	  @subscription.email ||= current_user.email
+	  render :partial => 'subscriptions'
 	end
 		
 protected

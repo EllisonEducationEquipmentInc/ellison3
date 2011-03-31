@@ -1,0 +1,21 @@
+%h3 Your Newsletter Subscriptions
+- if @subscription.new_record?
+  You're currently NOT subscribed to 
+  %strong= @list[1]
+  = form_for @subscription, :url => url_for(:controller => :index, :action => :create_subscription) do |f|
+    = f.error_messages
+    .field
+      = f.label :email
+      = f.text_field :email, :readonly => true
+    .field
+      = f.label :name
+      = f.text_field :name
+    Yes, I'd like to subscribe to
+    %strong= @list[1]
+    = render :partial => 'index/segments'
+    .actions
+      = f.submit :class => 'jqui_save'
+- elsif !@subscription.confirmed
+  .error Your email has not been verified. Please follow the instructions in that email to verify your subscription.
+- else
+  = render :partial => 'index/edit_subscriptions'

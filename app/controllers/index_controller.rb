@@ -349,12 +349,12 @@ class IndexController < ApplicationController
     @subscription.list = subscription_list
     @subscription.list_name = @list[1]
     if @subscription.save
-      redirect_to(root_path, :notice => "Thank you, your subscription settings have been saved. You will receive a confirmation email shortly. please follow the instructions in that email to verify your subscription.")
       # TODO: make them delayed
       @lyris = Lyris.new :create_single_member, :email_address => @subscription.email, :list_name => @subscription.list, :full_name => @subscription.name
       @lyris = Lyris.new :update_member_status, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :member_status => 'confirm'
       @lyris = Lyris.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @subscription.segments.map {|e| {:name => e.to_sym, :value => 1}} if @subscription.segments.present?
       UserMailer.subscription_confirmation(@subscription).deliver
+      redirect_to(user_signed_in? && @subscription.email == current_user.email ? myaccount_path(:tab => 'subscriptions') : root_path, :notice => "Thank you, your subscription settings have been saved. You will receive a confirmation email shortly. please follow the instructions in that email to verify your subscription.")
     else
       render :newsletter
     end
@@ -365,7 +365,12 @@ class IndexController < ApplicationController
     unless @subscription.confirmed
       @lyris = Lyris.new :update_member_status, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :member_status => 'normal'
       @subscription.update_attribute :confirmed, true
-      flash.now[:notice] = "Thank you for confirming your email address. Please use this link in the future to manage your subscription settings."
+      if user_signed_in? && @subscription.email == current_user.email
+        flash[:notice] = "Thank you for verifying your email address."
+        redirect_to(myaccount_path(:tab => 'subscriptions')) and return
+      else
+        flash.now[:notice] = "Thank you for confirming your email address. Please use this link in the future to manage your subscription settings."        
+      end
     end
     get_list_and_segments
   end
@@ -378,9 +383,10 @@ class IndexController < ApplicationController
       @lyris = Lyris.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @segments.keys.map {|e| {:name => e, :value => 0}} if @segments.present?
       @lyris = Lyris.new :update_member_status, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :member_status => 'unsub'
       if @lyris.success?
+        @subscription.segments = []
         @subscription.destroy
         flash[:notice] = "your are unsubscribed from #{@subscription.list_name}"
-        redirect_to(root_path)
+        redirect_to(user_signed_in? && @subscription.email == current_user.email ? myaccount_path(:tab => 'subscriptions') : root_path)
       else
         flash[:alert] = "an error has occured. please try again."
         render :subscription
@@ -389,16 +395,11 @@ class IndexController < ApplicationController
       @lyris = Lyris.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @segments.keys.map {|e| {:name => e, :value => @subscription.segments.include?(e.to_s) ? 1 : 0}} if @segments.present?
       @subscription.save
       flash[:notice] = "your subscription settings have been updated"
-      redirect_to :action => "subscription", :id => @subscription.id
+      redirect_to(user_signed_in? && @subscription.email == current_user.email ? myaccount_path(:tab => 'subscriptions') : {:action => "subscription", :id => @subscription.id})
     end
   end
   
 private
-
-  def get_list_and_segments
-    @segments = NEWSLETTER_SEGMENTS[current_system].dup
-    @list = @segments.shift
-  end
 
   def process_feed(source, mins = 5)
     if @feed.new_record? || @feed.updated_at < mins.minutes.ago

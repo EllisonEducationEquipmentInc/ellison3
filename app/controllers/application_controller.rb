@@ -316,6 +316,11 @@ private
 	  @multi_facets_hash ||= {}
 	  @top_navigations = TopNavigation.instance.list
 	end
+	
+	def get_list_and_segments
+    @segments = NEWSLETTER_SEGMENTS[current_system].dup
+    @list = @segments.shift
+  end
   
   # solr search methods:
   #
