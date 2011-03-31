@@ -46,9 +46,9 @@
   #new_campaign{:style => "display:#{@tag.campaign? ? 'block' : 'none'}"}
     %hr
     %h3.contentwrap_XXXL.last Special/Campaign Details
-    .contentwrap_medium
-      - unless f.object.new_record?
-        .field
+    - unless f.object.new_record?
+      .contentwrap_medium
+        .field 
           = f.label :embed_campaign, "Apply discounts to associated products?", :class => "autosize"
           %br
           = f.radio_button(:embed_campaign, true, :style => "margin: 0 3px 0 10px")
@@ -57,7 +57,8 @@
           = f.radio_button(:embed_campaign, false, :style => "margin: 0 3px 0 10px")
           No. Leave current product pricing as-is.
 
-      = f.fields_for :campaign, @tag.campaign do |campaign_fields|
+    = f.fields_for :campaign, @tag.campaign do |campaign_fields|
+      .contentwrap_medium
         .field
           = campaign_fields.label :individual, "How should discounts be configured & applied?", :class => "autosize"
           %br
@@ -66,6 +67,10 @@
           %br
           = campaign_fields.radio_button(:individual, true, :style => "margin: 0 3px 0 10px", :onclick => "update_campaign();")          
           == #{"as a <em>unique</em> discount for <strong>individual</strong> products".html_safe}
+      .contentwrap_XL.last
+        %p.border-left.formhelp== #{"<em>Add specific directions for special campaign scenarios here</em>".html_safe}
+
+      .contentwrap_XXXL.last
         .field.individual
           %ul#individual
             = campaign_fields.fields_for :individual_discounts do |individual_discount_fields|
@@ -81,8 +86,6 @@
         .field.discount
           = required_label campaign_fields, :discount, { :label => "Discount Amount", :label_size => "120px"}
           = campaign_fields.text_field :discount, :size => 6
-    .contentwrap_XL.last
-      %p.border-left.formhelp== #{"<em>Add specific directions for special campaign scenarios here</em>".html_safe}
 
   - unless @tag.new_record?
     %hr
