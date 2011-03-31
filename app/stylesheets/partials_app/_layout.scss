@@ -24,6 +24,11 @@
   color: $link;
 }
 
+.border-left {
+  border-left: 1px solid $catalog_buybox_border;
+  padding-left: 10px;
+}
+
 #content {
   .pagination {
     @if $system == szus or $system == szuk {

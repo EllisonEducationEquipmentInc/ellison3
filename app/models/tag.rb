@@ -41,6 +41,10 @@ class Tag
   validates_associated :compatibilities
   
   validates :name, :tag_type, :systems_enabled, :permalink, :presence => true
+  # system specific validations
+  ELLISON_SYSTEMS.each do |system|
+    validates :"start_date_#{system}", :"end_date_#{system}",  :presence => true, :if => Proc.new {|p| current_system == system}
+  end
   validates_format_of :permalink, :with => /^[\w\d-]+$/
   validate :permalink_uniqueness
 

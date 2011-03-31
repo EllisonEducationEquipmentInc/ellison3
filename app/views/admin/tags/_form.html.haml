@@ -15,10 +15,10 @@
       = system_enabled('tag')
   .contentwrap_large.last
     .field
-      = f.label "start_date_#{current_system}", "<span class='icon_datefield'>Start Date #{current_system.upcase}</span>".html_safe, :class => 'overrideable ui-corner-all', :style => 'width: 120px'
+      = f.label "start_date_#{current_system}", "<span class='required'><span class='icon_datefield'>Start Date #{current_system.upcase}</span></span>".html_safe, :class => 'overrideable ui-corner-all', :style => 'width: 130px'
       = f.text_field "start_date_#{current_system}", :class => 'datetimepicker'
     .field
-      = f.label "end_date_#{current_system}", "<span class='icon_datefield'>End Date #{current_system.upcase}</span>".html_safe, :class => 'overrideable ui-corner-all', :style => 'width: 120px'
+      = f.label "end_date_#{current_system}", "<span class='required'><span class='icon_datefield'>End Date #{current_system.upcase}</span></span>".html_safe, :class => 'overrideable ui-corner-all', :style => 'width: 130px'
       = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
 
   %hr
@@ -46,7 +46,7 @@
   #new_campaign{:style => "display:#{@tag.campaign? ? 'block' : 'none'}"}
     %hr
     %h3.contentwrap_XXXL.last Special/Campaign Details
-    .contentwrap_XXXL.last
+    .contentwrap_medium
       - unless f.object.new_record?
         .field
           = f.label :embed_campaign, "Apply discounts to associated products?", :class => "autosize"
@@ -81,6 +81,8 @@
         .field.discount
           = required_label campaign_fields, :discount, { :label => "Discount Amount", :label_size => "120px"}
           = campaign_fields.text_field :discount, :size => 6
+    .contentwrap_XL.last
+      %p.border-left.formhelp== #{"<em>Add specific directions for special campaign scenarios here</em>".html_safe}
 
   - unless @tag.new_record?
     %hr
