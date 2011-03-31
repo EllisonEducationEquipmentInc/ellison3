@@ -31,4 +31,9 @@ class UserMailer < ActionMailer::Base
 	  @feedback = feedback
 	  mail(:to => feedback.email, :subject => "RE: [#{get_domain.capitalize}] #{feedback.subject} - #{feedback.id}")
 	end
+	
+	def subscription_confirmation(subscription)
+	  @subscription = subscription
+	  mail(:to => subscription.email, :subject => "#{get_domain.capitalize} #{subscription.list_name} Subscription Confirmation")
+	end
 end

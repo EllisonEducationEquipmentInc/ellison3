@@ -128,4 +128,4 @@
                 = number_to_currency @order.payment.paid_amount
               - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
                 %td= number_to_currency(@order.payment.deferred_payment_amount)
-        %td{ :align => "right"}
+        %td{ :align => "right"} 

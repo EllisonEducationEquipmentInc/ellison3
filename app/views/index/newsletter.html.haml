@@ -1,4 +1,4 @@
-= form_for @subscription, :url => url_for(:action => :save_subscription) do |f|
+= form_for @subscription, :url => url_for(:action => :create_subscription) do |f|
   = f.error_messages
   .field
     = f.label :email
