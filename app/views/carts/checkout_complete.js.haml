@@ -6,7 +6,7 @@
   '#{get_domain}', // affiliation or store name
   '#{convert_2_gbp @order.total_amount}',          // total - required
   '#{convert_2_gbp(@order.tax_amount + @order.shipping_vat)}',           // tax
-  '#{convert_2_gbp(@order.shipping_amount)}',          // shipping
+  '#{convert_2_gbp(@order.shipping_amount + @order.handling_amount)}',          // shipping
   '#{@order.address.city}',       // city
   '#{@order.address.state}',     // state or province
   '#{@order.address.country}'             // country
