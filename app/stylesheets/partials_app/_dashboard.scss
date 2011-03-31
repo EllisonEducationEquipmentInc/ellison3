@@ -14,8 +14,25 @@ ul.record_info {
   border: 1px solid #D9D6C4;
 }
 
-ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products, ul#tag_products, ul#tag_ideas { @extend ul.plain;
+ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products { @extend ul.plain;
   margin-bottom: 10px !important;
+}
+
+ul#tag_products, ul#tag_ideas { @extend ul.horizontal;
+  margin-bottom: 10px !important;
+
+  li {
+    width: 306px;
+    margin-right: 10px !important;
+    
+    .item-links { @extend .left;
+      width: 36px;
+    }
+    .item-name { @extend .left;
+      width: 266px;
+      margin-left: 4px;
+    }
+  }
 }
 
 .product_admin_thumbnail, .idea_admin_thumbnail { @extend .thumbnail; }
