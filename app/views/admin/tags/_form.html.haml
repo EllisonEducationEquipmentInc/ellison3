@@ -115,11 +115,13 @@
       = f.label :description, "Description <span class='formhelp'><em>for internal admin use only</em></span>".html_safe, :class => "autosize"
       %br
       = f.text_area :description, :cols => 57, :rows => 5
-  
-  .clear
-  %br
-  %br
-  #visual_assets  
+
+  %hr
+  #visual_assets.contentwrap_XXXL.last
+    - unless @tag.visual_assets.blank?
+      %h3.left Visual Assets
+      %p.right.link_collapse.minilink= link_to "collapse all", "#", :onclick => "$('.visual_asset, .child_visual_asset').css({height:'25px',overflow:'hidden'}); return false;"
+    .clear
     = f.fields_for :visual_assets, @tag.visual_assets.ordered do |visual_asset_fields|
       = render 'admin/visual_assets/visual_asset', :f => visual_asset_fields
     = link_to_add_fields "Add Visual Asset", f, :visual_assets
