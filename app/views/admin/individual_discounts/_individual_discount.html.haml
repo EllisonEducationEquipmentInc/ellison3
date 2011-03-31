@@ -1,12 +1,11 @@
 %li.ui-menu-item
   = f.text_field :item_num, :placeholder => "item num", :class => 'product_autocomplete'
-  %span.tip_discount-type
-    = f.select :discount_type, Campaign::DISCOUNT_TYPES, {}, :class => 'individual_discount_type'
+  = f.select :discount_type, Campaign::DISCOUNT_TYPES, {}, :class => 'individual_discount_type'
   = f.text_field :discount, :placeholder => "discount value", :size => 6, :class => 'individual_discount_value', :onkeyup => "$(this).siblings('input.individual_product_price').val(calculate_sale_price($(this).siblings('input.individual_product_msrp').val(), this.value, $(this).siblings('.individual_discount_type').val()))", :onblur => "add_individual_discount();$(this).parent('li').next('li').find('.product_autocomplete').focus();"
   = f.text_field :msrp, :placeholder => "msrp", :size => 6, :readonly => true, :class => 'individual_product_msrp'
   = f.text_field :price, :placeholder => "sales price", :size => 6, :class => 'individual_product_price', :readonly => true
   = f.check_box :_destroy
-  = f.label :_destroy, "Mark for Removal", :class => "autosize minilink", :style => "font-weight: normal"
+  = f.label :_destroy, "Mark this item for removal from list", :class => "autosize minilink", :style => "font-weight: normal"
   =# link_to_function "remove", "$(this).parent('li').remove()"
   %br
   = f.text_field :product_id, :class => 'transperent individual_product_id', :readonly => true, :size => 25

@@ -328,8 +328,10 @@ a.next_button { @extend a.prev_button;
 .tip_related-ideas { @extend .tip_question; }
 
 .tip_discount-type { @extend .tip_question;
+  height: 19px;
+  margin: 0 8px 0 10px;
   padding: 0 18px 0 0;
-  background-position: right bottom;
+  background-position: right center;
 }
 
 .icon_requiredfield { @extend .icon;

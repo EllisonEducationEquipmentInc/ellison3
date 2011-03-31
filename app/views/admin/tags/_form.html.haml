@@ -23,13 +23,25 @@
 
   %hr
   %h3.contentwrap_XXXL Basic Information
-  .contentwrap_XXXL.last
+  .contentwrap_large
     .field.left
-      = required_label f,  :name, { :label => "Tag Name", :label_size => "auto"}
+      = required_label f,  :name, { :label => "Tag Name" }
       = f.text_field :name  
-    .field.left{ :style => "margin-left: 32px;"}
-      = f.label :tag_type, "Tag Type", :class => "autosize"
+    .field.left 
+      = f.label :tag_type, "Tag Type"
       = f.select :tag_type, Tag.all_types.map {|t| [t.humanize, t]}, {}, :onchange => "toggle_tag_type_fields()"  
+  .contentwrap_large.last
+    .field
+      .left{ :style => "margin-right: 10px"}= image_tag(@tag.image_url(:small)) if @tag.image?
+      .left
+        %span.icon_imagefield= f.label :image, "List Page Image"
+        = f.file_field :image
+        = f.hidden_field :image_cache
+        - unless f.object.new_record?
+          %br
+          %br
+          = f.check_box :remove_image, :style => "margin-left: 0"
+          = f.label :remove_image, :class => "autosize"
   
   #new_campaign{:style => "display:#{@tag.campaign? ? 'block' : 'none'}"}
     %hr
@@ -37,9 +49,14 @@
     .contentwrap_XXXL.last
       - unless f.object.new_record?
         .field
-          = f.label :embed_campaign, "Embed/update campaign"
-          = f.check_box :embed_campaign, :disabled => f.object.new_record?
-          (if checked, discount will be batch applied to associated products. If not checked, this "campaign" will have no effect on product pricing whatsoever)
+          = f.label :embed_campaign, "Apply discounts to associated products?", :class => "autosize"
+          %br
+          = f.radio_button(:embed_campaign, true, :style => "margin: 0 3px 0 10px")
+          Yes, batch apply discount to associated products.
+          %br
+          = f.radio_button(:embed_campaign, false, :style => "margin: 0 3px 0 10px")
+          No. Leave current product pricing as-is.
+
       = f.fields_for :campaign, @tag.campaign do |campaign_fields|
         .field
           = campaign_fields.label :individual, "How should discounts be configured & applied?", :class => "autosize"
@@ -69,15 +86,14 @@
     %hr
     %h3.contentwrap_XXXL.last Related Products
     %ul.contentwrap_XXXL.last#tag_products= render :partial => 'product', :collection => @tag.products, :locals => {:tag_id => @tag.id}
-    = text_field_tag "tag_products_helper"
+    = text_field_tag "tag_products_helper", nil, :style => "margin-bottom: 10px"
     %hr
     %h3.contentwrap_XXXL.last Related Ideas
     %ul.contentwrap_XXXL.last#tag_ideas= render :partial => 'idea', :collection => @tag.ideas, :locals => {:tag_id => @tag.id}
-    = text_field_tag "tag_ideas_helper"
+    = text_field_tag "tag_ideas_helper", nil, :style => "margin-bottom: 10px"
   
   %hr
-  %h3.contentwrap_XXXL.last asfj lfjsjdfal slkjf Stuff.
-  .contentwrap_medium
+  .contentwrap_large
     .field
       = f.label "calendar_start_date_#{current_system}", "<span class='icon_datefield'>Calendar Start Date #{current_system.upcase}</span>".html_safe, :class => 'overrideable ui-corner-all', :style => 'width: 175px'
       = f.text_field "calendar_start_date_#{current_system}", :class => 'datetimepicker'
@@ -92,17 +108,7 @@
       = f.label :color, :class => "autosize"
       = f.select :color, %w(#336699 #339933 #ff9900 #ff0000 #ff00cc #3399cc #33cc33 #993333), :include_blank => true
   
-  .contentwrap_medium
-    .field
-      = f.label :image, "List page image"
-      = image_tag(@tag.image_url(:small)) if @tag.image? 
-      = f.file_field :image
-      = f.hidden_field :image_cache
-      %br
-      = f.label :remove_image
-      = f.check_box :remove_image
-  
-  .contentwrap_medium.last
+  .contentwrap_large.last
     .field
       = f.label :description, "Description <span class='formhelp'><em>for internal admin use only</em></span>".html_safe, :class => "autosize"
       %br
@@ -146,7 +152,16 @@
     			},
   	select: function(event, ui) {
   	  this.value = '';
-  		$.ajax({url:'/admin/tags/add_product?product_id='+ui.item.id+'&id=#{@tag.id}', success: function(html) {$('#tag_products').append(html)}});
+  		$.ajax({
+  		  url:'/admin/tags/add_product?product_id='+ui.item.id+'&id=#{@tag.id}',
+  		  success: function(html) {
+  		    $('#tag_products').append(html);
+  		    $('#tag_products').find('.spinner').remove();
+  		  },
+  		  beforeSend: function(){
+  		    $('#tag_products').append('#{escape_javascript loader_bar}');
+  		  }  		  
+  		});
   		return false;
   	}});
   $("#tag_ideas_helper").autocomplete({
@@ -169,7 +184,16 @@
     			},
   	select: function(event, ui) {
   	  this.value = '';
-  	  $.ajax({url:'/admin/tags/add_idea?idea_id='+ui.item.id+'&id=#{@tag.id}', success: function(html){$('#tag_ideas').append(html)}});
+  	  $.ajax({
+  	    url:'/admin/tags/add_idea?idea_id='+ui.item.id+'&id=#{@tag.id}',
+  	    success: function(html){
+  	      $('#tag_ideas').append(html);
+  	      $('#tag_ideas').find('.spinner').remove();
+  	    },
+  		  beforeSend: function(){
+  		    $('#tag_ideas').append('#{escape_javascript loader_bar}');
+  		  }
+  	  });
   		return false;
   	}});
   
@@ -177,6 +201,5 @@
   toggle_tag_type_fields();
   
   function toggle_tag_type_fields(){
-    if ($('#tag_tag_type').val() == 'special') {$('#new_campaign').show();$('#tag_embed_campaign').attr('checked', true)} else {$('#new_campaign').hide()}
-    if ($('#tag_tag_type').val() == 'calendar_event') {$('.calendar_event').show();} else {$('.calendar_event').hide()}
+    if ($('#tag_tag_type').val() == 'special') {$('#new_campaign').show();$('#tag_embed_campaign_true').attr('checked', true)} else {$('#new_campaign').hide()}
   }
