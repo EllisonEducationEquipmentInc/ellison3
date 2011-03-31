@@ -24,16 +24,16 @@
   %hr
   %h3.contentwrap_XXXL Basic Information
   .contentwrap_XXXL.last
-    .field
-      = required_label f,  :name, { :label => "Tag Name"}
+    .field.left
+      = required_label f,  :name, { :label => "Tag Name", :label_size => "auto"}
       = f.text_field :name  
-    .field
-      = f.label :tag_type, "Tag Type"
+    .field.left{ :style => "margin-left: 32px;"}
+      = f.label :tag_type, "Tag Type", :class => "autosize"
       = f.select :tag_type, Tag.all_types.map {|t| [t.humanize, t]}, {}, :onchange => "toggle_tag_type_fields()"  
   
   #new_campaign{:style => "display:#{@tag.campaign? ? 'block' : 'none'}"}
     %hr
-    %h3.contentwrap_XXXL.last Campaign
+    %h3.contentwrap_XXXL.last Special/Campaign Details
     .contentwrap_XXXL.last
       - unless f.object.new_record?
         .field
@@ -42,8 +42,13 @@
           (if checked, discount will be batch applied to associated products. If not checked, this "campaign" will have no effect on product pricing whatsoever)
       = f.fields_for :campaign, @tag.campaign do |campaign_fields|
         .field
-          = campaign_fields.label :individual, "Individual Pricing (each product has individual discount)"
-          = campaign_fields.check_box :individual, :onclick => "update_campaign()"
+          = campaign_fields.label :individual, "How should discounts be configured & applied?", :class => "autosize"
+          %br
+          = campaign_fields.radio_button(:individual, false, :style => "margin: 0 3px 0 10px", :onclick => "update_campaign();")
+          == #{"as <em>one</em> discount for <strong>a group</strong> of products".html_safe}
+          %br
+          = campaign_fields.radio_button(:individual, true, :style => "margin: 0 3px 0 10px", :onclick => "update_campaign();")          
+          == #{"as a <em>unique</em> discount for <strong>individual</strong> products".html_safe}
         .field.individual
           %ul#individual
             = campaign_fields.fields_for :individual_discounts do |individual_discount_fields|
@@ -54,11 +59,11 @@
                 #{add_fields_function('individual', campaign_fields, :individual_discounts)}
               };
         .field.discount
-          = campaign_fields.label :discount_type
+          = campaign_fields.label :discount_type, :style => "width: 120px"
           = campaign_fields.select :discount_type, Campaign::DISCOUNT_TYPES
         .field.discount
-          = required_label campaign_fields, :discount
-          = campaign_fields.text_field :discount
+          = required_label campaign_fields, :discount, { :label => "Discount Amount", :label_size => "120px"}
+          = campaign_fields.text_field :discount, :size => 6
 
   - unless @tag.new_record?
     %hr
@@ -116,7 +121,7 @@
     = f.submit :class => 'wymupdate jqui_save'
 :javascript
   function update_campaign(){
-    if ($('#tag_campaign_individual').attr('checked')) {$('.discount').hide();$('.individual').show();} else {$('.discount').show();$('.individual').hide()}
+    if ($('#tag_campaign_individual_true').attr('checked')) { $('.discount').hide();$('.individual').show(); } else { $('.discount').show();$('.individual').hide();}
   };
   $('#visual_assets').sortable({tolerance: 'pointer', start: function(event, ui) {$('.visual_asset').css({height:"22px",overflow:"hidden"})}, stop: function(event, ui) {$('.visual_asset').css({height:"auto"})}, update: function(event, ui) {
     $.ajax({url:"/admin/tags/reorder_visual_assets?id=#{@tag.id}&"+$("#visual_assets").sortable('serialize')});

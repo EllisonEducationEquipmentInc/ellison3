@@ -327,6 +327,11 @@ a.next_button { @extend a.prev_button;
 
 .tip_related-ideas { @extend .tip_question; }
 
+.tip_discount-type { @extend .tip_question;
+  padding: 0 18px 0 0;
+  background-position: right bottom;
+}
+
 .icon_requiredfield { @extend .icon;
   padding: 0 16px 0 0;
   background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_asterisk-required.png") no-repeat right top;

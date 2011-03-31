@@ -155,3 +155,12 @@ ul#tag_products, ul#tag_ideas { @extend ul.horizontal;
 }
 
 .compatibility { @extend .visual_asset; }
+
+// Tags
+#new_campaign {
+  
+  ul#individual { @extend ul.plain;
+    
+    li { margin-bottom: 10px !important; }
+  }
+}
