@@ -138,8 +138,7 @@
       } else {
         if ($('#coupon_no_code_required_false').attr('checked')) {
           $('label[for=coupon_codes] span').addClass('required');        
-        }
-        if ($('#coupon_no_code_required_true').attr('checked')) {
+        } else {
           $('label[for=coupon_codes] span').removeClass('required');        
         }
       }
