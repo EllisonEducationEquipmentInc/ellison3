@@ -96,26 +96,28 @@
   %h3 Shopping Cart/Order Requirements
   .contentwrap_large
     .field
-      = f.label :cart_must_have
-      = link_to_function "add", "$('#cart_must_have_list').append('#{escape_javascript render :partial => 'cart_must_have', :locals => {:condition => {:any => []}}}')"
+      = f.label :cart_must_have, "The cart <strong><em>must</em></strong> have...".html_safe, :class => "autosize"
+      = link_to_function "add a new requirement", "$('#cart_must_have_list').append('#{escape_javascript render :partial => 'cart_must_have', :locals => {:condition => {:any => []}}}')"
       %ul#cart_must_have_list= render :partial => 'cart_must_have', :collection => @coupon.cart_must_have, :as => :condition
     .field
-      = f.label :order_has_to_be
+      = f.label :order_has_to_be, "The order <strong><em>must</em></strong> have...".html_safe, :class => "autosize"
       %ul#order_has_to_be_list
         %li.ui-menu-item
-          %strong Total weight:
-          Over
-          = text_field_tag "coupon[order_has_to_be][total_weight][over]", @coupon.order_has_to_be.try(:[], "total_weight").try(:[], "over")
-          Under
-          = text_field_tag "coupon[order_has_to_be][total_weight][under]", @coupon.order_has_to_be.try(:[], "total_weight").try(:[], "under")
+          == a total weight #{"<strong>over</strong>".html_safe}
+          = text_field_tag "coupon[order_has_to_be][total_weight][over]", @coupon.order_has_to_be.try(:[], "total_weight").try(:[], "over"), :size => 6
+          == pounds, and #{"<strong>under</strong>".html_safe}
+          = text_field_tag "coupon[order_has_to_be][total_weight][under]", @coupon.order_has_to_be.try(:[], "total_weight").try(:[], "under"), :size => 6
+          pounds.
         %li.ui-menu-item
-          %strong Sub Total:
-          Over
-          = text_field_tag "coupon[order_has_to_be][sub_total][over]", @coupon.order_has_to_be.try(:[], "sub_total").try(:[], "over")
-          Under
-          = text_field_tag "coupon[order_has_to_be][sub_total][under]", @coupon.order_has_to_be.try(:[], "sub_total").try(:[], "under")
+          == a subtotal #{"<strong>over</strong>".html_safe}
+          %span{:class => "icon_pricefield_#{current_currency}"}
+            = text_field_tag "coupon[order_has_to_be][sub_total][over]", @coupon.order_has_to_be.try(:[], "sub_total").try(:[], "over"), :size => 6
+          == , and #{"<strong>under</strong>".html_safe}
+          %span{:class => "icon_pricefield_#{current_currency}"}
+            = text_field_tag "coupon[order_has_to_be][sub_total][under]", @coupon.order_has_to_be.try(:[], "sub_total").try(:[], "under"), :size => 6
+          == .
   .contentwrap_large.last
-    = products_helper_tag('coupon[product_excluded_item_nums]', @coupon.product_excluded_item_nums, :label => "Products excluded from 'Order has to be' calculations above. (Also, these products will be excluded from order level and highest priced product discounts)")
+    = products_helper_tag('coupon[product_excluded_item_nums]', @coupon.product_excluded_item_nums, :label => "Exclusion List<br /><span class='formhelp'>Products listed here will be excluded from requirements specified within this section. Further, they will be excluded from order level and highest priced product discounts</span>".html_safe)
   %hr
   .field
     = f.label :description, :class => 'overrideable'

@@ -1,7 +1,7 @@
 %li.ui-menu-item
   = select_tag "coupon[cart_must_have][][key]", options_for_select(["any", "all"], condition.flatten[0])
   = text_field_tag "coupon[cart_must_have][][value]", condition.flatten[1].join(", "), :size => 50, :class => "cart_must_have"
-  = link_to_function "x", "$(this).parent('li').remove()"
+  = link_to_function "x", "$(this).parent('li').remove()", :class => "item_remove"
   :javascript
     $(function() {
     		$(".cart_must_have").autocomplete(auto_complete_options);

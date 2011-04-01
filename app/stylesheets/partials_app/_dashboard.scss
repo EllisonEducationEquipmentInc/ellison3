@@ -14,7 +14,7 @@ ul.record_info {
   border: 1px solid #D9D6C4;
 }
 
-ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products { @extend ul.plain;
+ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products, #cart_must_have_list, #order_has_to_be_list { @extend ul.plain;
   margin-bottom: 10px !important;
 }
 
@@ -55,7 +55,7 @@ ul#tag_products, ul#tag_ideas { @extend ul.horizontal;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/magnifier-medium.png") top left no-repeat;
 }
 
-.va_remove { @extend .remove_tag;
+.va_remove, .item_remove { @extend .remove_tag;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/cross-script.png") top left no-repeat;
 }
 
