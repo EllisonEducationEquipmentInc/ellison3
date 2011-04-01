@@ -89,10 +89,12 @@ ul#tag_products, ul#tag_ideas { @extend ul.horizontal;
   font-weight: bold;
   font-style: italic;
 }
-.product_helper_check_box_row, .idea_helper_check_box_row { @extend .keyword; }
-.admin_checkboxes {
+.admin_checkboxes { @extend .keyword;
 	width: 450px;
 	height: 250px;
+  padding-top: 6px;
+	border: 1px solid $catalog_buybox_border;
+	background: #FFF;
 	overflow: auto;
 }
 
