@@ -34,9 +34,12 @@
   .contentwrap_large.last
     .field
       = required_label f, :codes, { :label => "Coupon Code(s)", :label_size => "110px"}
-      %br
       = f.text_area :codes, :rows => 3, :cols => 40, :value => @coupon.codes.try(:join, ", ")
-      %p.formhelp To create aliases, add additional coupon codes here, separated by commas
+      %p.formhelp{:style => "margin-left: 122px"} To create aliases, add additional coupon codes here, separated by commas
+      
+  %hr
+  %h3.contentwrap_XXXL.last Coupon Details
+
 
   .clear
 
