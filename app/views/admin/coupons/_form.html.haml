@@ -15,10 +15,10 @@
       = system_enabled('coupon')
   .contentwrap_large.last
     .field
-      = f.label "start_date_#{current_system}", "Start Date #{current_system.upcase}", :class => 'overrideable'
+      = f.label "start_date_#{current_system}", "<span class='required'><span class='icon_datefield'>Start Date #{current_system.upcase}</span></span>".html_safe, :class => 'overrideable ui-corner-all', :style => 'width: 130px'
       = f.text_field "start_date_#{current_system}", :class => 'datetimepicker'
     .field
-      = f.label "end_date_#{current_system}", "End Date #{current_system.upcase}", :class => 'overrideable'
+      = f.label "end_date_#{current_system}", "<span class='required'><span class='icon_datefield'>End Date #{current_system.upcase}</span></span>".html_safe, :class => 'overrideable ui-corner-all', :style => 'width: 130px'
       = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
       
   %hr
@@ -33,15 +33,20 @@
     .field.shipping_level.level_specific
       = f.label :no_code_required, "Is a Coupon Code required?", :class => "autosize"
       yes
-      = f.radio_button(:no_code_required, true)
+      = f.radio_button(:no_code_required, false)
       no
       = f.radio_button(:no_code_required, true)
 
   .contentwrap_large.last
     .field
       = required_label f, :codes, { :label => "Coupon Code(s)", :label_size => "110px"}
-      = f.text_area :codes, :rows => 3, :cols => 40, :value => @coupon.codes.try(:join, ", ")
-      %p.formhelp{:style => "margin-left: 122px"} To create aliases, add additional coupon codes here, separated with commas
+      %br
+      = f.text_area :codes, :rows => 2, :cols => 57, :value => @coupon.codes.try(:join, ", ")
+      %p.formhelp To create aliases, add additional coupon codes here, separated with commas
+    .field
+      = f.label :description, :class => 'overrideable'
+      %br
+      = f.text_area :description, :rows => 2, :cols => 57
       
   %hr
   %h3.contentwrap_XXXL.last Coupon Details
@@ -121,11 +126,6 @@
           == .
   .contentwrap_large.last
     = products_helper_tag('coupon[product_excluded_item_nums]', @coupon.product_excluded_item_nums, :label => "Exclusion List<br /><span class='formhelp'>Products listed here will be excluded from requirements specified within this section. Further, they will be excluded from order level and highest priced product discounts.</span>".html_safe)
-  %hr
-  .field
-    = f.label :description, :class => 'overrideable'
-    %br
-    = f.text_area :description, :class => 'wymeditor'
   %br
   .clear
   .actions
@@ -134,7 +134,7 @@
     function update_coupon_level(){
       $('.level_specific').hide();
       $('.'+$('#coupon_level').attr('value')+'_level').show();
-      if ($('#coupon_level').attr('value') != 'shipping') $('#coupon_no_code_required').attr('checked', false);
+      if ($('#coupon_level').attr('value') != 'shipping') $('#coupon_no_code_required_true').attr('checked');
       if ($('#coupon_level').attr('value') == 'group') { $('.not_group').hide(); } else { $('.not_group').show(); }
       toggle_shpping_conditions();
       switch ($('#coupon_level').attr('value')) {
