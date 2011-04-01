@@ -80,12 +80,22 @@ ul#tag_products, ul#tag_ideas { @extend ul.horizontal;
   letter-spacing: 0;
 }
 
-// WYMeditor
-.wym_box {
-  ul {
-    padding: 0 !important;
-  }
+// helpers
+.product_search_by_tag, .idea_search_by_tag {
+  margin-right: 10px;
 }
+.product_search_selected_tag, .idea_search_selected_tag {
+  color: $link;
+  font-weight: bold;
+  font-style: italic;
+}
+.product_helper_check_box_row, .idea_helper_check_box_row { @extend .keyword; }
+.admin_checkboxes {
+	width: 450px;
+	height: 250px;
+	overflow: auto;
+}
+
 
 // MegaNav
 #meganav_admin {
@@ -169,5 +179,12 @@ ul#tag_products, ul#tag_ideas { @extend ul.horizontal;
         font-weight: normal;
       }
     }
+  }
+}
+
+// WYMeditor
+.wym_box {
+  ul {
+    padding: 0 !important;
   }
 }

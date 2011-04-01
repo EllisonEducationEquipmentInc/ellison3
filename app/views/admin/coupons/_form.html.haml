@@ -39,6 +39,23 @@
       
   %hr
   %h3.contentwrap_XXXL.last Coupon Details
+  .contentwrap_large
+    .field.not_group.left{:style => "margin-right: 10px"}
+      = required_label f, :discount_type, { :label => "Discount Type", :label_size => "auto"}
+      = f.select :discount_type, Coupon::DISCOUNT_TYPES.map {|e| [e.humanize, e]}
+    .field.not_group.left
+      = required_label f, :discount_value, { :label => "Discount Value", :label_size => "auto"}
+      = f.text_field :discount_value, :size => 6
+  .contentwrap_large.last
+    .field.product_level.order_level.highest_priced_product_level.level_specific
+      = f.label :free_shipping, "Do you want to add free shipping to this offer?", :class => "autosize"
+      yes
+      = f.radio_button(:free_shipping, true, :onclick => "toggle_shpping_conditions();")
+      no
+      = f.radio_button(:free_shipping, false, :onclick => "toggle_shpping_conditions();")
+  %hr
+  .contentwrap_XXXL.last
+  = products_helper_tag('coupon[product_item_nums]', @coupon.product_item_nums, :label => "List the Products to be discounted below:", :class => "product_level level_specific")
 
 
   .clear
@@ -47,14 +64,6 @@
     = f.label :no_code_required
     %br
     = f.check_box :no_code_required
-  .field.not_group
-    = required_field f.label(:discount_type)
-    %br
-    = f.select :discount_type, Coupon::DISCOUNT_TYPES.map {|e| [e.humanize, e]}
-  .field.not_group
-    = required_field f.label(:discount_value)
-    %br
-    = f.text_field :discount_value
   .field.group_level.level_specific
     %strong Child Coupons
     %br
@@ -63,11 +72,6 @@
       = link_to coupon.name, edit_admin_coupon_path(coupon)
       == (#{coupon.codes * ', '})
       %br
-  .field.product_level.order_level.highest_priced_product_level.level_specific
-    = f.label :free_shipping, "Free Shipping (check if you want to combine this offer with free shipping)"
-    %br
-    = f.check_box :free_shipping, :onchange => "toggle_shpping_conditions();"
-  = products_helper_tag('coupon[product_item_nums]', @coupon.product_item_nums, :label => "Products to discount (item nums):", :class => "product_level level_specific")
   .field.shipping_level.level_specific
     .right
       = f.label(:shipping_states, "Shipping States (if US)")
@@ -129,7 +133,7 @@
       }
     }
     function toggle_shpping_conditions(){
-      if ($('#coupon_free_shipping').attr('checked')) {
+      if ($('#coupon_free_shipping_true').attr('checked')) {
         $('.shipping_level').show();
       } else if ($('#coupon_level').attr('value') != 'shipping'){
         $('.shipping_level').hide();

@@ -1,4 +1,4 @@
-= link_to_function "add all visible", "$(this).parent().find('[type=checkbox][checked=false]:visible').attr('checked', true).each(function (i) {check_items_to_item_num_field(this, 'idea')})"
+= link_to_function "add all visible", "$(this).parent().find('[type=checkbox][checked=false]:visible').attr('checked', true).each(function (i) {check_items_to_item_num_field(this, 'idea')})", :class => "link_add-all"
 .admin_checkboxes
   - @ideas.each do |idea|
     %div{:class => "idea_helper_check_box_row #{idea.tag_ids * ' '}"}

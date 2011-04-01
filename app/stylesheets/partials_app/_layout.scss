@@ -318,6 +318,13 @@ a.next_button { @extend a.prev_button;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/star-small.png") no-repeat right bottom;
 }
 
+.link_add-all {
+  @extend .link;
+  @extend .minilink;
+  padding: 0 0 0 21px;
+  background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_cards-add-stack.png") no-repeat left bottom;
+}
+
 .tip_play-video { @extend .tip;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/film.png") no-repeat left bottom;
 }

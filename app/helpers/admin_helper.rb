@@ -24,7 +24,7 @@ module AdminHelper
           $('.product_helper_link').click(function(e){
             $(this).siblings('.product_search_by_tag').remove();
             $(this).siblings('.product_search_by_tag_area').remove();
-            $.ajax({url:'/admin/products/product_helper', context: $(e.currentTarget).parent(), beforeSend: function(){$(this).find('.product_helper_link').replaceWith('#{escape_javascript spinner}')}, success: function(data){$(this).find('.spinner').replaceWith(data);check_items_checkboxes(this)}});
+            $.ajax({url:'/admin/products/product_helper', context: $(e.currentTarget).parent(), beforeSend: function(){$(this).find('.product_helper_link').replaceWith('#{escape_javascript loader_bar}')}, success: function(data){$(this).find('.spinner').replaceWith(data);check_items_checkboxes(this)}});
             return false;
           });
           $('##{sanitize_to_id(name)}').autocomplete(auto_complete_options);
@@ -50,7 +50,7 @@ module AdminHelper
           	select: function(event, ui) {
           	  this.value = '';
           	  $(this).siblings('.product_search_selected_tag').html(ui.item.label);
-          	  $.ajax({url:'/admin/products/product_helper_by_tag?id='+ui.item.id, context: $(this).siblings('.product_search_by_tag_area'), beforeSend: function(){$(this).html('#{escape_javascript spinner}')}, success: function(data){$(this).find('.spinner').replaceWith(data);check_items_checkboxes($(this).parent())}});
+          	  $.ajax({url:'/admin/products/product_helper_by_tag?id='+ui.item.id, context: $(this).siblings('.product_search_by_tag_area'), beforeSend: function(){$(this).html('#{escape_javascript loader_bar}')}, success: function(data){$(this).find('.spinner').replaceWith(data);check_items_checkboxes($(this).parent())}});
           		return false;
           	}});
         JS
@@ -74,7 +74,7 @@ module AdminHelper
           $('.idea_helper_link').click(function(e){
             $(this).siblings('.idea_search_by_tag').remove();
             $(this).siblings('.idea_search_by_tag_area').remove();
-            $.ajax({url:'/admin/ideas/idea_helper', context: $(e.currentTarget).parent(), beforeSend: function(){$(this).find('.idea_helper_link').replaceWith('#{escape_javascript spinner}')}, success: function(data){$(this).find('.spinner').replaceWith(data);check_items_checkboxes(this, 'idea')}});
+            $.ajax({url:'/admin/ideas/idea_helper', context: $(e.currentTarget).parent(), beforeSend: function(){$(this).find('.idea_helper_link').replaceWith('#{escape_javascript loader_bar}')}, success: function(data){$(this).find('.spinner').replaceWith(data);check_items_checkboxes(this, 'idea')}});
             return false;
           });
           $('##{sanitize_to_id(name)}').autocomplete($.extend({}, auto_complete_options, {source: function(request, response) {
@@ -107,7 +107,7 @@ module AdminHelper
           	select: function(event, ui) {
           	  this.value = '';
           	  $(this).siblings('.idea_search_selected_tag').html(ui.item.label);
-          	  $.ajax({url:'/admin/ideas/idea_helper_by_tag?id='+ui.item.id, context: $(this).siblings('.idea_search_by_tag_area'), beforeSend: function(){$(this).html('#{escape_javascript spinner}')}, success: function(data){$(this).find('.spinner').replaceWith(data);check_items_checkboxes($(this).parent(), 'idea')}});
+          	  $.ajax({url:'/admin/ideas/idea_helper_by_tag?id='+ui.item.id, context: $(this).siblings('.idea_search_by_tag_area'), beforeSend: function(){$(this).html('#{escape_javascript loader_bar}')}, success: function(data){$(this).find('.spinner').replaceWith(data);check_items_checkboxes($(this).parent(), 'idea')}});
           		return false;
           	}});
         JS
