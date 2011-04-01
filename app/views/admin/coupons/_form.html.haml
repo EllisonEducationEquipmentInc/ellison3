@@ -120,7 +120,7 @@
             = text_field_tag "coupon[order_has_to_be][sub_total][under]", @coupon.order_has_to_be.try(:[], "sub_total").try(:[], "under"), :size => 6
           == .
   .contentwrap_large.last
-    = products_helper_tag('coupon[product_excluded_item_nums]', @coupon.product_excluded_item_nums, :label => "Exclusion List<br /><span class='formhelp'>Products listed here will be excluded from requirements specified within this section. Further, they will be excluded from order level and highest priced product discounts</span>".html_safe)
+    = products_helper_tag('coupon[product_excluded_item_nums]', @coupon.product_excluded_item_nums, :label => "Exclusion List<br /><span class='formhelp'>Products listed here will be excluded from requirements specified within this section. Further, they will be excluded from order level and highest priced product discounts.</span>".html_safe)
   %hr
   .field
     = f.label :description, :class => 'overrideable'
