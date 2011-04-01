@@ -33,13 +33,12 @@
     .field.shipping_level.level_specific
       = f.label :no_code_required, "Is a Coupon Code required?", :class => "autosize"
       yes
-      = f.radio_button(:no_code_required, false)
+      = f.radio_button(:no_code_required, false, :onclick => "if (this.checked) {$('label[for=coupon_codes] span').addClass('required');}")
       no
-      = f.radio_button(:no_code_required, true)
-
+      = f.radio_button(:no_code_required, true, :onclick => "if (this.checked) {$('label[for=coupon_codes] span').removeClass('required');}")
   .contentwrap_large.last
     .field
-      = required_label f, :codes, { :label => "Coupon Code(s)", :label_size => "110px"}
+      = required_label f, :codes, { :label => "Coupon Code(s)", :label_size => "auto" }
       %br
       = f.text_area :codes, :rows => 2, :cols => 57, :value => @coupon.codes.try(:join, ", ")
       %p.formhelp To create aliases, add additional coupon codes here, separated with commas
@@ -134,7 +133,10 @@
     function update_coupon_level(){
       $('.level_specific').hide();
       $('.'+$('#coupon_level').attr('value')+'_level').show();
-      if ($('#coupon_level').attr('value') != 'shipping') $('#coupon_no_code_required_false').attr('checked', true);
+      if ($('#coupon_level').attr('value') != 'shipping') {
+        $('#coupon_no_code_required_false').attr('checked', true);
+        $('label[for=coupon_codes] span').addClass('required');
+      }
       if ($('#coupon_level').attr('value') == 'group') { $('.not_group').hide(); } else { $('.not_group').show(); }
       toggle_shpping_conditions();
       switch ($('#coupon_level').attr('value')) {
