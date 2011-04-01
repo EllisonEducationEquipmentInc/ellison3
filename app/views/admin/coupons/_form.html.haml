@@ -65,7 +65,6 @@
     = products_helper_tag('coupon[product_item_nums]', @coupon.product_item_nums, :label => "List the Products to be discounted below:", :class => "product_level level_specific")
     .field.group_level.level_specific
       %strong Select coupons to include in this Group Coupon
-      %br
       %em== (Only coupons enabled for #{"<strong>#{system_name}</strong>".html_safe} are shown below)
       %br
       - Coupon.active.product_level.cache.each do |coupon|
