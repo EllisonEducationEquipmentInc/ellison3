@@ -64,13 +64,17 @@
     %hr.product_level.level_specific
     = products_helper_tag('coupon[product_item_nums]', @coupon.product_item_nums, :label => "List the Products to be discounted below:", :class => "product_level level_specific")
     .field.group_level.level_specific
-      %strong Child Coupons
+      %strong Select coupons to include in this Group Coupon
+      %br
+      %em== (Only coupons enabled for #{"<strong>#{system_name}</strong>".html_safe} are shown below)
       %br
       - Coupon.active.product_level.cache.each do |coupon|
-        = check_box_tag "coupon[child_ids][]", coupon.id, @coupon.child_ids.include?(coupon.id.to_s)
-        = link_to coupon.name, edit_admin_coupon_path(coupon)
-        == (#{coupon.codes * ', '})
-        %br
+        -# display only coupons enabled for current system
+        - if coupon.systems_enabled.any? {|u| u == current_system}
+          = check_box_tag "coupon[child_ids][]", coupon.id, @coupon.child_ids.include?(coupon.id.to_s)
+          = link_to coupon.name, edit_admin_coupon_path(coupon)
+          == [ <span class='minilink'><strong>#{coupon.codes * ', '}</strong></span> ]
+          %br
     %hr.shipping_level.level_specific
     .field.shipping_level.level_specific
       .contentwrap_large
@@ -96,11 +100,11 @@
   %h3 Shopping Cart/Order Requirements
   .contentwrap_large
     .field
-      = f.label :cart_must_have, "The cart <strong><em>must</em></strong> have...".html_safe, :class => "autosize"
+      = f.label :cart_must_have, "The customer's cart <strong><em>must</em></strong> have...".html_safe, :class => "autosize"
       = link_to_function "add a new requirement", "$('#cart_must_have_list').append('#{escape_javascript render :partial => 'cart_must_have', :locals => {:condition => {:any => []}}}')"
       %ul#cart_must_have_list= render :partial => 'cart_must_have', :collection => @coupon.cart_must_have, :as => :condition
     .field
-      = f.label :order_has_to_be, "The order <strong><em>must</em></strong> have...".html_safe, :class => "autosize"
+      = f.label :order_has_to_be, "The customer's order <strong><em>must</em></strong> have...".html_safe, :class => "autosize"
       %ul#order_has_to_be_list
         %li.ui-menu-item
           == a total weight #{"<strong>over</strong>".html_safe}
