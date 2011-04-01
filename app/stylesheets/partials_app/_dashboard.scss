@@ -161,6 +161,13 @@ ul#tag_products, ul#tag_ideas { @extend ul.horizontal;
   
   ul#individual { @extend ul.plain;
     
-    li { margin-bottom: 10px !important; }
+    li {
+      margin-bottom: 10px !important;
+      
+      label { @extend .minilink;
+        margin-right: 0;
+        font-weight: normal;
+      }
+    }
   }
 }

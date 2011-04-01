@@ -73,6 +73,12 @@
       .contentwrap_XXXL.last
         .field.individual
           %ul#individual
+            %li.ui-menu-item
+              = f.label :item_num, "Item Number", :style => "width: 76px"
+              = f.label :discount_type, "Discount Type", :style => "width: 85px"
+              = f.label :discount, "Discount Value", :style => "width: 90px"
+              = f.label :msrp, "MSRP", :style => "width: 90px"
+              = f.label :price, "Discount Price", :style => "width: 90px"
             = campaign_fields.fields_for :individual_discounts do |individual_discount_fields|
               = render :partial => 'admin/individual_discounts/individual_discount', :locals => {:f => individual_discount_fields}
             = link_to_add_fields "Add Product", campaign_fields, :individual_discounts
