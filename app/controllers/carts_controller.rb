@@ -226,6 +226,8 @@ class CartsController < ApplicationController
 		return unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
 		calculate_shipping(get_user.shipping_address)
 		render :inline => "<%= number_to_currency gross_price(get_cart.shipping_amount) %>"
+	rescue Shippinglogic::FedEx::Error => e
+	  render :js => "alert('Unable to calculate shipping rates. please check your shipping address or call customer service to place an order.');"
 	rescue Exception => e
 	  Rails.logger.error e.backtrace.join("\n")
 	  render :js => "alert('#{e}');"
