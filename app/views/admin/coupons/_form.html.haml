@@ -134,7 +134,7 @@
     function update_coupon_level(){
       $('.level_specific').hide();
       $('.'+$('#coupon_level').attr('value')+'_level').show();
-      if ($('#coupon_level').attr('value') != 'shipping') $('#coupon_no_code_required_true').attr('checked');
+      if ($('#coupon_level').attr('value') != 'shipping') $('#coupon_no_code_required_false').attr('checked', true);
       if ($('#coupon_level').attr('value') == 'group') { $('.not_group').hide(); } else { $('.not_group').show(); }
       toggle_shpping_conditions();
       switch ($('#coupon_level').attr('value')) {
