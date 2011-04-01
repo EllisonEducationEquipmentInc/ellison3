@@ -25,10 +25,10 @@
   %h3.contentwrap_XXXL.last Basic Information
   .contentwrap_large
     .field
-      = required_label f, :name, { :label => "Coupon Title" }
+      = required_label f, :name, { :label => "Coupon Title", :label_size => "110px"}
       = f.text_field :name, :size => 46
     .field
-      = required_label f, :level, { :label => "Discount Level" }
+      = required_label f, :level, { :label => "Discount Level", :label_size => "110px"}
       = f.select :level, Coupon::LEVELS.map {|e| [e.humanize, e]}, {}, :onchange => "update_coupon_level()"
 
   .contentwrap_large.last
