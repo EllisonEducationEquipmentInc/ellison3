@@ -321,7 +321,7 @@ private
     flash[:alert] = ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
     # raise RealTimeCartError, ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
     if @cart.cart_errors.present?
-      if request.xhr?
+      if request.xhr? || params[:format] && params[:format] == 'js'
         render :js => "window.location.href = '#{cart_path}'" and return false 
       else
         redirect_to(cart_path, :alert => flash[:alert] || I18n.t(:empty_cart)) and return false
