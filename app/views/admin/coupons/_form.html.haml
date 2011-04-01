@@ -131,6 +131,7 @@
       $('.'+$('#coupon_level').attr('value')+'_level').show();
       if ($('#coupon_level').attr('value') != 'shipping') $('#coupon_no_code_required').attr('checked', false);
       if ($('#coupon_level').attr('value') == 'group') { $('.not_group').hide(); } else { $('.not_group').show(); }
+      toggle_shpping_conditions();
       switch ($('#coupon_level').attr('value')) {
         case 'order':
           $('#coupon_discount_type').val('percent');
