@@ -135,8 +135,12 @@
       $('.'+$('#coupon_level').attr('value')+'_level').show();
       if ($('#coupon_level').attr('value') != 'shipping') {
         $('#coupon_no_code_required_false').attr('checked', true);
+      } else {
         if ($('#coupon_no_code_required_false').attr('checked')) {
           $('label[for=coupon_codes] span').addClass('required');        
+        }
+        if ($('#coupon_no_code_required_true').attr('checked')) {
+          $('label[for=coupon_codes] span').removeClass('required');        
         }
       }
       if ($('#coupon_level').attr('value') == 'group') { $('.not_group').hide(); } else { $('.not_group').show(); }
