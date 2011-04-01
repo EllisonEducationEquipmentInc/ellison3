@@ -1,36 +1,49 @@
 = form_for([:admin, @coupon], :html => {:multipart => true}) do |f|
   = f.error_messages
-  .field
-    = required_field f.label(:systems_enabled)
-    = system_enabled('coupon')
-  .field
-    = f.label :active
-    %br
-    = f.check_box :active
-  .field
-    = required_field f.label(:name)
-    %br
-    = f.text_field :name
+
+  %hr
+  %h3.contentwrap_XXXL.last System Visibility
+  .contentwrap_large
+    .field
+      = f.label :active, "This coupon is", :class => "autosize"
+      active
+      = f.radio_button(:active, true)
+      disabled
+      = f.radio_button(:active, false)
+    .field
+      = required_label f, :systems_enabled, { :label => "Enabled for", :label_size => "auto" }
+      = system_enabled('coupon')
+  .contentwrap_large.last
+    .field
+      = f.label "start_date_#{current_system}", "Start Date #{current_system.upcase}", :class => 'overrideable'
+      = f.text_field "start_date_#{current_system}", :class => 'datetimepicker'
+    .field
+      = f.label "end_date_#{current_system}", "End Date #{current_system.upcase}", :class => 'overrideable'
+      = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
+      
+  %hr
+  %h3.contentwrap_XXXL.last Basic Information
+  .contentwrap_large
+    .field
+      = required_label f, :name, { :label => "Coupon Title" }
+      = f.text_field :name, :size => 46
+    .field
+      = required_label f, :level, { :label => "Discount Level" }
+      = f.select :level, Coupon::LEVELS.map {|e| [e.humanize, e]}, {}, :onchange => "update_coupon_level()"
+
+  .contentwrap_large.last
+    .field
+      = required_label f, :codes, { :label => "Coupon Code(s)", :label_size => "110px"}
+      %br
+      = f.text_area :codes, :rows => 3, :cols => 40, :value => @coupon.codes.try(:join, ", ")
+      %p.formhelp To create aliases, add additional coupon codes here, separated by commas
+
+  .clear
+
   .field.shipping_level.level_specific
     = f.label :no_code_required
     %br
     = f.check_box :no_code_required
-  .field
-    = required_field f.label(:codes, "Coupon code(s) (separate codes with commas to create aliases)")
-    %br
-    = f.text_field :codes, :value => @coupon.codes.try(:join, ", ")
-  .field
-    = f.label "start_date_#{current_system}", "Start Date #{current_system.upcase}", :class => 'overrideable'
-    %br
-    = f.text_field "start_date_#{current_system}", :class => 'datetimepicker'
-  .field
-    = f.label "end_date_#{current_system}", "End Date #{current_system.upcase}", :class => 'overrideable'
-    %br
-    = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
-  .field
-    = required_field f.label(:level, "Level (discount applies to:)")
-    %br
-    = f.select :level, Coupon::LEVELS.map {|e| [e.humanize, e]}, {}, :onchange => "update_coupon_level()"
   .field.not_group
     = required_field f.label(:discount_type)
     %br
@@ -96,6 +109,8 @@
     = f.label :description, :class => 'overrideable'
     %br
     = f.text_area :description, :class => 'wymeditor'
+  %br
+  .clear
   .actions
     = f.submit :class => 'wymupdate jqui_save'
   :javascript
