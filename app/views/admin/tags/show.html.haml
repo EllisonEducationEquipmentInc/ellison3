@@ -4,7 +4,7 @@
 - if @tag.visual_assets.current(@time).present?
   #tag_visual_assets{:style => "width:750px;"}= render :partial => 'visual_assets/visual_asset', :collection => @tag.visual_assets.current(@time)
 .clear
-- if @tag.campaign?
+- if @tag.campaign? || @tag.tag_type == 'exclusive'
   %table
     %tr
       %th Item num
