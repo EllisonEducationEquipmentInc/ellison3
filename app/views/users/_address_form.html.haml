@@ -27,14 +27,14 @@
 .field-stacked.left
   = required_label f, :city, { :label_size => "auto"}
   = f.text_field :city, :size => "#{is_us? ? 17 : 19}", :style => "margin-right: 6px"
-.field-stacked.left{:id => "#{f.object.address_type}_state"}= render :partial => f.object.us? ? 'users/state_select' : 'users/state', :locals => {:f => f}
+.field-stacked.left{:id => "#{f.object.address_type}_state"}= render :partial => f.object.us? ? 'users/state_select' : f.object.country == 'Canada' ? 'users/province_select' : 'users/state', :locals => {:f => f}
 .clear
 .field-stacked.left
   = required_label f, :zip_code, { :label => "#{is_us? ? 'Zip' : 'Postal'} Code", :label_size => "auto" }
   = f.text_field :zip_code, :size => 10, :style => "margin-right: 6px"
 .field-stacked
   = required_label f, :country, { :label_size => "auto" }
-  = f.select :country, countries, {}, :onchange => "if (this.value == 'United States') {$('##{f.object.address_type}_state').html('#{escape_javascript(render(:partial => 'users/state_select', :locals => {:f => f}))}');$('##{f.object.address_type}_address_state').rules('add', {required: true});$('##{f.object.address_type}_address_phone').rules('add', {phoneUS: true});$('##{f.object.address_type}_address_zip_code').rules('add', {zipUS: true});} else {$('##{f.object.address_type}_state').html('#{escape_javascript(render(:partial => 'users/state', :locals => {:f => f}))}');$('##{f.object.address_type}_address_state').rules('remove');$('##{f.object.address_type}_address_phone').rules('remove', 'phoneUS');$('##{f.object.address_type}_address_zip_code').rules('remove', 'zipUS');}"
+  = f.select :country, countries, {}, :onchange => "if (this.value == 'United States') {$('##{f.object.address_type}_state').html('#{escape_javascript(render(:partial => 'users/state_select', :locals => {:f => f}))}');$('##{f.object.address_type}_address_state').rules('add', {required: true});$('##{f.object.address_type}_address_phone').rules('add', {phoneUS: true});$('##{f.object.address_type}_address_zip_code').rules('add', {zipUS: true});} else if (this.value == 'Canada') {$('##{f.object.address_type}_state').html('#{escape_javascript(render(:partial => 'users/province_select', :locals => {:f => f}))}');$('##{f.object.address_type}_address_state').rules('add', {required: true});$('##{f.object.address_type}_address_phone').rules('add', {phoneUS: true});$('##{f.object.address_type}_address_zip_code').rules('remove', {zipUS: true});} else {$('##{f.object.address_type}_state').html('#{escape_javascript(render(:partial => 'users/state', :locals => {:f => f}))}');$('##{f.object.address_type}_address_state').rules('remove');$('##{f.object.address_type}_address_phone').rules('remove', 'phoneUS');$('##{f.object.address_type}_address_zip_code').rules('remove', 'zipUS');}"
 .clear
 .field-stacked.left
   = required_label f, :phone, { :label_size => "auto" }
