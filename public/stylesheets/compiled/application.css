@@ -186,54 +186,58 @@ body.bp th, body.bp td, body.bp caption {
 }
 /* line 165, ../../../app/stylesheets/application.scss */
 #content .instructions {
+  border: 1px solid #D4D1BF;
   float: left;
+  height: 172px;
+  line-height: 130%;
+  margin: 5px 3px 12px;
+  padding: 8px;
   text-align: center;
-  margin: 5px;
-  width: 100px;
+  width: 128px;
 }
-/* line 171, ../../../app/stylesheets/application.scss */
+/* line 175, ../../../app/stylesheets/application.scss */
 #content .message_subject {
   cursor: pointer;
 }
-/* line 172, ../../../app/stylesheets/application.scss */
+/* line 176, ../../../app/stylesheets/application.scss */
 #content .asset_text_for_image {
   float: right;
   width: 600px;
 }
 
-/* line 177, ../../../app/stylesheets/application.scss */
+/* line 181, ../../../app/stylesheets/application.scss */
 p.show_cart {
   cursor: pointer;
 }
 
-/* line 178, ../../../app/stylesheets/application.scss */
+/* line 182, ../../../app/stylesheets/application.scss */
 #guest_checkout {
   float: right;
   width: 375px;
 }
 
-/* line 182, ../../../app/stylesheets/application.scss */
+/* line 186, ../../../app/stylesheets/application.scss */
 #returning_cuctomer {
   float: left;
   width: 375px;
 }
 
-/* line 187, ../../../app/stylesheets/application.scss */
+/* line 191, ../../../app/stylesheets/application.scss */
 #cart_total {
   font-size: 1.4em;
 }
 
-/* line 192, ../../../app/stylesheets/application.scss */
+/* line 196, ../../../app/stylesheets/application.scss */
 li#cart_total {
   border-top: 1px double gray;
 }
 
-/* line 193, ../../../app/stylesheets/application.scss */
+/* line 197, ../../../app/stylesheets/application.scss */
 .item_changed {
   background: #FBE3E4;
 }
 
-/* line 195, ../../../app/stylesheets/application.scss */
+/* line 199, ../../../app/stylesheets/application.scss */
 td.pre_order {
   color: red;
 }
