@@ -54,7 +54,10 @@
   #checkout_shipping_options
     #cod_info{:style => "display:#{get_user.shipping_address ? 'block' : 'none'}"}= render :partial => 'users/cod_form' if cod_allowed?
     %h3 Shipping Options
-    == weight: #{get_cart.total_weight} lbs
+    - unless is_uk? || is_ee?
+      - if admin_signed_in?
+        == virtual weight: #{get_cart.total_weight} lbs
+      == weight: #{get_cart.total_actual_weight} lbs
     #shipping_options= render :partial => "shipping_options" if get_user.shipping_address
   %h3 Payment
   #checkout_cc{:style => "display:#{get_user.billing_address && get_user.shipping_address ? 'block' : 'none'}"}= render :partial => 'payment' if get_user.billing_address && get_user.shipping_address

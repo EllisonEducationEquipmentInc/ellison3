@@ -53,9 +53,13 @@ class Cart
 	end
 	
 	def total_weight(excluded_items = [])
-		cart_items.reject {|e| excluded_items.include? e.item_num}.inject(0) {|sum, item| sum += (item.quantity * item.weight)}
+		cart_items.reject {|e| excluded_items.include? e.item_num}.inject(0) {|sum, item| sum += (item.quantity * item.weight)}.round(2)
 	end
 	
+	def total_actual_weight
+		cart_items.inject(0) {|sum, item| sum += (item.quantity * item.actual_weight)}.round(2)
+	end
+		
 	def total_volume
 		cart_items.inject(0) {|sum, item| sum += (item.quantity * item.volume)}
 	end
@@ -131,7 +135,7 @@ class Cart
 		  next if item.coupon?
 			product = item.product
 			item.write_attributes :sale_price => product.sale_price, :msrp => product.msrp_or_wholesale_price, :currency => current_currency, :small_image => product.small_image, :tax_exempt => product.tax_exempt, 
-			  :handling_price => product.handling_price, :retailer_price => product.retailer_price, :weight => product.virtual_weight, :out_of_stock => backorder_allowed? && product.listable?(current_system, item.quantity) ? product.out_of_stock?(current_system, item.quantity - 1) : product.out_of_stock?
+			  :handling_price => product.handling_price, :retailer_price => product.retailer_price, :weight => product.virtual_weight, :actual_weight => product.weight, :out_of_stock => backorder_allowed? && product.listable?(current_system, item.quantity) ? product.out_of_stock?(current_system, item.quantity - 1) : product.out_of_stock?
 			item.price = product.price unless item.custom_price
 			if check
 			  if quote
