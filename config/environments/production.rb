@@ -39,6 +39,13 @@ Ellison3::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
 	config.action_mailer.default_url_options = { :host => 'ellison.com' }
 	config.action_mailer.delivery_method = :smtp
+	ey_smtp_settings = {
+    :domain             => "sizzix.com", 
+    :address            => "smtp",
+    :port               => 25,
+    :perform_deliveries => true
+  }
+  config.action_mailer.smtp_settings = {:address => "mail.ellison.com", :port => 25} #ey_smtp_settings
 	config.action_mailer.perform_deliveries = true
 	config.action_mailer.raise_delivery_errors = false
 
