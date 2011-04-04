@@ -116,7 +116,7 @@ class Admin::VirtualTerminalController < ApplicationController
 	    if is_us? && !is_ee?
 			  us_shipping_rate(order.address, :weight => params[:weight]) || fedex_rate(order.address, :request_type => params[:request_type], :weight => params[:weight], :packaging_type => params[:packaging_type], :package_width => params[:package_width], :package_length => params[:package_length], :package_height => params[:package_height], :package_count => params[:package_count] )
 			else
-			  shipping_rate(order.address, :subtotal_amount => params[:subtotal_amount])
+			  shipping_rate(order.address, :subtotal_amount => params[:shipping_rate][:subtotal_amount])
 			end
 			render :text => fedex_rates_to_a(@rates) * '<br />'
 	  end
