@@ -1,0 +1,5 @@
+%h2== Retailer Application for user #{@user.email}
+= link_to 'back', admin_users_path
+|
+= link_to 'edit user', edit_admin_user_path(@user)
+= render :partial => 'users/view_retailer_application'
