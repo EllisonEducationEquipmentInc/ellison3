@@ -7,8 +7,7 @@
   == The provided downloads are in an Adobe Portable Document Format and require the free #{link_to 'Adobe Reader®', 'http://get.adobe.com/reader/', :target => '_blank'} to view the PDF versions.
   %br
   %br
-  %img{:src => "/images/ui-backgrounds/instructions_pdf_icon.png"} #{link_to 'Adobe Reader®', 'http://get.adobe.com/reader/', :target => '_blank'}
-  http://get.adobe.com/reader/
+  %img{:class=>"instruction_r", :src => "/images/ui-backgrounds/instructions_pdf_icon.png"}/
 - @products.each do |group|
   %h3= group["item_type"].try :pluralize
   - group["group"].each do |product|

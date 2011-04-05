@@ -170,17 +170,16 @@ body.bp th, body.bp td, body.bp caption {
     margin: 5px 6px 12px;
     padding: 8px;
     text-align: center;
-    width: 128px;
-    
-      img{
-        float:left;        
-      }
+    width: 128px;    
 	}
 	.instruction_img{
 	  float:left;
 	  width:377px;
 	  height:259px;
 	  margin-right:14px;
+	}
+	.instruction_r{
+	  float:right;
 	}
 	.instruction_frame{
 	  border-bottom: 1px dotted #D4D1BF;
