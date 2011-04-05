@@ -1,8 +1,14 @@
-%h2 Instructions
-%p
-  == Need some quick instructions or helpful hints? Lost the printed instructions that came with your dies or equipment? For your convenience the #{get_domain} Web Team has added booklets and instruction sheets that can be downloaded with a quick click.
-%p
+.instruction_frame
+  %img{:class=>"instruction_img", :src => "/images/ui-backgrounds/instructions_graphic.png"}/
+  %h2 Instructions
+  %p
+    == Need some quick instructions or helpful hints? Lost the printed instructions that came with your dies or equipment? For your convenience the #{get_domain} Web Team has added booklets and instruction sheets that can be downloaded with a quick click.
+  %p
   == The provided downloads are in an Adobe Portable Document Format and require the free #{link_to 'Adobe Reader®', 'http://get.adobe.com/reader/', :target => '_blank'} to view the PDF versions.
+  %br
+  %br
+  %img{:src => "/images/ui-backgrounds/instructions_pdf_icon.png"} #{link_to 'Adobe Reader®', 'http://get.adobe.com/reader/', :target => '_blank'}
+  http://get.adobe.com/reader/
 - @products.each do |group|
   %h3= group["item_type"].try :pluralize
   - group["group"].each do |product|

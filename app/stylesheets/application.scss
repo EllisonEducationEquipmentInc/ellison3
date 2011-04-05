@@ -167,10 +167,28 @@ body.bp th, body.bp td, body.bp caption {
     float: left;
     height: 172px;
     line-height: 130%;
-    margin: 5px 3px 12px;
+    margin: 5px 6px 12px;
     padding: 8px;
     text-align: center;
     width: 128px;
+    
+      img{
+        float:left;        
+      }
+	}
+	.instruction_img{
+	  float:left;
+	  width:377px;
+	  height:259px;
+	  margin-right:14px;
+	}
+	.instruction_frame{
+	  border-bottom: 1px dotted #D4D1BF;
+	  float: left;
+	  height: 259px;
+	  margin: 8px 12px 8px 0;
+	  padding-bottom: 10px;
+	  width: auto;
 	}
 	.message_subject{cursor:pointer;}
 	.asset_text_for_image{
