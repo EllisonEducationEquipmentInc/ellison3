@@ -77,7 +77,7 @@
         	url: "/solr_terms/"+request.term,
         	dataType: 'text json',
         	data: {},
-        	success: function( data ) {response(data.terms[0][1].map(function(n,i){return n[0]}))}
+        	success: function( data ) {response($.map(data.terms[0][1],function(n,i){return n[0]}))}
         });
     	},
     	search: function() {
