@@ -1,4 +1,10 @@
 .credit_card
+  .field
+    = f.check_box :save_credit_card
+    = f.label :save_credit_card, "Tokenize Billing Info"
+  .field
+    = f.text_field :subscriptionid, :onchange => "if (this.value == '') {$('.cc, .address').attr('disabled', false)} else {$('.cc, .address').attr('disabled', true)}"
+    = f.label :subscriptionid
   .left.field-stacked
     = required_label f, :card_name, { :label => "Credit Card Type", :label_size => "auto" }
     = f.select :card_name, Payment.cards, {:prompt => "--- card type ---"}, :class => "cc", :style => "margin-right: 6px"

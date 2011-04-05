@@ -60,11 +60,12 @@ class Admin::VirtualTerminalController < ApplicationController
   end
 	
 	def cc_purchase
+	  @original_system = current_system
+	  set_current_system params[:purchase_system]
 	  order = Order.new(params[:cc_purchase])	  
-    if params[:purchase_total_amount].to_f > 0
-      process_card(:amount => (params[:purchase_total_amount].to_f * 100).round, :payment => order.payment, :order => params[:purchase_order_id], :capture => params[:purchase_transaction_type] != "authorize", :use_payment_token => false, :system => params[:purchase_system])
-      VirtualTransaction.create(:user => current_admin.email, :transaction_type => params[:purchase_transaction_type], :result => @payment.status, :raw_result => @payment.authorization, :transaction_id => @payment.security_key, :details => {:payment => @payment.attributes.to_hash})
-    end
+	  order.payment.subscriptionid = nil if order.payment.subscriptionid.blank?
+    process_card(:amount => (params[:purchase_total_amount].to_f * 100).round, :payment => order.payment, :order => params[:purchase_order_id], :capture => params[:purchase_transaction_type] != "authorize", :use_payment_token => order.payment.subscriptionid.present?, :system => params[:purchase_system])
+    VirtualTransaction.create(:user => current_admin.email, :transaction_type => params[:purchase_transaction_type], :result => @payment.status, :raw_result => @payment.authorization, :transaction_id => @payment.security_key, :details => {:payment => @payment.attributes.to_hash})
     text = ""
     ["subscriptionid", "cv2_result", "status", "vpstx_id", "security_key", "tx_auth_no", "status_detail", "address_result", "post_code_result", "paid_amount", "authorization"].each do |s|
       text << "#{s.titleize}: #{@payment.send(s)}<br />"
@@ -73,9 +74,13 @@ class Admin::VirtualTerminalController < ApplicationController
     render :text => text
   rescue Exception => e
     render :text => e.to_s #+ "\n" + e.backtrace.join("\n")
+  ensure
+    set_current_system @original_system 
 	end
 	
 	def cc_capture
+	  @original_system = current_system
+	  set_current_system params[:cc_capture_system]
     get_gateway params[:cc_capture_system]
     @net_response = @gateway.capture(params[:cc_capture_total_amount].to_f * 100, params[:authorization])
     if @net_response.success?
@@ -86,9 +91,13 @@ class Admin::VirtualTerminalController < ApplicationController
     render :text => "Authorization: #{@net_response.authorization}, #{@net_response.params.inspect} <br>AX URL Encoded Authorization string: #{CGI::escape(@net_response.authorization)}"
   rescue Exception => e
     render :text => e
+  ensure
+    set_current_system @original_system
 	end
 	
 	def cc_refund
+	  @original_system = current_system
+	  set_current_system params[:cc_refund_system]
     get_gateway params[:cc_refund_system]
     timeout(50) do
 			@net_response = @gateway.credit(params[:amount_to_refund].to_f * 100, params[:refund_authorization])
@@ -101,6 +110,8 @@ class Admin::VirtualTerminalController < ApplicationController
     render :text => "Authorization: #{@net_response.authorization}, #{@net_response.params.inspect}"
   rescue Exception => e
     render :text => e
+  ensure
+    set_current_system @original_system
 	end
 	
 	def shipping_rate_calculator
@@ -122,6 +133,11 @@ class Admin::VirtualTerminalController < ApplicationController
 	  end
 	rescue Exception => e
     render :text => e
+	end
+	
+	def get_account
+	  @user = User.where(:erp => params[:erp_id]).first
+
 	end
 	
 end

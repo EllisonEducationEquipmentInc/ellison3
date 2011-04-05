@@ -1,0 +1,4 @@
+- if @user && @user.token.try(:subscriptionid)
+ == $('#cc_purchase_payment_subscriptionid').val('#{@user.token.subscriptionid}').trigger('change');
+- else
+ alert('User not found, or user has no subscriptionid');

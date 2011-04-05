@@ -132,6 +132,13 @@
       .left.field
         = label_tag :purchase_order_id, "Order ID", :class => "autosize"
         = text_field_tag :purchase_order_id, params[:order_id]
+      .left.field
+        = label_tag :erp_id, "Axapta ID", :class => "autosize"
+        = text_field_tag :erp_id, params[:erp_id]
+        :javascript
+          $('#erp_id').change(function() {
+            $.ajax({url:"/admin/virtual_terminal?erp_id="+this.value});
+          });
       .clear
       %hr
       = f.fields_for @order.payment do |payment_fields| 
@@ -148,40 +155,40 @@
                 errorClass: "invalid",
                 rules: { 
                     "#{f.object_name[/^\w+/]}[payment][first_name]": { 
-                        required: true
+                        required: function(){return $('#cc_purchase_payment_subscriptionid').val() == ''}
                     }, 
                     "#{f.object_name[/^\w+/]}[payment][last_name]": { 
-                        required: true
+                        required: function(){return $('#cc_purchase_payment_subscriptionid').val() == ''}
                     }, 
                     "#{f.object_name[/^\w+/]}[payment][address1]": { 
-                        required: true, 
+                        required: function(){return $('#cc_purchase_payment_subscriptionid').val() == ''}, 
                     }, 
                     "#{f.object_name[/^\w+/]}[payment][city]": { 
-                        required: true, 
+                        required: function(){return $('#cc_purchase_payment_subscriptionid').val() == ''}, 
                     },
                     "#{f.object_name[/^\w+/]}[payment][state]": {
-                        required: true
+                        required: function(){return $('#cc_purchase_payment_subscriptionid').val() == ''}
                     }, 
                     "#{f.object_name[/^\w+/]}[payment][zip_code]": {
-                        required: true
+                        required: function(){return $('#cc_purchase_payment_subscriptionid').val() == ''}
                     }, 
                     "#{f.object_name[/^\w+/]}[payment][email]": { 
-                        required: true, 
+                        required: function(){return $('#cc_purchase_payment_subscriptionid').val() == ''}, 
                     },
                     "#{f.object_name[/^\w+/]}[payment][card_name]": { 
-                        required: true, 
+                        required: function(){return $('#cc_purchase_payment_subscriptionid').val() == ''}, 
                     },
                     "#{f.object_name[/^\w+/]}[payment][full_card_number]": { 
-                        required: true, 
+                        required: function(){return $('#cc_purchase_payment_subscriptionid').val() == ''}, 
                     },
                     "#{f.object_name[/^\w+/]}[payment][card_security_code]": { 
-                        required: true, 
+                        required: function(){return $('#cc_purchase_payment_subscriptionid').val() == ''}, 
                     },
                     "#{f.object_name[/^\w+/]}[payment][card_expiration_month]": { 
-                        required: true, 
+                        required: function(){return $('#cc_purchase_payment_subscriptionid').val() == ''}, 
                     },
                     "#{f.object_name[/^\w+/]}[payment][card_expiration_year]": { 
-                        required: true, 
+                        required: function(){return $('#cc_purchase_payment_subscriptionid').val() == ''}, 
                     },
                    "purchase_total_amount": { 
                         required: true, 
