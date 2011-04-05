@@ -2,4 +2,7 @@
 
 = render 'form'
 
+- @user.addresses.each do |address|
+  %h3== #{address.address_type.try :humanize} Address
+  = render :partial => 'users/address_details', :locals => {:address => address}
 = link_to 'Back', admin_users_path, :class => 'jqui_back'

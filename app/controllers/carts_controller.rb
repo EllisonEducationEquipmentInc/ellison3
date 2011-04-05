@@ -227,7 +227,7 @@ class CartsController < ApplicationController
 		calculate_shipping(get_user.shipping_address)
 		render :inline => "<%= number_to_currency gross_price(get_cart.shipping_amount) %>"
 	rescue Shippinglogic::FedEx::Error => e
-	  render :js => "alert('Unable to calculate shipping rates. please check your shipping address or call customer service to place an order.');"
+	  render :js => "alert('Unable to calculate shipping rates. please check your shipping address and try again, or call customer service to place an order.');"
 	rescue Exception => e
 	  Rails.logger.error e.backtrace.join("\n")
 	  render :js => "alert('#{e}');"

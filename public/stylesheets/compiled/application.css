@@ -196,17 +196,17 @@ body.bp th, body.bp td, body.bp caption {
   width: 128px;
 }
 /* line 175, ../../../app/stylesheets/application.scss */
-#content .instructions img {
-  float: left;
-}
-/* line 179, ../../../app/stylesheets/application.scss */
 #content .instruction_img {
   float: left;
   width: 377px;
   height: 259px;
   margin-right: 14px;
 }
-/* line 185, ../../../app/stylesheets/application.scss */
+/* line 181, ../../../app/stylesheets/application.scss */
+#content .instruction_r {
+  float: right;
+}
+/* line 184, ../../../app/stylesheets/application.scss */
 #content .instruction_frame {
   border-bottom: 1px dotted #D4D1BF;
   float: left;
@@ -215,49 +215,49 @@ body.bp th, body.bp td, body.bp caption {
   padding-bottom: 10px;
   width: auto;
 }
-/* line 193, ../../../app/stylesheets/application.scss */
+/* line 192, ../../../app/stylesheets/application.scss */
 #content .message_subject {
   cursor: pointer;
 }
-/* line 194, ../../../app/stylesheets/application.scss */
+/* line 193, ../../../app/stylesheets/application.scss */
 #content .asset_text_for_image {
   float: right;
   width: 600px;
 }
 
-/* line 199, ../../../app/stylesheets/application.scss */
+/* line 198, ../../../app/stylesheets/application.scss */
 p.show_cart {
   cursor: pointer;
 }
 
-/* line 200, ../../../app/stylesheets/application.scss */
+/* line 199, ../../../app/stylesheets/application.scss */
 #guest_checkout {
   float: right;
   width: 375px;
 }
 
-/* line 204, ../../../app/stylesheets/application.scss */
+/* line 203, ../../../app/stylesheets/application.scss */
 #returning_cuctomer {
   float: left;
   width: 375px;
 }
 
-/* line 209, ../../../app/stylesheets/application.scss */
+/* line 208, ../../../app/stylesheets/application.scss */
 #cart_total {
   font-size: 1.4em;
 }
 
-/* line 214, ../../../app/stylesheets/application.scss */
+/* line 213, ../../../app/stylesheets/application.scss */
 li#cart_total {
   border-top: 1px double gray;
 }
 
-/* line 215, ../../../app/stylesheets/application.scss */
+/* line 214, ../../../app/stylesheets/application.scss */
 .item_changed {
   background: #FBE3E4;
 }
 
-/* line 217, ../../../app/stylesheets/application.scss */
+/* line 216, ../../../app/stylesheets/application.scss */
 td.pre_order {
   color: red;
 }
