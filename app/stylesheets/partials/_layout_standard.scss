@@ -34,9 +34,18 @@
 // advertisements
 .mini-banner { @include column(24, true); }
 
-// for three equal column layouts (like the footer)
+// columns
+
+// for three equal column layouts (like the footer), using blueprint framework
 .column { @include column(8); }
 
+.column_50 { @extend .column; @extend .last;
+  width: 50%;
+}
+
+.column_33 { @extend .column; @extend .last;
+  width: 33%;
+}
 
 // footer
 .copyright { @include column(24, true); }

@@ -1,27 +1,29 @@
-.field.credit_card
-  .left
-    = required_field(f.label :card_name)
-    %br
-    = f.select :card_name, Payment.cards, {:prompt => "--- card type ---"}, :class => "cc"
-  .left
-    = required_field(f.label :full_card_number, "Credit Card Number")
-    %br
-    = f.text_field :full_card_number, :class => "cc"
-  .left
-    = required_field(f.label :card_security_code)
-    %br
+.credit_card
+  .left.field-stacked
+    = required_label f, :card_name, { :label => "Credit Card Type", :label_size => "auto" }
+    = f.select :card_name, Payment.cards, {:prompt => "--- card type ---"}, :class => "cc", :style => "margin-right: 6px"
+  .left.field-stacked
+    = required_label f, :full_card_number, { :label => "Credit Card Number", :label_size => "auto" }
+    = f.text_field :full_card_number, :class => "cc", :style => "margin-right: 6px"
+  .left.field-stacked
+    = required_label f, :card_security_code, { :label => "Security Code", :label_size => "auto" }
     = f.text_field :card_security_code, :size => 4, :class => "cc"
   .clear_left
-  .field
-    = required_field(f.label :card_expiration_month, "Expires")
-    %br
-    = f.select :card_expiration_month, Payment.months, { :prompt => "month" }, :class => "cc"
+  .left.field-stacked
+    = required_label f, :card_expiration_month, { :label => "Expiration Date", :label_size => "110px"}
+  .left.field-stacked
+    = f.select :card_expiration_month, Payment.months, { :prompt => "month" }, :class => "cc", :style => "margin-right: 6px"
+  .left.field-stacked
     = f.select :card_expiration_year, Payment.years, { :prompt => "year" }, :class => "cc"
-  .field.credit_card
-    = f.label :card_issue_month, "Card Start Date"
-    = f.select :card_issue_month, Payment.months, { :include_blank => true }, :class => "cc"
-    \/
+  .clear_left
+  .left.field-stacked
+    = f.label :card_issue_month, "Card Start Date", :style => "width: 110px"
+  .left.field-stacked
+    = f.select :card_issue_month, Payment.months, { :include_blank => true }, :class => "cc", :style => "margin-right: 6px"
+  .left.field-stacked
     = f.select :card_issue_year, Payment.issue_years, { :include_blank => true }, :class => "cc"
-  .field.credit_card
-    = f.label :card_issue_number
+  .clear_left
+  .left.field-stacked
+    = f.label :card_issue_number, :style => "width: 110px"
+  .left.field-stacked
     = f.text_field :card_issue_number, :size => 2, :maxlength => 2, :class => "cc"

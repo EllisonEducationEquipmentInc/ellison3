@@ -1,40 +1,36 @@
-.field
+.field-stacked.left
   = (f.label :first_name)
-  %br
-  = f.text_field :first_name
-.field
+  = f.text_field :first_name, :style => "margin-right: 6px"
+.field-stacked.left
   = (f.label :last_name)
-  %br
   = f.text_field :last_name
-.field
-  = f.label(:company, "Company/School/Organization")
-  %br
-  = f.text_field :company
-.field
-  = required_field(f.label :address1)
-  %br
+.clear 
+.field-stacked.left
+  = f.label(:company, "Company/School/Organization", :class => "autosize")
+  = f.text_field :company, :size => 50
+.clear
+.field-stacked
+  = required_label f, :address1
   = f.text_field :address1
-.field
+.field-stacked
   = f.label :address2
-  %br
   = f.text_field :address2
-.field
-  = required_field(f.label :city)
-  %br
-  = f.text_field :city
-.field
+.clear
+.field-stacked.left
+  = required_label f, :city
+  = f.text_field :city, :style => "margin-right: 6px"
+.field-stacked.left
   = f.label :state
-  %br
-  = f.select :state, states, :prompt => "--- select state ---"
-.field
-  = required_field(f.label :zip_code, "Zip/Postal code")
-  %br
-  = f.text_field :zip_code
-.field
-  = required_field(f.label :country)
-  %br
+  = f.select :state, states, {:prompt => "--- select state ---"}, :style => "margin: 4px 6px 0 0 !important"
+.field-stacked.left
+  = required_label f, :zip_code, { :label_size => "Zip/Postal code"}
+  = f.text_field :zip_code, :size => 10
+.clear
+.field-stacked.left
+  = required_label f, :country
   = f.select :country, Country.all.cache.order_by(:display_order.asc, :name.asc).map {|e| e.name}
-.field
-  = f.label :email
-  %br
+.clear
+.field-stacked.left
+  = f.label :email, "Email Address"
   = f.text_field :email
+.clear
