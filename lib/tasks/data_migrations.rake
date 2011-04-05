@@ -920,14 +920,21 @@ namespace :data_migrations do
     Product.collection.update({'tabs.name' => 'Related Products'}, {:$pull => {:tabs => {:name => 'Related Products'}}}, :multi => true)
     p 'removing Product Related Ideas tabs...'
     Product.collection.update({'tabs.name' => 'Related Ideas'}, {:$pull => {:tabs => {:name => 'Related Ideas'}}}, :multi => true)
-    p 'renaming Idea Products Used to Other Supplies...'
-    Idea.collection.update({'tabs.name' => 'Products Used'}, {:$set => {'tabs.$.name' => 'Other Supplies'}}, :multi => true)
-    p "removing Idea products from Other Supplies tabs..."
-    Idea.collection.update({'tabs.name' => 'Other Supplies'}, {:$set => {'tabs.$.products' => nil}}, :multi => true)
-    p "deleting Idea empty Other Supplies tabs"
-    Idea.where('tabs.name' => 'Other Supplies', :'tabs.text' => '').select {|e| e.tabs.detect {|t| t.name == 'Other Supplies' && t.text.blank?}}.each {|i| i.tabs.detect {|t| t.name == 'Other Supplies' && t.text.blank?}.delete}
+    
+    # p 'renaming Idea Products Used to Other Supplies...'
+    # Idea.collection.update({'tabs.name' => 'Products Used'}, {:$set => {'tabs.$.name' => 'Other Supplies'}}, :multi => true)
+    # p "removing Idea products from Other Supplies tabs..."
+    # Idea.collection.update({'tabs.name' => 'Other Supplies'}, {:$set => {'tabs.$.products' => nil}}, :multi => true)
+    # p "deleting Idea empty Other Supplies tabs"
+    # Idea.where('tabs.name' => 'Other Supplies', :'tabs.text' => '').select {|e| e.tabs.detect {|t| t.name == 'Other Supplies' && t.text.blank?}}.each {|i| i.tabs.detect {|t| t.name == 'Other Supplies' && t.text.blank?}.delete}
+    p "removing Idea Products Used tabs..."
+    Idea.collection.update({'tabs.name' => 'Products Used'}, {:$pull => {:tabs => {:name => 'Products Used'}}}, :multi => true)
     p 'removing Idea Related Ideas tabs...'
     Idea.collection.update({'tabs.name' => 'Related Ideas'}, {:$pull => {:tabs => {:name => 'Related Ideas'}}}, :multi => true)
+    p 'removing Idea Equipment Choices tabs...'
+    Idea.collection.update({'tabs.name' => 'Equipment Choices'}, {:$pull => {:tabs => {:name => 'Equipment Choices'}}}, :multi => true)
+    p 'removing Idea Materials Used tabs...'
+    Idea.collection.update({'tabs.name' => 'Materials Used'}, {:$pull => {:tabs => {:name => 'Materials Used'}}}, :multi => true)
   end
   
   desc "populate retailer discount matrix starting from 17 Prestige & RollModel Accessories. -- not needed for live migration"
