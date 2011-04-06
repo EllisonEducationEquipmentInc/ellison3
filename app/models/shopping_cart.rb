@@ -366,7 +366,7 @@ module ShoppingCart
         gw_options = {
           :order_id => order,
           :address => {},
-          :email => user.email,
+          :email => billing.email,
           :billing_address => {:name => billing.first_name + ' ' + billing.last_name, :address1 => billing.address1, :city => billing.city, :state => billing.state, :country => country_2_code(billing.country), :zip => billing.zip_code, :phone => billing.phone}
         }
         gw_options[:currency] = is_gbp? ? "GBP" : "EUR" 

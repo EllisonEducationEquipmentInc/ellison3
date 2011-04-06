@@ -73,7 +73,7 @@ class Admin::VirtualTerminalController < ApplicationController
     text << "<br>AX URL Encoded Authorization string: #{CGI::escape(@payment.authorization)}" if @payment.authorization
     render :text => text
   rescue Exception => e
-    render :text => e.to_s #+ "\n" + e.backtrace.join("\n")
+    render :text => e.to_s + "\n" + e.backtrace.join("\n")
   ensure
     set_current_system @original_system 
 	end
