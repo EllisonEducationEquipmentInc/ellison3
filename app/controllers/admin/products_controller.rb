@@ -3,7 +3,7 @@ class Admin::ProductsController < ApplicationController
 
   before_filter :set_admin_title
 	before_filter :admin_read_permissions!
-  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy]
+  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :edit_outlet_price]
 	
 	ssl_exceptions
 	
@@ -261,5 +261,15 @@ class Admin::ProductsController < ApplicationController
     @product.save(:validate => false)
     @product.index_by_tag @tag
     render(:partial => 'tag', :object => @tag, :locals => {:product_id => @product.id})
+  end
+  
+  def edit_outlet_price
+    return unless is_sizzix_us?
+	  @product = Product.find(params[:element_id])
+	  if @product.update_attributes :price_szus_usd => params[:update_value][/[0-9.]+/], :outlet => true
+	    render :inline => "$('#<%= @product.id %>').css('color', 'green').text('<%= number_to_currency @product.price %>')"
+	  else
+	    render :inline => "$('#<%= @product.id %>').text('<%= number_to_currency @product.price %>');alert('product did NOT save. Go to product detail page, and make sure all required attributes are set.');"
+	  end
   end
 end

@@ -21,7 +21,6 @@
         = sortable 'item_num'
         = sortable 'name'
         %th Active
-        %th Price
         = sortable "start_date_#{current_system}", "Start Date"
         = sortable "end_date_#{current_system}", "End Date"
         = sortable "life_cycle"
@@ -30,6 +29,7 @@
           = sortable "quantity_#{warehouse}", "Qty. #{warehouse.upcase}"
         - if is_sizzix_us?
           %th Outlet
+        %th Price
         %th Systems
         %th &nbsp;
         - if has_write_permissions?
@@ -41,7 +41,6 @@
           %td= product.item_num
           %td= product.name
           %td= product.active
-          %td= number_to_currency product.price rescue 'N/A'
           %td= l product.send("start_date_#{current_system}"), :format => :custom rescue "N/A for #{current_system}"
           %td= l product.send("end_date_#{current_system}"), :format => :custom rescue "N/A for #{current_system}"
           %td= product.life_cycle
@@ -50,6 +49,7 @@
             %td= product.send "quantity_#{warehouse}"
           - if is_sizzix_us?
             %td= product.outlet
+          %td.admin_outlet_price{:style => is_sizzix_us? ? "color: #{product.outlet ? 'green' : 'red'}" : nil, :id => product.id}= number_to_currency product.price rescue 'N/A'
           %td= product.systems_enabled.join(", ") rescue ''
           %td= link_to 'Show', admin_product_path(product), :class => 'jqui_show_min'
           - if has_write_permissions?
@@ -59,3 +59,14 @@
 = will_paginate @products
 %br
 = link_to 'New product', new_admin_product_path, :class => 'jqui_new' if has_write_permissions?
+- if is_sizzix_us? && has_write_permissions?
+  :javascript
+    $(".admin_outlet_price").editInPlace({
+      url: "/admin/products/edit_outlet_price",
+      show_buttons: true,
+      value_required: true,
+      success: function(data){
+        eval(data);
+      },
+      saving_animation_color: "#ECF2F8"
+    });
