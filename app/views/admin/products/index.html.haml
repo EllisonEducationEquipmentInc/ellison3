@@ -48,7 +48,7 @@
           - WAREHOUSES.each do |warehouse|
             %td= product.send "quantity_#{warehouse}"
           - if is_sizzix_us?
-            %td= product.outlet
+            %td{:id => "outlet_#{product.id}"}= product.outlet
           %td.admin_outlet_price{:style => is_sizzix_us? ? "color: #{product.outlet ? 'green' : 'red'}" : nil, :id => product.id}= number_to_currency product.price rescue 'N/A'
           %td= product.systems_enabled.join(", ") rescue ''
           %td= link_to 'Show', admin_product_path(product), :class => 'jqui_show_min'

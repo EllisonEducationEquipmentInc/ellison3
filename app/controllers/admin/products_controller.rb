@@ -267,7 +267,7 @@ class Admin::ProductsController < ApplicationController
     return unless is_sizzix_us?
 	  @product = Product.find(params[:element_id])
 	  if @product.update_attributes :price_szus_usd => params[:update_value][/[0-9.]+/], :outlet => true
-	    render :inline => "$('#<%= @product.id %>').css('color', 'green').text('<%= number_to_currency @product.price %>')"
+	    render :inline => "$('#<%= @product.id %>').css('color', 'green').text('<%= number_to_currency @product.price %>');$('#outlet_<%= @product.id %>').text('<%= @product.outlet %>');"
 	  else
 	    render :inline => "$('#<%= @product.id %>').text('<%= number_to_currency @product.price %>');alert('product did NOT save. Go to product detail page, and make sure all required attributes are set.');"
 	  end
