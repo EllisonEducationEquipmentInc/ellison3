@@ -194,6 +194,32 @@ body.bp th, body.bp td, body.bp caption {
 		float: right;
 		width: 600px;
 	}
+	.nolist{
+	  list-style-type: none;
+	}
+	
+	.newsletter_topframe{
+	  float:left; width:750px; border:1px solid #D4D1BF; height:259px; background:url(/images/ui-backgrounds/newsletter_productshot.png) no-repeat bottom right; overflow:auto
+	}
+	
+	.newsletter_midframe{
+	  float:left; width:946px; border:1px solid #D4D1BF; height:auto; margin:14px 0 0;
+	}
+	
+	.newsletter_content_a{
+	  padding:10px; float: left; margin: 0 212px 0 6px; width:510px;
+	}
+	.newsletter_content_b{
+	  padding:10px; margin:0 6px; overflow:auto
+	}
+	.newsletter_content_c{
+	  float:left; padding:10px; margin:6px 6px 0;
+	}
+	
+	.signup_header{
+	  border-bottom:1px dotted #D4D1BF;
+	}
+	
 }
 p.show_cart{cursor:pointer;}
 #guest_checkout {

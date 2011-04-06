@@ -1,15 +1,52 @@
-= form_for @subscription, :url => url_for(:action => :create_subscription) do |f|
-  = f.error_messages
-  .field
-    = f.label :email
-    = f.text_field :email
-  .field
-    = f.label :name
-    = f.text_field :name
-  Yes, I'd like to subscribe to
-  %strong= @list[1]
-  = render :partial => 'segments'
-  .actions
-    = f.submit :class => 'jqui_save'
-        
+%img{:width => "183", :height => "259", :src => "/images/ui-backgrounds/newsletter_comp.png", :style => "float:left; margin:0 10px 0 2px;"}/
+.ui-corner-all{:class=>"newsletter_topframe"}
+  .newsletter_content_a
+    %h2{:style=>"border-bottom:1px dotted #D4D1BF; margin-bottom:8px;"} Interested in keeping up to date with us?
+    %p Stay in the know with Sizzix! By signing up to register with us, you get full access to our free consumer newsletters! Get the latest info on new items, clearance items, and items on sale! You will also keep notified of how you can recieve additional deals as well as keep notifed on the latest news at Sizzix.com!
+    %br/
+    All it requires is for you to fill out our short form below and you can immediately begin to recieve the latest updates!
+
+.ui-corner-all{:class=>"newsletter_midframe"}
+  .newsletter_content_b
+    %h2{:style=>"margin-bottom:8px;", :class=>"signup_header"} Please Sign in Or Sign up to save your subscription preferences
+    Donec a nulla rutrum sem hendrerit placerat eu quis dui. Maecenas congue, nulla id lobortis bibendum, justo orci sagittis odio, nec varius augue nibh sed nisi. Nam eleifend justo ultrices odio ornare ac interdum metus gravida.
+  %div{:style=>"border-top:1px solid #D4D1BF; height:auto;"}
+    = form_for @subscription, :url => url_for(:action => :create_subscription) do |f|
+      %div{:style => "float:left; padding:0 10px; 10px; margin:0 6px; width:450px; border-right:1px solid #D4D1BF;"}
+        %img{:width => "194", :height => "32", :src => "/images/ui-backgrounds/newsletter_interest_select.png", :style => "float:left; margin: 4px 125px 8px;"}/
+        %br
+        Yes, I'd like to subscribe to
+        %strong= @list[1]
+        = render :partial => 'segments'
+      %div{:style =>"float:left; padding:0 10px; 10px; margin:0 6px;"}
+        %img{:width => "208", :height => "32", :src => "/images/ui-backgrounds/newsletter_signup.png", :style => "float:left; margin: 4px 0 8px 112px;"}/
+        %br
+        %div{:class=>"ui-widget-header ui-widget ui-corner-all", :style=>"float:left; padding:12px 0 2px 16px; width:406px;"}
+          = f.error_messages
+          .field
+            = f.label :email
+            = f.text_field :email
+          .field
+            = f.label :name
+            = f.text_field :name
+          .actions
+            = f.submit :class => 'jqui_save'
+            
+.newsletter_content_c
+  %h2{:class=>"signup_header"} Instructions
+  %p
+    %div{:style=>"font-weight:bold;"}How can I subscribe to the Sizzix.com Scoop email newsletter?
+    Subscribing to the Sizzix.com Scoop is easy! Simply sign up now at Sizzix.com or just enter your email address in the bottom right corner of any page.
+    %br
+    %br
+    %div{:style=>"font-weight:bold;"}How do I unsubscribe to the Sizzix.com Scoop email newsletter?
+    To remove your subscription to the Sizzix.com Scoop, please follow the unsubscribe link in your Scoop email. Or, please log in at Sizzix.com and go to My Account page and uncheck the Subscription box.
+    %br
+    %br
+    %div{:style=>"font-weight:bold;"}After subscribing, how can I ensure that I will continue to receive my Sizzix.com Scoop newsletter?
+    To ensure that your Sizzix.com Scoop newsletter is delivered to your inbox, not as spam, please add sizzixscoop@lyris.sizzix.com to your email address book as soon as possible.My Scoop was delivered to my Bulk or Junk mail folder.
+    %br
+    %br
+    %div{:style=>"font-weight:bold;"}How can I prevent this from happening?
+    Some email providers deliver Sizzix.com Scoop emails to your Bulk or Junk mail folders. Please flag these emails appropriately so that these emails are delivered to your inbox on time.
  
