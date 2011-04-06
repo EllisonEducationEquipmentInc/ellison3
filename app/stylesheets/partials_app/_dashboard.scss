@@ -183,6 +183,13 @@ ul#tag_products, ul#tag_ideas { @extend ul.horizontal;
 // Virtual Terminal
 #virtual_terminal { @include column(24, true); }
 
+.saia_help { @extend .formhelp;
+  display: none;
+  margin: 3px 0 0 131px !important;
+  font-weight: bold;
+  color: $link;
+}
+
 // WYMeditor
 .wym_box {
   ul {

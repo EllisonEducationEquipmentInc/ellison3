@@ -289,32 +289,39 @@
     = form_for @order, :url => {:action => "shipping_rate_calculator"}, :html => {:id => "shipping_rate_calculator_form", 'data-type' => 'html'}, :as => :shipping_rate, :remote => true do |f|
       .column_50
         .field
-          = label_tag :weight
-          = text_field_tag :weight, params[:weight]
+          = label_tag :service, nil, :style => "width: 118px"
+          = select_tag :service, options_for_select(["FEDEX", "SAIA", "WEB"] , params[:service]), :onchange => "if (this.value == 'SAIA') {$('.saia_help').show()} else {$('.saia_help').hide()}"
         .field
-          = f.label :subtotal_amount
-          = f.text_field :subtotal_amount
-        .field
-          = label_tag :service
-          = select_tag :service, options_for_select(["FEDEX", "SAIA", "WEB"] , params[:service])
-        .field
-          = label_tag :request_type
+          = label_tag :request_type, nil, :style => "width: 118px"
           = select_tag :request_type, options_for_select(["ACCOUNT", "LIST"])
         .field
-          = label_tag :package_count
+          = label_tag :weight
+          %span.icon_weightfield
+            = text_field_tag :weight, params[:weight], :size => 8
+          %p.saia_help
+            == Do #{"<strong><em>NOT</em></strong>".html_safe} enter weight in decimal format!
+            %br
+            SAIA will not accept weight in decimals.
+        .field
+          = f.label :subtotal_amount
+          %span{:class => "icon_pricefield_#{current_currency}"}
+            = f.text_field :subtotal_amount, :size => 8
+        %hr
+        .field
+          = label_tag :package_count, nil, :style => "width: 118px"
           = select_tag :package_count, options_for_select([1,2,3,4,5,6,7,8,9,10], 1)
         .field
-          = label_tag :packaging_type
-          = select_tag :packaging_type, options_for_select(Shippinglogic::FedEx::Enumerations::PACKAGE_TYPES.map {|e| [e.humanize, e]}, "FEDEX_BOX"), :onchange => "if (this.value == 'YOUR_PACKAGING') {$('.your_packaging').show()} else {$('.your_packaging').hide()} "
-        .field.your_packaging{:style => "display:none"}
-          = label_tag :package_length
-          = text_field_tag :package_length, 12
-        .field.your_packaging{:style => "display:none"}
-          = label_tag :package_height
-          = text_field_tag :package_height, 12
-        .field.your_packaging{:style => "display:none"}
-          = label_tag :package_width
-          = text_field_tag :package_width, 12
+          = label_tag :packaging_type, nil, :style => "width: 118px"
+          = select_tag :packaging_type, options_for_select(Shippinglogic::FedEx::Enumerations::PACKAGE_TYPES.map {|e| [e.humanize, e]}, "YOUR_PACKAGING"), :onchange => "if (this.value == 'YOUR_PACKAGING') {$('.your_packaging').show()} else {$('.your_packaging').hide()} "
+        .field.your_packaging
+          = label_tag :package_length, nil, :style => "width: 118px"
+          = text_field_tag :package_length, 12, :size => 8
+        .field.your_packaging
+          = label_tag :package_height, nil, :style => "width: 118px"
+          = text_field_tag :package_height, 12, :size => 8
+        .field.your_packaging
+          = label_tag :package_width, nil, :style => "width: 118px"
+          = text_field_tag :package_width, 12, :size => 8
       .column_50
         = f.fields_for @order.address do |address_fields|
           = render :partial => 'address_form', :locals => {:f => address_fields}

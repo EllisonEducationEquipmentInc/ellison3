@@ -154,15 +154,17 @@
   %h3.contentwrap_XXXL.last Shipping & Handling
   .contentwrap_large
     .field
-      = f.label :weight, "Weight (lbs.)"
+      = f.label :weight, "Weight <em>(in pounds)</em>".html_safe, :class => "autosize"
       %br
-      %span{ :class => "icon_pricefield_weight" }
-        = f.text_field :weight
+      %span.icon_weightfield
+        = f.text_field :weight, :size => 8
+        lbs
     .field
-      = f.label :weight_kgs, "Weight (kgs.)"
+      = f.label :weight_kgs, "Weight <em>(in kilograms)</em>".html_safe, :class => "autosize"
       %br
-      %span{ :class => "icon_pricefield_weight" }
-        = f.text_field :weight_kgs
+      %span.icon_weightfield
+        = f.text_field :weight_kgs, :size => 8
+        kg
     - currencies.each  do |currency|
       .field
         = f.label "handling_price_#{currency}", "Handling Price #{currency.upcase}", :class => "autosize"
@@ -174,8 +176,8 @@
     .field
       = f.label :"virtual_weight_#{current_system}", "Virtual Weight #{current_system.upcase}", :class => 'overrideable ui-corner-all autosize'
       %br
-      %span{ :class => "icon_pricefield_weight" }
-        = f.text_field :"virtual_weight_#{current_system}"
+      %span.icon_weightfield
+        = f.text_field :"virtual_weight_#{current_system}", :size => 8
     .field
       = f.label "virtual_weight_ends_#{current_system}", "<span class='icon_datefield'>Virtual Weight End Date #{current_system.upcase}</span>".html_safe, :class => 'overrideable ui-corner-all autosize'
       %br
