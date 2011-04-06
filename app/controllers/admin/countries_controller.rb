@@ -67,6 +67,7 @@ class Admin::CountriesController < ApplicationController
   # PUT /countries/1.xml
   def update
     @country = Country.find(params[:id])
+    params[:country][:systems_enabled] ||= []
     respond_to do |format|
       if @country.update_attributes(params[:country])
         format.html { redirect_to(admin_countries_url, :notice => 'Country was successfully updated.') }
