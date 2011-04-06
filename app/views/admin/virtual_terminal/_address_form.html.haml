@@ -11,24 +11,24 @@
 .clear
 .field-stacked
   = required_label f, :address1
-  = f.text_field :address1, :class => "address"
+  = f.text_field :address1, :class => "address", :size => 28
 .field-stacked
   = f.label :address2
-  = f.text_field :address2, :class => "address"
+  = f.text_field :address2, :class => "address", :size => 28
 .clear
 .field-stacked.left
   = required_label f, :city
-  = f.text_field :city, :style => "margin-right: 6px", :class => "address"
-.field-stacked.left
-  = f.label :state
-  = f.select :state, states, {:prompt => "--- select state ---"}, :style => "margin: 4px 6px 0 0 !important", :class => "address"
+  = f.text_field :city, :style => "margin-right: 6px", :class => "address", :size => 28
+.field-stacked.left.state_field
+  = required_label f, :state
+  = f.select :state, states, {:prompt => "--- select state ---"}, :style => "margin: 2px 6px 0 0 !important", :class => "address"
 .field-stacked.left
   = required_label f, :zip_code, { :label_size => "Zip/Postal code"}
   = f.text_field :zip_code, :size => 10, :class => "address"
 .clear
 .field-stacked.left
   = required_label f, :country
-  = f.select :country, Country.all.cache.order_by(:display_order.asc, :name.asc).map {|e| e.name}, {}, :class => "address"
+  = f.select :country, Country.all.cache.order_by(:display_order.asc, :name.asc).map {|e| e.name}, {}, :class => "address", :onchange => "if (this.value == 'United States') {$(this).parent().siblings('.state_field').html('#{escape_javascript(render(:partial => 'admin/virtual_terminal/state_select', :locals => {:f => f}))}');} else if (this.value == 'Canada') {$(this).parent().siblings('.state_field').html('#{escape_javascript(render(:partial => 'admin/virtual_terminal/province_select', :locals => {:f => f}))}');} else {$(this).parent().siblings('.state_field').html('#{escape_javascript(render(:partial => 'admin/virtual_terminal/state', :locals => {:f => f}))}');};"
 .clear
 .field-stacked.left
   = f.label :email, "Email Address"
