@@ -342,6 +342,7 @@ module ShoppingCart
 		def process_card(options = {})
       amount, billing, order, tokenize_only = options[:amount], options[:payment], options[:order], options[:tokenize_only]
       get_gateway(options[:system])
+      user = get_user unless options[:no_user]
       unless billing.use_saved_credit_card || options[:use_payment_token]
 				card_name = correct_card_name(billing.card_name)
         credit_card = ActiveMerchant::Billing::CreditCard.new(:first_name => billing.first_name, :last_name => billing.last_name, :number => billing.full_card_number, :month => billing.card_expiration_month, :year => billing.card_expiration_year,
@@ -360,11 +361,12 @@ module ShoppingCart
 					gw_options[:subscription_title] = "#{get_domain.capitalize} Three Easy Payments"
 					amount = (billing.deferred_payment_amount * 100).round
 				end
-				gw_options[:customer_account_id] = get_user.erp == 'New' || get_user.erp.blank? ? get_user.id : get_user.erp if billing.deferred || billing.save_credit_card || tokenize_only
+				gw_options[:customer_account_id] = user.erp == 'New' || user.erp.blank? ? user.id : user.erp if user.present? && (billing.deferred || billing.save_credit_card || tokenize_only)
 			else
         gw_options = {
           :order_id => order,
           :address => {},
+          :email => user.email,
           :billing_address => {:name => billing.first_name + ' ' + billing.last_name, :address1 => billing.address1, :city => billing.city, :state => billing.state, :country => country_2_code(billing.country), :zip => billing.zip_code, :phone => billing.phone}
         }
         gw_options[:currency] = is_gbp? ? "GBP" : "EUR" 
@@ -381,7 +383,7 @@ module ShoppingCart
 				  @net_response = @gateway.pay_on_demand amount_to_charge, gw_options
 				elsif (billing.use_saved_credit_card || options[:use_payment_token]) && tokenize_only
 				  @payment = billing
-				  @payment.copy_common_attributes get_user.token unless options[:use_payment_token]
+				  @payment.copy_common_attributes user.token unless options[:use_payment_token] || user.blank?
 				  @payment.paid_amount = amount_to_charge
 				  return @payment
 				elsif billing.deferred
@@ -400,11 +402,11 @@ module ShoppingCart
         @payment.paid_amount = amount ? amount/100.0 : total_cart
         @payment.vendor_tx_code = order
         @payment.mask_card_number
-        if @payment.use_saved_credit_card && !options[:use_payment_token] && get_user.token
-          @payment.card_number = get_user.token.card_number
-        	@payment.card_expiration_month = get_user.token.card_expiration_month
-        	@payment.card_expiration_year = get_user.token.card_expiration_year
-        	@payment.card_name = get_user.token.card_name
+        if @payment.use_saved_credit_card && !options[:use_payment_token] && user.present? && user.token
+          @payment.card_number = user.token.card_number
+        	@payment.card_expiration_month = user.token.card_expiration_month
+        	@payment.card_expiration_year = user.token.card_expiration_year
+        	@payment.card_name = user.token.card_name
         end
         process_gw_response @net_response
       else 
