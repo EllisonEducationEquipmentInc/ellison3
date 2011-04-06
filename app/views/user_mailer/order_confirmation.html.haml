@@ -45,6 +45,9 @@
       %strong Order Number:
       = @order.public_order_number
       %br
+      %strong Customer Account:
+      = @order.system == 'szus' ? 'SIZZIX.COM' : @order.user.erp
+      %br
       %strong Web Customer:
       = @order.user.email
       %br
