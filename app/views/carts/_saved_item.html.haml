@@ -4,6 +4,8 @@
     - if product.pre_order?
       %br
       Pre-order
+    - elsif product.suspended?
+      Suspended
     - elsif product.out_of_stock?
       %br
       Low stock level
