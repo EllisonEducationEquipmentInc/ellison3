@@ -5,7 +5,7 @@ class CartsController < ApplicationController
 	before_filter :admin_user_as_permissions!, :only => [:remove_order_reference, :use_previous_orders_card, :set_upsell]
 	before_filter :trackable
 	before_filter :no_cache, :only => [:checkout, :quote]
-	before_filter :set_vat_exempt, :except => [:add_to_cart, :index, :move_to_cart, :remove_from_cart, :change_quantity, :delete_from_saved_list, :saved_list]
+	before_filter :set_vat_exempt, :except => [:add_to_cart, :index, :move_to_cart, :remove_from_cart, :change_quantity, :delete_from_saved_list, :saved_list, :shopping_cart]
 	before_filter(:only => [:index]) {|controller| controller.send(:get_cart).reset_item_errors if controller.flash[:alert].blank? }
 	after_filter :reset_cart_item_errors, :only => [:proceed_checkout, :proceed_quote]
 	
