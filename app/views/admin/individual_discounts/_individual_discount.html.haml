@@ -4,11 +4,11 @@
   = f.text_field :discount, :placeholder => "discount value", :class => 'individual_discount_value', :style => "width: 50px; margin-right: 34px;", :onkeyup => "$(this).siblings('input.individual_product_price').val(calculate_sale_price($(this).siblings('input.individual_product_msrp').val(), this.value, $(this).siblings('.individual_discount_type').val()))", :onblur => "add_individual_discount();$(this).parent('li').next('li').find('.product_autocomplete').focus();"
   = f.text_field :msrp, :placeholder => "msrp", :readonly => true, :style => "width: 50px; margin-right: 34px;", :class => 'individual_product_msrp'
   = f.text_field :price, :placeholder => "sales price", :style => "width: 50px; margin-right: 34px;", :class => 'individual_product_price', :readonly => true
-  -#= f.text_field :product_id, :class => 'transperent individual_product_id', :readonly => true, :size => 25
   -#= link_to_function "remove", "$(this).parent('li').remove()"
   = f.check_box :_destroy, :style => "margin-left: 0px"
   = f.label :_destroy, "Delete?", :class => "autosize minilink", :style => "font-weight: normal"
   = f.text_field :label, :class => 'transperent product_info', :readonly => true, :style => "width: 440px"
+  = f.text_field :product_id, :class => 'transperent individual_product_id', :readonly => true, :size => 25, :type => "hidden"
 
   :javascript
     $(".product_autocomplete").autocomplete({
