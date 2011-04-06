@@ -12,10 +12,12 @@
           = f.radio_button(:tax_exempt, true)
           no
           = f.radio_button(:tax_exempt, false)
-
         .field
           = f.label :tax_exempt_number, "Tax Exempt Number", :style => "width: 125px"
           = f.text_field :tax_exempt_number
+        .field
+          = label_tag :order_number, "Order Number", :style => "width: 125px"
+          = text_field_tag :order_number, params[:order_number]
       .column_50
         = f.fields_for @order.address do |address_fields|
           = render :partial => 'address_form', :locals => {:f => address_fields}
@@ -124,7 +126,7 @@
         = select_tag :purchase_system, options_for_select(ELLISON_SYSTEMS, params[:site] || current_system), :style => "margin-right: 18px"
       .left.field
         = label_tag :purchase_transaction_type, "Transaction type"
-        = select_tag :purchase_transaction_type, options_for_select(%w(purchase authorize)), :style => "margin-right: 18px"
+        = select_tag :purchase_transaction_type, options_for_select(%w(purchase authorize), params[:transaction_type]), :style => "margin-right: 18px"
       .left.field
         = label_tag :purchase_total_amount, "Total Amount", :class => "autosize"
         %span{ :class => "icon_pricefield_#{current_currency}" }
@@ -137,7 +139,7 @@
         = text_field_tag :erp_id, params[:erp_id]
         :javascript
           $('#erp_id').change(function() {
-            $.ajax({url:"/admin/virtual_terminal?erp_id="+this.value});
+            $.ajax({url:"/admin/virtual_terminal/get_account?erp_id="+this.value});
           });
       .clear
       %hr
