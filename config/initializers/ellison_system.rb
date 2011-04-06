@@ -198,7 +198,6 @@ module EllisonSystem
   end
   
   def subscription_list
-    return "testsizzix" # TODO: remove
     case current_system
     when "szus"
       "sizzixscoop"
