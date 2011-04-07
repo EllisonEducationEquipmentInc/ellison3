@@ -290,9 +290,9 @@ body.bp th, body.bp td, body.bp caption {
 #content .news_frame_left {
   float: left;
   margin-bottom: 12px;
-  margin-left: 50px;
+  margin-left: 70px;
   padding: 12px 0 2px 16px;
-  width: 310px;
+  width: 266px;
 }
 /* line 227, ../../../app/stylesheets/application.scss */
 #content .news_frame_center {
@@ -303,7 +303,7 @@ body.bp th, body.bp td, body.bp caption {
 /* line 230, ../../../app/stylesheets/application.scss */
 #content .news_frame_center img {
   float: left;
-  margin: 4px 0 8px 112px;
+  margin: 4px 0 8px 104px;
 }
 /* line 234, ../../../app/stylesheets/application.scss */
 #content .news_border {
@@ -313,7 +313,7 @@ body.bp th, body.bp td, body.bp caption {
 /* line 237, ../../../app/stylesheets/application.scss */
 #content .news_submit {
   float: right;
-  margin-right: 24px;
+  margin-right: 30px;
 }
 
 /* line 242, ../../../app/stylesheets/application.scss */
