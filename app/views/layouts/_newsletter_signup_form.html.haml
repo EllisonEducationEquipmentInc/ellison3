@@ -1,7 +1,9 @@
 %p{:style => "margin-bottom: 0 !important;"}
   Stay informed with regular email updates!
 = form_tag({:action => 'newsletter'}, :method => :get) do
-  = text_field_tag :email, "Enter your email address", :onfocus => "if (this.value == 'Enter your email address'){this.value='';}", :onblur => "if (this.value == ''){this.value='Enter your email address';}", :size => 35, :class => "email_footer"
+  = text_field_tag :email, "Enter your email address", :onfocus => "if (this.value == 'Enter your email address'){this.value='';}", :onblur => "if (this.value == ''){this.value='Enter your email address';}", :size => 30, :class => "email_footer"
+  = submit_tag "Subscribe", :class => "jqui_save"
+  
 %br
 :javascript
   $(".email_footer").addClass("idlefield");
