@@ -27,8 +27,8 @@ gem 'rspec-rails', '>=2.0.0.beta.20'
 gem 'spork'
 gem 'launchy'    # So you can do Then show me the page
 gem "mongo_session_store", ">=2.0.0"
-gem "mongoid", :git => "http://github.com/mongoid/mongoid.git", :branch => "master"
-#gem "mongoid", "2.0.0.rc.3"
+#gem "mongoid", :git => "http://github.com/mongoid/mongoid.git", :branch => "master"
+gem "mongoid", "2.0.1"
 #gem "mongoid", :git => "git://github.com/computadude/mongoid.git", :branch => "master"
 gem "nifty-generators"
 gem "compass", ">= 0.10.5"
