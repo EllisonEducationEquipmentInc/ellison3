@@ -29,13 +29,14 @@
     .left.field-stacked
       = f.text_field :card_issue_number, :size => 2, :maxlength => 2, :class => "cc"
   .clear
-  %hr
-  .field
-    = f.label :save_credit_card, "Tokenize Billing Info?", :class => "autosize"
-    yes
-    = f.radio_button(:save_credit_card, true)    
-    no
-    = f.radio_button(:save_credit_card, false)
-  .field
-    = f.label :subscriptionid, "Subscription ID", :class => "autosize"
-    = f.text_field :subscriptionid, :onchange => "if (this.value == '') {$('.cc, .address').attr('disabled', false)} else {$('.cc, .address').attr('disabled', true)}"
+  %div{:style => "visibility: #{is_er? ? 'visible' : 'hidden'}"}
+    %hr
+    .field
+      = f.label :save_credit_card, "Tokenize Billing Info?", :class => "autosize"
+      yes
+      = f.radio_button(:save_credit_card, true)    
+      no
+      = f.radio_button(:save_credit_card, false)
+    .field
+      = f.label :subscriptionid, "Subscription ID", :class => "autosize"
+      = f.text_field :subscriptionid, :onchange => "if (this.value == '') {$('.cc, .address').attr('disabled', false)} else {$('.cc, .address').attr('disabled', true)}"
