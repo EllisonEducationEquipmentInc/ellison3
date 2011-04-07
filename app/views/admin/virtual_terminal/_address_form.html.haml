@@ -1,8 +1,8 @@
 .field-stacked.left
-  = (f.label :first_name)
+  = required_label f, :first_name, { :label => "First Name", :label_size => "auto" }
   = f.text_field :first_name, :style => "margin-right: 6px", :class => "address"
 .field-stacked.left
-  = (f.label :last_name)
+  = required_label f, :last_name, { :label => "Last Name", :label_size => "auto" }
   = f.text_field :last_name, :class => "address"
 .clear 
 .field-stacked.left
@@ -19,9 +19,7 @@
 .field-stacked.left
   = required_label f, :city
   = f.text_field :city, :style => "margin-right: 6px", :class => "address", :size => 28
-.field-stacked.left{:id => "#{f.object_name[/^\w+/]}_state"}
-  = required_label f, :state
-  = f.select :state, states, {:prompt => "--- select state ---"}, :style => "margin: 2px 6px 0 0 !important", :class => "address"
+.field-stacked.left{:id => "#{f.object_name[/^\w+/]}_state"}= render :partial => is_us? ? 'admin/virtual_terminal/state_select' : 'admin/virtual_terminal/state', :locals => {:f => f}
 .field-stacked.left
   = required_label f, :zip_code, { :label_size => "Zip/Postal code"}
   = f.text_field :zip_code, :size => 10, :class => "address"

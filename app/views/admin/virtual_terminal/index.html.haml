@@ -29,11 +29,17 @@
           $("##{f.object_name[/^\w+/]}_form").validate({
             errorClass: "invalid",
             rules: {
+              "#{f.object_name[/^\w+/]}[address][first_name]": {
+                  required: true
+              },
+              "#{f.object_name[/^\w+/]}[address][last_name]": {
+                  required: true
+              },
               "#{f.object_name[/^\w+/]}[address][zip_code]": {
                   required: true
               }, 
               "#{f.object_name[/^\w+/]}[address][state]": {
-                  required: true
+                  required: #{is_us? ? 'true' : 'false'}
               }, 
               "#{f.object_name[/^\w+/]}[address][address1]": {
                   required: true
@@ -73,14 +79,14 @@
                   "cch_commit_tax_transaction_id": { 
                       required: true,
                       rangelength: [16, 17]
-                  }, 
+                  }
               }, 
               success: function(label) { 
                   label.html(" ").addClass("checked"); 
               },
               submitHandler: function(form) {
                 $("#cch_commit_form").callRemote();
-              },
+              }
           });
           $("#cch_commit_form").bind('ajax:success', function(e, data) {$('#virtual_terminal_message').show().html(data)}); 
       });
@@ -97,24 +103,24 @@
         $(document).ready(function() { 
             $("#cch_return_form").validate({ 
                 errorClass: "invalid",
-                "#{f.object_name[/^\w+/]}[subtotal_amount]": { 
-                     required: true, 
-                 },
-                 "#{f.object_name[/^\w+/]}[shipping_amount]": { 
-                     required: true, 
-                 },
                 rules: { 
-                    "#{f.object_name[/^\w+/]}[tax_transaction]": { 
-                        required: true,
-                        rangelength: [16, 17]
-                    }, 
+                  "#{f.object_name[/^\w+/]}[subtotal_amount]": { 
+                    required: true
+                  },
+                  "#{f.object_name[/^\w+/]}[shipping_amount]": { 
+                    required: true
+                  },
+                  "#{f.object_name[/^\w+/]}[tax_transaction]": { 
+                    required: true,
+                    rangelength: [16, 17]
+                  }
                 }, 
                 success: function(label) { 
                     label.html(" ").addClass("checked"); 
                 },
                 submitHandler: function(form) {
                   $("#cch_return_form").callRemote();
-                },
+                }
             });
             $("#cch_return_form").bind('ajax:success', function(e, data) {$('#virtual_terminal_message').show().html(data)}); 
         });
@@ -128,19 +134,20 @@
         = label_tag :purchase_transaction_type, "Transaction type"
         = select_tag :purchase_transaction_type, options_for_select(%w(purchase authorize), params[:transaction_type]), :style => "margin-right: 18px"
       .left.field
-        = label_tag :purchase_total_amount, "Total Amount", :class => "autosize"
+        = label_tag :purchase_total_amount, "<span class ='required'>Total Amount</span>".html_safe, :class => "autosize"
         %span{ :class => "icon_pricefield_#{current_currency}" }
           = text_field_tag :purchase_total_amount, params[:total_amount], :size => 6, :style => "margin-right: 18px"
       .left.field
-        = label_tag :purchase_order_id, "Order ID", :class => "autosize"
+        = label_tag :purchase_order_id, "<span class ='required'>Order ID</span>".html_safe, :class => "autosize"
         = text_field_tag :purchase_order_id, params[:order_id]
-      .left.field
-        = label_tag :erp_id, "Axapta ID", :class => "autosize"
-        = text_field_tag :erp_id, params[:erp_id]
-        :javascript
-          $('#erp_id').change(function() {
-            $.ajax({url:"/admin/virtual_terminal/get_account?erp_id="+this.value});
-          });
+      - if is_er?
+        .left.field
+          = label_tag :erp_id, "Axapta ID", :class => "autosize"
+          = text_field_tag :erp_id, params[:erp_id]
+          :javascript
+            $('#erp_id').change(function() {
+              $.ajax({url:"/admin/virtual_terminal/get_account?erp_id="+this.value});
+            });
       .clear
       %hr
       = f.fields_for @order.payment do |payment_fields| 
@@ -219,10 +226,10 @@
         = label_tag :cc_capture_system, "System"
         = select_tag :cc_capture_system, options_for_select(ELLISON_SYSTEMS, params[:site] || current_system)
       .field
-        = label_tag :cc_capture_total_amount, "Amount"
+        = label_tag :cc_capture_total_amount, "<span class='required'>Amount</span>".html_safe
         = text_field_tag :cc_capture_total_amount, params[:total_amount]
       .field
-        = label_tag :authorization
+        = label_tag :authorization, "<span class='required'>Authorization</span>".html_safe
         = text_area_tag :authorization, params[:authorization], :cols => 50, :rows => 10
       .clear
       .actions.right
@@ -255,10 +262,10 @@
         = label_tag :cc_refund_system, "System"
         = select_tag :cc_refund_system, options_for_select(ELLISON_SYSTEMS, params[:site] || current_system)
       .field
-        = label_tag :amount_to_refund, "Amount"
+        = label_tag :amount_to_refund, "<span class='required'>Amount</span>".html_safe
         = text_field_tag :amount_to_refund, params[:amount_to_refund]
       .field
-        = label_tag :refund_authorization
+        = label_tag :refund_authorization, "<span class='required'>Refund Authorization</span>".html_safe
         = text_area_tag :refund_authorization, params[:refund_authorization], :cols => 50, :rows => 10
       .clear
       .actions.right
@@ -332,7 +339,13 @@
         $(document).ready(function() { 
             $("#shipping_rate_calculator_form").validate({ 
                 errorClass: "invalid",
-                rules: { 
+                rules: {
+                    "#{f.object_name[/^\w+/]}[address][first_name]": {
+                        required: true
+                    },
+                    "#{f.object_name[/^\w+/]}[address][last_name]": {
+                        required: true
+                    },                
                     "weight": { 
                         required: true,
                     }, 
@@ -340,7 +353,7 @@
                         required: true
                     }, 
                     "#{f.object_name[/^\w+/]}[address][state]": { 
-                        required: true
+                        required: #{is_us? ? 'true' : 'false'}
                     }, 
                     "#{f.object_name[/^\w+/]}[address][address1]": { 
                         required: true, 

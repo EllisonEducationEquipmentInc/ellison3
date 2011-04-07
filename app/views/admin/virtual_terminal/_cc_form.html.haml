@@ -1,10 +1,4 @@
 .credit_card
-  .field
-    = f.check_box :save_credit_card
-    = f.label :save_credit_card, "Tokenize Billing Info"
-  .field
-    = f.text_field :subscriptionid, :onchange => "if (this.value == '') {$('.cc, .address').attr('disabled', false)} else {$('.cc, .address').attr('disabled', true)}"
-    = f.label :subscriptionid
   .left.field-stacked
     = required_label f, :card_name, { :label => "Credit Card Type", :label_size => "auto" }
     = f.select :card_name, Payment.cards, {:prompt => "--- card type ---"}, :class => "cc", :style => "margin-right: 6px"
@@ -22,14 +16,26 @@
   .left.field-stacked
     = f.select :card_expiration_year, Payment.years, { :prompt => "year" }, :class => "cc"
   .clear_left
-  .left.field-stacked
-    = f.label :card_issue_month, "Card Start Date", :style => "width: 110px"
-  .left.field-stacked
-    = f.select :card_issue_month, Payment.months, { :include_blank => true }, :class => "cc", :style => "margin-right: 6px"
-  .left.field-stacked
-    = f.select :card_issue_year, Payment.issue_years, { :include_blank => true }, :class => "cc"
-  .clear_left
-  .left.field-stacked
-    = f.label :card_issue_number, :style => "width: 110px"
-  .left.field-stacked
-    = f.text_field :card_issue_number, :size => 2, :maxlength => 2, :class => "cc"
+  - if is_uk?
+    .left.field-stacked
+      = f.label :card_issue_month, "Card Start Date", :style => "width: 110px"
+    .left.field-stacked
+      = f.select :card_issue_month, Payment.months, { :include_blank => true }, :class => "cc", :style => "margin-right: 6px"
+    .left.field-stacked
+      = f.select :card_issue_year, Payment.issue_years, { :include_blank => true }, :class => "cc"
+    .clear_left
+    .left.field-stacked
+      = f.label :card_issue_number, :style => "width: 110px"
+    .left.field-stacked
+      = f.text_field :card_issue_number, :size => 2, :maxlength => 2, :class => "cc"
+  .clear
+  %hr
+  .field
+    = f.label :save_credit_card, "Tokenize Billing Info?", :class => "autosize"
+    yes
+    = f.radio_button(:save_credit_card, true)    
+    no
+    = f.radio_button(:save_credit_card, false)
+  .field
+    = f.label :subscriptionid, "Subscription ID", :class => "autosize"
+    = f.text_field :subscriptionid, :onchange => "if (this.value == '') {$('.cc, .address').attr('disabled', false)} else {$('.cc, .address').attr('disabled', true)}"
