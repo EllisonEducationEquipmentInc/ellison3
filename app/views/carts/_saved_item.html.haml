@@ -8,7 +8,7 @@
       Retired
     - elsif product.out_of_stock?
       %br
-      Low stock level
+      = product.listable? ? "Low stock level" : 'Out of Stock'
   %td
     .thumbnail
       = link_to image_tag(product.small_image), product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize)
