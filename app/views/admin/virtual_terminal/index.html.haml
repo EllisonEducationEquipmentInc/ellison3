@@ -305,7 +305,7 @@
           = label_tag :request_type, nil, :style => "width: 118px"
           = select_tag :request_type, options_for_select(["ACCOUNT", "LIST"])
         .field
-          = label_tag :weight
+          = required_label f, :weight
           %span.icon_weightfield
             = text_field_tag :weight, params[:weight], :size => 8
           %p.saia_help
@@ -353,6 +353,9 @@
                         required: true,
                     }, 
                     "#{f.object_name[/^\w+/]}[address][zip_code]": { 
+                        required: true
+                    }, 
+                    "#{f.object_name[/^\w+/]}[address][email]": {
                         required: true
                     }, 
                     "#{f.object_name[/^\w+/]}[address][state]": { 
