@@ -29,13 +29,13 @@
       .news_frame_center
         %img{:width => "208", :height => "32", :src => "/images/ui-backgrounds/newsletter_signup.png", :style => "float:left; margin: 4px 0 8px 112px;"}/
         %br
-        .news_frame_left{:class=>"ui-widget-header ui-widget ui-corner-all"}
+        .news_frame_left{:class => "ui-widget-#{ is_sizzix_us? ? 'header' : 'content'} ui-widget ui-corner-all"}
           = f.error_messages
           .field
-            = f.label :email
+            = required_label f, :email, { :label_size => "50px" }
             = f.text_field :email
           .field
-            = f.label :name
+            = f.label :name, nil, :style => "width: 50px"
             = f.text_field :name
           .actions{:class=>"news_submit"}
             = f.submit :class => 'jqui_save'
