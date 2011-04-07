@@ -268,40 +268,73 @@ body.bp th, body.bp td, body.bp caption {
 #content .signup_header {
   border-bottom: 1px dotted #D4D1BF;
 }
+/* line 222, ../../../app/stylesheets/application.scss */
+#content .news_frame_right {
+  float: left;
+  padding: 0 10px;
+  margin: 0 6px;
+  width: 450px;
+  min-height: 180px;
+  border-right: 1px solid #D4D1BF;
+}
+/* line 225, ../../../app/stylesheets/application.scss */
+#content .news_frame_left {
+  float: left;
+  margin-bottom: 12px;
+  margin-left: 50px;
+  padding: 12px 0 2px 16px;
+  width: 310px;
+}
+/* line 229, ../../../app/stylesheets/application.scss */
+#content .news_frame_center {
+  float: left;
+  padding: 0 10px;
+  margin: 0 6px;
+}
+/* line 232, ../../../app/stylesheets/application.scss */
+#content .news_border {
+  border-top: 1px solid #D4D1BF;
+  height: auto;
+}
+/* line 235, ../../../app/stylesheets/application.scss */
+#content .news_submit {
+  float: right;
+  margin-right: 24px;
+}
 
-/* line 223, ../../../app/stylesheets/application.scss */
+/* line 240, ../../../app/stylesheets/application.scss */
 p.show_cart {
   cursor: pointer;
 }
 
-/* line 224, ../../../app/stylesheets/application.scss */
+/* line 241, ../../../app/stylesheets/application.scss */
 #guest_checkout {
   float: right;
   width: 375px;
 }
 
-/* line 228, ../../../app/stylesheets/application.scss */
+/* line 245, ../../../app/stylesheets/application.scss */
 #returning_cuctomer {
   float: left;
   width: 375px;
 }
 
-/* line 233, ../../../app/stylesheets/application.scss */
+/* line 250, ../../../app/stylesheets/application.scss */
 #cart_total {
   font-size: 1.4em;
 }
 
-/* line 238, ../../../app/stylesheets/application.scss */
+/* line 255, ../../../app/stylesheets/application.scss */
 li#cart_total {
   border-top: 1px double gray;
 }
 
-/* line 239, ../../../app/stylesheets/application.scss */
+/* line 256, ../../../app/stylesheets/application.scss */
 .item_changed {
   background: #FBE3E4;
 }
 
-/* line 241, ../../../app/stylesheets/application.scss */
+/* line 258, ../../../app/stylesheets/application.scss */
 td.pre_order {
   color: red;
 }
