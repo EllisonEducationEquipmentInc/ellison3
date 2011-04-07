@@ -1,5 +1,5 @@
-%img{:width => "183", :height => "259", :src => "/images/ui-backgrounds/newsletter_comp.png", :style => "float:left; margin:0 10px 0 2px;"}/
-.ui-corner-all{:class=>"newsletter_topframe"}
+%img{ :src => "#{ is_sizzix? ? '/images/ui-backgrounds/newsletter_comp_sz.png' : '/images/ui-backgrounds/newsletter_comp_ee.png'  }",:style => "float:left; margin:0 10px 0 2px;", :width => "183", :height => "259"}
+.ui-corner-all{ :class => "#{ is_sizzix? ? 'newsletter_topframe_sz' : 'newsletter_topframe_ee' }" }
   .newsletter_content_a
     %h2{:style=>"border-bottom:1px dotted #D4D1BF; margin-bottom:8px;"} Interested in keeping up to date with us?
     %p
@@ -27,9 +27,9 @@
         %strong= @list[1]
         = render :partial => 'segments'
       .news_frame_center
-        %img{:width => "208", :height => "32", :src => "/images/ui-backgrounds/newsletter_signup.png", :style => "float:left; margin: 4px 0 8px 112px;"}/
+        %img{:width => "208", :height => "32", :src => "/images/ui-backgrounds/newsletter_signup.png"}/
         %br
-        .news_frame_left{:class => "ui-widget-#{ is_sizzix_us? ? 'header' : 'content'} ui-widget ui-corner-all"}
+        .news_frame_left{:class=>"ui-widget-header ui-widget ui-corner-all"}
           = f.error_messages
           .field
             = required_label f, :email, { :label_size => "50px" }

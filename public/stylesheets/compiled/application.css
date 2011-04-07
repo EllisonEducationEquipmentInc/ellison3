@@ -228,16 +228,25 @@ body.bp th, body.bp td, body.bp caption {
 #content .nolist {
   list-style-type: none;
 }
-/* line 201, ../../../app/stylesheets/application.scss */
-#content .newsletter_topframe {
+/* line 200, ../../../app/stylesheets/application.scss */
+#content .newsletter_topframe_sz {
   float: left;
   width: 750px;
   border: 1px solid #D4D1BF;
   height: 259px;
-  background: url(/images/ui-backgrounds/newsletter_productshot.png) no-repeat bottom right;
+  background: url(/images/ui-backgrounds/newsletter_productshot_sz.png) no-repeat bottom right;
   overflow: auto;
 }
-/* line 205, ../../../app/stylesheets/application.scss */
+/* line 203, ../../../app/stylesheets/application.scss */
+#content .newsletter_topframe_ee {
+  float: left;
+  width: 750px;
+  border: 1px solid #D4D1BF;
+  height: 259px;
+  background: url(/images/ui-backgrounds/newsletter_productshot_ee.png) no-repeat bottom right;
+  overflow: auto;
+}
+/* line 206, ../../../app/stylesheets/application.scss */
 #content .newsletter_midframe {
   float: left;
   width: 946px;
@@ -268,7 +277,7 @@ body.bp th, body.bp td, body.bp caption {
 #content .signup_header {
   border-bottom: 1px dotted #D4D1BF;
 }
-/* line 222, ../../../app/stylesheets/application.scss */
+/* line 221, ../../../app/stylesheets/application.scss */
 #content .news_frame_right {
   float: left;
   padding: 0 10px;
@@ -277,7 +286,7 @@ body.bp th, body.bp td, body.bp caption {
   min-height: 180px;
   border-right: 1px solid #D4D1BF;
 }
-/* line 225, ../../../app/stylesheets/application.scss */
+/* line 224, ../../../app/stylesheets/application.scss */
 #content .news_frame_left {
   float: left;
   margin-bottom: 12px;
@@ -285,56 +294,61 @@ body.bp th, body.bp td, body.bp caption {
   padding: 12px 0 2px 16px;
   width: 310px;
 }
-/* line 229, ../../../app/stylesheets/application.scss */
+/* line 227, ../../../app/stylesheets/application.scss */
 #content .news_frame_center {
   float: left;
   padding: 0 10px;
   margin: 0 6px;
 }
-/* line 232, ../../../app/stylesheets/application.scss */
+/* line 230, ../../../app/stylesheets/application.scss */
+#content .news_frame_center img {
+  float: left;
+  margin: 4px 0 8px 112px;
+}
+/* line 234, ../../../app/stylesheets/application.scss */
 #content .news_border {
   border-top: 1px solid #D4D1BF;
   height: auto;
 }
-/* line 235, ../../../app/stylesheets/application.scss */
+/* line 237, ../../../app/stylesheets/application.scss */
 #content .news_submit {
   float: right;
   margin-right: 24px;
 }
 
-/* line 240, ../../../app/stylesheets/application.scss */
+/* line 242, ../../../app/stylesheets/application.scss */
 p.show_cart {
   cursor: pointer;
 }
 
-/* line 241, ../../../app/stylesheets/application.scss */
+/* line 243, ../../../app/stylesheets/application.scss */
 #guest_checkout {
   float: right;
   width: 375px;
 }
 
-/* line 245, ../../../app/stylesheets/application.scss */
+/* line 247, ../../../app/stylesheets/application.scss */
 #returning_cuctomer {
   float: left;
   width: 375px;
 }
 
-/* line 250, ../../../app/stylesheets/application.scss */
+/* line 252, ../../../app/stylesheets/application.scss */
 #cart_total {
   font-size: 1.4em;
 }
 
-/* line 255, ../../../app/stylesheets/application.scss */
+/* line 257, ../../../app/stylesheets/application.scss */
 li#cart_total {
   border-top: 1px double gray;
 }
 
-/* line 256, ../../../app/stylesheets/application.scss */
+/* line 258, ../../../app/stylesheets/application.scss */
 .item_changed {
   background: #FBE3E4;
 }
 
-/* line 258, ../../../app/stylesheets/application.scss */
+/* line 260, ../../../app/stylesheets/application.scss */
 td.pre_order {
   color: red;
 }
