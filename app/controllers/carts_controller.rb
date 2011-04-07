@@ -287,8 +287,8 @@ class CartsController < ApplicationController
 	end
 
   def remove_order_reference
-    get_cart.update_attributes :order_reference => nil
-    render :js => "$('#previous_order_reference').remove()"
+    get_cart.update_attribute :order_reference, nil
+    render :js => "$('#previous_order_reference').remove();location.href= location.href;"
   end
   
   def use_previous_orders_card
