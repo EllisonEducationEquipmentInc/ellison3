@@ -18,18 +18,18 @@
     online user account! Then once you have access to your personal
     =get_domain.capitalize
     MyAccount page you can select or edit any of your select interests, preferences, and features available on our website and we will save them for future use!
-  %div{:style=>"border-top:1px solid #D4D1BF; height:auto;"}
+  .news_border
     = form_for @subscription, :url => url_for(:action => :create_subscription) do |f|
-      %div{:style => "float:left; padding:0 10px; 10px; margin:0 6px; width:450px; border-right:1px solid #D4D1BF;"}
+      .news_frame_right
         %img{:width => "194", :height => "32", :src => "/images/ui-backgrounds/newsletter_interest_select.png", :style => "float:left; margin: 4px 125px 8px;"}/
         %br
         Yes, I'd like to subscribe to
         %strong= @list[1]
         = render :partial => 'segments'
-      %div{:style =>"float:left; padding:0 10px; 10px; margin:0 6px;"}
+      .news_frame_center
         %img{:width => "208", :height => "32", :src => "/images/ui-backgrounds/newsletter_signup.png", :style => "float:left; margin: 4px 0 8px 112px;"}/
         %br
-        %div{:class=>"ui-widget-header ui-widget ui-corner-all", :style=>"float:left; padding:12px 0 2px 16px; width:406px;"}
+        .news_frame_left{:class=>"ui-widget-header ui-widget ui-corner-all"}
           = f.error_messages
           .field
             = f.label :email
