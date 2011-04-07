@@ -243,6 +243,10 @@ module EllisonSystem
       COD.new('YF', 'Yellow Freight')
     ]
   end
+  
+  def timeout_message
+    "We are having technical difficulties. Please try again later or <a href='/contact'>contact</a> our customer service for help.".html_safe
+  end
 
 	def get_gateway(system = current_system)
 	  system ||= current_system

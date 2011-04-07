@@ -124,7 +124,11 @@ class CartsController < ApplicationController
 		render "checkout_complete"
 	rescue Exception => e
 		@reload_cart = @cart_locked = true if e.exception.class == RealTimeCartError
-		@error_message = e.message #backtrace.join("<br />")
+		@error_message = if e.exception.class == Timeout::Error
+		  timeout_message
+    else
+	    e.message #backtrace.join("<br />")
+	  end
 	end
 		
 	def proceed_checkout
@@ -154,7 +158,11 @@ class CartsController < ApplicationController
 		render "checkout_complete"
 	rescue Exception => e
 		@reload_cart = @cart_locked = true if e.exception.class == RealTimeCartError
-		@error_message = e.message #backtrace.join("<br />")
+		@error_message = if e.exception.class == Timeout::Error
+		  timeout_message
+    else
+	    e.message #backtrace.join("<br />")
+	  end
 		if get_cart.cart_items.blank?
 			flash[:alert] = @error_message
 			render :js => "window.location.href = '#{catalog_path}'" and return

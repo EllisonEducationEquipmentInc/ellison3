@@ -16,7 +16,9 @@ Estimated Total:
             console.log('retrying...');
             $.ajax(this[0]);
           });
+        } else {
+          alert('#{escape_javascript timeout_message}');
         }
-      }
+      } 
     }
   })
