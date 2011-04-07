@@ -29,6 +29,6 @@
   = f.select :country, Country.all.cache.order_by(:display_order.asc, :name.asc).map {|e| e.name}, {}, :class => "address", :onchange => "if (this.value == 'United States') {$('##{f.object_name[/^\w+/]}_state').html('#{escape_javascript(render(:partial => 'admin/virtual_terminal/state_select', :locals => {:f => f}))}');$('##{f.object_name[/^\w+/]}_#{f.object_name[/^\w+/] == 'cc_purchase' ? 'payment' : 'address'}_state').rules('add', {required: true});} else if (this.value == 'Canada') {$('##{f.object_name[/^\w+/]}_state').html('#{escape_javascript(render(:partial => 'admin/virtual_terminal/province_select', :locals => {:f => f}))}');$('##{f.object_name[/^\w+/]}_#{f.object_name[/^\w+/] == 'cc_purchase' ? 'payment' : 'address'}_state').rules('add', {required: true});} else {$('##{f.object_name[/^\w+/]}_state').html('#{escape_javascript(render(:partial => 'admin/virtual_terminal/state', :locals => {:f => f}))}');$('##{f.object_name[/^\w+/]}_#{f.object_name[/^\w+/] == 'cc_purchase' ? 'payment' : 'address'}_state').rules('remove');};"
 .clear
 .field-stacked.left
-  = f.label :email, "Email Address"
+  = required_label f, :email, { :label => "Email Address", :label_size => "auto" }
   = f.text_field :email
 .clear
