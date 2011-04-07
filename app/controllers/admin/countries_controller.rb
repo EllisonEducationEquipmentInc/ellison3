@@ -13,6 +13,8 @@ class Admin::CountriesController < ApplicationController
 	  criteria = Mongoid::Criteria.new(Country)
 	  criteria = if params[:systems_enabled].blank?
 	    criteria.where(:systems_enabled.in => admin_systems)
+	  elsif params[:systems_enabled] == 'all'
+	    criteria
 	  else
 	    criteria.where(:systems_enabled.in => params[:systems_enabled]) 
 	  end
