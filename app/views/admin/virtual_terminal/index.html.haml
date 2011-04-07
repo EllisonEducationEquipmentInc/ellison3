@@ -7,16 +7,16 @@
       .column_50
         = render :partial => 'order', :locals => {:f => f}
         .field
-          = f.label :tax_exempt, "Tax Exempt?", :style => "width: 125px"
+          = f.label :tax_exempt, "Tax Exempt?", :style => "width: 135px"
           yes
-          = f.radio_button(:tax_exempt, true)
+          = f.radio_button(:tax_exempt, true, :onclick => "if (this.checked) {$('label[for=cch_calculate_tax_exempt_number] span').addClass('required');$('##{f.object_name[/^\w+/]}_tax_exempt_number').rules('add', {required: true});}")
           no
-          = f.radio_button(:tax_exempt, false)
+          = f.radio_button(:tax_exempt, false, :onclick => "if (this.checked) {$('label[for=cch_calculate_tax_exempt_number] span').removeClass('required');$('##{f.object_name[/^\w+/]}_tax_exempt_number').rules('remove');}")
         .field
-          = f.label :tax_exempt_number, "Tax Exempt Number", :style => "width: 125px"
+          = f.label :tax_exempt_number, "<span class=''>Tax Exempt Number</span>".html_safe, :style => "width: 135px"
           = f.text_field :tax_exempt_number
         .field
-          = label_tag :order_number, "Order Number", :style => "width: 125px"
+          = label_tag :order_number, "Order Number", :style => "width: 135px"
           = text_field_tag :order_number, params[:order_number]
       .column_50
         = f.fields_for @order.address do |address_fields|
@@ -97,7 +97,7 @@
   #cch_return
     = form_for @order, :url => {:action => "cch_return"}, :html => {:id => "cch_return_form", 'data-type' => 'html'}, :as => :cch_return, :remote => true do |f|
       .field
-        = required_label f, :tax_transaction, { :label => "Tax Transaction ID", :label_size => "125px"}
+        = required_label f, :tax_transaction, { :label => "Tax Transaction ID", :label_size => "135px"}
         = f.text_field :tax_transaction
       = render :partial => 'order', :locals => {:f => f}
       .actions.right
