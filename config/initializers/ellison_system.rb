@@ -275,14 +275,14 @@ module EllisonSystem
                  :password => 'ellisond',
                  :login => 'ellisonadmin'}}
              end
-    config = Config.new(options)
+    config = GwConfig.new(options)
     ActiveMerchant::Billing::Base.mode = :test #unless Rails.env == 'production' 
     @gateway = ActiveMerchant::Billing::Base.gateway(config.name.to_s).new(:login => config.user_name.to_s, :password => config.password.to_s)    
   rescue
     raise 'Invalid ActiveMerchant Gateway'
   end
   
-  class Config
+  class GwConfig
     attr_reader :name, :user_name, :password
     def initialize(config)
       raise "Please configure the ActiveMerchant Gateway" if config[:merchant_account] == nil
