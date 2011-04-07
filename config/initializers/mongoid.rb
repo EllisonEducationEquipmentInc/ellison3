@@ -81,15 +81,15 @@ module Mongoid #:nodoc:
         end
       end
       
-      class ManyToMany < Referenced::Many
+      class ManyToMany < Referenced::Many                
         def <<(*args)
           options = default_options(args)
           args.flatten.each do |doc|
             return doc unless doc
             append(doc, options)
             if base.persisted? && !options[:binding]
-              doc.save(:validate => false)
               base.add_to_set(metadata.foreign_key, doc.id)
+              doc.save(:validate => false) if base.persisted? && !options[:binding]
             end
           end
         end
