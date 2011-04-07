@@ -25,7 +25,7 @@ class Admin::OrdersController < ApplicationController
 	    regexp = Regexp.new(params[:q], "i")
   	  criteria = criteria.any_of({'order_number' => params[:q][/\d+/].to_i}, {:tax_transaction => params[:q]}, {"payment.vpstx_id" => params[:q]}, {"payment.tx_auth_no" => params[:q]}, {"payment.purchase_order_number" => params[:q]}, {'address.email' => regexp}, {'address.company' => regexp}, { 'address.last_name' => regexp })
 	  end
-	  order = params[:sort] ? {sort_column => sort_direction} : [[:created_at, :desc]]
+	  order = params[:order] ? {sort_column => sort_direction} : [[:created_at, :desc]]
 		@orders = criteria.order_by(order).paginate :page => params[:page], :per_page => 50
 	end
 

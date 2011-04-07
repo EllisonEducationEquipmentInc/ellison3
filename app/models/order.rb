@@ -151,6 +151,12 @@ class Order
   def send_shipping_confirmation
     UserMailer.delay.shipping_confirmation(self)
   end
+
+  def delete_billing_subscription_id
+    return unless self.payment && self.payment.subscriptionid.present?
+    get_gateway self.system
+    @gateway.delete_customer_info :subscription_id => self.payment.subscriptionid, :order_id => self.id
+  end
   
 	# use this format to change status:
 	#   @order.in_process! 

@@ -199,7 +199,7 @@ private
   end
 
   def sort_column  
-    params[:sort] || "updated_at"  
+    params[:order] || "updated_at"  
   end
   
   def help

@@ -257,7 +257,7 @@ HTML
     css_class += (column == sort_column) ? " current #{sort_direction}" : ''  
     direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"  
     content_tag :th, :class => "ui-widget" do
-      arrow(column == sort_column ? direction : nil ) + link_to(title, request.query_parameters.merge(:sort => column, :direction => direction), {:class => css_class})
+      arrow(column == sort_column ? direction : nil ) + link_to(title, request.query_parameters.merge(:order => column, :direction => direction), {:class => css_class})
     end
   end
   

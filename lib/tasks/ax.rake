@@ -179,7 +179,7 @@ namespace :ax do
     File.open("#{PATH}/from_ax/#{filename}", "w") {|file| file.puts(xml.target!)}
     p "#{PATH}/from_ax/#{filename} has been created" 
   end
-
+  
   def random_life_cycle
     case rand 10
     when 9
