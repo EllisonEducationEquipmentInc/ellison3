@@ -61,10 +61,10 @@ class ImageUploader < CarrierWave::Uploader::Base
   
   
   # Process files as they are uploaded.
-  process :resize_to_limit => [1200, 800]
+  process :resize_to_limit => [800, 800]
 	
 	version :large do
-    process :resize_to_limit => [450, 300]
+    process :resize_to_limit => [300, 300]
   end
 
   version :small do
