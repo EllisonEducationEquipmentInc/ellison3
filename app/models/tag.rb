@@ -122,6 +122,10 @@ class Tag
       active.where(:systems_enabled.in => [sys], :"start_date_#{sys}".lte => Time.zone.now.change(:sec => 1), :"end_date_#{sys}".gte => Time.zone.now.change(:sec => 1))
     end
     
+    def current
+      active.where(:"start_date_#{sys}".lte => Time.zone.now.change(:sec => 1), :"end_date_#{sys}".gte => Time.zone.now.change(:sec => 1))
+    end
+    
     def keywords(sys = current_system)
       available(sys).where(:tag_type.nin => HIDDEN_TYPES)
     end
