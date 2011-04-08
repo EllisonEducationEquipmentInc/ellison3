@@ -1,4 +1,4 @@
-== #{t :estimated_tax}: 
+== #{is_us? ? 'Sales' : 'Estimated'} Tax
 %span#tax_amount.amount.right
 - if is_uk? && session[:vat_exempt]
   %br
