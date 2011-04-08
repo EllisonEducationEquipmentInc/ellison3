@@ -14,9 +14,10 @@
   = required_label f, :last_name, { :label_size => "auto" }
   = f.text_field :last_name, :size => 19
 .clear
-.field-stacked
-  = required_label_if !is_sizzix?, f, :company, { :label => "#{is_sizzix_us? ? 'Attention:' : 'Company/School/Organization'}", :label_size => "auto" }
-  = f.text_field :company, :size => 42
+- unless is_sizzix_uk?
+  .field-stacked
+    = required_label_if !is_sizzix?, f, :company, { :label => "#{is_sizzix_us? ? 'Attention:' : 'Company/School/Organization'}", :label_size => "auto" }
+    = f.text_field :company, :size => 42
 .field-stacked.left
   = required_label f, :address1, { :label => "Address 1", :label_size => "auto"}
   = f.text_field :address1, :size => 19, :style => "margin-right: 6px"
@@ -27,7 +28,8 @@
 .field-stacked.left
   = required_label f, :city, { :label_size => "auto"}
   = f.text_field :city, :size => "#{is_us? ? 17 : 19}", :style => "margin-right: 6px"
-.field-stacked.left{:id => "#{f.object.address_type}_state"}= render :partial => f.object.us? ? 'users/state_select' : f.object.country == 'Canada' ? 'users/province_select' : 'users/state', :locals => {:f => f}
+- unless is_ee_uk?
+  .field-stacked.left{:id => "#{f.object.address_type}_state"}= render :partial => f.object.us? ? 'users/state_select' : f.object.country == 'Canada' ? 'users/province_select' : 'users/state', :locals => {:f => f}
 .clear
 .field-stacked.left
   = required_label f, :zip_code, { :label => "#{is_us? ? 'Zip' : 'Postal'} Code", :label_size => "auto" }
