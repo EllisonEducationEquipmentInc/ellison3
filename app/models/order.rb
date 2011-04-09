@@ -93,6 +93,32 @@ class Order
 	  def find_by_public_order_number(public_order_number)
 	    Order.where(:system => public_order_number[/[a-z]{2,4}/i].downcase, :order_number => public_order_number[/\d+/]).first
 	  end
+	  
+    def quanity_sold(item_num)
+      map = <<EOF
+        function() {
+          if (this.order_items) {
+            this.order_items.forEach(function(doc) {
+              if (doc.item_num == '#{item_num}') emit( doc.item_num, { quantity : doc.quantity, item_total: doc.sale_price * doc.quantity} );
+            })
+          }
+        }
+EOF
+
+      reduce = <<EOF
+        function( key , values ){
+          var total = 0;
+          var sum = 0;
+          for ( var i=0; i<values.length; i++ ){
+            total += values[i].quantity;
+            sum += values[i].item_total;
+          }
+          return { quantity : total, item_total: sum};
+        };
+EOF
+
+      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {"order_items.item_num" => item_num}})["results"]
+    end
 	end
 	
 	def gross_subtotal_amount

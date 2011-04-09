@@ -103,6 +103,7 @@ class Tag
   # scopes
   scope :active, :where => { :active => true }
   scope :inactive, :where => { :active => false }
+  scope :not_hidden, :where => { :tag_type.nin => HIDDEN_TYPES }
   #scope :available, lambda { |sys = current_system| where(:active => true, :systems_enabled.in => [sys], :"start_date_#{sys}".lte => Time.zone.now, :"end_date_#{sys}".gte => Time.zone.now) }
   ELLISON_SYSTEMS.each do |sys|
     scope sys.to_sym, :where => { :systems_enabled.in => [sys] }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex.:  Tag.szus => scope for sizzix US tags

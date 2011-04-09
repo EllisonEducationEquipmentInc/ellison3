@@ -7,6 +7,8 @@ class Idea
 	
 	include Sunspot::Mongoid
 	
+	extend ActiveSupport::Memoizable
+	
 	validates :name, :idea_num, :systems_enabled, :presence => true
 	validates :related_idea_tag, :object_id_validity => true, :allow_blank => true
 	validates_uniqueness_of :idea_num, :if => Proc.new {|obj| obj.new_record? || obj.idea_num_changed?}, :case_sensitive => false
@@ -124,12 +126,15 @@ class Idea
       # system specific facets: ex: theme_szus
       Tag.all_types.each do |e|
     		string :"#{e}_#{system}", :multiple => true, :references => TagFacet do
-    		  send(e.to_s.pluralize, system).map {|t| "#{t.tag_type}~#{t.permalink}"}
+    		  get_grouped_tags(system)[e]
     		end
      	end
      	time :"start_date_#{system}", :stored => true
       text :"description_#{system}" do 
         description :system => system
+      end
+      text :"terms_#{system}" do
+        "#{self.idea_num} #{self.name} #{self.keywords} #{self.tags.not_hidden.available(system).map { |tag| tag.name } * ', '}" if listable?(system)
       end
       string :"public_life_cycle_#{system}", :stored => true do
         public_life_cycle system
@@ -258,6 +263,16 @@ class Idea
 		active && systems_enabled.include?(sys) && self.send("start_date_#{sys}") < time && self.send("end_date_#{sys}") > time
 	end
 	
+	def get_grouped_tags(system = current_system)
+    hash = {}
+    tags.available(system).only(:tag_type).group.each do |group|
+      hash[group["tag_type"]] = group["group"].map {|t| "#{t.tag_type}~#{t.permalink}"}
+    end
+    hash
+  end
+  
+  memoize :get_grouped_tags
+  
 private 
 
   # automatically set system specific attributes (if not set) of all other enabled systems. Values are inherited from the current system

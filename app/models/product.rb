@@ -10,6 +10,8 @@ class Product
   
   include Sunspot::Mongoid
   
+  extend ActiveSupport::Memoizable
+  
   # include Mongoid::Versioning
   # max_versions 5
   
@@ -235,7 +237,7 @@ class Product
       # system specific facets: ex: theme_szus
       Tag.all_types.each do |e|
         string :"#{e}_#{system}", :multiple => true, :references => TagFacet do
-          send(e.to_s.pluralize, system).map {|t| "#{t.tag_type}~#{t.permalink}"}
+          get_grouped_tags(system)[e]
         end
       end
       time :"start_date_#{system}", :stored => true
@@ -244,6 +246,10 @@ class Product
       end
       boolean :"listable_#{system}", :stored => true do
         listable?(system)
+      end
+      # system specific field to be used for autosuggest
+      text :"terms_#{system}" do
+        "#{self.item_num} #{self.name} #{self.keywords} #{self.tags.not_hidden.available(system).map { |tag| tag.name } * ', '}" if listable?(system)
       end
       text :"description_#{system}" do 
         description :system => system
@@ -258,7 +264,7 @@ class Product
         name.downcase.sub(/^(an?|the) /, '') rescue nil
       end
       integer :quantity_sold do
-        Order.only("order_items").where("order_items.item_num" => item_num).inject(0) {|sum, o| sum += o.order_items.where({:item_num => item_num}).first.quantity}
+        Order.quanity_sold(item_num).first["value"]["quantity"].to_i rescue 0
       end
       LOCALES_2_CURRENCIES.values.each do |currency|
         float :"price_#{system}_#{currency}" do
@@ -463,6 +469,16 @@ class Product
     end
   end
   
+  def get_grouped_tags(system = current_system)
+    hash = {}
+    tags.available(system).only(:tag_type).group.each do |group|
+      hash[group["tag_type"]] = group["group"].map {|t| "#{t.tag_type}~#{t.permalink}"}
+    end
+    hash
+  end
+  
+  memoize :get_grouped_tags
+  
   # if pre_order and in stock and have enough qty
   # or product is available and in stock
   # or if backorder allowed, and product is listable
@@ -580,16 +596,16 @@ class Product
   end
   
   def calculate_coupon_discount(coupon)
-	  return if coupon.blank?
-	  p = if coupon.percent?
-			self.msrp - (0.01 * coupon.discount_value * self.msrp).round(2)
-		elsif coupon.absolute?
-			self.msrp - coupon.discount_value > 0 ? self.msrp - coupon.discount_value : 0.0
-		elsif coupon.fixed?
-			coupon.discount_value
-		end
-		p < self.price ? p : self.price
-	end
+    return if coupon.blank?
+    p = if coupon.percent?
+      self.msrp - (0.01 * coupon.discount_value * self.msrp).round(2)
+    elsif coupon.absolute?
+      self.msrp - coupon.discount_value > 0 ? self.msrp - coupon.discount_value : 0.0
+    elsif coupon.fixed?
+      coupon.discount_value
+    end
+    p < self.price ? p : self.price
+  end
   
 private 
 
