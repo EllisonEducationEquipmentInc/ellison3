@@ -30,12 +30,15 @@ class SessionsController < ApplicationController
 		  resource = warden.authenticate!(:scope => resource_name, :recall => request.xhr? ? "failure" : "new")
 		end
     set_flash_message :notice, :signed_in
-    session[:user_return_to] = retailer_application_path if is_er? && !resource.application_complete?
+    if is_er?
+      session[:user_return_to] ||= myaccount_path(:tab => 'messages')
+      session[:user_return_to] = retailer_application_path if !resource.application_complete?
+    end
     resource.update_attribute(:machines_owned, machines_owned) if machines_owned.present? && resource.machines_owned != machines_owned
     cookies[:machines] = {:value => resource.machines_owned.join(","), :expires => 30.days.from_now} if resource.machines_owned.present? && machines_owned != resource.machines_owned
     if request.xhr? 
 			sign_in(resource_name, resource)
-			render :js => "window.location.href = '#{session[:user_return_to] || root_path}'" 
+			render :js => "window.location.href = '#{session[:user_return_to] || myaccount_path}'" 
 		else
 			sign_in_and_redirect(resource_name, resource)
 		end
