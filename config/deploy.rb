@@ -1,0 +1,120 @@
+#require "eycap/recipes"
+# require 'cap_recipes/tasks/memcache'
+# require 'cap_recipes/tasks/passenger'
+# require 'cap_recipes/tasks/rails'
+
+#require "bundler/capistrano"
+
+#=================================================================================================
+# ELLISON CUSTOM CONDITIONS
+#=================================================================================================
+# optional ENV variables to specify what svn repo should be deplyed
+#
+# usage example:
+# 
+# cap staging deploy TAG="version_1.0"
+# 
+if ENV['TAG']
+  deploy_version = "tags/#{ENV['TAG']}"
+elsif ENV['BRANCH']
+  deploy_version = "branches/#{ENV['BRANCH']}"
+else
+  deploy_version = "trunk/"
+end
+
+
+set :keep_releases,       5
+set :application,         "ellison3"
+set :user,                "ellison"
+set :password,            "ellison123" #"RbBR5VrQ"
+set :deploy_to,           "/data/ellison3_qa"
+set :monit_group,         "ellison"
+set :runner,              "ellison"
+set :repository,          "https://ellison.svn.beanstalkapp.com/ellison3/#{deploy_version}"
+set :scm_username,        "engineyard"
+set :scm_password,        "yardwork123"
+set :scm,                 :subversion
+#set :deploy_via,          :filtered_remote_cache
+set :repository_cache,    "/var/cache/engineyard/#{application}"
+set :production_database, "ellison3_qa"
+set :production_dbhost,   "localhost"
+set :staging_database,    "ellison3_qa"
+set :staging_dbhost,      "localhost"
+set :dbuser,              "ellison"
+set :dbpass,              "Yh4XS3Sy"
+
+# comment out if it gives you trouble. newest net/ssh needs this set.
+ssh_options[:paranoid] = false
+
+
+require 'cap_recipes/tasks/delayed_job'
+
+# =================================================================================================
+# ROLES
+# =================================================================================================
+# You can define any number of roles, each of which contains any number of machines. Roles might
+# include such things as :web, or :app, or :db, defining what the purpose of each machine is. You
+# can also specify options that can be used to single out a specific subset of boxes in a
+# particular role, like :primary => true.
+
+task :production do
+
+  role :web, "192.168.2.171"
+  role :app, "192.168.2.171", :memcached => true
+  role :db , "192.168.2.171", :primary => true
+  role :app, "192.168.2.171", :no_release => true, :no_symlink => true, :memcached => true
+
+  set :rails_env, "production"
+  set :environment_database, defer { production_database }
+  set :environment_dbhost, defer { production_dbhost }
+
+  after "custom_symlink", "prod_symlink"
+end
+
+desc "Application symlinks"
+task :custom_symlink, :roles => :app, :except => {:no_release => true, :no_symlink => true} do
+   run "ln -nfs /home/shared/images/ #{release_path}/public/images"
+   run "ln -nfs #{shared_path}/config/newrelic.yml #{latest_release}/config/newrelic.yml"
+   run "ln -nfs #{shared_path}/config/mongoid.yml #{latest_release}/config/mongoid.yml"
+   run "ln -nfs #{shared_path}/config/memcached.rb #{latest_release}/config/memcached.rb"
+end
+
+task :prod_symlink, :roles => :app, :except => {:no_release => true, :no_symlink => true} do
+   run "ln -nfs #{shared_path}/config/sunspot.yml #{latest_release}/config/sunspot.yml"
+   #run "cd #{latest_release} && RAILS_ENV=production ./script/delayed_job stop"
+   #run "cd #{latest_release} && RAILS_ENV=production ./script/delayed_job start"
+end
+
+#after "deploy:symlink_configs", "custom_symlink"
+after "deploy:start",   "delayed_job:start"
+after "deploy:stop",    "delayed_job:stop"
+after "deploy:restart", "delayed_job:restart"
+
+# Do not change below unless you know what you are doing!
+after "deploy", "deploy:cleanup"
+after "deploy:migrations" , "deploy:cleanup"
+#after "deploy:update_code", "deploy:symlink_configs"
+after "deploy:update_code", "custom_symlink"
+
+# uncomment the following to have a database backup done before every migration
+# before "deploy:migrate", "db:dump"
+
+namespace :memcached do
+  desc "Flush memcached - this assumes memcached is on port 11212"
+  task :flush, :roles => [:app], :only => {:memcached => true} do
+    sudo "echo 'flush_all' | nc localhost 11212 -q 1"
+  end
+end
+
+
+# if you're still using the script/reaper helper you will need
+# these http://github.com/rails/irs_process_scripts
+
+# If you are using Passenger mod_rails uncomment this:
+namespace :deploy do
+  task :start do ; end
+  task :stop do ; end
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
+end

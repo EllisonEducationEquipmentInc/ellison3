@@ -1,0 +1,1 @@
+ENV['memcached_port']='11211'

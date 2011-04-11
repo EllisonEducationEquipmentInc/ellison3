@@ -1,3 +1,5 @@
+require File.join(File.dirname(__FILE__), '../memcached') #load system from system.rb
+
 Ellison3::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
@@ -26,7 +28,7 @@ Ellison3::Application.configure do
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
-  config.cache_store = :mem_cache_store, 'localhost:11211', {:namespace => 'ellison3', :compress => true}
+  config.cache_store = :mem_cache_store, "localhost:#{ENV['memcached_port']}", {:namespace => 'ellison3', :compress => true}
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
