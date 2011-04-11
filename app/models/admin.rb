@@ -17,6 +17,7 @@ class Admin
 	field :limited_sales_rep, :type => Boolean, :default => false
 	field :can_change_prices, :type => Boolean, :default => false
 	field :systems_enabled, :type => Array
+	field :reset_password_token_expires_at, :type => DateTime
 	
 	field :created_by
 	field :updated_by
@@ -51,6 +52,14 @@ class Admin
 	
 	scope :sales_reps, :where => { :active => true,  :can_act_as_customer => true}
 	
+	class << self
+    def reset_password_by_token(attributes={})
+      recoverable = where(:reset_password_token_expires_at.gt => Time.now).find_or_initialize_with_error_by(:reset_password_token, attributes[:reset_password_token], "is invalid or expired.")
+      recoverable.reset_password!(attributes[:password], attributes[:password_confirmation]) unless recoverable.new_record?
+      recoverable
+    end
+  end
+  
 	def initialize(attributes = nil)
 		super(attributes)
 		self.systems_enabled ||= [current_system]
@@ -73,9 +82,38 @@ class Admin
   def destroy
     update_attribute :active, false
   end
+  
+  def reset_password!(new_password, new_password_confirmation)
+    if new_password.blank?
+      errors.add(:password, "cannot be blank")
+    else
+      self.password = new_password
+      self.password_confirmation = new_password_confirmation
+      clear_reset_password_token if valid?
+      save
+    end
+  end
 
 protected
   def password_required?
     !persisted? || password.present? || password_confirmation.present?
+  end
+  
+  # Generates a new random token for reset password
+  def generate_reset_password_token
+    self.reset_password_token = self.class.reset_password_token
+    self.reset_password_token_expires_at = 3.days.since
+  end
+
+  # Resets the reset password token with and save the record without
+  # validating
+  def generate_reset_password_token!
+    generate_reset_password_token && save(:validate => false)
+  end
+
+  # Removes reset_password token
+  def clear_reset_password_token
+    self.reset_password_token = nil
+    self.reset_password_token_expires_at = nil
   end
 end
