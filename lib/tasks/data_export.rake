@@ -59,7 +59,7 @@ namespace :data_export do
 	desc "reindex all products"
 	task :reindex_products => :environment do
 	  new_relic_wrapper "reindex_products" do
-	    Product.all.in_batches(50) do |batch|
+	    Product.active.in_batches(50) do |batch|
         batch.each do |product|
           product.delay.index! rescue next
           p "#{product.item_num}"
@@ -71,7 +71,7 @@ namespace :data_export do
 	desc "reindex all ideas"
 	task :reindex_ideas => :environment do
 	  new_relic_wrapper "reindex_ideas" do
-	    Idea.all.in_batches(50) do |batch|
+	    Idea.active.in_batches(50) do |batch|
         batch.each do |idea|
           idea.delay.index! rescue next
           p "#{idea.idea_num}"
