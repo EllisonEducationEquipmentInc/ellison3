@@ -13,6 +13,9 @@ class SolrTerms
     if env["PATH_INFO"] =~ /^\/solr_terms\/(.+)$/
       term = $1
       [200, {"Content-Type" => 'text/plain; charset=utf-8'}, [Net::HTTP.get(URI.parse("#{solr_path}/terms?terms.fl=spell&terms.prefix=#{URI.escape(term.downcase)}&terms.mincount=5&terms.sort=index&indent=true&wt=json&omitHeader=true&json.nl=arrarr"))]]
+    elsif env["PATH_INFO"] =~ /^\/(#{ELLISON_SYSTEMS * '|'})_solr_terms\/(.+)$/
+      term = $2
+      [200, {"Content-Type" => 'text/plain; charset=utf-8'}, [Net::HTTP.get(URI.parse("#{solr_path}/terms?terms.fl=terms_#{$1}_text&terms.prefix=#{URI.escape(term.downcase)}&terms.mincount=5&terms.sort=index&indent=true&wt=json&omitHeader=true&json.nl=arrarr"))]]      
     elsif env["REQUEST_URI"] =~ /^\/products_autocomplete\?term=(.+)$/
       term = $1
       solr_response = Net::HTTP.get(URI.parse("#{solr_path}/select?fq=type%3AProduct&fq=active_b%3Atrue&q=#{term.downcase.strip.gsub(/\+$/, '')}*&fl=id+item_num_ss+stored_name_ss+msrp_usd_fs+msrp_gbp_fs+msrp_eur_fs&qf=item_num_ss+stored_name_ss&start=0&rows=10&wt=ruby&omitHeader=true&json.nl=arrarr"))

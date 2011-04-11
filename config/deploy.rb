@@ -3,11 +3,6 @@ require "rvm/capistrano"                  # Load RVM's capistrano plugin.
 set :rvm_ruby_string, 'ruby-1.9.2-p136@global'
 
 #require "eycap/recipes"
-# require 'cap_recipes/tasks/memcache'
-# require 'cap_recipes/tasks/passenger'
-# require 'cap_recipes/tasks/rails'
-
-#require "bundler/capistrano"
 
 #=================================================================================================
 # ELLISON CUSTOM CONDITIONS
@@ -57,8 +52,6 @@ default_run_options[:pty] = true
 # comment out if it gives you trouble. newest net/ssh needs this set.
 ssh_options[:paranoid] = false
 
-
-#require 'cap_recipes/tasks/delayed_job'
 require 'cap_recipes/tasks/utilities'
 
 # =================================================================================================
