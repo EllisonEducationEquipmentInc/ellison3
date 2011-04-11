@@ -46,7 +46,8 @@ class User
 	validates_uniqueness_of :email, :case_sensitive => false, :if => Proc.new {|obj| obj.new_record? || obj.email_changed?}
 	validates_presence_of :tax_exempt_certificate, :if => Proc.new {|obj| obj.tax_exempt}
 	validates_numericality_of :order_minimum, :first_order_minimum, :allow_nil => true, :only_integer => true
-		
+	validates_format_of :password,	:if => :password_required?, :with => /((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15})/i, :message => "must contain at least one letter and one digit, length must be between 6 and 15 characters"
+	
 	attr_accessible :name, :company, :email, :password, :password_confirmation, :addresses_attributes
 	
 	accepts_nested_attributes_for :addresses

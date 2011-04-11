@@ -52,6 +52,7 @@ class UsersController < ApplicationController
       #redirect_to after_update_path_for(get_user)
     else
       clean_up_passwords(resource)
+      @profile = get_user.errors.full_messages.join("<br />")
       render_with_scope :edit
     end
   end
