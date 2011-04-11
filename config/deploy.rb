@@ -1,3 +1,7 @@
+$:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
+require "rvm/capistrano"                  # Load RVM's capistrano plugin.
+set :rvm_ruby_string, 'ruby-1.9.2-p136@global'
+
 #require "eycap/recipes"
 # require 'cap_recipes/tasks/memcache'
 # require 'cap_recipes/tasks/passenger'
@@ -43,11 +47,19 @@ set :staging_dbhost,      "localhost"
 set :dbuser,              "ellison"
 set :dbpass,              "Yh4XS3Sy"
 
+set :delayed_script_path, "#{current_path}/script/delayed_job"
+set :delayed_job_env, 'production'
+set :delayed_job_role, :app
+set :base_ruby_path, '/usr/local'
+
+default_run_options[:pty] = true 
+
 # comment out if it gives you trouble. newest net/ssh needs this set.
 ssh_options[:paranoid] = false
 
 
-require 'cap_recipes/tasks/delayed_job'
+#require 'cap_recipes/tasks/delayed_job'
+require 'cap_recipes/tasks/utilities'
 
 # =================================================================================================
 # ROLES
@@ -95,6 +107,7 @@ after "deploy", "deploy:cleanup"
 after "deploy:migrations" , "deploy:cleanup"
 #after "deploy:update_code", "deploy:symlink_configs"
 after "deploy:update_code", "custom_symlink"
+after 'custom_symlink', 'bundler:bundle_new_release'
 
 # uncomment the following to have a database backup done before every migration
 # before "deploy:migrate", "db:dump"
@@ -115,6 +128,46 @@ namespace :deploy do
   task :start do ; end
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+    run "touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
+end
+
+
+namespace :bundler do
+  task :create_symlink, :roles => :app do
+    shared_dir = File.join(shared_path, 'bundle')
+    release_dir = File.join(latest_release, '.bundle')
+    run("mkdir -p #{shared_dir} && ln -s #{shared_dir} #{release_dir}")
+  end
+ 
+  task :bundle_new_release, :roles => :app do
+    bundler.create_symlink
+    run "cd #{release_path} && bundle install --without test"
+  end
+end
+
+namespace :delayed_job do
+  desc "Start delayed_job process"
+  task :start, :roles => delayed_job_role do
+    utilities.with_role(delayed_job_role) do
+      run "RAILS_ENV=#{delayed_job_env} #{base_ruby_path}/bin/ruby #{delayed_script_path} start"
+    end
+  end
+
+  desc "Stop delayed_job process"
+  task :stop, :roles => delayed_job_role do
+    utilities.with_role(delayed_job_role) do
+      run "RAILS_ENV=#{delayed_job_env} #{base_ruby_path}/bin/ruby #{delayed_script_path} stop"
+    end
+  end
+
+  desc "Restart delayed_job process"
+  task :restart, :roles => delayed_job_role do
+    utilities.with_role(delayed_job_role) do
+      delayed_job.stop
+      sleep(4)
+      run "killall -s TERM delayed_job; true"
+      delayed_job.start
+    end
   end
 end

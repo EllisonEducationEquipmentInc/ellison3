@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), '../memcached') #load system from system.rb
+require File.join(File.dirname(__FILE__), '../memcached') #load memcached port from memcached.rb
 
 Ellison3::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
