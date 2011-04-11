@@ -360,7 +360,7 @@ function initialize_buttons(){
 		$(".jqui_messages_min").button({icons: {primary: 'ui-icon-mail-closed'}, text: false});
 	});	
 	$(function() {
-		$(".jqui_out_of_stock").button({icons: {primary: 'ui-icon-alert'}});
+		$(".jqui_out_of_stock").button({icons: {primary: 'ui-icon-alert'}, disabled: true});
 	});
 	$(function() {
 		$(".jqui_clipboard").button({icons: {primary: 'ui-icon-clipboard'}});
