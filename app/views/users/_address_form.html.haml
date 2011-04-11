@@ -61,17 +61,17 @@
                   required: true
               }, 
               "#{f.object_name}[address1]": { 
-                  required: true, 
+                  required: true
               }, 
               "#{f.object_name}[city]": { 
-                  required: true, 
+                  required: true
               },
               "#{f.object_name}[email]": { 
                   required: true, 
                   email: true
               },
               "#{f.object_name}[company]": { 
-                  required: #{is_sizzix? ? 'false' : 'true'}, 
+                  required: #{is_sizzix? ? 'false' : 'true'}
               },
               "#{f.object_name}[phone]": { 
                   required: true, 
@@ -83,7 +83,7 @@
                   zipUS: #{f.object.us? ? 'true' : 'false'}
               },
               "#{f.object_name}[state]": { 
-                  required: #{f.object.us? ? 'true' : 'false'}, 
+                  required: #{f.object.us? ? 'true' : 'false'}
               }
           }, 
           submitHandler: function(form) {

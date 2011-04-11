@@ -764,10 +764,10 @@ var payment_validator_options = {
         }
     },
     submitHandler: function(form) {
-      $('#proceed_checkout').callRemote();
 			// $('#proceed_checkout').ajaxSubmit();
       _gaq.push(['_trackEvent', 'Cart', 'Place Order']);
       fancyloader('Your order is being processed. Thank you for your patience!');
+      $('#proceed_checkout').callRemote();
     },
     messages: {
         "payment[first_name]": {
