@@ -6,6 +6,15 @@
       = f.label :institution
       %br/
       = f.select :institution, institutions
+  - if is_er? || is_ee?
+    %p
+      = f.label :company, 'Company/School/Organization'
+      %br/
+      = f.text_field :company
+  %p
+    = f.label :name, is_sizzix? ? "Name" : "Contact Person"
+    %br/
+    = f.text_field :name
   %p
     = f.label :email
     %br/

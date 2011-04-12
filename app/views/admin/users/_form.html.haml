@@ -52,6 +52,19 @@
     = f.label :tax_exempt_certificate
     %br
     = f.text_field :tax_exempt_certificate
+  - if is_ee?
+    .field
+      = f.label :institution
+      %br/
+      = f.select :institution, institutions
+  .field
+    = f.label :company, 'Company/School/Organization'
+    %br/
+    = f.text_field :company
+  .field
+    = f.label :name, "Name/Contact Person"
+    %br/
+    = f.text_field :name
   .field
     = f.label :email
     %br

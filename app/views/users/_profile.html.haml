@@ -7,3 +7,12 @@
 %strong Password:
 xxxxxxxxxxxxxx
 = link_to "change", edit_user_registration_path(get_user), :remote => true
+%br
+%strong Name/Contact Person:
+= get_user.name
+= link_to "change", edit_user_registration_path(get_user), :remote => true
+- if is_ee? || is_er?
+  %br
+  %strong Company/School/Organization:
+  = get_user.company
+  = link_to "change", edit_user_registration_path(get_user), :remote => true
