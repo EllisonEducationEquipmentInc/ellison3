@@ -1,5 +1,11 @@
 // Ellison3 Web Application Customer Account Profile CSS
 
+#guest_checkout, #returning_customer { @include column(10);
+  height: 350px;
+}
+
+#returning_customer { margin-right: 0; }
+
 #email_list {
   width: 500px;
 }

@@ -321,34 +321,22 @@ p.show_cart {
   cursor: pointer;
 }
 
-/* line 243, ../../../app/stylesheets/application.scss */
-#guest_checkout {
-  float: right;
-  width: 375px;
-}
-
-/* line 247, ../../../app/stylesheets/application.scss */
-#returning_cuctomer {
-  float: left;
-  width: 375px;
-}
-
-/* line 252, ../../../app/stylesheets/application.scss */
+/* line 244, ../../../app/stylesheets/application.scss */
 #cart_total {
   font-size: 1.4em;
 }
 
-/* line 257, ../../../app/stylesheets/application.scss */
+/* line 249, ../../../app/stylesheets/application.scss */
 li#cart_total {
   border-top: 1px double gray;
 }
 
-/* line 258, ../../../app/stylesheets/application.scss */
+/* line 250, ../../../app/stylesheets/application.scss */
 .item_changed {
   background: #FBE3E4;
 }
 
-/* line 260, ../../../app/stylesheets/application.scss */
+/* line 252, ../../../app/stylesheets/application.scss */
 td.pre_order {
   color: red;
 }
