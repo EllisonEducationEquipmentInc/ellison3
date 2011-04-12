@@ -78,8 +78,8 @@
             if ($("#asset_carousel_#{visual_asset.id}").find("ul li").length > #{visual_asset.wide? ? 5 : 4}) {
               $("#asset_carousel_#{visual_asset.id}").next(".controls").slideDown();
             }
+            initialize_buttons();
           });
-          initialize_buttons();
         });
   - elsif visual_asset.asset_type == 'products' || visual_asset.asset_type == 'ideas'
     .asset_items
