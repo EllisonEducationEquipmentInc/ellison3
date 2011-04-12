@@ -363,7 +363,7 @@ private
         MIN_ORDER
       end
     if get_cart.sub_total < min_order
-      flash[:alert] = "Minimum Order Requirement: There is a #{help.number_to_currency(min_order)} minimum order requirement for online shopping. Please add more products to your shopping cart before checking out. To place an order under #{help.number_to_currency(min_order)} for machine parts only, please call Consumer Support toll free #{t :toll_free}."
+      flash[:alert] = "Minimum Order Requirement: There is a #{help.number_to_currency(min_order)} minimum order requirement for online shopping. Please add more products to your shopping cart before checking out."
       if request.xhr?
         render :js => "window.location.href = '#{cart_path}'" and return false
       else
