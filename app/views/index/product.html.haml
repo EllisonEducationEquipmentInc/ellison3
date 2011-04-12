@@ -68,7 +68,7 @@
     %p
       %strong== Curriculum#{'s' if @product.curriculums.count > 1}: 
       = raw @product.curriculums.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}"))} * ', '
-  - if @product.product_line.present? && @product.product_line.compatibilities.length > 0
+  - if @product.product_line.present? && @product.product_line.compatibilities.length > 0 && @product.item_type == "die"
     -# TODO: cache + move to a helper
     %p{ :style => "margin-bottom: 0 !important;"}== This #{@product.item_type} is compatible with these product lines
     #compat_thumbs.thumbnail_carousel.dontprint
