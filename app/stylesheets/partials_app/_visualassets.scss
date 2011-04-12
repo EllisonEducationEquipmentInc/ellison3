@@ -101,13 +101,45 @@ h2.tim-holtz-outlet-items { @extend .decorative;
   }
     
   .item_element {
+    $item-element-width: 165px;
+    $item-element-padding: 5px;
+    
+    position: relative;
     background-color: white;
-		width: 165px;
-		padding: 5px;
+		width: $item-element-width;
+		padding: $item-element-padding;
 		text-align: center;
 		height: 210px;
 		border: 1px solid $catalog_buybox_border;
 		margin: 5px;
+		
+		.cart-buttons {
+		  width: 100%;
+  	  position: absolute;
+  	  bottom: $item-element-padding;
+  	  left: 50%;
+  	  margin-left: -($item-element-width/2) - $item-element-padding;
+  	  
+  	  .message {
+  	    font-size: .85em;
+	    
+  	    a {
+  	      color: $link;
+  	      text-decoration: underline;
+	      
+  	      &:hover { color: $text; }
+  	    }
+  	  }
+    
+  	  .users_lists_container {
+  	    width: $item-element-width - 1;
+        position: absolute;
+        bottom: 0px;
+        left: 1px;
+      
+        select#id { max-width: 135px; }
+  	  }    
+		}
 		
 		p {
 		  margin: 0;

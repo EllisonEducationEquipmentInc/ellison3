@@ -6,28 +6,28 @@ body.bp .products_grid h3 {
   text-transform: none;
 }
 /* line 16, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item-block p, body.bp .item-block h3, body.bp .item-block h4, body.bp .item-block_related p, body.bp .item-block_related .item-block h3, body.bp .item-block .item-block_related h3, body.bp .item-block_related h4, body.bp .buybox p, body.bp .buybox .item-block h3, body.bp .item-block .buybox h3, body.bp .buybox h4 {
+body.bp .item-block p, body.bp .item-block h3, body.bp .item-block h4, body.bp .item-block_related p, body.bp .item-block_related .item-block h3, body.bp .item-block .item-block_related h3, body.bp .item-block_related h4, body.bp .buybox p, body.bp .buybox .item-block h3, body.bp .item-block .buybox h3, body.bp .buybox h4, body.bp .item_element_cart p, body.bp .item_element_cart .item-block h3, body.bp .item-block .item_element_cart h3, body.bp .item_element_cart h4 {
   margin: 0;
   line-height: 1.2em;
 }
 /* line 20, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item-block p.buttonset, body.bp .item-block h3.buttonset, body.bp .item-block h4.buttonset, body.bp .item-block_related p.buttonset, body.bp .item-block_related .item-block h3.buttonset, body.bp .item-block .item-block_related h3.buttonset, body.bp .item-block_related h4.buttonset, body.bp .buybox p.buttonset, body.bp .buybox .item-block h3.buttonset, body.bp .item-block .buybox h3.buttonset, body.bp .buybox h4.buttonset {
+body.bp .item-block p.buttonset, body.bp .item-block h3.buttonset, body.bp .item-block h4.buttonset, body.bp .item-block_related p.buttonset, body.bp .item-block_related .item-block h3.buttonset, body.bp .item-block .item-block_related h3.buttonset, body.bp .item-block_related h4.buttonset, body.bp .buybox p.buttonset, body.bp .buybox .item-block h3.buttonset, body.bp .item-block .buybox h3.buttonset, body.bp .buybox h4.buttonset, body.bp .item_element_cart p.buttonset, body.bp .item_element_cart .item-block h3.buttonset, body.bp .item-block .item_element_cart h3.buttonset, body.bp .item_element_cart h4.buttonset {
   margin-top: 4px;
 }
 /* line 25, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item-block h3, body.bp .item-block_related h3, body.bp .buybox h3 {
+body.bp .item-block h3, body.bp .item-block_related h3, body.bp .buybox h3, body.bp .item_element_cart h3 {
   color: black;
 }
 /* line 29, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item-block a, body.bp .item-block_related a, body.bp .buybox a {
+body.bp .item-block a, body.bp .item-block_related a, body.bp .buybox a, body.bp .item_element_cart a {
   color: black;
 }
 /* line 32, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item-block a:hover, body.bp .item-block_related a:hover, body.bp .buybox a:hover {
+body.bp .item-block a:hover, body.bp .item-block_related a:hover, body.bp .buybox a:hover, body.bp .item_element_cart a:hover {
   color: black;
 }
 /* line 37, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item-block .users_lists_container h4, body.bp .item-block .move_to_another_list h4, body.bp .item-block_related .users_lists_container h4, body.bp .item-block_related .move_to_another_list h4, body.bp .buybox .users_lists_container h4, body.bp .buybox .move_to_another_list h4 {
+body.bp .item-block .users_lists_container h4, body.bp .item-block .move_to_another_list h4, body.bp .item-block_related .users_lists_container h4, body.bp .item-block_related .move_to_another_list h4, body.bp .buybox .users_lists_container h4, body.bp .buybox .move_to_another_list h4, body.bp .item_element_cart .users_lists_container h4, body.bp .item_element_cart .move_to_another_list h4 {
   font-family: Verdana,Arial,sans-serif;
   font-weight: bold;
   font-size: 10px;
@@ -35,14 +35,14 @@ body.bp .item-block .users_lists_container h4, body.bp .item-block .move_to_anot
   margin-bottom: 8px;
 }
 /* line 45, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item-block .users_lists_container a, body.bp .item-block .move_to_another_list a, body.bp .item-block_related .users_lists_container a, body.bp .item-block_related .move_to_another_list a, body.bp .buybox .users_lists_container a, body.bp .buybox .move_to_another_list a {
+body.bp .item-block .users_lists_container a, body.bp .item-block .move_to_another_list a, body.bp .item-block_related .users_lists_container a, body.bp .item-block_related .move_to_another_list a, body.bp .buybox .users_lists_container a, body.bp .buybox .move_to_another_list a, body.bp .item_element_cart .users_lists_container a, body.bp .item_element_cart .move_to_another_list a {
   font-family: Verdana,Arial,sans-serif;
   font-size: 10.2px;
   margin-bottom: 0;
   text-decoration: none;
 }
 /* line 51, ../../../app/stylesheets/partials_app/_catalog.scss */
-body.bp .item-block .users_lists_container a:hover, body.bp .item-block .move_to_another_list a:hover, body.bp .item-block_related .users_lists_container a:hover, body.bp .item-block_related .move_to_another_list a:hover, body.bp .buybox .users_lists_container a:hover, body.bp .buybox .move_to_another_list a:hover {
+body.bp .item-block .users_lists_container a:hover, body.bp .item-block .move_to_another_list a:hover, body.bp .item-block_related .users_lists_container a:hover, body.bp .item-block_related .move_to_another_list a:hover, body.bp .buybox .users_lists_container a:hover, body.bp .buybox .move_to_another_list a:hover, body.bp .item_element_cart .users_lists_container a:hover, body.bp .item_element_cart .move_to_another_list a:hover {
   color: black;
   text-decoration: underline;
 }
