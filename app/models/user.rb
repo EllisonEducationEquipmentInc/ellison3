@@ -5,7 +5,7 @@ class User
 	include Mongoid::Paranoia
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable #, :validatable
   
   STATUSES = ["pending", "active", "suspended", "declined"]
 
@@ -45,10 +45,12 @@ class User
 	field :created_by
 	field :updated_by
 	
+	validates_presence_of   :email
 	validates_uniqueness_of :email, :case_sensitive => false, :if => Proc.new {|obj| obj.new_record? || obj.email_changed?}
 	validates_presence_of :tax_exempt_certificate, :if => Proc.new {|obj| obj.tax_exempt}
 	validates_numericality_of :order_minimum, :first_order_minimum, :allow_nil => true, :only_integer => true
 	validates_format_of :password,	:if => :password_required?, :with => /((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15})/i, :message => "must contain at least one letter and one digit, length must be between 8 and 15 characters"
+	validates_length_of :password, :within => 8..15, :if => :password_required?
 	
 	attr_accessible :name, :company, :email, :password, :password_confirmation, :addresses_attributes, :institution
 	
