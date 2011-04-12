@@ -1,6 +1,21 @@
 # cybersource authorization_reversal, recurring_billing extension
 module ActiveMerchant #:nodoc:
   module Billing #:nodoc:
+    
+    # card validation overrides
+    module CreditCardMethods
+      CARD_COMPANIES['maestro'] = /(^(5[06-8]|6\d)\d{14}(\d{2,3})?$)|(^(5[06-8]|6\d)\d{10,17}$)|(^(5[0678])\d{11,18}$)|(^(6[^0357])\d{11,18}$)|(^(601)[^1]\d{9,16}$)|(^(6011)\d{9,11}$)|(^(6011)\d{13,16}$)|(^(65)\d{11,13}$)|(^(65)\d{15,18}$)|(^(633)[^34](\d{9,16}$))|(^(6333)[0-4](\d{8,10}$))|(^(6333)[0-4](\d{12}$))|(^(6333)[0-4](\d{15}$))|(^(6333)[5-9](\d{8,10}$))|(^(6333)[5-9](\d{12}$))|(^(6333)[5-9](\d{15}$))|(^(6334)[0-4](\d{8,10}$))|(^(6334)[0-4](\d{12}$))|(^(6334)[0-4](\d{15}$))|(^(67)[^(59)](\d{9,16}$))|(^[(6759)](\d{9,11}$))|(^[(6759)](\d{13}$))|(^[(6759)](\d{16}$))|(^(67)[^(67)](\d{9,16}$))|(^[(6767)](\d{9,11}$))|(^[(6767)](\d{13}$))|(^[(6767)](\d{16}$))/
+      CARD_COMPANIES['solo'] = /^6767|6334\d{12}(\d{2,3})?$/
+    end
+    
+    # don't validate solo/swith issue date
+    class CreditCard
+      private
+      def validate_switch_or_solo_attributes
+        # do nothing
+      end
+    end
+    
     class CyberSourceGateway < Gateway
 	
 			attr_accessor :raw_xml
