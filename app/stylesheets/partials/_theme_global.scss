@@ -91,6 +91,11 @@ body.bp {
   }
 }
 
+#root {
+  width: $blueprint-container-size;
+  margin: 0 auto -225px;
+}
+
 // hidden classes for print & page breaks
 .dontdisplay, .page-break { display: none; }
 

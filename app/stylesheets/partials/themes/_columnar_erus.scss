@@ -9,10 +9,11 @@ body.bp {
 }
 
 #root {
+  background: url("/images/ui-backgrounds/_#{$system}_root_r.png") center top repeat-y;
   
   .container {
-    margin-top: 6px;
-    background: url("/images/ui-backgrounds/_#{$system}_root.png") no-repeat center top;
+    background: url("/images/ui-backgrounds/_#{$system}_root.png") center top no-repeat;
+    
   }
 }
 
