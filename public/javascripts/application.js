@@ -76,10 +76,10 @@ $(function() {
 // lightboxes
 function initialize_lightboxes(){
 	$("a.lightbox").fancybox({
-			'transitionIn'	:	'elastic',
+			'transitionIn' : 'elastic',
 			'transitionOut'	:	'elastic',
-			'speedIn'		:	500, 
-			'speedOut'		:	200, 
+			'speedIn'	:	500, 
+			'speedOut' :	200, 
 			'overlayShow'	:	true,
 			'titleShow': false,
 			'onComplete' : function(){setTimeout("$.fancybox.resize()", 100)}
@@ -395,16 +395,16 @@ function initialize_show_cart() {
 
 function show_cart() {
 	$.fancybox({
-			'padding'		: 10,
-			'autoScale'		: false,
+			'padding'	: 10,
+			'autoScale'	: false,
 			'scrolling' : 'auto',
-			'speedIn'		:	500, 
-			'speedOut'		:	200,
-			'href' 	: '/cart',
+			'speedIn'	:	500, 
+			'speedOut' :	200,
+			'href' : '/cart',
 			'width'	: 860,
 			'autoDimensions': true,
 			'title'			: false,
-			'onComplete' : function(){
+			'onComplete' : function() {
         if ($("#fancybox-wrap:visible").length > 0) $('.save_for_later').hide();
 				setTimeout("$.fancybox.resize()", 100);
 			}
@@ -498,19 +498,20 @@ function sortable_tabs(product) {
 };
 
 function fancyloader(text) {
-  $.fancybox({  'hideOnOverlayClick'	:	false,
-  			'padding'		: 10,
-  			'autoScale'		: true,
-  			'speedIn'		:	500, 
-  			'speedOut'		:	200,
-  			'showCloseButton'		:	false,
-  			'showNavArrows'		:	false,
-  			'enableEscapeButton'	:	false,
-  			'overlayOpacity'		:	0.7,
-  			'width'	: 860,
-  			'title'			: false,
-  			'content'	: '<div style="text-align:center;width: 260px;"><p>'+text+'</p><img src="/images/ui-objects/loader-ajax_bar.gif" /></div>'
-  		});
+  $.fancybox({
+    'hideOnOverlayClick' :	false,
+		'padding'	: 10,
+		'autoScale'	: true,
+		'speedIn'	:	500, 
+		'speedOut' : 200,
+		'showCloseButton'	:	false,
+		'showNavArrows'	:	false,
+		'enableEscapeButton' :	false,
+		'overlayOpacity' :	0.7,
+		'width'	: 860,
+		'title'	: false,
+		'content'	: '<div style="text-align:center;width: 260px;"><p>'+text+'</p><img src="/images/ui-objects/loader-ajax_bar.gif" /></div>'
+	});
 	setTimeout("$.fancybox.resize()", 1000);
 }
 

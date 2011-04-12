@@ -2,9 +2,10 @@
 
 #guest_checkout, #returning_customer { @include column(10);
   height: 350px;
+  text-align: left;
 }
 
-#returning_customer { margin-right: 0; }
+#guest_checkout { margin-right: 0; }
 
 #email_list {
   width: 500px;

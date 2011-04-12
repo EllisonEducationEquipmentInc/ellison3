@@ -31,54 +31,49 @@
 .action= f.submit "Sign up", :class => 'jqui_save'
 :javascript
   $(document).ready(function() { 
-      // validate signup form on keyup and submit 
-      var validator = $("#user_new").validate({ 
-          errorClass: "invalid",
-          rules: { 
-              "user[password]": { 
-                  required: true, 
-                  password: "#user_email",
-                  minlength: 5 
-              }, 
-              "user[password_confirmation]": { 
-                  required: true, 
-                  minlength: 5, 
-                  equalTo: "#user_password" 
-              }, 
-              "user[email]": { 
-                  required: true, 
-                  email: true, 
-              }, 
-              "user[company]": { 
-                  required: #{is_er? ? 'true' : 'false'}, 
-              },
+    // validate signup form on keyup and submit 
+    var validator = $("#user_new").validate({
+      errorClass: "invalid",
+      rules: { 
+        "user[password]": {
+          required: true,
+          password: "#user_email",
+          minlength: 5
+        },
+        "user[password_confirmation]": {
+          required: true,
+          minlength: 5,
+          equalTo: "#user_password"
+        },
+        "user[email]": {
+          required: true,
+          email: true
+        },
+        "user[company]": {
+          required: #{is_er? ? 'true' : 'false'}
+        }
+      },
+      messages: {
+        "user[password]": {
+          required: "Provide a password",
+          rangelength: jQuery.format("Enter at least {0} characters")
+        },
+        "user[password_confirmation]": {
+          required: "Repeat your password",
+          minlength: jQuery.format("Enter at least {0} characters"),
+          equalTo: "Enter the same password as above"
+        },
+        "user[email]": {
+          required: "Please enter a valid email address",
+          minlength: "Please enter a valid email address",
+          remote: jQuery.format("{0} is already in use")
+        }
+      },
 
-          }, 
-          messages: { 
-
-              "user[password]": { 
-                  required: "Provide a password", 
-                  rangelength: jQuery.format("Enter at least {0} characters") 
-              }, 
-              "user[password_confirmation]": { 
-                  required: "Repeat your password", 
-                  minlength: jQuery.format("Enter at least {0} characters"), 
-                  equalTo: "Enter the same password as above" 
-              }, 
-              "user[email]": { 
-                  required: "Please enter a valid email address", 
-                  minlength: "Please enter a valid email address", 
-                  remote: jQuery.format("{0} is already in use") 
-              }, 
-
-          }, 
-
-          // set this class to error-labels to indicate valid fields 
-          success: function(label) { 
-              // set   as text for IE 
-              label.html(" ").addClass("checked"); 
-          } 
-      }); 
-
-
+      // set this class to error-labels to indicate valid fields 
+      success: function(label) {
+        // set as text for IE
+        label.html(" ").addClass("checked");
+      }
+    });
   });
