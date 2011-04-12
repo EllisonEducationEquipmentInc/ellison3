@@ -114,7 +114,7 @@ class Idea
 		end
 		text :name, :boost => 2
 		text :idea_num
-		#text :keywords, :boost => 1.5
+		text :keywords, :boost => 1.5
 		string :idea_num, :stored => true
 		string :medium_image, :stored => true
 		string :stored_name, :stored => true do

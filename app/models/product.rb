@@ -215,7 +215,7 @@ class Product
       tags.available.map { |tag| tag.name }
     end
     text :name, :boost => 2
-    #text :keywords, :boost => 1.5
+    text :keywords, :boost => 1.5
     text :short_desc, :item_num
     string :life_cycle, :stored => true
     string :item_num, :stored => true

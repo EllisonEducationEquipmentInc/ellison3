@@ -3,7 +3,7 @@ class IndexController < ApplicationController
   include Geokit::Geocoders
 	
   before_filter :trackable, :except => [:catalog]
-  before_filter :store_path!
+  #before_filter :store_path!
   before_filter :register_continue_shopping!, :only => [:home, :campaigns, :shop, :tag_group, :catalog]
   
   ssl_required :contact, :send_feedback
