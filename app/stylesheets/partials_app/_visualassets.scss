@@ -93,6 +93,8 @@ h2.tim-holtz-outlet-items { @extend .decorative;
   margin-bottom: 10px;
   font-weight: normal;
   
+  .add_to_cart { @extend .add_to_cart; }
+  
   .controls {
     float: right;
     margin: 0 5px 5px 0;
@@ -111,10 +113,6 @@ h2.tim-holtz-outlet-items { @extend .decorative;
 		  margin: 0;
 		}
   }
-  
-  .item_element_cart { @extend .item_element;
-    
-  }
 }
 
 // item carousel styles (wide)
@@ -125,6 +123,11 @@ h2.tim-holtz-outlet-items { @extend .decorative;
   .item_element {
     width: 168px;
   }
+  
+  .item_element_cart { @extend .item_element;
+    height: 265px;
+  }
+
 }
 
 // text banners
