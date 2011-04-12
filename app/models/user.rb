@@ -16,6 +16,7 @@ class User
 	field :tax_exempt_certificate
 	field :invoice_account
 	field :erp, :default => 'New'
+	field :institution
 	field :purchase_order, :type => Boolean, :default => false
 	field :discount_level, :type => Integer
 	field :status, :default => "pending"
@@ -49,7 +50,7 @@ class User
 	validates_numericality_of :order_minimum, :first_order_minimum, :allow_nil => true, :only_integer => true
 	validates_format_of :password,	:if => :password_required?, :with => /((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15})/i, :message => "must contain at least one letter and one digit, length must be between 8 and 15 characters"
 	
-	attr_accessible :name, :company, :email, :password, :password_confirmation, :addresses_attributes
+	attr_accessible :name, :company, :email, :password, :password_confirmation, :addresses_attributes, :institution
 	
 	accepts_nested_attributes_for :addresses
 	

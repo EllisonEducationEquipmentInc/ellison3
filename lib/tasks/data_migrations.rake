@@ -769,7 +769,8 @@ namespace :data_migrations do
       account = Account.where(:old_id => old_user.account_id).first
       if account
         p "account found..."
-        new_user.account = account 
+        new_user.account = account
+        new_user.institution = account.institution.code.strip if account.institution
         new_user.save
       end
       p new_user.errors
