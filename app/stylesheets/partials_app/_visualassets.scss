@@ -94,9 +94,8 @@ h2.tim-holtz-outlet-items { @extend .decorative;
   font-weight: normal;
   
   .controls {
-    position: relative;
-    left: 637px;
-    margin: 0 5px 5px 5px;    
+    float: right;
+    margin: 0 5px 5px 0;
   }
     
   .item_element {
@@ -122,10 +121,6 @@ h2.tim-holtz-outlet-items { @extend .decorative;
 // for use on non-landing pages like homepage or store locator
 .item_carousel_wide {@extend .item_carousel;
   width: 950px;
-  
-  .controls {
-    left: 830px;
-  }
   
   .item_element {
     width: 168px;

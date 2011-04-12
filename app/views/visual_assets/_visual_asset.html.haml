@@ -63,6 +63,7 @@
           = link_to "prev", "#", :class => "prev_button disabled", :id => "prev_button_#{visual_asset.id}", :onclick => "return false;"
           |
           = link_to "next", "#", :class => "next_button", :id => "next_button_#{visual_asset.id}", :onclick => "return false;"
+        .clear
       :javascript
         $(function() {
           $('#asset_carousel_#{visual_asset.id}').load('/index/limited_search?#{visual_asset.search_query}&per_page=#{visual_asset.item_limit}' ,function() {
@@ -89,6 +90,7 @@
           = link_to "prev", "#", :class => "prev_button disabled", :id => "prev_button_#{visual_asset.id}", :onclick => "return false;"
           |
           = link_to "next", "#", :class => "next_button", :id => "next_button_#{visual_asset.id}", :onclick => "return false;"
+        .clear
       :javascript
         $(function() {
           $("#asset_carousel_#{visual_asset.id}").jCarouselLite({
