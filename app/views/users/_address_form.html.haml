@@ -39,9 +39,10 @@
 .field-stacked.left
   = required_label f, :phone, { :label_size => "auto" }
   = f.text_field :phone, :size => 12, :style => "margin-right: 6px"
-.field-stacked.left
-  = f.label :fax
-  = f.text_field :fax, :size => 12, :style => "margin-right: 6px"
+- if is_er?
+  .field-stacked.left
+    = f.label :fax
+    = f.text_field :fax, :size => 12, :style => "margin-right: 6px"
 .field-stacked.left
   = f.label :email, "Email Address"
   = f.text_field :email
@@ -73,7 +74,8 @@
         },
         "#{f.object_name}[phone]": {
           required: true,
-          minlength: 5,
+          #{f.object.us? ? 'minlength: 10,' : nil}
+          #{f.object.us? ? 'digits: true,' : nil}
           phoneUS: #{f.object.us? ? 'true' : 'false'}
         },
         "#{f.object_name}[zip_code]": {
@@ -108,7 +110,9 @@
           required: "Please enter the name of your #{is_ee? ? 'School/Institution Name' : is_er? ? 'Company Name' : 'Company/School/Organization'}."
         },
         "#{f.object_name}[phone]": {
-          required: "Please provide your Phone Number."
+          required: "Please provide your Phone Number.",
+          minlength: "The Phone Number provided is the wrong length (must be 10 digits)",
+          digits: "Please enter numbers only",
         },
         "#{f.object_name}[zip_code]": {
           required: "Please provide your #{is_us? ? 'Zip' : 'Postal'} Code."
