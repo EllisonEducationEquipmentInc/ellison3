@@ -283,7 +283,7 @@ class CartsController < ApplicationController
 	    @cart.reset_tax_and_shipping
 	    @cart.apply_coupon_discount
 	  else
-	    render :js => "$('#coupon_form').resetForm();alert('Invalid Coupon Code: #{params[:coupon_code]}');" and return
+	    render :js => "$('#coupon_form').resetForm();alert('Sorry, the coupon code #{params[:coupon_code]} you entered is invalid. Please check the code and expiration date.');" and return
 	  end
 	end
 	

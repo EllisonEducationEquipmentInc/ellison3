@@ -257,6 +257,13 @@ a.next_button { @extend a.prev_button;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/arrow-curve-180-left.png") no-repeat left bottom;
 }
 
+.link_remove {
+  @extend .link;
+  @extend .minilink;
+  padding: 0 18px 0 0;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/cross-script.png") no-repeat right bottom;
+}
+
 .link_edit-record { @extend .link;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/card--pencil.png") no-repeat left bottom;
 }
