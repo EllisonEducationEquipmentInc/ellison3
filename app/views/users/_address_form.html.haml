@@ -16,7 +16,7 @@
 .clear
 - unless is_sizzix_uk?
   .field-stacked
-    = required_label_if !is_sizzix?, f, :company, { :label => "#{is_sizzix_us? ? 'Attention:' : 'Company/School/Organization'}", :label_size => "auto" }
+    = required_label_if is_er?, f, :company, { :label => "#{is_sizzix_us? ? 'Attention:' : is_ee? ? 'School/Institution Name' : is_er? ? 'Company Name' : 'Company/School/Organization'}", :label_size => "auto" }
     = f.text_field :company, :size => 42
 .field-stacked.left
   = required_label f, :address1, { :label => "Address 1", :label_size => "auto"}
@@ -50,74 +50,74 @@
 .clear
 :javascript
   initialize_buttons();
-  $(document).ready(function() { 
-      var validator = $("#edit_#{f.object.address_type}_address").validate({ 
-          errorClass: "invalid",
-          rules: { 
-              "#{f.object_name}[first_name]": { 
-                  required: true
-              }, 
-              "#{f.object_name}[last_name]": { 
-                  required: true
-              }, 
-              "#{f.object_name}[address1]": { 
-                  required: true
-              }, 
-              "#{f.object_name}[city]": { 
-                  required: true
-              },
-              "#{f.object_name}[email]": { 
-                  required: true, 
-                  email: true
-              },
-              "#{f.object_name}[company]": { 
-                  required: #{is_sizzix? ? 'false' : 'true'}
-              },
-              "#{f.object_name}[phone]": { 
-                  required: true, 
-                  minlength: 5,
-                  phoneUS: #{f.object.us? ? 'true' : 'false'}
-              },
-              "#{f.object_name}[zip_code]": { 
-                  required: true, 
-                  zipUS: #{f.object.us? ? 'true' : 'false'}
-              },
-              "#{f.object_name}[state]": { 
-                  required: #{f.object.us? ? 'true' : 'false'}
-              }
-          }, 
-          submitHandler: function(form) {
-            $('#edit_#{f.object.address_type}_address').ajaxSubmit();
-            fancyloader('Please wait while we validate your address.');
-          },
-          messages: {
-              "#{f.object_name}[first_name]": { 
-                  required: "Please provide your First Name."
-              }, 
-              "#{f.object_name}[last_name]": { 
-                  required: "Please provide your Last Name."
-              }, 
-              "#{f.object_name}[address1]": { 
-                  required: "Please provide your Street Address."
-              }, 
-              "#{f.object_name}[city]": { 
-                  required: "Please provide your City."
-              },
-              "#{f.object_name}[email]": { 
-                  required: "What is your E-mail Address?"
-              },
-              "#{f.object_name}[company]": { 
-                  required: "Please enter the name of your Company, School or Organization."
-              },
-              "#{f.object_name}[phone]": { 
-                  required: "Please provide your Phone Number."
-              },
-              "#{f.object_name}[zip_code]": { 
-                  required: "Please provide your #{is_us? ? 'Zip' : 'Postal'} Code."
-              },
-              "#{f.object_name}[state]": { 
-                  required: "Please #{f.object.us? ? 'select' : 'provide'} your State."
-              }
-          }
-      }); 
+  $(document).ready(function() {
+    var validator = $("#edit_#{f.object.address_type}_address").validate({
+      errorClass: "invalid",
+      rules: {
+        "#{f.object_name}[first_name]": {
+          required: true
+        },
+        "#{f.object_name}[last_name]": {
+          required: true
+        },
+        "#{f.object_name}[address1]": {
+          required: true
+        },
+        "#{f.object_name}[city]": {
+          required: true
+        },
+        "#{f.object_name}[email]": {
+          required: true,
+          email: true
+        },
+        "#{f.object_name}[company]": {
+          required: #{is_sizzix? || is_ee? ? 'false' : 'true'}
+        },
+        "#{f.object_name}[phone]": {
+          required: true,
+          minlength: 5,
+          phoneUS: #{f.object.us? ? 'true' : 'false'}
+        },
+        "#{f.object_name}[zip_code]": {
+          required: true,
+          zipUS: #{f.object.us? ? 'true' : 'false'}
+        },
+        "#{f.object_name}[state]": {
+          required: #{f.object.us? ? 'true' : 'false'}
+        }
+      },
+      submitHandler: function(form) {
+        $('#edit_#{f.object.address_type}_address').ajaxSubmit();
+        fancyloader('Please wait while we validate your address.');
+      },
+      messages: {
+        "#{f.object_name}[first_name]": {
+          required: "Please provide your First Name."
+        },
+        "#{f.object_name}[last_name]": {
+          required: "Please provide your Last Name."
+        },
+        "#{f.object_name}[address1]": {
+          required: "Please provide your Street Address."
+        },
+        "#{f.object_name}[city]": {
+          required: "Please provide your City."
+        },
+        "#{f.object_name}[email]": {
+          required: "What is your E-mail Address?"
+        },
+        "#{f.object_name}[company]": {
+          required: "Please enter the name of your #{is_ee? ? 'School/Institution Name' : is_er? ? 'Company Name' : 'Company/School/Organization'}."
+        },
+        "#{f.object_name}[phone]": {
+          required: "Please provide your Phone Number."
+        },
+        "#{f.object_name}[zip_code]": {
+          required: "Please provide your #{is_us? ? 'Zip' : 'Postal'} Code."
+        },
+        "#{f.object_name}[state]": {
+          required: "Please #{f.object.us? ? 'select' : 'provide'} your State."
+        }
+      }
+    });
   });
