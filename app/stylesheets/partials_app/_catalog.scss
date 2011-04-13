@@ -71,7 +71,7 @@ body.bp {
   }
 
   .buybox {
-    .left { width: 147px; }
+    div.left { width: 147px; }
 
     h4 {
       margin: 0;
@@ -709,7 +709,7 @@ h3.item_title {
 	padding: 6px;
 	margin-bottom: 10px;
 	
-	.right {
+	div.right {
 	  width: 176px;
 	  padding-left: 6px;
 	  border-left: 1px solid $catalog_buybox_border;
@@ -739,8 +739,9 @@ h3.item_title {
 	
 	.users_lists_container {
     position: absolute;
-    top: 62px;
-    left: 0px;
+    right: 0px;
+    width: 176px;
+    top: 40px;
 	}
 }
 
