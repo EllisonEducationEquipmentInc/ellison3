@@ -94,6 +94,11 @@
           = campaign_fields.text_field :discount, :size => 6
 
   - unless @tag.new_record?
+    .contentwrap_large
+      .field
+        = f.label :product_item_nums, "Product Item nums <span class='formhelp'><em>comma separated item_nums to batch assign products. It you want these products discounted, you have to save this tag again AFTER you added these products, and make sure you check 'Yes, batch apply discount to associated products.' when you do that.</em></span>".html_safe, :class => "autosize"
+        %br
+        = f.text_area :product_item_nums, :cols => 57, :rows => 5
     %hr
     %h3.contentwrap_XXXL.last Related Products
     %ul.contentwrap_XXXL.last#tag_products= render :partial => 'product', :collection => @tag.products, :locals => {:tag_id => @tag.id}

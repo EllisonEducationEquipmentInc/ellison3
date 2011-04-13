@@ -149,6 +149,13 @@ class Tag
     string :tag_type, :stored => true
   end
   
+  def product_item_nums=(item_nums)
+    products.concat(Product.where(:item_num.in => item_nums.split(/,\s*/)).to_a) unless item_nums.blank?
+  end
+  
+  def product_item_nums
+  end
+  
   def calendar_start_date
     send(:"calendar_start_date_#{current_system}")
   end
