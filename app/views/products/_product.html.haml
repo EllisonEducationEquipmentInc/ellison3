@@ -20,7 +20,7 @@
         - if is_sizzix_us? && !product.outlet || is_er? || is_sizzix_uk?
           Sale
         - else
-          == Save #{product.saving}%
+          == Save#{"&nbsp;&nbsp;#{product.saving}".html_safe}%
   - elsif !product.public_life_cycle.blank?
     .life-cycle
       %span= product.public_life_cycle
