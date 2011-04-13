@@ -499,10 +499,10 @@ function sortable_tabs(product) {
 
 function fancyloader(text) {
   $.fancybox({
-    'hideOnOverlayClick' :	false,
+    'hideOnOverlayClick' : false,
 		'padding'	: 10,
 		'autoScale'	: true,
-		'speedIn'	:	500, 
+		'speedIn'	:	500,
 		'speedOut' : 200,
 		'showCloseButton'	:	false,
 		'showNavArrows'	:	false,
@@ -738,60 +738,60 @@ function youtube_video_links() {
 }
 
 var payment_validator_options = {
-    errorClass: "invalid",
-    rules: { 
-        "payment[first_name]": { 
-            required: true
-        },
-        "payment[last_name]": { 
-            required: true
-        }, 
-        "payment[card_name]": { 
-            required: true
-        },
-        "payment[full_card_number]": { 
-            required: true,
-            creditcard: true
-        },
-        "payment[card_security_code]": { 
-            required: true,
-            cvv: true
-        },
-        "payment[card_expiration_month]": { 
-            required: true
-        },
-        "payment[card_expiration_year]": { 
-            required: true
-        }
+  errorClass: "invalid",
+  rules: {
+    "payment[first_name]": {
+      required: true
     },
-    submitHandler: function(form) {
-			// $('#proceed_checkout').ajaxSubmit();
-      _gaq.push(['_trackEvent', 'Cart', 'Place Order']);
-      fancyloader('Your order is being processed. Thank you for your patience!');
-      $('#proceed_checkout').callRemote();
+    "payment[last_name]": {
+      required: true
     },
-    messages: {
-        "payment[first_name]": {
-            required: "Please provide your First Name."
-        },
-        "payment[last_name]": {
-            required: "Please provide your Last Name."
-        },
-        "payment[card_name]": { 
-            required: "Please select a Credit Card Type."
-        },
-        "payment[full_card_number]": {
-            required: "Please provide your Credit Card Number.",
-            creditcard: "This not a valid Credit Card Number."
-        },
-        "payment[card_security_code]": { 
-            required: "Please provide your Card's Security Code."
-        },
-        "payment[card_expiration_month]": { 
-            required: "In what Month does your card expire?"
-        },
-        "payment[card_expiration_year]": { 
-            required: "In what Year does your card expire?"
-        }
+    "payment[card_name]": {
+      required: true
+    },
+    "payment[full_card_number]": {
+      required: true,
+      creditcard: true
+    },
+    "payment[card_security_code]": {
+      required: true,
+      cvv: true
+    },
+    "payment[card_expiration_month]": {
+      required: true
+    },
+    "payment[card_expiration_year]": {
+      required: true
     }
+  },
+  submitHandler: function(form) {
+		// $('#proceed_checkout').ajaxSubmit();
+    _gaq.push(['_trackEvent', 'Cart', 'Place Order']);
+    fancyloader('Your order is being processed. Thank you for your patience!');
+    $('#proceed_checkout').callRemote();
+  },
+  messages: {
+    "payment[first_name]": {
+      required: "Please provide your First Name."
+    },
+    "payment[last_name]": {
+      required: "Please provide your Last Name."
+    },
+    "payment[card_name]": {
+      required: "Please select a Credit Card Type."
+    },
+    "payment[full_card_number]": {
+      required: "Please provide your Credit Card Number.",
+      creditcard: "This not a valid Credit Card Number."
+    },
+    "payment[card_security_code]": {
+      required: "Please provide your Card's Security Code."
+    },
+    "payment[card_expiration_month]": {
+      required: "In what Month does your card expire?"
+    },
+    "payment[card_expiration_year]": {
+      required: "In what Year does your card expire?"
+    }
+  }
 };
