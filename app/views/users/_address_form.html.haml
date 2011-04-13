@@ -1,12 +1,10 @@
 = f.error_messages
 = f.hidden_field :address_type
-#bypass_avs.field-stacked.error{:style => 'display:none'}
-  = f.check_box :bypass_avs
-  = f.label :bypass_avs, "Bypass Address Verification"
+#bypass_avs.field.error{:style => 'display:none'}
+  = f.check_box :bypass_avs, :style => "margin: 0 4px 0 0"
+  = f.label :bypass_avs, "Bypass Address Verification", :class => "autosize"
   = f.hidden_field :enable_avs_bypass
-  %br
-  By checking this box, you have verified this shipping address is a correct physical address and not a PO BOX.
-  %br
+  %p.formhelp{:style => "color: #8A1F11; margin-bottom: 0;"} By checking this box, you have verified this shipping address is a correct physical address and not a PO BOX.
 .field-stacked.left
   = required_label f, :first_name, { :label_size => "auto" }
   = f.text_field :first_name, :size => 19, :style => "margin-right: 6px"
