@@ -1,7 +1,8 @@
-== #{is_us? ? 'Sales' : 'Estimated'} Tax
+%span.left== #{is_us? ? 'Sales' : 'Estimated'} Tax
 %span#tax_amount.amount.right
 - if is_uk? && session[:vat_exempt]
   %br
   %small The stock prices do not include V.A.T because of the tax exempt status of the delivery destination.
+.clear
 :javascript
   $.ajax({url:'/carts/get_tax_amount', success: function(data) {$('#tax_amount').html(data)}, beforeSend: function() {$('#tax_amount').html('#{escape_javascript loader_bar}')}})
