@@ -1,15 +1,19 @@
-%h2 Private messages
-%table
-  %tr
-    %th Subject
-    %th Date
-  = render :partial => 'message', :collection => get_user.messages.active
-%h2 Group messages
-%table
-  %tr
-    %th Subject
-    %th Date
-  = render :partial => 'message', :collection => Message.get_group_messages(get_user.discount_level)
+- if @private_messages.count > 0
+  %h2 Private messages
+  %table
+    %tr
+      %th Subject
+      %th Date
+    = render :partial => 'message', :collection => @private_messages
+- if @group_messages.count > 0
+  %h2 Group messages
+  %table
+    %tr
+      %th Subject
+      %th Date
+    = render :partial => 'message', :collection => @group_messages 
+- unless @group_messages.count > 0 || @private_messages.count > 0
+  There are no received messages
 :javascript
   $('.message_subject').click(function(){$('#message_body_'+this.id.replace('message_subject_','')).toggle()})
   

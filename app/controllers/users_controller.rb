@@ -100,6 +100,8 @@ class UsersController < ApplicationController
 	end
 	
 	def messages
+	  @private_messages = get_user.messages.active
+	  @group_messages = Message.get_group_messages(get_user.discount_level)
 	  render :partial => 'messages'
 	end
 	
