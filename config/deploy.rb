@@ -74,6 +74,7 @@ task :production do
   set :environment_dbhost, defer { production_dbhost }
 
   after "custom_symlink", "prod_symlink"
+  after "prod_symlink", "custom_migrations"
 end
 
 desc "Application symlinks"
