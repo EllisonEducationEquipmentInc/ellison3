@@ -337,19 +337,10 @@
             $("#shipping_rate_calculator_form").validate({ 
                 errorClass: "invalid",
                 rules: {
-                    "#{f.object_name[/^\w+/]}[address][first_name]": {
-                        required: true
-                    },
-                    "#{f.object_name[/^\w+/]}[address][last_name]": {
-                        required: true
-                    },                
                     "weight": { 
                         required: true,
                     }, 
                     "#{f.object_name[/^\w+/]}[address][zip_code]": { 
-                        required: true
-                    }, 
-                    "#{f.object_name[/^\w+/]}[address][email]": {
                         required: true
                     }, 
                     "#{f.object_name[/^\w+/]}[address][state]": { 
@@ -369,7 +360,10 @@
                   $("#shipping_rate_calculator_form").callRemote();
                 },
             });
-            $("#shipping_rate_calculator_form").bind('ajax:success', function(e, data) {$('#virtual_terminal_message').show().html(data)}); 
+            $("#shipping_rate_calculator_form").bind('ajax:success', function(e, data) {$('#virtual_terminal_message').show().html(data)});
+            $("label[for=shipping_rate_address_first_name] span").removeClass("required");
+            $("label[for=shipping_rate_address_last_name] span").removeClass("required");
+            $("label[for=shipping_rate_address_email] span").removeClass("required");
         });
 :javascript
   $( "#virtual_terminal" ).accordion({ navigation: true, autoHeight: false  });
