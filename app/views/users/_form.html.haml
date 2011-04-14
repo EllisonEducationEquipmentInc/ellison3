@@ -5,7 +5,7 @@
     = f.select :institution, institutions
 - if is_er? || is_ee?
   .field
-    = f.label :company, 'Company/School/Organization'
+    = f.label :company, "#{is_sizzix_us? ? 'Attention:' : is_ee? ? 'School/Institution Name' : is_er? ? 'Company Name' : 'Company/School/Organization'}", :class => "autosize"
     %br/
     = f.text_field :company
 .field
@@ -25,7 +25,7 @@
     .password-meter-bg
       .password-meter-bar
 .field
-  = f.label :password_confirmation
+  = f.label :password_confirmation, :class => "autosize"
   %br/
   = f.password_field :password_confirmation, :class => 'password_confirm'
 .action= f.submit "Sign up", :class => 'jqui_save'
