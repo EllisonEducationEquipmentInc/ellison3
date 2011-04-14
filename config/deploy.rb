@@ -90,6 +90,11 @@ task :prod_symlink, :roles => :app, :except => {:no_release => true, :no_symlink
    #run "cd #{latest_release} && RAILS_ENV=production ./script/delayed_job start"
 end
 
+desc "incremental custom migrations"
+task :custom_migrations, :roles => :app, :except => {:no_release => true} do
+  run "cd #{latest_release} && RAILS_ENV=production rake migrations:run"
+end
+
 #after "deploy:symlink_configs", "custom_symlink"
 after "deploy:start",   "delayed_job:start"
 after "deploy:stop",    "delayed_job:stop"

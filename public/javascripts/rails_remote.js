@@ -1,3 +1,6 @@
+// we need instance methods to submit a form remotely using either jquery.rails' or remoteipart's handleRemote() functions.
+// this hack reinstates callRemote, which can be called on a form object ex: triggered by submitHandler option of jquery.validate
+
 jQuery(function($) {
 
   $.fn.extend({
