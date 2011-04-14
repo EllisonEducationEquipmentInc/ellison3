@@ -110,7 +110,7 @@
             %strong Purchase Order
             = @order.payment.purchase_order_number
           - else
-            = @order.payment.card_name
+            == #{@order.payment.card_name}, 
             == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
       %td{ :align => "right"}
     - if @order.payment.deferred
@@ -131,4 +131,12 @@
                 = number_to_currency @order.payment.paid_amount
               - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
                 %td= number_to_currency(@order.payment.deferred_payment_amount)
-        %td{ :align => "right"} 
+        %td{ :align => "right"}
+%table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
+  %tr
+    %td
+      %ol
+        %li== Your credit card statement will reflect a charge from Sizzix/Ellison#{is_us? ? ' Lake Forest, CA' : nil}.
+        %li Shipping errors and claims must be made within 10 days of receipt of goods.
+        %li Merchandise CANNOT be returned without prior approval.
+        %li Returns or exchanges subject to restocking fee.

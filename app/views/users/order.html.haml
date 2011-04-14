@@ -79,37 +79,43 @@
       %td= number_to_currency item.gross_price
       %td= number_to_currency item.item_total
 - if @order.payment.present?
-  %p.contentwrap_XL
-    %strong
-      - if @order.payment.try(:purchase_order)
-        Purchase Order
-        = @order.payment.purchase_order_number
-        = link_to "download", @order.payment.attachment_url, :class => "link_download", :target => "_blank" if @order.payment.attachment?
-      - else
-        This order was charged to: 
-        = @order.payment.card_name
-        == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
-    %br
-    %br
-    = link_to "Print a copy of this order receipt.", "javascript:window.print()", :class => "link_print"
-  - if @order.payment.deferred
-    %br
-    %br
-    %table
-      %tr
-        %th
-          Payment 1
-          = l @order.payment.paid_at, :format => :date
-        - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
+  .contentwrap_XL
+    %p
+      %strong
+        - if @order.payment.try(:purchase_order)
+          Purchase Order
+          = @order.payment.purchase_order_number
+          = link_to "download", @order.payment.attachment_url, :class => "link_download", :target => "_blank" if @order.payment.attachment?
+        - else
+          This order was charged to: 
+          == #{@order.payment.card_name}, 
+          == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
+      %br
+      %br
+      = link_to "Print a copy of this order receipt.", "javascript:window.print()", :class => "link_print"
+    - if @order.payment.deferred
+      %br
+      %br
+      %table
+        %tr
           %th
-            Payment 
-            = i+1 
-            = l @order.payment.paid_at.since(i.month), :format => :date
-      %tr
-        %td
-          = number_to_currency @order.payment.paid_amount
-        - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
-          %td= number_to_currency(@order.payment.deferred_payment_amount)
+            Payment 1
+            = l @order.payment.paid_at, :format => :date
+          - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
+            %th
+              Payment 
+              = i+1 
+              = l @order.payment.paid_at.since(i.month), :format => :date
+        %tr
+          %td
+            = number_to_currency @order.payment.paid_amount
+          - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
+            %td= number_to_currency(@order.payment.deferred_payment_amount)
+    %ol
+      %li== Your credit card statement will reflect a charge from Sizzix/Ellison#{is_us? ? ' Lake Forest, CA' : nil}.
+      %li Shipping errors and claims must be made within 10 days of receipt of goods.
+      %li Merchandise CANNOT be returned without prior approval.
+      %li Returns or exchanges subject to restocking fee.
 %ul.plain.cart_summary.contentwrap_medium.last
   %li
     Subtotal:
