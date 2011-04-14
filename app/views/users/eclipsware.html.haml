@@ -1,8 +1,55 @@
-%h1 eclips sowtware update
-= @text.html_safe
-= form_tag({:action => 'show_fw_files'}, :remote => true) do
-  .field
-    = label_tag :serial_number
-    = text_field_tag :serial_number
-    = submit_tag 'Go!', :class => 'jqui_save'
-#firmware_files
+.fw_frame
+  .fw_intro_frame
+    %p{:style=>"margin: 314px 14px 0;"}
+      Wecome to our firmware downloads page. Here you can get the most recent features, bugfixes and upgrades for your eclips machine!
+      %br
+      %br
+      %strong
+        Available for:
+  %h2 eclips Software Updates
+  .fw_alignleft
+    = @text.html_safe
+.fw_frame
+  %img{:class=>"fw_img_left", :src => "/images/images/firmware/eclips_fw_handheld.png"}/
+  %h2 Do I need to Update my handheld remote control?
+  %p
+    To check your current version, press the Setup function key (see pg. 16 in the eclips User’s Guide for moreinformation). Scroll to Version and select.
+    %br
+    %br
+    The number after “Controller” is the software version. If it is not the version shown above, update your software, following the steps below.Updating your Handheld Remote Control requires a Mini USB Cable, not included with the machine. You may own one already, or you may purchase one Online.
+.fw_frame
+  .fw_leftframe
+    %h2 1. Begin Update
+    %div{:class=>"ui-corner-all fw_leftcontainer"}
+      %strong
+        Enter your eclips Serial Number:
+      = form_tag({:action => 'show_fw_files'}, :remote => true) do
+        .field
+          = label_tag :serial_number
+          = text_field_tag :serial_number
+          = submit_tag 'Go!', :class => 'jqui_save'
+      .fw_subtext
+        Your serial number can be found on the label on the back of your Handheld Remote Control.
+  .fw_rightcontainer
+    %h2 2. Download File
+    Choose your operating system (do I have a Windows 32-bit or 64-bit system?).The software can be updated from any system for subsequent updates.
+.fw_frame
+  %h2 3. Remove Cartridge
+  %p
+    Before updating your eclips Handheld Remote Control with the latest version of software, please make sure that the cartridge has been removed from theHandheld Remote Control. Failure to do so may result in a damaged cartridge. Please do not plug in your controller until prompted.
+.fw_frame
+  %h2 4. Follow Onscreen Instructions
+  %p
+    For Microsoft Windows users: Locate the downloaded update file, titled “eclips Software Update.” Double-click to open, and select “Run.” Follow the onscreen instructions to update your eclips Handheld Remote Control.For Apple Macintosh users: Locate the downloaded update file. Double-click to open, and it will expand to “eclips Software Update.” Double-click this file, and the driver will open. Follow the onscreen instructions to update your eclips Handheld Remote Control.
+  %img{:style=>"float:left; margin-left:62px;", :src => "/images/images/firmware/fw_page_shots.png"}/
+%h2 Installation Guide for Software Update
+%p
+  %ul
+    %li
+      %a{:href => "/images/pdfs/eclips/eclips_Handheld_Remote_Control_Software_Install Guide_05052010_web.pdf"} English
+    %li
+      %a{:href => "/images/pdfs/eclips/FR_eclips_Handheld_Remote_Control_Software_Install Guide_05052010_web.pdf"} French
+    %li
+      %a{:href => "/images/pdfs/eclips/SP_eclips_Handheld_Remote_Control_Software_Install Guide_05052010_web.pdf"} Spanish
+    %li
+      %a{:href => "/images/pdfs/eclips/GR_eclips_Handheld_Remote_Control_Software_Install Guide_05052010_web.pdf"} German
