@@ -98,7 +98,7 @@
           .field.credit_card
             = f.label :card_issue_number
             = f.text_field :card_issue_number, :size => 2, :maxlength => 2, :class => "cc"
-        - if can_tokenize_payment?
+        - if can_tokenize_payment? && is_er?
           .field
             = f.check_box :save_credit_card
             = f.label :save_credit_card
@@ -108,11 +108,12 @@
       = f.check_box :use_previous_orders_card, :onclick => "if (this.checked) {$('.credit_card').remove()} else {$(this).attr('disabled', true);$('#payment_submit').replaceWith('#{escape_javascript spinner}');$('#checkout_cc').load('/carts/use_previous_orders_card');}"
       = f.label :use_previous_orders_card, "Use same payment info that was used in order #"
       = link_to get_cart.order_reference, admin_order_path(get_cart.order_reference)
-  .ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
-    %h4.ui-accordion-header.ui-helper-reset#order_comment
-      %span.ui-icon.ui-icon-triangle-1-e
-      = link_to 'Comments', "#"
-    %div= text_area_tag :comments, nil, :style => "width:500px;height:100px;" 
+  - if is_er? || is_ee?
+    .ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
+      %h4.ui-accordion-header.ui-helper-reset#order_comment
+        %span.ui-icon.ui-icon-triangle-1-e
+        = link_to 'Comments', "#"
+      %div= text_area_tag :comments, nil, :style => "width:500px;height:100px;" 
   = f.submit "Place Order", :class => 'jqui_save'
   %br
   %br
