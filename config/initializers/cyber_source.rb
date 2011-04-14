@@ -142,7 +142,7 @@ module ActiveMerchant #:nodoc:
 				  if options[:setup_fee] > 0
 				    add_purchase_service(xml, options) 
 				  else
-				    add_auth_service(xml)
+				    #add_auth_service(xml)
 				  end
 				end
         add_recurring_billing_service(xml, options)
