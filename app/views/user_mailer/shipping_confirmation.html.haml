@@ -1,7 +1,11 @@
 %table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
   %tr
-    %td{ :colspan => "3"}
-      %h1.primary-heading== Thank you for shopping at http://www.#{get_domain}. Your order #{@order.public_order_number} has shipped. A summary of the shipped items are listed below.
+    %td{ :colspan => "2"}
+      %h2.primary-heading== Your order ##{"<strong>#{@order.public_order_number}</strong>".html_safe} has shipped!
+      %p
+        == Thank you for shopping at #{"<strong>http://www.#{get_domain}</strong>".html_safe}.
+        %br
+        A summary of the shipped items are listed below.
   %tr
     %td.twocol-left
       %h3.secondary-heading Shipping Address
@@ -44,14 +48,17 @@
       %td{ :width => "60", :align => "left" }= item.item_num
       %td{ :align => "left" }= item.name
       %td{ :width => "40", :align => "center" }= item.quantity
-%p Please note, in some cases merchandise may be shipped in multiple packages. If so, you will receive a shipping confirmation for each package sent.
-%p== Your order has been shipped via #{@order.carrier_description}. You may track your package once the shipping carrier has scanned the shipment into their system, usually within 24 hours.
-%p
-  - if @order.tracking_number.present?
-    == Tracking Number: #{link_to @order.tracking_number, @order.tracking_url}
-    %br
-  = link_to 'Track Order', order_url(@order, :host => get_domain)
-%p== We hope you enjoy your purchase and look forward to serving you again. Should you have any questions about your order, please #{link_to 'contact us', contact_url(:host => get_domain)} or call us toll free #{t :toll_free}.
-%p Sincerely,
-%p== #{get_domain} Customer Support and Service
-%p **Please do not reply to this email as it is sent from an unattended mail box.**
+%table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
+  %tr
+    %td
+      %p Please note, in some cases merchandise may be shipped in multiple packages. If so, you will receive a shipping confirmation for each package sent.
+      %p== Your order has been shipped via #{@order.carrier_description}. You may track your package once the shipping carrier has scanned the shipment into their system, usually within 24 hours.
+      %p
+        - if @order.tracking_number.present?
+          == Tracking Number: #{link_to @order.tracking_number, @order.tracking_url}
+          %br
+        = link_to 'Track Order', order_url(@order, :host => get_domain)
+      %p== We hope you enjoy your purchase and look forward to serving you again. Should you have any questions about your order, please #{link_to 'contact us', contact_url(:host => get_domain)} or call us toll free #{t :toll_free}.
+      %p Sincerely,
+      %p== #{get_domain} Customer Support and Service
+      %p **Please do not reply to this email as it is sent from an unattended mail box.**
