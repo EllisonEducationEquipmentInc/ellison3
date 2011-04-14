@@ -271,17 +271,14 @@ class UsersController < ApplicationController
 	  @user = get_user
 	  @user.build_retailer_application unless @user.retailer_application
     @user.build_addresses("billing", "shipping", "home")
+    @user.shipping_address.bypass_avs = true
 	end
 	
 	def create_retailer_application
 	  @user = get_user
 	  @user.attributes = params[:user]
-	  @user.build_retailer_application unless @user.retailer_application
-	  @user.build_addresses("billing", "shipping", "home")
-	  @user.retailer_application.attributes = params[:user][:retailer_application]
 	  @user.tax_exempt_certificate ||= @user.retailer_application.resale_number
 	  if @user.save
-	    @user.retailer_application.save
 	    redirect_to(myaccount_path, :notice => 'Thank you for submitting your application as an Authorized Ellison Retailer. Your request is currently being processed and is pending approval. While we confirm your information, please take a tour of the website. However, please remember that your special pricing can only be accessed once your application has been approved. Thanks for your patience, and we look forward to serving you.')
 	  else
 	    render :retailer_application

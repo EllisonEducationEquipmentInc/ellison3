@@ -40,7 +40,7 @@
     .field
       = required_label retailer_application_fields, :brands_to_resell, { :label_size => "134px" }
       - RetailerApplication::AVAILABLE_BRANDS.each do |brand|
-        = check_box_tag 'user[retailer_application][brands_to_resell][]', brand, @user.retailer_application.brands_to_resell.include?(brand)
+        = check_box_tag 'user[retailer_application_attributes][brands_to_resell][]', brand, @user.retailer_application.brands_to_resell.include?(brand)
         %strong= brand
     .field
       = required_label retailer_application_fields, :authorized_buyers, { :label_size => "auto"}

@@ -115,7 +115,7 @@ class Address
   end
 
 	def must_be_verified?
-		us? && self.address_type == "shipping" && !self.bypass_avs && (self.changed? || self.new_record?)
+		errors.blank? && us? && self.address_type == "shipping" && !self.bypass_avs && (self.changed? || self.new_record?)
   end
 
 	def not_verified
