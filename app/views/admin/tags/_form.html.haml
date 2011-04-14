@@ -101,6 +101,8 @@
         = f.text_area :product_item_nums, :cols => 57, :rows => 5
     %hr
     %h3.contentwrap_XXXL.last Related Products
+    = link_to "Remove All", "#", :remote => true, :confirm => "Are you sure?"
+    %br
     %ul.contentwrap_XXXL.last#tag_products= render :partial => 'product', :collection => @tag.products, :locals => {:tag_id => @tag.id}
     = text_field_tag "tag_products_helper", nil, :style => "margin-bottom: 10px"
     %hr
