@@ -1,5 +1,4 @@
-%strong= firmware_file.name
-%br
-= link_to firmware_file.file_filename, :action => 'download_firmware', :id => firmware_file.id
-%br
-%br
+.ui-corner-all{:style=>"border:1px solid #ccc; padding:2px 6px; float:left; margin:4px;"}
+  %strong= firmware_file.name
+  %br
+  = link_to firmware_file.file_filename, :action => 'download_firmware', :id => firmware_file.id

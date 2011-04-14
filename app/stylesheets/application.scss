@@ -255,7 +255,7 @@ td.pre_order{
 
 // eclipsware
 .fw_frame {
-  float:left; padding: 4px 0 6px; border-bottom:2px dotted #E3DDCE; width:950px;
+  float:left; padding: 4px 0 6px; border-bottom:2px dotted #E3DDCE; width:950px; margin:0 0 4px;
 }
 .fw_img_left {
   float:left; margin-right:8px;
@@ -263,11 +263,11 @@ td.pre_order{
 .fw_intro_frame{
   float:left; width:377px; height:511px; margin-right:22px; background:url('/images/images/firmware/eclips_fw_shot_szus.png') top left no-repeat;
 }
-.fw_alignright {
-  float:right
-}
-.fw_alignleft {
+.alignleft {
   float:left
+}
+.alignright {
+  float:right
 }
 .fw_leftframe {
   width:350px; float:left
