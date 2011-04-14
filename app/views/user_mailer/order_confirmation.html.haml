@@ -62,7 +62,7 @@
     %th{ :align => "left" } Item Name
     %th{ :width => "40", :align => "center" } Qty
     %th{ :width => "55", :align => "right" } Price
-    %th{ :width => "70", :align => "right" } Subtotal
+    %th{ :width => "70", :align => "right" } Item Total
   - @order.order_items.each do |item|
     %tr{:class => cycle('odd', 'even')}
       %td{ :width => "60", :align => "left" }= item.item_num
@@ -88,7 +88,7 @@
     %td{ :colspan => "4", :align => "right" } Shipping & Handling Surcharge
     %td{ :align => "right"}= number_to_currency @order.handling_amount
   %tr
-    %td{ :colspan => "4", :align => "right" }== #{t :estimated_tax}
+    %td{ :colspan => "4", :align => "right" }== #{is_us? ? 'Sales Tax' : 'Estimated Tax'}
     %td{ :align => "right"}= number_to_currency @order.tax_amount
   %tr
     %td{ :colspan => "4", :align => "right" }

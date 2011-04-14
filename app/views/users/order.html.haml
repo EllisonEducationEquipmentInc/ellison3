@@ -59,6 +59,7 @@
   %br
   %strong Status:
   = @order.public_status
+  = link_to "What is This?", "/ostatus?no_layout=1", :class => "link_help lightbox"
   %br
   - if @order.tracking_number.present?
     %strong Tracking #:
@@ -70,7 +71,7 @@
     %th Item Name
     %th Quantity
     %th Item Price
-    %th Item Subtotal
+    %th Item Total
   - @order.order_items.each do |item|
     %tr{:class => cycle('odd', 'even')}
       %td= item.item_num
@@ -118,28 +119,35 @@
       %li Returns or exchanges subject to restocking fee.
 %ul.plain.cart_summary.contentwrap_medium.last
   %li
-    Subtotal:
+    %span.left Subtotal:
     %span.right= number_to_currency @order.gross_subtotal_amount
+    .clear
   %li 
-    == Shipping & Handling (#{@order.shipping_service.try :humanize}):
+    %span.left== Shipping & Handling (#{@order.shipping_service.try :humanize}):
     %span.right= number_to_currency @order.gross_shipping_amount
+    .clear
   - if @order.cod?
     %li
-      COD account:
+      %span.left COD account:
       %span.right
         = @order.cod_account_type
         = @order.cod_account
+      .clear
   %li{:style => "display:#{@order.handling_amount > 0.0 ? 'block' : 'none'}"}
-    Shipping & Handling Surcharge:
+    %span.left Shipping & Handling Surcharge:
     %span.right= number_to_currency @order.handling_amount
+    .clear
   %li 
-    == #{t :estimated_tax}:
+    %span.left== #{is_us? ? 'Sales Tax' : 'Estimated Tax'}:
     %span.right= number_to_currency @order.tax_amount
+    .clear
   %li#cart_total
-    Total:
+    %span.left Total:
     %span#total_amount.amount.right= number_to_currency @order.total_amount
+    .clear
   - if @order.total_discount.present? && @order.total_discount > 0.0
     %li
-      Total Savings:
+      %span.left Total Savings:
       %span.amount.right= number_to_currency @order.total_discount
+      .clear
 - I18n.locale = @current_locale
