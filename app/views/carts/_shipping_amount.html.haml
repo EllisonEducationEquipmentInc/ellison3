@@ -2,3 +2,4 @@
 %span#shipping_amount.amount.right
 :javascript
   $.ajax({url:'/carts/get_shipping_amount', success: function(data) {$('#shipping_amount').html(data);$('#shipping_options').load('/carts/get_shipping_options');$('#shipping_method').load('/carts/get_shipping_service')}, beforeSend: function() {$('#shipping_amount').html('#{escape_javascript loader_bar}')}})
+.clear
