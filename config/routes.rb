@@ -133,7 +133,7 @@ Ellison3::Application.routes.draw do |map|
 				collection do
 			    get :new_campaign, :edit_campaign, :new_image, :new_tab, :products_autocomplete, :reorder_tabs, :show_tabs, :product_helper, :product_helper_by_tag, :remove_tag, :add_tag, :remove_idea, :add_idea
 					post :create_campaign, :update_campaign, :upload_image, :create_tab, :update_tab, :clone_existing_tab, :edit_outlet_price
-					delete :delete_campaign, :delete_image, :delete_tab
+					delete :delete_campaign, :delete_image, :delete_tab, :remove_all_products
 					put :update_campaign, :update_tab
 			  end
 			end

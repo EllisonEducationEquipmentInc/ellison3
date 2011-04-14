@@ -125,6 +125,13 @@ class Admin::TagsController < ApplicationController
     render :js => "$('li#product_#{@product.id}').remove()"
   end
   
+  def remove_all_products
+    @tag = Tag.find(params[:id])
+    @tag.products.nullify
+    @tag.save(:validate => false)
+    render :js => "$('#tag_products li').remove()"
+  end
+  
   def add_product
     @tag = Tag.find(params[:id])
     @product = Product.find(params[:product_id])
