@@ -104,9 +104,9 @@
   %hr
   #checkout_payment
     #payment_errors.error{:style => "display:none"}
-    %h3 Payment
-    #checkout_cc{:style => "display:none"}= render :partial => 'carts/payment' if get_user.billing_address && @billing_address.blank?
-  %hr
+    #checkout_cc{:style => "display:none"}
+      %h3 Payment
+      = render :partial => 'carts/payment' if get_user.billing_address && @billing_address.blank?
   #convert_quote_to_order Convert to order
   :javascript
     $("#convert_quote_to_order").button({icons: {primary: 'ui-icon-check'}}).click(function() {
@@ -118,7 +118,7 @@
 - elsif !(is_er? || is_ee_uk?)
   .error== Some of the items in your quote are either out of stock or unavailable at this time. Please Contact Customer Service to convert this #{quote_name} to an Order.
 - else
-  == Please Contact Customer Service to convert this #{quote_name} to an Order.
+  .notice{:style => "text-align: center; margin-top: 36px"}== Please Contact Customer Service to convert this #{quote_name} to an Order.
 %br
 %br
 %br
