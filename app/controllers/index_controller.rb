@@ -7,7 +7,7 @@ class IndexController < ApplicationController
   before_filter :register_continue_shopping!, :only => [:home, :campaigns, :shop, :tag_group, :catalog]
   
   ssl_required :contact, :send_feedback
-  ssl_allowed :limited_search, :machines_survey, :static_page, :reply_to_feedback
+  ssl_allowed :limited_search, :machines_survey, :static_page, :reply_to_feedback, :add_comment
   
   verify :xhr => true, :only => [:search, :quick_search, :send_feedback, :add_comment], :redirect_to => {:action => :home}
   verify :method => :post, :only => [:update_subscription, :create_subscription], :redirect_to => {:action => :home}
