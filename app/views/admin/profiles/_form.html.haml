@@ -52,9 +52,9 @@
   .field
     = f.check_box :can_change_prices
     = f.label :can_change_prices, :class => "autosize"
-  - f.fields_for :permissions do |permission_fields|
+  = f.fields_for :permissions do |permission_fields|
     = render 'admin/permissions/permission', :f => permission_fields
-  = link_to_add_fields "Add Permission", f, :permissions
+  =# link_to_add_fields "Add Permission", f, :permissions
   %br
   %br
   .actions

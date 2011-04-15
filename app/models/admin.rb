@@ -8,7 +8,7 @@ class Admin
 	
 	ROLES = ["admin", "content_admin", "customer_admin", "sales_rep", "limited_sales_rep"]
 	
-	accepts_nested_attributes_for :permissions, :allow_destroy => true
+	accepts_nested_attributes_for :permissions, :allow_destroy => true, :reject_if => proc { |attributes| attributes['read'] == "0" && attributes['write'] == "0" && attributes['systems_enabled'].blank?}
 	
 	field :name
 	field :employee_number

@@ -45,6 +45,9 @@ class Admin::ProfilesController < ApplicationController
   # GET /admins/1/edit
   def edit
     @admin = Admin.find(params[:id])
+    Permission::ADMIN_MODULES.each do |mod|
+      @admin.permissions.build :name => mod, :read => false unless @admin.permissions.detect {|e| e.name == mod}
+    end
   end
 
   # POST /admins

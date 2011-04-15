@@ -1,6 +1,7 @@
-.field
+.field{:style => "border: 1px solid #{f.object.new_record? ? 'red' : 'green'}"}
+  = f.error_messages
   = f.label :name, :class => "autosize"
-  = f.select :name, Permission::ADMIN_MODULES
+  = f.text_field :name, :readonly => true
   - ELLISON_SYSTEMS.each do |sys|
     = check_box_tag "#{f.object_name}[systems_enabled][]", sys, f.object.systems_enabled && f.object.systems_enabled.include?(sys)
     = sys.upcase
