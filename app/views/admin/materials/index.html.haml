@@ -14,6 +14,7 @@
     %thead
       %tr
         = sortable 'name'
+        = sortable 'label_code'
         %th Active
         %th Document
         - if has_write_permissions?
@@ -23,6 +24,7 @@
       - for material in @materials
         %tr{ :class => cycle(:odd, :even) }
           %td= material.name
+          %td= material.label_code
           %td= material.active
           %td= link_to('download', material.document_url) if material.document? 
           - if has_write_permissions?

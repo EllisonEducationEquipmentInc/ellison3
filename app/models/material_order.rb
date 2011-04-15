@@ -12,10 +12,14 @@ class MaterialOrder
 	field :status, :default => 'NEW'
 	field :shipped_at, :type => Date
 	field :material_ids, :type => Array, :default => []
+	field :material_label_codes, :type => Array, :default => []
 	
 	index :order_number
 	index :status
 	index :created_at
+	index 'address.address1'
+	index 'address.last_name'
+	index 'address.company'
 	
 	embeds_one :address, :validate => false
 	referenced_in :user, :validate => false

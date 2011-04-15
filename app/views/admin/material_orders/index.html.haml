@@ -31,9 +31,11 @@
             %span.material_order_number= material_order.order_number
             .material_order_details{:style => 'display:none'}
               == #{material_order.address.address1} #{material_order.address.address2} #{material_order.address.city} #{material_order.address.state} #{material_order.address.zip_code} #{material_order.address.country}
+              Zone:
+              = FedexZone.get_zone_by_address(material_order.address)
               %br
-              = material_order.materials.map {|e| e.name} * ", "
-          %td= link_to 'view', edit_admin_admin_path(material_order.user_id)
+              = material_order.materials.map {|e| "#{e.label_code} - #{e.name}"} * ", "
+          %td= link_to 'view', edit_admin_user_path(material_order.user_id)
           %td= material_order.address.company
           %td== #{material_order.address.first_name} #{material_order.address.last_name}
           %td= l material_order.shipped_at rescue ''

@@ -9,6 +9,10 @@
     %br
     = f.text_field :name
   .field
+    = f.label :label_code
+    %br
+    = f.text_field :label_code
+  .field
     = image_tag(@material.image_url(:medium)) if @material.image? 
     = f.label :image
     = f.file_field :image

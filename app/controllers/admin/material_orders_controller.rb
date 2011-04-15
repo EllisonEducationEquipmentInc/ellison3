@@ -12,7 +12,7 @@ class Admin::MaterialOrdersController < ApplicationController
 	  criteria = criteria.where(:status => params[:status]) unless params[:status].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria = criteria.where({'order_number' => params[:q][/\d+/].to_i}, { 'address.address1' => regexp})
+  	  criteria = criteria.any_of({'order_number' => params[:q][/\d+/].to_i}, { 'address.address1' => regexp}, { 'address.last_name' => regexp}, { 'address.company' => regexp})
 	  end
 		@material_orders = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
 	end
@@ -42,7 +42,7 @@ class Admin::MaterialOrdersController < ApplicationController
     csv_string = CSV.generate do |csv|
       csv << ["customerzone", "labelcode", "labelabbrevation", "qty", "instructions", "Cust", "labelbatch", "customerfirstname", "customerlasname", "customercompany", "customeraddress1", "customeraddress2", "customercity", "customerstate", "customerzip", "country"]
       @orders.each do |order|
-        csv << [FedexZone.get_zone_by_address(order.address), order.material_ids * ', ', "", 1, "", "", "", order.address.first_name.try(:upcase), order.address.last_name.try(:upcase), order.address.company.try(:upcase), order.address.address1.try(:upcase), order.address.address2.try(:upcase), order.address.city.try(:upcase), order.address.state.try(:upcase), order.address.zip_code, order.address.country.try(:upcase)]
+        csv << [FedexZone.get_zone_by_address(order.address), order.materials.map {|e| e.label_code} * ', ', "", 1, "", "", "", order.address.first_name.try(:upcase), order.address.last_name.try(:upcase), order.address.company.try(:upcase), order.address.address1.try(:upcase), order.address.address2.try(:upcase), order.address.city.try(:upcase), order.address.state.try(:upcase), order.address.zip_code, order.address.country.try(:upcase)]
       end
     end
 
