@@ -36,9 +36,7 @@ class Admin::ProfilesController < ApplicationController
   # GET /admins/new.xml
   def new
     @admin = Admin.new
-    Permission::ADMIN_MODULES.each do |mod|
-      @admin.permissions.build :name => mod, :read => false unless @admin.permissions.detect {|e| e.name == mod}
-    end
+    build_permissions
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @admin }
@@ -48,9 +46,7 @@ class Admin::ProfilesController < ApplicationController
   # GET /admins/1/edit
   def edit
     @admin = Admin.find(params[:id])
-    Permission::ADMIN_MODULES.each do |mod|
-      @admin.permissions.build :name => mod, :read => false unless @admin.permissions.detect {|e| e.name == mod}
-    end
+    build_permissions
   end
 
   # POST /admins
@@ -64,6 +60,7 @@ class Admin::ProfilesController < ApplicationController
         format.html { redirect_to(admin_admins_url, :notice => 'Admin was successfully created.') }
         format.xml  { render :xml => @admin, :status => :created, :location => @admin }
       else
+        build_permissions
         format.html { render :action => "new" }
         format.xml  { render :xml => @admin.errors, :status => :unprocessable_entity }
       end
@@ -80,6 +77,7 @@ class Admin::ProfilesController < ApplicationController
         format.html { redirect_to(admin_admins_url, :notice => 'Admin was successfully updated.') }
         format.xml  { head :ok }
       else
+        build_permissions
         format.html { render :action => "edit" }
         format.xml  { render :xml => @admin.errors, :status => :unprocessable_entity }
       end
@@ -99,6 +97,12 @@ class Admin::ProfilesController < ApplicationController
   end
 
 private 
+	
+	def build_permissions
+	  Permission::ADMIN_MODULES.each do |mod|
+      @admin.permissions.build :name => mod, :read => false unless @admin.permissions.detect {|e| e.name == mod}
+    end
+	end
 	
 	# these attributes can only be changed by an admin who has write permissions to change admin profiles
 	def mass_assign_protected_attributes
