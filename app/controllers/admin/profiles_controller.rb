@@ -36,6 +36,9 @@ class Admin::ProfilesController < ApplicationController
   # GET /admins/new.xml
   def new
     @admin = Admin.new
+    Permission::ADMIN_MODULES.each do |mod|
+      @admin.permissions.build :name => mod, :read => false unless @admin.permissions.detect {|e| e.name == mod}
+    end
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @admin }
