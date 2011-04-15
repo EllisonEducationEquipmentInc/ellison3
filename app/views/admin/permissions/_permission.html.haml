@@ -5,9 +5,9 @@
   - ELLISON_SYSTEMS.each do |sys|
     = check_box_tag "#{f.object_name}[systems_enabled][]", sys, f.object.systems_enabled && f.object.systems_enabled.include?(sys)
     = sys.upcase
-  = f.check_box :read, :disabled => f.object.write
+  = f.check_box :read, :disabled => f.object.write, :class => 'read_permission'
   = f.label :read, :class => "autosize"
-  = f.check_box :write, :onclick => "if (this.checked) {$(this).prevAll('input:checkbox').first().attr({checked: true, disabled: true})} else {$(this).prevAll('input:checkbox').first().attr({disabled: false})}"
+  = f.check_box :write, :onclick => "if (this.checked) {$(this).prevAll('input:checkbox').first().attr({checked: true, disabled: true}).trigger('change')} else {$(this).prevAll('input:checkbox').first().attr({disabled: false})}"
   = f.label :write, :class => "autosize"
   = f.check_box :_destroy
   = f.label :_destroy, "Destroy this permission", :class => "autosize"

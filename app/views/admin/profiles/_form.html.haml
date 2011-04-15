@@ -59,3 +59,5 @@
   %br
   .actions
     = f.submit :class => 'jqui_save'
+:javascript
+  $('.read_permission').change(function(){$(this).parents('.field').css('border-color', this.checked ? 'green' : 'red')})
