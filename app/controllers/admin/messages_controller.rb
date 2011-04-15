@@ -73,7 +73,7 @@ class Admin::MessagesController < ApplicationController
     @message = Message.find(params[:id])
     respond_to do |format|
       if @message.update_attributes(params[:message])
-        format.html { redirect_to(admin_messages_url, :notice => 'Message was successfully updated.') }
+        format.html { redirect_to(admin_messages_url(:user_id => @message.user_id), :notice => 'Message was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
