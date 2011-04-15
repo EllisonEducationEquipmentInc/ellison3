@@ -86,31 +86,16 @@
               %table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
                 %tr
                   %td= image_tag("http://www.#{get_domain}/images/ui-email/logo_#{current_system}.png", :alt => "#{system_name}", :title => "#{system_name}")
-                  %td{ :align => "right" }
-                    %strong== #{system_name.upcase}
-                    %br
-                    - if is_us?
-                      25862 Commercentre Drive
-                      %br
-                      Lake Forest, CA 92630-8804
-                      %br
-                      Toll Free (877) 355-4766
-                      %br
-                      Fax (800) 253-2240
-                      %br
-                    - else
-                      Unit 3, Whitegate Industrial Estate
-                      %br
-                      Wrexham, United Kingdom LL13 8UG
-                      %br
-                      Phone within UK: 0844 499 8181
-                      %br
-                      Phone outside of UK: + 44 (0) 845 345 2277
-                      %br
-                      Fax: +44 845 345 0011
-                      %br
-                    == http://www.#{get_domain}
               = yield
+          %tr
+            %td#message
+              %p== If you have any further questions please #{link_to "contact us", "/contact"}.
+              %p
+                Kind Regards,
+                %br
+                Customer Support and Service
+                %br
+                == http://www.#{get_domain}
           %tr
             %td{ :align => "center" }
               %p **Please do not reply to this email as it is sent from an unattended mail box.**            
