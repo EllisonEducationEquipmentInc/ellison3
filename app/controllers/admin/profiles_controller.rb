@@ -96,9 +96,9 @@ private
 	
 	# these attributes can only be changed by an admin who has write permissions to change admin profiles
 	def mass_assign_protected_attributes
-	  @admin.systems_enabled = params[:admin][:systems_enabled]
+	  @admin.systems_enabled = params[:admin][:systems_enabled] || []
 		@admin.active = params[:admin][:active]
-		@admin.permissions_attributes = params[:admin][:permissions_attributes]
+		@admin.permissions_attributes = params[:admin][:permissions_attributes] || {}
 		@admin.can_act_as_customer = params[:admin][:can_act_as_customer]
 		@admin.can_change_prices = params[:admin][:can_change_prices]
 		@admin.limited_sales_rep = params[:admin][:limited_sales_rep]
