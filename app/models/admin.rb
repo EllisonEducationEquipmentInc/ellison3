@@ -61,7 +61,7 @@ class Admin
   end
   
 	def initialize(attributes = nil)
-		super(attributes)
+		super
 		self.systems_enabled ||= [current_system]
 	end
 	
