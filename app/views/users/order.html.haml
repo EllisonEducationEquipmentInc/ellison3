@@ -138,7 +138,7 @@
     %span.right= number_to_currency @order.handling_amount
     .clear
   %li 
-    %span.left== #{is_us? ? 'Sales Tax' : 'Estimated Tax'}:
+    %span.left== #{is_us? ? 'Sales' : 'Estimated'} Tax:
     %span.right= number_to_currency @order.tax_amount
     .clear
   %li#cart_total

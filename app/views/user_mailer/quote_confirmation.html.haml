@@ -46,7 +46,7 @@
     %th{ :align => "left" } Item Name
     %th{ :width => "40", :align => "center" } Qty
     %th{ :width => "55", :align => "right" } Price
-    %th{ :width => "70", :align => "right" } Subtotal
+    %th{ :width => "70", :align => "right" } Item Total
   - @quote.order_items.each do |item|
     %tr{:class => cycle('odd', 'even')}
       %td{ :width => "60", :align => "left" }= item.item_num
@@ -68,15 +68,16 @@
       %td{ :align => "right"}
         = @quote.cod_account_type
         = @quote.cod_account
+  - if @quote.handling_amount > 0.0
+    %tr
+      %td{ :colspan => "4", :align => "right" } Shipping & Handling Surcharge
+      %td{ :align => "right"}= number_to_currency @quote.handling_amount
   %tr
-    %td{ :colspan => "4", :align => "right" } Shipping & Handling Surcharge
-    %td{ :align => "right"}= number_to_currency @quote.handling_amount
-  %tr
-    %td{ :colspan => "4", :align => "right" }== #{t :estimated_tax}
+    %td{ :colspan => "4", :align => "right" }== #{is_us? ? 'Sales' : 'Estimated'} Tax
     %td{ :align => "right"}= number_to_currency @quote.tax_amount
   %tr
     %td{ :colspan => "4", :align => "right" }
-      %strong ESTIMATED TOTAL
+      %strong TOTAL
     %td{ :align => "right"} 
       %strong= number_to_currency @quote.total_amount
   - if @quote.total_discount.present? && @quote.total_discount > 0.0
@@ -85,3 +86,9 @@
         %strong Total Savings:
       %td{ :align => "right"}
         %strong= number_to_currency @quote.total_discount
+%table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
+  %tr
+    %td
+      %ol
+        %li== Your Quote will be saved for #{is_ee? ? '90' : is_er? ? '180' : '90'} days. Any changes to product availability or any other factors beyond our control will void the Quote.
+        %li Products placed for Quote are final. Quotes cannot be altered after being submitted.

@@ -88,7 +88,7 @@
     %td{ :colspan => "4", :align => "right" } Shipping & Handling Surcharge
     %td{ :align => "right"}= number_to_currency @order.handling_amount
   %tr
-    %td{ :colspan => "4", :align => "right" }== #{is_us? ? 'Sales Tax' : 'Estimated Tax'}
+    %td{ :colspan => "4", :align => "right" }== #{is_us? ? 'Sales' : 'Estimated'} Tax
     %td{ :align => "right"}= number_to_currency @order.tax_amount
   %tr
     %td{ :colspan => "4", :align => "right" }
