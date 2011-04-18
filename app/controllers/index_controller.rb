@@ -382,6 +382,7 @@ class IndexController < ApplicationController
   def update_subscription
     @subscription = Subscription.find(params[:id])
     get_list_and_segments
+    params[:subscription][:segments] ||= []
     @subscription.write_attributes(params[:subscription])
     if @subscription.unsubscribe
       @lyris = Lyris.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @segments.keys.map {|e| {:name => e, :value => 0}} if @segments.present?
