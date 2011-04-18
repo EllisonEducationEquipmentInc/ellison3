@@ -61,8 +61,3 @@
           == Tracking Number: #{link_to @order.tracking_number, @order.tracking_url}
           %br
         = link_to 'Track Your Order', order_url(@order, :host => get_domain)
-      %p== We hope you enjoy your purchase and look forward to serving you again. Should you have any questions about your order, please #{link_to 'contact us', contact_url(:host => get_domain)} or call us toll free #{t :toll_free}.
-      %p
-        Sincerely,
-        %br
-        == #{get_domain} Customer Support and Service

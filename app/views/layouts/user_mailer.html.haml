@@ -87,15 +87,16 @@
                 %tr
                   %td= image_tag("http://www.#{get_domain}/images/ui-email/logo_#{current_system}.png", :alt => "#{system_name}", :title => "#{system_name}")
               = yield
-          %tr
-            %td#message
-              %p== If you have any further questions please #{link_to "contact us", "/contact"}.
-              %p
-                Kind Regards,
-                %br
-                Customer Support and Service
-                %br
-                == http://www.#{get_domain}
+              %table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
+                %tr
+                  %td
+                    %p== If you have any further questions please #{link_to "contact us", "/contact"}.
+                    %p
+                      Kind Regards,
+                      %br
+                      Customer Support and Service
+                      %br
+                      = link_to "http://www.#{get_domain}", "http://www.#{get_domain}"
           %tr
             %td{ :align => "center" }
               %p **Please do not reply to this email as it is sent from an unattended mail box.**            
