@@ -5,7 +5,7 @@
     = f.select :institution, institutions
 - if is_er? || is_ee?
   .field
-    = f.label :company, "#{is_sizzix_us? ? 'Attention:' : is_ee? ? 'School/Institution Name' : is_er? ? 'Company Name' : 'Company/School/Organization'}", :class => "autosize"
+    = f.label :company, "<span class='required'>#{is_sizzix_us? ? 'Attention:' : is_ee? ? 'School/Institution Name' : is_er? ? 'Company Name' : 'Company/School/Organization'}</span>".html_safe, :class => "autosize"
     %br/
     = f.text_field :company
 .field
@@ -13,11 +13,11 @@
   %br/
   = f.text_field :name
 .field
-  = f.label :email
+  = required_label f, :email
   %br/
   = f.text_field :email, :class => 'email'
 .field
-  = f.label :password
+  = required_label f, :password
   %br/
   = f.password_field :password, :class => 'password', :onkeyup => "$(this).valid() "
   .password-meter
@@ -25,7 +25,7 @@
     .password-meter-bg
       .password-meter-bar
 .field
-  = f.label :password_confirmation, :class => "autosize"
+  = required_label f, :password_confirmation, { :label => "Password Confirmation", :label_size => "auto" }
   %br/
   = f.password_field :password_confirmation, :class => 'password_confirm'
 .action= f.submit "Sign up", :class => 'jqui_save'
@@ -50,7 +50,7 @@
           email: true
         },
         "user[company]": {
-          required: #{is_er? ? 'true' : 'false'}
+          required: #{is_er? || is_ee? ? 'true' : 'false'}
         }
       },
       messages: {
