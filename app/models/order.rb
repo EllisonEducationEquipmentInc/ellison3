@@ -86,6 +86,7 @@ class Order
 	end
 	
 	scope :real_orders, :where => {:status.in => ["Open", "Processing", "In Process", "Shipped"]}
+	scope :not_cancelled, :where => {:status.ne => 'Cancelled'}
 	
 	before_create :set_system
 	

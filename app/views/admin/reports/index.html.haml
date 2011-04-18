@@ -1,0 +1,13 @@
+%h2 Reports
+%br
+%h3 Order Analysis Report
+= form_tag url_for(:action => 'order_analysis'), :remote => true, :class => 'report_form' do
+  .field
+    = label_tag :start_date
+    = text_field_tag :start_date, @start_date, :class => 'datetimepicker'
+    = label_tag :end_date
+    = text_field_tag :end_date, @end_date, :class => 'datetimepicker'
+  .actions
+    = submit_tag "Submit", :class => 'wymupdate jqui_save'
+    
+

@@ -1,0 +1,39 @@
+:plain
+  var percent = 0;
+  $.fancybox({
+    'hideOnOverlayClick' : false,
+    'padding'	: 10,
+    'autoScale'	: true,
+    'speedIn'	:	500,
+    'speedOut' : 200,
+    'showCloseButton'	:	false,
+    'showNavArrows'	:	false,
+    'enableEscapeButton' :	false,
+    'overlayOpacity' :	0.7,
+    'width'	: 860,
+    'title'	: false,
+    'content'	: '<div style="text-align:center;width: 260px;"><p>please wait while your report is being generated</p><p><span id="report_percentage">'+percent+'</span>%</p><img src="/images/ui-objects/loader-ajax_bar.gif" /></div>'
+  });
+  setTimeout("$.fancybox.resize()", 1000);
+  $.ajax({
+    tryCount : 0,
+    retryLimit : 10,
+    url:'/admin/reports/get_status/#{@report.id}', 
+    success: function(data) {
+      percent = data;
+      $('#report_percentage').text(percent);
+      this.tryCount++;
+      if (percent == "100") {
+        $.fancybox.close();
+        window.location.href='/admin/reports/download_report/#{@report.id}';
+      } else if (this.tryCount <= this.retryLimit) {
+        $(this).doTimeout( 'retrying', 1000, function(){
+          $.ajax(this[0]);
+        });
+      } else {
+        $.fancybox.close()
+        alert('expired');
+      }
+    }
+  })
+
