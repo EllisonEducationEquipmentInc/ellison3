@@ -19,11 +19,16 @@
 .field
   = required_label f, :password
   %br/
-  = f.password_field :password, :class => 'password', :onkeyup => "$(this).valid() "
+  = f.password_field :password, :class => 'password', :onkeyup => "$(this).valid()"
   .password-meter
-    .password-meter-message
-    .password-meter-bg
+    .password-meter-bg.left
       .password-meter-bar
+    .password-meter-message.left
+  .clear
+  %p.formhelp
+    == Password must be between #{"<strong>8-15 characters</strong>".html_safe}
+    %br
+    == with at least #{"<strong>one letter</strong>".html_safe} and #{"<strong>one number</strong>".html_safe} chosen
 .field
   = required_label f, :password_confirmation, { :label => "Password Confirmation", :label_size => "auto" }
   %br/
@@ -38,11 +43,11 @@
         "user[password]": {
           required: true,
           password: "#user_email",
-          minlength: 5
+          minlength: 8
         },
         "user[password_confirmation]": {
           required: true,
-          minlength: 5,
+          minlength: 8,
           equalTo: "#user_password"
         },
         "user[email]": {
@@ -55,11 +60,11 @@
       },
       messages: {
         "user[password]": {
-          required: "Provide a password",
+          required: "Please provide a password",
           rangelength: jQuery.format("Enter at least {0} characters")
         },
         "user[password_confirmation]": {
-          required: "Repeat your password",
+          required: "Please confirm your password",
           minlength: jQuery.format("Enter at least {0} characters"),
           equalTo: "Enter the same password as above"
         },
@@ -67,6 +72,9 @@
           required: "Please enter a valid email address",
           minlength: "Please enter a valid email address",
           remote: jQuery.format("{0} is already in use")
+        },
+        "user[company]": {
+          required: "Please enter #{is_er? ? 'company' : is_ee? ? 'school/institution' : 'company/school/organization'} name"
         }
       },
 
