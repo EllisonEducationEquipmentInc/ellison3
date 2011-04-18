@@ -2,9 +2,9 @@
 
 #guest_checkout, #returning_customer { @include column(10);
   @if $system == eeus {
-    height: 410px;
+    height: 450px;
   } @else if $system == eeuk {
-    height: 410px;
+    height: 450px;
   } @else {
     height: 350px;
   }
