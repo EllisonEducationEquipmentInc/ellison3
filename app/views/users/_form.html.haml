@@ -21,9 +21,9 @@
   %br/
   = f.password_field :password, :class => 'password', :onkeyup => "$(this).valid()"
   .password-meter
-    .password-meter-bg.left
+    .password-meter-bg
       .password-meter-bar
-    .password-meter-message.left
+    .password-meter-message
   .clear
   %p.formhelp
     == Password must be between #{"<strong>8-15 characters</strong>".html_safe}
@@ -42,14 +42,12 @@
       rules: { 
         "user[password]": {
           required: true,
-          password: "#user_email",
           minlength: 8,
-          maxlength: 15
+          password: "#user_email"
         },
         "user[password_confirmation]": {
           required: true,
           minlength: 8,
-          maxlength: 15,
           equalTo: "#user_password"
         },
         "user[email]": {
@@ -63,8 +61,6 @@
       messages: {
         "user[password]": {
           required: "Please provide a password",
-          minlength: "Password must be between 8-15 characters",
-          maxlength: "Password must be between 8-15 characters",
           rangelength: jQuery.format("Enter at least {0} characters")
         },
         "user[password_confirmation]": {

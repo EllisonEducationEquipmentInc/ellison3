@@ -55,8 +55,8 @@
 	$.validator.passwordRating.messages = {
 		"similar-to-username": "Too similar to username",
 		"too-short": "Too short",
-		"very-weak": "Very weak",
-		"weak": "Weak",
+		"very-weak": "Choose a stronger password.",
+		"weak": "Choose a stronger password.",
 		"good": "Good",
 		"strong": "Strong"
 	}
