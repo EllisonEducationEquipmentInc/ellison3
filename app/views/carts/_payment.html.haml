@@ -2,7 +2,7 @@
   = f.error_messages
   - if get_cart.allow_deferred?
     #deferred_options
-      = radio_button_tag :deferred, 0, !@payment.deferred, :onclick => "$('#payment_deferred').val(this.value)"
+      = radio_button_tag :deferred, 0, !@payment.deferred, :onclick => "$('#payment_deferred').val(this.value); $('#agreed_terms').closest('tr').hide(); $('#agreed_terms').rules('remove');"
       Single Payment
       %table
         %tr
@@ -13,7 +13,7 @@
           %td
             %span#deferred_single_total_amount= render :partial => 'deferred_single_total_amount'
             %span (incl S&H +Tax)
-      = radio_button_tag :deferred, 1, @payment.deferred, :onclick => "$('#payment_deferred').val(this.value)"
+      = radio_button_tag :deferred, 1, @payment.deferred, :onclick => "$('#payment_deferred').val(this.value); $('#agreed_terms').closest('tr').show(); $('#agreed_terms').rules('add', {required: true, messages:{required: 'You must agree to these terms.'}});"
       Three Easy Payments
       %table
         %tr
@@ -32,6 +32,10 @@
             %span (incl S&H +Tax)
           - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
             %td= number_to_currency((gross_price(get_cart.sub_total)/(Payment::NUMBER_OF_PAYMENTS + 1.0)).round(2))
+        %tr{:id => "agreed_terms_row", :style => "display: none;"}
+          %td{:colspan => "#{Payment::NUMBER_OF_PAYMENTS + 1}"}
+            = check_box_tag :agreed_terms, "1", false
+            == I agree that Sizzix.com may charge my credit card or debit card to recieve payment in full for my purchase of this merchandise in 3 month payment installments. Click here for #{ link_to "Terms and Conditions of Sale", "/3ez_terms_of_sale?no_layout=1", :class => "lightbox" }.
     = f.hidden_field :deferred
   - if purchase_order_allowed?
     .field
@@ -66,18 +70,22 @@
       .left.field-stacked.credit_card
         = required_label f, :last_name, { :label => "Last Name", :label_size => "auto" }
         = f.text_field :last_name, :class => "cc"
+        
       .clear_left
       .credit_card
-        .left.field-stacked
+        .left.field-stacked{ :style => "#{is_uk? ? 'margin-bottom: 0' : nil}"}
           = required_label f, :card_name, { :label => "Credit Card Type", :label_size => "auto" }
           = select :payment, :card_name, Payment.cards, {:prompt => "--- card type ---"}, :class => "cc"
-        .left.field-stacked
+        .left.field-stacked{ :style => "#{is_uk? ? 'margin-bottom: 0' : nil}"}
           = required_label f, :full_card_number, { :label => "Credit Card Number", :label_size => "auto" }
           = text_field :payment, :full_card_number, :maxlength => 16, :class => "cc"
-        .left.field-stacked
+        .left.field-stacked{ :style => "#{is_uk? ? 'margin-bottom: 0' : nil}"}
           = required_label f, :card_security_code, { :label => "Credit Card Security Code", :label_size => "auto" }
-          = text_field :payment, :card_security_code, :size => 4, :maxlength => 4, :class => "cc"
+          = text_field :payment, :card_security_code, :size => 4, :maxlength => 4, :class => "cc", :style => "display: inline-block"
+          = link_to "What is This?", "/seccode?no_layout=1", :class => "link_help lightbox"
         .clear_left
+        - if is_uk?
+          %p.formhelp== #{"<strong>Note:</strong>".html_safe} Currently, we do #{"<strong>NOT</strong>".html_safe} accept International Maestro card form of Payment.
         .left.field-stacked
           = required_label f, :card_expiration_month, { :label => "Expiration Date", :label_size => "auto" }
           = select :payment, :card_expiration_month, Payment.months, { :prompt => "month" }, :class => "cc"
@@ -90,13 +98,13 @@
             You need to fill in the following fields
             %strong ONLY
             if the information is on your card.
-          .field.credit_card
-            = f.label :card_issue_month, "Card Start Date"
+          .field.credit_card{:style => "margin-right: 24px"}
+            = f.label :card_issue_month, "Card Start Date", :style => "width: 110px"
             = select :payment, :card_issue_month, Payment.months, { :include_blank => true }, :class => "cc"
             \/
             = select :payment, :card_issue_year, Payment.issue_years, { :include_blank => true }, :class => "cc"
           .field.credit_card
-            = f.label :card_issue_number
+            = f.label :card_issue_number, :style => "width: 110px"
             = f.text_field :card_issue_number, :size => 2, :maxlength => 2, :class => "cc"
         - if can_tokenize_payment? && is_er?
           .field
