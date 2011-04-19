@@ -9,8 +9,8 @@
   = form_tag activate_coupon_path, :id => "coupon_form", :remote => true do
     = label_tag :coupon_code, "Please enter Coupon code here:"
     = text_field_tag :coupon_code
-    %p.formhelp Only one coupon code allowed per order.
     .jqui_ok#activate_coupon Activate coupon
+    %p.formhelp Only one coupon code allowed per order.
   :javascript
     $(function() {
       $("#activate_coupon").button({icons: {primary: 'ui-icon-check'}}).click( function() {

@@ -16,19 +16,19 @@
   = required_label f, :email
   %br/
   = f.text_field :email, :class => 'email'
-.field
-  = required_label f, :password
+.field{ :style => "height: 100px"}
+  = required_label f, :password, {:label_size => "auto"}
+  %br
+  %span.formhelp
+    == (must be between #{"<strong>8-15 characters</strong>".html_safe} with
+    %br
+    == at least #{"<strong>one letter</strong>".html_safe} and #{"<strong>one number</strong>".html_safe} chosen)
   %br/
   = f.password_field :password, :class => 'password', :onkeyup => "$(this).valid()"
   .password-meter
     .password-meter-bg
       .password-meter-bar
     .password-meter-message
-  .clear
-  %p.formhelp
-    == Password must be between #{"<strong>8-15 characters</strong>".html_safe}
-    %br
-    == with at least #{"<strong>one letter</strong>".html_safe} and #{"<strong>one number</strong>".html_safe} chosen
 .field
   = required_label f, :password_confirmation, { :label => "Password Confirmation", :label_size => "auto" }
   %br/

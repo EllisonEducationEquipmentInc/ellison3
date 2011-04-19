@@ -1,13 +1,6 @@
 // Ellison3 Web Application Customer Account Profile CSS
 
 #guest_checkout, #returning_customer { @include column(10);
-  @if $system == eeus {
-    height: 450px;
-  } @else if $system == eeuk {
-    height: 450px;
-  } @else {
-    height: 350px;
-  }
   text-align: left;
 }
 
