@@ -18,6 +18,12 @@ class Admin::ReportsController < ApplicationController
 	  render :process
 	end
 	
+	def order_summary
+	  @original_locale = current_locale
+    @order_summary = Order.summary :start_date => Time.parse(params[:start_date]), :end_date => Time.parse(params[:end_date]), :system => params[:order_system]
+    @order_statuses = Order.status_summary :start_date => Time.parse(params[:start_date]), :end_date => Time.parse(params[:end_date]), :system => params[:order_system]
+	end
+	
 	def get_status
 	  @report = Report.find(params[:id])
 	  render :text => @report.percent.to_i

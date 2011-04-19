@@ -120,6 +120,25 @@ EOF
 
       collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {"order_items.item_num" => item_num}})["results"]
     end
+    
+    def summary(options = {})
+      start_date, end_date, system = parse_options(options)
+      collection.group :key => :locale, :cond => {:created_at => {"$gt" => start_date.utc, "$lt" => end_date.utc}, :system => system}, :reduce => "function(obj, out){out.subtotal += obj.subtotal_amount; out.shipping_amount += obj.shipping_amount; out.tax_amount += obj.tax_amount; out.total_amount += (obj.subtotal_amount + obj.shipping_amount + obj.tax_amount + obj.handling_amount); out.handling_amount += obj.handling_amount}", :initial => {:total_amount => 0, :subtotal => 0, :shipping_amount => 0, :tax_amount => 0, :handling_amount => 0}
+    end
+    
+    def status_summary(options = {})
+      start_date, end_date, system = parse_options(options)
+      collection.group :key => :status, :cond => {:created_at => {"$gt" => start_date.utc, "$lt" => end_date.utc}, :system => system}, :reduce => "function(obj, out){out.count++;}", :initial => {:count => 0}
+    end
+    
+  private
+  
+    def parse_options(options)
+      start_date = options[:start_date] || Time.zone.now.beginning_of_day
+      end_date = options[:end_date] || Time.zone.now.end_of_day
+      system = options[:system] || current_system
+      [start_date, end_date, system]
+    end
 	end
 	
 	def gross_subtotal_amount

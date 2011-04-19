@@ -1,0 +1,29 @@
+- if @order_summary.present?
+  %table
+    %thead
+      %tr
+        - @order_summary.first.keys.each do |key|
+          %th= key.humanize
+    %tbody
+      - @order_summary.each do |summary|
+        - set_current_locale summary.values[0]
+        %tr{ :class => cycle(:odd, :even) }
+          - summary.values.each do |val|
+            %td= val.respond_to?(:round) ? number_to_currency(val.round(2)) : val
+    - set_current_locale @original_locale
+- else
+  No results found
+
+- if @order_statuses.present?
+  %table
+    %thead
+      %tr
+        %th Status
+        %th Count
+    %tbody
+      - @order_statuses.each do |status|
+        %tr{ :class => cycle(:odd, :even) }
+          %td= status["status"]
+          %td= status["count"]
+- else
+  No results found

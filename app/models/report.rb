@@ -29,7 +29,7 @@ class Report
 			@orders.each do |order|
 				n += 1
         percentage!(n)
-				csv << [order.id, order.created_at, order.user.email, order.user.created_at, order.total_amount, order.clickid, order.utm_source, order.tracking]
+				csv << [order.public_order_number, order.created_at, order.user.email, order.user.created_at, order.total_amount, order.clickid, order.utm_source, order.tracking]
 			end
 		end
 		write_to_gridfs csv_string
