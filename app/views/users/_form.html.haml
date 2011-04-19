@@ -2,11 +2,11 @@
   .field
     = f.label :company, "<span class='required'>#{is_sizzix_us? ? 'Attention:' : is_ee? ? 'School/Institution Name' : is_er? ? 'Company Name' : 'Company/School/Organization'}</span>".html_safe, :class => "autosize"
     %br/
-    = f.text_field :company
+    = f.text_field :company, :size => 28
 .field
   = f.label :name, is_sizzix? ? "Name" : "Contact Person"
   %br/
-  = f.text_field :name
+  = f.text_field :name, :size => 28
 - if is_ee?
   .field
     = f.label :institution
@@ -16,24 +16,24 @@
   = required_label f, :email
   %br/
   = f.text_field :email, :class => 'email'
-.field{ :style => "height: 100px"}
-  = required_label f, :password, {:label_size => "auto"}
+.field-stacked{:style => "height: 75px; margin-bottom: 0"}
+  .left{ :style => "margin-right: 24px"}
+    = required_label f, :password, {:label_size => "auto"}
+    = f.password_field :password, :class => 'password', :onkeyup => "$(this).valid()", :maxlength => 15
+    .password-meter
+      .password-meter-bg
+        .password-meter-bar
+      .password-meter-message
+  .left
+    = required_label f, :password_confirmation, { :label => "Password Confirmation", :label_size => "auto" }
+    = f.password_field :password_confirmation, :class => 'password_confirm', :maxlength => 15
+.clear
+%p.formhelp
+  == (must be between #{"<strong>8-15 characters</strong>".html_safe} with
   %br
-  %span.formhelp
-    == (must be between #{"<strong>8-15 characters</strong>".html_safe} with
-    %br
-    == at least #{"<strong>one letter</strong>".html_safe} and #{"<strong>one number</strong>".html_safe} chosen)
-  %br/
-  = f.password_field :password, :class => 'password', :onkeyup => "$(this).valid()"
-  .password-meter
-    .password-meter-bg
-      .password-meter-bar
-    .password-meter-message
-.field
-  = required_label f, :password_confirmation, { :label => "Password Confirmation", :label_size => "auto" }
-  %br/
-  = f.password_field :password_confirmation, :class => 'password_confirm'
+  == at least #{"<strong>one letter</strong>".html_safe} and #{"<strong>one number</strong>".html_safe} chosen)
 .action= f.submit "Sign up", :class => 'jqui_save'
+
 :javascript
   $(document).ready(function() { 
     // validate signup form on keyup and submit 
