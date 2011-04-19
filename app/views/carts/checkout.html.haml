@@ -60,6 +60,7 @@
         == virtual weight: #{get_cart.total_weight} lbs
       == weight: #{get_cart.total_actual_weight} lbs
     #shipping_options= render :partial => "shipping_options" if get_user.shipping_address
+    = link_to "Estimated shipping and handling", "/shipping_handling?no_layout=1", :class => "link_help lightbox"
   %h3 Payment
   #checkout_cc{:style => "display:#{get_user.billing_address && get_user.shipping_address ? 'block' : 'none'}"}= render :partial => 'payment' if get_user.billing_address && get_user.shipping_address
 .clear
