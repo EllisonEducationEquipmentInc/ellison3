@@ -10,6 +10,9 @@ class FirmwareRange
   
   field :created_by
 	field :updated_by
+	
+	index :prefix
+	index :active
   
   validates_presence_of :prefix, :start_from, :end_to
   validates_format_of :prefix, :with => /^[a-z]{1}((0\d)|(1[0-2]{1}))$/i, :message => "is invalid. Format: XNN  Example: B02"
@@ -19,7 +22,7 @@ class FirmwareRange
 
   def self.valid?(serial_number)
     return false unless serial_number =~ /^[a-z]{1}((0\d)|(1[0-2]{1}))\d{4}$/i
-    active.where(:prefix => serial_number[0,3]).any? {|r| r.to_range.include?(serial_number[3,8].to_i)}
+    active.where(:prefix => /^#{serial_number[0,3]}$/i).any? {|r| r.to_range.include?(serial_number[3,8].to_i)}
   end
 
   def to_range
