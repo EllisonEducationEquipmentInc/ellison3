@@ -5,7 +5,8 @@
       .gallery_asset{:id => "gallery_#{visual_asset.id}"}
         %ul
           - visual_asset.child_visual_assets.select {|asset| asset.available?(@time || Time.zone.now)}.sort {|x,y| x.display_order <=> y.display_order}.each do |child_visual_asset|
-            %li= link_to_unless child_visual_asset.link.blank?, image_tag(child_visual_asset.image_url, :alt => child_visual_asset.name), child_visual_asset.link, :title => child_visual_asset.name
+            - if child_visual_asset.image?
+              %li= link_to_unless child_visual_asset.link.blank?, image_tag(child_visual_asset.image_url, :alt => child_visual_asset.name), child_visual_asset.link, :title => child_visual_asset.name
       :javascript
         $(document).ready(function(){
           $("#gallery_#{visual_asset.id}").sudoSlider({

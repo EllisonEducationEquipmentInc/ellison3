@@ -18,7 +18,7 @@
       - else
         %h2 &nbsp;
     - else
-      - if f.object.image? && f.object.is_child?
+      - if f.object.image? && f.object.is_child? && f.object.image?
         .va_thumb_child= link_to image_tag(f.object.image_url, :width => 65, :height => 25), "#"
       - if f.object.is_child?
         %h3{:class => "#{f.object.active == false ? 'disabled' : nil}"}= f.object.name
