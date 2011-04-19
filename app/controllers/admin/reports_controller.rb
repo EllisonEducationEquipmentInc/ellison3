@@ -24,6 +24,13 @@ class Admin::ReportsController < ApplicationController
     @order_statuses = Order.status_summary :start_date => Time.parse(params[:start_date]), :end_date => Time.parse(params[:end_date]), :system => params[:order_system]
 	end
 	
+	def wishlists_report
+	  criteria = List.listable.where(:owns.ne => true, :created_at.gt => Time.parse(params[:start_date]), :created_at.lt => Time.parse(params[:end_date]), :system => params[:order_system])
+		#@total_wishlists = criteria.count
+		@wishlist_users = criteria.distinct(:user_id).count
+		@items_per_lists = List.items_per_list :system => params[:order_system], :query => {:created_at => {"$gt" => Time.parse(params[:start_date]), "$lt" => Time.parse(params[:end_date])}, :active => true, :save_for_later => {"$ne"=>true}, :owns => {"$ne"=>true}, :system => params[:order_system]}
+	end
+	
 	def get_status
 	  @report = Report.find(params[:id])
 	  render :text => @report.percent.to_i

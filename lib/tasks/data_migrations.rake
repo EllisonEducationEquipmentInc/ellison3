@@ -539,10 +539,11 @@ namespace :data_migrations do
   desc "migrate SZUS wishlists"
   task :lists_szus => :load_dep do
     # old_list = OldData::Wishlist.find(649)
+    set_current_system "szus"
     OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
       user = User.where(:old_id_szus => old_list.user_id).first
       next unless user
-      list = user.lists.build(:name => old_list.name, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments)
+      list = user.lists.build(:name => old_list.name, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
       list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
       p list.save
       p "----- #{list.user.email} -----"
@@ -551,10 +552,11 @@ namespace :data_migrations do
   
   desc "migrate SZUK wishlists"
   task :lists_szuk => [:set_szuk, :load_dep] do
+    set_current_system "szuk"
     OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
       user = User.where(:old_id_szuk => old_list.user_id).first
       next unless user
-      list = user.lists.build(:name => old_list.name, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments)
+      list = user.lists.build(:name => old_list.name, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
       list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
       p list.save
       p "----- #{list.user.email} -----"
@@ -733,7 +735,7 @@ namespace :data_migrations do
     OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
       user = User.where(:old_id_er => old_list.user_id).first
       next unless user
-      list = user.lists.build(:name => old_list.name, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments)
+      list = user.lists.build(:name => old_list.name, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
       list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
       p list.save
       p "----- #{list.user.email} - #{user.email}-----"
@@ -809,7 +811,7 @@ namespace :data_migrations do
     OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
       user = User.where(:old_id_eeus => old_list.user_id).first
       next unless user
-      list = user.lists.build(:name => old_list.name, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments)
+      list = user.lists.build(:name => old_list.name, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
       list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
       p list.save
       p "----- #{list.user.email} - #{user.email}-----"

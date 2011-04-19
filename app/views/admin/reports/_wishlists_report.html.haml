@@ -1,0 +1,16 @@
+%table
+  %tr
+    %td Number of users having My List
+    %td= @wishlist_users
+  %tr
+    %td Total Number of My Lists
+    %td= @items_per_lists.count
+  %tr
+    %td Max items per list
+    %td= @items_per_lists.first
+  %tr
+    %td Min items per list
+    %td= @items_per_lists.last
+  %tr
+    %td Avg items per list
+    %td= @items_per_lists.inject(0) {|sum, e| sum += e}/@items_per_lists.count rescue 0

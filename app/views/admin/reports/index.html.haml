@@ -16,7 +16,7 @@
 %p This report gives the summary of orders within the selected dates. It also gives an overview of order status within the selected dates.
 = form_tag url_for(:action => 'order_summary'), :remote => true, :class => 'report_form' do
   .field
-    = label_tag :order_system
+    = label_tag :order_system, "System"
     = select_tag :order_system, options_for_select(ELLISON_SYSTEMS, current_system), :id => :order_summary_system
     = label_tag :start_date
     = text_field_tag :start_date, @start_date, :class => 'datetimepicker', :id => :order_summary_start_date
@@ -27,6 +27,16 @@
 #order_summary
 %br
 %hr
-%h3 My List Summary Report - By system, one site at a time
-    
-
+%h3 My List Summary Report
+%p This report gives the summary of wishlists within the selected dates.
+= form_tag url_for(:action => 'wishlists_report'), :remote => true, :class => 'report_form' do
+  .field
+    = label_tag :order_system, "System"
+    = select_tag :order_system, options_for_select(ELLISON_SYSTEMS, current_system), :id => :wishlists_report_system
+    = label_tag :start_date
+    = text_field_tag :start_date, @start_date, :class => 'datetimepicker', :id => :wishlists_report_start_date
+    = label_tag :end_date
+    = text_field_tag :end_date, @end_date, :class => 'datetimepicker', :id => :wishlists_report_end_date
+  .actions
+    = submit_tag "Submit", :class => 'jqui_save'
+#wishlists_report
