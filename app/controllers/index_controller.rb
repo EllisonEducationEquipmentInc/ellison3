@@ -133,6 +133,7 @@ class IndexController < ApplicationController
   def contact
     @feedback = Feedback.new
     @feedback.email = get_user.email if user_signed_in?
+    @subjects = SharedContent.active.where(:systems_enabled.in => [current_system], :placement => 'contact').cache
   end
   
   def send_feedback

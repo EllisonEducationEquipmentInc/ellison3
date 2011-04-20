@@ -13,7 +13,7 @@
       = f.text_field :email
     .field
       = f.label :subject, :style => "width: 55px;"
-      = f.select :subject, Feedback.subjects
+      = f.select :subject, @subjects.map(&:name)
     = f.fields_for :comments, @feedback.comments.build do |comments_fields|
       .field
         = comments_fields.label :message, "Your Comments"
@@ -24,10 +24,10 @@
       = f.submit :class => 'jqui_save'
 .contentwrap_XL.last
   - i=0
-  - Feedback.subjects.each do |topic|
-    %div{:id => "help_#{topic.parameterize}", :class => "infobox ui-widget-#{ is_sizzix_us? ? 'header' : 'content'} ui-widget ui-corner-all", :style => i != 0 ? "display: none" : nil}
-      %h3= topic
-      
+  - @subjects.each do |topic|
+    %div{:id => "help_#{topic.name.parameterize}", :class => "infobox ui-widget-#{ is_sizzix_us? ? 'header' : 'content'} ui-widget ui-corner-all", :style => i != 0 ? "display: none" : nil}
+      %h3= topic.name
+      = render topic.visual_assets.current
     - i+=1
     
   :javascript

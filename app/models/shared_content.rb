@@ -3,7 +3,7 @@ class SharedContent
   include Mongoid::Document
   include Mongoid::Timestamps
   
-  PLACEMENTS = ["store_locator", "cart", "home", "campaigns", "calendar"]
+  PLACEMENTS = ["store_locator", "cart", "home", "campaigns", "calendar", "contact"]
   
   field :name
   field :active, :type => Boolean, :default => true
@@ -29,7 +29,7 @@ class SharedContent
   
   validates :name, :systems_enabled, :presence => true
   validates_inclusion_of :placement, :in => PLACEMENTS, :allow_blank => true
-  validate :placement_uniqueness, :if => Proc.new {|obj| obj.placement.present?}
+  validate :placement_uniqueness, :if => Proc.new {|obj| obj.placement.present? && obj.placement != 'contact'}
   
   references_many :tabs, :index => true, :validate => false
   
