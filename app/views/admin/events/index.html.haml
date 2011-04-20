@@ -20,6 +20,9 @@
         %th Country
         %th Start
         %th End
+        %th Active
+        %th Systems
+        %th &nbsp;
         - if has_write_permissions?
           %th &nbsp;
           %th &nbsp;
@@ -34,9 +37,12 @@
           %td= event.country
           %td= l event.event_start_date, :format => :date
           %td= l event.event_end_date, :format => :date
+          %td= event.active
+          %td= event.systems_enabled.join(", ") rescue ''
+          %td= link_to 'Show', admin_event_path(event), :class => 'jqui_show_min'
           - if has_write_permissions?
-            %td= link_to 'Edit', edit_admin_event_path(event)
-            %td= link_to 'Destroy', admin_event_path(event), :confirm => 'Are you sure?', :method => :delete
+            %td= link_to 'Edit', edit_admin_event_path(event), :class => 'jqui_edit_min'
+            %td= link_to 'Destroy', admin_event_path(event), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
 %br
 = will_paginate @events
 %br

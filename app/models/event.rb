@@ -35,7 +35,7 @@ class Event
   index :active
   index :event_number
   
-  validates :name, :event_number, :description, :systems_enabled, :presence => true
+  validates :name, :event_number, :description, :systems_enabled, :start_date, :start_date, :event_start_date, :event_end_date,  :presence => true
 
   mount_uploader :image, GenericImageUploader
   mount_uploader :logo, GenericImageUploader
