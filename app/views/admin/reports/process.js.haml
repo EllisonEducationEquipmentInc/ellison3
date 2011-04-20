@@ -17,7 +17,7 @@
   setTimeout("$.fancybox.resize()", 1000);
   $.ajax({
     tryCount : 0,
-    retryLimit : 10,
+    retryLimit : 100,
     url:'/admin/reports/get_status/#{@report.id}', 
     success: function(data) {
       percent = data;
