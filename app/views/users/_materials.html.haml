@@ -19,14 +19,14 @@
       = render :partial => 'users/address_form', :locals => {:f => address_fields}
     .actions
       = f.submit "Request Material", :class => 'jqui_save'
-  .clear;
+  .clear
 
 - unless get_user.material_orders.blank?
   %h3 Previous Material Requests
   %table#material_orders
     %thead
       %tr
-        %th Order #
+        %th{ :width => "60" } Order #
         %th Materials
         %th Ordered on
         %th Status
