@@ -2,8 +2,9 @@
   %tr
     %td{ :colspan => "2"}
       %h2.primary-heading== Your order ##{"<strong>#{@order.public_order_number}</strong>".html_safe} has shipped!
+      %p Dear Valued Customer,
       %p
-        == Thank you for shopping at #{"<strong>http://www.#{get_domain}</strong>".html_safe}.
+        == Thank you for shopping at #{"<strong>http://www.#{get_domain}</strong>".html_safe}. This is just a brief note to confirm that your order ##{"<strong>#{@order.public_order_number}</strong>".html_safe} has shipped!
         %br
         A summary of the shipped items are listed below.
         %br
@@ -55,9 +56,10 @@
     %td
       %p Please note, in some cases merchandise may be shipped in multiple packages. If so, you will receive a shipping confirmation for each package sent.
       %p
-        == Your order has been shipped via #{@order.carrier_description}. You may track your package once the shipping carrier has scanned the shipment into their system, usually within 24 hours.
+        == Your order has been shipped via #{@order.carrier_description}. 
+        You may track your package once the shipping carrier has scanned the shipment into their system, which usually occurs within 24 hours.
         %br
         - if @order.tracking_number.present?
-          == Tracking Number: #{link_to @order.tracking_number, @order.tracking_url}
+          == For your records, your Tracking Number is: #{link_to @order.tracking_number, @order.tracking_url}
           %br
         = link_to 'Track Your Order', order_url(@order, :host => get_domain)
