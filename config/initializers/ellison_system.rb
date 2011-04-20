@@ -219,7 +219,7 @@ module EllisonSystem
     "szuk" => {:sizzix_uk_consumers => "Sizzix Newsletter", :eclips => "Sizzix eclips", :tim_holtz => "Tim Holtz"},
     "eeus" => {:connection => "Ellison Connection", :ellison_events => "Ellison Events"},
     "eeuk" => {:ellison_education_uk => "Education UK Newsletter", :back_to_school => "Back to School", :education_uk_nursery => "Education UK Nursery", :education_uk_primary => "Education UK Primary", :education_uk_secondary => "Education UK Secondary"},
-    "erus" => {:erus_retailers => "Retailers Newsletter", :sizzix_retailers => "Sizzix Retailers", :ellison_retailers => "Ellison Retailers", :sizzix_retailers_in_spanish => "Sizzix Retailers in Spanish"}
+    "erus" => {:erus_retailers => "Retailers Newsletter", :sizzix_retailers => "Sizzix Retailers", :eclips => "Sizzix eclips", :tim_holtz => "Tim Holtz", :ellison_retailers => "Ellison Retailers", :sizzix_retailers_in_spanish => "Sizzix Retailers in Spanish"}
   }
   
   def institutions
