@@ -383,6 +383,10 @@ class Product
     get_image(:large)
   end
   
+  def zoom_image
+    get_image(:zoom)
+  end
+  
   # system specific virtual weight has precedence over actual weight
   def virtual_weight(sys = current_system)
     self.send("virtual_weight_#{sys}").present? && (self.send("virtual_weight_ends_#{sys}").blank? || self.send("virtual_weight_ends_#{sys}").present? && self.send("virtual_weight_ends_#{sys}") > Time.zone.now) ? self.send("virtual_weight_#{sys}") : self.weight
@@ -632,13 +636,14 @@ private
   
   def get_image(version)
     if image?
-      image_url(version)
+      version.to_s == 'zoom' ? image_url : image_url(version) 
     else
       return image.default_url_edu_by_item_num(version) if (is_ee? || is_er?) && FileTest.exists?("#{Rails.root}/public/#{image.default_url_edu_by_item_num(version)}")
       return image.default_url_edu_by_item_num_downcase(version) if (is_ee? || is_er?) && FileTest.exists?("#{Rails.root}/public/#{image.default_url_edu_by_item_num_downcase(version)}")
       return image.default_url_edu_by_item_num_downcase_underscore(version) if (is_ee? || is_er?) && FileTest.exists?("#{Rails.root}/public/#{image.default_url_edu_by_item_num_downcase_underscore(version)}")
       return image.default_url_edu(version) if (is_ee? || is_er?) && FileTest.exists?("#{Rails.root}/public/#{image.default_url_edu(version)}")
-      FileTest.exists?("#{Rails.root}/public/#{image.default_url(version)}") ? image.default_url(version) : "/images/products/#{version}/noimage.jpg"
+      return image.default_url(version) if FileTest.exists?("#{Rails.root}/public/#{image.default_url(version)}")
+      return "/images/products/#{version}/noimage.jpg" if FileTest.exists?("#{Rails.root}/public/images/products/#{version}/noimage.jpg")
     end
   end
   
