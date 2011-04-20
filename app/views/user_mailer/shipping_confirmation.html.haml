@@ -63,3 +63,7 @@
           == For your records, your Tracking Number is: #{link_to @order.tracking_number, @order.tracking_url}
           %br
         = link_to 'Track Your Order', order_url(@order, :host => get_domain)
+      %p
+        == We understand you may have many product choices, and we truly appreciate you choosing the #{system_name == 'Sizzix' ? 'Sizzix' : system_name == 'Sizzix UK' ? 'Sizzix' : system_name == 'Ellison Education' ? 'Ellison' : system_name == 'Ellison Education UK' ? 'Ellison' : system_name == 'Ellison Retailers' ? 'Sizzix/Ellison' : 'Sizzix/Ellison'} brand! 
+        We eagerly look forward to serving you again. For additional questions about your order, 
+        == please #{link_to "contact us", "/contact"} or call us toll free at (877) 355-4766.

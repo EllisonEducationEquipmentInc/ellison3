@@ -91,17 +91,11 @@
                 %tr
                   %td
                     %p
-                      == We understand you may have many product choices, and we truly appreciate you choosing the #{system_name == 'Sizzix' ? 'Sizzix' : system_name == 'Sizzix UK' ? 'Sizzix' : system_name == 'Ellison Education' ? 'Ellison' : system_name == 'Ellison Education UK' ? 'Ellison' : system_name == 'Ellison Retailers' ? 'Sizzix/Ellison' : 'Sizzix/Ellison'} brand! 
-                      We eagerly look forward to serving you again. For additional questions about your order, 
-                      == please #{link_to "contact us", "/contact"} or call us toll free at (877) 355-4766.
-                    %p
                       Kind Regards,
                       %br
                       == #{get_domain.capitalize} Customer Support and Service
                       %br
                       = link_to "http://www.#{get_domain}", "http://www.#{get_domain}"
-                    - if is_uk?
-                      %p UK customers may contact us within the UK at 0844 499 8181 or outside of the UK at + 44 (0) 845 345 2277.
           %tr
             %td{ :align => "center" }
               %p **Please do not reply to this email as it is sent from an unattended mail box.**            
