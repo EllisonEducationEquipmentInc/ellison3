@@ -10,7 +10,10 @@
     = label_tag :coupon_code, "Please enter Coupon code here:"
     = text_field_tag :coupon_code
     .jqui_ok#activate_coupon Activate coupon
-    %p.formhelp Only one coupon code allowed per order.
+    %p.formhelp
+      Only one coupon code allowed per order.
+      - if is_ee_us?
+        Please make certain you coupon is eligible for online redemption.
   :javascript
     $(function() {
       $("#activate_coupon").button({icons: {primary: 'ui-icon-check'}}).click( function() {

@@ -14,11 +14,12 @@
     })
   %p Please check the box(es) of the publications you wish to receive via mail.
   #material_address{:style => 'display:none'}
-    .right= link_to_function "close", "$('#material_address').slideUp()", :class => "minibtn-cancel", :onclick => "$('input.material_ids').removeAttr('checked');"
+    .right= link_to_function "close", "$('#material_address').slideUp()", :class => "minibtn-cancel", :onclick => "$('input.material_ids').removeAttr('checked');", :alt => "Close", :title => "Close"
     = f.fields_for @material_order.address do |address_fields|
       = render :partial => 'users/address_form', :locals => {:f => address_fields}
     .actions
       = f.submit "Request Material", :class => 'jqui_save'
+  .clear;
 
 - unless get_user.material_orders.blank?
   %h3 Previous Material Requests
