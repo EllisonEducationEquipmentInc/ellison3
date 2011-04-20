@@ -11,6 +11,7 @@ class Feedback
 	STATUSES = %w(New replied ignored closed)
 	DEPARTMENTS = ["Customer Service", "Marketing", "Sales", "R&D", "I.T"]
 	
+	# NO longer used. Create shared_content records instead.
 	def self.subjects
 	  if is_er?
   	  ['Corporate Information', 'General Suggestion', 'Retailer Information Request', 'Retailer Stores Update', 'Miscellaneous']
