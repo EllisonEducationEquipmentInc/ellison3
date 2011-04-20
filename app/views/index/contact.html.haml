@@ -19,6 +19,7 @@
         = comments_fields.label :message, "Your Comments"
         %br
         = comments_fields.text_area :message, :rows => 10, :cols => 36
+    = raw recaptcha_tag(:ajax, :display => {:theme => 'white'})
     .actions
       = f.submit :class => 'jqui_save'
 .contentwrap_XL.last
