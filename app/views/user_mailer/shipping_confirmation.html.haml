@@ -66,4 +66,4 @@
       %p
         == We understand you may have many product choices, and we truly appreciate you choosing the #{system_name == 'Sizzix' ? 'Sizzix' : system_name == 'Sizzix UK' ? 'Sizzix' : system_name == 'Ellison Education' ? 'Ellison' : system_name == 'Ellison Education UK' ? 'Ellison' : system_name == 'Ellison Retailers' ? 'Sizzix/Ellison' : 'Sizzix/Ellison'} brand! 
         We eagerly look forward to serving you again. For additional questions about your order, 
-        == please #{link_to "contact us", "/contact"} or call us toll free at (877) 355-4766.
+        == please #{link_to "contact us", "/contact"} or call us toll free at #{is_sizzix_us? ? '(877) 355-4766' : is_er? ? '(800) 253-2238 or outside the U.S. at (949) 598-8822' : is_ee_us? ? '(800) 253-2238' : is_uk? ? '0844 499 8181 or outside of the UK at + 44 (0) 845 345 2277' : '(800) 253-2238 or outside the U.S. at (949) 598-8822'}.
