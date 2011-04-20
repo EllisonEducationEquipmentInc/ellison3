@@ -3,7 +3,7 @@ class Admin::FeedbacksController < ApplicationController
 
   before_filter :set_admin_title
 	before_filter :admin_read_permissions!
-  before_filter :admin_write_permissions!, :only => [:new, :create, :show, :edit, :update, :destroy]
+  before_filter :admin_write_permissions!, :only => [:new, :create, :show, :edit, :update, :destroy, :update_attribute, :add_comment]
 	
 	ssl_exceptions
 	
@@ -20,7 +20,7 @@ class Admin::FeedbacksController < ApplicationController
 	  criteria = criteria.where(:subject => params[:subject]) unless params[:subject].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria = criteria.any_of({ :email => regexp}, { 'comments.message' => regexp })
+  	  criteria = criteria.any_of({ :email => regexp}, { 'comments.message' => regexp }, {:number => params[:q]})
 	  end
 	  order = params[:sort] ? {sort_column => sort_direction} : [[:status, :asc], [:created_at, :desc]]
 		@feedbacks = criteria.order_by(order).paginate :page => params[:page], :per_page => 50
@@ -87,7 +87,7 @@ class Admin::FeedbacksController < ApplicationController
   def update_attribute
     attribute, id = params[:element_id].split("_")
     @feedback = Feedback.find(id)
-    @feedback.update_attributes attribute => params[:update_value]
+    @feedback.update_attribute attribute, params[:update_value]
     render :text => params[:update_value]
   end
   

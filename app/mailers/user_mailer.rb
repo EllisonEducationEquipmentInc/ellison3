@@ -29,7 +29,7 @@ class UserMailer < ActionMailer::Base
 	
 	def feedback_reply(feedback)
 	  @feedback = feedback
-	  mail(:to => feedback.email, :subject => "RE: [#{get_domain.capitalize}] #{feedback.subject} - #{feedback.id}")
+	  mail(:to => feedback.email, :subject => "RE: [#{get_domain.capitalize}] #{feedback.subject} - #{feedback.number}")
 	end
 	
 	def subscription_confirmation(subscription)

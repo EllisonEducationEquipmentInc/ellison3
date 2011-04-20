@@ -2,4 +2,4 @@
   = comment.admin_reply ? "Customer Support and Service" : comment.email
   = l comment.created_at, :format => :custom rescue ''
   %br
-  = comment.message
+  = simple_format comment.message

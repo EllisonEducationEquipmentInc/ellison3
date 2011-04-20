@@ -11,5 +11,5 @@ class Comment
 	
 	embedded_in :feedback, :inverse_of => :comments
 
-  after_initialize Proc.new {|obj| obj.created_at = Time.zone.now}
+  after_initialize Proc.new {|obj| obj.created_at ||= Time.zone.now}
 end

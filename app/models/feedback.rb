@@ -3,6 +3,11 @@ class Feedback
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	
+	include Mongoid::Sequence
+	
+	field :number, :type => Integer
+  sequence :number
+  
 	STATUSES = %w(New replied ignored closed)
 	DEPARTMENTS = ["Customer Service", "Marketing", "Sales", "R&D", "I.T"]
 	
@@ -36,6 +41,7 @@ class Feedback
 	index :status
 	index :system
 	index :updated_at
+	index :number
 	
 	attr_protected :status, :priority
 	

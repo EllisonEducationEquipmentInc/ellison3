@@ -77,7 +77,7 @@ namespace :migrations do |ns|
 	task :order_number_sequence => :environment do
 	  o=Order.new
 	  o.valid?
-	  h=Mongoid::Sequence::Holder.last
+	  h=Mongoid::Sequence::Holder.where(:_id=> 'order_order_number').first
 	  h.seq = 1000000
     p h.save
 	end
@@ -87,6 +87,17 @@ namespace :migrations do |ns|
     set_current_system "eeus"
 	  ["Pre-K", "K-2", "3-5", "6-8", "9-12"].each do |grade|
 	    p Tag.create :name => grade, :tag_type => 'grade_level', :systems_enabled => ["eeus", "erus"], :start_date_eeus => 1.year.ago, :end_date_eeus => 30.years.since
+	  end
+	end
+	
+	desc "set order number sequence to start from 1000000"
+	task :feedback_number_sequence => :environment do
+	  o=Feedback.new
+	  o.valid?
+	  h=Mongoid::Sequence::Holder.where(:_id=> 'feedback_number').first
+	  unless h.seq > 1000
+	    h.seq = 1000
+      p h.save
 	  end
 	end
 	
