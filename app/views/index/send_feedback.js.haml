@@ -1,4 +1,4 @@
-- if @feedback.save
+- if recaptcha_valid? && @feedback.save
   == $("#feedback_form").html('#{escape_javascript "Thank you for your feedback. Your comment has been sent. Your reference number is #{@feedback.number}"}');
 - else
   Recaptcha.reload();
