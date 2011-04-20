@@ -284,7 +284,7 @@ class IndexController < ApplicationController
   def machines_survey
     cookies[:machines] = {:value => params[:machines].join(","), :expires => 30.days.from_now}
     current_user.update_attribute(:machines_owned, params[:machines]) if user_signed_in?
-    render :js => "alert('Thank you.');$('#machines_owned').remove();"
+    render :js => "alert('Thank you for taking this survey.');$('#machines_owned').remove();"
   end
   
   def instructions
