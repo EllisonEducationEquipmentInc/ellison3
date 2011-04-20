@@ -26,3 +26,5 @@ input#user_retailer_application_no_website { margin: 0 4px 0 158px; }
     left: 160px;
   }
 }
+
+#material_address{ @include column(8); }

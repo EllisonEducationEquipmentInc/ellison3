@@ -1,10 +1,11 @@
-%h3 Ellison offers several different publications to help address your curriculum needs:
+%h3 Order Materials
+%p Ellison offers several different publications to help address your curriculum needs:
 = form_for @material_order, :url => {:action => 'order_material'}, :remote => true, :html => {:id => "edit_#{@material_order.address.address_type}_address", :method => :post} do |f|
   - Material.active.cache.each do |material|
     .material{:id => "material_#{material.id}"}
       %p.material_name= material.name
       %p.material_image= image_tag(material.image_url(:medium)) if material.image?
-      %p.material_name= link_to('download', material.document_url) if material.document? 
+      %p.material_name= link_to('download', material.document_url, :target => "_new") if material.document? 
       %p.material_select= check_box_tag('material_order[material_ids][]', material.id, false, :id => nil, :class => 'material_ids') unless material.download_only
   .clear
   :javascript
@@ -13,16 +14,19 @@
     })
   %p Please check the box(es) of the publications you wish to receive via mail.
   #material_address{:style => 'display:none'}
+    .right= link_to_function "close", "$('#material_address').slideUp()", :class => "minibtn-cancel", :onclick => "$('input.material_ids').removeAttr('checked');"
     = f.fields_for @material_order.address do |address_fields|
       = render :partial => 'users/address_form', :locals => {:f => address_fields}
     .actions
       = f.submit "Request Material", :class => 'jqui_save'
-%table#material_orders
-  %thead
-    %tr
-      %th Order #
-      %th Materials
-      %th Ordered on
-      %th Status
-  %tbody= render :partial => 'material_order', :collection => get_user.material_orders.asc(:created_at)
-    
+
+- unless get_user.material_orders.blank?
+  %h3 Previous Material Requests
+  %table#material_orders
+    %thead
+      %tr
+        %th Order #
+        %th Materials
+        %th Ordered on
+        %th Status
+    %tbody= render :partial => 'material_order', :collection => get_user.material_orders.asc(:created_at)
