@@ -6,3 +6,21 @@
         = v
   .clear
   = submit_tag "Submit", :replace_with => "please wait...", :class => 'jqui_save'
+
+:javascript
+  initialize_buttons();
+  $(document).ready(function() {
+    var validator = $("#ui-tabs-5 form").validate({
+      errorClass: "invalid",
+      rules: {
+        "machines[]": {
+          required: true
+        }
+      },
+      messages: {
+        "machines[]": {
+          required: "Please select any machine you own or select the none of the above option."
+        }
+      }
+    });
+  });

@@ -11,3 +11,18 @@
 }
 
 input#user_retailer_application_no_website { margin: 0 4px 0 158px; }
+
+#ui-tabs-5 {
+
+  ul {
+    @extend ul.plain;
+    position: relative
+  }
+  
+  label.invalid {
+    position: absolute;
+    font-size: 1em;
+    top: 4px;
+    left: 160px;
+  }
+}
