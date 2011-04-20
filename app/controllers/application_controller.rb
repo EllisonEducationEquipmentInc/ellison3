@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 	
 	include ShoppingCart
 	include SslRequirement
+  include Rack::Recaptcha::Helpers
 
   protect_from_forgery
 		

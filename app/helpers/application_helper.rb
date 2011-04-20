@@ -1,6 +1,7 @@
 module ApplicationHelper
 		
 	include ShoppingCart
+	include Rack::Recaptcha::Helpers
 		
 	# returns checkboxes for systems
 	def system_enabled(object)

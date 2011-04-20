@@ -207,6 +207,8 @@ GEM
       rack (>= 1.0)
     rack-mount (0.6.14)
       rack (>= 1.0.0)
+    rack-recaptcha (0.4.1)
+      json
     rack-test (0.5.7)
       rack (>= 1.0)
     rails (3.0.4)
@@ -325,6 +327,7 @@ DEPENDENCIES
   nifty-generators
   passenger
   rack-bug
+  rack-recaptcha
   rails (= 3.0.4)
   rails3-generators
   remotipart

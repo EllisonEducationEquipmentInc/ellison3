@@ -11,6 +11,7 @@
       = f.label :message, "Your Comments"
       %br
       = f.text_area :message
+    = raw recaptcha_tag(:ajax, :display => {:theme => 'white'})
     .actions
       = f.submit :class => 'jqui_save'
 

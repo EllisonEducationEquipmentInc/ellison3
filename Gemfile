@@ -58,6 +58,7 @@ gem 'rpm_contrib'
 #gem 'newrelic_rpm'
 gem 'delayed_job'
 gem 'delayed_job_mongoid'
+gem 'rack-recaptcha', :require => 'rack/recaptcha'
 
 # Use unicorn as the web server
 # gem 'unicorn'
