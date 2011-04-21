@@ -1,5 +1,5 @@
 %h2
-  = get_domain.capitalize
+  = system_name
   Newsletter Signup
 %img{ :src => "#{ is_sizzix? ? '/images/ui-backgrounds/newsletter_comp_sz.png' : '/images/ui-backgrounds/newsletter_comp_ee.png'  }",:style => "float:left; margin:0 10px 0 2px;", :width => "183", :height => "259"}
 .ui-corner-all{ :class => "#{ is_sizzix? ? 'newsletter_topframe_sz' : 'newsletter_topframe_ee' }" }
@@ -17,7 +17,7 @@
   .newsletter_content_b
     %h2{:style=>"margin-bottom:8px;", :class=>"signup_header"} 
       Thank you for your interest in receiving emails from
-      = get_domain.capitalize
+      = system_name
     To start receiving special offers, latest information of newest products, projects and other promotions please provide the below information and confirm your Newseletter signup to
     =get_domain.capitalize
     by confirming the link sent to your email address.
