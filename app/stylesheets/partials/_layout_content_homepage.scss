@@ -24,8 +24,8 @@
 
 
 // ORDERS & QUOTES
-#billing_info, #shipping_info { @include column(8); }
-#order_info { @include column(8, true); }
+#billing_address, #shipping_address { @include column(8); }
+#order_details, #quote_details, #pre-order_details { @include column(8, true); }
 
 // VIDEO PAGE
 #featured_video { @include column(10); }

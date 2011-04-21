@@ -178,12 +178,12 @@ body.bp {
 
 
 // orders & quotes
-#billing_info, #shipping_info, #order_info {
+#billing_address, #shipping_address, #checkout_billing, #order_details, #quote_details, #pre-order_details {
   float: left;
-  width: 33%;
+  width: 32%;
 }
 
-table#order_details, table#deferred_details {
+table#order_details_items, table#quote_details_items, table#pre-order_details_items, table#deferred_details {
   width: 100%;
   
   th {

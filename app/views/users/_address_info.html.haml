@@ -4,7 +4,7 @@
   - if instance_eval "@#{address_type}_address_error"
     %p.dontprint.error= instance_eval "@#{address_type}_address_error"
   - if get_user.reload.send("#{address_type}_address")
-    %p{:id => "edit_#{address_type}_address"}= link_to "Edit #{address_type.capitalize} Address", {:controller => 'users', :action => "edit_address", :address_type => address_type, :checkout => @checkout || params[:checkout]}, :remote => true, :class => "minilink"
+    %p{:id => "edit_#{address_type}_address"}= link_to "Edit #{address_type.capitalize} Address", {:controller => 'users', :action => "edit_address", :address_type => address_type, :checkout => @checkout || params[:checkout]}, :remote => true, :class => "minilink dontprint"
     - address = get_user.send("#{address_type}_address")
     = render :partial => 'users/address_details', :locals => {:address => address}
   - else

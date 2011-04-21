@@ -1474,17 +1474,17 @@ body.bp .item_moreinfo h4, body.bp .item_moreinfo p {
 }
 
 /* line 181, ../../../app/stylesheets/print.scss */
-#billing_info, #shipping_info, #order_info {
+#billing_address, #shipping_address, #checkout_billing, #order_details, #quote_details, #pre-order_details {
   float: left;
-  width: 33%;
+  width: 32%;
 }
 
 /* line 186, ../../../app/stylesheets/print.scss */
-table#order_details, table#deferred_details {
+table#order_details_items, table#quote_details_items, table#pre-order_details_items, table#deferred_details {
   width: 100%;
 }
 /* line 189, ../../../app/stylesheets/print.scss */
-table#order_details th, table#deferred_details th {
+table#order_details_items th, table#quote_details_items th, table#pre-order_details_items th, table#deferred_details th {
   text-align: left;
 }
 

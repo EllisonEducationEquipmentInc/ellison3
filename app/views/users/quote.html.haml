@@ -1,6 +1,6 @@
 - I18n.locale = @quote.locale
-%div= link_to "Back to #{quote_name.pluralize}", myaccount_path('quotes', :page => params[:page]), :class => 'jqui_back'
-.contentwrap_medium
+%div= link_to "Back to #{quote_name.pluralize}", myaccount_path('quotes', :page => params[:page]), :class => 'jqui_back dontprint'
+#shipping_address
   %h3 Shipping Address
   %p
     - unless @quote.address.company.blank?
@@ -35,28 +35,29 @@
   - else
     %p== Billing has not yet been establisted for this #{quote_name}.
     %p== Please contact Customer Service to convert this #{quote_name} to an Order.
-.contentwrap_medium.last
-  %h3== #{quote_name.upcase} Details
-  %strong== #{quote_name} Name:
-  %span.quote_name{:id => @quote.id}= @quote.name
-  %br
-  %strong== #{quote_name} Number:
-  = @quote.id
-  %br
-  %strong Customer Account:
-  = @quote.system == 'szus' ? 'SIZZIX.COM' : @quote.user.erp
-  %br
-  %strong Web Customer:
-  = @quote.user.email
-  %br
-  %strong== #{quote_name} Date:
-  = l @quote.created_at, :format => :custom
-  %br
-  %strong Expires at:
-  = l @quote.expires_at, :format => :custom
-  %br
+%div{ :id => "#{quote_name.downcase}_details"}
+  %h3== #{quote_name} Details
+  %p
+    %strong== #{quote_name} Name:
+    %span.quote_name{:id => @quote.id}= @quote.name
+    %br
+    %strong== #{quote_name} Number:
+    = @quote.id
+    %br
+    %strong Customer Account:
+    = @quote.system == 'szus' ? 'SIZZIX.COM' : @quote.user.erp
+    %br
+    %strong Web Customer:
+    = @quote.user.email
+    %br
+    %strong== #{quote_name} Date:
+    = l @quote.created_at, :format => :custom
+    %br
+    %strong Expires at:
+    = l @quote.expires_at, :format => :custom
+    %br
 .clear
-%table
+%table{ :id => "#{quote_name.downcase}_details_items"}
   %tr
     %th Item No.
     %th Item Name
@@ -70,8 +71,8 @@
       %td{:class => item.product.quantity < item.quantity ? 'pre_order' : nil}= item.quantity
       %td= number_to_currency item.sale_price
       %td= number_to_currency item.item_total
-%p.contentwrap_XL
-  = link_to "Print a copy of this invoice.", "javascript:window.print()", :class => "link_print"
+%p.contentwrap_XL{ :style => "margin-right: 10px !important"}
+  = link_to "Print a copy of this invoice.", "javascript:window.print()", :class => "link_print dontprint"
 
 %ul.plain.cart_summary.contentwrap_medium.last
   %li
@@ -122,7 +123,7 @@
 - elsif !(is_er? || is_ee_uk?)
   .error== Some of the items in your quote are either out of stock or unavailable at this time. Please Contact Customer Service to convert this #{quote_name} to an Order.
 - else
-  .notice{:style => "text-align: center; margin-top: 36px"}== Please Contact Customer Service to convert this #{quote_name} to an Order.
+  .notice.dontprint{:style => "text-align: center; margin-top: 36px"}== Please Contact Customer Service to convert this #{quote_name} to an Order.
 %br
 %br
 %br
