@@ -21,7 +21,7 @@
         = required_label retailer_application_fields, :website, { :label_size => "147px" }
         = retailer_application_fields.text_field :website, :type => :url, :required => true
         %p.formhelp{ :style => "margin: 0 0 6px 159px"} sample URL: http://www.yourwebsite.com
-        = retailer_application_fields.check_box :no_website
+        = retailer_application_fields.check_box :no_website, :style => "margin-left: 159px"
         = retailer_application_fields.label :no_website, "I do not have a website", :class => "autosize"
       .field
         = required_label retailer_application_fields, :tax_identifier, { :label_size => "147px" }
@@ -47,27 +47,27 @@
       .field
         = required_label retailer_application_fields, :authorized_buyers, { :label_size => "auto"}
         %br
-        = retailer_application_fields.text_area :authorized_buyers, :required => true
+        = retailer_application_fields.text_area :authorized_buyers, :required => true, :rows => 10, :cols => 55
       .field
-        = required_field(retailer_application_fields.label :business_type)
+        = required_label retailer_application_fields, :business_type, { :label_size => "175px"}
         = retailer_application_fields.select :business_type, RetailerApplication::BUSINESS_TYPES
       .field
-        = required_field(retailer_application_fields.label :store_department)
+        = required_label retailer_application_fields, :store_department, { :label_size => "175px"}
         = retailer_application_fields.select :store_department, RetailerApplication::STORE_DEPARTMENTS
       .field
-        = required_field(retailer_application_fields.label :store_location)
+        = required_label retailer_application_fields, :store_location, { :label_size => "175px"}
         = retailer_application_fields.select :store_location, RetailerApplication::STORE_LOCATIONS
       .field
-        = required_field(retailer_application_fields.label :how_did_you_learn_about_us)
+        = required_label retailer_application_fields, :how_did_you_learn_about_us, { :label_size => "175px"}
         = retailer_application_fields.select :how_did_you_learn_about_us, RetailerApplication::LEARNED_FROMS
       .field
-        = required_field(retailer_application_fields.label :store_square_footage)
+        = required_label retailer_application_fields, :store_square_footage, { :label_size => "175px"}
         = retailer_application_fields.select :store_square_footage, RetailerApplication::SQUARE_FOOTAGES
       
       %hr
       %h3 Preferred Payment Method
       .field
-        = required_field(retailer_application_fields.label :payment_method)
+        = required_label retailer_application_fields, :payment_method, { :label_size => "auto"}
         - RetailerApplication::PAYMENT_METHODS.each do |payment_method|
           %strong= payment_method
           = retailer_application_fields.radio_button :payment_method, payment_method
@@ -75,24 +75,24 @@
       %hr
       %h3 Requirements For Wholesale Consideration
       .field
-        = required_field(retailer_application_fields.label :resale_tax_certificate)
+        = required_label retailer_application_fields, :resale_tax_certificate, { :label_size => "175px"}
         = retailer_application_fields.file_field :resale_tax_certificate
         = retailer_application_fields.hidden_field :resale_tax_certificate_cache
         = link_to "download", @user.retailer_application.resale_tax_certificate_url, :class => "link_download", :target => "_blank" if @user.retailer_application.try(:resale_tax_certificate?)
       .field
-        = required_field(retailer_application_fields.label :business_license)
+        = required_label retailer_application_fields, :business_license, { :label_size => "175px"}
         = retailer_application_fields.file_field :business_license
         = retailer_application_fields.hidden_field :business_license_cache
         = link_to "download", @user.retailer_application.business_license_url, :class => "link_download", :target => "_blank" if @user.retailer_application.try(:business_license?)
       .field
-        = required_field(retailer_application_fields.label :store_photo)
+        = required_label retailer_application_fields, :store_photo, { :label_size => "175px"}
         = retailer_application_fields.file_field :store_photo
         = retailer_application_fields.hidden_field :store_photo_cache
         = link_to "download", @user.retailer_application.store_photo_url, :class => "link_download", :target => "_blank" if @user.retailer_application.try(:store_photo?)
-      %i Note: The Wholesale/Distributor application will not be considered until we receive the documents. You can upload right away or fax us at 949-598-8838, Attn: Sales. 
+      %p.formhelp Note: The Wholesale/Distributor application will not be considered until we receive the documents. You can upload right away or fax us at 949-598-8838, Attn: Sales. 
       .field
-        = retailer_application_fields.check_box :will_fax_documents
-        = retailer_application_fields.label :will_fax_documents, "I will fax these documents"
+        = retailer_application_fields.check_box :will_fax_documents, :style => "margin-left: 0"
+        = retailer_application_fields.label :will_fax_documents, "I will fax these documents", :class => "autosize"
     
   .contentwrap_large.last
     %h3 Owner/President's Home Address
@@ -112,11 +112,11 @@
       = render :partial => 'users/address_form', :locals => {:f => shipping_address_fields}
     = f.fields_for :retailer_application, @user.retailer_application do |retailer_application_fields|
       .field
-        = retailer_application_fields.check_box :agreed_to_policy
-        = required_field(retailer_application_fields.label :agreed_to_policy, "I have read and agree to the Reseller Application Policy. [INSERT LINK]")
+        = retailer_application_fields.check_box :agreed_to_policy, :style => "margin-left: 0"
+        = required_label retailer_application_fields, :agreed_to_policy, { :label => "I have read and agree to the Reseller Application Policy. [INSERT LINK]", :label_size => "auto" }
       .field
-        = retailer_application_fields.check_box :agreed_to_terms
-        = required_field(retailer_application_fields.label :agreed_to_terms, "Reseller Terms and Conditions of Trading. [INSERT LINK]")
+        = retailer_application_fields.check_box :agreed_to_terms, :style => "margin-left: 0"
+        = required_label retailer_application_fields, :agreed_to_terms, { :label => "Reseller Terms and Conditions of Trading. [INSERT LINK]", :label_size => "auto" }
   .clear
 
   .actions
