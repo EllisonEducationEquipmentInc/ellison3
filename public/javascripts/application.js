@@ -215,10 +215,10 @@ $(document).ready(function(){
   });
   
   // jqueryui tables
-  $("table").each(function() {
+  $("table:not('div#event_calendar table')").each(function() {
     $(this).addClass("ui-widget ui-widget-content ui-corner-all");
   });
-  $("table thead").each(function() {
+  $("table thead:not('div#event_calendar table thead')").each(function() {
     $(this).addClass("ui-state-hover");
   });
 
