@@ -89,10 +89,10 @@
         = retailer_application_fields.file_field :store_photo
         = retailer_application_fields.hidden_field :store_photo_cache
         = link_to "download", @user.retailer_application.store_photo_url, :class => "link_download", :target => "_blank" if @user.retailer_application.try(:store_photo?)
-      %p.formhelp Note: The Wholesale/Distributor application will not be considered until we receive the documents. You can upload right away or fax us at 949-598-8838, Attn: Sales. 
       .field
-        = retailer_application_fields.check_box :will_fax_documents, :style => "margin-left: 0"
+        = retailer_application_fields.check_box :will_fax_documents, :style => "margin-left: 186px"
         = retailer_application_fields.label :will_fax_documents, "I will fax these documents", :class => "autosize"
+      %p.formhelp Note: The Wholesale/Distributor application will not be considered until we receive the documents. You can upload right away or fax us at 949-598-8838, Attn: Sales. 
     
   .contentwrap_large.last
     %h3 Owner/President's Home Address
@@ -110,13 +110,14 @@
     = link_to_function "copy home address", "copy_address_data(0, 2)", :class => "minilink"
     = f.fields_for :addresses, @user.shipping_address do |shipping_address_fields|
       = render :partial => 'users/address_form', :locals => {:f => shipping_address_fields}
+    %hr
     = f.fields_for :retailer_application, @user.retailer_application do |retailer_application_fields|
       .field
         = retailer_application_fields.check_box :agreed_to_policy, :style => "margin-left: 0"
-        = required_label retailer_application_fields, :agreed_to_policy, { :label => "I have read and agree to the Reseller Application Policy. [INSERT LINK]", :label_size => "auto" }
+        = required_label retailer_application_fields, :agreed_to_policy, { :label => "I have read and agree to the #{link_to 'Reseller Application Policy', '/reseller_app', :target => '_new'}.", :label_size => "auto" }
       .field
         = retailer_application_fields.check_box :agreed_to_terms, :style => "margin-left: 0"
-        = required_label retailer_application_fields, :agreed_to_terms, { :label => "Reseller Terms and Conditions of Trading. [INSERT LINK]", :label_size => "auto" }
+        = required_label retailer_application_fields, :agreed_to_terms, { :label => "I have read and agree to the #{link_to 'Reseller Terms and Conditions of Trading', '/reseller_terms', :target => '_new'}.", :label_size => "auto" }
   .clear
 
   .actions
