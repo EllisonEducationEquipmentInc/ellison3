@@ -10,7 +10,7 @@ class Admin::StaticPagesController < ApplicationController
 	def index
 	  criteria = Mongoid::Criteria.new(StaticPage)
 	  criteria = criteria.where :deleted_at => nil
-	  criteria = if params[:system_enabled].blank?
+	  criteria = if params[:systems_enabled].blank?
 	    criteria.where(:system_enabled.in => admin_systems)
 	  else
 	    criteria.where(:system_enabled.in => params[:systems_enabled]) 
