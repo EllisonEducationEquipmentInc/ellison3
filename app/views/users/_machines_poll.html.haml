@@ -1,5 +1,5 @@
 = form_tag "/index/machines_survey", :remote => true do
-  %ul
+  %ul#machine_list
     - MACHINES.each do |k,v|
       %li
         = check_box_tag 'machines[]', k, machines_owned.include?(k)
@@ -10,7 +10,7 @@
 :javascript
   initialize_buttons();
   $(document).ready(function() {
-    var validator = $("#ui-tabs-5 form").validate({
+    var validator = $("ul#machine_list").closest("form").validate({
       errorClass: "invalid",
       rules: {
         "machines[]": {
