@@ -264,7 +264,7 @@
     %br
     Subscription ID:
     = @order.payment.subscriptionid
-  .field{:class => @order.payment.paid_amount && @order.payment.paid_amount < @order.total_amount ? 'error' : nil}
+  .field{:style=>"float:left; height:auto; width:932px;", :class => @order.payment.paid_amount && @order.payment.paid_amount < @order.total_amount ? 'error' : nil}
     %strong Paid Amount:
     = number_to_currency @order.payment.paid_amount rescue "N/A"
   .field
