@@ -9,14 +9,14 @@
 #feedback_form.contentwrap_medium
   = form_for(@feedback, :url => {:controller => :index, :action => 'send_feedback', :secure => true}, :remote => true, :html => {:id => "contact_form", :method => :post}) do |f|
     .field
-      = f.label :email, :style => "width: 55px;"
+      = required_label f, :email, {:label_size => "60px;"}
       = f.text_field :email
     .field
-      = f.label :subject, :style => "width: 55px;"
+      = required_label f, :subject, {:label_size => "60px;"}
       = f.select :subject, @subjects.map(&:name)
     = f.fields_for :comments, @feedback.comments.build do |comments_fields|
       .field
-        = comments_fields.label :message, "Your Comments"
+        = required_label comments_fields, :message, {:label => "Your Comments", :label_size => "auto"}
         %br
         = comments_fields.text_area :message, :rows => 10, :cols => 36
     = raw recaptcha_tag(:ajax, :display => {:theme => 'white'})
