@@ -2,7 +2,7 @@
   Event Calendar stylesheet
   
   Colors:
-  #d5d5d5 - border (gray)
+  #ccc - border (gray)
   #303030 - day names bg (gray)
   #444 - number (gray)
   #ecede2 - day header bg (light tan)
@@ -15,12 +15,12 @@
 
 /* Outer most container */
 .ec-calendar {
-  font-family: verdana, arial, helvetica, sans-serif;
+  font-family: 'PT Sans',Helvetica,Arial,sans-serif;;
   font-size: 11px;
   line-height: 14px;
   margin: 0;
   padding: 0;
-  border-bottom: 1px solid #d5d5d5;
+  border-bottom: 1px solid #ccc;
 }
 
 /* Month name header & links */
@@ -28,6 +28,7 @@
   padding: 5px 0;
   width: 100%;
   table-layout: fixed;
+  border:1px solid #ccc;
 }
 
 .ec-month-name {
@@ -54,12 +55,14 @@
   width: 100%;
   table-layout: fixed;
   padding: 2px 0;
-  background: #303030;
+  background: black;
   color: white;
 }
 
 .ec-day-name {
   font-weight: normal;
+  text-align:center;
+  line-height:10px;
 }
 
 /* Rows container and Row */
@@ -70,7 +73,7 @@
   width: 100%;
   background: white;
   overflow: hidden;
-  border-right: 1px solid #d5d5d5;
+  border-right: 1px solid #ccc;
 }
 
 .ec-row {
@@ -91,7 +94,11 @@
 }
 
 .ec-day-bg {
-  border-left: 1px solid #d5d5d5;
+  border-left: 1px solid #ccc;
+}
+
+.ec-day-bg a {
+  color:white !important;
 }
 
 .ec-today-bg {
@@ -110,8 +117,8 @@
   text-align: right;
   padding: 0 5px;
   line-height: 16px;
-  border-top: 1px solid #d5d5d5;
-  border-left: 1px solid #d5d5d5;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
   border-bottom: 1px dotted #bbbbbb;
   background-color: #ecede2;
   overflow: hidden;
@@ -145,6 +152,7 @@ a.ec-day-link {
   vertical-align: top;
   padding-right: 1px;
   padding-left: 2px;
+  padding:1px 1px 0 2px !important;
 }
 
 .ec-event-cell a {
@@ -152,6 +160,8 @@ a.ec-day-link {
   display: block;
   width: 100%;
   height: 100%;
+  color:white !important;
+  font-weight:bold;
 }
 
 .ec-no-event-cell {
@@ -159,7 +169,7 @@ a.ec-day-link {
 }
 
 .ec-event {
-  color: white;
+  color: white !important;
   padding-right: 1px;
   padding-left: 11px;
   -webkit-border-radius: 3px;
