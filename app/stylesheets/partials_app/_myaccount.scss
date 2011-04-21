@@ -27,3 +27,5 @@ ul#machine_list {
 }
 
 #material_address{ @include column(8); }
+
+ul#feedback_history { @extend ul.plain; }

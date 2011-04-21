@@ -1,14 +1,14 @@
-%h1 Feedback History
+%h2 Feedback History
 %strong== ID: #{@feedback.number}
 %br
 %strong== Subject: #{@feedback.subject}
 %br
-%strong== Email: #{@feedback.email}
+%strong== Customer Email Address: #{@feedback.email}
 %ul#feedback_history= render @feedback.comments
 - unless @feedback.expires_at < Time.zone.now
   = form_for(@feedback.comments.build, :url => {:controller => :index, :action => 'add_comment', :id => @feedback, :secure => true}, :remote => true, :html => {:id => "contact_form", :method => :post}) do |f|
     .field
-      = f.label :message, "Your Comments"
+      = required_label f, :message, {:label => "Your Comments", :label_size => "auto"}
       %br
       = f.text_area :message
     = raw recaptcha_tag(:ajax, :display => {:theme => 'white'})
