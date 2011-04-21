@@ -249,7 +249,7 @@ class IndexController < ApplicationController
   
   def update_map
     criteria = Mongoid::Criteria.new(Store)
-    criteria = criteria.where.physical_stores
+    criteria = criteria.where.active.physical_stores
     criteria = criteria.where(:brands.in => params[:brands]) if params[:brands].present?
     if params[:country] && params[:country] != 'United States'
       @stores = criteria.where(:country => params[:country]).map {|e| e}
@@ -257,7 +257,11 @@ class IndexController < ApplicationController
       @zip_geo = MultiGeocoder.geocode(params[:zip_code])
       @stores = criteria.where(:location.within => { "$center" => [ [@zip_geo.lat, @zip_geo.lng], ((params[:radius].to_i * 20)/(3963.192*0.3141592653))] }).map {|e| e}
     end
-    render :partial => "store", :collection => @stores
+    if @stores.present?
+      render :partial => "store", :collection => @stores      
+    else
+      render :text => "no results found"
+    end
   end
   
   def events
