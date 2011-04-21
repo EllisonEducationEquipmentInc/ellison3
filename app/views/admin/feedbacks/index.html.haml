@@ -1,4 +1,4 @@
-%h1 Listing feedbacks
+%h2 Listing feedbacks
 %br
 - unless params[:q].blank?
   = link_to 'all', admin_feedbacks_path, :class => 'jqui_button'
@@ -29,7 +29,7 @@
           %td= feedback.email
           %td
             .comment_details{:style => "display:none;"}
-              %ul= render :partial => 'comments/comment', :collection => feedback.comments
+              %ul.plain= render :partial => 'comments/comment', :collection => feedback.comments
             %span.comment_subject= link_to "#{feedback.subject} (#{feedback.comments.count})", admin_feedback_path(feedback)
           %td
             %span.edit_status{:id => "status_#{feedback.id}"}= feedback.status
@@ -61,6 +61,7 @@
     $(".comment_subject").tooltip({ 
       bodyHandler: function() { 
         return $(this).siblings('.comment_details').html();
-      }, 
+      },
+      positionTop: true,
       showURL: false 
     });

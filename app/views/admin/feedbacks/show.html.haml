@@ -1,9 +1,11 @@
-%h1 Feedback History
-%strong== ID: #{@feedback.number}
-%br
-%strong== Subject: #{@feedback.subject}
-%br
-%strong== Email: #{@feedback.email}
+%h2 Feedback History
+%p
+  %strong== ID: #{@feedback.number}
+  %br
+  %strong== Subject: #{@feedback.subject}
+  %br
+  %strong== Email: #{@feedback.email}
+%hr
 %ul#feedback_history= render :partial => 'comments/comment', :collection => @feedback.comments
 = form_for(@feedback.comments.build(:email => current_admin.email), :url => {:action => 'add_comment', :id => @feedback}, :html => {:id => "contact_form", :method => :post}) do |f|
   .field
