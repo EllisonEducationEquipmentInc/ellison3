@@ -28,11 +28,11 @@
         - if @static_page.new_record?
           This will be the URL of the static page.
           %br
-          ==(e.g.- http://#{request.host_with_port}/shop/<strong>st-patrick-day-sale</strong>)
+          ==(e.g.- http://#{request.host_with_port}/<strong>st-patrick-day-sale</strong>)
         - else
           The current URL to this static page is:
           %br
-          = link_to "http://#{request.host_with_port}/shop/<strong>#{@static_page.permalink}</strong>".html_safe, "http://#{request.host_with_port}/shop/#{@static_page.permalink}"
+          = link_to "http://#{request.host_with_port}/<strong>#{@static_page.permalink}</strong>".html_safe, "http://#{request.host_with_port}/#{@static_page.permalink}"
 
   .contentwrap_large.last
     .field
