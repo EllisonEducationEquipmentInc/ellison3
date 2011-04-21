@@ -1,91 +1,94 @@
 - if @user.application_complete?
-  %div= link_to "edit", retailer_application_path if @user.status == 'pending'
-  .right{:style => "width:450px;"}
+  .contentwrap_XXXL.last= link_to "edit", retailer_application_path if @user.status == 'pending'
+  .column_33
+    %h3 Company Details
+    %strong Company
+    = @user.company
+    %br
+    %strong Email:
+    = @user.email
+    %br
+    %strong I am signing up for:
+    = @user.retailer_application.signing_up_for
+    %br
+    %br
+    %hr{:style => "width: 95%; float: left;"}
+    %strong Website:
+    = @user.retailer_application.no_website ? "I do not have a website" : @user.retailer_application.website
+    %br
+    %strong Tax Identifier:
+    = @user.retailer_application.tax_identifier
+    %br
+    %strong Years in business:
+    = @user.retailer_application.years_in_business
+    %br
+    %strong Number of employees:
+    = @user.retailer_application.number_of_employees
+    %br
+    %strong Annual sales:
+    = @user.retailer_application.annual_sales
+    %br
+    %strong Resale #:
+    = @user.retailer_application.resale_number
+    %br
+    %strong Brands to resell:
+    = @user.retailer_application.brands_to_resell * ", "
+    %br
+    %strong Authorized buyers:
+    = @user.retailer_application.authorized_buyers
+    %br
+    %strong Business type
+    = @user.retailer_application.business_type
+    %br
+    %strong Store department:
+    = @user.retailer_application.store_department
+    %br
+    %strong Store location:
+    = @user.retailer_application.store_location
+    %br
+    %strong How did you learn about us?:
+    = @user.retailer_application.how_did_you_learn_about_us
+    %br
+    %strong Store square footage:
+    = @user.retailer_application.store_square_footage
+    
+  .column_33
+    %h3 Preferred Payment Method
+    %strong Payment Method:
+    = @user.retailer_application.payment_method
+    %br
+    %br
+    %hr{:style => "width: 95%; float: left;"}
+    .clear
+    %h3 Requirements For Wholesale Consideration
+    %strong Resale Tax Certificate:
+    = link_to "download", @user.retailer_application.resale_tax_certificate_url, :class => "link_download", :target => "_blank" if @user.retailer_application.try(:resale_tax_certificate?)
+    %br
+    %strong Business License:
+    = link_to "download", @user.retailer_application.business_license_url, :class => "link_download", :target => "_blank" if @user.retailer_application.try(:business_license?)
+    %br
+    %strong Store Photo:
+    = link_to "download", @user.retailer_application.store_photo_url, :class => "link_download", :target => "_blank" if @user.retailer_application.try(:store_photo?)
+    %br
+    %br
+    = check_box_tag :will_fax_documents, "1", @user.retailer_application.will_fax_documents, :disabled => true
+    Required documents will be faxed later
+    %br
+    = check_box_tag :agreed_application_policy, "1", true, :disabled => true
+    Agreed to Reseller Application Policy
+    %br
+    = check_box_tag :agreed_terms, "1", true, :disabled => true  
+    Accepted the terms of service
+  .column_33
     %h3 Owner/President's Home Address
     = render :partial => 'users/address_details', :locals => {:address => @user.home_address}
-  %h3 Company Details
-  %strong Company
-  = @user.company
-  %br
-  %strong Email:
-  = @user.email
-  %br
-  %strong I am signing up for:
-  = @user.retailer_application.signing_up_for
-  %br
-  %strong Website:
-  = @user.retailer_application.no_website ? "I do not have a website" : @user.retailer_application.website
-  %br
-  %strong Tax Identifier:
-  = @user.retailer_application.tax_identifier
-  %br
-  %strong Years in business:
-  = @user.retailer_application.years_in_business
-  %br
-  %strong Number of employees:
-  = @user.retailer_application.number_of_employees
-  %br
-  %strong Annual sales:
-  = @user.retailer_application.annual_sales
-  %br
-  %strong Resale #:
-  = @user.retailer_application.resale_number
-  %br
-  %strong Brands to resell:
-  = @user.retailer_application.brands_to_resell * ", "
-  %br
-  %strong Authorized buyers:
-  = @user.retailer_application.authorized_buyers
-  %br
-  %strong Business type
-  = @user.retailer_application.business_type
-  %br
-  %strong Store department:
-  = @user.retailer_application.store_department
-  %br
-  %strong Store location:
-  = @user.retailer_application.store_location
-  %br
-  %strong How did you learn about us?:
-  = @user.retailer_application.how_did_you_learn_about_us
-  %br
-  %strong Store square footage:
-  = @user.retailer_application.store_square_footage
-  .clear
-  %br
-  %br
-  %h3 Preferred Payment Method
-  %strong Payment Method:
-  = @user.retailer_application.payment_method
-  %br
-  %br
-  .right{:style => "width:450px;"}
+    %hr
     %h3 Billing Address
     = render :partial => 'users/address_details', :locals => {:address => @user.billing_address}
-  %h3 Shipping Address
-  = render :partial => 'users/address_details', :locals => {:address => @user.shipping_address}
+    %hr
+    %h3 Shipping Address
+    = render :partial => 'users/address_details', :locals => {:address => @user.shipping_address}
   .clear
-  %br
-  %br
-  %h3 Requirements For Wholesale Consideration
-  %strong Resale Tax Certificate:
-  = link_to "download", @user.retailer_application.resale_tax_certificate_url, :class => "link_download", :target => "_blank" if @user.retailer_application.try(:resale_tax_certificate?)
-  %br
-  %strong Business License:
-  = link_to "download", @user.retailer_application.business_license_url, :class => "link_download", :target => "_blank" if @user.retailer_application.try(:business_license?)
-  %br
-  %strong Store Photo:
-  = link_to "download", @user.retailer_application.store_photo_url, :class => "link_download", :target => "_blank" if @user.retailer_application.try(:store_photo?)
-  %br
-  Fax later
-  = check_box_tag :will_fax_documents, "1", @user.retailer_application.will_fax_documents, :disabled => true
-  %br
-  %br
-  Agreed to Reseller Application Policy
-  = check_box_tag :agreed_application_policy, "1", true, :disabled => true
-  %br
-  Accepted the terms of service
-  = check_box_tag :agreed_terms, "1", true, :disabled => true
 - else
   Your Retailers Application is not complete. Please
   = link_to "Click here", retailer_application_path
