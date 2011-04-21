@@ -38,15 +38,12 @@
         %br
       Yes, I'd like to subscribe to
       %strong= @list[1]
-      = render :partial => 'segments'
-            
+      = render :partial => 'segments'            
 .newsletter_content_c
   %h2{:class=>"signup_header"} FAQs
   %p
     %div{:style=>"font-weight:bold;"}
-      How can I subscribe to the 
-      %strong= @list[1]
-      email newsletter?
+      How can I subscribe to your email newsletter?
     Subscribing to the 
     %strong= @list[1]
     is easy! Simply sign up now at
@@ -55,9 +52,7 @@
     %br
     %br
     %div{:style=>"font-weight:bold;"}
-      How do I unsubscribe to the 
-      %strong= @list[1]
-      email newsletter?
+      How do I unsubscribe to your email newsletter?
     To remove your subscription to the
     %strong== #{@list[1]},
     please follow the unsubscribe link in your newsletter email. Or, please log in at
@@ -66,21 +61,21 @@
     %br
     %br
     %div{:style=>"font-weight:bold;"}
-      After subscribing, how can I ensure that I will continue to receive my
-      %strong= @list[1]
-      newsletter?
+      After subscribing, how can I ensure that I will continue to receive my newsletter?
     To ensure that your
     %strong= @list[1]
-    newsletter is delivered to your inbox, not as spam, please ensure that to correct email address (listed below) is specified in your address book as soon as possible. This will prevent any deliveries to your Bulk or Junk mail folders.
+    newsletter is delivered to your inbox, not as spam, please ensure that our email address
+    - if is_sizzix_us?
+      %strong sizzixscoop@lyris.sizzix.com
+    - if is_sizzix_uk?
+      %strong sizzix_uk_consumers@lyris.sizzix.co.uk
+    - if is_ee_us?
+      %strong connection@lyris.ellison.com
+    - if is_ee_uk?
+      %strong ellison_education_uk@lyris.ellison.com
+    is specified in your address book as soon as possible. This will prevent any deliveries to your Bulk or Junk mail folders.
     %br
     %br
-    Current Ellison.com and Sizzix.com Website Email Lists:
-    %ul
-      %li sizzix us:sizzixscoop@lyris.sizzix.com
-      %li sizzix uk: sizzix_uk_consumers@lyris.sizzix.co.uk
-      %li ERUS: erus_retailers@lyris.ellison.com
-      %li EEUS: connection@lyris.ellison.com
-      %li ERUS: ellison_education_uk@lyris.ellison.com
     %div{:style=>"font-weight:bold;"}How can I prevent this from happening?
     Some email providers deliver
     %strong= @list[1]
