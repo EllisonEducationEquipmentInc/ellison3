@@ -47,7 +47,8 @@
               %li= link_to "Material Orders", admin_material_orders_path
               %li= link_to "Customer Accounts", admin_users_path
               %li= link_to "Customer Feedback", admin_feedbacks_path
-              %li= link_to "eclips Firmware", :controller => 'admin/firmwares'
+              %li= link_to "Virtual Terminal", 'admin/virtual_terminal'
+              %li= link_to "Group Messages to Retailers", 'admin/messages'
           %ul.contentwrap_small.resize.last
             %li.listtitle.first Website Settings
             %ul
@@ -61,6 +62,7 @@
               %li= link_to "Country Listing", admin_countries_path
               %li= link_to "Retailers Discount Matrix", :controller => 'admin/discount_categories'
               %li= link_to "Search Phrase Redirects", admin_search_phrases_path
+              %li= link_to "eclips Firmware", :controller => 'admin/firmwares'
           %hr
           - if get_cart.order_reference
             #previous_order_reference.contentwrap_XXXL.last
