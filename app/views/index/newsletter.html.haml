@@ -1,3 +1,6 @@
+%h2
+  = get_domain.capitalize
+  Newsletter Signup
 %img{ :src => "#{ is_sizzix? ? '/images/ui-backgrounds/newsletter_comp_sz.png' : '/images/ui-backgrounds/newsletter_comp_ee.png'  }",:style => "float:left; margin:0 10px 0 2px;", :width => "183", :height => "259"}
 .ui-corner-all{ :class => "#{ is_sizzix? ? 'newsletter_topframe_sz' : 'newsletter_topframe_ee' }" }
   .newsletter_content_a
@@ -12,23 +15,16 @@
 
 .ui-corner-all{:class=>"newsletter_midframe"}
   .newsletter_content_b
-    %h2{:style=>"margin-bottom:8px;", :class=>"signup_header"} Please Sign in Or Sign up to save your subscription preferences
-    Sign up or Sign in to get full benefits of a
+    %h2{:style=>"margin-bottom:8px;", :class=>"signup_header"} 
+      Thank you for your interest in receiving emails from
+      = get_domain.capitalize
+    To start receiving special offers, latest information of newest products, projects and other promotions please provide the below information and confirm your Newseletter signup to
     =get_domain.capitalize
-    online user account! Then once you have access to your personal
-    =get_domain.capitalize
-    MyAccount page you can select or edit any of your select interests, preferences, and features available on our website and we will save them for future use!
+    by confirming the link sent to your email address.
   .news_border
     = form_for @subscription, :url => url_for(:action => :create_subscription) do |f|
-      .news_frame_right
-        %img{:width => "194", :height => "32", :src => "/images/ui-backgrounds/newsletter_interest_select.png", :style => "float:left; margin: 4px 125px 8px;"}/
-        %br
-        Yes, I'd like to subscribe to
-        %strong= @list[1]
-        = render :partial => 'segments'
-      .news_frame_center
-        %img{:width => "208", :height => "32", :src => "/images/ui-backgrounds/newsletter_signup.png"}/
-        %br
+      %br
+      %div{:style=>"position:relative; float:left;"}
         .news_frame_left{:class=>"ui-widget-header ui-widget ui-corner-all"}
           = f.error_messages
           .field
@@ -39,9 +35,13 @@
             = f.text_field :name
           .actions{:class=>"news_submit"}
             = f.submit :class => 'jqui_save'
+        %br
+      Yes, I'd like to subscribe to
+      %strong= @list[1]
+      = render :partial => 'segments'
             
 .newsletter_content_c
-  %h2{:class=>"signup_header"} Instructions
+  %h2{:class=>"signup_header"} FAQs
   %p
     %div{:style=>"font-weight:bold;"}
       How can I subscribe to the 
@@ -71,9 +71,16 @@
       newsletter?
     To ensure that your
     %strong= @list[1]
-    newsletter is delivered to your inbox, not as spam, please add the most recent newsletter to your email address book as soon as possible. This will prevent any deliveries to your Bulk or Junk mail folders.
+    newsletter is delivered to your inbox, not as spam, please ensure that to correct email address (listed below) is specified in your address book as soon as possible. This will prevent any deliveries to your Bulk or Junk mail folders.
     %br
     %br
+    Current Ellison.com and Sizzix.com Website Email Lists:
+    %ul
+      %li sizzix us:sizzixscoop@lyris.sizzix.com
+      %li sizzix uk: sizzix_uk_consumers@lyris.sizzix.co.uk
+      %li ERUS: erus_retailers@lyris.ellison.com
+      %li EEUS: connection@lyris.ellison.com
+      %li ERUS: ellison_education_uk@lyris.ellison.com
     %div{:style=>"font-weight:bold;"}How can I prevent this from happening?
     Some email providers deliver
     %strong= @list[1]
