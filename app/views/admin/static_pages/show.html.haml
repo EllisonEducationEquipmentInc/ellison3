@@ -1,0 +1,19 @@
+%h2.left== Static Page Preview - #{@static_page.name}
+.right.minilink= link_to 'edit', edit_admin_static_page_path(@static_page), :class => "link_edit-record"
+.clear
+%p.contentwrap_large
+  == Enabled for #{"<strong>#{@static_page.system_enabled.upcase}</strong".html_safe}
+  %br
+  == #{"<strong>Permalink URL:</strong>".html_safe} #{link_to "http://#{request.host_with_port}/<strong>#{@static_page.permalink}</strong>".html_safe, "http://#{request.host_with_port}/#{@static_page.permalink}"}
+%p.contentwrap_large.last
+  - unless @static_page.short_desc.blank?
+    %strong Short Description
+    %br
+    = @static_page.short_desc
+  - else
+    &nbsp;
+%hr
+= render :file => "/index/static_page.html.haml"
+.clear
+%hr
+= link_to 'Back', admin_static_pages_path, :class => 'jqui_back'
