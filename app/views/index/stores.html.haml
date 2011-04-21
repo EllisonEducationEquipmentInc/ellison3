@@ -74,6 +74,7 @@
         $('#map').jMapping('update');
         $('.info-box').show();
         $('.info-box h3').css('cursor', 'pointer');
+        if ($('#map').data('jMapping').map.zoom > 15) $('#map').data('jMapping').map.setZoom(15);
       }});
       return false;
     });
