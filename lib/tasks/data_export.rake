@@ -22,7 +22,7 @@ namespace :data_export do
 					      entry.title(product.name)
 					      entry.description(product.description)
 								entry.tag!("g:image_link", "http://www.#{get_domain}#{product.medium_image}")
-								entry.tag!("g:price", product.price)
+								entry.tag!("g:price", gross_price(product.price))
 								entry.tag!("g:condition", "new")
 								entry.tag!("g:product_type", "Arts & Entertainment > Crafts & Hobbies > Scrapbooking")
 								entry.tag!("g:brand", is_sizzix? ? "Sizzix" : "Ellison") 
@@ -37,6 +37,15 @@ namespace :data_export do
   		p ''
   		p "exporting #{current_system} products to #{current_system}_product_feed.xml has completed"
   	end
+	end
+	
+	def gross_price(price)
+	  if is_us?
+      price
+    else
+      @vat ||= SystemSetting.value_at("vat").to_f
+      (price.to_f * (1+@vat/100.0)).round(2)
+    end
 	end
 	
 	desc "creates pre orders report in /data/shared/report_files/"
