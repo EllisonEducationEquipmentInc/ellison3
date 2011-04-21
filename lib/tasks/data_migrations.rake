@@ -976,6 +976,13 @@ namespace :data_migrations do
     end
   end
   
+  desc "import USPS zones"
+  task :usps_zones => :load_dep do
+    OldData::UspsZone.find_each(:conditions => "id > 0") do |zone|
+      p UspsZone.create :zip_prefix => zone.zip_prefix, :zone => zone.zone
+    end
+  end
+  
   desc "change ER to ERUS in the db"
   task :er_to_erus => :environment do
     set_current_system "erus"

@@ -42,7 +42,7 @@ class Admin::MaterialOrdersController < ApplicationController
     csv_string = CSV.generate do |csv|
       csv << ["customerzone", "labelcode", "labelabbrevation", "qty", "instructions", "Cust", "labelbatch", "customerfirstname", "customerlasname", "customercompany", "customeraddress1", "customeraddress2", "customercity", "customerstate", "customerzip", "country"]
       @orders.each do |order|
-        csv << [FedexZone.get_zone_by_address(order.address), order.materials.map {|e| e.label_code} * ', ', "", 1, "", "", "", order.address.first_name.try(:upcase), order.address.last_name.try(:upcase), order.address.company.try(:upcase), order.address.address1.try(:upcase), order.address.address2.try(:upcase), order.address.city.try(:upcase), order.address.state.try(:upcase), order.address.zip_code, order.address.country.try(:upcase)]
+        csv << [(UspsZone.get_zone(order.address.zip_code[0,3]).try(:zone) rescue ''), order.materials.map {|e| e.label_code} * ', ', "", 1, "", "", "", order.address.first_name.try(:upcase), order.address.last_name.try(:upcase), order.address.company.try(:upcase), order.address.address1.try(:upcase), order.address.address2.try(:upcase), order.address.city.try(:upcase), order.address.state.try(:upcase), order.address.zip_code, order.address.country.try(:upcase)]
       end
     end
 
