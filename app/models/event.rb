@@ -23,6 +23,7 @@ class Event
   field :state
   field :zip_code
   field :country
+  field :booth
   
   field :created_by
 	field :updated_by
