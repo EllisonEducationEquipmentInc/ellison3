@@ -401,3 +401,8 @@ td.pre_order {
 .fw_subtext {
   font-size: 10px;
 }
+
+/* line 285, ../../../app/stylesheets/application.scss */
+#online_retailers {
+  width: 950px;
+}
