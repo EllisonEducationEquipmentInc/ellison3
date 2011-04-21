@@ -255,7 +255,7 @@ class IndexController < ApplicationController
       @stores = criteria.where(:country => params[:country]).map {|e| e}
     elsif params[:zip_code].present? && params[:zip_code] =~ /^\d{5,}/
       @zip_geo = MultiGeocoder.geocode(params[:zip_code])
-      @stores = criteria.where(:location.within => { "$center" => [ [@zip_geo.lat, @zip_geo.lng], params[:radius].to_i] }).map {|e| e}
+      @stores = criteria.where(:location.within => { "$center" => [ [@zip_geo.lat, @zip_geo.lng], ((params[:radius].to_i * 20)/(3963.192*0.3141592653))] }).map {|e| e}
     end
     render :partial => "store", :collection => @stores
   end
