@@ -303,7 +303,8 @@ ul.ui-tabs-nav {
     background: url('/images/ui-backgrounds/_#{$system}_shoppingcart.png') no-repeat left;
     
     p {
-      font:10px Tahoma, Verdana, Arial; 
+      font-family: Verdana,Arial,sans-serif;
+      font-size: 10px; 
       font-weight: bold;
 
       &.cart_qty {
