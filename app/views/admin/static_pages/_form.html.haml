@@ -36,7 +36,7 @@
 
   .contentwrap_large.last
     .field
-      = f.label :short_desc, "Short Description", :class => "autosize"
+      = f.label :short_desc, "Short Description <span class='formhelp'><em>for internal admin use only</em></span>".html_safe, :class => "autosize"
       %br
       = f.text_area :short_desc, :cols => 57, :rows => 5
 
@@ -49,7 +49,7 @@
     .field
       = f.label :haml_content, "HAML Code"
       %br
-      = f.text_area :haml_content, :cols => 100, :rows => 100
+      = f.text_area :haml_content, :cols => 106, :rows => 25
   %br
   .clear
   .actions
