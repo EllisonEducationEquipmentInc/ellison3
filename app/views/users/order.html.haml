@@ -1,6 +1,6 @@
 - I18n.locale = @order.locale
 %div= link_to 'Back to Orders', myaccount_path('orders', :page => params[:page]), :class => 'jqui_back dontprint'
-.contentwrap_medium
+#billing_info
   %h3 Billing Address
   %p
     - if @order.payment.present?
@@ -20,7 +20,7 @@
       %br
       = @order.payment.phone
 
-.contentwrap_medium
+#shipping_info
   %h3 Shipping Address
   %p
     - unless @order.address.company.blank?
@@ -39,7 +39,7 @@
     %br
     = @order.address.phone
     
-.contentwrap_medium.last
+#order_info.last
   %h3 Order Details
   %strong Order Number:
   = @order.public_order_number
@@ -59,13 +59,13 @@
   %br
   %strong Status:
   = @order.public_status
-  = link_to "What is This?", "/ostatus?no_layout=1", :class => "link_help lightbox"
+  = link_to "What is This?", "/ostatus?no_layout=1", :class => "link_help lightbox dontprint"
   %br
   - if @order.tracking_number.present?
     %strong Tracking #:
     = link_to @order.tracking_number, @order.tracking_url, :target => '_blank'
 .clear
-%table
+%table#order_details
   %tr
     %th Item No.
     %th Item Name
@@ -93,7 +93,7 @@
           == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
       - if @order.payment.deferred
         %br
-        %table
+        %table#deferred_details
           %tr
             %th
               Payment 1
@@ -113,7 +113,7 @@
       %li Shipping errors and claims must be made within 10 days of receipt of goods.
       %li Merchandise CANNOT be returned without prior approval.
       %li Returns or exchanges subject to restocking fee.
-    %p= link_to "Print a copy of this order receipt.", "javascript:window.print()", :class => "link_print"
+    %p= link_to "Print a copy of this order receipt.", "javascript:window.print()", :class => "link_print dontprint"
 
 %ul.plain.cart_summary.contentwrap_medium.last
   %li

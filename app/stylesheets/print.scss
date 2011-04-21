@@ -12,6 +12,30 @@ $system: ell3;
 body.bp {
   @include blueprint-print(true);
   
+  .right { float: right; }
+  .left { float: left; }
+  .clear { clear: both; }
+  
+  ul.plain {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  
+    li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  
+  ul.horizontal { @extend ul.plain;
+    
+    li {
+      display: inline;
+      float: left;
+    }
+  }
+  
   a {
     color: #000;
   }
@@ -150,4 +174,31 @@ body.bp {
 .buybox {
   background-color: transparent;
   border: 0px;
+}
+
+
+// orders & quotes
+#billing_info, #shipping_info, #order_info {
+  float: left;
+  width: 33%;
+}
+
+table#order_details, table#deferred_details {
+  width: 100%;
+  
+  th {
+    text-align: left;
+  }
+}
+
+#cart_total {
+  font-size: 1.4em;
+  color: $cart_total_price;
+}
+
+ul.cart_summary {
+  
+  li { font-weight: bold; }
+  
+  li#cart_total { border-top:1px double gray; }  
 }

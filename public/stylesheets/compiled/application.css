@@ -322,26 +322,16 @@ p.show_cart {
 }
 
 /* line 245, ../../../app/stylesheets/application.scss */
-#cart_total {
-  font-size: 1.4em;
-}
-
-/* line 250, ../../../app/stylesheets/application.scss */
-li#cart_total {
-  border-top: 1px double gray;
-}
-
-/* line 251, ../../../app/stylesheets/application.scss */
 .item_changed {
   background: #FBE3E4;
 }
 
-/* line 253, ../../../app/stylesheets/application.scss */
+/* line 247, ../../../app/stylesheets/application.scss */
 td.pre_order {
   color: red;
 }
 
-/* line 258, ../../../app/stylesheets/application.scss */
+/* line 252, ../../../app/stylesheets/application.scss */
 .fw_frame {
   float: left;
   padding: 4px 0 6px;
@@ -350,13 +340,13 @@ td.pre_order {
   margin: 0 0 4px;
 }
 
-/* line 261, ../../../app/stylesheets/application.scss */
+/* line 255, ../../../app/stylesheets/application.scss */
 .fw_img_left {
   float: left;
   margin-right: 8px;
 }
 
-/* line 264, ../../../app/stylesheets/application.scss */
+/* line 258, ../../../app/stylesheets/application.scss */
 .fw_intro_frame {
   float: left;
   width: 377px;
@@ -364,23 +354,23 @@ td.pre_order {
   margin-right: 22px;
 }
 
-/* line 267, ../../../app/stylesheets/application.scss */
+/* line 261, ../../../app/stylesheets/application.scss */
 .alignleft {
   float: left;
 }
 
-/* line 270, ../../../app/stylesheets/application.scss */
+/* line 264, ../../../app/stylesheets/application.scss */
 .alignright {
   float: right;
 }
 
-/* line 273, ../../../app/stylesheets/application.scss */
+/* line 267, ../../../app/stylesheets/application.scss */
 .fw_leftframe {
   width: 350px;
   float: left;
 }
 
-/* line 276, ../../../app/stylesheets/application.scss */
+/* line 270, ../../../app/stylesheets/application.scss */
 .fw_leftcontainer {
   background: url("/images/ui-backgrounds/color_tan.gif");
   border: 1px solid #ccc;
@@ -390,14 +380,14 @@ td.pre_order {
   margin-bottom: 6px;
 }
 
-/* line 279, ../../../app/stylesheets/application.scss */
+/* line 273, ../../../app/stylesheets/application.scss */
 .fw_rightcontainer {
   float: left;
   margin-left: 16px;
   width: 570px;
 }
 
-/* line 282, ../../../app/stylesheets/application.scss */
+/* line 276, ../../../app/stylesheets/application.scss */
 .fw_subtext {
   font-size: 10px;
 }

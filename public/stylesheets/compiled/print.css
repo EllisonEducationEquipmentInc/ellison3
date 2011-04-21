@@ -1304,10 +1304,39 @@ body.bp .hide {
   display: none;
 }
 /* line 15, ../../../app/stylesheets/print.scss */
+body.bp .right, body.bp .toggleview, body.bp .item_designers #item_designers_thumbnails, .item_designers body.bp #item_designers_thumbnails {
+  float: right;
+}
+/* line 16, ../../../app/stylesheets/print.scss */
+body.bp .left {
+  float: left;
+}
+/* line 17, ../../../app/stylesheets/print.scss */
+body.bp .clear {
+  clear: both;
+}
+/* line 19, ../../../app/stylesheets/print.scss */
+body.bp ul.plain, body.bp #catalogtabs, body.bp .item_designers #item_designers_thumbnails ul, .item_designers #item_designers_thumbnails body.bp ul, body.bp .compatibility_detail .compatible_tag ul, .compatibility_detail .compatible_tag body.bp ul, body.bp ul.horizontal {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* line 24, ../../../app/stylesheets/print.scss */
+body.bp ul.plain li, body.bp #catalogtabs li, body.bp .item_designers #item_designers_thumbnails ul li, .item_designers #item_designers_thumbnails body.bp ul li, body.bp .compatibility_detail .compatible_tag ul li, .compatibility_detail .compatible_tag body.bp ul li, body.bp ul.horizontal li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* line 33, ../../../app/stylesheets/print.scss */
+body.bp ul.horizontal li {
+  display: inline;
+  float: left;
+}
+/* line 39, ../../../app/stylesheets/print.scss */
 body.bp a {
   color: #000;
 }
-/* line 20, ../../../app/stylesheets/print.scss */
+/* line 44, ../../../app/stylesheets/print.scss */
 body.bp .item-block p, body.bp .item-block a {
   font-family: Verdana,Arial,sans-serif;
   font-color: #000;
@@ -1315,7 +1344,7 @@ body.bp .item-block p, body.bp .item-block a {
   text-decoration: none;
   font-size: .9em;
 }
-/* line 28, ../../../app/stylesheets/print.scss */
+/* line 52, ../../../app/stylesheets/print.scss */
 body.bp .item-block h3 {
   font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
   font-color: #000;
@@ -1324,75 +1353,75 @@ body.bp .item-block h3 {
   font-size: 1em;
   text-decoration: none;
 }
-/* line 38, ../../../app/stylesheets/print.scss */
+/* line 62, ../../../app/stylesheets/print.scss */
 body.bp h3.item_title {
   line-height: 1em;
 }
-/* line 42, ../../../app/stylesheets/print.scss */
+/* line 66, ../../../app/stylesheets/print.scss */
 body.bp .buybox h4 {
   font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
   color: #000;
 }
-/* line 49, ../../../app/stylesheets/print.scss */
+/* line 73, ../../../app/stylesheets/print.scss */
 body.bp .item_moreinfo h4, body.bp .item_moreinfo p {
   margin: 0;
 }
 
-/* line 56, ../../../app/stylesheets/print.scss */
+/* line 80, ../../../app/stylesheets/print.scss */
 .dontprint {
   display: none;
 }
 
-/* line 60, ../../../app/stylesheets/print.scss */
+/* line 84, ../../../app/stylesheets/print.scss */
 #content .dontprint {
   display: none;
 }
 
-/* line 64, ../../../app/stylesheets/print.scss */
+/* line 88, ../../../app/stylesheets/print.scss */
 .shadowOnBit {
   display: none;
 }
 
-/* line 69, ../../../app/stylesheets/print.scss */
+/* line 93, ../../../app/stylesheets/print.scss */
 .page-break {
   display: block;
   page-break-before: always;
 }
 
-/* line 75, ../../../app/stylesheets/print.scss */
+/* line 99, ../../../app/stylesheets/print.scss */
 #printmasthead h1 {
   margin: 0;
   padding: 0;
   height: auto;
 }
 
-/* line 83, ../../../app/stylesheets/print.scss */
+/* line 107, ../../../app/stylesheets/print.scss */
 #catalog_breadcrumbs {
   color: #000;
   font-weight: bold;
 }
-/* line 87, ../../../app/stylesheets/print.scss */
+/* line 111, ../../../app/stylesheets/print.scss */
 #catalog_breadcrumbs a {
   color: #000;
   text-decoration: none;
 }
-/* line 92, ../../../app/stylesheets/print.scss */
+/* line 116, ../../../app/stylesheets/print.scss */
 #catalog_breadcrumbs a.tag_breadcrumb_remove, #catalog_breadcrumbs a.price_breadcrumb_remove, #catalog_breadcrumbs a.keyword_remove, #catalog_breadcrumbs .breadcrumb_arrow, #catalog_breadcrumbs a.price_breadcrumb_remove {
   display: none;
 }
 
-/* line 98, ../../../app/stylesheets/print.scss */
+/* line 122, ../../../app/stylesheets/print.scss */
 .msrp, .sale-price, .percent-saved, .coupon-price, .special-price, .custom-price {
   font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
   color: #000;
 }
 
-/* line 103, ../../../app/stylesheets/print.scss */
+/* line 127, ../../../app/stylesheets/print.scss */
 .sale-price {
   color: #c00;
 }
 
-/* line 108, ../../../app/stylesheets/print.scss */
+/* line 132, ../../../app/stylesheets/print.scss */
 .item-block {
   overflow: visible;
   margin: 0;
@@ -1401,25 +1430,25 @@ body.bp .item_moreinfo h4, body.bp .item_moreinfo p {
   border-right: 1px dashed #ccc;
   page-break-before: auto;
 }
-/* line 116, ../../../app/stylesheets/print.scss */
+/* line 140, ../../../app/stylesheets/print.scss */
 .item-block .cart-buttons {
   display: none;
 }
-/* line 120, ../../../app/stylesheets/print.scss */
+/* line 144, ../../../app/stylesheets/print.scss */
 .item-block.product, .item-block.idea {
   height: 215px;
 }
 
-/* line 126, ../../../app/stylesheets/print.scss */
+/* line 150, ../../../app/stylesheets/print.scss */
 .listview .item-block {
   border-right: 0px;
 }
-/* line 129, ../../../app/stylesheets/print.scss */
+/* line 153, ../../../app/stylesheets/print.scss */
 .listview .item-block p.item_name, .highlightable.listview .item-block h3.item_number, .highlightable.listview .item-block .item_description, .listview .item-block p.item_price, .listview .item-block .item_description {
   margin: 2px 0px 4px 133px;
 }
 
-/* line 134, ../../../app/stylesheets/print.scss */
+/* line 158, ../../../app/stylesheets/print.scss */
 .buybox, .item_description, .item_moreinfo {
   float: right;
   margin: 0;
@@ -1427,19 +1456,49 @@ body.bp .item_moreinfo h4, body.bp .item_moreinfo p {
   width: 450px;
 }
 
-/* line 142, ../../../app/stylesheets/print.scss */
+/* line 166, ../../../app/stylesheets/print.scss */
 .item_moreinfo h4 {
   margin-bottom: 2px;
 }
-/* line 143, ../../../app/stylesheets/print.scss */
+/* line 167, ../../../app/stylesheets/print.scss */
 .item_moreinfo a {
   font-color: #000;
   font-weight: normal;
   text-decoration: none;
 }
 
-/* line 150, ../../../app/stylesheets/print.scss */
+/* line 174, ../../../app/stylesheets/print.scss */
 .buybox {
   background-color: transparent;
   border: 0px;
+}
+
+/* line 181, ../../../app/stylesheets/print.scss */
+#billing_info, #shipping_info, #order_info {
+  float: left;
+  width: 33%;
+}
+
+/* line 186, ../../../app/stylesheets/print.scss */
+table#order_details, table#deferred_details {
+  width: 100%;
+}
+/* line 189, ../../../app/stylesheets/print.scss */
+table#order_details th, table#deferred_details th {
+  text-align: left;
+}
+
+/* line 194, ../../../app/stylesheets/print.scss */
+#cart_total {
+  font-size: 1.4em;
+  color: #50bf93;
+}
+
+/* line 201, ../../../app/stylesheets/print.scss */
+ul.cart_summary li {
+  font-weight: bold;
+}
+/* line 203, ../../../app/stylesheets/print.scss */
+ul.cart_summary li#cart_total {
+  border-top: 1px double gray;
 }

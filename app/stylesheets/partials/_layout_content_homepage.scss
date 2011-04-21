@@ -23,7 +23,9 @@
 
 
 
-
+// ORDERS & QUOTES
+#billing_info, #shipping_info { @include column(8); }
+#order_info { @include column(8, true); }
 
 // VIDEO PAGE
 #featured_video { @include column(10); }
