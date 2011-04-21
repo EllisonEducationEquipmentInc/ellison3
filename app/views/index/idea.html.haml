@@ -1,5 +1,5 @@
 .breadcrumbs.dontprint
-  = link_to_function 'back', "window.history.back()", :class => "link_back"
+  = link_to 'back', session[:continue_shopping], :class => "link_back" if session[:continue_shopping].present?
   - if admin_signed_in?
     .right= link_to 'edit', edit_admin_idea_path(@idea), :class => "link_edit-record"
 .item_images
