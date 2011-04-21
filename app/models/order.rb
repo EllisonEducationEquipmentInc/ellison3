@@ -40,6 +40,8 @@ class Order
 	index "payment.tx_auth_no"
 	index "payment.purchase_order_number"
 	
+	index [[:user_id, Mongo::ASCENDING], [:system, Mongo::ASCENDING], [:created_at, Mongo::DESCENDING]]
+	
 	field :status, :default => "New"
 	field :system
 	field :locale

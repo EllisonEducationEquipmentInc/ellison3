@@ -108,6 +108,9 @@ class Product
   end
   index :updated_at
   
+  index [[:item_num, Mongo::ASCENDING], [:name, Mongo::ASCENDING], [:short_desc, Mongo::ASCENDING]]
+  index [[:systems_enabled, Mongo::ASCENDING], [:updated_at, Mongo::ASCENDING], [:active, Mongo::ASCENDING], [:deleted_at, Mongo::ASCENDING]]
+  
   # associations
   embeds_many :campaigns do
     def current(time = Time.zone.now)

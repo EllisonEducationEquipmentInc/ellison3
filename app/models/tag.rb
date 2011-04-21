@@ -98,6 +98,8 @@ class Tag
   index :image_filename
   index :updated_at
   
+  index [[:permalink, Mongo::ASCENDING], [:tag_type, Mongo::ASCENDING], [:active, Mongo::ASCENDING]]
+  
   mount_uploader :image, GenericImageUploader 
   
   # scopes

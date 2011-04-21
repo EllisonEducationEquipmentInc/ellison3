@@ -43,7 +43,7 @@ class Store
   index :active
   index :physical_store
   index :webstore
-  index [[ :location, Mongo::GEO2D ]], :min => -300, :max => 300
+  index [[ :location, Mongo::GEO2D ], [:brands, Mongo::ASCENDING], [:physical_store, Mongo::ASCENDING], [:active, Mongo::ASCENDING] ], :min => -300, :max => 300
   index :brands
   index :agent_type
   index :name
