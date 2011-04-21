@@ -22,6 +22,8 @@ class List
 	index :save_for_later
 	index :system
 	
+	index [[:user_id, Mongo::ASCENDING], [:active, Mongo::ASCENDING], [:save_for_later, Mongo::ASCENDING]]
+	
 	scope :listable, :where => { :active => true,  :save_for_later.ne => true}
 	
 	before_create :set_system
