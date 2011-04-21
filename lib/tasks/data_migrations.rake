@@ -983,6 +983,22 @@ namespace :data_migrations do
     end
   end
   
+  desc "import stores data from global_store_locator_data.csv"
+  task :store_locator => :load_dep do
+    CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/global_store_locator_data.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
+      begin
+        Store.create :store_number => row['store_number'], :active => row['active_status'], :name => row['store_name'], :webstore => row['web_store'], :physical_store => row['physical_store'], 
+        :brands => row['brands'].split(/,\s*/), :product_line => row['product_line'].split(/,\s*/), :agent_type => row['agent_type'], :authorized_reseller_type => row['authorized_reseller_type'],
+        :excellence_level => row['excellence_level'], :has_ellison_design_centers => row['has_ellison_design_centers'], :address1 => row['address'], 
+        :address2 => row['address2'], :city => row['city'], :state => row['state'], :zip_code => row['zip'], :country => row['country'], :contact_person => row['contact_person'], 
+        :phone => row['phone'], :fax => row['fax'], :email => row['email'], :website => row['website'], :keyword => row['keyword'], :internal_comments => row['internal_comments']
+      rescue Exception => e
+        p "#{row['store_number']} geocoding failed. record skipped."
+      end
+      
+    end
+  end
+  
   desc "change ER to ERUS in the db"
   task :er_to_erus => :environment do
     set_current_system "erus"
