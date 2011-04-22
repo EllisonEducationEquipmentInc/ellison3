@@ -6,30 +6,49 @@
     = f.label :system
     \:
     = f.text_field :system, :readonly => true, :class => 'transperent'
-  .field
-    = f.label :zone_or_country
-    %br
-    = select_tag 'shipping_rate[zone_or_country]', grouped_options_for_select([["USA Zones", FedexZone::ZONES], ["Countries", countries]], @shipping_rate.zone_or_country, "--select zone/country--")
-  - currencies.each  do |currency|
+  .contentwrap_large
     .field
-      = f.label "price_min_#{currency}"
+      = f.label :zone_or_country
       %br
-      = f.text_field "price_min_#{currency}"
-    .field
-      = f.label "price_max_#{currency}"
-      %br
-      = f.text_field "price_max_#{currency}"
-    .field
-      = f.label :percentage
-      %br
-      = f.check_box :percentage
-    .field
-      = f.label "standard_rate_#{currency}"
-      %br
-      = f.text_field "standard_rate_#{currency}"
-    .field
-      = f.label "rush_rate_#{currency}"
-      %br
-      = f.text_field "rush_rate_#{currency}"
+      = select_tag 'shipping_rate[zone_or_country]', grouped_options_for_select([["USA Zones", FedexZone::ZONES], ["Countries", countries]], @shipping_rate.zone_or_country, "--select zone/country--")
+    %p.formhelp{:style => "margin-bottom: 0 !important;"}
+      %strong Note on Zones:
+    %ul.formhelp{:style => "padding-left: 20px !important;"}
+      %li Zones "2, 3, 4, 5, 6, 7 & 8" are for the contiguous 48 States
+      %li Zone "9" is Hawaii Ground Shipping zone & Alaska “express” shipping zone.
+      %li Zone "10" is Puerto Rico Ground Shipping zone & Hawaii “express” shipping zone.
+      %li Zone "11" is Alaska Express Shipping zone
+      %li Zone "12" is Hawaii Express Shipping zone
+      %li Zone "17" is Alaska Ground Shipping zone
+      %li "APO" to define Shipping Rate for APO/FPO
+  .contentwrap_large.last
+    - i = 0
+    - currencies.each  do |currency|
+      = content_tag(:hr) if i != 0
+      .field
+        = f.label "price_min_#{currency}", "Minimum Price #{currency.upcase}", :style => "width: 130px"
+        %span{ :class => "icon_pricefield_#{currency}"}
+          = f.text_field "price_min_#{currency}", :size => 6
+      .field
+        = f.label "price_max_#{currency}", "Maximum Price #{currency.upcase}", :style => "width: 130px"
+        %span{ :class => "icon_pricefield_#{currency}"}
+          = f.text_field "price_max_#{currency}", :size => 6
+      .field
+        = f.label :percentage, nil, :style => "width: 148px"
+        yes
+        = f.radio_button(:percentage, true)
+        no
+        = f.radio_button(:percentage, false)
+      .field
+        = f.label "standard_rate_#{currency}", "Standard Rate #{currency.upcase}", :style => "width: 130px"
+        %span{ :class => "icon_pricefield_#{currency}"}
+          = f.text_field "standard_rate_#{currency}", :size => 6
+      .field
+        = f.label "rush_rate_#{currency}", "Rush Rate #{currency.upcase}", :style => "width: 130px"
+        %span{ :class => "icon_pricefield_#{currency}"}
+          = f.text_field "rush_rate_#{currency}", :size => 6
+      - i += 1
+  .clear
+  %hr
   .actions
     = f.submit :class => 'jqui_save'

@@ -1,4 +1,4 @@
-%h1 Listing Shipping Rates (cart subtotal based)
+%h2 Listing Shipping Rates (cart subtotal based)
 = link_to 'New Shipping Rate', new_admin_shipping_rate_path, :class => 'jqui_new' if has_write_permissions?
 %br
 - unless params[:q].blank?
@@ -21,8 +21,8 @@
           %th= "Rush Rate #{currency.upcase}"
         = sortable "system"
         - if has_write_permissions?
-          %th &nbsp;
-          %th &nbsp;
+          %th{ :width => 30, :style => "text-align: right;" } &nbsp;
+          %th{ :width => 30, :style => "text-align: right;" } &nbsp;
     %tbody
       - for shipping_rate in @shipping_rates
         %tr{ :class => cycle(:odd, :even) }
@@ -36,8 +36,8 @@
             %td= shipping_rate.send "rush_rate_#{currency}"
           %td= shipping_rate.system
           - if has_write_permissions?
-            %td= link_to 'Edit', edit_admin_shipping_rate_path(shipping_rate), :class => 'jqui_edit_min'
-            %td= link_to 'Destroy', admin_shipping_rate_path(shipping_rate), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
+            %td{ :width => 30, :style => "text-align: right;" }= link_to 'Edit', edit_admin_shipping_rate_path(shipping_rate), :class => 'jqui_edit_min'
+            %td{ :width => 30, :style => "text-align: right;" }= link_to 'Destroy', admin_shipping_rate_path(shipping_rate), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
 %br
 = will_paginate @shipping_rates
 %br
