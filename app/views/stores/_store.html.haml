@@ -1,6 +1,8 @@
 - if store.logo.present? && File.exists?("#{Rails.root}/public/#{store.logo}")
   = image_tag(store.logo)
   %br
+- if store.excellence_level.present?
+  = image_tag("store_#{store.excellence_level.downcase}.jpg")
 %h3.map-link= store.name
 - if store.product_line && store.product_line.include?("AllStar")
   %span{:style => "color:red"} &bull;

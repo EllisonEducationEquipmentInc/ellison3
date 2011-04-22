@@ -51,7 +51,7 @@
   .field
     = f.label :excellence_level
     %br
-    = f.text_field :excellence_level
+    = f.select :excellence_level, Store::EXCELLENCE_LEVELS, :prompt => "-- select --"
   .field
     = f.label :has_ellison_design_centers
     %br
@@ -79,7 +79,7 @@
   .field
     = f.label :country
     %br
-    = f.select :country, countries
+    = f.select :country, Country.all.asc(:name).cache.map {|e| e.name}
   .field
     = f.label :contact_person
     %br

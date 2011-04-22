@@ -35,7 +35,7 @@ class Admin::StoresController < ApplicationController
   # GET /stores/new
   # GET /stores/new.xml
   def new
-    @store = Store.new 
+    @store = Store.new :country => 'United States'
 
     respond_to do |format|
       format.html # new.html.erb

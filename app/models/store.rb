@@ -8,6 +8,7 @@ class Store
 	AUTHORIZED_RESELLER_TYPES = ["Catalog sales only", "Web sales only", "Brick and Mortar Store", "Combination"]
 	PRODUCT_LINES = %w(Sizzix AllStar Prestige RollModel)
 	BRANDS = %w(sizzix ellison)
+	EXCELLENCE_LEVELS = %w(Executive Preferred Elite)
 	
 	field :store_number
   field :active, :type => Boolean, :default => true
@@ -76,8 +77,14 @@ private
 
   def get_geo_location
     if location.blank? || address1_changed? || address2_changed? || city_changed? || state_changed? || zip_code_changed?
+      Rails.logger.info "GEocoding #{self.address1} #{self.address2} #{self.city} #{self.state} #{self.zip_code} #{self.country}"
       res = MultiGeocoder.geocode "#{self.address1} #{self.address2} #{self.city} #{self.state} #{self.zip_code} #{self.country}"
-      self.location = [res.lat, res.lng] 
+      if res.success 
+        self.location = [res.lat, res.lng] 
+      else
+        errors.add(:location, "Invalid address, could not be Geocoded.")
+        return false
+      end
     end
   end
 end
