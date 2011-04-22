@@ -16,11 +16,13 @@ class Admin::UsersController < ApplicationController
 	  else
 	    criteria.where(:systems_enabled.in => params[:systems_enabled]) 
 	  end
-	  unless params[:q].blank?
-	    regexp = Regexp.new(params[:q], "i")
+	  if params[:q].present?
+	    regexp = Regexp.new("^#{params[:q]}")
   	  criteria = criteria.any_of({ :name => regexp}, { :email => regexp }, { :erp => regexp })
+  		@users = criteria.paginate :page => params[:page], :per_page => 50
+    else
+      @users = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
 	  end
-		@users = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
 	end
 
   # GET /users/1

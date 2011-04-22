@@ -8,6 +8,8 @@
   = admin_systems_checkboxes
   = select_tag :tag_type, options_for_select([["- type -", nil]] + Tag.all_types.map {|t| [t.humanize, t]}, params[:tag_type])
   = text_field_tag :q, nil, :placeholder => "name"
+  = check_box_tag :extended, "1"
+  Extended search (case insensitive, partial match)
   = check_box_tag :inactive, "1", params[:inactive] == "1"
   Incl. inactive
   = submit_tag "search", :class => 'jqui_search'

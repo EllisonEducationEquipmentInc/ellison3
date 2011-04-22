@@ -84,7 +84,7 @@ class User
 	index :email
 	index :erp
 	index :name
-	index :systems_enabled
+	#index :systems_enabled
 	index :sign_in_count
 	index :created_at
 	index :status
@@ -94,6 +94,9 @@ class User
 	index :old_id_szuk
 	index :old_id_eeuk
 	index :old_id_er
+	
+	index [[:updated_at, Mongo::DESCENDING], [:deleted_at, Mongo::ASCENDING]]
+	index [[:updated_at, Mongo::DESCENDING], [:name, Mongo::DESCENDING], [:email, Mongo::DESCENDING], [:erp, Mongo::DESCENDING], [:systems_enabled, Mongo::ASCENDING], [:deleted_at, Mongo::ASCENDING]]
 	
 	embeds_one :token
 	embeds_one :retailer_application

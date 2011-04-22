@@ -54,6 +54,8 @@ class Idea
 	end
 	index :updated_at
 	
+	index [[:idea_num, Mongo::ASCENDING], [:name, Mongo::ASCENDING], [:short_desc, Mongo::ASCENDING]]
+	
 	alias :item_num :idea_num
 	
 	embeds_many :tabs do

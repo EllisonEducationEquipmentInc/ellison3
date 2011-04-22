@@ -7,5 +7,5 @@
   .field
     = f.label(:tag_id, "Compatible With")
     %br
-    = f.select :tag_id, Tag.product_lines.order_by(:name).map {|e| [e.name, e.id]}
+    = f.select :tag_id, Tag.product_lines.asc(:name).cache.map {|e| [e.name, e.id]}
   = products_helper_tag "#{f.object_name[/^(\w+)/]}[compatibilities_attributes][#{child_index}][product_item_nums]", f.object.product_item_nums, :label => "Additional Required Products (item nums only)", :class => "type_specific products"

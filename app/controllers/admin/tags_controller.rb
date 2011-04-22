@@ -17,11 +17,12 @@ class Admin::TagsController < ApplicationController
 	  end
 	  criteria = criteria.where(:active => true) if params[:inactive].blank?
 	  criteria = criteria.where(:tag_type => params[:tag_type]) unless params[:tag_type].blank?
-	  unless params[:q].blank?
-	    regexp = Regexp.new(params[:q], "i")
-  	  criteria = criteria.any_of({ :name => regexp})
+	  if params[:q].present?
+  	  criteria = criteria.where({ :name => params[:extended] == "1" ? /#{params[:q]}/i : /^#{params[:q]}/})
+  		@tags = criteria.paginate :page => params[:page], :per_page => 50
+    else
+      @tags = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
 	  end
-		@tags = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
 	end
 
   # GET /tags/1
