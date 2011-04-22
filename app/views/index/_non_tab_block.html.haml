@@ -1,4 +1,4 @@
 - object.tabs.current.each do |tab|
-  = content_tag(:div, nil, :class => "page-break") if tab.name == "Accessories"
+  = content_tag(:div, nil, :class => "page-break") if tab.name == "Accessories" || tab.name == "Instructions"
   %h4= tab.name
   %div{:id => "tabs-#{tab.id}"}= render 'tabs/tab', :tab => tab

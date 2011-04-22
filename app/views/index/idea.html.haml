@@ -68,7 +68,7 @@
 %div{ :class => "item_detail#{'-tabbed' if @idea.use_tabs}"}
   = render :partial => "index/#{'non_' unless @idea.use_tabs}tab_block", :locals => {:object => @idea}
 - unless @idea.use_tabs
-  .item_cross-sell
+  .item_cross-sell.dontprint
     - if @idea.products.displayable.count > 0
       .rounded
         %h4 Products Used:
