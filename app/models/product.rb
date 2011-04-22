@@ -93,7 +93,7 @@ class Product
   field :item_code
   field :default_config, :type => Boolean, :default => false
   
-  index :item_num, :unique => true, :background => true
+  index :item_num, :unique => true #, :background => true
   index :systems_enabled
   index :outlet
   index :life_cycle
@@ -106,14 +106,11 @@ class Product
   ELLISON_SYSTEMS.each do |system|
     index :"start_date_#{system}"
     index :"end_date_#{system}"
-    index [[:systems_enabled, Mongo::ASCENDING], [:updated_at, Mongo::ASCENDING], [:active, Mongo::ASCENDING], [:deleted_at, Mongo::ASCENDING], [:"start_date_#{system}", Mongo::ASCENDING], [:"end_date_#{system}", Mongo::ASCENDING]]
-    index [[:_id, Mongo::ASCENDING], [:systems_enabled, Mongo::ASCENDING], [:active, Mongo::ASCENDING], [:deleted_at, Mongo::ASCENDING], [:"start_date_#{system}", Mongo::ASCENDING], [:"end_date_#{system}", Mongo::ASCENDING]]
   end
   index :updated_at
   
   index WAREHOUSES.map {|e| ["quantity_#{e}".to_sym, Mongo::ASCENDING]}
-  index [[:item_num, Mongo::ASCENDING], [:name, Mongo::ASCENDING], [:short_desc, Mongo::ASCENDING]]
-  index [[:systems_enabled, Mongo::ASCENDING], [:updated_at, Mongo::ASCENDING], [:active, Mongo::ASCENDING], [:deleted_at, Mongo::ASCENDING]]
+  index [[:item_num, Mongo::ASCENDING], [:name, Mongo::ASCENDING], [:short_desc, Mongo::ASCENDING], [:systems_enabled, Mongo::ASCENDING], [:updated_at, Mongo::ASCENDING], [:active, Mongo::ASCENDING], [:deleted_at, Mongo::ASCENDING]]
   
   
   # associations
