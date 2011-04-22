@@ -44,8 +44,8 @@ class Product
   before_save :quantity_cannot_be_negative
   before_save :timestamp_outlet
   before_save :remove_outlet_price #if outlet p becomes non-outlet
-  before_save :reindex?
-  after_save :maybe_index
+  before_save :reindex?, :unless => proc {disable_solr_indexing?}
+  after_save :maybe_index, :unless => proc {disable_solr_indexing?}
   
   # system specific validations
   ELLISON_SYSTEMS.each do |system|

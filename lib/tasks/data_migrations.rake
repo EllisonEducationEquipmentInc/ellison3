@@ -5,10 +5,8 @@ namespace :data_migrations do
   
   desc "test"
   task :test => [:set_szuk, :load_dep]  do
-    set_current_system "szuk"
-    product = OldData::Product.find 2259
-    p product.availability_msg
-    p OldData::Product.send "is_uk?"
+    #set_current_system "szuk"
+    p Product.count
   end
   
   desc "migrate tags"
@@ -1141,5 +1139,7 @@ EOF
     Dir.glob("lib/tasks/data_migrations/*.rb").sort.each do |f|
       load f
     end
+    
+    disable_solr_indexing!
   end
 end

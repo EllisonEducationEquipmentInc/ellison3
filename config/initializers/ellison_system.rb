@@ -1,5 +1,5 @@
-module EllisonSystem  
-	
+module EllisonSystem
+  
 	# define which locale has what currency
 	LOCALES_2_CURRENCIES = {'en-US' => 'usd', 'en-UK' => 'gbp', 'en-EU' => 'eur'} unless const_defined?(:LOCALES_2_CURRENCIES)
 	
@@ -18,6 +18,20 @@ module EllisonSystem
   MIN_ORDER = 0.01
   ER_MIN_ORDER = 100
   ER_FIRST_MIN_ORDER = 300
+  
+  @@disable_solr_indexing = false
+  
+  def disable_solr_indexing?
+    @@disable_solr_indexing
+  end
+  
+  def disable_solr_indexing!
+    @@disable_solr_indexing = true
+  end
+  
+  def enable_solr_indexing!
+    @@disable_solr_indexing = false
+  end
   
   def backorder_allowed?(sys = current_system)
     sys == 'erus' || sys == 'eruk' || sys == 'eeus' || sys == 'eeuk'

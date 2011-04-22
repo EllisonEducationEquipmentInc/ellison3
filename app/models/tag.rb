@@ -55,9 +55,9 @@ class Tag
   before_validation :set_permalink
   after_save :maybe_index
   
-  after_save :update_campaign
+  after_save :update_campaign, :unless => proc {disable_solr_indexing?}
   
-  after_create :index!
+  after_create :index!, :unless => proc {disable_solr_indexing?}
 
   field :name
   field :tag_type

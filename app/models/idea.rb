@@ -15,8 +15,8 @@ class Idea
 	
 	before_save :inherit_system_specific_attributes
 	#before_save :clean_up_tags
-	before_save :reindex?
-	after_save :maybe_index
+	before_save :reindex?, :unless => proc {disable_solr_indexing?}
+	after_save :maybe_index, :unless => proc {disable_solr_indexing?}
 	
 	# system specific validations
 	ELLISON_SYSTEMS.each do |system|
