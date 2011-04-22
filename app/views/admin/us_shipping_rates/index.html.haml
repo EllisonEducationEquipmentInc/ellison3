@@ -13,17 +13,16 @@
         = sortable "weight_min"
         = sortable "weight_max"
         - if has_write_permissions?
-          %th &nbsp;
-          %th &nbsp;
+          %th{ :width => 30, :style => "text-align: right;" } &nbsp;
+          %th{ :width => 30, :style => "text-align: right;" } &nbsp;
     %tbody
       - for fedex_rate in @fedex_rates
         %tr{ :class => cycle(:odd, :even) }
           %td= fedex_rate.weight_min
           %td= fedex_rate.weight_max
-          %td= link_to 'Show', admin_fedex_rate_path(fedex_rate), :class => 'jqui_show_min'
           - if has_write_permissions?
-            %td= link_to 'Edit', edit_admin_fedex_rate_path(fedex_rate), :class => 'jqui_edit_min'
-            %td= link_to 'Destroy', admin_fedex_rate_path(fedex_rate), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
+            %td{ :width => 30, :style => "text-align: right;" }= link_to 'Edit', edit_admin_fedex_rate_path(fedex_rate), :class => 'jqui_edit_min'
+            %td{ :width => 30, :style => "text-align: right;" }= link_to 'Destroy', admin_fedex_rate_path(fedex_rate), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
 %br
 = will_paginate @fedex_rates
 %br
