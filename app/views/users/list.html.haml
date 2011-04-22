@@ -1,16 +1,14 @@
 %h3== Manage List: #{@list.name}
-.contentwrap_XXL
+.contentwrap_XXXL
   %p.left
     - unless @list.comments.blank?
       = @list.comments
     - else
       -# to force horizontal space of this div
       &nbsp;
-.contentwrap_XS.last
-  .toggleview.minilink.right= link_to "switch to list view", "#", :class => "toggle_view"
-
-
-.sidebar
+  .toggleview.dontprint= link_to "switch to list view", "#", :class => "toggle_view"
+.clear
+.sidebar.dontprint
   - if @users_list
     %strong Select Another Wishlist:
     %br
@@ -76,5 +74,6 @@
   $(document).ready(function(){
     $("a.toggle_view").click(function(){$('.item-block').shadowOff();setTimeout("shadow_on()", 300);});
     $("a.toggle_view").toggleView({initial_state: $.deparam.fragment()['view']});
+    $('div.highlightable div.item-block:nth-child(16n)').after("<div class='page-break'> </div>");
   })
 .clear

@@ -4,7 +4,7 @@
   - if product.outlet && is_sizzix_us?
     .clearance_flag= image_tag("/images/ui-objects/pricetag_outlet.png", :alt => "On Sale!", :title => "On Sale!")
   - if @users_list
-    .list_actions
+    .list_actions.dontprint
       = link_to_function "Move to Another List", "$(this).siblings('.move_to_another_list').toggle()", :class => 'jqui_move_min'
       = link_to "Delete from List", {:controller => 'users', :action => 'remove_from_list', :id => product, :list => @list.id}, :remote => true, :method => :delete, :confirm => "Are you sure yo want to remove this item from this List?", :class => 'jqui_destroy_min'
       .move_to_another_list{:style => "display:none"}

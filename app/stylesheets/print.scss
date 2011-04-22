@@ -41,12 +41,12 @@ body.bp {
   }
   
   .item-block {
-    p, a {
+    p, a, .item_description {
       font-family: Verdana,Arial,sans-serif;
       font-color: #000;
       font-weight: normal;
       text-decoration: none;
-      font-size: .9em;
+      font-size: 10.8px;
     }
     
     h3 {
@@ -151,6 +151,7 @@ body.bp {
     border-right: 0px;
     
     p.item_name, p.item_price, .item_description { margin: 2px 0px 4px 133px; }
+    .item_description { width: 592px !important; }
   }
 }
 
@@ -206,3 +207,5 @@ ul.cart_summary {
   
   li#cart_total { border-top:1px double gray; }  
 }
+
+// user's product lists

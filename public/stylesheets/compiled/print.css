@@ -1337,12 +1337,12 @@ body.bp a {
   color: #000;
 }
 /* line 44, ../../../app/stylesheets/print.scss */
-body.bp .item-block p, body.bp .item-block a {
+body.bp .item-block p, body.bp .item-block a, body.bp .item-block .item_description {
   font-family: Verdana,Arial,sans-serif;
   font-color: #000;
   font-weight: normal;
   text-decoration: none;
-  font-size: .9em;
+  font-size: 10.8px;
 }
 /* line 52, ../../../app/stylesheets/print.scss */
 body.bp .item-block h3 {
@@ -1447,13 +1447,17 @@ body.bp .item_moreinfo h4, body.bp .item_moreinfo p {
 .listview .item-block p.item_name, .highlightable.listview .item-block h3.item_number, .highlightable.listview .item-block .item_description, .listview .item-block p.item_price, .listview .item-block .item_description {
   margin: 2px 0px 4px 133px;
 }
+/* line 154, ../../../app/stylesheets/print.scss */
+.listview .item-block .item_description {
+  width: 592px !important;
+}
 
-/* line 158, ../../../app/stylesheets/print.scss */
+/* line 159, ../../../app/stylesheets/print.scss */
 .item_images {
   width: 300px;
 }
 
-/* line 162, ../../../app/stylesheets/print.scss */
+/* line 163, ../../../app/stylesheets/print.scss */
 h3.item_title, .buybox, .item_description, .item_moreinfo, .item_designers {
   float: right;
   margin: 0;
@@ -1461,49 +1465,49 @@ h3.item_title, .buybox, .item_description, .item_moreinfo, .item_designers {
   width: 435px;
 }
 
-/* line 170, ../../../app/stylesheets/print.scss */
+/* line 171, ../../../app/stylesheets/print.scss */
 .item_moreinfo h4 {
   margin-bottom: 2px;
 }
-/* line 171, ../../../app/stylesheets/print.scss */
+/* line 172, ../../../app/stylesheets/print.scss */
 .item_moreinfo a {
   font-color: #000;
   font-weight: normal;
   text-decoration: none;
 }
 
-/* line 178, ../../../app/stylesheets/print.scss */
+/* line 179, ../../../app/stylesheets/print.scss */
 .buybox {
   background-color: transparent;
   border: 0px;
 }
 
-/* line 185, ../../../app/stylesheets/print.scss */
+/* line 186, ../../../app/stylesheets/print.scss */
 #billing_address, #shipping_address, #checkout_billing, #order_details, #quote_details, #pre-order_details {
   float: left;
   width: 32%;
 }
 
-/* line 190, ../../../app/stylesheets/print.scss */
+/* line 191, ../../../app/stylesheets/print.scss */
 table#order_details_items, table#quote_details_items, table#pre-order_details_items, table#deferred_details {
   width: 100%;
 }
-/* line 193, ../../../app/stylesheets/print.scss */
+/* line 194, ../../../app/stylesheets/print.scss */
 table#order_details_items th, table#quote_details_items th, table#pre-order_details_items th, table#deferred_details th {
   text-align: left;
 }
 
-/* line 198, ../../../app/stylesheets/print.scss */
+/* line 199, ../../../app/stylesheets/print.scss */
 #cart_total {
   font-size: 1.4em;
   color: #50bf93;
 }
 
-/* line 205, ../../../app/stylesheets/print.scss */
+/* line 206, ../../../app/stylesheets/print.scss */
 ul.cart_summary li {
   font-weight: bold;
 }
-/* line 207, ../../../app/stylesheets/print.scss */
+/* line 208, ../../../app/stylesheets/print.scss */
 ul.cart_summary li#cart_total {
   border-top: 1px double gray;
 }
