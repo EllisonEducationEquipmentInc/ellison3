@@ -155,11 +155,15 @@ body.bp {
 }
 
 // product detail page
-.buybox, .item_description, .item_moreinfo {
+.item_images {
+  width: 300px;
+}
+
+h3.item_title, .buybox, .item_description, .item_moreinfo {
   float: right;
   margin: 0;
   padding: 0;
-  width: 450px;
+  width: 435px;
 }
 
 .item_moreinfo {

@@ -41,7 +41,7 @@
   %span.life-cycle= @product.public_life_cycle
 .item_sociallinks.dontprint= facebook_like
 .buybox
-  .left.dontprint
+  .left
     %h4.itemnumber
       Item # 
       %strong= @product.item_num
@@ -51,7 +51,7 @@
 .item_description{ :class => "#{@product.designers.count > 0 ? 'designer-width' : nil}"}
   = @product.description.try :html_safe
   - if @product.instructions.present?
-    %p
+    %p.dontprint
       %strong Instructions: 
       = link_to "Download PDF", @product.instructions, :target => '_blank', :title => "Download Instructions", :class => "link_instructions"
   - if @product.categories.count > 0
@@ -152,7 +152,7 @@
 %div{ :class => "item_detail#{'-tabbed' if @product.use_tabs}"}
   = render :partial => "index/#{'non_' unless @product.use_tabs}tab_block", :locals => {:object => @product}
 - unless @product.use_tabs
-  .item_cross-sell
+  .item_cross-sell.dontprint
     - if @product.ideas.available.count > 0
       .rounded
         %h4== Related #{idea_name.pluralize}:

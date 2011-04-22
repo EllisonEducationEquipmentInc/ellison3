@@ -1449,56 +1449,61 @@ body.bp .item_moreinfo h4, body.bp .item_moreinfo p {
 }
 
 /* line 158, ../../../app/stylesheets/print.scss */
-.buybox, .item_description, .item_moreinfo {
+.item_images {
+  width: 300px;
+}
+
+/* line 162, ../../../app/stylesheets/print.scss */
+h3.item_title, .buybox, .item_description, .item_moreinfo {
   float: right;
   margin: 0;
   padding: 0;
-  width: 450px;
+  width: 435px;
 }
 
-/* line 166, ../../../app/stylesheets/print.scss */
+/* line 170, ../../../app/stylesheets/print.scss */
 .item_moreinfo h4 {
   margin-bottom: 2px;
 }
-/* line 167, ../../../app/stylesheets/print.scss */
+/* line 171, ../../../app/stylesheets/print.scss */
 .item_moreinfo a {
   font-color: #000;
   font-weight: normal;
   text-decoration: none;
 }
 
-/* line 174, ../../../app/stylesheets/print.scss */
+/* line 178, ../../../app/stylesheets/print.scss */
 .buybox {
   background-color: transparent;
   border: 0px;
 }
 
-/* line 181, ../../../app/stylesheets/print.scss */
+/* line 185, ../../../app/stylesheets/print.scss */
 #billing_address, #shipping_address, #checkout_billing, #order_details, #quote_details, #pre-order_details {
   float: left;
   width: 32%;
 }
 
-/* line 186, ../../../app/stylesheets/print.scss */
+/* line 190, ../../../app/stylesheets/print.scss */
 table#order_details_items, table#quote_details_items, table#pre-order_details_items, table#deferred_details {
   width: 100%;
 }
-/* line 189, ../../../app/stylesheets/print.scss */
+/* line 193, ../../../app/stylesheets/print.scss */
 table#order_details_items th, table#quote_details_items th, table#pre-order_details_items th, table#deferred_details th {
   text-align: left;
 }
 
-/* line 194, ../../../app/stylesheets/print.scss */
+/* line 198, ../../../app/stylesheets/print.scss */
 #cart_total {
   font-size: 1.4em;
   color: #50bf93;
 }
 
-/* line 201, ../../../app/stylesheets/print.scss */
+/* line 205, ../../../app/stylesheets/print.scss */
 ul.cart_summary li {
   font-weight: bold;
 }
-/* line 203, ../../../app/stylesheets/print.scss */
+/* line 207, ../../../app/stylesheets/print.scss */
 ul.cart_summary li#cart_total {
   border-top: 1px double gray;
 }
