@@ -41,6 +41,7 @@ class Order
 	index "payment.purchase_order_number"
 	
 	index [[:user_id, Mongo::ASCENDING], [:system, Mongo::ASCENDING], [:created_at, Mongo::DESCENDING]]
+	index [[:updated_at, Mongo::DESCENDING], [:system, Mongo::DESCENDING], [:order_number, Mongo::DESCENDING], [:tax_transaction, Mongo::DESCENDING], [:"payment", Mongo::ASCENDING], [:"address", Mongo::ASCENDING], [:deleted_at, Mongo::ASCENDING]]
 	
 	field :status, :default => "New"
 	field :system

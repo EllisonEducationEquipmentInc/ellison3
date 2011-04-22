@@ -5,6 +5,8 @@
 = form_tag(admin_orders_path, :method => :get) do
   = admin_systems_checkboxes
   = text_field_tag :q, nil, :placeholder => "shipping name, address"
+  = check_box_tag :extended, "1"
+  Extended search (case insensitive, partial match)
   = select_tag :status, options_for_select([['All', nil]] + Order::STATUSES, params[:status])
   = select_tag :deferred, options_for_select([['All', nil]] + [['deferred', 1], ['not-deferred', 0]], params[:deferred])
   = submit_tag "search", :class => 'jqui_search'

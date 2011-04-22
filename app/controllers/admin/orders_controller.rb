@@ -21,12 +21,14 @@ class Admin::OrdersController < ApplicationController
 	  end
 	  criteria = criteria.where(:status => params[:status]) unless params[:status].blank?
 	  criteria = criteria.where('payment.deferred' => Boolean.set(params[:deferred])) unless params[:deferred].blank?
-	  unless params[:q].blank?
-	    regexp = Regexp.new(params[:q], "i")
+	  if params[:q].present?
+	    regexp = params[:extended] == "1" ? Regexp.new(params[:q], "i") : Regexp.new("^#{params[:q]}")
   	  criteria = criteria.any_of({'order_number' => params[:q][/\d+/].to_i}, {:tax_transaction => params[:q]}, {"payment.vpstx_id" => params[:q]}, {"payment.tx_auth_no" => params[:q]}, {"payment.purchase_order_number" => params[:q]}, {'address.email' => regexp}, {'address.company' => regexp}, { 'address.last_name' => regexp })
+  		@orders = criteria.paginate :page => params[:page], :per_page => 50
+	  else
+	    order = params[:order] ? {sort_column => sort_direction} : [[:created_at, :desc]]
+  		@orders = criteria.order_by(order).paginate :page => params[:page], :per_page => 50
 	  end
-	  order = params[:order] ? {sort_column => sort_direction} : [[:created_at, :desc]]
-		@orders = criteria.order_by(order).paginate :page => params[:page], :per_page => 50
 	end
 
   # GET /orders/1
