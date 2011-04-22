@@ -71,9 +71,15 @@
   - if @product.product_line.present? && @product.product_line.compatibilities.length > 0 && @product.item_type == "die"
     -# TODO: cache + move to a helper
     %p{ :style => "margin-bottom: 0 !important;"}== This #{@product.item_type} is compatible with these product lines
-    #compat_thumbs.thumbnail_carousel.dontprint
-      = link_to "prev", "#", :class => "prev_button carousel_control disabled", :id => "prev_compat_thumb", :onclick => "return false;"
-      #item_compatibility
+    #compat_thumbs.thumbnail_carousel
+      = link_to "prev", "#", :class => "prev_button carousel_control disabled dontprint", :id => "prev_compat_thumb", :onclick => "return false;"
+      .dontdisplay
+        %ul.plain
+          - @product.product_line.compatibilities.each do |compatibility|
+            - next unless compatibility.compatible_tag.present?
+            %li
+              = compatibility.compatible_tag.name.html_safe
+      #item_compatibility.dontprint
         %ul
           - @product.product_line.compatibilities.each do |compatibility|
             - next unless compatibility.compatible_tag.present?
@@ -99,7 +105,7 @@
                   %p== Search for more #{link_to compatibility.compatible_tag.name.html_safe, catalog_path(:anchor => "facets=#{compatibility.compatible_tag.facet_param}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}&page=1")} in our catalog
 
               = link_to image_tag(compatibility.compatible_tag.list_page_img, :width => "65", :height => "65"), "#compatible_tag_#{compatibility.id}", :id => "compatibility_thumbnail_#{compatibility.id}", :class => "lightbox thumbnail", :alt => "#{compatibility.compatible_tag.name.html_safe}", :title => "#{compatibility.compatible_tag.name.html_safe}"
-      = link_to "next", "#", :class => "next_button carousel_control", :id => "next_compat_thumb", :onclick => "return false;"
+      = link_to "next", "#", :class => "next_button carousel_control dontprint", :id => "next_compat_thumb", :onclick => "return false;"
     :javascript
       $(function() {
         $("#item_compatibility").jCarouselLite({
@@ -118,7 +124,7 @@
         }
       });
 - if @product.designers.count > 0
-  .item_designers
+  .item_designers.dontprint
     #item_designers_thumbnails
       %ul
         - @product.designers.each do |designer|

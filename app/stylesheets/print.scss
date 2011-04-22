@@ -78,7 +78,7 @@ body.bp {
 
 // classes to hide & omit elements from printing
 .dontprint {
-  display:none;
+  display:none !important;
 }
 #content {
 	.dontprint {
@@ -159,7 +159,7 @@ body.bp {
   width: 300px;
 }
 
-h3.item_title, .buybox, .item_description, .item_moreinfo {
+h3.item_title, .buybox, .item_description, .item_moreinfo, .item_designers {
   float: right;
   margin: 0;
   padding: 0;

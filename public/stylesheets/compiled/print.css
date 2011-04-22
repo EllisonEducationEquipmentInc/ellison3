@@ -1369,7 +1369,7 @@ body.bp .item_moreinfo h4, body.bp .item_moreinfo p {
 
 /* line 80, ../../../app/stylesheets/print.scss */
 .dontprint {
-  display: none;
+  display: none !important;
 }
 
 /* line 84, ../../../app/stylesheets/print.scss */
@@ -1454,7 +1454,7 @@ body.bp .item_moreinfo h4, body.bp .item_moreinfo p {
 }
 
 /* line 162, ../../../app/stylesheets/print.scss */
-h3.item_title, .buybox, .item_description, .item_moreinfo {
+h3.item_title, .buybox, .item_description, .item_moreinfo, .item_designers {
   float: right;
   margin: 0;
   padding: 0;
