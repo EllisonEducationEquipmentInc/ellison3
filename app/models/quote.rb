@@ -17,6 +17,7 @@ class Quote
 	index "address.last_name"
 	index "order_items.item_num"
 	index :updated_at
+	index :expires_at
 
   field :active, :type => Boolean, :default => true
   field :name
@@ -56,6 +57,8 @@ class Quote
 	
 	field :created_by
 	field :updated_by
+	
+	index [[:active, Mongo::DESCENDING], [:expires_at, Mongo::DESCENDING], [:system, Mongo::DESCENDING], [:name, Mongo::DESCENDING], [:address, Mongo::DESCENDING], [:internal_comments, Mongo::ASCENDING], [:deleted_at, Mongo::ASCENDING]]
 	
 	ELLISON_SYSTEMS.each do |sys|
 		scope sys.to_sym, :where => { :system => sys }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex

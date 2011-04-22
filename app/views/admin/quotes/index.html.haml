@@ -5,6 +5,8 @@
 = form_tag(admin_quotes_path, :method => :get) do
   = admin_systems_checkboxes
   = text_field_tag :q, nil, :placeholder => "shipping name, address"
+  = check_box_tag :extended, "1"
+  Extended search (case insensitive, partial match)
   = check_box_tag :inactive, "1", params[:inactive] == "1"
   Incl. inactive
   = submit_tag "search", :class => 'jqui_search'
