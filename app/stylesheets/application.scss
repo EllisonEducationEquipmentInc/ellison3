@@ -152,7 +152,8 @@ body.bp th, body.bp td, body.bp caption {
 	  width:254px;
 	  height: 400px;
 	  margin-bottom: 12px;
-	  overflow: scroll;
+	  overflow: auto;
+	  overflow-x: hidden;
 	  border-top:1px solid gray;
 	  background:white;
 	  padding:2px;

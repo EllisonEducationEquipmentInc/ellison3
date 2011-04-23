@@ -5,7 +5,9 @@
   / = javascript_include_tag '/javascripts/vendor/jquery.metadata.js'
   = javascript_include_tag 'jquery.jmapping.js'
 .tab-block
-  %h2{:style=>"margin:4px 0 0 14px;"} Search Selection:
+  %h2{:style=>"margin-left: 10px; font-weight: bold;"}
+    = system_name 
+    = is_er? ? "Distributor Locator" : is_us? ? "Store Locator" : is_uk? ? "Stockist List" : "Store Locator"
   %ul
     %li.rounded_top= link_to "Stores", "#stores"
     %li.rounded_top= link_to "Online Retailers", "#online_retailers"
@@ -16,23 +18,23 @@
     #store_info
       = form_tag '#', :onsubmit => 'return false' do
         .field 
-          %h2 Search by Country:
+          %h3 Search by Country:
           = select_tag :country, options_for_select(@countries, params[:country]), :onchange => "toggle_store_fields()"
         .field.us_only
-          %h2 Search by Zip Code:
-          = text_field_tag :zip_code, params[:zip_code]
+          %h3 Search by Zip Code:
+          = text_field_tag :zip_code, params[:zip_code], :onchange => "$('#map_search_submit').trigger('click');"
         .field.us_only
-          %h2 Search by Radius:
-          = select_tag :radius, options_for_select([5,10,20,30,50], params[:radius] || 5)
+          %h3 Search by Radius:
+          = select_tag :radius, options_for_select([5,10,20,30,50], params[:radius] || 5), :onchange => "$('#map_search_submit').trigger('click');"
           miles
         .field
-          %h2 Search by Brands:
-          = check_box_tag 'brands[]', "sizzix", params[:brands].present? && params[:brands].include?('sizzix'), :id => "brands_sizzix", :class => 'brands'
+          %h3 Search by Brands:
+          = check_box_tag 'brands[]', "sizzix", params[:brands].present? && params[:brands].include?('sizzix'), :id => "brands_sizzix", :class => 'brands', :onchange => "$('#map_search_submit').trigger('click');"
           Sizzix
-          = check_box_tag 'brands[]', "ellison", params[:brands].present? && params[:brands].include?('ellison'), :id => "brands_ellison", :class => 'brands'
+          = check_box_tag 'brands[]', "ellison", params[:brands].present? && params[:brands].include?('ellison'), :id => "brands_ellison", :class => 'brands', :onchange => "$('#map_search_submit').trigger('click');"
           Ellison
         .field
-          = link_to 'search', '#', :id => 'map_search_submit'
+          = link_to 'Search', '#', :id => 'map_search_submit', :class => 'jqui_button'
       .store_list
         #map-side-bar
     .storeframe
