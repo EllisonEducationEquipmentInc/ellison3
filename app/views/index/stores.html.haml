@@ -9,9 +9,10 @@
     = system_name 
     = is_er? ? "Distributor Locator" : is_us? ? "Store Locator" : is_uk? ? "Stockist List" : "Store Locator"
   %ul
-    %li.rounded_top= link_to "Stores", "#stores"
-    %li.rounded_top= link_to "Online Resellers", "#online_resellers"
-    %li.rounded_top= link_to "Distributors", "#distributors"
+    %li= link_to "Stores", "#stores"
+    %li= link_to "Online Resellers", "#online_resellers"
+    - if is_ee? || is_er?
+      %li= link_to "Distributors", "#distributors"
   #stores
     %p{:class=>"storedescription"} Most of the products that you love are available through our website or at your local craft store. Although we don't sell selected items online, we'll put you in touch with a retailer who might. Be sure to call ahead for product availability. Can't find a retailer near you? We're always adding new retail locations, so check back soon!
     #store_info
@@ -39,16 +40,17 @@
     .storeframe
       #map
     .clear
-  #online_retailers
+  #online_resellers
     %h2 Online Retailers
     - @online_stores.each do |store|
       .online_store= render store
     .clear
-  #distributors 
-    %h2 Distributors
-    - @distributors.each do |store|
-      .online_store= render store
-    .clear
+  - if is_ee? || is_er?
+    #distributors 
+      %h2 Distributors
+      - @distributors.each do |store|
+        .online_store= render store
+      .clear
 - if @store_locator_content.present?
   #current_visual_assets= render @store_locator_content.visual_assets.current
 :javascript
@@ -87,5 +89,3 @@
       $('.us_only').hide();
     }
   }
-  
-
