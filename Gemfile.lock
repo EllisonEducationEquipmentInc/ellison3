@@ -15,12 +15,6 @@ GIT
     event-calendar (2.3.3)
 
 GIT
-  remote: git://github.com/jasondoucette/youtube_it.git
-  revision: cba6823d9030b933248c769e960d567640298732
-  specs:
-    youtube_it (0.0.8)
-
-GIT
   remote: git://github.com/jugyo/sunspot_mongoid.git
   revision: 688430d98805e10916ecddb7f46f8ae774cb04a7
   branch: master
@@ -36,6 +30,14 @@ GIT
   specs:
     mini_magick (3.2)
       subexec (~> 0.0.4)
+
+GIT
+  remote: https://github.com/kylejginavan/youtube_it.git
+  revision: e5ed4384fa3202e2650cfc53010dd8de1b4955c4
+  specs:
+    youtube_it (1.4.2)
+      builder
+      oauth (>= 0.4.4)
 
 GEM
   remote: http://rubygems.org/
@@ -195,6 +197,7 @@ GEM
     newrelic_rpm (2.14.1)
     nifty-generators (0.4.6)
     nokogiri (1.4.4)
+    oauth (0.4.4)
     passenger (3.0.6)
       daemon_controller (>= 0.2.5)
       fastthread (>= 1.0.1)
@@ -342,4 +345,4 @@ DEPENDENCIES
   warden
   webrat
   will_paginate (>= 3.0.pre2)
-  youtube_it!
+  youtube_it (= 1.4.2)!
