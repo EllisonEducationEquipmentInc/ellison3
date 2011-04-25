@@ -1,7 +1,7 @@
 class IndexController < ApplicationController
   
   include Geokit::Geocoders
-	
+  
   before_filter :trackable, :except => [:catalog]
   #before_filter :store_path!
   before_filter :register_continue_shopping!, :only => [:home, :campaigns, :shop, :tag_group, :catalog]
@@ -83,9 +83,9 @@ class IndexController < ApplicationController
     if %w(product_lines artists themes designers categories curriculums).include? params[:id]
       get_search_objects
       @search = perform_search(@klass, :facets => [params[:id].singularize], :facet_sort => :index)
-		else
-			raise "invalid tag_type: #{params[:id]}"
-		end
+    else
+      raise "invalid tag_type: #{params[:id]}"
+    end
   rescue Exception => e
     Rails.logger.info e.message
     go_404
@@ -200,7 +200,14 @@ class IndexController < ApplicationController
     process_feed("http://gdata.youtube.com/feeds/api/users/#{youtube_user}/playlists", 60)
     client = YouTubeIt::Client.new
     @videos = Rails.cache.fetch("videos_#{current_system}", :expires_in => 60.minutes) do
-      @feed.entries.inject([]) {|arr, e| arr << client.playlist(e["entry_id"][/\w+$/])}
+      @feed.entries.inject([]) do |arr, e|
+        begin
+          v=client.playlist(e["entry_id"][/\w+$/])
+          arr << v
+        rescue Exception => e
+          next
+        end        
+      end
     end
     @recent_uploads = Rails.cache.fetch("recent_uploads_#{current_system}", :expires_in => 60.minutes) do
       client.videos_by(:author => youtube_user, :order_by => 'published', :time => 'this_month').videos
