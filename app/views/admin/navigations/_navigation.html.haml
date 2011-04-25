@@ -1,3 +1,4 @@
+= link_to("delete", admin_navigation_path(navigation), :method => :delete, :remote => true, :confirm => "Are you sure?") unless navigation.new_record?
 = form_for([:admin, navigation], :html => {:multipart => true, :id => navigation.id}, :remote => true) do |f|
   .field
     = f.label :label, "List Label", :class => "w83"

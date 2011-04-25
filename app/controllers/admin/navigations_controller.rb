@@ -20,4 +20,10 @@ class Admin::NavigationsController < ApplicationController
     @navigation.attributes = params[:navigation]
 	  render :save
 	end
+	
+	def destroy
+	  @navigation = Navigation.find(params[:id])
+    @navigation.destroy
+    @navigation = Navigation.find_or_initialize_by(:system => current_system, :top_nav => @navigation.top_nav, :column => @navigation.column)
+	end
 end
