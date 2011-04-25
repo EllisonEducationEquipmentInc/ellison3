@@ -13,11 +13,15 @@
   %hr
   - FedexZone::ZONES.each do |zone|
     .field
-      %h4== Zone #{zone}
+      %h4{:style => "float:left; margin-top: 2px; width: 90px;"}== Zone #{zone}
       - FedexRate::SERVICES.each do |service|
-        = label_tag "fedex_rate[rates][#{zone}][#{service}]", service.to_s.humanize, :class => "autosize"
-        %span.icon_pricefield_usd
-          = text_field_tag "fedex_rate[rates][#{zone}][#{service}]", @fedex_rate.rates.try(:[], zone.to_s).try(:[], service), :size => 6, :style => "margin-right: 36px"
+        .left
+          = label_tag "fedex_rate[rates][#{zone}][#{service}]", service.to_s.humanize, :class => "autosize"
+          %span.icon_pricefield_usd
+            = text_field_tag "fedex_rate[rates][#{zone}][#{service}]", @fedex_rate.rates.try(:[], zone.to_s).try(:[], service), :size => 6, :style => "margin-right: 36px"
+      .clear
+      %p.formhelp= zone_label(zone)
+
     %hr
   .actions
     = f.submit :class => 'jqui_save'

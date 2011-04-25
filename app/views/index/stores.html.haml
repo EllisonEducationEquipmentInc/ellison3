@@ -6,7 +6,6 @@
   = javascript_include_tag 'jquery.jmapping.js'
 .tab-block
   %h2{:style=>"margin-left: 10px; font-weight: bold;"}
-    = system_name 
     = is_er? ? "Distributor Locator" : is_us? ? "Store Locator" : is_uk? ? "Stockist List" : "Store Locator"
   %ul
     %li= link_to "Stores", "#stores"
