@@ -16,7 +16,7 @@ class Admin::SharedContentsController < ApplicationController
 	    criteria.where(:systems_enabled.in => params[:systems_enabled]) 
 	  end
 	  criteria = criteria.where(:active => true) if params[:inactive].blank?
-	  criteria = criteria.where(:placement => params[:placement]) unless params[:placement].blank?
+	  criteria = criteria.where(:placement => params[:placement] == 'none' ? '' : params[:placement]) unless params[:placement].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
   	  criteria = criteria.any_of({ :name => regexp}, { :short_desc => regexp})

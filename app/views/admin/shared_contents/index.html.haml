@@ -9,7 +9,7 @@
   = text_field_tag :q, nil, :placeholder => "name, short_desc"
   = check_box_tag :inactive, "1", params[:inactive] == "1"
   Incl. inactive
-  = select_tag :placement, options_for_select([["- none -", nil]] + SharedContent::PLACEMENTS, params[:placement])
+  = select_tag :placement, options_for_select([["- all -", nil], ["- none -", 'none']] + SharedContent::PLACEMENTS, params[:placement])
   = submit_tag "search", :class => 'jqui_search'
 .highlightable
   %table
