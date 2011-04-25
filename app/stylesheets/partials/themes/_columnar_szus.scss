@@ -173,6 +173,7 @@ body.bp {
     width: 47px;
     height: 34px;
     padding: 3px 0 0 8px;
+    color: white !important;
   }
   a.nextBtn { @extend a.prevBtn;
     top: 108px;
@@ -180,6 +181,7 @@ body.bp {
     width: 45px;
     height: 35px;
     padding: 5px 0 0 10px;
+    color: white !important;
   }
 }
 
@@ -191,11 +193,13 @@ body.bp {
   a.prevBtn {
     top: 155px;
     left: -2px;
+    color: white !important;
   }
 
   a.nextBtn {
     top: 138px;
     left: 906px;
+    color: white !important;
   }
 }
 
