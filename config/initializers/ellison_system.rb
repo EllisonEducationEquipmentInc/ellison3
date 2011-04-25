@@ -204,7 +204,7 @@ module EllisonSystem
 	end
 	
 	def youtube_user
-	  is_sizzix? || is_er ? 'sizzix' : 'ellison'
+	  is_sizzix? || is_er? ? 'sizzix' : 'ellison'
 	end
 	
 	def tracking_logger
