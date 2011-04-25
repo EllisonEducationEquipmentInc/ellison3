@@ -21,5 +21,3 @@
             %td= link_to 'Edit', edit_admin_compatibility_path(compatibility)
 %br
 = will_paginate @compatibilities
-%br
-= link_to 'New compatibility', new_admin_compatibility_path, :class => 'jqui_new' if has_write_permissions?

@@ -106,9 +106,10 @@ namespace :migrations do |ns|
 	
 	desc "run all migrations that haven't run"
 	task :run => :environment do |t|
+	  disable_solr_indexing!
 		@tasks = Migration.all.map {|m| m.name}
 		@tasks << t.name
-		ns.tasks.reject {|task| @tasks.include? task.name}.each { |e| e.execute; completed(e) }
+		ns.instance_variable_get(:@task_manager).instance_variable_get(:@tasks).values.select { |t| /^migrations:/ =~ t.name}.reject {|task| @tasks.include? task.name}.each { |e| e.execute; completed(e) }
 	end
 	
 	# when task is completed, we create a Migration record in the db, so the task won't run again

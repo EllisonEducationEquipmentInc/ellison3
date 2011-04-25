@@ -43,14 +43,9 @@ namespace :data_migrations do
       end
       p new_product.save
       p new_product.errors
-      next unless new_product.valid?
-      new_product.reload
-      new_product.tags = Tag.where(:old_id.in => product.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
-      new_product.save
-      p new_product.errors
       p "------ #{product.id} -------"
     end
-    p Sunspot.commit
+    p Time.zone.now
   end
   
   desc "migrate SZUS product tabs"
@@ -68,10 +63,11 @@ namespace :data_migrations do
         p "#{product.item_num} ------ #{tab.id} -------"
       end
     end
-    p Sunspot.commit
+    p Time.zone.now
   end
     
   def process_tab(tab,new_tab,sys="sz")
+    tab.name.force_encoding("UTF-8") if tab.name.encoding.name == "ASCII-8BIT"
     unless tab.column_grid.blank?
       new_tab.data_column ||= []
       for i in 1..OldData::Tab::MAX_GRID do
@@ -134,14 +130,9 @@ namespace :data_migrations do
       end
       p new_idea.save
       p new_idea.errors
-      next unless new_idea.valid?
-      new_idea.reload
-      new_idea.tags = Tag.where(:old_id.in => idea.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
-      new_idea.save
-      p new_idea.errors
       p "------ #{idea.id} #{new_idea.id}-------"
     end
-    p Sunspot.commit
+    p Time.zone.now
   end
   
   desc "migrate SZ idea tabs"

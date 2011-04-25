@@ -345,7 +345,7 @@ class Product
   end
   
   def price=(p)
-    send("price_#{current_system}_#{current_currency}=", p) if p.present? && p.outlet
+    send("price_#{current_system}_#{current_currency}=", p) if p.present? && self.outlet
   end
 
   def campaign_price(time = Time.zone.now)
