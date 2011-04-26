@@ -19,7 +19,19 @@
     = store.country
     %br
   - if store.website.present?
-    = link_to store.website, store.website, :target => '_blank' if store.website.present?
+    = link_to store.website, store.website, :target => '_blank'
+    %br
+  - if store.phone.present?
+    %strong Phone
+    = store.phone
+    %br
+  - if store.fax.present?
+    %strong Fax:
+    = store.fax
+    %br
+  - if store.email.present?
+    %strong Email: 
+    = link_to store.email, "mailto:#{store.email}"
     %br
 %p
   - store.product_line.each do |product_line|

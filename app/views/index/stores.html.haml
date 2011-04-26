@@ -42,13 +42,13 @@
   #online_resellers
     %h2 Online Retailers
     - @online_stores.each do |store|
-      .online_store= render store
+      .online_store.ui-corner-all= render store
     .clear
   - if is_ee? || is_er?
     #distributors 
       %h2 Distributors
       - @distributors.each do |store|
-        .online_store= render store
+        .online_store.ui-corner-all= render store
       .clear
 - if @store_locator_content.present?
   #current_visual_assets= render @store_locator_content.visual_assets.current
