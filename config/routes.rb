@@ -54,6 +54,9 @@ Ellison3::Application.routes.draw do |map|
   match 'lp/:id' => 'index#tag_group'
 	match 'products' => 'index#products'
 	match 'home' => 'index#home'
+	match 'international' => 'index#stores'
+	match 'latinamerica' => 'index#stores'
+	
 	match 'stores' => 'index#stores', :as => :stores
 	match 'campaigns' => 'index#campaigns'
 	match 'events' => 'index#events'
