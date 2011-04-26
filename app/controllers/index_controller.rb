@@ -196,22 +196,18 @@ class IndexController < ApplicationController
   
   def videos
     @title = "Videos"
-    @feed = Feed.where(:name => "video_paylist_#{current_system}").first || Feed.new(:name => "video_paylist_#{current_system}")
-    process_feed("http://gdata.youtube.com/feeds/api/users/#{youtube_user}/playlists", 60)
-    client = YouTubeIt::Client.new
-    @videos = Rails.cache.fetch("videos_#{current_system}", :expires_in => 60.minutes) do
-      @feed.entries.inject([]) do |arr, e|
-        begin
-          v=client.playlist(e["entry_id"][/\w+$/])
-          arr << v
-        rescue Exception => e
-          next
-        end        
-      end
-    end
+    get_videos
     @recent_uploads = Rails.cache.fetch("recent_uploads_#{current_system}", :expires_in => 60.minutes) do
-      client.videos_by(:author => youtube_user, :order_by => 'published', :time => 'this_month').videos
+      @client.videos_by(:author => youtube_user, :order_by => 'published', :time => 'this_month').videos
     end
+  end
+  
+  def video_page
+    get_videos
+    @playlist = @videos.detect {|e| e.playlist_id == params[:playlist_id]}
+    @playlist.max_result_count = 24
+    @playlist.page = params[:page].to_i
+    render :partial => 'playlist', :object => @playlist
   end
   
   def search_videos
@@ -417,6 +413,22 @@ class IndexController < ApplicationController
   end
   
 private
+
+  def get_videos
+    @feed = Feed.where(:name => "video_paylist_#{current_system}").first || Feed.new(:name => "video_paylist_#{current_system}")
+    process_feed("http://gdata.youtube.com/feeds/api/users/#{youtube_user}/playlists", 60)
+    @client = YouTubeIt::Client.new
+    @videos = Rails.cache.fetch("videos_#{current_system}", :expires_in => 60.minutes) do
+      @feed.entries.inject([]) do |arr, e|
+        begin
+          v = @client.playlist(e["entry_id"][/\w+$/])
+          arr << v
+        rescue Exception => e
+          next
+        end        
+      end
+    end
+  end
 
   def process_feed(source, mins = 5)
     if @feed.new_record? || @feed.updated_at < mins.minutes.ago

@@ -53,16 +53,13 @@
       #recent_uploads
         %h3 Recent Uploads
         %ul.videolist= render :partial => 'video', :collection => @recent_uploads
-    - @videos.each do |playlist|
-      - unless playlist.title == "Featured"
-        %div{:id => playlist.title.parameterize}
-          %h3= playlist.title
-          %ul.videolist= render :partial => 'video', :collection => playlist.videos
+    = render :partial => 'playlist', :collection => @videos
     #search_results
       %h3 Search Results
       .highlightable
         %ul.videolist#video_search      
   :javascript
+    $('.pagination.ajax a').live('click', function() {this.innerHTML='#{escape_javascript spinner}';$(this).closest('.video_content').load(this.href);return false;})
     $('#video_keyword').change(function() {
       if (this.value.length < 3) {
         return false;
