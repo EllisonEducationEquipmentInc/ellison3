@@ -44,8 +44,8 @@ class VisualAsset
 	
 	def initialize(attributes = nil)
 	  super
-	  self.start_date ||= 1.month.ago
-	  self.end_date ||= 10.years.since
+	  self.start_date ||= Time.zone.now.beginning_of_day
+	  self.end_date ||= 1.month.since
 	end
 
 	def display_order

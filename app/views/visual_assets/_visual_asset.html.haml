@@ -5,6 +5,7 @@
       .gallery_asset{:id => "gallery_#{visual_asset.id}"}
         %ul
           - visual_asset.child_visual_assets.select {|asset| asset.available?(@time || Time.zone.now)}.sort {|x,y| x.display_order <=> y.display_order}.each do |child_visual_asset|
+            - next unless child_visual_asset.must_own.blank? || machines_owned.any? {|e| child_visual_asset.must_own.include?(e)}
             - if child_visual_asset.image?
               %li= link_to_unless child_visual_asset.link.blank?, image_tag(child_visual_asset.image_url, :alt => child_visual_asset.name), child_visual_asset.link, :title => child_visual_asset.name
       :javascript
@@ -31,6 +32,7 @@
         });      
   - elsif visual_asset.asset_type == 'billboards' && visual_asset.child_visual_assets.present?
     - visual_asset.child_visual_assets.select {|asset| asset.available?(@time || Time.zone.now)}.sort {|x,y| x.display_order <=> y.display_order}.each do |billboard|
+      - next unless billboard.must_own.blank? || machines_owned.any? {|e| billboard.must_own.include?(e)}
       %div{:class => "billboard_#{billboard.wide ? 'medium' : 'XS'} #{'last' if visual_asset.child_visual_assets.last == billboard}"}
         .captionfull{:class => "boxgrid#{billboard.wide ? '-large' : nil}"}
           = image_tag(billboard.image_url) if billboard.image?

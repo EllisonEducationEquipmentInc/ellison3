@@ -57,7 +57,7 @@ class Admin::SharedContentsController < ApplicationController
     @shared_content.created_by = current_admin.email
     respond_to do |format|
       if @shared_content.save
-        format.html { redirect_to(admin_shared_contents_url, :notice => 'SharedContent was successfully created.') }
+        format.html { redirect_to(admin_shared_contents_url(:placement => @shared_content.placement), :notice => 'SharedContent was successfully created.') }
         format.xml  { render :xml => @shared_content, :status => :created, :location => @shared_content }
       else
         format.html { render :action => "new" }
@@ -74,7 +74,7 @@ class Admin::SharedContentsController < ApplicationController
     @shared_content.updated_by = current_admin.email
     respond_to do |format|
       if @shared_content.save
-        format.html { redirect_to(admin_shared_contents_url, :notice => 'SharedContent was successfully updated.') }
+        format.html { redirect_to(admin_shared_contents_url(:placement => @shared_content.placement), :notice => 'SharedContent was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
