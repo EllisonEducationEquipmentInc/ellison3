@@ -295,7 +295,13 @@ class IndexController < ApplicationController
   
   def instructions
     # TODO: cache
-    @products = Product.displayable.only(:item_type).where(:instructions.exists => true, :instructions.ne => '').asc(:name).group
+    #@products = Product.displayable.only(:item_type).where(:instructions.exists => true, :instructions.ne => '').asc(:name).group
+    @products = Product.collection.group(:key => 'item_type', :cond => {:deleted_at=>{"$exists"=>false}, :active=>true, :systems_enabled=>{"$in"=>[current_system]}, :"start_date_#{current_system}"=>{"$lte"=> Time.now.utc}, :"end_date_#{current_system}"=>{"$gte"=> Time.now.utc}, :instructions => {'$exists' => true, '$ne' => ''}}, :reduce => "function(obj, prev) { prev.group.push(obj); }", :initial=>{:group=>[]} ).collect do |docs|
+      docs["group"] = docs["group"].collect do |attrs|
+        Mongoid::Factory.build(Product, attrs)
+      end
+      docs
+    end
     #expires_in 3.hours, 'max-stale' => 5.hours
   end
   
