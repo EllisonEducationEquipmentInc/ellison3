@@ -248,3 +248,14 @@ input#brands_sizzix { margin-left: 0 !important; }
 	
 	p { margin-bottom: 0 !important; }
 }
+
+.legend {
+  float: right;
+  margin: 0 24px 10px 0px;
+
+  p {
+    margin-bottom: 0 !important;
+    font-weight: bold;
+  }
+  ul { @extend ul.plain; }
+}

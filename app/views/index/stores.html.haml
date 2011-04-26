@@ -50,6 +50,33 @@
       - @distributors.each do |store|
         .online_store.ui-corner-all= render store
       .clear
+  %hr
+  .legend
+    %p Product Lines & Brands
+    %ul
+      %li
+        %span.icon_brand-allstar AllStar
+      -# hiding Ellison icon for now...
+        %li
+          %span.icon_brand-ellison Ellison
+      %li
+        %span.icon_brand-prestige Prestige
+      %li
+        %span.icon_brand-rollmodel RollModel
+      %li
+        %span.icon_brand-sizzix Sizzix
+  .legend
+    %p Store Excellence Levels
+    %ul
+      %li
+        %span.icon_excellence-level_a-cut-above A Cut Above
+      %li
+        %span.icon_excellence-level_elite Elite
+      %li
+        %span.icon_excellence-level_executive Executive
+      %li
+        %span.icon_excellence-level_preferred Preferred
+  .clear
 - if @store_locator_content.present?
   #current_visual_assets= render @store_locator_content.visual_assets.current
 :javascript
