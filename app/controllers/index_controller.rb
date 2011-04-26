@@ -212,7 +212,7 @@ class IndexController < ApplicationController
   
   def search_videos
     client = YouTubeIt::Client.new
-    @videos = client.videos_by(:author => youtube_user, :order_by => 'relevance', :query => params[:q]).videos
+    @videos = client.videos_by(:author => youtube_user, :order_by => 'relevance', :query => params[:q], :page => params[:page] || 1, :per_page => 48).videos
     if @videos.present?
       render :partial => 'video', :collection => @videos
     else

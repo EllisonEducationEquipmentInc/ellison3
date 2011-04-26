@@ -715,7 +715,7 @@ function toggle_child_visual_asset_type(child_index, value) {
 }
 
 function youtube_video_links() {
-	$(".fancyvideo").click(function() {
+	$(".fancyvideo").live('click', function() {
   	$.fancybox({
   			'padding' : 0,
   			'autoScale' : false,
