@@ -188,3 +188,20 @@ ul.videolist { @extend ul.plain;
 .eventshdr {
   border-bottom: 1px dotted #E3DDCE; margin-bottom:6px;
 }
+
+// Store Locator page
+.map-location {
+	width: 250px;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid gray;
+	
+	p { margin-bottom: 0 !important; }
+}
+.online_store {
+	float: left;
+	width: 250px;
+	margin: 5px 5px;
+	
+	p { margin-bottom: 0 !important; }
+}

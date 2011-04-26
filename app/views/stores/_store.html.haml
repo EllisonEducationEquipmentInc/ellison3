@@ -6,17 +6,23 @@
 - else
   %h3.map-link= store.name
 %p
+  - if store.address1.present?
+    = store.address1
+    %br
+  - if store.address2.present?
+    = store.address2
+    %br
+  - if store.city.present? || store.state.present? || store.zip_code.present?
+    == #{store.city}#{", " if store.city.present?}#{store.state} #{store.zip_code}
+    %br
+  - if store.country.present?
+    = store.country
+    %br
+  - if store.website.present?
+    = link_to store.website, store.website, :target => '_blank' if store.website.present?
+    %br
+%p
   - store.product_line.each do |product_line|
     = link_to product_line, "/catalog#q=#{product_line}", :class => "icon_brand-#{product_line.parameterize}", :alt => "#{product_line}", :title => "#{product_line}"
-%p
-  = store.address1
-  - unless store.address2.blank?
-    = store.address2
-  %br
-  == #{store.city}, #{store.state} #{store.zip_code}
-  %br
-  = store.country
-  %br
-  = link_to store.website, store.website, :target => '_blank' if store.website.present?
 - if @zip_geo.present?
-  %p= link_to 'Get Directions', "http://maps.google.com/maps?saddr=#{@zip_geo.lat},#{@zip_geo.lng}&daddr=#{store.address1} #{store.city} #{store.state} #{store.zip_code} #{store.country}", :target => '_blank'
+  %p= link_to 'Get Directions', "http://maps.google.com/maps?saddr=#{@zip_geo.lat},#{@zip_geo.lng}&daddr=#{store.address1} #{store.city} #{store.state} #{store.zip_code} #{store.country}", :target => '_blank', :class => "link_directions"
