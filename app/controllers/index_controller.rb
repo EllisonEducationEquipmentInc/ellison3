@@ -205,7 +205,7 @@ class IndexController < ApplicationController
   def video_page
     get_videos
     @playlist = @videos.detect {|e| e.playlist_id == params[:playlist_id]}
-    @playlist.max_result_count = 24
+    # @playlist.max_result_count = 24
     @playlist.page = params[:page].to_i
     render :partial => 'playlist', :object => @playlist
   end
@@ -422,6 +422,7 @@ private
       @feed.entries.inject([]) do |arr, e|
         begin
           v = @client.playlist(e["entry_id"][/\w+$/])
+          v.max_result_count = 24
           arr << v
         rescue Exception => e
           next
