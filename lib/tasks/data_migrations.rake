@@ -143,14 +143,14 @@ namespace :data_migrations do
       old_idea.idea_tabs.not_deleted.each do |tab|
         next if idea.tabs.where(:name => tab.name).count > 0
         new_tab = idea.tabs.build 
-        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ELLISON_SYSTEMS, :active => tab.active, :text => tab.freeform
+        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ["szus", "szuk", "erus"], :active => tab.active, :text => tab.freeform
         process_tab(tab,new_tab)
         p new_tab.save
         p new_tab.errors
         p "#{idea.idea_num} ------ #{tab.id} -------"
       end
     end
-    p Sunspot.commit
+    p Time.zone.now
   end
   
   desc "migrate EDU tags"
@@ -160,12 +160,14 @@ namespace :data_migrations do
       tag.name.force_encoding("UTF-8") if tag.name.encoding.name == "ASCII-8BIT"
       systems = ["eeus", "erus"]
       systems << "eeuk" unless ["calendar", "calendar_event", "theme", "curriculum", "subcurriculum", "subtheme"].include?(tag.old_type_to_new)
-      new_tag = Tag.where(:name => tag.name, :tag_type => tag.old_type_to_new).first || Tag.new(:name => tag.name, :tag_type => tag.old_type_to_new, :active => tag.active, :systems_enabled => systems, :description => tag.short_desc, :start_date_eeus => tag.start_date,  :end_date_eeus => tag.end_date, :banner => tag.banner, :list_page_image => tag.list_page_image, :medium_image => tag.medium_image)
-      new_tag.write_attributes :old_id_edu => tag.id, :all_day => tag.all_day, :calendar_start_date_eeus => tag.calendar_start_date, :calendar_end_date_eeus => tag.calendar_end_date, :calendar_start_date_er => tag.calendar_start_date, :calendar_end_date_er => tag.calendar_end_date, :keywords => tag.keywords, :color => tag.color
+      new_tag = Tag.where(:name => tag.name, :tag_type => tag.old_type_to_new).first || Tag.new(:name => tag.name, :tag_type => tag.old_type_to_new, :active => tag.active, :systems_enabled => systems, :description => tag.short_desc, :banner => tag.banner, :list_page_image => tag.list_page_image, :medium_image => tag.medium_image)
+      new_tag.write_attributes :old_id_edu => tag.id, :all_day => tag.all_day, :calendar_start_date_eeus => tag.calendar_start_date, :calendar_end_date_eeus => tag.calendar_end_date, :calendar_start_date_erus => tag.calendar_start_date, :start_date_eeus => tag.start_date,  :end_date_eeus => tag.end_date, :calendar_end_date_erus => tag.calendar_end_date, :keywords => tag.keywords, :color => tag.color
       new_tag.systems_enabled = new_tag.systems_enabled | systems unless new_tag.new_record?
       print new_tag.save
       p tag.id
+      p new_tag.errors
     end
+    p Time.zone.now
   end
   
   desc "fix EDU calendar tags"
@@ -174,7 +176,7 @@ namespace :data_migrations do
     OldData::PolymorphicTag.not_deleted.find_each(:conditions => "calendar_start_date IS NOT NULL") do |tag|
       new_tag = Tag.where(:old_id_edu => tag.id).first 
       next unless new_tag
-      new_tag.write_attributes :calendar_start_date_eeus => tag.calendar_start_date, :calendar_end_date_eeus => tag.calendar_end_date - 8.hours, :calendar_start_date_er => tag.calendar_start_date, :calendar_end_date_er => tag.calendar_end_date - 8.hours, :color => tag.color
+      new_tag.write_attributes :calendar_start_date_eeus => tag.calendar_start_date, :calendar_end_date_eeus => tag.calendar_end_date - 8.hours, :calendar_start_date_erus => tag.calendar_start_date, :calendar_end_date_erus => tag.calendar_end_date - 8.hours, :color => tag.color
       print new_tag.save(:validate => false)
       p tag.id
     end
@@ -205,14 +207,9 @@ namespace :data_migrations do
       end
       p new_product.save
       p new_product.errors
-      next unless new_product.valid?
-      new_product.reload
-      new_product.tags = Tag.where(:old_id_edu.in => product.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
-      new_product.save
-      p new_product.errors
       p "------ #{product.id} -------"
     end
-    p Sunspot.commit
+    p Time.zone.now
   end
   
   desc "migrate EDU US product tabs"
@@ -231,26 +228,23 @@ namespace :data_migrations do
         p "#{product.item_num} ------ #{tab.id} -------"
       end
     end
-    p Sunspot.commit
+    p Time.zone.now
   end
   
   desc "EDU sizes to tags"
   task :size_to_tag => [:set_edu, :load_dep] do
     set_current_system "eeus"
-    Product.where(:product_config.exists => true, 'product_config.config_group' => 'size').each do |product|
-      tag = Tag.where(:tag_type => "size", :name => product.size).first || Tag.new(:tag_type => 'size', :name => product.size, :start_date_eeus => 1.year.ago, :end_date_eeus => 20.years.since, :systems_enabled => ["eeus", "eeuk", "erus"])
-      tag.product_ids << product.id
-      product_ids = tag.product_ids.dup
-      tag.products = Product.where(:_id.in => product_ids).uniq.map {|p| p}
-      p tag.save
-      tag.reload
-      tag.product_ids = []
-      tag.products = Product.where(:_id.in => product_ids).uniq.map {|p| p}
-      tag.save
-      p tag.product_ids
-      p "#{product.item_num} ------ #{tag.name} -------"
+    Product.where(:product_config.exists => true, 'product_config.config_group' => 'size').in_batches(100) do |batch|
+      batch.each do |product|
+        tag = Tag.where(:tag_type => "size", :name => product.size).first || Tag.new(:tag_type => 'size', :name => product.size, :start_date_eeus => 1.year.ago, :end_date_eeus => 20.years.since, :systems_enabled => ["eeus", "eeuk", "erus"])
+        tag.product_ids << product.id
+        product_ids = tag.product_ids.dup
+        tag.products = Product.where(:_id.in => product_ids).uniq.map {|p| p}
+        p tag.save
+        p "#{product.item_num} ------ #{tag.name} -------"
+      end
     end
-    p Sunspot.commit
+    p Time.zone.now
   end
   
   desc "fix size_to_tab"
@@ -289,14 +283,9 @@ namespace :data_migrations do
       end
       p new_idea.save
       p new_idea.errors
-      next unless new_idea.valid?
-      new_idea.reload
-      new_idea.tags = Tag.where(:old_id_edu.in => idea.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
-      new_idea.save
-      p new_idea.errors
       p "------ #{idea.id} #{new_idea.id}-------"
     end
-    p Sunspot.commit
+    p Time.zone.now
   end
   
   desc "update related idea nums with L prefix for EDU -- no need to run if idea nums will be uniq accross all sites"
@@ -309,7 +298,7 @@ namespace :data_migrations do
         p tab.save
       end
     end
-    p Sunspot.commit
+    p Time.zone.now
   end
   
   desc "rename EDU idea images"
@@ -339,20 +328,22 @@ namespace :data_migrations do
   desc "migrate EDU idea tabs"
   task :idea_tabs_ee => [:set_edu, :load_dep] do
     set_current_system "eeus"
-    Idea.all.each do |idea|
-    #idea=Idea.find '4cfed56de1b83259d6000017'
-      old_idea = OldData::Idea.find(idea.old_id_edu) rescue next
-      old_idea.idea_tabs.not_deleted.each do |tab|
-        next if idea.tabs.where(:name => tab.name).count > 0
-        new_tab = idea.tabs.build 
-        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ["eeus", "eeuk", "erus"], :active => tab.active, :text => tab.freeform
-        process_tab(tab,new_tab,"edu")
-        p new_tab.save
-        p new_tab.errors
-        p "#{idea.idea_num} ------ #{tab.id} -------"
+    Idea.all.in_batches(100) do |batch|
+      batch.each do |idea|
+        #idea=Idea.find '4cfed56de1b83259d6000017'
+        old_idea = OldData::Idea.find(idea.old_id_edu) rescue next
+        old_idea.idea_tabs.not_deleted.each do |tab|
+          next if idea.tabs.where(:name => tab.name).count > 0
+          new_tab = idea.tabs.build 
+          new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ["eeus", "eeuk", "erus"], :active => tab.active, :text => tab.freeform
+          process_tab(tab,new_tab,"edu")
+          p new_tab.save
+          p new_tab.errors
+          p "#{idea.idea_num} ------ #{tab.id} -------"
+        end
       end
     end
-    p Sunspot.commit
+    p Time.zone.now
   end
   
   desc "import sizzix US users"
@@ -630,7 +621,7 @@ namespace :data_migrations do
   task :users_er => [:set_er, :load_dep] do
     set_current_system "erus"
     # old_user = OldData::User.find 1282
-    OldData::User.not_deleted.find_each(:conditions => "id > 1323") do |old_user|
+    OldData::User.not_deleted.find_each(:conditions => "id > 0") do |old_user|
       existing = User.where(:email => old_user.email).first
       if !existing.blank? 
         new_user = existing
