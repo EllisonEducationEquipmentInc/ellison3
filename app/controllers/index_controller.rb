@@ -449,7 +449,7 @@ private
     get_search_objects
     @breadcrumb_tags = @facets_hash.blank? ? [] : Tag.any_of(*@facets_hash.map {|e| {:tag_type => e.split("~")[0], :permalink => e.split("~")[1]}}).cache
     @sort_options = idea? ? [["Relevance", nil], ["New #{Idea.public_name.pluralize}", "start_date_#{current_system}:desc"], ["#{Idea.public_name} Name [A-Z]", "sort_name:asc"], ["#{Idea.public_name} Name [Z-A]", "sort_name:desc"]] :
-                      [["Relevance", nil], ["New Arrivals", "start_date_#{current_system}:desc"], ["Best Sellers", "quantity_sold:desc"], ["Lowest Price", "price_#{current_system}_#{current_currency}:asc"], ["Highest Price", "price_#{current_system}_#{current_currency}:desc"], ["Product Name [A-Z]", "sort_name:asc"], ["Product Name [Z-A]", "sort_name:desc"]]
+                      [["Relevance", nil], ["New Arrivals", outlet? ? "outlet_since:desc" : "start_date_#{current_system}:desc"], ["Best Sellers", "quantity_sold:desc"], ["Lowest Price", "price_#{current_system}_#{current_currency}:asc"], ["Highest Price", "price_#{current_system}_#{current_currency}:desc"], ["Product Name [A-Z]", "sort_name:asc"], ["Product Name [Z-A]", "sort_name:desc"]]
     @product_search = perform_search(Product)
     @idea_search = perform_search(Idea)
     @outlet_search = perform_search(Product, :outlet => true) if is_sizzix_us?

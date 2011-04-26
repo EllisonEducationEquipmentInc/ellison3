@@ -4,23 +4,21 @@
   $.ajax({
     url:'/carts/get_total_amount', 
     tryCount : 0,
-    retryLimit : 20,
+    retryLimit : 25,
     success: function(data) {$('#total_amount').html(data);$('#payment_submit').button({disabled: false, label: button_label});}, 
     beforeSend: function() {$('#payment_submit').button({disabled: true, label: 'please wait...'});$('#total_amount').html('#{escape_javascript loader_bar}')},
     error : function(xhr, textStatus, errorThrown ) {
-      if (xhr.status == 510) {
+      if (xhr.status == 510 || textStatus == 'timeout') {
         this.tryCount++;
         $('#payment_submit').button({disabled: true, label: 'please wait...'});
         if (this.tryCount <= this.retryLimit) {
           $(this).doTimeout( 'retrying', 1000, function(){
-            console.log('retrying...');
             $.ajax(this[0]);
           });
         } else {
           alert('#{escape_javascript timeout_message}');
         }
       } else {
-        //textStatus == 'timeout'
         alert(textStatus);
       }
     } 
