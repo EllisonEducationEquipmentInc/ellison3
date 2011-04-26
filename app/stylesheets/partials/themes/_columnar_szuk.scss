@@ -51,7 +51,8 @@ body.bp {
       }
     }
   }
-  
+
+// for use with Store Locator Styles
   #searchbar {
     width: 467px;
     height: 62px;
@@ -216,4 +217,15 @@ body.bp {
 }
 .storedescription {
   padding:6px 0 18px; font-size:11px; border-bottom:1px solid #AED0EA;
+}
+
+// for use with Blogs
+.uk_blog_ul {
+  border: 1px solid #ABB1C1;
+}
+.uk_blog_li {
+  padding:18px 0 0; border-bottom:1px solid #ccc;
+}
+.uk_blog_content {
+   padding: 10px 12px; float:left; width:226px; height:408px; margin-bottom:10px;
 }

@@ -1,12 +1,15 @@
-%ul
+%img{:src => "/images/ui-backgrounds/blog_header_szuk.png"}/
+%ul{:class=>"uk_blog_ul ui-corner-all", :style=>"float:left; width:645px; list-style-type: none; padding: 14px 16px;"}
   - @feed.entries.each do |feed|
-    %li
+    %li{:class=>"uk_blog_li"}
       - if feed["title"].present?
         %h3= feed["title"].html_safe
       %p
         %span.timestamp= l(Time.parse(feed["published"]), :format => :blog) rescue feed["published"]
         %br/    
         = feed["summary"].try(:html_safe)
+%div{:class=>"uk_blog_ul ui-corner-all uk_blog_content"}
+  Any Additional Blog Content here.
 - if @page > 1
   %div{:style=>"float:right"}
     = link_to "View Newer Posts", "?page=#{@page-1}"
