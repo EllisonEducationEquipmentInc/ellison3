@@ -1,24 +1,23 @@
 %h2== #{system_name.titleize} Videos
 #featured_video
   %h3 Featured Video
-  - @videos.each do |playlist|
-    - if playlist.title == "Featured"
-      %ul.videolist
-        %li
-          .video-thumbnail
-            .play-button.tooltip_playvideo= link_to "play", playlist.videos.first.embed_url + "&autoplay=1&fs=1", :class => "fancyvideo", :id => playlist.videos.first.embed_url[/v\/([^&]+)/, 1]
-            %img{ :src => "#{playlist.videos.first.thumbnails.first.try :url}", :width => "390", :height => "291" }
-          %p.video-title
-            %span== Today's Featured #{system_name.titleize} Video: 
-            = link_to playlist.videos.first.title, playlist.videos.first.embed_url + "&autoplay=1&fs=1", :class => "fancyvideo", :id => playlist.videos.first.embed_url[/v\/([^&]+)/, 1]
-          %p.video-detail
-            == #{l playlist.videos.first.published_at || playlist.videos.first.updated_at, :format => :date_short}
-            |
-            == #{playlist.videos.first.duration/60} min #{playlist.videos.first.duration%60} seconds 
-            |
-            == #{playlist.videos.first.view_count} views
-          - unless playlist.videos.first.description.blank?
-            %p.video-description= truncate(playlist.videos.first.description, :length => 200, :separator => ' ')
+  - @videos.select {|e| e.title == "Featured_#{current_system}"}.each do |playlist|
+    %ul.videolist
+      %li
+        .video-thumbnail
+          .play-button.tooltip_playvideo= link_to "play", playlist.videos.first.embed_url + "&autoplay=1&fs=1", :class => "fancyvideo", :id => playlist.videos.first.embed_url[/v\/([^&]+)/, 1]
+          %img{ :src => "#{playlist.videos.first.thumbnails.first.try :url}", :width => "390", :height => "291" }
+        %p.video-title
+          %span== Today's Featured #{system_name.titleize} Video: 
+          = link_to playlist.videos.first.title, playlist.videos.first.embed_url + "&autoplay=1&fs=1", :class => "fancyvideo", :id => playlist.videos.first.embed_url[/v\/([^&]+)/, 1]
+        %p.video-detail
+          == #{l playlist.videos.first.published_at || playlist.videos.first.updated_at, :format => :date_short}
+          |
+          == #{playlist.videos.first.duration/60} min #{playlist.videos.first.duration%60} seconds 
+          |
+          == #{playlist.videos.first.view_count} views
+        - unless playlist.videos.first.description.blank?
+          %p.video-description= truncate(playlist.videos.first.description, :length => 200, :separator => ' ')
       
 #recent_videos
   %h3 Our Most Recent Uploads
@@ -43,17 +42,10 @@
 .contentwrap_XXXL.last
   .tab-block
     %ul
-      - if @recent_uploads.present?
-        %li= link_to "Recent Uploads", "#recent_uploads"
-      - @videos.each do |playlist|
-        - unless playlist.title == "Featured"
-          %li= link_to playlist.title, "##{playlist.title.parameterize}"
+      - @videos.reject {|e| e.title =~ /featured/i}.each do |playlist|
+        %li= link_to playlist.title, "##{playlist.title.parameterize}"
       %li= link_to "Search Results", "#search_results"
-    - if @recent_uploads.present?
-      #recent_uploads
-        %h3 Recent Uploads
-        %ul.videolist= render :partial => 'video', :collection => @recent_uploads
-    = render :partial => 'playlist', :collection => @videos
+    = render :partial => 'playlist', :collection => @videos.reject {|e| e.title =~ /featured/i}
     #search_results
       %h3 Search Results
       .highlightable

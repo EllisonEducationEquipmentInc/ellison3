@@ -198,14 +198,13 @@ class IndexController < ApplicationController
     @title = "Videos"
     get_videos
     @recent_uploads = Rails.cache.fetch("recent_uploads_#{current_system}", :expires_in => 60.minutes) do
-      @client.videos_by(:author => youtube_user, :order_by => 'published', :time => 'this_month').videos
+      @client.videos_by(:author => youtube_user, :order_by => 'published', :time => 'this_month', :per_page => 2).videos
     end
   end
   
   def video_page
     get_videos
     @playlist = @videos.detect {|e| e.playlist_id == params[:playlist_id]}
-    # @playlist.max_result_count = 24
     @playlist.page = params[:page].to_i
     render :partial => 'playlist', :object => @playlist
   end
