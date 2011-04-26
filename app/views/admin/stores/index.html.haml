@@ -24,6 +24,8 @@
         %th City
         %th State
         %th Country
+        %th Active
+        %th Agent Type
         - if has_write_permissions?
           %th{ :width => 30, :style => "text-align: right;" } &nbsp;
           %th{ :width => 30, :style => "text-align: right;" } &nbsp;
@@ -36,6 +38,8 @@
           %td= store.city
           %td= store.state
           %td= store.country
+          %td= store.active
+          %td= store.agent_type
           - if has_write_permissions?
             %td{ :width => 30, :style => "text-align: right;" }= link_to 'Edit', edit_admin_store_path(store), :class => 'jqui_edit_min'
             %td{ :width => 30, :style => "text-align: right;" }= link_to 'Destroy', admin_store_path(store), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'

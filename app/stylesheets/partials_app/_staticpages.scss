@@ -190,6 +190,28 @@ ul.videolist { @extend ul.plain;
 }
 
 // Store Locator page
+#map_search_submit {
+  @extend .button_green;
+  @extend .right;
+  
+  margin-top: 6px;
+}
+
+input#brands_sizzix { margin-left: 0 !important; }
+
+.store_list {
+  float: left;
+  width: 254px;
+  height: 400px;
+  margin-bottom: 12px;
+  padding: 2px;
+  background: white;
+  border: 1px solid #CCCCCC;
+  border-top:1px solid gray;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
 .map-location {
 	width: 238px;
 	margin-bottom: 10px;

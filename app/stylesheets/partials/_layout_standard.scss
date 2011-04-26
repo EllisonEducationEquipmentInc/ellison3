@@ -47,5 +47,9 @@
   width: 33%;
 }
 
+.column_20 { @extend .column; @extend .last;
+  width: 20%;
+}
+
 // footer
 .copyright { @include column(24, true); }

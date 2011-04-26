@@ -1,5 +1,18 @@
 %h2 Edit store
 
 = render 'form'
-
+%hr
+%ul.record_info
+  %li
+    Created By 
+    %strong= @store.created_by
+  %li
+    Created On
+    %strong= @store.created_at
+  %li
+    Updated By
+    %strong= @store.updated_by
+  %li
+    Updated On
+    %strong= @store.updated_at
 = link_to 'Back', admin_stores_path, :class => 'jqui_back'
