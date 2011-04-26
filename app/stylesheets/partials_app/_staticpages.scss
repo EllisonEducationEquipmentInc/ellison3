@@ -191,9 +191,9 @@ ul.videolist { @extend ul.plain;
 
 // Store Locator page
 .map-location {
-	width: 250px;
+	width: 238px;
 	margin-bottom: 10px;
-	padding-bottom: 10px;
+	padding: 0 0 10px 3px;
 	border-bottom: 1px solid $catalog_buybox_border;
 	
 	p { margin-bottom: 0 !important; }
@@ -201,7 +201,7 @@ ul.videolist { @extend ul.plain;
 .online_store {
 	float: left;
 	width: 288px;
-	height: 150px;
+	height: 155px;
 	margin: 0 5px 5px 0;
 	padding: 5px;
 	background-color: white;

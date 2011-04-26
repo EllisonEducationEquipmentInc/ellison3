@@ -2,7 +2,7 @@
   = image_tag(store.logo)
   %br
 - if store.excellence_level.present?
-  %h3.map-link{ :class => "icon_excellence-level_#{store.excellence_level.parameterize}", :alt => "#{store.excellence_level}", :title => "#{store.excellence_level}" }= store.name
+  %h3.map-link{ :class => "icon_excellence-level_#{store.excellence_level.parameterize}", :alt => "#{store.excellence_level.capitalize} #{is_uk? ? 'Stockist' : 'Store'}", :title => "#{store.excellence_level.capitalize} #{is_uk? ? 'Stockist' : 'Store'}" }= store.name
 - else
   %h3.map-link= store.name
 %p
@@ -18,11 +18,8 @@
   - if store.country.present?
     = store.country
     %br
-  - if store.website.present?
-    = link_to store.website, store.website, :target => '_blank'
-    %br
   - if store.phone.present?
-    %strong Phone
+    %strong Phone:
     = store.phone
     %br
   - if store.fax.present?
@@ -33,6 +30,12 @@
     %strong Email: 
     = link_to store.email, "mailto:#{store.email}"
     %br
+  - if store.website.present?
+    %strong Website: 
+    = link_to store.website, store.website, :target => '_blank'
+    %br
+  - if store.has_ellison_design_centers?
+    %em Ellison Design Center Available
 %p
   - store.product_line.each do |product_line|
     = link_to product_line, "/catalog#q=#{product_line}", :class => "icon_brand-#{product_line.parameterize}", :alt => "#{product_line}", :title => "#{product_line}"
