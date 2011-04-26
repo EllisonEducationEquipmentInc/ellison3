@@ -201,9 +201,9 @@ input#brands_sizzix { margin-left: 0 !important; }
 
 .store_list {
   float: left;
-  width: 254px;
-  height: 400px;
-  margin-bottom: 12px;
+  width: 265px;
+  height: 485px;
+  margin-top: 6px;
   padding: 2px;
   background: white;
   border: 1px solid #CCCCCC;
@@ -212,14 +212,31 @@ input#brands_sizzix { margin-left: 0 !important; }
   overflow-x: hidden;
 }
 
+#map {
+  border:1px solid #ccc;
+	height: 460px;
+	width: 600px;
+  margin: 22px 0 0 15px;
+  
+  p { margin-bottom: 0 !important; }
+}
+
+.storeframe {
+  float: right;
+  width: 633px;
+  height: 504px;
+  background:url('/images/ui-backgrounds/_#{$system}_map.png') no-repeat top left;
+}
+
 .map-location {
-	width: 238px;
+	width: 249px;
 	margin-bottom: 10px;
 	padding: 0 0 10px 3px;
 	border-bottom: 1px solid $catalog_buybox_border;
 	
 	p { margin-bottom: 0 !important; }
 }
+
 .online_store {
 	float: left;
 	width: 288px;
