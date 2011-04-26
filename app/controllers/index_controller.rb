@@ -267,7 +267,7 @@ class IndexController < ApplicationController
     if @stores.present?
       render :partial => "store", :collection => @stores      
     else
-      render :text => "no results found"
+      render :text => "No results found"
     end
   end
   

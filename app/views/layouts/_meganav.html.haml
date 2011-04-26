@@ -57,7 +57,7 @@
               %li= link_to "Custom Reports", "/admin_reports_path"
               %li= link_to "Shipping Rates (by #{t 'number.currency.format.unit'})", admin_shipping_rates_path
               %li= link_to "Shipping Rates (by weight)", admin_fedex_rates_path
-              %li= link_to "Store List/Stockist List", admin_stores_path
+              %li= link_to "#{is_uk? ? 'Stockist' : 'Store'} List", admin_stores_path
               %li= link_to "Print Material Catalogs", admin_materials_path
               %li= link_to "Country Listing", admin_countries_path
               %li= link_to "Retailers Discount Matrix", :controller => 'admin/discount_categories'

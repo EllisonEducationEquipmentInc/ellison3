@@ -1,4 +1,4 @@
-%h1 Listing stores
+%h2 Listing stores
 = link_to 'New store', new_admin_store_path, :class => 'jqui_new' if has_write_permissions?
 %br
 - unless params[:q].blank?
@@ -25,8 +25,8 @@
         %th State
         %th Country
         - if has_write_permissions?
-          %th &nbsp;
-          %th &nbsp;
+          %th{ :width => 30, :style => "text-align: right;" } &nbsp;
+          %th{ :width => 30, :style => "text-align: right;" } &nbsp;
     %tbody
       - for store in @stores
         %tr{ :class => cycle(:odd, :even) }
@@ -37,8 +37,8 @@
           %td= store.state
           %td= store.country
           - if has_write_permissions?
-            %td= link_to 'Edit', edit_admin_store_path(store)
-            %td= link_to 'Destroy', admin_store_path(store), :confirm => 'Are you sure?', :method => :delete
+            %td{ :width => 30, :style => "text-align: right;" }= link_to 'Edit', edit_admin_store_path(store), :class => 'jqui_edit_min'
+            %td{ :width => 30, :style => "text-align: right;" }= link_to 'Destroy', admin_store_path(store), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
 %br
 = will_paginate @stores
 %br
