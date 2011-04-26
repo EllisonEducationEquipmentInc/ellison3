@@ -1,6 +1,8 @@
-%h2== Shared Content Preview: #{@shared_content.id}
+%h2.left== Shared Content Preview: #{@shared_content.id}
+.right.minilink= link_to 'edit', edit_admin_shared_content_path(@shared_content), :class => "link_edit-record"
+.clear
 %p
   %span.icon_datefield Select a Preview Date: 
   = text_field_tag :time, @time, :class => 'datetimepicker'
-  = link_to_function "GO", "window.location='#{admin_shared_content_path(@shared_content)}?time='+$('#time').val()"
+  = link_to_function "GO", "window.location='#{admin_shared_content_path(@shared_content)}?time='+$('#time').val()", :class => "jqui_button"
 = render :partial => 'visual_assets/visual_asset', :collection => @shared_content.visual_assets.current(@time)

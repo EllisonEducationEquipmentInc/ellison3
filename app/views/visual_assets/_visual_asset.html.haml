@@ -35,14 +35,15 @@
       - next unless billboard.must_own.blank? || machines_owned.any? {|e| billboard.must_own.include?(e)}
       %div{:class => "billboard_#{billboard.wide ? 'medium' : 'XS'} #{'last' if visual_asset.child_visual_assets.last == billboard}"}
         .captionfull{:class => "boxgrid#{billboard.wide ? '-large' : nil}"}
-          = image_tag(billboard.image_url) if billboard.image?
-          .cover{:class => "boxcaption#{billboard.wide ? '-large' : nil}"}
-            %h4= billboard.name
-            %div
-              = billboard.content.html_safe
-              - if billboard.link.present?
-                %br/
-                = link_to "more", billboard.link
+          = link_to_if billboard.content.blank?, image_tag(billboard.image_url, :alt => "#{billboard.name.capitalize}", :title => "#{billboard.name.capitalize}"), billboard.link
+          - unless billboard.content.blank?
+            .cover{:class => "boxcaption#{billboard.wide ? '-large' : nil}"}
+              %h4= billboard.name
+              %div
+                = billboard.content.html_safe
+                - if billboard.link.present?
+                  %br/
+                  = link_to "more", billboard.link
     .clear
   - elsif visual_asset.asset_type == 'image' && visual_asset.image?
     %p= link_to_unless visual_asset.link.blank?, image_tag(visual_asset.image_url, :alt => visual_asset.name), visual_asset.link, :title => visual_asset.name
