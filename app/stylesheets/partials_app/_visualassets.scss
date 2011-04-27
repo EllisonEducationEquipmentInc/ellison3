@@ -111,87 +111,116 @@ h2.tim-holtz-outlet-items { @extend .decorative;
 }
 
 // billboards
+// these are the default settings for ALL billboard blocks; FULL page width this is the default width.
 #content {
-  .billboard_asset {
-    margin-bottom: 10px;
-    height: 18*11px;
-  }
-
-  .billboard_narrow { 
-    @extend .billboard_asset;
-    @include column(4);
-    background: transparent url('/images/ui-objects/frame_billboard_narrow.png') no-repeat;
-  }
-    
-  .billboard_wide {
-    @extend .billboard_asset;
-    @include column(8);
-    background: transparent url('/images/ui-objects/frame_billboard_wide.png') no-repeat;
-  }
   
-  .boxgrid-narrow, .boxgrid-wide {
-    width: 150px; 
-    height: 198px; 
-    overflow: hidden; 
-    position: relative;
+  .billboards {
     
-    img {
-      position: absolute; 
-      top: 10px; 
-      left: 10px; 
-      border: 0;
-    }
-    
-    h4, p, a {
-      font-family: Verdana,Arial,sans-serif;
-      margin: 0;
-      color: white;
-    }
-    
-    p, a {
-      font-size: 10.2px;
+    .billboard_asset {
+      margin-bottom: 10px;
+      height: 18*11px;
     }
 
-    h4 {
-      font-family: Helvetica, Arial, sans-serif;
-      font-size: 14.4px;
-      letter-spacing: .7px;
-      text-transform: capitalize;
+    .billboard_narrow { @extend .billboard_asset;
+      background: transparent url('/images/ui-objects/frame_billboard_narrow.png') no-repeat;
     }
     
-    a {
-      color: #63bbff;
-      &:hover { color: #ff62d8;};
+    .billboard_wide { @extend .billboard_asset;
+      background: transparent url('/images/ui-objects/frame_billboard_wide.png') no-repeat;
     }
-  }
-
-  .boxgrid-wide {
-    width: 310px;
-    height: 198px;        
-  }
-
-  .boxcaption-narrow, .boxcaption-wide {
-    margin:10px;
-    padding: 4px;
-    float: left; 
-    position: absolute;
-    background: #333; 
-    height: 115px; 
-    width: 122px; 
-    opacity: .8; 
-    /* For IE 5-7 */
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
-    /* For IE 8 */
-    -MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
-  }
-
-  .boxcaption-wide {
-    width: 282px; 
-  }
   
-  .captionfull .boxcaption-narrow, .captionfull .boxcaption-wide {
-    top: 203px;
-    left: 0;
+    .boxgrid-narrow, .boxgrid-wide {
+      width: 150px; 
+      height: 198px; 
+      overflow: hidden; 
+      position: relative;
+    
+      img {
+        position: absolute; 
+        top: 10px; 
+        left: 10px; 
+        border: 0;
+      }
+    
+      h4, p, a {
+        font-family: Verdana,Arial,sans-serif;
+        margin: 0;
+        color: white;
+      }
+    
+      p, a {
+        font-size: 10.2px;
+      }
+
+      h4 {
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 14.4px;
+        letter-spacing: .7px;
+        text-transform: capitalize;
+      }
+    
+      a {
+        color: #63bbff;
+        &:hover { color: #ff62d8;};
+      }
+    }
+
+    .boxgrid-wide {
+      width: 310px;
+      height: 198px;        
+    }
+
+    .boxcaption-narrow, .boxcaption-wide {
+      margin:10px;
+      padding: 4px;
+      float: left; 
+      position: absolute;
+      background: #333; 
+      height: 115px; 
+      width: 122px; 
+      opacity: .8; 
+      /* For IE 5-7 */
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+      /* For IE 8 */
+      -MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    }
+
+    .boxcaption-wide {
+      width: 282px; 
+    }
+  
+    .captionfull .boxcaption-narrow, .captionfull .boxcaption-wide {
+      top: 203px;
+      left: 0;
+    }
+  }
+
+  .billboards_landing { @extend .billboards;
+    .billboard_narrow {
+      width: 180px;
+      background: transparent url('/images/ui-objects/frame_billboard-landing_narrow.png') no-repeat;
+    }
+    
+    .billboard_wide {
+      width: 370px;
+      background: transparent url('/images/ui-objects/frame_billboard-landing_wide.png') no-repeat;
+    }
+
+    .boxgrid-narrow {
+      width: 180px;
+    }
+    
+    .boxgrid-wide {
+      width: 370px;
+    }
+    
+    .boxcaption-narrow {
+      width: 152px;
+    }
+    
+    .boxcaption-wide {
+      width: 342px;
+    }
   }
 }
 

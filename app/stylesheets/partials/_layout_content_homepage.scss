@@ -9,6 +9,10 @@
 #blog-posts {  @include column(16); }
 #social-media {  @include column(8, true); }
   
+// billboard sizes
+.billboard_narrow { @include column(4); }
+.billboard_wide { @include column(8); }
+
 // current visual assets
 #current_visual_assets { @include column(24, true); }
 
