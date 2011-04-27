@@ -42,6 +42,20 @@
               %div
                 = billboard.content.html_safe
                 = link_to "more", billboard.link if billboard.link.present?
+            :javascript
+              $(document).ready(function(){
+                $('.boxgrid.captionfull').hover(function(){
+                	$(".cover", this).stop().animate({top:'55px'},{queue:false,duration:160});
+                }, function() {
+                	$(".cover", this).stop().animate({top:'188px'},{queue:false,duration:160});
+                });
+                $('.boxgrid-large.captionfull').hover(function(){
+                	$(".cover", this).stop().animate({top:'55px'},{queue:false,duration:160});
+                }, function() {
+                	$(".cover", this).stop().animate({top:'188px'},{queue:false,duration:160});
+                });
+              });
+
     .clear
   - elsif visual_asset.asset_type == 'image' && visual_asset.image?
     %p= link_to_unless visual_asset.link.blank?, image_tag(visual_asset.image_url, :alt => visual_asset.name), visual_asset.link, :title => visual_asset.name

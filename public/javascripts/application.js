@@ -199,21 +199,7 @@ $(document).ready(function(){
     out: megamenuHoverOut // function = onMouseOut callback (REQUIRED)
   };
   $("#nav_megamenu li.megaitem").hoverIntent(hoverconfig); // trigger hover intent with custom configurations	
-	  
-  // billboard sliders
-	// Full Caption Sliding (Hidden to Visible)
-  $('.boxgrid.captionfull').hover(function(){
-  	$(".cover", this).stop().animate({top:'55px'},{queue:false,duration:160});
-  }, function() {
-  	$(".cover", this).stop().animate({top:'188px'},{queue:false,duration:160});
-  });
-	// Full Caption Sliding (Hidden to Visible)
-  $('.boxgrid-large.captionfull').hover(function(){
-  	$(".cover", this).stop().animate({top:'55px'},{queue:false,duration:160});
-  }, function() {
-  	$(".cover", this).stop().animate({top:'188px'},{queue:false,duration:160});
-  });
-  
+
   // jqueryui tables
   $("table:not('div#event_calendar table')").each(function() {
     $(this).addClass("ui-widget ui-widget-content ui-corner-all");
