@@ -236,6 +236,11 @@ module EllisonSystem
     "erus" => {:erus_retailers => "Retailers Newsletter", :sizzix_retailers => "Sizzix Retailers", :eclips => "Sizzix eclips", :tim_holtz => "Tim Holtz", :ellison_retailers => "Ellison Retailers", :sizzix_retailers_in_spanish => "Sizzix Retailers in Spanish"}
   }
   
+  def get_list_and_segments
+    @segments = NEWSLETTER_SEGMENTS[current_system].dup
+    @list = @segments.shift
+  end
+  
   def institutions
     [["Day Care 3 - 6 yrs", "DA"], ["District Media Center", "DM"], ["Head Start, Even Start", "HE"], ["Individuals-Teacher, Crafter, Designer", "IN"], ["Non-Profit Organization, Hospital", "NP"], ["Public Library", "PL"], ["School - Pre-School, Early Childhood Center", "SP"], ["School - Elementary", "SE"], ["School - Junior High", "SJ"], ["School - High School", "SH"], ["School - University", "SU"], ["School - Charter Elementary, Jr High, High", "SCHE"], ["School - Private", "PR"], ["School - Church", "SC"], ["School - District", "SD"], ["School - Government, Government Agency", "SG"]]
   end

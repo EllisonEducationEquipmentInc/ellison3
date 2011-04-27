@@ -322,11 +322,6 @@ private
 	  @top_navigations = TopNavigation.instance.list
 	end
 	
-	def get_list_and_segments
-    @segments = NEWSLETTER_SEGMENTS[current_system].dup
-    @list = @segments.shift
-  end
-  
   # solr search methods:
   #
   # @Example: perform_search Product, :outlet => true, :facets => ["theme", "category"], :facet_sort => :index

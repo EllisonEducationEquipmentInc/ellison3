@@ -939,9 +939,9 @@ namespace :data_migrations do
   end
   
   desc "populate retailer discount matrix starting from 17 Prestige & RollModel Accessories. -- not needed for live migration"
-	task :fix_discount_matrix => :environment do
-	  @matrix = CSV.open(File.expand_path(File.dirname(__FILE__) + "/migrations/discount_matrix.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"').to_a
-	  CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/discount_categories.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
+  task :fix_discount_matrix => :environment do
+    @matrix = CSV.open(File.expand_path(File.dirname(__FILE__) + "/migrations/discount_matrix.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"').to_a
+    CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/discount_categories.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
       next if row["id"].to_i < 17
       @discount_category = DiscountCategory.new(:name => row["name"], :old_id => row["id"])
       RetailerDiscountLevels.instance.levels.each do |level|
@@ -996,6 +996,18 @@ namespace :data_migrations do
         p "#{row['store_number']} geocoding failed. record skipped."
       end
       
+    end
+  end
+  
+  desc "import lyris subscriptions"
+  task :lyris_subscriptions => :environment do
+    NEWSLETTER_SEGMENTS.each do |list|
+      if File.exists?(File.expand_path(File.dirname(__FILE__) + "/migrations/#{list.last.keys.first}.csv"))
+        set_current_system list.first.to_s
+        CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/#{list.last.keys.first}.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
+          
+        end
+      end
     end
   end
   
