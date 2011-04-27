@@ -200,7 +200,7 @@ $(document).ready(function(){
   };
   $("#nav_megamenu li.megaitem").hoverIntent(hoverconfig); // trigger hover intent with custom configurations	
 
-  // billboards
+  // billboard visual assets
   $('.boxgrid-narrow.captionfull, .boxgrid-wide.captionfull').live('mouseover mouseout', function(event) {
     if (event.type == 'mouseover') {
       $(".cover", this).stop().animate({top:'55px'},{queue:false,duration:160});
