@@ -21,7 +21,7 @@ module Mongoid #:nodoc:
       objects = self.limit(limit).skip(skip*limit)
       while objects.size > 0
         yield objects
-        break if objects.size < limit
+        #break if objects.size < limit
         skip+=1
         objects = self.limit(limit).skip(skip*limit)
       end

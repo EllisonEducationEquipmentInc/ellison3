@@ -262,11 +262,10 @@ namespace :data_migrations do
     set_current_system "eeus"
     #idea = OldData::Idea.find 1820
     OldData::Idea.find_each(:conditions => "id > 0") do |idea|
-      new_idea = Idea.new :name => idea.name, :description_eeus => idea.short_desc, :old_id_edu => idea.id, :systems_enabled => ["eeus", "eeuk", "erus"], :idea_num => "#{idea.idea_num}", :long_desc => idea.long_desc, :active => idea.active_status, 
+      new_idea = Idea.create :name => idea.name, :description_eeus => idea.short_desc, :old_id_edu => idea.id, :systems_enabled => ["eeus", "eeuk", "erus"], :idea_num => "#{idea.idea_num}", :long_desc => idea.long_desc, :active => idea.active_status, 
          :keywords => idea.keywords, :start_date_eeus => idea.start_date, :end_date_eeus => idea.end_date, :objective => idea.objective, :grade_level => idea.grade_level && idea.grade_level.split(/,\s*/),
          :distribution_life_cycle_eeus => idea.new_lesson ? 'New' : nil, :distribution_life_cycle_ends_eeus => idea.new_lesson && idea.new_expires_at
       new_idea.tags = Tag.where(:old_id_edu.in => idea.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
-      new_idea.save
       ["image2", "image3"].each do |meth|
         unless idea.send(meth).blank?
           image = new_idea.images.build
@@ -325,7 +324,7 @@ namespace :data_migrations do
   desc "migrate EDU idea tabs"
   task :idea_tabs_ee => [:set_edu, :load_dep] do
     set_current_system "eeus"
-    Idea.all.in_batches(100) do |batch|
+    Idea.where(:old_id_edu.exists => true).in_batches(100) do |batch|
       batch.each do |idea|
         #idea=Idea.find '4cfed56de1b83259d6000017'
         old_idea = OldData::Idea.find(idea.old_id_edu) rescue next
@@ -355,6 +354,7 @@ namespace :data_migrations do
       p new_user.errors
       p new_user.old_id_szus
     end
+    p Time.zone.now
   end
   
   desc "migrate SZUS orders"
@@ -381,6 +381,7 @@ namespace :data_migrations do
       p order.id
       p ' '
     end
+    p Time.zone.now
   end
   
   desc "migrate SZUK products"
@@ -404,7 +405,7 @@ namespace :data_migrations do
       p new_product.errors
       p "------ #{product.id} #{product.item_num} -------"
     end
-    p Sunspot.commit
+    p Time.zone.now
   end
   
   desc "fix SZUS product unavailable items -- not needed for live migration"
@@ -441,6 +442,7 @@ namespace :data_migrations do
       p new_user.errors
       p "-------- #{new_user.old_id_szuk} #{new_user.email}----------"
     end
+    p Time.zone.now
   end
   
   desc "migrate SZUK orders"
@@ -466,12 +468,13 @@ namespace :data_migrations do
       p new_order.errors
       p "------- #{order.id} --------"
     end
+    p Time.zone.now
   end
   
   def process_user(old_user,new_user)
     new_user.old_password_hash = old_user.crypted_password
     new_user.old_salt = old_user.salt
-    new_user.password = new_user.old_password_hash[0..19]
+    new_user.password = new_user.old_password_hash[0..14]
     new_user.old_user = true  
     new_user.tax_exempt = old_user.tax_exempt
     new_user.tax_exempt_certificate = old_user.tax_exempt_certificate || 'N/A'
@@ -488,7 +491,9 @@ namespace :data_migrations do
     new_user.real_deal = old_user.real_deal
     new_user.default_user = old_user.default_user
     new_user.internal_comments = old_user.internal_comments
-
+    new_user.created_at = old_user.created_at
+    new_user.created_by = 'migration'
+    
     p new_user.save
     unless old_user.billing_addresses.first.blank?
       p "billing address..."
@@ -525,6 +530,7 @@ namespace :data_migrations do
       p list.save
       p "----- #{list.user.email} -----"
     end
+    p Time.zone.now
   end
   
   desc "migrate SZUK wishlists"
@@ -538,6 +544,7 @@ namespace :data_migrations do
       p list.save
       p "----- #{list.user.email} -----"
     end
+    p Time.zone.now
   end
   
   desc "idea to product association - WARNING: overwrites existing relationship (if exists)"
@@ -560,6 +567,7 @@ namespace :data_migrations do
         p "-------- #{idea.idea_num} --------"
       end
     end
+    p Time.zone.now
   end
   
   desc "migrate ER products"
@@ -593,7 +601,7 @@ namespace :data_migrations do
       p new_product.errors
       p "------ #{product.id} #{product.item_num} -------"
     end
-    p Sunspot.commit
+    p Time.zone.now
   end
   
   desc "process SZUK only product tabs"
@@ -611,7 +619,7 @@ namespace :data_migrations do
         p "#{product.item_num} ------ #{tab.id} -------"
       end
     end
-    p Sunspot.commit
+    p Time.zone.now
   end
   
   desc "import ER users - IMPORTANT: copy production 'attachment' folder to the new app's root folder"
@@ -668,6 +676,7 @@ namespace :data_migrations do
       p new_user.errors
       p "-------- #{new_user.old_id_er} #{new_user.email}----------"
     end
+    p Time.zone.now
   end
   
   desc "check for duplicate user accounts across systems"
@@ -704,6 +713,7 @@ namespace :data_migrations do
       p new_order.errors
       p "-------- #{order.id} ----------"
     end
+    p Time.zone.now
   end
   
   desc "migrate ER wishlists"
@@ -717,6 +727,7 @@ namespace :data_migrations do
       p list.save
       p "----- #{list.user.email} - #{user.email}-----"
     end
+    p Time.zone.now
   end
   
   desc "migrate EDU US accounts"
@@ -725,6 +736,7 @@ namespace :data_migrations do
     OldData::Account.not_deleted.find_each(:conditions => "id > 0") do |old_account|
       p Account.create(:school => old_account.school, :name => old_account.name, :city => old_account.city, :erp => old_account.axapta_id, :address1 => old_account.address, :address2 => old_account.address1, :zip_code => old_account.zip, :created_at => old_account.created_at, :title => old_account.title, :country => old_account.country,  :avocation => old_account.avocation, :students => old_account.students, :individual => old_account.individual, :old_id => old_account.id, :institution => old_account.institution.try(:name), :resale_number => old_account.resale_number, :phone => old_account.phone, :fax => old_account.fax, :description => old_account.description, :affiliation => old_account.affiliation, :tax_exempt_number => old_account.tax_exempt_number, :tax_exempt => old_account.tax_exempt, :state => old_account.state, :email => old_account.email, :active => old_account.active)
     end
+    p Time.zone.now
   end
   
   desc "import EDU US users"
@@ -755,6 +767,7 @@ namespace :data_migrations do
       p new_user.errors
       p "-------- #{new_user.old_id_eeus} #{new_user.email}----------"
     end
+    p Time.zone.now
   end
   
   desc "migrate EDU US orders"
@@ -780,6 +793,7 @@ namespace :data_migrations do
       p new_order.errors
       p "-------- #{order.id} ----------"
     end
+    p Time.zone.now
   end
   
   desc "migrate EDU US wishlists"
@@ -793,6 +807,7 @@ namespace :data_migrations do
       p list.save
       p "----- #{list.user.email} - #{user.email}-----"
     end
+    p Time.zone.now
   end
   
   desc "migrate ER quotes"
@@ -816,6 +831,7 @@ namespace :data_migrations do
       p new_order.errors
       p "-------- #{order.id} ----------"
     end
+    p Time.zone.now
   end
   
   desc "migrate EDU US quotes"
@@ -839,6 +855,7 @@ namespace :data_migrations do
       p new_order.errors
       p "-------- #{order.id} ----------"
     end
+    p Time.zone.now
   end
   
   desc "calendar events only for EEUS"
@@ -861,6 +878,7 @@ namespace :data_migrations do
         p "-------- idea #{idea.idea_num} has been saved ----------------- "
       end
     end
+    p Time.zone.now
   end
   
   desc "import instructions from product_instructions.csv"
@@ -870,6 +888,7 @@ namespace :data_migrations do
       next unless @product
       p @product.update_attribute :instructions, row['pdf']
     end
+    p Time.zone.now
   end
   
   desc "import product_item_types from product_item_types.csv"
@@ -879,6 +898,7 @@ namespace :data_migrations do
       next unless @product
       p @product.update_attribute :item_type, row['item_type']
     end
+    p Time.zone.now
   end
   
   desc "import product_item_groups from product_item_groups.csv"
@@ -888,6 +908,7 @@ namespace :data_migrations do
       next unless @product
       p @product.update_attribute :item_group, row['item_group']
     end
+    p Time.zone.now
   end
   
   desc "remove unnecessary tabs"
@@ -928,6 +949,7 @@ namespace :data_migrations do
       end
       @discount_category.save!
 	  end
+	  p Time.zone.now
 	end
 	
 	desc "import education_products_on_er from education_products_on_er.csv"
@@ -951,6 +973,7 @@ namespace :data_migrations do
       next unless @product
       p @product.update_attribute :weight, row['weight']
     end
+    p Time.zone.now
   end
   
   desc "import USPS zones"
