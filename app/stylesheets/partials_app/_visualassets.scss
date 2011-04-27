@@ -1,7 +1,9 @@
 // Ellison3 Web Application Visual Asset CSS
 // style settings for things like carousel headers, text banners, billboards, floating surveys, etc
 
-// content gallery
+// content gallery (landing pages)
+// these are the default settings for ALL content galleries; landing page width this is the default width.
+// Wide style galleries for locations like homepages are defined in the system-specific theme partial
 .frame_gallery {
   position: relative;
   overflow: hidden;
@@ -69,6 +71,28 @@
   }
 }
 
+#content {
+  .gallery_asset {
+    height: 18*18px;
+    width: 950px;
+    
+    img {
+      border: none;
+    }
+    
+    ul, li {
+      margin: 0;
+      padding: 0;
+      list-style: none;      
+    }
+    
+    li {
+      width:950px;
+      overflow: hidden;
+    }
+  }
+}
+
 // decorative headers
 h2.what-s-hot { @extend .decorative;
   background: url('/images/ui-objects/heart_pink.png') no-repeat;
@@ -84,6 +108,129 @@ h2.tim-holtz-products { @extend .decorative;
 
 h2.tim-holtz-outlet-items { @extend .decorative;
   background: url('/images/ui-objects/pumpkin.png') no-repeat;
+}
+
+// billboards
+#content {
+  .billboard_asset {
+    margin-bottom: 10px;
+    height: 18*11px;
+  }
+  
+  .billboard_XS { @extend .billboard_asset;
+    background: transparent url('/images/ui-objects/frame_billboard_XS.png') no-repeat; }
+    
+  .billboard_small { @extend .billboard_asset;
+    background: transparent url('/images/ui-objects/frame_billboard_small.png') no-repeat; }
+  
+  .billboard_medium { @extend .billboard_asset;
+    background: transparent url('/images/ui-objects/frame_billboard_medium.png') no-repeat; }
+  
+  .billboard_large { @extend .billboard_asset;
+    background: transparent url('/images/ui-objects/frame_billboard_large.png') no-repeat; }
+  
+  .billboard_XL { @extend .billboard_asset;
+    background: transparent url('/images/ui-objects/frame_billboard_XL.png') no-repeat; }
+  
+  .billboard_XXL { @extend .billboard_asset;
+    background: transparent url('/images/ui-objects/frame_billboard_XXL.png') no-repeat; }
+  
+  .billboard_XXXL { @extend .billboard_asset;
+    background: transparent url('/images/ui-objects/frame_billboard_XXXL.png') no-repeat; }
+
+  .boxgrid { 
+    width: 150px; 
+    height: 198px; 
+    overflow: hidden; 
+    position: relative;
+    
+    img {
+      position: absolute; 
+      top: 10px; 
+      left: 10px; 
+      border: 0;
+    }
+    
+    h4, p {
+      margin: 0;
+      color: white;
+    }
+    
+    h4 {
+      text-transform: capitalize;
+    }
+    
+    a {
+      color: #63bbff;
+      &:hover { color: #ff62d8;};
+    }
+  }
+
+  .boxcaption {
+    margin:10px;
+    padding: 4px;
+    float: left; 
+    position: absolute;
+    background: #333; 
+    height: 115px; 
+    width: 122px; 
+    opacity: .8; 
+    /* For IE 5-7 */
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+    /* For IE 8 */
+    -MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  }
+  
+  .captionfull .boxcaption {
+    top: 203px;
+    left: 0;
+  }
+
+
+  .boxgrid-large { 
+    width: 310px; 
+    height: 198px; 
+    overflow: hidden; 
+    position: relative;
+    
+    img {
+      position: absolute; 
+      top: 10px; 
+      left: 10px; 
+      border: 0;
+    }
+    
+    h4, p {
+      margin: 0;
+      color: white;
+    }
+    
+    a {
+      color: #63bbff;
+      &:hover { color: #ff62d8;};
+    }
+  }
+
+  .boxcaption-large {
+    margin:10px;
+    padding: 4px;
+    float: left; 
+    position: absolute;
+    background: #333; 
+    height: 115px; 
+    width: 282px; 
+    opacity: .8; 
+    /* For IE 5-7 */
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+    /* For IE 8 */
+    -MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  }
+
+  .captionfull .boxcaption-large {
+    top: 203px;
+    left: 0;
+  }
+
 }
 
 
@@ -243,11 +390,11 @@ p.text-banner_red-border { @extend .text-banner_pt-sans;
 
 // floating surveys
 .floating_survey {
-  position:absolute;
+  position: absolute;
   width: 320px;
-  padding:10px;
-  background:white;
-  z-index:9999;
+  padding: 10px;
+  background: white;
+  z-index: 9999;
   
   h2 {
     font-size: 1.2em !important;
