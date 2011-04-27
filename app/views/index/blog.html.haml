@@ -11,5 +11,6 @@
 - if @page > 1
   %div{:style=>"float:right"}
     = link_to "View Newer Posts", "?page=#{@page-1}"
-%div{:style=>"float:right"}
-  = link_to "View Older Posts", "?page=#{@page+1}"
+- if @per_page * @page < @feed.total_results
+  %div{:style=>"float:right"}
+    = link_to "View Older Posts", "?page=#{@page+1}"

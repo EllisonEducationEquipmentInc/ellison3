@@ -5,6 +5,8 @@ class Feed
   
   field :name
   field :feeds
+  field :total_results, :type => Integer
+  
   index :name
   
   validates_presence_of :name, :feeds
