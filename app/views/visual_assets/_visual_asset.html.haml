@@ -41,9 +41,7 @@
               %h4= billboard.name
               %div
                 = billboard.content.html_safe
-                - if billboard.link.present?
-                  %br/
-                  = link_to "more", billboard.link
+                = link_to "more", billboard.link if billboard.link.present?
     .clear
   - elsif visual_asset.asset_type == 'image' && visual_asset.image?
     %p= link_to_unless visual_asset.link.blank?, image_tag(visual_asset.image_url, :alt => visual_asset.name), visual_asset.link, :title => visual_asset.name
