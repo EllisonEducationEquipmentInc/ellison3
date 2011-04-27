@@ -236,11 +236,8 @@ namespace :data_migrations do
     set_current_system "eeus"
     Product.where(:product_config.exists => true, 'product_config.config_group' => 'size').in_batches(100) do |batch|
       batch.each do |product|
-        tag = Tag.where(:tag_type => "size", :name => product.size).first || Tag.new(:tag_type => 'size', :name => product.size, :start_date_eeus => 1.year.ago, :end_date_eeus => 20.years.since, :systems_enabled => ["eeus", "eeuk", "erus"])
-        tag.product_ids << product.id
-        product_ids = tag.product_ids.dup
-        tag.products = Product.where(:_id.in => product_ids).uniq.map {|p| p}
-        p tag.save
+        tag = Tag.where(:tag_type => "size", :name => product.size).first || Tag.create(:tag_type => 'size', :name => product.size, :start_date_eeus => 1.year.ago, :end_date_eeus => 20.years.since, :systems_enabled => ["eeus", "eeuk", "erus"])
+        tag.products << product unless tag.product_ids.include? product.id
         p "#{product.item_num} ------ #{tag.name} -------"
       end
     end
