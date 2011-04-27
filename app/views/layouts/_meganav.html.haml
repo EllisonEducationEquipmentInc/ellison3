@@ -29,8 +29,8 @@
               %li= link_to "New Products", new_admin_product_path
               %li= link_to "New Projects/Lessons", new_admin_idea_path
               %li= link_to "New Tags/Campaigns", new_admin_tag_path
-              %li= link_to "Reusable tabs", "shared_contents?placement=none"
-              %li= link_to "Calendar Banner Setup", "shared_contents?placement=calendar"
+              %li= link_to "Reusable tabs", "/admin/shared_contents?placement=none"
+              %li= link_to "Calendar Banner Setup", "/admin/shared_contents?placement=calendar"
           %ul.contentwrap_small
             %li.listtitle.first Promotional Content
             %ul
@@ -41,8 +41,8 @@
               %li= link_to "Coupons", admin_coupons_path
               %li= link_to "Site Navigation", "navigations"
               %li= link_to "New Campaigns", "tags/new"
-              %li= link_to "Home Page Setup", "shared_contents?placement=home"
-              %li= link_to "Cart Page Banners Setup", "shared_contents?placement=cart"
+              %li= link_to "Home Page Setup", "/admin/shared_contents?placement=home"
+              %li= link_to "Cart Page Banners Setup", "/admin/shared_contents?placement=cart"
               %li= link_to "All Shared Content setup", admin_shared_contents_path
               %li= link_to "Manage Videos", "http://youtube.com", :target => '_blank'
               %li= link_to "Manage Blogs", "http://blogspot.com", :target => '_blank'
@@ -70,8 +70,8 @@
               %li= link_to "Retailers Discount Matrix", :controller => 'discount_categories'
               %li= link_to "Search Phrase Redirects", admin_search_phrases_path
               %li= link_to "eclips Firmware", :controller => 'firmwares'
-              %li= link_to "Contact page contextual help", "shared_contents?placement=contact"
-              %li= link_to "Store Locator Setup", "shared_contents?placement=store_locator"
+              %li= link_to "Contact page contextual help", "/admin/shared_contents?placement=contact"
+              %li= link_to "Store Locator Setup", "/admin/shared_contents?placement=store_locator"
           %hr
           - if get_cart.order_reference
             #previous_order_reference.contentwrap_XXXL.last
