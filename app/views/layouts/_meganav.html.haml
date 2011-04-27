@@ -34,7 +34,6 @@
           %ul.contentwrap_small
             %li.listtitle.first Promotional Content
             %ul
-              %li= link_to "Home Page", admin_shared_contents_path(:placement => 'home')
               %li= link_to "Dynamic Landing Pages", admin_landing_pages_path
               %li= link_to "Static Pages", admin_static_pages_path
               %li= link_to "Manage Events", admin_events_path
@@ -44,8 +43,9 @@
               %li= link_to "New Campaigns", "tags/new"
               %li= link_to "Home Page Setup", "shared_contents?placement=home"
               %li= link_to "Cart Page Banners Setup", "shared_contents?placement=cart"
-              %li= link_to "Maintain Videos", "http://youtube.com"
-              %li= link_to "Maintain Blogs", "http://blogspot.com"
+              %li= link_to "All Shared Content setup", admin_shared_contents_path
+              %li= link_to "Manage Videos", "http://youtube.com", :target => '_blank'
+              %li= link_to "Manage Blogs", "http://blogspot.com", :target => '_blank'
           %ul.contentwrap_small
             %li.listtitle.first Customer Related
             %ul
