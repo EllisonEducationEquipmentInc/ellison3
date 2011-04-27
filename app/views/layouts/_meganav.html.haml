@@ -25,10 +25,12 @@
               %li= link_to "Products Catalog", admin_products_path
               %li= link_to "Projects Catalog", admin_ideas_path
               %li= link_to "Product Compatibility", admin_compatibilities_path
-              %li= link_to "Tag Management", admin_tags_path
+              %li= link_to "Tag/Campaign Management", admin_tags_path
               %li= link_to "New Products", new_admin_product_path
               %li= link_to "New Projects/Lessons", new_admin_idea_path
-              %li= link_to "New Tags", new_admin_tag_path
+              %li= link_to "New Tags/Campaigns", new_admin_tag_path
+              %li= link_to "Reusable tabs", "shared_contents?placement=none"
+              %li= link_to "Calendar Banner Setup", "shared_contents?placement=calendar"
           %ul.contentwrap_small
             %li.listtitle.first Promotional Content
             %ul
@@ -36,9 +38,14 @@
               %li= link_to "Dynamic Landing Pages", admin_landing_pages_path
               %li= link_to "Static Pages", admin_static_pages_path
               %li= link_to "Manage Events", admin_events_path
-              %li= link_to "Campaigns", admin_shared_contents_path(:placement => 'campaigns')
+              %li= link_to "Campaigns Landing page setup", "shared_contents?placement=campaigns"
               %li= link_to "Coupons", admin_coupons_path
-              %li= link_to "Shared Content", admin_shared_contents_path
+              %li= link_to "Site Navigation", "navigations"
+              %li= link_to "New Campaigns", "tags/new"
+              %li= link_to "Home Page Setup", "shared_contents?placement=home"
+              %li= link_to "Cart Page Banners Setup", "shared_contents?placement=cart"
+              %li= link_to "Maintain Videos", "http://youtube.com"
+              %li= link_to "Maintain Blogs", "http://blogspot.com"
           %ul.contentwrap_small
             %li.listtitle.first Customer Related
             %ul
@@ -47,22 +54,24 @@
               %li= link_to "Material Orders", admin_material_orders_path
               %li= link_to "Customer Accounts", admin_users_path
               %li= link_to "Customer Feedback", admin_feedbacks_path
-              %li= link_to "Virtual Terminal", 'admin/virtual_terminal'
-              %li= link_to "Group Messages to Retailers", 'admin/messages'
+              %li= link_to "Virtual Terminal", 'virtual_terminal'
+              %li= link_to "Group Messages to Retailers", 'messages'
           %ul.contentwrap_small.resize.last
             %li.listtitle.first Website Settings
             %ul
               %li= link_to "Admin Access", admin_admins_path
               %li= link_to "Site Navigation", admin_navigations_path 
-              %li= link_to "Custom Reports", "/admin_reports_path"
+              %li= link_to "Custom Reports", "reports"
               %li= link_to "Shipping Rates (by #{t 'number.currency.format.unit'})", admin_shipping_rates_path
               %li= link_to "Shipping Rates (by weight)", admin_fedex_rates_path
               %li= link_to "#{is_uk? ? 'Stockist' : 'Store'} List", admin_stores_path
               %li= link_to "Print Material Catalogs", admin_materials_path
               %li= link_to "Country Listing", admin_countries_path
-              %li= link_to "Retailers Discount Matrix", :controller => 'admin/discount_categories'
+              %li= link_to "Retailers Discount Matrix", :controller => 'discount_categories'
               %li= link_to "Search Phrase Redirects", admin_search_phrases_path
-              %li= link_to "eclips Firmware", :controller => 'admin/firmwares'
+              %li= link_to "eclips Firmware", :controller => 'firmwares'
+              %li= link_to "Contact page contextual help", "shared_contents?placement=contact"
+              %li= link_to "Store Locator Setup", "shared_contents?placement=store_locator"
           %hr
           - if get_cart.order_reference
             #previous_order_reference.contentwrap_XXXL.last
