@@ -116,29 +116,20 @@ h2.tim-holtz-outlet-items { @extend .decorative;
     margin-bottom: 10px;
     height: 18*11px;
   }
-  
-  .billboard_XS { @extend .billboard_asset;
-    background: transparent url('/images/ui-objects/frame_billboard_XS.png') no-repeat; }
-    
-  .billboard_small { @extend .billboard_asset;
-    background: transparent url('/images/ui-objects/frame_billboard_small.png') no-repeat; }
-  
-  .billboard_medium { @extend .billboard_asset;
-    background: transparent url('/images/ui-objects/frame_billboard_medium.png') no-repeat; }
-  
-  .billboard_large { @extend .billboard_asset;
-    background: transparent url('/images/ui-objects/frame_billboard_large.png') no-repeat; }
-  
-  .billboard_XL { @extend .billboard_asset;
-    background: transparent url('/images/ui-objects/frame_billboard_XL.png') no-repeat; }
-  
-  .billboard_XXL { @extend .billboard_asset;
-    background: transparent url('/images/ui-objects/frame_billboard_XXL.png') no-repeat; }
-  
-  .billboard_XXXL { @extend .billboard_asset;
-    background: transparent url('/images/ui-objects/frame_billboard_XXXL.png') no-repeat; }
 
-  .boxgrid { 
+  .billboard_narrow { 
+    @extend .billboard_asset;
+    @include column(4);
+    background: transparent url('/images/ui-objects/frame_billboard_narrow.png') no-repeat;
+  }
+    
+  .billboard_wide {
+    @extend .billboard_asset;
+    @include column(8);
+    background: transparent url('/images/ui-objects/frame_billboard_wide.png') no-repeat;
+  }
+  
+  .boxgrid-narrow, .boxgrid-wide {
     width: 150px; 
     height: 198px; 
     overflow: hidden; 
@@ -151,12 +142,20 @@ h2.tim-holtz-outlet-items { @extend .decorative;
       border: 0;
     }
     
-    h4, p {
+    h4, p, a {
+      font-family: Verdana,Arial,sans-serif;
       margin: 0;
       color: white;
     }
     
+    p, a {
+      font-size: 10.2px;
+    }
+
     h4 {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 14.4px;
+      letter-spacing: .7px;
       text-transform: capitalize;
     }
     
@@ -166,7 +165,12 @@ h2.tim-holtz-outlet-items { @extend .decorative;
     }
   }
 
-  .boxcaption {
+  .boxgrid-wide {
+    width: 310px;
+    height: 198px;        
+  }
+
+  .boxcaption-narrow, .boxcaption-wide {
     margin:10px;
     padding: 4px;
     float: left; 
@@ -180,57 +184,15 @@ h2.tim-holtz-outlet-items { @extend .decorative;
     /* For IE 8 */
     -MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
   }
-  
-  .captionfull .boxcaption {
-    top: 203px;
-    left: 0;
-  }
 
-
-  .boxgrid-large { 
-    width: 310px; 
-    height: 198px; 
-    overflow: hidden; 
-    position: relative;
-    
-    img {
-      position: absolute; 
-      top: 10px; 
-      left: 10px; 
-      border: 0;
-    }
-    
-    h4, p {
-      margin: 0;
-      color: white;
-    }
-    
-    a {
-      color: #63bbff;
-      &:hover { color: #ff62d8;};
-    }
-  }
-
-  .boxcaption-large {
-    margin:10px;
-    padding: 4px;
-    float: left; 
-    position: absolute;
-    background: #333; 
-    height: 115px; 
+  .boxcaption-wide {
     width: 282px; 
-    opacity: .8; 
-    /* For IE 5-7 */
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
-    /* For IE 8 */
-    -MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
   }
-
-  .captionfull .boxcaption-large {
+  
+  .captionfull .boxcaption-narrow, .captionfull .boxcaption-wide {
     top: 203px;
     left: 0;
   }
-
 }
 
 

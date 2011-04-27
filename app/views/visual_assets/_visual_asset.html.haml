@@ -33,15 +33,14 @@
   - elsif visual_asset.asset_type == 'billboards' && visual_asset.child_visual_assets.present?
     - visual_asset.child_visual_assets.select {|asset| asset.available?(@time || Time.zone.now)}.sort {|x,y| x.display_order <=> y.display_order}.each do |billboard|
       - next unless billboard.must_own.blank? || machines_owned.any? {|e| billboard.must_own.include?(e)}
-      %div{:class => "billboard_#{billboard.wide ? 'medium' : 'XS'} #{'last' if visual_asset.child_visual_assets.last == billboard}"}
-        .captionfull{:class => "boxgrid#{billboard.wide ? '-large' : nil}"}
+      %div{:class => "billboard_#{billboard.wide ? 'wide' : 'narrow'} #{'last' if visual_asset.child_visual_assets.last == billboard}"}
+        .captionfull{:class => "boxgrid-#{billboard.wide ? 'wide' : 'narrow'}"}
           = link_to_if billboard.content.blank? && billboard.link.present?, image_tag(billboard.image_url, :alt => "#{billboard.name.capitalize}", :title => "#{billboard.name.capitalize}"), billboard.link
           - unless billboard.content.blank?
-            .cover{:class => "boxcaption#{billboard.wide ? '-large' : nil}"}
+            .cover{:class => "boxcaption-#{billboard.wide ? 'wide' : 'narrow'}"}
               %h4= billboard.name
-              %div
-                = billboard.content.html_safe
-                = link_to "more", billboard.link if billboard.link.present?
+              = billboard.content.html_safe
+              = link_to "more", billboard.link if billboard.link.present?
     .clear
   - elsif visual_asset.asset_type == 'image' && visual_asset.image?
     %p= link_to_unless visual_asset.link.blank?, image_tag(visual_asset.image_url, :alt => visual_asset.name), visual_asset.link, :title => visual_asset.name
