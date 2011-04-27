@@ -111,7 +111,7 @@ h2.tim-holtz-outlet-items { @extend .decorative;
 }
 
 // billboards
-// these are the default settings for ALL billboard blocks; FULL page width this is the default width.
+// these are the default settings for ALL billboard rows; FULL page width this is the default width.
 #content {
   
   .billboards {
@@ -195,6 +195,7 @@ h2.tim-holtz-outlet-items { @extend .decorative;
     }
   }
 
+  // image and panel adjustments for landing page-width billboard rows
   .billboards_landing { @extend .billboards;
     .billboard_narrow {
       width: 180px;
