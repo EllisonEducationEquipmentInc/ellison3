@@ -23,9 +23,9 @@
         = sortable "start_date_#{current_system}", "Start Date"
         = sortable "end_date_#{current_system}", "End Date"
         %th Systems
-        %th &nbsp;
-        %th &nbsp;
-        %th &nbsp;
+        %th{ :width => 30, :style => "text-align: right;" } &nbsp;
+        %th{ :width => 30, :style => "text-align: right;" } &nbsp;
+        -#%th{ :width => 30, :style => "text-align: right;" } &nbsp;
     %tbody
       - for tag in @tags
         %tr{ :class => cycle(:odd, :even) }
@@ -35,10 +35,10 @@
           %td= l tag.send("start_date_#{current_system}"), :format => :custom rescue ''
           %td= l tag.send("end_date_#{current_system}"), :format => :custom rescue ''
           %td= tag.systems_enabled.join(", ") rescue ''
-          %td= link_to 'Show', admin_tag_path(tag), :class => 'jqui_show_min'
+          %td{ :width => 30, :style => "text-align: right;" }= link_to 'Show', admin_tag_path(tag), :class => 'jqui_show_min'
           - if has_write_permissions?
-            %td= link_to 'Edit', edit_admin_tag_path(tag), :class => 'jqui_edit_min'
-            %td=# link_to 'Destroy', admin_tag_path(tag), :confirm => 'Are you sure?', :method => :delete
+            %td{ :width => 30, :style => "text-align: right;" }= link_to 'Edit', edit_admin_tag_path(tag), :class => 'jqui_edit_min'
+            -#%td{ :width => 30, :style => "text-align: right;" }= link_to 'Destroy', admin_tag_path(tag), :confirm => 'Are you sure?', :method => :delete
 %br
 = will_paginate @tags
 %br
