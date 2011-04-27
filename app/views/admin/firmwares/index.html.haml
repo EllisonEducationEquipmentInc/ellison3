@@ -19,7 +19,8 @@
     = f.text_field :name
   .field
     = f.label :file
-    = f.file_field :file  
+    = f.file_field :file 
+    (upload only files with extension .dmg, .exe, zip) 
   .actions
     = f.submit :class => 'jqui_save'
 %h3 Firmware Serial Number Ranges:
