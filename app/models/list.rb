@@ -24,7 +24,7 @@ class List
 	
 	index [[:user_id, Mongo::ASCENDING], [:active, Mongo::ASCENDING], [:save_for_later, Mongo::ASCENDING]]
 	
-	scope :listable, :where => { :active => true,  :save_for_later.ne => true}
+	scope :listable, lambda {{:where => { :active => true,  :save_for_later.ne => true}.merge(is_er? ? {:owns => false} : {})}}
 	
 	before_create :set_system
 	

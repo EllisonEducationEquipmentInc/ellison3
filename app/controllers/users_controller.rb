@@ -71,7 +71,8 @@ class UsersController < ApplicationController
 		@title = "My Account - Profile"
     @tabs = []
 		@tabs += [[:view_retailer_application, "Your Application"], [:messages, "Messages"]] if is_er?
-		@tabs += [[:billing, "My Billing Info"], [:shipping, "My Shipping Info"], [:orders, "Order Status"], [:mylists, "My Lists"], [:machines_i_own, "Machines I own"]]
+		@tabs += [[:billing, "My Billing Info"], [:shipping, "My Shipping Info"], [:orders, "Order Status"], [:mylists, "My Lists"]]
+		@tabs << [:machines_i_own, "Machines I own"] unless is_er?
 	  @tabs += [[:quotes, quote_name.pluralize]] if is_ee? || is_er?
 	  @tabs += [[:materials, "Materials"]] if is_ee?
 	  @tabs += [[:subscriptions, "Newsletter Subscriptions"]] if ecommerce_allowed?
