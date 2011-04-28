@@ -35,8 +35,12 @@ class Event
   index :end_date
   index :active
   index :event_number
+  index :updated_at
   
-  validates :name, :event_number, :description, :systems_enabled, :start_date, :start_date, :event_start_date, :event_end_date,  :presence => true
+  index [[:end_date, Mongo::DESCENDING], [:start_date, Mongo::DESCENDING], [:systems_enabled, Mongo::ASCENDING], [:active, Mongo::ASCENDING], [:event_start_date, Mongo::DESCENDING]]
+  
+  
+  validates :name, :event_number, :description, :systems_enabled, :start_date, :end_date, :event_start_date, :event_end_date,  :presence => true
 
   mount_uploader :image, GenericImageUploader
   mount_uploader :logo, GenericImageUploader
