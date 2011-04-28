@@ -1,6 +1,6 @@
 %li
   - if feed["title"].present?
-    %h3= link_to feed["title"].html_safe, feed["url"]
+    %h3= link_to feed["title"].html_safe, feed["url"], :target=>"_blank"
   %p
     %span.timestamp= l(Time.parse(feed["published"]), :format => :blog) rescue feed["published"]
     %br/    
