@@ -469,6 +469,7 @@ namespace :data_migrations do
       p "------- #{order.id} --------"
     end
     p Time.zone.now
+    p `date`
   end
   
   def process_user(old_user,new_user)
@@ -528,7 +529,7 @@ namespace :data_migrations do
       list = user.lists.build(:name => old_list.name, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
       list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
       p list.save
-      p "----- #{list.user.email} -----"
+      p "----- #{user.email} -----"
     end
     p Time.zone.now
   end
@@ -542,28 +543,21 @@ namespace :data_migrations do
       list = user.lists.build(:name => old_list.name, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
       list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
       p list.save
-      p "----- #{list.user.email} -----"
+      p "----- #{user.email} -----"
     end
-    p Time.zone.now
+    p Time.now
   end
   
   desc "idea to product association - WARNING: overwrites existing relationship (if exists)"
   task :idea_to_products => :load_dep do
     # idea = Idea.find '4cfed69be1b83259d6000033'
-    Idea.where(:product_ids.size => 0).in_batches(10) do |batch|
+    p "Total: #{Idea.where(:'tabs.name' => /(products|dies) used/i, :product_ids.size => 0).count}"
+    Idea.where(:'tabs.name' => /(products|dies) used/i, :product_ids.size => 0).in_batches(500) do |batch|
       batch.each do |idea|
         tab = idea.tabs.where({:name => /(products|dies) used/i}).first
         next if tab.blank?
         products = Product.where(:item_num.in => tab.products)
-        idea.product_ids = []
-        idea.products = products.uniq.map {|p| p}
-        idea.save(:validate => false)
-        idea.reload
-        idea.my_product_ids = Product.where(:item_num.in => tab.products).uniq.map {|p| "#{p.id}"}.uniq
-        p idea.save(:validate => false)
-        p idea.errors
-        idea.reload
-        idea.products.each {|e| e.ideas = (e.ideas + [idea]).uniq; e.idea_ids = (e.idea_ids << idea.id).uniq; p e.save(:validate => false)}
+        idea.products << products.uniq.map {|p| p}
         p "-------- #{idea.idea_num} --------"
       end
     end
