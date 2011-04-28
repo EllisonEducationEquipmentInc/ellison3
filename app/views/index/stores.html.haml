@@ -105,9 +105,6 @@
       return false;
     });
     if ($('#country').val() != 'United States') $('#map_search_submit').trigger('click');
-
-    $('div.store-grid div.online_store:nth-child(3n+1)').after("<div class='clear'> </div>");
-
   }).bind('afterMapping.jMapping', function(e,m) {
     setTimeout("$('#map').data('jMapping').map.setZoom(4)", 1200);
   });
@@ -117,4 +114,6 @@
     } else {
       $('.us_only').hide();
     }
+  
+    $('div.store-grid div.online_store:nth-child(3n+1)').after("<div class='clear'> </div>");
   }
