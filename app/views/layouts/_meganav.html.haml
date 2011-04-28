@@ -8,7 +8,7 @@
         = link_to "Dashboard", "#", :class => "megalink-admin", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
         .megapanel.full-width
           .contentwrap_XL.resize
-            %h3== Admin Dashboard ~ #{system_name}
+            %h3== Admin Dashboard ~ #{current_admin.email}
             %ul#nav_utility_admin
               %li= link_to "<span>Edit Admin Profile</span>".html_safe, edit_admin_registration_path(current_admin), :class => "btn-myaccount", :title => "Edit Admin Profile", :alt => "Edit Admin Profile"
               %li= link_to "<span>Log Out Dashboard</span>".html_safe, destroy_session_path('admin'), :class => "btn-admin-logout", :title => "Log Out Dashboard", :alt => "Log Out Dashboard"
@@ -19,6 +19,7 @@
                 - (ELLISON_SYSTEMS & current_admin.systems_enabled).each do |sys|
                   = link_to_unless current_system == sys, sys, "?#{request.query_parameters.merge('system' => sys).to_params}"
           .clear
+          %hr
           %ul.contentwrap_small
             %li.listtitle.first Catalog Management
             %ul
