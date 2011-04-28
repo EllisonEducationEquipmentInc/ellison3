@@ -258,3 +258,49 @@ input#brands_sizzix { margin-left: 0 !important; }
   }
   ul { @extend ul.plain; }
 }
+
+// Instructions
+.instructions {
+  $instruction-block-width: 158px;
+  $instruction-block-padding: 8px;
+  
+  float: left;
+  position: relative;
+  width: $instruction-block-width;
+  height: 172px;
+  margin: 5px 6px 12px;
+  padding: $instruction-block-padding;
+  border: 1px solid $catalog_buybox_border;
+  line-height: 130%;
+  text-align: center;
+  
+  a.download-link {
+    position: absolute;
+    bottom: 6px;
+	  width: 100%;
+	  left: 50%;
+	  margin-left: -($instruction-block-width/2) - $instruction-block-padding;
+	  
+	  span.link_instructions { @extend .minilink;
+	    width: auto;
+	  }
+  }
+}
+.instruction_img {
+  float:left;
+  width:377px;
+  height:259px;
+  margin-right:28px;
+}
+.instruction_r {
+  float:left;
+  margin-right:10px;
+}
+.instruction_frame {
+  border-bottom: 1px dotted $catalog_buybox_border;
+  float: left;
+  height: 259px;
+  margin: 8px 12px 8px 0;
+  padding-bottom: 10px;
+  width: auto;
+}
