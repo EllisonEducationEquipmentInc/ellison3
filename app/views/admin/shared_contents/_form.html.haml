@@ -35,7 +35,7 @@
   #visual_assets.contentwrap_XXXL.last
     - unless @shared_content.visual_assets.blank?
       %h3.left Visual Assets
-      %p.right.link_collapse.minilink= link_to "collapse all", "#", :onclick => "$('.visual_asset, .child_visual_asset').css({height:'25px',overflow:'hidden'}); return false;"
+      %p.right.link_collapse.minilink= link_to "collapse all", "#", :onclick => "$('.visual_asset, .child_visual_asset').css({height:'25px',overflow:'hidden'}).find('.va_collapse').removeClass('va_close').addClass('va_open'); return false;"
     .clear
     = f.fields_for :visual_assets, @shared_content.visual_assets.ordered do |visual_asset_fields|
       = render 'admin/visual_assets/visual_asset', :f => visual_asset_fields
