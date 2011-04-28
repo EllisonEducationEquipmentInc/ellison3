@@ -79,7 +79,7 @@
           = link_to "Using a gift card?", "/usingagiftcard?no_layout=1", :class => "link_help lightbox", :style => "margin-right: 12px"
         .left.field-stacked{ :style => "#{is_uk? ? 'margin-bottom: 0' : nil}"}
           = required_label f, :full_card_number, { :label => "Credit Card Number", :label_size => "auto" }
-          = text_field :payment, :full_card_number, :maxlength => 16, :class => "cc"
+          = text_field :payment, :full_card_number, :size => 24, :maxlength => 16, :class => "cc"
         .left.field-stacked{ :style => "#{is_uk? ? 'margin-bottom: 0' : nil}"}
           = required_label f, :card_security_code, { :label => "Security Code", :label_size => "auto" }
           = text_field :payment, :card_security_code, :size => 4, :maxlength => 4, :class => "cc", :style => "display: inline-block"
