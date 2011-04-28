@@ -16,7 +16,7 @@
             $.ajax(this[0]);
           });
         } else {
-          alert('#{escape_javascript timeout_message}');
+          alert('#{escape_javascript strip_tags(timeout_message)}');
         }
       } else {
         alert(textStatus);
