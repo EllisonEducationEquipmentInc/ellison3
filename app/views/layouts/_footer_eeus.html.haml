@@ -29,15 +29,16 @@
 
 .column
   %h2 Learn More
-  %p More useful resources
+  %p Other useful resources:
   %ul
-    %li= link_to "Custom Dies", "#"
-    %li= link_to "Request a Catalog", "#"
-    %li= link_to "Ellison Resellers", "#"
-    %li= link_to "FAQs", "#"
-    %li= link_to "Privacy Policy", "#"
-    %li= link_to "Legal Notices", "#"
-
+    %li= link_to "Custom Dies", "/customdies"
+    %li= link_to "Request a Catalog", "/catalogrequest"
+    %li= link_to "Ellison Resellers", "/resellers"
+    %li= link_to "Online Ordering FAQ", "/orderfaq"
+    %li= link_to "Privacy Policy", "/privacy"
+    %li= link_to "Legal Notices", "/legal"
+    %li= link_to "Store Locator", "/stores"
+    
 .column_right
   %h2 Subscribe to Connection
   = render "layouts/newsletter_signup_form"

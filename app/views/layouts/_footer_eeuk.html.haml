@@ -21,12 +21,15 @@
   %p More useful resources
   %ul
     %li= link_to "Custom Dies", "#"
-    %li= link_to "About Us", "#"
-    %li= link_to "Terms of Use", "#"
-    %li= link_to "Privacy Policy", "#"
-    %li= link_to "Legal Notices", "#"
-    %li= link_to "Request a Catalog", "#"
-
+    %li= link_to "About Us", "/about"
+    %li= link_to "Terms of Use", "/termsofuse#"
+    %li= link_to "Ellison Resellers", "/resellers"
+    %li= link_to "Request a Catalog", "/catalogrequest"
+    %li= link_to "Online Ordering FAQ", "/orderfaq"
+    %li= link_to "Privacy Policy", "/privacy"
+    %li= link_to "Legal Notices", "/legal"
+    %li= link_to "Store Locator", "/stores"
+    
 .column_right
   %h2 Subscribe to Ellison Newsletter
   = render "layouts/newsletter_signup_form"

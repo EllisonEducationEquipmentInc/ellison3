@@ -1,26 +1,42 @@
 .column
-  %h2 Customer Care
-  %p Contact us for help with any issues or concerns
-  %p= link_to "Contact us online 24x7", "/contact"
-  %h3 Call Center Hours
+  %h2== Customer Care
+  %p 
+    Contact us for help with any issues or concerns
+    %br
+    %span{:style=>"font-weight:bold"}=link_to "You may contact us online 24x7", "/contact"    
+    
+  .bold Call Center Hours
   %p
-    8:30 to 17:00 GMT
+    6:30 a.m. to 4:00 p.m., Pacific Time,
     %br/
     Monday through Friday
   %h3 By Phone
   %ul
     %li (0) 844 499 8181 (Within UK)
-    %li + 44 (0) 845 345 2277 (Outside of the UK)  
+    %li + 44 (0) 845 345 2277 (Outside of the UK)
+
+/  .bold By Fax
+/    %ul
+/    %li (888) 270-1200 (Toll free in the USA)
+/    %li (949) 598-8842 (Outside of the USA)
+/  .bold By Mail
+/  %ul
+/    %li Sizzix Customer Service
+/    %li 25862 Commerce centre Drive
+/    %li Lake Forest, California
+/    %li 92630-8804 USA    
 
 .column
   %h2 Learn More
-  %p More useful resources
+  %p Other useful resources:
   %ul
-    %li= link_to "Stockist List", "#"
-    %li= link_to "About Us", "#"
-    %li= link_to "Terms of Use", "#"
-    %li= link_to "Privacy Policy", "#"
-    %li= link_to "Legal Notices", "#"
+    %li= link_to "Store Locator", "/stores"
+    %li= link_to "Sizzix Official Blog", "http://sizzixukblog.blogspot.com"
+    %li= link_to "Sizzix Events", "/events"
+    %li= link_to "Sizzix News", "/news"
+    %li= link_to "Online Ordering FAQ", "/orderfaq"
+    %li= link_to "Privacy Policy", "/privacy"
+    %li= link_to "Legal Notices", "/legal"
 
 .column_right
   %h2 Subscribe to the Sizzix Newsletter

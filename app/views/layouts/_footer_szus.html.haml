@@ -2,33 +2,50 @@
   %h2== Customer Care
   %p 
     Contact us for help with any issues or concerns
-    .bold= link_to "Contact us online 24x7", "/contact"
-  %h3 Call Center Hours
+    %br
+    %span{:style=>"font-weight:bold"}=link_to "You may contact us online 24x7", "/contact"    
+    
+  .bold Call Center Hours
   %p
     6:30 a.m. to 4:00 p.m., Pacific Time,
     %br/
     Monday through Friday
-  %h3 By Phone
+  
+  .bold By Phone
   %ul
     %li (877) 355-4766 (Toll Free in the USA)
     %li (949) 598-8821 (Outside of the USA)
 
+  .bold By Fax
+  %ul
+    %li (888) 270-1200 (Toll free in the USA)
+    %li (949) 598-8842 (Outside of the USA)
+
+  .bold By Mail
+  %ul
+    %li Sizzix Customer Service
+    %li 25862 Commerce centre Drive
+    %li Lake Forest, California
+    %li 92630-8804 USA    
+
 .column
   %h2 Learn More
-  %p More useful resources
+  %p Other useful resources:
   %ul
-    %li= link_to "Store Locator", "#"
-    %li= link_to "Sizzix Official Blog", "#"
-    %li= link_to "FAQs", "#"
-    %li= link_to "Privacy Policy", "#"
-    %li= link_to "Legal Notices", "#"
+    %li= link_to "Store Locator", "/stores"
+    %li= link_to "Sizzix Official Blog", "http://sizzixblog.blogspot.com"
+    %li= link_to "Sizzix Events", "/events"
+    %li= link_to "Sizzix News", "/news"
+    %li= link_to "Online Ordering FAQ", "/orderfaq"
+    %li= link_to "Privacy Policy", "/privacy"
+    %li= link_to "Legal Notices", "/legal"
 
 .column_right
   %h2 Subscribe to the Sizzix Scoop
   = render "layouts/newsletter_signup_form"
 
   %h2 Follow Along With Us
-  %p Connect with us in social media or join our Sizzix Scoop newsletter list to receive special offers, promotions, exclusive products information and news.
+  %p To Connect with us in social media
   %ul.social-icons
     %li= link_to image_tag("/images/ui-icons/set_social-media/32x32/twitter.png"), "http://www.twitter.com/sizzix#{ is_us? ? "us" : "uk" }", :target => "blank", :title => "Follow us on Twitter", :alt => "Follow us on Twitter"
     %li= link_to image_tag("/images/ui-icons/set_social-media/32x32/facebook.png"), "http://www.facebook.com/Sizzix", :target => "blank", :title => "Join us on Facebook", :alt => "Join us on Facebook"

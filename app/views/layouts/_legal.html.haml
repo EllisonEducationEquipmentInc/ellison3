@@ -3,3 +3,5 @@
   == Copyright &copy; Ellison 1996 - #{DateTime.now.year}. All rights reserved.
   %br/
   == This site is intended for visitors within #{is_us? ? 'the United States' : 'Europe'}.
+  
+  %li{:style=>"list-style:none"}= link_to "#{is_uk? ? 'American' : 'European'} visitors check out partner site", "#{is_uk? ? 'http://www.sizzix.com' : 'http://www.sizzix.co.uk'}"
