@@ -3,7 +3,7 @@
     == Coupon Code #{"<strong>#{get_cart.coupon_code}</strong>".html_safe} has been accepted.
     - unless get_cart.coupon.description.blank?
       %br
-    = get_cart.coupon.description
+    = get_cart.coupon.description.html_safe
     = link_to "remove", remove_coupon_path, :remote => true, :class => "link_remove"
 - else
   = form_tag activate_coupon_path, :id => "coupon_form", :remote => true do
