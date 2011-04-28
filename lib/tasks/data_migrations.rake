@@ -572,24 +572,18 @@ namespace :data_migrations do
       new_product = Product.where(:item_num => product.item_num).first || Product.new(:systems_enabled => ["erus"], :name => product.name, :item_num => product.item_num, :long_desc => product.long_desc, :upc => product.upc, :keywords => product.keywords, :life_cycle => product.new_life_cycle, :active => product.new_active_status, :quantity_us => product.quantity)
       new_product.msrp_usd ||= product.msrp
       new_product.systems_enabled << "erus" if product.new_active_status && !new_product.systems_enabled.include?("erus")
-      new_product.write_attributes :wholesale_price_usd => product.wholesale_price, :minimum_quantity => product.minimum_quantity, :description_erus => product.short_desc, :old_id_er => product.id,  :orderable_er => product.new_orderable, :start_date_er => product.start_date, :end_date_er => product.end_date,  :distribution_life_cycle_er => product.life_cycle, :distribution_life_cycle_ends_er => !product.life_cycle.blank? && product.life_cycle_ends, :availability_message_er => product.availability_msg
+      new_product.write_attributes :wholesale_price_usd => product.wholesale_price, :minimum_quantity => product.minimum_quantity, :description_erus => product.short_desc, :old_id_er => product.id,  :orderable_erus => product.new_orderable, :start_date_erus => product.start_date, :end_date_erus => product.end_date,  :distribution_life_cycle_erus => product.life_cycle, :distribution_life_cycle_ends_erus => !product.life_cycle.blank? && product.life_cycle_ends, :availability_message_erus => product.availability_msg
       discount_category = DiscountCategory.where(:old_id => product.discount_category_id).first
       next if discount_category.blank?
       new_product.discount_category = discount_category
       if new_product.new_record?
-        new_product.tags = Tag.where(:name.in => product.polymorphic_tags.map {|e| e.name}).uniq.map {|p| p}
-        new_product.save
-        new_product.reload
-        new_product.tags = Tag.where(:name.in => product.polymorphic_tags.map {|e| e.name}).uniq.map {|p| p}
         p new_product.save
+        new_product.tags << Tag.where(:name.in => product.polymorphic_tags.map {|e| e.name}).uniq.map {|p| p}
       end
       if product.release_date_string
-        tag = Tag.release_dates.where(:name => product.release_date_string).first || Tag.create(:name => product.release_date_string, :tag_type => 'release_date', :systems_enabled => ["erus"], :start_date_er => 2.year.ago, :end_date_er => product.release_date.end_of_day)
-        product_ids = tag.product_ids.map {|e| "#{e}"}
-        tag.my_product_ids = (product_ids + [new_product.id.to_s]).uniq.compact.reject {|e| e.blank?}
-        tag.save
-        tag_ids = new_product.tag_ids.map {|e| "#{e}"}
-        new_product.my_tag_ids = (tag_ids + [tag.id.to_s]).uniq
+        tag = Tag.release_dates.where(:name => product.release_date_string).first || Tag.create(:name => product.release_date_string, :tag_type => 'release_date', :systems_enabled => ["erus"], :start_date_erus => 2.year.ago, :end_date_erus => product.release_date.end_of_day)
+        p " release tag #{tag.valid?}"
+        new_product.tags << tag
       end
       p new_product.save
       p new_product.errors
@@ -613,7 +607,7 @@ namespace :data_migrations do
         p "#{product.item_num} ------ #{tab.id} -------"
       end
     end
-    p Time.zone.now
+    p Time.now
   end
   
   desc "import ER users - IMPORTANT: copy production 'attachment' folder to the new app's root folder"

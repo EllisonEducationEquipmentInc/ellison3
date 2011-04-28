@@ -53,7 +53,7 @@ class Tag
   before_save :run_callbacks_on_children
   
   before_validation :set_permalink
-  after_save :maybe_index
+  after_save :maybe_index, :unless => proc {disable_solr_indexing?}
   
   after_save :update_campaign, :unless => proc {disable_solr_indexing?}
   
