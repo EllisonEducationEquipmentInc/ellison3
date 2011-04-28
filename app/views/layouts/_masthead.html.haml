@@ -1,9 +1,6 @@
 .dontprint
   -# logo masthead & branding
   %h1.masthead  
-    - if outlet?
-      = link_to "Sizzix Outlet", outlet_path, :id => "logo_masthead", :title => "Sizzix Outlet", :alt => "Sizzix Outlet"
-    - else
       = link_to system_name, root_path, :id => "logo_masthead", :title => system_name, :alt => system_name
 
   -# utility navigation menu (customer account management, shopping cart, UK currency selector, etc)  
