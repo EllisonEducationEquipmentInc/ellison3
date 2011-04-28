@@ -193,7 +193,7 @@ module Ax
 					else
 					  nil
 					end
-					product = Product.find_by_item_num item_number
+					product = Product.first(:conditions => {:item_num => item_number})
 					unless product.blank?
 					  product.quantity_us =  onhand_qty_wh01 < 1 ? 0 : onhand_qty_wh01 unless options[:exclude] == "quantity_us"
 					  product.quantity_sz =  onhand_qty_wh11 < 1 ? 0 : onhand_qty_wh11 unless options[:exclude] == "quantity_sz"
