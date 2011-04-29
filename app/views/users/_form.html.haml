@@ -9,7 +9,7 @@
   = f.text_field :name, :size => 28
 - if is_ee?
   .field
-    = f.label :institution
+    = f.label :institution, "Institution Description", :class => "autosize"
     %br/
     = f.select :institution, institutions
 .field
