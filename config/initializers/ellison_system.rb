@@ -129,6 +129,14 @@ module EllisonSystem
   def is_ee_uk?
     is_ee? && is_uk?
   end
+  
+  def is_er_us?
+    is_er? && is_us?
+  end
+  
+  def is_er_uk?
+    is_er? && is_uk?
+  end
 
 	# if gross prices are displayed (if prices include tax/vat)
 	def gross_prices?(currency = nil)

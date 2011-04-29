@@ -56,7 +56,7 @@
           %br
           order will not be processed until received.
   #cc_info
-    - if get_user.token && get_user.token.current?
+    - if is_er_us? && get_user.token && get_user.token.current?
       %strong Credit Card on file:
       .field.credit_card
         = get_user.token.card_name
