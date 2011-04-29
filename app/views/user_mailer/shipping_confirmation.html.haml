@@ -57,9 +57,9 @@
       %p Please note, in some cases merchandise may be shipped in multiple packages. If so, you will receive a shipping confirmation for each package sent.
       %p
         == Your order has been shipped via #{@order.carrier_description}. 
-        You may track your package once the shipping carrier has scanned the shipment into their system, which usually occurs within 24 hours.
-        %br
         - if @order.tracking_number.present?
+          You may track your package once the shipping carrier has scanned the shipment into their system, which usually occurs within 24 hours.
+          %br
           == For your records, your Tracking Number is: #{link_to @order.tracking_number, @order.tracking_url}
           %br
         = link_to 'Track Your Order', order_url(@order, :host => get_domain)
