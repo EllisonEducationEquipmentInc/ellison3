@@ -1,4 +1,4 @@
-.column
+.column{:style=>"min-height:580px;"}
   %h2 Customer Care - North America
   %h3 By Phone
   %ul
@@ -20,7 +20,7 @@
   %h3 By Email
   %p= link_to "customerservice@ellison.com", "mailto:customerservice@ellison.com"
     
-.column
+.column{:style=>"min-height:580px;"}
   %h2 Customer Care - Europe
   %h3 By Phone
   %ul
@@ -40,14 +40,31 @@
   %h3 By Email
   %p= link_to "europecustomerservices@ellison.com", "europecustomerservices@ellison.com"
 
-.column_right
+  %h2 Customer Care - Latin America
+  %h3 By Email
+  %ul
+    %li ventas@ellisonlatinamerica.com 
+
+.column_right{:style=>"min-height:580px;"}
   %h2 Follow Along With Us
   %p To Connect with us in social media
   %ul
-    %li= link_to "Request a Catalog", "/catalogrequest"
     %li= link_to "Press Releases", "/pressreleases"
-    %li= link_to "Shopping Support", "/orderfaq"
     %li= link_to "Distributor Locator", "/stores"
     %li= link_to "Legal Notices", "/legal"
+    %li= link_to "News", "/news"
+    %li= link_to "Events", "/events"
+    %li= link_to "Awards", "/awards"
+    %li= link_to "Announcements", "/announcements"
+    %li= link_to "Shopping Support", "/shoppingsupport"
+    %li= link_to "FAQs", "/websitefaq"
   %h3 Contact Us Online 24 x7
-  %p= link_to "Online feedback form", "#"
+  %p= link_to "Online Contact us form", "/contact"
+  
+  
+c)	Missing “Customer Care – Latin America” details – display below “Customer Care – Europe”
+By Email:
+ventas@ellisonlatinamerica.com 
+
+
+

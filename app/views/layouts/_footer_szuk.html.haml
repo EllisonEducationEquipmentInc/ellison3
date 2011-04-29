@@ -1,4 +1,4 @@
-.column
+.column{:style=>"min-height:580px;"}
   %h2== Customer Care
   %p 
     Contact us for help with any issues or concerns
@@ -14,36 +14,57 @@
   %ul
     %li (0) 844 499 8181 (Within UK)
     %li + 44 (0) 845 345 2277 (Outside of the UK)
+    
+  %h3 By Fax
+  %ul
+    %li +44 845 345 0011 (Within UK)
+    %li + 44 (0) 845 345 2277 (Outside of the UK)
+    
+  %h3 By Mail
+  %ul
+    %li By Mail:
+    %li Ellison Europe Ltd.
+    %li Unit 3, Whitegate Industrial Estate
+    %li Wrexham
+    %li United Kingdom, LL13 8UG
+    %li VAT No. 886263386 
 
-/  .bold By Fax
-/    %ul
-/    %li (888) 270-1200 (Toll free in the USA)
-/    %li (949) 598-8842 (Outside of the USA)
-/  .bold By Mail
-/  %ul
-/    %li Sizzix Customer Service
-/    %li 25862 Commerce centre Drive
-/    %li Lake Forest, California
-/    %li 92630-8804 USA    
+  %h3 By Email
+  %ul
+    %li
+      Customer Services:
+      %br
+      =link_to "europecustomerservices@ellison.com", "mailto:europecustomerservices@ellison.com"
+    %li
+      Internet Returns:
+      %br
+      =link_to "europecustomerservices@ellison.com", "mailto:europecustomerservices@ellison.com"
+    %li
+      Retailers:
+      %br
+      =link_to "europecustomerservices@ellison.com", "mailto:europecustomerservices@ellison.com"
 
-.column
+
+.column{:style=>"min-height:580px;"}
   %h2 Learn More
   %p Other useful resources:
   %ul
     %li= link_to "Store Locator", "/stores"
-    %li= link_to "Sizzix Official Blog", "http://sizzixukblog.blogspot.com"
+    %li= link_to "Sizzix Official Blog", "/blogs"
+    %li= link_to "Sizzix Awards", "/awards"
     %li= link_to "Sizzix Events", "/events"
+    %li= link_to "About Us", "/about"
     %li= link_to "Sizzix News", "/news"
-    %li= link_to "Online Ordering FAQ", "/orderfaq"
+    %li= link_to "Terms of Use", "/site_use"
     %li= link_to "Privacy Policy", "/privacy"
     %li= link_to "Legal Notices", "/legal"
-
-.column_right
+    
+.column_right{:style=>"min-height:580px;"}
   %h2 Subscribe to the Sizzix Newsletter
   = render "layouts/newsletter_signup_form"
   
   %h2 Follow Along With Us
-  %p To Connect with us in social media
+  %p To connect with us in social media
   %ul.social-icons
     %li= link_to image_tag("/images/ui-icons/set_social-media/32x32/twitter.png"), "http://www.twitter.com/sizzix#{ is_us? ? "us" : "uk" }", :target => "blank", :title => "Follow us on Twitter", :alt => "Follow us on Twitter"
     %li= link_to image_tag("/images/ui-icons/set_social-media/32x32/facebook.png"), "http://www.facebook.com/Sizzix", :target => "blank", :title => "Join us on Facebook", :alt => "Join us on Facebook"

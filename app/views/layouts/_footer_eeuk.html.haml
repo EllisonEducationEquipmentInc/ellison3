@@ -1,4 +1,4 @@
-.column
+.column{:style=>"min-height:580px;"}
   %h2 Customer Care
   %p Contact us for help with any issues or concerns
   %p= link_to "Contact us online 24x7", "/contact"
@@ -15,8 +15,15 @@
   %p= link_to "customersupport@ellisoneurope.com", "customersupport@ellisoneurope.com"
   %h3 By Fax
   %p Fax: +44 (0) 845 345 0011
-
-.column
+  
+  %h3 By Mail
+  %ul
+    %li Ellison Europe Ltd.
+    %li Unit 3 Whitegate Industrial Estate
+    %li Whitegate, Wrexham LL13 8UG
+    %li United Kingdom 
+  
+.column{:style=>"min-height:580px;"}
   %h2 Learn More
   %p More useful resources
   %ul
@@ -30,15 +37,12 @@
     %li= link_to "Legal Notices", "/legal"
     %li= link_to "Store Locator", "/stores"
     
-.column_right
+.column_right{:style=>"min-height:580px;"}
   %h2 Subscribe to Ellison Newsletter
   = render "layouts/newsletter_signup_form"
   
   %h2 Follow Along With Us
-  %p Connect with us in social media or join our Sizzix Scoop newsletter list to receive special offers, promotions, exclusive products information and news.
   %ul.social-icons
-    %li= link_to image_tag("/images/ui-icons/set_social-media/32x32/twitter.png"), "http://www.twitter.com/sizzix#{ is_us? ? "us" : "uk" }", :target => "blank", :title => "Follow us on Twitter", :alt => "Follow us on Twitter"
-    %li= link_to image_tag("/images/ui-icons/set_social-media/32x32/facebook.png"), "http://www.facebook.com/Sizzix", :target => "blank", :title => "Join us on Facebook", :alt => "Join us on Facebook"
     - if is_sizzix_us?
       %li= link_to image_tag("/images/ui-icons/set_social-media/32x32/blogger.png"), "http://sizzixblog.blogspot.com/", :target => "blank", :title => "Read our blog", :alt => "Read our blog"
     %li= link_to image_tag("/images/ui-icons/set_social-media/32x32/youtube.png"), "http://www.youtube.com/sizzix", :target => "blank", :title => "Watch us on YouTube", :alt => "Watch us on YouTube"
