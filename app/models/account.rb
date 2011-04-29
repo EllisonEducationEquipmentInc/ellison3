@@ -29,8 +29,10 @@ class Account
   field :state
   field :email
   field :old_id, :type => Integer
+  field :old_id_uk, :type => Integer
   
   index :old_id
+  index :old_id_uk
   
   def destroy
     update_attribute :active, false

@@ -775,6 +775,47 @@ namespace :data_migrations do
     p Time.zone.now
   end
   
+  desc "migrate EDU UK accounts"
+  task :accounts_eeuk => [:set_eeuk, :load_dep] do
+    set_current_system "eeuk"
+    OldData::Account.not_deleted.find_each(:conditions => "id > 0") do |old_account|
+      a = Account.create(:school => old_account.school, :name => old_account.name, :city => old_account.city, :erp => old_account.axapta_id, :address1 => old_account.address, :address2 => old_account.address1, :zip_code => old_account.zip, :created_at => old_account.created_at, :title => old_account.title, :country => old_account.country,  :avocation => old_account.avocation, :students => old_account.students, :individual => old_account.individual, :old_id_uk => old_account.id, :institution => old_account.institution.try(:name), :resale_number => old_account.resale_number, :phone => old_account.phone, :fax => old_account.fax, :description => old_account.description, :affiliation => old_account.affiliation, :tax_exempt_number => old_account.tax_exempt_number, :tax_exempt => old_account.tax_exempt, :state => old_account.state, :email => old_account.email, :active => old_account.active)
+      p a.new_record?
+    end
+    p Time.now
+  end
+  
+  desc "import EDU UK users"
+  task :users_eeuk => [:set_eeuk, :load_dep] do
+    set_current_system "eeuk"
+    # old_user = OldData::User.find(12369)
+    OldData::User.not_deleted.find_each(:conditions => "id > 0") do |old_user|
+      existing = User.where(:email => old_user.email).first
+      if !existing.blank? && old_user.orders.count > 0
+        new_user = existing
+        p "!!! user #{old_user.email} found. merging..."
+        new_user.old_id_eeuk = old_user.id
+        new_user.systems_enabled << "eeuk" if !new_user.systems_enabled.include?("eeuk") 
+        new_user.save(:validate => false)
+      else
+        new_user = User.new(:email => old_user.email, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
+        new_user.old_id_eeuk = old_user.id
+
+        process_user(old_user,new_user)
+      end
+      account = Account.where(:old_id_uk => old_user.account_id).first
+      if account
+        p "account found..."
+        new_user.account = account
+        new_user.institution = old_user.account.institution.code.strip if old_user.account.try(:institution).try(:code)
+        new_user.save
+      end
+      p new_user.errors
+      p "-------- #{new_user.old_id_eeus} #{new_user.email}----------"
+    end
+    p Time.now
+  end
+  
   desc "migrate EDU US orders"
   task :orders_eeus => [:set_edu, :load_dep] do
     set_current_system "eeus"
