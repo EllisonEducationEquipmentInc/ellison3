@@ -11,7 +11,7 @@
           = f.submit "Continue", :class => 'jqui_save button_green'
 #checkout_billing
   %h3 Billing Info
-  - if get_user.token && get_user.token.current?
+  - if is_er_us? && get_user.token && get_user.token.current?
     #tokenized_billing_info= render :partial => 'tokenized_billing_info'
   - elsif get_user.billing_address && get_user.shipping_address
     = render :partial => 'users/address_info', :locals => {:address_type => "billing"}
