@@ -10,7 +10,7 @@
         = f.radio_button(:active, true, :onclick => "if (this.checked) {$(this).closest('.va_title').find('h#{f.object.is_child? ? 3 : 2}').removeClass('disabled')}")
         no
         = f.radio_button(:active, false, :onclick => "if (this.checked) {$(this).closest('.va_title').find('h#{f.object.is_child? ? 3 : 2}').addClass('disabled')}")
-    = link_to "-", "#", :class => "va_collapse va_close", :onclick => "return false;"
+    = link_to "-", "#", :class => "va_collapse va_close"
     -# important: h2 is the sort handler for parent VA's, h3 for children
     - if f.object.new_record?
       - if f.object.is_child?
@@ -166,15 +166,12 @@
       changeMonth: true,
       changeYear: true
     });
-    $('.va_collapse').click(function () {
-      var ringo = $(this).hasClass('va_close');
-      if (ringo) {
-        $(this).removeClass('va_close').addClass('va_open');
-        $(this).closest('.child_visual_asset, .visual_asset').css({height:"25px", overflow:"hidden"});      
-      } else {
-        $(this).removeClass('va_open').addClass('va_close');
-        $(this).closest('.child_visual_asset, .visual_asset').css({height:"auto"});      
-      }
+    $('.va_collapse').toggle(function () {
+      $(this).removeClass('va_close').addClass('va_open');
+      $(this).closest('.child_visual_asset, .visual_asset').css({height:"25px", overflow:"hidden"});
+    }, function () {
+      $(this).removeClass('va_open').addClass('va_close');
+      $(this).closest('.child_visual_asset, .visual_asset').css({height:"auto"});
     });
     $('.va_thumb_child').toggle(function () {
       $(this).closest('.child_visual_asset, .visual_asset').css({height:"25px", overflow:"hidden"});
