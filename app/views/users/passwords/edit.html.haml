@@ -9,9 +9,9 @@
     = f.password_field :password
     %br
     %span.formhelp
-      == Password must be between #{"<strong>8-15 characters</strong>".html_safe}
+      == Password must be between <strong>8-15 characters</strong>
       %br
-      == with at least #{"<strong>one letter</strong>".html_safe} and #{"<strong>one number</strong>".html_safe} chosen
+      == with at least <strong>one letter</strong> and <strong>one number</strong> chosen
   %p
     = required_label f, :password_confirmation
     %br/

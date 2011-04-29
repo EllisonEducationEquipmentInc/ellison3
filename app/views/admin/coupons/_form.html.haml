@@ -69,7 +69,7 @@
     = products_helper_tag('coupon[product_item_nums]', @coupon.product_item_nums, :label => "List the Products to be discounted below:", :class => "product_level level_specific")
     .field.group_level.level_specific
       %strong Select coupons to include in this Group Coupon
-      %em== (Only coupons enabled for #{"<strong>#{system_name}</strong>".html_safe} are shown below)
+      %em== (Only coupons enabled for <strong>#{system_name}</strong> are shown below)
       %br
       - Coupon.active.product_level.cache.each do |coupon|
         -# display only coupons enabled for current system
@@ -110,16 +110,16 @@
       = f.label :order_has_to_be, "The customer's order <strong><em>must</em></strong> have...".html_safe, :class => "autosize"
       %ul#order_has_to_be_list
         %li.ui-menu-item
-          == a total weight #{"<strong>over</strong>".html_safe}
+          == a total weight <strong>over</strong>
           = text_field_tag "coupon[order_has_to_be][total_weight][over]", @coupon.order_has_to_be.try(:[], "total_weight").try(:[], "over"), :size => 6
-          == pounds, and #{"<strong>under</strong>".html_safe}
+          == pounds, and <strong>under</strong>
           = text_field_tag "coupon[order_has_to_be][total_weight][under]", @coupon.order_has_to_be.try(:[], "total_weight").try(:[], "under"), :size => 6
           pounds.
         %li.ui-menu-item
-          == a subtotal #{"<strong>over</strong>".html_safe}
+          == a subtotal <strong>over</strong>
           %span{:class => "icon_pricefield_#{current_currency}"}
             = text_field_tag "coupon[order_has_to_be][sub_total][over]", @coupon.order_has_to_be.try(:[], "sub_total").try(:[], "over"), :size => 6
-          == , and #{"<strong>under</strong>".html_safe}
+          == , and <strong>under</strong>"
           %span{:class => "icon_pricefield_#{current_currency}"}
             = text_field_tag "coupon[order_has_to_be][sub_total][under]", @coupon.order_has_to_be.try(:[], "sub_total").try(:[], "under"), :size => 6
           == .

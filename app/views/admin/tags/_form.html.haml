@@ -68,7 +68,7 @@
           = campaign_fields.radio_button(:individual, true, :style => "margin: 0 3px 0 10px", :onclick => "update_campaign();")          
           == #{"as a <em>unique</em> discount for <strong>individual</strong> products".html_safe}
       %div{:class => "contentwrap_#{ f.object.new_record? ? 'XL' : 'medium' } last"}
-        %p.border-left.formhelp== #{"<em>Add specific directions for special campaign scenarios here</em>".html_safe}
+        %p.border-left.formhelp== <em>Add specific directions for special campaign scenarios here</em>
 
       .contentwrap_XXXL.last
         .field.individual

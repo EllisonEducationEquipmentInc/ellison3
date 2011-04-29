@@ -29,9 +29,9 @@
     = f.password_field :password_confirmation, :class => 'password_confirm', :maxlength => 15
 .clear
 %p.formhelp
-  == (must be between #{"<strong>8-15 characters</strong>".html_safe} with
+  == (must be between <strong>8-15 characters</strong> with
   %br
-  == at least #{"<strong>one letter</strong>".html_safe} and #{"<strong>one number</strong>".html_safe} chosen)
+  == at least <strong>one letter</strong> and <strong>one number</strong> chosen)
 .action= f.submit "Sign up", :class => 'jqui_save'
 
 :javascript

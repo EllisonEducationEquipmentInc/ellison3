@@ -56,7 +56,7 @@
           %br
           order will not be processed until received.
   #cc_info
-    - if is_er_us? && get_user.token && get_user.token.current?
+    - if is_er? && get_user.token && get_user.token.current?
       %strong Credit Card on file:
       .field.credit_card
         = get_user.token.card_name
@@ -86,7 +86,7 @@
           = link_to "What is This?", "/seccode?no_layout=1", :class => "link_help lightbox"
         .clear_left
         - if is_uk?
-          %p.formhelp== #{"<strong>Note:</strong>".html_safe} Currently, we do #{"<strong>NOT</strong>".html_safe} accept International Maestro card form of Payment.
+          %p.formhelp== <strong>Note:</strong> Currently, we do <strong>NOT</strong> accept International Maestro card form of Payment.
         .left.field-stacked
           = required_label f, :card_expiration_month, { :label => "Expiration Date", :label_size => "auto" }
           = select :payment, :card_expiration_month, Payment.months, { :prompt => "month" }, :class => "cc"
