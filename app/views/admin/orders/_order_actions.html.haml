@@ -2,7 +2,7 @@
   .success
     - if @order.can_be_paid?
       = link_to_function "Make Payment", "$('#make_payment').slideDown()", :class => 'jqui_button'
-    - if @order.to_refund?
+    - if @order.to_refund? && !(@order.payment.try(:refunded_amount) && @order.payment.refunded_amount > 0)
       = link_to "Refund", {:action => 'refund_cc', :id => @order}, :class => 'jqui_button'
       = link_to "Refund & Recreate", {:action => 'refund_cc', :id => @order, :recreate => true}, :class => 'jqui_button'
     - else
