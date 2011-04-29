@@ -156,6 +156,18 @@ ul#tag_products, ul#tag_ideas { @extend ul.horizontal;
   h3 {
     margin-top: 8px !important;
   }
+  
+  .va_active-dates {
+    @extend .field;
+    @extend .right;
+
+    margin: 8px 8px 0 0;
+    padding-right: 8px;
+    font-weight: normal;
+    border-right: 1px solid $catalog_buybox_border;
+
+    &.disabled { color: $link_dead;}
+  }
 }
 
 .recurring {
