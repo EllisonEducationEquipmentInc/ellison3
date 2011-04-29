@@ -2,7 +2,7 @@
   $.ajax({
     url:'/carts/get_deferred_first_payment', 
     tryCount : 0,
-    retryLimit : 25,
+    retryLimit : 50,
     success: function(data) {$('#deferred_first_payment').html(data);$('#payment_submit').button({disabled: false, label: button_label});},
     beforeSend: function() {$('#payment_submit').button({disabled: true, label: 'please wait...'});$('#deferred_first_payment').html('#{escape_javascript loader_bar}')},
     error : function(xhr, textStatus, errorThrown ) {

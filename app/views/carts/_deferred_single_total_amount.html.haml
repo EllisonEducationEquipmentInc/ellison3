@@ -2,7 +2,7 @@
   $.ajax({
     url:'/carts/get_total_amount', 
     tryCount : 0,
-    retryLimit : 20,
+    retryLimit : 50,
     success: function(data) {$('#deferred_single_total_amount').html(data);$('#payment_submit').button({disabled: false, label: button_label});},
     beforeSend: function() {$('#payment_submit').button({disabled: true, label: 'please wait...'});$('#deferred_single_total_amount').html('#{escape_javascript loader_bar}')},
     error : function(xhr, textStatus, errorThrown ) {
