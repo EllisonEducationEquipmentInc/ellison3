@@ -1,4 +1,4 @@
-.column{:style=>"min-height:580px;"}
+.column{:class=>"panel_height"}
   %h2 Customer Care
   %p Contact us for help with any issues or concerns
   %p= link_to "Contact us online 24x7", "/contact"
@@ -23,7 +23,7 @@
     %li Whitegate, Wrexham LL13 8UG
     %li United Kingdom 
   
-.column{:style=>"min-height:580px;"}
+.column{:class=>"panel_height"}
   %h2 Learn More
   %p More useful resources
   %ul
@@ -37,7 +37,7 @@
     %li= link_to "Legal Notices", "/legal"
     %li= link_to "Store Locator", "/stores"
     
-.column_right{:style=>"min-height:580px;"}
+.column_right{:class=>"panel_height"}
   %h2 Subscribe to Ellison Newsletter
   = render "layouts/newsletter_signup_form"
   

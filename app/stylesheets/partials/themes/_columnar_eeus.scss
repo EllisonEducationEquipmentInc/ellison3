@@ -197,6 +197,11 @@ body.bp {
       .column, .column_right {
         margin-top: 20px;
       }    
-    }    
+    }   
+    
+    .panel_height {
+      min-height:370px;
+    } 
+   
   }
 }

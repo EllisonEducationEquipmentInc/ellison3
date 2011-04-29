@@ -215,4 +215,8 @@ body.bp {
   .container {
     background: url("/images/ui-backgrounds/_#{$system}_footer.jpg") no-repeat center top;    
   }
+  
+  .panel_height {
+    min-height:580px;
+  }
 }
