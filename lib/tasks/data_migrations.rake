@@ -170,6 +170,23 @@ namespace :data_migrations do
     p Time.zone.now
   end
   
+  
+  desc "migrate EDU UK theme, curriculum, subcurriculum, subtheme tags"
+  task :tags_eeuk => [:set_eeuk, :load_dep] do
+    set_current_system "eeuk"
+    OldData::PolymorphicTag.not_deleted.find_each(:conditions => ["tag_type IN (?)", [5, 11, 17, 18]]) do |tag|
+      tag.name.force_encoding("UTF-8") if tag.name.encoding.name == "ASCII-8BIT"
+      systems = ["eeuk"]
+      new_tag = Tag.where(:name => tag.name, :tag_type => tag.old_type_to_new).first || Tag.new(:name => tag.name, :tag_type => tag.old_type_to_new, :active => tag.active, :systems_enabled => systems, :description => tag.short_desc, :banner => tag.banner, :list_page_image => tag.list_page_image, :medium_image => tag.medium_image)
+      new_tag.write_attributes :old_id_eeuk => tag.id,  :start_date_eeuk => tag.start_date,  :end_date_eeuk => tag.end_date, :keywords => tag.keywords
+      new_tag.systems_enabled = new_tag.systems_enabled | systems unless new_tag.new_record?
+      print new_tag.save
+      p tag.id
+      p new_tag.errors
+    end
+    p Time.now
+  end
+  
   desc "fix EDU calendar tags"
   task :tags_fix_calendar => [:set_edu, :load_dep] do
     set_current_system "eeus"
@@ -1102,6 +1119,10 @@ EOF
   task :set_er do
     ENV['SYSTEM'] = "erus"
   end
+  
+  task :set_eeuk do
+    ENV['SYSTEM'] = "eeuk"
+  end
     
   desc "load dependencies and connect to mysql db"
   task :load_dep => :environment do
@@ -1118,6 +1139,8 @@ EOF
       "sizzix_2_uk_qa"
     when "erus"
       "ellison_global_qa"
+    when "eeuk"
+      "ellison_education_uk_qa"
     else
       "sizzix_2_us_qa"
     end
