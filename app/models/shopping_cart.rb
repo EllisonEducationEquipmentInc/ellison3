@@ -491,7 +491,7 @@ module ShoppingCart
     
     # updates current user's payment/subscription token from cybersource
     def update_user_token
-      if get_user.token && !get_user.token.current?
+      if is_er_us? && get_user.token && !get_user.token.current?
   		  get_tokenized_billing_info :subscription_id => get_user.token.subscriptionid, :order_id =>  get_user.id
   		  if @net_response.success? && @net_response.params['status'] == 'CURRENT'
   		    get_user.token.update_attributes :status => "CURRENT",  :card_number => @net_response.params['cardAccountNumber'], :card_name => get_gateway.cc_code_to_cc(@net_response.params['cardType']), :card_expiration_month => @net_response.params['cardExpirationMonth'],
