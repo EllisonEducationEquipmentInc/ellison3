@@ -36,7 +36,7 @@
     - unless @cart_locked
       :javascript
         $('input.number_only').keydown(number_only)
-        .focusout(function(){
+        .keyup(function(){
           if ($(this).val().length < 1) {
             var original_value = $(this).attr('defaultValue');
             $(this).val(original_value);
