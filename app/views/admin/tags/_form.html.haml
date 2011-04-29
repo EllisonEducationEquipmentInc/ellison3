@@ -63,10 +63,10 @@
           = campaign_fields.label :individual, "How should discounts be configured & applied?", :class => "autosize"
           %br
           = campaign_fields.radio_button(:individual, false, :style => "margin: 0 3px 0 10px", :onclick => "update_campaign();")
-          == #{"as <em>one</em> discount for <strong>a group</strong> of products".html_safe}
+          == as <em>one</em> discount for <strong>a group</strong> of products
           %br
           = campaign_fields.radio_button(:individual, true, :style => "margin: 0 3px 0 10px", :onclick => "update_campaign();")          
-          == #{"as a <em>unique</em> discount for <strong>individual</strong> products".html_safe}
+          == as a <em>unique</em> discount for <strong>individual</strong> products
       %div{:class => "contentwrap_#{ f.object.new_record? ? 'XL' : 'medium' } last"}
         %p.border-left.formhelp== <em>Add specific directions for special campaign scenarios here</em>
 
