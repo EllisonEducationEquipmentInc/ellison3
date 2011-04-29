@@ -29,7 +29,7 @@
           %td= feedback.email
           %td
             .comment_details{:style => "display:none;"}
-              %ul.plain= render :partial => 'comments/comment', :collection => feedback.comments
+              %ul.plain= render :partial => 'comments/comment', :collection => feedback.comments.sort {|x,y| y.created_at <=> x.created_at}
             %span.comment_subject= link_to "#{feedback.subject} (#{feedback.comments.count})", admin_feedback_path(feedback)
           %td
             %span.edit_status{:id => "status_#{feedback.id}"}= feedback.status

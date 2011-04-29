@@ -99,7 +99,7 @@ class Admin::FeedbacksController < ApplicationController
 	  respond_to do |format|
       if @feedback.save
         change_current_system @feedback.system
-        UserMailer.feedback_reply(@feedback).deliver
+        UserMailer.delay.feedback_reply(@feedback)
         format.html { redirect_to(admin_feedbacks_url, :notice => 'Your reply was sent') }
         format.xml  { render :xml => @feedback, :status => :created, :location => @feedback }
       else

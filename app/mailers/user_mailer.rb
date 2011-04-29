@@ -27,6 +27,11 @@ class UserMailer < ActionMailer::Base
 		mail(:from => user.email, :to => recipients, :subject => "#{name} wants to share their #{get_domain.capitalize} List with you")
 	end
 	
+	def feedback_confirmation(feedback)
+	  @feedback = feedback
+	  mail(:to => feedback.email, :subject => "[#{get_domain.capitalize}] - Thank you for your Enquiry. #{feedback.subject} - #{feedback.number}")
+	end
+	
 	def feedback_reply(feedback)
 	  @feedback = feedback
 	  mail(:to => feedback.email, :subject => "RE: [#{get_domain.capitalize}] #{feedback.subject} - #{feedback.number}")
