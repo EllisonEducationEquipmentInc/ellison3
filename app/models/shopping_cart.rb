@@ -561,7 +561,7 @@ module ShoppingCart
   		@payment.use_saved_credit_card = true if is_er_us? && user.token && user.token.current?
   		@payment.attributes = params[:payment] if params[:payment]
   		raise "Purchase Order is missing" if @payment.purchase_order && @payment.purchase_order_number.blank?
-  		@payment.subscriptionid = user.token.subscriptionid if if is_er_us? && user.token && user.token.current?
+  		@payment.subscriptionid = user.token.subscriptionid if is_er_us? && user.token && user.token.current?
   	end
   	
   	def can_use_previous_payment?
