@@ -619,8 +619,7 @@ namespace :data_migrations do
       if !existing.blank? 
         new_user = existing
         p "!!! user #{old_user.email} found. merging..."
-        new_user.old_id_er = old_user.id
-        new_user.save
+        new_user.update_attribute :old_id_er, old_user.id
         new_user.systems_enabled << "erus" if !new_user.systems_enabled.include?("erus") 
         unless new_user.orders.count > 0
           new_user.systems_enabled = ["erus"]
@@ -628,7 +627,7 @@ namespace :data_migrations do
           process_user(old_user,new_user)
           new_user.tax_exempt = false
         end
-        p new_user.save
+        p new_user.save(:validate => false)
       else
         new_user = User.new(:email => old_user.email, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
         new_user.old_id_er = old_user.id
@@ -722,7 +721,8 @@ namespace :data_migrations do
   task :accounts_eeus => [:set_edu, :load_dep] do
     set_current_system "eeus"
     OldData::Account.not_deleted.find_each(:conditions => "id > 0") do |old_account|
-      p Account.create(:school => old_account.school, :name => old_account.name, :city => old_account.city, :erp => old_account.axapta_id, :address1 => old_account.address, :address2 => old_account.address1, :zip_code => old_account.zip, :created_at => old_account.created_at, :title => old_account.title, :country => old_account.country,  :avocation => old_account.avocation, :students => old_account.students, :individual => old_account.individual, :old_id => old_account.id, :institution => old_account.institution.try(:name), :resale_number => old_account.resale_number, :phone => old_account.phone, :fax => old_account.fax, :description => old_account.description, :affiliation => old_account.affiliation, :tax_exempt_number => old_account.tax_exempt_number, :tax_exempt => old_account.tax_exempt, :state => old_account.state, :email => old_account.email, :active => old_account.active)
+      a = Account.create(:school => old_account.school, :name => old_account.name, :city => old_account.city, :erp => old_account.axapta_id, :address1 => old_account.address, :address2 => old_account.address1, :zip_code => old_account.zip, :created_at => old_account.created_at, :title => old_account.title, :country => old_account.country,  :avocation => old_account.avocation, :students => old_account.students, :individual => old_account.individual, :old_id => old_account.id, :institution => old_account.institution.try(:name), :resale_number => old_account.resale_number, :phone => old_account.phone, :fax => old_account.fax, :description => old_account.description, :affiliation => old_account.affiliation, :tax_exempt_number => old_account.tax_exempt_number, :tax_exempt => old_account.tax_exempt, :state => old_account.state, :email => old_account.email, :active => old_account.active)
+      p a.new_record?
     end
     p Time.zone.now
   end
@@ -738,7 +738,7 @@ namespace :data_migrations do
         p "!!! user #{old_user.email} found. merging..."
         new_user.old_id_eeus = old_user.id
         new_user.systems_enabled << "eeus" if !new_user.systems_enabled.include?("eeus") 
-        p new_user.save
+        new_user.save(:validate => false)
       else
         new_user = User.new(:email => old_user.email, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
         new_user.old_id_eeus = old_user.id
@@ -749,7 +749,7 @@ namespace :data_migrations do
       if account
         p "account found..."
         new_user.account = account
-        new_user.institution = account.institution.code.strip if account.institution
+        new_user.institution = old_user.account.institution.code.strip if old_user.account.try(:institution).try(:code)
         new_user.save
       end
       p new_user.errors
