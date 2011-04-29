@@ -33,6 +33,8 @@ class SessionsController < ApplicationController
     if is_er?
       session[:user_return_to] ||= myaccount_path(:tab => 'messages')
       session[:user_return_to] = retailer_application_path if !resource.application_complete?
+    else
+      session[:user_return_to] = myaccount_path unless session[:user_return_to] == checkout_path(:secure => true) || session[:user_return_to] == pre_order_path(:secure => true) || session[:user_return_to] == quote_path(:secure => true)
     end
     resource.update_attribute(:machines_owned, machines_owned) if machines_owned.present? && resource.machines_owned != machines_owned
     cookies[:machines] = {:value => resource.machines_owned.join(","), :expires => 30.days.from_now} if resource.machines_owned.present? && machines_owned != resource.machines_owned
