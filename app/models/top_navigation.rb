@@ -34,7 +34,7 @@ private
       Navigation.new("Craft Projects", "/catalog#ideas=1"), 
       Navigation.new("Promotions", "/campaigns"),
       Navigation.new("Featured", "#"),
-      Navigation.new("Support", "/contact")
+      Navigation.new("Support", "/support")
     ]
   end
   
@@ -44,7 +44,7 @@ private
       Navigation.new("Products", "/catalog"), 
       Navigation.new("Electronic Cutting", "/shop/eclips"),
       Navigation.new("Specials", "/campaigns"),
-      Navigation.new("Support", "/contact")
+      Navigation.new("Support", "/support")
     ]
   end
   
@@ -54,7 +54,7 @@ private
       Navigation.new("Products", "/catalog"), 
       Navigation.new("Electronic Cutting", "/shop/eclips"),
       Navigation.new("Specials", "/campaigns"),
-      Navigation.new("Support", "/contact")
+      Navigation.new("Support", "/support")
     ]
   end
   
@@ -62,7 +62,7 @@ private
     [
       Navigation.new("Sizzix Crafts", "/shop/crafts"), 
       Navigation.new("Ellison Education", "/shop/education"), 
-      Navigation.new("Support", "/contact"),
+      Navigation.new("Support", "/support"),
       Navigation.new("My Account", "/myaccount")
     ]
   end
