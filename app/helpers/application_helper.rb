@@ -329,14 +329,12 @@ HTML
     end    
     return cart_name
 	end
-	
+
   def zone_label(zone)
     zone_label = case zone
-      when 9 then 'Use this Zone to define Ground Shipping Rate for Hawaii & define "express" rate for Alaska.'
-      when 10 then 'Use this Zone to define Ground Shipping Rate for Puerto Rico & define "express" rate for Hawaii.'
-      when 11 then 'Use this Zone to define Express Shipping Rate for Alaska.'
-      when 12 then 'Use this Zone to define Express Shipping Rate for Hawaii.'
-      when 17 then 'Use this Zone to define Ground Shipping Rate for Alaska.'
+      when 9 then 'Use this Zone to define Shipping Rates for Hawaii.'
+      when 10, 11, 12 then 'unused.'
+      when 17 then 'Use this Zone to define Shipping Rates for Alaska.'
       when "APO" then 'Use this Zone to define Shipping Rate for APO/FPO.'
       else nil
     end
