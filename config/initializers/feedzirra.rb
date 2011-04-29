@@ -8,5 +8,9 @@ module Feedzirra
     class RSS
       element :"openSearch:totalResults", :as => :total_results
     end
+    
+    class Atom
+      element :"openSearch:totalResults", :as => :total_results
+    end
   end
 end
