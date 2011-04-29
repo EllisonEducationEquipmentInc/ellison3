@@ -558,7 +558,7 @@ module ShoppingCart
 		def new_payment(user = get_user)
   		@payment = Payment.new
   		@payment.copy_common_attributes(user.billing_address) if user.billing_address
-  		@payment.use_saved_credit_card = true if user.token && user.token.current?
+  		@payment.use_saved_credit_card = true if is_er_us? && user.token && user.token.current?
   		@payment.attributes = params[:payment] if params[:payment]
   		raise "Purchase Order is missing" if @payment.purchase_order && @payment.purchase_order_number.blank?
   		@payment.subscriptionid = user.token.subscriptionid if user.token && user.token.current?
