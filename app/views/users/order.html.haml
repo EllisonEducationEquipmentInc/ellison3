@@ -113,6 +113,8 @@
       %li Shipping errors and claims must be made within 10 days of receipt of goods.
       %li Merchandise CANNOT be returned without prior approval.
       %li Returns or exchanges subject to restocking fee.
+    - unless @order.comments.blank?
+      %p== <strong>Comments:</strong> #{@order.comments}
     %p= link_to "Print a copy of this order receipt.", "javascript:window.print()", :class => "link_print dontprint"
   - else
     &nbsp;

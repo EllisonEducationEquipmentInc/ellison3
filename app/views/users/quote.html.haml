@@ -71,8 +71,10 @@
       %td{:class => item.product.quantity < item.quantity ? 'pre_order' : nil}= item.quantity
       %td= number_to_currency item.sale_price
       %td= number_to_currency item.item_total
-%p.contentwrap_XL{ :style => "margin-right: 10px !important"}
-  = link_to "Print a copy of this invoice.", "javascript:window.print()", :class => "link_print dontprint"
+.contentwrap_XL{ :style => "margin-right: 10px !important"}
+  - unless @quote.comments.blank?
+    %p== <strong>Comments:</strong> #{@order.comments}
+  %p= link_to "Print a copy of this invoice.", "javascript:window.print()", :class => "link_print dontprint"
 
 %ul.plain.cart_summary.contentwrap_medium.last
   %li
