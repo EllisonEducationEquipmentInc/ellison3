@@ -1,5 +1,11 @@
-= image_tag "/images/ui-objects/banner_eve.png"
-%img{:class=>"eventstitleimg", :src => "/images/ui-backgrounds/events_photos.png"}/
+- if is_sizzix?
+  = image_tag "/images/ui-objects/banner_event_sz.png"
+- if is_ee?
+  = image_tag "/images/ui-objects/banner_event_ee.png"
+- if is_er?
+  = image_tag "/images/ui-objects/banner_event_er.png"
+%img{:class=>"eventstitleimg", :src => "/images/ui-backgrounds/events_pins.png"}/
+
 %h2{:class=>"eventshdr"}
   Want to connect with us live and in person?
 Find us at our next Tradeshow or Convention Booth at a city near you.
