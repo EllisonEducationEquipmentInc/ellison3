@@ -68,10 +68,13 @@ namespace :data_export do
 	desc "reindex all products"
 	task :reindex_products => :environment do
 	  new_relic_wrapper "reindex_products" do
-	    Product.active.in_batches(50) do |batch|
+	    p "Total: #{Product.active.count}"
+	    b,i = 0,0
+	    Product.active.in_batches(500) do |batch|
+	      p "--- batch: #{b+=1} #{batch.inspect} #{batch.size}"
         batch.each do |product|
           product.delay.index! rescue next
-          p "#{product.item_num}"
+          p "#{i+=1} #{product.item_num}"
         end
       end
 	  end
@@ -80,10 +83,13 @@ namespace :data_export do
 	desc "reindex all ideas"
 	task :reindex_ideas => :environment do
 	  new_relic_wrapper "reindex_ideas" do
-	    Idea.active.in_batches(50) do |batch|
+	    p "Total: #{Idea.active.count}"
+	    b,i = 0,0
+	    Idea.active.in_batches(500) do |batch|
+	      p "--- batch: #{b+=1} #{batch.inspect} #{batch.size}"
         batch.each do |idea|
           idea.delay.index! rescue next
-          p "#{idea.idea_num}"
+          p "#{i+=1} #{idea.idea_num}"
         end
       end
 	  end

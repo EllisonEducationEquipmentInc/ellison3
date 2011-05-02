@@ -1010,6 +1010,7 @@ namespace :data_migrations do
       @product.send :inherit_system_specific_attributes
       p @product.save(:validate => false)
     end
+    p Time.zone.now
   end
   
   desc "import product_item_weights from product_item_weight.csv"
@@ -1041,8 +1042,8 @@ namespace :data_migrations do
       rescue Exception => e
         p "#{row['store_number']} geocoding failed. record skipped."
       end
-      
     end
+    p Time.zone.now
   end
   
   desc "import lyris subscriptions"
