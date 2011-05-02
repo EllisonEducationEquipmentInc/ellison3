@@ -80,19 +80,19 @@
         .left.field-stacked{ :style => "#{is_uk? ? 'margin-bottom: 0' : nil}"}
           = required_label f, :full_card_number, { :label => "Credit Card Number", :label_size => "auto" }
           = text_field :payment, :full_card_number, :size => 24, :maxlength => 16, :class => "cc"
-        .left.field-stacked{ :style => "#{is_uk? ? 'margin-bottom: 0' : nil}"}
-          = required_label f, :card_security_code, { :label => "Security Code", :label_size => "auto" }
-          = text_field :payment, :card_security_code, :size => 4, :maxlength => 4, :class => "cc", :style => "display: inline-block"
-          = link_to "What is This?", "/seccode?no_layout=1", :class => "link_help lightbox"
         .clear_left
         - if is_uk?
           %p.formhelp== <strong>Note:</strong> Currently, we do <strong>NOT</strong> accept International Maestro card form of Payment.
         .left.field-stacked
           = required_label f, :card_expiration_month, { :label => "Expiration Date", :label_size => "auto" }
           = select :payment, :card_expiration_month, Payment.months, { :prompt => "month" }, :class => "cc"
-        .left.field-stacked
+        .left.field-stacked{ :style => "margin-right: 36px"}
           %br
           = select :payment, :card_expiration_year, Payment.years, { :prompt => "year" }, :class => "cc"
+        .left.field-stacked{ :style => "#{is_uk? ? 'margin-bottom: 0' : nil}"}
+          = required_label f, :card_security_code, { :label => "Security Code", :label_size => "auto" }
+          = text_field :payment, :card_security_code, :size => 4, :maxlength => 4, :class => "cc", :style => "display: inline-block"
+          = link_to "What is This?", "/seccode?no_layout=1", :class => "link_help lightbox"
         .clear_left
         - if !is_us?
           .field
