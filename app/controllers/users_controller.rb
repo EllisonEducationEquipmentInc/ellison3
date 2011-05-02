@@ -249,6 +249,7 @@ class UsersController < ApplicationController
 	
 	def update_address
 		@checkout = params[:checkout]
+    @cart_locked = true if @checkout.present?
 		@address = get_user.send("#{params[:address_type]}_address") || get_user.addresses.build(:address_type => params[:address_type])
 		@address.attributes = params["#{params[:address_type]}_address"]
 		set_vat_exempt

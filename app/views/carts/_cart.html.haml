@@ -62,8 +62,6 @@
     });
 
   - unless @cart_locked
-    #cart_coupon= render :partial => "carts/coupon"
-    %br
     - if get_cart.pre_order?
       %p.error There are items in the cart that are available for pre-order only. If you would like to place a pre-order please click "Pre-Order". For immediate shipping please remove these items.
     - elsif backorder_allowed? && get_cart.out_of_stock? && !is_ee_uk?
