@@ -1,6 +1,13 @@
 %h2
   Newsletter Signup
-%img{ :src => "#{ is_sizzix? ? '/images/ui-backgrounds/newsletter_comp_sz.png' : '/images/ui-backgrounds/newsletter_comp_ee.png'  }",:style => "float:left; margin:0 10px 0 2px;", :width => "183", :height => "259"}
+- if is_sizzix_us?
+  %img{ :src => "/images/ui-backgrounds/newsletter_comp_sz.png", :style => "float:left; margin:0 10px 0 2px;", :width => "183", :height => "259"}
+- if is_sizzix_uk?
+  %img{ :src => "/images/ui-backgrounds/newsletter_comp_sz_uk.png", :style => "float:left; margin:0 10px 0 2px;", :width => "183", :height => "259"}
+- if is_ee? 
+  %img{ :src => "/images/ui-backgrounds/newsletter_comp_ee.png", :style => "float:left; margin:0 10px 0 2px;", :width => "183", :height => "259"}
+- if is_er_us? 
+  %img{ :src => "/images/ui-backgrounds/newsletter_comp_er.png", :style => "float:left; margin:0 10px 0 2px;", :width => "183", :height => "259"}
 .ui-corner-all{ :class => "#{ is_sizzix? ? 'newsletter_topframe_sz' : 'newsletter_topframe_ee' }" }
   .newsletter_content_a
     %h2{:style=>"border-bottom:1px dotted #D4D1BF; margin-bottom:8px;"} Interested in keeping up to date with us?
@@ -72,7 +79,7 @@
     - if is_ee_uk?
       %strong ellison_education_uk@lyris.ellison.com
     - if is_er_us?
-      %strong ellison_retailers_us@lyris.ellison.com
+      %strong ellison_retailers@lyris.ellison.com
     is specified in your address book as soon as possible. This will prevent any deliveries to your Bulk or Junk mail folders.
     %br
     %br
