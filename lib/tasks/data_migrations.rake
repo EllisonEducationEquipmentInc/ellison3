@@ -60,7 +60,7 @@ namespace :data_migrations do
     p Time.zone.now
   end
     
-  def process_tab(tab,new_tab,sys="sz")
+  def process_tab(tab,new_tab,sys="sz", uk =false)
     tab.name.force_encoding("UTF-8") if tab.name.encoding.name == "ASCII-8BIT"
     unless tab.column_grid.blank?
       new_tab.data_column ||= []
@@ -91,7 +91,7 @@ namespace :data_migrations do
         image = new_tab.images.build
         p image.caption = tab.images["captions"][i]
         begin
-          p image.remote_image_url = "http://www.#{sys == 'edu' ? "ellisoneducation" : "sizzix"}.com/images/#{img}"
+          p image.remote_image_url = "http://www.#{sys == 'edu' ? "ellisoneducation" : "sizzix"}.#{uk ? 'co.uk' : 'com'}/images/#{img}"
           p image.save
         rescue Exception => e
           p e.message
@@ -318,6 +318,27 @@ namespace :data_migrations do
       p new_idea.save
       p new_idea.errors
       p "------ #{idea.id} #{new_idea.id}-------"
+    end
+    p Time.now
+  end
+  
+  desc "migrate EDU UK idea tabs"
+  task :idea_tabs_eeuk => [:set_eeuk, :load_dep] do
+    set_current_system "eeuk"
+    Idea.where(:old_id_eeuk.exists => true).in_batches(100) do |batch|
+      batch.each do |idea|
+        #idea=Idea.find '4cfed56de1b83259d6000017'
+        old_idea = OldData::Idea.find(idea.old_id_eeuk) rescue next
+        old_idea.idea_tabs.not_deleted.each do |tab|
+          next if idea.tabs.where(:name => tab.name).count > 0
+          new_tab = idea.tabs.build 
+          new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ["eeuk"], :active => tab.active, :text => tab.freeform
+          process_tab(tab,new_tab,"edu",true)
+          p new_tab.save
+          p new_tab.errors
+          p "#{idea.idea_num} ------ #{tab.id} -------"
+        end
+      end
     end
     p Time.now
   end
