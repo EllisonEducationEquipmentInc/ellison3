@@ -73,20 +73,20 @@
         
       .clear_left
       .credit_card
-        .left.field-stacked{ :style => "#{is_uk? ? 'margin-bottom: 0' : nil}"}
+        .left.field-stacked{ :style => "margin-right: 12px#{is_uk? ? '; margin-bottom: 0' : nil}"}
           = required_label f, :card_name, { :label => "Credit Card Type", :label_size => "auto" }
           = select :payment, :card_name, Payment.cards, {:prompt => "--- card type ---"}, :class => "cc"
-          = link_to "Using a gift card?", "/usingagiftcard?no_layout=1", :class => "link_help lightbox", :style => "margin-right: 12px"
         .left.field-stacked{ :style => "#{is_uk? ? 'margin-bottom: 0' : nil}"}
           = required_label f, :full_card_number, { :label => "Credit Card Number", :label_size => "auto" }
-          = text_field :payment, :full_card_number, :size => 24, :maxlength => 16, :class => "cc"
+          = text_field :payment, :full_card_number, :size => 24, :maxlength => 16, :class => "cc", :style => "display: inline-block"
+          = link_to "Using a gift card?", "/usingagiftcard?no_layout=1", :class => "link_help lightbox", :style => "margin-right: 12px"
         .clear_left
         - if is_uk?
           %p.formhelp== <strong>Note:</strong> Currently, we do <strong>NOT</strong> accept International Maestro card form of Payment.
         .left.field-stacked
           = required_label f, :card_expiration_month, { :label => "Expiration Date", :label_size => "auto" }
           = select :payment, :card_expiration_month, Payment.months, { :prompt => "month" }, :class => "cc"
-        .left.field-stacked{ :style => "margin-right: 36px"}
+        .left.field-stacked{ :style => "margin-right: 12px"}
           %br
           = select :payment, :card_expiration_year, Payment.years, { :prompt => "year" }, :class => "cc"
         .left.field-stacked{ :style => "#{is_uk? ? 'margin-bottom: 0' : nil}"}

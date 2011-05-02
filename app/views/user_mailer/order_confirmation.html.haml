@@ -84,11 +84,12 @@
       %td{ :align => "right"}
         = @order.cod_account_type
         = @order.cod_account
+  - if @order.handling_amount > 0.0
+    %tr
+      %td{ :colspan => "4", :align => "right" } Shipping & Handling Surcharge
+      %td{ :align => "right"}= number_to_currency @order.handling_amount
   %tr
-    %td{ :colspan => "4", :align => "right" } Shipping & Handling Surcharge
-    %td{ :align => "right"}= number_to_currency @order.handling_amount
-  %tr
-    %td{ :colspan => "4", :align => "right" }== #{is_us? ? 'Sales' : 'Estimated'} Tax
+    %td{ :colspan => "4", :align => "right" }== #{is_us? ? 'Sales Tax' : is_sizzix_uk? ? 'VAT (already included in Subtotal)' : 'Estimated Tax'}
     %td{ :align => "right"}= number_to_currency @order.tax_amount
   %tr
     %td{ :colspan => "4", :align => "right" }
