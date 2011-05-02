@@ -106,8 +106,8 @@
 - if @quote.can_be_converted? && (is_ee_us? || admin_signed_in? && current_admin.can_act_as_customer)
   %hr.dontprint
   %ol
-    %li== Your Quote will be saved for #{is_ee? ? '90' : is_er? ? '180' : '90'} days. Any changes to product availability or any other factors beyond our control will void the Quote.
-    %li Products placed for Quote are final. Quotes cannot be altered after being submitted.
+    %li== Your #{quote_name.capitalize} will be saved for #{is_ee? ? '90' : is_er? ? '180' : '90'} days. Any changes to product availability or any other factors beyond our control will void the #{quote_name.capitalize}.
+    %li== Products placed for #{quote_name.capitalize} are final, and <strong>cannot</strong> be altered after being submitted.
   #checkout_payment
     #payment_errors.error{:style => "display:none"}
     #checkout_cc{:style => "display:none"}
