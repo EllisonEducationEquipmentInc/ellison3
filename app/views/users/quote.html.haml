@@ -113,7 +113,7 @@
     #checkout_cc{:style => "display:none"}
       %h3 Payment
       = render :partial => 'carts/payment' if get_user.billing_address && @billing_address.blank?
-  #convert_quote_to_order.dontprint Convert to order
+  %button#convert_quote_to_order.dontprint Convert to order
   :javascript
     $("#convert_quote_to_order").button({icons: {primary: 'ui-icon-check'}}).click(function() {
       #{@billing_address.blank? ? "$('#checkout_cc').slideDown('slow');$('#payment_submit').button({disabled: false, label: button_label});" : "$('#new_billing').slideDown('slow');$('#billing_address_first_name').focus()"};
