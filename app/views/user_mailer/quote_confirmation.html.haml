@@ -92,3 +92,7 @@
       %ol
         %li== Your Quote will be saved for #{is_ee? ? '90' : is_er? ? '180' : '90'} days. Any changes to product availability or any other factors beyond our control will void the Quote.
         %li Products placed for Quote are final. Quotes cannot be altered after being submitted.
+  - unless @order.comments.blank?
+    %tr
+      %td
+        %p== <strong>Comments: </strong>#{@order.comments}

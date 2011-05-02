@@ -141,3 +141,7 @@
         %li Shipping errors and claims must be made within 10 days of receipt of goods.
         %li Merchandise CANNOT be returned without prior approval.
         %li Returns or exchanges subject to restocking fee.
+  - unless @order.comments.blank?
+    %tr
+      %td
+        %p== <strong>Comments: </strong>#{@order.comments}

@@ -57,7 +57,7 @@
     %h3 Shipping Options
     - unless is_uk? || is_ee?
       - if admin_signed_in?
-        == virtual weight: #{get_cart.total_weight} lbs
+        == Virtual Weight: #{get_cart.total_weight} lbs
       == Weight: #{get_cart.total_actual_weight} lbs
     #shipping_options= render :partial => "shipping_options" if get_user.shipping_address
     = link_to "Estimated shipping and handling", "/shipping_handling?no_layout=1", :class => "link_help lightbox"
