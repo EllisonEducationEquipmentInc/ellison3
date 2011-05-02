@@ -69,18 +69,18 @@
   %tr
     %th Item No.
     %th Item Name
-    %th Quantity
-    %th Item Price
-    %th Item Total
+    %th{ :style => "text-align: center;" } Quantity
+    %th{ :style => "text-align: right;" } Item Price
+    %th{ :style => "text-align: right;" } Item Total
   - @order.order_items.each do |item|
     %tr{:class => cycle('odd', 'even')}
       %td= item.item_num
       %td= item.name
-      %td= item.quantity
-      %td= number_to_currency item.gross_price
-      %td= number_to_currency item.item_total
-- if @order.payment.present?
-  .contentwrap_XL
+      %td{ :style => "text-align: center;" }= item.quantity
+      %td{ :style => "text-align: right;" }= number_to_currency item.gross_price
+      %td{ :style => "text-align: right;" }= number_to_currency item.item_total
+.contentwrap_XL
+  - if @order.payment.present?
     %p
       %strong
         - if @order.payment.try(:purchase_order)
@@ -114,7 +114,8 @@
       %li Merchandise CANNOT be returned without prior approval.
       %li Returns or exchanges subject to restocking fee.
     %p= link_to "Print a copy of this order receipt.", "javascript:window.print()", :class => "link_print dontprint"
-
+  - else
+    &nbsp;
 %ul.plain.cart_summary.contentwrap_medium.last
   %li
     %span.left Subtotal:
