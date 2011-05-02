@@ -124,7 +124,12 @@
         = link_to 'Comments', "#"
       %div= text_area_tag :comments, nil, :style => "width:500px;height:100px;" 
   = f.submit "Place Order", :class => 'jqui_save'
-  %p== By clicking the "Place Order" button above, you acknowledge and accept the #{link_to "terms and conditions", "/termsofsale?no_layout=1", :class => "lightbox"} of our Website.
+  %p.legalese
+    By clicking the "Place Order" button above your order will be placed. Please check your order carefully before submitting.
+    - unless is_ee?
+      Once your order has been placed, it cannot be changed.
+    %br
+    == By Placing Order you acknowledge and accept the #{link_to "terms and conditions", "/termsofsale?no_layout=1", :class => "lightbox"} of our Website.  
   :javascript
     var button_label = "Place Order";
     $(document).ready(function() { 
