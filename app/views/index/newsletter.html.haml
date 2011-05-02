@@ -1,5 +1,4 @@
 %h2
-  = system_name
   Newsletter Signup
 %img{ :src => "#{ is_sizzix? ? '/images/ui-backgrounds/newsletter_comp_sz.png' : '/images/ui-backgrounds/newsletter_comp_ee.png'  }",:style => "float:left; margin:0 10px 0 2px;", :width => "183", :height => "259"}
 .ui-corner-all{ :class => "#{ is_sizzix? ? 'newsletter_topframe_sz' : 'newsletter_topframe_ee' }" }
@@ -18,9 +17,8 @@
     %h2{:style=>"margin-bottom:8px;", :class=>"signup_header"} 
       Thank you for your interest in receiving emails from
       = system_name
-    To start receiving special offers, latest information of newest products, projects and other promotions please provide the below information and confirm your Newseletter signup to
-    =get_domain.capitalize
-    by confirming the link sent to your email address.
+    To start receiving special offers, latest information of newest products, projects and other promotions please provide the below information and confirm your Newsletter signup by confirming the link sent to your email address
+    
   .news_border
     = form_for @subscription, :url => url_for(:action => :create_subscription) do |f|
       %br
@@ -73,6 +71,8 @@
       %strong connection@lyris.ellison.com
     - if is_ee_uk?
       %strong ellison_education_uk@lyris.ellison.com
+    - if is_er_us?
+      %strong ellison_retailers_us@lyris.ellison.com
     is specified in your address book as soon as possible. This will prevent any deliveries to your Bulk or Junk mail folders.
     %br
     %br
