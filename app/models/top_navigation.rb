@@ -60,10 +60,10 @@ private
   
   def list_er
     [
-      Navigation.new("Sizzix Crafts", "/shop/sizzixcrafting"), 
-      Navigation.new("Ellison Education", "/shop/ellisoneducation"), 
-      Navigation.new("Support", "/support"),
-      Navigation.new("My Account", "/myaccount")
+      Navigation.new("Craft Products", "/shop/sizzixcrafting"), 
+      Navigation.new("Craft Projects", "/shop/sizzixcrafting"), 
+      Navigation.new("Education Products", "/shop/ellisoneducation"),
+      Navigation.new("Education Projects", "/shop/ellisoneducation")
     ]
   end
   
