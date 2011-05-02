@@ -35,7 +35,10 @@
   \&nbsp;
   = link_to_unless_current "Check Out Now", cart_path, :id => 'checkout_now', :class => "right"
 :javascript
-  $("#checkout_now").button();
+  $("#checkout_now").button()
+    .click(function(){
+      $(this).button({disabled: true, label: 'please wait...'});
+    });
   $("table").each(function() {
     $(this).addClass("ui-widget ui-widget-content ui-corner-all");
   });
