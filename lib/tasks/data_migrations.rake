@@ -3,12 +3,6 @@ namespace :data_migrations do
   require "active_record/railtie"  
   require 'mongoid/railtie'
   
-  desc "test"
-  task :test => [:set_szuk, :load_dep]  do
-    #set_current_system "szuk"
-    p Product.count
-  end
-  
   desc "migrate tags"
   task :tags => :load_dep do
     OldData::PolymorphicTag.not_deleted.all(:conditions => ["tag_type NOT IN (?)", [1,16]]).each do |tag|
@@ -26,7 +20,7 @@ namespace :data_migrations do
       #product = OldData::Product.find 102 #2011 #67
       new_product = Product.new :name => product.name, :description_szus => product.short_desc, :old_id => product.id, :systems_enabled => ["szus"], :item_num => product.item_num, :long_desc => product.long_desc, :upc => product.upc, :active => product.new_active_status, 
         :outlet => product.clearance, :outlet_since => product.outlet_since, :life_cycle => product.new_life_cycle, :orderable_szus => product.new_orderable, :msrp_usd => product.msrp, :keywords => product.keywords, :start_date_szus => product.start_date, :end_date_szus => product.end_date, 
-        :quantity_us => product.quantity, :distribution_life_cycle_szus => product.life_cycle, :distribution_life_cycle_ends_szus => !product.life_cycle.blank? && product.life_cycle_ends, :availability_message_szus => product.availability_msg
+        :quantity_us => product.quantity, :distribution_life_cycle_szus => product.life_cycle, :distribution_life_cycle_ends_szus => !product.life_cycle.blank? && product.life_cycle_ends, :availability_message_szus => product.availability_msg, :handling_price_usd => product.handling_price
       new_product.price = product.price if new_product.outlet
       new_product.tags = Tag.where(:old_id.in => product.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
       new_product.save
@@ -279,7 +273,7 @@ namespace :data_migrations do
     set_current_system "eeus"
     #idea = OldData::Idea.find 1820
     OldData::Idea.find_each(:conditions => "id > 0") do |idea|
-      new_idea = Idea.create :name => idea.name, :description_eeus => idea.short_desc, :old_id_edu => idea.id, :systems_enabled => ["eeus", "eeuk", "erus"], :idea_num => "#{idea.idea_num}", :long_desc => idea.long_desc, :active => idea.active_status, 
+      new_idea = Idea.create :name => idea.name, :description_eeus => idea.short_desc, :old_id_edu => idea.id, :systems_enabled => ["eeus", "erus"], :idea_num => "#{idea.idea_num}", :long_desc => idea.long_desc, :active => idea.active_status, 
          :keywords => idea.keywords, :start_date_eeus => idea.start_date, :end_date_eeus => idea.end_date, :objective => idea.objective, :grade_level => idea.grade_level && idea.grade_level.split(/,\s*/),
          :distribution_life_cycle_eeus => idea.new_lesson ? 'New' : nil, :distribution_life_cycle_ends_eeus => idea.new_lesson && idea.new_expires_at
       new_idea.tags = Tag.where(:old_id_edu.in => idea.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
@@ -299,6 +293,33 @@ namespace :data_migrations do
       p "------ #{idea.id} #{new_idea.id}-------"
     end
     p Time.zone.now
+  end
+  
+  desc "migrate EDU UK ideas"
+  task :ideas_eeuk => [:set_eeuk, :load_dep] do
+    set_current_system "eeuk"
+    #idea = OldData::Idea.find 1820
+    OldData::Idea.available.find_each(:conditions => "id > 0") do |idea|
+      new_idea = Idea.create :name => idea.name, :description_eeus => idea.short_desc, :old_id_eeuk => idea.id, :systems_enabled => ["eeuk"], :idea_num => "#{idea.idea_num}", :long_desc => idea.long_desc, :active => idea.active_status, 
+         :keywords => idea.keywords, :start_date_eeuk => idea.start_date, :end_date_eeuk => idea.end_date, :objective => idea.objective, :grade_level => idea.grade_level && idea.grade_level.split(/,\s*/),
+         :distribution_life_cycle_eeuk => idea.new_lesson ? 'New' : nil, :distribution_life_cycle_ends_eeuk => idea.new_lesson && idea.new_expires_at
+      new_idea.tags = Tag.where(:old_id_eeuk.in => idea.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
+      ["image2", "image3"].each do |meth|
+        unless idea.send(meth).blank?
+          image = new_idea.images.build
+          begin
+            image.remote_image_url = "http://www.ellisoneducation.co.uk/images/#{idea.send(meth)}"
+            p image.save
+          rescue Exception => e
+            p e.message
+          end        
+        end
+      end
+      p new_idea.save
+      p new_idea.errors
+      p "------ #{idea.id} #{new_idea.id}-------"
+    end
+    p Time.now
   end
   
   desc "update related idea nums with L prefix for EDU -- no need to run if idea nums will be uniq accross all sites"
@@ -348,7 +369,7 @@ namespace :data_migrations do
         old_idea.idea_tabs.not_deleted.each do |tab|
           next if idea.tabs.where(:name => tab.name).count > 0
           new_tab = idea.tabs.build 
-          new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ["eeus", "eeuk", "erus"], :active => tab.active, :text => tab.freeform
+          new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ["eeus", "erus"], :active => tab.active, :text => tab.freeform
           process_tab(tab,new_tab,"edu")
           p new_tab.save
           p new_tab.errors
@@ -423,6 +444,30 @@ namespace :data_migrations do
       p "------ #{product.id} #{product.item_num} -------"
     end
     p Time.zone.now
+  end
+  
+  desc "migrate EEUK products"
+  task :products_eeuk => [:set_eeuk, :load_dep]  do
+    set_current_system "eeuk"
+    # product = OldData::Product.find 758
+    OldData::Product.not_deleted.find_each do |product|
+      new_product = Product.where(:item_num => product.item_num).first || Product.new(:systems_enabled => ["eeuk"], :name => product.name, :item_num => product.item_num, :long_desc => product.long_desc, :upc => product.upc, :keywords => product.keywords, :life_cycle => product.new_life_cycle, :active => product.new_active_status)
+      new_product.systems_enabled << "eeuk" if product.new_active_status && !new_product.systems_enabled.include?("eeuk")
+      new_product.write_attributes :description_eeuk => product.short_desc, :old_id_eeuk => product.id,  :orderable_eeuk => product.new_orderable, :msrp_gbp => product.msrp("UK"), :msrp_eur => product.msrp("EU"), :start_date_eeuk => product.start_date, :end_date_eeuk => product.end_date, :quantity_uk => product.quantity,  :distribution_life_cycle_eeuk => product.life_cycle, :distribution_life_cycle_ends_eeuk => !product.life_cycle.blank? && product.life_cycle_ends, :availability_message_eeuk => product.availability_msg
+      if !new_product.active && product.new_active_status
+        p "...product needs to be activated -- removing eeus"
+        new_product.systems_enabled.delete("eeus") 
+      end
+      new_product.active = true if product.new_active_status
+      if product.new_life_cycle != 'unavailable' && new_product.life_cycle == 'unavailable' && product.new_active_status
+        p "...product is available -- changing life cycle to discontinued"
+        new_product.life_cycle = 'discontinued' 
+      end
+      p new_product.save
+      p new_product.errors
+      p "------ #{product.id} #{product.item_num} -------"
+    end
+    p Time.now
   end
   
   desc "fix SZUS product unavailable items -- not needed for live migration"
@@ -1057,6 +1102,28 @@ namespace :data_migrations do
       end
     end
   end
+  
+  #### INCREMENTAL MIGRATIONS START HERE ####
+  
+  desc "incremental - orders"
+  task :incremental_orders_szus => [:load_dep]  do
+    #p OldData::Product.all(:conditions => "availability = 2 and active = 1 and quantity > 0").count
+    #set_current_system "szuk"
+
+    # get last order in new system 1000000
+    last_order = Order.szus.where(:order_number.lt => 1000000).desc(:created_at).first
+    
+    # new orders since last migrations:
+    p OldData::Order.count(:conditions => ["created_at > ?", last_order.created_at])
+    
+    # changed orders since last migrations
+    p OldData::Order.count(:conditions => ["updated_at > ?", last_order.created_at])
+  end
+
+
+  #### INCREMENTAL MIGRATIONS END HERE ####
+
+
   
   desc "change ER to ERUS in the db"
   task :er_to_erus => :environment do

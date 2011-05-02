@@ -86,6 +86,7 @@ class Product
   field :old_id_edu, :type => Integer
   field :old_id_szuk, :type => Integer
   field :old_id_er, :type => Integer
+  field :old_id_eeuk, :type => Integer
   
   field :created_by
   field :updated_by

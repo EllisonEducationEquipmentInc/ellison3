@@ -165,7 +165,7 @@ module OldData
   	end
   	
   	def new_orderable
-  	  self.active && self.availability == 1
+  	  self.active && (self.availability == 1 || self.availability == 2)
   	end
 
   	def localize_price(price_method = :msrp, temp_locale = 'en-UK')
