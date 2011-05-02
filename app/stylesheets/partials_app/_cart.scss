@@ -72,6 +72,13 @@ ul.cart_summary {
 
 // push order button to right justify with page
 #checkout_cc {
+
+  #comments {
+    width: 500px;
+    height: 30px;
+    margin-bottom: 10px;
+  }
+  
   /*
   @if $system == szus {
     height: 270px;
