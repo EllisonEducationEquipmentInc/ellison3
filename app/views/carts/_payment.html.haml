@@ -110,7 +110,8 @@
         - if can_tokenize_payment? && is_er?
           .field
             = f.check_box :save_credit_card
-            = f.label :save_credit_card
+            = f.label :save_credit_card, "Check to Save Credit Card on file", :class => "autosize"
+            = link_to "Learn More", "/keepcardonfile?no_layout=1", :class => "link_help lightbox"
       .clear_left
   - if can_use_previous_payment?
     .field
