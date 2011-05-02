@@ -33,6 +33,7 @@ class Idea
 	field :old_id, :type => Integer
 	field :old_id_edu, :type => Integer
 	field :old_id_eeuk, :type => Integer
+	field :old_id_szuk, :type => Integer
 	field :long_desc
 	field :grade_level, :type => Array
 	field :related_idea_tag

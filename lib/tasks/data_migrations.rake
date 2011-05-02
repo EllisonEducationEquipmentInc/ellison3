@@ -106,7 +106,7 @@ namespace :data_migrations do
   task :ideas_sz => :load_dep do
     #idea = OldData::Idea.find 1820
     OldData::Idea.find_each do |idea|
-      new_idea = Idea.new :name => idea.name, :description_szus => idea.short_desc, :old_id => idea.id, :systems_enabled => ["szus", "szuk", "erus"], :idea_num => idea.idea_num.to_s, :long_desc => idea.long_desc, :active => idea.active_status, 
+      new_idea = Idea.new :name => idea.name, :description_szus => idea.short_desc, :old_id => idea.id, :systems_enabled => ["szus", "erus"], :idea_num => idea.idea_num.to_s, :long_desc => idea.long_desc, :active => idea.active_status, 
          :keywords => idea.keywords, :start_date_szus => idea.start_date, :end_date_szus => idea.end_date, :objective => idea.objective,
          :distribution_life_cycle_szus => idea.new_lesson ? 'New' : nil, :distribution_life_cycle_ends_szus => idea.new_lesson && idea.new_expires_at
       new_idea.tags = Tag.where(:old_id.in => idea.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
@@ -383,6 +383,8 @@ namespace :data_migrations do
   desc "migrate EDU idea tabs"
   task :idea_tabs_ee => [:set_edu, :load_dep] do
     set_current_system "eeus"
+    # run again with (if not all tabs got migrated over):
+    #Idea.active.where(:old_id_edu.gt => 0, :tabs.exists => false).in_batches(100) do |batch|
     Idea.where(:old_id_edu.exists => true).in_batches(100) do |batch|
       batch.each do |idea|
         #idea=Idea.find '4cfed56de1b83259d6000017'
@@ -487,6 +489,29 @@ namespace :data_migrations do
       p new_product.save
       p new_product.errors
       p "------ #{product.id} #{product.item_num} -------"
+    end
+    p Time.now
+  end
+  
+  desc "migrate SZUK ideas"
+  task :ideas_szuk => [:set_szuk, :load_dep]  do
+    set_current_system "szuk"
+    p OldData::Idea.available.count
+    OldData::Idea.available.find_each do |idea|
+      new_idea = Idea.where(:idea_num => "#{idea.idea_num}").first || Idea.new(:systems_enabled => ["szuk"], :idea_num => "#{idea.idea_num}", :name => idea.name, :description_szuk => idea.short_desc, :active => idea.active_status)
+
+      new_idea.systems_enabled << "szuk" if !new_idea.systems_enabled.include?("szuk")
+
+      new_idea.write_attributes :old_id_szuk => idea.id, :long_desc => idea.long_desc, :keywords => idea.keywords, :start_date_szuk => idea.start_date, :end_date_szuk => idea.end_date, :distribution_life_cycle_szuk => idea.new_lesson ? 'New' : nil, :distribution_life_cycle_ends_szuk => idea.new_lesson && idea.new_expires_at
+         
+      if !new_idea.active && idea.active_status
+        p "...idea needs to be activated -- removing szus"
+        new_idea.systems_enabled.delete("szus") 
+      end
+      new_idea.active = true if idea.active_status
+      p new_idea.save
+      p new_idea.errors
+      p "------ #{idea.id} #{idea.idea_num} -------"
     end
     p Time.now
   end
@@ -1125,6 +1150,66 @@ namespace :data_migrations do
   end
   
   #### INCREMENTAL MIGRATIONS START HERE ####
+  
+  def process_user_changes(old_user,new_user)
+    new_user.old_password_hash = old_user.crypted_password
+    new_user.old_salt = old_user.salt
+    new_user.password = new_user.old_password_hash[0..14]
+    new_user.tax_exempt = old_user.tax_exempt
+    new_user.tax_exempt_certificate = old_user.tax_exempt_certificate || 'N/A'
+    new_user.invoice_account = old_user.billing_addresses.first.try :invoice_account
+    new_user.erp = old_user.erp_id
+    new_user.status = old_user.state
+    new_user.old_account_id = old_user.account_id
+    new_user.purchase_order = old_user.purchase_order
+    new_user.discount_level = old_user.discount_level_id
+    new_user.first_order_minimum = old_user.first_order_minimum
+    new_user.order_minimum = old_user.order_minimum
+    new_user.customer_newsletter = old_user.customer_newsletter
+    new_user.outlet_newsletter = old_user.outlet_newsletter
+    new_user.real_deal = old_user.real_deal
+    new_user.default_user = old_user.default_user
+    new_user.internal_comments = old_user.internal_comments
+    
+    p new_user.save
+    unless old_user.billing_addresses.first.blank?
+      unless old_billing.subscriptionid.blank?
+        p "token found..."
+        new_user.token = Token.new(:subscriptionid => old_billing.subscriptionid)
+        unless old_billing.tokenized_info.blank?
+          new_user.token.write_attributes :first_name => old_billing.tokenized_info['firstName'], :last_name => old_billing.tokenized_info['lastName'], :address1 => old_billing.tokenized_info['street1'], :address2 => old_billing.tokenized_info['street2'], :city => old_billing.tokenized_info['city'], :state => old_billing.tokenized_info['state'], :zip_code => old_billing.tokenized_info['postalCode'], :country => old_billing.tokenized_info['country'] == 'US' ? "United States" : old_billing.tokenized_info['country'], :email => old_billing.tokenized_info['email']
+        end
+        p new_user.token.save
+      end
+    end
+  end
+  
+  desc "incremental - users"
+  task :incremental_users_szus => [:load_dep]  do
+    #set_current_system "szuk"
+
+    # get last order in new system 1000000
+    last_user = User.where(:old_id_szus.exists => true).desc(:old_id_szus).first
+    
+    p "# of new users since last migrations: #{OldData::User.count(:conditions => ["id > ?", last_user.old_id_szus])}"
+    
+    OldData::User.find_each(:conditions => ["id > ?", last_user.old_id_szus]) do |old_user|
+      new_user = User.new(:email => old_user.email, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
+      new_user.old_id_szus = old_user.id
+      
+      process_user(old_user,new_user)
+      p new_user.errors
+      p new_user.old_id_szus
+    end
+    
+    p "# of changed users since last migrations: #{OldData::User.count(:conditions => ["updated_at > ?", last_user.created_at])}"
+    OldData::User.find_each(:conditions => ["updated_at > ?", last_user.created_at]) do |old_user|
+      new_user = User.where(:old_id_szus => old_user.id).first
+      next unless new_user
+      
+    end
+  end
+  
   
   desc "incremental - orders"
   task :incremental_orders_szus => [:load_dep]  do
