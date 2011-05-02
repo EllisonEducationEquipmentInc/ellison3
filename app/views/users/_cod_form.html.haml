@@ -1,7 +1,7 @@
 %h3 Collect Carrier Account Information
 = form_tag url_for(:controller => 'carts', :action => 'save_cod'), :remote => true, :id => 'cod_account_form' do
   .field
-    = label_tag :cod_account_type, "Collect Carrier", :style => "font-weight: normal;"
+    -#= label_tag :cod_account_type, "Collect Carrier", :style => "font-weight: normal;"
     = select_tag :cod_account_type, options_for_select([['--- select ---', nil]] + cod_list.map {|e| [e.label, e.id]}, get_user.cod_account_type)
   .field
     = label_tag :cod_account, "Collect Account #", :style => "font-weight: normal;"
