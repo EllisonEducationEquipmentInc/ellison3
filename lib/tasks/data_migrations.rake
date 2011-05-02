@@ -274,7 +274,7 @@ namespace :data_migrations do
     end
   end
   
-  desc "migrate sizzix ideas"
+  desc "migrate EDU ideas"
   task :ideas_edu => [:set_edu, :load_dep] do
     set_current_system "eeus"
     #idea = OldData::Idea.find 1820
@@ -927,7 +927,7 @@ namespace :data_migrations do
     p Time.zone.now
   end
   
-  desc "import instructions from product_instructions.csv"
+  desc "import instructions from lib/tasks/migrations/product_instructions.csv"
   task :instructions => :load_dep do
     CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/product_instructions.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
       @product = Product.find_by_item_num row['item_num']
@@ -937,7 +937,7 @@ namespace :data_migrations do
     p Time.zone.now
   end
   
-  desc "import product_item_types from product_item_types.csv"
+  desc "import product_item_types from lib/tasks/migrations/product_item_types.csv"
   task :product_item_types => :load_dep do
     CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/product_item_types.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
       @product = Product.where(:item_num => row['item_num']).first 
@@ -947,7 +947,7 @@ namespace :data_migrations do
     p Time.zone.now
   end
   
-  desc "import product_item_groups from product_item_groups.csv"
+  desc "import product_item_groups from lib/tasks/migrations/product_item_groups.csv"
   task :product_item_groups => :load_dep do
     CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/product_item_groups.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
       @product = Product.where(:item_num => row['item_num']).first 
@@ -998,7 +998,7 @@ namespace :data_migrations do
 	  p Time.zone.now
 	end
 	
-	desc "import education_products_on_er from education_products_on_er.csv"
+	desc "import education_products_on_er from lib/tasks/migrations/education_products_on_er.csv"
   task :education_products_on_er => [:set_er, :load_dep] do
     set_current_system "eeus"
     CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/education_products_on_er.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
@@ -1013,7 +1013,7 @@ namespace :data_migrations do
     p Time.zone.now
   end
   
-  desc "import product_item_weights from product_item_weight.csv"
+  desc "import product_item_weights from lib/tasks/migrations/product_item_weight.csv"
   task :product_item_weights => :load_dep do
     CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/product_item_weight.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
       @product = Product.where(:item_num => row['item_num']).first 
@@ -1030,7 +1030,7 @@ namespace :data_migrations do
     end
   end
   
-  desc "import stores data from global_store_locator_data.csv"
+  desc "import stores data from lib/tasks/migrations/global_store_locator_data.csv"
   task :store_locator => :load_dep do
     CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/global_store_locator_data.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
       begin
