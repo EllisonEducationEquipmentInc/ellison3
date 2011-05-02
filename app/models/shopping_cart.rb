@@ -420,7 +420,7 @@ module ShoppingCart
         message << @net_response.message
         message << "AVS (Address Verification Service) result: " + @net_response.avs_result["message"] if @net_response.avs_result["message"] && !%w(D M X Y V 1 2 3 4).include?(@net_response.avs_result["code"])
         message << "CVV (Security Code): " + @net_response.cvv_result["message"] if @net_response.cvv_result["message"] && !%w(M 1 2 3).include?(@net_response.cvv_result["code"])
-        raise 'Your card could not be authorized! Please correct any details below and try again, try another card or <a href="/contact">contact us</a> for further assistance.<br><br> ' + message.join("<br>")
+        raise 'Your card could not be authorized! Please correct any details below and try again, try another card or contact us for further assistance. ' + message.join("<br>")
       end
     end
     
