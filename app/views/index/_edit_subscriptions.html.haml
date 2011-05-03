@@ -6,10 +6,10 @@
     %strong= @list[1]
   .error#unsubscribe_alert{:style => "display:none"}== Your email address will be removed permanently from #{@list[1]} list.
   .field
-    = f.label :email
+    = f.label :email, :style => "width: 40px"
     = f.text_field :email, :disabled => true
   .field
-    = f.label :name
+    = f.label :name, :style => "width: 40px"
     = f.text_field :name, :disabled => true
   = render :partial => 'index/segments'
   .actions

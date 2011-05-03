@@ -2,7 +2,7 @@
   Please click here to confirm your subscription to 
   = @subscription.list_name
 
-%p== http://#{get_domain}/index/subscription/#{@subscription.id}
+%p== #{link_to "http://www.#{get_domain}/index/subscription/#{@subscription.id}", "http://www.#{get_domain}/index/subscription/#{@subscription.id}"}
 %p
   We have received a request to add your email address to the
   = @subscription.list_name
