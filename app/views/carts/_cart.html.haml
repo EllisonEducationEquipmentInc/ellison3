@@ -10,7 +10,7 @@
       %tr
         %th{:width => 60} Item No.
         %th{:width => 70} Item Name
-        %th{:width => 400}
+        %th.dontprint{:width => 400}
         - if admin_signed_in? && current_admin.can_change_prices
           %th Upsell
         %th{:style => "text-align: right", :width => 80}== #{is_er? ? 'Wholesale' : 'Retail'} Price
@@ -18,21 +18,23 @@
         %th{:style => "text-align: right", :width => 70} Quantity
         %th{:style => "text-align: right", :width => 75} Total Price
         - unless @cart_locked
-          %th
-        %th
+          %th.dontprint
+        %th.dontprint
     %tbody
       = render :partial => 'carts/cart_item', :collection => @cart.cart_items
       %tr
         %td
         %td
-        %td#total_savings= render :partial => 'carts/total_savings'
+        %td.dontprint#total_savings= render :partial => 'carts/total_savings'
+        - if admin_signed_in? && current_admin.can_change_prices
+          %td
         %td
-        %td 
+        %td
         %td{:style => "text-align: right", :class => "cart_extended_price"} Subtotal:
         %td#cart_subtotal{:style => "text-align: right", :class => "cart_extended_price"}= number_to_currency gross_price(@cart.sub_total)
         - unless @cart_locked
-          %td
-        %td        
+          %td.dontprint
+        %td.dontprint
     - unless @cart_locked
       :javascript
         $('input.number_only').keydown(number_only)
@@ -61,50 +63,51 @@
       $(this).addClass("ui-state-hover");
     });
 
-  - unless @cart_locked
-    #cart_coupon= render :partial => "carts/coupon"
-    %br
-    - if get_cart.pre_order?
-      %p.error There are items in the cart that are available for pre-order only. If you would like to place a pre-order please click "Pre-Order". For immediate shipping please remove these items.
-    - elsif backorder_allowed? && get_cart.out_of_stock? && !is_ee_uk?
-      %p.error Due to high demand, some items in your cart are currently at a low stock level. If your order cannot be processed within normal ordering time, we will contact you as soon as possible.
-    - if quote_allowed?
-      .save_as_quote.right Save as Quote
-    - if chekout_allowed? && quote_allowed?
-      .right{ :style => "margin: 4px 10px 0 10px; font-weight: bold; text-transform: uppercase" } or
-    - if chekout_allowed?
-      #checkout_button.right= "Checkout"
-    - elsif get_cart.pre_order?
-      .save_as_quote.right Pre-Order
-    :javascript
-      $(document).ready(function(){
-        if ($("#fancybox-wrap:visible").length > 0) $('.save_for_later').hide();
-      });
-      $(function() {
-        $("#checkout_button").button()
-          .click( function() {
-            $.ajax({url:"#{checkout_requested_path}", complete: function(){$.fancybox.resize()}});
-            $(this).button({disabled: true, label: 'please wait...'});
-      		});
-      	$(".remove_from_cart")
-      	  .button({icons: {primary: 'ui-icon-close'}, text: false})
-      		.click( function() {
-      			$.ajax({url:"/carts/remove_from_cart?item_num="+this.id.replace('remove_from_cart_', '')});
-      			_gaq.push(['_trackEvent', 'Cart', 'Remove From Cart', this.id.replace('remove_from_cart_', '')]);
-      			$(this).button({ disabled: true });
-      		}); 
-      		$(".save_for_later").button({icons: {primary: 'ui-icon-arrowreturnthick-1-w'}, text: false})
-      			.click( function() {
-      				$.ajax({url:"/users/save_for_later?item_num="+$(this).attr('rel')});
-      				$(this).button({disabled: true});
-      				_gaq.push(['_trackEvent', 'Cart', 'Save for Later', $(this).attr('rel')]);
-      			});
-      		$(".save_as_quote")
-        	  .button({icons: {primary: 'ui-icon-clipboard'}})
-        		.click( function() {
-              $.ajax({url:"#{quote_requested_path}", complete: function(){$.fancybox.resize()}});
+  .dontprint
+    - unless @cart_locked
+      #cart_coupon= render :partial => "carts/coupon"
+      %br
+      - if get_cart.pre_order?
+        %p.error There are items in the cart that are available for pre-order only. If you would like to place a pre-order please click "Pre-Order". For immediate shipping please remove these items.
+      - elsif backorder_allowed? && get_cart.out_of_stock? && !is_ee_uk?
+        %p.error Due to high demand, some items in your cart are currently at a low stock level. If your order cannot be processed within normal ordering time, we will contact you as soon as possible.
+      - if quote_allowed?
+        .save_as_quote.right Save as Quote
+      - if chekout_allowed? && quote_allowed?
+        .right{ :style => "margin: 4px 10px 0 10px; font-weight: bold; text-transform: uppercase" } or
+      - if chekout_allowed?
+        #checkout_button.right= "Checkout"
+      - elsif get_cart.pre_order?
+        .save_as_quote.right Pre-Order
+      :javascript
+        $(document).ready(function(){
+          if ($("#fancybox-wrap:visible").length > 0) $('.save_for_later').hide();
+        });
+        $(function() {
+          $("#checkout_button").button()
+            .click( function() {
+              $.ajax({url:"#{checkout_requested_path}", complete: function(){$.fancybox.resize()}});
+              $(this).button({disabled: true, label: 'please wait...'});
         		});
-      });
-  - else
-    .right.minilink= link_to "Edit #{cart_name}", cart_path       
+        	$(".remove_from_cart")
+        	  .button({icons: {primary: 'ui-icon-close'}, text: false})
+        		.click( function() {
+        			$.ajax({url:"/carts/remove_from_cart?item_num="+this.id.replace('remove_from_cart_', '')});
+        			_gaq.push(['_trackEvent', 'Cart', 'Remove From Cart', this.id.replace('remove_from_cart_', '')]);
+        			$(this).button({ disabled: true });
+        		}); 
+        		$(".save_for_later").button({icons: {primary: 'ui-icon-arrowreturnthick-1-w'}, text: false})
+        			.click( function() {
+        				$.ajax({url:"/users/save_for_later?item_num="+$(this).attr('rel')});
+        				$(this).button({disabled: true});
+        				_gaq.push(['_trackEvent', 'Cart', 'Save for Later', $(this).attr('rel')]);
+        			});
+        		$(".save_as_quote")
+          	  .button({icons: {primary: 'ui-icon-clipboard'}})
+          		.click( function() {
+                $.ajax({url:"#{quote_requested_path}", complete: function(){$.fancybox.resize()}});
+          		});
+        });
+    - else
+      .right.minilink= link_to "Edit #{cart_name}", cart_path       
 .clear
