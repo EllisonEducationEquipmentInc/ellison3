@@ -8,8 +8,8 @@
         %th
         %th{:style => "text-align: right", :width => 75}== #{is_er? ? 'Wholesale' : 'Retail'} Price
         %th{:style => "text-align: right", :width => 75} You Pay
-        %th.dontprint{:style => "text-align: right"}
-        %th.dontprint{:style => "text-align: right"}
+        %th.dontprint{:style => "text-align: right", :width => 30}
+        %th.dontprint{:style => "text-align: right", :width => 30}
     %tbody= render :partial => 'carts/saved_item', :collection => get_user.save_for_later_list.products, :as => :product
   :javascript
     $(".move_to_cart").button({icons: {primary: 'ui-icon-arrowreturnthick-1-s'}, text: false})

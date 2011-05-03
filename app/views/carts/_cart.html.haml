@@ -106,6 +106,7 @@
           	  .button({icons: {primary: 'ui-icon-clipboard'}})
           		.click( function() {
                 $.ajax({url:"#{quote_requested_path}", complete: function(){$.fancybox.resize()}});
+                $(this).button({disabled: true, label: 'please wait...'});
           		});
         });
     - else
