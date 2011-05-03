@@ -7,12 +7,12 @@
 - if is_er?
   = image_tag "/images/ui-objects/banner_event_er.png"
 %img{:class=>"eventstitleimg", :src => "/images/ui-backgrounds/events_pins.png"}/
-
-%h2{:class=>"eventshdr"}
-  Want to connect with us live and in person?
+%br
+%br
+%span{:style=>"font-weight:bold"}Want to connect with us live and in person?
+%br
+%br
 Find us at our next Tradeshow or Convention Booth at a city near you.
-%br
-%br
 Simply check our listing below to browse our complete schedule of Upcoming Events for 2011!
 - if @events.present?
   %table
