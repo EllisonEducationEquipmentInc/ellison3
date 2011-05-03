@@ -575,6 +575,10 @@ body.bp {
         margin-bottom: 4px;
       }
       
+      .clearance_flag {
+        z-index: 10;
+      }
+      
       .item_description { @extend p.item_name;
         display: block;
         height: 70px;

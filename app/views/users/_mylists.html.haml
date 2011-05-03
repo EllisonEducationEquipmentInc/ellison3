@@ -6,7 +6,8 @@
       %th List Comments
       %th No. of List Items
       %th Default List
-      %th
+      %th{ :style => "text-align: right", :width => 110}
+      %th{ :style => "text-align: right", :width => 110}
     = render :partial => 'list_row', :collection => @lists, :as => :list
   = link_to_function "Create New List", "$('#new_list').show()", :class => 'jqui_new'
   %br
