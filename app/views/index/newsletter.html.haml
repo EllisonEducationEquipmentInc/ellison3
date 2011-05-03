@@ -87,4 +87,21 @@
     Some email providers deliver
     %strong= @list[1]
     emails to your Bulk or Junk mail folders. Please flag these emails appropriately so that these emails are delivered to your inbox on time.
- 
+:javascript
+  $(document).ready(function() {
+    var validator = $("#new_subscription").validate({
+      errorClass: "invalid",
+      rules: {
+        "subscription[email]": {
+          required: true,
+          email: true
+        }
+      },
+      messages: {
+        "subscription[email]": {
+          required: "Please provide your email address.",
+          email: "Please provide a valid email address."
+        }
+      }
+    });
+  });
