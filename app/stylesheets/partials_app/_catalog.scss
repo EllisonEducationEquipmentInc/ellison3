@@ -373,6 +373,18 @@ body.bp {
 	
 	&.preview { height: 210px; }
 	
+  &.user_list {
+	  @if $system == erus {
+	    height: 368px;
+	  } @else {
+	    height: 328px;
+	  }
+  
+    .cart-buttons {
+	    bottom: 44px;
+    }
+  }
+	
   h3 {
     margin: 2px 0 10px 0;
     font-size: 1.1em;
@@ -413,14 +425,34 @@ body.bp {
 	.list_actions {
 	  text-align: left;
 	  position: absolute;
-	  left: 118px;
-	  top: 4px;
+	  left: 0;
+
+	  @if $system == erus {
+	    top: 342px;
+	  } @else {
+	    top: 302px;
+	  }
+
+	  width: 100%;
+	  padding-top: 6px;
+	  border-top: 1px dotted $catalog_buybox_border;
 	  z-index: 250;
+	  
+	  .jqui_move_min {
+	    @extend .left;
+	    
+	    margin-left: 10px;
+	  }
+	  .jqui_destroy_min {
+	    @extend .right;
+	    
+	    margin-right: 10px;
+	  }
 	  
 	  .move_to_another_list {
 	    position: absolute;
-	    top: 0;
-	    left: -122px;
+	    top: -50px;
+	    left: -4px;
 	    width: 165px;
 	    border: 1px solid gray;
 	    background: white;
@@ -558,6 +590,10 @@ body.bp {
           width: auto;
         }
       }
+      
+      &.user_list {
+        height: 166px;
+      }
 
       .item_image {
         position: absolute;
@@ -574,7 +610,7 @@ body.bp {
     
       .cart-buttons {
         position: absolute;
-        top: 30px;
+        top: 0;
         left: 600px;
         margin: 8px;
         width: 130px;
@@ -588,11 +624,16 @@ body.bp {
   	  }
   	  
   	  .list_actions {
-  	    top: 8px;
-  	    left: 677px;
+  	    top: 138px;
+  	    left: 0px;
+  	    
+    	  .move_to_another_list {
+    	    top: -47px;
+    	    left: 4px;
+        }
   	  }
     }
-  }
+  }  
 }
 
 .toggleview {

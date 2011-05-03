@@ -1,4 +1,4 @@
-.item-block.product{ :class => "product_#{product.id} #{!ecommerce_allowed? ? "preview" : nil}"}
+.item-block.product{ :class => "product_#{product.id} #{!ecommerce_allowed? ? "preview" : nil} #{@users_list ? 'user_list' : nil}" }
   - if is_er? && ecommerce_allowed? && (product.in_stock? || product.pre_order?)
     .add_to_cart_multi{:style => "display:none"}= check_box_tag "cb_product_#{product.id}", product.id, false, :class => "add_to_cart_checkbox", :onclick => "toggle_add_checked_to_cart()"
   - if product.outlet && is_sizzix_us?
