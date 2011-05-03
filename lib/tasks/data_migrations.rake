@@ -408,7 +408,7 @@ namespace :data_migrations do
     set_current_system "szus"
     OldData::User.not_deleted.find_each(:conditions => "id > 0") do |old_user|
       #old_user = OldData::User.find(463910)
-      new_user = User.new(:email => old_user.email, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
+      new_user = User.new(:email => old_user.email.downcase, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
       new_user.old_id_szus = old_user.id
       
       process_user(old_user,new_user)
@@ -416,6 +416,62 @@ namespace :data_migrations do
       p new_user.old_id_szus
     end
     p Time.zone.now
+  end
+  
+  desc "fix szus users - NO NEED TO RUN"
+  task :fix_szus_orders => [:load_dep] do
+    set_current_system "szus"
+    Order.where(:system => 'szus', :user_id.exists => false).each do |order|
+      old_order = OldData::Order.find order.order_number
+      old_user = old_order.user
+      existing = User.where(:email => old_user.email).first
+      existing.update_attribute :old_id_szus, old_user.id if existing
+      if existing.present?
+        new_user = existing
+        p "user #{old_user.email} found. merging..."
+        new_user.update_attribute :old_id_szus, old_user.id
+        new_user.systems_enabled << "szus" if !new_user.systems_enabled.include?("szus") 
+        p new_user.save(:validate => false)
+      else
+        new_user = User.new(:email => old_user.email.downcase, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
+        new_user.old_id_szus = old_user.id
+
+        process_user(old_user,new_user)
+      end
+      
+      p new_user.errors
+      order.user = new_user if new_user.valid?
+      order.save
+      p "-------- #{new_user.old_id_szus} #{new_user.email}----------"
+    end
+  end
+  
+  desc "fix szuk users - NO NEED TO RUN"
+  task :fix_szuk_orders => [:set_szuk, :load_dep] do
+    set_current_system "szuk"
+    Order.where(:system => 'szuk', :user_id.exists => false).each do |order|
+      old_order = OldData::Order.find order.order_number
+      old_user = old_order.user
+      existing = User.where(:email => old_user.email).first
+      existing.update_attribute :old_id_szuk, old_user.id if existing
+      if existing.present?
+        new_user = existing
+        p "user #{old_user.email} found. merging..."
+        new_user.update_attribute :old_id_szuk, old_user.id
+        new_user.systems_enabled << "szuk" if !new_user.systems_enabled.include?("szuk") 
+        p new_user.save(:validate => false)
+      else
+        new_user = User.new(:email => old_user.email.downcase, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
+        new_user.old_id_szuk = old_user.id
+
+        process_user(old_user,new_user)
+      end
+      
+      p new_user.errors
+      order.user = new_user if new_user.valid?
+      order.save
+      p "-------- #{new_user.old_id_szuk} #{new_user.email}----------"
+    end
   end
   
   desc "migrate SZUS orders"
@@ -448,7 +504,6 @@ namespace :data_migrations do
   desc "migrate SZUK products"
   task :products_szuk => [:set_szuk, :load_dep]  do
     set_current_system "szuk"
-    # product = OldData::Product.find 758
     OldData::Product.not_deleted.find_each do |product|
       new_product = Product.where(:item_num => product.item_num).first || Product.new(:systems_enabled => ["szuk"], :name => product.name, :item_num => product.item_num, :long_desc => product.long_desc, :upc => product.upc, :keywords => product.keywords, :life_cycle => product.new_life_cycle, :active => product.new_active_status)
       new_product.systems_enabled << "szuk" if product.new_active_status && !new_product.systems_enabled.include?("szuk")
@@ -462,11 +517,25 @@ namespace :data_migrations do
         p "...product is available -- changing life cycle to discontinued"
         new_product.life_cycle = 'discontinued' 
       end
+      if new_product.new_record?
+        ["image2", "image3", "embelish_image", "line_drawing", "zoom_image"].each do |meth|
+          unless product.send(meth).blank?
+            image = new_product.images.build
+            begin
+              image.remote_image_url = "http://www.sizzix.co.uk/images/#{product.send(meth)}"
+              p image.save
+            rescue Exception => e
+              p e.message
+            end        
+          end
+        end
+      end
+      new_product.tags.concat Tag.where(:old_id_szuk.in => product.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
       p new_product.save
       p new_product.errors
       p "------ #{product.id} #{product.item_num} -------"
     end
-    p Time.zone.now
+    p Time.now
   end
   
   desc "migrate EEUK products"
@@ -528,20 +597,50 @@ namespace :data_migrations do
     end
   end
   
+  desc "migrate SZUK tags"
+  task :tags_szuk => [:set_szuk, :load_dep] do
+    set_current_system "szuk"
+    OldData::PolymorphicTag.not_deleted.find_each(:conditions => ["tag_type NOT IN (?)", [1,16]]) do |tag|
+      tag.name.force_encoding("UTF-8") if tag.name.encoding.name == "ASCII-8BIT"
+      systems = ["szuk"]
+      new_tag = Tag.where(:name => tag.name, :tag_type => tag.old_type_to_new).first || Tag.new(:name => tag.name, :tag_type => tag.old_type_to_new, :active => tag.active, :systems_enabled => systems, :description => tag.short_desc, :banner => tag.banner, :list_page_image => tag.list_page_image, :medium_image => tag.medium_image)
+      new_tag.write_attributes :old_id_szuk => tag.id,  :start_date_szuk => tag.start_date,  :end_date_szuk => tag.end_date, :keywords => tag.keywords
+      new_tag.systems_enabled = new_tag.systems_enabled | systems unless new_tag.new_record?
+      print new_tag.new_record?
+      print new_tag.save
+      p tag.id
+      p new_tag.errors
+    end
+    p Time.now
+  end
+  
+  desc "assign uk tags to uk products - NO NEED TO RUN"
+  task :fix_szuk_tags => [:set_szuk, :load_dep] do
+    set_current_system "szuk"
+    Product.where(:old_id_szuk.gt => 0, :systems_enabled => ["szuk"]).each do |product|
+      old_product = OldData::Product.find product.old_id_szuk
+      p product.tag_ids.count
+      product.tags.concat Tag.where(:old_id_szuk.in => old_product.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
+      p "#{product.item_num} #{product.tag_ids.count} #{product.tag_ids.uniq.count}"
+      p "======================"
+    end
+  end
+  
   desc "import sizzix UK users"
   task :users_szuk => [:set_szuk, :load_dep] do
     set_current_system "szuk"
     # old_user = OldData::User.find(12369)
     OldData::User.not_deleted.find_each(:conditions => "id > 0") do |old_user|
       existing = User.where(:email => old_user.email).first
+      existing.update_attribute :old_id_szuk, old_user.id if existing
       if !existing.blank? && old_user.orders.count > 0
         new_user = existing
         p "user #{old_user.email} found. merging..."
-        new_user.old_id_szuk = old_user.id
+        new_user.update_attribute :old_id_szuk, old_user.id
         new_user.systems_enabled << "szuk" if !new_user.systems_enabled.include?("szuk") 
-        p new_user.save
+        p new_user.save(:validate => false)
       else
-        new_user = User.new(:email => old_user.email, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
+        new_user = User.new(:email => old_user.email.downcase, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
         new_user.old_id_szuk = old_user.id
 
         process_user(old_user,new_user)
@@ -583,7 +682,7 @@ namespace :data_migrations do
   def process_user(old_user,new_user)
     new_user.old_password_hash = old_user.crypted_password
     new_user.old_salt = old_user.salt
-    new_user.password = new_user.old_password_hash[0..14]
+    new_user.password = "A#{rand(10)}" + new_user.old_password_hash[0..12]
     new_user.old_user = true  
     new_user.tax_exempt = old_user.tax_exempt
     new_user.tax_exempt_certificate = old_user.tax_exempt_certificate || 'N/A'
@@ -737,7 +836,7 @@ namespace :data_migrations do
         end
         p new_user.save(:validate => false)
       else
-        new_user = User.new(:email => old_user.email, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
+        new_user = User.new(:email => old_user.email.downcase, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
         new_user.old_id_er = old_user.id
 
         process_user(old_user,new_user)
@@ -841,6 +940,7 @@ namespace :data_migrations do
     # old_user = OldData::User.find(12369)
     OldData::User.not_deleted.find_each(:conditions => "id > 0") do |old_user|
       existing = User.where(:email => old_user.email).first
+      existing.update_attribute :old_id_eeus, old_user.id if existing
       if !existing.blank? && old_user.orders.count > 0
         new_user = existing
         p "!!! user #{old_user.email} found. merging..."
@@ -848,7 +948,7 @@ namespace :data_migrations do
         new_user.systems_enabled << "eeus" if !new_user.systems_enabled.include?("eeus") 
         new_user.save(:validate => false)
       else
-        new_user = User.new(:email => old_user.email, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
+        new_user = User.new(:email => old_user.email.downcase, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
         new_user.old_id_eeus = old_user.id
 
         process_user(old_user,new_user)
@@ -882,6 +982,7 @@ namespace :data_migrations do
     # old_user = OldData::User.find(12369)
     OldData::User.not_deleted.find_each(:conditions => "id > 0") do |old_user|
       existing = User.where(:email => old_user.email).first
+      existing.update_attribute :old_id_eeuk, old_user.id if existing
       if !existing.blank? && old_user.orders.count > 0
         new_user = existing
         p "!!! user #{old_user.email} found. merging..."
@@ -889,7 +990,7 @@ namespace :data_migrations do
         new_user.systems_enabled << "eeuk" if !new_user.systems_enabled.include?("eeuk") 
         new_user.save(:validate => false)
       else
-        new_user = User.new(:email => old_user.email, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
+        new_user = User.new(:email => old_user.email.downcase, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
         new_user.old_id_eeuk = old_user.id
 
         process_user(old_user,new_user)
@@ -1191,23 +1292,26 @@ namespace :data_migrations do
     # get last order in new system 1000000
     last_user = User.where(:old_id_szus.exists => true).desc(:old_id_szus).first
     
-    p "# of new users since last migrations: #{OldData::User.count(:conditions => ["id > ?", last_user.old_id_szus])}"
+    # p "# of new users since last migrations: #{OldData::User.count(:conditions => ["id > ?", last_user.old_id_szus])}"
     
-    OldData::User.find_each(:conditions => ["id > ?", last_user.old_id_szus]) do |old_user|
-      new_user = User.new(:email => old_user.email, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
-      new_user.old_id_szus = old_user.id
-      
-      process_user(old_user,new_user)
-      p new_user.errors
-      p new_user.old_id_szus
-    end
+    # OldData::User.find_each(:conditions => ["id > ?", last_user.old_id_szus]) do |old_user|
+    #   new_user = User.new(:email => old_user.email, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
+    #   new_user.old_id_szus = old_user.id
+    #   
+    #   process_user(old_user,new_user)
+    #   p new_user.errors
+    #   p new_user.old_id_szus
+    # end
     
-    p "# of changed users since last migrations: #{OldData::User.count(:conditions => ["updated_at > ?", last_user.created_at])}"
-    OldData::User.find_each(:conditions => ["updated_at > ?", last_user.created_at]) do |old_user|
-      new_user = User.where(:old_id_szus => old_user.id).first
-      next unless new_user
-      
-    end
+    # p "# of changed users since last migrations: #{OldData::User.count(:conditions => ["updated_at > ?", last_user.created_at])}"
+    # OldData::User.find_each(:conditions => ["updated_at > ?", last_user.created_at]) do |old_user|
+    #   new_user = User.where(:old_id_szus => old_user.id).first
+    #   next unless new_user
+    #   
+    # end
+    
+    # p OldData::BillingAddress.count(:conditions => ["updated_at > ? AND user_id < ?", last_user.created_at, last_user.old_id_szus])
+    p OldData::Customer.count(:conditions => ["updated_at > ? AND user_id < ?", last_user.created_at, last_user.old_id_szus])
   end
   
   
@@ -1349,15 +1453,15 @@ EOF
     
     db = case ENV['SYSTEM']
     when "edu"
-      "ellison_education_qa"
+      "ellison_education_qa1"
     when "szuk"
-      "sizzix_2_uk_qa"
+      "sizzix_2_uk_qa1"
     when "erus"
-      "ellison_global_qa"
+      "ellison_global_qa1"
     when "eeuk"
-      "ellison_education_uk_qa"
+      "ellison_education_uk_qa1"
     else
-      "sizzix_2_us_qa"
+      "sizzix_2_us_qa1"
     end
             
     ActiveRecord::Base.establish_connection(

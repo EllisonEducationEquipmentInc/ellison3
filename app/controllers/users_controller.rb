@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   # POST /resource/sign_up
   def create
     build_resource
-
+    resource.email.downcase!
     if resource.save
       set_flash_message :notice, :signed_up
       session[:user_return_to] = retailer_application_path if is_er?
@@ -46,6 +46,7 @@ class UsersController < ApplicationController
 
 	# PUT /resource
   def update
+    params[:user][:email].downcase! if params[:user][:email].present?
     if get_user.update_attributes(params[:user])
 			@profile = I18n.t("#{resource_name}.updated", :scope => "devise.#{controller_name}")
       #set_flash_message :profile, :updated

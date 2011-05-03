@@ -78,6 +78,7 @@ class Tag
   field :old_id, :type => Integer
   field :old_id_edu, :type => Integer
   field :old_id_eeuk, :type => Integer
+  field :old_id_szuk, :type => Integer
   field :color
   field :keywords
   # field :calendar_start_date, :type => DateTime

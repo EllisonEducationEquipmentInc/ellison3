@@ -58,7 +58,7 @@ class User
 	accepts_nested_attributes_for :addresses
 	accepts_nested_attributes_for :retailer_application
 	
-	validates_associated :retailer_application, :addresses
+	validates_associated :retailer_application, :addresses, :unless => proc {disable_solr_indexing?}
 
   referenced_in :account
   referenced_in :admin, :validate => false
@@ -116,6 +116,8 @@ class User
   end
   
   class << self
+    include EllisonSystem
+    
     def reset_password_by_token(attributes={})
       recoverable = where(:reset_password_token_expires_at.gt => Time.now).find_or_initialize_with_error_by(:reset_password_token, attributes[:reset_password_token], "is invalid or expired.")
       recoverable.reset_password!(attributes[:password], attributes[:password_confirmation]) unless recoverable.new_record?
