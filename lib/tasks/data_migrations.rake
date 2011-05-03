@@ -424,7 +424,7 @@ namespace :data_migrations do
     Order.where(:system => 'szus', :user_id.exists => false).each do |order|
       old_order = OldData::Order.find order.order_number
       old_user = old_order.user
-      existing = User.where(:email => old_user.email).first
+      existing = User.where(:email => Regexp.new("^" + Regexp.escape(old_user.email.downcase) + "$", "i") ).first
       existing.update_attribute :old_id_szus, old_user.id if existing
       if existing.present?
         new_user = existing
@@ -452,7 +452,7 @@ namespace :data_migrations do
     Order.where(:system => 'szuk', :user_id.exists => false).each do |order|
       old_order = OldData::Order.find order.order_number
       old_user = old_order.user
-      existing = User.where(:email => old_user.email).first
+      existing = User.where(:email => Regexp.new("^" + Regexp.escape(old_user.email.downcase) + "$", "i") ).first
       existing.update_attribute :old_id_szuk, old_user.id if existing
       if existing.present?
         new_user = existing
@@ -471,6 +471,62 @@ namespace :data_migrations do
       order.user = new_user if new_user.valid?
       order.save
       p "-------- #{new_user.old_id_szuk} #{new_user.email}----------"
+    end
+  end
+  
+  desc "fix erus users - NO NEED TO RUN"
+  task :fix_erus_orders => [:set_er, :load_dep] do
+    set_current_system "erus"
+    Order.where(:system => 'erus', :user_id.exists => false).each do |order|
+      old_order = OldData::Order.find order.order_number
+      old_user = old_order.user
+      existing = User.where(:email => Regexp.new("^" + Regexp.escape(old_user.email.downcase) + "$", "i") ).first
+      existing.update_attribute :old_id_er, old_user.id if existing
+      if existing.present?
+        new_user = existing
+        p "user #{old_user.email} found. merging..."
+        new_user.update_attribute :old_id_er, old_user.id
+        new_user.systems_enabled << "erus" if !new_user.systems_enabled.include?("erus") 
+        p new_user.save(:validate => false)
+      else
+        new_user = User.new(:email => old_user.email.downcase, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
+        new_user.old_id_er = old_user.id
+
+        process_user(old_user,new_user)
+      end
+      
+      p new_user.errors
+      order.user = new_user #if new_user.valid?
+      order.save
+      p "-------- #{new_user.old_id_er} #{new_user.email}----------"
+    end
+  end
+  
+  desc "fix eeus users - NO NEED TO RUN"
+  task :fix_eeus_orders => [:set_edu, :load_dep] do
+    set_current_system "eeus"
+    Order.where(:system => 'eeus', :user_id.exists => false).each do |order|
+      old_order = OldData::Order.find order.order_number
+      old_user = old_order.user
+      existing = User.where(:email => Regexp.new("^" + Regexp.escape(old_user.email.downcase) + "$", "i") ).first
+      existing.update_attribute :old_id_eeus, old_user.id if existing
+      if existing.present?
+        new_user = existing
+        p "user #{old_user.email} found. merging..."
+        new_user.update_attribute :old_id_eeus, old_user.id
+        new_user.systems_enabled << "eeus" if !new_user.systems_enabled.include?("eeus") 
+        p new_user.save(:validate => false)
+      else
+        new_user = User.new(:email => old_user.email.downcase, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
+        new_user.old_id_eeus = old_user.id
+
+        process_user(old_user,new_user)
+      end
+      
+      p new_user.errors
+      order.user = new_user #if new_user.valid?
+      order.save
+      p "-------- #{new_user.old_id_eeus} #{new_user.email}----------"
     end
   end
   
@@ -572,14 +628,29 @@ namespace :data_migrations do
       new_idea.systems_enabled << "szuk" if !new_idea.systems_enabled.include?("szuk")
 
       new_idea.write_attributes :old_id_szuk => idea.id, :long_desc => idea.long_desc, :keywords => idea.keywords, :start_date_szuk => idea.start_date, :end_date_szuk => idea.end_date, :distribution_life_cycle_szuk => idea.new_lesson ? 'New' : nil, :distribution_life_cycle_ends_szuk => idea.new_lesson && idea.new_expires_at
-         
+      
       if !new_idea.active && idea.active_status
         p "...idea needs to be activated -- removing szus"
         new_idea.systems_enabled.delete("szus") 
       end
+      
+      if new_idea.new_record?
+        ["image2", "image3", "zoom_image"].each do |meth|
+          unless idea.send(meth).blank?
+            image = new_idea.images.build
+            begin
+              image.remote_image_url = "http://www.sizzix.co.uk/images/#{idea.send(meth)}"
+              p image.save
+            rescue Exception => e
+              p e.message
+            end        
+          end
+        end
+      end
       new_idea.active = true if idea.active_status
       p new_idea.save
       p new_idea.errors
+      new_idea.tags.concat Tag.where(:old_id_szuk.in => idea.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
       p "------ #{idea.id} #{idea.idea_num} -------"
     end
     p Time.now
@@ -626,12 +697,24 @@ namespace :data_migrations do
     end
   end
   
+  desc "assign uk tags to uk ideas - NO NEED TO RUN"
+  task :fix_szuk_idea_tags => [:set_szuk, :load_dep] do
+    set_current_system "szuk"
+    Idea.where(:old_id_szuk.gt => 0, :systems_enabled => ["szuk"]).each do |idea|
+      old_idea = OldData::Idea.find idea.old_id_szuk
+      p idea.tag_ids.count
+      idea.tags.concat Tag.where(:old_id_szuk.in => old_idea.polymorphic_tags.map {|e| e.id}.uniq).uniq.map {|p| p}
+      p "#{idea.idea_num} #{idea.tag_ids.count} #{idea.tag_ids.uniq.count}"
+      p "======================"
+    end
+  end
+  
   desc "import sizzix UK users"
   task :users_szuk => [:set_szuk, :load_dep] do
     set_current_system "szuk"
     # old_user = OldData::User.find(12369)
     OldData::User.not_deleted.find_each(:conditions => "id > 0") do |old_user|
-      existing = User.where(:email => old_user.email).first
+      existing = User.where(:email => old_user.email.downcase).first
       existing.update_attribute :old_id_szuk, old_user.id if existing
       if !existing.blank? && old_user.orders.count > 0
         new_user = existing
@@ -817,12 +900,30 @@ namespace :data_migrations do
     p Time.now
   end
   
+  desc "process SZUK only idea tabs"
+  task :idea_tabs_szuk => [:set_szuk, :load_dep] do
+    set_current_system "szuk"
+    Idea.where(:systems_enabled => ["szuk"], :active => true, :tabs => nil).each do |idea|
+      old_idea = OldData::Idea.find(idea.old_id_szuk) rescue next
+      old_idea.idea_tabs.not_deleted.each do |tab|
+        next if idea.tabs.where(:name => tab.name).count > 0
+        new_tab = idea.tabs.build 
+        new_tab.write_attributes :name => tab.name, :description => tab.description, :systems_enabled => ["szuk"], :active => tab.active, :text => tab.freeform
+        process_tab(tab,new_tab)
+        p new_tab.save
+        p new_tab.errors
+        p "#{idea.idea_num} ------ #{tab.id} -------"
+      end
+    end
+    p Time.now
+  end
+  
   desc "import ER users - IMPORTANT: copy production 'attachment' folder to the new app's root folder"
   task :users_er => [:set_er, :load_dep] do
     set_current_system "erus"
     # old_user = OldData::User.find 1282
     OldData::User.not_deleted.find_each(:conditions => "id > 0") do |old_user|
-      existing = User.where(:email => old_user.email).first
+      existing = User.where(:email => old_user.email.downcase).first
       if !existing.blank? 
         new_user = existing
         p "!!! user #{old_user.email} found. merging..."
@@ -939,7 +1040,7 @@ namespace :data_migrations do
     set_current_system "eeus"
     # old_user = OldData::User.find(12369)
     OldData::User.not_deleted.find_each(:conditions => "id > 0") do |old_user|
-      existing = User.where(:email => old_user.email).first
+      existing = User.where(:email => old_user.email.downcase).first
       existing.update_attribute :old_id_eeus, old_user.id if existing
       if !existing.blank? && old_user.orders.count > 0
         new_user = existing
@@ -981,7 +1082,7 @@ namespace :data_migrations do
     set_current_system "eeuk"
     # old_user = OldData::User.find(12369)
     OldData::User.not_deleted.find_each(:conditions => "id > 0") do |old_user|
-      existing = User.where(:email => old_user.email).first
+      existing = User.where(:email => old_user.email.downcase).first
       existing.update_attribute :old_id_eeuk, old_user.id if existing
       if !existing.blank? && old_user.orders.count > 0
         new_user = existing
