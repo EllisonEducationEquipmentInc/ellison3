@@ -30,18 +30,23 @@
           %strong From:
           = get_user.email
         .field
-          = required_field label_tag(:list_your_name, "Your Name:")
+          = label_tag(:list_your_name, "<span class='required'>Your Name:</span>".html_safe, :class => "autosize")
           %br
           = text_field_tag :list_your_name, get_user.name, :size => 40
         .field
-          = required_field label_tag(:list_to, "To:")
-          %small Separate email addresses with a comma.
+          = label_tag(:list_to, "<span class='required'>To:</span>".html_safe, :class => "autosize")
           %br
-          = text_area_tag :list_to, nil, :cols => 60, :rows => 2
-        .field
+          = text_area_tag :list_to, nil, :cols => 55, :rows => 2
+          %p.formhelp Separate email addresses with a comma.
+        .field{:style => "height: 255px"}
           = label_tag(:list_note, "Note:")
           %br
-          = text_area_tag :list_note, nil, :cols => 60, :rows => 10
+          = text_area_tag :list_note, nil, :cols => 55, :rows => 10, :maxlength => 250
+          %p.formhelp
+            %span#chars_left You have 250 characters left.
+            %br
+            %br
+            The email addresses you provide in this form will only be used to send this one-time email message.
         .actions
           = submit_tag "Send Email", :class => 'jqui_button'
           = link_to_function 'Cancel', "$.fancybox.close();", :class => "jqui_cancel"
@@ -62,6 +67,13 @@
             submitHandler: function(form) {
               $('#email_list_form').ajaxSubmit();
             },
+        });
+        $('#list_note').keyup(function () {
+          var left = 250 - $(this).val().length;
+          if (left < 0) {
+            left = 0;
+          }
+          $('#chars_left').text('You have ' + left + ' characters left.');
         });
 .products_grid
   .highlightable
