@@ -78,7 +78,7 @@
 .products_grid
   .highlightable
     - if @list.products.blank?
-      ==This list is empty. Please #{link_to "return to the catalog", catalog_path} to add a few items.
+      == There are no items to display in the list you selected. #{link_to "Browse products", catalog_path} to add items to a list.
     - else
       = render @list.products
 :javascript

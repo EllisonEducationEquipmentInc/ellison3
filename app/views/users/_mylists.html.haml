@@ -9,22 +9,26 @@
       %th{ :style => "text-align: right", :width => 110}
       %th{ :style => "text-align: right", :width => 110}
     = render :partial => 'list_row', :collection => @lists, :as => :list
+  %hr
   = link_to_function "Create New List", "$('#new_list').show()", :class => 'jqui_new'
   %br
   %br
   = form_for(List.new, :url => {:action => 'create_list'}, :remote => true) do |f|
     .field
-      = f.label :name
-      %br
+      = f.label :name, :class => "autosize"
       = f.text_field :name
     .field
       = f.label :comments
       %br
-      = f.text_area :comments
+      = f.text_area :comments, :cols => 80, :rows => 2
     .field
-      = f.label :default_list, "Make this your default list?"
-      %br
-      = f.check_box :default_list
+      = f.label :default_list, "Make this your default list?", :class => "autosize"
+      yes
+      = f.radio_button(:default_list, true)
+      no
+      = f.radio_button(:default_list, false)
+
+
     .actions
       = f.submit :class => 'jqui_save'
       = link_to_function "cancel", "$('#new_list').hide()", :class => "jqui_cancel"
