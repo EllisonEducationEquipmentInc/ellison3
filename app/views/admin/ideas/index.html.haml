@@ -14,27 +14,29 @@
   %table
     %thead
       %tr
-        = sortable 'idea_num'
+        = sortable 'idea_num', "Idea #"
         = sortable 'name'
         = sortable "start_date_#{current_system}", "Start Date"
         = sortable "end_date_#{current_system}", "End Date"
         %th Systems
-        %th &nbsp;
+        %th Active?
+        %th{:style => "text-align: right", :width => 30} &nbsp;
         - if has_write_permissions?
-          %th &nbsp;
-          -#%th &nbsp;
+          %th{:style => "text-align: right", :width => 30} &nbsp;
+          -#%th{:style => "text-align: right", :width => 30} &nbsp;
     %tbody
       - for idea in @ideas
         %tr{ :class => cycle(:odd, :even) }
-          %td= idea.idea_num
+          %td{:width => 60}= idea.idea_num
           %td= idea.name
           %td= l idea.send("start_date_#{current_system}"), :format => :custom rescue "N/A for #{current_system}"
           %td= l idea.send("end_date_#{current_system}"), :format => :custom rescue "N/A for #{current_system}"
           %td= idea.systems_enabled.join(", ") rescue ''
-          %td= link_to 'Show', admin_idea_path(idea), :class => 'jqui_show_min'
+          %td= idea.active
+          %td{:style => "text-align: right", :width => 30}= link_to 'Show', admin_idea_path(idea), :class => 'jqui_show_min'
           - if has_write_permissions?
-            %td= link_to 'Edit', edit_admin_idea_path(idea), :class => 'jqui_edit_min'
-            -#%td= link_to 'Destroy', admin_idea_path(idea), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
+            %td{:style => "text-align: right", :width => 30}= link_to 'Edit', edit_admin_idea_path(idea), :class => 'jqui_edit_min'
+            -#%td{:style => "text-align: right", :width => 30}= link_to 'Destroy', admin_idea_path(idea), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
 %br
 = will_paginate @ideas
 %br

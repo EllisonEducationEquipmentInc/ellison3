@@ -23,6 +23,7 @@
         = sortable "start_date_#{current_system}", "Start Date"
         = sortable "end_date_#{current_system}", "End Date"
         %th Systems
+        %th Active
         %th{ :width => 30, :style => "text-align: right;" } &nbsp;
         %th{ :width => 30, :style => "text-align: right;" } &nbsp;
         -#%th{ :width => 30, :style => "text-align: right;" } &nbsp;
@@ -35,6 +36,7 @@
           %td= l tag.send("start_date_#{current_system}"), :format => :custom rescue ''
           %td= l tag.send("end_date_#{current_system}"), :format => :custom rescue ''
           %td= tag.systems_enabled.join(", ") rescue ''
+          %td= tag.active
           %td{ :width => 30, :style => "text-align: right;" }= link_to 'Show', admin_tag_path(tag), :class => 'jqui_show_min'
           - if has_write_permissions?
             %td{ :width => 30, :style => "text-align: right;" }= link_to 'Edit', edit_admin_tag_path(tag), :class => 'jqui_edit_min'
