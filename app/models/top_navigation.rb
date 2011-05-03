@@ -19,9 +19,9 @@ private
   # define top navigation values for each system here:
   def list_szus
     [
-      Navigation.new("Projects", "/catalog#ideas=1"), 
+      Navigation.new("Projects", "/lp/categories?ideas=1"), 
       Navigation.new("New & Notable", "/catalog#ideas=1"), 
-      Navigation.new("Machines & Accessories", "/catalog#facets=category~machines-accessories"),
+      Navigation.new("Machines & Accessories", "lp/categories"),
       Navigation.new("Products", "/catalog"),
       Navigation.new("Electronic Cutting", "/shop/eclips"),
       Navigation.new("Clearance", "/outlet")
@@ -31,30 +31,30 @@ private
   def list_szuk
     [
       Navigation.new("Sizzix Products", "/catalog"), 
-      Navigation.new("Craft Projects", "/catalog#ideas=1"), 
+      Navigation.new("Craft Projects", "/lp/categories?ideas=1"), 
       Navigation.new("Promotions", "/campaigns"),
       Navigation.new("Featured", "#"),
-      Navigation.new("Support", "/support")
+      Navigation.new("Community", "#")
     ]
   end
   
   def list_eeus
     [
-      Navigation.new("Lessons", "/catalog#ideas=1"), 
+      Navigation.new("Lessons", "/lp/categories?ideas=1"), 
       Navigation.new("Products", "/catalog"), 
       Navigation.new("Electronic Cutting", "/shop/eclips"),
       Navigation.new("Specials", "/campaigns"),
-      Navigation.new("Support", "/support")
+      Navigation.new("Community", "#")
     ]
   end
   
   def list_eeuk
     [
-      Navigation.new("Lessons", "/catalog#ideas=1"), 
+      Navigation.new("Lessons", "/lp/categories?ideas=1"), 
       Navigation.new("Products", "/catalog"), 
       Navigation.new("Electronic Cutting", "/shop/eclips"),
       Navigation.new("Specials", "/campaigns"),
-      Navigation.new("Support", "/support")
+      Navigation.new("Community", "#")
     ]
   end
   
