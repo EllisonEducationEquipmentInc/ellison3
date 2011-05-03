@@ -16,12 +16,10 @@
 #checkout_summary
   %h3 Order Summary
   %p
-    You have
-    %strong
-      %em
-        = pluralize get_cart.total_quantity, "item"
-    == in your shopping #{cart_name} 
+    == You have <strong><em>#{pluralize get_cart.total_quantity, "item"}</em></strong> in your shopping #{cart_name}
     = link_to "review #{cart_name}", "#", :class => "review_cart minilink", :id => 'review_bag'
+    %br
+    == This #{quote_name} has limited validity #{link_to "More Info...", "/quote_disclaimer?no_layout=1", :class => "tip_question lightbox minilink"}
   :javascript
     $('.review_cart').click(function(){
       $('html, body').animate({ scrollTop: $("#checkout_cart").offset().top }, 500);
@@ -36,12 +34,12 @@
     %li.ui-menu-item#cart_handling{:style => "display:#{calculate_handling > 0.0 ? 'block' : 'none'}"}= render :partial => 'handling_amount'
     %li.ui-menu-item#cart_tax= render :partial => 'tax_amount' if get_user.shipping_address
     %li.ui-menu-item#cart_total= render :partial => 'total_amount' if get_user.shipping_address
-  = form_tag({:action => get_cart.pre_order? ? 'proceed_quote' : "proceed_quote"}, :remote => true, :method => :post, :style => "margin-bottom: 10px") do
+  = form_tag({:action => get_cart.pre_order? ? 'proceed_quote' : "proceed_quote"}, :remote => true, :method => :post, :style => "margin: 10px 0") do
     .field
-      = label_tag :quote_name, "#{quote_name} name", :maxlength => 40, :style => "width: 70px"
-      = text_field_tag :quote_name
-      %p.formhelp{ :style => "margin-left: 82px"} Maximum 40 characters
-    .ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
+      = label_tag :quote_name, "#{quote_name} Name", :style => "width: 75px"
+      = text_field_tag :quote_name, nil, :maxlength => 30
+      %p.formhelp{ :style => "margin-left: 82px"} Maximum 30 characters
+    .ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons.left
       %h4.ui-accordion-header.ui-helper-reset#order_comment
         %span.ui-icon.ui-icon-triangle-1-e
         = link_to 'Comments', "#"
