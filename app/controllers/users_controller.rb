@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   prepend_before_filter :authenticate_scope!, :except => [ :new, :create, :checkout_requested, :signin_signup, :quote_requested, :add_to_list, :save_for_later, :list, :get_lists]
   before_filter :trackable
   before_filter :store_path!, :only => [:myaccount, :list, :eclipsware]
-	before_filter :register_continue_shopping!, :only => [:list]
+	before_filter :register_continue_shopping!, :only => [:list, :myaccount]
 	
   include Devise::Controllers::InternalHelpers
   
