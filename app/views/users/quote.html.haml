@@ -73,7 +73,7 @@
       %td= number_to_currency item.item_total
 .contentwrap_XL{ :style => "margin-right: 10px !important"}
   - unless @quote.comments.blank?
-    %p== <strong>Comments:</strong> #{@order.comments}
+    %p== <strong>Comments:</strong> #{@quote.comments}
   %p= link_to "Print a copy of this #{quote_name}.", "javascript:window.print()", :class => "link_print dontprint"
 
 %ul.plain.cart_summary.contentwrap_medium.last
