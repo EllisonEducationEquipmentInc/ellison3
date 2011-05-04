@@ -1,10 +1,16 @@
 .clear
 .copyright
+  %br
+  == Our Privacy Policy has been updated effective March 4, 2009.
+  %br
+  %br
   == Copyright &copy; Ellison 1996 - #{DateTime.now.year}. All rights reserved.
   %br/
-  == This site is intended for visitors within #{is_us? ? 'the United States' : 'Europe'}.
- 
-  -if is_sizzix? 
-    %li{:style=>"list-style:none"}= link_to "#{is_uk? ? 'U.S.' : 'European'} visitors check out partner site", "#{is_uk? ? 'http://www.sizzix.com' : 'http://www.sizzix.co.uk'}"
-  -else  
-    %li{:style=>"list-style:none"}= link_to "#{is_uk? ? 'U.S.' : 'European'} visitors check out partner site", "#{is_uk? ? 'http://www.ellisoneducation.com' : 'http://www.ellisoneducation.co.uk'}"
+  
+  -unless is_er? 
+    == This site is intended for visitors within #{is_us? ? 'the United States' : 'Europe'}.
+     
+    -if is_sizzix? 
+      %li{:style=>"list-style:none"}= link_to "#{is_uk? ? 'U.S.' : 'European'} visitors check out partner site", "#{is_uk? ? 'http://www.sizzix.com' : 'http://www.sizzix.co.uk'}"
+    -else  
+      %li{:style=>"list-style:none"}= link_to "#{is_uk? ? 'U.S.' : 'European'} visitors check out partner site", "#{is_uk? ? 'http://www.ellisoneducation.com' : 'http://www.ellisoneducation.co.uk'}"

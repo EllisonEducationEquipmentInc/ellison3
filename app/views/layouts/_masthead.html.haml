@@ -17,7 +17,7 @@
       %li.plaintext= link_to "<span>or</span>".html_safe, signin_signup_path, :class => "btn-plaintext", :onclick => "return false"
       %li= link_to "<span>Sign In</span>".html_safe, signin_signup_path, :class => "lightbox btn-signin", :title => "Sign In", :alt => "Sign In"
     %li= link_to "<span>Contact Us</span>".html_safe, "/contact", :class => "btn-contact", :title => "Contact Us", :alt => "Contact Us"
-    - if is_sizzix? or is_ee?
+    - if is_sizzix_us?
       %li= link_to "<span>Support</span>".html_safe, "/support", :class => "btn-support", :title => "Support", :alt => "Support"
     -#%li= link_to "<span>Community</span>".html_safe, "/contact", :class => "btn-community", :title => "Community", :alt => "Community"
     -#%li= link_to "<span>Store Locator</span>".html_safe, "/stores", :class => "btn-storelocator", :title => "Store Locator", :alt => "Store Locator"
