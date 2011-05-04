@@ -54,9 +54,8 @@ private
     [
       Navigation.new("Lessons", "/lp/categories?ideas=1"), 
       Navigation.new("Products", "/catalog"), 
-      Navigation.new("Specials", "/campaigns"),
-      Navigation.new("Community", "#"),
-      Navigation.new("Support", "#")
+      Navigation.new("News & Events", "/events"),
+      Navigation.new("About Us", "/aboutus")
     ]
   end
   
