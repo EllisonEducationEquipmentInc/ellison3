@@ -56,7 +56,11 @@ ul.cart_summary {
   
   li { font-weight: bold; }
   
-  li#cart_total { border-top:1px double gray; }  
+  li#cart_total { border-top:1px double gray; }
+  
+  span#shipping_method {
+    text-transform: capitalize;
+  }
 }
 
 #cc_info {
