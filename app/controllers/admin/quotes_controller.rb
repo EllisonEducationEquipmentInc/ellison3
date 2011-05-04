@@ -23,7 +23,7 @@ class Admin::QuotesController < ApplicationController
 	  if params[:q].present?
 	    redirect_to(admin_quote_path(:id => params[:q])) if params[:q].valid_bson_object_id?
 	    regexp = params[:extended] == "1" ? Regexp.new(params[:q], "i") : Regexp.new("^#{params[:q]}")
-  	  criteria = criteria.any_of({:name => regexp}, { 'address.first_name' => regexp}, { 'address.last_name' => regexp }, { 'address.company' => regexp }, { 'internal_comments' => regexp })
+  	  criteria = criteria.any_of({:quote_number => params[:q]}, {:name => regexp}, { 'address.first_name' => regexp}, { 'address.last_name' => regexp }, { 'address.company' => regexp }, { 'internal_comments' => regexp })
 	  	@quotes = criteria.paginate :page => params[:page], :per_page => 50
 	  else
   		@quotes = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50	    

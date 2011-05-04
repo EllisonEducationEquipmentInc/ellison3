@@ -68,6 +68,7 @@ class Quote
 
 	before_create :set_system
 	before_create :set_expires_at
+	before_create :set_quote_number
 	
 	class << self
     # pre-order report:
@@ -138,6 +139,10 @@ EOF
 
 private
 
+  def set_quote_number
+    self.quote_number ||= generate_code
+  end
+
 	def set_system
 		self.system ||= current_system
 	end
@@ -145,4 +150,13 @@ private
 	def set_expires_at
 	  self.expires_at = is_ee? ? 90.days.from_now : 6.months.from_now
 	end
+	
+	def generate_code
+    letters = ("A".."Z").to_a 
+    numbers = ("0".."9").to_a
+    code = ""
+    1.upto(4) { |i| code << letters[rand(letters.size-1)] }
+    1.upto(6) { |i| code << numbers[rand(numbers.size-1)] }
+    code
+  end
 end
