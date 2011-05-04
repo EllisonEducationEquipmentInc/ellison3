@@ -7,13 +7,13 @@
     = link_to "remove", remove_coupon_path, :remote => true, :class => "link_remove"
 - else
   = form_tag activate_coupon_path, :id => "coupon_form", :remote => true do
-    = label_tag :coupon_code, "Please enter Coupon code here:"
+    = label_tag :coupon_code, "Please enter coupon code here:"
     = text_field_tag :coupon_code
     %button.jqui_ok#activate_coupon Activate coupon
     %p.formhelp
       Only one coupon code allowed per order.
       - if is_ee_us?
-        Please make certain you coupon is eligible for online redemption.
+        Please make certain your coupon is eligible for online redemption.
   :javascript
     $(function() {
       $("#activate_coupon").button({icons: {primary: 'ui-icon-check'}}).click( function() {
