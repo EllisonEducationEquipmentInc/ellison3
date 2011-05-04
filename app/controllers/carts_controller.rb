@@ -20,7 +20,7 @@ class CartsController < ApplicationController
 	  if get_cart.last_check_at.blank? || get_cart.last_check_at.present? && get_cart.last_check_at.utc < 5.minute.ago.utc
 	    return unless real_time_cart
 	  end
-		@title = "Shopping #{I18n.t(:cart).titleize}"
+		@title = "Shopping #{cart_name.titleize}"
 		@cart_locked = true if params[:locked] == "1"
 		@shared_content = SharedContent.cart
 		render :index, :layout => false if request.xhr?
@@ -372,4 +372,16 @@ private
     end
   end
 
+	def cart_name
+    cart_name = case current_system
+      when "szus" then "bag"
+      when "szuk" then "bag"
+      when "erus" then "cart"
+      when "eeus" then "cart"
+      when "eeuk" then "quote"
+      else "cart"
+    end    
+    return cart_name
+	end
+	
 end
