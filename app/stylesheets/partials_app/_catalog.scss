@@ -429,9 +429,9 @@ body.bp {
 	  left: 0;
 
 	  @if $system == erus {
-	    top: 342px;
+	    top: 346px;
 	  } @else {
-	    top: 302px;
+	    top: 306px;
 	  }
 
 	  width: 100%;
@@ -629,7 +629,7 @@ body.bp {
   	  }
   	  
   	  .list_actions {
-  	    top: 138px;
+  	    top: 142px;
   	    left: 0px;
   	    
     	  .move_to_another_list {
