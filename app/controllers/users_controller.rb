@@ -75,7 +75,7 @@ class UsersController < ApplicationController
 		@tabs += [[:billing, "My Billing Info"], [:shipping, "My Shipping Info"], [:orders, "Order Status"], [:mylists, "My Lists"]]
 		@tabs << [:machines_i_own, "Machines I own"] unless is_er?
 	  @tabs += [[:quotes, quote_name.pluralize]] if is_ee? || is_er?
-	  @tabs += [[:materials, "Materials"]] if is_ee?
+	  @tabs += [[:materials, "Request Materials"]] if is_ee?
 	  @tabs += [[:subscriptions, "Newsletter Subscriptions"]] if ecommerce_allowed?
 	end
 	
