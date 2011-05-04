@@ -262,7 +262,8 @@ $(document).ready(function(){
   
 });
 
-// jqueryui tables
+// jQueryUI-styled tables
+// ALL table elements EXCEPT the calendar
 function initialize_tables() {
   $(function() {
     $("table:not('div#event_calendar table')").each(function() {
