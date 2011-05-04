@@ -13,7 +13,6 @@
         = form_tag({:controller => 'users', :action => 'move_to_list', :id => product, :list => @list.id}, :remote => true) do
           = select_tag :move_to, options_for_select(@lists), :style => "max-width:150px"
           %p.right= link_to "Move to Another List", "#", :onclick => "$(this).closest('form').submit(); return false;"
-  %h3.item_number= product.item_num
   - if !is_er? && product.saving > 0 || is_er? && ecommerce_allowed? && product.sale_price && product.sale_price < product.retailer_price
     .life-cycle
       %span
@@ -25,6 +24,7 @@
     .life-cycle
       %span= product.public_life_cycle
   %p.item_image= link_to image_tag(product.medium_image), product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize), :alt => product.name.html_safe, :title => product.name.html_safe
+  %h3.item_number= product.item_num
   %p.item_name= link_to product.name.html_safe, product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize)
   %p.item_price= display_product_price(product, :date => @time)
   .item_description= truncate(strip_tags(product.description.html_safe), :length => 250, :separator => ' ') if product.description.present?

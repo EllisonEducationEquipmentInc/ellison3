@@ -24,6 +24,7 @@ body.bp {
   
     h3 {
       color: $catalog_item-num;
+      margin-bottom: 4px;
     }
   
   	a {
@@ -354,7 +355,7 @@ body.bp {
 	float: left;
 	width: $item-block-width;
 	margin: 0 0 12px 12px;
-	padding: $item-block-padding;
+	padding: 10px $item-block-padding $item-block-padding $item-block-padding;
 	background: $catalog_product_bg;
 	text-align: center;
 	overflow: visible;
