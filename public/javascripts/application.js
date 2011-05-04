@@ -208,14 +208,8 @@ $(document).ready(function(){
       $(".cover", this).stop().animate({top:'188px'},{queue:false,duration:160});
     }
   });
-
-  // jqueryui tables
-  $("table:not('div#event_calendar table')").each(function() {
-    $(this).addClass("ui-widget ui-widget-content ui-corner-all");
-  });
-  $("table thead:not('div#event_calendar table thead')").each(function() {
-    $(this).addClass("ui-state-hover");
-  });
+  
+  initialize_tables();
 
 	highlight_keyword();
 	
@@ -268,8 +262,19 @@ $(document).ready(function(){
   
 });
 
+// jqueryui tables
+function initialize_tables() {
+  $(function() {
+    $("table:not('div#event_calendar table')").each(function() {
+      $(this).addClass("ui-widget ui-widget-content ui-corner-all");
+    });
+    $("table thead:not('div#event_calendar table thead')").each(function() {
+      $(this).addClass("ui-state-hover");
+    });
+  });  
+}
 
-function initialize_buttons(){
+function initialize_buttons() {
 	$(function() {
 		$(".add_to_cart").button({
 	            icons: {

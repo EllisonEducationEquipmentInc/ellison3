@@ -1,14 +1,15 @@
 #lists
   Click on View This List to manage or share the list.
   %table
-    %tr
-      %th List Name
-      %th List Comments
-      %th No. of List Items
-      %th Default List
-      %th{ :style => "text-align: right", :width => 110}
-      %th{ :style => "text-align: right", :width => 110}
-    = render :partial => 'list_row', :collection => @lists, :as => :list
+    %thead
+      %tr
+        %th List Name
+        %th List Comments
+        %th{ :width => 65} # of Items
+        %th{ :width => 70} Default List
+        %th{ :style => "text-align: right", :width => 110}
+        %th{ :style => "text-align: right", :width => 110}
+      = render :partial => 'list_row', :collection => @lists, :as => :list
   %hr
   = link_to_function "Create New List", "$('#new_list').show()", :class => 'jqui_new'
   %br
@@ -35,6 +36,7 @@
 :javascript
   $('#new_list').hide();
   initialize_buttons();
+  initialize_tables();
   make_lists_editable();
   disable_default_list_delete();
   function disable_default_list_delete(){

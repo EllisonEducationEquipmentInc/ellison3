@@ -1,7 +1,7 @@
-%tr{:id => "list_row_#{list.id}"}
-  %td{:id => "name_#{list.id}", :class => list.owns || list.save_for_later ? nil : 'editable'}= list.name
-  %td.editable{:id => "comments_#{list.id}"}= list.comments
-  %td= list.products.count
-  %td= radio_button_tag :set_defailt_list, list.id, list.default_list, :onclick => "disable_default_list_delete();$.ajax({url:'/list_set_to_default?id=#{list.id}'});" unless list.owns
-  %td{ :style => "text-align: right", :width => 110}= link_to "View this List", list_path(list), :class => 'jqui_show'
-  %td{ :style => "text-align: right", :width => 112}= link_to "Delete this List", {:action => 'delete_list', :id => list}, :class => 'jqui_trash', :method => :delete, :remote => true, :confirm => "Are you sure you want to delete this List?" unless list.owns
+%tr{:id => "list_row_#{list.id}", :class => cycle(:odd, :even)}
+  %td{ :style => "vertical-align: top;", :id => "name_#{list.id}", :class => list.owns || list.save_for_later ? nil : 'editable'}= list.name
+  %td.editable{ :style => "vertical-align: top;", :id => "comments_#{list.id}"}= list.comments
+  %td{ :style => "vertical-align: top; text-align: center;" }= list.products.count
+  %td{ :style => "vertical-align: top; text-align: center;" }= radio_button_tag :set_defailt_list, list.id, list.default_list, :onclick => "disable_default_list_delete();$.ajax({url:'/list_set_to_default?id=#{list.id}'});" unless list.owns
+  %td{ :style => "vertical-align: top; text-align: right", :width => 110}= link_to "View this List", list_path(list), :class => 'jqui_show'
+  %td{ :style => "vertical-align: top; text-align: right", :width => 112}= link_to "Delete this List", {:action => 'delete_list', :id => list}, :class => 'jqui_trash', :method => :delete, :remote => true, :confirm => "Are you sure you want to delete this List?" unless list.owns

@@ -1,19 +1,20 @@
 %h3 Order Materials
-%p Ellison offers several different publications to help address your curriculum needs:
+%p Ellison offers several different publications to help address your curriculum needs.
+%p Please check the box(es) of the publications you wish to receive via mail.
 = form_for @material_order, :url => {:action => 'order_material'}, :remote => true, :html => {:id => "edit_#{@material_order.address.address_type}_address", :method => :post} do |f|
   - Material.active.cache.each do |material|
-    .material{:id => "material_#{material.id}"}
+    .material.ui-corner-all{:id => "material_#{material.id}"}
       %p.material_name= material.name
       %p.material_image= image_tag(material.image_url(:medium)) if material.image?
-      %p.material_name= link_to('download', material.document_url, :target => "_new") if material.document? 
+      %p.material_download= link_to('Download', material.document_url, :target => "_new", :class => "link_download") if material.document? 
       %p.material_select= check_box_tag('material_order[material_ids][]', material.id, false, :id => nil, :class => 'material_ids') unless material.download_only
   .clear
   :javascript
     $('.material_ids').click(function(){
       $('.material_ids:checked').length > 0 ? $('#material_address').slideDown() : $('#material_address').hide()
     })
-  %p Please check the box(es) of the publications you wish to receive via mail.
-  #material_address{:style => 'display:none'}
+  .clear
+  #material_address.ui-corner-all{:style => 'display:none'}
     .right= link_to_function "close", "$('#material_address').slideUp()", :class => "minibtn-cancel", :onclick => "$('input.material_ids').removeAttr('checked');", :alt => "Close", :title => "Close"
     = f.fields_for @material_order.address do |address_fields|
       = render :partial => 'users/address_form', :locals => {:f => address_fields}
@@ -28,6 +29,9 @@
       %tr
         %th{ :width => "60" } Order #
         %th Materials
-        %th Ordered on
+        %th{ :width => "80" } Ordered on
         %th Status
     %tbody= render :partial => 'material_order', :collection => get_user.material_orders.asc(:created_at)
+  
+  :javascript
+    initialize_tables();

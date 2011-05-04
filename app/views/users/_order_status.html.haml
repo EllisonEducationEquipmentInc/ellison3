@@ -3,18 +3,21 @@
     You have no orders yet
   - else
     %table
-      %tr
-        %th Order Date
-        %th Order Number
-        %th Amount
-        %th Status
-      - @orders.each do |order|
-        - I18n.locale = order.locale
-        %tr{:class => cycle('odd', 'even')}
-          %td= l order.created_at, :format => :custom
-          %td= link_to order.public_order_number, order_path(order, :page => params[:page])
-          %td= number_to_currency order.total_amount
-          %td= order.public_status
+      %thead
+        %tr
+          %th Order Date
+          %th Order Number
+          %th Amount
+          %th Status
+        - @orders.each do |order|
+          - I18n.locale = order.locale
+          %tr{:class => cycle('odd', 'even')}
+            %td= l order.created_at, :format => :custom
+            %td= link_to order.public_order_number, order_path(order, :page => params[:page])
+            %td= number_to_currency order.total_amount
+            %td= order.public_status
+    :javascript
+      initialize_tables();
   - I18n.locale = @current_locale
   = will_paginate @orders, :class => 'pagination ajax'
 :javascript

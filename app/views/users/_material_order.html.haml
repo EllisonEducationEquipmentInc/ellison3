@@ -1,5 +1,5 @@
-%tr
+%tr{ :class => cycle(:odd, :even) }
    %td{ :width => "60" }= material_order.order_number
    %td= material_order.materials.map {|e| e.name} * ", "
-   %td= l material_order.created_at, :format => :date
+   %td{ :width => "80" }= l material_order.created_at, :format => :date
    %td= material_order.status

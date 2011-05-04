@@ -44,7 +44,7 @@
     = f.label :fax
     = f.text_field :fax, :size => 12, :style => "margin-right: 6px"
 .field-stacked.left
-  = f.label :email, "Email Address"
+  = required_label f, :email, {:label => "Email Address", :label_size => "auto"}
   = f.text_field :email
 .clear
 :javascript

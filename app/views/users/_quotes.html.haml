@@ -3,26 +3,29 @@
     == You have no #{quote_name.pluralize} yet
   - else
     %table
-      %tr
-        %th== #{quote_name} Date
-        %th== #{quote_name} Number
-        %th Name
-        %th Amount
-        %th Expires
-        -# disabling 'available to order?' column
-          - if is_ee_us? || admin_signed_in? && current_admin.can_act_as_customer
-            %th Available to Order?
-      - @quotes.each do |quote|
-        - I18n.locale = quote.locale
-        %tr{:class => cycle('odd', 'even')}
-          %td= l quote.created_at, :format => :custom
-          %td= link_to quote.id, myquote_path(quote, :page => params[:page])
-          %td.quote_name{:id => quote.id}= quote.name
-          %td= number_to_currency quote.total_amount
-          %td= l quote.expires_at, :format => :custom
+      %thead
+        %tr
+          %th== #{quote_name} Date
+          %th== #{quote_name} Number
+          %th Name
+          %th Amount
+          %th Expires
           -# disabling 'available to order?' column
             - if is_ee_us? || admin_signed_in? && current_admin.can_act_as_customer
-              %td= quote.can_be_converted? ? "YES" : "--"
+              %th Available to Order?
+        - @quotes.each do |quote|
+          - I18n.locale = quote.locale
+          %tr{:class => cycle('odd', 'even')}
+            %td= l quote.created_at, :format => :custom
+            %td= link_to quote.id, myquote_path(quote, :page => params[:page])
+            %td.quote_name{:id => quote.id}= quote.name
+            %td= number_to_currency quote.total_amount
+            %td= l quote.expires_at, :format => :custom
+            -# disabling 'available to order?' column
+              - if is_ee_us? || admin_signed_in? && current_admin.can_act_as_customer
+                %td= quote.can_be_converted? ? "YES" : "--"
+    :javascript
+      initialize_tables();
   - I18n.locale = current_locale
   = will_paginate @quotes, :class => 'pagination ajax'
 :javascript
