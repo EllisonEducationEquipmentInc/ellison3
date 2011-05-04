@@ -403,7 +403,7 @@ class IndexController < ApplicationController
       if @lyris.success?
         @subscription.segments = []
         @subscription.destroy
-        flash[:notice] = "your are unsubscribed from #{@subscription.list_name}"
+        flash[:notice] = "You have been Unsubscribed from #{@subscription.list_name}."
         redirect_to(user_signed_in? && @subscription.email == current_user.email ? myaccount_path(:tab => 'subscriptions') : root_path)
       else
         flash[:alert] = "an error has occured. please try again."
@@ -412,7 +412,7 @@ class IndexController < ApplicationController
     else
       @lyris = Lyris.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @segments.keys.map {|e| {:name => e, :value => @subscription.segments.include?(e.to_s) ? 1 : 0}} if @segments.present?
       @subscription.save
-      flash[:notice] = "your subscription settings have been updated"
+      flash[:notice] = "Your Newsletter Subscription settings have been updated."
       redirect_to(user_signed_in? && @subscription.email == current_user.email ? myaccount_path(:tab => 'subscriptions') : {:action => "subscription", :id => @subscription.id})
     end
   end
