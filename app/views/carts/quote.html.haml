@@ -12,9 +12,9 @@
 #new_billing
   #cod_info{:style => "display:#{get_user.shipping_address ? 'block' : 'none'}"}= render :partial => 'users/cod_form' if cod_allowed?
   %h3 Shipping Options
-  #shipping_options= render :partial => "shipping_options" if get_user.shipping_address
+  #shipping_options{ :style => "#{is_ee? ? 'width: 200px' : nil }"}= render :partial => "shipping_options" if get_user.shipping_address
 #checkout_summary
-  %h3 Order Summary
+  %h3== #{quote_name} Summary
   %p
     == You have <strong><em>#{pluralize get_cart.total_quantity, "item"}</em></strong> in your shopping #{cart_name}
     = link_to "review #{cart_name}", "#", :class => "review_cart minilink", :id => 'review_bag'
