@@ -721,6 +721,8 @@ namespace :data_migrations do
         p "user #{old_user.email} found. merging..."
         new_user.update_attribute :old_id_szuk, old_user.id
         new_user.systems_enabled << "szuk" if !new_user.systems_enabled.include?("szuk") 
+        new_user.addresses = []
+        process_user(old_user,new_user)
         p new_user.save(:validate => false)
       else
         new_user = User.new(:email => old_user.email.downcase, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
@@ -1047,6 +1049,8 @@ namespace :data_migrations do
         p "!!! user #{old_user.email} found. merging..."
         new_user.old_id_eeus = old_user.id
         new_user.systems_enabled << "eeus" if !new_user.systems_enabled.include?("eeus") 
+        new_user.addresses = []
+        process_user(old_user,new_user)
         new_user.save(:validate => false)
       else
         new_user = User.new(:email => old_user.email.downcase, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")

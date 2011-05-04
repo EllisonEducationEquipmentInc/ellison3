@@ -25,19 +25,19 @@ GIT
       sunspot_rails (>= 1.1.0)
 
 GIT
-  remote: git://github.com/probablycorey/mini_magick.git
-  revision: 4395c970418591eace74ed809050b0cc7246a285
-  specs:
-    mini_magick (3.2)
-      subexec (~> 0.0.4)
-
-GIT
-  remote: https://github.com/kylejginavan/youtube_it.git
+  remote: git://github.com/kylejginavan/youtube_it.git
   revision: e5ed4384fa3202e2650cfc53010dd8de1b4955c4
   specs:
     youtube_it (1.4.2)
       builder
       oauth (>= 0.4.4)
+
+GIT
+  remote: git://github.com/probablycorey/mini_magick.git
+  revision: 4395c970418591eace74ed809050b0cc7246a285
+  specs:
+    mini_magick (3.2)
+      subexec (~> 0.0.4)
 
 GEM
   remote: http://rubygems.org/
