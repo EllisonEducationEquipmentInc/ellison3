@@ -1,6 +1,6 @@
 - if @segments.present?
   and the following additional newsletter segments:
-  %ul{:class=>"nolist", :style=>"margin-left:0;"}
+  %ul.plain
     - @segments.each do |segment|
       %li
         = check_box_tag "subscription[segments][]", segment[0], @subscription.segments.include?(segment[0].to_s), :id => nil, :class => "subscription_segment"
