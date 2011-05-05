@@ -15,7 +15,7 @@
   %table
     %thead
       %tr
-        = sortable "id"
+        = sortable "Quote Number/ID"
         %th Name
         = sortable "created_at"
         = sortable "address.company", "Company"
@@ -30,7 +30,7 @@
       - for quote in @quotes
         - I18n.locale = quote.locale
         %tr{ :class => cycle(:odd, :even) }
-          %td= link_to quote.id, admin_quote_path(quote)
+          %td= link_to (quote.quote_number.blank? ? quote.id : quote.quote_number), admin_quote_path(quote)
           %td= quote.name
           %td= l quote.created_at, :format => :custom rescue ''
           %td== #{quote.address.company} (#{quote.address.first_name} #{quote.address.last_name})
