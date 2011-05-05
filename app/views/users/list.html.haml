@@ -5,7 +5,8 @@
       = @list.comments
       %br
     == What would you like to do next? #{link_to "Browse products", "/lp/categories", :class => "jqui_button"} #{link_to "Go to Cart", cart_path, :class => "jqui_button"}
-  .toggleview.dontprint= link_to "switch to list view", "#", :class => "toggle_view"
+  - unless @list.products.blank?
+    .toggleview.dontprint= link_to "switch to list view", "#", :class => "toggle_view"
 .clear
 .sidebar.dontprint
   - if @users_list
