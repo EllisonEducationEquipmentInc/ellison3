@@ -21,7 +21,7 @@ private
     [
       Navigation.new("Projects", "/lp/categories?ideas=1"), 
       Navigation.new("New & Notable", "/catalog#ideas=1"), 
-      Navigation.new("Machines & Accessories", "lp/categories"),
+      Navigation.new("Machines & Accessories", "/lp/categories"),
       Navigation.new("Products", "/catalog"),
       Navigation.new("Electronic Cutting", "/shop/eclips"),
       Navigation.new("Clearance", "/outlet")

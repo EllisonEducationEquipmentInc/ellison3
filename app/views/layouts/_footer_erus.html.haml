@@ -40,17 +40,14 @@
   %h3 By Email
   %p= link_to "europecustomerservices@ellison.com", "europecustomerservices@ellison.com"
 
+  
+.column_right{:class=>"panel_height"}
   %h2 Customer Care - Latin America
   %h3 By Email
   %ul
     %li ventas@ellisonlatinamerica.com 
-  
-.column_right{:class=>"panel_height"}
-  %h2 Subscribe to the Sizzix Newsletter
-  = render "layouts/newsletter_signup_form"
-
-  %h2 Follow Along With Us
-  %p To Connect with us in social media
+    
+  %h2 Learn More
   %ul
     %li= link_to "Press Releases", "/pressreleases"
     %li= link_to "Distributor Locator", "/stores"
@@ -63,6 +60,12 @@
     %li= link_to "FAQs", "/websitefaq"
   %h3 Contact Us Online 24 x7
   %p= link_to "Online Contact us form", "/contact"
+
+/  %h2 Subscribe to the Sizzix Newsletter
+/  = render "layouts/newsletter_signup_form"
+
+/  %h2 Follow Along With Us
+/  %p To Connect with us in social media
 
 
 
