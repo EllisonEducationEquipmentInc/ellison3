@@ -1,5 +1,10 @@
 - if @cart.cart_items.blank?
   %h2== Your Shopping #{cart_name} is empty.
+  - if get_user.save_for_later_list.products.count > 0
+    %p
+      You saved the item(s) below to buy later.
+      %br
+      If you'd like to buy one or more now, just click the Move to Cart button next to the item(s) you're ready to buy.
 - else
   %h2
     You have
