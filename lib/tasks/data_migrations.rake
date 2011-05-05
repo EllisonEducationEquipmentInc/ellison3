@@ -965,7 +965,7 @@ namespace :data_migrations do
         owner_first_name = owner[/\w+/]
         owner_last_name = owner.gsub(owner_first_name,'').strip
         owner_last_name = old_user.retailer_info.last_name if owner_last_name.blank?
-        home_address = new_user.addresses.build(:address_type => 'home', :bypass_avs => true, :first_name => owner_first_name, :last_name => owner_last_name, :state => old_user.retailer_info.home_state, :country => old_user.retailer_info.home_country, :city => old_user.retailer_info.home_city, :address1 => old_user.retailer_info.home_address, :zip_code => old_user.retailer_info.home_zip, :email => old_user.retailer_info.email, :phone => old_user.retailer_info.phone, :company => old_user.name)
+        home_address = new_user.addresses.build(:address_type => 'home', :job_title => old_user.retailer_info.job_title, :bypass_avs => true, :first_name => owner_first_name, :last_name => owner_last_name, :state => old_user.retailer_info.home_state, :country => old_user.retailer_info.home_country, :city => old_user.retailer_info.home_city, :address1 => old_user.retailer_info.home_address, :zip_code => old_user.retailer_info.home_zip, :email => old_user.retailer_info.email, :phone => old_user.retailer_info.phone, :company => old_user.name)
         p home_address.valid?
         p home_address.errors
         new_user.save(:validate => false)
@@ -1454,7 +1454,7 @@ namespace :data_migrations do
   desc "incremental - users"
   task :incremental_users_szus => [:load_dep]  do
     p Time.now
-    #set_current_system "szuk"
+    set_current_system "szus"
     process_incremental_users(:old_id_szus)
     p Time.now
   end

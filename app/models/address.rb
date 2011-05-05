@@ -19,6 +19,7 @@ class Address
 	field :fax
 	field :email
 	field :avs_result
+	field :job_title
 	
 	embedded_in :user, :inverse_of => :addresses
 	embedded_in :order, :inverse_of => :address
