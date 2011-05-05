@@ -818,7 +818,7 @@ namespace :data_migrations do
     OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
       user = User.where(:old_id_szus => old_list.user_id).first
       next unless user
-      process_user_list(user)
+      process_user_list(user,old_list)
     end
     p Time.zone.now
   end
@@ -829,7 +829,7 @@ namespace :data_migrations do
     OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
       user = User.where(:old_id_szuk => old_list.user_id).first
       next unless user
-      process_user_list(user)
+      process_user_list(user,old_list)
     end
     p Time.now
   end
@@ -1013,7 +1013,7 @@ namespace :data_migrations do
     OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
       user = User.where(:old_id_er => old_list.user_id).first
       next unless user
-      process_user_list(user)
+      process_user_list(user,old_list)
     end
     p Time.zone.now
   end
@@ -1136,7 +1136,7 @@ namespace :data_migrations do
     OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
       user = User.where(:old_id_eeus => old_list.user_id).first
       next unless user
-      process_user_list(user)
+      process_user_list(user,old_list)
     end
     p Time.zone.now
   end
@@ -1439,8 +1439,8 @@ namespace :data_migrations do
     end
   end
   
-  def process_user_list(user)
-    list = user.lists.build(:name => old_list.name, :created_at => old_list.created_at, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
+  def process_user_list(user,old_list)
+    list = user.lists.build(:name => old_list.name, :created_at => old_list.created_at, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments)
     list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
     p list.save
     p "----- #{user.email} -----"
@@ -1459,23 +1459,36 @@ namespace :data_migrations do
     p Time.now
     set_current_system "szus"
     
-    last_list = List.where(:system => 'szus', :old_permalink.exists => true).descending(:created_at).first
+    last_list = List.where(:system => current_system, :old_permalink.exists => true).descending(:created_at).first
     
     p "# of new Wishlist since last migrations: #{OldData::Wishlist.count(:conditions => ["created_at > ?", last_list.created_at])}"
     
     first_new_record = OldData::Wishlist.first(:conditions => ["created_at > ?", last_list.created_at], :order => "created_at ASC")
     p "first new record: #{first_new_record.id}"
     
-    # OldData::Wishlist.find_each(:conditions => ["created_at > ?", last_list.created_at], :order => "created_at ASC") do |old_list|
-    #   user = User.where(:old_id_szus => old_list.user_id).first
-    #   next unless user
-    #   process_user_list(user)
-    # end
+    OldData::Wishlist.find_each(:conditions => ["created_at > ?", last_list.created_at]) do |old_list|
+      user = User.where(:old_id_szus => old_list.user_id).first
+      next unless user
+      process_user_list(user,old_list)
+    end
     
-    p "# of changed wishlists #{}"
+    p "# of changed wishlists #{OldData::Wishlist.count(:conditions => ["updated_at > ? AND id < ?", last_list.created_at, first_new_record.id])}"
+    OldData::Wishlist.find_each(:conditions => ["updated_at > ? AND id < ?", last_list.created_at, first_new_record.id]) do |old_list|
+      list = List.where(:system => current_system, :old_permalink => old_list.permalink).first
+      next unless list
+      p list.update_attributes(:name => old_list.name, :default_list => old_list.default, :comments => old_list.comments, :active => !old_list.deleted)
+      p "===== list id: #{old_list.id} ===="
+    end
     
-    p "# of changed wishlist items #{}"
-    
+    p "# of changed wishlist items #{OldData::ProductsWishlist.count(:conditions => ["updated_at > ? AND wishlist_id < ?", last_list.created_at, first_new_record.id])}"
+    OldData::ProductsWishlist.find_each(:conditions => ["updated_at > ? AND wishlist_id < ?", last_list.created_at, first_new_record.id]) do |products_wishlist|
+      old_list = products_wishlist.wishlist
+      list = List.where(:system => current_system, :old_permalink => old_list.permalink).first
+      next unless list
+      product = Product.where(:item_num => products_wishlist.product.try(:item_num)).first
+      list.add_product(product.id) if product
+      p "=== products_wishlist id: #{products_wishlist.id} item_num: #{product.try(:item_num)} ==="
+    end
     p Time.now
   end
   
