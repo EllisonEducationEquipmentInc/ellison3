@@ -109,7 +109,8 @@
             - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
               %td= number_to_currency(@order.payment.deferred_payment_amount)
     %ol
-      %li== Your credit card statement will reflect a charge from Sizzix/Ellison#{is_us? ? ' Lake Forest, CA' : nil}.
+      - unless @order.payment.try(:purchase_order)
+        %li== Your credit card statement will reflect a charge from Sizzix/Ellison#{is_us? ? ' Lake Forest, CA' : nil}.
       %li Shipping errors and claims must be made within 30 days of receipt of goods.
       %li Merchandise CANNOT be returned without prior approval.
       %li Returns or exchanges subject to restocking fee.
