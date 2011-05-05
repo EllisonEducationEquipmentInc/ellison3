@@ -818,7 +818,7 @@ namespace :data_migrations do
     OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
       user = User.where(:old_id_szus => old_list.user_id).first
       next unless user
-      list = user.lists.build(:name => old_list.name, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
+      list = user.lists.build(:name => old_list.name, :created_at => old_list.created_at, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
       list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
       p list.save
       p "----- #{user.email} -----"
@@ -832,7 +832,7 @@ namespace :data_migrations do
     OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
       user = User.where(:old_id_szuk => old_list.user_id).first
       next unless user
-      list = user.lists.build(:name => old_list.name, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
+      list = user.lists.build(:name => old_list.name, :created_at => old_list.created_at, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
       list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
       p list.save
       p "----- #{user.email} -----"
@@ -1019,7 +1019,7 @@ namespace :data_migrations do
     OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
       user = User.where(:old_id_er => old_list.user_id).first
       next unless user
-      list = user.lists.build(:name => old_list.name, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
+      list = user.lists.build(:name => old_list.name, :created_at => old_list.created_at, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
       list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
       p list.save
       p "----- #{list.user.email} - #{user.email}-----"
@@ -1129,7 +1129,7 @@ namespace :data_migrations do
     
       order.order_items.each do |item|
         new_order.order_items << OrderItem.new(:item_num => item.item_num, :name => item.product.try(:name), :locale => item.order.locale, :quoted_price => item.quoted_price, :sale_price => item.sale_price, :discount => item.discount, :quantity => item.quantity, :vat_exempt => item.vat_exempt, :vat => item.vat, :vat_percentage => item.vat_percentage, :upsell => item.upsell, :outlet => item.outlet, 
-          :product_id => Product.where(:old_id_eeus => item.product_id).first.try(:id))
+          :product_id => Product.where(:old_id_edu => item.product_id).first.try(:id))
       end
      
       p new_order.save
@@ -1145,7 +1145,7 @@ namespace :data_migrations do
     OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
       user = User.where(:old_id_eeus => old_list.user_id).first
       next unless user
-      list = user.lists.build(:name => old_list.name, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
+      list = user.lists.build(:name => old_list.name, :created_at => old_list.created_at, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
       list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
       p list.save
       p "----- #{list.user.email} - #{user.email}-----"
@@ -1451,7 +1451,7 @@ namespace :data_migrations do
     end
   end
   
-  desc "incremental - users"
+  desc "incremental - users SZUS"
   task :incremental_users_szus => [:load_dep]  do
     p Time.now
     set_current_system "szus"
@@ -1459,13 +1459,28 @@ namespace :data_migrations do
     p Time.now
   end
   
+  desc "incremental - wishlists SZUS"
+  task :incremental_lists_szus => [:load_dep]  do
+    p Time.now
+    set_current_system "szus"
+    
+    last_list = List.where(:system => 'szus', :old_permalink.exists => true).descending(:created_at).first
+    
+    p "# of new Wishlist since last migrations: #{OldData::Wishlist.count(:conditions => ["created_at > ?", last_list.created_at])}"
+    
+    p "first new record: #{OldData::Wishlist.first(:conditions => ["created_at > ?", last_list.created_at], :order => "created_at ASC").id}"
+    
+    p Time.now
+  end
+  
   desc "test"
-  task :test => [:set_edu, :load_dep] do
-    order = OldData::Order.find 908840
-    p order.payment.card_expiration
-    p order.payment.card_expiration.utc
-    p order.payment.card_expiration_month
-    p order.payment.card_expiration_year
+  task :test => [:set_szuk, :load_dep] do
+    set_current_system "szuk"
+    o = OldData::Order.find 37182
+    new_order=Order.where(:order_number => 37182).first
+    new_order.created_at =  o.created_at
+    new_order.save
+    p new_order.created_at
   end
   
   
@@ -1617,6 +1632,9 @@ EOF
     else
       "sizzix_2_us_qa1"
     end
+
+    ActiveRecord::Base.default_timezone = :utc
+    ActiveRecord::Base.time_zone_aware_attributes = true
             
     ActiveRecord::Base.establish_connection(
         :adapter  => "mysql",

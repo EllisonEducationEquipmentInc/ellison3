@@ -117,6 +117,7 @@ module Ax
                   'qty' => item.quantity,
                   'unit_price' => format_with_precision(item.quoted_price),
                   'discount_amount' => format_with_precision(item.quoted_price - item.sale_price),
+                  'VAT_amount' => item.vat,
                   'upsell' => item.upsell ? 'UPSELL' : ''})
                 i += 1
               end
