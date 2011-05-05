@@ -818,10 +818,7 @@ namespace :data_migrations do
     OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
       user = User.where(:old_id_szus => old_list.user_id).first
       next unless user
-      list = user.lists.build(:name => old_list.name, :created_at => old_list.created_at, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
-      list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
-      p list.save
-      p "----- #{user.email} -----"
+      process_user_list(user)
     end
     p Time.zone.now
   end
@@ -832,10 +829,7 @@ namespace :data_migrations do
     OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
       user = User.where(:old_id_szuk => old_list.user_id).first
       next unless user
-      list = user.lists.build(:name => old_list.name, :created_at => old_list.created_at, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
-      list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
-      p list.save
-      p "----- #{user.email} -----"
+      process_user_list(user)
     end
     p Time.now
   end
@@ -1019,10 +1013,7 @@ namespace :data_migrations do
     OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
       user = User.where(:old_id_er => old_list.user_id).first
       next unless user
-      list = user.lists.build(:name => old_list.name, :created_at => old_list.created_at, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
-      list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
-      p list.save
-      p "----- #{list.user.email} - #{user.email}-----"
+      process_user_list(user)
     end
     p Time.zone.now
   end
@@ -1145,10 +1136,7 @@ namespace :data_migrations do
     OldData::Wishlist.active.find_each(:conditions => "id > 0") do |old_list|
       user = User.where(:old_id_eeus => old_list.user_id).first
       next unless user
-      list = user.lists.build(:name => old_list.name, :created_at => old_list.created_at, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
-      list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
-      p list.save
-      p "----- #{list.user.email} - #{user.email}-----"
+      process_user_list(user)
     end
     p Time.zone.now
   end
@@ -1451,6 +1439,13 @@ namespace :data_migrations do
     end
   end
   
+  def process_user_list(user)
+    list = user.lists.build(:name => old_list.name, :created_at => old_list.created_at, :default_list => old_list.default, :old_permalink => old_list.permalink, :comments => old_list.comments, :created_at => old_list.created_at)
+    list.product_ids = Product.where(:item_num.in => old_list.products.map {|e| e.item_num}).map {|e| e.id}
+    p list.save
+    p "----- #{user.email} -----"
+  end
+  
   desc "incremental - users SZUS"
   task :incremental_users_szus => [:load_dep]  do
     p Time.now
@@ -1468,7 +1463,18 @@ namespace :data_migrations do
     
     p "# of new Wishlist since last migrations: #{OldData::Wishlist.count(:conditions => ["created_at > ?", last_list.created_at])}"
     
-    p "first new record: #{OldData::Wishlist.first(:conditions => ["created_at > ?", last_list.created_at], :order => "created_at ASC").id}"
+    first_new_record = OldData::Wishlist.first(:conditions => ["created_at > ?", last_list.created_at], :order => "created_at ASC")
+    p "first new record: #{first_new_record.id}"
+    
+    # OldData::Wishlist.find_each(:conditions => ["created_at > ?", last_list.created_at], :order => "created_at ASC") do |old_list|
+    #   user = User.where(:old_id_szus => old_list.user_id).first
+    #   next unless user
+    #   process_user_list(user)
+    # end
+    
+    p "# of changed wishlists #{}"
+    
+    p "# of changed wishlist items #{}"
     
     p Time.now
   end

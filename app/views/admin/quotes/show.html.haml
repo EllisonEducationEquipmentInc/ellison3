@@ -28,7 +28,7 @@
   %span.quote_name{:id => @quote.id}= @quote.name
   %br
   %strong Quote Number:
-  = (quote.quote_number.blank? ? quote.id : quote.quote_number)
+  = (@quote.quote_number.blank? ? @quote.id : @quote.quote_number)
   %br
   - if @quote.order
     %strong== Order Reference Number:
