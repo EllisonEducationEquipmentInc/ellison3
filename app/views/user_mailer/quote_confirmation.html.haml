@@ -27,7 +27,7 @@
       = @quote.name
       %br
       %strong== #{quote_name} Number:
-      = @quote.id
+      = (quote.quote_number.blank? ? quote.id : quote.quote_number)
       %br
       %strong Customer Account:
       = @quote.system == 'szus' ? 'SIZZIX.COM' : @quote.user.erp
