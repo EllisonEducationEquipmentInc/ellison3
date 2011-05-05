@@ -772,7 +772,7 @@ namespace :data_migrations do
     new_user.tax_exempt = old_user.tax_exempt
     new_user.tax_exempt_certificate = old_user.tax_exempt_certificate || 'N/A'
     new_user.invoice_account = old_user.billing_addresses.first.try :invoice_account
-    new_user.erp = old_user.erp_id
+    new_user.erp = old_user.erp_id if old_user.erp_id
     new_user.status = old_user.state
     new_user.old_account_id = old_user.account_id
     new_user.purchase_order = old_user.purchase_order
@@ -968,7 +968,7 @@ namespace :data_migrations do
         home_address = new_user.addresses.build(:address_type => 'home', :bypass_avs => true, :first_name => owner_first_name, :last_name => owner_last_name, :state => old_user.retailer_info.home_state, :country => old_user.retailer_info.home_country, :city => old_user.retailer_info.home_city, :address1 => old_user.retailer_info.home_address, :zip_code => old_user.retailer_info.home_zip, :email => old_user.retailer_info.email, :phone => old_user.retailer_info.phone, :company => old_user.name)
         p home_address.valid?
         p home_address.errors
-        new_user.save
+        new_user.save(:validate => false)
       end
       p new_user.errors
       p "-------- #{new_user.old_id_er} #{new_user.email}----------"
@@ -1119,7 +1119,7 @@ namespace :data_migrations do
     #order = OldData::Order.find(511574)
     OldData::Order.find_each(:conditions => "id > 0") do |order|
       new_order = Order.new(:status => order.status_name, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :order_number => order.id, :order_reference => order.order_reference_id.blank? ? nil : Order.where(:order_number => order.order_reference_id).first.try(:id), :tracking_number => order.tracking_number, :tracking_url => order.tracking_url, :customer_rep => order.sales_rep.try(:email), :clickid => order.clickid, :utm_source => order.utm_source, :tracking => order.tracking,
-                    :tax_transaction => order.tax_transaction_id, :tax_calculated_at => order.tax_calculated_at, :tax_exempt_number => order.tax_exempt_number, :tax_committed => order.tax_committed, :shipping_priority => order.shipping_priority, :shipping_service => "STANDARD", :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :ip_address => order.ip_address, :estimated_ship_date => order.estimated_ship_date, :purchase_order => order.purchase_order, :comments => order.comments, :internal_comments => order.internal_comments, :old_quote_id => order.quote_id)
+                    :tax_transaction => order.tax_transaction_id, :tax_calculated_at => order.tax_calculated_at, :tax_exempt_number => order.tax_exempt_number, :tax_committed => order.tax_committed, :shipping_priority => order.shipping_priority, :shipping_service => "STANDARD", :vat_percentage => order.order_items.first.try(:vat_percentage), :to_review => order.to_review, :vat_exempt => order.vat_exempt, :locale => order.locale, :ip_address => order.ip_address, :estimated_ship_date => order.estimated_ship_date, :purchase_order => order.purchase_order, :comments => order.comments, :internal_comments => order.internal_comments, :old_quote_id => order.quote_id)
     
       new_order.user = User.where(:old_id_eeus => order.user_id).first unless order.user_id.blank?
     
@@ -1159,7 +1159,7 @@ namespace :data_migrations do
     # order = OldData::Quote.find(48)
     OldData::Quote.find_each(:conditions => "id > 0") do |order|
       new_order = Quote.new(:old_id_er => order.id, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :quote_number => order.quote, :customer_rep => order.sales_rep.try(:email), 
-                    :expires_at => order.expires_at, :active => order.active, :tax_exempt_number => order.tax_exempt_number, :shipping_priority => order.shipping_priority, :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :comments => order.comments)
+                    :expires_at => order.expires_at, :active => order.active, :tax_exempt => order.tax_exempt, :tax_exempt_number => order.tax_exempt_number, :shipping_priority => order.shipping_priority, :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :comments => order.comments)
     
       new_order.user = User.where(:old_id_er => order.user_id).first unless order.user_id.blank?
     
@@ -1183,7 +1183,7 @@ namespace :data_migrations do
     # order = OldData::Quote.find(48)
     OldData::Quote.find_each(:conditions => "id > 0") do |order|
       new_order = Quote.new(:old_id_eeus => order.id, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :quote_number => order.quote, :customer_rep => order.sales_rep.try(:email), 
-                    :expires_at => order.expires_at, :active => order.active, :tax_exempt_number => order.tax_exempt_number, :shipping_priority => order.shipping_priority, :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :comments => order.comments)
+                    :expires_at => order.expires_at, :active => order.active, :tax_exempt => order.tax_exempt, :tax_exempt_number => order.tax_exempt_number, :shipping_priority => order.shipping_priority, :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :comments => order.comments)
     
       new_order.user = User.where(:old_id_eeus => order.user_id).first unless order.user_id.blank?
     
@@ -1360,11 +1360,11 @@ namespace :data_migrations do
   def process_user_changes(old_user,new_user)
     new_user.old_password_hash = old_user.crypted_password
     new_user.old_salt = old_user.salt
-    new_user.password = new_user.old_password_hash[0..14]
+    new_user.password = "A#{rand(10)}" + new_user.old_password_hash[0..12]
     new_user.tax_exempt = old_user.tax_exempt
     new_user.tax_exempt_certificate = old_user.tax_exempt_certificate || 'N/A'
     new_user.invoice_account = old_user.billing_addresses.first.try :invoice_account
-    new_user.erp = old_user.erp_id
+    new_user.erp = old_user.erp_id if old_user.erp_id
     new_user.status = old_user.state
     new_user.old_account_id = old_user.account_id
     new_user.purchase_order = old_user.purchase_order
@@ -1377,8 +1377,17 @@ namespace :data_migrations do
     new_user.default_user = old_user.default_user
     new_user.internal_comments = old_user.internal_comments
     
-    p new_user.save
+    new_user.save(:validate => false)
+  end
+  
+  def process_billing_address_change(old_user,new_user)
     unless old_user.billing_addresses.first.blank?
+      p "billing address..."
+      old_billing = old_user.billing_addresses.first
+      billing_address = new_user.billing_address || new_user.addresses.build
+      billing_address.write_attributes(:address_type => "billing", :email => new_user.email, :bypass_avs => true, :first_name => old_billing.first_name, :last_name => old_billing.last_name, :address1 => old_billing.address, :address2 => old_billing.address2, :city => old_billing.city, :state => old_billing.state, :zip_code => old_billing.zip_code, :country => old_billing.country, :phone => old_billing.phone, :company => old_billing.company)
+      p billing_address.save
+      p billing_address.errors
       unless old_billing.subscriptionid.blank?
         p "token found..."
         new_user.token = Token.new(:subscriptionid => old_billing.subscriptionid)
@@ -1387,36 +1396,74 @@ namespace :data_migrations do
         end
         p new_user.token.save
       end
+      p "=== #{new_user.email} ==="
+    end
+  end
+  
+  def process_shipping_address_change(old_user,new_user)
+    unless old_user.customers.first.blank?
+      p "shipping address..."
+      old_shipping = old_user.customers.first
+      shipping_address = new_user.shipping_address || new_user.addresses.build
+      shipping_address.write_attributes(:address_type => "shipping", :email => new_user.email, :bypass_avs => true, :first_name => old_shipping.first_name, :last_name => old_shipping.last_name, :address1 => old_shipping.address, :address2 => old_shipping.address2, :city => old_shipping.city, :state => old_shipping.state, :zip_code => old_shipping.zip_code, :country => old_shipping.country, :phone => old_shipping.phone, :company => old_shipping.company)
+      p shipping_address.save
+      p shipping_address.errors
+      p "=== #{new_user.email} ==="
+    end
+  end
+  
+  def process_incremental_users(sym)
+    last_user = User.where(sym.gt => 0).desc(sym).first
+    
+    last_id = last_user.send(sym)
+    
+    p "# of new users since last migrations: #{OldData::User.count(:conditions => ["id > ?", last_id])}"
+    OldData::User.find_each(:conditions => ["id > ?", last_id]) do |old_user|
+      new_user = User.new(:email => old_user.email, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
+      new_user.send("#{sym}=", old_user.id)
+      
+      process_user(old_user,new_user)
+      p new_user.errors
+      p old_user.id
+    end
+    
+    p "# of changed users since last migrations: #{OldData::User.count(:conditions => ["updated_at > ? AND id <= ?", last_user.created_at, last_id])}"
+    OldData::User.find_each(:conditions => ["updated_at > ? AND id <= ?", last_user.created_at, last_id]) do |old_user|
+      new_user = User.where(sym => old_user.id).first
+      next unless new_user
+      process_user_changes(old_user,new_user)
+    end
+    
+    p "# of changed billing addresses since last migrations: #{OldData::BillingAddress.count(:conditions => ["updated_at > ? AND user_id <= ?", last_user.created_at, last_id])}"
+    OldData::BillingAddress.find_each(:conditions => ["updated_at > ? AND user_id <= ?", last_user.created_at, last_id]) do |old_user|
+      new_user = User.where(sym => old_user.id).first
+      next unless new_user
+      process_billing_address_change(old_user,new_user)
+    end
+    
+    p "# of changed shipping addresses since last migrations: #{OldData::Customer.count(:conditions => ["updated_at > ? AND user_id <= ?", last_user.created_at, last_id])}"
+    OldData::Customer.find_each(:conditions => ["updated_at > ? AND user_id <= ?", last_user.created_at, last_id]) do |old_user|
+      new_user = User.where(sym => old_user.id).first
+      next unless new_user
+      process_shipping_address_change(old_user,new_user)
     end
   end
   
   desc "incremental - users"
   task :incremental_users_szus => [:load_dep]  do
+    p Time.now
     #set_current_system "szuk"
-
-    # get last order in new system 1000000
-    last_user = User.where(:old_id_szus.exists => true).desc(:old_id_szus).first
-    
-    # p "# of new users since last migrations: #{OldData::User.count(:conditions => ["id > ?", last_user.old_id_szus])}"
-    
-    # OldData::User.find_each(:conditions => ["id > ?", last_user.old_id_szus]) do |old_user|
-    #   new_user = User.new(:email => old_user.email, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
-    #   new_user.old_id_szus = old_user.id
-    #   
-    #   process_user(old_user,new_user)
-    #   p new_user.errors
-    #   p new_user.old_id_szus
-    # end
-    
-    # p "# of changed users since last migrations: #{OldData::User.count(:conditions => ["updated_at > ?", last_user.created_at])}"
-    # OldData::User.find_each(:conditions => ["updated_at > ?", last_user.created_at]) do |old_user|
-    #   new_user = User.where(:old_id_szus => old_user.id).first
-    #   next unless new_user
-    #   
-    # end
-    
-    # p OldData::BillingAddress.count(:conditions => ["updated_at > ? AND user_id < ?", last_user.created_at, last_user.old_id_szus])
-    p OldData::Customer.count(:conditions => ["updated_at > ? AND user_id < ?", last_user.created_at, last_user.old_id_szus])
+    process_incremental_users(:old_id_szus)
+    p Time.now
+  end
+  
+  desc "test"
+  task :test => [:set_edu, :load_dep] do
+    order = OldData::Order.find 908840
+    p order.payment.card_expiration
+    p order.payment.card_expiration.utc
+    p order.payment.card_expiration_month
+    p order.payment.card_expiration_year
   end
   
   

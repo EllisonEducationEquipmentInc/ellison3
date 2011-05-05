@@ -148,7 +148,7 @@ private
 	end
 	
 	def set_expires_at
-	  self.expires_at = is_ee? ? 90.days.from_now : 6.months.from_now
+	  self.expires_at ||= is_ee? ? 90.days.from_now : 6.months.from_now
 	end
 	
 	def generate_code

@@ -45,8 +45,8 @@ namespace :migrations do |ns|
 	task :uk_shipping_rates => :environment do
 	  set_current_system "szuk"
 	  Country.send("szuk").each do |country|
-	    sz_rate_1 = ShippingRate.new(:price_min_gbp => 0.0, :price_max_gbp => 74.99, :price_min_eur => 0.0, :price_max_eur => 145.01, :standard_rate_gbp => country.gbp ? 5.91 : 14.10, :standard_rate_eur => 15.65, :system => "szuk", :zone_or_country => country.name)
-	    sz_rate_2 = ShippingRate.new(:price_min_gbp => 75.0, :price_max_gbp => 10000000, :price_min_eur => 145.02, :price_max_eur => 10000000, :standard_rate_gbp => country.gbp ? 0.0 : 17.11, :standard_rate_eur => 19.13, :system => "szuk", :zone_or_country => country.name)
+	    sz_rate_1 = ShippingRate.new(:price_min_gbp => 0.0, :price_max_gbp => 74.99, :price_min_eur => 0.0, :price_max_eur => 145.01, :standard_rate_gbp => country.gbp ? 13.8 : 14.10, :standard_rate_eur => 15.33, :system => "szuk", :zone_or_country => country.name)
+	    sz_rate_2 = ShippingRate.new(:price_min_gbp => 75.0, :price_max_gbp => 10000000, :price_min_eur => 145.02, :price_max_eur => 10000000, :standard_rate_gbp => country.gbp ? 16.75 : 17.11, :standard_rate_eur => 18.73, :system => "szuk", :zone_or_country => country.name)
 	    sz_rate_1.save!
 	    sz_rate_2.save!
 	    ee_rate_1 = sz_rate_1.clone
