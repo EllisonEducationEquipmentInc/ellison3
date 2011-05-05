@@ -1414,7 +1414,6 @@ namespace :data_migrations do
   
   def process_incremental_users(sym)
     last_user = User.where(sym.gt => 0).desc(sym).first
-    
     last_id = last_user.send(sym)
     
     p "# of new users since last migrations: #{OldData::User.count(:conditions => ["id > ?", last_id])}"
@@ -1432,17 +1431,20 @@ namespace :data_migrations do
       new_user = User.where(sym => old_user.id).first
       next unless new_user
       process_user_changes(old_user,new_user)
+      p "==== #{old_user.id} #{new_user.email} ==="
     end
     
     p "# of changed billing addresses since last migrations: #{OldData::BillingAddress.count(:conditions => ["updated_at > ? AND user_id <= ?", last_user.created_at, last_id])}"
-    OldData::BillingAddress.find_each(:conditions => ["updated_at > ? AND user_id <= ?", last_user.created_at, last_id]) do |old_user|
+    OldData::BillingAddress.find_each(:conditions => ["updated_at > ? AND user_id <= ?", last_user.created_at, last_id]) do |address|
+      old_user = address.user
       new_user = User.where(sym => old_user.id).first
       next unless new_user
       process_billing_address_change(old_user,new_user)
     end
     
     p "# of changed shipping addresses since last migrations: #{OldData::Customer.count(:conditions => ["updated_at > ? AND user_id <= ?", last_user.created_at, last_id])}"
-    OldData::Customer.find_each(:conditions => ["updated_at > ? AND user_id <= ?", last_user.created_at, last_id]) do |old_user|
+    OldData::Customer.find_each(:conditions => ["updated_at > ? AND user_id <= ?", last_user.created_at, last_id]) do |address|
+      old_user = address.user
       new_user = User.where(sym => old_user.id).first
       next unless new_user
       process_shipping_address_change(old_user,new_user)
