@@ -1,4 +1,4 @@
-%h3== Manage List: #{@list.name}
+%h3== #{@list.name}
 .contentwrap_XXXL
   %p.left
     - unless @list.comments.blank?
@@ -9,7 +9,7 @@
 .clear
 .sidebar.dontprint
   - if @users_list
-    %strong Select Another Wishlist:
+    %strong Jump to List:
     %br
     = select_tag :jump_to_list, options_for_select(@lists, params[:id]), :style => "max-width:200px", :onchange => "window.location='/list/'+this.value"
   %ul.plain
