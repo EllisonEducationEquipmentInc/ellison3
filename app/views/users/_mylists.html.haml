@@ -9,7 +9,7 @@
         %th{ :width => 70} Default List
         %th{ :style => "text-align: right", :width => 110}
         %th{ :style => "text-align: right", :width => 120}
-      = render :partial => 'list_row', :collection => @lists, :as => :list
+    %tbody= render :partial => 'list_row', :collection => @lists, :as => :list
   %hr
   = link_to_function "Create New List", "$('#new_list').show()", :class => 'jqui_new'
   %br

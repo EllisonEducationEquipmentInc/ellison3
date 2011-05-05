@@ -13,6 +13,7 @@
           -# disabling 'available to order?' column
             - if is_ee_us? || admin_signed_in? && current_admin.can_act_as_customer
               %th Available to Order?
+      %tbody
         - @quotes.each do |quote|
           - I18n.locale = quote.locale
           %tr{:class => cycle('odd', 'even')}

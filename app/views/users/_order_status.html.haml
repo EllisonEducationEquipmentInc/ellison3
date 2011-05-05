@@ -9,6 +9,7 @@
           %th Order Number
           %th Amount
           %th Status
+      %tbody
         - @orders.each do |order|
           - I18n.locale = order.locale
           %tr{:class => cycle('odd', 'even')}
