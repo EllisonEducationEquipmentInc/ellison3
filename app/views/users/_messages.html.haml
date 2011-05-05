@@ -8,10 +8,13 @@
 - if @group_messages.count > 0
   %h2 Group messages
   %table
-    %tr
-      %th Subject
-      %th Date
-    = render :partial => 'message', :collection => @group_messages 
+    %thead
+      %tr
+        %th Subject
+        %th Date
+    %tbody= render :partial => 'message', :collection => @group_messages 
+  :javascript
+    initialize_tables();
 - unless @group_messages.count > 0 || @private_messages.count > 0
   There are no received messages
 :javascript
