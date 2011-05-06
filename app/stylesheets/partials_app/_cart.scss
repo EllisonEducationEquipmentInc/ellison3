@@ -43,6 +43,12 @@ p#edit_shipping_address, p#edit_billing_address {
   }
 }
 
+#total_savings {
+  text-align: right;
+  font-weight: bold;
+  color: green;
+}
+
 .cart_extended_price {
   font-weight: bold;
 }

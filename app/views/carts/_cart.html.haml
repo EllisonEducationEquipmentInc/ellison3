@@ -30,11 +30,10 @@
       %tr
         %td
         %td
-        %td.dontprint#total_savings= render :partial => 'carts/total_savings'
+        %td
         - if admin_signed_in? && current_admin.can_change_prices
           %td
-        %td
-        %td
+        %td.dontprint#total_savings{ :colspan => 2}= render :partial => 'carts/total_savings'
         %td{:style => "text-align: right", :class => "cart_extended_price"} Subtotal:
         %td#cart_subtotal{:style => "text-align: right", :class => "cart_extended_price"}= number_to_currency gross_price(@cart.sub_total)
         - unless @cart_locked
