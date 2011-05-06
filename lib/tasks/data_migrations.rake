@@ -1659,12 +1659,12 @@ namespace :data_migrations do
     
     p "# of new orders since last migrations: #{OldData::Order.count(:conditions => ["id > ?", last_order.order_number])}"
     OldData::Order.find_each(:conditions => ["id > ?", last_order.order_number]) do |old_order|
-      #process_new_order(old_order, :old_id_er, :old_id_er)
+      process_new_order(old_order, :old_id_er, :old_id_er)
     end
     
     p "# of changed orders since last migrations: #{OldData::Order.count(:conditions => ["updated_at > ? and id <= ?", last_order.created_at, last_order.order_number])}"
     OldData::Order.find_each(:conditions => ["updated_at > ? and id <= ?", last_order.created_at, last_order.order_number]) do |old_order|
-      #process_order_changes(old_order)
+      process_order_changes(old_order)
     end
   end
 
