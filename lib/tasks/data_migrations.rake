@@ -796,6 +796,24 @@ namespace :data_migrations do
     p "=== #{order.id} ==="
   end
   
+  def process_new_quote(order, old_quote_id_sym = :old_id_eeus, user_id_sym = :old_id_eeus, product_sym = :old_id_edu)
+    new_order = Quote.new(old_quote_id_sym => order.id, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :quote_number => order.quote, :customer_rep => order.sales_rep.try(:email), 
+                  :expires_at => order.expires_at, :active => order.active, :tax_exempt => order.tax_exempt, :tax_exempt_number => order.tax_exempt_number, :shipping_priority => order.shipping_priority, :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :comments => order.comments)
+  
+    new_order.user = User.where(user_id_sym => order.user_id).first unless order.user_id.blank?
+  
+    new_order.address = Address.new(:address_type => "shipping", :email => order.shipping_email, :bypass_avs => true, :first_name => order.shipping_first_name, :last_name => order.shipping_last_name, :address1 => order.shipping_address, :address2 => order.shipping_address2, :city => order.shipping_city, :state => order.shipping_state, :zip_code => order.shipping_zip, :country => order.shipping_country, :phone => order.shipping_phone, :company => order.shipping_company)
+      
+    order.order_items.each do |item|
+      new_order.order_items << OrderItem.new(:item_num => item.item_num, :name => item.product.try(:name), :locale => item.quote.locale, :quoted_price => item.quoted_price, :sale_price => item.sale_price, :discount => item.discount, :quantity => item.quantity, :vat_exempt => item.vat_exempt, :vat => item.vat, :vat_percentage => item.vat_percentage, :upsell => item.upsell, :outlet => item.outlet, 
+        :product_id => Product.where(product_sym => item.product_id).first.try(:id))
+    end
+   
+    p new_order.save
+    p new_order.errors
+    p "-------- #{order.id} ----------"
+  end
+    
   desc "migrate SZUS wishlists"
   task :lists_szus => :load_dep do
     # old_list = OldData::Wishlist.find(649)
@@ -1095,23 +1113,8 @@ namespace :data_migrations do
   desc "migrate ER quotes"
   task :quotes_er => [:set_er, :load_dep] do
     set_current_system "erus"
-    # order = OldData::Quote.find(48)
     OldData::Quote.find_each(:conditions => "id > 0") do |order|
-      new_order = Quote.new(:old_id_er => order.id, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :quote_number => order.quote, :customer_rep => order.sales_rep.try(:email), 
-                    :expires_at => order.expires_at, :active => order.active, :tax_exempt => order.tax_exempt, :tax_exempt_number => order.tax_exempt_number, :shipping_priority => order.shipping_priority, :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :comments => order.comments)
-    
-      new_order.user = User.where(:old_id_er => order.user_id).first unless order.user_id.blank?
-    
-      new_order.address = Address.new(:address_type => "shipping", :email => order.shipping_email, :bypass_avs => true, :first_name => order.shipping_first_name, :last_name => order.shipping_last_name, :address1 => order.shipping_address, :address2 => order.shipping_address2, :city => order.shipping_city, :state => order.shipping_state, :zip_code => order.shipping_zip, :country => order.shipping_country, :phone => order.shipping_phone, :company => order.shipping_company)
-        
-      order.order_items.each do |item|
-        new_order.order_items << OrderItem.new(:item_num => item.item_num, :name => item.product.try(:name), :locale => item.quote.locale, :quoted_price => item.quoted_price, :sale_price => item.sale_price, :discount => item.discount, :quantity => item.quantity, :vat_exempt => item.vat_exempt, :vat => item.vat, :vat_percentage => item.vat_percentage, :upsell => item.upsell, :outlet => item.outlet, 
-          :product_id => Product.where(:old_id_er => item.product_id).first.try(:id))
-      end
-     
-      p new_order.save
-      p new_order.errors
-      p "-------- #{order.id} ----------"
+      process_new_quote(old_order, :old_id_er, :old_id_er, :old_id_er)
     end
     p Time.zone.now
   end
@@ -1121,21 +1124,7 @@ namespace :data_migrations do
     set_current_system "eeus"
     # order = OldData::Quote.find(48)
     OldData::Quote.find_each(:conditions => "id > 0") do |order|
-      new_order = Quote.new(:old_id_eeus => order.id, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :quote_number => order.quote, :customer_rep => order.sales_rep.try(:email), 
-                    :expires_at => order.expires_at, :active => order.active, :tax_exempt => order.tax_exempt, :tax_exempt_number => order.tax_exempt_number, :shipping_priority => order.shipping_priority, :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :comments => order.comments)
-    
-      new_order.user = User.where(:old_id_eeus => order.user_id).first unless order.user_id.blank?
-    
-      new_order.address = Address.new(:address_type => "shipping", :email => order.shipping_email, :bypass_avs => true, :first_name => order.shipping_first_name, :last_name => order.shipping_last_name, :address1 => order.shipping_address, :address2 => order.shipping_address2, :city => order.shipping_city, :state => order.shipping_state, :zip_code => order.shipping_zip, :country => order.shipping_country, :phone => order.shipping_phone, :company => order.shipping_company)
-        
-      order.order_items.each do |item|
-        new_order.order_items << OrderItem.new(:item_num => item.item_num, :name => item.product.try(:name), :locale => item.quote.locale, :quoted_price => item.quoted_price, :sale_price => item.sale_price, :discount => item.discount, :quantity => item.quantity, :vat_exempt => item.vat_exempt, :vat => item.vat, :vat_percentage => item.vat_percentage, :upsell => item.upsell, :outlet => item.outlet, 
-          :product_id => Product.where(:old_id_edu => item.product_id).first.try(:id))
-      end
-     
-      p new_order.save
-      p new_order.errors
-      p "-------- #{order.id} ----------"
+      process_new_quote(order, :old_id_eeus, :old_id_eeus, :old_id_edu)
     end
     p Time.zone.now
   end
@@ -1436,6 +1425,19 @@ namespace :data_migrations do
     end
   end
   
+  def process_quote_changes(order, old_quote_id_sym = :old_id_eeus)
+    new_order = Quote.where(old_quote_id_sym => order.id).first
+    if new_order
+      new_order.write_attributes(:subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :expires_at => order.expires_at, :active => order.active, :comments => order.comments)
+    
+      p new_order.save
+      p new_order.errors
+      p "-------- #{order.id} ----------"
+    else
+      "!!!! order #{order.id} NOT FOUND"
+    end
+  end
+  
   desc "incremental - users SZUS"
   task :incremental_users_szus => [:load_dep]  do
     p Time.now
@@ -1526,6 +1528,24 @@ namespace :data_migrations do
     end
   end
 
+  desc "incremental - quotes EEUS"
+  task :incremental_quotes_eeus => [:set_eeus, :load_dep]  do
+    set_current_system "eeus"
+
+    last_quote = Quote.eeus.where(:old_id_eeus.gt => 0).desc(:created_at).first    
+    
+    p "last_quote # #{last_quote.old_id_eeus} #{last_quote.quote_number}"
+    
+    p "# of new quotes since last migrations: #{OldData::Quote.count(:conditions => ["id > ?", last_quote.old_id_eeus])}"
+    OldData::Quote.find_each(:conditions => ["id > ?", last_quote.old_id_eeus]) do |old_order|
+      process_new_quote(old_order, :old_id_eeus, :old_id_eeus, :old_id_edu)
+    end
+    # 
+    p "# of changed quotes since last migrations: #{OldData::Quote.count(:conditions => ["updated_at > ? and id <= ?", last_quote.created_at, last_quote.old_id_eeus])}"
+    OldData::Quote.find_each(:conditions => ["updated_at > ? and id <= ?", last_quote.created_at, last_quote.old_id_eeus]) do |old_order|
+      process_quote_changes(old_order, :old_id_eeus)
+    end
+  end
 
   #### INCREMENTAL MIGRATIONS END HERE ####
 
