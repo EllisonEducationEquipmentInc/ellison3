@@ -32,9 +32,10 @@
         });      
   - elsif visual_asset.asset_type == 'billboards' && visual_asset.child_visual_assets.present?
     %div{ :class => "billboards#{ visual_asset.wide? ? nil : '_landing' }" }
-      - visual_asset.child_visual_assets.select {|asset| asset.available?(@time || Time.zone.now)}.sort {|x,y| x.display_order <=> y.display_order}.each do |billboard|
+      - va_children_available = visual_asset.child_visual_assets.select {|asset| asset.available?(@time || Time.zone.now)}.sort {|x,y| x.display_order <=> y.display_order}
+      - va_children_available.each do |billboard|
         - next unless billboard.must_own.blank? || machines_owned.any? {|e| billboard.must_own.include?(e)}
-        %div{:class => "billboard_#{billboard.wide ? 'wide' : 'narrow'} #{'last' if visual_asset.child_visual_assets.last == billboard}"}
+        %div{:class => "billboard_#{billboard.wide ? 'wide' : 'narrow'} #{'last' if va_children_available.last == billboard}"}
           .captionfull{:class => "boxgrid-#{billboard.wide ? 'wide' : 'narrow'}"}
             = link_to_if billboard.content.blank? && billboard.link.present?, image_tag(billboard.image_url, :alt => "#{billboard.name.capitalize}", :title => "#{billboard.name.capitalize}"), billboard.link
             - unless billboard.content.blank?
