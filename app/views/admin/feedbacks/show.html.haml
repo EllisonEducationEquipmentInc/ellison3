@@ -19,3 +19,19 @@
   .actions
     = f.submit :class => 'jqui_save'
     = link_to 'Cancel', admin_feedbacks_path, :class => 'jqui_cancel'
+:javascript
+  $(document).ready(function() {
+    var validator = $("#contact_form").validate({
+      errorClass: "invalid",
+      rules: {
+        "comment[message]": {
+          required: true
+        }
+      },
+      messages: {
+        "comment[message]": {
+          required: "Comments/Reply can't be blank."
+        }
+      }
+    });
+  });
