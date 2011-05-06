@@ -12,7 +12,8 @@
         = link_to_function 'cancel', "$(this).parents('.move_to_another_list').hide()", :class => "minibtn-cancel"
         = form_tag({:controller => 'users', :action => 'move_to_list', :id => product, :list => @list.id}, :remote => true) do
           = select_tag :move_to, options_for_select(@lists), :style => "max-width:150px"
-          %p.right= link_to "Move to Another List", "#", :onclick => "$(this).closest('form').submit(); return false;"
+          .clear
+          %p.right= link_to "Move", "#", :onclick => "$(this).closest('form').submit(); return false;", :class => "jqui_button"
   - if !is_er? && product.saving > 0 || is_er? && ecommerce_allowed? && product.sale_price && product.sale_price < product.retailer_price
     .life-cycle
       %span
