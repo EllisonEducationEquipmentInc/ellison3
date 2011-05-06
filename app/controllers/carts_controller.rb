@@ -88,6 +88,9 @@ class CartsController < ApplicationController
     update_user_token
 		new_payment
 		expires_now
+	rescue Exception => e
+	  Rails.logger.error e.message
+    redirect_to(cart_path, :alert => timeout_message)
 	end
 	
 	def quote
