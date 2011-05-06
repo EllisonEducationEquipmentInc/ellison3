@@ -27,7 +27,7 @@
 - if is_ee_uk?
   = stylesheet_link_tag "http#{'s' if request.ssl?}://fonts.googleapis.com/css?family=Vollkorn:regular,italic,bold,bolditalic&subset=latin"
 =# javascript_include_tag :defaults
-= javascript_include_tag "http#{'s' if request.ssl?}://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.min.js"
+= javascript_include_tag "http#{'s' if request.ssl?}://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.5.2.min.js"
 = javascript_include_tag "jquery.rails.js", 'jquery-ui.js', 'jquery-ui-timepicker-addon-0.5', 'wymeditor/jquery.wymeditor.min.js'
 -# javascript_include_tag 'curvycorners.js'
 = javascript_include_tag 'jqzoom.pack.1.0.1.js', 'jquery.form.js', 'jquery.remotipart.js', 'fancybox/jquery.fancybox-1.3.1.pack.js', 'fancybox/jquery.easing-1.3.pack.js', 'jquery.validate.min.js', 'jquery.validate.password', 'jquery.ba-bbq.min.js'
