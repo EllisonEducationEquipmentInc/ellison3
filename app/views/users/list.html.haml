@@ -1,19 +1,13 @@
 %h3== #{@list.name}
-.contentwrap_XXXL
-  %p.left
-    - unless @list.comments.blank?
-      = @list.comments
-      %br
-    == What would you like to do next? #{link_to "Browse products", "/lp/categories", :class => "jqui_button"} #{link_to "Go to Cart", cart_path, :class => "jqui_button"}
-  - unless @list.products.blank?
-    .toggleview.dontprint= link_to "switch to list view", "#", :class => "toggle_view"
-.clear
-.sidebar.dontprint
+.contentwrap_XL
+  - unless @list.comments.blank?
+    %p= @list.comments
+  %p== What would you like to do next?&nbsp;&nbsp;#{link_to "Browse products", "/lp/categories", :class => "jqui_button"} #{link_to "Go to Cart", cart_path, :class => "jqui_button"}
+.contentwrap_medium.last.dontprint
   - if @users_list
     %strong Jump to List:
-    %br
     = select_tag :jump_to_list, options_for_select(@lists, params[:id]), :style => "max-width:200px", :onchange => "window.location='/list/'+this.value"
-  %ul.plain
+  %ul.plain{:style => "margin-bottom: 10px;"}
     %li= link_to "Manage My Lists", myaccount_path('mylists')
     %li= link_to 'Share this list with friends and family', "#email_list", :class => "lightbox"
 - if @users_list
@@ -76,6 +70,10 @@
           }
           $('#chars_left').text('You have ' + left + ' characters left.');
         });
+.clear
+%hr
+- unless @list.products.blank?
+  .toggleview.dontprint= link_to "switch to list view", "#", :class => "toggle_view"
 .products_grid
   .highlightable
     - if @list.products.blank?
