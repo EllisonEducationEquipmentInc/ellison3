@@ -475,6 +475,15 @@ ul.ui-widget-header {
   -MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)" !important;
 }
 
+#tooltip {
+  background-color: #ffffff !important;
+  opacity: .95 !important;
+  /* For IE 5-7 */
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95) !important;
+  /* For IE 8 */
+  -MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=95)" !important;  
+}
+
 // twitter
 .twtr-widget {
   margin-bottom: 12px;
