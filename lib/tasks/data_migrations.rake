@@ -1458,7 +1458,28 @@ namespace :data_migrations do
   task :incremental_users_eeus => [:set_eeus, :load_dep]  do
     p Time.now
     set_current_system "eeus"
+    
+    last_account = Account.where(:old_id.gt => 0).desc(:old_id).first
+    p last_id = last_account.old_id
+    
+    p "# of new accounts since last migrations: #{OldData::Account.count(:conditions => ["id > ?", last_id])}"
+    OldData::Account.find_each(:conditions => ["id > ?", last_id]) do |old_account|
+      a = Account.create(:school => old_account.school, :name => old_account.name, :city => old_account.city, :erp => old_account.axapta_id, :address1 => old_account.address, :address2 => old_account.address1, :zip_code => old_account.zip, :created_at => old_account.created_at, :title => old_account.title, :country => old_account.country,  :avocation => old_account.avocation, :students => old_account.students, :individual => old_account.individual, 
+              :old_id => old_account.id, :institution => old_account.institution.try(:name), :resale_number => old_account.resale_number, :phone => old_account.phone, :fax => old_account.fax, :description => old_account.description, :affiliation => old_account.affiliation, :tax_exempt_number => old_account.tax_exempt_number, :tax_exempt => old_account.tax_exempt, :state => old_account.state, :email => old_account.email, :active => old_account.active)
+      p a.new_record?
+    end
+    
+    p "# of changed accounts since last migrations: #{OldData::Account.count(:conditions => ["updated_at > ? and id <= ?", last_account.created_at, last_id])}"
+    OldData::Account.find_each(:conditions => ["updated_at > ? and id <= ?", last_account.created_at, last_id]) do |old_account|
+      account = Account.where(:old_id => old_account.id).first
+      next unless account
+      account.update_attributes(:school => old_account.school, :name => old_account.name, :city => old_account.city, :erp => old_account.axapta_id, :address1 => old_account.address, :address2 => old_account.address1, :zip_code => old_account.zip, :title => old_account.title, :country => old_account.country,  :avocation => old_account.avocation, :students => old_account.students, :individual => old_account.individual, 
+               :institution => old_account.institution.try(:name), :resale_number => old_account.resale_number, :phone => old_account.phone, :fax => old_account.fax, :description => old_account.description, :affiliation => old_account.affiliation, :tax_exempt_number => old_account.tax_exempt_number, :tax_exempt => old_account.tax_exempt, :state => old_account.state, :email => old_account.email, :active => old_account.active)
+      p "#{old_account.id}"
+    end
+    
     process_incremental_users(:old_id_eeus)
+    
     p Time.now
   end
   
