@@ -535,24 +535,7 @@ namespace :data_migrations do
     set_current_system "szus"
     #order = OldData::Order.find(511574)
     OldData::Order.find_each(:conditions => "id > 0") do |order|
-      new_order = Order.new(:status => order.status_name, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :order_number => order.id, :order_reference => order.order_reference_id.blank? ? nil : Order.where(:order_number => order.order_reference_id).first.try(:id), :tracking_number => order.tracking_number, :tracking_url => order.tracking_url, :customer_rep => order.sales_rep.try(:email), :clickid => order.clickid, :utm_source => order.utm_source, :tracking => order.tracking,
-                    :tax_transaction => order.tax_transaction_id, :tax_calculated_at => order.tax_calculated_at, :tax_exempt_number => order.tax_exempt_number, :tax_committed => order.tax_committed, :shipping_priority => order.shipping_priority, :shipping_service => "STANDARD", :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :ip_address => order.ip_address, :estimated_ship_date => order.estimated_ship_date, :purchase_order => order.purchase_order, :comments => order.comments, :internal_comments => order.internal_comments, :old_quote_id => order.quote_id)
-    
-      new_order.user = User.where(:old_id_szus => order.user_id).first unless order.user_id.blank?
-    
-      new_order.address = Address.new(:address_type => "shipping", :email => order.ship_email, :bypass_avs => true, :first_name => order.ship_first_name, :last_name => order.ship_last_name, :address1 => order.ship_address1, :address2 => order.ship_address2, :city => order.ship_city, :state => order.ship_state, :zip_code => order.ship_zip, :country => order.ship_country, :phone => order.ship_phone, :company => order.shipping_company)
-    
-      new_order.payment = Payment.new(:created_at => order.payment.created_at, :first_name => order.payment.first_name, :last_name => order.payment.last_name, :company => order.payment.company, :address1 => order.payment.address1, :address2 => order.payment.address2, :city => order.payment.city, :state => order.payment.state, :zip_code => order.payment.zip, :country => order.payment.country, :phone => order.payment.phone, :email => order.payment.email, :payment_method => order.payment.payment_type, :card_name => order.payment.card_name, :card_number => order.payment.card_number, :card_expiration_month => order.payment.card_expiration_month, :card_expiration_year => order.payment.card_expiration_year, :save_credit_card => order.payment.save_credit_card, :use_saved_credit_card => order.payment.use_saved_credit_card, :deferred => order.payment.deferred, :purchase_order => !order.payment.purchase_order.blank?, :purchase_order_number => order.payment.purchase_order, :cv2_result => order.payment.cv2_result, :status => order.payment.status, :vpstx_id => order.payment.vpstx_id, :security_key => order.payment.security_key, :tx_auth_no => order.payment.tx_auth_no, :status_detail => order.payment.status_detail, :address_result => order.payment.address_result, :post_code_result => order.payment.post_code_result, :subscriptionid => order.payment.subscriptionid, :paid_amount => order.payment.paid_amount, :authorization => order.payment.authorization, :paid_at => order.payment.paid_at, :vendor_tx_code => order.payment.vendor_tx_code, :void_at => order.payment.void_at, :void_amount => order.payment.void_amount, :void_authorization => order.payment.void_authorization, :refunded_at => order.payment.refunded_at, :refunded_amount => order.payment.refunded_amount, :refund_authorization => order.payment.refund_authorization, :deferred_payment_amount => order.payment.deferred_payment_amount, :number_of_payments => order.payment.number_of_payments, :frequency => order.payment.frequency) unless order.payment.blank?
-    
-      order.order_items.each do |item|
-        new_order.order_items << OrderItem.new(:item_num => item.item_num, :name => item.product.try(:name), :locale => item.order.locale, :quoted_price => item.quoted_price, :sale_price => item.sale_price, :discount => item.discount, :quantity => item.quantity, :vat_exempt => item.vat_exempt, :vat => item.vat, :vat_percentage => item.vat_percentage, :upsell => item.upsell, :outlet => item.outlet, 
-          :product_id => Product.where(:old_id => item.product_id).first.try(:id))
-      end
-     
-      p new_order.save
-      p new_order.errors
-      p order.id
-      p ' '
+      process_new_order(order, :old_id_szus, :old_id)
     end
     p Time.zone.now
   end
@@ -740,28 +723,10 @@ namespace :data_migrations do
   desc "migrate SZUK orders"
   task :orders_szuk => [:set_szuk, :load_dep] do
     set_current_system "szuk"
-    # order = OldData::Order.find(16025)
     OldData::Order.find_each(:conditions => "id > 0") do |order|
-      new_order = Order.new(:status => order.status_name, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.uk_tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :order_number => order.id, :order_reference => order.order_reference_id.blank? ? nil : Order.where(:order_number => order.order_reference_id).first.try(:id), :tracking_number => order.tracking_number, :tracking_url => order.tracking_url, :customer_rep => order.sales_rep.try(:email), :clickid => order.clickid, :utm_source => order.utm_source, :tracking => order.tracking,
-                    :tax_transaction => order.tax_transaction_id, :tax_calculated_at => order.tax_calculated_at, :tax_exempt_number => order.tax_exempt_number, :tax_committed => order.tax_committed, :shipping_priority => order.shipping_priority, :shipping_service => "STANDARD", :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :ip_address => order.ip_address, :estimated_ship_date => order.estimated_ship_date, :purchase_order => order.purchase_order, :comments => order.comments, :internal_comments => order.internal_comments, :old_quote_id => order.quote_id)
-    
-      new_order.user = User.where(:old_id_szuk => order.user_id).first unless order.user_id.blank?
-    
-      new_order.address = Address.new(:address_type => "shipping", :email => order.ship_email, :bypass_avs => true, :first_name => order.ship_first_name, :last_name => order.ship_last_name, :address1 => order.ship_address1, :address2 => order.ship_address2, :city => order.ship_city, :state => order.ship_state, :zip_code => order.ship_zip, :country => order.ship_country, :phone => order.ship_phone, :company => order.shipping_company)
-    
-      new_order.payment = Payment.new(:created_at => order.payment.created_at, :first_name => order.payment.first_name, :last_name => order.payment.last_name, :company => order.payment.company, :address1 => order.payment.address1, :address2 => order.payment.address2, :city => order.payment.city, :state => order.payment.state, :zip_code => order.payment.zip, :country => order.payment.country, :phone => order.payment.phone, :email => order.payment.email, :payment_method => order.payment.payment_type, :card_name => order.payment.card_name, :card_number => order.payment.card_number, :card_expiration_month => order.payment.card_expiration_month, :card_expiration_year => order.payment.card_expiration_year, :save_credit_card => order.payment.save_credit_card, :use_saved_credit_card => order.payment.use_saved_credit_card, :deferred => order.payment.deferred, :purchase_order => !order.payment.purchase_order.blank?, :purchase_order_number => order.payment.purchase_order, :cv2_result => order.payment.cv2_result, :status => order.payment.status, :vpstx_id => order.payment.vpstx_id, :security_key => order.payment.security_key, :tx_auth_no => order.payment.tx_auth_no, :status_detail => order.payment.status_detail, :address_result => order.payment.address_result, :post_code_result => order.payment.post_code_result, :subscriptionid => order.payment.subscriptionid, :paid_amount => order.payment.paid_amount, :authorization => order.payment.authorization, :paid_at => order.payment.paid_at, :vendor_tx_code => order.payment.vendor_tx_code, :void_at => order.payment.void_at, :void_amount => order.payment.void_amount, :void_authorization => order.payment.void_authorization, :refunded_at => order.payment.refunded_at, :refunded_amount => order.payment.refunded_amount, :refund_authorization => order.payment.refund_authorization, :deferred_payment_amount => order.payment.deferred_payment_amount, :number_of_payments => order.payment.number_of_payments, :frequency => order.payment.frequency) unless order.payment.blank?
-    
-      order.order_items.each do |item|
-        new_order.order_items << OrderItem.new(:item_num => item.item_num, :name => item.product.try(:name), :locale => item.order.locale, :quoted_price => item.quoted_price, :sale_price => item.sale_price, :discount => item.discount, :quantity => item.quantity, :vat_exempt => item.vat_exempt, :vat => item.vat, :vat_percentage => item.vat_percentage, :upsell => item.upsell, :outlet => item.outlet, 
-          :product_id => Product.where(:old_id_szuk => item.product_id).first.try(:id))
-      end
-     
-      p new_order.save
-      p new_order.errors
-      p "------- #{order.id} --------"
+      process_new_order(order, :old_id_szuk, :old_id_szuk)
     end
-    p Time.zone.now
-    p `date`
+    p Time.now
   end
   
   def process_user(old_user,new_user)
@@ -809,6 +774,26 @@ namespace :data_migrations do
       shipping_address = new_user.addresses.build(:address_type => "shipping", :email => new_user.email, :bypass_avs => true, :first_name => old_shipping.first_name, :last_name => old_shipping.last_name, :address1 => old_shipping.address, :address2 => old_shipping.address2, :city => old_shipping.city, :state => old_shipping.state, :zip_code => old_shipping.zip_code, :country => old_shipping.country, :phone => old_shipping.phone, :company => old_shipping.company)
       p shipping_address.save
     end
+  end
+  
+  def process_new_order(order, user_sym = :old_id_szus, product_sym = :old_id)
+    new_order = Order.new(:status => order.status_name, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => is_uk? ? order.uk_tax_amount : order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :order_number => order.id, :order_reference => order.order_reference_id.blank? ? nil : Order.where(:order_number => order.order_reference_id).first.try(:id), :tracking_number => order.tracking_number, :tracking_url => order.tracking_url, :customer_rep => order.sales_rep.try(:email), :clickid => order.clickid, :utm_source => order.utm_source, :tracking => order.tracking,
+                  :tax_transaction => order.tax_transaction_id, :tax_calculated_at => order.tax_calculated_at, :tax_exempt_number => order.tax_exempt_number, :tax_committed => order.tax_committed, :shipping_priority => order.shipping_priority, :shipping_service => "STANDARD", :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :ip_address => order.ip_address, :estimated_ship_date => order.estimated_ship_date, :purchase_order => order.purchase_order, :comments => order.comments, :internal_comments => order.internal_comments, :old_quote_id => order.quote_id)
+  
+    new_order.user = User.where(user_sym => order.user_id).first unless order.user_id.blank?
+  
+    new_order.address = Address.new(:address_type => "shipping", :email => order.ship_email, :bypass_avs => true, :first_name => order.ship_first_name, :last_name => order.ship_last_name, :address1 => order.ship_address1, :address2 => order.ship_address2, :city => order.ship_city, :state => order.ship_state, :zip_code => order.ship_zip, :country => order.ship_country, :phone => order.ship_phone, :company => order.shipping_company)
+  
+    new_order.payment = Payment.new(:created_at => order.payment.created_at, :first_name => order.payment.first_name, :last_name => order.payment.last_name, :company => order.payment.company, :address1 => order.payment.address1, :address2 => order.payment.address2, :city => order.payment.city, :state => order.payment.state, :zip_code => order.payment.zip, :country => order.payment.country, :phone => order.payment.phone, :email => order.payment.email, :payment_method => order.payment.payment_type, :card_name => order.payment.card_name, :card_number => order.payment.card_number, :card_expiration_month => order.payment.card_expiration_month, :card_expiration_year => order.payment.card_expiration_year, :save_credit_card => order.payment.save_credit_card, :use_saved_credit_card => order.payment.use_saved_credit_card, :deferred => order.payment.deferred, :purchase_order => !order.payment.purchase_order.blank?, :purchase_order_number => order.payment.purchase_order, :cv2_result => order.payment.cv2_result, :status => order.payment.status, :vpstx_id => order.payment.vpstx_id, :security_key => order.payment.security_key, :tx_auth_no => order.payment.tx_auth_no, :status_detail => order.payment.status_detail, :address_result => order.payment.address_result, :post_code_result => order.payment.post_code_result, :subscriptionid => order.payment.subscriptionid, :paid_amount => order.payment.paid_amount, :authorization => order.payment.authorization, :paid_at => order.payment.paid_at, :vendor_tx_code => order.payment.vendor_tx_code, :void_at => order.payment.void_at, :void_amount => order.payment.void_amount, :void_authorization => order.payment.void_authorization, :refunded_at => order.payment.refunded_at, :refunded_amount => order.payment.refunded_amount, :refund_authorization => order.payment.refund_authorization, :deferred_payment_amount => order.payment.deferred_payment_amount, :number_of_payments => order.payment.number_of_payments, :frequency => order.payment.frequency) unless order.payment.blank?
+  
+    order.order_items.each do |item|
+      new_order.order_items << OrderItem.new(:item_num => item.item_num, :name => item.product.try(:name), :locale => item.order.locale, :quoted_price => item.quoted_price, :sale_price => item.sale_price, :discount => item.discount, :quantity => item.quantity, :vat_exempt => item.vat_exempt, :vat => item.vat, :vat_percentage => item.vat_percentage, :upsell => item.upsell, :outlet => item.outlet, 
+        :product_id => Product.where(product_sym => item.product_id).first.try(:id))
+    end
+   
+    p new_order.save
+    p new_order.errors
+    p "=== #{order.id} ==="
   end
   
   desc "migrate SZUS wishlists"
@@ -984,25 +969,8 @@ namespace :data_migrations do
   desc "migrate ER orders"
   task :orders_er => [:set_er, :load_dep] do
     set_current_system "erus"
-    #order = OldData::Order.find(511574)
     OldData::Order.find_each(:conditions => "id > 0") do |order|
-      new_order = Order.new(:status => order.status_name, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :order_number => order.id, :order_reference => order.order_reference_id.blank? ? nil : Order.where(:order_number => order.order_reference_id).first.try(:id), :tracking_number => order.tracking_number, :tracking_url => order.tracking_url, :customer_rep => order.sales_rep.try(:email), :clickid => order.clickid, :utm_source => order.utm_source, :tracking => order.tracking,
-                    :tax_transaction => order.tax_transaction_id, :tax_calculated_at => order.tax_calculated_at, :tax_exempt_number => order.tax_exempt_number, :tax_committed => order.tax_committed, :shipping_priority => order.shipping_priority, :shipping_service => "STANDARD", :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :ip_address => order.ip_address, :estimated_ship_date => order.estimated_ship_date, :purchase_order => order.purchase_order, :comments => order.comments, :internal_comments => order.internal_comments, :old_quote_id => order.quote_id)
-    
-      new_order.user = User.where(:old_id_er => order.user_id).first unless order.user_id.blank?
-    
-      new_order.address = Address.new(:address_type => "shipping", :email => order.ship_email, :bypass_avs => true, :first_name => order.ship_first_name, :last_name => order.ship_last_name, :address1 => order.ship_address1, :address2 => order.ship_address2, :city => order.ship_city, :state => order.ship_state, :zip_code => order.ship_zip, :country => order.ship_country, :phone => order.ship_phone, :company => order.shipping_company)
-    
-      new_order.payment = Payment.new(:created_at => order.payment.created_at, :first_name => order.payment.first_name, :last_name => order.payment.last_name, :company => order.payment.company, :address1 => order.payment.address1, :address2 => order.payment.address2, :city => order.payment.city, :state => order.payment.state, :zip_code => order.payment.zip, :country => order.payment.country, :phone => order.payment.phone, :email => order.payment.email, :payment_method => order.payment.payment_type, :card_name => order.payment.card_name, :card_number => order.payment.card_number, :card_expiration_month => order.payment.card_expiration_month, :card_expiration_year => order.payment.card_expiration_year, :save_credit_card => order.payment.save_credit_card, :use_saved_credit_card => order.payment.use_saved_credit_card, :deferred => order.payment.deferred, :purchase_order => !order.payment.purchase_order.blank?, :purchase_order_number => order.payment.purchase_order, :cv2_result => order.payment.cv2_result, :status => order.payment.status, :vpstx_id => order.payment.vpstx_id, :security_key => order.payment.security_key, :tx_auth_no => order.payment.tx_auth_no, :status_detail => order.payment.status_detail, :address_result => order.payment.address_result, :post_code_result => order.payment.post_code_result, :subscriptionid => order.payment.subscriptionid, :paid_amount => order.payment.paid_amount, :authorization => order.payment.authorization, :paid_at => order.payment.paid_at, :vendor_tx_code => order.payment.vendor_tx_code, :void_at => order.payment.void_at, :void_amount => order.payment.void_amount, :void_authorization => order.payment.void_authorization, :refunded_at => order.payment.refunded_at, :refunded_amount => order.payment.refunded_amount, :refund_authorization => order.payment.refund_authorization, :deferred_payment_amount => order.payment.deferred_payment_amount, :number_of_payments => order.payment.number_of_payments, :frequency => order.payment.frequency) unless order.payment.blank?
-    
-      order.order_items.each do |item|
-        new_order.order_items << OrderItem.new(:item_num => item.item_num, :name => item.product.try(:name), :locale => item.order.locale, :quoted_price => item.quoted_price, :sale_price => item.sale_price, :discount => item.discount, :quantity => item.quantity, :vat_exempt => item.vat_exempt, :vat => item.vat, :vat_percentage => item.vat_percentage, :upsell => item.upsell, :outlet => item.outlet, 
-          :product_id => Product.where(:old_id_er => item.product_id).first.try(:id))
-      end
-     
-      p new_order.save
-      p new_order.errors
-      p "-------- #{order.id} ----------"
+      process_new_order(order, :old_id_er, :old_id_er)
     end
     p Time.zone.now
   end
@@ -1107,27 +1075,10 @@ namespace :data_migrations do
   desc "migrate EDU US orders"
   task :orders_eeus => [:set_edu, :load_dep] do
     set_current_system "eeus"
-    #order = OldData::Order.find(511574)
     OldData::Order.find_each(:conditions => "id > 0") do |order|
-      new_order = Order.new(:status => order.status_name, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :order_number => order.id, :order_reference => order.order_reference_id.blank? ? nil : Order.where(:order_number => order.order_reference_id).first.try(:id), :tracking_number => order.tracking_number, :tracking_url => order.tracking_url, :customer_rep => order.sales_rep.try(:email), :clickid => order.clickid, :utm_source => order.utm_source, :tracking => order.tracking,
-                    :tax_transaction => order.tax_transaction_id, :tax_calculated_at => order.tax_calculated_at, :tax_exempt_number => order.tax_exempt_number, :tax_committed => order.tax_committed, :shipping_priority => order.shipping_priority, :shipping_service => "STANDARD", :vat_percentage => order.order_items.first.try(:vat_percentage), :to_review => order.to_review, :vat_exempt => order.vat_exempt, :locale => order.locale, :ip_address => order.ip_address, :estimated_ship_date => order.estimated_ship_date, :purchase_order => order.purchase_order, :comments => order.comments, :internal_comments => order.internal_comments, :old_quote_id => order.quote_id)
-    
-      new_order.user = User.where(:old_id_eeus => order.user_id).first unless order.user_id.blank?
-    
-      new_order.address = Address.new(:address_type => "shipping", :email => order.ship_email, :bypass_avs => true, :first_name => order.ship_first_name, :last_name => order.ship_last_name, :address1 => order.ship_address1, :address2 => order.ship_address2, :city => order.ship_city, :state => order.ship_state, :zip_code => order.ship_zip, :country => order.ship_country, :phone => order.ship_phone, :company => order.shipping_company)
-    
-      new_order.payment = Payment.new(:created_at => order.payment.created_at, :first_name => order.payment.first_name, :last_name => order.payment.last_name, :company => order.payment.company, :address1 => order.payment.address1, :address2 => order.payment.address2, :city => order.payment.city, :state => order.payment.state, :zip_code => order.payment.zip, :country => order.payment.country, :phone => order.payment.phone, :email => order.payment.email, :payment_method => order.payment.payment_type, :card_name => order.payment.card_name, :card_number => order.payment.card_number, :card_expiration_month => order.payment.card_expiration_month, :card_expiration_year => order.payment.card_expiration_year, :save_credit_card => order.payment.save_credit_card, :use_saved_credit_card => order.payment.use_saved_credit_card, :deferred => order.payment.deferred, :purchase_order => !order.payment.purchase_order.blank?, :purchase_order_number => order.payment.purchase_order, :cv2_result => order.payment.cv2_result, :status => order.payment.status, :vpstx_id => order.payment.vpstx_id, :security_key => order.payment.security_key, :tx_auth_no => order.payment.tx_auth_no, :status_detail => order.payment.status_detail, :address_result => order.payment.address_result, :post_code_result => order.payment.post_code_result, :subscriptionid => order.payment.subscriptionid, :paid_amount => order.payment.paid_amount, :authorization => order.payment.authorization, :paid_at => order.payment.paid_at, :vendor_tx_code => order.payment.vendor_tx_code, :void_at => order.payment.void_at, :void_amount => order.payment.void_amount, :void_authorization => order.payment.void_authorization, :refunded_at => order.payment.refunded_at, :refunded_amount => order.payment.refunded_amount, :refund_authorization => order.payment.refund_authorization, :deferred_payment_amount => order.payment.deferred_payment_amount, :number_of_payments => order.payment.number_of_payments, :frequency => order.payment.frequency) unless order.payment.blank?
-    
-      order.order_items.each do |item|
-        new_order.order_items << OrderItem.new(:item_num => item.item_num, :name => item.product.try(:name), :locale => item.order.locale, :quoted_price => item.quoted_price, :sale_price => item.sale_price, :discount => item.discount, :quantity => item.quantity, :vat_exempt => item.vat_exempt, :vat => item.vat, :vat_percentage => item.vat_percentage, :upsell => item.upsell, :outlet => item.outlet, 
-          :product_id => Product.where(:old_id_edu => item.product_id).first.try(:id))
-      end
-     
-      p new_order.save
-      p new_order.errors
-      p "-------- #{order.id} ----------"
+      process_new_order(order, :old_id_eeus, :old_id_edu)
     end
-    p Time.zone.now
+    p Time.now
   end
   
   desc "migrate EDU US wishlists"
@@ -1469,6 +1420,22 @@ namespace :data_migrations do
     end
   end
   
+  def process_order_changes(order)
+    new_order = Order.where(:order_number =>order.id).first
+    if new_order
+      new_order.write_attributes(:status => order.status_name, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => is_uk? ? order.uk_tax_amount : order.tax_amount, :total_discount => order.total_discount, :tracking_number => order.tracking_number, :tracking_url => order.tracking_url, :tracking => order.tracking,
+                    :tax_transaction => order.tax_transaction_id, :tax_calculated_at => order.tax_calculated_at, :tax_exempt_number => order.tax_exempt_number, :tax_committed => order.tax_committed, :estimated_ship_date => order.estimated_ship_date, :purchase_order => order.purchase_order, :internal_comments => order.internal_comments)
+      
+      new_order.payment = Payment.new(:created_at => order.payment.created_at, :first_name => order.payment.first_name, :last_name => order.payment.last_name, :company => order.payment.company, :address1 => order.payment.address1, :address2 => order.payment.address2, :city => order.payment.city, :state => order.payment.state, :zip_code => order.payment.zip, :country => order.payment.country, :phone => order.payment.phone, :email => order.payment.email, :payment_method => order.payment.payment_type, :card_name => order.payment.card_name, :card_number => order.payment.card_number, :card_expiration_month => order.payment.card_expiration_month, :card_expiration_year => order.payment.card_expiration_year, :save_credit_card => order.payment.save_credit_card, :use_saved_credit_card => order.payment.use_saved_credit_card, :deferred => order.payment.deferred, :purchase_order => !order.payment.purchase_order.blank?, :purchase_order_number => order.payment.purchase_order, :cv2_result => order.payment.cv2_result, :status => order.payment.status, :vpstx_id => order.payment.vpstx_id, :security_key => order.payment.security_key, :tx_auth_no => order.payment.tx_auth_no, :status_detail => order.payment.status_detail, :address_result => order.payment.address_result, :post_code_result => order.payment.post_code_result, :subscriptionid => order.payment.subscriptionid, :paid_amount => order.payment.paid_amount, :authorization => order.payment.authorization, :paid_at => order.payment.paid_at, :vendor_tx_code => order.payment.vendor_tx_code, :void_at => order.payment.void_at, :void_amount => order.payment.void_amount, :void_authorization => order.payment.void_authorization, :refunded_at => order.payment.refunded_at, :refunded_amount => order.payment.refunded_amount, :refund_authorization => order.payment.refund_authorization, :deferred_payment_amount => order.payment.deferred_payment_amount, :number_of_payments => order.payment.number_of_payments, :frequency => order.payment.frequency) unless order.payment.blank?
+   
+      p new_order.save
+      p new_order.errors
+      p "=== #{order.id} ==="
+    else
+      "!!!! order #{order.id} NOT FOUND"
+    end
+  end
+  
   desc "incremental - users SZUS"
   task :incremental_users_szus => [:load_dep]  do
     p Time.now
@@ -1544,16 +1511,19 @@ namespace :data_migrations do
   task :incremental_orders_szus => [:load_dep]  do
     set_current_system "szus"
 
-    # get last order in new system 1000000
     last_order = Order.szus.where(:order_number.lt => 1000000).desc(:created_at).first
-    p last_order
     
-    # new orders since last migrations:
-    p OldData::Order.count(:conditions => ["created_at > ?", last_order.created_at])
-    p OldData::Order.first(:conditions => ["created_at > ?", last_order.created_at], :order => "id asc").id
+    p "last_order # #{last_order.order_number}"
     
-    # changed orders since last migrations
-    p OldData::Order.count(:conditions => ["updated_at > ?", last_order.created_at])
+    p "# of new orders since last migrations: #{OldData::Order.count(:conditions => ["id > ?", last_order.order_number])}"
+    OldData::Order.find_each(:conditions => ["id > ?", last_order.order_number]) do |old_order|
+      process_new_order(old_order, :old_id_szus, :old_id)
+    end
+    
+    p "# of changed orders since last migrations: #{OldData::Order.count(:conditions => ["updated_at > ? and id <= ?", last_order.created_at, last_order.order_number])}"
+    OldData::Order.find_each(:conditions => ["updated_at > ? and id <= ?", last_order.created_at, last_order.order_number]) do |old_order|
+      process_order_changes(old_order)
+    end
   end
 
 
