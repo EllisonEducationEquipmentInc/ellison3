@@ -1610,6 +1610,44 @@ namespace :data_migrations do
       process_order_changes(old_order)
     end
   end
+  
+  desc "incremental - orders SZUK"
+  task :incremental_orders_szuk => [:set_szuk, :load_dep]  do
+    set_current_system "szuk"
+
+    last_order = Order.szuk.where(:order_number.lt => 1000000).desc(:created_at).first
+    
+    p "last_order # #{last_order.order_number}"
+    
+    p "# of new orders since last migrations: #{OldData::Order.count(:conditions => ["id > ?", last_order.order_number])}"
+    OldData::Order.find_each(:conditions => ["id > ?", last_order.order_number]) do |old_order|
+      process_new_order(old_order, :old_id_szuk, :old_id_szuk)
+    end
+    
+    p "# of changed orders since last migrations: #{OldData::Order.count(:conditions => ["updated_at > ? and id <= ?", last_order.created_at, last_order.order_number])}"
+    OldData::Order.find_each(:conditions => ["updated_at > ? and id <= ?", last_order.created_at, last_order.order_number]) do |old_order|
+      process_order_changes(old_order)
+    end
+  end
+  
+  desc "incremental - orders EEUS"
+  task :incremental_orders_eeus => [:set_eeus, :load_dep]  do
+    set_current_system "eeus"
+
+    last_order = Order.eeus.where(:order_number.lt => 1000000).desc(:created_at).first
+    
+    p "last_order # #{last_order.order_number}"
+    
+    p "# of new orders since last migrations: #{OldData::Order.count(:conditions => ["id > ?", last_order.order_number])}"
+    OldData::Order.find_each(:conditions => ["id > ?", last_order.order_number]) do |old_order|
+      process_new_order(old_order, :old_id_eeus, :old_id_edu)
+    end
+    
+    p "# of changed orders since last migrations: #{OldData::Order.count(:conditions => ["updated_at > ? and id <= ?", last_order.created_at, last_order.order_number])}"
+    OldData::Order.find_each(:conditions => ["updated_at > ? and id <= ?", last_order.created_at, last_order.order_number]) do |old_order|
+      process_order_changes(old_order)
+    end
+  end
 
   desc "incremental - quotes EEUS"
   task :incremental_quotes_eeus => [:set_eeus, :load_dep]  do
