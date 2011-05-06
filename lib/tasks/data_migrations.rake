@@ -776,6 +776,39 @@ namespace :data_migrations do
     end
   end
   
+  def process_retailer_app(new_user, old_user)
+    if old_user.retailer_info
+      new_user.retailer_application 
+      retailer_application = new_user.retailer_application || new_user.build_retailer_application
+      retailer_application.write_attributes(:signing_up_for => old_user.retailer_info.signing_up_for, :website => old_user.retailer_info.website, :no_website => old_user.retailer_info.no_website, :years_in_business => old_user.retailer_info.years_in_business, 
+                        :number_of_employees => old_user.retailer_info.number_of_employees, :annual_sales => old_user.retailer_info.annual_sales, :resale_number => old_user.retailer_info.resale_number, :authorized_buyers => old_user.retailer_info.authorized_buyers, 
+                        :business_type => old_user.retailer_info.business_type, :store_department => old_user.retailer_info.store_department, :store_location => old_user.retailer_info.store_location, :store_square_footage => old_user.retailer_info.store_square_footage, 
+                        :payment_method => old_user.retailer_info.payment_method, :tax_identifier => old_user.retailer_info.tax_id, :how_did_you_learn_about_us => old_user.retailer_info.learned_from, :will_fax_documents => old_user.retailer_info.fax_later)
+      RetailerApplication::AVAILABLE_BRANDS.each do |brand|
+        retailer_application.brands_to_resell << brand if old_user.retailer_info.send("resell_#{brand.downcase}")
+      end
+      unless old_user.retailer_info.fax_later
+        retailer_application.business_license = File.open(old_user.retailer_info.business_license.public_filename) if old_user.retailer_info.business_license && File.exist?(old_user.retailer_info.business_license.public_filename) && !File.extname(old_user.retailer_info.business_license.public_filename).blank?
+        retailer_application.resale_tax_certificate = File.open(old_user.retailer_info.resale_tax_certificate.public_filename) if old_user.retailer_info.resale_tax_certificate && File.exist?(old_user.retailer_info.resale_tax_certificate.public_filename) && !File.extname(old_user.retailer_info.resale_tax_certificate.public_filename).blank?
+        retailer_application.store_photo = File.open(old_user.retailer_info.store_photo.public_filename) if old_user.retailer_info.store_photo && File.exist?(old_user.retailer_info.store_photo.public_filename) && !File.extname(old_user.retailer_info.store_photo.public_filename).blank?
+        retailer_application.save
+        retailer_application.will_fax_documents = true unless retailer_application.business_license? && retailer_application.resale_tax_certificate? && retailer_application.store_photo?
+      end
+      p retailer_application.valid?
+      p retailer_application.errors
+      owner = old_user.retailer_info.owner_president.dup
+      owner_first_name = owner[/\w+/]
+      owner_last_name = owner.gsub(owner_first_name,'').strip
+      owner_last_name = old_user.retailer_info.last_name if owner_last_name.blank?
+      unless new_user.home_address.present?
+        home_address = new_user.addresses.build(:address_type => 'home', :job_title => old_user.retailer_info.job_title, :bypass_avs => true, :first_name => owner_first_name, :last_name => owner_last_name, :state => old_user.retailer_info.home_state, :country => old_user.retailer_info.home_country, :city => old_user.retailer_info.home_city, :address1 => old_user.retailer_info.home_address, :zip_code => old_user.retailer_info.home_zip, :email => old_user.retailer_info.email, :phone => old_user.retailer_info.phone, :company => old_user.name)
+        p home_address.valid?
+        p home_address.errors
+      end
+      new_user.save(:validate => false)
+    end
+  end
+  
   def process_new_order(order, user_sym = :old_id_szus, product_sym = :old_id)
     new_order = Order.new(:status => order.status_name, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => is_uk? ? order.uk_tax_amount : order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :order_number => order.id, :order_reference => order.order_reference_id.blank? ? nil : Order.where(:order_number => order.order_reference_id).first.try(:id), :tracking_number => order.tracking_number, :tracking_url => order.tracking_url, :customer_rep => order.sales_rep.try(:email), :clickid => order.clickid, :utm_source => order.utm_source, :tracking => order.tracking,
                   :tax_transaction => order.tax_transaction_id, :tax_calculated_at => order.tax_calculated_at, :tax_exempt_number => order.tax_exempt_number, :tax_committed => order.tax_committed, :shipping_priority => order.shipping_priority, :shipping_service => "STANDARD", :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :ip_address => order.ip_address, :estimated_ship_date => order.estimated_ship_date, :purchase_order => order.purchase_order, :comments => order.comments, :internal_comments => order.internal_comments, :old_quote_id => order.quote_id)
@@ -941,32 +974,8 @@ namespace :data_migrations do
 
         process_user(old_user,new_user)
       end
-      if !new_user.retailer_application && old_user.retailer_info
-        retailer_application = new_user.build_retailer_application(:signing_up_for => old_user.retailer_info.signing_up_for, :website => old_user.retailer_info.website, :no_website => old_user.retailer_info.no_website, :years_in_business => old_user.retailer_info.years_in_business, 
-                          :number_of_employees => old_user.retailer_info.number_of_employees, :annual_sales => old_user.retailer_info.annual_sales, :resale_number => old_user.retailer_info.resale_number, :authorized_buyers => old_user.retailer_info.authorized_buyers, 
-                          :business_type => old_user.retailer_info.business_type, :store_department => old_user.retailer_info.store_department, :store_location => old_user.retailer_info.store_location, :store_square_footage => old_user.retailer_info.store_square_footage, 
-                          :payment_method => old_user.retailer_info.payment_method, :tax_identifier => old_user.retailer_info.tax_id, :how_did_you_learn_about_us => old_user.retailer_info.learned_from, :will_fax_documents => old_user.retailer_info.fax_later)
-        RetailerApplication::AVAILABLE_BRANDS.each do |brand|
-          retailer_application.brands_to_resell << brand if old_user.retailer_info.send("resell_#{brand.downcase}")
-        end
-        unless old_user.retailer_info.fax_later
-          retailer_application.business_license = File.open(old_user.retailer_info.business_license.public_filename) if old_user.retailer_info.business_license && File.exist?(old_user.retailer_info.business_license.public_filename) && !File.extname(old_user.retailer_info.business_license.public_filename).blank?
-          retailer_application.resale_tax_certificate = File.open(old_user.retailer_info.resale_tax_certificate.public_filename) if old_user.retailer_info.resale_tax_certificate && File.exist?(old_user.retailer_info.resale_tax_certificate.public_filename) && !File.extname(old_user.retailer_info.resale_tax_certificate.public_filename).blank?
-          retailer_application.store_photo = File.open(old_user.retailer_info.store_photo.public_filename) if old_user.retailer_info.store_photo && File.exist?(old_user.retailer_info.store_photo.public_filename) && !File.extname(old_user.retailer_info.store_photo.public_filename).blank?
-          retailer_application.save
-          retailer_application.will_fax_documents = true unless retailer_application.business_license? && retailer_application.resale_tax_certificate? && retailer_application.store_photo?
-        end
-        p retailer_application.valid?
-        p retailer_application.errors
-        owner = old_user.retailer_info.owner_president.dup
-        owner_first_name = owner[/\w+/]
-        owner_last_name = owner.gsub(owner_first_name,'').strip
-        owner_last_name = old_user.retailer_info.last_name if owner_last_name.blank?
-        home_address = new_user.addresses.build(:address_type => 'home', :job_title => old_user.retailer_info.job_title, :bypass_avs => true, :first_name => owner_first_name, :last_name => owner_last_name, :state => old_user.retailer_info.home_state, :country => old_user.retailer_info.home_country, :city => old_user.retailer_info.home_city, :address1 => old_user.retailer_info.home_address, :zip_code => old_user.retailer_info.home_zip, :email => old_user.retailer_info.email, :phone => old_user.retailer_info.phone, :company => old_user.name)
-        p home_address.valid?
-        p home_address.errors
-        new_user.save(:validate => false)
-      end
+      process_retailer_app(new_user, old_user)
+      
       p new_user.errors
       p "-------- #{new_user.old_id_er} #{new_user.email}----------"
     end
@@ -1052,7 +1061,8 @@ namespace :data_migrations do
   task :accounts_eeuk => [:set_eeuk, :load_dep] do
     set_current_system "eeuk"
     OldData::Account.not_deleted.find_each(:conditions => "id > 0") do |old_account|
-      a = Account.create(:school => old_account.school, :name => old_account.name, :city => old_account.city, :erp => old_account.axapta_id, :address1 => old_account.address, :address2 => old_account.address1, :zip_code => old_account.zip, :created_at => old_account.created_at, :title => old_account.title, :country => old_account.country,  :avocation => old_account.avocation, :students => old_account.students, :individual => old_account.individual, :old_id_uk => old_account.id, :institution => old_account.institution.try(:name), :resale_number => old_account.resale_number, :phone => old_account.phone, :fax => old_account.fax, :description => old_account.description, :affiliation => old_account.affiliation, :tax_exempt_number => old_account.tax_exempt_number, :tax_exempt => old_account.tax_exempt, :state => old_account.state, :email => old_account.email, :active => old_account.active)
+      a = Account.create(:school => old_account.school, :name => old_account.name, :city => old_account.city, :erp => old_account.axapta_id, :address1 => old_account.address, :address2 => old_account.address1, :zip_code => old_account.zip, :created_at => old_account.created_at, :title => old_account.title, :country => old_account.country,  :avocation => old_account.avocation, :students => old_account.students, :individual => old_account.individual, 
+          :old_id_uk => old_account.id, :institution => old_account.institution.try(:name), :resale_number => old_account.resale_number, :phone => old_account.phone, :fax => old_account.fax, :description => old_account.description, :affiliation => old_account.affiliation, :tax_exempt_number => old_account.tax_exempt_number, :tax_exempt => old_account.tax_exempt, :state => old_account.state, :email => old_account.email, :active => old_account.active)
       p a.new_record?
     end
     p Time.now
@@ -1346,12 +1356,30 @@ namespace :data_migrations do
     
     p "# of new users since last migrations: #{OldData::User.count(:conditions => ["id > ?", last_id])}"
     OldData::User.find_each(:conditions => ["id > ?", last_id]) do |old_user|
-      new_user = User.new(:email => old_user.email, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
-      new_user.send("#{sym}=", old_user.id)
+      existing = User.where(:email => old_user.email.downcase).first
+      if !existing.blank? 
+        new_user = existing
+        p "!!! user #{old_user.email} found. merging..."
+        new_user.update_attribute sym, old_user.id
+        new_user.systems_enabled << "erus" if is_er? && !new_user.systems_enabled.include?("erus") && sym == :old_id_er
+        if is_er? && sym == :old_id_er && new_user.orders.count < 1
+          new_user.systems_enabled = ["erus"]
+          new_user.addresses = []
+          process_user(old_user,new_user)
+          new_user.tax_exempt = false
+        end
+        p new_user.save(:validate => false)
+      else
+        new_user = User.new(:email => old_user.email, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
+        new_user.send("#{sym}=", old_user.id)
+
+        process_user(old_user,new_user)
+      end
       
-      process_user(old_user,new_user)
       p new_user.errors
-      p old_user.id
+      p "=== #{old_user.id} #{new_user.email} ==="
+      
+      process_retailer_app(new_user, old_user) if is_er? && sym == :old_id_er
     end
     
     p "# of changed users since last migrations: #{OldData::User.count(:conditions => ["updated_at > ? AND id <= ?", last_user.created_at, last_id])}"
@@ -1376,6 +1404,10 @@ namespace :data_migrations do
       new_user = User.where(sym => old_user.id).first
       next unless new_user
       process_shipping_address_change(old_user,new_user)
+    end
+    
+    if sym == :old_id_er
+      
     end
   end
   
@@ -1487,7 +1519,17 @@ namespace :data_migrations do
   task :incremental_users_erus => [:set_erus, :load_dep]  do
     p Time.now
     set_current_system "erus"
+    last_user = User.where(:old_id_er.gt => 0).desc(:old_id_er).first
+    p last_id = last_user.send(:old_id_er) #1682
+
     process_incremental_users(:old_id_er)
+    
+    p "# of changed retailer applications since last migrations: #{OldData::RetailerInfo.count(:conditions => ["updated_at > ? AND user_id <= ?", last_user.created_at, last_id])}"
+    OldData::RetailerInfo.find_each(:conditions => ["updated_at > ? AND user_id <= ?", last_user.created_at, last_id]) do |retailer_app|
+      old_user = retailer_app.user
+      new_user = User.where(:old_id_er => old_user.id).first
+      process_retailer_app(new_user, old_user)
+    end
     p Time.now
   end
   
@@ -1495,6 +1537,26 @@ namespace :data_migrations do
   task :incremental_users_eeuk => [:set_eeuk, :load_dep]  do
     p Time.now
     set_current_system "eeuk"
+    
+    last_account = Account.where(:old_id_uk.gt => 0).desc(:old_id_uk).first
+    p last_id = last_account.old_id
+    
+    p "# of new accounts since last migrations: #{OldData::Account.count(:conditions => ["id > ?", last_id])}"
+    OldData::Account.find_each(:conditions => ["id > ?", last_id]) do |old_account|
+      a = Account.create(:school => old_account.school, :name => old_account.name, :city => old_account.city, :erp => old_account.axapta_id, :address1 => old_account.address, :address2 => old_account.address1, :zip_code => old_account.zip, :created_at => old_account.created_at, :title => old_account.title, :country => old_account.country,  :avocation => old_account.avocation, :students => old_account.students, :individual => old_account.individual, 
+              :old_id_uk => old_account.id, :institution => old_account.institution.try(:name), :resale_number => old_account.resale_number, :phone => old_account.phone, :fax => old_account.fax, :description => old_account.description, :affiliation => old_account.affiliation, :tax_exempt_number => old_account.tax_exempt_number, :tax_exempt => old_account.tax_exempt, :state => old_account.state, :email => old_account.email, :active => old_account.active)
+      p a.new_record?
+    end
+    
+    p "# of changed accounts since last migrations: #{OldData::Account.count(:conditions => ["updated_at > ? and id <= ?", last_account.created_at, last_id])}"
+    OldData::Account.find_each(:conditions => ["updated_at > ? and id <= ?", last_account.created_at, last_id]) do |old_account|
+      account = Account.where(:old_id_uk => old_account.id).first
+      next unless account
+      account.update_attributes(:school => old_account.school, :name => old_account.name, :city => old_account.city, :erp => old_account.axapta_id, :address1 => old_account.address, :address2 => old_account.address1, :zip_code => old_account.zip, :title => old_account.title, :country => old_account.country,  :avocation => old_account.avocation, :students => old_account.students, :individual => old_account.individual, 
+               :institution => old_account.institution.try(:name), :resale_number => old_account.resale_number, :phone => old_account.phone, :fax => old_account.fax, :description => old_account.description, :affiliation => old_account.affiliation, :tax_exempt_number => old_account.tax_exempt_number, :tax_exempt => old_account.tax_exempt, :state => old_account.state, :email => old_account.email, :active => old_account.active)
+      p "#{old_account.id}"
+    end
+    
     process_incremental_users(:old_id_eeuk)
     p Time.now
   end
