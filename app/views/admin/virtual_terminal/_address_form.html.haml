@@ -21,7 +21,7 @@
   = f.text_field :city, :style => "margin-right: 6px", :class => "address", :size => 28
 .field-stacked.left{:id => "#{f.object_name[/^\w+/]}_state"}= render :partial => is_us? ? 'admin/virtual_terminal/state_select' : 'admin/virtual_terminal/state', :locals => {:f => f}
 .field-stacked.left
-  = required_label f, :zip_code, { :label_size => "Zip/Postal code"}
+  = required_label f, :zip_code, { :label_size => "Zip/Post Code"}
   = f.text_field :zip_code, :size => 10, :class => "address"
 .clear
 .field-stacked.left

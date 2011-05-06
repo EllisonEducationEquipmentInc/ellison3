@@ -1,2 +1,2 @@
-= f.label :state, "State/Province/Region", :class => "autosize"
+= f.label :state, "#{is_uk? ? 'County' : 'State/Province/Region'}", :class => "autosize"
 = f.text_field :state, :size => 19

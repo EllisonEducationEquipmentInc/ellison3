@@ -30,7 +30,7 @@
   .field-stacked.left{:id => "#{f.object.address_type}_state"}= render :partial => f.object.us? ? 'users/state_select' : f.object.country == 'Canada' ? 'users/province_select' : 'users/state', :locals => {:f => f}
 .clear
 .field-stacked.left
-  = required_label f, :zip_code, { :label => "#{is_us? ? 'Zip' : 'Postal'} Code", :label_size => "auto" }
+  = required_label f, :zip_code, { :label => "#{is_us? ? 'Zip' : 'Post'} Code", :label_size => "auto" }
   = f.text_field :zip_code, :size => 10, :style => "margin-right: 6px"
 .field-stacked
   = required_label f, :country, { :label_size => "auto" }
@@ -114,7 +114,7 @@
           minlength: "The Phone Number provided is the wrong length (must be 10 digits)"
         },
         "#{f.object_name}[zip_code]": {
-          required: "Please provide your #{is_us? ? 'Zip' : 'Postal'} Code."
+          required: "Please provide your #{is_us? ? 'Zip' : 'Post'} Code."
         },
         "#{f.object_name}[state]": {
           required: "Please #{f.object.us? ? 'select' : 'provide'} your State."

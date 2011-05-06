@@ -79,7 +79,8 @@
         .left.field-stacked{ :style => "#{is_uk? ? 'margin-bottom: 0' : nil}"}
           = required_label f, :full_card_number, { :label => "Credit Card Number", :label_size => "auto" }
           = text_field :payment, :full_card_number, :size => 24, :maxlength => 16, :class => "cc", :style => "display: inline-block"
-          = link_to "Using a gift card?", "/usingagiftcard?no_layout=1", :class => "link_help lightbox", :style => "margin-right: 12px"
+          - unless is_uk?
+            = link_to "Using a gift card?", "/usingagiftcard?no_layout=1", :class => "link_help lightbox", :style => "margin-right: 12px"
         .clear_left
         - if is_uk?
           %p.formhelp== <strong>Note:</strong> Currently, we do <strong>NOT</strong> accept International Maestro card form of Payment.
