@@ -75,7 +75,6 @@
         "#{f.object_name}[phone]": {
           required: true,
           #{f.object.us? ? 'minlength: 10,' : nil}
-          #{f.object.us? ? 'digits: true,' : nil}
           phoneUS: #{f.object.us? ? 'true' : 'false'}
         },
         "#{f.object_name}[zip_code]": {
