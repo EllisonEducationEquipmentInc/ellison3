@@ -96,6 +96,7 @@ class Admin::FeedbacksController < ApplicationController
 	  @comment = @feedback.comments.build params[:comment]
 	  @comment.admin_reply = true
 	  @feedback.status = "replied"
+	  @feedback.expires_at = 7.days.since
 	  respond_to do |format|
       if @feedback.save
         change_current_system @feedback.system
