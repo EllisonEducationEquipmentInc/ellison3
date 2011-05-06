@@ -1446,6 +1446,29 @@ namespace :data_migrations do
     p "----- #{user.email} -----"
   end
   
+  def process_list_changes(last_list, first_new_record)
+    
+    first_new_record_id = first_new_record ? first_new_record.id : OldData::Wishlist.last.id + 1
+    
+    p "# of changed wishlists #{OldData::Wishlist.count(:conditions => ["updated_at > ? AND id < ?", last_list.created_at, first_new_record_id])}"
+    OldData::Wishlist.find_each(:conditions => ["updated_at > ? AND id < ?", last_list.created_at, first_new_record_id]) do |old_list|
+      list = List.where(:system => current_system, :old_permalink => old_list.permalink).first
+      next unless list
+      p list.update_attributes(:name => old_list.name, :default_list => old_list.default, :comments => old_list.comments, :active => !old_list.deleted)
+      p "===== list id: #{old_list.id} ===="
+    end
+    
+    p "# of changed wishlist items #{OldData::ProductsWishlist.count(:conditions => ["updated_at > ? AND wishlist_id < ?", last_list.created_at, first_new_record_id])}"
+    OldData::ProductsWishlist.find_each(:conditions => ["updated_at > ? AND wishlist_id < ?", last_list.created_at, first_new_record_id]) do |products_wishlist|
+      old_list = products_wishlist.wishlist
+      list = List.where(:system => current_system, :old_permalink => old_list.permalink).first
+      next unless list
+      product = Product.where(:item_num => products_wishlist.product.try(:item_num)).first
+      list.add_product(product.id) if product
+      p "=== products_wishlist id: #{products_wishlist.id} item_num: #{product.try(:item_num)} ==="
+    end
+  end
+  
   desc "incremental - users SZUS"
   task :incremental_users_szus => [:load_dep]  do
     p Time.now
@@ -1454,65 +1477,80 @@ namespace :data_migrations do
     p Time.now
   end
   
+  desc "incremental - users SZUK"
+  task :incremental_users_szuk => [:set_szuk, :load_dep]  do
+    p Time.now
+    set_current_system "szuk"
+    process_incremental_users(:old_id_szuk)
+    p Time.now
+  end
+  
+  desc "incremental - users EEUS"
+  task :incremental_users_eeus => [:set_eeus, :load_dep]  do
+    p Time.now
+    set_current_system "eeus"
+    process_incremental_users(:old_id_eeus)
+    p Time.now
+  end
+  
+  desc "incremental - users ERUS"
+  task :incremental_users_erus => [:set_erus, :load_dep]  do
+    p Time.now
+    set_current_system "erus"
+    process_incremental_users(:old_id_er)
+    p Time.now
+  end
+  
+  desc "incremental - users EEUK"
+  task :incremental_users_eeuk => [:set_eeuk, :load_dep]  do
+    p Time.now
+    set_current_system "eeuk"
+    process_incremental_users(:old_id_eeuk)
+    p Time.now
+  end
+  
   desc "incremental - wishlists SZUS"
   task :incremental_lists_szus => [:load_dep]  do
     p Time.now
+    
     set_current_system "szus"
     
     last_list = List.where(:system => current_system, :old_permalink.exists => true).descending(:created_at).first
-    
     p "# of new Wishlist since last migrations: #{OldData::Wishlist.count(:conditions => ["created_at > ?", last_list.created_at])}"
-    
     first_new_record = OldData::Wishlist.first(:conditions => ["created_at > ?", last_list.created_at], :order => "created_at ASC")
-    p "first new record: #{first_new_record.id}"
     
+    p "first new record: #{first_new_record.id}" if first_new_record
     OldData::Wishlist.find_each(:conditions => ["created_at > ?", last_list.created_at]) do |old_list|
+      
       user = User.where(:old_id_szus => old_list.user_id).first
+      
       next unless user
       process_user_list(user,old_list)
     end
     
-    p "# of changed wishlists #{OldData::Wishlist.count(:conditions => ["updated_at > ? AND id < ?", last_list.created_at, first_new_record.id])}"
-    OldData::Wishlist.find_each(:conditions => ["updated_at > ? AND id < ?", last_list.created_at, first_new_record.id]) do |old_list|
-      list = List.where(:system => current_system, :old_permalink => old_list.permalink).first
-      next unless list
-      p list.update_attributes(:name => old_list.name, :default_list => old_list.default, :comments => old_list.comments, :active => !old_list.deleted)
-      p "===== list id: #{old_list.id} ===="
-    end
-    
-    p "# of changed wishlist items #{OldData::ProductsWishlist.count(:conditions => ["updated_at > ? AND wishlist_id < ?", last_list.created_at, first_new_record.id])}"
-    OldData::ProductsWishlist.find_each(:conditions => ["updated_at > ? AND wishlist_id < ?", last_list.created_at, first_new_record.id]) do |products_wishlist|
-      old_list = products_wishlist.wishlist
-      list = List.where(:system => current_system, :old_permalink => old_list.permalink).first
-      next unless list
-      product = Product.where(:item_num => products_wishlist.product.try(:item_num)).first
-      list.add_product(product.id) if product
-      p "=== products_wishlist id: #{products_wishlist.id} item_num: #{product.try(:item_num)} ==="
-    end
+    process_list_changes(last_list, first_new_record)
     p Time.now
   end
   
   desc "test"
   task :test => [:set_szuk, :load_dep] do
-    set_current_system "szuk"
-    o = OldData::Order.find 37182
-    new_order=Order.where(:order_number => 37182).first
-    new_order.created_at =  o.created_at
-    new_order.save
-    p new_order.created_at
+    set_current_system "szus"
+    list = OldData::Wishlist.find_by_permalink 'c3c7082a6909966db6c34f98c69236eadeabfad9'
+    p list.products.length
   end
   
   
-  desc "incremental - orders"
+  desc "incremental - orders SZUS"
   task :incremental_orders_szus => [:load_dep]  do
-    #p OldData::Product.all(:conditions => "availability = 2 and active = 1 and quantity > 0").count
-    #set_current_system "szuk"
+    set_current_system "szus"
 
     # get last order in new system 1000000
     last_order = Order.szus.where(:order_number.lt => 1000000).desc(:created_at).first
+    p last_order
     
     # new orders since last migrations:
     p OldData::Order.count(:conditions => ["created_at > ?", last_order.created_at])
+    p OldData::Order.first(:conditions => ["created_at > ?", last_order.created_at], :order => "id asc").id
     
     # changed orders since last migrations
     p OldData::Order.count(:conditions => ["updated_at > ?", last_order.created_at])
@@ -1619,11 +1657,19 @@ EOF
     ENV['SYSTEM'] = "edu"
   end
   
+  task :set_eeus do
+    ENV['SYSTEM'] = "edu"
+  end
+  
   task :set_szuk do
     ENV['SYSTEM'] = "szuk"
   end
   
   task :set_er do
+    ENV['SYSTEM'] = "erus"
+  end
+  
+  task :set_erus do
     ENV['SYSTEM'] = "erus"
   end
   
