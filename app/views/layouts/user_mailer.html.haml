@@ -56,13 +56,13 @@
           border-right: 1px solid #ccc;
         }
         td.first {
-          padding-left:0;
-          width:25%;
+          padding-left: 0;
+          width: 25%;
         }
         td.last {
-          padding-right:0px;
-          margin-right:0px;
-          border:0;
+          padding-right: 0px;
+          margin-right: 0px;
+          border: 0;
         }
         td.twocol-left {
           width: 50%;
@@ -87,19 +87,19 @@
           padding: 0;
         }
       
-  %body
+  %body{ :style => "background-color: #e1d7c7;"}
     %center
-      #wrap
-        %table#layout{ :width => "600", :border => "0", :cellspacing => "0", :cellpadding => "0" }
+      #wrap{ :style => "background-color: #e1d7c7;"}
+        %table#layout{ :width => "600", :border => "0", :cellspacing => "0", :cellpadding => "0", :style => "margin: 10px auto 30px; text-align: left;" }
           %tr
-            %td#message
+            %td#message{ :style => "font-size: 13px; background: #fff; color: #444; font-style: normal; font-weight: normal; font-family: Helvetica; line-height: 1.4em; padding: 10px 20px 30px; vertical-align: top;" }
               %table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
                 %tr
-                  %td= image_tag("http://www.#{get_domain}/images/ui-email/logo_#{current_system}.png", :alt => "#{system_name}", :title => "#{system_name}")
+                  %td{ :style => "font-size: 11px; vertical-align: top;" }= image_tag("http://www.#{get_domain}/images/ui-email/logo_#{current_system}.png", :alt => "#{system_name}", :title => "#{system_name}")
               = yield
               %table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
                 %tr
-                  %td
+                  %td{ :style => "font-size: 11px; vertical-align: top;" }
                     %p
                       Kind Regards,
                       %br
@@ -107,5 +107,5 @@
                       %br
                       = link_to "http://www.#{get_domain}", "http://www.#{get_domain}"
           %tr
-            %td{ :align => "center" }
+            %td{ :align => "center", :style => "font-size: 11px; vertical-align: top;" }
               %p **Please do not reply to this email as it is sent from an unattended mail box.**            

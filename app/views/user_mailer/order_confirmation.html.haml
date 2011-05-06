@@ -1,10 +1,10 @@
 %table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
   %tr
-    %td{ :colspan => "3"}
+    %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "3"}
       %h1.primary-heading Thank you for your order!
   %tr
-    %td.threecol.first
-      %h3.secondary-heading Billing Address
+    %td.threecol.first{ :style => "width: 28%; padding-right: 10px; padding-left: 10px; color: #444; padding-top: 10px; border-right: 1px solid #ccc; padding-left:0; width:25%;" }
+      %h3.secondary-heading{ :style => "font-size: 18px; font-weight: normal; color: #333; font-style: normal; font-family: Georgia; text-align: left; margin-bottom: 15px;" } Billing Address
       %p
         - if @order.payment.present?
           - unless @order.payment.company.blank?
@@ -22,8 +22,8 @@
           = @order.payment.country
           %br
           = @order.payment.phone
-    %td.threecol
-      %h3.secondary-heading Shipping Address
+    %td.threecol{ :style => "width: 28%; padding-right: 10px; padding-left: 10px; color: #444; padding-top: 10px; border-right: 1px solid #ccc;" }
+      %h3.secondary-heading{ :style => "font-size: 18px; font-weight: normal; color: #333; font-style: normal; font-family: Georgia; text-align: left; margin-bottom: 15px;" } Shipping Address
       %p
         - unless @order.address.company.blank?
           = @order.address.company
@@ -40,8 +40,8 @@
         = @order.address.country
         %br
         = @order.address.phone
-    %td.threecol.last
-      %h3.secondary-heading Order Details
+    %td.threecol.last{ :style => "width: 28%; padding-right: 10px; padding-left: 10px; color: #444; padding-top: 10px; border-right: 1px solid #ccc; padding-right: 0px; margin-right: 0px; border: 0;" }
+      %h3.secondary-heading{ :style => "font-size: 18px; font-weight: normal; color: #333; font-style: normal; font-family: Georgia; text-align: left; margin-bottom: 15px;" } Order Details
       %strong Order Number:
       = @order.public_order_number
       %br
@@ -58,53 +58,53 @@
       = @order.status
 %table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
   %tr
-    %th{ :width => "60", :align => "left" } Item No.
-    %th{ :align => "left" } Item Name
-    %th{ :width => "40", :align => "center" } Qty
-    %th{ :width => "55", :align => "right" } Price
-    %th{ :width => "70", :align => "right" } Item Total
+    %th{ :style => "font-size: 11px; vertical-align: top;", :width => "60", :align => "left" } Item No.
+    %th{ :style => "font-size: 11px; vertical-align: top;", :align => "left" } Item Name
+    %th{ :style => "font-size: 11px; vertical-align: top;", :width => "40", :align => "center" } Qty
+    %th{ :style => "font-size: 11px; vertical-align: top;", :width => "55", :align => "right" } Price
+    %th{ :style => "font-size: 11px; vertical-align: top;", :width => "70", :align => "right" } Item Total
   - @order.order_items.each do |item|
     %tr{:class => cycle('odd', 'even')}
-      %td{ :width => "60", :align => "left" }= item.item_num
-      %td{ :align => "left" }= item.name
-      %td{ :width => "40", :align => "center" }= item.quantity
-      %td{ :width => "55", :align => "right" }= number_to_currency item.gross_price
-      %td{ :width => "70", :align => "right" }= number_to_currency item.item_total
+      %td{ :style => "font-size: 11px; vertical-align: top;", :width => "60", :align => "left" }= item.item_num
+      %td{ :style => "font-size: 11px; vertical-align: top;", :align => "left" }= item.name
+      %td{ :style => "font-size: 11px; vertical-align: top;", :width => "40", :align => "center" }= item.quantity
+      %td{ :style => "font-size: 11px; vertical-align: top;", :width => "55", :align => "right" }= number_to_currency item.gross_price
+      %td{ :style => "font-size: 11px; vertical-align: top;", :width => "70", :align => "right" }= number_to_currency item.item_total
   %tr
-    %td{ :colspan => "4", :align => "right" }
+    %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "right" }
       %strong Subtotal
-    %td{ :align => "right"}
+    %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}
       %strong= number_to_currency @order.gross_subtotal_amount
   %tr
-    %td{ :colspan => "4", :align => "right" }== Shipping & Handling (#{@order.shipping_service.try :humanize})
-    %td{ :align => "right"}= number_to_currency @order.gross_shipping_amount
+    %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "right" }== Shipping & Handling (#{@order.shipping_service.try :humanize})
+    %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}= number_to_currency @order.gross_shipping_amount
   - if @order.cod?
     %tr
-      %td{ :colspan => "4", :align => "right" } COD account:
-      %td{ :align => "right"}
+      %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "right" } COD account:
+      %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}
         = @order.cod_account_type
         = @order.cod_account
   - if @order.handling_amount > 0.0
     %tr
-      %td{ :colspan => "4", :align => "right" } Shipping & Handling Surcharge
-      %td{ :align => "right"}= number_to_currency @order.handling_amount
+      %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "right" } Shipping & Handling Surcharge
+      %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}= number_to_currency @order.handling_amount
   %tr
-    %td{ :colspan => "4", :align => "right" }== #{is_us? ? 'Sales Tax' : is_sizzix_uk? ? 'VAT (already included in Subtotal)' : 'Estimated Tax'}
-    %td{ :align => "right"}= number_to_currency @order.tax_amount
+    %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "right" }== #{is_us? ? 'Sales Tax' : is_sizzix_uk? ? 'VAT (already included in Subtotal)' : 'Estimated Tax'}
+    %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}= number_to_currency @order.tax_amount
   %tr
-    %td{ :colspan => "4", :align => "right" }
+    %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "right" }
       %strong TOTAL
-    %td{ :align => "right"}
+    %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}
       %strong= number_to_currency @order.total_amount
   - if @order.total_discount.present? && @order.total_discount > 0.0
     %tr
-      %td{ :colspan => "4", :align => "right" }
+      %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "right" }
         %strong Total Savings:
-      %td{ :align => "right"}
+      %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}
         %strong= number_to_currency @order.total_discount
   - if @order.payment.present?
     %tr
-      %td{ :colspan => "4", :align => "left" }
+      %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "left" }
         This order was charged to:
         %strong
           - if @order.payment.try(:purchase_order)
@@ -113,29 +113,29 @@
           - else
             == #{@order.payment.card_name}, 
             == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
-      %td{ :align => "right"}
+      %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}
     - if @order.payment.deferred
       %tr
-        %td{ :colspan => "4", :align => "left" }
+        %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "left" }
           %table{ :width => "100% "}
             %tr
-              %th{ :align => "center" }
+              %th{ :style => "font-size: 11px; vertical-align: top;", :align => "center" }
                 Payment 1
                 = l @order.payment.paid_at, :format => :date
               - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
-                %th{ :align => "center" }
+                %th{ :style => "font-size: 11px; vertical-align: top;", :align => "center" }
                   Payment 
                   = i+1 
                   = l @order.payment.paid_at.since(i.month), :format => :date
             %tr
-              %td{ :align => "center" }
+              %td{ :style => "font-size: 11px; vertical-align: top;", :align => "center" }
                 = number_to_currency @order.payment.paid_amount
               - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
-                %td{ :align => "center" }= number_to_currency(@order.payment.deferred_payment_amount)
-        %td{ :align => "right"}
+                %td{ :style => "font-size: 11px; vertical-align: top;", :align => "center" }= number_to_currency(@order.payment.deferred_payment_amount)
+        %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}
 %table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
   %tr
-    %td
+    %td{ :style => "font-size: 11px; vertical-align: top;" }
       %ol
         - unless @order.payment.try(:purchase_order)
           %li== Your credit card statement will reflect a charge from Sizzix/Ellison#{is_us? ? ' Lake Forest, CA' : nil}.
@@ -144,5 +144,5 @@
         %li Returns or exchanges subject to restocking fee.
   - unless @order.comments.blank?
     %tr
-      %td
+      %td{ :style => "font-size: 11px; vertical-align: top;" }
         %p== <strong>Comments: </strong>#{@order.comments}
