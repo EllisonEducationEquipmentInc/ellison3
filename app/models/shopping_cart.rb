@@ -232,7 +232,7 @@ module ShoppingCart
 		  @rates = []
 		  rates.rates[zone.to_s].each do |k,v|
 		    service = Shippinglogic::FedEx::Rate::Service.new
-		    service.name = "Fedex " + k.titleize
+		    service.name = k.titleize
 		    service.type = k.upcase
 		    service.rate = v
 		    @rates << service
