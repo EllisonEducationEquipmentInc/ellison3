@@ -1686,6 +1686,25 @@ namespace :data_migrations do
       process_quote_changes(old_order, :old_id_eeus)
     end
   end
+  
+  desc "incremental - quotes ERUS"
+  task :incremental_quotes_erus => [:set_erus, :load_dep]  do
+    set_current_system "erus"
+
+    last_quote = Quote.erus.where(:old_id_er.gt => 0).desc(:created_at).first    
+    
+    p "last_quote # #{last_quote.old_id_er} #{last_quote.quote_number}"
+    
+    p "# of new quotes since last migrations: #{OldData::Quote.count(:conditions => ["id > ?", last_quote.old_id_er])}"
+    OldData::Quote.find_each(:conditions => ["id > ?", last_quote.old_id_er]) do |old_order|
+      process_new_quote(old_order, :old_id_er, :old_id_er, :old_id_er)
+    end
+    # 
+    p "# of changed quotes since last migrations: #{OldData::Quote.count(:conditions => ["updated_at > ? and id <= ?", last_quote.created_at, last_quote.old_id_er])}"
+    OldData::Quote.find_each(:conditions => ["updated_at > ? and id <= ?", last_quote.created_at, last_quote.old_id_er]) do |old_order|
+      process_quote_changes(old_order, :old_id_er)
+    end
+  end
 
   #### INCREMENTAL MIGRATIONS END HERE ####
 
