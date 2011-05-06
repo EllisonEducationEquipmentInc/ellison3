@@ -1,10 +1,6 @@
-%p
-  Please click here to confirm your subscription to 
-  = @subscription.list_name
-
-%p== #{link_to "http://www.#{get_domain}/index/subscription/#{@subscription.id}", "http://www.#{get_domain}/index/subscription/#{@subscription.id}"}
-%p
-  We have received a request to add your email address to the
-  = @subscription.list_name
-  mailing list. However, you must confirm you want to join
-  by clicking on the link above. You can also you the above link to change your subscription status
+%table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
+  %tr
+    %td
+      %p== Please click here to confirm your subscription to #{@subscription.list_name}
+      %p== #{link_to "http://www.#{get_domain}/index/subscription/#{@subscription.id}", "http://www.#{get_domain}/index/subscription/#{@subscription.id}"}
+      %p== We have received a request to add your email address to the #{@subscription.list_name} mailing list. However, you must confirm you want to join by clicking on the link above. You can also you the above link to change your subscription status.
