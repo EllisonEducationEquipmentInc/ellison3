@@ -963,7 +963,7 @@ namespace :data_migrations do
   desc "import ER users - IMPORTANT: copy production 'attachment' folder to the new app's root folder"
   task :users_er => [:set_er, :load_dep] do
     set_current_system "erus"
-    # old_user = OldData::User.find 1282
+    # old_user = OldData::User.find 655
     OldData::User.not_deleted.find_each(:conditions => "id > 0") do |old_user|
       existing = User.where(:email => old_user.email.downcase).first
       if !existing.blank? 
@@ -971,11 +971,13 @@ namespace :data_migrations do
         p "!!! user #{old_user.email} found. merging..."
         new_user.update_attribute :old_id_er, old_user.id
         new_user.systems_enabled << "erus" if !new_user.systems_enabled.include?("erus") 
-        unless new_user.orders.count > 0
+        if new_user.orders.count < 1
           new_user.systems_enabled = ["erus"]
           new_user.addresses = []
           process_user(old_user,new_user)
           new_user.tax_exempt = false
+        else
+          process_billing_address_change(old_user,new_user)
         end
         p new_user.save(:validate => false)
       else
