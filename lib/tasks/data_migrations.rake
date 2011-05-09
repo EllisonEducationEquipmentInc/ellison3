@@ -59,9 +59,19 @@ namespace :data_migrations do
     end
     p Time.zone.now
   end
+  
+  desc "tab test"
+  task :tabs_szus_test => :load_dep do
+    product = Product.find '4dc49d6be1b8325f0500094a' 
+    old_product = OldData::Product.find(product.old_id)
+    old_product.tabs.not_deleted.each do |tab|
+      p tab.description.encoding.name
+    end
+  end
     
   def process_tab(tab,new_tab,sys="sz", uk =false)
     tab.name.force_encoding("UTF-8") if tab.name.encoding.name == "ASCII-8BIT"
+    tab.description.force_encoding("UTF-8") if tab.description.encoding.name == "ASCII-8BIT"
     unless tab.column_grid.blank?
       new_tab.data_column ||= []
       for i in 1..OldData::Tab::MAX_GRID do
@@ -1582,13 +1592,6 @@ namespace :data_migrations do
     
     process_list_changes(last_list, first_new_record)
     p Time.now
-  end
-  
-  desc "test"
-  task :test => [:set_szuk, :load_dep] do
-    set_current_system "szus"
-    list = OldData::Wishlist.find_by_permalink 'c3c7082a6909966db6c34f98c69236eadeabfad9'
-    p list.products.length
   end
   
   
