@@ -1306,6 +1306,8 @@ namespace :data_migrations do
           @segments.keys.map(&:to_s).each do |segment|
             @subscription.segments << segment if row[segment] == "1"
           end
+          @subscription.save
+          p "===== #{@subscription.valid?} #{@subscription.email} #{@subscription.list} ===="
           @lyris = Lyris.delay.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @subscription.segments.map {|e| {:name => e.to_sym, :value => 1}} << {:name => :subscription_id, :value => @subscription.id.to_s}
         end
       end
