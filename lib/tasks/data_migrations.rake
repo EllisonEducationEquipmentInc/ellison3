@@ -1296,8 +1296,17 @@ namespace :data_migrations do
     NEWSLETTER_SEGMENTS.each do |list|
       if File.exists?(File.expand_path(File.dirname(__FILE__) + "/migrations/#{list.last.keys.first}.csv"))
         set_current_system list.first.to_s
+        get_list_and_segments
         CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/#{list.last.keys.first}.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
-          
+          @subscription = Subscription.new 
+          @subscription.email = row['email']
+          @subscription.confirmed = true
+          @subscription.list = subscription_list
+          @subscription.list_name = @list[1]
+          @segments.keys.map(&:to_s).each do |segment|
+            @subscription.segments << segment if row[segment] == "1"
+          end
+          @lyris = Lyris.delay.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @subscription.segments.map {|e| {:name => e.to_sym, :value => 1}} << {:name => :subscription_id, :value => @subscription.id.to_s}
         end
       end
     end
