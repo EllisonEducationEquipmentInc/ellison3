@@ -1316,6 +1316,28 @@ namespace :data_migrations do
     end
   end
   
+  desc "import sizzix_product_compatability data from lib/tasks/migrations/sizzix_product_compatability.csv"
+  task :sizzix_product_compatability => :load_dep do
+    set_current_system "szus"
+    CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/sizzix_product_compatability.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
+      @tag = Tag.where(:old_id => row['tag_id']).first
+      if @tag
+        @compatibility = @tag.compatibilities.build
+        related_tag = Tag.where(:old_id => row['related_id']).first
+        if related_tag
+          @compatibility.tag_id = related_tag.id
+          @compatibility.product_item_nums = row['product_item_nums']
+          p "main tag #{row['tag_id']} #{row['product_line']} related tag #{row['related_id']} #{row['related_product_line']} saved #{@compatibility.save}"
+        else
+          p "related tag #{row['related_id']} #{row['related_product_line']} was not found"
+        end
+      else
+        p "main tag #{row['tag_id']} #{row['product_line']} was not found"
+      end
+    end
+    p Time.now
+  end
+  
   #### INCREMENTAL MIGRATIONS START HERE ####
   
   def process_user_changes(old_user,new_user)
