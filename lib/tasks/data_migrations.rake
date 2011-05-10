@@ -1189,7 +1189,7 @@ namespace :data_migrations do
     CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/product_item_types.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
       @product = Product.where(:item_num => row['item_num']).first 
       next unless @product
-      p @product.update_attribute :item_type, row['item_type']
+      p @product.update_attribute :item_type, row['product_type']
     end
     p Time.zone.now
   end
@@ -1662,6 +1662,74 @@ namespace :data_migrations do
     p Time.now
   end
   
+  desc "incremental - wishlists SZUK"
+  task :incremental_lists_szuk => [:set_szuk, :load_dep]  do
+    p Time.now
+    
+    set_current_system "szuk"
+    
+    last_list = List.where(:system => current_system, :old_permalink.exists => true).descending(:created_at).first
+    p "# of new Wishlist since last migrations: #{OldData::Wishlist.count(:conditions => ["created_at > ?", last_list.created_at])}"
+    first_new_record = OldData::Wishlist.first(:conditions => ["created_at > ?", last_list.created_at], :order => "created_at ASC")
+    
+    p "first new record: #{first_new_record.id}" if first_new_record
+    OldData::Wishlist.find_each(:conditions => ["created_at > ?", last_list.created_at]) do |old_list|
+      
+      user = User.where(:old_id_szuk => old_list.user_id).first
+      
+      next unless user
+      process_user_list(user,old_list)
+    end
+    
+    process_list_changes(last_list, first_new_record)
+    p Time.now
+  end
+  
+  desc "incremental - wishlists EEUS"
+  task :incremental_lists_eeus => [:set_eeus, :load_dep]  do
+    p Time.now
+    
+    set_current_system "eeus"
+    
+    last_list = List.where(:system => current_system, :old_permalink.exists => true).descending(:created_at).first
+    p "# of new Wishlist since last migrations: #{OldData::Wishlist.count(:conditions => ["created_at > ?", last_list.created_at])}"
+    first_new_record = OldData::Wishlist.first(:conditions => ["created_at > ?", last_list.created_at], :order => "created_at ASC")
+    
+    p "first new record: #{first_new_record.id}" if first_new_record
+    OldData::Wishlist.find_each(:conditions => ["created_at > ?", last_list.created_at]) do |old_list|
+      
+      user = User.where(:old_id_eeus => old_list.user_id).first
+      
+      next unless user
+      process_user_list(user,old_list)
+    end
+    
+    process_list_changes(last_list, first_new_record)
+    p Time.now
+  end
+  
+  desc "incremental - wishlists ERUS"
+  task :incremental_lists_erus => [:set_erus, :load_dep]  do
+    p Time.now
+    
+    set_current_system "erus"
+    
+    last_list = List.where(:system => current_system, :old_permalink.exists => true).descending(:created_at).first
+    p "# of new Wishlist since last migrations: #{OldData::Wishlist.count(:conditions => ["created_at > ?", last_list.created_at])}"
+    first_new_record = OldData::Wishlist.first(:conditions => ["created_at > ?", last_list.created_at], :order => "created_at ASC")
+    
+    p "first new record: #{first_new_record.id}" if first_new_record
+    OldData::Wishlist.find_each(:conditions => ["created_at > ?", last_list.created_at]) do |old_list|
+      
+      user = User.where(:old_id_er => old_list.user_id).first
+      
+      next unless user
+      process_user_list(user,old_list)
+    end
+    
+    process_list_changes(last_list, first_new_record)
+    p Time.now
+  end
   
   desc "incremental - orders SZUS"
   task :incremental_orders_szus => [:load_dep]  do
