@@ -1360,6 +1360,17 @@ namespace :data_migrations do
     p Time.now
   end
   
+  desc "populate first admin user"
+  task :populate_admin_user => :environment do
+    @admin = Admin.new :name => 'Root Admin', :email => 'admin@ellison.com', :password => 'gwp2012Admin', :password_confirmation => 'gwp2012Admin', :employee_number => "Admin"
+    @admin.active = @admin.can_act_as_customer = @admin.can_change_prices = true
+    @admin.systems_enabled = ELLISON_SYSTEMS
+    Permission::ADMIN_MODULES.each do |permission|
+      @admin.permissions.build :name => permission, :systems_enabled => ELLISON_SYSTEMS, :write => true
+    end
+    p "admin has been created: #{@admin.save}"
+  end
+  
   #### INCREMENTAL MIGRATIONS START HERE ####
   
   def process_user_changes(old_user,new_user)
