@@ -18,7 +18,7 @@
           - I18n.locale = quote.locale
           %tr{:class => cycle('odd', 'even')}
             %td= l quote.created_at, :format => :custom
-            %td= link_to quote.id, myquote_path(quote, :page => params[:page])
+            %td= link_to (quote.quote_number.blank? ? quote.id : quote.quote_number), myquote_path(quote, :page => params[:page])
             %td.quote_name{:id => quote.id}= quote.name
             %td= number_to_currency quote.total_amount
             %td= l quote.expires_at, :format => :custom
