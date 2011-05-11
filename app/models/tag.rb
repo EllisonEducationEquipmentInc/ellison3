@@ -202,7 +202,7 @@ class Tag
   def adjust_all_day_dates
     if self.tag_type == 'calendar_event' && self.all_day
       original_system = current_system
-      ELLISON_SYSTEMS.each do |sys|
+      self.systems_enabled.each do |sys|
         set_current_system sys
         self.send(:"calendar_start_date_#{sys}=", self.send(:"calendar_start_date_#{sys}").beginning_of_day) if self.send(:"calendar_start_date_#{sys}").present?
     

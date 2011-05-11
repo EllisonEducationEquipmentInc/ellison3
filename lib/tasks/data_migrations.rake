@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 namespace :data_migrations do
   require "active_record/railtie"  
   require 'mongoid/railtie'
@@ -197,7 +198,7 @@ namespace :data_migrations do
     OldData::PolymorphicTag.not_deleted.find_each(:conditions => "calendar_start_date IS NOT NULL") do |tag|
       new_tag = Tag.where(:old_id_edu => tag.id).first 
       next unless new_tag
-      new_tag.write_attributes :calendar_start_date_eeus => tag.calendar_start_date, :calendar_end_date_eeus => tag.calendar_end_date - 8.hours, :calendar_start_date_erus => tag.calendar_start_date, :calendar_end_date_erus => tag.calendar_end_date - 8.hours, :color => tag.color
+      new_tag.write_attributes :calendar_start_date_eeus => tag.calendar_start_date, :calendar_end_date_eeus => tag.calendar_end_date - 8.hours, :calendar_start_date_erus => tag.calendar_start_date, :calendar_end_date_erus => tag.calendar_end_date, :color => tag.color
       print new_tag.save(:validate => false)
       p tag.id
     end
@@ -970,7 +971,8 @@ namespace :data_migrations do
         new_user = existing
         p "!!! user #{old_user.email} found. merging..."
         new_user.update_attribute :old_id_er, old_user.id
-        new_user.systems_enabled << "erus" if !new_user.systems_enabled.include?("erus") 
+        new_user.systems_enabled << "erus" if !new_user.systems_enabled.include?("erus")
+        process_user_changes(old_user,new_user)
         if new_user.orders.count < 1
           new_user.systems_enabled = ["erus"]
           new_user.addresses = []
@@ -1370,6 +1372,7 @@ namespace :data_migrations do
     end
     p "admin has been created: #{@admin.save}"
   end
+  
   
   #### INCREMENTAL MIGRATIONS START HERE ####
   
@@ -1847,6 +1850,30 @@ namespace :data_migrations do
 
   #### INCREMENTAL MIGRATIONS END HERE ####
 
+  desc "multitask"
+  multitask :multi_task => ['data_migrations:test_1', 'data_migrations:test_2'] do
+    p "multi done"
+  end
+  
+  desc "test 1"
+  task :test_1 => [:set_edu, :load_dep] do |t|
+    Rake::Task["environment"].reenable
+    #Rake::Task["data_migrations:load_dep"].reenable
+    p "test 1 #{OldData::Product.count}"
+    sleep 10
+    p "test 1 #{OldData::Product.count}"
+  end
+  
+  desc "test 2"
+  task :test_2 => [:load_dep] do |t|
+    Rake::Task["environment"].reenable
+    #Rake::Task["data_migrations:load_dep"].reenable
+    p "test 2 #{OldData::Product.count}"
+    sleep 10
+    p "test 2 #{OldData::Product.count}"
+  end
+  
+  
 
   
   desc "change ER to ERUS in the db"
@@ -1964,17 +1991,14 @@ EOF
   task :set_eeuk do
     ENV['SYSTEM'] = "eeuk"
   end
-    
-  desc "load dependencies and connect to mysql db"
-  task :load_dep => :environment do
-    $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/')
-    $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/lib/')
-    $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/lib/technoweenie/')
-    $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/lib/technoweenie/attachment_fu/backends/')
-    $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/lib/technoweenie/attachment_fu/processors/')
-    
-    db = case ENV['SYSTEM']
-    when "edu"
+  
+  task :set_szus do
+    ENV['SYSTEM'] = nil
+  end
+  
+  def get_db(sys)
+    case sys
+    when "edu", "eeus"
       "ellison_education_qa1"
     when "szuk"
       "sizzix_2_uk_qa1"
@@ -1985,15 +2009,42 @@ EOF
     else
       "sizzix_2_us_qa1"
     end
+  end
+  
+  def get_db_ey(sys)
+    case sys
+    when "edu", "eeus"
+      "ellison_education_production"
+    when "szuk"
+      "sizzix_2_uk_production"
+    when "erus"
+      "ellison_global_production"
+    when "eeuk"
+      "ellison_education_uk_production"
+    else
+      "sizzix_2_us_production"
+    end
+  end
+    
+  desc "load dependencies and connect to mysql db"
+  task :load_dep => :environment do
+    $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/')
+    $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/lib/')
+    $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/lib/technoweenie/')
+    $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/lib/technoweenie/attachment_fu/backends/')
+    $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/lib/technoweenie/attachment_fu/processors/')
+    
+    db = get_db ENV['SYSTEM']
+    #db = get_db_ey ENV['SYSTEM']  # uncomment this line on EY, and also change ActiveRecord::Base.establish_connection parameters below!
 
     ActiveRecord::Base.default_timezone = :utc
     ActiveRecord::Base.time_zone_aware_attributes = true
             
     ActiveRecord::Base.establish_connection(
         :adapter  => "mysql",
-        :host     => "192.168.1.126",
-        :username => "ruby",
-        :password => "ellison123",
+        :host     => "192.168.1.126", #"ellison-mysql-production-master"
+        :username => "ruby", #"ellison_db"
+        :password => "ellison123", #"Yh4XS3Sy"
         :database => db,
         :encoding => "utf8"
       )
@@ -2004,9 +2055,10 @@ EOF
         include EllisonSystem
       end
     end
-
+    
     Dir.glob("lib/tasks/data_migrations/*.rb").sort.each do |f|
       load f
+      #autoload f[/(\w+)\.rb$/, 1].classify, f
     end
     
     disable_solr_indexing!
