@@ -21,7 +21,7 @@
         = comments_fields.text_area :message, :rows => 10, :cols => 36
     = raw recaptcha_tag(:ajax, :ssl => request.ssl?, :display => {:theme => 'white'})
     .actions
-      = f.submit :class => 'jqui_save'
+      = f.submit "Submit", :class => 'jqui_save'
 .contentwrap_XL.last
   - i=0
   - @subjects.each do |topic|

@@ -1,6 +1,6 @@
 %h2 Feedback History
 - if @feedback.expires_at > Time.zone.now
-  %strong== ID: #{@feedback.number}
+  %strong== Feedback Number: #{@feedback.number}
   %br
   %strong== Subject: #{@feedback.subject}
   %br
@@ -13,8 +13,7 @@
       = f.text_area :message
     = raw recaptcha_tag(:ajax, :display => {:theme => 'white'})
     .actions
-      = f.submit :class => 'jqui_save'
+      = f.submit "Submit", :class => 'jqui_save'
       = link_to 'Cancel', contact_path, :class => 'jqui_cancel'
 - else
-  Your Inquiry reference link expired. Please submit your question on our 
-  = link_to 'feedback form', contact_path
+  %p== Your Inquiry reference link expired. Please create a #{link_to "new one", contact_path}.

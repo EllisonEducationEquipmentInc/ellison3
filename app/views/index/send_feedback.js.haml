@@ -6,4 +6,4 @@
   - if recaptcha_valid?
     == alert('#{escape_javascript @feedback.errors.full_messages.join("\n")}');
   - else
-    alert('Invalid Captcha');
+    alert("The characters you entered didn't match the word verification. Please try again.");
