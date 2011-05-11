@@ -10,12 +10,15 @@
     = check_box_tag "subscription[segments][]", @list[1], "checked", :id => nil, :class => "subscription_segment", :disabled => true
     == You are subscribed to <strong>#{@list[1]}</strong>
     = render :partial => 'index/segments'
-  
+  %p
+    To subscribe to a specific segment, check the relevant segment check box above,
+    %br
+    == <strong>OR</strong>, to <em>unsubscribe</em> from a specific segment, <u>uncheck</u> the segment from above and click "Update".
   %hr
   .field
-    = f.check_box :unsubscribe, :onclick => "if (this.checked) {$('.subscription_segment').attr('disabled', true);$('#unsubscribe_alert').show()} else {$('.subscription_segment').attr('disabled', false);$('#unsubscribe_alert').hide()}", :style => "margin-left: 4px"
-    == Unsubscribe from <strong>#{@list[1]}</strong>
-  %p To Unsubscribe from entire list, check "Unsubscribe" check box and click on update.
+    .left{:style => "margin-right: 10px"}= f.check_box :unsubscribe, :onclick => "if (this.checked) {$('.subscription_segment').attr('disabled', true);$('#unsubscribe_alert').show()} else {$('.subscription_segment').attr('disabled', false);$('#unsubscribe_alert').hide()}", :style => "margin-left: 4px"
+    .left{:style => "margin-bottom: 10px"}== To <strong>completely unsubscribe</strong>, check this box and click "Update".<br/>You will be completely removed from <strong>#{@list[1]}</strong>, and all segments above.
+  .clear
   .error#unsubscribe_alert{:style => "display:none"}== Your email address will be removed permanently from #{@list[1]} list.
   .actions
     = f.submit "Update", :class => 'jqui_save'

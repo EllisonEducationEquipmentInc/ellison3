@@ -1,7 +1,5 @@
-%h3 Your Newsletter Subscriptions
 - if @subscription.new_record?
-  You're currently NOT subscribed to 
-  %strong= @list[1]
+  %p== You're currently NOT subscribed to <strong>#{@list[1]}</strong>
   = form_for @subscription, :url => url_for(:controller => :index, :action => :create_subscription) do |f|
     = f.error_messages
     .field
