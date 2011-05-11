@@ -64,7 +64,7 @@ ul#tag_products, ul#tag_ideas { @extend ul.horizontal;
 }
 
 // buttons
-#product_submit, #idea_submit, #tag_submit, #coupon_submit, #fedex_rate_submit, #shipping_rate_submit {
+#product_submit, #idea_submit, #tag_submit, #coupon_submit, #fedex_rate_submit, #shipping_rate_submit, #event_submit {
   @extend .button_large;
   @extend .right;
   

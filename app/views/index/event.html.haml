@@ -1,3 +1,6 @@
+- if admin_signed_in?
+  .right.minilink= link_to 'edit', edit_admin_event_path(@event), :class => "link_edit-record"
+  .clear
 %h2= @event.name
 %p= image_tag @event.actual_logo if @event.actual_logo.present?
 %h3 Event dates
@@ -19,8 +22,9 @@
   - unless @event.address2.blank?
     = @event.address2
     %br
-  == #{@event.city}, #{@event.state} #{@event.zip_code}
-  %br
+  - if @event.city.present? || @event.state.present? || @event.zip_code.present?
+    == #{@event.city}#{", " if @event.city.present?}#{@event.state} #{@event.zip_code}
+    %br
   - unless @event.country.blank?
     = @event.country
 %p= @event.description
