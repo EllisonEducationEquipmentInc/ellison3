@@ -541,6 +541,21 @@ namespace :data_migrations do
     end
   end
   
+  desc "fix eeus quotes - NO NEED TO RUN"
+  task :fix_eeus_quotes => [:set_edu, :load_dep] do
+    set_current_system "eeus"
+    Quote.where(:system => 'eeus', :user_id.exists => false).each do |quote|
+      old_quote = OldData::Quote.find_by_quote quote.quote_number
+      new_user = User.where(:old_id_eeus => old_quote.user_id).first
+      if new_user
+        quote.update_attribute :user_id, new_user.id
+        p "-------- #{new_user.old_id_eeus} #{quote.quote_number}----------"        
+      else
+        p "-------- user of #{quote.quote_number} was not found ----------"
+      end
+    end
+  end
+  
   desc "migrate SZUS orders"
   task :orders_szus => :load_dep do
     set_current_system "szus"
