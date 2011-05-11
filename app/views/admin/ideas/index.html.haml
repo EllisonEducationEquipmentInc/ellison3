@@ -1,6 +1,11 @@
 %h2 Listing ideas
 = link_to 'New idea', new_admin_idea_path, :class => 'jqui_new' if has_write_permissions?
 %br
+%br
+= form_tag(admin_ideas_path, :method => :get) do
+  = text_field_tag :idea_num, nil, :placeholder => "idea num"
+  = submit_tag "edit", :class => 'jqui_search'
+%br
 %h3 Filters
 - unless params[:q].blank?
   = link_to 'all', admin_ideas_path, :class => 'jqui_button'

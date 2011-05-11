@@ -8,6 +8,10 @@ class Admin::IdeasController < ApplicationController
 	ssl_exceptions
 	
 	def index
+	  if params[:idea_num] && params[:idea_num] =~ /^(a|A)*[0-9]{3,6}($|-[a-zA-Z0-9\.]{1,10}$)/
+	    @idea = Idea.where(:idea_num => params[:idea_num]).first
+	    redirect_to(edit_admin_idea_path(@idea)) and return if @idea
+	  end
 	  criteria = Mongoid::Criteria.new(Idea)
 	  criteria = criteria.where :deleted_at => nil
 	  criteria = if params[:systems_enabled].blank?
