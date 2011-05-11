@@ -267,7 +267,7 @@ private
 
   def inherit_system_specific_attributes
     self.systems_enabled.reject {|e| e == current_system}.each do |sys|
-      %w(start_date end_date).each do |m|
+      %w(start_date end_date calendar_start_date calendar_end_date).each do |m|
         self.send("#{m}_#{sys}=", read_attribute("#{m}_#{current_system}")) if read_attribute("#{m}_#{sys}").blank?
       end      
     end
