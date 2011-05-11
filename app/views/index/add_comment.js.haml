@@ -2,6 +2,7 @@ Recaptcha.reload();
 - if recaptcha_valid? && @feedback.save
   == $("#feedback_history").append("#{escape_javascript render(@comment)}");
   $('#contact_form').clearForm();
+  alert('Thank you for your comments. Your message has been sent.');
 - else
   - if recaptcha_valid?
     == alert('#{escape_javascript @feedback.errors.full_messages.join("\n")}');
