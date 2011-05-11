@@ -24,7 +24,7 @@
     %br
     = f.text_field :name
   .field
-    = f.label :sponsor
+    = f.label :sponsor, "Sponsor <span class='formhelp'>Enter complete Sponsor details including address, phone, email address and website URL if applicable.</span>".html_safe, :class => "autosize"
     %br
     = f.text_area :sponsor, :class => 'wymeditor'
   .field
@@ -68,7 +68,7 @@
     %br
     = f.select :country, countries
   .field
-    = f.label :uploaded_logo_url
+    = f.label :uploaded_logo_url, :class => "autosize"
     %br
     = f.text_field :uploaded_logo_url
   .field
@@ -80,7 +80,7 @@
     = f.label :remove_logo
     = f.check_box :remove_logo
   .field
-    = f.label :uploaded_image_url
+    = f.label :uploaded_image_url, :class => "autosize"
     %br
     = f.text_field :uploaded_image_url
   .field

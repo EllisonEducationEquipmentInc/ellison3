@@ -28,6 +28,10 @@
   - unless @event.country.blank?
     = @event.country
 %p= @event.description
-%p= image_tag @event.actual_image if @event.actual_image.present?
+%p
+  - if @event.actual_image.present?
+    = image_tag @event.actual_image
+  - else
+    = image_tag "/images/events/_#{current_system}_default.jpg"
 %p= @event.sponsor.html_safe
-
+= link_to "Back to Events List", events_path, :class => "link_back minilink"
