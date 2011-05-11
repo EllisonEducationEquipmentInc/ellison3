@@ -1137,7 +1137,7 @@ namespace :data_migrations do
   desc "migrate ER quotes"
   task :quotes_er => [:set_er, :load_dep] do
     set_current_system "erus"
-    OldData::Quote.find_each(:conditions => "id > 0") do |order|
+    OldData::Quote.find_each(:conditions => "id > 0") do |old_order|
       process_new_quote(old_order, :old_id_er, :old_id_er, :old_id_er)
     end
     p Time.zone.now
