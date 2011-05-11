@@ -30,11 +30,10 @@ private
   
   def list_szuk
     [
-      Navigation.new("Products", "/catalog"), 
-      Navigation.new("Projects", "/lp/categories?ideas=1"), 
+      Navigation.new("Sizzix Products", "/catalog"), 
+      Navigation.new("Craft Projects", "/lp/categories?ideas=1"), 
       Navigation.new("Promotions", "/campaigns"),
       Navigation.new("Featured", "#"),
-      Navigation.new("Community", "#"),
       Navigation.new("Support", "#")
     ]
   end
