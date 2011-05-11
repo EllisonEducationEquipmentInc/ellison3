@@ -1,22 +1,29 @@
-= image_tag "/images/ui-objects/banner_eve.png"
-= image_tag @event.actual_logo if @event.actual_logo.present?
-%p= @event.name
+%h2= @event.name
+%p= image_tag @event.actual_logo if @event.actual_logo.present?
 %h3 Event dates
-= l @event.event_start_date, :format => :date
-through
-= l @event.event_end_date, :format => :date
+%p
+  = l @event.event_start_date, :format => :date
+  through
+  = l @event.event_end_date, :format => :date
 %h3 Location
 %p
-  = @event.location
-  = @event.booth
-  = @event.address1
-  = @event.address2
-  = @event.city
-  = @event.state
-  = @event.zip_code
-  = @event.country
-= @event.description
-.right
-  = image_tag @event.actual_image if @event.actual_image.present?
-  = @event.sponsor.html_safe
+  - unless @event.location.blank?
+    = @event.location
+    %br
+  - unless @event.booth.blank?
+    = @event.booth
+    %br
+  - unless @event.address1.blank?
+    = @event.address1
+    %br
+  - unless @event.address2.blank?
+    = @event.address2
+    %br
+  == #{@event.city}, #{@event.state} #{@event.zip_code}
+  %br
+  - unless @event.country.blank?
+    = @event.country
+%p= @event.description
+%p= image_tag @event.actual_image if @event.actual_image.present?
+%p= @event.sponsor.html_safe
 
