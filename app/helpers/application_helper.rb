@@ -340,5 +340,17 @@ HTML
     end
     return zone_label
   end
+  
+  def cache_unless(condition, name = {}, options = {:expires_in => 3.hour}, &block)
+    cache_if(!condition, name, options, &block)
+  end
+
+  def cache_if(condition, name = {}, options = {:expires_in => 3.hour}, &block)
+    if condition 
+      cache(name, options, &block)
+    else
+      yield
+    end
+  end
 	
 end

@@ -34,7 +34,7 @@ class IndexController < ApplicationController
     end
     raise "Invalid product" unless @product.displayable?
     @title = @product.name
-    unless fragment_exist? [@product, current_system, current_locale, @product.price, Product.retailer_discount_level, request.xhr?]
+    unless fragment_exist? [@product, current_system, current_locale, @product.price, Product.retailer_discount_level, ecommerce_allowed?, request.xhr?]
       @keywords = @product.keywords if @product.keywords.present?
       @keywords << @product.tags.keywords.map {|e| e.name} * ', '
       @description = @product.description if @product.description.present?
@@ -58,7 +58,7 @@ class IndexController < ApplicationController
     end
     raise "Invalid idea" unless @idea.listable?
     @title = @idea.name
-    unless fragment_exist? [@idea, current_system, current_locale, Product.retailer_discount_level]
+    unless fragment_exist? [@idea, current_system, current_locale, Product.retailer_discount_level, ecommerce_allowed?]
       @keywords = @idea.keywords if @idea.keywords.present?
       @keywords << @idea.tags.keywords.map {|e| e.name} * ', '
       @description = @idea.description if @idea.description.present?
@@ -118,9 +118,11 @@ class IndexController < ApplicationController
       @search_phrase = SearchPhrase.available.where(:phrase => params[:q]).first
       render :js => "location.href='#{@search_phrase.destination}'" and return if @search_phrase
     end
-    get_search
     session[:continue_shopping] = session[:user_return_to] = catalog_path + "#" + request.env["QUERY_STRING"]
-    @products = @search.results
+    if params[:q].present? || !fragment_exist?([params.to_params.gsub("%", ":"), current_system, current_locale, ecommerce_allowed?, Product.retailer_discount_level])
+      get_search
+      @products = @search.results
+    end
     expires_in 1.hours, 'max-stale' => 1.hours
   end
   
