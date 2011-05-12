@@ -353,4 +353,7 @@ HTML
     end
   end
 	
+	def is_corp_site?
+	  params[:tp] == "c"
+	end
 end

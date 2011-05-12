@@ -1,106 +1,136 @@
 .dontprint
   -# logo masthead & branding
   %h1.masthead  
-    = link_to system_name, root_path, :id => "logo_masthead", :title => system_name, :alt => system_name
-
-  -# utility navigation menu (customer account management, shopping cart, UK currency selector, etc)  
-  %ul#nav_utility_user
-    - if is_uk? && !@cart_locked
-      %li{:style => "padding-left: 0"}
-        = link_to "#", :class => "btn-locale", :onclick => "return false;", :title => "switch currency", :alt => "switch currency" do
-          %span= image_tag("/images/ui-icons/flags/24/#{current_locale}.png")
-    - if user_signed_in?
-      %li= link_to "<span>Sign Out</span>".html_safe, destroy_session_path('user'), :class => "btn-signout", :title => "Sign Out", :alt => "Sign Out" 
-      %li= link_to "<span>#{admin_signed_in? ? 'Customer\'s' : 'My'} Account</span>".html_safe, myaccount_path(:secure => true), :class => "btn-myaccount", :title => "My Account", :alt => "My Account"
-    - else
-      %li= link_to "<span>Sign Up</span>".html_safe, signin_signup_path, :class => "lightbox btn-signup", :title => "Sign Up", :alt => "Sign Up"
-      %li.plaintext= link_to "<span>or</span>".html_safe, signin_signup_path, :class => "btn-plaintext", :onclick => "return false"
-      %li= link_to "<span>Sign In</span>".html_safe, signin_signup_path, :class => "lightbox btn-signin", :title => "Sign In", :alt => "Sign In"
-    %li= link_to "<span>Contact Us</span>".html_safe, "/contact", :class => "btn-contact", :title => "Contact Us", :alt => "Contact Us"
-    - if is_sizzix_us?
-      %li= link_to "<span>Support</span>".html_safe, "/support", :class => "btn-support", :title => "Support", :alt => "Support"
-    -#%li= link_to "<span>Community</span>".html_safe, "/contact", :class => "btn-community", :title => "Community", :alt => "Community"
-    -#%li= link_to "<span>Store Locator</span>".html_safe, "/stores", :class => "btn-storelocator", :title => "Store Locator", :alt => "Store Locator"
-    - if is_sizzix_us?
-    / %li= link_to "<span>Limited Time Offers</span>".html_safe, "#", :class => "btn-offers", :title => "Limited Time Offers", :alt => "Limited Time Offers"
-  - if is_uk?
-    :javascript
-      $(document).ready(function(){
-        $('.btn-locale').CreateBubblePopup({
-          position: 'bottom',
-          align: 'right',
-          tail: {
+    = link_to system_name, root_path, :id => "logo_masthead#{is_corp_site? ? '_corporate' : nil}", :title => system_name, :alt => system_name
+  
+  - unless is_corp_site?
+    -# utility navigation menu (customer account management, shopping cart, UK currency selector, etc)  
+    %ul#nav_utility_user
+      - if is_uk? && !@cart_locked
+        %li{:style => "padding-left: 0"}
+          = link_to "#", :class => "btn-locale", :onclick => "return false;", :title => "switch currency", :alt => "switch currency" do
+            %span= image_tag("/images/ui-icons/flags/24/#{current_locale}.png")
+      - if user_signed_in?
+        %li= link_to "<span>Sign Out</span>".html_safe, destroy_session_path('user'), :class => "btn-signout", :title => "Sign Out", :alt => "Sign Out" 
+        %li= link_to "<span>#{admin_signed_in? ? 'Customer\'s' : 'My'} Account</span>".html_safe, myaccount_path(:secure => true), :class => "btn-myaccount", :title => "My Account", :alt => "My Account"
+      - else
+        %li= link_to "<span>Sign Up</span>".html_safe, signin_signup_path, :class => "lightbox btn-signup", :title => "Sign Up", :alt => "Sign Up"
+        %li.plaintext= link_to "<span>or</span>".html_safe, signin_signup_path, :class => "btn-plaintext", :onclick => "return false"
+        %li= link_to "<span>Sign In</span>".html_safe, signin_signup_path, :class => "lightbox btn-signin", :title => "Sign In", :alt => "Sign In"
+      %li= link_to "<span>Contact Us</span>".html_safe, "/contact", :class => "btn-contact", :title => "Contact Us", :alt => "Contact Us"
+      - if is_sizzix_us?
+        %li= link_to "<span>Support</span>".html_safe, "/support", :class => "btn-support", :title => "Support", :alt => "Support"
+      -#%li= link_to "<span>Community</span>".html_safe, "/contact", :class => "btn-community", :title => "Community", :alt => "Community"
+      -#%li= link_to "<span>Store Locator</span>".html_safe, "/stores", :class => "btn-storelocator", :title => "Store Locator", :alt => "Store Locator"
+      - if is_sizzix_us?
+      / %li= link_to "<span>Limited Time Offers</span>".html_safe, "#", :class => "btn-offers", :title => "Limited Time Offers", :alt => "Limited Time Offers"
+    - if is_uk?
+      :javascript
+        $(document).ready(function(){
+          $('.btn-locale').CreateBubblePopup({
+            position: 'bottom',
             align: 'right',
-            hidden: false
-          },
-          selectable: true,
-          innerHtml: '#{link_to_unless current_currency == "gbp", image_tag("/images/ui-buttons/currency_en-UK.png", :title => "#{current_currency == "gbp" ? "currently set" : "switch"} to British Pounds", :alt => "#{current_currency == "gbp" ? "currently set" : "switch"} to British Pounds"), "?#{request.query_parameters.merge("locale" => "en-UK").to_params}"}<br />#{link_to_unless current_currency == "eur", image_tag("/images/ui-buttons/currency_en-EU.png", :title => "#{current_currency == "eur" ? "currently set" : "switch"} to the Euro", :alt => "#{current_currency == "eur" ? "currently set" : "switch"} to the Euro"), "?#{request.query_parameters.merge("locale" => "en-EU").to_params}"}',
-          innerHtmlStyle: {
-            color: '#FFFFFF',
-            'text-align': 'center'
-          },
-          themeName: 'azure',
-          themePath: '/images/ui-plugins/bubblepopup'
+            tail: {
+              align: 'right',
+              hidden: false
+            },
+            selectable: true,
+            innerHtml: '#{link_to_unless current_currency == "gbp", image_tag("/images/ui-buttons/currency_en-UK.png", :title => "#{current_currency == "gbp" ? "currently set" : "switch"} to British Pounds", :alt => "#{current_currency == "gbp" ? "currently set" : "switch"} to British Pounds"), "?#{request.query_parameters.merge("locale" => "en-UK").to_params}"}<br />#{link_to_unless current_currency == "eur", image_tag("/images/ui-buttons/currency_en-EU.png", :title => "#{current_currency == "eur" ? "currently set" : "switch"} to the Euro", :alt => "#{current_currency == "eur" ? "currently set" : "switch"} to the Euro"), "?#{request.query_parameters.merge("locale" => "en-EU").to_params}"}',
+            innerHtmlStyle: {
+              color: '#FFFFFF',
+              'text-align': 'center'
+            },
+            themeName: 'azure',
+            themePath: '/images/ui-plugins/bubblepopup'
+          });
         });
+
+    -# shopping cart
+    #shoppingcart_icon= link_to image_tag("/images/ui-objects/_#{current_system}_shoppingcart#{ (get_cart.total_quantity > 0 && is_ee? ) ? '-full' : nil }.png", :border =>0, :alt => "Shopping #{cart_name.capitalize}"), cart_path, :title => "View #{cart_name.capitalize}", :alt => "View #{cart_name.capitalize}"
+    #shoppingcart_info
+      #cartspinner= spinner
+    :javascript
+      $('#shoppingcart_info').load('/carts/shopping_cart');
+
+    -# search bar
+    %form#searchbar{:action => "/catalog", :method => "get", :name => "searchbar", :autocomplete => 'off' }
+      %input{ :class =>"textfield noautocomplete", :name => "q", :id => "q", :type => "text", :value => "Search for #{is_sizzix? ? 'Sizzix ' : is_ee? ? 'Ellison ' : nil }Products &amp; #{is_ee? ? 'Lessons' : 'Projects'}", :autocomplete => 'off', :onfocus => "if (this.value == 'Search for #{is_sizzix? ? 'Sizzix ' : is_ee? ? 'Ellison ' : nil }Products &amp; #{is_ee? ? 'Lessons' : 'Projects'}'){this.value='';};$(this).attr('autocomplete', 'off');", :onblur => "if (this.value == ''){this.value='Search for #{is_sizzix? ? 'Sizzix ' : is_ee? ? 'Ellison ' : nil }Products &amp; #{is_ee? ? 'Lessons' : 'Projects'}';}" }  
+      - if is_sizzix_uk?
+        %input{ :class => "submitbutton", :name => "submit", :src => "/images/ui-icons/set_fugue_custom/24x24/drop-shadow/szuk_magnifier-left.png", :type => "image", :height => "29", :width => "37"}
+      - else
+        %input{ :class => "submitbutton", :name => "submit", :src => "/images/ui-icons/set_fugue/24x24/drop-shadow/magnifier-left.png", :type => "image", :height => "24", :width => "24"}
+    :javascript
+      $("input.textfield").addClass("idlefield");
+      $("input.textfield").focus(function(){
+        $(this).addClass("activefield").removeClass("idlefield");
+      }).blur(function(){
+        $(this).removeClass("activefield").addClass("idlefield");
       });
-
-  -# shopping cart
-  #shoppingcart_icon= link_to image_tag("/images/ui-objects/_#{current_system}_shoppingcart#{ (get_cart.total_quantity > 0 && is_ee? ) ? '-full' : nil }.png", :border =>0, :alt => "Shopping #{cart_name.capitalize}"), cart_path, :title => "View #{cart_name.capitalize}", :alt => "View #{cart_name.capitalize}"
-  #shoppingcart_info
-    #cartspinner= spinner
-  :javascript
-    $('#shoppingcart_info').load('/carts/shopping_cart');
-
-  -# search bar
-  %form#searchbar{:action => "/catalog", :method => "get", :name => "searchbar", :autocomplete => 'off' }
-    %input{ :class =>"textfield noautocomplete", :name => "q", :id => "q", :type => "text", :value => "Search for #{is_sizzix? ? 'Sizzix ' : is_ee? ? 'Ellison ' : nil }Products &amp; #{is_ee? ? 'Lessons' : 'Projects'}", :autocomplete => 'off', :onfocus => "if (this.value == 'Search for #{is_sizzix? ? 'Sizzix ' : is_ee? ? 'Ellison ' : nil }Products &amp; #{is_ee? ? 'Lessons' : 'Projects'}'){this.value='';};$(this).attr('autocomplete', 'off');", :onblur => "if (this.value == ''){this.value='Search for #{is_sizzix? ? 'Sizzix ' : is_ee? ? 'Ellison ' : nil }Products &amp; #{is_ee? ? 'Lessons' : 'Projects'}';}" }  
-    - if is_sizzix_uk?
-      %input{ :class => "submitbutton", :name => "submit", :src => "/images/ui-icons/set_fugue_custom/24x24/drop-shadow/szuk_magnifier-left.png", :type => "image", :height => "29", :width => "37"}
-    - else
-      %input{ :class => "submitbutton", :name => "submit", :src => "/images/ui-icons/set_fugue/24x24/drop-shadow/magnifier-left.png", :type => "image", :height => "24", :width => "24"}
-  :javascript
-    $("input.textfield").addClass("idlefield");
-    $("input.textfield").focus(function(){
-      $(this).addClass("activefield").removeClass("idlefield");
-    }).blur(function(){
-      $(this).removeClass("activefield").addClass("idlefield");
-    });
     
-    $('#q').change(function() {        
-      $(this).removeClass("activefield").addClass("idlefield");
-    });
-    $("#q").autocomplete({
-    	source: function(request, response) {
-    	  $.ajax({
-        	url: "/#{current_system}_solr_terms/"+request.term,
-        	dataType: 'text json',
-        	data: {},
-        	success: function( data ) {response($.map(data.terms[0][1],function(n,i){return n[0]}))}
-        });
-    	},
-    	search: function() {
-    		if (this.value.length < 1) {
-    			return false;
-    		}
-    	},
-    	focus: function( event, ui ) {
-              $(this).val( ui.item.label );
-      				return false;
-      			},
-    	select: function(event, ui) {
-    	  this.value = ui.item.value;
-    	  $(this.form).trigger('submit');
-    		return false;
-    	}});
-    $('#searchbar').submit(function() {
-      var default_value = "Search for #{is_sizzix? ? 'Sizzix ' : is_ee? ? 'Ellison ' : nil }Products & #{is_ee? ? 'Lessons' : 'Projects'}";
-      var search_value = $('#q').val();
-      if (search_value == default_value) {
-        return false;
-      } else {
-        location.href = 'http://'+location.host+'/catalog#q='+$('#q').val();return false;
+      $('#q').change(function() {        
+        $(this).removeClass("activefield").addClass("idlefield");
+      });
+      $("#q").autocomplete({
+      	source: function(request, response) {
+      	  $.ajax({
+          	url: "/#{current_system}_solr_terms/"+request.term,
+          	dataType: 'text json',
+          	data: {},
+          	success: function( data ) {response($.map(data.terms[0][1],function(n,i){return n[0]}))}
+          });
+      	},
+      	search: function() {
+      		if (this.value.length < 1) {
+      			return false;
+      		}
+      	},
+      	focus: function( event, ui ) {
+                $(this).val( ui.item.label );
+        				return false;
+        			},
+      	select: function(event, ui) {
+      	  this.value = ui.item.value;
+      	  $(this.form).trigger('submit');
+      		return false;
+      	}});
+      $('#searchbar').submit(function() {
+        var default_value = "Search for #{is_sizzix? ? 'Sizzix ' : is_ee? ? 'Ellison ' : nil }Products & #{is_ee? ? 'Lessons' : 'Projects'}";
+        var search_value = $('#q').val();
+        if (search_value == default_value) {
+          return false;
+        } else {
+          location.href = 'http://'+location.host+'/catalog#q='+$('#q').val();return false;
+        }
+      });
+  - else
+    #region_select= select_tag :region, options_for_select(["United States", "Canada", "Mexico", "United Kingdom", "Netherlands", "Germany", "Brazil", "Columbia", "Chile", "Costa Rica", "Venezuela", "Puerto Rico", "Japan", "China"] , params[:region]), :onchange => "change_region_content(this.value);"
+    :javascript
+      function change_region_content(region) {
+        var static_page;
+        switch(region) {
+          case 'Mexico':
+          case 'Brazil':
+          case 'Columbia':
+          case 'Chile':
+          case 'Costa Rica':
+          case 'Venezuela':
+          case 'Puerto Rico':
+            static_page = "/corp_latinamerica";
+            break;
+          case 'United Kingdom':
+          case 'Netherlands':
+          case 'Germany':
+            static_page = "/corp_europe";
+            break;
+          case 'United States':
+          case 'Canada':
+            static_page = "/corp_northamerica";
+            break;
+          default:
+            static_page = "/corp_northamerica";
+        };
+        location.href = 'http://'+location.host+static_page+'?tp=c&system=erus';return false;
       }
-    });
 
 #printmasthead.dontdisplay
   %h1== #{system_name.capitalize}.com

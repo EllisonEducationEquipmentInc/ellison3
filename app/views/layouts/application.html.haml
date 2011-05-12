@@ -19,7 +19,7 @@
         .main
           #header
             = render "layouts/masthead"
-            = render "layouts/meganav"
+            = render "layouts/meganav" unless is_corp_site?
           #content
             = render "layouts/content"
         .design-gutter.dontprint.last

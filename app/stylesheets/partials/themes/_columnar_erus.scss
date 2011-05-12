@@ -29,6 +29,12 @@ body.bp {
   	margin: 0px;
   	text-indent: -9999em;
   }
+
+  #logo_masthead_corporate { @extend #logo_masthead;
+  	background: url("/images/ui-logos/_#{$system}_masthead_corporate.png") no-repeat;
+  	margin-top: 20px;
+  	width: 340px; 
+  }
   
   .nav_utility {
     
