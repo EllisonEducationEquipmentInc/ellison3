@@ -2,7 +2,7 @@
   = link_to 'back', session[:continue_shopping], :class => "link_back" if session[:continue_shopping].present?
   - if admin_signed_in?
     .right= link_to 'edit', edit_admin_idea_path(@idea), :class => "link_edit-record"
-- cache [@idea, current_system, current_locale, Product.retailer_discount_level, ecommerce_allowed?], :expires_in => 30.minutes do
+- cache [@idea, current_system, current_locale, Product.retailer_discount_level, ecommerce_allowed?], :expires_in => 10.minutes do
   .item_images
     #large_image= image_tag(@idea.large_image)
     .thumbnail_carousel.dontprint
