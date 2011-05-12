@@ -196,9 +196,11 @@ class IndexController < ApplicationController
   
   def videos
     @title = "Videos"
-    get_videos
-    @recent_uploads = Rails.cache.fetch("recent_uploads_#{current_system}", :expires_in => 60.minutes) do
-      @client.videos_by(:author => youtube_user, :order_by => 'published', :time => 'this_month', :per_page => 2).videos
+    unless fragment_exist? "videos_page_#{current_system}"
+      get_videos
+      @recent_uploads = Rails.cache.fetch("recent_uploads_#{current_system}", :expires_in => 60.minutes) do
+        @client.videos_by(:author => youtube_user, :order_by => 'published', :time => 'this_month', :per_page => 2).videos
+      end
     end
   end
   
