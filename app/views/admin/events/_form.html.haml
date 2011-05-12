@@ -1,103 +1,111 @@
 = form_for([:admin, @event], :html => {:multipart => true}) do |f|
   = f.error_messages
-  .field
-    = f.label :systems_enabled
-    = system_enabled('event')
-  .field
-    = f.label :active
-    %br
-    = f.check_box :active
-  .field
-    = f.label "start_date"
-    %br
-    = f.text_field "start_date", :class => 'datetimepicker'
-  .field
-    = f.label "end_date"
-    %br
-    = f.text_field "end_date", :class => 'datetimepicker'
-  .field
-    = f.label :event_number
-    %br
-    = f.text_field :event_number
-  .field
-    = f.label :name
-    %br
-    = f.text_field :name
+  
+  %hr
+  %h3.contentwrap_XXXL.last System Visibility
+  .contentwrap_large
+    .field
+      = f.label :active, "This event is", :class => "autosize"
+      active
+      = f.radio_button(:active, true)
+      disabled
+      = f.radio_button(:active, false)
+    .field
+      = required_label f, :systems_enabled, { :label => "Enabled for", :label_size => "auto" }
+      = system_enabled('event')
+  .contentwrap_large.last
+    .field
+      = required_label f, "start_date", { :label => "<span class='icon_datefield'>Start Date</span>".html_safe, :label_size => "135px" }
+      = f.text_field "start_date", :class => 'datetimepicker'
+    .field
+      = required_label f, "end_date", { :label => "<span class='icon_datefield'>End Date</span>".html_safe, :label_size => "135px" }
+      = f.text_field "end_date", :class => 'datetimepicker'
+
+  %hr
+  %h3.contentwrap_XXXL.last Basic Information
+  .contentwrap_large
+    .field
+      = required_label f, :name
+      = f.text_field :name
+    .field
+      = required_label f, :event_number
+      = f.text_field :event_number
+    .field
+      = f.label :location
+      = f.text_field :location
+    .field
+      = f.label :booth
+      = f.text_field :booth
+    .field
+      = f.label :address1
+      = f.text_field :address1
+    .field
+      = f.label :address2
+      = f.text_field :address2
+    .field
+      = f.label :city
+      = f.text_field :city
+    .field
+      = f.label :state
+      = f.text_field :state
+    .field
+      = f.label :zip_code
+      = f.text_field :zip_code
+    .field
+      = f.label :country
+      = f.select :country, countries
+
+  .contentwrap_large.last
+    .field
+      = required_label f, "event_start_date", { :label => "<span class='icon_datefield'>Event Start Date</span>".html_safe, :label_size => "135px" }
+      = f.text_field "event_start_date", :class => 'datetimepicker'
+    .field
+      = required_label f, "event_end_date", { :label => "<span class='icon_datefield'>Event End Date</span>".html_safe, :label_size => "135px" }
+      = f.text_field "event_end_date", :class => 'datetimepicker'
+    %hr
+    .field
+      = required_label f, :description
+      %br
+      = f.text_area :description, :rows => 8, :cols => 57
+    .field
+      = f.label :keywords
+      %br
+      = f.text_area :keywords, :rows => 2, :cols => 57
+
+  %hr
+  %h3.contentwrap_XXXL.last Event Images
+  .contentwrap_large
+    .field
+      = f.label :uploaded_image_url, "<span class='icon_imagefield'>Uploaded Image URL</span>".html_safe, :style => "width: 150px"
+      = f.text_field :uploaded_image_url
+    .field
+      = f.label :image, "<span class='icon_imagefield'>Image</span>".html_safe, :style => "width: 150px"
+      = image_tag(@event.image_url(:event)) if @event.image? 
+      = f.file_field :image
+      = f.hidden_field :image_cache
+    .field
+      = f.check_box :remove_image, :style => "margin-left: 160px"
+      = f.label :remove_image
+    %p.formhelp== If no image is specified, #{link_to "this default image", "http://#{request.host_with_port}/images/events/_#{current_system}_default.jpg", :class => "lightbox link_image-fullsize"} will be used.
+  .content_large.last
+    .field
+      = f.label :uploaded_logo_url, "<span class='icon_imagefield'>Uploaded Logo URL</span>".html_safe, :style => "width: 140px"
+      = f.text_field :uploaded_logo_url
+    .field
+      = f.label :logo, "<span class='icon_imagefield'>Logo</span>".html_safe, :style => "width: 140px"
+      = image_tag(@event.logo_url(:logo)) if @event.logo? 
+      = f.file_field :logo
+      = f.hidden_field :logo_cache
+    .field
+      = f.check_box :remove_logo, :style => "margin-left: 150px"
+      = f.label :remove_logo
+
+  %hr
   .field
     = f.label :sponsor, "Sponsor <span class='formhelp'>Enter complete Sponsor details including address, phone, email address and website URL if applicable.</span>".html_safe, :class => "autosize"
     %br
     = f.text_area :sponsor, :class => 'wymeditor'
-  .field
-    = f.label "event_start_date"
-    %br
-    = f.text_field "event_start_date", :class => 'datetimepicker'
-  .field
-    = f.label "event_end_date"
-    %br
-    = f.text_field "event_end_date", :class => 'datetimepicker'
-  .field
-    = f.label :location
-    %br
-    = f.text_field :location
-  .field
-    = f.label :booth
-    %br
-    = f.text_field :booth
-  .field
-    = f.label :address1
-    %br
-    = f.text_field :address1
-  .field
-    = f.label :address2
-    %br
-    = f.text_field :address2
-  .field
-    = f.label :city
-    %br
-    = f.text_field :city
-  .field
-    = f.label :state
-    %br
-    = f.text_field :state
-  .field
-    = f.label :zip_code
-    %br
-    = f.text_field :zip_code
-  .field
-    = f.label :country
-    %br
-    = f.select :country, countries
-  .field
-    = f.label :uploaded_logo_url, :class => "autosize"
-    %br
-    = f.text_field :uploaded_logo_url
-  .field
-    = f.label :logo
-    = image_tag(@event.logo_url(:logo)) if @event.logo? 
-    = f.file_field :logo
-    = f.hidden_field :logo_cache
-    %br
-    = f.label :remove_logo
-    = f.check_box :remove_logo
-  .field
-    = f.label :uploaded_image_url, :class => "autosize"
-    %br
-    = f.text_field :uploaded_image_url
-  .field
-    = f.label :image
-    = image_tag(@event.image_url(:event)) if @event.image? 
-    = f.file_field :image
-    = f.hidden_field :image_cache
-    %br
-    = f.label :remove_image
-    = f.check_box :remove_image
-  .field
-    = f.label :keywords
-    %br
-    = f.text_field :keywords
-  .field
-    = f.label :description
-    %br
-    = f.text_area :description
+    
+  .clear
   .actions
     = f.submit :class => 'wymupdate jqui_save'
