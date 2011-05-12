@@ -1,37 +1,40 @@
 - if admin_signed_in?
   .right.minilink= link_to 'edit', edit_admin_event_path(@event), :class => "link_edit-record"
   .clear
-%h2= @event.name
-%p= image_tag @event.actual_logo if @event.actual_logo.present?
-%h3 Event dates
-%p
-  = l @event.event_start_date, :format => :date
-  through
-  = l @event.event_end_date, :format => :date
-%h3 Location
-%p
-  - unless @event.location.blank?
-    = @event.location
-    %br
-  - unless @event.booth.blank?
-    = @event.booth
-    %br
-  - unless @event.address1.blank?
-    = @event.address1
-    %br
-  - unless @event.address2.blank?
-    = @event.address2
-    %br
-  - if @event.city.present? || @event.state.present? || @event.zip_code.present?
-    == #{@event.city}#{", " if @event.city.present?}#{@event.state} #{@event.zip_code}
-    %br
-  - unless @event.country.blank?
-    = @event.country
-%p= @event.description
-%p
-  - if @event.actual_image.present?
-    = image_tag @event.actual_image
-  - else
-    = image_tag "/images/events/_#{current_system}_default.jpg"
-%p= @event.sponsor.html_safe
+.event_info
+  %h2= @event.name
+  %p= image_tag @event.actual_logo if @event.actual_logo.present?
+  %h3 Event dates
+  %p
+    = l @event.event_start_date, :format => :date
+    through
+    = l @event.event_end_date, :format => :date
+  %h3 Location
+  %p
+    - unless @event.location.blank?
+      = @event.location
+      %br
+    - unless @event.booth.blank?
+      = @event.booth
+      %br
+    - unless @event.address1.blank?
+      = @event.address1
+      %br
+    - unless @event.address2.blank?
+      = @event.address2
+      %br
+    - if @event.city.present? || @event.state.present? || @event.zip_code.present?
+      == #{@event.city}#{", " if @event.city.present?}#{@event.state} #{@event.zip_code}
+      %br
+    - unless @event.country.blank?
+      = @event.country
+  %p= @event.description
+.event_detail.ui-corner-all
+  %p
+    - if @event.actual_image.present?
+      = image_tag @event.actual_image
+    - else
+      = image_tag "/images/events/_#{current_system}_default.jpg"
+  %h3 Event Manager/Sponsor
+  = @event.sponsor.html_safe
 = link_to "Back to Events List", events_path, :class => "link_back minilink"

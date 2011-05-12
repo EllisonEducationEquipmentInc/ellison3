@@ -185,8 +185,17 @@ ul.videolist { @extend ul.plain;
 .eventstitleimg {
   width:161px; height:142px; float:right; margin-bottom:14px;
 }
-.eventshdr {
-  border-bottom: 1px dotted #E3DDCE; margin-bottom:6px;
+
+.event_detail {
+  @extend .right;
+  padding: 6px;
+  background-color: $catalog_buybox_bg;
+  border: 1px solid $catalog_buybox_border;
+}
+
+.event_info {
+  @extend .left;
+  width: 600px;
 }
 
 // Store Locator page
