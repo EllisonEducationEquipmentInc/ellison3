@@ -1888,8 +1888,40 @@ namespace :data_migrations do
     p "test 2 #{OldData::Product.count}"
   end
   
+  desc "test SZUS"
+  task :test_szus => [:load_dep] do
+    p "testing szus... "
+    p "database: #{ActiveRecord::Base.connection.current_database}"
+    p "# of products: #{OldData::Product.count}"
+  end
   
-
+  desc "test SZUK"
+  task :test_szuk => [:set_szuk, :load_dep] do
+    p "testing szuk... "
+    p "database: #{ActiveRecord::Base.connection.current_database}"
+    p "# of products: #{OldData::Product.count}"
+  end
+  
+  desc "test EEUS"
+  task :test_eeus => [:set_eeus, :load_dep] do
+    p "testing eeus... "
+    p "database: #{ActiveRecord::Base.connection.current_database}"
+    p "# of products: #{OldData::Product.count}"
+  end
+  
+  desc "test ERUS"
+  task :test_erus => [:set_erus, :load_dep] do
+    p "testing erus... "
+    p "database: #{ActiveRecord::Base.connection.current_database}"
+    p "# of products: #{OldData::Product.count}"
+  end
+  
+  desc "test EEUK"
+  task :test_eeuk => [:set_eeuk, :load_dep] do
+    p "testing eeuk... "
+    p "database: #{ActiveRecord::Base.connection.current_database}"
+    p "# of products: #{OldData::Product.count}"
+  end
   
   desc "change ER to ERUS in the db"
   task :er_to_erus => :environment do
@@ -2049,17 +2081,17 @@ EOF
     $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/lib/technoweenie/attachment_fu/backends/')
     $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/lib/technoweenie/attachment_fu/processors/')
     
-    db = get_db ENV['SYSTEM']
-    #db = get_db_ey ENV['SYSTEM']  # uncomment this line on EY, and also change ActiveRecord::Base.establish_connection parameters below!
+    #db = get_db ENV['SYSTEM']
+    db = get_db_ey ENV['SYSTEM']  # uncomment this line on EY, and also change ActiveRecord::Base.establish_connection parameters below!
 
     ActiveRecord::Base.default_timezone = :utc
     ActiveRecord::Base.time_zone_aware_attributes = true
             
     ActiveRecord::Base.establish_connection(
         :adapter  => "mysql",
-        :host     => "192.168.1.126", #"ellison-mysql-production-master"
-        :username => "ruby", #"ellison_db"
-        :password => "ellison123", #"Yh4XS3Sy"
+        :host     => "ellison-mysql-production-master", #"192.168.1.126", #"ellison-mysql-production-master"
+        :username => "ellison_db", #"ruby", #"ellison_db"
+        :password => "Yh4XS3Sy",  #"ellison123", #"Yh4XS3Sy"
         :database => db,
         :encoding => "utf8"
       )
