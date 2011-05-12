@@ -4,13 +4,15 @@
       = link_to image_tag("/images/ui-objects/_#{current_system}_frame_gallery#{visual_asset.wide? ? '_wide' : nil}.png", :class => "frame_gallery"), "#", :id => "gallery_link", :onclick => "if ($(this).attr('href') == '#') { return false; }"
       .gallery_asset{:id => "gallery_#{visual_asset.id}"}
         %ul
-          - visual_asset.child_visual_assets.select {|asset| asset.available?(@time || Time.zone.now)}.sort {|x,y| x.display_order <=> y.display_order}.each do |child_visual_asset|
+          - va_children_available = visual_asset.child_visual_assets.select {|asset| asset.available?(@time || Time.zone.now)}.sort {|x,y| x.display_order <=> y.display_order}
+          - va_children_available.each do |child_visual_asset|
             - next unless child_visual_asset.must_own.blank? || machines_owned.any? {|e| child_visual_asset.must_own.include?(e)}
             - if child_visual_asset.image?
               %li= link_to_unless child_visual_asset.link.blank?, image_tag(child_visual_asset.image_url, :alt => child_visual_asset.name), child_visual_asset.link, :title => child_visual_asset.name
       :javascript
         $(document).ready(function(){
           $("#gallery_#{visual_asset.id}").sudoSlider({
+            controlsShow: #{va_children_available.length > 1 ? "true" : "false"},
             controlsFade: true,
             prevHtml: '<a href="#" class="prevBtn" alt="previous" title="previous"> prev </a>',
             nextHtml: '<a href="#" class="nextBtn" alt="next" title="next"> next </a>',
