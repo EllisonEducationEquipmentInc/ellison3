@@ -124,8 +124,6 @@ module ShoppingCart
   		flash[:notice] = "Thank you for your #{order.is_a?(Order) ? 'order' : quote_name}.  Below is your #{order.is_a?(Order) ? 'order' : quote_name} receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email."
 		end
 		
-		# TODO: UK shipping
-		#
 		# shipping logic: 
 		#   SZUS:  US Shipping Rates (by weight/zone) - TBD
 		#   ER: domestic - US Shipping Rates (by weight/zone), international - real fedex call.

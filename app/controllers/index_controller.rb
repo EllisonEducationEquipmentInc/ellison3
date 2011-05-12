@@ -34,14 +34,16 @@ class IndexController < ApplicationController
     end
     raise "Invalid product" unless @product.displayable?
     @title = @product.name
-    @keywords = @product.keywords if @product.keywords.present?
-    @keywords << @product.tags.keywords.map {|e| e.name} * ', '
-    @description = @product.description if @product.description.present?
+    unless fragment_exist? [@product, current_system, current_locale, @product.price, Product.retailer_discount_level, request.xhr?]
+      @keywords = @product.keywords if @product.keywords.present?
+      @keywords << @product.tags.keywords.map {|e| e.name} * ', '
+      @description = @product.description if @product.description.present?
+    end
     #redirect_to :action => "outlet", :anchor => "q=#{@product.item_num}" and return if !request.xhr? && is_sizzix_us? && @product && @product.outlet 
     if request.xhr?
       render :product_min, :layout => false and return 
     else
-      #fresh_when(:etag => [current_locale, current_system, @product, current_user, request.xhr?], :last_modified => @product.updated_at.utc)
+      fresh_when(:etag => [current_locale, current_system, @product, current_user, request.xhr?], :last_modified => @product.updated_at.utc)
     end
   rescue Exception => e
     Rails.logger.info e.message
@@ -59,7 +61,7 @@ class IndexController < ApplicationController
     @keywords = @idea.keywords if @idea.keywords.present?
     @keywords << @idea.tags.keywords.map {|e| e.name} * ', '
     @description = @idea.description if @idea.description.present?
-    #fresh_when(:etag => [current_system, @idea], :last_modified => @idea.updated_at.utc)
+    fresh_when(:etag => [current_system, @idea], :last_modified => @idea.updated_at.utc)
   rescue Exception => e
     Rails.logger.info e
     go_404
@@ -117,7 +119,7 @@ class IndexController < ApplicationController
     get_search
     session[:continue_shopping] = session[:user_return_to] = catalog_path + "#" + request.env["QUERY_STRING"]
     @products = @search.results
-    #expires_in 1.hours, 'max-stale' => 1.hours
+    expires_in 1.hours, 'max-stale' => 1.hours
   end
   
   def quick_search
