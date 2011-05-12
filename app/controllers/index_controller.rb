@@ -58,9 +58,11 @@ class IndexController < ApplicationController
     end
     raise "Invalid idea" unless @idea.listable?
     @title = @idea.name
-    @keywords = @idea.keywords if @idea.keywords.present?
-    @keywords << @idea.tags.keywords.map {|e| e.name} * ', '
-    @description = @idea.description if @idea.description.present?
+    unless fragment_exist? [@idea, current_system, current_locale, Product.retailer_discount_level]
+      @keywords = @idea.keywords if @idea.keywords.present?
+      @keywords << @idea.tags.keywords.map {|e| e.name} * ', '
+      @description = @idea.description if @idea.description.present?
+    end
     fresh_when(:etag => [current_system, @idea], :last_modified => @idea.updated_at.utc)
   rescue Exception => e
     Rails.logger.info e
