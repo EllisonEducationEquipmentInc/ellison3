@@ -1,22 +1,23 @@
-.instruction_frame
-  = image_tag("/images/ui-backgrounds/instructions_graphic.png", :class => "instruction_img" )
-  %h2 Instructions
-  %p
-    %img{:class=>"instruction_r", :src => "/images/ui-backgrounds/instructions_pdf_icon.png"}/
-    == Need some quick instructions or helpful hints? Lost the printed instructions that came with your dies or equipment? For your convenience the #{get_domain.capitalize} Web Team has added booklets and instruction sheets that can be downloaded with a quick click.
-  %p
-  == The provided downloads are in an Adobe Portable Document Format and require the free #{link_to 'Adobe Reader®', 'http://get.adobe.com/reader/', :target => '_blank'} to view the PDF versions.
-  %br
-  %br
-- @products.each do |group|
-  %h3= group["item_type"].try :pluralize
-  - group["group"].each do |product|
-    %div{:class=>"instructions ui-corner-all"}
-      = product.item_num
-      %br
-      = link_to image_tag(product.small_image), product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize), :alt => product.name.html_safe, :title => product.name.html_safe
-      %br
-      = link_to product.name.html_safe, product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize)
-      %br
-      = link_to "<span class='link_instructions'>Download Instructions</span>".html_safe, product.instructions, :target => '_blank', :alt => "Download Instructions", :title => "Download Instructions", :class => "download-link"
-  .clear
+- cache "instructions_page_#{current_system}", :expires_in => 60.minutes do
+  .instruction_frame
+    = image_tag("/images/ui-backgrounds/instructions_graphic.png", :class => "instruction_img" )
+    %h2 Instructions
+    %p
+      %img{:class=>"instruction_r", :src => "/images/ui-backgrounds/instructions_pdf_icon.png"}/
+      == Need some quick instructions or helpful hints? Lost the printed instructions that came with your dies or equipment? For your convenience the #{get_domain.capitalize} Web Team has added booklets and instruction sheets that can be downloaded with a quick click.
+    %p
+    == The provided downloads are in an Adobe Portable Document Format and require the free #{link_to 'Adobe Reader®', 'http://get.adobe.com/reader/', :target => '_blank'} to view the PDF versions.
+    %br
+    %br
+  - @products.each do |group|
+    %h3= group["item_type"].try :pluralize
+    - group["group"].each do |product|
+      %div{:class=>"instructions ui-corner-all"}
+        = product.item_num
+        %br
+        = link_to image_tag(product.small_image), product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize), :alt => product.name.html_safe, :title => product.name.html_safe
+        %br
+        = link_to product.name.html_safe, product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize)
+        %br
+        = link_to "<span class='link_instructions'>Download Instructions</span>".html_safe, product.instructions, :target => '_blank', :alt => "Download Instructions", :title => "Download Instructions", :class => "download-link"
+    .clear
