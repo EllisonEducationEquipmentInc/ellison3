@@ -23,6 +23,10 @@
 
   %hr
   %h3.contentwrap_XXXL Basic Information
+  - unless f.object.new_record?
+    %p.contentwrap_XXXL
+      %strong Permalink: 
+      = link_to "http://#{request.host_with_port}<strong>#{catalog_path(:anchor => "facets=#{@tag.facet_param}")}</strong>".html_safe, "http://#{request.host_with_port}#{catalog_path(:anchor => "facets=#{@tag.facet_param}")}"
   .contentwrap_large
     .field.left
       = required_label f,  :name, { :label => "Tag Name" }
@@ -31,6 +35,7 @@
       = f.label :tag_type, "Tag Type"
       = f.select :tag_type, Tag.all_types.map {|t| [t.humanize, t]}, {}, :onchange => "toggle_tag_type_fields()"  
   .contentwrap_large.last
+    %p
     .field
       .left{ :style => "margin-right: 10px"}= image_tag(@tag.image_url(:small)) if @tag.image?
       .left
