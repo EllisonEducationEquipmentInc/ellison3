@@ -1,5 +1,7 @@
 - if get_user.save_for_later_list.products.count > 0
-  %h2== You have #{pluralize get_user.save_for_later_list.products.count, 'item'} saved for purchase later
+  %h2.left== You have #{pluralize get_user.save_for_later_list.products.count, 'saved item'} to buy later
+  %p.legalese.right{:style => "margin: 12px 0 0 0"} Prices and availability are subject to change.
+  .clear
   %table#saved_list_table{:cellpadding => 10}
     %thead
       %tr

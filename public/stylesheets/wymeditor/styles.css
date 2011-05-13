@@ -1,5 +1,15 @@
 /* WYMeditor */
 
+/* Legalese */
+p.legalese {
+  /* font-family: Verdana,Arial,sans-serif; font-size: .85em; */
+}
+
+/* Form Help */
+p.formhelp {
+  /* font-family: Verdana,Arial,sans-serif; font-size: .85em; color: #999; font-weight: normal; */
+}
+
 /* Text Banner Green Fabric */
 p.text-banner_green-fabric {
   /* background-color: #ffffe9; border: 1px solid #caca79; */
