@@ -20,6 +20,7 @@
         = sortable "end_date"
         = sortable "search_query"
         %th Systems
+        %th Active?
         - if has_write_permissions?
           %th &nbsp;
           %th &nbsp;
@@ -27,11 +28,12 @@
       - for landing_page in @landing_pages
         %tr{ :class => cycle(:odd, :even) }
           %td= landing_page.name
-          %td= landing_page.permalink
+          %td= link_to landing_page.permalink, "http://#{request.host_with_port}/shop/#{landing_page.permalink}", :target => "_new"
           %td= l landing_page.send("start_date"), :format => :custom rescue ''
           %td= l landing_page.send("end_date"), :format => :custom rescue ''
           %td= landing_page.search_query
           %td= landing_page.systems_enabled.join(", ") rescue ''
+          %td= landing_page.active
           - if has_write_permissions?
             %td= link_to 'Edit', edit_admin_landing_page_path(landing_page), :class => 'jqui_edit_min'
             %td= link_to 'Destroy', admin_landing_page_path(landing_page), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'

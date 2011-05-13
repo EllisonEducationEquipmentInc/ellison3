@@ -28,7 +28,7 @@
         %tr{ :class => cycle(:odd, :even) }
           %td= static_page.name
           %td= static_page.short_desc
-          %td= static_page.permalink
+          %td= link_to static_page.permalink, "http://#{request.host_with_port}/#{static_page.permalink}", :target => "_new"
           %td= static_page.system_enabled
           %td= static_page.active
           %td= link_to 'Show', admin_static_page_path(static_page), :class => 'jqui_show_min'

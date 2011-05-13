@@ -10,4 +10,4 @@
   = f.check_box :write, :onclick => "if (this.checked) {$(this).prevAll('input:checkbox').first().attr({checked: true, disabled: true}).trigger('change')} else {$(this).prevAll('input:checkbox').first().attr({disabled: false})}"
   = f.label :write, :class => "autosize"
   = f.check_box :_destroy, :onclick => "$(this).parents('.field').css('border-color', this.checked ? 'red' : 'green')"
-  = f.label :_destroy, "Destroy this permission", :class => "autosize"
+  = f.label :_destroy, "Delete this permission", :class => "autosize"

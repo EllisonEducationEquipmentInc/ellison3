@@ -2,17 +2,20 @@
 %h3 Text
 = form_tag({:action => 'update_text'}, :remote => true) do
   .field
-    = label_tag :text
     = text_area_tag :text, @text, :class => 'wymeditor'
   .actions
-    = submit_tag 'save', :class => 'wymupdate jqui_save'
+    = submit_tag 'Save Text', :class => 'wymupdate jqui_save'
+
+%hr
 %h3 Files
 %table#firmware_files
-  %tr
-    %th Name
-    %th File
-    %th Deactivate
-  = render :partial => 'file', :collection => @files
+  %thead
+    %tr
+      %th Name
+      %th File
+      %th{ :width => 30, :style => "text-align: center;" } Deactivate?
+  %tbody
+    = render :partial => 'file', :collection => @files
 = form_for(@firmware, :url => {:action => 'upload_file'}, :html => {:multipart => true, :id => 'upload_fw_file_form'}, :remote => true) do |f|
   .field
     = f.label :name
@@ -20,9 +23,11 @@
   .field
     = f.label :file
     = f.file_field :file 
-    (upload only files with extension .dmg, .exe, zip) 
+    %span.formhelp Upload only files with an extension of .dmg, .exe, or .zip
   .actions
     = f.submit :class => 'jqui_save'
+
+%hr
 %h3 Firmware Serial Number Ranges:
 = form_for(@firmware_range, :url => {:action => 'create_range'}, :html => {:id => 'firmware_range_form'}, :remote => true) do |f|
   .field
@@ -37,11 +42,15 @@
   .actions
     = f.submit :class => 'jqui_save'
 %table#firmware_ranges
-  %tr
-    %th Created at
-    %th Created by
-    %th Prefix
-    %th Start from
-    %th End to
-  = render :partial => 'firmware_range', :collection => @firmware_ranges
-    
+  %thead
+    %tr
+      %th Created at
+      %th Created by
+      %th Prefix
+      %th Start from
+      %th End to
+      %th{ :width => 30, :style => "text-align: center;" } Deactivate?
+  %tbody
+    = render :partial => 'firmware_range', :collection => @firmware_ranges
+:javascript
+  initialize_tables();

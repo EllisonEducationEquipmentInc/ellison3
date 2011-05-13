@@ -23,7 +23,7 @@
         = sortable "start_date_#{current_system}", "Start Date"
         = sortable "end_date_#{current_system}", "End Date"
         %th Systems
-        %th Active
+        %th Active?
         %th{ :width => 30, :style => "text-align: right;" } &nbsp;
         %th{ :width => 30, :style => "text-align: right;" } &nbsp;
         -#%th{ :width => 30, :style => "text-align: right;" } &nbsp;
@@ -32,7 +32,7 @@
         %tr{ :class => cycle(:odd, :even) }
           %td= tag.tag_type.humanize rescue ''
           %td= tag.name #if tag.name.valid_encoding?
-          %td= tag.permalink
+          %td= link_to tag.permalink, "http://#{request.host_with_port}#{catalog_path(:anchor => "facets=#{tag.facet_param}")}", :target => "_new"
           %td= l tag.send("start_date_#{current_system}"), :format => :custom rescue ''
           %td= l tag.send("end_date_#{current_system}"), :format => :custom rescue ''
           %td= tag.systems_enabled.join(", ") rescue ''
