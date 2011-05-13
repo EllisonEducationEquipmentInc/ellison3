@@ -26,6 +26,7 @@
           %th.dontprint
         %th.dontprint
     %tbody
+      %div{:class=>"formhelp", :style=>"float:right;"}Prices and availibility subject to change.
       = render :partial => 'carts/cart_item', :collection => @cart.cart_items
       %tr
         %td
