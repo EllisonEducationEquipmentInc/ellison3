@@ -83,5 +83,9 @@
     %i (we need your current password to confirm your changes)
     %br/
     = f.password_field :current_password
+  .field
+    = f.label :internal_comments
+    %br
+    = f.text_area :internal_comments
   .actions
     = f.submit :class => 'jqui_save'

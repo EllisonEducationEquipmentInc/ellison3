@@ -66,19 +66,21 @@
     = link_to @order.tracking_number, @order.tracking_url, :target => '_blank'
 .clear
 %table#order_details_items
-  %tr
-    %th Item No.
-    %th Item Name
-    %th{ :style => "text-align: center;" } Quantity
-    %th{ :style => "text-align: right;" } Item Price
-    %th{ :style => "text-align: right;" } Item Total
-  - @order.order_items.each do |item|
-    %tr{:class => cycle('odd', 'even')}
-      %td= item.item_num
-      %td= item.name
-      %td{ :style => "text-align: center;" }= item.quantity
-      %td{ :style => "text-align: right;" }= number_to_currency item.gross_price
-      %td{ :style => "text-align: right;" }= number_to_currency item.item_total
+  %thead
+    %tr
+      %th Item No.
+      %th Item Name
+      %th{ :style => "text-align: center;" } Quantity
+      %th{ :style => "text-align: right;" } Item Price
+      %th{ :style => "text-align: right;" } Item Total
+  %tbody
+    - @order.order_items.each do |item|
+      %tr{:class => cycle('odd', 'even')}
+        %td= item.item_num
+        %td= item.name
+        %td{ :style => "text-align: center;" }= item.quantity
+        %td{ :style => "text-align: right;" }= number_to_currency item.gross_price
+        %td{ :style => "text-align: right;" }= number_to_currency item.item_total
 .contentwrap_XL
   - if @order.payment.present?
     %p
@@ -119,7 +121,7 @@
     %p= link_to "Print a copy of this order receipt.", "javascript:window.print()", :class => "link_print dontprint"
   - else
     &nbsp;
-%ul.plain.cart_summary.contentwrap_medium.last
+%ul.plain.cart_summary.contentwrap_medium.last{ :style => "margin-bottom: 10px" }
   %li
     %span.left Subtotal:
     %span.right= number_to_currency @order.gross_subtotal_amount

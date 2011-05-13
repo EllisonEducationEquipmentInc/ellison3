@@ -1,4 +1,4 @@
-%tr{:id => "saved_item_#{product.id}"}
+%tr{:id => "saved_item_#{product.id}", :class => cycle('odd', 'even')}
   %td{:class => product.pre_order? ? 'pre_order' : nil}
     = product.item_num
     - if product.pre_order?

@@ -73,64 +73,72 @@
     = link_to("Convert To Order", {:action => 'login_as_and_goto_quote', :id => @quote}, :class => 'jqui_button')
 .clear
 %table
-  %tr
-    - if @quote.active_quote?
-      %th
-    %th Item No.
-    %th Item Name
-    %th Quantity
-    %th Item Price
-    %th Item Subtotal
-    %th Custom
-    %th Coupon
-  - @quote.order_items.each do |item|
-    %tr{:class => cycle('odd', 'even')}
+  %thead
+    %tr
       - if @quote.active_quote?
-        %td
-          - if item.product.pre_order?(@quote.system)
-            Pre-order
-          - if !item.product.available?(@quote.system)
-            Unavailable
-          - elsif item.product.suspended?
-            Retired
-          - elsif item.product.out_of_stock?(@quote.system)
-            Out of stock
-      %td= item.item_num
-      %td= item.name
-      %td= item.quantity
-      %td= number_to_currency item.gross_price
-      %td= number_to_currency item.item_total
-      %td= item.custom_price
-      %td= item.coupon_price
+        %th
+      %th Item No.
+      %th Item Name
+      %th Quantity
+      %th Item Price
+      %th Item Subtotal
+      %th Custom
+      %th Coupon
+  %tbody
+    - @quote.order_items.each do |item|
+      %tr{:class => cycle('odd', 'even')}
+        - if @quote.active_quote?
+          %td
+            - if item.product.pre_order?(@quote.system)
+              Pre-order
+            - if !item.product.available?(@quote.system)
+              Unavailable
+            - elsif item.product.suspended?
+              Retired
+            - elsif item.product.out_of_stock?(@quote.system)
+              Out of stock
+        %td= item.item_num
+        %td= item.name
+        %td= item.quantity
+        %td= number_to_currency item.gross_price
+        %td= number_to_currency item.item_total
+        %td= item.custom_price
+        %td= item.coupon_price
 .contentwrap_XL &nbsp;
-%ul.plain.cart_summary.contentwrap_medium.last
+%ul.plain.cart_summary.contentwrap_medium.last{ :style => "margin-bottom: 10px" }
   %li
-    Subtotal:
+    %span.left Subtotal:
     %span.right= number_to_currency @quote.gross_subtotal_amount
+    .clear
   %li
-    == Shipping & Handling (#{@quote.shipping_service.try :humanize}):
+    %span.left== Shipping & Handling (#{@quote.shipping_service.try :humanize}):
     %span#shipping_amount.right= number_to_currency @quote.gross_shipping_amount
+    .clear
   - if @quote.cod?
     %li.error
-      COD account:
+      %span.left COD account:
       %span.right
         = @quote.cod_account_type
         = @quote.cod_account
+      .clear
   %li
-    Shipping & Handling Surcharge:
+    %span.left Shipping & Handling Surcharge:
     %span.right= number_to_currency @quote.handling_amount
+    .clear
   %li
-    == #{t :estimated_tax}:
+    %span.left== #{is_us? ? 'Sales Tax' : is_sizzix_uk? ? 'VAT (already included in Subtotal)' : 'Estimated Tax'}:
     %span.right#tax_amount= number_to_currency @quote.tax_amount
+    .clear
   %li#cart_total
-    ESTIMATED TOTAL:
+    %span.left ESTIMATED TOTAL:
     %span.right#total_amount= number_to_currency @quote.total_amount
+    .clear
   - if @quote.total_discount.present? && @quote.total_discount > 0.0
     %li
-      Total Savings:
+      %span.left Total Savings:
       %span.amount.right= number_to_currency @quote.total_discount
-%br
-%br
+      .clear
+%hr
 - if @quote.coupon
   .field
     %strong Coupon:
@@ -180,3 +188,5 @@
       $.ajax({url:"#{url_for({:action => "recalculate_tax", :id => @quote})}"});
       return false;
     });
+:javascript
+  initialize_tables();

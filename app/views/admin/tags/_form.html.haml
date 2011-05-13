@@ -73,8 +73,10 @@
           = campaign_fields.radio_button(:individual, true, :style => "margin: 0 3px 0 10px", :onclick => "update_campaign();")          
           == as a <em>unique</em> discount for <strong>individual</strong> products
       %div{:class => "contentwrap_#{ f.object.new_record? ? 'XL' : 'medium' } last"}
-        %p.border-left.formhelp== <em>Add specific directions for special campaign scenarios here</em>
-
+        .border-left
+          %p.formhelp== If <strong>all products</strong> in this Specials tag share the same discount percent, select "one discount for a group of products".
+          %p.formhelp== If each product is discounted <em>differently</em>, select "a unique discount for individual products".
+          %p.formhelp== To create a Specials tag <strong>with <u>NO</u> discount percentage</strong>, select "a unique discount for individual products".
       .contentwrap_XXXL.last
         .field.individual
           %ul#individual
@@ -107,10 +109,15 @@
         %p.formhelp Separate item numbers with commas to batch assign products. If you want these products discounted, you have to save this tag again AFTER you added these products, and make sure you check 'Yes, batch apply discount to associated products.' when you do that.
     %hr
     %h3.contentwrap_XXXL.last Related Products
-    = link_to "Remove All", {:action => :remove_all_products, :id => @tag.id}, :remote => true, :method => :delete, :confirm => "Are you sure you want to remove all products from this tag?"
-    %br
     %ul.contentwrap_XXXL.last#tag_products= render :partial => 'product', :collection => @tag.products, :locals => {:tag_id => @tag.id}
     = text_field_tag "tag_products_helper", nil, :style => "margin-bottom: 10px"
+    %p
+      = link_to "Remove All Products", {:action => :remove_all_products, :id => @tag.id}, :remote => true, :method => :delete, :confirm => "Are you sure you want to remove all products from this tag?", :class => "link_remove"
+      %br
+      %span.formhelp
+        == <strong>Note:</strong> Removing product(s) here will <strong>ONLY</strong> remove them from <em>this</em> Specials tag - <strong>IT WILL NOT REMOVE THE SALE PRICE OF THE PRODUCT(S) THEMSELVES.</strong>
+        %br
+        To remove or delete the sale prices from products, do so from each product's respective detail page.
     %hr
     %h3.contentwrap_XXXL.last Related Ideas
     %ul.contentwrap_XXXL.last#tag_ideas= render :partial => 'idea', :collection => @tag.ideas, :locals => {:tag_id => @tag.id}

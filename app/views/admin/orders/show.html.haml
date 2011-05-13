@@ -163,64 +163,73 @@
               });
             }); 
 %table
-  %tr
-    - unless @order.status_frozen?
-      %th
-    %th Item No.
-    %th Item Name
-    %th Quantity
-    %th Item Price
-    %th Item Subtotal
-    %th Custom
-    %th Coupon
-    %th Upsell
-  - @order.order_items.each do |item|
-    %tr{:class => cycle('odd', 'even')}
+  %thead
+    %tr
       - unless @order.status_frozen?
-        %td
-          - if item.product.pre_order?(@order.system)
-            Pre-order
-          - elsif !item.product.available?(@order.system)
-            Unavailable
-          - elsif item.product.suspended?
-            Retired
-          - elsif item.product.out_of_stock?(@order.system)
-            Out of stock
-      %td= item.item_num
-      %td= item.name
-      %td= item.quantity
-      %td= number_to_currency item.gross_price
-      %td= number_to_currency item.item_total
-      %td= item.custom_price
-      %td= item.coupon_price
-      %td= item.upsell
+        %th
+      %th Item No.
+      %th Item Name
+      %th Quantity
+      %th Item Price
+      %th Item Subtotal
+      %th Custom
+      %th Coupon
+      %th Upsell
+  %tbody
+    - @order.order_items.each do |item|
+      %tr{:class => cycle('odd', 'even')}
+        - unless @order.status_frozen?
+          %td
+            - if item.product.pre_order?(@order.system)
+              Pre-order
+            - elsif !item.product.available?(@order.system)
+              Unavailable
+            - elsif item.product.suspended?
+              Retired
+            - elsif item.product.out_of_stock?(@order.system)
+              Out of stock
+        %td= item.item_num
+        %td= item.name
+        %td= item.quantity
+        %td= number_to_currency item.gross_price
+        %td= number_to_currency item.item_total
+        %td= item.custom_price
+        %td= item.coupon_price
+        %td= item.upsell
 .contentwrap_XL &nbsp;
-%ul.plain.cart_summary.contentwrap_medium.last
+%ul.plain.cart_summary.contentwrap_medium.last{ :style => "margin-bottom: 10px" }
   %li
-    Subtotal:
+    %span.left Subtotal:
     %span.right= number_to_currency @order.gross_subtotal_amount
+    .clear
   %li
-    == Shipping & Handling (#{@order.shipping_service.try :humanize}):
+    %span.left== Shipping & Handling (#{@order.shipping_service.try :humanize}):
     %span.right#shipping_amount= number_to_currency @order.gross_shipping_amount
+    .clear
   - if @order.cod?
     %li.error
-      COD account:
+      %span.left COD account:
       %span.right
         = @order.cod_account_type
         = @order.cod_account
-  %li
-    Shipping & Handling Surcharge:
+      .clear
+  %li{:style => "display:#{@order.handling_amount > 0.0 ? 'block' : 'none'}"}
+    %span.left Shipping & Handling Surcharge:
     %span.right= number_to_currency @order.handling_amount
+    .clear
   %li
-    Sales Tax:
+    %span.left== #{is_us? ? 'Sales Tax' : is_sizzix_uk? ? 'VAT (already included in Subtotal)' : 'Estimated Tax'}:
     %span.right#tax_amount= number_to_currency @order.tax_amount
+    .clear
   %li#cart_total
-    TOTAL:
+    %span.left TOTAL:
     %span.right#total_amount.amount= number_to_currency @order.total_amount
+    .clear
   - if @order.total_discount.present? && @order.total_discount > 0.0
     %li
-      Total Savings:
+      %span.left Total Savings:
       %span.amount.right= number_to_currency @order.total_discount
+      .clear
   %li    
     - if @order.payment.present?
       - if @order.payment.try(:purchase_order)
@@ -234,8 +243,7 @@
         == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
     - else
       No Payment Info Available
-%br
-%br
+%hr
 - if @order.coupon
   .field
     %strong Coupon:
@@ -315,4 +323,5 @@
       value_required: true,
       saving_animation_color: "#ECF2F8"
     });
-    
+:javascript
+  initialize_tables();

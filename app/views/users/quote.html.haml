@@ -58,50 +58,59 @@
     %br
 .clear
 %table{ :id => "#{quote_name.downcase}_details_items"}
-  %tr
-    %th Item No.
-    %th Item Name
-    %th Quantity
-    %th Item Price
-    %th Item Subtotal
-  - @quote.order_items.each do |item|
-    %tr{:class => cycle('odd', 'even')}
-      %td{:class => item.product.quantity < item.quantity ? 'pre_order' : nil}= item.item_num
-      %td= item.name
-      %td{:class => item.product.quantity < item.quantity ? 'pre_order' : nil}= item.quantity
-      %td= number_to_currency item.sale_price
-      %td= number_to_currency item.item_total
+  %thead
+    %tr
+      %th Item No.
+      %th Item Name
+      %th Quantity
+      %th Item Price
+      %th Item Subtotal
+  %tbody
+    - @quote.order_items.each do |item|
+      %tr{:class => cycle('odd', 'even')}
+        %td{:class => item.product.quantity < item.quantity ? 'pre_order' : nil}= item.item_num
+        %td= item.name
+        %td{:class => item.product.quantity < item.quantity ? 'pre_order' : nil}= item.quantity
+        %td= number_to_currency item.sale_price
+        %td= number_to_currency item.item_total
 .contentwrap_XL{ :style => "margin-right: 10px !important"}
   - unless @quote.comments.blank?
     %p== <strong>Comments:</strong> #{@quote.comments}
   %p= link_to "Print a copy of this #{quote_name}.", "javascript:window.print()", :class => "link_print dontprint"
 
-%ul.plain.cart_summary.contentwrap_medium.last
+%ul.plain.cart_summary.contentwrap_medium.last{ :style => "margin-bottom: 10px" }
   %li
-    Subtotal:
+    %span.left Subtotal:
     %span.right= number_to_currency @quote.subtotal_amount
+    .clear
   %li 
-    == Shipping & Handling (#{@quote.shipping_service.try :humanize}):
+    %span.left== Shipping & Handling (#{@quote.shipping_service.try :humanize}):
     %span.right= number_to_currency @quote.shipping_amount
+    .clear
   - if @quote.cod?
     %li
-      COD account:
+      %span.left COD account:
       %span.right
         = @quote.cod_account_type
         = @quote.cod_account
+      .clear
   %li{:style => "display:#{@quote.handling_amount > 0.0 ? 'block' : 'none'}"}
-    Shipping & Handling Surcharge:
+    %span.left Shipping & Handling Surcharge:
     %span.right= number_to_currency @quote.handling_amount
+    .clear
   %li 
-    == #{is_us? ? 'Sales' : 'Estimated'} Tax:
+    %span.left== #{is_us? ? 'Sales' : 'Estimated'} Tax:
     %span.right= number_to_currency @quote.tax_amount
+    .clear
   %li#cart_total
-    Estimated Total:
+    %span.left Estimated Total:
     %span#total_amount.amount.right= number_to_currency @quote.total_amount
+    .clear
   - if @quote.total_discount.present? && @quote.total_discount > 0.0
     %li
-      Total Savings:
+      %span.left Total Savings:
       %span.amount.right= number_to_currency @quote.total_discount
+      .clear
 .clear
 - if @quote.can_be_converted? && (is_ee_us? || admin_signed_in? && current_admin.can_act_as_customer)
   %hr.dontprint
