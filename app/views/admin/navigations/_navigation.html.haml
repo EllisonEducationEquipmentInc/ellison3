@@ -1,4 +1,3 @@
-= link_to("delete", admin_navigation_path(navigation), :method => :delete, :remote => true, :confirm => "Are you sure?") unless navigation.new_record?
 = form_for([:admin, navigation], :html => {:multipart => true, :id => navigation.id}, :remote => true) do |f|
   .field
     = f.label :label, "List Label", :class => "w83"
@@ -18,5 +17,7 @@
     = link_to_add_fields "Add Link", f, :navigation_links
   = f.hidden_field :top_nav
   = f.hidden_field :column
-  .actions.right
-    = f.submit :class => 'wymupdate jqui_save'
+  %hr
+  .actions
+    .left= link_to("Delete This Column", admin_navigation_path(navigation), :method => :delete, :remote => true, :confirm => "Are you sure?", :class => "jqui_trash") unless navigation.new_record?
+    .right= f.submit :class => 'wymupdate jqui_save', :disable_with => "please wait..."
