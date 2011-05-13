@@ -78,6 +78,7 @@
               circular: false,
               speed: 900,
               scroll: 1,
+              mouseWheel: true,
               visible: #{visual_asset.wide? ? 5 : 4}
             });  
             if ($("#asset_carousel_#{visual_asset.id}").find("ul li").length > #{visual_asset.wide? ? 5 : 4}) {
@@ -105,6 +106,7 @@
             circular: false,
             speed: 900,
             scroll: 1,
+            mouseWheel: true,
             visible: #{visual_asset.wide? ? 5 : 4}
           });
           if ($("#asset_carousel_#{visual_asset.id} ul li").length > #{visual_asset.wide? ? 5 : 4}) {
