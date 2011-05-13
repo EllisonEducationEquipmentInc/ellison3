@@ -68,7 +68,7 @@
   = l @order.created_at, :format => :custom
   %br
   %strong Estimated Ship Date:
-  %span#estimated_ship_date= @order.estimated_ship_date
+  %span#estimated_ship_date= l @order.estimated_ship_date, :format => :custom rescue ''
   %br
   %strong Status:
   %span#order_status= @order.status
