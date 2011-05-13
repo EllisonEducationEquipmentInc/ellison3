@@ -1,9 +1,20 @@
 %table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
   %tr
     %td
-      %p== #{@name} wants to let you know about the #{system_name} list that they just created at #{get_domain.capitalize}. To view this list, click #{link_to 'here', list_url(@list, :host => get_domain)}.
+      %p Hi Friend,
+      %p== Wait until you see #{link_to 'the list', list_url(@list, :host => get_domain)} that <strong>#{@name}</strong> created at #{get_domain.capitalize} and personally wanted to share with you. After you check it out, you may want to #{link_to "check us out", "http://www.#{get_domain}"}!
+      - if is_ee?
+        %p Ellison is the original letter and shape-cutting company whose products not only save time, but also cut shapes to complement any curriculum, while inspiring students to learn. From bulletin boards and classroom décor to appealing visuals and hands-on activities to enhance lesson plans, Ellison truly shapes education!
+      %p
+        Sincerely,
+        %br
+        == Your New Friends at #{is_sizzix? ? "Sizzix" : "Ellison"}
       - unless @note.blank?
-        %h3== #{@name} has a personal message for you:
+        %hr
+        %h3== #{@name} also has a personal message for you:
         %p= @note
-      %br
-      %div== #{get_domain.capitalize} has sent you this email at the request of #{@name}.
+      %p== To view this list, click here: #{link_to list_url(@list, :host => get_domain), list_url(@list, :host => get_domain)}.
+  %tr
+    %td{ :style => "text-align: center" }
+      %p
+        %em== #{get_domain.capitalize} has sent you this email at the request of #{@name}.

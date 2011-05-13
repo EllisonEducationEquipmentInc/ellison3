@@ -43,7 +43,7 @@
             %br
             The email addresses you provide in this form will only be used to send this one-time email message.
         .actions
-          = submit_tag "Send Email", :class => 'jqui_button'
+          = submit_tag "Send Email", :class => 'jqui_save', :id => "send_email"
           = link_to_function 'Cancel', "$.fancybox.close();", :class => "jqui_cancel"
       :javascript
         var email_list_validator = $("#email_list_form").validate({ 
@@ -70,6 +70,11 @@
           }
           $('#chars_left').text('You have ' + left + ' characters left.');
         });
+        $("#send_email").button()
+          .click(function(){
+            $(this).button({disabled: true, label: 'please wait...'});
+          });
+
 .clear
 %hr
 - unless @list.products.blank?
