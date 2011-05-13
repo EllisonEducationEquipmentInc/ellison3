@@ -725,13 +725,8 @@ function youtube_video_links() {
   			'title' : this.title,
   			'width' : 680,
   			'height' : 495,
-  			'href' : this.href.replace(new RegExp("watch\\?v=", "i"), 'v/'),
-  			'type' : 'swf',
-  			'swf' : {
-  			  'wmode' : 'transparent',
-  				'allowfullscreen'	: 'true', 
-  				'allownetworking' : 'internal'
-  			}
+  			'href' : this.href,
+  			'type' : 'iframe',
   		});
 
   	return false;

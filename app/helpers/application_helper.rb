@@ -288,7 +288,8 @@ HTML
 	  text.scan /\[YOUTUBE\].+?\[\/YOUTUBE\]/ do |match|
 	    text_to_replace, youtube_video_id = match, match[/\[YOUTUBE\](.+)\[\/YOUTUBE\]/, 1]
 	    embeded_code = <<-HTML
-  	  <object width="480" height="385"><param name="movie" value="http://www.youtube.com/v/#{youtube_video_id}?fs=1&amp;hl=en_US"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/#{youtube_video_id}?fs=1&amp;hl=en_US" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="480" height="385"></embed></object>
+	    <iframe class="youtube-player" type="text/html" width="640" height="385" src="http://www.youtube.com/embed/#{youtube_video_id}?autoplay=0" frameborder="0">
+      </iframe>
   	  HTML
   	  .html_safe
   	  new_text.gsub!(text_to_replace, embeded_code)
@@ -298,7 +299,7 @@ HTML
 	
 	def video_thumbnail(youtube_id)
 	  content_tag :div, :class => "thumbnail", :style => "background: url('http://i1.ytimg.com/vi/#{youtube_id}/default.jpg') no-repeat center center;" do
-	    link_to image_tag("/images/ui-buttons/play-video_on.png"), "http://www.youtube.com/v/#{youtube_id}&amp;feature=youtube_gdata_player&amp;autoplay=1&amp;fs=1", :class => "fancyvideo", :id => youtube_id, :alt => "click to play this video", :title => "click to play this video"
+	    link_to image_tag("/images/ui-buttons/play-video_on.png"), "http://www.youtube.com/embed/#{youtube_id}?autoplay=1", :class => "fancyvideo", :id => youtube_id, :alt => "click to play this video", :title => "click to play this video"
 	  end
 	end
 	
