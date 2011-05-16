@@ -16,6 +16,10 @@ body.bp {
   .left { float: left; }
   .clear { clear: both; }
   
+  h3 {
+    margin: 2px 0 10px;
+  }
+  
   ul.plain {
     list-style: none;
     margin: 0;

@@ -1,5 +1,5 @@
 %h3== #{@list.name}
-.contentwrap_XL
+.contentwrap_XL.dontprint
   - unless @list.comments.blank?
     %p= @list.comments
   %p== What would you like to do next?&nbsp;&nbsp;#{link_to "Browse products", "/lp/categories", :class => "jqui_button"} #{link_to "Go to Cart", cart_path, :class => "jqui_button"}
@@ -76,7 +76,7 @@
           });
 
 .clear
-%hr
+%hr.dontprint
 - unless @list.products.blank?
   .toggleview.dontprint= link_to "switch to list view", "#", :class => "toggle_view"
 .products_grid

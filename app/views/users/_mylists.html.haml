@@ -16,12 +16,14 @@
   %br
   = form_for(List.new, :url => {:action => 'create_list'}, :remote => true) do |f|
     .field
-      = f.label :name, :class => "autosize"
+      = required_label f, :name, {:label_size => "auto"}
       = f.text_field :name
+      %p.formhelp{:style => "margin-left: 62px"} (e.g.- My Birthday List)
     .field
       = f.label :comments
       %br
-      = f.text_area :comments, :cols => 80, :rows => 2
+      = f.text_area :comments, :cols => 80, :rows => 2, :maxlength => 250
+      %p.formhelp#chars_left You have 250 characters left.
     .field
       = f.label :default_list, "Make this your default list?", :class => "autosize"
       yes
@@ -53,3 +55,26 @@
       saving_animation_color: "#ECF2F8"
     });
   }
+  $('#list_comments').keyup(function () {
+    var left = 250 - $(this).val().length;
+    if (left < 0) {
+      left = 0;
+    }
+    $('#chars_left').text('You have ' + left + ' characters left.');
+  });
+  
+  $(document).ready(function() {
+    var validator = $("#new_list").validate({ 
+      errorClass: "invalid",
+      rules: { 
+        "list[name]": { 
+          required: true
+        }
+      }, 
+      messages: { 
+        "list[name]": { 
+          required: "Please provide a name for your list."
+        }
+      }
+    });
+  });
