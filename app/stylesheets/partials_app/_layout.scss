@@ -436,6 +436,11 @@ a.next_button { @extend a.prev_button;
   height: 21px;
 }
 
+.icon_edit-in-place { @extend .icon;
+  padding: 0 0 0 20px;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/pencil-field.png") no-repeat left bottom;
+}
+
 // THIRD PARTY WIDGETS
 
 // jquery UI
