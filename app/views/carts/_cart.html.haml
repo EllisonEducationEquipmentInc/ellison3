@@ -26,7 +26,6 @@
           %th.dontprint
         %th.dontprint
     %tbody
-      %div{:class=>"formhelp", :style=>"float:right;"}Prices and availibility subject to change.
       = render :partial => 'carts/cart_item', :collection => @cart.cart_items
       %tr
         %td
@@ -71,7 +70,6 @@
   .dontprint
     - unless @cart_locked
       #cart_coupon= render :partial => "carts/coupon"
-      %br
       - if get_cart.pre_order?
         %p.error There are items in the cart that are available for pre-order only. If you would like to place a pre-order please click "Pre-Order". For immediate shipping please remove these items.
       - elsif backorder_allowed? && get_cart.out_of_stock? && !is_ee_uk?
@@ -114,6 +112,22 @@
                 $(this).button({disabled: true, label: 'please wait...'});
           		});
         });
+      .clear
+      .cart_disclaimer
+        - if is_sizzix_us?
+          %p Updates to stock status on Sizzix.com are done routinely. Product availability shown on the Web site is not guaranteed (especially on clearance and promotional items) until your order is processed by Ellison and your credit card is charged. Orders are processed on a first come, first served basis with every attempt made by Sizzix Consumer Service to fulfill your order to your satisfaction. Email updates will be sent as we process your items.
+          %p== Sizzix.com cannot accept online orders from consumers requiring delivery outside of the United States (except APO/FPOs). #{link_to "International Support", "/intl"}.
+        - if is_sizzix_uk?
+          %p Updates to stock status on Sizzix.co.uk are done routinely. Product availability shown on the Web site is not guaranteed (especially on clearance and promotional items) until your order is processed by Ellison and your credit card is charged. Orders are processed on a first come, first served basis with every attempt made by Sizzix.co.uk Consumer Service to fulfill your order to your satisfaction. Email updates will be sent as we process your items.
+          %p== For all deliveries outside of Europe, please #{link_to "contact us", "/contact"}.
+        - if is_ee_us?
+          %p Updates to stock status on ellisoneducation.com are done routinely. Product availability shown on the Web site is not guaranteed (especially on clearance and promotional items) until your order is processed by Ellison and your credit card is charged. Orders are processed on a first come, first served basis with every attempt made by Ellison Customer Service to fulfill your order to your satisfaction. Email updates will be sent as we process your items.
+          %p== Ellisoneducation.com cannot accept online orders from consumers requiring delivery outside of the United States (except APO/FPOs). International Support. #{link_to "International Support", "/intl"}.
+        - if is_ee_uk?
+          %p Updates to stock status on ellisoneducation.co.uk are done routinely. Product availability shown on the Web site is not guaranteed (especially on clearance and promotional items) until your order is processed by Ellison and your credit card is charged. Orders are processed on a first come, first served basis with every attempt made by ellisoneducation.co.uk Consumer Service to fulfill your order to your satisfaction. Email updates will be sent as we process your items.
+          %p== For all deliveries outside of Europe, please #{link_to "contact us", "/contact"}.
+        - if is_er?
+          %p Updates to stock status on ellison.com are done routinely. Product availability shown on the Web site is not guaranteed (especially on clearance and promotional items) until your order is processed by Ellison and your credit card is charged. Orders are processed on a first come, first served basis with every attempt made by Ellison Consumer Service to fulfill your order to your satisfaction. Email updates will be sent as we process your items.
     - else
       .right.minilink= link_to "Edit #{cart_name}", cart_path       
 .clear

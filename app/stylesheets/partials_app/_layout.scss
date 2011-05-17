@@ -5,10 +5,16 @@
   font-family: Verdana,Arial,sans-serif;
   font-size: .85em;
 }
+
 .formhelp { @extend .keyword;
   color: #999;
   font-weight: normal;
 }
+
+.cart_disclaimer { @extend .formhelp;
+  margin-right: 10px;
+}
+
 .minilink {
   font-family: Verdana,Arial,sans-serif;
   font-size: 9px;
