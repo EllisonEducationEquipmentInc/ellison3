@@ -36,6 +36,8 @@ p#edit_shipping_address, p#edit_billing_address {
   }  
 }
 
+#cart_coupon { @extend .left; }
+
 .cart_item_price {
   .msrp {
     font-weight: normal;

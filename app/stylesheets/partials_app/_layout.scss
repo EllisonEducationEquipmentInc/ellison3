@@ -11,9 +11,7 @@
   font-weight: normal;
 }
 
-.cart_disclaimer { @extend .formhelp;
-  margin-right: 10px;
-}
+.cart_disclaimer { @extend .formhelp; }
 
 .minilink {
   font-family: Verdana,Arial,sans-serif;
