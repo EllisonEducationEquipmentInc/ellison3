@@ -170,7 +170,7 @@
         = f.label "handling_price_#{currency}", "Handling Price #{currency.upcase}", :class => "autosize"
         %br
         %span{ :class => "icon_pricefield_#{currency}" }
-          = f.text_field "handling_price_#{currency}"
+          = f.text_field "handling_price_#{currency}", :size => 8
 
   .contentwrap_large.last
     .field

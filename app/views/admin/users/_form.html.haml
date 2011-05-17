@@ -1,91 +1,113 @@
 = form_for([:admin, @user], :html => {:multipart => true}) do |f|
   = f.error_messages
-  .field
-    = f.label :systems_enabled
-    = system_enabled('user')
-  - if is_er? || @user.systems_enabled && @user.systems_enabled.include?("erus")
+
+  %hr
+  %h3.contentwrap_XXXL.last System Visibility
+  .contentwrap_large
     .field
-      = f.label :status, "Status (has affect only on Retailer users)"
-      %br
-      = f.select :status, User::STATUSES
+      = f.label :systems_enabled, "Enabled for", :class => "autosize"
+      = system_enabled('user')
+
+
+  .contentwrap_large.last
+  
+  %hr
+  %h3.contentwrap_XXXL.last Basic User Information
+  .contentwrap_large
     .field
-      = f.label :discount_level
-      %br
-      = select_tag 'user[discount_level]', grouped_options_for_select(retailer_discount_levels.grouped_hash, @user.discount_level)
-    .field
-      = f.label :first_order_minimum
-      %br
-      = f.text_field :first_order_minimum
-    .field
-      = f.label :order_minimum
-      %br
-      = f.text_field :order_minimum
-    .field
-      = f.label :cod_account_type
-      %br
-      = f.select :cod_account_type, cod_list.map {|e| [e.label, e.id]}, :prompt => '--- COD account ---'
-    .field
-      = f.label :cod_account
-      %br
-      = f.text_field :cod_account
-  .field
-    = f.label :admin_id, "Sales Rep"
-    %br
-    = f.select :admin_id, Admin.sales_reps.asc(:name).map {|e| ["#{e.name} - #{e.email} (#{e.employee_number})", e.id]}, :prompt => '--- select sales rep ---'
-  .field
-    = f.label :erp, "AX ID"
-    %br
-    = f.text_field :erp
-  .field
-    = f.label :invoice_account
-    %br
-    = f.text_field :invoice_account
-  .field
-    = f.label :purchase_order
-    %br
-    = f.check_box :purchase_order
-  .field
-    = f.label :tax_exempt
-    %br
-    = f.check_box :tax_exempt
-  .field
-    = f.label :tax_exempt_certificate
-    %br
-    = f.text_field :tax_exempt_certificate
-  - if is_ee?
-    .field
-      = f.label :institution
+      = f.label :name, "Name/Contact Person", :class => "autosize"
       %br/
-      = f.select :institution, institutions
-  .field
-    = f.label :company, 'Company/School/Organization'
-    %br/
-    = f.text_field :company
-  .field
-    = f.label :name, "Name/Contact Person"
-    %br/
-    = f.text_field :name
-  .field
-    = f.label :email
+      = f.text_field :name
+    .field
+      = f.label :company, "Company/School/Organization", :class => "autosize"
+      %br/
+      = f.text_field :company
+    - if is_ee?
+      .field
+        = f.label :institution, :class => "autosize"
+        %br/
+        = f.select :institution, institutions
+
+  .contentwrap_large.last
+    .field
+      = required_label f, :email, { :label_size => "auto" }
+      %br
+      = f.text_field :email
+    .field
+      = required_label f, :password, { :label_size => "auto" }
+      %br/
+      = f.password_field :password
+      %p.formhelp Leave this field blank if you do not wish to change this user's password.
+    .field
+      = f.label :password_confirmation, :class => "autosize"
+      %br/
+      = f.password_field :password_confirmation
+    .field
+      = f.label :current_password, :class => "autosize"
+      %br/
+      = f.password_field :current_password
+      %p.formhelp== Provide <em>your</em> current password to confirm changes to this user.
+      
+  %hr
+  .contentwrap_large
+    .field
+      = f.label :admin_id, "Sales Representative", :class => "autosize"
+      %br
+      = f.select :admin_id, Admin.sales_reps.asc(:name).map {|e| ["#{e.name} - #{e.email} (#{e.employee_number})", e.id]}, :prompt => '--- select sales rep ---'
+    .field
+      = f.label :erp, "AX ID", :class => "autosize"
+      = f.text_field :erp
+  .contentwrap_large.last
+    .field
+      = f.label :invoice_account, :style => "width: 145px"
+      = f.text_field :invoice_account
+    .field
+      = f.label :tax_exempt, "Is this user tax exempt?", :style => "width: 145px"
+      yes
+      = f.radio_button(:tax_exempt, true)
+      no
+      = f.radio_button(:tax_exempt, false)
+    .field
+      = f.label :tax_exempt_certificate, "Tax Exempt Certificate #", :style => "width: 145px"
+      = f.text_field :tax_exempt_certificate
+
+  
+  - if is_er? || @user.systems_enabled && @user.systems_enabled.include?("erus")
+    %hr
+    %h3.contentwrap_XXXL.last Retailer Information
+    .contentwrap_large
+      .field
+        = f.label :status
+        = f.select :status, User::STATUSES
+        %p.formhelp== This only applies to Ellison Retailer users <strong>only</strong>.
+      .field
+        = f.label :discount_level
+        = select_tag 'user[discount_level]', grouped_options_for_select(retailer_discount_levels.grouped_hash, @user.discount_level)    
+      .field
+        = f.label :purchase_order, "Is this user allowed to use a purchase order?", :class => "autosize"
+        yes
+        = f.radio_button(:purchase_order, true)
+        no
+        = f.radio_button(:purchase_order, false)
+    .contentwrap_large.last
+      .field
+        = f.label :first_order_minimum, "<u>First</u> Order Minimum".html_safe, :style => "width: 120px"
+        = f.text_field :first_order_minimum, :size => 6, :style => "margin-right: 24px"
+        = f.label :order_minimum, "Order Minimum", :class => "autosize"
+        = f.text_field :order_minimum, :size => 6
+      .field
+        = f.label :cod_account_type, "COD Account Type", :style => "width: 120px"
+        = f.select :cod_account_type, cod_list.map {|e| [e.label, e.id]}, :prompt => '--- COD account ---'
+      .field
+        = f.label :cod_account, "COD Account", :style => "width: 120px"
+        = f.text_field :cod_account
+
+  %hr
+  .field.contentwrap_XXXL
+    = f.label :internal_comments, "Internal Comments <span class='formhelp'><em>for internal admin use only</em></span>".html_safe, :class => "autosize"
     %br
-    = f.text_field :email
-  .field
-    = f.label :password
-    %i (leave blank if you don't want to change it)
-    %br/
-    = f.password_field :password
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation
-  .field
-    = f.label :current_password
-    %i (we need your current password to confirm your changes)
-    %br/
-    = f.password_field :current_password
-  .field
-    = f.label :internal_comments
-    %br
-    = f.text_area :internal_comments
+    = f.text_area :internal_comments, :cols => 57, :rows => 5
+
+
   .actions
     = f.submit :class => 'jqui_save'

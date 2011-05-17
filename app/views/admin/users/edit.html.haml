@@ -2,7 +2,11 @@
 
 = render 'form'
 
+%hr
+- i = 1
 - @user.addresses.each do |address|
-  %h3== #{address.address_type.try :humanize} Address
-  = render :partial => 'users/address_details', :locals => {:address => address}
+  .contentwrap_medium{:class => "#{ i == 3 ? 'last' : nil }"}
+    %h3== #{address.address_type.try :humanize} Address
+    = render :partial => 'users/address_details', :locals => {:address => address}
+  - i += 1
 = link_to 'Back', admin_users_path, :class => 'jqui_back'
