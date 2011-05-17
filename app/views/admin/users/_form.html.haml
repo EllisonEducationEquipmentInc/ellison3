@@ -71,7 +71,6 @@
     .field
       = f.label :tax_exempt_certificate, "Tax Exempt Certificate #", :style => "width: 145px"
       = f.text_field :tax_exempt_certificate
-
   
   - if is_er? || @user.systems_enabled && @user.systems_enabled.include?("erus")
     %hr
@@ -111,4 +110,4 @@
 
 
   .actions
-    = f.submit :class => 'jqui_save'
+    = f.submit :class => 'jqui_save button_large right', :style => "margin-bottom: 10px; letter-spacing: .5px;"
