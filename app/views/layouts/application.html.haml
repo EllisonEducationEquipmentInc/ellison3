@@ -13,7 +13,7 @@
     = yield :gmap_header
   %body.bp
     #root
-      .container
+      .container{ :style => is_corp_site? ? "background: url('/images/ui-backgrounds/_erus_root_corporate.png') no-repeat scroll center top transparent" : nil}
         .design-gutter.dontprint
           \&nbsp;
         .main
@@ -30,7 +30,10 @@
         .design-gutter.dontprint
           \&nbsp;
         .main
-          = render "layouts/footer_#{current_system}"
+          - if is_corp_site?
+            = render "layouts/footer_corporate"
+          - else
+            = render "layouts/footer_#{current_system}"
           = render "layouts/legal"
         .design-gutter.dontprint.last
           \&nbsp;

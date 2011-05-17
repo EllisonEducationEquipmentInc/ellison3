@@ -35,6 +35,21 @@ body.bp {
   	margin-top: 20px;
   	width: 340px; 
   }
+
+  #logo_masthead_corporate-united-states, #logo_masthead_corporate-canada, #logo_masthead_corporate-united-kingdom { @extend #logo_masthead_corporate;
+  }
+  #logo_masthead_corporate-netherlands { @extend #logo_masthead_corporate;
+  	background: url("/images/ui-logos/_#{$system}_masthead_corporate-dutch.png") no-repeat;
+  	width: 596px; 
+  }
+  #logo_masthead_corporate-germany { @extend #logo_masthead_corporate;
+  	background: url("/images/ui-logos/_#{$system}_masthead_corporate-german.png") no-repeat;
+  	width: 378px; 
+  }
+  #logo_masthead_corporate-mexico, #logo_masthead_corporate-brazil, #logo_masthead_corporate-colombia, #logo_masthead_corporate-chile, #logo_masthead_corporate-costa-rica, #logo_masthead_corporate-venezuela, #logo_masthead_corporate-puerto-rico { @extend #logo_masthead_corporate;
+  	background: url("/images/ui-logos/_#{$system}_masthead_corporate-spanish.png") no-repeat;
+  	width: 374px; 
+  }
   
   .nav_utility {
     

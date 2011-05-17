@@ -1,7 +1,7 @@
 .dontprint
   -# logo masthead & branding
   %h1.masthead  
-    = link_to system_name, root_path, :id => "logo_masthead#{is_corp_site? ? '_corporate' : nil}", :title => system_name, :alt => system_name
+    = link_to system_name, root_path, :id => "logo_masthead#{is_corp_site? ? "_corporate-#{params[:region].parameterize}" : nil}", :title => system_name, :alt => system_name
   
   - unless is_corp_site?
     -# utility navigation menu (customer account management, shopping cart, UK currency selector, etc)  
@@ -103,14 +103,14 @@
         }
       });
   - else
-    #region_select= select_tag :region, options_for_select(["United States", "Canada", "Mexico", "United Kingdom", "Netherlands", "Germany", "Brazil", "Columbia", "Chile", "Costa Rica", "Venezuela", "Puerto Rico", "Japan", "China"] , params[:region]), :onchange => "change_region_content(this.value);"
+    #region_select{:class => "flag_#{params[:region].parameterize}"}= select_tag :region, options_for_select(["United States", "Canada", "Mexico", "United Kingdom", "Netherlands", "Germany", "Brazil", "Colombia", "Chile", "Costa Rica", "Venezuela", "Puerto Rico"] , params[:region]), :onchange => "change_region_content(this.value);"
     :javascript
       function change_region_content(region) {
         var static_page;
         switch(region) {
           case 'Mexico':
           case 'Brazil':
-          case 'Columbia':
+          case 'Colombia':
           case 'Chile':
           case 'Costa Rica':
           case 'Venezuela':
@@ -129,7 +129,7 @@
           default:
             static_page = "/corp_northamerica";
         };
-        location.href = 'http://'+location.host+static_page+'?tp=c&system=erus';return false;
+        location.href = 'http://'+location.host+static_page+'?tp=c&system=erus&region='+region;return false;
       }
 
 #printmasthead.dontdisplay

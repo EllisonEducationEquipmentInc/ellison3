@@ -249,6 +249,12 @@ a.next_button { @extend a.prev_button;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/smiley-twist.png") no-repeat left bottom;
 }
 
+.flag { @extend .link;
+  height: 24px;
+  padding: 0 0 0 30px;
+  background: url("/images/ui-icons/flags/24/Philippines.png") no-repeat left -1px;
+}
+
 .link_blank { @extend .link;
   background: none;
 }
@@ -439,6 +445,54 @@ a.next_button { @extend a.prev_button;
 .icon_edit-in-place { @extend .icon;
   padding: 0 0 0 20px;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/pencil-field.png") no-repeat left bottom;
+}
+
+.flag_united-states { @extend .flag;
+  background: url("/images/ui-icons/flags/24/United States of America(USA).png") no-repeat left -1px;
+}
+
+.flag_canada { @extend .flag;
+  background: url("/images/ui-icons/flags/24/Canada.png") no-repeat left -1px;
+}
+
+.flag_mexico { @extend .flag;
+  background: url("/images/ui-icons/flags/24/Mexico.png") no-repeat left -1px;
+}
+
+.flag_united-kingdom { @extend .flag;
+  background: url("/images/ui-icons/flags/24/United Kingdom(Great Britain).png") no-repeat left -1px;
+}
+
+.flag_netherlands { @extend .flag;
+  background: url("/images/ui-icons/flags/24/Netherlands.png") no-repeat left -1px;
+}
+
+.flag_germany { @extend .flag;
+  background: url("/images/ui-icons/flags/24/Germany.png") no-repeat left -1px;
+}
+
+.flag_brazil { @extend .flag;
+  background: url("/images/ui-icons/flags/24/Brazil.png") no-repeat left -1px;
+}
+
+.flag_colombia { @extend .flag;
+  background: url("/images/ui-icons/flags/24/Colombia.png") no-repeat left -1px;
+}
+
+.flag_chile { @extend .flag;
+  background: url("/images/ui-icons/flags/24/Chile.png") no-repeat left -1px;
+}
+
+.flag_costa-rica { @extend .flag;
+  background: url("/images/ui-icons/flags/24/Costa Rica.png") no-repeat left -1px;
+}
+
+.flag_venezuela { @extend .flag;
+  background: url("/images/ui-icons/flags/24/Venezuela.png") no-repeat left -1px;
+}
+
+.flag_puerto-rico { @extend .flag;
+  background: url("/images/ui-icons/flags/24/Puerto Rico.png") no-repeat left -1px;
 }
 
 // THIRD PARTY WIDGETS
