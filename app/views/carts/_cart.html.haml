@@ -22,7 +22,7 @@
         %th{:style => "text-align: right", :width => 75} You Pay
         %th{:style => "text-align: right", :width => 70} Quantity
         %th{:style => "text-align: right", :width => 75} Total Price
-        %th.dontprint{:style => "text-align: right; width: #{cart_name == 'quote' ? '180' : '155'}px"}
+        %th.dontprint{:style => "text-align: right;" }
     %tbody
       = render :partial => 'carts/cart_item', :collection => @cart.cart_items
       %tr
@@ -34,7 +34,7 @@
         %td.dontprint#total_savings{ :colspan => 2}= render :partial => 'carts/total_savings'
         %td{:style => "text-align: right", :class => "cart_extended_price"} Subtotal:
         %td#cart_subtotal{:style => "text-align: right", :class => "cart_extended_price"}= number_to_currency gross_price(@cart.sub_total)
-        %td.dontprint{:style => "text-align: right; width: #{cart_name == 'quote' ? '180' : '155'}px"}
+        %td.dontprint{:style => "text-align: right;" }
     - unless @cart_locked
       :javascript
         $('input.number_only').keydown(number_only)

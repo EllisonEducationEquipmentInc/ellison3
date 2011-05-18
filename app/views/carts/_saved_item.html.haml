@@ -3,12 +3,13 @@
     = product.item_num
     - if product.pre_order?
       %br
-      Pre-order
+      %span.icon_cart_pre-order Pre-order
     - elsif product.suspended?
-      Retired
+      %br 
+      %span.icon_cart_retired Retired
     - elsif product.out_of_stock?
       %br
-      = product.listable? ? "Low stock level" : 'Out of Stock'
+      %span.icon_cart_alert= product.listable? ? "Low stock level" : 'Out of Stock'
   %td
     .thumbnail
       = link_to image_tag(product.small_image), product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize)
@@ -17,7 +18,7 @@
   %td= link_to product.name, product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize)
   %td{ :style => "text-align: right"}= number_to_currency gross_price(product.msrp_or_wholesale_price)
   %td.cart_item_price{ :style => "text-align: right"}= display_product_price_cart product
-  %td.dontprint{:style => "text-align: right; width: #{cart_name == 'quote' ? '180' : '155'}px"}
+  %td.dontprint{:style => "text-align: right;"}
     - if product.can_be_added_to_cart?
       .move_to_cart{:id => "move_to_cart_#{product.id}", :rel => "#{product.item_num}"}= link_to "Move Back to Cart", "#", :class => "link_cart_move-back-to-cart", :onclick => "return false;"
     .delete_from_saved_list{:id => "delete_from_saved_list_#{product.id}", :rel => "#{product.item_num}"}= link_to "Remove from #{cart_name.capitalize}", "#", :class => "link_cart_remove-from-cart", :onclick => "return false;"
