@@ -1,13 +1,18 @@
 /* WYMeditor */
 
+/* Pop Up Message */
+a.lightbox {
+  /* background-color: #ffffe9; border: 1px solid #caca79; */
+}
+
 /* Legalese */
 p.legalese {
-  /* font-family: Verdana,Arial,sans-serif; font-size: .85em; */
+  /* background-color: #ffffe9; border: 1px solid #caca79; */
 }
 
 /* Form Help */
 p.formhelp {
-  /* font-family: Verdana,Arial,sans-serif; font-size: .85em; color: #999; font-weight: normal; */
+  /* background-color: #ffffe9; border: 1px solid #caca79; */
 }
 
 /* Text Banner Green Fabric */
