@@ -352,6 +352,14 @@ a.next_button { @extend a.prev_button;
   background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_cart--exclamation.png") no-repeat left -1px;
 }
 
+.icon_bag_alert { @extend .link_cart;
+  background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/#{$system}_bag--exclamation.png") no-repeat left -1px;
+}
+
+.icon_quote_alert { @extend .link_cart;
+  background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_quote--exclamation.png") no-repeat left -1px;
+}
+
 .icon_cart_pre-order { @extend .link_cart;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/clock.png") no-repeat left -1px;
 }
@@ -366,9 +374,29 @@ a.next_button { @extend a.prev_button;
   background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_cart_save-for-later.png") no-repeat right -1px;
 }
 
+.link_bag_save-for-later { @extend .link_cart;
+  padding: 0 19px 0 0;
+  background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/#{$system}_bag_save-for-later.png") no-repeat right -1px;
+}
+
+.link_quote_save-for-later { @extend .link_cart;
+  padding: 0 19px 0 0;
+  background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_quote_save-for-later.png") no-repeat right -1px;
+}
+
 .link_cart_move-back-to-cart { @extend .link_cart;
   padding: 0 19px 0 0;
   background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_cart_move-back-to-cart.png") no-repeat right -1px;
+}
+
+.link_bag_move-back-to-cart { @extend .link_cart;
+  padding: 0 19px 0 0;
+  background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/#{$system}_bag_move-back-to-cart.png") no-repeat right -1px;
+}
+
+.link_quote_move-back-to-cart { @extend .link_cart;
+  padding: 0 19px 0 0;
+  background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_quote_move-back-to-cart.png") no-repeat right -1px;
 }
 
 .link_cart_remove-from-cart { @extend .link_cart;
