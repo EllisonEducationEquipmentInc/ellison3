@@ -22,9 +22,7 @@
         %th{:style => "text-align: right", :width => 75} You Pay
         %th{:style => "text-align: right", :width => 70} Quantity
         %th{:style => "text-align: right", :width => 75} Total Price
-        - unless @cart_locked
-          %th.dontprint
-        %th.dontprint
+        %th.dontprint{:style => "text-align: right; width: #{cart_name == 'quote' ? '180' : '155'}px"}
     %tbody
       = render :partial => 'carts/cart_item', :collection => @cart.cart_items
       %tr
@@ -36,9 +34,7 @@
         %td.dontprint#total_savings{ :colspan => 2}= render :partial => 'carts/total_savings'
         %td{:style => "text-align: right", :class => "cart_extended_price"} Subtotal:
         %td#cart_subtotal{:style => "text-align: right", :class => "cart_extended_price"}= number_to_currency gross_price(@cart.sub_total)
-        - unless @cart_locked
-          %td.dontprint
-        %td.dontprint
+        %td.dontprint{:style => "text-align: right; width: #{cart_name == 'quote' ? '180' : '155'}px"}
     - unless @cart_locked
       :javascript
         $('input.number_only').keydown(number_only)
@@ -70,10 +66,6 @@
   .dontprint
     - unless @cart_locked
       #cart_coupon= render :partial => "carts/coupon"
-      - if get_cart.pre_order?
-        %p.error There are items in the cart that are available for pre-order only. If you would like to place a pre-order please click "Pre-Order". For immediate shipping please remove these items.
-      - elsif backorder_allowed? && get_cart.out_of_stock? && !is_ee_uk?
-        %p.error Due to high demand, some items in your cart are currently at a low stock level. If your order cannot be processed within normal ordering time, we will contact you as soon as possible.
       - if quote_allowed?
         .save_as_quote.right Save as Quote
       - if chekout_allowed? && quote_allowed?
@@ -82,6 +74,11 @@
         #checkout_button.right= "Checkout"
       - elsif get_cart.pre_order?
         .save_as_quote.right Pre-Order
+      .clear
+      - if get_cart.pre_order?
+        %p.error There are items in the cart that are available for pre-order only. If you would like to place a pre-order please click "Pre-Order". For immediate shipping please remove these items.
+      - elsif backorder_allowed? && get_cart.out_of_stock? && !is_ee_uk?
+        %p.error Due to high demand, some items in your cart are currently at a low stock level. If your order cannot be processed within normal ordering time, we will contact you as soon as possible.
       :javascript
         $(document).ready(function(){
           if ($("#fancybox-wrap:visible").length > 0) $('.save_for_later').hide();
@@ -92,18 +89,15 @@
               $.ajax({url:"#{checkout_requested_path}", complete: function(){$.fancybox.resize()}});
               $(this).button({disabled: true, label: 'please wait...'});
         		});
-        	$(".remove_from_cart")
-        	  .button({icons: {primary: 'ui-icon-close'}, text: false})
-        		.click( function() {
+        	$(".remove_from_cart").click( function() {
         			$.ajax({url:"/carts/remove_from_cart?item_num="+this.id.replace('remove_from_cart_', '')});
         			_gaq.push(['_trackEvent', 'Cart', 'Remove From Cart', this.id.replace('remove_from_cart_', '')]);
-        			$(this).button({ disabled: true });
+        			$(this).html('#{escape_javascript loader_bar}')
         		}); 
-        		$(".save_for_later").button({icons: {primary: 'ui-icon-arrowreturnthick-1-w'}, text: false})
-        			.click( function() {
+        		$(".save_for_later").click( function() {
         				$.ajax({url:"/users/save_for_later?item_num="+$(this).attr('rel')});
-        				$(this).button({disabled: true});
         				_gaq.push(['_trackEvent', 'Cart', 'Save for Later', $(this).attr('rel')]);
+        				$(this).html('#{escape_javascript loader_bar}')
         			});
         		$(".save_as_quote")
           	  .button({icons: {primary: 'ui-icon-clipboard'}})
@@ -112,7 +106,6 @@
                 $(this).button({disabled: true, label: 'please wait...'});
           		});
         });
-      .clear
       .cart_disclaimer
         - if is_sizzix_us?
           %p Updates to stock status on Sizzix.com are done routinely. Product availability shown on the Web site is not guaranteed (especially on clearance and promotional items) until your order is processed by Ellison and your credit card is charged. Orders are processed on a first come, first served basis with every attempt made by Sizzix Consumer Service to fulfill your order to your satisfaction. Email updates will be sent as we process your items.

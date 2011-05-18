@@ -21,10 +21,9 @@
   %td{:style => "text-align: right", :id => "cart_item_price_#{cart_item.id}", :class => get_cart.is_cart_item_changed?(cart_item.id, "price") ? 'cart_item_price item_changed' : 'cart_item_price'}= display_product_price_cart cart_item
   %td{:style => "text-align: right", :class => get_cart.is_cart_item_changed?(cart_item.id, "quantity") ? 'item_changed' : nil}= text_field_tag :quantity, cart_item.quantity, :id => "cart_quantity_#{cart_item.item_num}", :maxlength => 3, :size => 3, :class => "number_only", :disabled => @cart_locked, :autocomplete => 'off', :onchange => is_er? ? "if ($(this).val() < #{cart_item.minimum_quantity}) {$(this).val(#{cart_item.minimum_quantity});alert('Minimum Quantity Required for this product is: #{cart_item.minimum_quantity}')}" : nil
   %td{:style => "text-align: right", :id => "cart_item_total_#{cart_item.id}", :class => "cart_extended_price"}= number_to_currency gross_price(cart_item.total)
-  - unless @cart_locked
-    %td.dontprint{:style => "text-align: right"}
-      %p.buttonset{:id => "wishlist_buttons_#{cart_item.id}"}
-        %button.save_for_later{:id => "add_to_list_#{cart_item.id}", :rel => "#{cart_item.item_num}"} Save for Later  
-  %td.dontprint
+  %td.dontprint{:style => "text-align: right; width: #{cart_name == 'quote' ? '180' : '155'}px"}
+    - unless @cart_locked
+      %div{:id => "wishlist_buttons_#{cart_item.id}"}
+        .save_for_later{:id => "add_to_list_#{cart_item.id}", :rel => "#{cart_item.item_num}"}= link_to "Save for Later", "#", :class => "link_cart_save-for-later", :onclick => "return false;"
     - unless @cart_locked || cart_item.coupon? 
-      .remove_from_cart{:id => "remove_from_cart_#{cart_item.item_num}"} Remove
+      .remove_from_cart{:id => "remove_from_cart_#{cart_item.item_num}"}= link_to "Remove from #{cart_name.capitalize}", "#", :class => "link_cart_remove-from-cart", :onclick => "return false;"
