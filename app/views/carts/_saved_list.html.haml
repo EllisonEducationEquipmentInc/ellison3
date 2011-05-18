@@ -7,7 +7,7 @@
         %th{:width => 60} Item No.
         %th{:width => 70} Item Name
         %th
-        %th{:style => "text-align: right", :width => 75}== #{is_er? ? 'Wholesale' : 'Retail'} Price
+        %th{:style => "text-align: right; white-space: nowrap;"}== #{is_er? ? 'Wholesale' : 'Retail'} Price
         %th{:style => "text-align: right", :width => 75} You Pay
         %th.dontprint{:style => "text-align: right;" }
     %tbody= render :partial => 'carts/saved_item', :collection => get_user.save_for_later_list.products, :as => :product

@@ -18,7 +18,7 @@
         %th.dontprint{:width => 400}
         - if admin_signed_in? && current_admin.can_change_prices
           %th Upsell
-        %th{:style => "text-align: right", :width => 80}== #{is_er? ? 'Wholesale' : 'Retail'} Price
+        %th{:style => "text-align: right; white-space: nowrap;"}== #{is_er? ? 'Wholesale' : 'Retail'} Price
         %th{:style => "text-align: right", :width => 75} You Pay
         %th{:style => "text-align: right", :width => 70} Quantity
         %th{:style => "text-align: right", :width => 75} Total Price
