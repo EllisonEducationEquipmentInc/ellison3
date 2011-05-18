@@ -344,7 +344,7 @@ a.next_button { @extend a.prev_button;
   @extend .link;
   @extend .minilink;
   padding: 0 0 0 19px;
-  background: url("/images/ui-icons/set_silk/16x16/cart.png") no-repeat left -1px;
+  background: url("/images/ui-icons/set_silk/16x16/cart.png") no-repeat left top;
   white-space: nowrap;
 }
 
