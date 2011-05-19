@@ -23,7 +23,7 @@
         = sortable "status"
         = sortable "payment.deferred", 'Deferred'
         - if has_write_permissions?
-          %th &nbsp;
+          %th{:style => "text-align: right; white-space: nowrap;"} &nbsp;
     %tbody
       - for order in @orders
         - I18n.locale = order.locale
@@ -37,7 +37,7 @@
           %td{:style => order.on_hold? ? order.can_be_paid? ? 'color:green' : 'color:red' : nil}= order.status
           %td= order.payment.try :deferred
           - if has_write_permissions?
-            %td= link_to 'View', admin_order_path(order)
+            %td{:style => "text-align: right; white-space: nowrap;"}= link_to 'View', admin_order_path(order), :class => 'jqui_show_min'
 - I18n.locale = @current_locale
 %br
 = will_paginate @orders

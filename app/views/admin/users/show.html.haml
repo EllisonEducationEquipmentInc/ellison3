@@ -1,0 +1,10 @@
+%h2.left{:style => "text-transform: lowercase;"}== #{@user.email}
+.right.minilink= link_to 'edit', edit_admin_user_path(@user), :class => "link_edit-record"
+.clear
+- @user.attributes.keys.reject {|k| %w(versions campaigns).include? k}.each do |attribute|
+  %p
+    %b== #{attribute.humanize}:
+    = @user.send attribute  
+.clear
+%hr
+= link_to 'Back', admin_static_pages_path, :class => 'jqui_back'
