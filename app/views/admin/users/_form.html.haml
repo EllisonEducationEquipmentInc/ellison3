@@ -36,10 +36,11 @@
     .field
       = required_label f, :password, { :label_size => "auto" }
       %br/
-      = f.password_field :password
-      %p.formhelp Leave this field blank if you do not wish to change this user's password.
+      = f.password_field :password, :onblur => "if (this.value != '') {$('label[for=user_password_confirmation] span').addClass('required')} else {$('label[for=user_password_confirmation] span').removeClass('required')}"
+      - unless @user.new_record?
+        %p.formhelp Leave this field blank if you do not wish to change this user's password.
     .field
-      = f.label :password_confirmation, :class => "autosize"
+      = f.label :password_confirmation, "<span>Password Confirmation</span>".html_safe, :class => "autosize"
       %br/
       = f.password_field :password_confirmation
     -#
