@@ -1,11 +1,5 @@
 <html lang="en-US">
 <head>
-<script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script>
-<script type="text/javascript">
-      //&lt;![CDATA[
-        var current_system = "eeus";
-      //]]&gt;
-    </script>
 <title>Curriculum-based shape-cutting for the classroom
       |
       Ellisoneducation.com</title>
@@ -13,7 +7,6 @@
 <meta name="description" content="Ellison Education - Curriculum-Based Die-Cutting for the Classroom | Create memorable visuals and essential hands-on activities for all ages and stages of K-12 student education. Fun Free Lesson Plans. Online deals.">
 <link type="text/css" rel="stylesheet" media="all" href="/stylesheets/jqui-er/jquery-ui-1.8.6.custom.css?1297784974">
 <link type="text/css" rel="stylesheet" media="screen" href="/stylesheets/event_calendar.css?1304378712">
-<link type="text/css" rel="stylesheet" media="screen" href="/stylesheets/event_calendarx.css?1303412899">
 <link type="text/css" rel="stylesheet" media="screen" href="/stylesheets/iphone-style-checkboxes.css?1293481526">
 <link type="text/css" rel="stylesheet" media="screen" href="/stylesheets/jquery.tooltip.css?1293481526">
 <link type="text/css" rel="stylesheet" media="screen" href="/stylesheets/jquery.validate.password.css?1293481526">
@@ -65,412 +58,51 @@
 <!-- System Favicons -->
 <link type="image/x-icon" rel="icon" href="/images/favicons/e_favicon.ico">
 <link type="image/x-icon" rel="shortcut icon" href="/images/favicons/e_favicon.ico">
-<script type="text/javascript">
-      //&lt;![CDATA[
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-12678772-3']);
-        _gaq.push(['_trackPageview', location.pathname + location.hash + location.search]);
-      //]]&gt;
-    </script>
-<script type="text/javascript">
-      //&lt;![CDATA[
-        (function() {
-          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-      //]]&gt;
-    </script>
 </head>
 <body class="bp">
 <div id="root">
 <div class="container">
   <div class="design-gutter dontprint"> &nbsp; </div>
   <div class="main">
-    <div id="header">
+    <div id="header" style="height:88px;">
       <div class="dontprint">
         <h1 class="masthead"> <a title="Ellison Education" id="logo_masthead" alt="Ellison Education" href="/">Ellison Education</a> </h1>
-        <ul id="nav_utility_user">
-          <li><a title="Sign Out" class="btn-signout" alt="Sign Out" href="/users/sign_out"><span>Sign Out</span></a></li>
-          <li><a title="My Account" class="btn-myaccount" alt="My Account" href="/myaccount"><span>My Account</span></a></li>
-          <li><a title="Contact Us" class="btn-contact" alt="Contact Us" href="/contact"><span>Contact Us</span></a></li>
-          <!-- %li= link_to "<span>Limited Time Offers</span>".html_safe, "#", :class => "btn-offers", :title => "Limited Time Offers", :alt => "Limited Time Offers" -->
-        </ul>
-        <div id="shoppingcart_icon"><a title="View Cart" alt="View Cart" href="/cart"><img border="0" src="/images/ui-objects/_eeus_shoppingcart.png?1294934289" alt="Shopping Cart"></a></div>
-        <div id="shoppingcart_info">
-          <p class="cart_qty"> &nbsp; <span id="cart_items_qty">0 items</span> </p>
-          <p class="cart_total"> <span id="total_currency">$0.00</span> &nbsp; </p>
-          <p class="cart_shipmsg">&nbsp; </p>
-        </div>
-        <script type="text/javascript">
-                //&lt;![CDATA[
-                  $('#shoppingcart_info').load('/carts/shopping_cart');
-                //]]&gt;
-              </script>
-        <form name="searchbar" method="get" id="searchbar" autocomplete="off" action="/catalog">
-          <input type="text" value="Search for Ellison Products &amp; Lessons" onFocus="if (this.value == 'Search for Ellison Products &amp; Lessons'){this.value='';};$(this).attr('autocomplete', 'off');" onBlur="if (this.value == ''){this.value='Search for Ellison Products &amp; Lessons';}" name="q" id="q" class="textfield noautocomplete idlefield ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
-          <input width="24" type="image" height="24" src="/images/ui-icons/set_fugue/24x24/drop-shadow/magnifier-left.png" name="submit" class="submitbutton">
-        </form>
-        <script type="text/javascript">
-                //&lt;![CDATA[
-                  $("input.textfield").addClass("idlefield");
-                  $("input.textfield").focus(function(){
-                    $(this).addClass("activefield").removeClass("idlefield");
-                  }).blur(function(){
-                    $(this).removeClass("activefield").addClass("idlefield");
-                  });
-                  
-                  $('#q').change(function() {        
-                    $(this).removeClass("activefield").addClass("idlefield");
-                  });
-                  $("#q").autocomplete({
-                  	source: function(request, response) {
-                  	  $.ajax({
-                      	url: "/eeus_solr_terms/"+request.term,
-                      	dataType: 'text json',
-                      	data: {},
-                      	success: function( data ) {response($.map(data.terms[0][1],function(n,i){return n[0]}))}
-                      });
-                  	},
-                  	search: function() {
-                  		if (this.value.length &lt; 1) {
-                  			return false;
-                  		}
-                  	},
-                  	focus: function( event, ui ) {
-                            $(this).val( ui.item.label );
-                    				return false;
-                    			},
-                  	select: function(event, ui) {
-                  	  this.value = ui.item.value;
-                  	  $(this.form).trigger('submit');
-                  		return false;
-                  	}});
-                  $('#searchbar').submit(function() {
-                    var default_value = "Search for Ellison Products &amp; Lessons";
-                    var search_value = $('#q').val();
-                    if (search_value == default_value) {
-                      return false;
-                    } else {
-                      location.href = 'http://'+location.host+'/catalog#q='+$('#q').val();return false;
-                    }
-                  });
-                //]]&gt;
-              </script>
+
       </div>
       <div id="printmasthead" class="dontdisplay">
         <h1>Ellison education.com</h1>
       </div>
-      <div id="nav_megamenu" class="dontprint">
-        <ul class="megalist">
-          <li class="megaitem ui-corner-top"> <a onClick="$(this).siblings('div.megapanel').hide(); return true;" class="megalink" href="/lp/categories?ideas=1">Lessons</a>
-            <div class="megapanel">
-              <ul class="contentwrap_XS">
-                <li class="listtitle first"><a href="/lp/curriculums?ideas=1">By Curriculum</a></li>
-                <ul>
-                  <li><a href="/catalog#facets=curriculum~english-language-arts&amp;ideas=1">English Language Arts</a></li>
-                  <li><a href="/catalog#facets=curriculum~fine-arts-crafts&amp;ideas=1">Fine Arts &amp; Crafts</a></li>
-                  <li><a href="/catalog#facets=curriculum~foreign-language&amp;ideas=1">Foreign Language</a></li>
-                  <li><a href="/catalog#facets=curriculum~health&amp;ideas=1">Health</a></li>
-                  <li><a href="/catalog#facets=curriculum~math&amp;ideas=1">Math</a></li>
-                  <li><a href="/catalog#facets=curriculum~physical-education&amp;ideas=1">Physical Education</a></li>
-                  <li><a href="/catalog#facets=curriculum~science&amp;ideas=1">Science</a></li>
-                  <li><a href="/catalog#facets=curriculum~social-studies&amp;ideas=1">Social Studies</a></li>
-                </ul>
-              </ul>
-              <ul class="contentwrap_XS">
-                <li class="listtitle first"><a href="/lp/themes?ideas=1">By Themes</a></li>
-                <ul>
-                  <li><a href="/catalog#facets=theme~animals&amp;ideas=1">Animals</a></li>
-                  <li><a href="/catalog#facets=theme~awards-incentives&amp;ideas=1">Awards &amp; Incentives</a></li>
-                  <li><a href="/catalog#facets=theme~books-journals&amp;ideas=1">Books &amp; Journals</a></li>
-                  <li><a href="/catalog#facets=theme~bulletin-boards-decor&amp;ideas=1">Bulletin Boards &amp; Décor</a></li>
-                  <li><a href="/catalog#facets=theme~christmas&amp;ideas=1">Christmas</a></li>
-                  <li><a href="/catalog#facets=theme~earth-day&amp;ideas=1">Earth Day</a></li>
-                  <li><a href="/catalog#facets=theme~flowers-plants-trees&amp;ideas=1">Flowers, Plants &amp; Trees</a></li>
-                  <li><a href="/catalog#facets=theme~flowers-vines-trees&amp;ideas=1">Flowers, Vines &amp; Trees</a></li>
-                  <li><a href="/catalog#facets=theme~food-nutrition&amp;ideas=1">Food &amp; Nutrition</a></li>
-                  <li><a href="/catalog#facets=theme~hands-on-activities&amp;ideas=1">Hands-On Activities</a></li>
-                  <li><a href="/catalog#facets=theme~holidays&amp;ideas=1">Holidays</a></li>
-                  <li><a href="/catalog#facets=theme~holidays-celebrations&amp;ideas=1">Holidays &amp; Celebrations</a></li>
-                  <li><a href="/catalog#facets=theme~keep-it-green&amp;ideas=1">Keep It Green</a></li>
-                  <li><a href="/catalog#facets=theme~land&amp;ideas=1">Land</a></li>
-                  <li><a href="/catalog#facets=theme~library&amp;ideas=1">Library</a></li>
-                  <li><a href="/catalog#facets=theme~outer-space&amp;ideas=1">Outer Space</a></li>
-                  <li><a href="/catalog#facets=theme~people-communities&amp;ideas=1">People &amp; Communities</a></li>
-                  <li><a href="/catalog#facets=theme~religion-faith&amp;ideas=1">Religion &amp; Faith</a></li>
-                  <li><a href="/catalog#facets=theme~seasons-weather&amp;ideas=1">Seasons &amp; Weather</a></li>
-                  <li><a href="/catalog#facets=theme~signs-symbols&amp;ideas=1">Signs &amp; Symbols</a></li>
-                  <li><a href="/catalog#facets=theme~sports-hobbies-music&amp;ideas=1">Sports, Hobbies &amp; Music</a></li>
-                  <li><a href="/catalog#facets=theme~transportation&amp;ideas=1">Transportation</a></li>
-                  <li><a href="/catalog#facets=theme~usa-patriotic&amp;ideas=1">USA &amp; Patriotic</a></li>
-                  <li><a href="/catalog#facets=theme~water&amp;ideas=1">Water</a></li>
-                  <li><a href="/catalog#facets=theme~world-travels&amp;ideas=1">World Travels</a></li>
-                </ul>
-              </ul>
-              <ul class="contentwrap_XS">
-                <li class="listtitle first">More ways to Browse</li>
-                <ul>
-                  <li><a href="/catalog#ideas=1&amp;page=1&amp;sort=start_date_eeus%3Adesc">New Lessons</a></li>
-                  <li><a href="/calendar">Planning Calendar</a></li>
-                  <li><a href="/catalog#facets=category~fundraising-ideas&amp;ideas=1&amp;sort=start_date_eeus:desc&amp;page=1">Fundraising Ideas</a></li>
-                  <li><a href="/catalog#facets=category~tips-techniques&amp;ideas=1&amp;sort=start_date_eeus%3Adesc&amp;page=1">Tips &amp; Techniques</a></li>
-                </ul>
-              </ul>
-            </div>
-          </li>
-          <li class="megaitem ui-corner-top"> <a onClick="$(this).siblings('div.megapanel').hide(); return true;" class="megalink" href="/catalog">Products</a>
-            <div class="megapanel">
-              <ul class="contentwrap_XS">
-                <li class="listtitle first"><a href="/lp/categories">By Category</a></li>
-                <ul>
-                  <li><a href="/catalog#facets=category~embossing">Embossing</a></li>
-                  <li><a href="/catalog#facets=category~machine-accessories">Machine Accessories</a></li>
-                  <li><a href="/catalog#facets=category~machines">Machines</a></li>
-                  <li><a href="/catalog#facets=category~shape-cutting">Shape-Cutting</a></li>
-                  <li><a href="/catalog#facets=category~storage">Storage</a></li>
-                  <li><a href="/catalog#facets=category~supplies">Supplies</a></li>
-                  <li><a href="/catalog#facets=category~tips-techniques">Tips &amp; Techniques</a></li>
-                  <li><a href="/catalog#facets=category~value-packs">Value Packs</a></li>
-                </ul>
-              </ul>
-              <ul class="contentwrap_XS">
-                <li class="listtitle first"><a href="/lp/themes">By Themes</a></li>
-                <ul>
-                  <li><a href="/catalog#facets=theme~animals">Animals</a></li>
-                  <li><a href="/catalog#facets=theme~awards-incentives">Awards &amp; Incentives</a></li>
-                  <li><a href="/catalog#facets=theme~baby">Baby</a></li>
-                  <li><a href="/catalog#facets=theme~basic-shapes">Basic Shapes</a></li>
-                  <li><a href="/catalog#facets=theme~books-journals">Books &amp; Journals</a></li>
-                  <li><a href="/catalog#facets=theme~bulletin-boards-decor">Bulletin Boards &amp; Décor</a></li>
-                  <li><a href="/catalog#facets=theme~christmas">Christmas</a></li>
-                  <li><a href="/catalog#facets=theme~earth-day">Earth Day</a></li>
-                  <li><a href="/catalog#facets=theme~flowers-plants-trees">Flowers, Plants &amp; Trees</a></li>
-                  <li><a href="/catalog#facets=theme~flowers-vines-trees">Flowers, Vines &amp; Trees</a></li>
-                  <li><a href="/catalog#facets=theme~food-nutrition">Food &amp; Nutrition</a></li>
-                  <li><a href="/catalog#facets=theme~hands-on-activities">Hands-On Activities</a></li>
-                  <li><a href="/catalog#facets=theme~holidays-celebrations">Holidays &amp; Celebrations</a></li>
-                  <li><a href="/catalog#facets=theme~keep-it-green">Keep It Green</a></li>
-                  <li><a href="/catalog#facets=theme~land">Land</a></li>
-                  <li><a href="/catalog#facets=theme~library">Library</a></li>
-                  <li><a href="/catalog#facets=theme~outer-space">Outer Space</a></li>
-                  <li><a href="/catalog#facets=theme~people-communities">People &amp; Communities</a></li>
-                  <li><a href="/catalog#facets=theme~religion-faith">Religion &amp; Faith</a></li>
-                  <li><a href="/catalog#facets=theme~school-sports">School &amp; Sports</a></li>
-                  <li><a href="/catalog#facets=theme~seasons">Seasons</a></li>
-                  <li><a href="/catalog#facets=theme~seasons-weather">Seasons &amp; Weather</a></li>
-                  <li><a href="/catalog#facets=theme~signs-symbols">Signs &amp; Symbols</a></li>
-                  <li><a href="/catalog#facets=theme~sports-hobbies-music">Sports, Hobbies &amp; Music</a></li>
-                  <li><a href="/catalog#facets=theme~transportation">Transportation</a></li>
-                  <li><a href="/catalog#facets=theme~usa-patriotic">USA &amp; Patriotic</a></li>
-                  <li><a href="/catalog#facets=theme~water">Water</a></li>
-                  <li><a href="/catalog#facets=theme~world-travels">World Travels</a></li>
-                </ul>
-              </ul>
-              <ul class="contentwrap_XS">
-                <li class="listtitle first"><a href="/lp/product_lines">By Product Line</a></li>
-                <ul>
-                  <li><a href="/catalog#facets=product_line~allstar">AllStar</a></li>
-                  <li><a href="/catalog#facets=product_line~clearcrop">ClearCrop</a></li>
-                  <li><a href="/catalog#facets=product_line~lettermachine">LetterMachine</a></li>
-                  <li><a href="/catalog#facets=product_line~prestige">Prestige</a></li>
-                  <li><a href="/catalog#facets=product_line~rollmodel">RollModel</a></li>
-                  <li><a href="/catalog#facets=product_line~sizzix-bigz">Sizzix Bigz</a></li>
-                  <li><a href="/catalog#facets=product_line~sizzix-eclips">Sizzix eclips</a></li>
-                  <li><a href="/catalog#facets=product_line~sizzix-sizzlits">Sizzix Sizzlits</a></li>
-                  <li><a href="/catalog#facets=product_line~surecut">SureCut</a></li>
-                </ul>
-              </ul>
-              <ul class="contentwrap_XS">
-                <li class="listtitle first"><a href="/lp/themes">By Themes</a></li>
-                <ul>
-                  <li><a href="/catalog#facets=theme~animals">Animals</a></li>
-                  <li><a href="/catalog#facets=theme~awards-incentives">Awards &amp; Incentives</a></li>
-                  <li><a href="/catalog#facets=theme~baby">Baby</a></li>
-                  <li><a href="/catalog#facets=theme~basic-shapes">Basic Shapes</a></li>
-                  <li><a href="/catalog#facets=theme~books-journals">Books &amp; Journals</a></li>
-                  <li><a href="/catalog#facets=theme~bulletin-boards-decor">Bulletin Boards &amp; Décor</a></li>
-                  <li><a href="/catalog#facets=theme~christmas">Christmas</a></li>
-                  <li><a href="/catalog#facets=theme~earth-day">Earth Day</a></li>
-                  <li><a href="/catalog#facets=theme~flowers-plants-trees">Flowers, Plants &amp; Trees</a></li>
-                  <li><a href="/catalog#facets=theme~flowers-vines-trees">Flowers, Vines &amp; Trees</a></li>
-                  <li><a href="/catalog#facets=theme~food-nutrition">Food &amp; Nutrition</a></li>
-                  <li><a href="/catalog#facets=theme~hands-on-activities">Hands-On Activities</a></li>
-                  <li><a href="/catalog#facets=theme~holidays-celebrations">Holidays &amp; Celebrations</a></li>
-                  <li><a href="/catalog#facets=theme~keep-it-green">Keep It Green</a></li>
-                  <li><a href="/catalog#facets=theme~land">Land</a></li>
-                  <li><a href="/catalog#facets=theme~library">Library</a></li>
-                  <li><a href="/catalog#facets=theme~outer-space">Outer Space</a></li>
-                  <li><a href="/catalog#facets=theme~people-communities">People &amp; Communities</a></li>
-                  <li><a href="/catalog#facets=theme~religion-faith">Religion &amp; Faith</a></li>
-                  <li><a href="/catalog#facets=theme~school-sports">School &amp; Sports</a></li>
-                  <li><a href="/catalog#facets=theme~seasons">Seasons</a></li>
-                  <li><a href="/catalog#facets=theme~seasons-weather">Seasons &amp; Weather</a></li>
-                  <li><a href="/catalog#facets=theme~signs-symbols">Signs &amp; Symbols</a></li>
-                  <li><a href="/catalog#facets=theme~sports-hobbies-music">Sports, Hobbies &amp; Music</a></li>
-                  <li><a href="/catalog#facets=theme~transportation">Transportation</a></li>
-                  <li><a href="/catalog#facets=theme~usa-patriotic">USA &amp; Patriotic</a></li>
-                  <li><a href="/catalog#facets=theme~water">Water</a></li>
-                  <li><a href="/catalog#facets=theme~world-travels">World Travels</a></li>
-                </ul>
-              </ul>
-              <ul class="contentwrap_XS">
-                <li class="listtitle first">More Products</li>
-                <ul>
-                  <li><a href="/catalog#sort=start_date_eeus%3Adesc&amp;page=1">New Products</a></li>
-                  <li><a href="/customdies">Custom Dies</a></li>
-                  <li>______________________</li>
-                  <li><a href="/videos">Product Videos</a></li>
-                  <li><a href="/instructions">Product Instructions</a></li>
-                  <li><a href="/warranties">Product Warranties</a></li>
-                  <li><a href="die_size_guide">Die Size Guide</a></li>
-                  <li><a href="/productsupport">Product Support</a></li>
-                </ul>
-              </ul>
-            </div>
-          </li>
-          <li class="megaitem ui-corner-top"> <a onClick="$(this).siblings('div.megapanel').hide(); return true;" class="megalink" href="/shop/eclips">Electronic Cutting</a>
-            <div class="megapanel">
-              <ul class="contentwrap_XS">
-                <li class="listtitle first"><a href="/eclips">eclips</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="megaitem ui-corner-top"> <a onClick="$(this).siblings('div.megapanel').hide(); return true;" class="megalink" href="/campaigns">Specials</a>
-            <div class="megapanel">
-              <ul class="contentwrap_XS">
-                <li class="listtitle first"><a href="/campaigns">Promotions</a></li>
-                <ul>
-                  <li><a href="/catalog#facets=special~beyond-dies-clearance">Beyond Dies Clearance</a></li>
-                  <li><a href="/catalog#facets=special~patrik">patrik</a></li>
-                </ul>
-              </ul>
-              <ul class="contentwrap_XS">
-                <li class="listtitle first"><a href="/clearance">Clearance</a></li>
-                <ul>
-                  <li><a href="/customdies">Custom Dies</a></li>
-                </ul>
-              </ul>
-            </div>
-          </li>
-          <li class="megaitem ui-corner-top"> <a onClick="$(this).siblings('div.megapanel').hide(); return true;" class="megalink" href="#">Community</a>
-            <div class="megapanel">
-              <ul class="contentwrap_XS">
-                <li class="listtitle first">Support</li>
-                <ul>
-                  <li><a href="/contact">Contact</a></li>
-                  <li><a href="/whweretobuy">Where to Buy</a></li>
-                </ul>
-              </ul>
-            </div>
-          </li>
-          <li class="megaitem ui-corner-top"> <a onClick="$(this).siblings('div.megapanel').hide(); return true;" class="megalink" href="#">Support</a>
-            <div class="megapanel reverse"> </div>
-          </li>
-        </ul>
-      </div>
-      <script type="text/javascript">
-              //&lt;![CDATA[
-                $('ul.megasublist li').mouseover(function(){
-                  $('div.subpanel').eq($('ul.megasublist li').index(this)).fadeTo('fast',1).siblings('div.subpanel').fadeTo('fast',0).hide();
-                  $(this).parents('.megapanel').shadowOff();
-                  $(this).parents('.megapanel').shadowOn(megapanel_shadow_options); 
-                })
-              //]]&gt;
-            </script>
     </div>
-    <div id="content">
-      <!-- This file lives in public/500_eeuk.html -->
-      <img class="message" src="/images/static/500.png" width="950" height="804"/> </div>
+      <div id="content">
+        <!-- This file lives in public/500_eeuk.html -->
+        <img class="message" src="/images/static/500.png" width="950" height="804" style="float:left"/> </div>
     <div class="design-gutter dontprint last"> &nbsp; </div>
   </div>
+  <div id="root_footer"></div>
 </div>
 <ul class="ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all" role="listbox" aria-activedescendant="ui-active-menuitem" style="z-index: 1; top: 0px; left: 0px; display: none;">
 </ul>
 <div id="footer" class="dontprint">
-  <div class="container">
+  <div class="container" style="height:226px">
     <div class="design-gutter dontprint"> &nbsp; </div>
     <div class="main">
-      <div class="column panel_height">
-        <h2>Customer Care</h2>
-        <p> Contact us for help with any issues or concerns <br>
-          <span style="font-weight:bold"><a href="/contact">You may contact us online 24x7</a></span> </p>
-        <h3>Call Center Hours</h3>
-        <p> 6:30 a.m. to 4:00 p.m., Pacific Time, <br>
-          Monday through Friday </p>
-        <h3>By Phone</h3>
-        <ul>
-          <li>(800) 253-2238 (Toll Free in the USA)</li>
-          <li>(949) 598-8822 (Outside of the USA)</li>
-        </ul>
-        <h3>By Fax</h3>
-        <ul>
-          <li>(800) 253-2240 (Toll free in the USA)</li>
-          <li>(949) 598-8840 (Outside of the USA)</li>
-        </ul>
-        <h3>By Mail:</h3>
-        <p> <strong>Ellison Education Customer Service</strong> <br>
-          25862 Commercentre Drive <br>
-          Lake Forest, California 92630-8804 USA </p>
-      </div>
-      <div class="column panel_height">
-        <h2>Learn More</h2>
-        <p>Other useful resources:</p>
-        <ul>
-          <li><a href="/customdies">Custom Dies</a></li>
-          <li><a href="/myaccount/materials">Request a Catalog</a></li>
-          <li><a href="/stores">Where to Buy</a></li>
-          <li><a href="/events">Events &amp; Conferences</a></li>
-          <li><a href="/workshop">Workshops &amp; Webinars</a></li>
-          <li><a href="/fundraising">Fundraising</a></li>
-          <li><a href="/onlinesupport">Online Ordering Support</a></li>
-          <li><a href="/privacy">Privacy Policy</a></li>
-          <li><a href="/legal">Legal Notices</a></li>
-        </ul>
-      </div>
-      <div class="column_right panel_height">
-        <h2>Subscribe to Connection</h2>
-        <p style="margin-bottom: 0 !important;"> Stay informed with regular email updates! </p>
-        <form method="get" action="/index/newsletter" accept-charset="UTF-8">
-          <div style="margin:0;padding:0;display:inline">
-            <input type="hidden" value="✓" name="utf8">
-          </div>
-          <input type="text" value="Enter your email address" size="30" onFocus="if (this.value == 'Enter your email address'){this.value='';}" onBlur="if (this.value == ''){this.value='Enter your email address';}" name="email" id="email" class="email_footer idlefield">
-          <input type="submit" value="Subscribe" name="commit" class="jqui_save ui-button ui-widget ui-state-default ui-corner-all" role="button" aria-disabled="false">
-        </form>
-        <br>
-        <script type="text/javascript">
-              //&lt;![CDATA[
-                $(".email_footer").addClass("idlefield");
-                $(".email_footer").focus(function(){
-                  $(this).addClass("activefield").removeClass("idlefield");
-                }).blur(function(){
-                  $(this).removeClass("activefield").addClass("idlefield");
-                });
-              //]]&gt;
-            </script>
-        <h2>Follow Along With Us</h2>
-        <p>To Connect with us in social media</p>
-        <ul class="social-icons">
-          <li><a title="Follow us on Twitter" target="blank" alt="Follow us on Twitter" href="http://www.twitter.com/Ellison_us"><img src="/images/ui-icons/set_social-media/32x32/twitter.png?1295983567" alt="Twitter"></a></li>
-          <li><a title="Join us on Facebook" target="blank" alt="Join us on Facebook" href="http://www.facebook.com/EllisonEducation"><img src="/images/ui-icons/set_social-media/32x32/facebook.png?1295983567" alt="Facebook"></a></li>
-          <li><a title="Watch us on Yo
-            uTube" target="blank" alt="Watch us on YouTube" href="http://youtube.com/ellison"><img src="/images/ui-icons/set_social-media/32x32/youtube.png?1295983567" alt="Youtube"></a></li>
-          <li><a title="Send us an email" alt="Send us an email" href="/contact"><img src="/images/ui-icons/set_social-media/32x32/email.png?1295983567" alt="Email"></a></li>
-        </ul>
-      </div>
-      <div class="clear"></div>
       <div class="copyright"> <br>
         Our Privacy Policy has been updated effective March 4, 2009. <br>
         <br>
-        Copyright &copy; Ellison 1996 - 2011. All rights reserved. <br>
-        This site is intended for visitors within the United States.
-        <li style="list-style:none"><a href="http://www.ellisoneducation.co.uk">European visitors check out partner site</a></li>
+Copyright &copy; Ellison 1996 - 2011. All rights reserved.
+<br>
+This site is intended for visitors within Europe.
+<li style="list-style:none"><a href="http://www.ellisoneducation.com">U.S. visitors check out partner site</a></li>
       </div>
     </div>
     <div class="design-gutter dontprint last"> &nbsp; </div>
   </div>
 </div>
+<div id="fancybox-tmp"></div>
+<div id="fancybox-loading">
+  <div></div>
+</div>
+<div id="fancybox-overlay"></div>
 <div id="fancybox-wrap">
   <div id="fancybox-outer">
     <div id="fancy-bg-n" class="fancy-bg"></div>
@@ -481,7 +113,8 @@
     <div id="fancy-bg-sw" class="fancy-bg"></div>
     <div id="fancy-bg-w" class="fancy-bg"></div>
     <div id="fancy-bg-nw" class="fancy-bg"></div>
-    <a id="fancybox-left" href="javascript:;"><span id="fancybox-left-ico" class="fancy-ico"></span></a><a id="fancybox-right" href="javascript:;"><span id="fancybox-right-ico" class="fancy-ico"></span></a></div>
+    <div id="fancybox-inner"></div>
+    <a id="fancybox-close"></a><a id="fancybox-left" href="javascript:;"><span id="fancybox-left-ico" class="fancy-ico"></span></a><a id="fancybox-right" href="javascript:;"><span id="fancybox-right-ico" class="fancy-ico"></span></a></div>
 </div>
 </body>
 </html>

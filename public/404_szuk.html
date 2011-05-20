@@ -65,23 +65,6 @@
     <!-- System Favicons -->
     <link type="image/x-icon" rel="icon" href="/images/favicons/s_favicon.ico">
     <link type="image/x-icon" rel="shortcut icon" href="/images/favicons/s_favicon.ico">
-    <script type="text/javascript">
-      //&lt;![CDATA[
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-12678772-3']);
-        _gaq.push(['_trackPageview', location.pathname + location.hash + location.search]);
-      //]]&gt;
-    </script>
-    <script type="text/javascript">
-      //&lt;![CDATA[
-        (function() {
-          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-      //]]&gt;
-    </script>
-    
   </head>
   <body class="bp">
     <div id="root">
@@ -95,168 +78,12 @@
               <h1 class="masthead">
                 <a title="Sizzix UK" id="logo_masthead" alt="Sizzix UK" href="/">Sizzix UK</a>
               </h1>
-              <ul id="nav_utility_user">
-                <li style="padding-left: 0">
-                  <a title="switch currency" onclick="return false;" class="btn-locale" alt="switch currency" href="#"><span><img src="/images/ui-icons/flags/24/en-UK.png?1294769802" alt="En-uk"></span>
-                  </a>
-                </li>
-                <li><a title="Sign Out" class="btn-signout" alt="Sign Out" href="/users/sign_out"><span>Sign Out</span></a></li>
-                <li><a title="My Account" class="btn-myaccount" alt="My Account" href="/myaccount"><span>My Account</span></a></li>
-                <li><a title="Contact Us" class="btn-contact" alt="Contact Us" href="/contact"><span>Contact Us</span></a></li>
-                <!-- %li= link_to "<span>Limited Time Offers</span>".html_safe, "#", :class => "btn-offers", :title => "Limited Time Offers", :alt => "Limited Time Offers" -->
-              </ul>
-              <script type="text/javascript">
-                //&lt;![CDATA[
-                  $(document).ready(function(){
-                    $('.btn-locale').CreateBubblePopup({
-                      position: 'bottom',
-                      align: 'right',
-                      tail: {
-                        align: 'right',
-                        hidden: false
-                      },
-                      selectable: true,
-                      innerHtml: '&lt;img alt="currently set to British Pounds" src="/images/ui-buttons/currency_en-UK.png?1294769802" title="currently set to British Pounds" /&gt;&lt;br /&gt;&lt;a href="?system=szuk&amp;amp;locale=en-EU"&gt;&lt;img alt="switch to the Euro" src="/images/ui-buttons/currency_en-EU.png?1294769802" title="switch to the Euro" /&gt;&lt;/a&gt;',
-                      innerHtmlStyle: {
-                        color: '#FFFFFF',
-                        'text-align': 'center'
-                      },
-                      themeName: 'azure',
-                      themePath: '/images/ui-plugins/bubblepopup'
-                    });
-                  });
-                //]]&gt;
-              </script>
-              <div id="shoppingcart_icon"><a title="View Bag" alt="View Bag" href="/cart"><img border="0" src="/images/ui-objects/_szuk_shoppingcart.png?1299000123" alt="Shopping Bag"></a></div>
-              <div id="shoppingcart_info"><p class="cart_qty">
-  &nbsp;
-  <span id="cart_items_qty">0 items</span>
-</p>
-<p class="cart_total">
-  <span id="total_currency">£0.00</span>
-  &nbsp;
-</p>
-<p class="cart_shipmsg">
-  &nbsp;
-  
-</p>
-</div>
-              <script type="text/javascript">
-                //&lt;![CDATA[
-                  $('#shoppingcart_info').load('/carts/shopping_cart');
-                //]]&gt;
-              </script>
-              <form name="searchbar" method="get" id="searchbar" autocomplete="off" action="/catalog">
-                <input type="text" value="Search for Sizzix Products &amp; Projects" onfocus="if (this.value == 'Search for Sizzix Products &amp; Projects'){this.value='';};$(this).attr('autocomplete', 'off');" onblur="if (this.value == ''){this.value='Search for Sizzix Products &amp; Projects';}" name="q" id="q" class="textfield noautocomplete idlefield ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
-                <input width="37" type="image" height="29" src="/images/ui-icons/set_fugue_custom/24x24/drop-shadow/szuk_magnifier-left.png" name="submit" class="submitbutton">
-              </form>
-              <script type="text/javascript">
-                //&lt;![CDATA[
-                  $("input.textfield").addClass("idlefield");
-                  $("input.textfield").focus(function(){
-                    $(this).addClass("activefield").removeClass("idlefield");
-                  }).blur(function(){
-                    $(this).removeClass("activefield").addClass("idlefield");
-                  });
-                  
-                  $('#q').change(function() {        
-                    $(this).removeClass("activefield").addClass("idlefield");
-                  });
-                  $("#q").autocomplete({
-                  	source: function(request, response) {
-                  	  $.ajax({
-                      	url: "/szuk_solr_terms/"+request.term,
-                      	dataType: 'text json',
-                      	data: {},
-                      	success: function( data ) {response($.map(data.terms[0][1],function(n,i){return n[0]}))}
-                      });
-                  	},
-                  	search: function() {
-                  		if (this.value.length &lt; 1) {
-                  			return false;
-                  		}
-                  	},
-                  	focus: function( event, ui ) {
-                            $(this).val( ui.item.label );
-                    				return false;
-                    			},
-                  	select: function(event, ui) {
-                  	  this.value = ui.item.value;
-                  	  $(this.form).trigger('submit');
-                  		return false;
-                  	}});
-                  $('#searchbar').submit(function() {
-                    var default_value = "Search for Sizzix Products &amp; Projects";
-                    var search_value = $('#q').val();
-                    if (search_value == default_value) {
-                      return false;
-                    } else {
-                      location.href = 'http://'+location.host+'/catalog#q='+$('#q').val();return false;
-                    }
-                  });
-                //]]&gt;
-              </script>
             </div>
             <div id="printmasthead" class="dontdisplay">
               <h1>Sizzix uk.com</h1>
             </div>
             <div id="nav_megamenu" class="dontprint">
-              <ul class="megalist">
-                <li class="megaitem ui-corner-top">
-                  <a onclick="$(this).siblings('div.megapanel').hide(); return true;" class="megalink JQFE" href="/catalog" style="display: block; position: relative; width: 83.2px; height: 22px;"><div style="width: 83.2px; height: 22px; position: relative;"><div class="JQFEText" style="display: inline; width: 83.2px; height: 22px; position: relative; z-index: 100;">Products</div><div style="width: 83.2px; height: 22px; left: 0px; position: absolute; top: 0px; z-index: 90;"><div class="JQFEOutline" style="position: absolute; top: -2px; left: -2px; width: 83.2px; color: rgb(51, 89, 164); z-index: 30;">Products</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: -1px; width: 83.2px; color: rgb(51, 89, 164); z-index: 30;">Products</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: 0px; width: 83.2px; color: rgb(51, 89, 164); z-index: 30;">Products</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: 1px; width: 83.2px; color: rgb(51, 89, 164); z-index: 30;">Products</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: 2px; width: 83.2px; color: rgb(51, 89, 164); z-index: 30;">Products</div><div class="JQFEOutline" style="position: absolute; top: -1px; left: -2px; width: 83.2px; color: rgb(51, 89, 164); z-index: 30;">Products</div><div class="JQFEOutline" style="position: absolute; top: 0px; left: -2px; width: 83.2px; color: rgb(51, 89, 164); z-index: 30;">Products</div><div class="JQFEOutline" style="position: absolute; top: 1px; left: -2px; width: 83.2px; color: rgb(51, 89, 164); z-index: 30;">Products</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: -2px; width: 83.2px; color: rgb(51, 89, 164); z-index: 30;">Products</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: -1px; width: 83.2px; color: rgb(51, 89, 164); z-index: 30;">Products</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: 0px; width: 83.2px; color: rgb(51, 89, 164); z-index: 30;">Products</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: 1px; width: 83.2px; color: rgb(51, 89, 164); z-index: 20;">Products</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: 2px; width: 83.2px; color: rgb(51, 89, 164); z-index: 20;">Products</div><div class="JQFEOutline" style="position: absolute; top: -1px; left: 2px; width: 83.2px; color: rgb(51, 89, 164); z-index: 20;">Products</div><div class="JQFEOutline" style="position: absolute; top: 0px; left: 2px; width: 83.2px; color: rgb(51, 89, 164); z-index: 20;">Products</div><div class="JQFEOutline" style="position: absolute; top: 1px; left: 2px; width: 83.2px; color: rgb(51, 89, 164); z-index: 20;">Products</div></div><div style="width: 83.2px; height: 22px; left: 0px; position: absolute; top: 0px; z-index: 110;"></div></div></a>
-                  <div class="megapanel">
-                  </div>
-                </li>
-                <li class="megaitem ui-corner-top">
-                  <a onclick="$(this).siblings('div.megapanel').hide(); return true;" class="megalink JQFE" href="/lp/categories?ideas=1" style="display: block; position: relative; width: 75.92px; height: 22px;"><div style="width: 75.92px; height: 22px; position: relative;"><div class="JQFEText" style="display: inline; width: 75.92px; height: 22px; position: relative; z-index: 100;">Projects</div><div style="width: 75.92px; height: 22px; left: 0px; position: absolute; top: 0px; z-index: 90;"><div class="JQFEOutline" style="position: absolute; top: -2px; left: -2px; width: 75.92px; color: rgb(51, 89, 164); z-index: 30;">Projects</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: -1px; width: 75.92px; color: rgb(51, 89, 164); z-index: 30;">Projects</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: 0px; width: 75.92px; color: rgb(51, 89, 164); z-index: 30;">Projects</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: 1px; width: 75.92px; color: rgb(51, 89, 164); z-index: 30;">Projects</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: 2px; width: 75.92px; color: rgb(51, 89, 164); z-index: 30;">Projects</div><div class="JQFEOutline" style="position: absolute; top: -1px; left: -2px; width: 75.92px; color: rgb(51, 89, 164); z-index: 30;">Projects</div><div class="JQFEOutline" style="position: absolute; top: 0px; left: -2px; width: 75.92px; color: rgb(51, 89, 164); z-index: 30;">Projects</div><div class="JQFEOutline" style="position: absolute; top: 1px; left: -2px; width: 75.92px; color: rgb(51, 89, 164); z-index: 30;">Projects</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: -2px; width: 75.92px; color: rgb(51, 89, 164); z-index: 30;">Projects</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: -1px; width: 75.92px; color: rgb(51, 89, 164); z-index: 30;">Projects</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: 0px; width: 75.92px; color: rgb(51, 89, 164); z-index: 30;">Projects</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: 1px; width: 75.92px; color: rgb(51, 89, 164); z-index: 20;">Projects</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: 2px; width: 75.92px; color: rgb(51, 89, 164); z-index: 20;">Projects</div><div class="JQFEOutline" style="position: absolute; top: -1px; left: 2px; width: 75.92px; color: rgb(51, 89, 164); z-index: 20;">Projects</div><div class="JQFEOutline" style="position: absolute; top: 0px; left: 2px; width: 75.92px; color: rgb(51, 89, 164); z-index: 20;">Projects</div><div class="JQFEOutline" style="position: absolute; top: 1px; left: 2px; width: 75.92px; color: rgb(51, 89, 164); z-index: 20;">Projects</div></div><div style="width: 75.92px; height: 22px; left: 0px; position: absolute; top: 0px; z-index: 110;"></div></div></a>
-                  <div class="megapanel">
-                  </div>
-                </li>
-                <li class="megaitem ui-corner-top">
-                  <a onclick="$(this).siblings('div.megapanel').hide(); return true;" class="megalink JQFE" href="/campaigns" style="display: block; position: relative; width: 104px; height: 22px;"><div style="width: 104px; height: 22px; position: relative;"><div class="JQFEText" style="display: inline; width: 104px; height: 22px; position: relative; z-index: 100;">Promotions</div><div style="width: 104px; height: 22px; left: 0px; position: absolute; top: 0px; z-index: 90;"><div class="JQFEOutline" style="position: absolute; top: -2px; left: -2px; width: 104px; color: rgb(51, 89, 164); z-index: 30;">Promotions</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: -1px; width: 104px; color: rgb(51, 89, 164); z-index: 30;">Promotions</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: 0px; width: 104px; color: rgb(51, 89, 164); z-index: 30;">Promotions</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: 1px; width: 104px; color: rgb(51, 89, 164); z-index: 30;">Promotions</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: 2px; width: 104px; color: rgb(51, 89, 164); z-index: 30;">Promotions</div><div class="JQFEOutline" style="position: absolute; top: -1px; left: -2px; width: 104px; color: rgb(51, 89, 164); z-index: 30;">Promotions</div><div class="JQFEOutline" style="position: absolute; top: 0px; left: -2px; width: 104px; color: rgb(51, 89, 164); z-index: 30;">Promotions</div><div class="JQFEOutline" style="position: absolute; top: 1px; left: -2px; width: 104px; color: rgb(51, 89, 164); z-index: 30;">Promotions</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: -2px; width: 104px; color: rgb(51, 89, 164); z-index: 30;">Promotions</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: -1px; width: 104px; color: rgb(51, 89, 164); z-index: 30;">Promotions</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: 0px; width: 104px; color: rgb(51, 89, 164); z-index: 30;">Promotions</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: 1px; width: 104px; color: rgb(51, 89, 164); z-index: 20;">Promotions</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: 2px; width: 104px; color: rgb(51, 89, 164); z-index: 20;">Promotions</div><div class="JQFEOutline" style="position: absolute; top: -1px; left: 2px; width: 104px; color: rgb(51, 89, 164); z-index: 20;">Promotions</div><div class="JQFEOutline" style="position: absolute; top: 0px; left: 2px; width: 104px; color: rgb(51, 89, 164); z-index: 20;">Promotions</div><div class="JQFEOutline" style="position: absolute; top: 1px; left: 2px; width: 104px; color: rgb(51, 89, 164); z-index: 20;">Promotions</div></div><div style="width: 104px; height: 22px; left: 0px; position: absolute; top: 0px; z-index: 110;"></div></div></a>
-                  <div class="megapanel">
-                  </div>
-                </li>
-                <li class="megaitem ui-corner-top">
-                  <a onclick="$(this).siblings('div.megapanel').hide(); return true;" class="megalink JQFE" href="#" style="display: block; position: relative; width: 81.12px; height: 22px;"><div style="width: 81.12px; height: 22px; position: relative;"><div class="JQFEText" style="display: inline; width: 81.12px; height: 22px; position: relative; z-index: 100;">Featured</div><div style="width: 81.12px; height: 22px; left: 0px; position: absolute; top: 0px; z-index: 90;"><div class="JQFEOutline" style="position: absolute; top: -2px; left: -2px; width: 81.12px; color: rgb(51, 89, 164); z-index: 30;">Featured</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: -1px; width: 81.12px; color: rgb(51, 89, 164); z-index: 30;">Featured</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: 0px; width: 81.12px; color: rgb(51, 89, 164); z-index: 30;">Featured</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: 1px; width: 81.12px; color: rgb(51, 89, 164); z-index: 30;">Featured</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: 2px; width: 81.12px; color: rgb(51, 89, 164); z-index: 30;">Featured</div><div class="JQFEOutline" style="position: absolute; top: -1px; left: -2px; width: 81.12px; color: rgb(51, 89, 164); z-index: 30;">Featured</div><div class="JQFEOutline" style="position: absolute; top: 0px; left: -2px; width: 81.12px; color: rgb(51, 89, 164); z-index: 30;">Featured</div><div class="JQFEOutline" style="position: absolute; top: 1px; left: -2px; width: 81.12px; color: rgb(51, 89, 164); z-index: 30;">Featured</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: -2px; width: 81.12px; color: rgb(51, 89, 164); z-index: 30;">Featured</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: -1px; width: 81.12px; color: rgb(51, 89, 164); z-index: 30;">Featured</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: 0px; width: 81.12px; color: rgb(51, 89, 164); z-index: 30;">Featured</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: 1px; width: 81.12px; color: rgb(51, 89, 164); z-index: 20;">Featured</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: 2px; width: 81.12px; color: rgb(51, 89, 164); z-index: 20;">Featured</div><div class="JQFEOutline" style="position: absolute; top: -1px; left: 2px; width: 81.12px; color: rgb(51, 89, 164); z-index: 20;">Featured</div><div class="JQFEOutline" style="position: absolute; top: 0px; left: 2px; width: 81.12px; color: rgb(51, 89, 164); z-index: 20;">Featured</div><div class="JQFEOutline" style="position: absolute; top: 1px; left: 2px; width: 81.12px; color: rgb(51, 89, 164); z-index: 20;">Featured</div></div><div style="width: 81.12px; height: 22px; left: 0px; position: absolute; top: 0px; z-index: 110;"></div></div></a>
-                  <div class="megapanel">
-                  </div>
-                </li>
-                <li class="megaitem ui-corner-top">
-                  <a onclick="$(this).siblings('div.megapanel').hide(); return true;" class="megalink JQFE" href="#" style="display: block; position: relative; width: 97.76px; height: 22px;"><div style="width: 97.76px; height: 22px; position: relative;"><div class="JQFEText" style="display: inline; width: 97.76px; height: 22px; position: relative; z-index: 100;">Community</div><div style="width: 97.76px; height: 22px; left: 0px; position: absolute; top: 0px; z-index: 90;"><div class="JQFEOutline" style="position: absolute; top: -2px; left: -2px; width: 97.76px; color: rgb(51, 89, 164); z-index: 30;">Community</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: -1px; width: 97.76px; color: rgb(51, 89, 164); z-index: 30;">Community</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: 0px; width: 97.76px; color: rgb(51, 89, 164); z-index: 30;">Community</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: 1px; width: 97.76px; color: rgb(51, 89, 164); z-index: 30;">Community</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: 2px; width: 97.76px; color: rgb(51, 89, 164); z-index: 30;">Community</div><div class="JQFEOutline" style="position: absolute; top: -1px; left: -2px; width: 97.76px; color: rgb(51, 89, 164); z-index: 30;">Community</div><div class="JQFEOutline" style="position: absolute; top: 0px; left: -2px; width: 97.76px; color: rgb(51, 89, 164); z-index: 30;">Community</div><div class="JQFEOutline" style="position: absolute; top: 1px; left: -2px; width: 97.76px; color: rgb(51, 89, 164); z-index: 30;">Community</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: -2px; width: 97.76px; color: rgb(51, 89, 164); z-index: 30;">Community</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: -1px; width: 97.76px; color: rgb(51, 89, 164); z-index: 30;">Community</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: 0px; width: 97.76px; color: rgb(51, 89, 164); z-index: 30;">Community</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: 1px; width: 97.76px; color: rgb(51, 89, 164); z-index: 20;">Community</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: 2px; width: 97.76px; color: rgb(51, 89, 164); z-index: 20;">Community</div><div class="JQFEOutline" style="position: absolute; top: -1px; left: 2px; width: 97.76px; color: rgb(51, 89, 164); z-index: 20;">Community</div><div class="JQFEOutline" style="position: absolute; top: 0px; left: 2px; width: 97.76px; color: rgb(51, 89, 164); z-index: 20;">Community</div><div class="JQFEOutline" style="position: absolute; top: 1px; left: 2px; width: 97.76px; color: rgb(51, 89, 164); z-index: 20;">Community</div></div><div style="width: 97.76px; height: 22px; left: 0px; position: absolute; top: 0px; z-index: 110;"></div></div></a>
-                  <div class="megapanel">
-                  </div>
-                </li>
-                <li class="megaitem ui-corner-top">
-                  <a onclick="$(this).siblings('div.megapanel').hide(); return true;" class="megalink JQFE" href="#" style="display: block; position: relative; width: 72.8px; height: 22px;"><div style="width: 72.8px; height: 22px; position: relative;"><div class="JQFEText" style="display: inline; width: 72.8px; height: 22px; position: relative; z-index: 100;">Support</div><div style="width: 72.8px; height: 22px; left: 0px; position: absolute; top: 0px; z-index: 90;"><div class="JQFEOutline" style="position: absolute; top: -2px; left: -2px; width: 72.8px; color: rgb(51, 89, 164); z-index: 30;">Support</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: -1px; width: 72.8px; color: rgb(51, 89, 164); z-index: 30;">Support</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: 0px; width: 72.8px; color: rgb(51, 89, 164); z-index: 30;">Support</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: 1px; width: 72.8px; color: rgb(51, 89, 164); z-index: 30;">Support</div><div class="JQFEOutline" style="position: absolute; top: -2px; left: 2px; width: 72.8px; color: rgb(51, 89, 164); z-index: 30;">Support</div><div class="JQFEOutline" style="position: absolute; top: -1px; left: -2px; width: 72.8px; color: rgb(51, 89, 164); z-index: 30;">Support</div><div class="JQFEOutline" style="position: absolute; top: 0px; left: -2px; width: 72.8px; color: rgb(51, 89, 164); z-index: 30;">Support</div><div class="JQFEOutline" style="position: absolute; top: 1px; left: -2px; width: 72.8px; color: rgb(51, 89, 164); z-index: 30;">Support</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: -2px; width: 72.8px; color: rgb(51, 89, 164); z-index: 30;">Support</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: -1px; width: 72.8px; color: rgb(51, 89, 164); z-index: 30;">Support</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: 0px; width: 72.8px; color: rgb(51, 89, 164); z-index: 30;">Support</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: 1px; width: 72.8px; color: rgb(51, 89, 164); z-index: 20;">Support</div><div class="JQFEOutline" style="position: absolute; top: 2px; left: 2px; width: 72.8px; color: rgb(51, 89, 164); z-index: 20;">Support</div><div class="JQFEOutline" style="position: absolute; top: -1px; left: 2px; width: 72.8px; color: rgb(51, 89, 164); z-index: 20;">Support</div><div class="JQFEOutline" style="position: absolute; top: 0px; left: 2px; width: 72.8px; color: rgb(51, 89, 164); z-index: 20;">Support</div><div class="JQFEOutline" style="position: absolute; top: 1px; left: 2px; width: 72.8px; color: rgb(51, 89, 164); z-index: 20;">Support</div></div><div style="width: 72.8px; height: 22px; left: 0px; position: absolute; top: 0px; z-index: 110;"></div></div></a>
-                  <div class="megapanel reverse">
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <script type="text/javascript">
-              //&lt;![CDATA[
-                $(".megalink").FontEffect({
-                  outline:true,
-                  outlineWeight: 2,
-                  outlineColor1: "#3359a4"
-                })
-                $(".megalink-admin").FontEffect({
-                  outline:true,
-                  outlineWeight: 2,
-                  outlineColor1: "#e3e7f8"
-                })
-              //]]&gt;
-            </script>
-            <script type="text/javascript">
-              //&lt;![CDATA[
-                $('ul.megasublist li').mouseover(function(){
-                  $('div.subpanel').eq($('ul.megasublist li').index(this)).fadeTo('fast',1).siblings('div.subpanel').fadeTo('fast',0).hide();
-                  $(this).parents('.megapanel').shadowOff();
-                  $(this).parents('.megapanel').shadowOn(megapanel_shadow_options); 
-                })
-              //]]&gt;
-            </script>
+
           </div>
           <div id="content">
               <!-- This file lives in public/404_szuk.html -->
@@ -269,105 +96,11 @@
       <div id="root_footer"></div>
     </div>
     <div id="footer" class="dontprint">
-      <div class="container">
+      <div class="container" style="height:230px;">
         <div class="design-gutter dontprint">
           &nbsp;
         </div>
         <div class="main">
-          <div class="column panel_height">
-            <h2>Customer Care</h2>
-            <p>
-              Contact us for help with any issues or concerns
-              <br>
-              <span style="font-weight:bold"><a href="/contact">You may contact us online 24x7</a></span>
-            </p>
-            <div class="bold">Call Center Hours</div>
-            <p>
-              6:30 a.m. to 4:00 p.m., Pacific Time,
-              <br>
-              Monday through Friday
-            </p>
-            <h3>By Phone</h3>
-            <ul>
-              <li>(0) 844 499 8181 (Within UK)</li>
-              <li>+ 44 (0) 845 345 2277 (Outside of the UK)</li>
-            </ul>
-            <h3>By Fax</h3>
-            <ul>
-              <li>+44 845 345 0011 (Within UK)</li>
-              <li>+ 44 (0) 845 345 2277 (Outside of the UK)</li>
-            </ul>
-            <h3>By Mail</h3>
-            <ul>
-              <li>Ellison Europe Ltd.</li>
-              <li>Unit 3, Whitegate Industrial Estate</li>
-              <li>Wrexham</li>
-              <li>United Kingdom, LL13 8UG</li>
-              <li>VAT No. 886263386</li>
-            </ul>
-            <h3>By Email</h3>
-            <ul>
-              <li>
-                Customer Services:
-                <br>
-                <a href="mailto:europecustomerservices@ellison.com">europecustomerservices@ellison.com</a>
-              </li>
-              <li>
-                Internet Returns:
-                <br>
-                <a href="mailto:europecustomerservices@ellison.com">europecustomerservices@ellison.com</a>
-              </li>
-              <li>
-                Retailers:
-                <br>
-                <a href="mailto:europecustomerservices@ellison.com">europecustomerservices@ellison.com</a>
-              </li>
-            </ul>
-          </div>
-          <div class="column panel_height">
-            <h2>Learn More</h2>
-            <p>Other useful resources:</p>
-            <ul>
-              <li><a href="/about">About Us</a></li>
-              <li><a href="/stores">Stockist List</a></li>
-              <li><a href="/blogs">Sizzix Official Blog</a></li>
-              <li><a href="/awards">Sizzix Awards</a></li>
-              <li><a href="/events">Sizzix Events</a></li>
-              <li><a href="/news">Sizzix News</a></li>
-              <li><a href="/site_use">Terms of Use</a></li>
-              <li><a href="/privacy">Privacy Policy</a></li>
-              <li><a href="/legal">Legal Notices</a></li>
-            </ul>
-          </div>
-          <div class="column_right panel_height">
-            <h2>Subscribe to the Sizzix Newsletter</h2>
-            <p style="margin-bottom: 0 !important;">
-              Stay informed with regular email updates!
-            </p>
-            <form method="get" action="/index/newsletter" accept-charset="UTF-8"><div style="margin:0;padding:0;display:inline"><input type="hidden" value="✓" name="utf8"></div>
-              <input type="text" value="Enter your email address" size="30" onfocus="if (this.value == 'Enter your email address'){this.value='';}" onblur="if (this.value == ''){this.value='Enter your email address';}" name="email" id="email" class="email_footer idlefield">
-              <input type="submit" value="Subscribe" name="commit" class="jqui_save ui-button ui-widget ui-state-default ui-corner-all" role="button" aria-disabled="false">
-            </form>
-            <br>
-            <script type="text/javascript">
-              //&lt;![CDATA[
-                $(".email_footer").addClass("idlefield");
-                $(".email_footer").focus(function(){
-                  $(this).addClass("activefield").removeClass("idlefield");
-                }).blur(function(){
-                  $(this).removeClass("activefield").addClass("idlefield");
-                });
-              //]]&gt;
-            </script>
-            <h2>Follow Along With Us</h2>
-            <p>To connect with us in social media</p>
-            <ul class="social-icons">
-              <li><a title="Follow us on Twitter" target="blank" alt="Follow us on Twitter" href="http://twitter.com/sizzix_uk"><img src="/images/ui-icons/set_social-media/32x32/twitter.png?1295983567" alt="Twitter"></a></li>
-              <li><a title="Join us on Facebook" target="blank" alt="Join us on Facebook" href="http://www.facebook.com/Sizzix"><img src="/images/ui-icons/set_social-media/32x32/facebook.png?1295983567" alt="Facebook"></a></li>
-              <li><a title="Watch us on YouTube" target="blank" alt="Watch us on YouTube" href="http://www.youtube.com/sizzix"><img src="/images/ui-icons/set_social-media/32x32/youtube.png?1295983567" alt="Youtube"></a></li>
-              <li><a title="Send us an email" alt="Send us an email" href="/contact"><img src="/images/ui-icons/set_social-media/32x32/email.png?1295983567" alt="Email"></a></li>
-            </ul>
-          </div>
           <div class="clear"></div>
           <div class="copyright">
             <br>
@@ -385,6 +118,4 @@
         </div>
       </div>
     </div>
-  
-
 </div><ul class="ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all" role="listbox" aria-activedescendant="ui-active-menuitem" style="z-index: 1; top: 0px; left: 0px; display: none;"></ul><div id="fancybox-tmp"></div><div id="fancybox-loading"><div></div></div><div id="fancybox-overlay"></div><div id="fancybox-wrap"><div id="fancybox-outer"><div id="fancy-bg-n" class="fancy-bg"></div><div id="fancy-bg-ne" class="fancy-bg"></div><div id="fancy-bg-e" class="fancy-bg"></div><div id="fancy-bg-se" class="fancy-bg"></div><div id="fancy-bg-s" class="fancy-bg"></div><div id="fancy-bg-sw" class="fancy-bg"></div><div id="fancy-bg-w" class="fancy-bg"></div><div id="fancy-bg-nw" class="fancy-bg"></div><div id="fancybox-inner"></div><a id="fancybox-close"></a><a id="fancybox-left" href="javascript:;"><span id="fancybox-left-ico" class="fancy-ico"></span></a><a id="fancybox-right" href="javascript:;"><span id="fancybox-right-ico" class="fancy-ico"></span></a></div></div></body></html>
