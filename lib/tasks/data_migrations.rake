@@ -73,6 +73,7 @@ namespace :data_migrations do
   def process_tab(tab,new_tab,sys="sz", uk =false)
     tab.name.force_encoding("UTF-8") if tab.name.encoding.name == "ASCII-8BIT"
     tab.description.force_encoding("UTF-8") if tab.description.encoding.name == "ASCII-8BIT"
+    tab.freeform.force_encoding("UTF-8") if !tab.freeform.nil? && tab.freeform.encoding.name == "ASCII-8BIT"
     unless tab.column_grid.blank?
       new_tab.data_column ||= []
       for i in 1..OldData::Tab::MAX_GRID do
