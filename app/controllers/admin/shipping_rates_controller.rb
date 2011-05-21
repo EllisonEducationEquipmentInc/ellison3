@@ -54,7 +54,7 @@ class Admin::ShippingRatesController < ApplicationController
     @shipping_rate.created_by = current_admin.email
     respond_to do |format|
       if @shipping_rate.save
-        format.html { redirect_to(edit_admin_shipping_rate_path(@shipping_rate), :notice => 'ShippingRate was successfully created.') }
+        format.html { redirect_to(admin_shipping_rates_path, :notice => 'ShippingRate was successfully created.') }
         format.xml  { render :xml => @shipping_rate, :status => :created, :location => @shipping_rate }
       else
         format.html { render :action => "new" }
