@@ -193,6 +193,18 @@ namespace :data_migrations do
     p Time.now
   end
   
+  desc "Exclusive eeuk themes/curriculum tags does not have products associated redmine 1019 4)"
+  task :fix_tags_eeuk => [:set_eeuk, :load_dep] do
+    set_current_system "eeuk"
+    OldData::PolymorphicTag.not_deleted.find_each(:conditions => ["tag_type IN (?)", [5, 11, 17, 18]]) do |tag|
+      new_tag = Tag.where(:old_id_eeuk => tag.id, :product_ids.size => 0).first
+      next unless new_tag
+      new_tag.products.concat Product.where(:item_num.in => tag.products.map(&:item_num))
+      p "==== #{new_tag.name} -- #{tag.id} #{new_tag.id} ===="
+    end
+    p Time.now
+  end
+  
   desc "fix EDU calendar tags"
   task :tags_fix_calendar => [:set_edu, :load_dep] do
     set_current_system "eeus"
