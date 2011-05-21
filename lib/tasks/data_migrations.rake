@@ -668,9 +668,8 @@ namespace :data_migrations do
   end
   
   desc "fix ideas_szuk"
-  task :fix_ideas_szuk => [:set_szuk, :load_dep] do
+  task :fix_ideas_szuk => [:load_dep] do
     # redmine 1019 3) There are few SZUK exclusive ideas which are enabled for SZUK & ERUS – in this case – these ideas should be enabled only for SZUK
-    set_current_system "szuk"
     OldData::Idea.find_each(:conditions => ["active_status = ?", false]) do |old_idea|
       idea = Idea.erus.active.where(:old_id => old_idea.id).first
       next unless idea
