@@ -640,8 +640,9 @@ namespace :data_migrations do
       new_idea.write_attributes :old_id_szuk => idea.id, :long_desc => idea.long_desc, :keywords => idea.keywords, :start_date_szuk => idea.start_date, :end_date_szuk => idea.end_date, :distribution_life_cycle_szuk => idea.new_lesson ? 'New' : nil, :distribution_life_cycle_ends_szuk => idea.new_lesson && idea.new_expires_at
       
       if !new_idea.active && idea.active_status
-        p "...idea needs to be activated -- removing szus"
+        p "...idea needs to be activated -- removing szus, erus"
         new_idea.systems_enabled.delete("szus") 
+        new_idea.systems_enabled.delete("erus") 
       end
       
       if new_idea.new_record?
@@ -664,6 +665,19 @@ namespace :data_migrations do
       p "------ #{idea.id} #{idea.idea_num} -------"
     end
     p Time.now
+  end
+  
+  desc "fix ideas_szuk"
+  task :fix_ideas_szuk => [:set_szuk, :load_dep] do
+    # redmine 1019 3) There are few SZUK exclusive ideas which are enabled for SZUK & ERUS – in this case – these ideas should be enabled only for SZUK
+    set_current_system "szuk"
+    OldData::Idea.find_each(:conditions => ["active_status = ?", false]) do |old_idea|
+      idea = Idea.erus.active.where(:old_id => old_idea.id).first
+      next unless idea
+      p "removing erus"
+      idea.systems_enabled.delete("erus") 
+      p "===== #{idea.save} #{idea.item_num} #{idea.id} ===="
+    end
   end
   
   desc "fix SZUS product unavailable items -- not needed for live migration"
