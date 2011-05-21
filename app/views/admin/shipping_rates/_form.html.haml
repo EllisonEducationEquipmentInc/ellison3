@@ -21,6 +21,12 @@
       %li Zone "12" is not used.
       %li Zone "17" defines shipping rates for Alaska.
       %li "APO" to define Shipping Rate for APO/FPO
+    .field
+      = f.label :percentage, nil, :class => "autosize"
+      yes
+      = f.radio_button(:percentage, true)
+      no
+      = f.radio_button(:percentage, false)
 
   .contentwrap_large.last
     - i = 0
@@ -34,12 +40,6 @@
         = f.label "price_max_#{currency}", "Maximum Price #{currency.upcase}", :style => "width: 130px"
         %span{ :class => "icon_pricefield_#{currency}"}
           = f.text_field "price_max_#{currency}", :size => 6
-      .field
-        = f.label :percentage, nil, :style => "width: 148px"
-        yes
-        = f.radio_button(:percentage, true)
-        no
-        = f.radio_button(:percentage, false)
       .field
         = f.label "standard_rate_#{currency}", "Standard Rate #{currency.upcase}", :style => "width: 130px"
         %span{ :class => "icon_pricefield_#{currency}"}
