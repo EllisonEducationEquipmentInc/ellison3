@@ -1949,6 +1949,18 @@ namespace :data_migrations do
     p "# of products: #{OldData::Product.count}"
   end
   
+  desc "rename /ellison_products image paths to /products "
+  task :rename_ellison_products => :environment do
+    Tag.where(:list_page_image => /ellison_product/i).each do |tag|
+      p "updating #{tag.name}"
+      tag.update_attribute :list_page_image, t.list_page_image.gsub('ellison_products', 'products')
+    end
+    Tag.where(:list_page_image => /ellison_lesson/i).each do |tag|
+      p "updating #{tag.name}"
+      tag.update_attribute :list_page_image, t.list_page_image.gsub('ellison_lessons', 'ideas')
+    end
+  end
+  
   desc "change ER to ERUS in the db"
   task :er_to_erus => :environment do
     set_current_system "erus"
