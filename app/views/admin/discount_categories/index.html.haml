@@ -1,15 +1,16 @@
-%h1 Retailer Discount Matrix
-%div{:style => "position:absolute;z-index:1000;"}
+%h2 Retailer Discount Matrix
+-#%div{:style => "position:absolute;z-index:10;"}
+%div{ :style => "width: 950px;  overflow: auto; overflow-y: hidden;"}
   %table
     %thead
       %tr
         %th &nbsp;
         - retailer_discount_levels.grouped_hash.each do |k, v|
-          %th{:colspan => v.length}= k
+          %th{:colspan => v.length}= k.upcase
       %tr
         %th Name
         - retailer_discount_levels.levels.each do |level|
-          %th= level.name
+          %th{:style => "white-space: nowrap"}= level.name
     %tbody
       = render :partial => 'discount_category', :collection => @discount_categories
 - if has_write_permissions?

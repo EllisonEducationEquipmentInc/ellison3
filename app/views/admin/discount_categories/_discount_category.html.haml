@@ -1,4 +1,4 @@
-%tr{:id => "discount_category_#{discount_category.id}"}
-  %td.editable{:id => "name-#{discount_category.id}"}= discount_category.name
+%tr{:id => "discount_category_#{discount_category.id}", :class => cycle(:odd, :even) }
+  %td.editable{:id => "name-#{discount_category.id}", :style => "white-space: nowrap"}= discount_category.name
   - retailer_discount_levels.levels.each do |level|
-    %td.editable{:id => "discount_#{level.id}-#{discount_category.id}"}= discount_category.send "discount_#{level.id}"
+    %td.editable{:id => "discount_#{level.id}-#{discount_category.id}", :style => "white-space: nowrap; text-align: center;"}= discount_category.send "discount_#{level.id}"
