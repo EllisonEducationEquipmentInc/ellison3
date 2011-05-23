@@ -1949,15 +1949,15 @@ namespace :data_migrations do
     p "# of products: #{OldData::Product.count}"
   end
   
-  desc "rename /ellison_products image paths to /products "
-  task :rename_ellison_products => :environment do
+  desc "rename /ellison_products list_page_image paths to /products "
+  task :rename_edu_tag_image_paths => :environment do
     Tag.where(:list_page_image => /ellison_product/i).each do |tag|
       p "updating #{tag.name}"
-      tag.update_attribute :list_page_image, t.list_page_image.gsub('ellison_products', 'products')
+      tag.update_attribute :list_page_image, tag.list_page_image.gsub('ellison_products', 'products')
     end
     Tag.where(:list_page_image => /ellison_lesson/i).each do |tag|
       p "updating #{tag.name}"
-      tag.update_attribute :list_page_image, t.list_page_image.gsub('ellison_lessons', 'ideas')
+      tag.update_attribute :list_page_image, tag.list_page_image.gsub('ellison_lessons', 'ideas')
     end
   end
   
