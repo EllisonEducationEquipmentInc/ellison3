@@ -328,14 +328,15 @@ private
   def perform_search(klass, options = {})
     outlet = options.delete(:outlet) ? true : false
     facets = options[:facets] || tag_types
+    @per_page = options[:per_page]
     klass.search do |query|
       query.keywords params[:q] unless params[:q].blank? || options[:ignore_keyword]
-      query.adjust_solr_params do |params|
+      query.adjust_solr_params do |parameters|
         # enable spellcheck:
-        params[:"spellcheck"] = true
-        params[:"spellcheck.collate"] = true
+        parameters[:"spellcheck"] = true
+        parameters[:"spellcheck.collate"] = true
         # if keywords are item nums separated by spaces, keyword search minimum should match = 0. same as OR. see http://wiki.apache.org/solr/DisMaxQParserPlugin
-        params[:mm] = 0 if params[:q].present? && params[:q].split(/\s+/).all? {|e| e =~ /^(A|38-)?\d{4,6}-?[A-Z0-9.]{0,8}$/}
+        parameters[:mm] = 0 if params[:q].present? && params[:q].split(/\s+/).all? {|e| e =~ /^(A|38-)?\d{4,6}-?[A-Z0-9.]{0,8}$/}
       end
       query.with :"listable_#{current_system}", true
       @filter_conditions = {}
