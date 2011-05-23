@@ -10,9 +10,6 @@
       - unless @event.location.blank?
         = @event.location
         %br
-      - unless @event.booth.blank?
-        = @event.booth
-        %br
       - unless @event.address1.blank?
         = @event.address1
         %br
@@ -24,6 +21,9 @@
         %br
       - unless @event.country.blank?
         = @event.country
+        %br
+      - unless @event.booth.blank?
+        %strong== #{booth_name} Number: #{@event.booth}
   .column_50
     %h3 Event dates
     %p

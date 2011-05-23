@@ -331,6 +331,19 @@ HTML
     return cart_name
 	end
 
+	def booth_name
+    booth_name = case current_system
+      when "szus" then "Booth"
+      when "szuk" then "Booth"
+      when "erus" then "Booth"
+      when "eeus" then "Stand"
+      when "eeuk" then "Stand"
+      else "Booth/Stand"
+    end    
+    return booth_name
+	end
+
+
   def zone_label(zone)
     zone_label = case zone
       when 9 then 'Use this Zone to define Shipping Rates for Hawaii.'
