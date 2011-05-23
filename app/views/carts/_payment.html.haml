@@ -57,11 +57,12 @@
           order will not be processed until received.
   #cc_info
     - if is_er? && get_user.token && get_user.token.current?
-      %strong Credit Card on file:
       .field.credit_card
+        %strong Credit Card on file:
         = get_user.token.card_name
         = get_user.token.card_number
-        = link_to "Replace Card with Another One", forget_credit_card_path(:quote => @quote), :remote => true
+        %br
+        = link_to "Replace Card with Another One", forget_credit_card_path(:quote => @quote), :remote => true, :class => "link_replace-card"
         = f.hidden_field :use_saved_credit_card
     - else
       .left.field-stacked.credit_card
@@ -126,7 +127,7 @@
         = link_to 'Comments', "#"
       %div= text_area_tag :comments, nil
   = f.submit "Place Order", :class => 'jqui_save'
-  %p.legalese{:style => "width: 950px"}
+  %p.legalese{:style => "#{ is_er? && get_user.token && get_user.token.current? ? nil : 'width: 950px'}"}
     == By clicking the "Place Order" button above, your order will be placed. Please check your order carefully before submitting. #{"Once your order has been placed, it cannot be changed." unless is_ee?}
     %br
     == By Placing Order you acknowledge and accept the #{link_to "terms and conditions", "/termsofsale?no_layout=1", :class => "lightbox"} of our Website.  
