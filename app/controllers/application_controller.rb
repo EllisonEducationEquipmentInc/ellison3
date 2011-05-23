@@ -377,8 +377,8 @@ private
           end
         end
       end
-      Rails.logger.info "@per_page || per_page #{@per_page || per_page}"
-      query.paginate(:page => params[:page] || 1, :per_page => @per_page || per_page)
+      Rails.logger.info "@per_page || per_page #{@per_page || options[:per_page] || per_page}"
+      query.paginate(:page => params[:page] || 1, :per_page => @per_page || options[:per_page] || per_page)
       query.order_by(*default_sort(klass).split(":")) unless default_sort(klass).blank? || klass == Idea && ['quantity_sold', 'price', 'orderable', 'outlet_since'].any? {|e| default_sort(klass).include? e}
     end
   end
