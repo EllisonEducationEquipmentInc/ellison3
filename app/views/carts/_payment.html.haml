@@ -39,8 +39,33 @@
     = f.hidden_field :deferred
   - if purchase_order_allowed?
     .field
-      = f.check_box :purchase_order, :onclick => "if (this.checked){$('#po_info').show();$('#cc_info').hide();$('#payment_attachment').rules('add',{required: false});$('#payment_purchase_order_number').rules('add',{required: true});$('.cc').each(function(){$(this).rules('remove')})} else {$('#po_info').hide();$('#cc_info').show();$('.cc').each(function(){$(this).rules('add',{required: true})});$('#payment_full_card_number').rules('add',{creditcard: true});$('#payment_card_security_code').rules('add',{cvv: true});$('#payment_attachment').rules('remove');$('#payment_purchase_order_number').rules('remove');}"
-      = f.label :purchase_order, "Check if you would like to pay your order by Purchase Order.", :class => "autosize"
+      = f.label :purchase_order, "Would you like to pay with a Purchase Order?", :class => "autosize"
+      Yes
+      = f.radio_button(:purchase_order, true, :onclick => "show_purchase_order();")
+      No
+      = f.radio_button(:purchase_order, false,  :onclick => "show_purchase_order();")
+    :javascript
+      function show_purchase_order(){
+        if ($('#payment_purchase_order_true').attr('checked')) {
+          $('#po_info').show();
+          $('#cc_info').hide();
+          $('#payment_attachment').rules('add',{required: false});
+          $('#payment_purchase_order_number').rules('add',{required: true});
+          $('.cc').each(function() {
+            $(this).rules('remove')
+          })
+        } else {
+          $('#po_info').hide();
+          $('#cc_info').show();
+          $('.cc').each(function() {
+            $(this).rules('add',{required: true})
+          });
+          $('#payment_full_card_number').rules('add',{creditcard: true});
+          $('#payment_card_security_code').rules('add',{cvv: true});
+          $('#payment_attachment').rules('remove');
+          $('#payment_purchase_order_number').rules('remove');
+        }
+      };
     #po_info{:style => "display:none"}
       .field
         = required_label f, :purchase_order_number, {:label => "Purchase Order Number", :label_size => "155px"}
