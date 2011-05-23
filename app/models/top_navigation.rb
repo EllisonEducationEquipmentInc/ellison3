@@ -42,7 +42,7 @@ private
     [
       Navigation.new("Lessons", "/lp/categories?ideas=1"), 
       Navigation.new("Products", "/catalog"), 
-      Navigation.new("Electronic Cutting", "/shop/eclips"),
+      Navigation.new("Electronic Cutting", "/eclips"),
       Navigation.new("Specials", "/campaigns"),
       Navigation.new("Community", "#"),
       Navigation.new("Support", "#")
