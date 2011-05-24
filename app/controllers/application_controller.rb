@@ -354,7 +354,7 @@ private
         query.facet(:item_group, :exclude => item_group_query)
       end
       facets.each do |e|
-        query.facet :"#{e.to_s}_#{current_system}", :exclude => @filter_conditions[e], :sort => options[:facet_sort] || :index
+        query.facet :"#{e.to_s}_#{current_system}", :exclude => @filter_conditions[e], :sort => options[:facet_sort] || :index, :limit => options[:facet_limit]
       end
       unless klass == Idea
         query.with :outlet, outlet if is_sizzix_us?
@@ -377,8 +377,7 @@ private
           end
         end
       end
-      Rails.logger.info "@per_page || per_page #{@per_page || options[:per_page] || per_page}"
-      query.paginate(:page => params[:page] || 1, :per_page => @per_page || options[:per_page] || per_page)
+      query.paginate(:page => params[:page] || 1, :per_page => @per_page || per_page)
       query.order_by(*default_sort(klass).split(":")) unless default_sort(klass).blank? || klass == Idea && ['quantity_sold', 'price', 'orderable', 'outlet_since'].any? {|e| default_sort(klass).include? e}
     end
   end
