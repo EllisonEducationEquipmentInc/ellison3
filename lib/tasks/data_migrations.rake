@@ -1961,6 +1961,12 @@ namespace :data_migrations do
     end
   end
   
+  desc "export_static_pages to /data/shared/firmware_files/static.xml that can be transported to production server"
+  task :export_static_pages => :environment do
+    xml=StaticPage.all.to_xml
+    File.open("/data/shared/firmware_files/static.xml", "w") {|file| file.write xml}
+  end
+  
   desc "change ER to ERUS in the db"
   task :er_to_erus => :environment do
     set_current_system "erus"
