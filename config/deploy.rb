@@ -165,8 +165,21 @@ namespace :delayed_job do
     utilities.with_role(delayed_job_role) do
       delayed_job.stop
       sleep(4)
-      run "killall -s TERM delayed_job; true"
+      #run "killall -s TERM delayed_job; true"
+      enforce_stop_delayed_job
       delayed_job.start
     end
+  end
+  
+  def enforce_stop_delayed_job
+    run %Q{
+      lsof '#{current_path}/log/delayed_job.log' | awk '/^ruby/ { system("kill " $2) }' ;
+      COUNT=1;
+      until [ $COUNT -eq 0 ]; do
+        COUNT=`lsof '#{current_path}/log/delayed_job.log' | grep '^ruby' |wc -l` ;
+        echo 'waiting for delayed_job to end' ;
+        sleep 2 ;
+      done
+    }.split("\n").join('')
   end
 end
