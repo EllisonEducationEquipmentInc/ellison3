@@ -1961,10 +1961,19 @@ namespace :data_migrations do
     end
   end
   
-  desc "export_static_pages to /data/shared/firmware_files/static.xml that can be transported to production server"
+  desc "export_static_pages to /data/shared/firmware_files/static.xml that can be transported to production server (run on carbon)"
   task :export_static_pages => :environment do
     xml=StaticPage.all.to_xml
     File.open("/data/shared/firmware_files/static.xml", "w") {|file| file.write xml}
+  end
+  
+  desc "import_static_pages from /data/shared/firmware_files/static.xml (run on prod server)"
+  task :import_static_pages => :environment do
+    File.open("/data/shared/firmware_files/static.xml", "r") {|file| @xml = file.read}
+    hash=Hash.from_xml @xml
+    hash.values.first.each do |sp|
+      p StaticPage.create sp
+    end
   end
   
   desc "change ER to ERUS in the db"
