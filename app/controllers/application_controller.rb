@@ -353,7 +353,6 @@ private
         item_group_query = query.with(:item_group, params[:brand].split(",")) unless params[:brand].blank?
         query.facet(:item_group, :exclude => item_group_query)
       end
-      Rails.logger.info "options[:facet_limit] #{options[:facet_limit]}"
       facets.each do |e|
         query.facet :"#{e.to_s}_#{current_system}", :exclude => @filter_conditions[e], :sort => options[:facet_sort] || :index, :limit => options[:facet_limit]
       end
