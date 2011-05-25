@@ -4,6 +4,12 @@
     - unless get_cart.coupon.description.blank?
       %br
     = raw get_cart.coupon.description
+    - if get_cart.coupon.long_description.present?
+      = link_to 'more', '#coupon_long_description', :class => 'lightbox'
+      #coupon_long_description_container{:style => "display:none"}
+        #coupon_long_description= get_cart.coupon.long_description.html_safe
+      :javascript
+        initialize_lightboxes();
     = link_to "remove", remove_coupon_path, :remote => true, :class => "link_remove"
 - else
   = form_tag activate_coupon_path, :id => "coupon_form", :remote => true do

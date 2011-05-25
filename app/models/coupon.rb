@@ -26,6 +26,7 @@ class Coupon
 	field :order_has_to_be, :type => Hash                               # ex: {"total_weight" => {:over => 10.0, :under => 100.0}, "sub_total" => {:over => 100.0}}
 	field :shipping_countries, :type => Array
 	field :shipping_states, :type => Array
+	field :long_description
 	
 	field :created_by
 	field :updated_by
