@@ -33,10 +33,11 @@
       %td#cart_subtotal{:style => "text-align: right", :class => "cart_extended_price"}= number_to_currency gross_price(get_cart.sub_total)
 %p.cart_shipmsg
   \&nbsp;
-  = link_to_unless_current "Check Out Now", cart_path, :id => 'checkout_now', :class => "right"
+  %button{:id => 'checkout_now', :class => "right"} Check Out Now
 :javascript
   $("#checkout_now").button()
     .click(function(){
+      window.location = "#{cart_path}";
       $(this).button({disabled: true, label: 'please wait...'});
     });
   $("table").each(function() {

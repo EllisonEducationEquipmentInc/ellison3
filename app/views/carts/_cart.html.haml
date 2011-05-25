@@ -67,13 +67,13 @@
     - unless @cart_locked
       #cart_coupon= render :partial => "carts/coupon"
       - if quote_allowed?
-        .save_as_quote.right Save as Quote
-      - if chekout_allowed? && quote_allowed?
-        .right{ :style => "margin: 4px 10px 0 10px; font-weight: bold; text-transform: uppercase" } or
+        %button{:class => "save_as_quote right"} Save as Quote
+      - if (chekout_allowed? || get_cart.pre_order?) && quote_allowed?
+        .right{ :style => "margin: 7px 10px 0 10px; font-weight: bold; text-transform: uppercase" } or
       - if chekout_allowed?
-        #checkout_button.right= "Checkout"
+        %button{:id => "checkout_button", :class => "right"} Checkout
       - elsif get_cart.pre_order?
-        .save_as_quote.right Pre-Order
+        %button{:class => "save_as_quote right"} Pre-Order
       .clear
       - if get_cart.pre_order?
         %p.error There are items in the cart that are available for pre-order only. If you would like to place a pre-order please click "Pre-Order". For immediate shipping please remove these items.
@@ -86,7 +86,7 @@
         $(function() {
           $("#checkout_button").button()
             .click( function() {
-              $.ajax({url:"#{checkout_requested_path}", complete: function(){$.fancybox.resize()}});
+              $.ajax({url:"#{checkout_requested_path}"});
               $(this).button({disabled: true, label: 'please wait...'});
         		});
         	$(".remove_from_cart").click( function() {
@@ -100,9 +100,9 @@
         				$(this).html('#{escape_javascript loader_bar}')
         			});
         		$(".save_as_quote")
-          	  .button({icons: {primary: 'ui-icon-clipboard'}})
+          	  .button()
           		.click( function() {
-                $.ajax({url:"#{quote_requested_path}", complete: function(){$.fancybox.resize()}});
+                $.ajax({url:"#{quote_requested_path}"});
                 $(this).button({disabled: true, label: 'please wait...'});
           		});
         });
