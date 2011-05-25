@@ -1274,6 +1274,14 @@ namespace :data_migrations do
     Idea.collection.update({'tabs.name' => 'Materials Used'}, {:$pull => {:tabs => {:name => 'Materials Used'}}}, :multi => true)
   end
   
+  desc "remove unnecessary tabs 2"
+  task :remove_unnecessary_tabs_two => :load_dep do
+    p 'removing Idea Related Products tabs...'
+    Idea.collection.update({'tabs.name' => 'Related Products'}, {:$pull => {:tabs => {:name => 'Related Products'}}}, :multi => true)
+    p 'removing Product Related Lessons tabs...'
+    Product.collection.update({'tabs.name' => 'Related Lessons'}, {:$pull => {:tabs => {:name => 'Related Lessons'}}}, :multi => true)
+  end
+  
   desc "populate retailer discount matrix starting from 17 Prestige & RollModel Accessories. -- not needed for live migration"
   task :fix_discount_matrix => :environment do
     @matrix = CSV.open(File.expand_path(File.dirname(__FILE__) + "/migrations/discount_matrix.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"').to_a
