@@ -726,7 +726,7 @@ function youtube_video_links() {
   			'width' : 680,
   			'height' : 495,
   			'href' : this.href,
-  			'type' : 'iframe',
+  			'type' : 'iframe'
   		});
 
   	return false;
