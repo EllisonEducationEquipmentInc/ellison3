@@ -1976,6 +1976,15 @@ namespace :data_migrations do
     end
   end
   
+  desc "fix erus user who don't have company"
+  task :fix_erus_users_with_no_company => [:set_erus, :load_dep] do
+    set_current_system "erus"
+    User.where(:systems_enabled.in => ["erus"], :company => nil).each do |user|
+      old_user = OldData::User.find user.old_id_er rescue next
+      p user.update_attribute :company, old_user.name
+    end
+  end
+  
   desc "change ER to ERUS in the db"
   task :er_to_erus => :environment do
     set_current_system "erus"
