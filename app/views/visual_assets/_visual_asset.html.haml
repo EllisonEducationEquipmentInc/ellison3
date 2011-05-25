@@ -39,7 +39,7 @@
         - next unless billboard.must_own.blank? || machines_owned.any? {|e| billboard.must_own.include?(e)}
         %div{:class => "billboard_#{billboard.wide ? 'wide' : 'narrow'} #{'last' if va_children_available.last == billboard}"}
           .captionfull{:class => "boxgrid-#{billboard.wide ? 'wide' : 'narrow'}"}
-            = link_to_if billboard.content.blank? && billboard.link.present?, image_tag(billboard.image_url, :alt => "#{billboard.name.capitalize}", :title => "#{billboard.name.capitalize}"), billboard.link
+            = link_to_if (billboard.content.blank? || billboard.content == "<br />") && billboard.link.present?, image_tag(billboard.image_url, :alt => "#{billboard.name.capitalize}", :title => "#{billboard.name.capitalize}"), billboard.link
             - unless billboard.content.blank? || billboard.content == "<br />"
               .cover{:class => "boxcaption-#{billboard.wide ? 'wide' : 'narrow'}"}
                 %h4= billboard.name
