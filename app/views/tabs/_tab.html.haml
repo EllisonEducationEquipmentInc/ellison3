@@ -23,7 +23,7 @@
 - if tab.data_column
   - tab.data_column.each do |key, value|
     .data_key= key
-    .data_value= value
+    .data_value= value.html_safe
   .clear
 - if tab.compatibility
   - tab.compatibility.each do |compatibility|
