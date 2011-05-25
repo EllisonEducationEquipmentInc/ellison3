@@ -90,7 +90,7 @@
         %em Please save this idea first before assigning tags.
     - else
       %ul#idea_tags= render :partial => 'tag', :collection => @idea.tags, :locals => {:idea_id => @idea.id}
-      = label_tag :idea_tags_helper, "<strong>Add A#{ @idea.tags.count >= 1 ? 'nother' : nil } Tag</strong".html_safe
+      = label_tag :idea_tags_helper #, "<strong>Add A#{ @idea.tags.count >= 1 ? 'nother' : nil } Tag</strong".html_safe
       = text_field_tag "idea_tags_helper"
       :javascript
         $("#idea_tags_helper").autocomplete({
