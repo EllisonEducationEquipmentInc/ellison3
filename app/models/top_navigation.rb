@@ -41,7 +41,7 @@ private
   def list_eeus
     [
       Navigation.new("Lessons", "/lp/categories?ideas=1"), 
-      Navigation.new("Products", "/catalog"), 
+      Navigation.new("Products", "/product_overview"), 
       Navigation.new("eclips", "/eclips"),
       Navigation.new("Specials", "/campaigns"),
       Navigation.new("Community", "#"),
