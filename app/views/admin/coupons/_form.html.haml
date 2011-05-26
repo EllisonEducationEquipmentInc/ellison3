@@ -36,7 +36,6 @@
       = f.radio_button(:no_code_required, false, :onclick => "if (this.checked) {$('label[for=coupon_codes] span').addClass('required');}")
       no
       = f.radio_button(:no_code_required, true, :onclick => "if (this.checked) {$('label[for=coupon_codes] span').removeClass('required');}")
-  .contentwrap_large.last
     .field
       = required_label f, :codes, { :label => "Coupon Code(s)", :label_size => "auto" }
       %br
@@ -46,6 +45,7 @@
       = f.label :description, :class => 'overrideable'
       %br
       = f.text_area :description, :rows => 2, :cols => 57
+  .contentwrap_large.last
     .field
       = f.label :long_description
       %br
@@ -108,7 +108,7 @@
   .contentwrap_large
     .field
       = f.label :cart_must_have, "The customer's cart <strong><em>must</em></strong> have...".html_safe, :class => "autosize"
-      = link_to_function "add a new requirement", "$('#cart_must_have_list').append('#{escape_javascript render :partial => 'cart_must_have', :locals => {:condition => {:any => []}}}')"
+      = link_to_function "add a new requirement", "$('#cart_must_have_list').append('#{escape_javascript render :partial => 'cart_must_have', :locals => {:condition => {:any => []}}}')", :class => "link_add"
       %ul#cart_must_have_list= render :partial => 'cart_must_have', :collection => @coupon.cart_must_have, :as => :condition
     .field
       = f.label :order_has_to_be, "The customer's order <strong><em>must</em></strong> have...".html_safe, :class => "autosize"
