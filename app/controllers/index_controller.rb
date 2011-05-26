@@ -125,7 +125,6 @@ class IndexController < ApplicationController
       get_search
       @products = @search.results
     end
-    expires_in 5.minutes, 'max-stale' => 5.minutes
   end
   
   def quick_search
