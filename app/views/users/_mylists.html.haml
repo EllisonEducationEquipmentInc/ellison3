@@ -7,8 +7,8 @@
         %th List Comments
         %th{ :width => 65} # of Items
         %th{ :width => 70} Default List
-        %th{ :style => "text-align: right", :width => 110}
-        %th{ :style => "text-align: right", :width => 120}
+        %th{ :style => "text-align: right" }
+        %th{ :style => "text-align: right" }
     %tbody= render :partial => 'list_row', :collection => @lists, :as => :list
   %hr
   = link_to_function "Create New List", "$('#new_list').show()", :class => 'jqui_new'
@@ -43,7 +43,7 @@
   disable_default_list_delete();
   function disable_default_list_delete(){
     $('#lists .jqui_trash').show();
-    $('#lists :checked').parent('td').next().children('.jqui_trash').hide();
+    $('#lists :checked').parent('td').next().next().children('.jqui_trash').hide();
   }
   function make_lists_editable(){
     $(".editable").editInPlace({
