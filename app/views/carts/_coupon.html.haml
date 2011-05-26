@@ -5,7 +5,7 @@
     - unless get_cart.coupon.description.blank?
       %br
     = raw get_cart.coupon.description
-    - if get_cart.coupon.long_description.present?
+    - unless get_cart.coupon.long_description.blank? || get_cart.coupon.long_description == "<br />"
       = link_to 'more details', '#coupon_long_description', :class => 'lightbox link_help'
       #coupon_long_description_container{:style => "display:none"}
         #coupon_long_description= get_cart.coupon.long_description.html_safe
