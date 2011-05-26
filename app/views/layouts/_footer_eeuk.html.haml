@@ -36,9 +36,7 @@
   %h2 Subscribe to Ellison Newsletter
   = render "layouts/newsletter_signup_form"
   
-  %h2 Follow Along With Us
+  %h2 To Connect With Us
   %ul.social-icons
-    - if is_sizzix_us?
-      %li= link_to image_tag("/images/ui-icons/set_social-media/32x32/blogger.png"), "http://sizzixblog.blogspot.com/", :target => "blank", :title => "Read our blog", :alt => "Read our blog"
     %li= link_to image_tag("/images/ui-icons/set_social-media/32x32/youtube.png"), "http://www.youtube.com/ellison", :target => "blank", :title => "Watch us on YouTube", :alt => "Watch us on YouTube"
     %li= link_to image_tag("/images/ui-icons/set_social-media/32x32/email.png"), "/contact", :title => "Send us an email", :alt => "Send us an email"
