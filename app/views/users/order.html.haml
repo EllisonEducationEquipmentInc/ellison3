@@ -45,7 +45,7 @@
   = @order.public_order_number
   %br
   - if @order.quote
-    %strong== #{quote_name.capitalize} Reference Number:
+    %strong== #{quote_name} Reference Number:
     = (@order.quote.quote_number.blank? ? @order.quote.id : @order.quote.quote_number)
     %br
   %strong Customer Account:

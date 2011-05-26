@@ -121,7 +121,7 @@ module ShoppingCart
   		  order.decrement_items! 
   		  order.user.add_to_owns_list order.order_items.map {|e| e.product_id}
   		end
-  		flash[:notice] = "Thank you for your #{order.is_a?(Order) ? 'order' : quote_name}.  Below is your #{order.is_a?(Order) ? 'order' : quote_name} receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email."
+  		flash[:notice] = "Thank you for your #{order.is_a?(Order) ? 'order' : quote_name.downcase}.  Below is your #{order.is_a?(Order) ? 'order' : quote_name} receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email."
 		end
 		
 		# shipping logic: 

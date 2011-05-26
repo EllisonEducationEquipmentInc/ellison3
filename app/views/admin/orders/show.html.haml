@@ -52,7 +52,7 @@
   = @order.public_order_number
   %br
   - if @order.quote
-    %strong== #{quote_name.capitalize} Reference Number:
+    %strong== #{quote_name} Reference Number:
     = link_to @order.quote.id, admin_quote_path(@order.quote)
     %br
   %strong Web Customer Number:
