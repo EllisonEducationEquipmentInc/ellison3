@@ -1422,6 +1422,14 @@ namespace :data_migrations do
     p "admin has been created: #{@admin.save}"
   end
   
+  desc "migrate eeus search landing pages"
+  task :eeus_search_landing_pages => [:set_edu, :load_dep] do
+    set_current_system "eeus"
+    OldData::LandingPage.active.each do |lp|
+      p SearchPhrase.create :systems_enabled => ["eeus"], :phrase => lp.phrase, :destination => lp.destination 
+    end
+    
+  end
   
   #### INCREMENTAL MIGRATIONS START HERE ####
   
