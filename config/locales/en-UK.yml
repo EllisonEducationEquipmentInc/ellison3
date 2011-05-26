@@ -36,6 +36,6 @@ en-UK:
   cart: bag
   empty_cart: Your shopping bag is empty
   estimated_tax: VAT (already included in Sub-Total)
-  list_not_logged_in: You must be logged in to add an item to a list. Please add products to List after you logged in.
-  save_for_later_not_logged_in: You must be logged in to use 'save for later'. Please try again after you logged in.
+  list_not_logged_in: You must be logged in to add an item to a list. Please add products to a list after you log in.
+  save_for_later_not_logged_in: You must be logged in to use 'save for later'. Please try again after you log in.
   toll_free: 877-355-4766
