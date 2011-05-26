@@ -11,7 +11,7 @@
       = required_label f, :message, {:label => "Your Comments", :label_size => "auto"}
       %br
       = f.text_area :message
-    = raw recaptcha_tag(:ajax, :display => {:theme => 'white'})
+    = raw recaptcha_tag(:ajax, :ssl => request.ssl?, :display => {:theme => 'white'})  
     .actions
       = f.submit "Submit", :class => 'jqui_save'
       = link_to 'Cancel', contact_path, :class => 'jqui_cancel'
