@@ -3,6 +3,6 @@
 :javascript
   $(document).ready(function(){
     $(function() {	
-      $.ajax({url:"/index/search?q=#{params[:q]}&lang="+$('html').attr('lang')+'&'+$.param.fragment()});
+      $.ajax({url:"/index/search?q=#{params[:q]}&lang="+$('html').attr('lang')+'&'+$.param.fragment()#{"+'&system="+current_system+"'" if admin_signed_in?}});
     });
   });
