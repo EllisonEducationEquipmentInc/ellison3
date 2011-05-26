@@ -42,7 +42,7 @@ private
     [
       Navigation.new("Lessons", "/lp/categories?ideas=1"), 
       Navigation.new("Products", "/product_overview"), 
-      Navigation.new("<span style='text-transform: none'>eclips</span>".html_safe, "/eclips"),
+      Navigation.new("Electronic Cutting", "/eclips"),
       Navigation.new("Specials", "/campaigns"),
       Navigation.new("Community", "#"),
       Navigation.new("Support", "#")
