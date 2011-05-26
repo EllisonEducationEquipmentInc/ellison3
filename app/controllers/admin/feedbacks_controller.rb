@@ -99,7 +99,6 @@ class Admin::FeedbacksController < ApplicationController
 	  @feedback.expires_at = 7.days.since
 	  respond_to do |format|
       if @feedback.save
-        change_current_system @feedback.system
         UserMailer.delay.feedback_reply(@feedback)
         format.html { redirect_to(admin_feedbacks_url, :notice => 'Your reply was sent') }
         format.xml  { render :xml => @feedback, :status => :created, :location => @feedback }

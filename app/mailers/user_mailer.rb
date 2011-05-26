@@ -28,13 +28,17 @@ class UserMailer < ActionMailer::Base
 	end
 	
 	def feedback_confirmation(feedback)
+	  set_current_system feedback.system
 	  @feedback = feedback
 	  mail(:to => feedback.email, :subject => "[#{get_domain.capitalize}] - Thank you for your Inquiry. #{feedback.subject} - #{feedback.number}")
 	end
 	
 	def feedback_reply(feedback)
+	  original_system = current_system
+	  set_current_system feedback.system
 	  @feedback = feedback
 	  mail(:to => feedback.email, :subject => "RE: [#{get_domain.capitalize}] #{feedback.subject} - #{feedback.number}")
+	  set_current_system original_system
 	end
 	
 	def subscription_confirmation(subscription)
