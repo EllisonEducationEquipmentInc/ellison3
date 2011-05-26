@@ -125,7 +125,7 @@ class IndexController < ApplicationController
       get_search
       @products = @search.results
     end
-    expires_in 5.minutes, 'max-stale' => 10.minutes #unless admin_signed_in?
+    expires_in 5.minutes, 'max-stale' => 10.minutes unless admin_signed_in?
   end
   
   def quick_search
