@@ -106,7 +106,13 @@
         = f.label :product_item_nums, "Product Item Numbers".html_safe, :class => "autosize"
         %br
         = f.text_area :product_item_nums, :cols => 57, :rows => 5
-        %p.formhelp Separate item numbers with commas to batch assign products. If you want these products discounted, you have to save this tag again AFTER you added these products, and make sure you check 'Yes, batch apply discount to associated products.' when you do that.
+        %p.formhelp Separate item numbers with commas to batch apply these settings for several products.
+    #batch_discount_help{:style => "display:#{@tag.campaign? ? 'block' : 'none'}"}
+      %p.icon_alert== <strong>IMPORTANT NOTE:</strong> To batch apply a discount to several products at once, you <strong><em>must</em></strong> follow this two step process:
+      %ol
+        %li Enter all item numbers into the "Product Item Numbers" field, separating each with a comma. Click the large, green "Update Tag" button below.
+        %li== Return to the Edit screen of this tag, and click on the large, green "Update Tag" button one <em>more</em> time (this last action will apply the specified discount to the product records).
+
     %hr
     %h3.contentwrap_XXXL.last Related Products
     %ul.contentwrap_XXXL.last#tag_products= render :partial => 'product', :collection => @tag.products, :locals => {:tag_id => @tag.id}
@@ -236,5 +242,5 @@
   toggle_tag_type_fields();
   
   function toggle_tag_type_fields(){
-    if ($('#tag_tag_type').val() == 'special') {$('#new_campaign').show();$('#tag_embed_campaign_true').attr('checked', true)} else {$('#new_campaign').hide()}
+    if ($('#tag_tag_type').val() == 'special') {$('#new_campaign').show();$('#batch_discount_help').show();$('#tag_embed_campaign_true').attr('checked', true)} else {$('#new_campaign').hide();$('#batch_discount_help').hide();}
   }

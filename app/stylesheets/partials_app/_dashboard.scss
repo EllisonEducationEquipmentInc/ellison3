@@ -192,6 +192,17 @@ ul#tag_products, ul#tag_ideas { @extend ul.horizontal;
   }
 }
 
+
+
+#batch_discount_help {
+  @extend .contentwrap_large;
+  @extend .last;
+  @extend .formhelp_important;
+  
+  p { margin: 16px 0 6px 0; }
+  p, ol { padding-left: 24px !important; }
+}
+
 // Virtual Terminal
 #virtual_terminal { @include column(24, true); }
 
