@@ -1,6 +1,6 @@
 - unless get_cart.coupon.blank?
   %p
-    == Coupon Code <strong>#{get_cart.coupon_code}</strong> has been applied.
+    == Your coupon code has been applied.
     = link_to "remove", remove_coupon_path, :remote => true, :class => "link_remove"
     - unless get_cart.coupon.description.blank?
       %br
