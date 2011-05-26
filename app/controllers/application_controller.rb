@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   layout :get_layout
 
 	helper_method :vat, :gross_price, :calculate_vat, :get_user, :countries, :states, :provinces, :sort_column, :sort_direction, :ga_tracker_id, :has_write_permissions?, :has_read_permissions?, :admin_systems,
-	              :quote_allowed?, :chekout_allowed?, :currency_correct?, :vat_exempt?, :outlet?, :machines_owned, :perform_search, :admin_user_as_permissions!, :convert_2_gbp
+	              :quote_allowed?, :chekout_allowed?, :currency_correct?, :vat_exempt?, :outlet?, :machines_owned, :perform_search, :admin_user_as_permissions!, :convert_2_gbp, :is_admin?
 
 private
 
@@ -27,6 +27,10 @@ private
 
   def outlet?
     is_sizzix_us? && params[:controller] == "index" && (params[:action] == 'outlet' || params[:outlet] == "1")
+  end
+  
+  def is_admin?
+    params[:controller].start_with? "admin/"
   end
 
 	def get_user
