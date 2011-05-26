@@ -100,7 +100,7 @@ class IndexController < ApplicationController
   def catalog
     @title = "Catalog"
     #expires_in 3.hours, 'max-stale' => 5.hours
-    fresh_when :etag => [current_locale, current_system, current_user, flash, Time.zone.now.strftime("%m%d%Y%H")]
+    fresh_when :etag => [current_locale, current_system, current_user, flash, Time.zone.now.strftime("%m%d%Y%H"), admin_signed_in?]
   end
   
   def outlet
