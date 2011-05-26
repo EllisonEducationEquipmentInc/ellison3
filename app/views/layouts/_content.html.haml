@@ -2,4 +2,6 @@
   %p.dontprint.notice= notice 
 - if alert
   %p.dontprint.error= alert
+/
+  = `uname -n`[/\d+$/]
 = yield
