@@ -26,7 +26,7 @@
       %td{:style => "text-align: right"}= number_to_currency gross_price(@product.msrp_or_wholesale_price)
       %td{:style => "text-align: right", :id => "cart_item_price_#{@product.id}", :class => 'cart_item_price'}= display_product_price_cart @product
     %tr
-      %td= pluralize get_cart.total_quantity, "item"
+      %td
       %td
       %td
       %td{:style => "text-align: right", :class => "cart_extended_price"} Subtotal:
