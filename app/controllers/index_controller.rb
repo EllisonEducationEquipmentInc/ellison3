@@ -125,7 +125,8 @@ class IndexController < ApplicationController
       get_search
       @products = @search.results
     end
-    expires_in 5.minutes, 'max-stale' => 10.minutes #unless admin_signed_in?
+    #fresh_when :etag => [request.request_uri, current_system, current_locale, ecommerce_allowed?, Product.retailer_discount_level, Time.zone.now.strftime("%m%d%Y%H"), admin_signed_in?]
+    expires_in 5.minutes, 'max-stale' => 10.minutes
   end
   
   def quick_search
