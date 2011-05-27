@@ -34,6 +34,7 @@ private
       Navigation.new("Craft Projects", "/lp/categories?ideas=1"), 
       Navigation.new("Promotions", "/campaigns"),
       Navigation.new("Featured", "#"),
+      Navigation.new("Community", "#"),
       Navigation.new("Support", "#")
     ]
   end
