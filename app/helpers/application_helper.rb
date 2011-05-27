@@ -76,9 +76,9 @@ module ApplicationHelper
   = text_field_tag "quantity_#{product.id}", @product_obj.minimum_quantity, :size => 3, :class => "er_product_quantity", :onchange => "if ($(this).val() < #{product.minimum_quantity}) {$(this).val(#{product.minimum_quantity});alert('Minimum Quantity Required for this product is: #{product.minimum_quantity}')}"
   %br
 - if @product_obj.pre_order?
-  %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "", :title => "Add Product to Shopping Bag to Pre-Order"}== Pre-Order
+  %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "", :title => "Add to Shopping Bag to Pre-Order"}== Pre-Order
 - elsif backorder_allowed? && @product_obj.out_of_stock? && @product_obj.listable?
-  %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "Add Product to Shopping #{cart_name.capitalize}", :title => "Add Product to Shopping #{cart_name.capitalize}"}== Add to #{cart_name.capitalize} +
+  %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "Add to Shopping #{cart_name.capitalize}", :title => "Add to Shopping #{cart_name.capitalize}"}== Add to #{cart_name.capitalize} +
 - elsif @product_obj.out_of_stock?
   - if is_uk?
     = link_to "Check availability at your Local Retailer", stores_path
@@ -87,14 +87,14 @@ module ApplicationHelper
 - elsif @product_obj.suspended?
   .jqui_out_of_stock Retired
 - elsif @product_obj.available?
-  %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "Add Product to Shopping #{cart_name.capitalize}", :title => "Add Product to Shopping #{cart_name.capitalize}"}== Add to #{cart_name.capitalize} +
+  %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "Add to Shopping #{cart_name.capitalize}", :title => "Add to Shopping #{cart_name.capitalize}"}== Add to #{cart_name.capitalize} +
 - elsif @product_obj.not_reselable?
   %span.message= @product_obj.send "availability_message_#{current_system}"
 - else
   .jqui_out_of_stock WTF??
 - unless @product_obj.suspended? || @users_list
   %p.buttonset{:id => "wishlist_buttons_#{product.id}"}
-    %button.wishlist{:id => "add_to_list_#{product.id}", :rel => "#{product.item_num}", :alt => "Add Product to My Default List", :title => "Add Product to My Default List"} Add to My List
+    %button.wishlist{:id => "add_to_list_#{product.id}", :rel => "#{product.item_num}", :alt => "Add to My Default List", :title => "Add to My Default List"} Add to My List
     %button.select{:id => "add_to_list_#{product.id}", :rel => "#{product.item_num}"} Select a list
   .wishlist_loader{:style => "display:none"}= image_tag('/images/ui-objects/loader-ajax_fb.gif')
 HTML
