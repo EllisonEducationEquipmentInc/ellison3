@@ -13,13 +13,13 @@
   %table{:cellpadding => 10}
     %thead
       %tr
-        %th{:width => 60} Item No.
+        %th{:width => 60} Item #
         %th{:width => 70} Item Name
         %th.dontprint{:width => 400}
         - if admin_signed_in? && current_admin.can_change_prices
           %th Upsell
-        %th{:style => "text-align: right; white-space: nowrap;"}== #{is_er? ? 'Wholesale' : 'Retail'} Price
-        %th{:style => "text-align: right", :width => 75} You Pay
+        %th{:style => "text-align: right; white-space: nowrap;"}== #{is_er? ? 'Wholesale' : 'Regular'} Price
+        %th{:style => "text-align: right; white-space: nowrap;", :width => 75}== You Pay as<br>Your Price
         %th{:style => "text-align: right", :width => 70} Quantity
         %th{:style => "text-align: right", :width => 75} Total Price
         %th.dontprint{:style => "text-align: right;" }
