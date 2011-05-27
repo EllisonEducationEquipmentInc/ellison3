@@ -274,12 +274,14 @@ private
   end
   
   def reindex?
-	  @marked_for_auto_indexing = self.errors.blank? && self.changed? && self.changed.any? {|e| (["systems_enabled", "active"]).include?(e)}
+	  @marked_for_immediate_auto_indexing = self.errors.blank? && self.changed? && self.changed.any? {|e| (["systems_enabled", "active"]).include?(e)}
 	  @marked_for_scheduled_auto_indexing = self.changed.select {|e| e =~ /^(start|end)_date/}
+	  Rails.logger.info "!!! tag reindex? callback is called @marked_for_immediate_auto_indexing: #{@marked_for_immediate_auto_indexing} @marked_for_scheduled_auto_indexing: #{@marked_for_scheduled_auto_indexing}"
 	end
 	
 	def maybe_index
-	  if @marked_for_auto_indexing
+	  Rails.logger.info "!!! tag maybe_index callback is called @marked_for_immediate_auto_indexing: #{@marked_for_immediate_auto_indexing} @marked_for_scheduled_auto_indexing: #{@marked_for_scheduled_auto_indexing}"
+	  if @marked_for_immediate_auto_indexing
 	    Rails.logger.info "REINDEX!!! Tag's products/ideas are scheduled for reindexing"
 	    self.products.each {|e| e.delay.index!}
 	    self.ideas.each {|e| e.delay.index!}
