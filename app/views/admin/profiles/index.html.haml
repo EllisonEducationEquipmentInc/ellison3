@@ -1,4 +1,4 @@
-%h1 Listing admins
+%h2 Listing admins
 = link_to 'New admin user', new_admin_admin_path, :class => 'jqui_new' if has_write_permissions?
 %br
 - unless params[:q].blank?
@@ -16,6 +16,7 @@
         = sortable "name"
         = sortable "email"
         = sortable "employee_number", "Empl. #"
+        %th Systems
         = sortable "sign_in_count", "Signed in"
         = sortable "current_sign_in_at", "Last sign in at"
         = sortable "created_at"
@@ -30,6 +31,7 @@
           %td= user.name
           %td= user.email
           %td= user.employee_number
+          %td= user.systems_enabled.join(", ") rescue ''
           %td= user.sign_in_count
           %td= l user.current_sign_in_at, :format => :custom rescue ''
           %td= l user.created_at, :format => :custom rescue ''
