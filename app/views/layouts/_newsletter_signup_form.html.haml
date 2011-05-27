@@ -1,5 +1,8 @@
+- get_list_and_segments
 %p{:style => "margin-bottom: 0 !important;"}
-  Stay informed with regular email updates!
+  == Sign up for <strong>#{@list[1]}</strong>
+  %br
+  and stay informed with regular email updates!
 = form_tag({:controller => 'index', :action => 'newsletter'}, :method => :get) do
   = text_field_tag :email, "Enter your email address", :onfocus => "if (this.value == 'Enter your email address'){this.value='';}", :onblur => "if (this.value == ''){this.value='Enter your email address';}", :size => 30, :class => "email_footer"
   = submit_tag "Subscribe", :class => "jqui_save"
