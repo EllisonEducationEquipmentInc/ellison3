@@ -213,6 +213,7 @@ $(document).ready(function(){
 
 	highlight_keyword();
 	
+	// jQuery Validator methods
 	jQuery.validator.addMethod("phoneUS", function(phone_number, element) {
 	    phone_number = phone_number.replace(/\s+/g, ""); 
 		return this.optional(element) || phone_number.length > 9 &&
@@ -226,6 +227,9 @@ $(document).ready(function(){
 	jQuery.validator.addMethod("cvv", function(cvv, element) {
 		return this.optional(element) || cvv.match(/^\d{3,4}$/);
 	}, "Security Code is invalid");	
+  jQuery.validator.addMethod("greaterThanZero", function(value, element) {
+    return this.optional(element) || (parseFloat(value) > 0);
+  }, "Amount must be greater than zero");
 
 	er_number_only();
 	
