@@ -155,7 +155,11 @@ class Tag
   end
   
   def product_item_nums=(item_nums)
-    products.concat(Product.where(:item_num.in => item_nums.split(/,\s*/)).to_a) unless item_nums.blank?
+    unless item_nums.blank?
+      prods = Product.where(:item_num.in => item_nums.split(/,\s*/))
+      products.concat(prods.to_a)
+      prods.each {|e| e.index_by_tag self}
+    end
   end
   
   def product_item_nums
