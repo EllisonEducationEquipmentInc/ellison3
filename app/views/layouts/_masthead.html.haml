@@ -71,28 +71,28 @@
         $(this).removeClass("activefield").addClass("idlefield");
       });
       $("#q").autocomplete({
-      	source: function(request, response) {
-      	  $.ajax({
-          	url: "/#{current_system}_solr_terms/"+request.term,
-          	dataType: 'text json',
-          	data: {},
-          	success: function( data ) {response($.map(data.terms[0][1],function(n,i){return n[0]}))}
+        source: function(request, response) {
+          $.ajax({
+            url: "/#{current_system}_solr_terms/"+request.term,
+            dataType: 'text json',
+            data: {},
+            success: function( data ) {response($.map(data.terms[0][1],function(n,i){return n[0]}))}
           });
-      	},
-      	search: function() {
-      		if (this.value.length < 1) {
-      			return false;
-      		}
-      	},
-      	focus: function( event, ui ) {
+        },
+        search: function() {
+          if (this.value.length < 1) {
+            return false;
+          }
+        },
+        focus: function( event, ui ) {
                 $(this).val( ui.item.label );
-        				return false;
-        			},
-      	select: function(event, ui) {
-      	  this.value = ui.item.value;
-      	  $(this.form).trigger('submit');
-      		return false;
-      	}});
+                return false;
+              },
+        select: function(event, ui) {
+          this.value = ui.item.value;
+          $(this.form).trigger('submit');
+          return false;
+        }});
       $('#searchbar').submit(function() {
         var default_value = "Search for #{is_sizzix? ? 'Sizzix ' : is_ee? ? 'Ellison ' : nil }Products & #{is_ee? ? 'Lessons' : 'Projects'}";
         var search_value = $('#q').val();

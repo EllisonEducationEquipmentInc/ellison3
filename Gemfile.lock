@@ -318,7 +318,7 @@ DEPENDENCIES
   feedzirra
   geokit
   ghazel-daemons
-  haml (>= 3.0.18)
+  haml (= 3.0.25)
   hpricot
   httparty
   image_science (>= 1.2.1)
