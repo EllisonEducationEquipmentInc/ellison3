@@ -6,17 +6,18 @@
   .item_images
     - if @product.outlet && is_sizzix_us?
       .clearance_flag= image_tag("/images/ui-objects/pricetag_outlet_detail.png", :alt => "On Sale!", :title => "On Sale!")
-    #large_image= image_tag(@product.large_image)
+    #large_image= link_to image_tag(@product.large_image), @product.zoom_image.present? ? @product.zoom_image : "/images/products/large/noimage.jpg", :class => "imagezoom", :rel => "gallery_#{@product.item_num}"
+    .clear
     #image_thumbs.thumbnail_carousel.dontprint
       = link_to "prev", "#", :class => "prev_button carousel_control disabled", :id => "prev_item_thumb", :onclick => "return false;"
       #thumbnail_list
         %ul{:style => "padding:0;margin:0;"}
-          %li.left= link_to image_tag(@product.small_image), '#', :onmouseover => "$('#large_image').html('#{image_tag(@product.large_image)}')", :onclick => "return false;", :class => "thumbnail"
+          %li.left= link_to image_tag(@product.small_image), 'javascript:void(0);', :class => "thumbnail zoomThumbActive", :rel => "{gallery: 'gallery_#{@product.item_num}', smallimage: '#{@product.large_image}', largeimage: '#{@product.zoom_image}'}"
           - unless @product.video.blank?
             %li.left= video_thumbnail(@product.video)
           - @product.images.each do |image|
             - next unless image.image?
-            %li.left= link_to image_tag(image.image_url(:small)), '#', :onmouseover => "$('#large_image').html('#{image_tag(image.image_url(:large))}')", :onclick => "return false;", :class => "thumbnail"
+            %li.left= link_to image_tag(image.image_url(:small)), 'javascript:void(0);', :class => "thumbnail", :rel => "{gallery: 'gallery_#{@product.item_num}', smallimage: '#{image.image_url(:large)}', largeimage: '#{image.image_url(:large)}'}"
       = link_to "next", "#", :class => "next_button carousel_control", :id => "next_item_thumb", :onclick => "return false;"
     :javascript
       $(function() {

@@ -162,12 +162,15 @@ $(document).ready(function(){
 	
 	// image zoom
 	var options = {
-	    zoomWidth: 300,
-	    zoomHeight: 300,
-      xCoord: 10,
+	    zoomWidth: 350,
+	    zoomHeight: 370,
+      xOffset: 32,
       yOffset: 0,
       position: "right",
-			zoomType: "reverse"
+			zoomType: "reverse",
+			title: false,
+			showEffect: 'fadein',
+			hideEffect: 'fadeout'
 		};
 	$('.imagezoom').jqzoom(options);
 	
