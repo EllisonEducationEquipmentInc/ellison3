@@ -165,7 +165,7 @@
   %br
   .clear
   .actions
-    = f.submit :class => 'wymupdate jqui_save'
+    = f.submit :class => 'wymupdate jqui_save', :disable_with => "please wait..."
 :javascript
   function update_campaign(){
     if ($('#tag_campaign_individual_true').attr('checked')) { $('.discount').hide();$('.individual').show(); } else { $('.discount').show();$('.individual').hide();}
