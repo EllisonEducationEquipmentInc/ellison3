@@ -617,6 +617,10 @@ class Product
     p < self.price ? p : self.price
   end
   
+  def has_zoom?
+    !get_image(:zoom).include? "noimage"
+  end
+  
 private 
 
   def quantity_cannot_be_negative
