@@ -280,7 +280,7 @@ class Idea
   end
   
   def has_zoom?
-    !get_image(:zoom).include? "noimage"
+    get_image(:zoom).present? && !get_image(:zoom).include?("noimage")
   end
   
   memoize :get_grouped_tags
