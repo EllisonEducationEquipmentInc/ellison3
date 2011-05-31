@@ -4,18 +4,18 @@
     .right= link_to 'edit', edit_admin_idea_path(@idea), :class => "link_edit-record"
 - cache_unless is_admin?, [@idea, current_system, current_locale, Product.retailer_discount_level, ecommerce_allowed?], :expires_in => 3.hours do
   .item_images
-    #large_image= link_to_if @idea.has_zoom?, image_tag(@idea.large_image), @idea.zoom_image, :class => "#{ @idea_has_zoom? ? 'imagezoom' : nil }", :rel => "gallery_#{@idea.item_num}"
+    #large_image= link_to_if @idea.has_zoom?, image_tag(@idea.large_image), @idea.zoom_image, :class => "#{ @idea.has_zoom? ? 'imagezoom' : nil }", :rel => "gallery_#{@idea.item_num}"
     .clear
     .thumbnail_carousel.dontprint
       = link_to "prev", "#", :class => "prev_button carousel_control disabled", :id => "prev_button", :onclick => "return false;"
       #thumbnail_list
         %ul{:style => "padding:0;margin:0;"}
-          %li.left= link_to image_tag(@idea.small_image), 'javascript:void(0);', :class => "thumbnail zoomThumbActive", :rel => "{gallery: 'gallery_#{@idea.item_num}', smallimage: '#{@idea.large_image}', largeimage: '#{@idea.zoom_image.present? ? @idea.zoom_image : "/images/ideas/large/noimage.jpg"}'}"
+          %li.left= link_to image_tag(@idea.small_image), 'javascript:void(0);', :class => "thumbnail #{@idea.has_zoom? ? 'zoomThumbActive' : nil}", :rel => "#{"{gallery: 'gallery_#{@idea.item_num}', smallimage: '#{@idea.large_image}', largeimage: '#{@idea.zoom_image}'}" if @idea.has_zoom?}", :onclick => "#{"$('#large_image').html('#{image_tag(@idea.large_image)}'); return false;" unless @idea.has_zoom?}"
           - unless @idea.video.blank?
             %li.left= video_thumbnail(@idea.video)
           - @idea.images.each do |image|
             - next unless image.image?
-            %li.left= link_to image_tag(image.image_url(:small)), 'javascript:void(0);', :class => "thumbnail", :rel => "{gallery: 'gallery_#{@idea.item_num}', smallimage: '#{image.image_url(:large)}', largeimage: '#{image.image_url}'}"
+            %li.left= link_to image_tag(image.image_url(:small)), 'javascript:void(0);', :class => "thumbnail", :rel => "#{"{gallery: 'gallery_#{@idea.item_num}', smallimage: '#{image.image_url(:large)}', largeimage: '#{image.image_url}'}" if @idea.has_zoom?}", :onclick => "#{"$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;" unless @idea.has_zoom?}"
       = link_to "next", "#", :class => "next_button carousel_control", :id => "next_button", :onclick => "return false;"
     :javascript
       $(function() {

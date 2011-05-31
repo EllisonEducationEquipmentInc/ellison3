@@ -12,7 +12,7 @@
       = link_to "prev", "#", :class => "prev_button carousel_control disabled", :id => "prev_item_thumb", :onclick => "return false;"
       #thumbnail_list
         %ul{:style => "padding:0;margin:0;"}
-          %li.left= link_to image_tag(@product.small_image), 'javascript:void(0);', :class => "thumbnail #{@product.has_zoom? ? 'zoomThumbActive' : nil}", :rel => "#{"{gallery: 'gallery_#{@product.item_num}', smallimage: '#{@product.large_image}', largeimage: '#{@product.zoom_image.present? ? @product.zoom_image : "/images/products/large/noimage.jpg"}'}" if @product.has_zoom?}", :onclick => "#{"$('#large_image').html('#{image_tag(@product.large_image)}'); return false;" unless @product.has_zoom?}"
+          %li.left= link_to image_tag(@product.small_image), 'javascript:void(0);', :class => "thumbnail #{@product.has_zoom? ? 'zoomThumbActive' : nil}", :rel => "#{"{gallery: 'gallery_#{@product.item_num}', smallimage: '#{@product.large_image}', largeimage: '#{@product.zoom_image}'}" if @product.has_zoom?}", :onclick => "#{"$('#large_image').html('#{image_tag(@product.large_image)}'); return false;" unless @product.has_zoom?}"
           - unless @product.video.blank?
             %li.left= video_thumbnail(@product.video)
           - @product.images.each do |image|
