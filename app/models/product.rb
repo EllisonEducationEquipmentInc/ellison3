@@ -618,7 +618,7 @@ class Product
   end
   
   def has_zoom?
-    !get_image(:zoom).include? "noimage"
+    !get_image(:zoom).try(:include?, "noimage")
   end
   
 private 
