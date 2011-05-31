@@ -4,7 +4,7 @@
     .right= link_to 'edit', edit_admin_idea_path(@idea), :class => "link_edit-record"
 - cache_unless is_admin?, [@idea, current_system, current_locale, Product.retailer_discount_level, ecommerce_allowed?], :expires_in => 3.hours do
   .item_images
-    #large_image= link_to image_tag(@idea.large_image), @idea.zoom_image.present? ? @idea.zoom_image : "/images/ideas/large/noimage.jpg", :class => "imagezoom", :rel => "gallery_#{@idea.item_num}"
+    #large_image= link_to_if @idea.has_zoom?, image_tag(@idea.large_image), @idea.zoom_image, :class => "#{ @idea_has_zoom? ? 'imagezoom' : nil }", :rel => "gallery_#{@idea.item_num}"
     .clear
     .thumbnail_carousel.dontprint
       = link_to "prev", "#", :class => "prev_button carousel_control disabled", :id => "prev_button", :onclick => "return false;"

@@ -279,6 +279,10 @@ class Idea
     hash
   end
   
+  def has_zoom?
+    !get_image(:zoom).include? "noimage"
+  end
+  
   memoize :get_grouped_tags
   
 private 
