@@ -178,6 +178,10 @@ class Idea
 		get_image(:large)
 	end
 	
+  def zoom_image
+    get_image(:zoom)
+  end
+	
 	# system specific distribution life cycle - before its expiriation (distribution_life_cycle_ends_#{sys})
   def public_life_cycle(sys = current_system)
     read_attribute("distribution_life_cycle_#{sys}") if read_attribute("distribution_life_cycle_ends_#{sys}") > Time.zone.now
