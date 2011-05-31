@@ -2,7 +2,7 @@
   = link_to 'back', session[:continue_shopping], :class => "link_back" if session[:continue_shopping].present?
   - if admin_signed_in?
     .right= link_to 'edit', edit_admin_product_path(@product), :class => "link_edit-record"
-- cache_unless is_admin?, [@product, current_system, current_locale, @product.price, Product.retailer_discount_level, ecommerce_allowed?, request.xhr?], :expires_in => 10.minutes do
+- cache_unless is_admin?, [@product, current_system, current_locale, @product.price, Product.retailer_discount_level, ecommerce_allowed?, request.xhr?], :expires_in => 3.hours do
   .item_images
     - if @product.outlet && is_sizzix_us?
       .clearance_flag= image_tag("/images/ui-objects/pricetag_outlet_detail.png", :alt => "On Sale!", :title => "On Sale!")

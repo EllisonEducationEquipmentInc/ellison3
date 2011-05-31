@@ -1,4 +1,4 @@
-- cache_unless params[:q].present?, [params.to_params.gsub("%", ":"), current_system, current_locale, ecommerce_allowed?, Product.retailer_discount_level], :expires_in => 5.minutes do
+- cache_unless params[:q].present?, [params.to_params.gsub("%", ":"), current_system, current_locale, ecommerce_allowed?, Product.retailer_discount_level], :expires_in => idea? ? 3.hours : 15.minutes do
   == $('#products_filter').html('#{escape_javascript(render(:partial => "index/catalog_filter"))}');
   == $('#product_catalog').html('#{escape_javascript(render(:partial => "index/product_results"))}');
   == $('#catalog_breadcrumbs').html('#{escape_javascript(catalog_breadcrumbs)}');

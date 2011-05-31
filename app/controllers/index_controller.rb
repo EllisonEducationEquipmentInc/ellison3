@@ -178,28 +178,28 @@ class IndexController < ApplicationController
   def twitter_feed
     @feed = Feed.where(:name => 'twitter').first || Feed.new(:name => 'twitter')
     process_feed("http://twitter.com/statuses/user_timeline/46690271.rss")
-    expires_in 3.minutes, 'max-stale' => 3.minutes, :public => true
+    expires_in 10.minutes, 'max-stale' => 15.minutes, :public => true
     render :partial => 'index/feed', :collection => @feed.entries
   end
   
   def blog_feed
     @feed = Feed.where(:name => 'blog').first || Feed.new(:name => 'blog')
     process_feed("http://sizzixblog.blogspot.com/feeds/posts/default?alt=rss&max-results=5")
-    expires_in 3.minutes, 'max-stale' => 3.minutes, :public => true
+    expires_in 10.minutes, 'max-stale' => 15.minutes, :public => true
     render :partial => 'index/feed', :collection => @feed.entries
   end
 
   def twitter_feed_uk
     @feed = Feed.where(:name => 'twitter_uk').first || Feed.new(:name => 'twitter_uk')
     process_feed("http://twitter.com/statuses/user_timeline/45567009.rss")
-    expires_in 3.minutes, 'max-stale' => 3.minutes, :public => true
+    expires_in 10.minutes, 'max-stale' => 15.minutes, :public => true
     render :partial => 'index/feed', :collection => @feed.entries
   end
   
   def blog_feed_uk
     @feed = Feed.where(:name => 'blog_uk').first || Feed.new(:name => 'blog_uk')
-    process_feed("http://sizzixukblog.blogspot.com/feeds/posts/default?alt=rss&max-results=5")
-    expires_in 3.minutes, 'max-stale' => 3.minutes, :public => true
+    process_feed("http://sizzixukblog.blogspot.com/feeds/posts/default?alt=rss&max-results=5", 60)
+    expires_in 10.minutes, 'max-stale' => 15.minutes, :public => true
     render :partial => 'index/feed', :collection => @feed.entries
   end
   
@@ -356,7 +356,7 @@ class IndexController < ApplicationController
     @per_page = 10
     start_index = (@page-1)*@per_page + 1
     @feed = Feed.where(:name => "blog_uk_#{start_index}").first || Feed.new(:name => "blog_uk_#{start_index}")
-    process_feed("http://sizzixukblog.blogspot.com/feeds/posts/default?alt=rss&max-results=#{@per_page}&start-index=#{start_index}")
+    process_feed("http://sizzixukblog.blogspot.com/feeds/posts/default?alt=rss&max-results=#{@per_page}&start-index=#{start_index}", 60)
   rescue Exception => e
     go_404
   end
@@ -448,7 +448,7 @@ private
     end
   end
 
-  def process_feed(source, mins = 5)
+  def process_feed(source, mins = 15)
     if @feed.new_record? || @feed.updated_at < mins.minutes.ago
       feed = Feedzirra::Feed.fetch_and_parse(source)
       feed.sanitize_entries!
