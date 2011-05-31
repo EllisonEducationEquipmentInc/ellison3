@@ -184,7 +184,7 @@ body.bp {
       text-decoration: underline; }
   }
   
-  a.tag_breadcrumb_remove {
+  a.tag_breadcrumb_remove, a.price_breadcrumb_remove, a.keyword_remove, a.item_group_breadcrumb_remove {
     display: inline-block;
     position: relative;
     top: -1px;
@@ -193,10 +193,6 @@ body.bp {
 	  text-indent: -9999px;
     background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/cross-small.png") -2px -1px no-repeat;
   }
-  
-  a.price_breadcrumb_remove { @extend a.tag_breadcrumb_remove; }
-  
-  a.keyword_remove { @extend a.tag_breadcrumb_remove; }
   
   .breadcrumb_arrow { @extend a.tag_breadcrumb_remove;
     background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/arrow-000-small.png");
