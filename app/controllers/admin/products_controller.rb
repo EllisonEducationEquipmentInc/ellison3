@@ -258,6 +258,7 @@ class Admin::ProductsController < ApplicationController
     @product.tag_ids.delete @tag.id
     @tag.save(:validate => false)
     @product.save(:validate => false)
+    @product.delay.index! if @tag.active
     render :js => "$('li#tag_#{@tag.id}').remove()"
   end
   
@@ -266,7 +267,7 @@ class Admin::ProductsController < ApplicationController
     @tag = Tag.find(params[:tag_id])
     @product.tags << @tag
     @product.save(:validate => false)
-    @product.index_by_tag @tag
+    @product.index_by_tag(@tag) if @tag.active
     render(:partial => 'tag', :object => @tag, :locals => {:product_id => @product.id})
   end
   

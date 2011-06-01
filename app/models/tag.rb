@@ -278,9 +278,28 @@ private
   end
   
   def reindex?
-	  @marked_for_immediate_auto_indexing = self.errors.blank? && self.changed? && self.changed.any? {|e| (["systems_enabled", "active"]).include?(e)}
-	  @marked_for_scheduled_auto_indexing = self.changed.select {|e| e =~ /^(start|end)_date/}
-	  Rails.logger.info "!!! tag reindex? callback is called @marked_for_immediate_auto_indexing: #{@marked_for_immediate_auto_indexing} @marked_for_scheduled_auto_indexing: #{@marked_for_scheduled_auto_indexing}"
+    # idexing rules:
+    #   - if tag is inactive, no indexing occurs
+    #   - when tag gets activated, schedule associated products and ideas based on tag's start/end date
+    #   - deactivating a tag will NOT trigger indexing. change it's end_date instead
+    #   - using "remove_all_products" dos NOT trigger reindexing. Those products are scheduled for indexing at tag's end date.
+    #   - changing systems_enabled will result immediate indexing of all associated products and ideas if tag is active. 
+    if self.active
+  	  @marked_for_immediate_auto_indexing = self.errors.blank? && self.changed? && self.changed.any? {|e| (["systems_enabled"]).include?(e)}
+  	  if self.active_changed?
+  	    start_dates = []
+  	    end_dates = []
+  	    ELLISON_SYSTEMS.each do |e|
+  	      start_dates << "start_date_#{e}" if self.send("start_date_#{e}")
+  	      end_dates << "end_date_#{e}" if self.send("end_date_#{e}")
+  	    end
+  	    Rails.logger.info "!!! tag got activated, scheduling associated products/ideas for indexing at #{start_dates} #{end_dates}"
+  	    @marked_for_scheduled_auto_indexing = start_dates + end_dates
+  	  else  
+  	    @marked_for_scheduled_auto_indexing = self.changed.select {|e| e =~ /^(start|end)_date/}
+  	  end
+  	  Rails.logger.info "!!! tag reindex? callback is called @marked_for_immediate_auto_indexing: #{@marked_for_immediate_auto_indexing} @marked_for_scheduled_auto_indexing: #{@marked_for_scheduled_auto_indexing}"
+  	end
 	end
 	
 	def maybe_index
@@ -293,7 +312,7 @@ private
 	  end
     index_dates = []
 	  @marked_for_scheduled_auto_indexing && @marked_for_scheduled_auto_indexing.each do |d|
-      if (self.send(d).is_a?(DateTime) || self.send(d).is_a?(ActiveSupport::TimeWithZone)) && !index_dates.include?(self.send(d).utc)
+      if (self.send(d).is_a?(DateTime) || self.send(d).is_a?(ActiveSupport::TimeWithZone) || self.send(d).is_a?(Time)) && !index_dates.include?(self.send(d).utc)
         scheduled_at = self.send(d).utc > Time.now.utc ? self.send(d) : Time.now
         Rails.logger.info "FUTURE REINDEX!!! scheduled at #{scheduled_at}"
         self.products.each {|e| e.delay(:run_at => scheduled_at).index!}

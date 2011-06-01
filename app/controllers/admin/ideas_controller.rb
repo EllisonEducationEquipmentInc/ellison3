@@ -221,6 +221,7 @@ class Admin::IdeasController < ApplicationController
     @idea.tag_ids.delete @tag.id
     @tag.save(:validate => false)
     @idea.save(:validate => false)
+    @idea.delay.index! if @tag.active
     render :js => "$('li#tag_#{@tag.id}').remove()"
   end
   
@@ -229,7 +230,7 @@ class Admin::IdeasController < ApplicationController
     @tag = Tag.find(params[:tag_id])
     @idea.tags << @tag
     @idea.save(:validate => false)
-    @idea.index_by_tag @tag
+    @idea.index_by_tag(@tag) if @tag.active
     render(:partial => 'tag', :object => @tag, :locals => {:idea_id => @idea.id})
   end
 end
