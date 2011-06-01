@@ -158,7 +158,7 @@ class Tag
     unless item_nums.blank?
       prods = Product.where(:item_num.in => item_nums.split(/,\s*/))
       products.concat(prods.to_a)
-      prods.each {|e| e.index_by_tag self}
+      prods.each {|e| e.index_by_tag self} if self.active
     end
   end
   
