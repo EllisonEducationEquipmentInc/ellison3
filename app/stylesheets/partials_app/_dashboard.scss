@@ -177,6 +177,8 @@ ul#tag_products, ul#tag_ideas { @extend ul.horizontal;
 .compatibility { @extend .visual_asset; }
 
 // Tags
+p#disable_formhelp { @extend .formhelp_important; }
+
 #new_campaign {
   
   ul#individual { @extend ul.plain;

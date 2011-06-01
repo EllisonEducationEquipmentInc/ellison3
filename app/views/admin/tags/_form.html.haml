@@ -10,8 +10,7 @@
       = f.radio_button(:active, true)
       disabled
       = f.radio_button(:active, false, :disabled => @tag.send("end_date_#{current_system}").blank? || @tag.send("end_date_#{current_system}") < Time.zone.now ? false: true)
-      - if @tag.send("end_date_#{current_system}").present? && @tag.send("end_date_#{current_system}") > Time.zone.now
-        %p.formhelp_important== This tag <em>cannot</em> be disabled because its <strong>End Date</strong> is set in the future.
+      %p#disable_formhelp{ :style => "display: #{ @tag.send("end_date_#{current_system}").present? && @tag.send("end_date_#{current_system}") > Time.zone.now ? 'block' : 'none' }"}== This tag <em>cannot</em> be disabled because its <strong>End Date</strong> is set in the future.
     .field
       = required_label f, :systems_enabled, { :label => "Enabled for", :label_size => "auto" }
       = system_enabled('tag')
@@ -21,7 +20,7 @@
       = f.text_field "start_date_#{current_system}", :class => 'datetimepicker'
     .field
       = f.label "end_date_#{current_system}", "<span class='required'><span class='icon_datefield'>End Date #{current_system.upcase}</span></span>".html_safe, :class => 'overrideable ui-corner-all', :style => 'width: 130px'
-      = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
+      = f.text_field "end_date_#{current_system}", :class => 'datetimepicker', :onchange => "check_date(this.value)"
 
   %hr
   %h3.contentwrap_XXXL Basic Information
@@ -32,7 +31,7 @@
   .contentwrap_large
     .field.left
       = required_label f,  :name, { :label => "Tag Name" }
-      = f.text_field :name  
+      = f.text_field :name
     .field.left 
       = f.label :tag_type, "Tag Type"
       = f.select :tag_type, Tag.all_types.map {|t| [t.humanize, t]}, {}, :onchange => "toggle_tag_type_fields()"  
@@ -169,6 +168,17 @@
   .actions
     = f.submit :class => 'wymupdate jqui_save', :disable_with => "please wait..."
 :javascript
+  function check_date(date_string) {
+    var now = Date.today();
+    var end_date = Date.parse(date_string);
+    if (end_date > now) {
+      $('#tag_active_false').attr('disabled',true);
+      $('#disable_formhelp').show();
+    } else {
+      $('#tag_active_false').attr('disabled',false);
+      $('#disable_formhelp').hide();
+    }
+  }
   function update_campaign(){
     if ($('#tag_campaign_individual_true').attr('checked')) { $('.discount').hide();$('.individual').show(); } else { $('.discount').show();$('.individual').hide();}
   };
