@@ -316,22 +316,6 @@
       $('#product_availability_message_#{current_system}').autocomplete({source: avail_messages});
       $('#product_distribution_life_cycle_#{current_system}').autocomplete({source: ["New", "Sale", "Discountinued", "Clearance", "Coming Soon"]});
     });
-    $('.required').CreateBubblePopup({
-      position: 'top',
-      align: 'center',
-      distance: '50px',
-      tail: {
-        align: 'middle',
-        hidden: false
-      },
-      selectable: true,
-      innerHtml: 'this field is required',
-      innerHtmlStyle: {
-        'text-align': 'center'
-      },
-      themeName: 'all-orange',
-      themePath: '/images/ui-plugins/bubblepopup'
-    });
     $('.overrideable').CreateBubblePopup({
       position: 'top',
       align: 'center',
