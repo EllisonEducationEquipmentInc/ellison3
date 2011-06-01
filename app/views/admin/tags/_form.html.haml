@@ -9,7 +9,7 @@
       active
       = f.radio_button(:active, true)
       disabled
-      = f.radio_button(:active, false)
+      = f.radio_button(:active, false, :disabled => @tag.send("end_date_#{current_system}").blank? || @tag.send("end_date_#{current_system}") < Time.zone.now ? false: true)
     .field
       = required_label f, :systems_enabled, { :label => "Enabled for", :label_size => "auto" }
       = system_enabled('tag')
