@@ -11,7 +11,7 @@
       disabled
       = f.radio_button(:active, false, :disabled => @tag.send("end_date_#{current_system}").blank? || @tag.send("end_date_#{current_system}") < Time.zone.now ? false: true)
       - if @tag.send("end_date_#{current_system}").present? && @tag.send("end_date_#{current_system}") > Time.zone.now
-        %p.formhelp_important== This tag <em>cannot</em> be disabled because its End Date is in the future.
+        %p.formhelp_important== This tag <em>cannot</em> be disabled because its <strong>End Date</strong> is set in the future.
     .field
       = required_label f, :systems_enabled, { :label => "Enabled for", :label_size => "auto" }
       = system_enabled('tag')
