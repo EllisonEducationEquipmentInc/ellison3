@@ -61,7 +61,7 @@ class Tag
 
   field :name
   field :tag_type
-  field :active, :type => Boolean, :default => true
+  field :active, :type => Boolean, :default => false
   field :systems_enabled, :type => Array
   field :description
   field :permalink
