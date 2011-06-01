@@ -48,7 +48,7 @@
       - if is_sizzix_us?
         %li
           %h4 Shopping Support:
-        %li= link_to "Order Status", "/ostatus?no_layout=1", :class => "lightbox"
+        %li= link_to "Order Status", "/myaccount/orders"
         %li= link_to "Online Ordering FAQs", "/orderfaq?no_layout=1", :class => "lightbox"
         %li= link_to "Pricing, Payment Methods & Sales Tax", "/pricing?no_layout=1", :class => "lightbox"
         %li= link_to "Shipping and Tracking", "/shipntrack?no_layout=1", :class => "lightbox"
@@ -67,21 +67,21 @@
         %li= link_to "Website FAQs", "/websitefaq?no_layout=1", :class => "lightbox"
         %li= link_to "Membership FAQs", "/memberfaq?no_layout=1", :class => "lightbox"
         %li= link_to "Online Ordering FAQs", "/orderfaq?no_layout=1", :class => "lightbox"
-        %li= link_to "Newsletter Subscription", "/emailfaq?no_layout=1", :class => "lightbox"
+        %li= link_to "Newsletter Subscription", "/index/newsletter"
         %li= link_to "Pricing, Payment & VAT", "/pricing?no_layout=1", :class => "lightbox"
         %li= link_to "Shipping and Returns", "/shipntrack?no_layout=1", :class => "lightbox"
         %li= link_to "Terms & Conditions", "/site_use?no_layout=1", :class => "lightbox"
         %li= link_to "Privacy Policy", "/privacy?no_layout=1", :class => "lightbox"
         %li= link_to "Stockist List", "/stores"
         %li= link_to "Wholesaler Information", "/wholesaler?no_layout=1", :class => "lightbox"
-        %li= link_to "Order Status", "/ostatus?no_layout=1", :class => "lightbox"
+        %li= link_to "Order Status", "/myaccount/orders"
 
       - if is_er_us?
-        %li= link_to "Order Status", "/ostatus?no_layout=1", :class => "lightbox"
+        %li= link_to "Order Status", "/myaccount/orders"
 
       - if is_ee_us?
         %li= link_to "Online Ordering Support", "/onlinesupport?no_layout=1", :class => "lightbox"
-        %li= link_to "Order Status", "/ostatus?no_layout=1", :class => "lightbox"
+        %li= link_to "Order Status", "/myaccount/orders"
         %li= link_to "Online Ordering FAQs", "/online_faqs?no_layout=1", :class => "lightbox"
         %li= link_to "Pricing, Payment & Sales Tax", "/pricing?no_layout=1", :class => "lightbox"
         %li= link_to "Returns & Exchanges", "/returns?no_layout=1", :class => "lightbox"
@@ -89,16 +89,16 @@
         %li= link_to "International Ordering", "#?no_layout=1", :class => "lightbox"
         %li= link_to "Product Support", "/productsupport?no_layout=1", :class => "lightbox"
         %li= link_to "Fundraising", "/fundraising?no_layout=1", :class => "lightbox"
-        %li= link_to "Newsletter Subscriptions", "/subscriptions?no_layout=1", :class => "lightbox"
-        %li= link_to "Request Materials", "#?no_layout=1", :class => "lightbox"
+        %li= link_to "Newsletter Subscriptions", "/index/newsletter"
+        %li= link_to "Request Materials", "/myaccount/materials"
         %li= link_to "Where to Buy", "/stores"
 
       - if is_ee_uk?
         %li= link_to "Online Ordering Support", "/onlinesupport?no_layout=1", :class => "lightbox"
-        %li= link_to "Order Status", "/ostatus?no_layout=1", :class => "lightbox"
+        %li= link_to "Order Status", "/myaccount/orders"
         %li= link_to "Online Ordering FAQs", "/onlinefaqs?no_layout=1", :class => "lightbox"
         %li= link_to "Pricing & Payment Methods", "#?no_layout=1", :class => "lightbox"
         %li= link_to "Shipping & Tracking", "#?no_layout=1", :class => "lightbox"
         %li= link_to "International Ordering", "#?no_layout=1", :class => "lightbox"
         %li= link_to "Product Support", "#?no_layout=1", :class => "lightbox"
-        %li= link_to "Newsletter Subscriptions", "#?no_layout=1", :class => "lightbox"
+        %li= link_to "Newsletter Subscriptions", "/index/newsletter"
