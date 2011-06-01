@@ -94,21 +94,22 @@
 }
 
 // decorative headers
-h2.what-s-hot { @extend .decorative;
-  background: url('/images/ui-objects/heart_pink.png') no-repeat;
-}
+// class names are parameterized from visual asset titles
+// example class definitions below...
 
-h2.new-ideas { @extend .decorative;
-  background: url('/images/ui-objects/leaf_fall.png') no-repeat;
-}
+/* 
+  h2.what-s-hot { @extend .decorative;
+    background: url('/images/ui-objects/heart_pink.png') no-repeat;
+  }
 
-h2.tim-holtz-products { @extend .decorative;
-  background: url('/images/ui-objects/flower_pink-geometric.png') no-repeat;
-}
+  h2.new-ideas { @extend .decorative;
+    background: url('/images/ui-objects/leaf_fall.png') no-repeat;
+  }
 
-h2.tim-holtz-outlet-items { @extend .decorative;
-  background: url('/images/ui-objects/pumpkin.png') no-repeat;
-}
+  h2.tim-holtz-products { @extend .decorative;
+    background: url('/images/ui-objects/flower_pink-geometric.png') no-repeat;
+  }
+*/
 
 // billboards
 // these are the default settings for ALL billboard rows; FULL page width this is the default width.
