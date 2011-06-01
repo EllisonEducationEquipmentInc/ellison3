@@ -6,22 +6,20 @@
   .item_images
     - if @product.outlet && is_sizzix_us?
       .clearance_flag= image_tag("/images/ui-objects/pricetag_outlet_detail.png", :alt => "On Sale!", :title => "On Sale!")
+    - if @product.has_zoom?
+      .zoom_flag= image_tag("/images/ui-objects/magnifier_zoom-in.png", :alt => "Zoom Image", :title => "Zoom Image")
     #large_image= link_to_if @product.has_zoom?, image_tag(@product.large_image), @product.zoom_image, :class => "#{@product.has_zoom? ? 'imagezoom' : nil}", :rel => "gallery_#{@product.item_num}"
     .clear
     #image_thumbs.thumbnail_carousel.dontprint
       = link_to "prev", "#", :class => "prev_button carousel_control disabled", :id => "prev_item_thumb", :onclick => "return false;"
       #thumbnail_list
         %ul{:style => "padding:0;margin:0;"}
-          %li.left
-            .thumbnail{ :style => "background: url('#{@product.small_image}') no-repeat center center;" }
-              = link_to image_tag("/images/#{@product.has_zoom? ? 'ui-buttons/zoom-in' : 'ui-objects/blank'}.png", :width => 65, :height => 65), 'javascript:void(0);', :class => "#{@product.has_zoom? ? 'zoomThumbActive' : nil}", :rel => "#{"{gallery: 'gallery_#{@product.item_num}', smallimage: '#{@product.large_image}', largeimage: '#{@product.zoom_image}'}" if @product.has_zoom?}", :onclick => "#{"$('#large_image').html('#{image_tag(@product.large_image)}'); return false;" unless @product.has_zoom?}"
+          %li.left= link_to image_tag(@product.small_image), 'javascript:void(0);', :class => "thumbnail #{@product.has_zoom? ? 'zoomThumbActive' : nil}", :rel => "#{"{gallery: 'gallery_#{@product.item_num}', smallimage: '#{@product.large_image}', largeimage: '#{@product.zoom_image}'}" if @product.has_zoom?}", :onclick => "#{"$('#large_image').html('#{image_tag(@product.large_image)}'); return false;" unless @product.has_zoom?}"
           - unless @product.video.blank?
             %li.left= video_thumbnail(@product.video)
           - @product.images.each do |image|
             - next unless image.image?
-            %li.left
-              .thumbnail{ :style => "background: url('#{image.image_url(:small)}') no-repeat center center;" }
-                = link_to image_tag("/images/#{@product.has_zoom? ? 'ui-buttons/zoom-in' : 'ui-objects/blank'}.png", :width => 65, :height => 65), 'javascript:void(0);', :rel => "#{"{gallery: 'gallery_#{@product.item_num}', smallimage: '#{image.image_url(:large)}', largeimage: '#{image.image_url}'}" if @product.has_zoom?}", :onclick => "#{"$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;" unless @product.has_zoom?}"
+            %li.left= link_to image_tag(image.image_url(:small)), 'javascript:void(0);', :class => "thumbnail", :rel => "#{"{gallery: 'gallery_#{@product.item_num}', smallimage: '#{image.image_url(:large)}', largeimage: '#{image.image_url}'}" if @product.has_zoom?}", :onclick => "#{"$('#large_image').html('#{image_tag(image.image_url(:large))}'); return false;" unless @product.has_zoom?}"
       = link_to "next", "#", :class => "next_button carousel_control", :id => "next_item_thumb", :onclick => "return false;"
     :javascript
       $(function() {

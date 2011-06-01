@@ -686,6 +686,13 @@ h3.item_title {
 	  right: 0;
 	  z-index: 100;
 	}
+	
+	.zoom_flag {
+	  position: absolute;
+	  top: 6px;
+	  left: 6px;
+	  z-index: 100;	  
+	}
 
   #large_image {
     width: 300px;
