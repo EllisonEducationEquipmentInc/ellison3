@@ -92,6 +92,9 @@
 
 .infobox {
   padding: 10px;
+  font-weight: normal !important;
+  
+  ul li h4 { font-weight: bold; }
 }
 
 .actions {

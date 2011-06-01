@@ -4,60 +4,101 @@
     Contact us online 24 hours a day by using our Contact Us Form. Please submit your request below 
     and a member of our Customer Service department will respond to you via email during our normal 
     business hours.
+  %hr
+  #feedback_form.contentwrap_medium
+    = form_for(@feedback, :url => {:controller => :index, :action => 'send_feedback', :secure => true}, :remote => true, :html => {:id => "contact_form", :method => :post}) do |f|
+      .field
+        = required_label f, :email, {:label_size => "60px;"}
+        = f.text_field :email
+      .field
+        = required_label f, :subject, {:label_size => "60px;"}
+        = f.select :subject, @subjects.map(&:name)
+      = f.fields_for :comments, @feedback.comments.build do |comments_fields|
+        .field
+          = required_label comments_fields, :message, {:label => "Your Comments", :label_size => "auto"}
+          %br
+          = comments_fields.text_area :message, :rows => 10, :cols => 36
+      = raw recaptcha_tag(:ajax, :ssl => request.ssl?, :display => {:theme => 'white'})
+      .actions
+        = f.submit "Submit", :class => 'jqui_save'
+  .contentwrap_medium.last
+    - i=0
+    - @subjects.each do |topic|
+      .contextual-help{:id => "help_#{topic.name.parameterize}", :style => i != 0 ? "display: none" : nil}
+        %h3= topic.name
+        = render topic.visual_assets.current
+      - i+=1
+    
+    :javascript
+      $(function() {
+        $("#feedback_subject").change(function() {
+          if ($(this).val()) {
+            $('.contextual-help').hide();
+            $("#help_" + $(this).val().replace(/\s/g, '-').replace(/[^\w/-]/g, '').toLowerCase()).show();
+          }
+        });
+      });
 
 .contentwrap_medium.last
-  = image_tag("/images/static/contact/feedback.png")
+  .right= image_tag("/images/static/contact/feedback.png")
+  .clear
   .infobox{:class => "ui-widget-#{ is_sizzix_us? ? 'header' : 'content'} ui-widget ui-corner-all"}
     %h3 Frequently Asked Questions
     %ul.plain
+      - if is_sizzix_us?
+        %li
+          %h4 Shopping Support:
+        %li= link_to "Order Status", "/ostatus?no_layout=1", :class => "lightbox"
+        %li= link_to "Online Ordering FAQs", "/orderfaq?no_layout=1", :class => "lightbox"
+        %li= link_to "Pricing, Payment Methods & Sales Tax", "/pricing?no_layout=1", :class => "lightbox"
+        %li= link_to "Shipping and Tracking", "/shipntrack?no_layout=1", :class => "lightbox"
+        %li= link_to "Returns and Exchanges", "/returns?no_layout=1", :class => "lightbox"
+        %li= link_to "International Support", "/intl?no_layout=1", :class => "lightbox"
+        %li
+          %h4 General Support:
+        %li= link_to "Website FAQs", "website_faqs?no_layout=1", :class => "lightbox"
+        %li= link_to "Membership FAQs", "/memberfaq?no_layout=1", :class => "lightbox"
+        %li= link_to "Legal Notices", "/legal?no_layout=1", :class => "lightbox"
+        %li= link_to "Privacy Policy", "/privacy?no_layout=1", :class => "lightbox"
+        %li= link_to "Store Locator", "/stores"
+      
       - if is_sizzix_uk?
-        %li What is Die-cutting?
-        %li Website FAQs
-        %li Membership FAQs
-        %li Online Ordering FAQs
-        %li Newsletter Subscription
-        %li Pricing, Payment & VAT
-        %li Shipping and Returns
-        %li Terms & Conditions
-        %li Privacy Policy
-        %li Stockist List
-        %li Wholesaler Information
-        %li Order Status
+        %li= link_to "What is Die-cutting?", "/die_cutting?no_layout=1", :class => "lightbox"
+        %li= link_to "Website FAQs", "/websitefaq?no_layout=1", :class => "lightbox"
+        %li= link_to "Membership FAQs", "/memberfaq?no_layout=1", :class => "lightbox"
+        %li= link_to "Online Ordering FAQs", "/orderfaq?no_layout=1", :class => "lightbox"
+        %li= link_to "Newsletter Subscription", "/emailfaq?no_layout=1", :class => "lightbox"
+        %li= link_to "Pricing, Payment & VAT", "/pricing?no_layout=1", :class => "lightbox"
+        %li= link_to "Shipping and Returns", "/shipntrack?no_layout=1", :class => "lightbox"
+        %li= link_to "Terms & Conditions", "/site_use?no_layout=1", :class => "lightbox"
+        %li= link_to "Privacy Policy", "/privacy?no_layout=1", :class => "lightbox"
+        %li= link_to "Stockist List", "/stores"
+        %li= link_to "Wholesaler Information", "/wholesaler?no_layout=1", :class => "lightbox"
+        %li= link_to "Order Status", "/ostatus?no_layout=1", :class => "lightbox"
 
-%hr
-#feedback_form.contentwrap_medium
-  = form_for(@feedback, :url => {:controller => :index, :action => 'send_feedback', :secure => true}, :remote => true, :html => {:id => "contact_form", :method => :post}) do |f|
-    .field
-      = required_label f, :email, {:label_size => "60px;"}
-      = f.text_field :email
-    .field
-      = required_label f, :subject, {:label_size => "60px;"}
-      = f.select :subject, @subjects.map(&:name)
-    = f.fields_for :comments, @feedback.comments.build do |comments_fields|
-      .field
-        = required_label comments_fields, :message, {:label => "Your Comments", :label_size => "auto"}
-        %br
-        = comments_fields.text_area :message, :rows => 10, :cols => 36
-    = raw recaptcha_tag(:ajax, :ssl => request.ssl?, :display => {:theme => 'white'})
-    .actions
-      = f.submit "Submit", :class => 'jqui_save'
-.contentwrap_XL.last
-  - i=0
-  - @subjects.each do |topic|
-    %div{:id => "help_#{topic.name.parameterize}", :class => "infobox ui-widget-#{ is_sizzix_us? ? 'header' : 'content'} ui-widget ui-corner-all", :style => i != 0 ? "display: none" : nil}
-      %h3= topic.name
-      = render topic.visual_assets.current
-    - i+=1
-    
-  :javascript
-    $(function() {
-      $("#feedback_subject").change(function() {
-        if ($(this).val()) {
-          $('.infobox').hide();
-          $("#help_" + $(this).val().replace(/\s/g, '-').replace(/[^\w/-]/g, '').toLowerCase()).show();
-        }
-      });
-    });
-    
-    
-    
+      - if is_er_us?
+        %li= link_to "Order Status", "/ostatus?no_layout=1", :class => "lightbox"
+
+      - if is_ee_us?
+        %li= link_to "Online Ordering Support", "/onlinesupport?no_layout=1", :class => "lightbox"
+        %li= link_to "Order Status", "/ostatus?no_layout=1", :class => "lightbox"
+        %li= link_to "Online Ordering FAQs", "/online_faqs?no_layout=1", :class => "lightbox"
+        %li= link_to "Pricing, Payment & Sales Tax", "/pricing?no_layout=1", :class => "lightbox"
+        %li= link_to "Returns & Exchanges", "/returns?no_layout=1", :class => "lightbox"
+        %li= link_to "Shipping & Tracking", "/shipntrack?no_layout=1", :class => "lightbox"
+        %li= link_to "International Ordering", "#?no_layout=1", :class => "lightbox"
+        %li= link_to "Product Support", "/productsupport?no_layout=1", :class => "lightbox"
+        %li= link_to "Fundraising", "/fundraising?no_layout=1", :class => "lightbox"
+        %li= link_to "Newsletter Subscriptions", "/subscriptions?no_layout=1", :class => "lightbox"
+        %li= link_to "Request Materials", "#?no_layout=1", :class => "lightbox"
+        %li= link_to "Where to Buy", "/stores"
+
+      - if is_ee_uk?
+        %li= link_to "Online Ordering Support", "/onlinesupport?no_layout=1", :class => "lightbox"
+        %li= link_to "Order Status", "/ostatus?no_layout=1", :class => "lightbox"
+        %li= link_to "Online Ordering FAQs", "/onlinefaqs?no_layout=1", :class => "lightbox"
+        %li= link_to "Pricing & Payment Methods", "#?no_layout=1", :class => "lightbox"
+        %li= link_to "Shipping & Tracking", "#?no_layout=1", :class => "lightbox"
+        %li= link_to "International Ordering", "#?no_layout=1", :class => "lightbox"
+        %li= link_to "Product Support", "#?no_layout=1", :class => "lightbox"
+        %li= link_to "Newsletter Subscriptions", "#?no_layout=1", :class => "lightbox"
