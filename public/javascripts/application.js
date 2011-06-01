@@ -167,7 +167,7 @@ $(document).ready(function(){
       xOffset: 32,
       yOffset: 0,
       position: "right",
-			zoomType: "reverse",
+			zoomType: "innerzoom",
 			title: false,
 			showEffect: 'fadein',
 			hideEffect: 'fadeout'
