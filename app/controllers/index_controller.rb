@@ -278,7 +278,7 @@ class IndexController < ApplicationController
   end
   
   def events
-    @events = Event.available.desc(:event_start_date).cache
+    @events = Event.available.asc(:event_start_date).cache
     @title = "Events"
   end
   
