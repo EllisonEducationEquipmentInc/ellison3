@@ -173,7 +173,7 @@ Ellison3::Application.routes.draw do |map|
 			end
 			resources :quotes do
 			  collection do
-			    post :update_internal_comment, :change_quote_name, :change_shipping
+			    post :update_internal_comment, :change_quote_name, :change_shipping, :change_quote_date
 			    get :update_active_status, :recreate, :pre_orders_report, :login_as_and_goto_quote, :recalculate_tax
 			  end
 			end

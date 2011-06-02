@@ -3,7 +3,7 @@ class Admin::QuotesController < ApplicationController
 	
 	before_filter :set_admin_title
 	before_filter :admin_read_permissions!
-  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :update_active_status, :change_quote_name]
+  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :update_active_status, :change_quote_name, :change_quote_date]
 	before_filter :admin_user_as_permissions!, :only => [:recreate]
 	
 	ssl_exceptions
@@ -147,6 +147,13 @@ class Admin::QuotesController < ApplicationController
 	  @quote = Quote.find(params[:id])
 	  @quote.update_attributes :shipping_amount => params[:update_value][/[0-9.]+/]
 	  render :inline => "$('#shipping_amount').html('<%= number_to_currency @quote.shipping_amount %>');$('#total_amount').html('<%= number_to_currency @quote.total_amount %>');<% if calculate_tax?(@quote.address.state) %>$('#tax_amount').addClass('error');alert('don\\'t forget to run CCH tax');<% end %>" # "<%= display_product_price_cart @order.shipping_amount %>"
+  end
+  
+  def change_quote_date
+    @quote = Quote.find(params[:id])
+    @quote.updated_by = current_admin.email
+    @quote.update_attribute :created_at, params[:update_value]
+    render :inline => "<%= @quote.created_at %>"
   end
   
   def pre_orders_report

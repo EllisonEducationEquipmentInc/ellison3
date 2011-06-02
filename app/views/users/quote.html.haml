@@ -1,5 +1,7 @@
 - I18n.locale = @quote.locale
 %div= link_to "Back to #{quote_name.pluralize}", myaccount_path('quotes', :page => params[:page]), :class => 'jqui_back dontprint'
+- if admin_signed_in?
+  .right= link_to 'edit', admin_quote_path(@quote), :class => "link_edit-record"
 #shipping_address
   %h3 Shipping Address
   %p

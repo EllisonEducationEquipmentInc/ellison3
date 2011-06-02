@@ -38,7 +38,7 @@
   = @quote.user.email rescue "User NOT found"
   %br
   %strong Quote Date:
-  = l @quote.created_at, :format => :custom
+  %span#quote_date= @quote.created_at
   %br
   %strong Expires:
   = l @quote.expires_at, :format => :custom
@@ -181,6 +181,13 @@
       success: function(data){
         eval(data);
       },
+      saving_animation_color: "#ECF2F8"
+    });
+    $('#quote_date').editInPlace({
+      url: "/admin/quotes/change_quote_date",
+      params: "id=#{@quote.id}",
+      show_buttons: true,
+      value_required: true,
       saving_animation_color: "#ECF2F8"
     });
     $("#calculate_tax_button").button().click(function(){
