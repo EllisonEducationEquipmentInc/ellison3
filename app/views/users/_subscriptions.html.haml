@@ -14,7 +14,7 @@
     .actions
       = f.submit :class => 'jqui_save'
 - elsif !@subscription.confirmed
-  .error Your email has not been verified. Please follow the instructions in that email to verify your subscription.
+  .error You are not subscribed because your email has not yet been verified. Please check your inbox for a confirmation email, then follow its instructions to confirm your subscription.
 - else
   = render :partial => 'index/edit_subscriptions'
 :javascript

@@ -383,7 +383,7 @@ class IndexController < ApplicationController
       @lyris = Lyris.new :update_member_status, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :member_status => 'confirm'
       @lyris = Lyris.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @subscription.segments.map {|e| {:name => e.to_sym, :value => 1}} << {:name => :subscription_id, :value => @subscription.id.to_s} #if @subscription.segments.present?
       UserMailer.subscription_confirmation(@subscription).deliver
-      redirect_to(user_signed_in? && @subscription.email == current_user.email ? myaccount_path(:tab => 'subscriptions') : root_path, :notice => "Thank you, your subscription settings have been saved. You will receive a confirmation email shortly. please follow the instructions in that email to verify your subscription.")
+      redirect_to(user_signed_in? && @subscription.email == current_user.email ? myaccount_path(:tab => 'subscriptions') : root_path, :notice => "Your subscription request has been successfully sent. You will receive a confirmation email shortly. Please follow its instructions to confirm your subscription.")
     else
       render :newsletter
     end

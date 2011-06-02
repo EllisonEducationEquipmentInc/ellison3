@@ -118,7 +118,7 @@
   %hr.dontprint
   %ol
     %li== Your #{quote_name.downcase} will be saved for #{is_ee? ? '90' : is_er? ? '180' : '90'} days. Any changes to product availability or any other factors beyond our control will void the #{quote_name.downcase}.
-    %li== Products placed for #{quote_name.downcase} are final, and <strong>cannot</strong> be altered after being submitted.
+    %li== Products placed for #{quote_name.downcase} are final. #{quote_name} cannot be altered after being submitted.
   #checkout_payment
     #payment_errors.error{:style => "display:none"}
     #checkout_cc{:style => "display:none"}

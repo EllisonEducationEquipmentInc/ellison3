@@ -123,7 +123,7 @@ class Address
   end
 
 	def not_verified
-		errors.add(:address, "The Shipping address you entered could not be validated. \nPlease enter a valid street name. We can't deliver to a P.O.Box") if must_be_verified? && self.avs_failed
+		errors.add(:address, "The shipping address you entered could not be validated. \nPlease enter a valid street name. We cannot deliver to a P.O. Box.") if must_be_verified? && self.avs_failed
 	end
 	
 	def set_avs_result
