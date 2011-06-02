@@ -318,7 +318,7 @@ private
 	end
 	
 	def reindex?
-	  @marked_for_auto_indexing = self.changed? && self.changed.any? {|e| (["systems_enabled", "idea_num", "name"]).include?(e)}
+	  @marked_for_auto_indexing = self.changed? && self.changed.any? {|e| (["systems_enabled", "idea_num", "name", "item_group", "keywords"]).include?(e)}
 	  @marked_for_scheduled_auto_indexing = self.changed.select {|e| e =~ /^(start|end)_date/}
 	end
 	
