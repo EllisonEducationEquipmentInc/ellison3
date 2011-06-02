@@ -36,9 +36,9 @@
     %li.ui-menu-item#cart_total= render :partial => 'total_amount' if get_user.shipping_address
   = form_tag({:action => get_cart.pre_order? ? 'proceed_quote' : "proceed_quote"}, :remote => true, :method => :post, :style => "margin: 10px 0") do
     .field
-      = label_tag :quote_name, "#{quote_name} Name", :style => "width: 75px"
+      = label_tag :quote_name, "#{quote_name} Name", :style => "width: 95px"
       = text_field_tag :quote_name, nil, :maxlength => 30
-      %p.formhelp{ :style => "margin-left: 87px"} Maximum 30 characters
+      %p.formhelp{ :style => "margin-left: 107px"} Maximum 30 characters
     .ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons.left
       %h4.ui-accordion-header.ui-helper-reset#order_comment
         %span.ui-icon.ui-icon-triangle-1-e
