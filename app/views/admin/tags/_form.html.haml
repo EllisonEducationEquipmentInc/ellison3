@@ -20,7 +20,7 @@
       = f.text_field "start_date_#{current_system}", :class => 'datetimepicker'
     .field
       = f.label "end_date_#{current_system}", "<span class='required'><span class='icon_datefield'>End Date #{current_system.upcase}</span></span>".html_safe, :class => 'overrideable ui-corner-all', :style => 'width: 130px'
-      = f.text_field "end_date_#{current_system}", :class => 'datetimepicker', :onchange => "check_date(this.value)"
+      = f.text_field "end_date_#{current_system}", :class => 'datetimepicker'
 
   %hr
   %h3.contentwrap_XXXL Basic Information
@@ -102,29 +102,25 @@
           = campaign_fields.text_field :discount, :size => 6
 
   - unless @tag.new_record?
-    .contentwrap_large
+    .contentwrap_XXXL
       .field
         = f.label :product_item_nums, "Product Item Numbers".html_safe, :class => "autosize"
         %br
         = f.text_area :product_item_nums, :cols => 57, :rows => 5
         %p.formhelp Separate item numbers with commas to batch apply these settings for several products.
-    #batch_discount_help{:style => "display:#{@tag.campaign? ? 'block' : 'none'}"}
-      %p.icon_alert== <strong>IMPORTANT NOTE:</strong> To batch apply a discount to several products at once, you <strong><em>must</em></strong> follow this two step process:
-      %ol
-        %li Enter all item numbers into the "Product Item Numbers" field, separating each with a comma. Click the large, green "Update Tag" button below.
-        %li== Return to the Edit screen of this tag, and click on the large, green "Update Tag" button <em>one more time</em> (this last action will apply the specified discount to the product records).
 
     %hr
     %h3.contentwrap_XXXL.last Related Products
     %ul.contentwrap_XXXL.last#tag_products= render :partial => 'product', :collection => @tag.products, :locals => {:tag_id => @tag.id}
     = text_field_tag "tag_products_helper", nil, :style => "margin-bottom: 10px"
-    %p
-      = link_to "Remove All Products", {:action => :remove_all_products, :id => @tag.id}, :remote => true, :method => :delete, :confirm => "Are you sure you want to remove all products from this tag?", :class => "link_remove"
-      %br
-      %span.formhelp
-        == <strong>Note:</strong> Removing product(s) here will <strong>ONLY</strong> remove them from <em>this</em> Specials tag - <strong>IT WILL NOT REMOVE THE SALE PRICE OF THE PRODUCT(S) THEMSELVES.</strong>
+    - if @tag.active && (@tag.send("end_date_#{current_system}").present? && @tag.send("end_date_#{current_system}") > Time.zone.now)
+      %p
+        = link_to "Remove All Products", {:action => :remove_all_products, :id => @tag.id}, :remote => true, :method => :delete, :confirm => "Are you sure you want to remove all products from this tag?", :class => "link_remove"
         %br
-        To remove or delete the sale prices from products, do so from each product's respective detail page.
+        %span.formhelp
+          == <strong>Note:</strong> Removing product(s) here will <strong>ONLY</strong> remove them from <em>this</em> Specials tag - <strong>IT WILL NOT REMOVE THE SALE PRICE OF THE PRODUCT(S) THEMSELVES.</strong>
+          %br
+          To remove or delete the sale prices from products, do so from each product's respective detail page.
     %hr
     %h3.contentwrap_XXXL.last Related Ideas
     %ul.contentwrap_XXXL.last#tag_ideas= render :partial => 'idea', :collection => @tag.ideas, :locals => {:tag_id => @tag.id}
@@ -254,5 +250,5 @@
   toggle_tag_type_fields();
   
   function toggle_tag_type_fields(){
-    if ($('#tag_tag_type').val() == 'special') {$('#new_campaign').show();$('#batch_discount_help').show();$('#tag_embed_campaign_true').attr('checked', true)} else {$('#new_campaign').hide();$('#batch_discount_help').hide();}
+    if ($('#tag_tag_type').val() == 'special') {$('#new_campaign').show();$('#tag_embed_campaign_true').attr('checked', true)} else {$('#new_campaign').hide();}
   }
