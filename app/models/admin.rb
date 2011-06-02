@@ -54,7 +54,7 @@ class Admin
 	
 	class << self
     def reset_password_by_token(attributes={})
-      recoverable = where(:reset_password_token_expires_at.gt => Time.now).find_or_initialize_with_error_by(:reset_password_token, attributes[:reset_password_token], "is invalid or expired.")
+      recoverable = where(:reset_password_token_expires_at.gt => Time.now).find_or_initialize_with_error_by(:reset_password_token, attributes[:reset_password_token], "is invalid or expired. Please request a new one.")
       recoverable.reset_password!(attributes[:password], attributes[:password_confirmation]) unless recoverable.new_record?
       recoverable
     end
