@@ -276,7 +276,7 @@ module EllisonSystem
   end
   
   def timeout_message
-    "We are having technical difficulties. Please try again later or <a href='/contact'>contact</a> our customer service for help.".html_safe
+    "Sorry! We are experiencing technical difficulties. Please try again later or contact customer service for assistance."
   end
 
 	def get_gateway(system = current_system)
