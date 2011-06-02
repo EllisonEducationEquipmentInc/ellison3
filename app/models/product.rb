@@ -676,7 +676,7 @@ private
   end
   
   def reindex?
-    @marked_for_auto_indexing = self.changed? && self.changed.any? {|e| (["systems_enabled", "active", "outlet", "life_cycle"] + ELLISON_SYSTEMS.map {|s| ["orderable_#{s}"]}.flatten + LOCALES_2_CURRENCIES.values.map {|c| ["msrp_#{c}", "wholesale_price_#{c}"]}.flatten).include?(e)} || campaigns.any? {|c| c.reindex?} || stock_status_changed? || new_record?
+    @marked_for_auto_indexing = self.changed? && self.changed.any? {|e| (["systems_enabled", "active", "outlet", "life_cycle", "item_num", "name"] + ELLISON_SYSTEMS.map {|s| ["orderable_#{s}"]}.flatten + LOCALES_2_CURRENCIES.values.map {|c| ["msrp_#{c}", "wholesale_price_#{c}"]}.flatten).include?(e)} || campaigns.any? {|c| c.reindex?} || stock_status_changed? || new_record?
     @scheduled_indexing_campaign_dates = campaigns.map {|c| c.scheduled_reindex}.flatten.uniq
     @marked_for_scheduled_auto_indexing = self.changed.select {|e| e =~ /^(start|end)_date/}
     Rails.logger.info "!!! reindex? called @scheduled_indexing_campaign_dates: #{@scheduled_indexing_campaign_dates.inspect} @marked_for_scheduled_auto_indexing #{@marked_for_scheduled_auto_indexing}"
