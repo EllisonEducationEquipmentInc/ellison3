@@ -113,7 +113,7 @@
     %h3.contentwrap_XXXL.last Related Products
     %ul.contentwrap_XXXL.last#tag_products= render :partial => 'product', :collection => @tag.products, :locals => {:tag_id => @tag.id}
     = text_field_tag "tag_products_helper", nil, :style => "margin-bottom: 10px"
-    - unless @tag.send("end_date_#{current_system}").blank? || (@tag.active && (@tag.send("end_date_#{current_system}").present? && @tag.send("end_date_#{current_system}") > Time.zone.now))
+    - if (@tag.tag_type == "special" || @tag.tag_type == "exclusive") && @tag.send("end_date_#{current_system}").present? && (!(@tag.active && @tag.send("end_date_#{current_system}") > Time.zone.now))
       %p
         = link_to "Remove All Products", {:action => :remove_all_products, :id => @tag.id}, :remote => true, :method => :delete, :confirm => "Are you sure you want to remove all products from this tag?", :class => "link_remove"
         %br
