@@ -58,10 +58,6 @@
       %p.dontprint
         %strong Instructions: 
         = link_to "Download PDF", @product.instructions, :target => '_blank', :title => "Download Instructions", :class => "link_instructions"
-    - if (is_ee? || is_er?) && @product.curriculums.count > 0
-      %p
-        %strong== Curriculum#{'s' if @product.curriculums.count > 1}: 
-        = raw @product.curriculums.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}"))} * ', '
     - if @product.categories.count > 0
       %p
         %strong= @product.categories.count > 1 ? 'Categories:' : 'Category:'
@@ -72,6 +68,10 @@
       %p
         %strong== Theme#{'s' if @product.themes.count > 1}: 
         = raw @product.themes.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}"))} * ', '
+    - if (is_ee? || is_er?) && @product.curriculums.count > 0
+      %p
+        %strong== Curriculum#{'s' if @product.curriculums.count > 1}: 
+        = raw @product.curriculums.map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}"))} * ', '
     - if @product.product_line.present? && @product.product_line.compatibilities.length > 0 && @product.item_type == "die"
       -# TODO: cache + move to a helper
       %p{ :style => "margin-bottom: 0 !important;"}== This #{@product.item_type} is compatible with these product lines
