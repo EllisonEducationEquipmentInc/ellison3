@@ -14,7 +14,7 @@ ul.record_info {
   border: 1px solid #D9D6C4;
 }
 
-ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products, #cart_must_have_list, #order_has_to_be_list { @extend ul.plain;
+ul#product_tags, ul#product_ideas, ul#idea_tags, ul#idea_products, ul#cart_must_have_list, ul#order_has_to_be_list, ul#campaigns { @extend ul.plain;
   margin-bottom: 10px !important;
 }
 

@@ -11,8 +11,7 @@
   %strong Systems:
   = campaign.systems_enabled.join(", ")
   .right
-    = link_to 'edit', {:action => 'edit_campaign', :id => campaign, :product_id => @product.id}, :remote => true, :onclick => %Q($("#campaign_#{campaign.id}").css('background', '#FDFFB0');)
-    |
-    = link_to 'delete', {:action => 'delete_campaign', :id => campaign, :product_id => @product.id}, :remote => true, :confirm => "are you sure?", :method => :delete
+    = link_to 'edit', {:action => 'edit_campaign', :id => campaign, :product_id => @product.id}, :remote => true, :onclick => %Q($("#campaign_#{campaign.id}").css('background', '#FDFFB0');), :class => "jqui_edit_min"
+    = link_to 'delete', {:action => 'delete_campaign', :id => campaign, :product_id => @product.id}, :remote => true, :confirm => "are you sure?", :method => :delete, :class => "jqui_destroy_min"
   
   
