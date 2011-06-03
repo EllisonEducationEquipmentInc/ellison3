@@ -1,6 +1,6 @@
 %tr{:id => "list_row_#{list.id}", :class => cycle(:odd, :even)}
   %td{ :style => "vertical-align: top;" }
-    %div{ :class => list.owns || list.save_for_later ? nil : 'icon_edit-in-place' }
+    %div{ :class => list.owns || list.save_for_later ? 'icon_uneditable' : 'icon_edit-in-place' }
       %span{ :id => "name_#{list.id}", :class => list.owns || list.save_for_later ? nil : 'editable' }= list.name
   %td{ :style => "vertical-align: top;" }
     .icon_edit-in-place
