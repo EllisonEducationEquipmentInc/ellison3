@@ -1,5 +1,5 @@
 - cache "videos_page_#{current_system}", :expires_in => 60.minutes do
-  %h2== #{system_name.titleize} Videos
+  %h2== Videos
   #featured_video
     %h3 Featured Video
     - @videos.select {|e| e.title == "Featured_#{current_system}"}.each do |playlist|
