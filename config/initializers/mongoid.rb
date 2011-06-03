@@ -93,6 +93,11 @@ module Mongoid #:nodoc:
             end
           end
         end
+        
+        def nullify
+          metadata.klass.collection.update({metadata.inverse_foreign_key => {"$in" => [base.id] }}, {"$pull" => {metadata.inverse_foreign_key => base.id}}, :multi => true)
+          base.update_attribute metadata.key, []
+        end
       end
     end
   end
