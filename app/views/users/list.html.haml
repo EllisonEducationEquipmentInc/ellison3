@@ -64,16 +64,20 @@
             },
         });
         $('#list_note').keyup(function () {
-          var left = 250 - $(this).val().length;
-          if (left < 0) {
+          var input_text = $(this).val();
+          var chars_left = 250 - input_text.length;
+          if (chars_left < 0) {
             left = 0;
+            $(this).val(input_text.substr(0,250));
+            return false;
           }
-          $('#chars_left').text('You have ' + left + ' characters left.');
+          $('#chars_left').text('You have ' + chars_left + ' characters left.');
         });
         $("#send_email").button()
           .click(function(){
             $(this).button({disabled: true, label: 'please wait...'});
           });
+
 
 .clear
 %hr.dontprint

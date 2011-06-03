@@ -5,10 +5,6 @@
       %p== Wait until you see #{link_to 'the list', list_url(@list, :host => get_domain)} that <strong>#{@name}</strong> created at #{get_domain.capitalize} and personally wanted to share with you. After you check it out, you may want to #{link_to "check us out", "http://www.#{get_domain}"}!
       - if is_ee?
         %p Ellison is the original letter and shape-cutting company whose products not only save time, but also cut shapes to complement any curriculum, while inspiring students to learn. From bulletin boards and classroom décor to appealing visuals and hands-on activities to enhance lesson plans, Ellison truly shapes education!
-      %p
-        Sincerely,
-        %br
-        == Your New Friends at #{is_sizzix? ? "Sizzix" : "Ellison"}
       - unless @note.blank?
         %hr
         %h3== #{@name} also has a personal message for you:
