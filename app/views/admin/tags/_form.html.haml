@@ -115,7 +115,7 @@
     = text_field_tag "tag_products_helper", nil, :style => "margin-bottom: 10px"
     - if (@tag.tag_type == "special" || @tag.tag_type == "exclusive") && @tag.send("end_date_#{current_system}").present? && (!(@tag.active && @tag.send("end_date_#{current_system}") > Time.zone.now))
       %p
-        = link_to "Remove All Products", {:action => :remove_all_products, :id => @tag.id}, :remote => true, :method => :delete, :confirm => "Are you sure you want to remove all products from this tag?", :class => "link_remove"
+        = link_to "Remove All Products", {:action => :remove_all_products, :id => @tag.id}, :remote => true, :method => :delete, :confirm => "Are you sure you want to remove all products from this tag? IMPORTANT NOTE: This action is very memory/CPU intensive and will be executed in the background and may take time to complete. Do NOT repeat this action, even if you see products associated with this tag the next time you visit this page.", :class => "link_remove"
         %br
         %span.formhelp
           == <strong>Note:</strong> Removing product(s) here will <strong>ONLY</strong> remove them from <em>this</em> Specials tag - <strong>IT WILL NOT REMOVE THE SALE PRICE OF THE PRODUCT(S) THEMSELVES.</strong>
