@@ -238,7 +238,7 @@ private
         campaign.individual_discounts.each do |individual_discount|
           product = Product.find(individual_discount.product_id) rescue next
           c = product.campaigns.where( :_id => campaign.id).first || product.campaigns.build
-          c.copy_common_attributes campaign
+          c.copy_common_attributes campaign, :discount, :discount_type
           c.id = campaign.id
           c.discount_type = individual_discount.discount_type
           c.discount = individual_discount.discount
