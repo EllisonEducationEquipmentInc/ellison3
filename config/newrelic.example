@@ -10,7 +10,8 @@ common: &default_settings
   # ============================== LICENSE KEY ===============================
   # You must specify the licence key associated with your New Relic account.
   # This key binds your Agent's data to your account in the New Relic RPM service.
-  license_key: '52d56d810dd4333171a9df4ef70b6f2015a7b398'
+  # license_key: '52d56d810dd4333171a9df4ef70b6f2015a7b398'
+  license_key: '645bd73eec936c5a3265422130bcc8fdaba94ba0'
   
   # Application Name
   # Set this to be the name of your application as you'd like it show up in RPM.
@@ -94,7 +95,7 @@ common: &default_settings
     # To stop specific errors from reporting to RPM, set this property to comma separated 
     # values
     #
-    #ignore_errors: ActionController::RoutingError, ...
+    ignore_errors: ActionController::RoutingError
 
 
 # override default settings based on your application's environment
@@ -132,6 +133,7 @@ production:
   <<: *default_settings
   enabled: true
   app_name: ellison3 (Production)
+  monitor_mode: true
 
 # many applications have a staging environment which behaves identically to production.
 # Support for that environment is provided here.  By default, the staging environment has
