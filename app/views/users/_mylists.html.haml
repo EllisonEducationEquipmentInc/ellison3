@@ -56,13 +56,14 @@
     });
   }
   $('#list_comments').keyup(function () {
-    var left = 250 - $(this).val().length;
-    if (left < 0) {
-      left = 0;
-    }
-    $('#chars_left').text('You have ' + left + ' characters left.');
+    #{limit_textarea(250)}
+    $('#chars_left').text('You have ' + chars_left + ' characters left.');
   });
-  
+
+  $('textarea.inplace_field').live('keyup', function() {
+    #{limit_textarea(250)}
+  });
+
   $(document).ready(function() {
     var validator = $("#new_list").validate({ 
       errorClass: "invalid",

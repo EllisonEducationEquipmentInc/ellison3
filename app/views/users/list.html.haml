@@ -64,13 +64,7 @@
             },
         });
         $('#list_note').keyup(function () {
-          var input_text = $(this).val();
-          var chars_left = 250 - input_text.length;
-          if (chars_left < 0) {
-            left = 0;
-            $(this).val(input_text.substr(0,250));
-            return false;
-          }
+          #{limit_textarea(250)}
           $('#chars_left').text('You have ' + chars_left + ' characters left.');
         });
         $("#send_email").button()

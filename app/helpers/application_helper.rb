@@ -370,4 +370,17 @@ HTML
 	def is_corp_site?
 	  params[:tp] == "c"
 	end
+	
+	def limit_textarea(char_limit)
+	  <<-JS
+    var input_text = $(this).val();
+    var chars_left = #{char_limit} - input_text.length;
+    if (chars_left < 0) {
+      left = 0;
+      $(this).val(input_text.substr(0,#{char_limit}));
+      return false;
+    }
+  JS
+	end
+	
 end
