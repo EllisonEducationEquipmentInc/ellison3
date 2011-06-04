@@ -20,5 +20,5 @@
   %td.cart_item_price{ :style => "text-align: right"}= display_product_price_cart product
   %td.dontprint{:style => "text-align: right;"}
     - if product.can_be_added_to_cart?
-      .move_to_cart{:id => "move_to_cart_#{product.id}", :rel => "#{product.item_num}"}= link_to "Move Back to #{cart_name.capitalize}", "#", :class => "link_#{cart_name}_move-back-to-cart", :onclick => "return false;"
-    .delete_from_saved_list{:id => "delete_from_saved_list_#{product.id}", :rel => "#{product.item_num}"}= link_to "Remove from #{cart_name.capitalize}", "#", :class => "link_cart_remove-from-cart", :onclick => "return false;"
+      .move_to_cart{:id => "move_to_cart_#{product.id}", :rel => "#{product.item_num}"}= link_to "Add", "#", :class => "link_#{cart_name}_move-back-to-cart", :onclick => "return false;"
+    .delete_from_saved_list{:id => "delete_from_saved_list_#{product.id}", :rel => "#{product.item_num}"}= link_to "Remove", "#", :class => "link_cart_remove-from-cart", :onclick => "return false;"

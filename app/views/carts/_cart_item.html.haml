@@ -24,6 +24,6 @@
   %td.dontprint{:style => "text-align: right;"}
     - unless @cart_locked
       %div{:id => "wishlist_buttons_#{cart_item.id}"}
-        .save_for_later{:id => "add_to_list_#{cart_item.id}", :rel => "#{cart_item.item_num}"}= link_to "Save for Later", "#", :class => "link_#{cart_name}_save-for-later", :onclick => "return false;"
+        .save_for_later{:id => "add_to_list_#{cart_item.id}", :rel => "#{cart_item.item_num}"}= link_to "Save", "#", :class => "link_#{cart_name}_save-for-later", :onclick => "return false;"
     - unless @cart_locked || cart_item.coupon? 
-      .remove_from_cart{:id => "remove_from_cart_#{cart_item.item_num}"}= link_to "Remove from #{cart_name.capitalize}", "#", :class => "link_cart_remove-from-cart", :onclick => "return false;"
+      .remove_from_cart{:id => "remove_from_cart_#{cart_item.item_num}"}= link_to "Remove", "#", :class => "link_cart_remove-from-cart", :onclick => "return false;"
