@@ -1,7 +1,7 @@
 - if store.logo.present? && File.exists?("#{Rails.root}/public/#{store.logo}")
   %p.store_logo= image_tag(store.logo)
 - if store.excellence_level.present?
-  %h3.map-link{ :class => "icon_excellence-level_#{store.excellence_level.parameterize}", :alt => "#{store.excellence_level.capitalize} #{is_uk? ? 'Stockist' : 'Store'}", :title => "#{store.excellence_level.capitalize} #{is_uk? ? 'Stockist' : 'Store'}" }= store.name
+  %h3.map-link{ :class => "#{ !is_sizzix_uk? ? "icon_excellence-level_#{store.excellence_level.parameterize}" : nil }", :alt => "#{store.excellence_level.capitalize} #{is_uk? ? 'Stockist' : 'Store'}", :title => "#{store.excellence_level.capitalize} #{is_uk? ? 'Stockist' : 'Store'}" }= store.name
 - else
   %h3.map-link= store.name
 %p
