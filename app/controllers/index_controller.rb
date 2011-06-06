@@ -4,7 +4,7 @@ class IndexController < ApplicationController
   
   before_filter :trackable, :except => [:catalog]
   #before_filter :store_path!
-  before_filter :register_continue_shopping!, :only => [:home, :campaigns, :shop, :tag_group, :catalog]
+  before_filter :register_continue_shopping!, :only => [:campaigns, :shop, :tag_group, :catalog]
   
   ssl_required :contact, :send_feedback, :reply_to_feedback
   ssl_allowed :limited_search, :machines_survey, :static_page, :add_comment, :newsletter, :create_subscription, :subscription, :update_subscription
