@@ -203,6 +203,10 @@ body.bp {
 
 #footer {
   
+  h2.kerned {
+    word-spacing: -0.075em;
+  }
+  
   .container {
     background: url("/images/ui-backgrounds/_#{$system}_footer.png") no-repeat center top;    
   }
