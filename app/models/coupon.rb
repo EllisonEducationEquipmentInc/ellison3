@@ -108,7 +108,7 @@ class Coupon
 	end
 	
 	def children
-	  self.class.available.product_level.where(:_id.in => self.child_ids) if group? && self.child_ids
+	  self.class.available.not_group.where(:_id.in => self.child_ids) if group? && self.child_ids
 	end
 	
 	def buy_one_get_another?
