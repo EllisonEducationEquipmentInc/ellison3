@@ -3,7 +3,7 @@
   = f.error_messages
   - if is_ee?
     %p
-      = f.label :institution
+      = f.label :institution, "Institution Description"
       %br/
       = f.select :institution, institutions
   - if is_er? || is_ee?
