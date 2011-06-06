@@ -73,6 +73,7 @@ class Coupon
   scope :by_location, lambda { |address| { :where => { :shipping_countries.in => [address.country]}.merge(address.us? ? {:shipping_states.in => [address.state]} : {})} }	
 	scope :product_level, :where => { :level => "product" }
 	scope :not_shipping_or_group, :where => { :level.nin => ["shipping", "group"]}
+	scope :not_group, :where => { :level.ne => "group"}
 	
 	ELLISON_SYSTEMS.each do |sys|
 		scope sys.to_sym, :where => { :systems_enabled.in => [sys] }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex.:  Product.szus => scope for sizzix US products

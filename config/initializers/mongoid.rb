@@ -81,7 +81,7 @@ module Mongoid #:nodoc:
         end
       end
       
-      class ManyToMany < Referenced::Many                
+      class ManyToMany < Referenced::Many
         def <<(*args)
           options = default_options(args)
           args.flatten.each do |doc|
@@ -92,6 +92,10 @@ module Mongoid #:nodoc:
               doc.save(:validate => false) if base.persisted? && !options[:binding]
             end
           end
+        end
+        
+        def add_to_collection
+          
         end
         
         def nullify

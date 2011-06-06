@@ -75,7 +75,7 @@
       %strong Select coupons to include in this Group Coupon
       %em== (Only coupons enabled for <strong>#{system_name}</strong> are shown below)
       %br
-      - Coupon.active.not_shipping_or_group.cache.each do |coupon|
+      - Coupon.active.not_group.cache.each do |coupon|
         -# display only coupons enabled for current system
         - if coupon.systems_enabled.any? {|u| u == current_system}
           = check_box_tag "coupon[child_ids][]", coupon.id, @coupon.child_ids.include?(coupon.id.to_s)
