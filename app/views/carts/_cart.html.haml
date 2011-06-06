@@ -97,7 +97,7 @@
         		$(".save_for_later").click( function() {
         				$.ajax({url:"/users/save_for_later?item_num="+$(this).attr('rel')});
         				_gaq.push(['_trackEvent', 'Cart', 'Save for Later', $(this).attr('rel')]);
-        				$(this).html('#{escape_javascript loader_bar}')
+        				#{ user_signed_in? ? "$(this).html('#{escape_javascript loader_bar}')" : nil }
         			});
         		$(".save_as_quote")
           	  .button()
