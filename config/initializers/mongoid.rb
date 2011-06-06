@@ -95,7 +95,17 @@ module Mongoid #:nodoc:
         end
         
         def add_to_collection(*args)
-
+          options = default_options(args)
+          args.flatten.each do |doc|
+            return doc unless doc
+            characterize_one(doc)
+            bind_one(doc, options)
+            doc.add_to_set(metadata.inverse_foreign_key, base.id)
+            if base.persisted? && !options[:binding]
+              base.add_to_set(metadata.foreign_key, doc.id)
+              doc.save(:validate => false) if base.persisted? && !options[:binding]
+            end
+          end
         end
         
         def nullify

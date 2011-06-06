@@ -74,6 +74,7 @@ class Coupon
 	scope :product_level, :where => { :level => "product" }
 	scope :not_shipping_or_group, :where => { :level.nin => ["shipping", "group"]}
 	scope :not_group, :where => { :level.ne => "group"}
+	scope :product_or_shipping, :where => { :level.in => ["shipping", "product"]}
 	
 	ELLISON_SYSTEMS.each do |sys|
 		scope sys.to_sym, :where => { :systems_enabled.in => [sys] }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex.:  Product.szus => scope for sizzix US products
@@ -108,7 +109,7 @@ class Coupon
 	end
 	
 	def children
-	  self.class.available.product_level.where(:_id.in => self.child_ids) if group? && self.child_ids
+	  self.class.available.product_or_shipping.where(:_id.in => self.child_ids) if group? && self.child_ids
 	end
 	
 	def buy_one_get_another?
