@@ -16,7 +16,7 @@
 #checkout_summary {
   @include column(8, true); }
 #checkout_cc {
-  @include column(16); }
-#checkout_shipping_options {
-  @include column(8, true);
+  @include column(16, true);
   float: right; }
+#checkout_shipping_options {
+  @include column(8); }

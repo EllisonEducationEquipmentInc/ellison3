@@ -105,7 +105,9 @@ ul.cart_summary {
     margin: 0;
   }
   
-  #payment_submit { @extend .button_large;
+  #payment_submit { 
+    @extend .button_large;
+    @extend .right;
     /*
     position: relative;
     top: 60px;

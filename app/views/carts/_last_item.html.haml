@@ -5,7 +5,7 @@
       %th{:width => 60} Item #
       %th{:width => 70} Item Name
       %th{:width => 400}
-      %th{:style => "text-align: right", :width => 80}== #{is_er? ? 'Wholesale' : 'Regular'} Price
+      %th{:style => "text-align: right; white-space: nowrap", :width => 80}== #{is_er? ? 'Wholesale' : 'Regular'} Price
       %th{:style => "text-align: right", :width => 75} Your Price
   %tbody
     %tr{:id => "cart_item_#{@product.id}"}
