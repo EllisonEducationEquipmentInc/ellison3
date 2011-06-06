@@ -94,8 +94,8 @@ module Mongoid #:nodoc:
           end
         end
         
-        def add_to_collection
-          
+        def add_to_collection(*args)
+
         end
         
         def nullify
