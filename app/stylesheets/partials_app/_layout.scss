@@ -32,6 +32,10 @@
   color: $link;
 }
 
+.coupon_code { @extend .current_system;
+  text-transform: uppercase;
+}
+
 .border-left {
   border-left: 1px solid $catalog_buybox_border;
   padding-left: 10px;
