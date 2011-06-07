@@ -115,7 +115,10 @@
 .ec-day-header {
   color: #3A3A3A;
   text-align: right;
-  padding: 0 5px;
+  padding-top:0 !important;
+  padding-right:5px !important;
+  padding-left:5px !important;
+  padding-bottom:0 !important;
   line-height: 16px;
   border-top: 1px solid #ccc;
   border-left: 1px solid #ccc;
