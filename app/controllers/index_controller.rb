@@ -429,6 +429,10 @@ class IndexController < ApplicationController
     end
   end
   
+  def error
+    nil/3
+  end
+  
 private
 
   def get_videos
