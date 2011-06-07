@@ -1018,16 +1018,17 @@ namespace :data_migrations do
           new_user.systems_enabled = ["erus"]
           new_user.addresses = []
           process_user(old_user,new_user)
-          new_user.tax_exempt = false
         else
           process_billing_address_change(old_user,new_user)
         end
+        new_user.tax_exempt = false
         p new_user.save(:validate => false)
       else
         new_user = User.new(:email => old_user.email.downcase, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
         new_user.old_id_er = old_user.id
 
         process_user(old_user,new_user)
+        new_user.update_attribute :tax_exempt, false
       end
       process_retailer_app(new_user, old_user)
       
@@ -1545,7 +1546,7 @@ namespace :data_migrations do
     end
     
     if sym == :old_id_er
-      
+      new_user.update_attribute :tax_exempt, false
     end
   end
   
