@@ -15,6 +15,6 @@
     .left{:style => "margin-right: 10px"}= f.check_box :unsubscribe, :onclick => "if (this.checked) {$('.subscription_segment').attr('disabled', true);$('#unsubscribe_alert').show()} else {$('.subscription_segment').attr('disabled', false);$('#unsubscribe_alert').hide()}", :style => "margin-left: 4px"
     .left{:style => "margin-bottom: 10px"}== To <strong>completely unsubscribe</strong>, check this box and click "Update".<br/>You will be completely removed from <strong>#{@list[1]}</strong>, and all segments above.
   .clear
-  .error#unsubscribe_alert{:style => "display:none"}== Your email address will be removed permanently from #{@list[1]} list.
+  .error#unsubscribe_alert{:style => "display:none"}== Are you sure you want to unsubscribe? Your email address will be removed permanently from #{@list[1]} list. Click "Update" to confirm.
   .actions
     = f.submit "Update", :class => 'jqui_save'
