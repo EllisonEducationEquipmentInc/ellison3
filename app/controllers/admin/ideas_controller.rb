@@ -199,10 +199,7 @@ class Admin::IdeasController < ApplicationController
 	def remove_product
     @idea = Idea.find(params[:id])
     @product = Product.find(params[:product_id])
-    @idea.product_ids.delete @product.id
-    @product.idea_ids.delete @idea.id
-    @idea.save(:validate => false)
-    @product.save(:validate => false)
+    @idea.remove_from_collection :products, @product
     render :js => "$('li#product_#{@product.id}').remove()"
   end
   
@@ -216,10 +213,7 @@ class Admin::IdeasController < ApplicationController
   def remove_tag
     @idea = Idea.find(params[:id])
     @tag = Tag.find(params[:tag_id])
-    @tag.idea_ids.delete @idea.id
-    @idea.tag_ids.delete @tag.id
-    @tag.save(:validate => false)
-    @idea.save(:validate => false)
+    @idea.remove_from_collection :tags, @tag
     @idea.delay.index! if @tag.active
     render :js => "$('li#tag_#{@tag.id}').remove()"
   end

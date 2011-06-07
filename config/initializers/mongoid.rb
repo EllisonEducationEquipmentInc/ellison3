@@ -13,7 +13,8 @@ module Mongoid #:nodoc:
       common_attributes.reject {|k,v| args.include? k.to_sym}.each { |e|  self.send("#{e}=", document.send(e))}
     end
     
-    # mongoid's current Relations::Many implementartion causes memory bloat. Use this method instead of <<, concat to avoid memory bloat
+    # mongoid's current Relations::Many implementartion causes memory bloat. Use these methods instead of <<, concat, nullify, delete to avoid memory bloat
+    #
     # example: @tag.add_to_collection "products", @product
     def add_to_collection(relation_name, *args)
       metadata = self.relations[relation_name.to_s]
@@ -24,6 +25,25 @@ module Mongoid #:nodoc:
         self.send(metadata.foreign_key).push doc.id
         self.class.collection.update(self._selector, {"$addToSet"=>{metadata.foreign_key => doc.id}})
       end
+    end
+    
+    # example: @tag.remove_from_collection "products", @product
+    def remove_from_collection(relation_name, *args)
+      metadata = self.relations[relation_name.to_s]
+      args.flatten.each do |doc|
+        return doc unless doc
+        doc.class.collection.update(doc._selector, {"$pull"=>{metadata.inverse_foreign_key => self.id}})
+        doc.send(metadata.inverse_foreign_key).delete self.id
+        self.send(metadata.foreign_key).delete doc.id
+        self.class.collection.update(self._selector, {"$pull"=>{metadata.foreign_key => doc.id}})
+      end
+    end
+    
+    # example: @tag.nullify_collection "products"
+    def nullify_collection(relation_name)
+      metadata = self.relations[relation_name.to_s]
+      metadata.klass.collection.update({metadata.inverse_foreign_key => {"$in" => [self.id] }}, {"$pull" => {metadata.inverse_foreign_key => self.id}}, :multi => true)
+      self.update_attribute metadata.key, []
     end
   end
   
