@@ -12,6 +12,19 @@ module Mongoid #:nodoc:
       common_attributes = self.fields.map {|e| e[0]} & document.fields.map {|e| e[0]}
       common_attributes.reject {|k,v| args.include? k.to_sym}.each { |e|  self.send("#{e}=", document.send(e))}
     end
+    
+    # mongoid's current Relations::Many implementartion causes memory bloat. Use this method instead of <<, concat to avoid memory bloat
+    # example: @tag.add_to_collection "products", @product
+    def add_to_collection(relation_name, *args)
+      metadata = self.relations[relation_name.to_s]
+      args.flatten.each do |doc|
+        return doc unless doc
+        doc.class.collection.update(doc._selector, {"$addToSet"=>{metadata.inverse_foreign_key => self.id}})
+        doc.send(metadata.inverse_foreign_key).push self.id
+        self.send(metadata.foreign_key).push doc.id
+        self.class.collection.update(self._selector, {"$addToSet"=>{metadata.foreign_key => doc.id}})
+      end
+    end
   end
   
   # use #in_batches to prevent CURSOR_NOT_FOUND exceptions: Cursor naturally time out after ten minutes, which means that if you happen to be iterating over a cursor for more than ten minutes, you risk a CURSOR_NOT_FOUND exception.
@@ -95,16 +108,11 @@ module Mongoid #:nodoc:
         end
         
         def add_to_collection(*args)
-          options = default_options(args)
           args.flatten.each do |doc|
             return doc unless doc
-            characterize_one(doc)
-            bind_one(doc, options)
-            doc.add_to_set(metadata.inverse_foreign_key, base.id)
-            if base.persisted? && !options[:binding]
-              base.add_to_set(metadata.foreign_key, doc.id)
-              doc.save(:validate => false) if base.persisted? && !options[:binding]
-            end
+            doc.class.collection.update(doc._selector, {"$addToSet"=>{metadata.inverse_foreign_key => base.id}})
+            base.send(metadata.foreign_key).push doc.id
+            base.class.collection.update(base._selector, {"$addToSet"=>{metadata.foreign_key => doc.id}})
           end
         end
         

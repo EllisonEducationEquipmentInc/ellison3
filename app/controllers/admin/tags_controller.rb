@@ -138,8 +138,7 @@ class Admin::TagsController < ApplicationController
   def add_product
     @tag = Tag.find(params[:id])
     @product = Product.find(params[:product_id])
-    @tag.products << @product
-    @tag.save(:validate => false)
+    @tag.add_to_collection :products, @product
     @product.index_by_tag(@tag) if @tag.active 
     render(:partial => 'product', :object => @product, :locals => {:tag_id => @tag.id})
   end
@@ -158,8 +157,7 @@ class Admin::TagsController < ApplicationController
   def add_idea
     @tag = Tag.find(params[:id])
     @idea = Idea.find(params[:idea_id])
-    @tag.ideas << @idea
-    @tag.save(:validate => false)
+    @tag.add_to_collection :ideas, @idea
     @idea.index_by_tag(@tag) if @tag.active 
     render(:partial => 'idea', :object => @idea, :locals => {:tag_id => @tag.id})
   end
