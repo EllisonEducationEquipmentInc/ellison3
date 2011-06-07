@@ -5,7 +5,3 @@
       %li
         = check_box_tag "subscription[segments][]", segment[0], @subscription.segments.include?(segment[0].to_s), :id => nil, :class => "subscription_segment"
         = segment[1]
-  %p
-    To subscribe to a specific segment, check the relevant segment check box above,
-    %br
-    == <strong>OR</strong>, to <em>unsubscribe</em> from a specific segment, <u>uncheck</u> the segment from above and click "Update".
