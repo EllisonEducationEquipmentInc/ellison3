@@ -52,19 +52,19 @@ class Admin::IdeasController < ApplicationController
   # GET /ideas/1/edit
   def edit
     @idea = Idea.find(params[:id])
-    @tags = @idea.get_related_paginated "tags"
-    @products = @idea.get_related_paginated "products"
+    @tags = @idea.get_related_paginated "tags", :sort => [[:tag_type, :asc], [:name, :asc]]
+    @products = @idea.get_related_paginated "products", :sort => [[:item_num, :asc]]
   end
   
   def more_tags
     @idea = Idea.find(params[:id])
-    @tags = @idea.get_related_paginated "tags", :page => params[:page]
+    @tags = @idea.get_related_paginated "tags", :sort => [[:tag_type, :asc], [:name, :asc]], :page => params[:page]
     render :partial => 'idea_tags'
   end
   
   def more_products
     @idea = Idea.find(params[:id])
-    @products = @idea.get_related_paginated "products", :page => params[:page]
+    @products = @idea.get_related_paginated "products", :sort => [[:item_num, :asc]], :page => params[:page]
     render :partial => 'idea_products'
   end
 
@@ -94,8 +94,8 @@ class Admin::IdeasController < ApplicationController
         format.html { redirect_to(admin_ideas_url, :notice => 'Idea was successfully updated.') }
         format.xml  { head :ok }
       else
-        @tags = @idea.get_related_paginated "tags"
-        @products = @idea.get_related_paginated "products"
+        @tags = @idea.get_related_paginated "tags", :sort => [[:tag_type, :asc], [:name, :asc]]
+        @products = @idea.get_related_paginated "products", :sort => [[:item_num, :asc]]
         format.html { render :action => "edit" }
         format.xml  { render :xml => @idea.errors, :status => :unprocessable_entity }
       end

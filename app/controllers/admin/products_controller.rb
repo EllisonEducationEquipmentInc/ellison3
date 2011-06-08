@@ -59,19 +59,19 @@ class Admin::ProductsController < ApplicationController
   # GET /products/1/edit
   def edit
     @product = Product.find(params[:id])
-    @tags = @product.get_related_paginated "tags"
-    @ideas = @product.get_related_paginated "ideas"
+    @tags = @product.get_related_paginated "tags", :sort => [[:tag_type, :asc], [:name, :asc]]
+    @ideas = @product.get_related_paginated "ideas", :sort => [[:idea_num, :asc]]
   end
   
   def more_tags
     @product = Product.find(params[:id])
-    @tags = @product.get_related_paginated "tags", :page => params[:page]
+    @tags = @product.get_related_paginated "tags", :sort => [[:tag_type, :asc], [:name, :asc]], :page => params[:page]
     render :partial => 'product_tags'
   end
   
   def more_ideas
     @product = Product.find(params[:id])
-    @ideas = @product.get_related_paginated "ideas", :page => params[:page]
+    @ideas = @product.get_related_paginated "ideas", :sort => [[:idea_num, :asc]], :page => params[:page]
     render :partial => 'product_ideas'
   end
 
@@ -101,8 +101,8 @@ class Admin::ProductsController < ApplicationController
         format.html { redirect_to(admin_products_url, :notice => 'Product was successfully updated.') }
         format.xml  { head :ok }
       else
-        @tags = @product.get_related_paginated "tags"
-        @ideas = @product.get_related_paginated "ideas"
+        @tags = @product.get_related_paginated "tags", :sort => [[:tag_type, :asc], [:name, :asc]]
+        @ideas = @product.get_related_paginated "ideas", :sort => [[:idea_num, :asc]]
         format.html { render :action => "edit" }
         format.xml  { render :xml => @product.errors, :status => :unprocessable_entity }
       end

@@ -48,10 +48,11 @@ module Mongoid #:nodoc:
     
     # get paginated related objects
     # example: 
-    # @tag.get_related_paginated(:products, :page => 1, :per_page => 10)
+    # @tag.get_related_paginated(:products, :sort => [[:item_num, :asc]], :page => 1, :per_page => 10)
     def get_related_paginated(relation_name, options = {})
+      order_by = options[:sort] || [[:name, :asc]]
       metadata = self.relations[relation_name.to_s]
-      metadata.klass.where(metadata.inverse_foreign_key.to_sym.in => [self.id]).paginate :page => options[:page] || 1, :per_page => options[:per_page] || 100
+      metadata.klass.where(metadata.inverse_foreign_key.to_sym.in => [self.id]).order_by(order_by).paginate :page => options[:page] || 1, :per_page => options[:per_page] || 100
     end
   end
   
