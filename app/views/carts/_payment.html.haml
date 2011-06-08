@@ -168,3 +168,8 @@
         order_comment();
         $('#proceed_checkout').validate(payment_validator_options);
     });
+    $(function() {
+      $("#payment_submit").click(function(){
+        $(this).button({disabled: true, label: 'please wait...'});
+      });
+    });
