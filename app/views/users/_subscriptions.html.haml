@@ -1,3 +1,4 @@
+.clear
 - if @subscription.new_record?
   %p== You're currently NOT subscribed to <strong>#{@list[1]}</strong>
   = form_for @subscription, :url => url_for(:controller => :index, :action => :create_subscription) do |f|
