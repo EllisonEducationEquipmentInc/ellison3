@@ -54,14 +54,14 @@
                 }, 
                 "list_to": { 
                     required: true
-                },
-            }, 
+                }
+            },
             success: function(label) { 
                 label.html(" ").addClass("checked"); 
             },
             submitHandler: function(form) {
               $('#email_list_form').ajaxSubmit();
-            },
+            }
         });
         $('#list_note').keyup(function () {
           #{limit_textarea(250)}
