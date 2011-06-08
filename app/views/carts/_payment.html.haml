@@ -2,8 +2,10 @@
   = f.error_messages
   - if get_cart.allow_deferred?
     #deferred_options
+      %strong How would you like to pay for this order?
+      %br
       = radio_button_tag :deferred, 0, !@payment.deferred, :onclick => "$('#payment_deferred').val(this.value); $('#agreed_terms').closest('tr').hide(); $('#agreed_terms').rules('remove');"
-      Single Payment
+      with a Single Payment
       %table
         %tr
           %th
@@ -13,8 +15,8 @@
           %td
             %span#deferred_single_total_amount= render :partial => 'deferred_single_total_amount'
             %span (incl S&H +Tax)
-      = radio_button_tag :deferred, 1, @payment.deferred, :onclick => "$('#payment_deferred').val(this.value); $('#agreed_terms').closest('tr').show(); $('#agreed_terms').rules('add', {required: true, messages:{required: 'You must agree to these terms.'}});"
-      Three Easy Payments
+      = radio_button_tag :deferred, 1, @payment.deferred, :onclick => "$('#payment_deferred').val(this.value); $('#agreed_terms').closest('tr').show(); $('#agreed_terms').rules('add', {required: true, messages:{required: 'To place your order, please check the box if you agree with the terms and conditions of the Three Easy Payments program.'}});"
+      in Three Easy Payments
       %table
         %tr
           %th
@@ -167,9 +169,4 @@
         $('#payment_submit').button({disabled: true, label: 'please wait...'});
         order_comment();
         $('#proceed_checkout').validate(payment_validator_options);
-    });
-    $(function() {
-      $("#payment_submit").click(function(){
-        $(this).button({disabled: true, label: 'please wait...'});
-      });
     });

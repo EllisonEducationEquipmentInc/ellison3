@@ -86,7 +86,6 @@ ul.cart_summary {
   letter-spacing: .5px;
 }
 
-// push order button to right justify with page
 #checkout_cc {
 
   #comments {
@@ -94,16 +93,6 @@ ul.cart_summary {
     height: 50px;
     margin-bottom: 10px;
   }
-  
-  /*
-  @if $system == szus {
-    height: 270px;
-  } @else if $system == szuk {
-    height: 360px;
-  } @else {
-    height: 330px;
-  }
-  */
   
   input[type="checkbox"] {
     margin: 0;
@@ -127,4 +116,7 @@ ul.cart_summary {
   }  
 }
 
-#agreed_terms_row label.invalid { font-size: 1em; }
+#agreed_terms_row label.invalid {
+  font-size: 1em;
+  font-weight: bold;
+}
