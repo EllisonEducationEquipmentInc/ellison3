@@ -75,6 +75,7 @@
     $('.pagination.ajax a').click(function() {
       this.innerHTML='#{escape_javascript loader_bar}';
       location.hash = $.param.fragment( location.hash, {page: $.deparam.querystring(this.href)['page']}, 0 );
+      $('html, body').animate({ scrollTop: 0 }, 500);
       return false;
     })
     $('.toggle_product').click(function() {
@@ -91,6 +92,7 @@
     });
     $('#per_page').change(function() {
       location.hash = $.param.fragment( location.hash, {per_page: this.value, page: 1}, 0 );
+      $('html, body').animate({ scrollTop: 0 }, 500);
       return false;
     })
     $("a.toggle_view").click(function(){$('.item-block').shadowOff();setTimeout("shadow_on()", 300);setTimeout("shadow_on()", 3000);});
