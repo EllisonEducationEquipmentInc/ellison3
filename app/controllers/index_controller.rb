@@ -5,6 +5,7 @@ class IndexController < ApplicationController
   before_filter :trackable, :except => [:catalog]
   #before_filter :store_path!
   before_filter :register_continue_shopping!, :only => [:campaigns, :shop, :tag_group, :catalog]
+  before_filter :register_last_action!, :only => [:product, :idea, :catalog]
   
   ssl_required :contact, :send_feedback, :reply_to_feedback
   ssl_allowed :limited_search, :machines_survey, :static_page, :add_comment, :newsletter, :create_subscription, :subscription, :update_subscription
@@ -120,7 +121,7 @@ class IndexController < ApplicationController
       @search_phrase = SearchPhrase.available.where(:phrase => params[:q]).first
       render :js => "location.href='#{@search_phrase.destination}'" and return if @search_phrase
     end
-    session[:continue_shopping] = session[:user_return_to] = catalog_path + "#" + request.env["QUERY_STRING"]
+    session[:continue_shopping] = session[:last_action] = catalog_path + "#" + request.env["QUERY_STRING"]
     if params[:q].present? || !fragment_exist?([params.to_params.gsub("%", ":"), current_system, current_locale, ecommerce_allowed?, Product.retailer_discount_level])
       get_search
       @products = @search.results

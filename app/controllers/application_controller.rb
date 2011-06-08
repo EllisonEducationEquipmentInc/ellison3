@@ -302,6 +302,10 @@ private
     session[:continue_shopping] = request.fullpath if request.get? && !request.xhr?
   end
   
+  def register_last_action!
+    session[:last_action] = request.fullpath if request.get? && !request.xhr?
+  end
+  
   def set_retailer_discount_level
     Product.retailer_discount_level = is_er? && user_signed_in? && get_user.status == 'active' && get_user.discount_level ? get_user.discount_level : nil
   end

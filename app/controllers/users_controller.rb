@@ -116,6 +116,7 @@ class UsersController < ApplicationController
 	    end
 	    @list.add_product params[:id]
 	  else
+	    session[:user_return_to] = session[:last_action]
 	    @message = I18n.t :list_not_logged_in
 	  end
 	end
@@ -126,6 +127,7 @@ class UsersController < ApplicationController
 	    @list.add_product get_cart.cart_items.find_item(params[:item_num]).product_id
       @cart_item_id = remove_cart(params[:item_num])
 	  else
+	    session[:user_return_to] = cart_path
 	    @message = I18n.t :save_for_later_not_logged_in
 	  end
 	end
