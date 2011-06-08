@@ -142,7 +142,7 @@ class Admin::TagsController < ApplicationController
   
   def remove_all_products
     @tag = Tag.find(params[:id])
-    @tag.products.nullify
+    @tag.nullify_collection :products
     #@tag.save(:validate => false)
     #Delayed::Job.enqueue HeavyJob.new @tag, :products, :nullify, :save, :validate => false
     render :js => "$('#tag_products li').remove()"
