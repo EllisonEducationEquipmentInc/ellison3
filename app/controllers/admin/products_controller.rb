@@ -59,6 +59,20 @@ class Admin::ProductsController < ApplicationController
   # GET /products/1/edit
   def edit
     @product = Product.find(params[:id])
+    @tags = @product.get_related_paginated "tags"
+    @ideas = @product.get_related_paginated "ideas"
+  end
+  
+  def more_tags
+    @product = Product.find(params[:id])
+    @tags = @product.get_related_paginated "tags", :page => params[:page]
+    render :partial => 'product_tags'
+  end
+  
+  def more_ideas
+    @product = Product.find(params[:id])
+    @ideas = @product.get_related_paginated "ideas", :page => params[:page]
+    render :partial => 'product_ideas'
   end
 
   # POST /products
@@ -87,6 +101,8 @@ class Admin::ProductsController < ApplicationController
         format.html { redirect_to(admin_products_url, :notice => 'Product was successfully updated.') }
         format.xml  { head :ok }
       else
+        @tags = @product.get_related_paginated "tags"
+        @ideas = @product.get_related_paginated "ideas"
         format.html { render :action => "edit" }
         format.xml  { render :xml => @product.errors, :status => :unprocessable_entity }
       end
@@ -272,4 +288,5 @@ class Admin::ProductsController < ApplicationController
 	    render :inline => "$('#<%= @product.id %>').text('<%= number_to_currency @product.price %>');alert('product did NOT save. Go to product detail page, and make sure all required attributes are set.');"
 	  end
   end
+
 end

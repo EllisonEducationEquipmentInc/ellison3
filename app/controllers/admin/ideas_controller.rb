@@ -52,6 +52,20 @@ class Admin::IdeasController < ApplicationController
   # GET /ideas/1/edit
   def edit
     @idea = Idea.find(params[:id])
+    @tags = @idea.get_related_paginated "tags"
+    @products = @idea.get_related_paginated "products"
+  end
+  
+  def more_tags
+    @idea = Idea.find(params[:id])
+    @tags = @idea.get_related_paginated "tags", :page => params[:page]
+    render :partial => 'idea_tags'
+  end
+  
+  def more_products
+    @idea = Idea.find(params[:id])
+    @products = @idea.get_related_paginated "products", :page => params[:page]
+    render :partial => 'idea_products'
   end
 
   # POST /ideas
@@ -80,6 +94,8 @@ class Admin::IdeasController < ApplicationController
         format.html { redirect_to(admin_ideas_url, :notice => 'Idea was successfully updated.') }
         format.xml  { head :ok }
       else
+        @tags = @idea.get_related_paginated "tags"
+        @products = @idea.get_related_paginated "products"
         format.html { render :action => "edit" }
         format.xml  { render :xml => @idea.errors, :status => :unprocessable_entity }
       end

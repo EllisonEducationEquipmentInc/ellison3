@@ -51,6 +51,20 @@ class Admin::TagsController < ApplicationController
   def edit
     @tag = Tag.find(params[:id])
     @tag.build_campaign if @tag.campaign.blank?
+    @ideas = @tag.get_related_paginated "ideas"
+    @products = @tag.get_related_paginated "products"
+  end
+  
+  def more_products
+    @tag = Tag.find(params[:id])
+    @products = @tag.get_related_paginated "products", :page => params[:page]
+    render :partial => 'tag_products'
+  end
+  
+  def more_ideas
+    @tag = Tag.find(params[:id])
+    @ideas = @tag.get_related_paginated "ideas", :page => params[:page]
+    render :partial => 'tag_ideas'
   end
 
   # POST /tags
@@ -84,6 +98,8 @@ class Admin::TagsController < ApplicationController
         format.xml  { head :ok }
       else
         @tag.build_campaign if @tag.campaign.blank?
+        @ideas = @tag.get_related_paginated "ideas"
+        @products = @tag.get_related_paginated "products"
         format.html { render :action => "edit" }
         format.xml  { render :xml => @tag.errors, :status => :unprocessable_entity }
       end

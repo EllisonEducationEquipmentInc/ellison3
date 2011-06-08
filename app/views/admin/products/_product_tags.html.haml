@@ -1,0 +1,6 @@
+%ul#product_tags= render :partial => 'tag', :collection => @tags, :locals => {:product_id => @product.id}
+= will_paginate @tags, :class => 'tag_pagination pagination ajax', :params => {:action => 'more_tags'}
+:javascript
+  $(document).ready(function(){
+    $("#product_tags_section").css({ opacity: 1.0 });
+  });

@@ -13,7 +13,7 @@ module Mongoid #:nodoc:
       common_attributes.reject {|k,v| args.include? k.to_sym}.each { |e|  self.send("#{e}=", document.send(e))}
     end
     
-    # mongoid's current Relations::Many implementartion causes memory bloat. Use these methods instead of <<, concat, nullify, delete to avoid memory bloat
+    # mongoid's current Relations::Many implementation causes memory bloat. Use these methods instead of <<, concat, nullify, delete to avoid memory bloat
     #
     # example: @tag.add_to_collection "products", @product
     def add_to_collection(relation_name, *args)
@@ -44,6 +44,14 @@ module Mongoid #:nodoc:
       metadata = self.relations[relation_name.to_s]
       metadata.klass.collection.update({metadata.inverse_foreign_key => {"$in" => [self.id] }}, {"$pull" => {metadata.inverse_foreign_key => self.id}}, :multi => true)
       self.update_attribute metadata.key, []
+    end
+    
+    # get paginated related objects
+    # example: 
+    # @tag.get_related_paginated(:products, :page => 1, :per_page => 10)
+    def get_related_paginated(relation_name, options = {})
+      metadata = self.relations[relation_name.to_s]
+      metadata.klass.where(metadata.inverse_foreign_key.to_sym.in => [self.id]).paginate :page => options[:page] || 1, :per_page => options[:per_page] || 100
     end
   end
   

@@ -111,7 +111,11 @@
 
     %hr
     %h3.contentwrap_XXXL.last Related Products
-    %ul.contentwrap_XXXL.last#tag_products= render :partial => 'product', :collection => @tag.products, :locals => {:tag_id => @tag.id}
+    #tag_products_section= render :partial => 'tag_products'
+    :javascript
+      $(document).ready(function(){
+        $('.product_pagination.ajax a').live('click', function() {$("#tag_products_section").css({ opacity: 0.3 });this.innerHTML='#{escape_javascript spinner}';$('#tag_products_section').load(this.href);return false;})
+      });
     = text_field_tag "tag_products_helper", nil, :style => "margin-bottom: 10px"
     - if (@tag.tag_type == "special" || @tag.tag_type == "exclusive") && @tag.send("end_date_#{current_system}").present? && (!(@tag.active && @tag.send("end_date_#{current_system}") > Time.zone.now))
       %p
@@ -123,8 +127,12 @@
           To remove or delete the sale prices from products, do so from each product's respective detail page.
     %hr
     %h3.contentwrap_XXXL.last Related Ideas
-    %ul.contentwrap_XXXL.last#tag_ideas= render :partial => 'idea', :collection => @tag.ideas, :locals => {:tag_id => @tag.id}
+    #tag_ideas_section= render :partial => 'tag_ideas'
     = text_field_tag "tag_ideas_helper", nil, :style => "margin-bottom: 10px"
+    :javascript
+      $(document).ready(function(){
+        $('.idea_pagination.ajax a').live('click', function() {$("#tag_ideas_section").css({ opacity: 0.3 });this.innerHTML='#{escape_javascript spinner}';$('#tag_ideas_section').load(this.href);return false;})
+      });
   
   %hr
   .contentwrap_large

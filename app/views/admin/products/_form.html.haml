@@ -202,10 +202,13 @@
       %p
         %em Please save this product first before assigning tags.
     - else
-      %ul#product_tags= render :partial => 'tag', :collection => @product.tags, :locals => {:product_id => @product.id}
+      #product_tags_section= render :partial => 'product_tags'
       = label_tag :product_tags_helper #, "<strong>Add A#{ @product.tags.count >= 1 ? 'nother' : nil } Tag</strong".html_safe
       = text_field_tag "product_tags_helper"
       :javascript
+        $(document).ready(function(){
+          $('.tag_pagination.ajax a').live('click', function() {$("#product_tags_section").css({ opacity: 0.3 });this.innerHTML='#{escape_javascript spinner}';$('#product_tags_section').load(this.href);return false;})
+        });
         $("#product_tags_helper").autocomplete({
         	source: function(request, response) {
             $.ajax({
@@ -237,10 +240,13 @@
       %p
         %em Please save this product first before assigning ideas.
     - else
-      %ul#product_ideas= render :partial => 'idea', :collection => @product.ideas, :locals => {:product_id => @product.id}
+      #product_ideas_section= render :partial => 'product_ideas'
       = label_tag :product_ideas_helper, "<strong>Add An#{ @product.ideas.count >= 1 ? 'other' : nil } Idea</strong>".html_safe
       = text_field_tag "product_ideas_helper"
       :javascript
+        $(document).ready(function(){
+          $('.idea_pagination.ajax a').live('click', function() {$("#product_ideas_section").css({ opacity: 0.3 });this.innerHTML='#{escape_javascript spinner}';$('#product_ideas_section').load(this.href);return false;})
+        });
         $("#product_ideas_helper").autocomplete({
         	source: function(request, response) {
             $.ajax({

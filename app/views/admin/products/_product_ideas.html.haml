@@ -1,0 +1,6 @@
+%ul#product_ideas= render :partial => 'idea', :collection => @ideas, :locals => {:product_id => @product.id}
+= will_paginate @ideas, :class => 'idea_pagination pagination ajax', :params => {:action => 'more_ideas'}
+:javascript
+  $(document).ready(function(){
+    $("#product_ideas_section").css({ opacity: 1.0 });
+  });
