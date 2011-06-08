@@ -60,6 +60,7 @@
                 label.html(" ").addClass("checked"); 
             },
             submitHandler: function(form) {
+              $("#send_email").button({disabled: true, label: 'please wait...'});
               $('#email_list_form').ajaxSubmit();
             }
         });
@@ -67,11 +68,6 @@
           #{limit_textarea(250)}
           $('#chars_left').text('You have ' + chars_left + ' characters left.');
         });
-        $("#send_email").button()
-          .click(function(){
-            $(this).button({disabled: true, label: 'please wait...'});
-          });
-
 
 .clear
 %hr.dontprint
