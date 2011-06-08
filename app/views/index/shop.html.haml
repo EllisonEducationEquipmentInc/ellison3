@@ -1,10 +1,11 @@
-#products_filter
-  - if @landing_page.quick_search
-    -#%h3== Quick #{@landing_page ? nil : 'Products'} Search
-    -##quick_search.ui-widget.ui-widget-content.ui-corner-all= render :partial => 'quick_search'
-  = render :partial => "index/catalog_filter"
-.mainbar.last
-  %h2= @landing_page.name
-  - unless @landing_page.short_desc.blank?
-    %h3= @landing_page.short_desc
-  = render @landing_page.visual_assets.current
+- cache_unless is_admin?, ['landing_page', @landing_page, current_system, current_locale, Product.retailer_discount_level, ecommerce_allowed?], :expires_in => 3.hours do
+  #products_filter
+    - if @landing_page.quick_search
+      -#%h3== Quick #{@landing_page ? nil : 'Products'} Search
+      -##quick_search.ui-widget.ui-widget-content.ui-corner-all= render :partial => 'quick_search'
+    = render :partial => "index/catalog_filter"
+  .mainbar.last
+    %h2= @landing_page.name
+    - unless @landing_page.short_desc.blank?
+      %h3= @landing_page.short_desc
+    = render @landing_page.visual_assets.current

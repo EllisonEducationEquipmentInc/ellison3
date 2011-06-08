@@ -1,1 +1,2 @@
-%ul= render :partial => 'item', :collection => @items
+- cache_unless is_admin?, [params.to_params.gsub("%", ":"), current_system, current_locale, ecommerce_allowed?, Product.retailer_discount_level], :expires_in => 1.hours do
+  %ul= render :partial => 'item', :collection => @items

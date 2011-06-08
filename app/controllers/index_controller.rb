@@ -24,7 +24,7 @@ class IndexController < ApplicationController
   end
   
   def products
-    @products = Product.available.paginate :page => params[:page], :per_page => 24
+    redirect_to(catalog_path) and return
   end
   
   def product
@@ -75,10 +75,12 @@ class IndexController < ApplicationController
   # landing page
   def shop
     @landing_page = LandingPage.available.find params[:id]
-    params.merge! @landing_page.to_params
-    @title = @landing_page.name
-    get_search
-    @products = @search.results
+    unless fragment_exist? ['landing_page', @landing_page, current_system, current_locale, Product.retailer_discount_level, ecommerce_allowed?]
+      params.merge! @landing_page.to_params
+      @title = @landing_page.name
+      get_search
+      @products = @search.results
+    end
     #fresh_when(:etag => [current_locale, current_system, @landing_page], :last_modified => @landing_page.updated_at.utc)
   rescue Exception => e
     Rails.logger.info e.message
@@ -88,11 +90,14 @@ class IndexController < ApplicationController
   # /lp/:id
   def tag_group
     if %w(product_lines artists themes designers categories curriculums).include? params[:id]
-      get_search_objects
-      @search = perform_search(@klass, :facets => [params[:id].singularize], :facet_sort => :index)
+      unless fragment_exist? ['tag_group', current_system, params[:id], params[:ideas]]
+        get_search_objects
+        @search = perform_search(@klass, :facets => [params[:id].singularize], :facet_sort => :index)
+      end
     else
       raise "invalid tag_type: #{params[:id]}"
     end
+    expires_in 1.hour, 'max-stale' => 3.hours
   rescue Exception => e
     Rails.logger.info e.message
     go_404
@@ -169,10 +174,13 @@ class IndexController < ApplicationController
   end
   
   def limited_search
-    get_search_objects
-    @per_page = params[:per_page] if params[:per_page].to_i > 0
-    @search = perform_search(@klass, :outlet => outlet?)
-    @items = @search.results
+    unless fragment_exist?([params.to_params.gsub("%", ":"), current_system, current_locale, ecommerce_allowed?, Product.retailer_discount_level])
+      get_search_objects
+      @per_page = params[:per_page] if params[:per_page].to_i > 0
+      @search = perform_search(@klass, :outlet => outlet?)
+      @items = @search.results
+    end
+    expires_in 5.minutes, 'max-stale' => 10.minutes
     render :layout => false
   end
   
