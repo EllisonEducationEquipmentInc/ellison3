@@ -9,11 +9,13 @@
     %tr
       %th Item num
       %th Name
+      %th Orderable
       %th Price
     - @tag.products.available(current_system, @time).each do |product|
       %tr
         %td= link_to product.item_num, edit_admin_product_path(product)
         %td= link_to product.name, admin_product_path(product)
+        %td= product.send("orderable_#{current_system}")
         %td= display_product_price product, :date => @time
     
 %p= @tag.systems_enabled.join(", ")      
