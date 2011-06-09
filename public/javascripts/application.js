@@ -384,8 +384,8 @@ function initialize_buttons() {
 
 function order_comment() {
 	$('#order_comment').click(function() {
-    $(this).find('span').toggleClass('ui-icon-triangle-1-s')
-    $(this).find('span').toggleClass('ui-icon-triangle-1-e')
+    $(this).find('span').toggleClass('ui-icon-triangle-1-s');
+    $(this).find('span').toggleClass('ui-icon-triangle-1-e');
     $(this).next().toggle();
     return false;
   }).next().hide();
