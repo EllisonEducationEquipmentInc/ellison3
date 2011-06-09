@@ -241,7 +241,7 @@ module EllisonSystem
     "szuk" => {:sizzix_uk_consumers => "The Sizzix.co.uk Newsletter", :eclips => "Sizzix eclips", :tim_holtz => "Tim Holtz"},
     "eeus" => {:connection => "The Ellison Connection"},
     "eeuk" => {:ellison_education_uk => "The Ellisoneducation.co.uk Newsletter", :back_to_school => "Back to School", :education_uk_nursery => "Education UK Nursery", :education_uk_primary => "Education UK Primary", :education_uk_secondary => "Education UK Secondary"},
-    "erus" => {:erus_retailers => "The Retailers Newsletter", :sizzix_retailers => "Sizzix Retailers", :eclips => "Sizzix eclips", :tim_holtz => "Tim Holtz", :ellison_retailers => "Ellison Retailers", :sizzix_retailers_in_spanish => "Sizzix Retailers in Spanish"}
+    "erus" => {:erus_retailers => "The Retailers Newsletter", :sizzix_retailers => "Sizzix Retailers", :eclips => "Sizzix eclips", :tim_holtz => "Tim Holtz", :quilt_consumer => "Quilting", :ellison_retailers => "Ellison Retailers", :sizzix_retailers_in_spanish => "Sizzix Retailers in Spanish"}
   }
   
   def get_list_and_segments
