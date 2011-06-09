@@ -14,7 +14,7 @@ class CartsController < ApplicationController
 	  :custom_price, :create_shipping, :create_billing, :activate_coupon, :remove_coupon, :shopping_cart, :change_quantity, :add_selected_to_cart, :move_to_cart, :delete_from_saved_list, :last_item,
 	   :add_to_cart, :remove_from_cart, :save_cod, :get_deferred_first_payment, :forget_credit_card, :set_upsell, :remove_order_reference
 	
-	verify :xhr => true, :only => [:set_upsell, :get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :use_previous_orders_card, :remove_order_reference, :shopping_cart, :change_quantity, :add_selected_to_cart, :save_cod] #, :redirect_to => {:action => :index}
+	verify :xhr => true, :only => [:set_upsell, :get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :use_previous_orders_card, :remove_order_reference, :shopping_cart, :change_quantity, :add_selected_to_cart, :save_cod, :add_to_cart_by_item_num] #, :redirect_to => {:action => :index}
 	
 	def index
 	  if get_cart.last_check_at.blank? || get_cart.last_check_at.present? && get_cart.last_check_at.utc < 5.minute.ago.utc
@@ -54,6 +54,17 @@ class CartsController < ApplicationController
   		add_2_cart(@product, qty)
 	  end
 	  render :add_to_cart
+	end
+	
+	def add_to_cart_by_item_num
+	  @product = Product.available.where(:item_num => params[:item_num]).first
+		if @product.present? && @product.can_be_added_to_cart?
+		  qty = is_er? ? @product.minimum_quantity : 1 
+  		add_2_cart(@product, qty)
+  		render :add_to_cart	
+		else
+  		render :js => "$('#add_to_cart_by_item_num_button').button({disabled: false});alert('Product not found or cannot be added to cart')"
+		end
 	end
 	
 	def remove_from_cart

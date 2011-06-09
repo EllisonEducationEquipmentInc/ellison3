@@ -87,6 +87,7 @@ Ellison3::Application.routes.draw do |map|
 	match 'quote' => 'carts#quote', :as => :quote
 	match 'pre_order' => 'carts#quote', :as => :pre_order
 	match 'activate_coupon' => 'carts#activate_coupon', :as => :activate_coupon
+	match 'add_to_cart_by_item_num' => "carts#add_to_cart_by_item_num", :as => :add_to_cart_by_item_num
 	match 'remove_coupon' => 'carts#remove_coupon', :as => :remove_coupon
 	match 'remove_order_reference' => 'carts#remove_order_reference', :as => :remove_order_reference
 	match 'instructions' => 'index#instructions'
