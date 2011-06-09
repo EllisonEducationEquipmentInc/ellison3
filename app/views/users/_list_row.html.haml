@@ -1,10 +1,10 @@
-%tr{:id => "list_row_#{list.id}", :class => cycle(:odd, :even)}
-  %td{ :style => "vertical-align: top;" }
+%tr{:id => "list_row_#{list.id}", :class => cycle(:odd, :even), :height => 125}
+  %td{ :style => "vertical-align: top; white-space: nowrap" }
     %div{ :class => list.owns || list.save_for_later ? 'icon_uneditable' : 'icon_edit-in-place' }
-      %span{ :id => "name_#{list.id}", :class => list.owns || list.save_for_later ? nil : 'editable' }= list.name
+      %span{ :id => "name_#{list.id}", :class => list.owns || list.save_for_later ? nil : 'list_name' }= list.name
   %td{ :style => "vertical-align: top;" }
     .icon_edit-in-place
-      %span.editable{ :id => "comments_#{list.id}" }= list.comments
+      %span.list_comment{ :id => "comments_#{list.id}" }= list.comments
   %td{ :style => "vertical-align: top; text-align: center;" }= list.products.count
   %td{ :style => "vertical-align: top; text-align: center;" }= radio_button_tag :set_defailt_list, list.id, list.default_list, :onclick => "disable_default_list_delete();$.ajax({url:'/list_set_to_default?id=#{list.id}'});" unless list.owns
   %td{ :style => "vertical-align: top; text-align: right; white-space: nowrap" }= link_to "View this List", list_path(list), :class => 'jqui_show'

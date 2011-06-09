@@ -1,13 +1,13 @@
 .clear
 #lists
   Click on View This List to manage or share the list.
-  %table
+  %table{ :cellpadding => 0, :cellspacing => 0 }
     %thead
       %tr
         %th List Name
         %th List Comments
-        %th{ :width => 65} # of Items
-        %th{ :width => 70} Default List
+        %th{ :style => "white-space: nowrap" } # of Items
+        %th{ :style => "white-space: nowrap" } Default List
         %th{ :style => "text-align: right" }
         %th{ :style => "text-align: right" }
     %tbody= render :partial => 'list_row', :collection => @lists, :as => :list
@@ -18,7 +18,7 @@
   = form_for(List.new, :url => {:action => 'create_list'}, :remote => true) do |f|
     .field
       = required_label f, :name, {:label_size => "auto"}
-      = f.text_field :name
+      = f.text_field :name, :maxlength => 25
       %p.formhelp{:style => "margin-left: 62px"} (e.g.- My Birthday List)
     .field
       = f.label :comments
@@ -47,12 +47,23 @@
     $('#lists :checked').parent('td').next().next().children('.jqui_trash').hide();
   }
   function make_lists_editable(){
-    $(".editable").editInPlace({
+    $(".list_name").editInPlace({
+      url: "/update_list",
+      field_type: "text",
+      show_buttons: true,
+      save_button: "<br /><input type='image' src='/images/ui-icons/set_fugue/16x16/drop-shadow/disk.png' alt='save changes' />",
+      cancel_button: "<input type='image' src='/images/ui-icons/set_fugue/16x16/drop-shadow/cross-button.png' alt='cancel changes' />",
+      value_required: true,
+      saving_animation_color: "#ECF2F8"
+    });
+    $(".list_comment").editInPlace({
       url: "/update_list",
       field_type: "textarea",
-      textarea_rows: "10",
-      textarea_cols: "35",
+      textarea_rows: "7",
+      textarea_cols: "40",
       show_buttons: true,
+      save_button: "<br /><input type='image' src='/images/ui-icons/set_fugue/16x16/drop-shadow/disk.png' alt='save changes' />",
+      cancel_button: "<input type='image' src='/images/ui-icons/set_fugue/16x16/drop-shadow/cross-button.png' alt='cancel changes' />",
       value_required: true,
       saving_animation_color: "#ECF2F8"
     });
@@ -62,7 +73,11 @@
     $('#chars_left').text('You have ' + chars_left + ' characters left.');
   });
 
-  $('textarea.inplace_field').live('keyup', function() {
+  $('.list_name input.inplace_field').live('keyup', function() {
+    #{limit_textarea(25)}
+  });
+
+  $('.list_comment textarea.inplace_field').live('keyup', function() {
     #{limit_textarea(250)}
   });
 
