@@ -272,15 +272,13 @@ $(document).ready(function(){
 // jQueryUI-styled tables
 // ALL table elements EXCEPT the calendar
 function initialize_tables() {
-  $(function() {
-    $("table:not('div#event_calendar table')").each(function() {
-      $(this).addClass("ui-widget ui-widget-content ui-corner-all");
-      $(this).css({"border-collapse": "collapse"}); // for IE7: set cellspacing & cellpadding to zero
-    });
-    $("table thead:not('div#event_calendar table thead')").each(function() {
-      $(this).addClass("ui-state-hover");
-    });
-  });  
+  $("table:not('div#event_calendar table')").each(function() {
+    $(this).addClass("ui-widget ui-widget-content ui-corner-all");
+    $(this).css({"border-collapse": "collapse"}); // for IE7: set cellspacing & cellpadding to zero
+  });
+  $("table thead:not('div#event_calendar table thead')").each(function() {
+    $(this).addClass("ui-state-hover");
+  });
 }
 
 function initialize_buttons() {
