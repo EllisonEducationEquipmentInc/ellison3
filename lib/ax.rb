@@ -160,7 +160,7 @@ module Ax
   						set_current_system dborder.system
 	            dborder.update_attributes!(:status => order_status, :tracking_number => tracking_number, :tracking_url => tracking_url, :carrier_description => carrier_description)							
   						if order_status == "Shipped"
-  						  dborder.send_shipping_confirmation 
+  						  dborder.send_shipping_confirmation unless dborder.system == "szuk" || dborder.system == "eeuk"
   						  dborder.delay.delete_billing_subscription_id if dborder.system == "eeus" && dborder.payment && dborder.payment.subscriptionid.present?
   						  #commit_tax(dborder) if !dborder.tax_committed
   						end
