@@ -56,13 +56,8 @@
           saving_animation_color: "#ECF2F8"
         });
   :javascript 
-    $("table").each(function() {
-      $(this).addClass("ui-widget ui-widget-content ui-corner-all");
-    });
-    $("table thead").each(function() {
-      $(this).addClass("ui-state-hover");
-    });
-
+    initialize_tables();
+  
   .dontprint
     - unless @cart_locked
       - if admin_signed_in? && current_admin.can_act_as_customer || is_er? && ecommerce_allowed?

@@ -23,10 +23,5 @@
         $(this).html('#{escape_javascript loader_bar}')
         _gaq.push(['_trackEvent', 'Cart', 'Delete from saved for later list', $(this).attr('rel')]);
       });
-  :javascript 
-    $("table").each(function() {
-      $(this).addClass("ui-widget ui-widget-content ui-corner-all");
-    });
-    $("table thead").each(function() {
-      $(this).addClass("ui-state-hover");
-    });
+  :javascript
+    initialize_tables();

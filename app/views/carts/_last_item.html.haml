@@ -40,9 +40,5 @@
       window.location = "#{cart_path}";
       $(this).button({disabled: true, label: 'please wait...'});
     });
-  $("table").each(function() {
-    $(this).addClass("ui-widget ui-widget-content ui-corner-all");
-  });
-  $("table thead").each(function() {
-    $(this).addClass("ui-state-hover");
-  });
+    
+  initialize_tables();
