@@ -10,10 +10,11 @@
     = check_box_tag "subscription[segments][]", @list[1], "checked", :id => nil, :class => "subscription_segment", :disabled => true
     == You are subscribed to <strong>#{@list[1]}</strong>
     = render :partial => 'index/segments'
-  %p
-    To subscribe to a specific segment, check the relevant segment checkbox above,
-    %br
-    == <strong>OR</strong>, to <em>unsubscribe</em> from a specific segment, <u>uncheck</u> the segment from above and click "Update".
+  - if @segments.present?
+    %p
+      To subscribe to a specific segment, check the relevant segment checkbox above,
+      %br
+      == <strong>OR</strong>, to <em>unsubscribe</em> from a specific segment, <u>uncheck</u> the segment from above and click "Update".
   %hr
   .field
     .left{:style => "margin-right: 10px"}= f.check_box :unsubscribe, :onclick => "if (this.checked) {$('.subscription_segment').attr('disabled', true);$('#unsubscribe_alert').show()} else {$('.subscription_segment').attr('disabled', false);$('#unsubscribe_alert').hide()}", :style => "margin-left: 4px"
