@@ -11,3 +11,6 @@ $.fancybox.close();
     if ($('#total_amount').text() != '') $('#payment_submit').button({disabled: false, label: button_label});
 - else
   == alert('#{escape_javascript @billing_address.errors.full_messages.join("\n")}');
+$(document).ready(function(){
+  $.fancybox.close();
+});
