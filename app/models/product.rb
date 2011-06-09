@@ -633,7 +633,7 @@ private
   # example: a new product is being created on SZUS. The new product will be pushed to szus and szuk. Those 2 systems are checked on the product admin form, and before save, SZUK will inherit the same attributes (which can be overridden by switching to szuk) 
   def inherit_system_specific_attributes
     self.systems_enabled.reject {|e| e == current_system}.each do |sys|
-      %w(start_date end_date availability_message distribution_life_cycle distribution_life_cycle_ends).each do |m|
+      %w(start_date end_date availability_message).each do |m|
         self.send("#{m}_#{sys}=", read_attribute("#{m}_#{current_system}")) if read_attribute("#{m}_#{sys}").blank?
       end
       self.send("orderable_#{sys}=", read_attribute("orderable_#{current_system}")) if read_attribute("orderable_#{sys}").nil?
