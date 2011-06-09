@@ -59,17 +59,16 @@
     $(".list_comment").editInPlace({
       url: "/update_list",
       field_type: "textarea",
-      textarea_rows: "7",
+      textarea_rows: "3",
       textarea_cols: "40",
       show_buttons: true,
       save_button: "<br /><input type='image' src='/images/ui-icons/set_fugue/16x16/drop-shadow/disk.png' alt='save changes' />",
       cancel_button: "<input type='image' src='/images/ui-icons/set_fugue/16x16/drop-shadow/cross-button.png' alt='cancel changes' />",
-      value_required: true,
       saving_animation_color: "#ECF2F8"
     });
   }
   $('#list_comments').keyup(function () {
-    #{limit_textarea(250)}
+    #{limit_textarea(100)}
     $('#chars_left').text('You have ' + chars_left + ' characters left.');
   });
 
@@ -78,7 +77,7 @@
   });
 
   $('.list_comment textarea.inplace_field').live('keyup', function() {
-    #{limit_textarea(250)}
+    #{limit_textarea(100)}
   });
 
   $(document).ready(function() {
