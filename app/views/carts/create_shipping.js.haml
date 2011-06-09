@@ -1,3 +1,6 @@
+$(document).ready(function(){
+$.fancybox.close();
+});
 $.fancybox.close();
 - if @shipping_address.valid? && @shipping_address.save
   - eval "@#{@shipping_address.address_type}_address_notice = 'Your #{@shipping_address.address_type} address has been saved.'"
