@@ -1,16 +1,17 @@
 == $('#shoppingcart_info').html('#{escape_javascript(render(:partial => "carts/shopping_cart"))}');
 == $('#cart_container').html('#{escape_javascript(render(:partial => "carts/cart"))}');
-$.fancybox({
-'padding' : 10,
-'autoScale'	: false,
-'scrolling' : 'auto',
-'speedIn'	:	500, 
-'speedOut' :	200,
-'content' : '#{escape_javascript(render(:partial => "carts/last_item"))}',
-'width'	: 860,
-'autoDimensions' : true,
-'title'	: false
-});
-setTimeout("$.fancybox.resize()", 900);
-== $('#add_to_cart_#{params[:id]}').button({disabled: false});
-setTimeout("$.fancybox.close()", 6000);
+- unless params[:action] == 'add_to_cart_by_item_num'
+  $.fancybox({
+  'padding' : 10,
+  'autoScale'	: false,
+  'scrolling' : 'auto',
+  'speedIn'	:	500, 
+  'speedOut' :	200,
+  'content' : '#{escape_javascript(render(:partial => "carts/last_item"))}',
+  'width'	: 860,
+  'autoDimensions' : true,
+  'title'	: false
+  });
+  setTimeout("$.fancybox.resize()", 900);
+  == $('#add_to_cart_#{params[:id]}').button({disabled: false});
+  setTimeout("$.fancybox.close()", 6000);
