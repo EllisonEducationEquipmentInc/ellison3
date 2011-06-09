@@ -11,7 +11,7 @@
     %li= link_to "Manage My Lists", myaccount_path('mylists')
     %li= link_to 'Share this list with friends and family', "#email_list", :class => "lightbox"
 - if @users_list
-  %div{:style => "display:none"}
+  %div{:style => "display: none"}
     #email_list
       %h3 Share this list with friends and family
       %p Complete the information below to email your friends and family a link to this list: 
@@ -36,7 +36,7 @@
         .field{:style => "height: 255px"}
           = label_tag(:list_note, "Note:")
           %br
-          = text_area_tag :list_note, nil, :cols => 55, :rows => 5, :maxlength => 250
+          = text_area_tag :list_note, nil, :cols => 55, :rows => 5
           %p.formhelp
             %span#chars_left You have 250 characters left.
             %br

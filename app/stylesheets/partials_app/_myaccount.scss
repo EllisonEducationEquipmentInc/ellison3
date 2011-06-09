@@ -65,3 +65,8 @@ ul#machine_list {
 }
 
 ul#feedback_history { @extend ul.plain; }
+
+#email_list {
+  *width: 515px;
+  *text-align: left;
+}
