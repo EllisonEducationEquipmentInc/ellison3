@@ -3,6 +3,8 @@
   @include column(5); }
 .products_grid {
   @include column(19, true); }
+.products_grid.mylist {
+  @include column(24, true); }
   
 // shopping cart
 #customer_info {

@@ -70,10 +70,10 @@
         });
 
 .clear
-%hr.dontprint
 - unless @list.products.blank?
-  .toggleview.dontprint= link_to "switch to list view", "#", :class => "toggle_view"
-.products_grid
+  .toggleview.dontprint{ :style => "margin: 0 14px 10px 0"}= link_to "switch to list view", "#", :class => "toggle_view"
+%hr.dontprint
+.products_grid.mylist
   .highlightable
     - if @list.products.blank?
       == There are no items to display in the list you selected. #{link_to "Browse products", catalog_path} to add items to a list.
