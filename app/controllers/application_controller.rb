@@ -150,6 +150,7 @@ private
 			session[:locale] = nil
 			session[:system] = new_system
 			set_current_system(new_system)
+			sign_out(current_user) if user_signed_in? && !current_user.systems_enabled.include?(current_system)
 		end
 	end
 	
