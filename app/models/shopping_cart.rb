@@ -512,6 +512,7 @@ module ShoppingCart
 		end
 		
 		def country_2_code(country)
+		  return "GB" if country == "Northern Ireland"
 	  	Country.name_2_code(country)
 	  end
 		
