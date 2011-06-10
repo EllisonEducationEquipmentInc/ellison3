@@ -83,11 +83,11 @@
     %h3 Owner/President's Home Address
     = render :partial => 'users/address_details', :locals => {:address => @user.home_address}
     %hr
-    %h3 Billing Address
-    = render :partial => 'users/address_details', :locals => {:address => @user.billing_address}
-    %hr
     %h3 Shipping Address
     = render :partial => 'users/address_details', :locals => {:address => @user.shipping_address}
+    %hr
+    %h3 Billing Address
+    = render :partial => 'users/address_details', :locals => {:address => @user.billing_address}
   .clear
 - else
   Your Retailers Application is not complete. Please

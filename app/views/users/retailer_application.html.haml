@@ -21,7 +21,7 @@
         = required_label retailer_application_fields, :website, { :label_size => "147px" }
         = retailer_application_fields.text_field :website, :type => :url, :required => true
         %p.formhelp{ :style => "margin: 0 0 6px 159px"} sample URL: http://www.yourwebsite.com
-        = retailer_application_fields.check_box :no_website, :style => "margin-left: 159px"
+        = retailer_application_fields.check_box :no_website, :style => "margin-left: 159px", :onclick => "if (this.checked) { $('label[for=user_retailer_application_attributes_website] span').removeClass('required') } else { $('label[for=user_retailer_application_attributes_website] span').addClass('required') }"
         = retailer_application_fields.label :no_website, "I do not have a website", :class => "autosize"
       .field
         = required_label retailer_application_fields, :tax_identifier, { :label_size => "147px" }
@@ -99,18 +99,18 @@
     %h3 Owner/President's Home Address
     = f.fields_for :addresses, @user.home_address do |home_address_fields|
       = render :partial => 'users/address_form', :locals => {:f => home_address_fields}
+    %hr
+    %h3 Shipping Address
+    = link_to_function "copy home address", "copy_address_data(0, 1)", :class => "minilink"
+    = f.fields_for :addresses, @user.shipping_address do |shipping_address_fields|
+      = render :partial => 'users/address_form', :locals => {:f => shipping_address_fields}
 
     %hr
     %h3 Billing Address
-    = link_to_function "copy shipping address", "copy_address_data(2, 1)", :class => "minilink"
+    = link_to_function "copy shipping address", "copy_address_data(1, 2)", :class => "minilink"
     = f.fields_for :addresses, @user.billing_address do |billing_address_fields|
       = render :partial => 'users/address_form', :locals => {:f => billing_address_fields}
 
-    %hr
-    %h3 Shipping Address
-    = link_to_function "copy home address", "copy_address_data(0, 2)", :class => "minilink"
-    = f.fields_for :addresses, @user.shipping_address do |shipping_address_fields|
-      = render :partial => 'users/address_form', :locals => {:f => shipping_address_fields}
     %hr
     = f.fields_for :retailer_application, @user.retailer_application do |retailer_application_fields|
       .field
