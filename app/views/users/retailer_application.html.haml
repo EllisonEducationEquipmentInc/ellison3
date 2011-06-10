@@ -19,7 +19,7 @@
       %h3 Company Details
       .field
         = required_label retailer_application_fields, :website, { :label_size => "147px" }
-        = retailer_application_fields.text_field :website, :type => :url, :required => true
+        = retailer_application_fields.text_field :website, :type => :url
         %p.formhelp{ :style => "margin: 0 0 6px 159px"} sample URL: http://www.yourwebsite.com
         = retailer_application_fields.check_box :no_website, :style => "margin-left: 159px", :onclick => "if (this.checked) { $('label[for=user_retailer_application_attributes_website] span').removeClass('required') } else { $('label[for=user_retailer_application_attributes_website] span').addClass('required') }"
         = retailer_application_fields.label :no_website, "I do not have a website", :class => "autosize"
