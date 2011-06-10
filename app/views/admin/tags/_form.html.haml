@@ -48,6 +48,18 @@
           %br
           = f.check_box :remove_image, :style => "margin-left: 0"
           = f.label :remove_image, :class => "autosize"
+    .clear
+    .field
+      .left{ :style => "margin-right: 10px"}= image_tag(@tag.send("image_#{current_system}_url", :small)) if @tag.send("image_#{current_system}?")
+      .left
+        %span.icon_imagefield= f.label :image, "#{current_system.upcase} List Page Image (has higher precedent if defined)"
+        = f.file_field :"image_#{current_system}"
+        = f.hidden_field :"image_#{current_system}_cache"
+        - unless f.object.new_record?
+          %br
+          %br
+          = f.check_box :"remove_image_#{current_system}", :style => "margin-left: 0"
+          = f.label :"remove_image_#{current_system}", :class => "autosize"
   
   #new_campaign{:style => "display:#{@tag.campaign? ? 'block' : 'none'}"}
     %hr

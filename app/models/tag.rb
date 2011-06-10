@@ -103,6 +103,9 @@ class Tag
   index [[:permalink, Mongo::ASCENDING], [:tag_type, Mongo::ASCENDING], [:active, Mongo::ASCENDING]]
   
   mount_uploader :image, GenericImageUploader 
+  ELLISON_SYSTEMS.each do |sys|
+    mount_uploader :"image_#{sys}", GenericImageUploader
+  end
   
   # scopes
   scope :active, :where => { :active => true }
@@ -200,7 +203,13 @@ class Tag
   end
   
   def list_page_img
-    image? ? image_url(:medium) : self.list_page_image
+    if self.send("image_#{current_system}?")
+      self.send("image_#{current_system}_url", :medium)
+    elsif image?
+      image_url(:medium)
+    else
+      self.list_page_image
+    end
   end
 
   def adjust_all_day_dates
