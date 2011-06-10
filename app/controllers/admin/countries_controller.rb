@@ -8,7 +8,7 @@ class Admin::CountriesController < ApplicationController
 	ssl_exceptions
 	
 	def index
-	  params[:sort] ||= 'name'
+	  params[:order] ||= 'name'
 	  params[:direction] ||= 'asc'
 	  criteria = Mongoid::Criteria.new(Country)
 	  criteria = if params[:systems_enabled].blank?
