@@ -637,6 +637,22 @@ body.bp {
   }  
 }
 
+// full-width list view item block settings for user wishlist 
+.products_grid.mylist .highlightable.listview {
+  
+  .item-block {
+    width: 915px;
+  }
+  
+  .cart-buttons {
+    left: 790px;
+  }
+  
+  .item_description {
+    width: 650px;
+  }
+}
+
 .toggleview {
   @extend .right;
   @extend .minilink;
