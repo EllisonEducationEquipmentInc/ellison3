@@ -70,6 +70,7 @@
             $(function() {
               $("#add_to_cart_by_item_num_button").button({icons: {primary: 'ui-icon-check'}}).click( function() {
                 if ($("#item_num").attr('value').length > 2) {
+                  $('.error').hide();
                   $('#add_to_cart_by_item_num_form').submit(); 
                   $(this).button({disabled: true});
                 }
