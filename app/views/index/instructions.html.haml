@@ -1,6 +1,6 @@
 - cache "instructions_page_#{current_system}", :expires_in => 60.minutes do
   .instruction_frame
-    = image_tag("/images/ui-backgrounds/instructions_graphic.png", :class => "instruction_img" )
+    = image_tag("/images/ui-backgrounds/_#{current_system}_instructions_graphic.png", :class => "instruction_img" )
     %h2 Instructions
     %p
       %img{:class=>"instruction_r", :src => "/images/ui-backgrounds/instructions_pdf_icon.png"}/
