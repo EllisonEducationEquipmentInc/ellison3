@@ -58,7 +58,7 @@ class CartsController < ApplicationController
 	
 	def add_to_cart_by_item_num
 	  @product = Product.available.where(:item_num => params[:item_num]).first
-		if @product.present? && @product.can_be_added_to_cart?
+		if @product.present? && @product.orderable? && @product.can_be_added_to_cart?
 		  qty = is_er? ? @product.minimum_quantity : 1 
   		add_2_cart(@product, qty)
   		render :add_to_cart	
