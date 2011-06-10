@@ -26,6 +26,7 @@ class UsersController < ApplicationController
     if resource.save
       set_flash_message :notice, :signed_up
       session[:user_return_to] = retailer_application_path if is_er?
+      sleep(1)
 			if request.xhr? 
 				sign_in(resource_name, resource)
 				render :js => "window.location.href = '#{session[:user_return_to] || myaccount_path}'" 
