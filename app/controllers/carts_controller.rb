@@ -63,7 +63,7 @@ class CartsController < ApplicationController
   		add_2_cart(@product, qty)
   		render :add_to_cart	
 		else
-  		render :js => "$('#add_to_cart_by_item_num_button').button({disabled: false});alert('Product not found or cannot be added to cart')"
+  		render :js => "$('#item_num').val('');$('#add_to_cart_by_item_num_button').button({disabled: false});alert('Product not found or cannot be added to cart')"
 		end
 	end
 	

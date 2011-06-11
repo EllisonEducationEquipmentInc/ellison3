@@ -1,0 +1,17 @@
+- if admin_signed_in? && current_admin.can_act_as_customer || is_er? && ecommerce_allowed?
+  #add_to_cart_by_item_num
+    = form_tag add_to_cart_by_item_num_path, :id => "add_to_cart_by_item_num_form", :remote => true, :onsubmit => "return false;" do
+      = label_tag :item_num, "Please enter item num here:"
+      = text_field_tag :item_num, nil, :placeholder => "item num"
+      %button.jqui_ok#add_to_cart_by_item_num_button Add to Cart
+    :javascript
+      $(function() {
+        $("#add_to_cart_by_item_num_button").button({icons: {primary: 'ui-icon-check'}}).click( function() {
+          if ($("#item_num").attr('value').length > 2) {
+            $('.error').hide();
+            $('#add_to_cart_by_item_num_form').submit(); 
+            $(this).button({disabled: true});
+          }
+          return false;
+        });
+      });
