@@ -168,6 +168,7 @@ class UsersController < ApplicationController
 		@users_list = user_signed_in? && get_user.lists.include?(@list)
 		@lists = user_signed_in? && get_user.lists.listable.map {|e| [e.name, e.id]}
 		@title = "List: #{@list.name}"
+		@products = @list.products params[:page]
 	rescue
 		redirect_to(myaccount_path('mylists'))
 	end

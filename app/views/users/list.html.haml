@@ -70,15 +70,16 @@
         });
 
 .clear
-- unless @list.products.blank?
+- unless @products.blank?
   .toggleview.dontprint{ :style => "margin: 0 14px 10px 0"}= link_to "switch to list view", "#", :class => "toggle_view"
 %hr.dontprint
 .products_grid.mylist
   .highlightable
-    - if @list.products.blank?
+    - if @products.blank?
       == There are no items to display in the list you selected. #{link_to "Browse products", catalog_path} to add items to a list.
     - else
-      = render @list.products
+      = render @products
+      = will_paginate @products
 :javascript
   $(document).ready(function(){
     setTimeout("shadow_on()", 3000);
