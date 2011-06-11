@@ -7,9 +7,9 @@
   - if @users_list
     %strong Jump to List:
     = select_tag :jump_to_list, options_for_select(@lists, params[:id]), :style => "max-width:200px", :onchange => "window.location='/list/'+this.value"
-  %ul.plain{:style => "margin-bottom: 10px;"}
-    %li= link_to "Manage My Lists", myaccount_path('mylists')
-    %li= link_to 'Share this list with friends and family', "#email_list", :class => "lightbox"
+    %ul.plain{:style => "margin-bottom: 10px;"}
+      %li= link_to "Manage My Lists", myaccount_path('mylists')
+      %li= link_to 'Share this list with friends and family', "#email_list", :class => "lightbox"
 - if @users_list
   %div{:style => "display: none"}
     #email_list
@@ -70,16 +70,15 @@
         });
 
 .clear
-- unless @products.blank?
+- unless @list.products.blank?
   .toggleview.dontprint{ :style => "margin: 0 14px 10px 0"}= link_to "switch to list view", "#", :class => "toggle_view"
 %hr.dontprint
 .products_grid.mylist
   .highlightable
-    - if @products.blank?
+    - if @list.products.blank?
       == There are no items to display in the list you selected. #{link_to "Browse products", catalog_path} to add items to a list.
     - else
-      = render @products
-      = will_paginate @products
+      = render @list.products
 :javascript
   $(document).ready(function(){
     setTimeout("shadow_on()", 3000);
