@@ -1489,6 +1489,18 @@ namespace :data_migrations do
     end
   end
   
+  def test_process_incremental_users(sym)
+    last_user = User.where(sym.gt => 0).desc(sym).first
+    last_id = last_user.send(sym)
+    
+    p "# of new users since last migrations: #{OldData::User.count(:conditions => ["id > ?", last_id])}"
+    p "last user id: #{last_id}"
+    p "# of changed users since last migrations: #{OldData::User.count(:conditions => ["updated_at > ? AND id <= ?", last_user.created_at, last_id])}"
+    p "# of changed billing addresses since last migrations: #{OldData::BillingAddress.count(:conditions => ["updated_at > ? AND user_id <= ?", last_user.created_at, last_id])}"
+    p "# of changed shipping addresses since last migrations: #{OldData::Customer.count(:conditions => ["updated_at > ? AND user_id <= ?", last_user.created_at, last_id])}"
+    
+  end
+  
   def process_incremental_users(sym)
     last_user = User.where(sym.gt => 0).desc(sym).first
     last_id = last_user.send(sym)
@@ -1666,6 +1678,13 @@ namespace :data_migrations do
     process_incremental_users(:old_id_eeus)
     
     p Time.now
+  end
+  
+  desc "incremental - users EEUS"
+  task :test_incremental_users_eeus => [:set_eeus, :load_dep]  do
+    p Time.now
+    set_current_system "eeus"
+    test_process_incremental_users(sym)
   end
   
   desc "incremental - users ERUS"
