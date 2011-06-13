@@ -1684,6 +1684,9 @@ namespace :data_migrations do
   task :test_incremental_users_eeus => [:set_eeus, :load_dep]  do
     p Time.now
     set_current_system "eeus"
+    last_account = Account.where(:old_id.gt => 0).desc(:old_id).first
+    p last_id = last_account.old_id
+    
     test_process_incremental_users(:old_id_eeus)
   end
   
