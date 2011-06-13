@@ -1522,6 +1522,19 @@ namespace :data_migrations do
         p "setting tax_exempt=false"
         new_user.update_attribute :tax_exempt, false
       end
+      if is_ee? 
+        if sym == :old_id_eeus
+          account = Account.where(:old_id => old_user.account_id).first
+        else
+          account = Account.where(:old_id_uk => old_user.account_id).first
+        end
+        if account
+          p "account found..."
+          new_user.account = account
+          new_user.institution = old_user.account.institution.code.strip if old_user.account.try(:institution).try(:code)
+          new_user.save
+        end
+      end
     end
     
     p "# of changed users since last migrations: #{OldData::User.count(:conditions => ["updated_at > ? AND id <= ?", last_user.created_at, last_id])}"
