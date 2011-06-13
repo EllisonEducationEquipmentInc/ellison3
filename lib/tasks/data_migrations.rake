@@ -1522,7 +1522,7 @@ namespace :data_migrations do
         end
         p new_user.save(:validate => false)
       else
-        new_user = User.new(:email => old_user.email, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
+        new_user = User.new(:email => old_user.email.downcase, :company => old_user.name, :name => "#{old_user.first_name} #{old_user.last_name}")
         new_user.send("#{sym}=", old_user.id)
 
         process_user(old_user,new_user)
