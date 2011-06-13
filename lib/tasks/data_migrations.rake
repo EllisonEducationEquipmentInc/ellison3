@@ -1517,8 +1517,10 @@ namespace :data_migrations do
       
       p new_user.errors
       p "=== #{old_user.id} #{new_user.email} ==="
-      
-      process_retailer_app(new_user, old_user) if is_er? && sym == :old_id_er
+      if is_er? && sym == :old_id_er
+        process_retailer_app(new_user, old_user)
+        new_user.update_attribute :tax_exempt, false
+      end
     end
     
     p "# of changed users since last migrations: #{OldData::User.count(:conditions => ["updated_at > ? AND id <= ?", last_user.created_at, last_id])}"
