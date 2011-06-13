@@ -245,7 +245,7 @@ class Idea
 	end
 	
 	def four_related_criteria
-	  @four_related_criteria ||= related_tag.ideas.available.where(:_id.ne => self.id) rescue []
+	  @four_related_criteria ||= self.class.available.where(:_id.ne => self.id, :tag_ids.in => [related_tag.id]) rescue []
 	end
 	
 	def four_related_ideas
