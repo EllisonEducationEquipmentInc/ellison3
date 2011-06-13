@@ -1684,7 +1684,7 @@ namespace :data_migrations do
   task :test_incremental_users_eeus => [:set_eeus, :load_dep]  do
     p Time.now
     set_current_system "eeus"
-    test_process_incremental_users(sym)
+    test_process_incremental_users(:old_id_eeus)
   end
   
   desc "incremental - users ERUS"
