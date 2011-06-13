@@ -1494,6 +1494,7 @@ namespace :data_migrations do
     last_id = last_user.send(sym)
     
     p "# of new users since last migrations: #{OldData::User.count(:conditions => ["id > ?", last_id])}"
+    p "last user id: #{last_id}"
     OldData::User.find_each(:conditions => ["id > ?", last_id]) do |old_user|
       existing = User.where(:email => old_user.email.downcase).first
       if !existing.blank? 
