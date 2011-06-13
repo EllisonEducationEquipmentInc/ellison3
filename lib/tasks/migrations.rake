@@ -101,6 +101,11 @@ namespace :migrations do |ns|
 	  end
 	end
 	
+	desc "change Ireland to Ireland (Republic of)"
+	task :change_ireland => :environment do
+	 
+	end
+	
 	
 	#======== migration tasks end here ========
 	
