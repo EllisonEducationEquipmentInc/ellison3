@@ -1546,10 +1546,7 @@ namespace :data_migrations do
       next unless new_user
       process_shipping_address_change(old_user,new_user)
     end
-    
-    if sym == :old_id_er
-      new_user.update_attribute :tax_exempt, false
-    end
+
   end
   
   def process_user_list(user,old_list)
