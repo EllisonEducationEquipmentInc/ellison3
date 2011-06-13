@@ -194,11 +194,11 @@ class UsersController < ApplicationController
 	  if @list && !params[:list_to].blank? && !params[:list_your_name].blank? && params[:list_to].split(/,\s*/).all? {|e| e =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/}
 	    UserMailer.email_list(get_user, params[:list_your_name], params[:list_to].split(/,\s*/), @list, params[:list_note]).deliver
 	  else
-	    raise "Unable to send email. Please make sure that you have specified Your name and entered a valid recipient email address."
+	    raise "Unable to send email. Please verify your recipient email addresses and/or ensure they are separated by commas."
 	  end
 	  render :js => "$('#email_list_form').resetForm();$('#send_email').button({disabled: false, label: 'Send Email'});$.fancybox.close();alert('Your email has been sent to: #{params[:list_to]}')"
 	rescue Exception => e
-		render :js => "alert('#{e.message}')"
+		render :js => "alert('#{e.message}'); $('#send_email').button({disabled: false, label: 'Send Email'});"
 	end
 	
 	def update_list
