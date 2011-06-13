@@ -103,7 +103,8 @@ namespace :migrations do |ns|
 	
 	desc "change Ireland to Ireland (Republic of)"
 	task :change_ireland => :environment do
-	 
+	  country=Country.find_by_name "Ireland"
+	  country.update_attribute :name, "Ireland (Republic of)"
 	end
 	
 	
