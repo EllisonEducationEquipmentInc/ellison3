@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_filter :trackable
   before_filter :store_path!, :only => [:myaccount, :list, :eclipsware]
 	before_filter :register_continue_shopping!, :only => [:list]
+	before_filter :register_last_action!, :only => [:list]
 	
   include Devise::Controllers::InternalHelpers
   
