@@ -1519,6 +1519,7 @@ namespace :data_migrations do
       p "=== #{old_user.id} #{new_user.email} ==="
       if is_er? && sym == :old_id_er
         process_retailer_app(new_user, old_user)
+        p "setting tax_exempt=false"
         new_user.update_attribute :tax_exempt, false
       end
     end
