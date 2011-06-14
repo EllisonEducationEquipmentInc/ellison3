@@ -7,9 +7,9 @@
   = hidden_field_tag :"reusable_tab_#{obj}_id"
   = hidden_field_tag :reusable_tab_id
   == Selected #{obj}:
-  %span#reusable_product_name.bordered
+  %span.bordered{ :id => "reusable_#{obj}_name"}
   Tab:
-  %span#reusable_product_tab.bordered
+  %span.bordered{ :id => "reusable_#{obj}_tab"}
   = submit_tag "Clone", :class => 'jqui_save'
 #tab_to_clone
 :javascript
@@ -35,11 +35,13 @@
   	select: function(event, ui) {
   	  this.value = '';
   	  $('#reusable_tab_#{obj}_id').val(ui.item.id);
-  	  $("#reusable_product_name").html(ui.item.label);
+  	  $("#reusable_#{obj}_name").html(ui.item.label);
   	  $("#tab_to_clone").load("/admin/#{obj}s/show_tabs?id="+ui.item.id, function() {
         initialize_buttons();
         initialize_lightboxes();
-        $(".tab-block").tabs({select: function(event, ui) {$('#reusable_tab_id').val($(ui.tab).attr('href').replace("#tabs-",""));$("#reusable_product_tab").html($(ui.tab).text())}});
+        $("#reusable_#{obj}_tab").html($(".tab-block li").first().text());
+        $("#reusable_tab_id").val($(".tab-block li").first().find("a").attr('href').replace("#tabs-",""));
+        $(".tab-block").tabs({select: function(event, ui) {$('#reusable_tab_id').val($(ui.tab).attr('href').replace("#tabs-",""));$("#reusable_#{obj}_tab").html($(ui.tab).text())}});
       });
   		return false;
   	}});

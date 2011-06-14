@@ -20,8 +20,7 @@
   %h3 Tabs
   = link_to 'new tab', {:action => 'new_tab', :id => @product.id}, :remote => true, :class => 'jqui_new'
   = link_to 'clone existing', {:action => 'reusable_tab', :id => @product.id}, :remote => true, :class => 'jqui_clone'
-  %br
-  %br
+  %p.formhelp== Related idea & product tabs <strong>cannot</strong> be cloned.
   %ul#tabs.ui-sortable= render :partial => 'tab', :collection => @product.tabs.ordered
   #edit_tab
   #info
