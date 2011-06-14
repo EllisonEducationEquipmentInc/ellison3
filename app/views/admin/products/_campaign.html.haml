@@ -1,4 +1,4 @@
-%li{:id => "campaign_#{campaign.id}", :style => campaign == @product.get_best_campaign ? "background:#00ee00" : nil}
+%li{:id => "campaign_#{campaign.id}", :style => campaign == @product.get_best_campaign ? "background:#00ee00" : nil, :class => "campaign #{'not_expired' if campaign.not_expired?} #{campaign.systems_enabled.map {|e| "campaign_#{e}"} * ' '}"}
   %strong Name:
   = campaign.name
   %strong Starts/Ends:

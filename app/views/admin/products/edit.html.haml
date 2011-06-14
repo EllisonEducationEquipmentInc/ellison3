@@ -6,8 +6,13 @@
 .field
   %h3 Campaigns
   = link_to 'new campaign', {:action => 'new_campaign', :id => @product.id}, :remote => true, :class => 'jqui_new'
+  = link_to_function "Show all #{current_system.upcase}", "$('.campaign_#{current_system}').show()"
+  = link_to_function "Show all", "$('.campaign').show()"
   #new_campaign
   %ul#campaigns= render :partial => 'campaign', :collection => @product.campaigns
+  :javascript
+    $('.campaign').hide()
+    $('.campaign_#{current_system}.not_expired').show()
 %hr
 .field
   %h3 Additional Images

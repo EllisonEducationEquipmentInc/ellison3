@@ -40,6 +40,10 @@ class Campaign
     start_date <= time && end_date >= time && active && systems_enabled.include?(current_system)
   end
   
+  def not_expired?(time = Time.zone.now)
+    end_date >= time && active
+  end
+  
   def discount_name
     DISCOUNT_TYPES[discount_type][0]
   rescue
