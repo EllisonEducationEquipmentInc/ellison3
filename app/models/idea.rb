@@ -241,7 +241,7 @@ class Idea
 	def related_tag
 	  Tag.available.find(self.related_idea_tag)
 	rescue
-	  tags.available.send(is_ee? || ellison? ? :subcurriculums : :themes).first
+	  tags.available.send(is_ee? || ellison? ? is_ee_uk? ? :curriculums : :subcurriculums : :themes).first
 	end
 	
 	def four_related_criteria
