@@ -92,7 +92,7 @@ class Address
 			self.avs_result = @fedex.address.changes.is_a?(Array) ? @fedex.address.changes * ', ' : @fedex.address.changes
 			correct_address(@fedex.address.address)
 		end
-	rescue Shippinglogic::FedEx::Error => e
+	rescue Shippinglogic::FedEx::Error, Timeout::Error => e
 	  Rails.logger.error e.message
 	  self.avs_failed = true
 	end
