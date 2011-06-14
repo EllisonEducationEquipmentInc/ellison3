@@ -173,6 +173,10 @@ EOF
 	  !(self.status == 'New' || pending?)
 	end
 	
+	def uk_may_change?
+	  is_uk? &&  (self.system == "szuk" || self.system == "eeuk") && ["Open", "Processing", "In Process", "To Refund"].include?(self.status)
+	end
+	
 	def public_status
 	  case self.status
 	  when "Processing"

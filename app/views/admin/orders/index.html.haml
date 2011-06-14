@@ -34,7 +34,7 @@
           %td== #{order.address.first_name} #{order.address.last_name}
           %td= number_to_currency order.gross_subtotal_amount
           %td= order.system
-          %td{:style => order.on_hold? ? order.can_be_paid? ? 'color:green' : 'color:red' : nil}= order.status
+          %td{:style => order.on_hold? ? order.can_be_paid? ? 'color:green' : 'color:red' : nil, :class => order.uk_may_change? ? 'editable_order_status' : nil, :id => order.id}= order.status
           %td= order.payment.try :deferred
           - if has_write_permissions?
             %td{:style => "text-align: right; white-space: nowrap;"}= link_to 'View', admin_order_path(order), :class => 'jqui_show_min'
@@ -42,3 +42,15 @@
 %br
 = will_paginate @orders
 %br
+- if has_write_permissions? && is_uk?
+  :javascript
+    $(document).ready(function(){
+      $(".editable_order_status").editInPlace({
+        url: "/admin/orders/change_order_status",
+        field_type: "select",
+        select_options: "In Process, Shipped, Cancelled", 
+        show_buttons: true,
+        value_required: true,
+        saving_animation_color: "#ECF2F8"
+      });
+    });

@@ -38,7 +38,7 @@
             saving_animation_color: "#ECF2F8"
           });
         });
-    - elsif is_uk? && (@order.system == "szuk" || @order.system == "eeuk") && @order.open?
+    - elsif @order.uk_may_change?
       :javascript
         $(document).ready(function(){
           $("#order_status").editInPlace({
