@@ -495,9 +495,9 @@ var auto_complete_options = {
 	}
 };
 	
-function sortable_tabs(product) {
+function sortable_tabs(id, obj) {
 	$("#tabs").sortable({update: function(event, ui) {
-			$.ajax({url:"/admin/products/reorder_tabs?id="+product+"&"+$("#tabs").sortable('serialize')});
+			$.ajax({url:"/admin/"+obj+"s/reorder_tabs?id="+id+"&"+$("#tabs").sortable('serialize')});
 	  }
 	});
 	$("#tabs").disableSelection();
