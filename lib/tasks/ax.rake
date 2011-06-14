@@ -44,6 +44,23 @@ namespace :ax do
     end
   end
   
+  desc "create ax xml from open UK test orders"
+  task :test_uk_orders_to_ax => :include_ax do
+    new_relic_wrapper "uk_orders_to_ax" do
+      @orders = Order.where(:status => "Open", :system.in => ["szuk", "eeuk"], :order_number.gt => 1000000)
+    
+      if @orders.count > 0
+        xml = build_ax_xml @orders
+        filename = "global_orders_download_#{Time.now.strftime("%d%m%y_%H%M%S")}.xml"
+        File.open("#{PATH}/uk_to_ax/#{filename}", "w") { |f| f.puts(xml)}
+        @orders.update_all(:status => "Processing")
+        p "#{filename} has been created"
+      else
+        p "there are no open orders in the system"
+      end
+    end
+  end
+  
   desc "create ax xml from off hold US orders"
   task :paid_pre_orders_to_ax => :include_ax do
     new_relic_wrapper "paid_pre_orders_to_ax" do
