@@ -79,6 +79,7 @@
       == There are no items to display in the list you selected. #{link_to "Browse products", catalog_path} to add items to a list.
     - else
       = render @products
+      .clear
       = will_paginate @products 
 :javascript
   $(document).ready(function(){
