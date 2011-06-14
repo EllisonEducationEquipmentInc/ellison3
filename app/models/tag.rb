@@ -315,8 +315,9 @@ private
 	  Rails.logger.info "!!! tag maybe_index callback is called @marked_for_immediate_auto_indexing: #{@marked_for_immediate_auto_indexing} @marked_for_scheduled_auto_indexing: #{@marked_for_scheduled_auto_indexing}"
 	  if @marked_for_immediate_auto_indexing
 	    Rails.logger.info "REINDEX!!! Tag's products/ideas are scheduled for reindexing"
-	    self.products.each {|e| e.delay.index!}
-	    self.ideas.each {|e| e.delay.index!}
+	    self.products.each {|e| e.delay.index}
+	    self.ideas.each {|e| e.delay.index}
+	    Sunspot.delay.commit
 	    remove_instance_variable(:@marked_for_auto_indexing)
 	  end
     index_dates = []
@@ -324,8 +325,9 @@ private
       if (self.send(d).is_a?(DateTime) || self.send(d).is_a?(ActiveSupport::TimeWithZone) || self.send(d).is_a?(Time)) && !index_dates.include?(self.send(d).utc)
         scheduled_at = self.send(d).utc > Time.now.utc ? self.send(d) : Time.now
         Rails.logger.info "FUTURE REINDEX!!! scheduled at #{scheduled_at}"
-        self.products.each {|e| e.delay(:run_at => scheduled_at).index!}
-  	    self.ideas.each {|e| e.delay(:run_at => scheduled_at).index!}
+        self.products.each {|e| e.delay(:run_at => scheduled_at).index}
+  	    self.ideas.each {|e| e.delay(:run_at => scheduled_at).index}
+  	    Sunspot.delay(:run_at => scheduled_at).commit
         index_dates << self.send(d).utc
       end
 	  end

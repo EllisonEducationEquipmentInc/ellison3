@@ -73,10 +73,11 @@ namespace :data_export do
 	    Product.active.in_batches(500) do |batch|
 	      p "--- batch: #{b+=1} #{batch.inspect} #{batch.size}"
         batch.each do |product|
-          product.delay.index! rescue next
+          product.delay.index rescue next
           p "#{i+=1} #{product.item_num}"
         end
       end
+      Sunspot.delay.commit
 	  end
 	end
 	
@@ -88,10 +89,11 @@ namespace :data_export do
 	    Idea.active.in_batches(500) do |batch|
 	      p "--- batch: #{b+=1} #{batch.inspect} #{batch.size}"
         batch.each do |idea|
-          idea.delay.index! rescue next
+          idea.delay.index rescue next
           p "#{i+=1} #{idea.idea_num}"
         end
       end
+      Sunspot.delay.commit
 	  end
 	end
 	
