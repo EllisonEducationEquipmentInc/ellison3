@@ -569,7 +569,7 @@ class Product
   end
   
   def four_related_criteria
-    @four_related_criteria ||= self.class.related_to(self, self.outlet).where(:tag_ids.all => [related_tag.id] + self.product_lines.map(&:id)) rescue []
+    @four_related_criteria ||= self.class.related_to(self, self.outlet).where(:item_group => self.item_group, :tag_ids.all => [related_tag.id] + self.product_lines.map(&:id)) rescue []
   end
   
   def four_related_products
