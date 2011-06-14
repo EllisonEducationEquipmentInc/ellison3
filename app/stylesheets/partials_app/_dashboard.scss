@@ -206,7 +206,12 @@ p#disable_formhelp { @extend .formhelp_important; }
 
 // WYMeditor
 .wym_box {
+  
   ul {
     padding: 0 !important;
   }
+}
+
+.visual_asset .wym_skin_default {
+  font-size: 100% !important;
 }
