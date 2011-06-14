@@ -13,7 +13,8 @@
   %h3 Tabs
   = link_to 'new tab', {:action => 'new_tab', :id => @idea.id}, :remote => true, :class => 'jqui_new'
   = link_to 'clone existing', {:action => 'reusable_tab', :id => @idea.id}, :remote => true, :class => 'jqui_clone'
-  %p.formhelp== Related idea & product tabs <strong>cannot</strong> be cloned.
+  = link_to 'cancel', "#", :class => 'jqui_cancel', :onclick => "$('#edit_tab').html(''); return false;"
+  %p.formhelp== Related idea & related product tabs <strong>cannot</strong> be cloned.
   %ul#tabs.ui-sortable= render :partial => 'tab', :collection => @idea.tabs.ordered
   #edit_tab
   #info
