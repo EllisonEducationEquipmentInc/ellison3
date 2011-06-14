@@ -23,7 +23,7 @@
   .newsletter_content_b
     %h2{:style=>"margin-bottom:8px;", :class=>"signup_header"} 
       Thank you for your interest in receiving emails from
-      = system_name
+      = is_sizzix_uk? ? 'Sizzix' : is_ee_uk? ? 'Ellison Education' : system_name
     To start receiving special offers, latest information of newest products, projects and other promotions please provide the below information and confirm your Newsletter signup by confirming the link sent to your email address
     
   .news_border
