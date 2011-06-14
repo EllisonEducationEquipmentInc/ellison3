@@ -38,5 +38,18 @@
             saving_animation_color: "#ECF2F8"
           });
         });
+    - elsif is_uk? && (@order.system == "szuk" || @order.system == "eeuk") && @order.open?
+      :javascript
+        $(document).ready(function(){
+          $("#order_status").editInPlace({
+            url: "/admin/orders/change_order_status",
+            params: "id=#{@order.id}",
+            field_type: "select",
+            select_options: "In Process, Shipped, Cancelled", 
+            show_buttons: true,
+            value_required: true,
+            saving_animation_color: "#ECF2F8"
+          });
+        });
 
     
