@@ -51,7 +51,7 @@ Ellison3::Application.routes.draw do |map|
   match 'admin' => 'admin#index'
 
   match 'shop/:id' => 'index#shop', :as => :shop
-  match 'lp/:id' => 'index#tag_group'
+  match 'lp/:id' => 'index#tag_group', :as => :tag_group
 	match 'products' => 'index#products'
 	match 'home' => 'index#home'
 	match 'latinamerica' => 'index#stores'

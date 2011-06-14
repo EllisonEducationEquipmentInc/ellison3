@@ -49,7 +49,7 @@ class IndexController < ApplicationController
     end
   rescue Exception => e
     Rails.logger.info e.message
-    go_404
+    redirect_to(tag_group_path("categories"))
   end
   
   def idea
@@ -69,7 +69,7 @@ class IndexController < ApplicationController
     expires_in 5.minutes, 'max-stale' => 5.minutes
   rescue Exception => e
     Rails.logger.info e
-    go_404
+    redirect_to(tag_group_path("themes", :ideas => 1))
   end
   
   # landing page
