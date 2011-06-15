@@ -196,15 +196,16 @@
 
   %hr
   %h3.contentwrap_XXXL.last Tags, Ideas & Keywords
-  .contentwrap_medium
+  .contentwrap_large
     %strong Tags
     - if @product.new_record?
       %p
         %em Please save this product first before assigning tags.
     - else
       #product_tags_section= render :partial => 'product_tags'
-      = label_tag :product_tags_helper #, "<strong>Add A#{ @product.tags.count >= 1 ? 'nother' : nil } Tag</strong".html_safe
-      = text_field_tag "product_tags_helper"
+      .field
+        = label_tag :product_tags_helper #, "<strong>Add A#{ @product.tags.count >= 1 ? 'nother' : nil } Tag</strong".html_safe
+        = text_field_tag "product_tags_helper"
       :javascript
         $(document).ready(function(){
           $('.tag_pagination.ajax a').live('click', function() {$("#product_tags_section").css({ opacity: 0.3 });this.innerHTML='#{escape_javascript spinner}';$('#product_tags_section').load(this.href);return false;})
@@ -232,7 +233,7 @@
         	  $.ajax({url:'/admin/products/add_tag?tag_id='+ui.item.id+'&id=#{@product.id}', success: function(html) {$('#product_tags').append(html);$('#product_tags').find('.spinner').remove();}, beforeSend: function(){$('#product_tags').append('#{escape_javascript loader_bar}')}});
         		return false;
         	}});
-  .contentwrap_medium
+  .contentwrap_large.last
     %strong
       Related Ideas
       %span.formhelp.tip_related-ideas (Ideas created using this product)
@@ -306,11 +307,11 @@
             return false;
           }});
     =# products_helper_tag('product[related_product_item_nums]', @product.related_product_item_nums, :label => 'Related Products (item_num only)')
-  .contentwrap_medium.last
+  .contentwrap_XXXL.last
     .field
       = f.label :keywords, "Meta Tag Keywords", :class => "autosize"
       %br
-      = f.text_area :keywords, :rows => 10, :cols => 37
+      = f.text_area :keywords, :rows => 3, :cols => 90
   
   .clear
   .actions

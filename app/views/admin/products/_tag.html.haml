@@ -3,3 +3,4 @@
   = link_to 'Show Tag', admin_tag_path(tag.id), :class => "show_idea", :alt => "show tag", :title => "show tag"
   = tag.name
   %span.keyword== (#{tag.tag_type.humanize})
+  %span.systems_enabled== #{tag.systems_enabled.join(", ")}

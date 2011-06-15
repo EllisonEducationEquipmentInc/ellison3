@@ -83,15 +83,16 @@
 
   %hr
   %h3.contentwrap_XXXL.last Tags, Ideas & Keywords
-  .contentwrap_medium
+  .contentwrap_large
     %strong Tags
     - if @idea.new_record?
       %p
         %em Please save this idea first before assigning tags.
     - else
       #idea_tags_section= render :partial => 'idea_tags'
-      = label_tag :idea_tags_helper #, "<strong>Add A#{ @idea.tags.count >= 1 ? 'nother' : nil } Tag</strong".html_safe
-      = text_field_tag "idea_tags_helper"
+      .field
+        = label_tag :idea_tags_helper #, "<strong>Add A#{ @idea.tags.count >= 1 ? 'nother' : nil } Tag</strong".html_safe
+        = text_field_tag "idea_tags_helper"
       :javascript
         $(document).ready(function(){
           $('.tag_pagination.ajax a').live('click', function() {$("#idea_tags_section").css({ opacity: 0.3 });this.innerHTML='#{escape_javascript spinner}';$('#idea_tags_section').load(this.href);return false;})
@@ -120,7 +121,42 @@
         		return false;
         	}});
 
-  .contentwrap_XL.last
+  .contentwrap_large.last
+    .field
+      = f.label :related_idea_tag, "Related Idea Tag ID", :class => "autosize"
+      %br
+      = f.text_field :related_idea_tag
+      %br
+      %span#related_idea_tag_name= @idea.related_idea_tag_name
+      %span.formhelp
+        If this field is left blank, default tag logic
+        %br
+        will dictate which related ideas are displayed.
+      :javascript
+        $('#idea_related_idea_tag').autocomplete({
+        	source: function(request, response) {
+        	  $.ajax({
+            	url: "/tags_autocomplete",
+            	dataType: 'text json',
+            	data: {term: request.term},
+            	success: function( data ) {response(data)}
+            });
+        	},
+        	search: function() {
+        		if (this.value.length < 2) {
+        			return false;
+        		}
+        	},
+        	focus: function( event, ui ) {
+          				return false;
+          			},
+        	select: function(event, ui) {
+        	  $("#related_idea_tag_name").html( ui.item.label + '<br />' );
+            $(this).val( ui.item.id );
+            return false;
+          }});
+  %hr
+  .contentwrap_large
     %strong
       Products Used
       %span.formhelp.tip_related-products (Products used to create this idea)
@@ -158,46 +194,12 @@
         	  $.ajax({url:'/admin/ideas/add_product?product_id='+ui.item.id+'&id=#{@idea.id}', success: function(html) {$('#idea_products').append(html);$('#idea_products').find('.spinner').remove();}, beforeSend: function(){$('#idea_products').append('#{escape_javascript loader_bar}')}});
         		return false;
         	}});
-    %br
-    %br
-    %hr
-    .field.contentwrap_medium
-      = f.label :related_idea_tag, "Related Idea Tag ID", :class => "autosize"
-      %br
-      = f.text_field :related_idea_tag
-      %br
-      %span#related_idea_tag_name= @idea.related_idea_tag_name
-      %span.formhelp
-        If this field is left blank, default tag logic
-        %br
-        will dictate which related ideas are displayed.
-      :javascript
-        $('#idea_related_idea_tag').autocomplete({
-        	source: function(request, response) {
-        	  $.ajax({
-            	url: "/tags_autocomplete",
-            	dataType: 'text json',
-            	data: {term: request.term},
-            	success: function( data ) {response(data)}
-            });
-        	},
-        	search: function() {
-        		if (this.value.length < 2) {
-        			return false;
-        		}
-        	},
-        	focus: function( event, ui ) {
-          				return false;
-          			},
-        	select: function(event, ui) {
-        	  $("#related_idea_tag_name").html( ui.item.label + '<br />' );
-            $(this).val( ui.item.id );
-            return false;
-          }});
-    .field.contentwrap_medium.last
+
+  .contentwrap_large.last
+    .field
       = f.label :keywords, "Meta Tag Keywords", :class => "autosize"
       %br
-      = f.text_area :keywords, :rows => 10, :cols => 37
+      = f.text_area :keywords, :rows => 5, :cols => 45
   
   .clear    
   .actions

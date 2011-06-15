@@ -27,6 +27,10 @@
   margin-bottom: 4px;
 }
 
+.systems_enabled { @extend .keyword;
+  font-variant: small-caps;
+}
+
 .current_system {
   font-weight:bold;
   color: $link;
