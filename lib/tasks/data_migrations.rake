@@ -882,7 +882,7 @@ namespace :data_migrations do
   end
   
   def process_new_quote(order, old_quote_id_sym = :old_id_eeus, user_id_sym = :old_id_eeus, product_sym = :old_id_edu)
-    new_order = Quote.new(old_quote_id_sym => order.id, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :quote_number => order.quote, :customer_rep => order.sales_rep.try(:email), 
+    new_order = Quote.new(old_quote_id_sym => order.id, :subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => is_uk? ? order.uk_tax_amount : order.tax_amount, :created_at => order.created_at, :total_discount => order.total_discount, :quote_number => order.quote, :customer_rep => order.sales_rep.try(:email), 
                   :expires_at => order.expires_at, :active => order.active, :tax_exempt => order.tax_exempt, :tax_exempt_number => order.tax_exempt_number, :shipping_priority => order.shipping_priority, :vat_percentage => order.order_items.first.try(:vat_percentage), :vat_exempt => order.vat_exempt, :locale => order.locale, :comments => order.comments)
   
     new_order.user = User.where(user_id_sym => order.user_id).first unless order.user_id.blank?
@@ -1639,7 +1639,7 @@ namespace :data_migrations do
   def process_quote_changes(order, old_quote_id_sym = :old_id_eeus)
     new_order = Quote.where(old_quote_id_sym => order.id).first
     if new_order
-      new_order.write_attributes(:subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => order.tax_amount, :expires_at => order.expires_at, :active => order.active, :comments => order.comments)
+      new_order.write_attributes(:subtotal_amount => order.subtotal_amount, :shipping_amount => order.shipping_amount, :handling_amount => order.handling_amount, :tax_amount => is_uk? ? order.uk_tax_amount : order.tax_amount, :expires_at => order.expires_at, :active => order.active, :comments => order.comments)
     
       p new_order.save
       p new_order.errors
