@@ -107,6 +107,12 @@ namespace :migrations do |ns|
 	  country.update_attribute :name, "Ireland (Republic of)"
 	end
 	
+	desc "start SunspotCommiter"
+	task :start_sunspot_commiter => :environment do
+	  @comitter = SunspotCommiter.new 1.hour
+	  @comitter.delay.perform
+	end
+	
 	
 	#======== migration tasks end here ========
 	

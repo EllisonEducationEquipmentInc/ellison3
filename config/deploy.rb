@@ -110,7 +110,7 @@ task :prod_symlink, :roles => :app, :except => {:no_release => true, :no_symlink
 end
 
 desc "incremental custom migrations"
-task :custom_migrations, :roles => :app, :except => {:no_release => true} do
+task :custom_migrations, :roles => :db, :except => {:no_release => true} do
   run "cd #{latest_release} && RAILS_ENV=#{rails_env} rake migrations:run"
 end
 

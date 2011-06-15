@@ -45,8 +45,23 @@ module Sunspot
   end
 end
 
+# we can send this class to DJ to automatically Sunspot.commit indexing at a given interval (default = 1.hour). It reschedules itself.
+#
+# @example initialize with 30 minute interval:
+#
+#   @comitter = SunspotCommiter.new 30.minutes
+#
+# @example send it to DJ:
+#
+#   @comitter.delay.perform 
+# 
+# It will run Sunspot.commit immediately, and after it ran successfully, it reschedules itself to run again next time at the given interval.
+#
+# @example to stop, the DJ entry has to be deleted from the db:
+#
+#   Delayed::Job.where(:handler => /SunspotCommiter/).last.delete
+#
 SunspotCommiter = Struct.new(:interval) do
-  
   def perform
     Sunspot.commit
     next_time = lambda {Time.now + (interval || 1.hour)}
