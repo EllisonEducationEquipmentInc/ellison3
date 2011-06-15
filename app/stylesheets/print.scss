@@ -212,4 +212,25 @@ ul.cart_summary {
   li#cart_total { border-top:1px double gray; }  
 }
 
-// user's product lists
+// shopping cart
+#cart_container {
+  table {
+    border: 0;
+    background: none;
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 10.2px;
+    
+    a {
+      text-decoration: none;
+    }
+    
+    td {
+      border-bottom: 1px solid #dddddd;
+      
+      &.cart_extended_price { font-weight: bold; }
+      &.cart_subtotal { font-weight: bold; }
+      
+      input { border: none; }
+    }
+  }
+}

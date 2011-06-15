@@ -18,9 +18,9 @@
       %tr
         %th{:width => 60} Item #
         %th{:width => 70} Item Name
-        %th.dontprint{:width => 400}
+        %th{:width => 400}
         - if admin_signed_in? && current_admin.can_change_prices
-          %th Upsell
+          %th.dontprint Upsell
         %th{:style => "text-align: right; white-space: nowrap;"}== #{is_er? ? 'Wholesale' : 'Regular'} Price
         %th{:style => "text-align: right; white-space: nowrap;", :width => 75} Your Price
         %th{:style => "text-align: right", :width => 70} Quantity
@@ -33,8 +33,8 @@
         %td
         %td
         - if admin_signed_in? && current_admin.can_change_prices
-          %td
-        %td.dontprint#total_savings{ :colspan => 2}= render :partial => 'carts/total_savings'
+          %td.dontprint
+        %td#total_savings{ :colspan => 2}= render :partial => 'carts/total_savings'
         %td{:style => "text-align: right", :class => "cart_extended_price"} Subtotal:
         %td#cart_subtotal{:style => "text-align: right", :class => "cart_extended_price"}= number_to_currency gross_price(@cart.sub_total)
         %td.dontprint{:style => "text-align: right;" }
