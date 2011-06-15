@@ -4,8 +4,10 @@
   %img{ :src => "/images/ui-backgrounds/newsletter_comp_sz.png", :style => "float:left; margin:0 10px 0 2px;", :width => "183", :height => "259"}
 - if is_sizzix_uk?
   %img{ :src => "/images/ui-backgrounds/newsletter_comp_sz_uk.png", :style => "float:left; margin:0 10px 0 2px;", :width => "183", :height => "259"}
-- if is_ee? 
+- if is_ee_us? 
   %img{ :src => "/images/ui-backgrounds/newsletter_comp_ee.png", :style => "float:left; margin:0 10px 0 2px;", :width => "183", :height => "259"}
+- if is_ee_uk? 
+  %img{ :src => "/images/ui-backgrounds/newsletter_comp_eeuk.jpg", :style => "float:left; margin:0 10px 0 2px;", :width => "183", :height => "259"}
 - if is_er_us? 
   %img{ :src => "/images/ui-backgrounds/newsletter_comp_er.png", :style => "float:left; margin:0 10px 0 2px;", :width => "183", :height => "259"}
 .ui-corner-all{ :class => "#{ is_sizzix? ? 'newsletter_topframe_sz' : 'newsletter_topframe_ee' }" }
