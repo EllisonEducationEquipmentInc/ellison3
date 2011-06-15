@@ -52,6 +52,7 @@ class Quote
 	field :coupon_code
 	field :old_id_er, :type => Integer
 	field :old_id_eeus, :type => Integer
+	field :old_id_eeuk, :type => Integer
 
   field :expires_at, :type => DateTime
 	

@@ -1195,6 +1195,16 @@ namespace :data_migrations do
     p Time.zone.now
   end
   
+  desc "migrate EDU UK quotes"
+  task :quotes_eeuk => [:set_eeuk, :load_dep] do
+    set_current_system "eeuk"
+    # order = OldData::Quote.find(48)
+    OldData::Quote.find_each(:conditions => "id > 0") do |order|
+      process_new_quote(order, :old_id_eeuk, :old_id_eeuk, :old_id_eeuk)
+    end
+    p Time.zone.now
+  end
+  
   desc "calendar events only for EEUS"
   task :calendar_events_eeus_only => [:set_edu, :load_dep] do
     set_current_system "eeus"
@@ -1945,6 +1955,25 @@ namespace :data_migrations do
       process_quote_changes(old_order, :old_id_er)
     end
   end
+  
+  desc "incremental - quotes EEUK"
+  task :incremental_quotes_eeuk => [:set_eeuk, :load_dep]  do
+    set_current_system "eeuk"
+
+    last_quote = Quote.eeuk.where(:old_id_eeuk.gt => 0).desc(:created_at).first    
+    
+    p "last_quote # #{last_quote.old_id_eeuk} #{last_quote.quote_number}"
+    
+    p "# of new quotes since last migrations: #{OldData::Quote.count(:conditions => ["id > ?", last_quote.old_id_eeuk])}"
+    OldData::Quote.find_each(:conditions => ["id > ?", last_quote.old_id_eeuk]) do |old_order|
+      process_new_quote(old_order, :old_id_eeuk, :old_id_eeuk, :old_id_eeuk)
+    end
+    # 
+    p "# of changed quotes since last migrations: #{OldData::Quote.count(:conditions => ["updated_at > ? and id <= ?", last_quote.created_at, last_quote.old_id_eeuk])}"
+    OldData::Quote.find_each(:conditions => ["updated_at > ? and id <= ?", last_quote.created_at, last_quote.old_id_eeuk]) do |old_order|
+      process_quote_changes(old_order, :old_id_eeuk)
+    end
+  end
 
   #### INCREMENTAL MIGRATIONS END HERE ####
 
@@ -2200,17 +2229,17 @@ EOF
     $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/lib/technoweenie/attachment_fu/backends/')
     $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/lib/technoweenie/attachment_fu/processors/')
     
-    #db = get_db ENV['SYSTEM']
-    db = get_db_ey ENV['SYSTEM']  # uncomment this line on EY, and also change ActiveRecord::Base.establish_connection parameters below!
+    db = get_db ENV['SYSTEM']
+    #db = get_db_ey ENV['SYSTEM']  # uncomment this line on EY, and also change ActiveRecord::Base.establish_connection parameters below!
 
     ActiveRecord::Base.default_timezone = :utc
     ActiveRecord::Base.time_zone_aware_attributes = true
             
     ActiveRecord::Base.establish_connection(
         :adapter  => "mysql",
-        :host     => "ellison-mysql-production-master", #"192.168.1.126", #"ellison-mysql-production-master"
-        :username => "ellison_db", #"ruby", #"ellison_db"
-        :password => "Yh4XS3Sy",  #"ellison123", #"Yh4XS3Sy"
+        :host     => "192.168.1.126", #"ellison-mysql-production-master"
+        :username => "ruby", #"ellison_db"
+        :password => "ellison123", #"Yh4XS3Sy"
         :database => db,
         :encoding => "utf8"
       )
