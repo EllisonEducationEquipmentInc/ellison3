@@ -44,3 +44,10 @@ module Sunspot
   	end
   end
 end
+
+class SunspotCommiter
+  def perform
+    Sunspot.commit
+    Delayed::Job.enqueue self, 0, (Time.now + 1.hour).utc
+  end
+end
