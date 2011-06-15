@@ -29,6 +29,7 @@
 
 .systems_enabled { @extend .keyword;
   font-variant: small-caps;
+  color: $link;
 }
 
 .current_system {
