@@ -1,5 +1,7 @@
 - if @cart.cart_items.blank?
   %h2== Your Shopping #{cart_name} is empty.
+  .clear
+  = link_to "Continue Shopping", session[:continue_shopping] || '/lp/categories', :class => "link_continue-shopping"
   - if user_signed_in? && get_user.save_for_later_list.products.count > 0
     %p
       You saved the item(s) below to buy later.
@@ -9,6 +11,12 @@
     = render :partial => 'carts/add_to_cart_by_item_num'
 
 - else
+  .right
+    - unless @cart_locked
+      - if chekout_allowed?
+        %button{:id => "checkout_button_top", :class => "right dontprint"} Checkout
+        .clear
+      = link_to "Continue Shopping", session[:continue_shopping] || '/lp/categories', :class => "link_continue-shopping"
   %h2
     You have
     %span#cart_items_qty_header= pluralize get_cart.total_quantity, "item"
@@ -60,7 +68,7 @@
         });
   :javascript 
     initialize_tables();
-  
+      
   .dontprint
     - unless @cart_locked
       = render :partial => 'carts/add_to_cart_by_item_num'
@@ -70,7 +78,7 @@
       - if (chekout_allowed? || get_cart.pre_order?) && quote_allowed?
         .right{ :style => "margin: 7px 10px 0 10px; font-weight: bold; text-transform: uppercase" } or
       - if chekout_allowed?
-        %button{:id => "checkout_button", :class => "right"} Checkout
+        %button{:id => "checkout_button_bottom", :class => "right"} Checkout
       - elsif get_cart.pre_order?
         %button{:class => "save_as_quote right"} Pre-Order
       .clear
@@ -83,10 +91,10 @@
           if ($("#fancybox-wrap:visible").length > 0) $('.save_for_later').hide();
         });
         $(function() {
-          $("#checkout_button").button()
+          $("#checkout_button_top, #checkout_button_bottom").button()
             .click( function() {
               $.ajax({url:"#{checkout_requested_path}"});
-              $(this).button({disabled: true, label: 'please wait...'});
+              $("#checkout_button_top, #checkout_button_bottom").button({disabled: true, label: 'please wait...'});
         		});
         	$(".remove_from_cart").click( function() {
         			$.ajax({url:"/carts/remove_from_cart?item_num="+this.id.replace('remove_from_cart_', '')});

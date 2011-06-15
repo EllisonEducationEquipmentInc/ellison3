@@ -85,8 +85,8 @@ ul.cart_summary {
 }
 
 // buttons
-#checkout_button, #checkout_now, .save_as_quote { @extend .button_large;
-  margin-bottom: 10px;
+#checkout_button_top, #checkout_button_bottom, #checkout_now, .save_as_quote { @extend .button_large;
+//  margin-bottom: 10px;
   letter-spacing: .5px;
 }
 

@@ -401,6 +401,14 @@ a.next_button { @extend a.prev_button;
   background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_snoring.png") no-repeat left -1px;
 }
 
+.link_continue-shopping {
+  @extend .link_cart;
+  @extend .right;
+  padding: 0 19px 0 0;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/arrow-curve.png") no-repeat right -1px;
+  margin: 4px 4px 8px 0;
+}
+
 .link_cart_save-for-later { @extend .link_cart;
   padding: 0 19px 0 0;
   background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_cart_save-for-later.png") no-repeat right -1px;
