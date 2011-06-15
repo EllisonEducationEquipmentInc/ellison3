@@ -43,7 +43,6 @@ set :dbuser,              "ellison"
 set :dbpass,              "Yh4XS3Sy"
 
 set :delayed_script_path, "#{current_path}/script/delayed_job"
-set :delayed_job_env, 'production'
 set :delayed_job_role, :app
 set :base_ruby_path, '/usr/local'
 
@@ -70,8 +69,27 @@ task :production do
   role :app, "192.168.2.171", :no_release => true, :no_symlink => true, :memcached => true
 
   set :rails_env, "production"
+  set :delayed_job_env, 'production'
+  
   set :environment_database, defer { production_database }
   set :environment_dbhost, defer { production_dbhost }
+
+  after "custom_symlink", "prod_symlink"
+  after "prod_symlink", "custom_migrations"
+end
+
+task :staging do
+
+  role :web, "192.168.2.171"
+  role :app, "192.168.2.171", :memcached => true
+  role :db , "192.168.2.171", :primary => true
+  role :app, "192.168.2.171", :no_release => true, :no_symlink => true, :memcached => true
+
+  set :rails_env, "staging"
+  set :delayed_job_env, 'staging'
+  
+  set :environment_database, defer { staging_database }
+  set :environment_dbhost, defer { staging_database }
 
   after "custom_symlink", "prod_symlink"
   after "prod_symlink", "custom_migrations"
@@ -93,7 +111,7 @@ end
 
 desc "incremental custom migrations"
 task :custom_migrations, :roles => :app, :except => {:no_release => true} do
-  run "cd #{latest_release} && RAILS_ENV=production rake migrations:run"
+  run "cd #{latest_release} && RAILS_ENV=#{rails_env} rake migrations:run"
 end
 
 #after "deploy:symlink_configs", "custom_symlink"

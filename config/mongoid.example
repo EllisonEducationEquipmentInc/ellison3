@@ -19,6 +19,13 @@ test:
   <<: *defaults
   database: ellison3_test
 
+staging:
+  <<: *defaults
+  database: ellison3
+  # host: <%= ENV['MONGOID_HOST'] %>
+  # port: <%= ENV['MONGOID_PORT'] %>
+  # database: <%= ENV['MONGOID_DATABASE'] %>
+
 # set these environment variables on your prod server
 production:
   <<: *defaults
