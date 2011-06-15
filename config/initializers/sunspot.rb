@@ -45,9 +45,11 @@ module Sunspot
   end
 end
 
-class SunspotCommiter
+SunspotCommiter = Struct.new(:interval) do
+  
   def perform
     Sunspot.commit
-    Delayed::Job.enqueue self, 0, (Time.now + 1.hour).utc
-  end
+    next_time = lambda {Time.now + (interval || 1.hour)}
+    Delayed::Job.enqueue self, 0, next_time.call.utc
+  end  
 end
