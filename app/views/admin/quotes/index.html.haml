@@ -38,7 +38,7 @@
           %td= quote.system
           %td= quote.active
           %td= l quote.expires_at, :format => :custom
-          %td= quote.can_be_converted? ? link_to_if(current_admin.can_act_as_customer, "YES", :action => 'login_as_and_goto_quote', :id => quote) : "--"
+          %td= quote.can_be_converted? ? link_to_if(current_admin.can_act_as_customer, "YES", :action => 'login_as_and_goto_quote', :id => quote) : "--" rescue 'ERROR'
           - if has_write_permissions?
             %td{:style => "text-align: right; white-space: nowrap;"}= link_to 'View', admin_quote_path(quote), :class => 'jqui_show_min'
 - I18n.locale = @current_locale
