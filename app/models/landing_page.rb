@@ -30,8 +30,9 @@ class LandingPage
 	index :systems_enabled
 	
   embeds_many :visual_assets do
-    def current
-			ordered.select {|asset| asset.available?} #.sort {|x,y| x.display_order <=> y.display_order}
+    
+    def current(time = Time.zone.now)
+			ordered.select {|asset| asset.available?(time)}
     end
 
 		def ordered

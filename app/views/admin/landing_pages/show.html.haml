@@ -1,0 +1,8 @@
+%h2.left== Landing Page Preview: #{@landing_page.id}
+.right.minilink= link_to 'edit', edit_admin_landing_page_path(@landing_page), :class => "link_edit-record"
+.clear
+%p
+  %span.icon_datefield Select a Preview Date: 
+  = text_field_tag :time, @time, :class => 'datetimepicker'
+  = link_to_function "GO", "window.location='#{admin_landing_page_path(@landing_page)}?time='+$('#time').val()", :class => "jqui_button"
+= render :partial => 'visual_assets/visual_asset', :collection => @landing_page.visual_assets.current(@time)
