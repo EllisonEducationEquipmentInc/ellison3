@@ -101,9 +101,7 @@ body.bp {
     }
     
     .megalink-admin { @extend .megalink;
-      color: $meganav_admin;
-      
-      &:hover { color: $meganav_admin_hover; }
+      padding-top: 4px !important;
     }
     
     .megapanel {

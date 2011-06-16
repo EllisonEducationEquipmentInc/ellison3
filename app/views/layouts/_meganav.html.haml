@@ -5,7 +5,7 @@
     -# Ellison3 dashboard menu for admins
     - if admin_signed_in?
       %li.megaitem
-        = link_to "Dashboard", "#", :class => "megalink-admin", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
+        = link_to image_tag("/images/ui-buttons/dashboard.png"), "#", :class => "megalink-admin", :onclick => "$(this).siblings('div.megapanel').hide(); return true;", :alt => "Admin Dashboard", :title => "Admin Dashboard"
         .megapanel.full-width
           .contentwrap_XL.resize
             %h3== Admin Dashboard ~ #{current_admin.email}
@@ -94,11 +94,6 @@
       outline:true,
       outlineWeight: 1,
       outlineColor1: "#3359a4"
-    })
-    $(".megalink-admin").FontEffect({
-      outline:true,
-      outlineWeight: 1,
-      outlineColor1: "#e3e7f8"
     })
 :javascript
   $('ul.megasublist li').mouseover(function(){

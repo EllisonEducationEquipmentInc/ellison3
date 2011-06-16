@@ -97,12 +97,6 @@ body.bp {
       &:hover { color: $meganav_hover; };
     }
     
-    .megalink-admin { @extend .megalink;
-      color: $meganav_admin;
-      
-      &:hover { color: $meganav_admin_hover; }
-    }
-    
     .megapanel {
       top: 23px;
       margin-top: 4px;

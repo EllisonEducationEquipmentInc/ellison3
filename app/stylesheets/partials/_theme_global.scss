@@ -370,6 +370,13 @@ ul.ui-tabs-nav {
           padding: 3px 10px;
         }
         
+        a.megalink-admin { @extend a.megalink;
+          padding: 3px 10px 0 10px;
+          color: $meganav_admin;
+      
+          &:hover { color: $meganav_admin_hover; }
+        }
+        
         .megapanel {
           background: $meganav_bg_panel;
           text-align: left;
