@@ -583,7 +583,7 @@ namespace :data_migrations do
           p "!!! #{old_user.id} #{old_user.email} has no institution ====="
         end
         if user.account_id.blank?
-          account = Account.where(:old_id => u.old_account_id).first
+          account = Account.where(:old_id => user.old_account_id).first
           if account
             user.update_attribute :account_id, account.id
             p "-- assigning account --"
