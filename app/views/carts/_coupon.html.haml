@@ -13,9 +13,10 @@
         initialize_lightboxes();
 - else
   = form_tag activate_coupon_path, :id => "coupon_form", :remote => true, :onsubmit => "return false;"  do
-    = label_tag :coupon_code, "Please enter coupon code here:"
-    = text_field_tag :coupon_code
-    %button.jqui_ok#activate_coupon Activate coupon
+    .field
+      = label_tag :coupon_code, "Please enter coupon code here:", :style => "width: 185px;"
+      = text_field_tag :coupon_code
+      %button.jqui_ok#activate_coupon Activate coupon
     %p.formhelp
       Only one coupon code allowed per order.
       - if is_ee_us?

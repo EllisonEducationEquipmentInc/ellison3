@@ -40,6 +40,9 @@ p#edit_shipping_address, p#edit_billing_address {
   }  
 }
 
+#add_to_cart_by_item_num {
+  margin-bottom: 6px;
+}
 #cart_coupon { @extend .left; }
 
 .cart_item_price {
