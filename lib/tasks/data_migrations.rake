@@ -569,6 +569,16 @@ namespace :data_migrations do
     end
   end
   
+  desc "fix eeus accounts/institutions"
+  task :fix_eeus_institutions => :environment do
+    set_current_system "eeus"
+    User.where(:systems_enabled.in => ["eeus"], :old_account_id.gt => 0, :institution.exists => false).in_batches(500) do |batch|
+      batch.each do |user|
+        
+      end
+    end
+  end
+  
   desc "migrate SZUS orders"
   task :orders_szus => :load_dep do
     set_current_system "szus"
@@ -1105,7 +1115,7 @@ namespace :data_migrations do
         p "account found..."
         new_user.account = account
         new_user.institution = old_user.account.institution.code.strip if old_user.account.try(:institution).try(:code)
-        new_user.save
+        new_user.save(:validate => false)
       end
       p new_user.errors
       p "-------- #{new_user.old_id_eeus} #{new_user.email}----------"
@@ -1131,7 +1141,7 @@ namespace :data_migrations do
     OldData::User.not_deleted.find_each(:conditions => "id > 0") do |old_user|
       existing = User.where(:email => old_user.email.downcase).first
       existing.update_attribute :old_id_eeuk, old_user.id if existing
-      if !existing.blank? && old_user.orders.count > 0
+      if !existing.blank?
         new_user = existing
         p "!!! user #{old_user.email} found. merging..."
         new_user.old_id_eeuk = old_user.id
@@ -1544,23 +1554,21 @@ namespace :data_migrations do
       
       p new_user.errors
       p "=== #{old_user.id} #{new_user.email} ==="
-      if is_er? && sym == :old_id_er
+      if sym == :old_id_er
         process_retailer_app(new_user, old_user)
         p "setting tax_exempt=false"
         new_user.update_attribute :tax_exempt, false
       end
-      if is_ee? 
-        if sym == :old_id_eeus
-          account = Account.where(:old_id => old_user.account_id).first
-        else
-          account = Account.where(:old_id_uk => old_user.account_id).first
-        end
-        if account
-          p "account found..."
-          new_user.account = account
-          new_user.institution = old_user.account.institution.code.strip if old_user.account.try(:institution).try(:code)
-          new_user.save
-        end
+      if sym == :old_id_eeus
+        account = Account.where(:old_id => old_user.account_id).first
+      elsif sym == :old_id_eeuk
+        account = Account.where(:old_id_uk => old_user.account_id).first
+      end
+      if account
+        p "account found..."
+        new_user.account = account
+        new_user.institution = old_user.account.institution.code.strip if old_user.account.try(:institution).try(:code)
+        new_user.save(:validate => false)
       end
     end
     
