@@ -570,11 +570,25 @@ namespace :data_migrations do
   end
   
   desc "fix eeus accounts/institutions"
-  task :fix_eeus_institutions => :environment do
+  task :fix_eeus_institutions => [:set_edu, :load_dep] do
     set_current_system "eeus"
-    User.where(:systems_enabled.in => ["eeus"], :old_account_id.gt => 0, :institution.exists => false).in_batches(500) do |batch|
+    User.where(:systems_enabled.in => ["eeus"], :old_account_id.gt => 0, :old_id_eeus.gt => 0, :institution.exists => false).in_batches(500) do |batch|
       batch.each do |user|
-        
+        old_user = OldData::User.find user.old_id_eeus
+        if old_user.account.try(:institution).try(:code)
+          institution = old_user.account.institution.code.strip 
+          user.update_attribute :institution, old_user.account.institution.code.strip
+          p "===== #{old_user.id} #{old_user.email} #{institution} ====="
+        else
+          p "!!! #{old_user.id} #{old_user.email} has no institution ====="
+        end
+        if user.account_id.blank?
+          account = Account.where(:old_id => u.old_account_id).first
+          if account
+            user.update_attribute :account_id, account.id
+            p "-- assigning account --"
+          end
+        end
       end
     end
   end
