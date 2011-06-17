@@ -132,9 +132,19 @@
     - if (@tag.tag_type == "special" || @tag.tag_type == "exclusive") && @tag.send("end_date_#{current_system}").present? && (!(@tag.active && @tag.send("end_date_#{current_system}") > Time.zone.now))
       %p
         = link_to "Remove All Products", {:action => :remove_all_products, :id => @tag.id}, :remote => true, :method => :delete, :confirm => "Are you sure you want to remove all products from this tag?", :class => "link_remove"
+      %p
+        %span.formhelp_important
+          == <strong>Important Note!</strong>
+          %br
+          == Please verify that <strong><em>all</em></strong> products associated with this tag have been indexed <strong>BEFORE</strong> clicking 'Remove All Products'.
+          %br
+          Review this
+          = link_to "tag's permalink", "http://#{request.host_with_port}#{catalog_path(:anchor => "facets=#{@tag.facet_param}")}", :style => "text-decoration: underline"
+          == to verify that indexing has completed - <strong><span style="text-decoration: underline">NO</span></strong> products should be displayed.
         %br
         %span.formhelp
-          == <strong>Note:</strong> Removing product(s) here will <strong>ONLY</strong> remove them from <em>this</em> Specials tag - <strong>IT WILL NOT REMOVE THE SALE PRICE OF THE PRODUCT(S) THEMSELVES.</strong>
+          %br
+          == Removing product(s) here will <strong>ONLY</strong> remove them from <em>this</em> Specials tag - <strong>IT WILL NOT REMOVE THE SALE PRICE OF THE PRODUCT(S) THEMSELVES.</strong>
           %br
           To remove or delete the sale prices from products, do so from each product's respective detail page.
     %hr
