@@ -21,6 +21,7 @@
         = sortable "search_query"
         %th Systems
         %th Active?
+        %th &nbsp;
         - if has_write_permissions?
           %th &nbsp;
           %th &nbsp;
@@ -34,6 +35,7 @@
           %td= landing_page.search_query
           %td= landing_page.systems_enabled.join(", ") rescue ''
           %td= landing_page.active
+          %td= link_to 'Show', admin_landing_page_path(landing_page), :class => 'jqui_show_min'
           - if has_write_permissions?
             %td= link_to 'Edit', edit_admin_landing_page_path(landing_page), :class => 'jqui_edit_min'
             %td= link_to 'Destroy', admin_landing_page_path(landing_page), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
