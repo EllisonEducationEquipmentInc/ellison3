@@ -1,4 +1,5 @@
 %li.ui-menu-item{:id => "idea_#{idea.id}"}
   = link_to_function "x", "$('#idea_#{idea.id}').css('color', 'gray');$.ajax({url:'/admin/products/remove_idea?idea_id=#{idea.id}&id=#{product_id}'})", :class => "remove_idea", :alt => "remove idea", :title => "remove idea"
   = link_to 'Show Idea', admin_idea_path(idea.id), :class => "show_idea", :alt => "show idea", :title => "show idea"
-  == ##{idea.idea_num} - #{idea.name}
+  = link_to "##{idea.idea_num}", edit_admin_idea_path(idea), :style => "color:#{idea.displayable? ? 'green' : 'red'}", :title => "Edit Idea"
+  == - #{idea.name}

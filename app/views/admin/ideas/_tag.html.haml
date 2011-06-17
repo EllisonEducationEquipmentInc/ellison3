@@ -4,6 +4,6 @@
     = link_to 'Show Tag', admin_tag_path(tag.id), :class => "show_idea", :alt => "show tag", :title => "show tag"
   .systems_enabled== #{tag.systems_enabled.join(", ")}
   .left
-    = tag.name
+    = link_to tag.name, edit_admin_tag_path(tag), :style => "color:#{tag.displayable? ? 'green' : 'red'}", :title => "Edit tag"
     %span.keyword== (#{tag.tag_type.humanize})
   .clear
