@@ -71,7 +71,7 @@
 
   %div{ :class => "item_detail#{'-tabbed' if @idea.use_tabs || (@idea.products.displayable.count < 1 && @idea.four_related_criteria.count < 1)}"}
     = render :partial => "index/#{'non_' unless @idea.use_tabs}tab_block", :locals => {:object => @idea}
-  - unless (@idea.use_tabs && @idea.products.displayable.count > 0 && @idea.four_related_criteria.count > 0)
+  - if !@idea.use_tabs && @idea.products.displayable.count > 0 && @idea.four_related_criteria.count > 0
     .item_cross-sell.dontprint
       - if @idea.products.displayable.count > 0
         .rounded
