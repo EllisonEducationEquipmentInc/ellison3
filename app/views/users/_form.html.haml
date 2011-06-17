@@ -7,7 +7,7 @@
   = f.label :name, is_sizzix? ? "Name" : "Contact Person"
   %br/
   = f.text_field :name, :size => 28
-- if is_ee?
+- if is_ee_us?
   .field
     = f.label :institution, "Institution Description", :class => "autosize"
     %br/
