@@ -319,7 +319,7 @@
 
   :javascript
     $(function() {
-      var avail_messages = [{value: '<a href="/contact">Call now to place your order</a>', label: "Call now to place your order"}, {value: '<a href="/stores">Check Your Local Craft Store</a>', label: 'Check Your Local Craft Store'}, {label: 'Available at your Local Retailer', value: '<a href="/stores">Available at your Local Retailer</a>'}, {value: '<a href="http://www.stampinup.com/ECWeb/CategoryPage.aspx?categoryID=180" target="_blank">Stampin\' Up! Exclusive Product</a>', label: 'Stampin\' Up! Exclusive Product'}];
+      var avail_messages = [{value: '<a href="/stores">Coming Soon to your Local Retailer</a>', label: "Coming soon to your Local Retailer"}, {value: '<a href="/contact">Call now to place your order</a>', label: "Call now to place your order"}, {value: '<a href="/stores">Check Your Local Craft Store</a>', label: 'Check Your Local Craft Store'}, {label: 'Available at your Local Retailer', value: '<a href="/stores">Available at your Local Retailer</a>'}, {value: '<a href="http://www.stampinup.com/ECWeb/CategoryPage.aspx?categoryID=180" target="_blank">Stampin\' Up! Exclusive Product</a>', label: 'Stampin\' Up! Exclusive Product'}];
       $('#product_availability_message_#{current_system}').autocomplete({source: avail_messages});
       $('#product_distribution_life_cycle_#{current_system}').autocomplete({source: ["New", "Sale", "Discountinued", "Clearance", "Coming Soon"]});
     });
