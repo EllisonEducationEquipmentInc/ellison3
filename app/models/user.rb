@@ -58,7 +58,9 @@ class User
 	accepts_nested_attributes_for :addresses
 	accepts_nested_attributes_for :retailer_application
 	
-	validates_associated :retailer_application, :addresses, :unless => proc {disable_solr_indexing?}
+	validates_associated :retailer_application, :unless => proc {disable_solr_indexing?}
+	validates_associated :addresses, :if => Proc.new {|obj| obj.addresses.any?(&:changed?) && !disable_solr_indexing?}
+
 
   referenced_in :account
   referenced_in :admin, :validate => false
