@@ -26,7 +26,7 @@
       .field
         = f.label :institution, :class => "autosize"
         %br/
-        = f.select :institution, institutions
+        = f.select :institution, institutions, {:prompt => "--- please select ---"}
 
   .contentwrap_large.last
     .field
