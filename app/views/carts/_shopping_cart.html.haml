@@ -6,3 +6,4 @@
   \&nbsp;
 %p.cart_shipmsg
   \&nbsp;
+  = link_to_unless_current "Check Out Now", cart_path unless get_cart.cart_items.blank? 
