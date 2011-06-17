@@ -13,14 +13,18 @@ class Admin::SystemSettingsController < ApplicationController
 	end
 	
 	def save_vat
-	  SystemSetting.update :vat, params[:update_value].to_f if params[:update_value].present?
+	  if params[:update_value].present?
+	    SystemSetting.update :vat, params[:update_value].to_f
+	    Rails.cache.delete 'vat'
+	  end
 	  render :text => SystemSetting.value_at("vat").to_f
 	end
 	
 	def save_free_shipping_message
 	  @free_shipping_message = SystemSetting.find_by_key("free_shipping_message_#{current_system}") || SystemSetting.new(:key => "free_shipping_message_#{current_system}")
 	  @free_shipping_message.value = params[:update_value]
-	  @free_shipping_message.save
+	  @free_shipping_message.save :validate => false
+	  Rails.cache.delete "free_shipping_message_#{current_system}"
 	  render :text => @free_shipping_message.value
 	end
 end

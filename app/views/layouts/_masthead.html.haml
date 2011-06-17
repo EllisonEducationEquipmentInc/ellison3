@@ -22,8 +22,8 @@
         %li= link_to "<span>Support</span>".html_safe, "/support", :class => "btn-support", :title => "Support", :alt => "Support"
       -#%li= link_to "<span>Community</span>".html_safe, "/contact", :class => "btn-community", :title => "Community", :alt => "Community"
       -#%li= link_to "<span>Store Locator</span>".html_safe, "/stores", :class => "btn-storelocator", :title => "Store Locator", :alt => "Store Locator"
-      - if is_sizzix_us?
-      / %li= link_to "<span>Limited Time Offers</span>".html_safe, "#", :class => "btn-offers", :title => "Limited Time Offers", :alt => "Limited Time Offers"
+      - if free_shipping_message.present?
+        %li= link_to "<span>#{free_shipping_message}</span>".html_safe, "#", :class => "btn-offers", :title => free_shipping_message, :alt => free_shipping_message
     - if is_uk?
       :javascript
         $(document).ready(function(){

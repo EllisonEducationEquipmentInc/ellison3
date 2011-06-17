@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   layout :get_layout
 
 	helper_method :vat, :gross_price, :calculate_vat, :get_user, :countries, :states, :provinces, :sort_column, :sort_direction, :ga_tracker_id, :has_write_permissions?, :has_read_permissions?, :admin_systems,
-	              :quote_allowed?, :chekout_allowed?, :currency_correct?, :vat_exempt?, :outlet?, :machines_owned, :perform_search, :admin_user_as_permissions!, :convert_2_gbp, :is_admin?
+	              :quote_allowed?, :chekout_allowed?, :currency_correct?, :vat_exempt?, :outlet?, :machines_owned, :perform_search, :admin_user_as_permissions!, :convert_2_gbp, :is_admin?, :free_shipping_message
 
 private
 
@@ -45,10 +45,15 @@ private
 	  is_ee?
 	end
 	
-	# TODO: CMS for this
 	def vat
 		Rails.cache.fetch 'vat', :expires_in => 1.hour.since do
 		  SystemSetting.value_at("vat").to_f
+		end
+	end
+	
+	def free_shipping_message
+	  Rails.cache.fetch "free_shipping_message_#{current_system}", :expires_in => 1.hour.since do
+		  SystemSetting.value_at "free_shipping_message_#{current_system}"
 		end
 	end
 	
