@@ -45,7 +45,6 @@ private
       Navigation.new("Products", "/product_overview"), 
       Navigation.new("Electronic Cutting", "/eclips"),
       Navigation.new("Specials", "/campaigns"),
-      Navigation.new("Community", "#"),
       Navigation.new("Support", "#")
     ]
   end
