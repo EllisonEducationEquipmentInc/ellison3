@@ -5,7 +5,7 @@
     %p
       = f.label :institution, "Institution Description"
       %br/
-      = f.select :institution, institutions
+      = f.select :institution, institutions, {:prompt => "--- please select ---"}
   - if is_er? || is_ee?
     %p
       = f.label :company, 'Company/School/Organization'
