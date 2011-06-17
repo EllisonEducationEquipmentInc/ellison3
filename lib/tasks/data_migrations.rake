@@ -2251,17 +2251,17 @@ EOF
     $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/lib/technoweenie/attachment_fu/backends/')
     $: << File.expand_path(File.dirname(__FILE__) + '/data_migrations/vendor/attachment_fu/lib/technoweenie/attachment_fu/processors/')
     
-    db = get_db ENV['SYSTEM']
-    #db = get_db_ey ENV['SYSTEM']  # uncomment this line on EY, and also change ActiveRecord::Base.establish_connection parameters below!
+    #db = get_db ENV['SYSTEM']
+    db = get_db_ey ENV['SYSTEM']  # uncomment this line on EY, and also change ActiveRecord::Base.establish_connection parameters below!
 
     ActiveRecord::Base.default_timezone = :utc
     ActiveRecord::Base.time_zone_aware_attributes = true
             
     ActiveRecord::Base.establish_connection(
         :adapter  => "mysql",
-        :host     => "192.168.1.126", #"ellison-mysql-production-master"
-        :username => "ruby", #"ellison_db"
-        :password => "ellison123", #"Yh4XS3Sy"
+        :host     => "ellison-mysql-production-master", #"192.168.1.126", #"ellison-mysql-production-master"
+        :username => "ellison_db", #"ruby", #"ellison_db"
+        :password => "Yh4XS3Sy",  #"ellison123", #"Yh4XS3Sy"
         :database => db,
         :encoding => "utf8"
       )
