@@ -35,7 +35,7 @@ class IndexController < ApplicationController
     end
     raise "Invalid product" unless @product.displayable?
     @title = @product.name
-    unless fragment_exist? [@product, current_system, current_locale, @product.price, Product.retailer_discount_level, ecommerce_allowed?, request.xhr?]
+    unless fragment_exist? ['product', @product, @product.updated_at.utc.to_i, current_system, current_locale, @product.price, Product.retailer_discount_level, ecommerce_allowed?, request.xhr?]
       @keywords = @product.keywords if @product.keywords.present?
       @keywords << @product.tags.keywords.map {|e| e.name} * ', '
       @description = @product.description if @product.description.present?
@@ -60,13 +60,13 @@ class IndexController < ApplicationController
     end
     raise "Invalid idea" unless @idea.listable?
     @title = @idea.name
-    unless fragment_exist? [@idea, current_system, current_locale, Product.retailer_discount_level, ecommerce_allowed?]
+    unless fragment_exist? ['idea', @idea, @idea.updated_at.utc.to_i, current_system, current_locale, Product.retailer_discount_level, ecommerce_allowed?]
       @keywords = @idea.keywords if @idea.keywords.present?
       @keywords << @idea.tags.keywords.map {|e| e.name} * ', '
       @description = @idea.description if @idea.description.present?
     end
-    #fresh_when(:etag => [current_system, @idea], :last_modified => @idea.updated_at.utc)
-    expires_in 5.minutes, 'max-stale' => 5.minutes
+    fresh_when(:etag => ['idea', @idea, @idea.updated_at.utc.to_i, current_system, current_locale], :last_modified => @idea.updated_at.utc)
+    #expires_in 5.minutes, 'max-stale' => 5.minutes
   rescue Exception => e
     Rails.logger.info e
     redirect_to(tag_group_path("themes", :ideas => 1))

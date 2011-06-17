@@ -13,6 +13,13 @@ module Mongoid #:nodoc:
       common_attributes.reject {|k,v| args.include? k.to_sym}.each { |e|  self.send("#{e}=", document.send(e))}
     end
     
+    def force_touch=(t)
+      self.set_updated_at if self.respond_to?(:set_updated_at) && Boolean.set(t)
+    end
+    
+    def force_touch  
+    end
+    
     # mongoid's current Relations::Many implementation causes memory bloat. Use these methods instead of <<, concat, nullify, delete to avoid memory bloat
     #
     # example: @tag.add_to_collection "products", @product

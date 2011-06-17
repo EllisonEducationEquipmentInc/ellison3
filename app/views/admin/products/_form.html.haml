@@ -315,6 +315,9 @@
   
   .clear
   .actions
+    - unless f.object.new_record?
+      = f.check_box :force_touch
+      = f.label :force_touch, "Touch record - force expire cache for this record"
     = f.submit :class => 'wymupdate jqui_save'
 
   :javascript
