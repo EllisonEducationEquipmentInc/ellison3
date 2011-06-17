@@ -206,7 +206,12 @@ Ellison3::Application.routes.draw do |map|
 			  end
 			end
       
-      resources :navigations
+      resources :navigations, :system_settings
+      resources :system_settings do
+        collection do
+			    post :save_vat, :save_free_shipping_message
+			  end
+      end
       
       match 'virtual_terminal(/:action(/:id(.:format)))' => "virtual_terminal"
       match 'firmwares(/:action(.:format))' => "firmwares"

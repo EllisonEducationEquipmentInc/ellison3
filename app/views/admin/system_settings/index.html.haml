@@ -1,0 +1,25 @@
+%h2 System Settings
+- if is_uk?
+  %h3 UK V.A.T. %
+  #uk_vat= @vat
+  - if has_write_permissions?
+    :javascript
+      $(document).ready(function(){
+        $("#uk_vat").editInPlace({
+          url: "/admin/system_settings/save_vat",
+          show_buttons: true,
+          value_required: true,
+          saving_animation_color: "#ECF2F8"
+        });
+      });
+%h3== #{current_system} free shipping message
+#free_shipping_message= @free_shipping_message
+- if has_write_permissions?
+  :javascript
+    $(document).ready(function(){
+      $("#free_shipping_message").editInPlace({
+        url: "/admin/system_settings/save_free_shipping_message",
+        show_buttons: true,
+        saving_animation_color: "#ECF2F8"
+      });
+    });
