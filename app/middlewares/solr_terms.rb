@@ -31,6 +31,11 @@ class SolrTerms
       solr_response = Net::HTTP.get(URI.parse("#{solr_path}/select?fq=type%3ATag&fq=active_b%3Atrue&q=#{term.downcase.strip.gsub(/\+$/, '')}*&fl=id+stored_name_ss+tag_type_ss+systems_enabled_sms&qf=stored_name_ss&start=0&rows=20&wt=ruby&omitHeader=true&json.nl=arrarr"))
       hash = eval(solr_response)
       [200, {"Content-Type" => 'text/plain; charset=utf-8'}, hash["response"]["docs"].inject([]) {|arr, e| arr << {"id" => e['id'].gsub("Tag ", ''), "label" => "#{e['stored_name_ss']} (#{e['tag_type_ss']}) #{e['systems_enabled_sms']}", "value" => e['stored_name_ss']}}.to_json]
+    elsif env["REQUEST_URI"] =~ /^\/tags_by_type\?type=(.+)$/
+      term = $1
+      solr_response = Net::HTTP.get(URI.parse("#{solr_path}/select?fq=type%3ATag&fq=active_b%3Atrue&fq=tag_type_ss%3A#{term}*&fl=id+stored_name_ss+tag_type_ss+systems_enabled_sms&qf=stored_name_ss&start=0&rows=300&wt=ruby&omitHeader=true&json.nl=arrarr&q=%2A%3A%2A&sort=stored_name_ss+asc"))
+      hash = eval(solr_response)
+      [200, {"Content-Type" => 'text/plain; charset=utf-8'}, hash["response"]["docs"].inject([]) {|arr, e| arr << {"id" => e['id'].gsub("Tag ", ''), "label" => "#{e['stored_name_ss']} (#{e['tag_type_ss']}) #{e['systems_enabled_sms']}", "value" => e['stored_name_ss']}}.to_json]
     else
       @app.call(env)
     end

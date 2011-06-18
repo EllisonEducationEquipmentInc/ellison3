@@ -120,7 +120,41 @@
         	  $.ajax({url:'/admin/ideas/add_tag?tag_id='+ui.item.id+'&id=#{@idea.id}', success: function(html) {$('#idea_tags').append(html);$('#idea_tags').find('.spinner').remove();}, beforeSend: function(){$('#idea_tags').append('#{escape_javascript loader_bar}')}});
         		return false;
         	}});
+      .field
+        %strong Get Tags by type
+        = select_tag :get_tags_by_type, options_for_select([["--- select tag type ---", nil]] + Tag.all_types)
+        #tag_by_type_helper
+        :javascript
+          $('#get_tags_by_type').change(function(){
+            if (this.value == '') {
+              $('#tag_by_type_helper').html('');
+            } else {
+              $.getJSON('/tags_by_type?type='+this.value, function(data) {
+                var items = [];
 
+                $.each(data, function(key, val) {
+                  items.push('<li class="ui-menu-item tag_by_type_list_li" id="tag_helper_' + val.id + '">' + val.label + '</li>');
+                });
+                $('#tag_by_type_helper').html(function() {
+                  return $('<ul/>', {
+                    'class': 'tag_by_type_list',
+                    html: items.join('')
+                  })
+                })
+              });
+            }
+          })
+          $('.tag_by_type_list_li').live("mouseover mouseout", function(event){
+            if ( event.type == "mouseover" ) {
+              $(this).addClass("tag_by_type_list_over");
+            } else {
+              $(this).removeClass("tag_by_type_list_over");
+            }
+          })
+          $('.tag_by_type_list_li').live("click", function(){
+            $(this).css({ opacity: 0.3 });
+            $.ajax({url:'/admin/ideas/add_tag?tag_id='+this.id.replace('tag_helper_', '')+'&id=#{@idea.id}', success: function(html) {$('#idea_tags').append(html);$('#idea_tags').find('.spinner').remove();}, beforeSend: function(){$('#idea_tags').append('#{escape_javascript loader_bar}')}});
+          })
   .contentwrap_large.last
     .field
       = f.label :related_idea_tag, "Related Idea Tag ID", :class => "autosize"
@@ -194,7 +228,6 @@
         	  $.ajax({url:'/admin/ideas/add_product?product_id='+ui.item.id+'&id=#{@idea.id}', success: function(html) {$('#idea_products').append(html);$('#idea_products').find('.spinner').remove();}, beforeSend: function(){$('#idea_products').append('#{escape_javascript loader_bar}')}});
         		return false;
         	}});
-
   .contentwrap_large.last
     .field
       = f.label :keywords, "Meta Tag Keywords", :class => "autosize"
