@@ -204,6 +204,10 @@ body.bp th, body.bp td, body.bp caption {
   .product_by_tag_list_over {
     @extend .tag_by_type_list_over;
   }
+  .already_added {
+    @extend .tag_by_type_list;
+    opacity: 0.3;
+  }
 	
 }
 p.show_cart{cursor:pointer;}

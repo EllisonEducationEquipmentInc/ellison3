@@ -234,6 +234,7 @@
         %span#get_products_by_tag
         #products_by_tag_helper
         :javascript
+          var product_ids = #{@idea.product_ids.map &:to_s}
           $('#get_products_by_tag_type').change(function(){
             $('#products_by_tag_helper').html('');
             if (this.value == '') {
@@ -263,7 +264,7 @@
                 var items = [];
 
                 $.each(data, function(key, val) {
-                  items.push('<li class="ui-menu-item product_by_tag_list_li" id="product_helper_' + val.id + '">' + val.label + '</li>');
+                  items.push('<li class="ui-menu-item '+(product_ids.indexOf(val.id) >= 0 ? 'already_added' : 'product_by_tag_list_li')+'" id="product_helper_' + val.id + '">' + val.label + '</li>');
                 });
                 $('#products_by_tag_helper').html(function() {
                   return $('<ul/>', {
@@ -282,7 +283,9 @@
             }
           })
           $('.product_by_tag_list_li').live("click", function(){
-            $(this).css({ opacity: 0.3 });
+            product_ids.push(this.id.replace('product_helper_', ''));
+            $(this).removeClass("product_by_tag_list_li product_by_tag_list_over");
+            $(this).addClass("already_added");
             $.ajax({url:'/admin/ideas/add_product?product_id='+this.id.replace('product_helper_', '')+'&id=#{@idea.id}', success: function(html) {$('#idea_products').append(html);$('#idea_products').find('.spinner').remove();}, beforeSend: function(){$('#idea_products').append('#{escape_javascript loader_bar}')}});
           })
   .contentwrap_large.last
