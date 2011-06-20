@@ -156,6 +156,8 @@ class Tag
 		end
     string :tag_type, :stored => true
     string :systems_enabled, :multiple => true, :stored => true
+    string :product_ids, :multiple => true, :stored => true
+    string :idea_ids, :multiple => true, :stored => true
   end
   
   def product_item_nums=(item_nums)

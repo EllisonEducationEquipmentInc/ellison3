@@ -121,11 +121,14 @@ class Idea
 		text :keywords, :boost => 1.5
 		string :idea_num, :stored => true
 		string :medium_image, :stored => true
+		string :small_image, :stored => true
 		string :stored_name, :stored => true do
 		  name
 		end
 		string :item_group
-		string :systems_enabled, :multiple => true
+    string :systems_enabled, :multiple => true, :stored => true
+    string :tag_ids, :multiple => true, :stored => true
+    string :product_ids, :multiple => true, :stored => true
     ELLISON_SYSTEMS.each do |system|
       # system specific facets: ex: theme_szus
       Tag.all_types.each do |e|

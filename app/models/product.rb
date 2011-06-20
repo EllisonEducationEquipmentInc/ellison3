@@ -226,11 +226,14 @@ class Product
     string :life_cycle, :stored => true
     string :item_num, :stored => true
     string :medium_image, :stored => true
+    string :small_image, :stored => true
     string :stored_name, :stored => true do
       name
     end
     string :item_group
-    string :systems_enabled, :multiple => true
+    string :systems_enabled, :multiple => true, :stored => true
+    string :tag_ids, :multiple => true, :stored => true
+    string :idea_ids, :multiple => true, :stored => true
     # integer :quantity, :stored => true
     integer :saving, :stored => true
     time :outlet_since
