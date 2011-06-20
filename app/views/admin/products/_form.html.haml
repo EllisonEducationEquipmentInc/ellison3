@@ -238,6 +238,7 @@
         = select_tag :get_tags_by_type, options_for_select([["--- select tag type ---", nil]] + Tag.all_types)
         #tag_by_type_helper
         :javascript
+          var tag_ids = #{@product.tag_ids.map &:to_s}
           $('#get_tags_by_type').change(function(){
             if (this.value == '') {
               $('#tag_by_type_helper').html('');
@@ -246,7 +247,7 @@
                 var items = [];
 
                 $.each(data, function(key, val) {
-                  items.push('<li class="ui-menu-item tag_by_type_list_li" id="tag_helper_' + val.id + '">' + val.label + '</li>');
+                  items.push('<li class="ui-menu-item '+(tag_ids.indexOf(val.id) >= 0 ? 'already_added' : 'tag_by_type_list_li')+'" id="tag_helper_' + val.id + '">' + val.label + '</li>');
                 });
                 $('#tag_by_type_helper').html(function() {
                   return $('<ul/>', {
@@ -265,7 +266,9 @@
             }
           })
           $('.tag_by_type_list_li').live("click", function(){
-            $(this).css({ opacity: 0.3 });
+            tag_ids.push(this.id.replace('tag_helper_', ''));
+            $(this).removeClass("tag_by_type_list_li tag_by_type_list_over");
+            $(this).addClass("already_added");
             $.ajax({url:'/admin/products/add_tag?tag_id='+this.id.replace('tag_helper_', '')+'&id=#{@product.id}', success: function(html) {$('#product_tags').append(html);$('#product_tags').find('.spinner').remove();}, beforeSend: function(){$('#product_tags').append('#{escape_javascript loader_bar}')}});
           })
   .contentwrap_large.last
