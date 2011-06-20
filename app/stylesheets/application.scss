@@ -198,6 +198,12 @@ body.bp th, body.bp td, body.bp caption {
 	  border: solid #654B24;
 	  background: #654B24 url(/stylesheets/jqui-ellison3/images/ui-bg_glass_65_654b24_1x400.png) repeat-x 50% 50%;
 	}
+	.product_by_tag_list {
+    @extend .tag_by_type_list;
+  }
+  .product_by_tag_list_over {
+    @extend .tag_by_type_list_over;
+  }
 	
 }
 p.show_cart{cursor:pointer;}
