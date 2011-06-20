@@ -70,3 +70,11 @@ ul#feedback_history { @extend ul.plain; }
   *width: 515px;
   *text-align: left;
 }
+
+// Retailers Application
+#brands_to_resell {
+  label.invalid {
+    position: absolute;
+  }
+  
+}

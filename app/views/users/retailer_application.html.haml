@@ -21,7 +21,7 @@
         = required_label retailer_application_fields, :website, { :label_size => "147px" }
         = retailer_application_fields.text_field :website, :type => :url
         %p.formhelp{ :style => "margin: 0 0 6px 159px"} sample URL: http://www.yourwebsite.com
-        = retailer_application_fields.check_box :no_website, :style => "margin-left: 159px", :onclick => "if (this.checked) { $('label[for=user_retailer_application_attributes_website] span').removeClass('required') } else { $('label[for=user_retailer_application_attributes_website] span').addClass('required') }"
+        = retailer_application_fields.check_box :no_website, :style => "margin-left: 159px", :onclick => "has_website(this.checked)"
         = retailer_application_fields.label :no_website, "I do not have a website", :class => "autosize"
       .field
         = required_label retailer_application_fields, :tax_identifier, { :label_size => "147px" }
@@ -39,7 +39,7 @@
         = required_label retailer_application_fields, :resale_number, { :label_size => "147px" }
         = retailer_application_fields.text_field :resale_number, :required => true
         %p.formhelp{ :style => "margin-left: 159px"} International customers, enter Business Registration ID
-      .field
+      .field#brands_to_resell
         = required_label retailer_application_fields, :brands_to_resell, { :label_size => "134px" }
         - RetailerApplication::AVAILABLE_BRANDS.each do |brand|
           = check_box_tag 'user[retailer_application_attributes][brands_to_resell][]', brand, @user.retailer_application.brands_to_resell.include?(brand)
@@ -91,7 +91,7 @@
         = retailer_application_fields.hidden_field :store_photo_cache
         = link_to "download", @user.retailer_application.store_photo_url, :class => "link_download", :target => "_blank" if @user.retailer_application.try(:store_photo?)
       .field
-        = retailer_application_fields.check_box :will_fax_documents, :style => "margin-left: 186px"
+        = retailer_application_fields.check_box :will_fax_documents, :style => "margin-left: 186px", :onclick => "will_fax_docs(this.checked)"
         = retailer_application_fields.label :will_fax_documents, "I will fax these documents", :class => "autosize"
       %p.formhelp Note: The Wholesale/Distributor application will not be considered until we receive the documents. You can upload right away or fax us at 949-598-8838, Attn: Sales. 
     
@@ -119,13 +119,146 @@
       .field
         = retailer_application_fields.check_box :agreed_to_terms, :style => "margin-left: 0"
         = required_label retailer_application_fields, :agreed_to_terms, { :label => "I have read and agree to the #{link_to 'Reseller Terms and Conditions of Trading', '/reseller_terms', :target => '_new'}.", :label_size => "auto" }
-  .clear
 
+  %hr
+  .clear
   .actions
-    = f.submit "Save", :class => 'jqui_save'
+    = f.submit "Save", :class => 'jqui_save button_large right'
 :javascript
-  function copy_address_data(from_index, to_index){
+  $(document).ready(function() {
+    var validator = $("form.edit_user").validate({
+      errorClass: "invalid",
+      rules: {
+        "user[company]": { required: true },
+        "user[retailer_application_attributes][website]": { required: true, url: true },
+        "user[retailer_application_attributes][tax_identifier]": { required: true },
+        "user[retailer_application_attributes][years_in_business]": { required: true },
+        "user[retailer_application_attributes][number_of_employees]": { required: true },
+        "user[retailer_application_attributes][annual_sales]": { required: true },
+        "user[retailer_application_attributes][resale_number]": { required: true },
+        "user[retailer_application_attributes][brands_to_resell][]": { required: true, minlength: 1 },
+        "user[retailer_application_attributes][authorized_buyers]": { required: true },
+        "user[retailer_application_attributes][resale_tax_certificate]": { required: true },
+        "user[retailer_application_attributes][business_license]": { required: true },
+        "user[retailer_application_attributes][store_photo]": { required: true },
+        "user[addresses_attributes][0][first_name]": { required: true },
+        "user[addresses_attributes][0][last_name]": { required: true },
+        "user[addresses_attributes][0][company]": { required: true },
+        "user[addresses_attributes][0][address1]": { required: true },
+        "user[addresses_attributes][0][city]": { required: true },
+        "user[addresses_attributes][0][state]": { required: true },
+        "user[addresses_attributes][0][zip_code]": { required: true },
+        "user[addresses_attributes][0][country]": { required: true },
+        "user[addresses_attributes][0][phone]": { required: true },
+        "user[addresses_attributes][0][email]": { required: true },
+        "user[addresses_attributes][1][first_name]": { required: true },
+        "user[addresses_attributes][1][last_name]": { required: true },
+        "user[addresses_attributes][1][company]": { required: true },
+        "user[addresses_attributes][1][address1]": { required: true },
+        "user[addresses_attributes][1][city]": { required: true },
+        "user[addresses_attributes][1][state]": { required: true },
+        "user[addresses_attributes][1][zip_code]": { required: true },
+        "user[addresses_attributes][1][country]": { required: true },
+        "user[addresses_attributes][1][phone]": { required: true },
+        "user[addresses_attributes][1][email]": { required: true },
+        "user[addresses_attributes][2][first_name]": { required: true },
+        "user[addresses_attributes][2][last_name]": { required: true },
+        "user[addresses_attributes][2][company]": { required: true },
+        "user[addresses_attributes][2][address1]": { required: true },
+        "user[addresses_attributes][2][city]": { required: true },
+        "user[addresses_attributes][2][state]": { required: true },
+        "user[addresses_attributes][2][zip_code]": { required: true },
+        "user[addresses_attributes][2][country]": { required: true },
+        "user[addresses_attributes][2][phone]": { required: true },
+        "user[addresses_attributes][2][email]": { required: true },
+      },
+      messages: {
+        "user[company]": { required: "Please provide your company name." },
+        "user[retailer_application_attributes][website]": {
+          required: "Please provide the URL to your website.",
+          url: "Please enter a valid URL address" },
+        "user[retailer_application_attributes][tax_identifier]": { required: "Please provide your tax identifier." },
+        "user[retailer_application_attributes][years_in_business]": { required: "Please indicate the number of years in business." },
+        "user[retailer_application_attributes][number_of_employees]": { required: "Please indicate the number of employees." },
+        "user[retailer_application_attributes][annual_sales]": { required: "Please indicate your annual sales." },
+        "user[retailer_application_attributes][resale_number]": { required: "Please provide your resale number." },
+        "user[retailer_application_attributes][brands_to_resell][]": { required: "Please choose at least one brand." },
+        "user[retailer_application_attributes][authorized_buyers]": { required: "Please provide the names of your authorized buyers." },
+        "user[retailer_application_attributes][resale_tax_certificate]": { required: "Please upload a copy of your resale tax certificate." },
+        "user[retailer_application_attributes][business_license]": { required: "Please upload a copy of your business license." },
+        "user[retailer_application_attributes][store_photo]": { required: "Please upload a photo of you store." },
+        "user[addresses_attributes][0][first_name]": { required: "Please provide the owner's first name." },
+        "user[addresses_attributes][0][last_name]": { required: "Please provide the owner's last name." },
+        "user[addresses_attributes][0][company]": { required: "Please provide the company name." },
+        "user[addresses_attributes][0][address1]": { required: "Please provide the company's address." },
+        "user[addresses_attributes][0][city]": { required: "What city is the company located?" },
+        "user[addresses_attributes][0][state]": { required: "Which state is the company located?" },
+        "user[addresses_attributes][0][zip_code]": { required: "What is the zip code?" },
+        "user[addresses_attributes][0][country]": { required: "Which country is the company located?" },
+        "user[addresses_attributes][0][phone]": { required: "Please provide the company's primary phone number." },
+        "user[addresses_attributes][0][email]": { required: "Please provide the owner's email address." },
+        "user[addresses_attributes][1][first_name]": { required: "Please provide a first name." },
+        "user[addresses_attributes][1][last_name]": { required: "Please provide a last name." },
+        "user[addresses_attributes][1][company]": { required: "Please provide the company name." },
+        "user[addresses_attributes][1][address1]": { required: "Please provide the shipping address." },
+        "user[addresses_attributes][1][city]": { required: "Please provide a city." },
+        "user[addresses_attributes][1][state]": { required: "Please provide a state." },
+        "user[addresses_attributes][1][zip_code]": { required: "Please provide a zip code." },
+        "user[addresses_attributes][1][country]": { required: "Please provide a country." },
+        "user[addresses_attributes][1][phone]": { required: "Please provide a phone number." },
+        "user[addresses_attributes][1][email]": { required: "Please provide an email address." },
+        "user[addresses_attributes][2][first_name]": { required: "Please provide a first name." },
+        "user[addresses_attributes][2][last_name]": { required: "Please provide a last name." },
+        "user[addresses_attributes][2][company]": { required: "Please provide the company name." },
+        "user[addresses_attributes][2][address1]": { required: "Please provide the shipping address." },
+        "user[addresses_attributes][2][city]": { required: "Please provide a city." },
+        "user[addresses_attributes][2][state]": { required: "Please provide a state." },
+        "user[addresses_attributes][2][zip_code]": { required: "Please provide a zip code." },
+        "user[addresses_attributes][2][country]": { required: "Please provide a country." },
+        "user[addresses_attributes][2][phone]": { required: "Please provide a phone number." },
+        "user[addresses_attributes][2][email]": { required: "Please provide an email address." }
+      }
+    });
+  });
+
+  function copy_address_data(from_index, to_index) {
     $(':visible:input[name*="user[addresses_attributes]['+from_index+']"]').each(function(index){
       $($(':visible:input[name*="user[addresses_attributes]['+to_index+']"]')[index]).val(this.value);
     });
+  }
+
+  function has_website(value) {
+    if (value) {
+      $('label[for=user_retailer_application_attributes_website] span').removeClass('required');
+      $('#user_retailer_application_attributes_website').rules('remove');
+      $('#user_retailer_application_attributes_website').removeClass('invalid').next('.invalid').remove();
+    } else {
+      $('label[for=user_retailer_application_attributes_website] span').addClass('required');
+      $('#user_retailer_application_attributes_website').rules('add', {required: true});
+    }
+  }
+    
+  function will_fax_docs(value) {
+    if (value) {
+      $('label[for=user_retailer_application_attributes_resale_tax_certificate] span').removeClass('required');
+      $('#user_retailer_application_attributes_resale_tax_certificate').rules('remove');
+      $('#user_retailer_application_attributes_resale_tax_certificate').removeClass('invalid').next('.invalid').remove();
+
+      $('label[for=user_retailer_application_attributes_business_license] span').removeClass('required');
+      $('#user_retailer_application_attributes_business_license').rules('remove');
+      $('#user_retailer_application_attributes_business_license').removeClass('invalid').next('.invalid').remove();
+
+      $('label[for=user_retailer_application_attributes_store_photo] span').removeClass('required');
+      $('#user_retailer_application_attributes_store_photo').rules('remove');
+      $('#user_retailer_application_attributes_store_photo').removeClass('invalid').next('.invalid').remove();
+    } else {
+      $('label[for=user_retailer_application_attributes_resale_tax_certificate] span').addClass('required');
+      $('#user_retailer_application_attributes_resale_tax_certificate').rules('add', {required: true});
+
+      $('label[for=user_retailer_application_attributes_business_license] span').addClass('required');
+      $('#user_retailer_application_attributes_business_license').rules('add', {required: true});
+
+      $('label[for=user_retailer_application_attributes_store_photo] span').addClass('required');
+      $('#user_retailer_application_attributes_store_photo').rules('add', {required: true});
+    }
   }
