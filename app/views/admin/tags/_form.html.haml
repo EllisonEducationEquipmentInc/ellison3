@@ -211,7 +211,67 @@
     %h3.contentwrap_XXXL.last Related Ideas
     #tag_ideas_section= render :partial => 'tag_ideas'
     = text_field_tag "tag_ideas_helper", nil, :style => "margin-bottom: 10px", :placeholder => "get idea by name or idea num"
+    .field
+      %strong Get Ideas by Tag type
+      = select_tag :get_ideas_by_tag_type, options_for_select([["--- select tag type ---", nil]] + Tag.all_types)
+      %span#get_ideas_by_tag
+      #ideas_by_tag_helper
     :javascript
+      var idea_ids = #{@tag.idea_ids.map &:to_s}
+      $('#get_ideas_by_tag_type').change(function(){
+        $('#ideas_by_tag_helper').html('');
+        if (this.value == '') {
+          $('#get_ideas_by_tag').html('');
+        } else {
+          $.getJSON('/tags_by_type?type='+this.value, function(data) {
+            var items = [];
+
+            $.each(data, function(key, val) {
+              items.push('<option value="' + val.id + '">' + val.label + '</option>');
+            });
+            $('#get_ideas_by_tag').html(function() {
+              return $('<select>', {
+                'name': 'get_ideas_by_tag_id',
+                id: 'get_ideas_by_tag_id',
+                html: '<option value="">--- select tag ---</option>' + items.join('')
+              })
+            })
+          });
+        }
+      });
+      $('#get_ideas_by_tag_id').live('change', function(){
+        if (this.value == '') {
+          $('#ideas_by_tag_helper').html('');
+        } else {
+          $.getJSON('/get_ideas_by_tag?id='+this.value, function(data) {
+            var items = [];
+
+            $.each(data, function(key, val) {
+              items.push('<li class="ui-menu-item '+(idea_ids.indexOf(val.id) >= 0 ? 'already_added' : 'idea_by_tag_list_li')+'" id="idea_helper_' + val.id + '">' + val.label + '</li>');
+            });
+            $('#ideas_by_tag_helper').html(function() {
+              return $('<ul/>', {
+                'class': 'idea_by_tag_list',
+                html: items.join('')
+              })
+            })
+          });
+        }
+      })
+      $('.idea_by_tag_list_li').live("mouseover mouseout", function(event){
+        if ( event.type == "mouseover" ) {
+          $(this).addClass("idea_by_tag_list_over");
+        } else {
+          $(this).removeClass("idea_by_tag_list_over");
+        }
+      })
+      $('.idea_by_tag_list_li').live("click", function(){
+        idea_ids.push(this.id.replace('idea_helper_', ''));
+        $(this).removeClass("idea_by_tag_list_li idea_by_tag_list_over");
+        $(this).addClass("already_added");
+        $.ajax({url:'/admin/tags/add_idea?idea_id='+this.id.replace('idea_helper_', '')+'&id=#{@tag.id}', success: function(html) {$('#tag_ideas').append(html);$('#tag_ideas').find('.spinner').remove();}, beforeSend: function(){$('#tag_ideas').append('#{escape_javascript loader_bar}')}});
+      });
+
       $(document).ready(function(){
         $('.idea_pagination.ajax a').live('click', function() {$("#tag_ideas_section").css({ opacity: 0.3 });this.innerHTML='#{escape_javascript spinner}';$('#tag_ideas_section').load(this.href);return false;})
       });
