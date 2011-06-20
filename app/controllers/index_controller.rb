@@ -44,7 +44,7 @@ class IndexController < ApplicationController
     if request.xhr?
       render :product_min, :layout => false and return 
     else
-      fresh_when(:etag => [current_locale, current_system, @product,  @product.price, current_user, request.xhr?], :last_modified => @product.updated_at.utc)
+      fresh_when(:etag => [Time.now.utc.strftime("%m%d%Y%H"), current_locale, current_system, @product,  @product.price, current_user, request.xhr?], :last_modified => @product.updated_at.utc)
       #expires_in 5.minutes, 'max-stale' => 5.minutes
     end
   rescue Exception => e
@@ -65,7 +65,7 @@ class IndexController < ApplicationController
       @keywords << @idea.tags.keywords.map {|e| e.name} * ', '
       @description = @idea.description if @idea.description.present?
     end
-    fresh_when(:etag => ['idea', @idea, @idea.updated_at.utc.to_i, current_system, current_locale], :last_modified => @idea.updated_at.utc)
+    fresh_when(:etag => [Time.now.utc.strftime("%m%d%Y%H"), 'idea', @idea, @idea.updated_at.utc.to_i, current_system, current_locale], :last_modified => @idea.updated_at.utc)
     #expires_in 5.minutes, 'max-stale' => 5.minutes
   rescue Exception => e
     Rails.logger.info e
@@ -81,7 +81,7 @@ class IndexController < ApplicationController
       get_search
       @products = @search.results
     end
-    #fresh_when(:etag => [current_locale, current_system, @landing_page], :last_modified => @landing_page.updated_at.utc)
+    #fresh_when(:etag => [Time.now.utc.strftime("%m%d%Y%H"), current_locale, current_system, @landing_page], :last_modified => @landing_page.updated_at.utc)
   rescue Exception => e
     Rails.logger.info e.message
     go_404
@@ -106,7 +106,7 @@ class IndexController < ApplicationController
   def catalog
     @title = "Catalog"
     #expires_in 3.hours, 'max-stale' => 5.hours
-    fresh_when :etag => [current_locale, current_system, current_user, flash, Time.zone.now.strftime("%m%d%Y%H"), admin_signed_in?]
+    fresh_when :etag => [Time.now.utc.strftime("%m%d%Y%H"), current_locale, current_system, current_user, flash, Time.zone.now.strftime("%m%d%Y%H"), admin_signed_in?]
   end
   
   def outlet
