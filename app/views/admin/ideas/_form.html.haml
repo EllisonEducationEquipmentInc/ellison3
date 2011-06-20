@@ -92,7 +92,7 @@
       #idea_tags_section= render :partial => 'idea_tags'
       .field
         = label_tag :idea_tags_helper #, "<strong>Add A#{ @idea.tags.count >= 1 ? 'nother' : nil } Tag</strong".html_safe
-        = text_field_tag "idea_tags_helper"
+        = text_field_tag "idea_tags_helper", nil, :placeholder => "get tag by name"
       :javascript
         $(document).ready(function(){
           $('.tag_pagination.ajax a').live('click', function() {$("#idea_tags_section").css({ opacity: 0.3 });this.innerHTML='#{escape_javascript spinner}';$('#idea_tags_section').load(this.href);return false;})
@@ -203,7 +203,7 @@
     - else
       #idea_products_section= render :partial => 'idea_products'
       = label_tag :idea_products_helper, "<strong>Add A#{ @idea.products.count >= 1 ? 'nother' : nil } Product</strong>".html_safe
-      = text_field_tag "idea_products_helper"
+      = text_field_tag "idea_products_helper", nil, :placeholder => "get product by name or item num"
       :javascript
         $(document).ready(function(){
           $('.product_pagination.ajax a').live('click', function() {$("#idea_products_section").css({ opacity: 0.3 });this.innerHTML='#{escape_javascript spinner}';$('#idea_products_section').load(this.href);return false;})

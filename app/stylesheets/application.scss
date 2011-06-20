@@ -204,6 +204,12 @@ body.bp th, body.bp td, body.bp caption {
   .product_by_tag_list_over {
     @extend .tag_by_type_list_over;
   }
+  .idea_by_tag_list {
+    @extend .tag_by_type_list;
+  }
+  .idea_by_tag_list_over {
+    @extend .tag_by_type_list_over;
+  }
   .already_added {
     @extend .tag_by_type_list;
     opacity: 0.3;
