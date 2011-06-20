@@ -204,6 +204,11 @@ p#disable_formhelp { @extend .formhelp_important; }
   color: $link;
 }
 
+// System Settings
+#free_shipping_message {
+  font-weight: bold;
+}
+
 // WYMeditor
 .wym_box {
   
