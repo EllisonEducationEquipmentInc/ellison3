@@ -128,7 +128,7 @@
       $(document).ready(function(){
         $('.product_pagination.ajax a').live('click', function() {$("#tag_products_section").css({ opacity: 0.3 });this.innerHTML='#{escape_javascript spinner}';$('#tag_products_section').load(this.href);return false;})
       });
-    = text_field_tag "tag_products_helper", nil, :style => "margin-bottom: 10px"
+    = text_field_tag "tag_products_helper", nil, :style => "margin-bottom: 10px", :placeholder => "get product by name or item num"
     - if (@tag.tag_type == "special" || @tag.tag_type == "exclusive") && @tag.send("end_date_#{current_system}").present? && (!(@tag.active && @tag.send("end_date_#{current_system}") > Time.zone.now))
       %p
         = link_to "Remove All Products", {:action => :remove_all_products, :id => @tag.id}, :remote => true, :method => :delete, :confirm => "Are you sure you want to remove all products from this tag?", :class => "link_remove"
@@ -147,10 +147,70 @@
           == Removing product(s) here will <strong>ONLY</strong> remove them from <em>this</em> Specials tag - <strong>IT WILL NOT REMOVE THE SALE PRICE OF THE PRODUCT(S) THEMSELVES.</strong>
           %br
           To remove or delete the sale prices from products, do so from each product's respective detail page.
+    .field
+      %strong Get Products by Tag type
+      = select_tag :get_products_by_tag_type, options_for_select([["--- select tag type ---", nil]] + Tag.all_types)
+      %span#get_products_by_tag
+      #products_by_tag_helper
+      :javascript
+        var product_ids = #{@tag.product_ids.map &:to_s}
+        $('#get_products_by_tag_type').change(function(){
+          $('#products_by_tag_helper').html('');
+          if (this.value == '') {
+            $('#get_products_by_tag').html('');
+          } else {
+            $.getJSON('/tags_by_type?type='+this.value, function(data) {
+              var items = [];
+
+              $.each(data, function(key, val) {
+                items.push('<option value="' + val.id + '">' + val.label + '</option>');
+              });
+              $('#get_products_by_tag').html(function() {
+                return $('<select>', {
+                  'name': 'get_products_by_tag_id',
+                  id: 'get_products_by_tag_id',
+                  html: '<option value="">--- select tag ---</option>' + items.join('')
+                })
+              })
+            });
+          }
+        });
+        $('#get_products_by_tag_id').live('change', function(){
+          if (this.value == '') {
+            $('#products_by_tag_helper').html('');
+          } else {
+            $.getJSON('/get_products_by_tag?id='+this.value, function(data) {
+              var items = [];
+
+              $.each(data, function(key, val) {
+                items.push('<li class="ui-menu-item '+(product_ids.indexOf(val.id) >= 0 ? 'already_added' : 'product_by_tag_list_li')+'" id="product_helper_' + val.id + '">' + val.label + '</li>');
+              });
+              $('#products_by_tag_helper').html(function() {
+                return $('<ul/>', {
+                  'class': 'product_by_tag_list',
+                  html: items.join('')
+                })
+              })
+            });
+          }
+        })
+        $('.product_by_tag_list_li').live("mouseover mouseout", function(event){
+          if ( event.type == "mouseover" ) {
+            $(this).addClass("product_by_tag_list_over");
+          } else {
+            $(this).removeClass("product_by_tag_list_over");
+          }
+        })
+        $('.product_by_tag_list_li').live("click", function(){
+          product_ids.push(this.id.replace('product_helper_', ''));
+          $(this).removeClass("product_by_tag_list_li product_by_tag_list_over");
+          $(this).addClass("already_added");
+          $.ajax({url:'/admin/tags/add_product?product_id='+this.id.replace('product_helper_', '')+'&id=#{@tag.id}', success: function(html) {$('#tag_products').append(html);$('#tag_products').find('.spinner').remove();}, beforeSend: function(){$('#tag_products').append('#{escape_javascript loader_bar}')}});
+        })
     %hr
     %h3.contentwrap_XXXL.last Related Ideas
     #tag_ideas_section= render :partial => 'tag_ideas'
-    = text_field_tag "tag_ideas_helper", nil, :style => "margin-bottom: 10px"
+    = text_field_tag "tag_ideas_helper", nil, :style => "margin-bottom: 10px", :placeholder => "get idea by name or idea num"
     :javascript
       $(document).ready(function(){
         $('.idea_pagination.ajax a').live('click', function() {$("#tag_ideas_section").css({ opacity: 0.3 });this.innerHTML='#{escape_javascript spinner}';$('#tag_ideas_section').load(this.href);return false;})
