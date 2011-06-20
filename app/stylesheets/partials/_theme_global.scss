@@ -141,13 +141,13 @@ ul.ui-tabs-nav {
     font-weight: bold;
     text-transform: uppercase;
     color: $promo_message;
-    background: transparent url('/images/ui-backgrounds/_szus_promo_message-end.png') no-repeat right top;
+    background: transparent url('/images/ui-backgrounds/_#{$system}_promo_message-end.png') no-repeat right top;
     
     span {
       display: inline-block;
       padding: 4px 0 0 17px;
       height: 25px;
-      background: transparent url('/images/ui-backgrounds/_szus_promo_message-body.png') no-repeat left top;
+      background: transparent url('/images/ui-backgrounds/_#{$system}_promo_message-body.png') no-repeat left top;
     }
     
     a {

@@ -3,7 +3,7 @@
   %h3 UK V.A.T. %
   #uk_vat= @vat
   %p.formhelp
-    Click into the message above to activate the edit field.
+    Click into the percentage value above to activate the edit field.
   - if has_write_permissions?
     :javascript
       $(document).ready(function(){
@@ -15,8 +15,10 @@
         });
       });
     %hr
-%h3== #{current_system} free shipping message
-#free_shipping_message= @free_shipping_message
+%h3== #{current_system} Promotional Message
+%p{ :style => "margin-bottom: 0" } The following message appears on every page in the site masthead, to the left of the user utility nav menu:
+#free_shipping_message
+  %strong= @free_shipping_message
 %p.formhelp
   Click into the message above to activate the edit field.
   %br
