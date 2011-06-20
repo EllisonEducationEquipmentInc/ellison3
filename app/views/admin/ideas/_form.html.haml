@@ -291,11 +291,14 @@
       %br
       = f.text_area :keywords, :rows => 5, :cols => 55
   
-  .clear    
+  %hr
   .actions
     - unless f.object.new_record?
-      = f.check_box :force_touch
-      = f.label :force_touch, "Touch record - force expire cache for this record"
+      .force_touch
+        = f.check_box :force_touch
+        = f.label :force_touch, "Touch Record"
+        %p.formhelp Check this box to force expire the cache for this record.
+      .clear
     = f.submit :class => 'wymupdate jqui_save'
 
   :javascript

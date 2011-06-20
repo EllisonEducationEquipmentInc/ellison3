@@ -120,6 +120,16 @@ ul#tag_products, ul#tag_ideas { @extend ul.horizontal;
   }
 }
 
+// Products & Ideas
+.force_touch { @extend .right;
+  width: 178px;
+  
+  input[type="checkbox"] {
+    margin-left: 0;
+  }
+}
+
+
 // Visual Assets
 .visual_asset {
 	margin-bottom: 10px;
