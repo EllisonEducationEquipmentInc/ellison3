@@ -81,7 +81,7 @@ class IndexController < ApplicationController
       get_search
       @products = @search.results
     end
-    #fresh_when(:etag => [Time.now.utc.strftime("%m%d%Y%H"), current_locale, current_system, @landing_page], :last_modified => @landing_page.updated_at.utc)
+    fresh_when(:etag => [Time.now.utc.strftime("%m%d%Y%H"), current_locale, current_system, @landing_page], :last_modified => @landing_page.updated_at.utc)
   rescue Exception => e
     Rails.logger.info e.message
     go_404
