@@ -14,6 +14,10 @@
       });
 %h3== #{current_system} free shipping message
 #free_shipping_message= @free_shipping_message
+%p.formhelp
+  Click into the message above to activate the edit field.
+  %br
+  == For best results, limit your message to 60 characters (<strong>not</strong> including additional characters for HTML code).
 - if has_write_permissions?
   :javascript
     $(document).ready(function(){

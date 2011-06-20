@@ -133,7 +133,37 @@ ul.ui-tabs-nav {
   
   h1 { margin-bottom: 0; }
   
-  ul.nav_utility { @extend ul.horizontal;
+  #promo_message { @extend .right;
+    margin: 0 6px 0 0;
+    padding: 0 17px 0 0;
+    height: 29px;
+    font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: $promo_message;
+    background: transparent url('/images/ui-backgrounds/_szus_promo_message-end.png') no-repeat right top;
+    
+    span {
+      display: inline-block;
+      padding: 4px 0 0 10px;
+      height: 25px;
+      background: transparent url('/images/ui-backgrounds/_szus_promo_message-body.png') no-repeat left top;
+    }
+    
+    a {
+      color: $promo_message;
+    
+      &:hover {
+        color: $promo_message_hover;
+        text-decoration: none;
+      }
+    }
+  }
+  
+  ul.nav_utility {
+    @extend ul.horizontal;
+    @extend .right;
+    
     margin: 6px 0 0 0 !important;
     overflow: visible;
   
@@ -258,30 +288,10 @@ ul.ui-tabs-nav {
         } 
       }
 
-      a.btn-offers { @extend a.btn-masthead;
-        color: $home_gallery_ctrl_btn;
-        border-right: 0px; // no divider required
-      
-        span {
-          position: relative;
-          top: -5px;
-          width: 140px;
-          height: 24px;
-          padding: 5px 0 0 32px;
-          margin: 0;
-          background: transparent url('/images/ui-backgrounds/_#{$system}_navutil-LTO.png') no-repeat;
-        }
-      
-        &:hover { color: $home_gallery_ctrl_hover; }
-      }
-
       &.plaintext { padding: 0; }
-
     }
   }  
 
-  ul#nav_utility_user { @extend .nav_utility; }
-  
   ul#nav_utility_admin { @extend .nav_utility;
     
     li {

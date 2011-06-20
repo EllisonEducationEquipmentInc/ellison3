@@ -5,45 +5,47 @@
   
   - unless is_corp_site?
     -# utility navigation menu (customer account management, shopping cart, UK currency selector, etc)  
-    %ul#nav_utility_user
-      - if is_uk? && !@cart_locked
-        %li{:style => "padding-left: 0"}
-          = link_to "#", :class => "btn-locale", :onclick => "return false;", :title => "switch currency", :alt => "switch currency" do
-            %span= image_tag("/images/ui-icons/flags/24/#{current_locale}.png")
-      - if user_signed_in?
-        %li= link_to "<span>Sign Out</span>".html_safe, destroy_session_path('user'), :class => "btn-signout", :title => "Sign Out", :alt => "Sign Out" 
-        %li= link_to "<span>#{admin_signed_in? ? 'Customer\'s' : 'My'} Account</span>".html_safe, myaccount_path(:secure => true), :class => "btn-myaccount", :title => "My Account", :alt => "My Account"
-      - else
-        %li= link_to "<span>Sign Up</span>".html_safe, signin_signup_path, :class => "lightbox btn-signup", :title => "Sign Up", :alt => "Sign Up"
-        %li.plaintext= link_to "<span>or</span>".html_safe, signin_signup_path, :class => "btn-plaintext", :onclick => "return false"
-        %li= link_to "<span>Sign In</span>".html_safe, signin_signup_path, :class => "lightbox btn-signin", :title => "Sign In", :alt => "Sign In"
-      %li= link_to "<span>Contact Us</span>".html_safe, "/contact", :class => "btn-contact", :title => "Contact Us", :alt => "Contact Us"
-      - if is_sizzix_us?
-        %li= link_to "<span>Support</span>".html_safe, "/support", :class => "btn-support", :title => "Support", :alt => "Support"
-      -#%li= link_to "<span>Community</span>".html_safe, "/contact", :class => "btn-community", :title => "Community", :alt => "Community"
-      -#%li= link_to "<span>Store Locator</span>".html_safe, "/stores", :class => "btn-storelocator", :title => "Store Locator", :alt => "Store Locator"
+    #nav_utility_user
+      %ul.nav_utility
+        - if is_uk? && !@cart_locked
+          %li{:style => "padding-left: 0"}
+            = link_to "#", :class => "btn-locale", :onclick => "return false;", :title => "switch currency", :alt => "switch currency" do
+              %span= image_tag("/images/ui-icons/flags/24/#{current_locale}.png")
+        - if user_signed_in?
+          %li= link_to "<span>Sign Out</span>".html_safe, destroy_session_path('user'), :class => "btn-signout", :title => "Sign Out", :alt => "Sign Out" 
+          %li= link_to "<span>#{admin_signed_in? ? 'Customer\'s' : 'My'} Account</span>".html_safe, myaccount_path(:secure => true), :class => "btn-myaccount", :title => "My Account", :alt => "My Account"
+        - else
+          %li= link_to "<span>Sign Up</span>".html_safe, signin_signup_path, :class => "lightbox btn-signup", :title => "Sign Up", :alt => "Sign Up"
+          %li.plaintext= link_to "<span>or</span>".html_safe, signin_signup_path, :class => "btn-plaintext", :onclick => "return false"
+          %li= link_to "<span>Sign In</span>".html_safe, signin_signup_path, :class => "lightbox btn-signin", :title => "Sign In", :alt => "Sign In"
+        %li= link_to "<span>Contact Us</span>".html_safe, "/contact", :class => "btn-contact", :title => "Contact Us", :alt => "Contact Us"
+        - if is_sizzix_us?
+          %li= link_to "<span>Support</span>".html_safe, "/support", :class => "btn-support", :title => "Support", :alt => "Support"
+        -#%li= link_to "<span>Community</span>".html_safe, "/contact", :class => "btn-community", :title => "Community", :alt => "Community"
+        -#%li= link_to "<span>Store Locator</span>".html_safe, "/stores", :class => "btn-storelocator", :title => "Store Locator", :alt => "Store Locator"
       - if free_shipping_message.present?
-        %li= link_to "<span>#{free_shipping_message}</span>".html_safe, "#", :class => "btn-offers", :title => free_shipping_message, :alt => free_shipping_message
-    - if is_uk?
-      :javascript
-        $(document).ready(function(){
-          $('.btn-locale').CreateBubblePopup({
-            position: 'bottom',
-            align: 'right',
-            tail: {
+        #promo_message
+          %span= free_shipping_message.html_safe
+      - if is_uk?
+        :javascript
+          $(document).ready(function(){
+            $('.btn-locale').CreateBubblePopup({
+              position: 'bottom',
               align: 'right',
-              hidden: false
-            },
-            selectable: true,
-            innerHtml: '#{link_to_unless current_currency == "gbp", image_tag("/images/ui-buttons/currency_en-UK.png", :title => "#{current_currency == "gbp" ? "currently set" : "switch"} to British Pounds", :alt => "#{current_currency == "gbp" ? "currently set" : "switch"} to British Pounds"), "?#{request.query_parameters.merge("locale" => "en-UK").to_params}"}<br />#{link_to_unless current_currency == "eur", image_tag("/images/ui-buttons/currency_en-EU.png", :title => "#{current_currency == "eur" ? "currently set" : "switch"} to the Euro", :alt => "#{current_currency == "eur" ? "currently set" : "switch"} to the Euro"), "?#{request.query_parameters.merge("locale" => "en-EU").to_params}"}',
-            innerHtmlStyle: {
-              color: '#FFFFFF',
-              'text-align': 'center'
-            },
-            themeName: 'azure',
-            themePath: '/images/ui-plugins/bubblepopup'
+              tail: {
+                align: 'right',
+                hidden: false
+              },
+              selectable: true,
+              innerHtml: '#{link_to_unless current_currency == "gbp", image_tag("/images/ui-buttons/currency_en-UK.png", :title => "#{current_currency == "gbp" ? "currently set" : "switch"} to British Pounds", :alt => "#{current_currency == "gbp" ? "currently set" : "switch"} to British Pounds"), "?#{request.query_parameters.merge("locale" => "en-UK").to_params}"}<br />#{link_to_unless current_currency == "eur", image_tag("/images/ui-buttons/currency_en-EU.png", :title => "#{current_currency == "eur" ? "currently set" : "switch"} to the Euro", :alt => "#{current_currency == "eur" ? "currently set" : "switch"} to the Euro"), "?#{request.query_parameters.merge("locale" => "en-EU").to_params}"}',
+              innerHtmlStyle: {
+                color: '#FFFFFF',
+                'text-align': 'center'
+              },
+              themeName: 'azure',
+              themePath: '/images/ui-plugins/bubblepopup'
+            });
           });
-        });
 
     -# shopping cart
     #shoppingcart_icon= link_to image_tag("/images/ui-objects/_#{current_system}_shoppingcart#{ (get_cart.total_quantity > 0 && is_ee? ) ? '-full' : nil }.png", :border =>0, :alt => "Shopping #{cart_name.capitalize}"), cart_path, :title => "View #{cart_name.capitalize}", :alt => "View #{cart_name.capitalize}"
