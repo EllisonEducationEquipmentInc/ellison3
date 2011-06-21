@@ -229,7 +229,8 @@ class Admin::ProductsController < ApplicationController
 	  expires_in 1.hours, 'max-stale' => 1.hours
 	  render :partial => "product_helper"
 	end
-	
+
+  # deprecated method. use /product_helper_by_tag	instead (solr)
 	def product_helper_by_tag
 	  @tag = Tag.find(params[:id])
 	  @products = @tag.products.cache

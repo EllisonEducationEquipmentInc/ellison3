@@ -50,7 +50,7 @@ module AdminHelper
           	select: function(event, ui) {
           	  this.value = '';
           	  $(this).siblings('.product_search_selected_tag').html(ui.item.label);
-          	  $.ajax({url:'/admin/products/product_helper_by_tag?id='+ui.item.id, context: $(this).siblings('.product_search_by_tag_area'), beforeSend: function(){$(this).html('#{escape_javascript loader_bar}')}, success: function(data){$(this).find('.spinner').replaceWith(data);check_items_checkboxes($(this).parent())}});
+          	  $.ajax({url:'/product_helper_by_tag?id='+ui.item.id, dataType: 'json', context: $(this).siblings('.product_search_by_tag_area'), beforeSend: function(){$(this).html('#{escape_javascript loader_bar}')}, success: function(data){$(this).find('.spinner').replaceWith(process_products_json(data));check_items_checkboxes($(this).parent())}});
           		return false;
           	}});
         JS
