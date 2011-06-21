@@ -751,17 +751,6 @@ function process_items_json(data, model) {
 	  }).before('<a class="link_add-all" href="#" onclick="$(this).parent().find(\'[type=checkbox][checked=false]:visible\').attr(\'checked\', true).each(function (i) {check_items_to_item_num_field(this,\''+model+'\')}); return false;">add all visible</a>')
 }
 
-function process_products_json(data) {
-  var items = [];
-  $.each(data, function(key, val) {
-    items.push('<div class="product_helper_check_box_row '+val.tag_ids.join(' ')+'"><input class="product_helper_check_box" name="product_helper" onchange="check_items_to_item_num_field(this)" type="checkbox" value="'+val.item_num+'"><img alt="'+val.item_num+'" height="12" onmouseout="$(this).css({\'height\': \'12px\', \'width\': \'12px\', \'position\': \'relative\', \'z-index\': 1})" onmouseover="$(this).css({\'height\': \'65px\', \'width\': \'65px\', \'position\': \'absolute\', \'z-index\': 99})" src="'+val.small_image+'" width="12" style="height: 12px; width: 12px; position: relative; z-index: 1; ">'+val.label+'<br /></div>');
-  });
-	return $('<div>', {
-	    'class': 'admin_checkboxes ui-corner-all',
-	    html: items.join('')
-	  }).before('<a class="link_add-all" href="#" onclick="$(this).parent().find(\'[type=checkbox][checked=false]:visible\').attr(\'checked\', true).each(function (i) {check_items_to_item_num_field(this)}); return false;">add all visible</a>')
-}
-
 var payment_validator_options = {
   errorClass: "invalid",
   rules: {
