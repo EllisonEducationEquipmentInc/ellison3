@@ -78,7 +78,8 @@ class Admin::ProductsController < ApplicationController
   # POST /products
   # POST /products.xml
   def create
-    @product = Product.new(params[:product])
+    @product = Product.new
+    @product.write_attributes(params[:product])
     @product.created_by = current_admin.email
     respond_to do |format|
       if @product.save

@@ -71,7 +71,8 @@ class Admin::IdeasController < ApplicationController
   # POST /ideas
   # POST /ideas.xml
   def create
-    @idea = Idea.new(params[:idea])
+    @idea = Idea.new
+    @idea.write_attributes(params[:idea])
     @idea.created_by = current_admin.email
     respond_to do |format|
       if @idea.save
