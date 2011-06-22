@@ -63,24 +63,6 @@ body.bp th, body.bp td, body.bp caption {
 		margin: 110px 5px 0px;
 	}
 
-	#tabs ul{
-		margin-left: 0;
-	}
-
-	li.ui-state-default {
-//		margin: 0px 3px 3px;
-//		padding: 0.4em 0.4em 0.4em 1.5em;
-		list-style-type: none;
-	}
-	#tabs li.ui-state-default {
-		font-size: 1.2em;
-		color: #1C94C4;
-	}
-	li.ui-state-default span{
-		position: absolute;
-		margin-left: -1.3em;
-	}
-
 	.field .caption {
 		float: right;
 		width: 600px;

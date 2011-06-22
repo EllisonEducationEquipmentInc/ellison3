@@ -1,6 +1,10 @@
-%li.ui-state-default{:id => "tab_#{tab.id}"}
+%li.ui-state-default.ui-corner-all{:id => "tab_#{tab.id}"}
   %span.ui-icon.ui-icon-arrowthick-2-n-s
-  = tab.name
-  = link_to 'edit', {:action => 'edit_tab', :id => tab, :product_id => @product.id}, :remote => true
-  |
-  = link_to 'delete', {:action => 'delete_tab', :id => tab, :product_id => @product.id}, :remote => true, :confirm => "are you sure?", :method => :delete
+  .left
+    %strong= tab.name
+  .right
+    = link_to 'edit', {:action => 'edit_tab', :id => tab, :product_id => @product.id}, :remote => true
+    |
+    = link_to 'delete', {:action => 'delete_tab', :id => tab, :product_id => @product.id}, :remote => true, :confirm => "are you sure?", :method => :delete
+  .systems_enabled= tab.systems_enabled.join(", ")
+  .clear

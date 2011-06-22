@@ -129,6 +129,27 @@ ul#tag_products, ul#tag_ideas { @extend ul.horizontal;
   }
 }
 
+// Tabs
+ul#tabs {
+	margin: 0 0 10px 0;
+	padding: 0 0 0 12px;
+
+  li {
+    margin: 0 0 6px 0;
+    padding: 3px;
+    list-style-type: none;
+  	
+  	span {
+    	position: absolute;
+    	margin-left: -1.3em;  	  
+  	}
+  	
+  	.systems_enabled {
+  	  float: right;
+  	  margin-left: 6px;
+  	}
+  }
+}
 
 // Visual Assets
 .visual_asset {
