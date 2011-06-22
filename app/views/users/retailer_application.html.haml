@@ -220,8 +220,8 @@
       }
     });
     
-    has_website($("#user_retailer_application_attributes_no_website").val());
-    will_fax_docs($("#user_retailer_application_attributes_will_fax_documents").val());
+    has_website($("#user_retailer_application_attributes_no_website").attr('checked'));
+    will_fax_docs($("#user_retailer_application_attributes_will_fax_documents").attr('checked'));
   });
 
   function copy_address_data(from_index, to_index) {
