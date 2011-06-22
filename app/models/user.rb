@@ -100,6 +100,7 @@ class User
 	
 	index [[:updated_at, Mongo::DESCENDING], [:deleted_at, Mongo::ASCENDING]]
 	index [[:updated_at, Mongo::DESCENDING], [:name, Mongo::DESCENDING], [:email, Mongo::DESCENDING], [:erp, Mongo::DESCENDING], [:systems_enabled, Mongo::ASCENDING], [:deleted_at, Mongo::ASCENDING]]
+	index [[:email, Mongo::ASCENDING], [:status, Mongo::ASCENDING], [:systems_enabled, Mongo::ASCENDING], [:deleted_at, Mongo::ASCENDING]]
 	
 	embeds_one :token
 	embeds_one :retailer_application
