@@ -17,6 +17,10 @@ module Mongoid #:nodoc:
       self.set_updated_at if self.respond_to?(:set_updated_at) && Boolean.set(t)
     end
     
+    def force_touch!
+      self.force_touch = true
+    end
+    
     def force_touch  
     end
     
