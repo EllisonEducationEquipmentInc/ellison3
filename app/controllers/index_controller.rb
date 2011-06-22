@@ -75,7 +75,7 @@ class IndexController < ApplicationController
   # landing page
   def shop
     @landing_page = LandingPage.available.find params[:id]
-    unless fragment_exist? ['landing_page', @landing_page, current_system, current_locale, Product.retailer_discount_level, ecommerce_allowed?]
+    unless fragment_exist? ['landing_page', @landing_page, @landing_page.updated_at.utc.to_i, current_system, current_locale, Product.retailer_discount_level, ecommerce_allowed?]
       params.merge! @landing_page.to_params
       @title = @landing_page.name
       get_search
