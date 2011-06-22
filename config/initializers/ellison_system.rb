@@ -371,6 +371,10 @@ class ActionController::IntegrationTest
   end
 end
 
+ActionDispatch::ShowExceptions.class_eval do 
+  include EllisonSystem
+end
+
 class Hash
   # Destructively convert all keys to integers.
   def integerify_keys!
