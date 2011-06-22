@@ -75,10 +75,10 @@
     Required documents will be faxed later
     %br
     = check_box_tag :agreed_application_policy, "1", true, :disabled => true
-    Agreed to Reseller Application Policy
+    == Agreed to the #{link_to 'Reseller Application Policy', '/reseller_app', :target => '_new'}
     %br
     = check_box_tag :agreed_terms, "1", true, :disabled => true  
-    Accepted the terms of service
+    == Accepted the #{link_to 'Reseller Terms and Conditions of Trading', '/reseller_terms', :target => '_new'}
   .column_33
     %h3 Owner/President's Home Address
     = render :partial => 'users/address_details', :locals => {:address => @user.home_address}
