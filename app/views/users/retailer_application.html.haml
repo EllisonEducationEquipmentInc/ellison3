@@ -219,6 +219,9 @@
         "user[addresses_attributes][2][email]": { required: "Please provide an email address." }
       }
     });
+    
+    has_website($("#user_retailer_application_attributes_no_website").val());
+    will_fax_docs($("#user_retailer_application_attributes_will_fax_documents").val());
   });
 
   function copy_address_data(from_index, to_index) {
