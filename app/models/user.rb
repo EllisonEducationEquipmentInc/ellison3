@@ -104,7 +104,7 @@ class User
 	
 	embeds_one :token
 	embeds_one :retailer_application
-	embeds_many :addresses do
+	embeds_many :addresses, :validate => false do
     def billing
 			@target.select {|address| address.address_type == "billing"}
     end
