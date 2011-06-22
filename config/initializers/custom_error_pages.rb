@@ -10,7 +10,7 @@ module ActionDispatch
         status = status_code(exception)
         locale_path = "#{public_path}/#{status}.#{I18n.locale}.html" if I18n.locale
         
-        if current_system
+        if self.respond_to?(:current_system) && current_system
           path = "#{public_path}/#{status}_#{current_system}.html"
         else
           path = "#{public_path}/#{status}.html"
