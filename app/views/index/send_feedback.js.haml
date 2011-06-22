@@ -1,5 +1,6 @@
 - if recaptcha_valid? && @feedback.save
-  - UserMailer.delay.feedback_confirmation(@feedback)
+  - unless is_us?
+    - UserMailer.delay.feedback_confirmation(@feedback)
   == $("#feedback_form").html('#{escape_javascript "Thank you for your feedback. Your comment has been sent. Your reference number is #{@feedback.number}"}');
 - else
   Recaptcha.reload();
