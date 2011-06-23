@@ -250,7 +250,7 @@ private
 
   def email_uniqueness_by_system
     u=User.where(:email => Regexp.new("^#{Regexp.escape(self.email)}$", Regexp::IGNORECASE)).first
-    errors.add(:email, u.systems_enabled.detect {|e| e != current_system} ? "address #{self.email} is already signed up for http://www.#{system_to_domain(u.systems_enabled.detect {|e| e != current_system})} Please contact customer service for help." : :taken) if u.present?
+    errors.add(:email, u.systems_enabled.detect {|e| e != current_system} ? "address #{self.email} has already signed up for http://www.#{system_to_domain(u.systems_enabled.detect {|e| e != current_system})}. Please contact customer service for help." : :taken) if u.present?
   end
 
 protected
