@@ -254,6 +254,19 @@ module EllisonSystem
     @list = @segments.shift
   end
   
+	def lyris_email
+    lyris_email = case current_system
+      when "szus" then "sizzixscoop@lyris.sizzix.com"
+      when "szuk" then "sizzix_uk_consumers@lyris.sizzix.co.uk"
+      when "eeus" then "connection@lyris.ellison.com"
+      when "eeuk" then "ellison_education_uk@lyris.ellison.com"
+      when "erus" then "erus_retailers@ellison.com"
+      else "erus_retailers@ellison.com"
+    end    
+    return lyris_email
+	end
+
+  
   def institutions
     [["Day Care 3 - 6 yrs", "DA"], ["District Media Center", "DM"], ["Head Start, Even Start", "HE"], ["Individuals-Teacher, Crafter, Designer", "IN"], ["Non-Profit Organization, Hospital", "NP"], ["Public Library", "PL"], ["School - Pre-School, Early Childhood Center", "SP"], ["School - Elementary", "SE"], ["School - Junior High", "SJ"], ["School - High School", "SH"], ["School - University", "SU"], ["School - Charter Elementary, Jr High, High", "SCHE"], ["School - Private", "PR"], ["School - Church", "SC"], ["School - District", "SD"], ["School - Government, Government Agency", "SG"]]
   end

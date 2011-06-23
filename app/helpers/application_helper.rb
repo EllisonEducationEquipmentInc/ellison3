@@ -382,5 +382,4 @@ HTML
     }
   JS
 	end
-	
 end
