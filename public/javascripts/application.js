@@ -739,9 +739,7 @@ function youtube_video_links() {
   });
 }
 
-function process_items_json(data, model) {
-	//$(this).toggle(function() {$(this).text('show all systems')}, function() {$(this).text('show '+current_system+' only')});
-	
+function process_items_json(data, model) {	
 	if (model == undefined) var model = 'product';
   var items = [];
   $.each(data, function(key, val) {
