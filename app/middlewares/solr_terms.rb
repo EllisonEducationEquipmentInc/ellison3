@@ -48,14 +48,14 @@ class SolrTerms
       [200, {"Content-Type" => 'text/plain; charset=utf-8'}, hash["response"]["docs"].inject([]) {|arr, e| arr << {"id" => e['id'].gsub("Idea ", ''), "label" => "#{e['idea_num_ss']} - #{e['stored_name_ss']} #{e['systems_enabled_sms']}", "value" => e['stored_name_ss']}}.to_json]
     elsif env["REQUEST_URI"] =~ /^\/product_helper_by_tag\?id=(.+)$/
       term = $1
-      solr_response = Net::HTTP.get(URI.parse("#{solr_path}/select?fq=type%3AProduct&fq=active_b%3Atrue&fq=tag_ids_sms%3A#{term}&fl=id+stored_name_ss+item_num_ss+systems_enabled_sms+small_image_ss+tag_ids_sms&start=0&rows=500&wt=ruby&omitHeader=true&json.nl=arrarr&q=%2A%3A%2A&sort=item_num_ss+asc"))
+      solr_response = Net::HTTP.get(URI.parse("#{solr_path}/select?fq=type%3AProduct&fq=active_b%3Atrue&fq=tag_ids_sms%3A#{term}&fl=id+stored_name_ss+item_num_ss+systems_enabled_sms+small_image_ss+tag_ids_sms&start=0&rows=1500&wt=ruby&omitHeader=true&json.nl=arrarr&q=%2A%3A%2A&sort=item_num_ss+asc"))
       hash = eval(solr_response)
-      [200, {"Content-Type" => 'text/plain; charset=utf-8'}, hash["response"]["docs"].inject([]) {|arr, e| arr << {"id" => e['id'].gsub("Product ", ''), "label" => "#{e['item_num_ss']} - #{e['stored_name_ss']} #{e['systems_enabled_sms']}", "value" => e['stored_name_ss'], "small_image" => e['small_image_ss'], "item_num" => e['item_num_ss'], "tag_ids" => e['tag_ids_sms']}}.to_json]
+      [200, {"Content-Type" => 'text/plain; charset=utf-8'}, hash["response"]["docs"].inject([]) {|arr, e| arr << {"id" => e['id'].gsub("Product ", ''), "label" => "#{e['item_num_ss']} - #{e['stored_name_ss']} #{e['systems_enabled_sms']}", "value" => e['stored_name_ss'], "small_image" => e['small_image_ss'], "item_num" => e['item_num_ss'], "tag_ids" => e['tag_ids_sms'], "systems_enabled" => e['systems_enabled_sms']}}.to_json]
     elsif env["REQUEST_URI"] =~ /^\/idea_helper_by_tag\?id=(.+)$/
       term = $1
-      solr_response = Net::HTTP.get(URI.parse("#{solr_path}/select?fq=type%3AIdea&fq=active_b%3Atrue&fq=tag_ids_sms%3A#{term}&fl=id+stored_name_ss+idea_num_ss+systems_enabled_sms+small_image_ss+tag_ids_sms&start=0&rows=500&wt=ruby&omitHeader=true&json.nl=arrarr&q=%2A%3A%2A&sort=idea_num_ss+asc"))
+      solr_response = Net::HTTP.get(URI.parse("#{solr_path}/select?fq=type%3AIdea&fq=active_b%3Atrue&fq=tag_ids_sms%3A#{term}&fl=id+stored_name_ss+idea_num_ss+systems_enabled_sms+small_image_ss+tag_ids_sms&start=0&rows=1500&wt=ruby&omitHeader=true&json.nl=arrarr&q=%2A%3A%2A&sort=idea_num_ss+asc"))
       hash = eval(solr_response)
-      [200, {"Content-Type" => 'text/plain; charset=utf-8'}, hash["response"]["docs"].inject([]) {|arr, e| arr << {"id" => e['id'].gsub("Product ", ''), "label" => "#{e['item_num_ss']} - #{e['stored_name_ss']} #{e['systems_enabled_sms']}", "value" => e['stored_name_ss'], "small_image" => e['small_image_ss'], "item_num" => e['idea_num_ss'], "tag_ids" => e['tag_ids_sms']}}.to_json]
+      [200, {"Content-Type" => 'text/plain; charset=utf-8'}, hash["response"]["docs"].inject([]) {|arr, e| arr << {"id" => e['id'].gsub("Idea ", ''), "label" => "#{e['idea_num_ss']} - #{e['stored_name_ss']} #{e['systems_enabled_sms']}", "value" => e['stored_name_ss'], "small_image" => e['small_image_ss'], "item_num" => e['idea_num_ss'], "tag_ids" => e['tag_ids_sms'], "systems_enabled" => e['systems_enabled_sms']}}.to_json]
     else
       @app.call(env)
     end
