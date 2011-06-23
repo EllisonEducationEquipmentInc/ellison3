@@ -181,6 +181,10 @@ module EllisonSystem
 		{"szus" => "Sizzix",  "szuk" => "Sizzix UK", "eeus" => "Ellison Education", "eeuk" => "Ellison Education UK", "erus" => "Ellison Retailers"}[current_system]
 	end
 	
+	def system_to_domain(sys)
+	  {"szus" => "sizzix.com",  "szuk" => "http://www.sizzix.co.uk", "eeus" => "ellisoneducation.com", "eeuk" => "ellisoneducation.co.uk", "erus" => "ellisonretailers.com"}[sys]
+	end
+	
 	def set_default_locale
 		if %w(szus eeus er).include?(current_system) && current_locale.to_sym != :"en-US"
 			set_current_locale "en-US"
