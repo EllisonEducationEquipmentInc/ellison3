@@ -13,6 +13,7 @@
       %tr
         %th ERP ID
         = sortable "email"
+        = sortable "company"
         = sortable "sign_in_count"
         = sortable "created_at"
         %th Systems
@@ -31,6 +32,7 @@
         %tr{ :class => cycle(:odd, :even) }
           %td= user.erp
           %td= user.email
+          %td= user.company
           %td= user.sign_in_count
           %td= l user.created_at, :format => :custom rescue ''
           %td= user.systems_enabled.join(", ") rescue ''
