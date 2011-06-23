@@ -1,5 +1,5 @@
 - cache_unless is_admin?, ['tag_group', current_system, params[:id], params[:ideas]], :expires_in => 3.hours do
-  %h2== #{@klass.public_name} #{params[:id].humanize}
+  %h2== #{@klass.public_name} - #{params[:id].humanize}
   =# this is the header image. dynamic, based on the tag group and system. ex: "/images/landing/themes_szus.jpg"
   .tag_landing_header.ui-corner-all{ :class => "ui-widget-#{ is_sizzix_us? ? 'header' : 'content'}", :style => "background: url('/images/landing/#{params[:id]}_#{current_system}.jpg') no-repeat top center;"} &nbsp;
   - @search.facet(:"#{params[:id].singularize}_#{current_system}").rows.each do |row|
