@@ -94,7 +94,7 @@ class Address
 		end
 	rescue Shippinglogic::FedEx::Error, Timeout::Error => e
 	  Rails.logger.error e.message
-	  self.avs_failed = true
+	  self.bypass_avs = true
 	end
 	
   def correct_address(fedex_avs_result)
