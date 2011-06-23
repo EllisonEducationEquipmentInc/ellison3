@@ -2,4 +2,35 @@
   %tr
     %td
       %p Dear Customer, 
-      %p== Thank you for your inquiry. Your reference number is #{@feedback.number}. A member of our Customer Service will answer your email personally as soon as possible.
+      %p== Thank you for your #{ is_us? ? "i" : "e"}nquiry. Your reference number is #{@feedback.number}. A member of our Customer Service will answer your email personally as soon as possible.#{ " In the meantime perhaps one of our FAQs below can help you with your query." if is_uk? }
+
+      - if is_uk?
+        %p
+          %strong Order Delivery
+          %br
+          All orders are shipped using the shipping company Yodel on a 48 hour delivery service. Please allow a maximum five working days for your order to be processed.
+
+        %p 
+          %strong To Cancel or Amend an Order
+          %br
+          - if is_sizzix?
+            We do our very best to process your order quickly. If you would like to cancel the order, or add an additional item, please contact our Customer Service Team within 24 hours for assistance. Please note you cannot amend or add items once you have passed through the online checkout.
+            %p
+              %em Incorrect or Missing Items on Your Order
+              %br
+              We apologise if you have received an incorrect item or if something is missing on your order. Please contact our Customer Service Team to arrange for a refund or replacement item. Within the UK, please call 0844 499 8181; outside of the UK, please call +44 (0) 845 345 2277.        
+
+          - else
+            == If you would like to change any of the items on your quote, please contact Customer Service on 0844 499 8181 (within UK), +44 (0) 845 345 2277 (outside UK), or email #{mail_to "europecustomerservices@ellison.com"}
+
+        %p
+          %strong Returns
+          %br
+          If you need to return an item please contact Ellison's Customer Service Team to obtain a Return Reference Number.
+          
+        %p
+          %strong Product Enquiry
+          %br
+          == If you would like to find out more about our machines and dies, die cutting and crafting techniques please take a look at our demonstration videos at #{ link_to "http://#{get_domain}/videos", "#{get_domain}/videos" }
+          
+          %p== We have also attached a link to the #{ link_to "Frequently Asked Questions", "#{get_domain}/websitefaq"} section of our website which you may find useful. We will be in touch as soon as possible to assist you. Thank you for your patience.
