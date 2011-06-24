@@ -24,5 +24,6 @@
   width: 127px;
 }
 .item_detail { @include column(19); }
+.item_detail-full { @include column(24, true); }
 .item_detail-tabbed { @include column(24, true); }
 .item_cross-sell { @include column(5, true);}

@@ -87,7 +87,7 @@ body.bp {
     }
   }
   
-  #item_compatibility, .item_cross-sell .rounded, .item_detail {
+  #item_compatibility, .item_cross-sell .rounded, .item_detail, .item_detail-full {
     h4 {
       text-transform: uppercase;
       font-size: 1.2em;
@@ -810,7 +810,7 @@ h3.item_title {
 	}
 }
 
-.item_detail {
+.item_detail, .item_detail-full {
   margin-top: 10px;
 }
 
@@ -999,6 +999,12 @@ h3.item_title {
 
 .data_value {
   @include column(14, true);
+}
+
+.item_detail-full {
+  .data_value {
+    @include column(19, true);
+  }  
 }
 
 .tab_image {

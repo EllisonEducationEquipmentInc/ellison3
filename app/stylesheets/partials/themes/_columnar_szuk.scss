@@ -149,8 +149,16 @@ body.bp {
 }
 
 #content {
-    float: left;
-    margin: 10px 0 12px;
+  float: left;
+  margin: 10px 0 12px;
+
+  .item_detail, .item_detail-full {
+    h4 {
+      border-bottom:2px dotted #dddddd;
+      margin:10px 0;
+      
+    }
+  }
 }
 
 // content gallery (landing pages)

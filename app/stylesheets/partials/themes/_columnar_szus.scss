@@ -141,18 +141,18 @@ body.bp {
   float: left;
   margin: 10px 0 12px 0;
   
-    .item_detail {
-      h4 {
-        border-bottom:2px dotted #E3DDCE;
-        margin:10px 0;
-        
-      }
+  .item_detail, .item_detail-full {
+    h4 {
+      border-bottom:2px dotted #E3DDCE;
+      margin:10px 0;
+      
     }
-    .detail_break {
-      width:100%;
-      border-bottom:1px solid #E3DDCE;
-      margin:0 0 6px 0;
-    }
+  }
+  .detail_break {
+    width:100%;
+    border-bottom:1px solid #E3DDCE;
+    margin:0 0 6px 0;
+  }
 }
 
 // content gallery (landing pages)
