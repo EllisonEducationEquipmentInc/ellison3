@@ -21,6 +21,8 @@ module ApplicationHelper
       "<span class='msrp'>#{number_to_currency(gross_price(product.price))}</span>"
     elsif product.sale_price && gross_price(product.sale_price) < gross_price(product.msrp) && product.sale_price <= product.price
       "<span class='sale-price'>#{number_to_currency(gross_price(product.price))}</span>"
+    elsif is_sizzix_us? && product.respond_to?(:outlet) && product.outlet
+      "<span class='sale-price'>#{number_to_currency(gross_price(product.price))}</span>"
     else
       "<span class='msrp'>#{number_to_currency(gross_price(product.price))}</span>"
     end.html_safe
