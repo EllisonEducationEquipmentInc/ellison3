@@ -75,6 +75,7 @@ class Order
 	field :customer_rep_id, :type => BSON::ObjectId
 	field :order_reference
 	field :coupon_code
+	field :free_shipping_by_coupon, :type => Boolean, :default => false
 	field :cod_account_type
 	field :cod_account
 	

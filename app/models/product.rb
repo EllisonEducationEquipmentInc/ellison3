@@ -368,6 +368,10 @@ class Product
     campaigns.current(time).sort {|x,y| x.sale_price <=> y.sale_price}.first
   end
   
+  def campaign_name
+    get_best_campaign.try :name
+  end
+  
   def retailer_price(discount_level = retailer_discount_level, options = {})
     (wholesale_price(options) - retailer_discount(discount_level, options)).round(2) rescue msrp
   end

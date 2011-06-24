@@ -21,7 +21,7 @@ module ShoppingCart
 			else
 				get_cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.sale_price, :msrp => product.msrp_or_wholesale_price, :price => product.price, 
 				  :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product => product, :weight => product.virtual_weight, :actual_weight => product.weight, :retailer_price => product.retailer_price,
-				  :tax_exempt => product.tax_exempt, :handling_price => product.handling_price, :pre_order => product.pre_order?, :out_of_stock => product.out_of_stock?, :minimum_quantity => product.minimum_quantity)
+				  :tax_exempt => product.tax_exempt, :handling_price => product.handling_price, :pre_order => product.pre_order?, :out_of_stock => product.out_of_stock?, :minimum_quantity => product.minimum_quantity, :campaign_name => product.campaign_name)
 			end
 			get_cart.reset_tax_and_shipping true
 			get_cart.apply_coupon_discount
@@ -61,7 +61,7 @@ module ShoppingCart
 		def cart_to_order_or_quote(klass, options = {})
 		  order = klass.to_s.classify.constantize.new(:id => options[:order_id], :subtotal_amount => get_cart.sub_total, :shipping_amount => calculate_shipping(options[:address]), :handling_amount => calculate_handling, :tax_amount => calculate_tax(options[:address]), :coupon_code => get_cart.coupon_code,
 			              :tax_transaction => get_cart.reload.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at, :locale => current_locale, :shipping_service => get_cart.shipping_service, :order_reference => get_cart.order_reference, :vat_percentage => vat, :vat_exempt => vat_exempt?, 
-			              :tax_exempt => tax_exempt?, :tax_exempt_number => tax_exempt? ? get_user.tax_exempt_certificate : nil, :total_discount => gross_price(get_cart.total_discount))
+			              :tax_exempt => tax_exempt?, :tax_exempt_number => tax_exempt? ? get_user.tax_exempt_certificate : nil, :total_discount => gross_price(get_cart.total_discount), :free_shipping_by_coupon => get_cart.free_shipping_by_coupon)
 			order.coupon = get_cart.coupon
 			if get_cart.cod?
 			  order.cod_account_type = get_user.cod_account_type
@@ -70,7 +70,7 @@ module ShoppingCart
 			@cart.cart_items.each do |item|
 				order.order_items << OrderItem.new(:name => item.name, :item_num => item.item_num, :sale_price => item.price, :quoted_price => item.msrp, :quantity => item.quantity,
 				    :locale => item.currency, :product => item.product, :tax_exempt => item.tax_exempt, :discount => item.msrp - item.price, :custom_price => item.custom_price, 
-				    :coupon_price => item.coupon_price, :vat => calculate_vat(item.price), :vat_percentage => vat, :vat_exempt => vat_exempt?, :upsell => item.upsell)
+				    :coupon_price => item.coupon_price, :coupon_name => item.coupon_name, :vat => calculate_vat(item.price), :vat_percentage => vat, :vat_exempt => vat_exempt?, :upsell => item.upsell, :campaign_name => item.campaign_name)
 			end
 			order.address ||= get_user.shipping_address.clone
 			order
@@ -141,7 +141,7 @@ module ShoppingCart
 			end
 			if coupon.present?
 			  if coupon.free_shipping
-			    get_cart.update_attributes :shipping_calculated_at => Time.now, :shipping_amount => 0.0, :shipping_service => "STANDARD", :shipping_rates => [{:name => "STANDARD", :type => "STANDARD", :currency => current_currency, :rate => 0.0}]
+			    get_cart.update_attributes :free_shipping_by_coupon => true, :shipping_calculated_at => Time.now, :shipping_amount => 0.0, :shipping_service => "STANDARD", :shipping_rates => [{:name => "STANDARD", :type => "STANDARD", :currency => current_currency, :rate => 0.0}]
 			    return 0.0
 			  elsif coupon.fixed?
 			    get_cart.update_attributes :shipping_calculated_at => Time.now, :shipping_amount => coupon.discount_value, :shipping_service => "STANDARD", :shipping_rates => [{:name => "STANDARD", :type => "STANDARD", :currency => current_currency, :rate => coupon.discount_value}]

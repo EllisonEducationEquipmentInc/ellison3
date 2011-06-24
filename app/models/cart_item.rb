@@ -10,6 +10,8 @@ class CartItem
 	field :retailer_price, :type => Float
 	field :custom_price, :type => Boolean, :default => false
 	field :coupon_price, :type => Boolean, :default => false
+	field :campaign_name
+	field :coupon_name
 	field :currency
 	field :quantity, :type => Integer, :default => 1
 	field :minimum_quantity, :type => Integer, :default => 1
@@ -67,6 +69,6 @@ class CartItem
 		elsif coupon.fixed?
 			coupon.discount_value
 		end
-		write_attributes :coupon_price => true, :price => p if p < self.price 
+		write_attributes :coupon_price => true, :coupon_name => coupon.name, :price => p if p < self.price
 	end
 end

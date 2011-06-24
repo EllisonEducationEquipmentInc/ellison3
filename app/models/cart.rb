@@ -16,6 +16,7 @@ class Cart
 	field :changed_items, :type => Array
 	field :order_reference
 	field :coupon_code
+	field :free_shipping_by_coupon, :type => Boolean, :default => false
 	field :last_check_at, :type => DateTime
 	
 	referenced_in :coupon
@@ -35,6 +36,7 @@ class Cart
 	end
 	
 	def reset_shipping_amount
+	  self.free_shipping_by_coupon = false
 		self.shipping_amount, self.shipping_service, self.shipping_rates, self.shipping_calculated_at = nil
 	end
 	
@@ -134,7 +136,7 @@ class Cart
 		cart_items.each do |item|
 		  next if item.coupon?
 			product = item.product
-			item.write_attributes :sale_price => product.sale_price, :msrp => product.msrp_or_wholesale_price, :currency => current_currency, :small_image => product.small_image, :tax_exempt => product.tax_exempt, 
+			item.write_attributes :sale_price => product.sale_price, :campaign_name => product.campaign_name, :msrp => product.msrp_or_wholesale_price, :currency => current_currency, :small_image => product.small_image, :tax_exempt => product.tax_exempt, 
 			  :handling_price => product.handling_price, :retailer_price => product.retailer_price, :weight => product.virtual_weight, :actual_weight => product.weight, :out_of_stock => backorder_allowed? && product.listable?(current_system, item.quantity) ? product.out_of_stock?(current_system, item.quantity - 1) : product.out_of_stock?
 			item.price = product.price unless item.custom_price
 			if check
@@ -213,7 +215,7 @@ class Cart
 	
 	def reset_coupon_items
 	  cart_items.find_item(Coupon::COUPON_ITEM_NUM).try :delete
-	  cart_items.select {|i| i.coupon_price}.each {|i| i.write_attributes(:coupon_price => false, :price => i.sale_price || (is_er? ? i.retailer_price : i.msrp))}
+	  cart_items.select {|i| i.coupon_price}.each {|i| i.write_attributes(:coupon_name => nil, :coupon_price => false, :price => i.sale_price || (is_er? ? i.retailer_price : i.msrp))}
 	end
 
   def cod?

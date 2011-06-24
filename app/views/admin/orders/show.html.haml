@@ -174,6 +174,7 @@
       %th Item Subtotal
       %th Custom
       %th Coupon
+      %th Campaign
       %th Upsell
   %tbody
     - @order.order_items.each do |item|
@@ -195,6 +196,7 @@
         %td= number_to_currency item.item_total
         %td= item.custom_price
         %td= item.coupon_price
+        %td= item.campaign_name
         %td= item.upsell
 .contentwrap_XL &nbsp;
 %ul.plain.cart_summary.contentwrap_medium.last{ :style => "margin-bottom: 10px" }
@@ -249,6 +251,9 @@
     %strong Coupon:
     = link_to @order.coupon_code || @order.coupon.codes.join(", "), admin_coupon_path(@order.coupon)
     = @order.coupon.name
+    %br
+    %strong Free shipping by coupon?
+    = @order.free_shipping_by_coupon
 - if @order.payment.present?
   - if @order.payment.deferred
     Three Easy Payments

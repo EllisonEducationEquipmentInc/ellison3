@@ -50,6 +50,7 @@ class Quote
 	field :customer_rep_id, :type => BSON::ObjectId
 	field :order_reference
 	field :coupon_code
+	field :free_shipping_by_coupon, :type => Boolean, :default => false
 	field :old_id_er, :type => Integer
 	field :old_id_eeus, :type => Integer
 	field :old_id_eeuk, :type => Integer
