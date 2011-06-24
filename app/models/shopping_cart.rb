@@ -200,7 +200,7 @@ module ShoppingCart
 		
 		# only for systems where shipping is NOT weight based
 		def calculate_handling
-			is_ee? || is_sizzix_uk? ? get_cart.handling_amount : 0.0
+			!is_er? ? get_cart.handling_amount : 0.0
 		end
 		
 		def calculate_tax(address, options={})
