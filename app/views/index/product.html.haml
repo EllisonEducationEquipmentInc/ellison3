@@ -159,25 +159,6 @@
               $("#item_designers_thumbnails").css({visibility: "visible"});
             });
 
-  .contentwrap_XXXL
-    .error
-      %p
-        - if @product.use_tabs
-          true: uses tabs/full width
-        - else
-          false: doesn't use tabs/show cross-sell
-      %p
-        - if @product.ideas.available.count > 0
-          true: ideas to show
-        - else
-          false: no ideas to show
-      %p
-        - if @product.four_related_criteria.count > 0
-          true: related products to show
-        - else
-          false: no related products to show
-      %p rev 2
-
   %div{ :class => "item_detail#{ @product.use_tabs ? '-tabbed' : (@product.ideas.available.count < 1 && @product.four_related_criteria.count < 1) ? '-full' : nil}"}
     = render :partial => "index/#{'non_' unless @product.use_tabs}tab_block", :locals => {:object => @product}
   - if !@product.use_tabs && (@product.ideas.available.count > 0 || @product.four_related_criteria.count > 0)
