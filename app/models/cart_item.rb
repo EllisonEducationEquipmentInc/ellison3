@@ -10,6 +10,7 @@ class CartItem
 	field :retailer_price, :type => Float
 	field :custom_price, :type => Boolean, :default => false
 	field :coupon_price, :type => Boolean, :default => false
+	field :outlet, :type => Boolean, :default => false
 	field :campaign_name
 	field :coupon_name
 	field :currency

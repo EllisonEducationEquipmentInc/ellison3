@@ -39,9 +39,11 @@ class Order
 	index "payment.vpstx_id"
 	index "payment.tx_auth_no"
 	index "payment.purchase_order_number"
+	index "order_items.campaign_name"
 	
 	index [[:user_id, Mongo::ASCENDING], [:system, Mongo::ASCENDING], [:created_at, Mongo::DESCENDING]]
 	index [[:updated_at, Mongo::DESCENDING], [:system, Mongo::DESCENDING], [:order_number, Mongo::DESCENDING], [:tax_transaction, Mongo::DESCENDING], [:"payment", Mongo::ASCENDING], [:"address", Mongo::ASCENDING], [:deleted_at, Mongo::ASCENDING]]
+  index [["order_items.campaign_name", Mongo::ASCENDING], [:system, Mongo::ASCENDING]]
 	
 	field :status, :default => "New"
 	field :system

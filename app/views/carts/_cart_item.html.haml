@@ -12,7 +12,7 @@
   %td
     .thumbnail
       = link_to(image_tag(cart_item.small_image), product_url(:item_num => cart_item.item_num.gsub(".", "point"), :name => cart_item.name.parameterize)) unless cart_item.small_image.blank?
-      - if cart_item.product.outlet && is_sizzix_us?
+      - if cart_item.outlet
         .clearance_flag= link_to(image_tag("/images/ui-objects/pricetag_outlet.png", :alt => "On Sale!", :title => "On Sale!"), product_url(:item_num => cart_item.item_num.gsub(".", "point"), :name => cart_item.name.parameterize)) unless cart_item.small_image.blank?
   %td= cart_item.product_id.blank? ? cart_item.name : link_to(cart_item.name, product_url(:item_num => cart_item.item_num.gsub(".", "point"), :name => cart_item.name.parameterize))
   - if admin_signed_in? && current_admin.can_change_prices

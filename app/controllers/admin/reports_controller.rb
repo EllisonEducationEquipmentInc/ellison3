@@ -10,6 +10,7 @@ class Admin::ReportsController < ApplicationController
 	def index
 	  @start_date = Time.zone.now.beginning_of_day
 	  @end_date = Time.zone.now.end_of_day
+	  @campaigns = Rails.cache.fetch("disctinct_campaign_names_#{current_system}", :expires_in => 1.hour.since) {Order.send(current_system).distinct('order_items.campaign_name').compact.sort {|x,y| x.downcase <=> y.downcase}}
 	end
 	
 	def order_analysis

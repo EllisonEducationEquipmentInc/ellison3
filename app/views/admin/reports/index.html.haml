@@ -40,3 +40,14 @@
   .actions
     = submit_tag "Submit", :class => 'jqui_save'
 #wishlists_report
+%br
+%hr
+%h3 Products Campaign Usage Report
+%p This report gives an overview of how the products under the selected campaign performed between the campaign start and end dates. All the active and inactive campaign names of #{current_system}, which have orders are listed in the dropdown.
+= form_tag url_for(:action => 'campaign_usage_report'), :remote => true, :class => 'report_form' do
+  .field
+    = label_tag :campaign, "System"
+    = select_tag :campaign, options_for_select([["--- select campaign ---", nil]] + @campaigns), :id => :wishlists_report_system
+
+  .actions
+    = submit_tag "Submit", :class => 'jqui_save'

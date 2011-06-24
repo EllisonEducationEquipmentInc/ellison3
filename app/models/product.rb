@@ -441,6 +441,10 @@ class Product
     displayable?(sys) && (LIFE_CYCLES[0,2].include?(life_cycle) || self.life_cycle == 'discontinued' && quantity(sys) > qty)
   end
   
+  def outlet?
+    self.outlet && is_sizzix_us?
+  end
+  
   def quantity(sys = current_system)
     if sys == "szus"
       self.quantity_us + self.quantity_sz
