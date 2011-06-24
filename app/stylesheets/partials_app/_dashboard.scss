@@ -237,7 +237,9 @@ p#disable_formhelp { @extend .formhelp_important; }
 
 // System Settings
 #free_shipping_message {
+  margin-bottom: 8px;
   font-weight: bold;
+  color: $link;
 }
 
 // WYMeditor
