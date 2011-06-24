@@ -69,9 +69,9 @@
         = raw @idea.themes.asc(:name).map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}#{'&brand='+ @idea.item_group if @idea.item_group.present? && is_er?}&page=1&ideas=1"))} * ', '
   .item_sociallinks.dontprint= facebook_like
 
-  %div{ :class => "item_detail#{'-tabbed' if @idea.use_tabs || (@idea.products.displayable.count < 1 && @idea.four_related_criteria.count < 1)}"}
+  %div{ :class => "item_detail#{ @idea.use_tabs ? '-tabbed' : (@idea.products.displayable.count < 1 && @idea.four_related_criteria.count < 1) ? '-full' : nil}"}
     = render :partial => "index/#{'non_' unless @idea.use_tabs}tab_block", :locals => {:object => @idea}
-  - if !@idea.use_tabs && @idea.products.displayable.count > 0 && @idea.four_related_criteria.count > 0
+  - if !@idea.use_tabs && (@idea.products.displayable.count > 0 || @idea.four_related_criteria.count > 0)  
     .item_cross-sell.dontprint
       - if @idea.products.displayable.count > 0
         .rounded
