@@ -148,7 +148,7 @@ EOF
             sum += values[i].item_total;
             number_of_orders += 1;
           }
-          return { quantity : total, item_total: sum};
+          return {name: values[0].name, quoted_price: values[0].quoted_price, sale_price: values[0].sale_price,  number_of_orders: number_of_orders, quantity : total, item_total: sum};
         };
 EOF
 
