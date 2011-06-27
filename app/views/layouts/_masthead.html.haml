@@ -7,22 +7,20 @@
     -# utility navigation menu (customer account management, shopping cart, UK currency selector, etc)  
     #nav_utility_user
       %ul.nav_utility
+        - if is_sizzix_us?
+          %li= link_to "<span>Support</span>".html_safe, "/support", :class => "btn-support", :title => "Support", :alt => "Support"
+        %li= link_to "<span>Contact Us</span>".html_safe, "/contact", :class => "btn-contact", :title => "Contact Us", :alt => "Contact Us"
+        - if user_signed_in?
+          %li= link_to "<span>#{admin_signed_in? ? 'Customer\'s' : 'My'} Account</span>".html_safe, myaccount_path(:secure => true), :class => "btn-myaccount", :title => "My Account", :alt => "My Account"
+          %li= link_to "<span>Sign Out</span>".html_safe, destroy_session_path('user'), :class => "btn-signout", :title => "Sign Out", :alt => "Sign Out" 
+        - else
+          %li= link_to "<span>Sign In</span>".html_safe, signin_signup_path, :class => "lightbox btn-signin", :title => "Sign In", :alt => "Sign In"
+          %li.plaintext= link_to "<span>or</span>".html_safe, signin_signup_path, :class => "btn-plaintext", :onclick => "return false"
+          %li= link_to "<span>Sign Up</span>".html_safe, signin_signup_path, :class => "lightbox btn-signup", :title => "Sign Up", :alt => "Sign Up"
         - if is_uk? && !@cart_locked
           %li{:style => "padding-left: 0"}
             = link_to "#", :class => "btn-locale", :onclick => "return false;", :title => "switch currency", :alt => "switch currency" do
               %span= image_tag("/images/ui-icons/flags/24/#{current_locale}.png")
-        - if user_signed_in?
-          %li= link_to "<span>Sign Out</span>".html_safe, destroy_session_path('user'), :class => "btn-signout", :title => "Sign Out", :alt => "Sign Out" 
-          %li= link_to "<span>#{admin_signed_in? ? 'Customer\'s' : 'My'} Account</span>".html_safe, myaccount_path(:secure => true), :class => "btn-myaccount", :title => "My Account", :alt => "My Account"
-        - else
-          %li= link_to "<span>Sign Up</span>".html_safe, signin_signup_path, :class => "lightbox btn-signup", :title => "Sign Up", :alt => "Sign Up"
-          %li.plaintext= link_to "<span>or</span>".html_safe, signin_signup_path, :class => "btn-plaintext", :onclick => "return false"
-          %li= link_to "<span>Sign In</span>".html_safe, signin_signup_path, :class => "lightbox btn-signin", :title => "Sign In", :alt => "Sign In"
-        %li= link_to "<span>Contact Us</span>".html_safe, "/contact", :class => "btn-contact", :title => "Contact Us", :alt => "Contact Us"
-        - if is_sizzix_us?
-          %li= link_to "<span>Support</span>".html_safe, "/support", :class => "btn-support", :title => "Support", :alt => "Support"
-        -#%li= link_to "<span>Community</span>".html_safe, "/contact", :class => "btn-community", :title => "Community", :alt => "Community"
-        -#%li= link_to "<span>Store Locator</span>".html_safe, "/stores", :class => "btn-storelocator", :title => "Store Locator", :alt => "Store Locator"
       - if free_shipping_message.present?
         #promo_message
           %span= free_shipping_message.html_safe

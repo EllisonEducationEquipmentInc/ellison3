@@ -133,7 +133,9 @@ ul.ui-tabs-nav {
   
   h1 { margin-bottom: 0; }
   
-  #promo_message { @extend .right;
+  #promo_message {
+    float: right;
+    
     margin: 0 6px 0 0;
     padding: 0 17px 0 0;
     height: 25px;
@@ -160,15 +162,15 @@ ul.ui-tabs-nav {
   }
   
   ul.nav_utility {
-    @extend ul.horizontal;
-    @extend .right;
-    
-    margin: 6px 0 0 0 !important;
-    overflow: visible;
+    margin: 6px 0 0 0;
+    padding: 0;
+    float: right;
   
     li {
-      float: right !important;
+      margin: 0;
       padding: 0 0 0 6px !important;  // padding left to space links apart
+      list-style: none;
+      float: left;
     
       a.btn-masthead {
         color: $navutil_link;
