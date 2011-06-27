@@ -107,6 +107,7 @@ class Cart
 			@cart_errors << "The price on one or more of the items in your order has been adjusted since you last placed it in your Shopping Cart. Items in your cart will always reflect the most recent price displayed on their corresponding product detail pages." if changed_item_attributes.include?("price")
 			@cart_errors << "Some items placed in your cart are greater than the quantity available for sale. The most current quantity available has been updated in your Shopping Cart." if changed_item_attributes.include?("quantity") 
 			@cart_errors << "Stock level of some items placed in your cart has changed." if changed_item_attributes.include?("out_of_stock")
+			@cart_errors << "Availability of some items placed in your cart has changed." if changed_item_attributes.include?("pre_order")
 			@cart_errors << "Items #{self.removed_items * ', '} placed in your Shopping Cart are no longer available for purchase and have been removed. If you are still interested in this item(s), please check back again at a later date for availability." if self.removed > 0
 			@cart_errors << "The Handling price on one or more of the items in your order has been adjusted since you last placed it in your Shopping Cart." if changed_item_attributes.include?("handling_price")	
 			@cart_errors << "Your coupon is no longer valid or changed. Please review your Shopping Cart to verify its contents." if self.coupon_removed
@@ -136,7 +137,7 @@ class Cart
 		cart_items.each do |item|
 		  next if item.coupon?
 			product = item.product
-			item.write_attributes :sale_price => product.sale_price, :campaign_name => product.campaign_name, :msrp => product.msrp_or_wholesale_price, :currency => current_currency, :small_image => product.small_image, :tax_exempt => product.tax_exempt, :outlet => product.outlet?, 
+			item.write_attributes :sale_price => product.sale_price, :campaign_name => product.campaign_name, :msrp => product.msrp_or_wholesale_price, :currency => current_currency, :small_image => product.small_image, :tax_exempt => product.tax_exempt, :outlet => product.outlet?, :pre_order => product.pre_order?,
 			  :handling_price => product.handling_price, :retailer_price => product.retailer_price, :weight => product.virtual_weight, :actual_weight => product.weight, :out_of_stock => backorder_allowed? && product.listable?(current_system, item.quantity) ? product.out_of_stock?(current_system, item.quantity - 1) : product.out_of_stock?
 			item.price = product.price unless item.custom_price
 			if check

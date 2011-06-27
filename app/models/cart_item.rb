@@ -49,7 +49,7 @@ class CartItem
 	
 	# collection of attributes whose change should trigger cart update and halt the checkout process
 	def sensitive_attributes
-		%w(price quantity handling_price out_of_stock)
+		%w(price quantity handling_price out_of_stock pre_order)
 	end
 	
 	# if line item is a coupon

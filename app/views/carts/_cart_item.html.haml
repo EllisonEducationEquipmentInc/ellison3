@@ -1,6 +1,6 @@
 %tr{:id => "cart_item_#{cart_item.id}", :class => cycle('odd', 'even')}
   - item_class = cart_item.pre_order ? 'pre_order ' : ''
-  - item_class << 'item_changed' if get_cart.is_cart_item_changed?(cart_item.id, "out_of_stock")
+  - item_class << 'item_changed' if get_cart.is_cart_item_changed?(cart_item.id, "out_of_stock") || get_cart.is_cart_item_changed?(cart_item.id, "pre_order")
   %td{:class => item_class.present? && item_class}
     = cart_item.item_num
     - if cart_item.pre_order
