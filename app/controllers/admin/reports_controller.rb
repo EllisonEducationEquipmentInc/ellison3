@@ -38,7 +38,7 @@ class Admin::ReportsController < ApplicationController
 	end
 	
 	def campaign_usage_report
-	  @report = Report.create 
+	  @report = Report.create :report_options => {:name => params[:campaign]}
 	  @report.delay.campaign_usage params[:campaign]
 	  render :process
 	end
@@ -46,7 +46,7 @@ class Admin::ReportsController < ApplicationController
 	def download_report
 	  @report = Report.find(params[:id])
     @gridfs_file = Mongo::GridFileSystem.new(Mongoid.database).open(@report.file_name, 'r')
-	  send_data  @gridfs_file.read, :filename => "#{@report.report_type}_#{Time.zone.now.strftime "%m%d%Y_%s"}.csv", :type => @gridfs_file.content_type
+	  send_data  @gridfs_file.read, :filename => "#{@report.report_type}_#{@report.report_options['name'].present? ? @report.report_options['name']+'_' : ''}#{Time.zone.now.strftime "%m%d%Y_%s"}.csv", :type => @gridfs_file.content_type
 	end
 	
 
