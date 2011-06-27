@@ -38,6 +38,25 @@ class Report
     Rails.logger.error("#{e}")  
 	end
 	
+	def campaign_usage(campaign)
+	  self.report_type = "campaign_usage"
+		@campaigns = Order.campaign_usage campaign
+		self.total_count = @campaigns.count
+		n = 0
+    csv_string = CSV.generate  do |csv|
+			csv << ["item_num", "name", "number_of_orders", "quantity", "quoted_price", "sale_price", "item_total", "locale"]
+			@campaigns.each do |item|
+				n += 1
+        percentage!(n)
+				csv << [item["_id"]["item_num"], item["_id"]["name"], item["value"]["number_of_orders"], item["value"]["quantity"], item["_id"]["quoted_price"], item["_id"]["sale_price"], item["value"]["item_total"], item["_id"]["locale"]]
+			end
+		end
+		write_to_gridfs csv_string
+		completed!
+  rescue Exception => e
+    Rails.logger.error("#{e}")  
+	end
+	
 private
 
   def modulo

@@ -132,7 +132,7 @@ EOF
         function() {
           if (this.order_items) {
             this.order_items.forEach(function(doc) {
-              if (doc.campaign_name == '#{campaign_name}') emit( doc.item_num, {name: doc.name, quantity: doc.quantity, quoted_price: doc.quoted_price, sale_price: doc.sale_price, item_total: doc.sale_price * doc.quantity, number_of_orders: 1} );
+              if (doc.campaign_name == '#{campaign_name}') emit( {item_num: doc.item_num, name: doc.name, sale_price: doc.sale_price, quoted_price: doc.quoted_price, locale: doc.locale}, {quantity: doc.quantity, item_total: doc.sale_price * doc.quantity, number_of_orders: 1, locale: doc.locale} );
             })
           }
         }
@@ -148,11 +148,11 @@ EOF
             sum += values[i].item_total;
             number_of_orders += 1;
           }
-          return {name: values[0].name, quoted_price: values[0].quoted_price, sale_price: values[0].sale_price,  number_of_orders: number_of_orders, quantity : total, item_total: sum};
+          return {number_of_orders: number_of_orders, quantity : total, item_total: sum};
         };
 EOF
 
-      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {"order_items.campaign_name" => campaign_name}})["results"]
+      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {"order_items.campaign_name" => campaign_name, "system" => current_system}})["results"]
     end
     
     def summary(options = {})

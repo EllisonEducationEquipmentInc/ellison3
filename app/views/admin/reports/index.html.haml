@@ -47,7 +47,7 @@
 = form_tag url_for(:action => 'campaign_usage_report'), :remote => true, :class => 'report_form' do
   .field
     = label_tag :campaign
-    = select_tag :campaign, options_for_select([["--- select campaign ---", nil]] + @campaigns), :id => :wishlists_report_system
+    = select_tag :campaign, options_for_select([["--- select campaign ---", nil]] + @campaigns)
 
   .actions
     = submit_tag "Submit", :class => 'jqui_save'

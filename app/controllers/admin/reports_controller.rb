@@ -37,13 +37,17 @@ class Admin::ReportsController < ApplicationController
 	  render :text => @report.percent.to_i
 	end
 	
+	def campaign_usage_report
+	  @report = Report.create 
+	  @report.delay.campaign_usage params[:campaign]
+	  render :process
+	end
+	
 	def download_report
 	  @report = Report.find(params[:id])
     @gridfs_file = Mongo::GridFileSystem.new(Mongoid.database).open(@report.file_name, 'r')
 	  send_data  @gridfs_file.read, :filename => "#{@report.report_type}_#{Time.zone.now.strftime "%m%d%Y_%s"}.csv", :type => @gridfs_file.content_type
 	end
 	
-	def campaign_usage_report
-	 
-	end
+
 end
