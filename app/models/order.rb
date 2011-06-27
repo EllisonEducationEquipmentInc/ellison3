@@ -40,6 +40,7 @@ class Order
 	index "payment.tx_auth_no"
 	index "payment.purchase_order_number"
 	index "order_items.campaign_name"
+	index "order_items.coupon_name"
 	
 	index [[:user_id, Mongo::ASCENDING], [:system, Mongo::ASCENDING], [:created_at, Mongo::DESCENDING]]
 	index [[:updated_at, Mongo::DESCENDING], [:system, Mongo::DESCENDING], [:order_number, Mongo::DESCENDING], [:tax_transaction, Mongo::DESCENDING], [:"payment", Mongo::ASCENDING], [:"address", Mongo::ASCENDING], [:deleted_at, Mongo::ASCENDING]]
@@ -153,6 +154,34 @@ EOF
 EOF
 
       collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {"order_items.campaign_name" => campaign_name, "system" => current_system}})["results"]
+    end
+    
+    def coupon_usage(coupon_name)
+      map = <<EOF
+        function() {
+          if (this.order_items) {
+            this.order_items.forEach(function(doc) {
+              if (doc.coupon_name == '#{coupon_name}') emit( {item_num: doc.item_num, name: doc.name, sale_price: doc.sale_price, quoted_price: doc.quoted_price, locale: doc.locale}, {quantity: doc.quantity, item_total: doc.sale_price * doc.quantity, number_of_orders: 1, locale: doc.locale} );
+            })
+          }
+        }
+EOF
+
+      reduce = <<EOF
+        function( key , values ){
+          var total = 0;
+          var sum = 0;
+          var number_of_orders = 0;
+          for ( var i=0; i<values.length; i++ ){
+            total += values[i].quantity;
+            sum += values[i].item_total;
+            number_of_orders += 1;
+          }
+          return {number_of_orders: number_of_orders, quantity : total, item_total: sum};
+        };
+EOF
+
+      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {"order_items.coupon_name" => coupon_name, "system" => current_system}})["results"]
     end
     
     def summary(options = {})

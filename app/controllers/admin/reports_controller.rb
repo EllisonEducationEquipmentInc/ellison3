@@ -11,6 +11,7 @@ class Admin::ReportsController < ApplicationController
 	  @start_date = Time.zone.now.beginning_of_day
 	  @end_date = Time.zone.now.end_of_day
 	  @campaigns = Rails.cache.fetch("disctinct_campaign_names_#{current_system}", :expires_in => 1.hour.since) {Order.send(current_system).distinct('order_items.campaign_name').compact.sort {|x,y| x.downcase <=> y.downcase}}
+	  @coupons = Rails.cache.fetch("disctinct_coupon_names_#{current_system}", :expires_in => 1.hour.since) {Coupon.find(Order.send(current_system).distinct('coupon_id').compact).sort {|x,y| x.name <=> y.name}.map {|e| ["#{e.name} - #{e.codes * ', '}", e.name]}}
 	end
 	
 	def order_analysis
@@ -39,7 +40,13 @@ class Admin::ReportsController < ApplicationController
 	
 	def campaign_usage_report
 	  @report = Report.create :report_options => {:name => params[:campaign]}
-	  @report.delay.campaign_usage params[:campaign]
+	  @report.delay.campaign_coupon_usage params[:campaign]
+	  render :process
+	end
+	
+	def coupon_usage_report
+	  @report = Report.create :report_options => {:name => params[:coupon]}
+	  @report.delay.campaign_coupon_usage params[:coupon], "coupon"
 	  render :process
 	end
 	

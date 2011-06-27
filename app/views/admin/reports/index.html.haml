@@ -51,3 +51,14 @@
 
   .actions
     = submit_tag "Submit", :class => 'jqui_save'
+%br
+%hr
+%h3 Products Coupon Usage Report
+%p This report gives an overview of how the products under the selected coupon code performed. All coupon codes of #{current_system} are listed in the dropdown.
+= form_tag url_for(:action => 'coupon_usage_report'), :remote => true, :class => 'report_form' do
+  .field
+    = label_tag :coupon
+    = select_tag :coupon, options_for_select([["--- select coupon ---", nil]] + @coupons)
+
+  .actions
+    = submit_tag "Submit", :class => 'jqui_save'

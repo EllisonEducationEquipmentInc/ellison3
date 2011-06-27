@@ -38,9 +38,9 @@ class Report
     Rails.logger.error("#{e}")  
 	end
 	
-	def campaign_usage(campaign)
-	  self.report_type = "campaign_usage"
-		@campaigns = Order.campaign_usage campaign
+	def campaign_coupon_usage(campaign, report_type = "campaign")
+	  self.report_type = "#{report_type}_usage"
+		@campaigns = Order.send self.report_type, campaign
 		self.total_count = @campaigns.count
 		n = 0
     csv_string = CSV.generate  do |csv|
