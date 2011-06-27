@@ -39,13 +39,13 @@ class Admin::ReportsController < ApplicationController
 	end
 	
 	def campaign_usage_report
-	  @report = Report.create :report_options => {:name => params[:campaign]}
+	  @report = Report.create :report_options => {:name => params[:campaign].parameterize}
 	  @report.delay.campaign_coupon_usage params[:campaign]
 	  render :process
 	end
 	
 	def coupon_usage_report
-	  @report = Report.create :report_options => {:name => params[:coupon]}
+	  @report = Report.create :report_options => {:name => params[:coupon].parameterize}
 	  @report.delay.campaign_coupon_usage params[:coupon], "coupon"
 	  render :process
 	end
