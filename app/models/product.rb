@@ -459,12 +459,14 @@ class Product
   end
   
   def decrement_quantity(qty)
+    before_stock_status = self.in_stock?
     skip_versioning_and_timestamps
     if is_sizzix? && qty > self.quantity_us
       write_attributes :quantity_sz => self.quantity_sz + self.quantity_us - qty, :quantity_us => 0
     else
       is_us? ? write_attributes(:quantity_us => self.quantity_us - qty) : write_attributes(:quantity_uk => self.quantity_uk - qty)
     end
+    force_touch! if before_stock_status ^ self.in_stock?
     save :validate => false
   end
   
