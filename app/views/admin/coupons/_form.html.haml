@@ -89,7 +89,7 @@
         = check_box_tag :check_all_shipping_countries, "1", false, :onchange => "$('.coupon_shipping_countries').attr('checked', this.checked)"
         %span.minilink Select All
         .admin_checkboxes.ui-corner-all
-          - Country.all.cache.each do |country|
+          - Country.all.cache.order_by(:display_order.asc, :name.asc).each do |country|
             = check_box_tag "coupon[shipping_countries][]", country.name, @coupon.shipping_countries && @coupon.shipping_countries.include?(country.name), :class => "coupon_shipping_countries"
             = country.name
             %br      
