@@ -57,8 +57,8 @@ module ApplicationHelper
       end
         
       if regular_price
-        p << "#{(product.outlet ? 'Closeout: ' : is_er? ? er_label : 'Sale Price: ') if with_text}<span class='special-price#{' old-price' if coupon || sale_price} #{'sale-price' if is_sizzix_us? && product.outlet}'>#{number_to_currency regular_price}</span> "
-        if product.outlet && with_text
+        p << "#{(product.outlet? ? 'Closeout: ' : is_er? ? er_label : 'Sale Price: ') if with_text}<span class='special-price#{' old-price' if coupon || sale_price} #{'sale-price' if product.outlet?}'>#{number_to_currency regular_price}</span> "
+        if product.outlet? && with_text
           p << "<br /><span class='percent-saved'>You Save #{product.saving}%</span>"
         end
       end
