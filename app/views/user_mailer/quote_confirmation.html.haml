@@ -91,7 +91,10 @@
     %td
       %ol
         %li== Your #{quote_name.downcase} will be saved for #{is_ee? ? '90' : is_er? ? '180' : '90'} days. Any changes to product availability or any other factors beyond our control will void the #{quote_name.downcase}.
-        %li== Products placed for #{quote_name.downcase} are final. #{quote_name} cannot be altered after being submitted.
+        - if is_ee_uk?
+          %li==  If you would like to change any of the items on your quote, please contact Customer Service on 0844 499 8181 (within UK), +44 (0) 845 345 2277 (outside UK) or email #{ mail_to "europecustomerservices@ellison.com", "europecustomerservices@ellison.com" }
+        - else
+          %li== Products placed for #{quote_name.downcase} are final. #{quote_name} cannot be altered after being submitted.
   - unless @quote.comments.blank?
     %tr
       %td
