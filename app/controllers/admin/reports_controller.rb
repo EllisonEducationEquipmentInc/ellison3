@@ -15,7 +15,7 @@ class Admin::ReportsController < ApplicationController
 	end
 	
 	def order_analysis
-	  @report = Report.create :start_date => params[:start_date], :end_date => params[:end_date]
+	  @report = Report.create :start_date => params[:start_date], :end_date => params[:end_date], :system => current_system
 	  @report.delay.order_analysis
 	  render :process
 	end
@@ -39,13 +39,13 @@ class Admin::ReportsController < ApplicationController
 	end
 	
 	def campaign_usage_report
-	  @report = Report.create :report_options => {:name => params[:campaign].parameterize}
-	  @report.delay.campaign_coupon_usage params[:campaign]
+	  @report = Report.create :report_options => {:name => params[:campaign].parameterize}, :system => current_system
+	  @report.delay.campaign_coupon_usage(params[:campaign])
 	  render :process
 	end
 	
 	def coupon_usage_report
-	  @report = Report.create :report_options => {:name => params[:coupon].parameterize}
+	  @report = Report.create :report_options => {:name => params[:coupon].parameterize}, :system => current_system
 	  @report.delay.campaign_coupon_usage params[:coupon], "coupon"
 	  render :process
 	end

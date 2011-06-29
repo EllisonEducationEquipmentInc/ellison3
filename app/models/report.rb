@@ -11,15 +11,18 @@ class Report
 	field :report_options, :type => Hash, :default => {}
 	field :start_date, :type => DateTime
 	field :end_date, :type => DateTime
+	field :system
 	
 	validates_presence_of :file_name
 	
 	def initialize(attrs = nil)
 	  super
+	  set_current_system self.system || current_system
 	  self.file_name ||= "reports/#{id}/#{Digest::SHA1.hexdigest("#{id}-#{Time.now.to_f}")}.csv"
 	end
 	
 	def order_analysis
+	  set_current_system self.system || current_system
 	  self.report_type = "order_analysis"
 		@orders = Order.not_cancelled.where(:created_at.gt => self.start_date, :created_at.lt => self.end_date).desc(:created_at)
 		self.total_count = @orders.count
@@ -39,12 +42,13 @@ class Report
 	end
 	
 	def campaign_coupon_usage(campaign, report_type = "campaign")
+	  set_current_system self.system || current_system
 	  self.report_type = "#{report_type}_usage"
 		@campaigns = Order.send self.report_type, campaign
 		self.total_count = @campaigns.count
 		n = 0
     csv_string = CSV.generate  do |csv|
-			csv << ["item_num", "name", "number_of_orders", "quantity", "quoted_price", "sale_price", "item_total", "locale"]
+			csv << ["item_num", "name", "number_of_orders", "quantity", "quoted_price", "sale_price", "item_total", "locale", current_system]
 			@campaigns.each do |item|
 				n += 1
         percentage!(n)
