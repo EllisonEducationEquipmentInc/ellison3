@@ -65,7 +65,7 @@ class Admin::ReportsController < ApplicationController
 	  else
 	    @coupon = Coupon.find(params[:coupon])
   	  @report = Report.create :report_options => {:name => @coupon.name.parameterize}, :system => current_system
-  	  @report.shipping_coupon_usage @coupon.id
+  	  @report.delay.shipping_coupon_usage @coupon.id
   	  render :process
   	end
 	end
