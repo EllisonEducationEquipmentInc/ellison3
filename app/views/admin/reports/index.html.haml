@@ -62,3 +62,10 @@
 
   .actions
     = submit_tag "Submit", :class => 'jqui_save'
+= form_tag url_for(:action => 'shipping_coupon_usage_report'), :remote => true, :class => 'report_form' do
+  .field
+    = label_tag :coupon, "Shipping, Group coupons"
+    = select_tag :coupon, options_for_select([["--- select coupon ---", nil]] + @shipping_coupons)
+
+  .actions
+    = submit_tag "Submit", :class => 'jqui_save'
