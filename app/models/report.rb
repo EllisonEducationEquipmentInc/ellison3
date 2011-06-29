@@ -48,7 +48,7 @@ class Report
 		self.total_count = @campaigns.count
 		n = 0
     csv_string = CSV.generate  do |csv|
-			csv << ["item_num", "name", "number_of_orders", "quantity", "quoted_price", "sale_price", "item_total", "locale", current_system]
+			csv << ["item_num", "name", "number_of_orders", "quantity", "quoted_price", "sale_price", "item_total", "locale"]
 			@campaigns.each do |item|
 				n += 1
         percentage!(n)
@@ -60,6 +60,28 @@ class Report
   rescue Exception => e
     Rails.logger.error("#{e}")  
 	end
+	
+	def shipping_coupon_usage(coupon)
+	  set_current_system self.system || current_system
+	  self.report_type = "shipping_coupon_usage"
+		@campaigns = Order.shipping_coupon_usage coupon
+		self.total_count = @campaigns.count
+		n = 0
+    csv_string = CSV.generate  do |csv|
+			csv << ["locale", "number_of_orders", "total_subtotal_amount", "total_shipping", "total_line_items"]
+			@campaigns.each do |item|
+				n += 1
+        percentage!(n)
+				csv << [item["_id"], item["value"]["number_of_orders"], item["value"]["total_subtotal_amount"], item["value"]["total_shipping"], item["value"]["total_line_items"]]
+			end
+		end
+		write_to_gridfs csv_string
+		completed!
+  rescue Exception => e
+    Rails.logger.error("#{e}")  
+	end
+	
+	
 	
 private
 

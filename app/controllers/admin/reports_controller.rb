@@ -40,15 +40,34 @@ class Admin::ReportsController < ApplicationController
 	end
 	
 	def campaign_usage_report
-	  @report = Report.create :report_options => {:name => params[:campaign].parameterize}, :system => current_system
-	  @report.delay.campaign_coupon_usage(params[:campaign])
-	  render :process
+	  if params[:campaign].blank?
+	    render :js => "alert('select campaign from the dropdown')"
+	  else
+	    @report = Report.create :report_options => {:name => params[:campaign].parameterize}, :system => current_system
+  	  @report.delay.campaign_coupon_usage(params[:campaign])
+  	  render :process
+	  end
 	end
 	
 	def coupon_usage_report
-	  @report = Report.create :report_options => {:name => params[:coupon].parameterize}, :system => current_system
-	  @report.delay.campaign_coupon_usage params[:coupon], "coupon"
-	  render :process
+	  if params[:coupon].blank?
+	    render :js => "alert('select coupon from the dropdown')"
+	  else
+  	  @report = Report.create :report_options => {:name => params[:coupon].parameterize}, :system => current_system
+  	  @report.delay.campaign_coupon_usage params[:coupon], "coupon"
+  	  render :process
+  	end
+	end
+	
+	def shipping_coupon_usage_report
+	  if params[:coupon].blank?
+	    render :js => "alert('select coupon from the dropdown')"
+	  else
+	    @coupon = Coupon.find(params[:coupon])
+  	  @report = Report.create :report_options => {:name => @coupon.name.parameterize}, :system => current_system
+  	  @report.shipping_coupon_usage @coupon.id
+  	  render :process
+  	end
 	end
 	
 	def download_report

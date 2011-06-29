@@ -184,6 +184,32 @@ EOF
       collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {"order_items.coupon_name" => coupon_name, "system" => current_system}})["results"]
     end
     
+    def shipping_coupon_usage(coupon_id)
+      map = <<EOF
+        function() {
+          emit(this.locale, {subtotal_amount: this.subtotal_amount, shipping_amount: this.shipping_amount, number_of_orders: 1, line_items: this.order_items.length} );
+        }
+EOF
+
+      reduce = <<EOF
+        function( key , values ){
+          var total_shipping = 0;
+          var sum = 0;
+          var number_of_orders = 0;
+          var total_line_items = 0;
+          for ( var i=0; i<values.length; i++ ){
+            total_line_items += values[i].line_items
+            total_shipping += values[i].shipping_amount;
+            sum += values[i].subtotal_amount;
+            number_of_orders += 1;
+          }
+          return {number_of_orders: number_of_orders, total_subtotal_amount: sum, total_shipping: total_shipping, total_line_items: total_line_items};
+        };
+EOF
+
+      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {"coupon_id" => coupon_id, "system" => current_system}})["results"]
+    end
+    
     def summary(options = {})
       start_date, end_date, system = parse_options(options)
       collection.group :key => :locale, :cond => {:created_at => {"$gt" => start_date.utc, "$lt" => end_date.utc}, :system => system}, :reduce => "function(obj, out){out.subtotal += obj.subtotal_amount; out.shipping_amount += obj.shipping_amount; out.tax_amount += obj.tax_amount; out.total_amount += (obj.subtotal_amount + obj.shipping_amount + obj.tax_amount + obj.handling_amount); out.handling_amount += obj.handling_amount}", :initial => {:total_amount => 0, :subtotal => 0, :shipping_amount => 0, :tax_amount => 0, :handling_amount => 0}
