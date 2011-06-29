@@ -148,7 +148,7 @@
           %br
           To remove or delete the sale prices from products, do so from each product's respective detail page.
     .field
-      %strong Get Products by Tag type
+      = label_tag :get_products_by_tag_type, "Get Products By Tag Type", :style => "margin-right: 10px", :class => "autosize"
       = select_tag :get_products_by_tag_type, options_for_select([["--- select tag type ---", nil]] + Tag.all_types)
       %span#get_products_by_tag
       #products_by_tag_helper
@@ -183,11 +183,11 @@
               var items = [];
 
               $.each(data, function(key, val) {
-                items.push('<li class="ui-menu-item '+(product_ids.indexOf(val.id) >= 0 ? 'already_added' : 'product_by_tag_list_li')+'" id="product_helper_' + val.id + '">' + val.label + '</li>');
+                items.push('<li class="ui-menu-item '+(product_ids.indexOf(val.id) >= 0 ? 'already_added' : 'product_by_tag_list_li')+'" id="product_helper_' + val.id + '"><a class="ui-corner-all">' + val.label + '</a></li>');
               });
               $('#products_by_tag_helper').html(function() {
                 return $('<ul/>', {
-                  'class': 'product_by_tag_list',
+                  'class': 'product_by_tag_list ui-menu ui-widget ui-widget-content ui-corner-all',
                   html: items.join('')
                 })
               })
@@ -196,14 +196,14 @@
         })
         $('.product_by_tag_list_li').live("mouseover mouseout", function(event){
           if ( event.type == "mouseover" ) {
-            $(this).addClass("product_by_tag_list_over");
+            $(this).addClass("ui-state-hover");
           } else {
-            $(this).removeClass("product_by_tag_list_over");
+            $(this).removeClass("ui-state-hover");
           }
         })
         $('.product_by_tag_list_li').live("click", function(){
           product_ids.push(this.id.replace('product_helper_', ''));
-          $(this).removeClass("product_by_tag_list_li product_by_tag_list_over");
+          $(this).removeClass("product_by_tag_list_li ui-state-hover");
           $(this).addClass("already_added");
           $.ajax({url:'/admin/tags/add_product?product_id='+this.id.replace('product_helper_', '')+'&id=#{@tag.id}', success: function(html) {$('#tag_products').append(html);$('#tag_products').find('.spinner').remove();}, beforeSend: function(){$('#tag_products').append('#{escape_javascript loader_bar}')}});
         })
@@ -212,7 +212,7 @@
     #tag_ideas_section= render :partial => 'tag_ideas'
     = text_field_tag "tag_ideas_helper", nil, :style => "margin-bottom: 10px", :placeholder => "get idea by name or idea num"
     .field
-      %strong Get Ideas by Tag type
+      = label_tag :get_ideas_by_tag_type, "Get Ideas By Tag Type", :style => "margin-right: 10px", :class => "autosize"
       = select_tag :get_ideas_by_tag_type, options_for_select([["--- select tag type ---", nil]] + Tag.all_types)
       %span#get_ideas_by_tag
       #ideas_by_tag_helper
@@ -247,11 +247,11 @@
             var items = [];
 
             $.each(data, function(key, val) {
-              items.push('<li class="ui-menu-item '+(idea_ids.indexOf(val.id) >= 0 ? 'already_added' : 'idea_by_tag_list_li')+'" id="idea_helper_' + val.id + '">' + val.label + '</li>');
+              items.push('<li class="ui-menu-item '+(idea_ids.indexOf(val.id) >= 0 ? 'already_added' : 'idea_by_tag_list_li')+'" id="idea_helper_' + val.id + '"><a class="ui-corner-all">' + val.label + '</a></li>');
             });
             $('#ideas_by_tag_helper').html(function() {
               return $('<ul/>', {
-                'class': 'idea_by_tag_list',
+                'class': 'idea_by_tag_list ui-menu ui-widget ui-widget-content ui-corner-all',
                 html: items.join('')
               })
             })
@@ -260,14 +260,14 @@
       })
       $('.idea_by_tag_list_li').live("mouseover mouseout", function(event){
         if ( event.type == "mouseover" ) {
-          $(this).addClass("idea_by_tag_list_over");
+          $(this).addClass("ui-state-hover");
         } else {
-          $(this).removeClass("idea_by_tag_list_over");
+          $(this).removeClass("ui-state-hover");
         }
       })
       $('.idea_by_tag_list_li').live("click", function(){
         idea_ids.push(this.id.replace('idea_helper_', ''));
-        $(this).removeClass("idea_by_tag_list_li idea_by_tag_list_over");
+        $(this).removeClass("idea_by_tag_list_li ui-state-hover");
         $(this).addClass("already_added");
         $.ajax({url:'/admin/tags/add_idea?idea_id='+this.id.replace('idea_helper_', '')+'&id=#{@tag.id}', success: function(html) {$('#tag_ideas').append(html);$('#tag_ideas').find('.spinner').remove();}, beforeSend: function(){$('#tag_ideas').append('#{escape_javascript loader_bar}')}});
       });

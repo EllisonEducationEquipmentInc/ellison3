@@ -91,7 +91,7 @@
     - else
       #idea_tags_section= render :partial => 'idea_tags'
       .field
-        = label_tag :idea_tags_helper #, "<strong>Add A#{ @idea.tags.count >= 1 ? 'nother' : nil } Tag</strong".html_safe
+        = label_tag :idea_tags_helper, nil, :style => "width: 130px" #, "<strong>Add A#{ @idea.tags.count >= 1 ? 'nother' : nil } Tag</strong".html_safe
         = text_field_tag "idea_tags_helper", nil, :placeholder => "get tag by name"
       :javascript
         $(document).ready(function(){
@@ -121,7 +121,7 @@
         		return false;
         	}});
       .field
-        %strong Get Tags by type
+        = label_tag :get_tags_by_type, "Get Tags By Type", :style => "width: 130px"
         = select_tag :get_tags_by_type, options_for_select([["--- select tag type ---", nil]] + Tag.all_types)
         #tag_by_type_helper
         :javascript
@@ -134,11 +134,11 @@
                 var items = [];
 
                 $.each(data, function(key, val) {
-                  items.push('<li class="ui-menu-item '+(tag_ids.indexOf(val.id) >= 0 ? 'already_added' : 'tag_by_type_list_li')+'" id="tag_helper_' + val.id + '">' + val.label + '</li>');
+                  items.push('<li class="ui-menu-item '+(tag_ids.indexOf(val.id) >= 0 ? 'already_added' : 'tag_by_type_list_li')+'" id="tag_helper_' + val.id + '"><a class="ui-corner-all">' + val.label + '</a></li>');
                 });
                 $('#tag_by_type_helper').html(function() {
                   return $('<ul/>', {
-                    'class': 'tag_by_type_list',
+                    'class': 'tag_by_type_list ui-menu ui-widget ui-widget-content ui-corner-all',
                     html: items.join('')
                   })
                 })
@@ -147,14 +147,14 @@
           })
           $('.tag_by_type_list_li').live("mouseover mouseout", function(event){
             if ( event.type == "mouseover" ) {
-              $(this).addClass("tag_by_type_list_over");
+              $(this).addClass("ui-state-hover");
             } else {
-              $(this).removeClass("tag_by_type_list_over");
+              $(this).removeClass("ui-state-hover");
             }
           })
           $('.tag_by_type_list_li').live("click", function(){
             tag_ids.push(this.id.replace('tag_helper_', ''));
-            $(this).removeClass("tag_by_type_list_li tag_by_type_list_over");
+            $(this).removeClass("tag_by_type_list_li ui-state-hover");
             $(this).addClass("already_added");
             $.ajax({url:'/admin/ideas/add_tag?tag_id='+this.id.replace('tag_helper_', '')+'&id=#{@idea.id}', success: function(html) {$('#idea_tags').append(html);$('#idea_tags').find('.spinner').remove();}, beforeSend: function(){$('#idea_tags').append('#{escape_javascript loader_bar}')}});
           })
@@ -202,8 +202,9 @@
         %em Please save this idea first before assigning products.
     - else
       #idea_products_section= render :partial => 'idea_products'
-      = label_tag :idea_products_helper, "<strong>Add A#{ @idea.products.count >= 1 ? 'nother' : nil } Product</strong>".html_safe
-      = text_field_tag "idea_products_helper", nil, :placeholder => "get product by name or item num"
+      .field
+        = label_tag :idea_products_helper, "<strong>Add A#{ @idea.products.count >= 1 ? 'nother' : nil } Product</strong>".html_safe, :style => "width: 130px"
+        = text_field_tag "idea_products_helper", nil, :placeholder => "get product by name or item num"
       :javascript
         $(document).ready(function(){
           $('.product_pagination.ajax a').live('click', function() {$("#idea_products_section").css({ opacity: 0.3 });this.innerHTML='#{escape_javascript spinner}';$('#idea_products_section').load(this.href);return false;})
@@ -232,7 +233,7 @@
         		return false;
         	}});
       .field
-        %strong Get Products by Tag type
+        = label_tag :get_products_by_tag_type, "Get Products By Tag Type", :style => "width: 130px"
         = select_tag :get_products_by_tag_type, options_for_select([["--- select tag type ---", nil]] + Tag.all_types)
         %span#get_products_by_tag
         #products_by_tag_helper
@@ -267,11 +268,11 @@
                 var items = [];
 
                 $.each(data, function(key, val) {
-                  items.push('<li class="ui-menu-item '+(product_ids.indexOf(val.id) >= 0 ? 'already_added' : 'product_by_tag_list_li')+'" id="product_helper_' + val.id + '">' + val.label + '</li>');
+                  items.push('<li class="ui-menu-item '+(product_ids.indexOf(val.id) >= 0 ? 'already_added' : 'product_by_tag_list_li')+'" id="product_helper_' + val.id + '"><a class="ui-corner-all">' + val.label + '</a></li>');
                 });
                 $('#products_by_tag_helper').html(function() {
                   return $('<ul/>', {
-                    'class': 'product_by_tag_list',
+                    'class': 'product_by_tag_list ui-menu ui-widget ui-widget-content ui-corner-all',
                     html: items.join('')
                   })
                 })
@@ -280,14 +281,14 @@
           })
           $('.product_by_tag_list_li').live("mouseover mouseout", function(event){
             if ( event.type == "mouseover" ) {
-              $(this).addClass("product_by_tag_list_over");
+              $(this).addClass("ui-state-hover");
             } else {
-              $(this).removeClass("product_by_tag_list_over");
+              $(this).removeClass("ui-state-hover");
             }
           })
           $('.product_by_tag_list_li').live("click", function(){
             product_ids.push(this.id.replace('product_helper_', ''));
-            $(this).removeClass("product_by_tag_list_li product_by_tag_list_over");
+            $(this).removeClass("product_by_tag_list_li ui-state-hover");
             $(this).addClass("already_added");
             $.ajax({url:'/admin/ideas/add_product?product_id='+this.id.replace('product_helper_', '')+'&id=#{@idea.id}', success: function(html) {$('#idea_products').append(html);$('#idea_products').find('.spinner').remove();}, beforeSend: function(){$('#idea_products').append('#{escape_javascript loader_bar}')}});
           })

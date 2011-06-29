@@ -204,7 +204,7 @@
     - else
       #product_tags_section= render :partial => 'product_tags'
       .field
-        = label_tag :product_tags_helper #, "<strong>Add A#{ @product.tags.count >= 1 ? 'nother' : nil } Tag</strong".html_safe
+        = label_tag :product_tags_helper, "Product Tags Helper", :style => "width: 130px" #, "<strong>Add A#{ @product.tags.count >= 1 ? 'nother' : nil } Tag</strong".html_safe
         = text_field_tag "product_tags_helper", nil, :placeholder => "get tag by name"
       :javascript
         $(document).ready(function(){
@@ -234,9 +234,10 @@
         		return false;
         	}});
       .field
-        %strong Get Tags by type
+        = label_tag :get_tags_by_type, "Get Tags By Type", :style => "width: 130px"
         = select_tag :get_tags_by_type, options_for_select([["--- select tag type ---", nil]] + Tag.all_types)
         #tag_by_type_helper
+        .clear
         :javascript
           var tag_ids = #{@product.tag_ids.map &:to_s}
           $('#get_tags_by_type').change(function(){
@@ -247,11 +248,11 @@
                 var items = [];
 
                 $.each(data, function(key, val) {
-                  items.push('<li class="ui-menu-item '+(tag_ids.indexOf(val.id) >= 0 ? 'already_added' : 'tag_by_type_list_li')+'" id="tag_helper_' + val.id + '">' + val.label + '</li>');
+                  items.push('<li class="ui-menu-item '+(tag_ids.indexOf(val.id) >= 0 ? 'already_added' : 'tag_by_type_list_li')+'" id="tag_helper_' + val.id + '"><a class="ui-corner-all">' + val.label + '</a></li>');
                 });
                 $('#tag_by_type_helper').html(function() {
                   return $('<ul/>', {
-                    'class': 'tag_by_type_list',
+                    'class': 'tag_by_type_list ui-menu ui-widget ui-widget-content ui-corner-all',
                     html: items.join('')
                   })
                 })
@@ -260,14 +261,14 @@
           })
           $('.tag_by_type_list_li').live("mouseover mouseout", function(event){
             if ( event.type == "mouseover" ) {
-              $(this).addClass("tag_by_type_list_over");
+              $(this).addClass("ui-state-hover");
             } else {
-              $(this).removeClass("tag_by_type_list_over");
+              $(this).removeClass("ui-state-hover");
             }
           })
           $('.tag_by_type_list_li').live("click", function(){
             tag_ids.push(this.id.replace('tag_helper_', ''));
-            $(this).removeClass("tag_by_type_list_li tag_by_type_list_over");
+            $(this).removeClass("tag_by_type_list_li ui-state-hover");
             $(this).addClass("already_added");
             $.ajax({url:'/admin/products/add_tag?tag_id='+this.id.replace('tag_helper_', '')+'&id=#{@product.id}', success: function(html) {$('#product_tags').append(html);$('#product_tags').find('.spinner').remove();}, beforeSend: function(){$('#product_tags').append('#{escape_javascript loader_bar}')}});
           })
@@ -280,10 +281,11 @@
         %em Please save this product first before assigning ideas.
     - else
       #product_ideas_section= render :partial => 'product_ideas'
-      = label_tag :product_ideas_helper, "<strong>Add An#{ @product.ideas.count >= 1 ? 'other' : nil } Idea</strong>".html_safe
-      = text_field_tag "product_ideas_helper", nil, :placeholder => "get idea by name or idea num"
       .field
-        %strong Get Ideas by Tag type
+        = label_tag :product_ideas_helper, "<strong>Add An#{ @product.ideas.count >= 1 ? 'other' : nil } Idea</strong>".html_safe, :style => "width: 130px"
+        = text_field_tag "product_ideas_helper", nil, :placeholder => "get idea by name or idea num"
+      .field
+        = label_tag :get_ideas_by_tag_type, "Get Ideas By Tag Type", :style => "width: 130px"
         = select_tag :get_ideas_by_tag_type, options_for_select([["--- select tag type ---", nil]] + Tag.all_types)
         %span#get_ideas_by_tag
         #ideas_by_tag_helper
@@ -318,11 +320,11 @@
               var items = [];
 
               $.each(data, function(key, val) {
-                items.push('<li class="ui-menu-item '+(idea_ids.indexOf(val.id) >= 0 ? 'already_added' : 'idea_by_tag_list_li')+'" id="idea_helper_' + val.id + '">' + val.label + '</li>');
+                items.push('<li class="ui-menu-item '+(idea_ids.indexOf(val.id) >= 0 ? 'already_added' : 'idea_by_tag_list_li')+'" id="idea_helper_' + val.id + '"><a class="ui-corner-all">' + val.label + '</a></li>');
               });
               $('#ideas_by_tag_helper').html(function() {
                 return $('<ul/>', {
-                  'class': 'idea_by_tag_list',
+                  'class': 'idea_by_tag_list ui-menu ui-widget ui-widget-content ui-corner-all',
                   html: items.join('')
                 })
               })
@@ -331,14 +333,14 @@
         })
         $('.idea_by_tag_list_li').live("mouseover mouseout", function(event){
           if ( event.type == "mouseover" ) {
-            $(this).addClass("idea_by_tag_list_over");
+            $(this).addClass("ui-state-hover");
           } else {
-            $(this).removeClass("idea_by_tag_list_over");
+            $(this).removeClass("ui-state-hover");
           }
         })
         $('.idea_by_tag_list_li').live("click", function(){
           idea_ids.push(this.id.replace('idea_helper_', ''));
-          $(this).removeClass("idea_by_tag_list_li idea_by_tag_list_over");
+          $(this).removeClass("idea_by_tag_list_li ui-state-hover");
           $(this).addClass("already_added");
           $.ajax({url:'/admin/products/add_idea?idea_id='+this.id.replace('idea_helper_', '')+'&id=#{@product.id}', success: function(html) {$('#product_ideas').append(html);$('#product_ideas').find('.spinner').remove();}, beforeSend: function(){$('#product_ideas').append('#{escape_javascript loader_bar}')}});
         });

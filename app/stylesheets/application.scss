@@ -167,36 +167,7 @@ body.bp th, body.bp td, body.bp caption {
 	}
 	.news_submit{
 	  float:right; margin-right: 30px;
-	}
-	.tag_by_type_list li {
-	  list-style-type: none;
-	  line-height: 1.5;
-	  padding: 2px 4px;
-	  background: #EFEDE5;
-    color: #A9250E;
-	}
-	.tag_by_type_list_over {
-	  cursor: pointer;
-	  border: solid #654B24;
-	  background: #654B24 url(/stylesheets/jqui-ellison3/images/ui-bg_glass_65_654b24_1x400.png) repeat-x 50% 50%;
-	}
-	.product_by_tag_list {
-    @extend .tag_by_type_list;
-  }
-  .product_by_tag_list_over {
-    @extend .tag_by_type_list_over;
-  }
-  .idea_by_tag_list {
-    @extend .tag_by_type_list;
-  }
-  .idea_by_tag_list_over {
-    @extend .tag_by_type_list_over;
-  }
-  .already_added {
-    @extend .tag_by_type_list;
-    opacity: 0.3;
-  }
-	
+	}	
 }
 p.show_cart{cursor:pointer;}
 	

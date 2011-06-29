@@ -225,6 +225,31 @@ p#disable_formhelp { @extend .formhelp_important; }
   }
 }
 
+#tag_by_type_helper, #ideas_by_tag_helper, #products_by_tag_helper {
+  
+  ul { @extend .plain;
+    margin: 8px 0 !important;
+    
+    li {
+      cursor: pointer;
+      width: 100%;
+      
+      a {
+        text-decoration: none;
+      }
+      
+      &.already_added {
+        opacity: .3;
+        /* For IE 5-7 */
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+        /* For IE 8 */
+        -MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+        cursor: text;        
+      }
+    }
+  }
+}
+
 // Virtual Terminal
 #virtual_terminal { @include column(24, true); }
 
