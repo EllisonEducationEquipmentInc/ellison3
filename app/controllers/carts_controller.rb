@@ -7,7 +7,7 @@ class CartsController < ApplicationController
 	before_filter :no_cache, :only => [:checkout, :quote]
 	before_filter :set_vat_exempt, :except => [:add_to_cart, :index, :move_to_cart, :remove_from_cart, :change_quantity, :delete_from_saved_list, :saved_list, :shopping_cart]
 	before_filter(:only => [:index]) {|controller| controller.send(:get_cart).reset_item_errors if controller.flash[:alert].blank? }
-	after_filter :reset_cart_item_errors, :only => [:proceed_checkout, :proceed_quote]
+	#after_filter :reset_cart_item_errors, :only => [:proceed_checkout, :proceed_quote]
 	
 	ssl_required :checkout, :proceed_checkout, :quote, :proceed_quote, :quote_2_order
 	ssl_allowed :index, :get_shipping_options, :change_shipping_method, :copy_shipping_address, :change_shipping_method, :get_shipping_service, :get_shipping_amount, :get_tax_amount, :get_total_amount,
