@@ -15,7 +15,7 @@
       %div{:class=>"instructions ui-corner-all"}
         = product.item_num
         %br
-        = link_to image_tag(product.small_image), product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize), :alt => product.name.html_safe, :title => product.name.html_safe
+        = link_to image_tag(product.small_image), product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize), :alt => product.name, :title => product.name
         %br
         = link_to product.name.html_safe, product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize)
         %br
