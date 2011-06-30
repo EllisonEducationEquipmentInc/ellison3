@@ -297,6 +297,12 @@ EOF
     @gateway.delete_customer_info :subscription_id => self.payment.subscriptionid, :order_id => self.id
   end
   
+  def get_customer_rep
+    Admin.find(self.customer_rep_id) if self.customer_rep_id
+  rescue
+    nil
+  end
+  
 	# use this format to change status:
 	#   @order.in_process! 
 	#   p @order.status # => "In Process"

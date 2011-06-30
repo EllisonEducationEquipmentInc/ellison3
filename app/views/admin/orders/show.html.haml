@@ -78,7 +78,7 @@
     = link_to @order.tracking_number, @order.tracking_url, :target => '_blank'
     %br
   %strong Customer Rep:
-  = @order.customer_rep
+  = @order.get_customer_rep.try :email
   - unless @order.order_reference.blank?
     %br
     %strong Order Reference ID:
