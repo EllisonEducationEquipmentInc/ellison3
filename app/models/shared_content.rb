@@ -10,6 +10,7 @@ class SharedContent
   field :short_desc
   field :systems_enabled, :type => Array
   field :placement
+  field :display_order, :type => Integer, :default => 100
   
 	field :created_by
 	field :updated_by

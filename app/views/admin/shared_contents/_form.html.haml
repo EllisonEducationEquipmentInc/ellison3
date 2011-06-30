@@ -28,6 +28,9 @@
         Only one is allowed for each/system.
         %br
         Select blank placement option if creating shared content for tabs.
+    .field
+      = f.label :display_order
+      = f.number_field :display_order, :min => 0, :max => 100, :size => 3
   .contentwrap_large.last
     .field
       = f.label :short_desc, "Short Description", :class => "autosize"
