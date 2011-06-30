@@ -11,7 +11,7 @@ class IndexController < ApplicationController
   ssl_allowed :limited_search, :machines_survey, :static_page, :add_comment, :newsletter, :create_subscription, :subscription, :update_subscription
   
   verify :xhr => true, :only => [:search, :quick_search, :send_feedback, :add_comment], :redirect_to => {:action => :home}
-  verify :method => :post, :only => [:update_subscription, :create_subscription], :redirect_to => {:action => :home}
+  verify :method => :post, :only => [:update_subscription, :create_subscription, :resend_subscription_confirmation], :redirect_to => {:action => :home}
     
   helper_method :idea?, :per_page
   
@@ -401,6 +401,15 @@ class IndexController < ApplicationController
       redirect_to(user_signed_in? && @subscription.email == current_user.email ? myaccount_path(:tab => 'subscriptions') : root_path, :notice => "Your subscription request has been successfully sent. You will receive a confirmation email shortly. Please follow its instructions to confirm your subscription.")
     else
       render :newsletter
+    end
+  end
+  
+  def resend_subscription_confirmation
+    @subscription = Subscription.first(:conditions => {:email => params[:email], :list => subscription_list})
+    if @subscription && recaptcha_valid?
+      UserMailer.subscription_confirmation(@subscription).deliver
+      flash[:notice] = "Your subscription request has been successfully sent. You will receive a confirmation email shortly. Please follow its instructions to confirm your subscription."
+      render :js => "window.location.href = '#{user_signed_in? && @subscription.email == current_user.email ? myaccount_path(:tab => 'subscriptions') : root_path}'" and return
     end
   end
   
