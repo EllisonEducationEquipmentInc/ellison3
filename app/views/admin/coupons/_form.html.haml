@@ -131,6 +131,7 @@
     = products_helper_tag('coupon[product_excluded_item_nums]', @coupon.product_excluded_item_nums, :label => "Exclusion List<br /><span class='formhelp'>Products listed here will be excluded from requirements specified within this section. Further, they will be excluded from order level and highest priced product discounts.</span>".html_safe)
   %br
   .clear
+  %hr
   .actions
     = f.submit :class => 'wymupdate jqui_save'
   :javascript

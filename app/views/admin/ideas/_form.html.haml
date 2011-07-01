@@ -123,8 +123,6 @@
       .field
         = label_tag :get_tags_by_type, "Get Tags By Type", :style => "width: 130px"
         = select_tag :get_tags_by_type, options_for_select([["--- select tag type ---", nil]] + Tag.all_types)
-        %br
-        %p.formhelp{ :style => "margin-left: 142px"} Only the first 1,500 active tags will be displayed.
         #tag_by_type_helper
         :javascript
           var tag_ids = #{@idea.tag_ids.map &:to_s}
