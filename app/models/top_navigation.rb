@@ -24,7 +24,7 @@ private
       Navigation.new("Machines & Accessories", "/lp/categories"),
       Navigation.new("Products", "/catalog"),
       Navigation.new("Electronic Cutting", "/shop/eclips"),
-      Navigation.new("Clearance", "/outlet")
+      Navigation.new("Outlet", "/outlet")
     ]
   end
   
