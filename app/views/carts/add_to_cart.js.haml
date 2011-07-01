@@ -1,6 +1,8 @@
 == $('#shoppingcart_info').html('#{escape_javascript(render(:partial => "carts/shopping_cart"))}');
 == $('#cart_container').html('#{escape_javascript(render(:partial => "carts/cart"))}');
-- unless params[:action] == 'add_to_cart_by_item_num'
+- if params[:action] == 'add_to_cart_by_item_num'
+  $(document).ready(function(){$("#item_num").focus();});
+- else
   $.fancybox({
   'padding' : 10,
   'autoScale'	: false,
