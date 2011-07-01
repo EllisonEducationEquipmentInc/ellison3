@@ -150,6 +150,8 @@
     .field
       = label_tag :get_products_by_tag_type, "Get Products By Tag Type", :style => "margin-right: 10px", :class => "autosize"
       = select_tag :get_products_by_tag_type, options_for_select([["--- select tag type ---", nil]] + Tag.all_types)
+      %br
+      %p.formhelp Only the first 500 active products of the tag will be displayed.
       %span#get_products_by_tag
       #products_by_tag_helper
       :javascript
@@ -214,6 +216,8 @@
     .field
       = label_tag :get_ideas_by_tag_type, "Get Ideas By Tag Type", :style => "margin-right: 10px", :class => "autosize"
       = select_tag :get_ideas_by_tag_type, options_for_select([["--- select tag type ---", nil]] + Tag.all_types)
+      %br
+      %p.formhelp Only the first 500 active ideas of the tag will be displayed.
       %span#get_ideas_by_tag
       #ideas_by_tag_helper
     :javascript

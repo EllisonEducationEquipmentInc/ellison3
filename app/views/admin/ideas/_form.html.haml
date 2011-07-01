@@ -123,6 +123,8 @@
       .field
         = label_tag :get_tags_by_type, "Get Tags By Type", :style => "width: 130px"
         = select_tag :get_tags_by_type, options_for_select([["--- select tag type ---", nil]] + Tag.all_types)
+        %br
+        %p.formhelp{ :style => "margin-left: 142px"} Only the first 1,500 active tags will be displayed.
         #tag_by_type_helper
         :javascript
           var tag_ids = #{@idea.tag_ids.map &:to_s}
@@ -203,7 +205,7 @@
     - else
       #idea_products_section= render :partial => 'idea_products'
       .field
-        = label_tag :idea_products_helper, "<strong>Add A#{ @idea.products.count >= 1 ? 'nother' : nil } Product</strong>".html_safe, :style => "width: 130px"
+        = label_tag :idea_products_helper, "<strong>Add A#{ @idea.products.count >= 1 ? 'nother' : nil } Product</strong>".html_safe, :style => "width: 150px"
         = text_field_tag "idea_products_helper", nil, :placeholder => "get product by name or item num"
       :javascript
         $(document).ready(function(){
@@ -233,8 +235,10 @@
         		return false;
         	}});
       .field
-        = label_tag :get_products_by_tag_type, "Get Products By Tag Type", :style => "width: 130px"
+        = label_tag :get_products_by_tag_type, "Get Products By Tag Type", :style => "width: 150px"
         = select_tag :get_products_by_tag_type, options_for_select([["--- select tag type ---", nil]] + Tag.all_types)
+        %br
+        %p.formhelp{ :style => "margin-left: 162px"} Only the first 500 active products of the tag will be displayed.
         %span#get_products_by_tag
         #products_by_tag_helper
         :javascript

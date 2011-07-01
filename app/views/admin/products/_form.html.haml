@@ -72,7 +72,7 @@
       = f.label :instructions, "Instructions Path", :class => "icon_pdf-upload", :style => "width: 101px"
       = f.text_field :instructions
       %br
-      %p.formhelp{ :style => "margin-left: 132px"} sample path: /images/pdf/instructions/<filename>.pdf
+      %p.formhelp{ :style => "margin-left: 132px"}== sample path: /images/pdf/instructions/&lt;filename&gt;.pdf
       
   .contentwrap_XXXL.last
     .field
@@ -236,6 +236,8 @@
       .field
         = label_tag :get_tags_by_type, "Get Tags By Type", :style => "width: 130px"
         = select_tag :get_tags_by_type, options_for_select([["--- select tag type ---", nil]] + Tag.all_types)
+        %br
+        %p.formhelp{ :style => "margin-left: 142px"} Only the first 1,500 active tags will be displayed.
         #tag_by_type_helper
         .clear
         :javascript
@@ -287,6 +289,8 @@
       .field
         = label_tag :get_ideas_by_tag_type, "Get Ideas By Tag Type", :style => "width: 130px"
         = select_tag :get_ideas_by_tag_type, options_for_select([["--- select tag type ---", nil]] + Tag.all_types)
+        %br
+        %p.formhelp{ :style => "margin-left: 142px"} Only the first 500 active ideas of the tag will be displayed.
         %span#get_ideas_by_tag
         #ideas_by_tag_helper
       :javascript
