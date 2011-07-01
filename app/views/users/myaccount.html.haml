@@ -1,4 +1,5 @@
 %h3 My Account
+%script{:type=>"text/javascript", :src=>"http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"}
 - if is_er? && !get_user.application_complete?
   Interested in becoming an Authorized Ellison Retailer? 
   = link_to "Please take a moment to complete your Retailer’s Application.", retailer_application_path

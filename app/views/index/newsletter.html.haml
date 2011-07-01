@@ -46,9 +46,8 @@
       Yes, I'd like to subscribe to
       %strong= @list[1]
       = render :partial => 'segments'
-  - if @subscription.errors["email"].present? && @subscription.errors["email"].any? {|e| e.include? "already"}
-    .error 
-      address has already been subscribed. to receive newsletter and waiting for customer confirmation. Please follow the instructions in the confirmation email to confirm your subscription. You can request to send confirmation email again by clicking on 'Re-send confirmation email' link below
+  - if @subscribed.present?
+    .error== Email address #{@subscribed.email} has already been subscribed. to receive newsletter and waiting for customer confirmation. Please follow the instructions in the confirmation email to confirm your subscription. You can request to send confirmation email again by clicking on 'Re-send confirmation email' link below
     = form_tag({:action => 'resend_subscription_confirmation'}, :remote => true) do
       = hidden_field_tag :email, @subscription.email
       = raw recaptcha_tag(:ajax, :ssl => request.ssl?, :display => {:theme => 'white'})

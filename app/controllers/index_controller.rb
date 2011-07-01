@@ -8,7 +8,7 @@ class IndexController < ApplicationController
   before_filter :register_last_action!, :only => [:product, :idea, :catalog]
   
   ssl_required :contact, :send_feedback, :reply_to_feedback
-  ssl_allowed :limited_search, :machines_survey, :static_page, :add_comment, :newsletter, :create_subscription, :subscription, :update_subscription
+  ssl_allowed :limited_search, :machines_survey, :static_page, :add_comment, :newsletter, :create_subscription, :subscription, :update_subscription, :resend_subscription_confirmation
   
   verify :xhr => true, :only => [:search, :quick_search, :send_feedback, :add_comment], :redirect_to => {:action => :home}
   verify :method => :post, :only => [:update_subscription, :create_subscription, :resend_subscription_confirmation], :redirect_to => {:action => :home}
@@ -382,11 +382,12 @@ class IndexController < ApplicationController
   
   def create_subscription
     get_list_and_segments
+    @subscribed = Subscription.first(:conditions => {:email => params[:subscription][:email], :list => subscription_list, :confirmed => false})
     @subscription = Subscription.new params[:subscription]
     @subscription.email = params[:subscription][:email]
     @subscription.list = subscription_list
     @subscription.list_name = @list[1]
-    if @subscription.save
+    if @subscribed.blank? && @subscription.save
       # TODO: make them delayed
       begin
         @lyris = Lyris.new :create_single_member, :email_address => @subscription.email, :list_name => @subscription.list, :full_name => @subscription.name
@@ -405,7 +406,7 @@ class IndexController < ApplicationController
   end
   
   def resend_subscription_confirmation
-    @subscription = Subscription.first(:conditions => {:email => params[:email], :list => subscription_list})
+    @subscription = Subscription.first(:conditions => {:email => params[:email], :list => subscription_list, :confirmed => false})
     if @subscription && recaptcha_valid?
       UserMailer.subscription_confirmation(@subscription).deliver
       flash[:notice] = "Your subscription request has been successfully sent. You will receive a confirmation email shortly. Please follow its instructions to confirm your subscription."
