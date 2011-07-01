@@ -16,6 +16,7 @@ class Admin::UsersController < ApplicationController
 	  else
 	    criteria.where(:systems_enabled.in => params[:systems_enabled]) 
 	  end
+	  criteria = criteria.where(:status => params[:status]) unless params[:status].blank?
 	  if params[:q].present?
 	    regexp = Regexp.new("^#{params[:q]}")
   	  criteria = criteria.any_of({ :name => regexp}, { :email => regexp }, { :erp => regexp }, { :company => regexp })

@@ -5,6 +5,8 @@
   = link_to 'all', admin_users_path, :class => 'jqui_button'
 = form_tag(admin_users_path, :method => :get) do
   = admin_systems_checkboxes
+  - if is_er?
+    = select_tag :status, options_for_select([["--- status ---", nil]]+User::STATUSES, params[:status])
   = text_field_tag :q
   = submit_tag "search", :class => 'jqui_search'
 .highlightable
