@@ -61,7 +61,7 @@
     $(".tab-block").tabs();
     toggle_store_fields();
     $.getScript('/javascripts/vendor/jquery.metadata.js', function() {
-      $('#map').jMapping({default_point: {lat: 40.513799, lng:-98.876953}, default_zoom_level: 3, link_selector: '.map-link'});
+      $('#map').jMapping({default_point: {lat: #{is_uk? ? '53.13359' : '40.513799'}, lng:#{is_uk? ? '-1.977539' : '-98.876953'}}, default_zoom_level: #{is_uk? ? 4 : 3}, link_selector: '.map-link'});
     });
     $('#map_search_submit').click( function() {
       if ($('#country').val() == 'United States' && $('#zip_code').val().length < 5) {
@@ -75,6 +75,7 @@
       $.ajax({url:'/index/update_map?'+$(this).parents('form').serialize(), success: function(html){
         $('#map-side-bar').html(html);
         $('#map').jMapping('update');
+        if (html.length < 20) $('#map').data('jMapping').map.setZoom(4);
         $('.info-box').show();
         $('.info-box h3').css('cursor', 'pointer');
         if ($('#map').data('jMapping').map.zoom > 15) $('#map').data('jMapping').map.setZoom(15);
