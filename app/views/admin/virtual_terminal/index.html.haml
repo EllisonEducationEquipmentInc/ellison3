@@ -295,7 +295,35 @@
       .column_50
         .field
           = label_tag :service, nil, :style => "width: 118px"
-          = select_tag :service, options_for_select(["FEDEX", "SAIA", "WEB"] , params[:service]), :onchange => "if (this.value == 'SAIA') {$('.saia_help').show()} else {$('.saia_help').hide()}"
+          = select_tag :service, options_for_select(["FEDEX", "SAIA", "WEB"] , params[:service]), :onchange => "update_service(this.value)"
+          - unless is_er?
+            :javascript
+              function update_service(service) {
+                if (service == 'SAIA') {
+                  $('.saia_help').show()
+                } else {
+                  $('.saia_help').hide()
+                }
+                if (service == 'WEB') {
+                  $('label[for=shipping_rate_weight] span').removeClass('required');
+                  $('#weight').removeClass('invalid');
+                  $('label[for=weight]').hide();
+                  $('#weight').rules('remove');
+                } else {
+                  $('label[for=shipping_rate_weight] span').addClass('required');
+                  $('#weight').rules('add', {required: true});
+                }
+              };
+          - else
+            :javascript
+              function update_service(service) {
+                if (service == 'SAIA') {
+                  $('.saia_help').show()
+                } else {
+                  $('.saia_help').hide()
+                }
+              };
+
         .field
           = label_tag :request_type, nil, :style => "width: 118px"
           = select_tag :request_type, options_for_select(["ACCOUNT", "LIST"])
@@ -317,7 +345,7 @@
           = select_tag :package_count, options_for_select([1,2,3,4,5,6,7,8,9,10], 1)
         .field
           = label_tag :packaging_type, nil, :style => "width: 118px"
-          = select_tag :packaging_type, options_for_select(Shippinglogic::FedEx::Enumerations::PACKAGE_TYPES.map {|e| [e.humanize, e]}, "YOUR_PACKAGING"), :onchange => "if (this.value == 'YOUR_PACKAGING') {$('.your_packaging').show()} else {$('.your_packaging').hide()} "
+          = select_tag :packaging_type, options_for_select(Shippinglogic::FedEx::Enumerations::PACKAGE_TYPES.map {|e| [e.humanize, e]}, "YOUR_PACKAGING"), :onchange => "if (this.value == 'YOUR_PACKAGING') {$('.your_packaging').show()} else {$('.your_packaging').hide()}"
         .field.your_packaging
           = label_tag :package_length, nil, :style => "width: 118px"
           = text_field_tag :package_length, 12, :size => 8
