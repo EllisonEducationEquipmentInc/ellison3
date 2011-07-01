@@ -181,7 +181,7 @@ module Ax
 	        item_number = item.attributes['number']
 	        onhand_qty_wh01 = item.attributes['onhand_qty_wh1'].to_i 
 	        onhand_qty_wh11 = item.attributes['onhand_qty_wh11'].to_i
-	        onhand_qty_uk = item.attributes['onhand_qty_uk'].to_i
+	        onhand_qty_uk = item.attributes['onhand_qty_uk'].blank? ? nil : item.attributes['onhand_qty_uk'].to_i
 					new_life_cycle = case item.attributes['life_cycle']
 					when "Pre-Release"
 					  'pre-release'
@@ -198,7 +198,7 @@ module Ax
 					unless product.blank?
 					  product.quantity_us =  onhand_qty_wh01 < 1 ? 0 : onhand_qty_wh01 unless options[:exclude] == "quantity_us"
 					  product.quantity_sz =  onhand_qty_wh11 < 1 ? 0 : onhand_qty_wh11 unless options[:exclude] == "quantity_sz"
-					  product.quantity_uk =  onhand_qty_uk < 1 ? 0 : onhand_qty_uk unless options[:exclude] == "quantity_uk"
+					  product.quantity_uk =  onhand_qty_uk < 1 ? 0 : onhand_qty_uk unless onhand_qty_uk.nil? || options[:exclude] == "quantity_uk"					   
 					  if new_life_cycle
 					    product.life_cycle = new_life_cycle
 					    if item.attributes['life_cycle_date'].present? && item.attributes['life_cycle_date'] =~ /^\d{2}\/\d{2}\/\d{2,4}$/
