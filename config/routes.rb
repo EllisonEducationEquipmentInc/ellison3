@@ -46,6 +46,7 @@ Ellison3::Application.routes.draw do |map|
 		get 'users/download_firmware', :to => "users#download_firmware"
 		get 'users/messages', :to => "users#messages"
 		post 'users/change_quote_name', :to => "users#change_quote_name"
+		post 'users/resend_subscription_confirmation', :to => "users#resend_subscription_confirmation"
   end
 
   match 'admin' => 'admin#index'

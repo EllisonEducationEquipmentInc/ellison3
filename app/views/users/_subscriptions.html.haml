@@ -16,9 +16,7 @@
       = f.submit :class => 'jqui_save'
 - elsif !@subscription.confirmed
   .error You are not subscribed because your email has not yet been verified. Please check your inbox for a confirmation email, then follow its instructions to confirm your subscription.
-  = form_tag({:controller => 'index', :action => 'resend_subscription_confirmation'}, :remote => true) do
-    = hidden_field_tag :email, @subscription.email
-    = raw recaptcha_tag(:ajax, :ssl => request.ssl?, :display => {:theme => 'white'})
+  = form_tag({:action => 'resend_subscription_confirmation'}, :remote => true, :id => 'resend_subscription_confirmation') do
     = submit_tag "Re-send confirmation email", :class => 'jqui_save'
 - else
   = render :partial => 'index/edit_subscriptions'
