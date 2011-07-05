@@ -1,4 +1,22 @@
 %tr{:id => "firmware_file_#{file.id}", :class => cycle(:odd, :even) }
-  %td= file.name
+  %td{:id => "name_#{file.id}"}= file.name
   %td= file.file_filename
+  %td{:id => "display_order_#{file.id}"}= file.display_order
   %td{ :width => 30, :style => "text-align: center;" }= link_to 'x', {:action => 'destroy', :id => file.id}, :confirm => 'Are you sure?', :method => :delete, :remote => true, :class => 'jqui_destroy_min'
+:javascript
+  $(document).ready(function(){
+    $("#name_#{file.id}").editInPlace({
+      url: "/admin/firmwares/change_name",
+      params: "id=#{file.id}",
+      show_buttons: true,
+      value_required: true,
+      saving_animation_color: "#ECF2F8"
+    });
+    $("#display_order_#{file.id}").editInPlace({
+      url: "/admin/firmwares/change_display_order",
+      params: "id=#{file.id}",
+      show_buttons: true,
+      value_required: true,
+      saving_animation_color: "#ECF2F8"
+    });
+  });

@@ -311,7 +311,7 @@ class UsersController < ApplicationController
 	
 	def show_fw_files
 	  if FirmwareRange.valid? params[:serial_number]
-	    @files = Firmware.active.asc(:created_at)
+	    @files = Firmware.active.order([:display_order, :asc])
 	    cookies[:serial_number] = { :value => params[:serial_number], :expires => 1.hour.from_now }
 	  else
 	    render :js => "alert('Invalid Serial Number');"

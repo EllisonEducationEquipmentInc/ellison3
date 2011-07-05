@@ -47,4 +47,16 @@ class Admin::FirmwaresController < ApplicationController
 	  render :js => "$('#firmware_range_#{@firmware_range.id}').remove()"
 	end
 	
+	def change_display_order
+	  @firmware = Firmware.find(params[:id])
+    @firmware.update_attributes :display_order => params[:update_value]
+    render :text =>  @firmware.display_order
+	end
+	
+	def change_name
+    @firmware = Firmware.find(params[:id])
+    @firmware.update_attributes :name => params[:update_value]
+    render :text =>  @firmware.name
+	end
+	
 end

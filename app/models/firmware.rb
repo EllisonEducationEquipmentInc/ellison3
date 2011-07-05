@@ -5,6 +5,7 @@ class Firmware
   
   field :name
   field :active, :type => Boolean, :default => true
+  field :display_order, :type => Integer, :default => 100
   
   field :created_by
 	field :updated_by

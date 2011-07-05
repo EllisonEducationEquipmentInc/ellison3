@@ -13,6 +13,7 @@
     %tr
       %th Name
       %th File
+      %th Display Order
       %th{ :width => 30, :style => "text-align: center;" } Deactivate?
   %tbody
     = render :partial => 'file', :collection => @files
@@ -20,6 +21,9 @@
   .field
     = f.label :name
     = f.text_field :name
+  .field
+    = f.label :display_order
+    = f.text_field :display_order
   .field
     = f.label :file
     = f.file_field :file 
