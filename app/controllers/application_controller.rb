@@ -239,9 +239,9 @@ private
 	    "UA-12678772-5"
 	  else
 	    if is_sizzix?
-	      is_us? ? 'UA-3328816-1' : 'UA-3328816-6'
+	      is_us? ? 'UA-3328816-1' : 'UA-23939177-1'
 	    elsif is_ee?
-	      is_us? ? 'UA-3328816-2' : 'UA-3328816-7'
+	      is_us? ? 'UA-3328816-2' : 'UA-23939177-5'
 	    else
 	      'UA-3328816-8'
 	    end
