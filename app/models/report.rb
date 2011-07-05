@@ -24,7 +24,7 @@ class Report
 	def order_analysis
 	  set_current_system self.system || current_system
 	  self.report_type = "order_analysis"
-		@orders = Order.not_cancelled.where(:created_at.gt => self.start_date, :created_at.lt => self.end_date).desc(:created_at)
+		@orders = Order.send(current_system).not_cancelled.where(:created_at.gt => self.start_date, :created_at.lt => self.end_date).desc(:created_at)
 		self.total_count = @orders.count
 		n = 0
     csv_string = CSV.generate  do |csv|
