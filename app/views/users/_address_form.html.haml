@@ -34,7 +34,7 @@
   = f.text_field :zip_code, :size => 10, :style => "margin-right: 6px"
 .field-stacked
   = required_label f, :country, { :label_size => "auto" }
-  = f.select :country, countries, {}, :onchange => "if (this.value == 'United States') {$('##{f.object.address_type}_state').html('#{escape_javascript(render(:partial => 'users/state_select', :locals => {:f => f}))}');$('##{f.object.address_type}_address_state').rules('add', {required: true});$('##{f.object.address_type}_address_phone').rules('add', {phoneUS: true});$('##{f.object.address_type}_address_zip_code').rules('add', {zipUS: true});} else if (this.value == 'Canada') {$('##{f.object.address_type}_state').html('#{escape_javascript(render(:partial => 'users/province_select', :locals => {:f => f}))}');$('##{f.object.address_type}_address_state').rules('add', {required: true});$('##{f.object.address_type}_address_phone').rules('add', {phoneUS: true});$('##{f.object.address_type}_address_zip_code').rules('remove', {zipUS: true});} else {$('##{f.object.address_type}_state').html('#{escape_javascript(render(:partial => 'users/state', :locals => {:f => f}))}');$('##{f.object.address_type}_address_state').rules('remove');$('##{f.object.address_type}_address_phone').rules('remove', 'phoneUS');$('##{f.object.address_type}_address_zip_code').rules('remove', 'zipUS');}"
+  = f.select :country, countries, {}, :onchange => "update_country_#{f.object.address_type}(this.value)"
 .clear
 .field-stacked.left
   = required_label f, :phone, { :label_size => "auto" }
@@ -121,3 +121,22 @@
       }
     });
   });
+  
+  function update_country_#{f.object.address_type}(country) {
+    if (country == 'United States') {
+      $('##{f.object.address_type}_state').html('#{escape_javascript(render(:partial => 'users/state_select', :locals => {:f => f}))}');
+      $('##{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_state').rules('add', {required: true});
+      $('##{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_phone').rules('add', {phoneUS: true});
+      $('##{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_zip_code').rules('add', {zipUS: true});
+    } else if (country == 'Canada') {
+      $('##{f.object.address_type}_state').html('#{escape_javascript(render(:partial => 'users/province_select', :locals => {:f => f}))}');
+      $('##{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_state').rules('add', {required: true});
+      $('##{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_phone').rules('remove', 'phoneUS');
+      $('##{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_zip_code').rules('remove', 'zipUS');
+    } else {
+      $('##{f.object.address_type}_state').html('#{escape_javascript(render(:partial => 'users/state', :locals => {:f => f}))}');
+      $('##{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_state').rules('remove');
+      $('##{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_phone').rules('remove', 'phoneUS');
+      $('##{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_zip_code').rules('remove', 'zipUS');
+    }
+  };
