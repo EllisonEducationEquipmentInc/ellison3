@@ -97,4 +97,17 @@ namespace :data_export do
 	  end
 	end
 	
+	desc "export_all_products"
+	task :export_all_products => :environment do
+	  CSV.open("/data/shared/report_files/all_products_report_#{Digest::SHA1.hexdigest("#{Time.now.to_f}")}.csv", "w") do |csv|
+      csv << [Time.zone.now]
+      csv << ["id", "upc", "item_num", "name", "systems_enabled"] + WAREHOUSES.map {|e| "quantity_#{e}"} + ELLISON_SYSTEMS.map {|e| "orderable_#{e}"} + ELLISON_SYSTEMS.map {|e| "start_date_#{e}"} + ELLISON_SYSTEMS.map {|e| "end_date_#{e}"} + ELLISON_SYSTEMS.map {|e| "distribution_life_cycle_#{e}"} + ELLISON_SYSTEMS.map {|e| "distribution_life_cycle_ends_#{e}"} + LOCALES_2_CURRENCIES.values.map {|e| "msrp_#{e}"} + LOCALES_2_CURRENCIES.values.map {|e| "wholesale_price_#{e}"} + LOCALES_2_CURRENCIES.values.map {|e| "handling_price_#{e}"} + ["msrp", "sale_price", "life_cycle", "active", "short_desc", "long_desc", "keywords", "outlet", "minimum_quantity", "discount_category", "item_type", "item_group", "tags", "video"]
+      csv << header
+      Product.limit(10).in_batches(500) do |batch|
+        batch.each do |product|
+        end
+      end
+    end
+	end
+
 end
