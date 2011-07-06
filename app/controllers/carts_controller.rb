@@ -376,7 +376,7 @@ private
       else
         MIN_ORDER
       end
-    if get_cart.sub_total < min_order || get_cart.total_weight >= MAX_WEIGHT
+    if get_cart.sub_total < min_order || (is_er? && get_cart.total_weight >= MAX_WEIGHT)
       flash[:alert] = get_cart.sub_total < min_order ? 
         "Minimum Order Requirement: There is a #{help.number_to_currency(min_order)} minimum order requirement for online shopping. Please add more products to your shopping cart before checking out."
         : "Cart has reached maximum weight. Please Call Customer Service to place order."
