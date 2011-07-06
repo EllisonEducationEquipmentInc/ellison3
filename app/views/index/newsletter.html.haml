@@ -46,12 +46,14 @@
       Yes, I'd like to subscribe to
       %strong= @list[1]
       = render :partial => 'segments'
+  .clear
   - if @subscribed.present?
-    .error== Email address #{@subscribed.email} has already been subscribed. to receive newsletter and waiting for customer confirmation. Please follow the instructions in the confirmation email to confirm your subscription. You can request to send confirmation email again by clicking on 'Re-send confirmation email' link below
-    = form_tag({:action => 'resend_subscription_confirmation'}, :remote => true) do
-      = hidden_field_tag :email, @subscription.email
-      = raw recaptcha_tag(:ajax, :ssl => request.ssl?, :display => {:theme => 'white'})
-      = submit_tag "Re-send confirmation email", :class => 'jqui_save'
+    .error{ :style => "margin: 0 16px 12px 16px" }== The email address <strong>#{@subscribed.email}</strong> has already been subscribed to receive <strong>#{@list[1]}</strong>, but is still awaiting confirmation. Please follow the instructions in the confirmation email to confirm your subscription. You can request to send the confirmation email again by clicking on the Re-send confirmation email button below.
+    %div{ :style => "margin: 0 0 12px 16px" }
+      = form_tag({:action => 'resend_subscription_confirmation'}, :remote => true) do
+        = hidden_field_tag :email, @subscription.email
+        = raw recaptcha_tag(:ajax, :ssl => request.ssl?, :display => {:theme => 'white'})
+        = submit_tag "Re-send confirmation email", :class => 'jqui_save', :style => "margin-top: 12px"
 .newsletter_content_c
   %h2{:class=>"signup_header"} FAQs
   %p
