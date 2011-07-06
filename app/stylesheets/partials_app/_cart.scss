@@ -74,6 +74,7 @@ ul.cart_summary {
   li#cart_total { border-top:1px double gray; }
   
   span#shipping_method {
+    display: inline-block;
     text-transform: capitalize;
   }
 }

@@ -84,6 +84,11 @@
 }
 
 // boxes, objects & grouped elements
+.clear {
+  clear: both;
+  height: 0;
+}
+.clear_left{ clear:left; }
 .right { float:right; }
 .left { float:left; }
 

@@ -1,5 +1,5 @@
 %span.left== Shipping (<span id='shipping_method'>#{get_cart.shipping_service.try :humanize}</span>):
 %span#shipping_amount.amount.right
+.clear
 :javascript
   $.ajax({url:'/carts/get_shipping_amount', success: function(data) {$('#shipping_amount').html(data);$('#shipping_options').load('/carts/get_shipping_options');$('#shipping_method').load('/carts/get_shipping_service')}, beforeSend: function() {$('#shipping_amount').html('#{escape_javascript loader_bar}')}})
-.clear
