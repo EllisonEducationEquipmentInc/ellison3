@@ -156,12 +156,12 @@ EOF
       collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {"order_items.campaign_name" => campaign_name, "system" => current_system}})["results"]
     end
     
-    def coupon_usage(coupon_name)
+    def coupon_usage(coupon_code)
       map = <<EOF
         function() {
           if (this.order_items) {
             this.order_items.forEach(function(doc) {
-              if (doc.coupon_name == '#{coupon_name}') emit( {item_num: doc.item_num, name: doc.name, sale_price: doc.sale_price, quoted_price: doc.quoted_price, locale: doc.locale}, {quantity: doc.quantity, item_total: doc.sale_price * doc.quantity, number_of_orders: 1, locale: doc.locale} );
+              if (doc.coupon_code == '#{coupon_code}') emit( {item_num: doc.item_num, name: doc.name, sale_price: doc.sale_price, quoted_price: doc.quoted_price, locale: doc.locale}, {quantity: doc.quantity, item_total: doc.sale_price * doc.quantity, number_of_orders: 1, locale: doc.locale} );
             })
           }
         }
@@ -181,10 +181,10 @@ EOF
         };
 EOF
 
-      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {"order_items.coupon_name" => coupon_name, "system" => current_system}})["results"]
+      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {"order_items.coupon_code" => coupon_code, "system" => current_system}})["results"]
     end
     
-    def shipping_coupon_usage(coupon_id)
+    def shipping_coupon_usage(coupon_code)
       map = <<EOF
         function() {
           emit(this.locale, {subtotal_amount: this.subtotal_amount, shipping_amount: this.shipping_amount, number_of_orders: 1, line_items: this.order_items.length} );
@@ -207,7 +207,7 @@ EOF
         };
 EOF
 
-      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {"coupon_id" => coupon_id, "system" => current_system}})["results"]
+      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {"coupon_code" => coupon_code, "system" => current_system}})["results"]
     end
     
     def summary(options = {})

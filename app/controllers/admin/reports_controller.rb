@@ -11,8 +11,8 @@ class Admin::ReportsController < ApplicationController
 	  @start_date = Time.zone.now.beginning_of_day
 	  @end_date = Time.zone.now.end_of_day
 	  @campaigns = Rails.cache.fetch("disctinct_campaign_names_#{current_system}", :expires_in => 1.hour.since) {Order.send(current_system).distinct('order_items.campaign_name').compact.sort {|x,y| x.downcase <=> y.downcase}}
-	  @coupons = Rails.cache.fetch("disctinct_coupon_names_#{current_system}", :expires_in => 1.hour.since) {Order.send(current_system).distinct('order_items.coupon_name').compact.sort {|x,y| x.downcase <=> y.downcase}}
-	  @shipping_coupons = Rails.cache.fetch("disctinct_order_coupon_names_#{current_system}", :expires_in => 1.hour.since) {Coupon.send(current_system).any_of({:free_shipping => true}, {:level.in => %w(shipping group)}).sort {|x,y| x.name <=> y.name}.map {|e| ["#{e.name} - #{e.codes * ', '}", e.id]}}
+	  @coupons = Rails.cache.fetch("disctinct_coupon_codes_#{current_system}", :expires_in => 1.hour.since) {Order.send(current_system).distinct('order_items.coupon_code').compact.sort {|x,y| x.downcase <=> y.downcase}}
+	  @shipping_coupons = Rails.cache.fetch("disctinct_order_coupon_codes_#{current_system}", :expires_in => 1.hour.since) {Order.send(current_system).where(:free_shipping_by_coupon => true).distinct('coupon_code').compact.sort {|x,y| x.downcase <=> y.downcase}}
 	end
 	
 	def order_analysis
@@ -63,9 +63,8 @@ class Admin::ReportsController < ApplicationController
 	  if params[:coupon].blank?
 	    render :js => "alert('select coupon from the dropdown')"
 	  else
-	    @coupon = Coupon.find(params[:coupon])
-  	  @report = Report.create :report_options => {:name => @coupon.name.parameterize}, :system => current_system
-  	  @report.delay.shipping_coupon_usage @coupon.id
+  	  @report = Report.create :report_options => {:name => params[:coupon].parameterize}, :system => current_system
+  	  @report.delay.shipping_coupon_usage params[:coupon]
   	  render :process
   	end
 	end
