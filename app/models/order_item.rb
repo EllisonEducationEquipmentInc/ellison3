@@ -10,6 +10,7 @@ class OrderItem
 	field :discount, :type => Float
 	field :campaign_name
 	field :coupon_name
+	field :coupon_code
 	field :custom_price, :type => Boolean, :default => false
 	field :coupon_price, :type => Boolean, :default => false
 	field :quantity, :type => Integer, :default => 1

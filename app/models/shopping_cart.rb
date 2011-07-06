@@ -70,7 +70,7 @@ module ShoppingCart
 			@cart.cart_items.each do |item|
 				order.order_items << OrderItem.new(:name => item.name, :item_num => item.item_num, :sale_price => item.price, :quoted_price => item.msrp, :quantity => item.quantity,
 				    :locale => item.currency, :product => item.product, :tax_exempt => item.tax_exempt, :discount => item.msrp - item.price, :custom_price => item.custom_price, 
-				    :coupon_price => item.coupon_price, :coupon_name => item.coupon_name, :vat => calculate_vat(item.price), :vat_percentage => vat, :vat_exempt => vat_exempt?, :upsell => item.upsell, :campaign_name => item.campaign_name)
+				    :coupon_price => item.coupon_price, :coupon_name => item.coupon_name, :coupon_code => order.coupon_code.present? && item.coupon_price ? order.coupon_code : nil, :vat => calculate_vat(item.price), :vat_percentage => vat, :vat_exempt => vat_exempt?, :upsell => item.upsell, :campaign_name => item.campaign_name)
 			end
 			order.address ||= get_user.shipping_address.clone
 			order
@@ -144,7 +144,7 @@ module ShoppingCart
 			    get_cart.update_attributes :free_shipping_by_coupon => true, :shipping_calculated_at => Time.now, :shipping_amount => 0.0, :shipping_service => "STANDARD", :shipping_rates => [{:name => "STANDARD", :type => "STANDARD", :currency => current_currency, :rate => 0.0}]
 			    return 0.0
 			  elsif coupon.fixed?
-			    get_cart.update_attributes :shipping_calculated_at => Time.now, :shipping_amount => coupon.discount_value, :shipping_service => "STANDARD", :shipping_rates => [{:name => "STANDARD", :type => "STANDARD", :currency => current_currency, :rate => coupon.discount_value}]
+			    get_cart.update_attributes :free_shipping_by_coupon => coupon.discount_value == 0, :shipping_calculated_at => Time.now, :shipping_amount => coupon.discount_value, :shipping_service => "STANDARD", :shipping_rates => [{:name => "STANDARD", :type => "STANDARD", :currency => current_currency, :rate => coupon.discount_value}]
 			    return coupon.discount_value
 			  elsif coupon.percent?
 			    @shipping_discount_percentage = coupon.discount_value
