@@ -127,6 +127,7 @@
 :javascript
   $(document).ready(function() {
     var validator = $("form.edit_user").validate({
+      ignore: ":hidden",
       errorClass: "invalid",
       rules: {
         "user[company]": { required: true },
@@ -170,7 +171,9 @@
         "user[addresses_attributes][2][zip_code]": { required: true, zipUS: #{is_us? ? 'true' : 'false'} },
         "user[addresses_attributes][2][country]": { required: true },
         "user[addresses_attributes][2][phone]": { required: true, phoneUS: #{is_us? ? 'true' : 'false'} },
-        "user[addresses_attributes][2][email]": { required: true, email: true }
+        "user[addresses_attributes][2][email]": { required: true, email: true },
+        "user[retailer_application_attributes][agreed_to_policy]": { required: true },
+        "user[retailer_application_attributes][agreed_to_terms]": { required: true }
       },
       messages: {
         "user[company]": { required: "Please provide your company name." },
@@ -216,7 +219,9 @@
         "user[addresses_attributes][2][zip_code]": { required: "Please provide a zip code.", zipUS: "Please specify a valid US zip code." },
         "user[addresses_attributes][2][country]": { required: "Please provide a country." },
         "user[addresses_attributes][2][phone]": { required: "Please provide a phone number." },
-        "user[addresses_attributes][2][email]": { required: "Please provide an email address." }
+        "user[addresses_attributes][2][email]": { required: "Please provide an email address." },
+        "user[retailer_application_attributes][agreed_to_policy]": { required: "You must agree to the Reseller Application Policy." },
+        "user[retailer_application_attributes][agreed_to_terms]": { required: "You must agree to the Reseller Terms and Conditions of Trading." }
       }
     });
     
