@@ -233,6 +233,8 @@
     $(':visible:input[name*="user[addresses_attributes]['+from_index+']"]').each(function(index){
       $($(':visible:input[name*="user[addresses_attributes]['+to_index+']"]')[index]).val(this.value);
     });
+    $('#user_addresses_attributes_'+to_index+'_country').trigger('change');
+    $('#user_addresses_attributes_'+to_index+'_state').val($('#user_addresses_attributes_'+from_index+'_state').val());
   }
 
   function has_website(value) {
