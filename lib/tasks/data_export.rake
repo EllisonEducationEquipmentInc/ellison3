@@ -104,8 +104,8 @@ namespace :data_export do
       csv << ["id", "upc", "item_num", "name", "systems_enabled"] + WAREHOUSES.map {|e| "quantity_#{e}"} + ELLISON_SYSTEMS.map {|e| "orderable_#{e}"} + ELLISON_SYSTEMS.map {|e| "start_date_#{e}"} + 
             ELLISON_SYSTEMS.map {|e| "end_date_#{e}"} + ELLISON_SYSTEMS.map {|e| "distribution_life_cycle_#{e}"} + ELLISON_SYSTEMS.map {|e| "distribution_life_cycle_ends_#{e}"} + 
             LOCALES_2_CURRENCIES.values.map {|e| "msrp_#{e}"} + LOCALES_2_CURRENCIES.values.map {|e| "wholesale_price_#{e}"} + LOCALES_2_CURRENCIES.values.map {|e| "handling_price_#{e}"} + ELLISON_SYSTEMS.map {|s| LOCALES_2_CURRENCIES.values.map {|e| "price_#{s}_#{e}"}}.flatten +
-            ["life_cycle", "active", "short_desc", "long_desc", "keywords", "outlet", "minimum_quantity", "discount_category", "item_type", "item_group", "tags", "video"]
-      Product.limit(10).in_batches(500) do |batch|
+            ["life_cycle", "active",  "keywords", "outlet", "minimum_quantity", "discount_category", "item_type", "item_group", "tags", "video", "instructions"]
+      Product.all.in_batches(500) do |batch|
         batch.each do |product|
           prices = []
           ELLISON_SYSTEMS.each do |s| 
@@ -118,10 +118,25 @@ namespace :data_export do
           csv << [product.id, product.upc, product.item_num, product.name, product.systems_enabled * ', '] + WAREHOUSES.map {|e| product.send("quantity_#{e}")} + ELLISON_SYSTEMS.map {|e| product.send("orderable_#{e}")} +
                  ELLISON_SYSTEMS.map {|e| product.send("start_date_#{e}")} + ELLISON_SYSTEMS.map {|e| product.send("end_date_#{e}")} + ELLISON_SYSTEMS.map {|e| product.send("distribution_life_cycle_#{e}")} + ELLISON_SYSTEMS.map {|e| product.send("distribution_life_cycle_ends_#{e}")} + 
                  LOCALES_2_CURRENCIES.values.map {|e| product.send("msrp_#{e}")} + LOCALES_2_CURRENCIES.values.map {|e| product.send("wholesale_price_#{e}")} + LOCALES_2_CURRENCIES.values.map {|e| product.send("handling_price_#{e}")} + prices +
-                 [product.life_cycle, product.active, product.short_desc, product.long_desc, product.keywords, product.outlet, product.minimum_quantity, product.discount_category.try(:name), product.item_type, product.item_group, product.tags.map {|e| "#{e.name} - (#{e.tag_type})"} * ', ', product.video]
+                 [product.life_cycle, product.active, product.keywords, product.outlet, product.minimum_quantity, product.discount_category.try(:name), product.item_type, product.item_group, product.tags.order([:tag_type, :asc]).map {|e| "#{e.name} - (#{e.tag_type})"} * ', ', product.video, product.instructions]
         end
       end
     end
   end
+  
+  desc "export_all_ideas"
+  task :export_all_ideas => :environment do
+    CSV.open("/data/shared/report_files/all_ideas_report_#{Time.now.strftime "%m%d%Y_%H%M"}.csv", "w") do |csv|
+      csv << [Time.zone.now]
+      csv << ["id", "idea_num", "name", "systems_enabled"] + ELLISON_SYSTEMS.map {|e| "start_date_#{e}"} + ELLISON_SYSTEMS.map {|e| "end_date_#{e}"} + ["objective", "active", "keywords", "item_group", "tags", "video"]
+      Idea.all.in_batches(500) do |batch|
+        batch.each do |product|
+          csv << [product.id, product.idea_num, product.name, product.systems_enabled * ', '] + ELLISON_SYSTEMS.map {|e| product.send("start_date_#{e}")} + ELLISON_SYSTEMS.map {|e| product.send("end_date_#{e}")} + 
+                 [product.objective, product.active, product.keywords, product.item_group, product.tags.order([:tag_type, :asc]).map {|e| "#{e.name} - (#{e.tag_type})"} * ', ', product.video]
+        end
+      end
+    end
+  end
+  
 
 end
