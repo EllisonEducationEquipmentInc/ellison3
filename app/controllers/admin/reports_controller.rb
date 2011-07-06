@@ -43,7 +43,7 @@ class Admin::ReportsController < ApplicationController
 	  if params[:campaign].blank?
 	    render :js => "alert('select campaign from the dropdown')"
 	  else
-	    @report = Report.create :report_options => {:name => params[:campaign].parameterize}, :system => current_system
+	    @report = Report.create :report_options => {:name => params[:campaign].parameterize}, :start_date => Time.parse(params[:start_date]), :end_date => Time.parse(params[:end_date]), :system => current_system
   	  @report.delay.campaign_coupon_usage(params[:campaign])
   	  render :process
 	  end

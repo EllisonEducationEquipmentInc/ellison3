@@ -128,7 +128,8 @@ EOF
       collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {"order_items.item_num" => item_num}})["results"]
     end
     
-    def campaign_usage(campaign_name)
+    def campaign_usage(campaign_name, options = {})
+      start_date, end_date, system = parse_options(options)
       map = <<EOF
         function() {
           if (this.order_items) {
@@ -153,10 +154,10 @@ EOF
         };
 EOF
 
-      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {"order_items.campaign_name" => campaign_name, "system" => current_system}})["results"]
+      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {:created_at => {"$gt" => start_date.utc, "$lt" => end_date.utc}, "order_items.campaign_name" => campaign_name, "system" => current_system}})["results"]
     end
     
-    def coupon_usage(coupon_code)
+    def coupon_usage(coupon_code, options = {})
       map = <<EOF
         function() {
           if (this.order_items) {

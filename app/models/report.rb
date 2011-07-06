@@ -44,7 +44,7 @@ class Report
 	def campaign_coupon_usage(campaign, report_type = "campaign")
 	  set_current_system self.system || current_system
 	  self.report_type = "#{report_type}_usage"
-		@campaigns = Order.send self.report_type, campaign
+		@campaigns = Order.send self.report_type, campaign, :start_date => self.start_date, :end_date => self.end_date
 		self.total_count = @campaigns.count
 		n = 0
     csv_string = CSV.generate  do |csv|
