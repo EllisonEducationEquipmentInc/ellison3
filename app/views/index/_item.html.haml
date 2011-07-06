@@ -1,4 +1,22 @@
 %li{ :class => "item_element#{'_cart' if  item.is_a?(Product) && with_buttons?}" }
+  - if item.is_a?(Product) && item.outlet && is_sizzix_us?
+    .clearance_flag= image_tag("/images/ui-objects/pricetag_outlet.png", :alt => "On Sale!", :title => "On Sale!")
+  - if item.is_a?(Product)
+    - if !is_er? && item.saving > 0 || is_er? && ecommerce_allowed? && item.sale_price && item.sale_price < item.retailer_price
+      .life-cycle
+        %span
+          - if is_sizzix_us? && !item.outlet || is_er? || is_sizzix_uk?
+            Sale
+          - else
+            == Save#{"&nbsp;&nbsp;#{item.saving}".html_safe}%
+    - elsif !item.public_life_cycle.blank?
+      .life-cycle
+        %span= item.public_life_cycle
+  - else
+    - unless item.public_life_cycle.blank?
+      .life-cycle
+        %span= item.public_life_cycle
+
   %p= link_to image_tag(item.medium_image), send("#{item.class.to_s.downcase}_url", item.is_a?(Product) ? {:item_num => item.item_num, :name => item.name.parameterize} : {:idea_num => item.idea_num, :name => item.name.parameterize} )
   %h3.item_number= item.item_num
   %p= link_to item.name, send("#{item.class.to_s.downcase}_url", item.is_a?(Product) ? {:item_num => item.item_num, :name => item.name.parameterize} : {:idea_num => item.idea_num, :name => item.name.parameterize})

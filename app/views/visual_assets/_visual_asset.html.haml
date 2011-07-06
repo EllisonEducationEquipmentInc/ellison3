@@ -107,7 +107,10 @@
             speed: 900,
             scroll: 1,
             mouseWheel: true,
-            visible: #{visual_asset.wide? ? 5 : 4}
+            visible: #{visual_asset.wide? ? 5 : 4},
+            beforeStart: function(a) {
+              alert("Before animation starts:" + a);
+            }
           });
           if ($("#asset_carousel_#{visual_asset.id} ul li").length > #{visual_asset.wide? ? 5 : 4}) {
             $("#asset_carousel_#{visual_asset.id} .controls").slideDown();
