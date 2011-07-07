@@ -1,5 +1,6 @@
 - if @user.application_complete?
-  .contentwrap_XXXL.last= link_to "edit", retailer_application_path if @user.status == 'pending'
+  %p= link_to "Edit Retailers Application", retailer_application_path, :class => "link_edit-record minilink" if @user.status == 'pending'
+  .clear
   .column_33
     %h3 Company Details
     %strong Company
