@@ -4,7 +4,10 @@
 == $('#billing_address_address1').attr('value', '#{@billing_address.address1}');
 == $('#billing_address_address2').attr('value', '#{@billing_address.address2}');
 == $('#billing_address_city').attr('value', '#{@billing_address.city}');
-== $('#billing_address_state').attr('value', '#{@billing_address.state}');
 == $('#billing_address_zip_code').attr('value', '#{@billing_address.zip_code}');
+== $('#billing_address_country').attr('value', '#{@billing_address.country}');
+== $('#billing_address_country').trigger('change');
+== $('#billing_address_state').attr('value', '#{@billing_address.state}');
 == $('#billing_address_phone').attr('value', '#{@billing_address.phone}');
 == $('#billing_address_fax').attr('value', '#{@billing_address.fax}');
+== $('#billing_address_email').attr('value', '#{@billing_address.email}');
