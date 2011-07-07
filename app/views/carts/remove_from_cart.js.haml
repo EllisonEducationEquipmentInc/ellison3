@@ -3,7 +3,3 @@
 == $('#total_savings').html('#{escape_javascript(render(:partial => "carts/total_savings"))}');
 == $('#shoppingcart_info').html('#{escape_javascript(render(:partial => "carts/shopping_cart"))}');
 == $('#cart_container').html('#{escape_javascript(render(:partial => "carts/cart"))}');
-setTimeout("$.fancybox.resize()", 100);
-setTimeout("$.fancybox.resize()", 2000);
-- if get_cart.cart_items.blank?
-  setTimeout("$.fancybox.close()", 1000);
