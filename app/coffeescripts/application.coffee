@@ -623,9 +623,12 @@ root.megapanel_shadow_options =
 root.payment_validator_options = 
   errorClass: "invalid"
   rules: 
-    "payment[first_name]": required: true
-    "payment[last_name]": required: true
-    "payment[card_name]": required: true
+    "payment[first_name]": 
+      required: true
+    "payment[last_name]": 
+      required: true
+    "payment[card_name]": 
+      required: true
     "payment[full_card_number]": 
       required: true
       creditcard: true
@@ -634,8 +637,10 @@ root.payment_validator_options =
       required: true
       cvv: true
     
-    "payment[card_expiration_month]": required: true
-    "payment[card_expiration_year]": required: true
+    "payment[card_expiration_month]": 
+      required: true
+    "payment[card_expiration_year]": 
+      required: true
   
   submitHandler: (form) ->
     _gaq.push [ "_trackEvent", "Cart", "Place Order" ]
@@ -643,13 +648,19 @@ root.payment_validator_options =
     $("#proceed_checkout").callRemote()
   
   messages: 
-    "payment[first_name]": required: "Please provide your First Name."
-    "payment[last_name]": required: "Please provide your Last Name."
-    "payment[card_name]": required: "Please select a Credit Card Type."
+    "payment[first_name]": 
+      required: "Please provide your First Name."
+    "payment[last_name]": 
+      required: "Please provide your Last Name."
+    "payment[card_name]": 
+      required: "Please select a Credit Card Type."
     "payment[full_card_number]": 
       required: "Please provide your Credit Card Number."
       creditcard: "This not a valid Credit Card Number."
     
-    "payment[card_security_code]": required: "Please provide your Card's Security Code."
-    "payment[card_expiration_month]": required: "In what Month does your card expire?"
-    "payment[card_expiration_year]": required: "In what Year does your card expire?"
+    "payment[card_security_code]": 
+      required: "Please provide your Card's Security Code."
+    "payment[card_expiration_month]": 
+      required: "In what Month does your card expire?"
+    "payment[card_expiration_year]": 
+      required: "In what Year does your card expire?"

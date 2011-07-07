@@ -1,4 +1,4 @@
-/* DO NOT MODIFY. This file was compiled Thu, 07 Jul 2011 20:49:07 GMT from
+/* DO NOT MODIFY. This file was compiled Thu, 07 Jul 2011 21:40:33 GMT from
  * /home/mark/ellison3/app/coffeescripts/application.coffee
  */
 
@@ -911,26 +911,26 @@
     },
     messages: {
       "payment[first_name]": {
-        required: "Please provide your First Name.",
-        "payment[last_name]": {
-          required: "Please provide your Last Name.",
-          "payment[card_name]": {
-            required: "Please select a Credit Card Type.",
-            "payment[full_card_number]": {
-              required: "Please provide your Credit Card Number.",
-              creditcard: "This not a valid Credit Card Number."
-            },
-            "payment[card_security_code]": {
-              required: "Please provide your Card's Security Code.",
-              "payment[card_expiration_month]": {
-                required: "In what Month does your card expire?",
-                "payment[card_expiration_year]": {
-                  required: "In what Year does your card expire?"
-                }
-              }
-            }
-          }
-        }
+        required: "Please provide your First Name."
+      },
+      "payment[last_name]": {
+        required: "Please provide your Last Name."
+      },
+      "payment[card_name]": {
+        required: "Please select a Credit Card Type."
+      },
+      "payment[full_card_number]": {
+        required: "Please provide your Credit Card Number.",
+        creditcard: "This not a valid Credit Card Number."
+      },
+      "payment[card_security_code]": {
+        required: "Please provide your Card's Security Code."
+      },
+      "payment[card_expiration_month]": {
+        required: "In what Month does your card expire?"
+      },
+      "payment[card_expiration_year]": {
+        required: "In what Year does your card expire?"
       }
     }
   };
