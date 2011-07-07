@@ -60,6 +60,8 @@ gem "ghazel-daemons"
 gem 'delayed_job'
 gem 'delayed_job_mongoid'
 gem 'rack-recaptcha', :require => 'rack/recaptcha'
+gem 'barista'
+gem 'execjs'
 
 # Use unicorn as the web server
 # gem 'unicorn'
