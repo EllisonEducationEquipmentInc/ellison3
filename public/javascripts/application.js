@@ -1,4 +1,4 @@
-/* DO NOT MODIFY. This file was compiled Thu, 07 Jul 2011 21:40:33 GMT from
+/* DO NOT MODIFY. This file was compiled Thu, 07 Jul 2011 21:43:08 GMT from
  * /home/mark/ellison3/app/coffeescripts/application.coffee
  */
 
@@ -881,27 +881,27 @@
     errorClass: "invalid",
     rules: {
       "payment[first_name]": {
+        required: true
+      },
+      "payment[last_name]": {
+        required: true
+      },
+      "payment[card_name]": {
+        required: true
+      },
+      "payment[full_card_number]": {
         required: true,
-        "payment[last_name]": {
-          required: true,
-          "payment[card_name]": {
-            required: true,
-            "payment[full_card_number]": {
-              required: true,
-              creditcard: true
-            },
-            "payment[card_security_code]": {
-              required: true,
-              cvv: true
-            },
-            "payment[card_expiration_month]": {
-              required: true,
-              "payment[card_expiration_year]": {
-                required: true
-              }
-            }
-          }
-        }
+        creditcard: true
+      },
+      "payment[card_security_code]": {
+        required: true,
+        cvv: true
+      },
+      "payment[card_expiration_month]": {
+        required: true
+      },
+      "payment[card_expiration_year]": {
+        required: true
       }
     },
     submitHandler: function(form) {

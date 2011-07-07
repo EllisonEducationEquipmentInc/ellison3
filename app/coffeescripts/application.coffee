@@ -656,7 +656,7 @@ root.payment_validator_options =
       required: "Please select a Credit Card Type."
     "payment[full_card_number]": 
       required: "Please provide your Credit Card Number."
-      creditcard: "This not a valid Credit Card Number."
+      creditcard: "This is not a valid Credit Card Number."
     
     "payment[card_security_code]": 
       required: "Please provide your Card's Security Code."
