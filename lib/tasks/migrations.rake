@@ -113,6 +113,12 @@ namespace :migrations do |ns|
 	  @comitter.delay.perform
 	end
 	
+	desc "remove EEUS ERUS availability_message"
+  task :remove_availability_message_eeus => :environment do
+    set_current_system "eeus"
+    Product.collection.update({:systems_enabled => {:$in => ["eeus"]}, :life_cycle => {:$ne => 'pre-release'}, :orderable_eeus => true}, {:$unset => {'availability_message_eeus' => 1, 'availability_message_erus' => 1}}, :multi => true)
+  end
+	
 	
 	#======== migration tasks end here ========
 	
