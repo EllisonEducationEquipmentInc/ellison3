@@ -223,7 +223,8 @@ root.initialize_buttons = ->
   
   $ ->
     $(".jqui_move_min").button 
-      icons: primary: "ui-icon-extlink"
+      icons:
+        primary: "ui-icon-extlink"
       text: false
       
 root.order_comment = ->
