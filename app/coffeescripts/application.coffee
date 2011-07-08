@@ -181,32 +181,38 @@ root.initialize_buttons = ->
   
   $ ->
     $(".jqui_destroy_min").button 
-      icons: primary: "ui-icon-trash"
+      icons: 
+        primary: "ui-icon-trash"
       text: false
   
   $ ->
     $(".jqui_show_min").button 
-      icons: primary: "ui-icon-document"
+      icons: 
+        primary: "ui-icon-document"
       text: false
   
   $ ->
     $(".jqui_edit_min").button 
-      icons: primary: "ui-icon-pencil"
+      icons: 
+        primary: "ui-icon-pencil"
       text: false
   
   $ ->
     $(".jqui_cart_min").button 
-      icons: primary: "ui-icon-cart"
+      icons: 
+        primary: "ui-icon-cart"
       text: false
   
   $ ->
     $(".jqui_messages_min").button 
-      icons: primary: "ui-icon-mail-closed"
+      icons: 
+        primary: "ui-icon-mail-closed"
       text: false
   
   $ ->
     $(".jqui_out_of_stock").button 
-      icons: primary: "ui-icon-alert"
+      icons: 
+        primary: "ui-icon-alert"
       disabled: true
   
   $ ->
