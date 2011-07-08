@@ -47,23 +47,23 @@ module ApplicationHelper
 		  sale_price = nil
 		end
     p = ""
-    p << "#{is_er? ? 'MSRP' : 'Regular Price: ' if with_text}<span class='msrp#{' old-price' if ecommerce_allowed? && (coupon || regular_price || sale_price)}'>#{number_to_currency msrp}</span> #{'<br />' if line_break}"
+    p << "<span class='label'>#{is_er? ? 'MSRP' : 'Regular Price: ' if with_text}</span><span class='msrp#{' old-price' if ecommerce_allowed? && (coupon || regular_price || sale_price)}'>#{number_to_currency msrp}</span> #{'<br />' if line_break}"
     if ecommerce_allowed?
-      p << "#{'Wholesale Price: ' if with_text}<span class='old-price'>#{number_to_currency wholesale_price}</span> " if is_er? && (regular_price && regular_price < wholesale_price || sale_price && sale_price < wholesale_price)
+      p << "<span class='label'>#{'Wholesale Price: ' if with_text}</span><span class='old-price'>#{number_to_currency wholesale_price}</span> " if is_er? && (regular_price && regular_price < wholesale_price || sale_price && sale_price < wholesale_price)
       er_label = if regular_price && regular_price == wholesale_price && !sale_price
-        "Wholesale Price: "
+        "<span class='label'>Wholesale Price: </span>"
       else
-        "Special Price: "
+        "<span class='label'>Special Price: </span>"
       end
         
       if regular_price
-        p << "#{(product.outlet? ? 'Closeout: ' : is_er? ? er_label : 'Sale Price: ') if with_text}<span class='special-price#{' old-price' if coupon || sale_price} #{'sale-price' if product.outlet?}'>#{number_to_currency regular_price}</span> "
+        p << "<span class='label'>#{(product.outlet? ? 'Closeout: ' : is_er? ? er_label : 'Sale Price: ') if with_text}</span><span class='special-price#{' old-price' if coupon || sale_price} #{'sale-price' if product.outlet?}'>#{number_to_currency regular_price}</span> "
         if product.outlet? && with_text
           p << "<br /><span class='percent-saved'>You Save #{product.saving}%</span>"
         end
       end
       if sale_price
-        p << "#{'Sale Price: ' if with_text}<span class='sale-price'>#{number_to_currency sale_price}</span> "
+        p << "<span class='label'>#{'Sale Price: ' if with_text}</span><span class='sale-price'>#{number_to_currency sale_price}</span> "
       end
     end
     p.html_safe
