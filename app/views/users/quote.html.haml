@@ -23,7 +23,7 @@
 #checkout_billing
   %h3 Billing Info
   - if @quote.can_be_converted?
-    - if get_user.token && get_user.token.current?
+    - if is_er_us? && get_user.token && get_user.token.current?
       #tokenized_billing_info= render :partial => 'carts/tokenized_billing_info'
     - elsif @billing_address
       #new_billing.notice{:style => "display:none"}
