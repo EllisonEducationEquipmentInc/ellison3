@@ -125,7 +125,7 @@ HTML
 	
 	def remote_multipart_response(&block)
 	  content = with_output_buffer(&block)
-		if params[:remotipart_submitted] == 'js'
+		if params[:remotipart_submitted]
 			response.content_type = Mime::HTML
 	    text_area_tag 'remotipart_response', String.new(content)
 		else
