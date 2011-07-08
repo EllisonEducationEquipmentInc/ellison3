@@ -18,32 +18,10 @@
           %li.plaintext= link_to "<span>or</span>".html_safe, signin_signup_path, :class => "btn-plaintext", :onclick => "return false"
           %li= link_to "<span>Sign Up</span>".html_safe, signin_signup_path, :class => "lightbox btn-signup", :title => "Sign Up", :alt => "Sign Up"
         - if is_uk? && !@cart_locked
-          %li{:style => "padding-left: 0"}
-            = link_to "#", :class => "btn-locale", :onclick => "return false;", :title => "switch currency", :alt => "switch currency" do
-              %span= image_tag("/images/ui-icons/flags/24/#{current_locale}.png")
+          %li= link_to image_tag("/images/ui-buttons/currency_#{current_currency}.png", :title => "switch to #{current_currency == 'gbp' ? 'the Euro' : 'British Pounds'}", :alt => "switch to #{current_currency == 'gbp' ? 'the Euro' : 'British Pounds'}"), "?#{request.query_parameters.merge("locale" => "#{current_currency == 'gbp' ? 'en-EU' : 'en-UK'}").to_params}", :class => "btn-locale"
       - if free_shipping_message.present?
         #promo_message
           %span= free_shipping_message.html_safe
-      - if is_uk?
-        :javascript
-          $(document).ready(function(){
-            $('.btn-locale').CreateBubblePopup({
-              position: 'bottom',
-              align: 'right',
-              tail: {
-                align: 'right',
-                hidden: false
-              },
-              selectable: true,
-              innerHtml: '#{link_to_unless current_currency == "gbp", image_tag("/images/ui-buttons/currency_en-UK.png", :title => "#{current_currency == "gbp" ? "currently set" : "switch"} to British Pounds", :alt => "#{current_currency == "gbp" ? "currently set" : "switch"} to British Pounds"), "?#{request.query_parameters.merge("locale" => "en-UK").to_params}"}<br />#{link_to_unless current_currency == "eur", image_tag("/images/ui-buttons/currency_en-EU.png", :title => "#{current_currency == "eur" ? "currently set" : "switch"} to the Euro", :alt => "#{current_currency == "eur" ? "currently set" : "switch"} to the Euro"), "?#{request.query_parameters.merge("locale" => "en-EU").to_params}"}',
-              innerHtmlStyle: {
-                color: '#FFFFFF',
-                'text-align': 'center'
-              },
-              themeName: 'azure',
-              themePath: '/images/ui-plugins/bubblepopup'
-            });
-          });
 
     -# shopping cart
     #shoppingcart_icon= link_to image_tag("/images/ui-objects/_#{current_system}_shoppingcart#{ (get_cart.total_quantity > 0 && is_ee? ) ? '-full' : nil }.png", :border =>0, :alt => "Shopping #{cart_name.capitalize}"), cart_path, :title => "View #{cart_name.capitalize}", :alt => "View #{cart_name.capitalize}"

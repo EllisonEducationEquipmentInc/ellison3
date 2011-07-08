@@ -559,7 +559,8 @@ root.single_auto_complete_options =
     $.ajax 
       url: "/products_autocomplete"
       dataType: "text json"
-      data: term: extractLast(request.term)
+      data:
+        term: extractLast(request.term)
       success: (data) ->
         response data
   
@@ -579,7 +580,8 @@ root.auto_complete_options =
     $.ajax 
       url: "/products_autocomplete"
       dataType: "text json"
-      data: term: extractLast(request.term)
+      data:
+        term: extractLast(request.term)
       success: (data) ->
         response data
   
