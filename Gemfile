@@ -5,7 +5,6 @@ require 'rubygems'
 require 'image_science'
 #require 'mongo'
 require 'csv'
-require 'execjs'
 require 'barista'
 
 gem 'bundler', '>=1.0.10'
