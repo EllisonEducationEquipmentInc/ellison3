@@ -49,6 +49,8 @@
 .clear
 :javascript
   initialize_buttons();
+  $('##{f.object.address_type}_address_country').trigger('change');
+
   $(document).ready(function() {
     var validator = $("#edit_#{f.object.address_type}_address").validate({
       errorClass: "invalid",
