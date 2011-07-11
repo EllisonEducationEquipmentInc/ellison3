@@ -62,6 +62,7 @@ class User
 	validates_associated :retailer_application, :unless => proc {disable_solr_indexing?}
 	validates_associated :addresses, :if => Proc.new {|obj| obj.addresses.any?(&:changed?) && !disable_solr_indexing?}
 
+  before_save :run_callbacks_on_retailer_application
 
   referenced_in :account
   referenced_in :admin, :validate => false
@@ -251,6 +252,10 @@ private
   def email_uniqueness_by_system
     u=User.where(:email => Regexp.new("^#{Regexp.escape(self.email)}$", Regexp::IGNORECASE)).first
     errors.add(:email, u.systems_enabled.detect {|e| e != current_system} ? "address #{self.email} has already signed up for http://www.#{system_to_domain(u.systems_enabled.detect {|e| e != current_system})}. Please contact customer service for help or use a different email address to signup." : :taken) if u.present?
+  end
+  
+  def run_callbacks_on_retailer_application
+    self.retailer_application.run_callbacks(:save) if self.retailer_application.present?
   end
 
 protected
