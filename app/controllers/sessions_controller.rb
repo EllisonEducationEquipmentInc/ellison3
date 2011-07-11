@@ -19,6 +19,7 @@ class SessionsController < ApplicationController
   # POST /resource/sign_in
   def create
 		params[:user] = params[:existing_user] if params[:user].blank?
+		params[:user][:email].downcase!
 		u = User.find_for_authentication :old_user => true, :email => params[:user][:email]
 		if u && u.old_authenticated?(params[:user][:password])
 		  Rails.logger.info "Rehashing password for #{u.email}"
@@ -58,7 +59,7 @@ class SessionsController < ApplicationController
   
   def user_as
     criteria = Mongoid::Criteria.new(User)
-	  criteria = criteria.where :deleted_at => nil, :systems_enabled.in => [current_system], :email => params[:user_as_email]
+	  criteria = criteria.where :deleted_at => nil, :systems_enabled.in => [current_system], :email => params[:user_as_email].downcase
 	  criteria = criteria.where :_id.in => current_admin.users.map {|e| e.id} if current_admin.limited_sales_rep
     @user = criteria.first
     if @user
