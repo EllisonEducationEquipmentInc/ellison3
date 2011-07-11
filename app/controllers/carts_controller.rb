@@ -135,6 +135,7 @@ class CartsController < ApplicationController
 		UserMailer.order_confirmation(@order).deliver
 		@order.payment.save
 		tax_from_order(@order)
+		sign_out(current_user) if admin_signed_in? && current_admin.can_act_as_customer
 		render "checkout_complete"
 	rescue Exception => e
 		@reload_cart = @cart_locked = true if e.exception.class == RealTimeCartError
@@ -169,6 +170,7 @@ class CartsController < ApplicationController
 		cookies[:tracking], cookies[:utm_source] = nil
 		UserMailer.order_confirmation(@order).deliver
 		@order.payment.try :save
+		sign_out(current_user) if admin_signed_in? && current_admin.can_act_as_customer
 		render "checkout_complete"
 	rescue Exception => e
 		@reload_cart = @cart_locked = true if e.exception.class == RealTimeCartError
@@ -190,6 +192,7 @@ class CartsController < ApplicationController
     process_order @quote
 		clear_cart
 	  UserMailer.quote_confirmation(@quote).deliver
+	  #sign_out(current_user) if admin_signed_in? && current_admin.can_act_as_customer
 	  render :js => "window.location.href = '#{myquote_path(@quote)}'"
 	rescue Exception => e
 		@reload_cart = @cart_locked = true if e.exception.class == RealTimeCartError
