@@ -16,6 +16,7 @@ class Admin::UsersController < ApplicationController
 	  else
 	    criteria.where(:systems_enabled.in => params[:systems_enabled]) 
 	  end
+	  criteria = criteria.where(:retailer_application.exists => true) if params[:retailer_application] == "1"
 	  criteria = criteria.where(:status => params[:status]) unless params[:status].blank?
 	  if params[:q].present?
 	    regexp = Regexp.new("^#{params[:q]}")

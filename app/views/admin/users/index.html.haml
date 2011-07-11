@@ -7,6 +7,8 @@
   = admin_systems_checkboxes
   - if is_er?
     = select_tag :status, options_for_select([["--- status ---", nil]]+User::STATUSES, params[:status])
+    With Retailer Application
+    = check_box_tag :retailer_application, "1", params[:retailer_application] == "1"
   = text_field_tag :q
   = submit_tag "search", :class => 'jqui_search'
 .highlightable
