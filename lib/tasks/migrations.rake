@@ -118,6 +118,11 @@ namespace :migrations do |ns|
     set_current_system "eeus"
     Product.collection.update({:systems_enabled => {:$in => ["eeus"]}, :life_cycle => {:$ne => 'pre-release'}, :orderable_eeus => true}, {:$unset => {'availability_message_eeus' => 1, 'availability_message_erus' => 1}}, :multi => true)
   end
+  
+  desc "make erus edu products orderable"
+  task :make_erus_edu_products_orderable => :environment do
+    Product.collection.update({:orderable_erus => false, :orderable_eeus => true, :systems_enabled => {:$in => ["erus"]}}, {:$set => {:orderable_erus => true}}, :multi => true)
+  end
 	
 	
 	#======== migration tasks end here ========
