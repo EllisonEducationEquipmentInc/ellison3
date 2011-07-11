@@ -44,7 +44,7 @@ class IndexController < ApplicationController
     if request.xhr?
       render :product_min, :layout => false and return 
     else
-      fresh_when(:etag => [Time.now.utc.strftime("%m%d%Y%H"), current_locale, current_system, @product,  @product.price, current_user, request.xhr?], :last_modified => @product.updated_at.utc)
+      fresh_when(:etag => [Time.now.utc.strftime("%m%d%Y%H"), current_locale, current_system, @product,  @product.price, current_user, request.xhr?, admin_signed_in?], :last_modified => @product.updated_at.utc)
       #expires_in 5.minutes, 'max-stale' => 5.minutes
     end
   rescue Exception => e
@@ -65,7 +65,7 @@ class IndexController < ApplicationController
       @keywords << @idea.tags.keywords.map {|e| e.name} * ', '
       @description = @idea.description if @idea.description.present?
     end
-    fresh_when(:etag => [Time.now.utc.strftime("%m%d%Y%H"), 'idea', @idea, @idea.updated_at.utc.to_i, current_system, current_locale], :last_modified => @idea.updated_at.utc)
+    fresh_when(:etag => [Time.now.utc.strftime("%m%d%Y%H"), 'idea', @idea, @idea.updated_at.utc.to_i, current_system, current_locale, admin_signed_in?], :last_modified => @idea.updated_at.utc)
     #expires_in 5.minutes, 'max-stale' => 5.minutes
   rescue Exception => e
     Rails.logger.info e
