@@ -13,6 +13,7 @@
   = admin_systems_checkboxes
   = select_tag :life_cycle, options_for_select([["- life cycle -", nil]] + Product::LIFE_CYCLES, params[:life_cycle])
   = select_tag :item_group, options_for_select([["- brand -", nil]] + Product::ITEM_GROUPS, params[:item_group])
+  = select_tag :orderable, options_for_select([["- orderable #{current_system} -", nil], ["true", "1"], ["false", "0"]], params[:orderable])
   = text_field_tag :q, nil, :placeholder => "item num, name, desc"
   = check_box_tag :inactive, "1", params[:inactive] == "1"
   Incl. inactive
@@ -29,7 +30,7 @@
         = sortable "start_date_#{current_system}", "Start Date"
         = sortable "end_date_#{current_system}", "End Date"
         = sortable "life_cycle"
-        %th Orderable
+        = sortable "orderable_#{current_system}"
         - WAREHOUSES.each do |warehouse|
           = sortable "quantity_#{warehouse}", "Qty. #{warehouse.upcase}"
         - if is_sizzix_us?

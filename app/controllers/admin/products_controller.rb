@@ -23,6 +23,7 @@ class Admin::ProductsController < ApplicationController
 	  criteria = criteria.where(:outlet => true) if params[:outlet] == "1"
 	  criteria = criteria.where(:life_cycle => params[:life_cycle]) unless params[:life_cycle].blank?
 	  criteria = criteria.where(:item_group => params[:item_group]) unless params[:item_group].blank?
+	  criteria = criteria.where("orderable_#{current_system}" => Boolean.set(params[:orderable])) unless params[:orderable].blank?
 	  if params[:q].present?
 	    regexp = true ? Regexp.new(params[:q], "i") : Regexp.new("^#{params[:q]}")
   	  criteria = criteria.any_of({ :item_num => regexp}, { :name => regexp }, {:short_desc => regexp})
