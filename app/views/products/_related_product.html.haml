@@ -7,7 +7,7 @@
   - elsif !product.public_life_cycle.blank?
     .life-cycle
       %span= product.public_life_cycle
-  %p.item_image= link_to image_tag(product.medium_image), product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize), :alt => product.name, :title => product.name, :class => outlet? ? 'lightbox' : nil
+  %p.item_image= link_to image_tag(product.medium_image), product_path(:item_num => product.url_safe_item_num, :name => product.name.parameterize), :alt => product.name, :title => product.name, :class => outlet? ? 'lightbox' : nil
   %h3.item_number= product.item_num
-  %p.item_name= link_to product.name.html_safe, product_url(:item_num => product.url_safe_item_num, :name => product.name.parameterize), :class => outlet? ? 'lightbox' : nil
+  %p.item_name= link_to product.name.html_safe, product_path(:item_num => product.url_safe_item_num, :name => product.name.parameterize), :class => outlet? ? 'lightbox' : nil
   %p.item_price= display_product_price(product, :date => @time)

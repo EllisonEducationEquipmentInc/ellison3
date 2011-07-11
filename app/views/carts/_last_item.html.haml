@@ -19,10 +19,10 @@
           Low stock level
       %td
         .thumbnail{ :style => "position: relative" }
-          = link_to(image_tag(@product.small_image), product_url(:item_num => @product.url_safe_item_num, :name => @product.name.parameterize)) unless @product.small_image.blank?
+          = link_to(image_tag(@product.small_image), product_path(:item_num => @product.url_safe_item_num, :name => @product.name.parameterize)) unless @product.small_image.blank?
           - if @product.outlet?
-            .clearance_flag= link_to(image_tag("/images/ui-objects/pricetag_outlet.png", :alt => "On Sale!", :title => "On Sale!"), product_url(:item_num => @product.url_safe_item_num, :name => @product.name.parameterize)) unless @product.small_image.blank?
-      %td= link_to(@product.name, product_url(:item_num => @product.url_safe_item_num, :name => @product.name.parameterize))
+            .clearance_flag= link_to(image_tag("/images/ui-objects/pricetag_outlet.png", :alt => "On Sale!", :title => "On Sale!"), product_path(:item_num => @product.url_safe_item_num, :name => @product.name.parameterize)) unless @product.small_image.blank?
+      %td= link_to(@product.name, product_path(:item_num => @product.url_safe_item_num, :name => @product.name.parameterize))
       %td{:style => "text-align: right"}= number_to_currency gross_price(@product.msrp_or_wholesale_price)
       %td{:style => "text-align: right", :id => "cart_item_price_#{@product.id}", :class => 'cart_item_price'}= display_product_price_cart @product
     %tr
