@@ -19,8 +19,8 @@
         = sortable "sign_in_count"
         = sortable "created_at"
         %th Systems
-        %th Token?
         - if is_er?
+          %th Token?
           = sortable "status"
           %th Application
           %th Messages
@@ -38,8 +38,8 @@
           %td= user.sign_in_count
           %td= l user.created_at, :format => :custom rescue ''
           %td= user.systems_enabled.join(", ") rescue ''
-          %td= link_to "#{user.token.present?}", :action => 'edit_token', :id => user.id
           - if is_er?
+            %td= link_to "#{user.token.present?}", :action => 'edit_token', :id => user.id
             %td= user.status
             %td= link_to 'view', :action => 'view_retailer_application', :id => user if user.application_complete?
             %td= link_to 'messages', admin_messages_path(:user_id => user.id), :class => 'jqui_messages_min'

@@ -14,6 +14,6 @@ xxxxxxxxxxxxxx
 = link_to "change", edit_user_registration_path(get_user), :remote => true
 - if is_ee? || is_er?
   %br
-  %strong Company/School/Organization:
+  %strong== #{ is_ee_us? ? "Institution Description" : "Company/School/Organization"}:
   = get_user.company
   = link_to "change", edit_user_registration_path(get_user), :remote => true
