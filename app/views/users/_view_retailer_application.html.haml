@@ -1,5 +1,5 @@
 - if @user.application_complete?
-  -#%p= link_to "Edit Retailers Application", retailer_application_path, :class => "link_edit-record minilink" if @user.status == 'pending'
+  %p= link_to "Edit Retailers Application", retailer_application_path, :class => "link_edit-record minilink" if @user.status == 'pending' && !admin_signed_in?
   -#.clear
   .column_33
     %h3 Company Details

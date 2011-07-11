@@ -139,9 +139,9 @@
         "user[retailer_application_attributes][resale_number]": { required: true },
         "user[retailer_application_attributes][brands_to_resell][]": { required: true, minlength: 1 },
         "user[retailer_application_attributes][authorized_buyers]": { required: true },
-        "user[retailer_application_attributes][resale_tax_certificate]": { required: true },
-        "user[retailer_application_attributes][business_license]": { required: true },
-        "user[retailer_application_attributes][store_photo]": { required: true },
+        "user[retailer_application_attributes][resale_tax_certificate]": { required: #{!@user.retailer_application.try(:resale_tax_certificate?)} },
+        "user[retailer_application_attributes][business_license]": { required: #{!@user.retailer_application.try(:business_license?)} },
+        "user[retailer_application_attributes][store_photo]": { required: #{!@user.retailer_application.try(:store_photo?)} },
         "user[addresses_attributes][0][first_name]": { required: true },
         "user[addresses_attributes][0][last_name]": { required: true },
         "user[addresses_attributes][0][company]": { required: true },
@@ -262,13 +262,13 @@
       $('#user_retailer_application_attributes_store_photo').rules('remove');
       $('#user_retailer_application_attributes_store_photo').removeClass('invalid').next('.invalid').remove();
     } else {
-      $('label[for=user_retailer_application_attributes_resale_tax_certificate] span').addClass('required');
-      $('#user_retailer_application_attributes_resale_tax_certificate').rules('add', {required: true});
+      #{"$('label[for=user_retailer_application_attributes_resale_tax_certificate] span').addClass('required');" unless @user.retailer_application.try(:resale_tax_certificate?)}
+      #{"$('#user_retailer_application_attributes_resale_tax_certificate').rules('add', {required: true});" unless @user.retailer_application.try(:resale_tax_certificate?)}
 
-      $('label[for=user_retailer_application_attributes_business_license] span').addClass('required');
-      $('#user_retailer_application_attributes_business_license').rules('add', {required: true});
+      #{"$('label[for=user_retailer_application_attributes_business_license] span').addClass('required');" unless @user.retailer_application.try(:business_license?)}
+      #{"$('#user_retailer_application_attributes_business_license').rules('add', {required: true});" unless @user.retailer_application.try(:business_license?)}
 
-      $('label[for=user_retailer_application_attributes_store_photo] span').addClass('required');
-      $('#user_retailer_application_attributes_store_photo').rules('add', {required: true});
+      #{"$('label[for=user_retailer_application_attributes_store_photo] span').addClass('required');" unless @user.retailer_application.try(:store_photo?)}
+      #{"$('#user_retailer_application_attributes_store_photo').rules('add', {required: true});" unless @user.retailer_application.try(:store_photo?)}
     }
   }

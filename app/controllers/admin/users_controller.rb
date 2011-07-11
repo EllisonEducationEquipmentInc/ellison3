@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
 	
 	before_filter :set_admin_title
 	before_filter :admin_read_permissions!
-  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_token]
+  before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_token, :edit_retailer_application]
 	
 	ssl_exceptions
 	
@@ -105,6 +105,14 @@ class Admin::UsersController < ApplicationController
     @user.token = Token.new :subscriptionid => params[:subscriptionid]
     @user.token.save :validate => false
     redirect_to({:action => "index"}, :notice => "Token has been saved")
+  end
+  
+  def edit_retailer_application
+    @user = User.find(params[:id])
+    redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@user)
+    set_current_system "erus"
+    sign_in(:user, @user)
+    redirect_to(retailer_application_path)
   end
   
 private 
