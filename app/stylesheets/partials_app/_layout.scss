@@ -52,10 +52,7 @@
 
 #content {
   .pagination {
-    @if $system == szus or $system == szuk {
-      font-family: Georgia,serif;
-    }
-    
+    font-family: Georgia,serif;
     font-weight: bold;
     text-transform: lowercase;
     text-decoration: none;
