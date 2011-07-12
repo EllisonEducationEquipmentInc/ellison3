@@ -1,6 +1,9 @@
 - if admin_signed_in?
-  .right.minilink= link_to 'edit', edit_admin_event_path(@event), :class => "link_edit-record"
+  .breadcrumbs.right.dontprint
+    = link_to "list all events", admin_events_path, :class => "link_list-all-records"
+    = link_to 'edit', edit_admin_event_path(@event), :class => "link_edit-record"
   .clear
+
 .event_info
   %h2= @event.name
   %hr
