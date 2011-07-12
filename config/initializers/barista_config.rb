@@ -60,3 +60,4 @@ Barista.configure do |c|
   # c.embedded_interpreter = true
 
 end
+Barista.compile_all!
