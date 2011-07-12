@@ -1,3 +1,4 @@
+ENV['PATH'] = "/usr/local/bin:#{ENV['PATH']}"
 source 'http://rubygems.org'
 source 'http://gemcutter.org'
 source 'http://gems.github.com'
