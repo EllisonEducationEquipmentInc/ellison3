@@ -41,8 +41,12 @@
       $("input.textfield").addClass("idlefield");
       $("input.textfield").focus(function(){
         $(this).addClass("activefield").removeClass("idlefield");
+        $(this).val('');
       }).blur(function(){
         $(this).removeClass("activefield").addClass("idlefield");
+      });
+      $("input.textfield").click(function(){
+        $(this).val('');
       });
     
       $('#q').change(function() {        
