@@ -64,8 +64,6 @@ gem 'rack-recaptcha', :require => 'rack/recaptcha'
 gem 'barista'
 gem 'execjs'
 gem 'therubyracer'
-gem "jammit"
-gem 'uglifier'
 
 # Use unicorn as the web server
 # gem 'unicorn'
