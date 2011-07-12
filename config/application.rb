@@ -1,7 +1,8 @@
+ENV['PATH'] = "/usr/local/bin:#{ENV['PATH']}"
+
 require File.expand_path('../boot', __FILE__)
 
 #require 'rails/all'
-require 'execjs'
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
