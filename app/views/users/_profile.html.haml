@@ -14,6 +14,11 @@ xxxxxxxxxxxxxx
 = link_to "change", edit_user_registration_path(get_user), :remote => true
 - if is_ee? || is_er?
   %br
-  %strong== #{ is_ee_us? ? "Institution Description" : "Company/School/Organization"}:
+  %strong Company/School/Organization:
   = get_user.company
+  = link_to "change", edit_user_registration_path(get_user), :remote => true
+- if is_ee_us?
+  %br
+  %strong Institution Description:
+  = institutions.detect {|e| e[1] == "#{get_user.institution}"}[0] rescue "<em>not specified</em>".html_safe
   = link_to "change", edit_user_registration_path(get_user), :remote => true
