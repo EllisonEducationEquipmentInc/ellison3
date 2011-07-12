@@ -1,5 +1,4 @@
 ENV['PATH'] = "/usr/local/bin:#{ENV['PATH']}"
-
 require File.expand_path('../boot', __FILE__)
 
 #require 'rails/all'

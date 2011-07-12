@@ -174,6 +174,7 @@ GEM
     launchy (0.4.0)
       configuration (>= 0.0.5)
       rake (>= 0.8.1)
+    libv8 (3.3.10.2)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
     loofah (1.0.0)
@@ -290,6 +291,8 @@ GEM
       nokogiri
       sunspot (= 1.2.1)
     term-ansicolor (1.0.5)
+    therubyracer (0.9.2)
+      libv8 (~> 3.3.10)
     thor (0.14.6)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
@@ -355,6 +358,7 @@ DEPENDENCIES
   shoulda
   spork
   sunspot_mongoid!
+  therubyracer
   warden
   webrat
   will_paginate (>= 3.0.pre2)

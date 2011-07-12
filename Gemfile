@@ -6,7 +6,6 @@ require 'rubygems'
 require 'image_science'
 #require 'mongo'
 require 'csv'
-require 'barista'
 
 gem 'bundler', '>=1.0.10'
 gem 'rails', '3.0.4'
@@ -64,6 +63,7 @@ gem 'delayed_job_mongoid'
 gem 'rack-recaptcha', :require => 'rack/recaptcha'
 gem 'barista'
 gem 'execjs'
+gem 'therubyracer'
 
 # Use unicorn as the web server
 # gem 'unicorn'
