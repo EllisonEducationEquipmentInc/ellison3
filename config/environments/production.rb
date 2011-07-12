@@ -39,7 +39,7 @@ Ellison3::Application.configure do
       if request.ssl?
         "#{request.protocol}#{request.host_with_port}"
       else
-        "http://asset#{rand(10)}.#{get_domain}"
+        "http://asset#{rand(9)+1}.#{get_domain}"
       end
     }
 
