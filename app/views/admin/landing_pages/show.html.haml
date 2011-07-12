@@ -1,5 +1,7 @@
 %h2.left== Landing Page Preview: #{@landing_page.id}
-.right.minilink= link_to 'edit', edit_admin_landing_page_path(@landing_page), :class => "link_edit-record"
+.breadcrumbs.right.dontprint
+  = link_to 'list all landing pages', admin_landing_pages_path, :class => "link_list-all-records"
+  = link_to 'edit', edit_admin_landing_page_path(@landing_page), :class => "link_edit-record"
 .clear
 %p
   %span.icon_datefield Select a Preview Date: 

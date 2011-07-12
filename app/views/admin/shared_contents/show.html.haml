@@ -1,5 +1,7 @@
 %h2.left== Shared Content Preview: #{@shared_content.id}
-.right.minilink= link_to 'edit', edit_admin_shared_content_path(@shared_content), :class => "link_edit-record"
+.breadcrumbs.right.dontprint
+  = link_to 'list all shared contents', admin_shared_contents_path, :class => "link_list-all-records"
+  = link_to 'edit', edit_admin_shared_content_path(@shared_content), :class => "link_edit-record"
 .clear
 %p
   %span.icon_datefield Select a Preview Date: 

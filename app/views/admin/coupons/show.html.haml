@@ -1,4 +1,8 @@
-%h2== Coupon Preview - #{@coupon.id}
+%h2.left== Coupon Preview - #{@coupon.id}
+.breadcrumbs.right.dontprint
+  = link_to 'list all coupons', admin_coupons_path, :class => "link_list-all-records"
+  = link_to 'edit', edit_admin_coupon_path(@coupon), :class => "link_edit-record"
+.clear
 %p= text_field_tag :time, @time, :class => 'datetimepicker', :onchange => "window.location='#{admin_coupon_path(@coupon)}?time='+this.value"
 - if @coupon.product?
   %table

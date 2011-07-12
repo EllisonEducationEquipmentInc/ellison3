@@ -1,5 +1,8 @@
-.right= link_to 'edit', edit_admin_tag_path(@tag), :class => "link_edit-record"
-%h2{:style => "color:#{@tag.displayable?(current_system, @time) ? 'green' : 'red'}"}== Tag Preview: #{@tag.id}
+%h2.left{:style => "color:#{@tag.displayable?(current_system, @time) ? 'green' : 'red'}"}== Tag Preview: #{@tag.id}
+.breadcrumbs.right.dontprint
+  = link_to 'list all tags', admin_tags_path, :class => "link_list-all-records"
+  = link_to 'edit', edit_admin_tag_path(@tag), :class => "link_edit-record"
+.clear
 %p
   = text_field_tag :time, @time, :class => 'datetimepicker'
   = link_to_function 'GO', "window.location='#{admin_tag_path(@tag)}?time='+$('#time').val()"

@@ -303,6 +303,11 @@ a.next_button { @extend a.prev_button;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/cross-script.png") no-repeat right bottom;
 }
 
+.link_list-all-records { @extend .link;
+  margin-right: 16px;
+  background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/cards-stack.png") no-repeat left bottom;
+}
+
 .link_edit-record { @extend .link;
   background: url("/images/ui-icons/set_fugue/16x16/drop-shadow/card--pencil.png") no-repeat left bottom;
 }

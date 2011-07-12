@@ -1,5 +1,6 @@
-%h2== Quote - #{@quote.id}
-.back= link_to "Back to Quotes", admin_quotes_path
+%h2.left== Quote - #{@quote.id}
+.breadcrumbs.right.dontprint= link_to 'list all quotes', admin_quotes_path, :class => "link_list-all-records"
+.clear
 - I18n.locale = @quote.locale
 .contentwrap_medium
   %h3 Shipping Address

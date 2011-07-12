@@ -1,7 +1,10 @@
 .breadcrumbs.dontprint
   = link_to 'back', session[:continue_shopping], :class => "link_back" if session[:continue_shopping].present?
   - if admin_signed_in?
-    .right= link_to 'edit', edit_admin_idea_path(@idea), :class => "link_edit-record"
+    .right
+      = link_to 'list all ideas', admin_ideas_path, :class => "link_list-all-records"
+      = link_to 'edit', edit_admin_idea_path(@idea), :class => "link_edit-record"
+.clear
 - cache_unless is_admin?, ['idea', @idea, @idea.updated_at.utc.to_i, current_system, current_locale, Product.retailer_discount_level, ecommerce_allowed?], :expires_in => 3.hours do
   .item_images
     - if @idea.has_zoom?

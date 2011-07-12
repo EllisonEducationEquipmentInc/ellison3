@@ -1,4 +1,6 @@
-%h2 Feedback History
+%h2.left Feedback History
+.breadcrumbs.right.dontprint= link_to 'list all feedback', admin_feedbacks_path, :class => "link_list-all-records"
+.clear
 %p
   %strong== ID: #{@feedback.number}
   %br

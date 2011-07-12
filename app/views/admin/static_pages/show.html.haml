@@ -1,5 +1,7 @@
 %h2.left== Static Page Preview - #{@static_page.name}
-.right.minilink= link_to 'edit', edit_admin_static_page_path(@static_page), :class => "link_edit-record"
+.breadcrumbs.right.dontprint
+  = link_to 'list all static pages', admin_static_pages_path, :class => "link_list-all-records"
+  = link_to 'edit', edit_admin_static_page_path(@static_page), :class => "link_edit-record"
 .clear
 %p.contentwrap_large
   == Enabled for <strong>#{@static_page.system_enabled.upcase}</strong>

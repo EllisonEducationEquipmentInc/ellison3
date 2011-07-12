@@ -1,5 +1,7 @@
-%h2== Order - #{@order.id}
-.back= link_to "Back to Orders", admin_orders_path
+%h2.left== Order - #{@order.id}
+.breadcrumbs.right.dontprint= link_to 'list all orders', admin_orders_path, :class => "link_list-all-records"
+.clear
+
 - I18n.locale = @order.locale
 .contentwrap_medium
   %h3 Billing Address
