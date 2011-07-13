@@ -149,7 +149,7 @@ class CartsController < ApplicationController
 	def proceed_checkout
 	  redirect_to :checkout and return unless get_user.shipping_address && !get_cart.cart_items.blank?
 		return unless real_time_cart
-		if can_use_previous_payment? && params[:payment] && params[:payment][:use_previous_orders_card] 
+		if can_use_previous_payment? && params[:payment] && params[:payment][:use_previous_orders_card]  == "1"
       @payment = Order.find(get_cart.order_reference).payment.dup
       use_payment_token = true
 		else

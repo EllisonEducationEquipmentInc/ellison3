@@ -166,7 +166,7 @@
     $(document).ready(function() { 
         $(".jqui_save").button({icons: {primary: 'ui-icon-disk'}});
         //initialize_buttons();
-        $('#payment_submit').button({disabled: true, label: 'please wait...'});
+        $('#payment_submit').button({disabled: #{!(get_cart.shipping_amount && get_cart.tax_amount)}, label: #{get_cart.shipping_amount && get_cart.tax_amount ? 'button_label' : '\'please wait...\''}});
         order_comment();
         $('#proceed_checkout').validate(payment_validator_options);
     });
