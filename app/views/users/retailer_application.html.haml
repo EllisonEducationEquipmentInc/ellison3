@@ -100,14 +100,16 @@
     = f.fields_for :addresses, @user.home_address do |home_address_fields|
       = render :partial => 'users/address_form', :locals => {:f => home_address_fields}
     %hr
-    %h3 Shipping Address
-    = link_to_function "copy home address", "copy_address_data(0, 1)", :class => "minilink"
+    %h3.left Shipping Address
+    .right= link_to_function "copy home address", "copy_address_data(0, 1)", :class => "link_copy-record"
+    .clear
     = f.fields_for :addresses, @user.shipping_address do |shipping_address_fields|
       = render :partial => 'users/address_form', :locals => {:f => shipping_address_fields}
 
     %hr
-    %h3 Billing Address
-    = link_to_function "copy shipping address", "copy_address_data(1, 2)", :class => "minilink"
+    %h3.left Billing Address
+    .right= link_to_function "copy shipping address", "copy_address_data(1, 2)", :class => "link_copy-record"
+    .clear
     = f.fields_for :addresses, @user.billing_address do |billing_address_fields|
       = render :partial => 'users/address_form', :locals => {:f => billing_address_fields}
 
@@ -227,6 +229,10 @@
     
     has_website($("#user_retailer_application_attributes_no_website").attr('checked'));
     will_fax_docs($("#user_retailer_application_attributes_will_fax_documents").attr('checked'));
+    
+    $('#user_addresses_attributes_0_country').trigger('change');
+    $('#user_addresses_attributes_1_country').trigger('change');
+    $('#user_addresses_attributes_2_country').trigger('change');
   });
 
   function copy_address_data(from_index, to_index) {
