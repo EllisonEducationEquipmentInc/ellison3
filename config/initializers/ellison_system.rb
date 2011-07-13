@@ -326,7 +326,7 @@ module EllisonSystem
                  :login => 'ellisonadmin'}}
              end
     config = GwConfig.new(options)
-    ActiveMerchant::Billing::Base.mode = :test #unless Rails.env == 'production' 
+    ActiveMerchant::Billing::Base.mode = :test unless Rails.env == 'production' 
     @gateway = ActiveMerchant::Billing::Base.gateway(config.name.to_s).new(:login => config.user_name.to_s, :password => config.password.to_s)    
   rescue
     raise 'Invalid ActiveMerchant Gateway'

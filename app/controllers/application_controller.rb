@@ -235,7 +235,7 @@ private
 	def ga_tracker_id
 	  if Rails.env == "development"
 	    "UA-12678772-3"
-	  elsif request.subdomain.present? && request.subdomain == 'qa'
+	  elsif Rails.env == "staging" #request.subdomain.present? && request.subdomain == 'qa'
 	    "UA-12678772-5"
 	  else
 	    if is_sizzix?
