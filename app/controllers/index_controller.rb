@@ -65,7 +65,7 @@ class IndexController < ApplicationController
       @keywords << @idea.tags.keywords.map {|e| e.name} * ', '
       @description = @idea.description if @idea.description.present?
     end
-    fresh_when(:etag => [Time.now.utc.strftime("%m%d%Y%H"), 'idea', @idea, @idea.updated_at.utc.to_i, current_system, current_locale, admin_signed_in?], :last_modified => @idea.updated_at.utc)
+    fresh_when(:etag => [Time.now.utc.strftime("%m%d%Y%H"), 'idea', @idea, @idea.updated_at.utc.to_i, current_system, current_locale, admin_signed_in?, user_signed_in?], :last_modified => @idea.updated_at.utc)
     #expires_in 5.minutes, 'max-stale' => 5.minutes
   rescue Exception => e
     Rails.logger.info e
@@ -81,7 +81,7 @@ class IndexController < ApplicationController
       get_search
       @products = @search.results
     end
-    fresh_when(:etag => [Time.now.utc.strftime("%m%d%Y%H"), current_locale, current_system, @landing_page], :last_modified => @landing_page.updated_at.utc)
+    fresh_when(:etag => [Time.now.utc.strftime("%m%d%Y%H"), current_locale, current_system, @landing_page, admin_signed_in?, user_signed_in?], :last_modified => @landing_page.updated_at.utc)
   rescue Exception => e
     Rails.logger.info e.message
     go_404
@@ -97,7 +97,7 @@ class IndexController < ApplicationController
     else
       raise "invalid tag_type: #{params[:id]}"
     end
-    expires_in 1.hour, 'max-stale' => 3.hours
+    #expires_in 1.hour, 'max-stale' => 3.hours
   rescue Exception => e
     Rails.logger.info e.message
     go_404

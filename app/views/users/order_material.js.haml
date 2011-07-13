@@ -7,3 +7,7 @@ $.fancybox.close();
   - if @material_order.address.enable_avs_bypass
     $('#bypass_avs').show();
   == alert('#{escape_javascript @material_order.address.errors.full_messages.join("\n")}');
+$(document).ready(function(){
+setTimeout("$.fancybox.close()", 1000);
+setTimeout("$.fancybox.close()", 3000);
+});
