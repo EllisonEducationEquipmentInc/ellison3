@@ -1387,7 +1387,7 @@ namespace :data_migrations do
         get_list_and_segments
         CSV.foreach(File.expand_path(File.dirname(__FILE__) + "/migrations/#{list.last.keys.first}.csv"), :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
           @subscription = Subscription.new 
-          @subscription.email = row['email']
+          @subscription.email = row['email'].downcase
           @subscription.confirmed = true
           @subscription.list = subscription_list
           @subscription.list_name = @list[1]
