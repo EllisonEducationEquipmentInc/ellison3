@@ -1,4 +1,4 @@
-%span.left== #{is_us? ? 'Sales Tax' : is_sizzix_uk? ? 'VAT (already included in Subtotal)' : 'Estimated Tax'}
+%span.left== #{is_us? ? 'Sales Tax' : is_uk? ? 'VAT (already included in Subtotal)' : 'Estimated Tax'}
 %span#tax_amount.amount.right
 - if is_uk? && session[:vat_exempt]
   %br

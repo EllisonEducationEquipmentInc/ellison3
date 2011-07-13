@@ -89,7 +89,7 @@
       %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "right" } Shipping & Handling Surcharge
       %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}= number_to_currency @order.handling_amount
   %tr
-    %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "right" }== #{is_us? ? 'Sales Tax' : is_sizzix_uk? ? 'VAT (already included in Subtotal)' : 'Estimated Tax'}
+    %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "right" }== #{is_us? ? 'Sales Tax' : is_uk? ? 'VAT (already included in Subtotal)' : 'Estimated Tax'}
     %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}= number_to_currency @order.tax_amount
   %tr
     %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "right" }
