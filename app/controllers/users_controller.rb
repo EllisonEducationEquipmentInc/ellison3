@@ -336,13 +336,13 @@ class UsersController < ApplicationController
 	
 	def subscriptions
 	  get_list_and_segments
-	  @subscription = Subscription.where(:list => subscription_list, :email => current_user.email).first || Subscription.new(:list => subscription_list, :name => current_user.name)
+	  @subscription = Subscription.where(:list => subscription_list, :email => current_user.email.downcase).first || Subscription.new(:list => subscription_list, :name => current_user.name)
 	  @subscription.email ||= current_user.email
 	  render :partial => 'subscriptions'
 	end
 	
 	def resend_subscription_confirmation
-    @subscription = Subscription.first(:conditions => {:email => current_user.email, :list => subscription_list, :confirmed => false})
+    @subscription = Subscription.first(:conditions => {:email => current_user.email.downcase, :list => subscription_list, :confirmed => false})
     if @subscription
       UserMailer.subscription_confirmation(@subscription).deliver
       render :js => "$('#resend_subscription_confirmation').hide(); alert('Your subscription request has been successfully sent. You will receive a confirmation email shortly. Please follow its instructions to confirm your subscription.');"

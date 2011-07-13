@@ -374,17 +374,17 @@ class IndexController < ApplicationController
     get_list_and_segments
     @subscription = Subscription.new :list => @list[0]
     @subscription.email = if params[:email]
-        params[:email]
+        params[:email].downcase
       elsif user_signed_in?
-        current_user.email
+        current_user.email.downcase
       end
   end
   
   def create_subscription
     get_list_and_segments
-    @subscribed = Subscription.first(:conditions => {:email => params[:subscription][:email], :list => subscription_list, :confirmed => false})
+    @subscribed = Subscription.first(:conditions => {:email => params[:subscription][:email].downcase, :list => subscription_list, :confirmed => false})
     @subscription = Subscription.new params[:subscription]
-    @subscription.email = params[:subscription][:email]
+    @subscription.email = params[:subscription][:email].downcase
     @subscription.list = subscription_list
     @subscription.list_name = @list[1]
     if @subscribed.blank? && @subscription.save
@@ -406,7 +406,7 @@ class IndexController < ApplicationController
   end
   
   def resend_subscription_confirmation
-    @subscription = Subscription.first(:conditions => {:email => params[:email], :list => subscription_list, :confirmed => false})
+    @subscription = Subscription.first(:conditions => {:email => params[:email].downcase, :list => subscription_list, :confirmed => false})
     if @subscription && recaptcha_valid?
       UserMailer.subscription_confirmation(@subscription).deliver
       flash[:notice] = "Your subscription request has been successfully sent. You will receive a confirmation email shortly. Please follow its instructions to confirm your subscription."
@@ -419,7 +419,7 @@ class IndexController < ApplicationController
     unless @subscription.confirmed
       @lyris = Lyris.new :update_member_status, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :member_status => 'normal'
       @subscription.update_attribute :confirmed, true
-      if user_signed_in? && @subscription.email == current_user.email
+      if user_signed_in? && @subscription.email.downcase == current_user.email.downcase
         flash[:notice] = "Thank you for verifying your email address."
         redirect_to(myaccount_path(:tab => 'subscriptions')) and return
       else
@@ -441,7 +441,7 @@ class IndexController < ApplicationController
         @subscription.segments = []
         @subscription.destroy
         flash[:notice] = "You have been Unsubscribed from #{@subscription.list_name}."
-        redirect_to(user_signed_in? && @subscription.email == current_user.email ? myaccount_path(:tab => 'subscriptions') : root_path)
+        redirect_to(user_signed_in? && @subscription.email.downcase == current_user.email.downcase ? myaccount_path(:tab => 'subscriptions') : root_path)
       else
         flash[:alert] = "an error has occured. please try again."
         render :subscription
