@@ -399,7 +399,7 @@ class IndexController < ApplicationController
         @subscription.delete
         redirect_to({:action => "newsletter", :email => params[:email]}, :alert => "An error has occured. Please try again later, or contact customer support.") and return
       end
-      redirect_to(user_signed_in? && @subscription.email == current_user.email ? myaccount_path(:tab => 'subscriptions') : root_path, :notice => "Your subscription request has been successfully sent. You will receive a confirmation email shortly. Please follow its instructions to confirm your subscription.")
+      redirect_to(user_signed_in? && @subscription.email.downcase == current_user.email.downcase ? myaccount_path(:tab => 'subscriptions') : root_path, :notice => "Your subscription request has been successfully sent. You will receive a confirmation email shortly. Please follow its instructions to confirm your subscription.")
     else
       render :newsletter
     end
