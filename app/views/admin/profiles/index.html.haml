@@ -4,6 +4,7 @@
 - unless params[:q].blank?
   = link_to 'all', admin_admins_path, :class => 'jqui_button'
 = form_tag(admin_admins_path, :method => :get) do
+  = admin_systems_checkboxes
   = text_field_tag :q, nil, :placeholder => "email, name, employee #"
   = check_box_tag :inactive, "1", params[:inactive] == "1"
   Incl. inactive
