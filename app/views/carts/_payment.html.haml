@@ -145,8 +145,8 @@
   - if can_use_previous_payment?
     .field
       = f.check_box :use_previous_orders_card, :onclick => "if (this.checked) {$('.credit_card').remove()} else {$(this).attr('disabled', true);$('#payment_submit').replaceWith('#{escape_javascript spinner}');$('#checkout_cc').load('/carts/use_previous_orders_card');}"
-      = f.label :use_previous_orders_card, "Use same payment info that was used in order #"
-      = link_to get_cart.order_reference, admin_order_path(get_cart.order_reference)
+      = f.label :use_previous_orders_card, "Use same payment info that was used in order", :class => "autosize", :style => "margin-right: 0px"
+      %strong= link_to "##{get_cart.order_reference}", admin_order_path(get_cart.order_reference)
   - if is_er? || is_ee?
     .ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
       %h4.ui-accordion-header.ui-helper-reset#order_comment
