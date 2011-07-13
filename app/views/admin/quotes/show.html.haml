@@ -1,4 +1,4 @@
-%h2.left== Quote - #{@quote.id}
+%h2.left== Quote Details - #{@quote.quote_number}
 .breadcrumbs.right.dontprint= link_to 'list all quotes', admin_quotes_path, :class => "link_list-all-records"
 .clear
 - I18n.locale = @quote.locale
@@ -21,32 +21,35 @@
     %br
     = @quote.address.phone
 .contentwrap_medium
-  %h3 Details
-  %strong System:
-  = @quote.system
-  %br
-  %strong Quote Name:
-  %span.quote_name{:id => @quote.id}= @quote.name
-  %br
-  %strong Quote Number:
-  = (@quote.quote_number.blank? ? @quote.id : @quote.quote_number)
-  %br
-  - if @quote.order
-    %strong== Order Reference Number:
-    = link_to @quote.order.id, admin_order_path(@quote.order)
+  %h3 Quote Details
+  %p
+    %strong System:
+    %span.current_system= @quote.system
     %br
-  %strong Web Customer:
-  = @quote.user.email rescue "User NOT found"
-  %br
-  %strong Quote Date:
-  %span#quote_date= @quote.created_at
-  %br
-  %strong Expires:
-  = l @quote.expires_at, :format => :custom
-  = alert_wrapper "Expired!" if @quote.expires_at < Time.zone.now
-  %br
-  %strong Customer Rep:
-  = @quote.customer_rep  
+    %strong Quote Number:
+    %span.emphasize= (@quote.quote_number.blank? ? @quote.id : @quote.quote_number)
+    %br
+    - if @quote.order
+      %strong== Order Reference Number:
+      = link_to @quote.order.id, admin_order_path(@quote.order)
+      %br
+    %strong Quote Date:
+    %span#quote_date= l @quote.created_at, :format => :custom
+    %br
+    %strong Quote Name:
+    %span.quote_name{:id => @quote.id}= @quote.name
+    %br
+    %strong Expires:
+    = l @quote.expires_at, :format => :custom
+    = alert_wrapper "Expired!" if @quote.expires_at < Time.zone.now
+  
+  %h3 Customer Info
+  %p
+    %strong Web Customer:
+    = @quote.user.email rescue "User NOT found"
+    %br
+    %strong Customer Rep:
+    = @quote.customer_rep  
 .contentwrap_medium.last
   - if @quote.user
     %div{:class => @quote.user.erp.blank? || @quote.user.invoice_account.blank? ? 'error' : nil}

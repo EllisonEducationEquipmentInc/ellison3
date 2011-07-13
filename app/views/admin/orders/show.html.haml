@@ -1,4 +1,4 @@
-%h2.left== Order - #{@order.id}
+%h2.left== Order Details - #{@order.public_order_number}
 .breadcrumbs.right.dontprint= link_to 'list all orders', admin_orders_path, :class => "link_list-all-records"
 .clear
 
@@ -43,57 +43,57 @@
     %br
     = @order.address.phone
 .contentwrap_medium.last
-  %h3 Details
-  %strong System:
-  = @order.system
-  %br
-  %strong Order ID:
-  = @order.id
-  %br
-  %strong Order Number:
-  = @order.public_order_number
-  %br
-  - if @order.quote
-    %strong== #{quote_name} Reference Number:
-    = link_to @order.quote.id, admin_quote_path(@order.quote)
+  %h3 Order Details
+  %p
+    %strong System:
+    %span.current_system= @order.system
     %br
-  %strong Web Customer Number:
-  = @order.user.id
-  %br
-  %strong Customer Account:
-  = @order.user.email
-  %br
-  %strong Customer Current Tax exempt status:
-  = @order.user.tax_exempt?
-  %br
-  %strong Order Date:
-  = l @order.created_at, :format => :custom
-  %br
-  %strong Estimated Ship Date:
-  %span#estimated_ship_date= l @order.estimated_ship_date, :format => :custom rescue ''
-  %br
-  %strong Status:
-  %span#order_status= @order.status
-  %br
-  - if @order.tracking_number.present?
-    %strong Tracking #:
-    = link_to @order.tracking_number, @order.tracking_url, :target => '_blank'
+    %strong Order Number:
+    %span.emphasize= @order.public_order_number
     %br
-  %strong Customer Rep:
-  = @order.get_customer_rep.try :email
-  - unless @order.order_reference.blank?
+    - if @order.quote
+      %strong== #{quote_name} Reference Number:
+      = link_to @order.quote.id, admin_quote_path(@order.quote)
+      %br
+    - unless @order.order_reference.blank?
+      %strong Order Reference ID:
+      = link_to @order.order_reference, admin_order_path(@order.order_reference)
+      %br
+    %strong Order Status:
+    %span#order_status= @order.status
     %br
-    %strong Order Reference ID:
-    = link_to @order.order_reference, admin_order_path(@order.order_reference)
-  %div{:class => @order.user.erp.blank? || @order.user.invoice_account.blank? ? 'error' : nil}
+    %strong Order Date:
+    %span.emphasize= l @order.created_at, :format => :custom
+    %br
+    %strong Estimated Ship Date:
+    %span#estimated_ship_date= l @order.estimated_ship_date, :format => :custom rescue ''
+    - if @order.tracking_number.present?
+      %br
+      %strong Tracking #:
+      = link_to @order.tracking_number, @order.tracking_url, :target => '_blank'
+  %h3 Customer Info
+  %p
+    %strong Customer Account:
+    = @order.user.email
+    %br
+    %strong Web Customer Number:
+    = @order.user.id
+    %br
+    %strong Current Tax Exempt Status:
+    = @order.user.tax_exempt?
+    %br
+    %strong Customer Rep:
+    = @order.get_customer_rep.try :email
+  %p{:class => @order.user.erp.blank? || @order.user.invoice_account.blank? ? 'error' : nil}
     %strong ERP ID:
     = @order.user.erp
-    = link_to 'edit', edit_admin_user_path(@order.user)
+    = link_to 'edit', edit_admin_user_path(@order.user), :class => "link_edit-record minilink", :target => "_blank"
     %br
     %strong Invoice Account:
     = @order.user.invoice_account
-    = link_to 'edit', edit_admin_user_path(@order.user)
+    = link_to 'edit', edit_admin_user_path(@order.user), :class => "link_edit-record minilink", :target => "_blank"
     %br
+
   #order_actions= render :partial => 'order_actions'
 .clear
 - if @order.can_be_paid?

@@ -1,6 +1,19 @@
 // Ellison3 Web Application Sitewide Layout CSS
 
 // typography styles
+.emphasize, #order_status, #quote_date {
+  font-weight: bold;
+  color: $link;
+}
+
+.coupon_code, .current_system { @extend .emphasize;
+  text-transform: uppercase;
+}
+
+.other_system { @extend .emphasize;
+  color: $text;
+}
+
 .keyword, .legalese, .byline, .invalid {
   font-family: Verdana,Arial,sans-serif;
   font-size: .85em;
@@ -34,20 +47,6 @@
   margin: 0 6px 4px 6px;
   font-variant: small-caps;
   color: $link;
-}
-
-.current_system {
-  font-weight:bold;
-  color: $link;
-}
-
-.coupon_code { @extend .current_system;
-  text-transform: uppercase;
-}
-
-.border-left {
-  border-left: 1px solid $catalog_buybox_border;
-  padding-left: 10px;
 }
 
 #content {
@@ -160,6 +159,11 @@
   margin: 3px 0 3px 3px;
   width: 65px;
   height: 65px;
+}
+
+.border-left {
+  border-left: 1px solid $catalog_buybox_border;
+  padding-left: 10px;
 }
 
 // buttons

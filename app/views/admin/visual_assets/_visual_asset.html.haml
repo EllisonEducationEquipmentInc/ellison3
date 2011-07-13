@@ -34,7 +34,7 @@
     - ELLISON_SYSTEMS.each do |sys|
       = hidden_field_tag("#{f.object_name}[systems_enabled][]", sys) if f.object.systems_enabled.try(:include?, sys) && !has_write_permissions?(sys)
       = check_box_tag("#{f.object_name}[systems_enabled][]", sys, f.object.systems_enabled.try(:include?, sys), :disabled => !has_write_permissions?(sys))
-      %span{:class => sys == current_system ? "current_system" : nil}= sys
+      %span{:class => sys == current_system ? "current_system" : "other_system"}= sys
   - if f.object.new_record?
     .field.right
       = f.label :active, "Activate this asset?", :class => "autosize"
