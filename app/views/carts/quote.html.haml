@@ -12,6 +12,11 @@
 #new_billing
   #cod_info{:style => "display:#{get_user.shipping_address ? 'block' : 'none'}"}= render :partial => 'users/cod_form' if cod_allowed?
   %h3 Shipping Options
+  - if is_er_us?
+    - if admin_signed_in?
+      == Virtual Weight: #{get_cart.total_weight} lbs
+      %br
+    == Weight: #{get_cart.total_actual_weight} lbs
   #shipping_options= render :partial => "shipping_options" if get_user.shipping_address
 #checkout_summary
   %h3== #{quote_name} Summary
