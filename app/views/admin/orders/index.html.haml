@@ -18,7 +18,8 @@
         = sortable "created_at"
         %th Company
         = sortable "address.last_name", "Name"
-        = sortable "total_amount"
+        = sortable "subtotal_amount"
+        %th Total Amount
         %th System
         = sortable "status"
         = sortable "payment.deferred", 'Deferred'
@@ -32,7 +33,8 @@
           %td= l order.created_at, :format => :custom rescue ''
           %td= order.address.company
           %td== #{order.address.first_name} #{order.address.last_name}
-          %td= number_to_currency order.total_amount
+          %td= number_to_currency(order.subtotal_amount)
+          %td= number_to_currency(order.total_amount) rescue 'N/A'
           %td= order.system
           %td{:style => order.on_hold? ? order.can_be_paid? ? 'color:green' : 'color:red' : nil, :class => order.uk_may_change? ? 'editable_order_status' : nil, :id => order.id}= order.status
           %td= order.payment.try :deferred

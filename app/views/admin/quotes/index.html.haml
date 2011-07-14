@@ -19,7 +19,8 @@
         %th Name
         = sortable "created_at"
         = sortable "address.company", "Company"
-        = sortable "total_amount"
+        = sortable "subtotal_amount"
+        %th Total Amount
         %th System
         = sortable "active"
         = sortable "expires_at"
@@ -34,7 +35,8 @@
           %td= quote.name
           %td= l quote.created_at, :format => :custom rescue ''
           %td== #{quote.address.company} (#{quote.address.first_name} #{quote.address.last_name})
-          %td= number_to_currency quote.total_amount
+          %td= number_to_currency quote.subtotal_amount
+          %td= number_to_currency(quote.total_amount) rescue 'N/A'
           %td= quote.system
           %td= quote.active
           %td= l quote.expires_at, :format => :custom
