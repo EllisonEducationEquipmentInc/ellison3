@@ -1,8 +1,10 @@
 .dontprint
   -# logo masthead & branding
-  %h1.masthead  
-    = link_to system_name, root_path, :id => "logo_masthead#{is_corp_site? ? "_corporate-#{params[:region] ? params[:region].parameterize : 'united-states'}" : nil}", :title => system_name, :alt => system_name
-  
+  %h1.masthead
+    - if is_corp_site?
+      = link_to system_name, "/corp_#{params[:region] ? params[:region] : 'northamerica'}?tp=c&nation=#{params[:nation] ? params[:nation].parameterize : 'united-states'}&region=#{params[:region] ? params[:region] : 'northamerica'}", :id => "logo_masthead_corporate-#{params[:nation] ? params[:nation].parameterize : 'united-states'}", :title => system_name, :alt => system_name
+    - else
+      = link_to system_name, "#{ is_er? ? '/home' : root_path}", :id => "logo_masthead", :title => system_name, :alt => system_name
   - unless is_corp_site?
     -# utility navigation menu (customer account management, shopping cart, UK currency selector, etc)  
     #nav_utility_user
@@ -85,11 +87,11 @@
         }
       });
   - else
-    #region_select{:class => "flag_#{params[:region] ? params[:region].parameterize : 'united-states'}"}= select_tag :region, options_for_select(["United States", "Canada", "Mexico", "United Kingdom", "Netherlands", "Germany", "Brazil", "Colombia", "Chile", "Costa Rica", "Venezuela", "Puerto Rico"] , params[:region]), :onchange => "change_region_content(this.value);"
+    #nation_select{:class => "flag_#{params[:nation] ? params[:nation].parameterize : 'united-states'}"}= select_tag :nation, options_for_select(["United States", "Canada", "Mexico", "United Kingdom", "Netherlands", "Germany", "Brazil", "Colombia", "Chile", "Costa Rica", "Venezuela", "Puerto Rico"] , params[:nation]), :onchange => "change_nation_content(this.value);"
     :javascript
-      function change_region_content(region) {
-        var static_page;
-        switch(region) {
+      function change_nation_content(nation) {
+        var static_page, region;
+        switch(nation) {
           case 'Mexico':
           case 'Brazil':
           case 'Colombia':
@@ -97,21 +99,25 @@
           case 'Costa Rica':
           case 'Venezuela':
           case 'Puerto Rico':
+            region = "latinamerica"
             static_page = "/corp_latinamerica";
             break;
           case 'United Kingdom':
           case 'Netherlands':
           case 'Germany':
+            region = "europe"
             static_page = "/corp_europe";
             break;
           case 'United States':
           case 'Canada':
+            region = "northamerica"
             static_page = "/corp_northamerica";
             break;
           default:
+            region = "northamerica"
             static_page = "/corp_northamerica";
         };
-        location.href = 'http://'+location.host+static_page+'?tp=c&system=erus&region='+region;return false;
+        location.href = 'http://'+location.host+static_page+'?tp=c&nation='+nation+'&region='+region;return false;
       }
 
 #printmasthead.dontdisplay
