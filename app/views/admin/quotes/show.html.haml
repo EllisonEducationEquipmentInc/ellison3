@@ -49,7 +49,7 @@
     = @quote.user.email rescue "User NOT found"
     %br
     %strong Customer Rep:
-    = @quote.customer_rep  
+    = @quote.get_customer_rep.try :email  
 .contentwrap_medium.last
   - if @quote.user
     %div{:class => @quote.user.erp.blank? || @quote.user.invoice_account.blank? ? 'error' : nil}

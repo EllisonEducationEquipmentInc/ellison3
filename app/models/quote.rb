@@ -138,6 +138,12 @@ EOF
   def cod?
     self.shipping_service == "COD"
   end
+  
+  def get_customer_rep
+    Admin.find(self.customer_rep_id) if self.customer_rep_id
+  rescue
+    nil
+  end
 
 private
 
