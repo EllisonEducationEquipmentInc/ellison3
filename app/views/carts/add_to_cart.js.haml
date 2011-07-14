@@ -2,6 +2,7 @@
 == $('#cart_container').html('#{escape_javascript(render(:partial => "carts/cart"))}');
 - if params[:action] == 'add_to_cart_by_item_num'
   $(document).ready(function(){$("#item_num").focus();});
+  $("#item_num").focus();
 - else
   $.fancybox({
   'padding' : 10,
