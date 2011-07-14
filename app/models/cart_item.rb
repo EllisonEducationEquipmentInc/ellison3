@@ -58,7 +58,7 @@ class CartItem
 	end
 	
 	def eclips?
-		item_num == "655934" || item_num == "29184" || (item_num == "654427" && Rails.env == 'development')
+		item_num == "655934" || item_num == "29851" || (item_num == "654427" && Rails.env == 'development')
 	end
 	
 	def calculate_coupon_discount(coupon)
