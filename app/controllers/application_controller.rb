@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
 	              :quote_allowed?, :chekout_allowed?, :currency_correct?, :vat_exempt?, :outlet?, :machines_owned, :perform_search, :admin_user_as_permissions!, :convert_2_gbp, :is_admin?, :free_shipping_message
 
 private
+  
+  def after_sign_out_path_for(resource_or_scope)
+    url_for(:controller => "index", :action => "home")
+  end
 
   def machines_owned
     cookies[:machines].split(",") rescue []
