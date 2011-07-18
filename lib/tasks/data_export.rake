@@ -112,7 +112,7 @@ namespace :data_export do
             set_current_system s
             LOCALES_2_CURRENCIES.keys.each do |e|
               I18n.locale = e
-              prices << product.price
+              prices << (product.price rescue 'N/A')
             end
           end
           csv << [product.id, product.upc, product.item_num, product.name, product.systems_enabled * ', '] + WAREHOUSES.map {|e| product.send("quantity_#{e}")} + ELLISON_SYSTEMS.map {|e| product.send("orderable_#{e}")} +
