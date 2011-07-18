@@ -134,7 +134,7 @@
       .left.field
         = label_tag :purchase_total_amount, "<span class ='required'>Total Amount</span>".html_safe, :class => "autosize"
         %span{ :class => "icon_pricefield_#{current_currency}" }
-          = text_field_tag :purchase_total_amount, params[:total_amount], :size => 6, :style => "margin-right: 18px"
+          = text_field_tag :purchase_total_amount, params[:total_amount], :size => 11, :style => "margin-right: 18px"
       .left.field
         = label_tag :purchase_order_id, "<span class ='required'>Order ID</span>".html_safe, :class => "autosize"
         = text_field_tag :purchase_order_id, params[:order_id] || params[:order_number]
