@@ -26,7 +26,7 @@ set :keep_releases,       5
 set :application,         "ellison3"
 set :user,                "ellison"
 set :password,            "ellison123" #"RbBR5VrQ"
-set :deploy_to,           "/data/ellison3_qa"
+set :deploy_to,           "/data/ellison3_production" #"/data/ellison3_qa"
 set :monit_group,         "ellison"
 set :runner,              "ellison"
 set :repository,          "https://ellison.svn.beanstalkapp.com/ellison3/#{deploy_version}"
@@ -35,9 +35,9 @@ set :scm_password,        "yardwork123"
 set :scm,                 :subversion
 #set :deploy_via,          :filtered_remote_cache
 set :repository_cache,    "/var/cache/engineyard/#{application}"
-set :production_database, "ellison3_qa"
+set :production_database, "ellison3_production"
 set :production_dbhost,   "localhost"
-set :staging_database,    "ellison3_qa"
+set :staging_database,    "ellison3_production"
 set :staging_dbhost,      "localhost"
 set :dbuser,              "ellison"
 set :dbpass,              "Yh4XS3Sy"
@@ -97,7 +97,7 @@ end
 
 desc "Application symlinks"
 task :custom_symlink, :roles => :app, :except => {:no_release => true, :no_symlink => true} do
-   run "ln -nfs /home/shared/images/ #{release_path}/public/images"
+   run "ln -nfs #{shared_path}/images/ #{release_path}/public/images"
    run "ln -nfs #{shared_path}/config/newrelic.yml #{latest_release}/config/newrelic.yml"
    run "ln -nfs #{shared_path}/config/mongoid.yml #{latest_release}/config/mongoid.yml"
    run "ln -nfs #{shared_path}/config/memcached.rb #{latest_release}/config/memcached.rb"
