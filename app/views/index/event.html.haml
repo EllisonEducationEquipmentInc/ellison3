@@ -34,7 +34,7 @@
       through
       = l @event.event_end_date, :format => :date
   .clear
-  %p= @event.description
+  %p= @event.description.html_safe
   %p= image_tag @event.actual_logo if @event.actual_logo.present?
 .event_detail.ui-corner-all
   %p
