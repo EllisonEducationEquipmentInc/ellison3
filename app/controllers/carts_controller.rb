@@ -190,6 +190,8 @@ class CartsController < ApplicationController
 	def proceed_quote
 	  redirect_to :quote and return unless (quote_allowed? || get_cart.pre_order?) && get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
 	  return unless real_time_cart(false)
+	  sleep 0.5
+		get_cart.reload
 	  cart_to_quote(:address => get_user.shipping_address)
     process_order @quote
 		clear_cart
