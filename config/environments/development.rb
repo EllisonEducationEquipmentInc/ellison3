@@ -31,4 +31,6 @@ Ellison3::Application.configure do
 	config.after_initialize do
 	  SslRequirement.disable_ssl_check = true
 	end
+	
+	
 end
