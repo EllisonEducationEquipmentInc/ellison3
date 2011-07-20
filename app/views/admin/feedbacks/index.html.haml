@@ -58,6 +58,8 @@
       show_buttons: true,
       saving_animation_color: "#ECF2F8"
     });
+- if has_read_permissions?
+  :javascript
     $(".comment_subject").tooltip({ 
       bodyHandler: function() { 
         return $(this).siblings('.comment_details').html();
