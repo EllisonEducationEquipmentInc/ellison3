@@ -1,5 +1,5 @@
 - if @search.total > 0
-  %h3= link_to "<span class='ringo'>Narrow Results By:</span>".html_safe, "#", :class => "link_expand"
+  %h3= link_to "Narrow Results By:", "#", :class => "link_expand"
 - if @search.total > 1
   = text_field_tag :keyword, nil, :autocomplete => "off", :value => "search #{ params[:action] == "shop" ? @landing_page.name : 'within these results'}...", :onfocus => "if (this.value == 'search #{ params[:action] == "shop" ? @landing_page.name : 'within these results'}...'){this.value='';}", :onblur => "if (this.value == ''){this.value='search #{ params[:action] == "shop" ? @landing_page.name : 'within these results'}...';}"
   %input{ :name => "submit", :src => "/images/ui-icons/set_fugue/16x16/drop-shadow/magnifier-left.png", :type => "image", :height => "16", :width => "16"}
