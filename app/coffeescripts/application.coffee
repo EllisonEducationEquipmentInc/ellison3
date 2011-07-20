@@ -77,6 +77,9 @@ root.bind_hashchange = ->
         complete: ->
           $("#product_catalog").css opacity: 1
           $("#products_filter").css opacity: 1
+          $("#product_catalog").css 'filter', ''
+          $("#products_filter").css 'filter', ''
+
           
 root.highlight_keyword = ->
   term = $.getUrlVar("q") or $.deparam.fragment()["q"]
