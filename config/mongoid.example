@@ -1,30 +1,24 @@
 defaults: &defaults
-  host: localhost
-  port: 27017
+  hosts: [[localhost, 27018], [localhost, 27019], [localhost, 27020]]
+  read_secondary: true
   allow_dynamic_fields: true
   parameterize_keys: false
   persist_in_safe_mode: true
   raise_not_found_error: true
-  reconnect_time: 3
+  reconnect_time: 5
   autocreate_indexes: false
   include_root_in_json: false
   use_activesupport_time_zone: true
   use_utc: false
+  pool_size: 5
 
 development:
   <<: *defaults
-  database: ellison3
+  database: ellison3 #ellison3_prod_final #ellison3
 
 test:
   <<: *defaults
   database: ellison3_test
-
-staging:
-  <<: *defaults
-  database: ellison3
-  # host: <%= ENV['MONGOID_HOST'] %>
-  # port: <%= ENV['MONGOID_PORT'] %>
-  # database: <%= ENV['MONGOID_DATABASE'] %>
 
 # set these environment variables on your prod server
 production:
@@ -33,3 +27,7 @@ production:
   # host: <%= ENV['MONGOID_HOST'] %>
   # port: <%= ENV['MONGOID_PORT'] %>
   # database: <%= ENV['MONGOID_DATABASE'] %>
+
+staging:
+  <<: *defaults
+  database: ellison3
