@@ -8,7 +8,7 @@
           - va_children_available.each do |child_visual_asset|
             - next unless child_visual_asset.must_own.blank? || machines_owned.any? {|e| child_visual_asset.must_own.include?(e)}
             - if child_visual_asset.image?
-              %li= link_to_unless child_visual_asset.link.blank?, image_tag(child_visual_asset.image_url, :alt => child_visual_asset.name), child_visual_asset.link, :title => child_visual_asset.name
+              %li= link_to_unless child_visual_asset.link.blank?, image_tag(child_visual_asset.image_url, :alt => child_visual_asset.name, :height => visual_asset.wide? ? "299" : "247"), child_visual_asset.link, :title => child_visual_asset.name
       :javascript
         $(document).ready(function(){
           $("#gallery_#{visual_asset.id}").sudoSlider({
