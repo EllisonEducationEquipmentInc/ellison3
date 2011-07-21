@@ -11,7 +11,19 @@ class FitterHappier
       when "/site_check"
         [200, {"Content-Type" => 'text/html; charset=utf-8'}, ["FitterHappier Site Check Passed @ #{time}\n"]]
       when "/site_and_database_check"
-        [200, {"Content-Type" => 'text/html; charset=utf-8'}, ["FitterHappier Site and Database Check Passed @ #{time}\nDatabase: #{Digest::SHA1.hexdigest(Mongoid.database.name)}\n"]]
+        [200, {"Content-Type" => 'text/html; charset=utf-8'}, ["FitterHappier Site and Database Check Passed @ #{time}\nDatabase: #{Digest::SHA1.hexdigest(Product.count)}\n"]]
+      when "/site_solr_and_database_check"
+        begin
+          resp = Net::HTTP.get(URI.parse("http://#{Sunspot::Rails.configuration.hostname}:#{Sunspot::Rails.configuration.port}#{Sunspot::Rails.configuration.path}/terms?terms.fl=spell&terms.prefix=sizz&terms.mincount=5&terms.sort=index&indent=true&wt=json&omitHeader=true&json.nl=arrarr"))
+          Product.count
+          [200, {"Content-Type" => 'text/html; charset=utf-8'}, ["FitterHappier Site, Solr and Database Check Passed @ #{time}\n"]]
+        rescue Errno::ECONNREFUSED => e
+          [500, {"Content-Type" => 'text/html; charset=utf-8'}, ["!!! ALERT !!! SOLR IS DOWN!!! @ #{time}\n"]]
+        rescue Mongo::ConnectionFailure => e
+          [500, {"Content-Type" => 'text/html; charset=utf-8'}, ["!!! ALERT !!! MONGODB IS DOWN!!! @ #{time}\n"]]
+        rescue Exception => e
+          [500, {"Content-Type" => 'text/html; charset=utf-8'}, ["!!! ALERT !!! INTERNAL SERVER ERROR!!! @ #{time}\n#{e}"]]
+        end        
       else
         [200, {"Content-Type" => 'text/html; charset=utf-8'}, ["FitterHappier Site Check Passed"]]
       end
