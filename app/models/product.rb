@@ -610,11 +610,11 @@ class Product
     update_attribute :active, false
   end
   
-  def index_by_tag(tag)
+  def index_by_tag(tag, commit = true)
     tag_dates = ELLISON_SYSTEMS.inject([]) {|a, e| tag.send("start_date_#{e}").present? ? a << tag.send("start_date_#{e}") : a; tag.send("end_date_#{e}").present? ? a << tag.send("end_date_#{e}") : a}
     tag_dates.uniq.each do |d|
       Rails.logger.info "TAG CAUSED SCHEDULED REINDEX!!! scheduled at #{d}"
-      self.delay(:run_at => d).index!
+      commit ? self.delay(:run_at => d).index! : self.delay(:run_at => d).index
     end
   end
   

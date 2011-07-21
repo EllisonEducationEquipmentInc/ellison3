@@ -164,7 +164,13 @@ class Tag
     unless item_nums.blank?
       prods = Product.where(:item_num.in => item_nums.split(/,\s*/))
       products.concat(prods.to_a)
-      prods.each {|e| e.index_by_tag self} if self.active
+      if self.active
+        prods.each {|e| e.index_by_tag(self, false)}
+        ELLISON_SYSTEMS.inject([]) {|a, e| self.send("start_date_#{e}").present? ? a << self.send("start_date_#{e}") : a; self.send("end_date_#{e}").present? ? a << self.send("end_date_#{e}") : a}.uniq.each do |d|
+          Rails.logger.info "TAG SCHEDULED COMMIT!! at #{d}"
+          Sunspot.delay(:run_at => d).commit
+        end
+      end
     end
   end
   
