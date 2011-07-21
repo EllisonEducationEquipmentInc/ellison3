@@ -47,6 +47,7 @@ Ellison3::Application.routes.draw do |map|
 		get 'users/messages', :to => "users#messages"
 		post 'users/change_quote_name', :to => "users#change_quote_name"
 		post 'users/resend_subscription_confirmation', :to => "users#resend_subscription_confirmation"
+		get 'login', :to => "sessions#new"
   end
 
   match 'admin' => 'admin#index'
@@ -68,6 +69,7 @@ Ellison3::Application.routes.draw do |map|
 	# redirects from rails 2 url's
 	match 'product/:old_id' => 'index#old_product', :old_id => /\d{1,5}/
 	match 'idea/:old_id' => 'index#old_idea', :old_id => /\d{1,4}/
+	match '/catalog/campaign/:id' => redirect("/catalog")
 	match 'catalog/:tag_type/:name' => 'index#old_catalog'
 	
 	match 'product/:id' => 'index#product', :id => /[0-9a-f]{24}/
@@ -224,7 +226,7 @@ Ellison3::Application.routes.draw do |map|
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => "index#home"
-
+  
 	#match "/grid/*path" => Gridfs #"gridfs#serve"
   # match "/solr_terms/:term" => SolrTerms
 	
