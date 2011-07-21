@@ -12,7 +12,7 @@ class FitterHappier
         [200, {"Content-Type" => 'text/html; charset=utf-8'}, ["FitterHappier Site Check Passed @ #{time}\n"]]
       when "/site_and_database_check"
         begin
-          Product.count
+          Event.count
           [200, {"Content-Type" => 'text/html; charset=utf-8'}, ["FitterHappier Site and Database Check Passed @ #{time}\n"]]
         rescue Mongo::ConnectionFailure => e
           [500, {"Content-Type" => 'text/html; charset=utf-8'}, ["!!! ALERT !!! MONGODB IS DOWN!!! @ #{time}\n"]]
@@ -22,7 +22,7 @@ class FitterHappier
       when "/site_solr_and_database_check"
         begin
           resp = Net::HTTP.get(URI.parse("http://#{Sunspot::Rails.configuration.hostname}:#{Sunspot::Rails.configuration.port}#{Sunspot::Rails.configuration.path}/terms?terms.fl=spell&terms.prefix=sizz&terms.mincount=5&terms.sort=index&indent=true&wt=json&omitHeader=true&json.nl=arrarr"))
-          Product.count
+          Event.count
           [200, {"Content-Type" => 'text/html; charset=utf-8'}, ["FitterHappier Site, Solr and Database Check Passed @ #{time}\n"]]
         rescue Errno::ECONNREFUSED => e
           [500, {"Content-Type" => 'text/html; charset=utf-8'}, ["!!! ALERT !!! SOLR IS DOWN!!! @ #{time}\n"]]
