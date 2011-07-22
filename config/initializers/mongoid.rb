@@ -185,7 +185,38 @@ module Mongoid #:nodoc:
     end
   end
   
-
+  # module Config #:nodoc:
+  #   class ReplsetDatabase < Hash
+  #     
+  #     def configure
+  #       # yes, construction is weird but the driver wants 
+  #       # "A list of host-port pairs ending with a hash containing any options"
+  #       # mongo likes symbols
+  #       options = self.inject({ :logger => Mongoid::Logger.new }) do |memo, (k, v)|
+  #         memo[k.to_sym] = v
+  #         memo
+  #       end
+  #       connection = Mongo::ReplSetConnection.new(*(hosts << options))
+  # 
+  #       if authenticating?
+  #         connection.add_auth(database, username, password)
+  #         connection.apply_saved_authentication
+  #       end
+  # 
+  #       [ connection.db(database), nil ]
+  #     end
+  #   
+  #     def optional(slave = false)
+  #       ({
+  #         :pool_size => pool_size,
+  #         :logger => Mongoid::Logger.new,
+  #         :slave_ok => slave
+  #       }).merge(self).reject { |k,v| PRIVATE_OPTIONS.include? k }.
+  #         inject({}) { |memo, (k, v)| memo[k.to_sym] = v; memo} # mongo likes symbols
+  #     end
+  #     
+  #   end
+  # end
 end
 
 
