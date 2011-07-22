@@ -48,7 +48,7 @@ Ellison3::Application.routes.draw do |map|
 		post 'users/change_quote_name', :to => "users#change_quote_name"
 		post 'users/resend_subscription_confirmation', :to => "users#resend_subscription_confirmation"
 		get 'login', :to => "sessions#new"
-		get 'sign_up', :to => "users#new"
+		get 'signup', :to => "users#new"
   end
 
   match 'admin' => 'admin#index'
