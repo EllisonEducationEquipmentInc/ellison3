@@ -69,8 +69,6 @@ Ellison3::Application.routes.draw do |map|
 	# redirects from rails 2 url's
 	match 'product/:old_id' => 'index#old_product', :old_id => /\d{1,5}/
 	match 'idea/:old_id' => 'index#old_idea', :old_id => /\d{1,4}/
-	#match 'catalog/campaign/:id' => redirect("/catalog")
-	#match 'catalog/exclusive_campaign/:id' => redirect("/catalog")
 	match 'catalog/:tag_type/:name' => 'index#old_catalog'
 	
 	match 'product/:id' => 'index#product', :id => /[0-9a-f]{24}/

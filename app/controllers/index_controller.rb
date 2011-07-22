@@ -355,7 +355,7 @@ class IndexController < ApplicationController
     @tag = Tag.available.where(:name => params[:name], :tag_type => params[:tag_type]).first
     redirect_to catalog_path(:anchor => "facets=#{@tag.facet_param}"), :status => 301
   rescue Exception => e
-    go_404
+    redirect_to(catalog_path)
   end
   
   # UK blog 
