@@ -93,7 +93,7 @@ class Admin::OrdersController < ApplicationController
   
   def change_order_status
     @order = Order.find(params[:id] || params[:element_id])
-    if @order.uk_may_change? || !@order.status_frozen?
+    if @order.uk_may_change? || !@order.status_frozen? || @order.to_refund?
       @order.send "#{params[:update_value].parameterize.underscore}!"
       @order.save
     end

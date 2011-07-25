@@ -51,5 +51,18 @@
             saving_animation_color: "#ECF2F8"
           });
         });
+    - elsif @order.to_refund?
+      :javascript
+        $(document).ready(function(){
+          $("#order_status").editInPlace({
+            url: "/admin/orders/change_order_status",
+            params: "id=#{@order.id}",
+            field_type: "select",
+            select_options: "To Refund, Refunded", 
+            show_buttons: true,
+            value_required: true,
+            saving_animation_color: "#ECF2F8"
+          });
+        });
 
     
