@@ -7,9 +7,14 @@ production:
   <<: *common
 
 development:
-  <<: *common
   solr:
-    port: 8985
+    hostname: localhost
+    port: 8989
+    log_level: WARNING
+  master_solr:
+    hostname: localhost
+    port: 8988
+    log_level: INFO
 
 staging:
   <<: *common
