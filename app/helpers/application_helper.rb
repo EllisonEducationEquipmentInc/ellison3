@@ -370,7 +370,7 @@ HTML
   end
 	
 	def is_corp_site?
-	  params[:tp] == "c"
+	  params[:tp] == "c" || params[:tp] == "g"
 	end
 	
 	def limit_textarea(char_limit)
