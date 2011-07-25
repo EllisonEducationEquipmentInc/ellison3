@@ -19,7 +19,7 @@
 
   %p= link_to image_tag(item.medium_image), send("#{item.class.to_s.downcase}_path", item.is_a?(Product) ? {:item_num => item.item_num, :name => item.name.parameterize} : {:idea_num => item.idea_num, :name => item.name.parameterize} )
   %h3.item_number= item.item_num
-  %p= link_to item.name, send("#{item.class.to_s.downcase}_path", item.is_a?(Product) ? {:item_num => item.item_num, :name => item.name.parameterize} : {:idea_num => item.idea_num, :name => item.name.parameterize})
+  %p.item_name= link_to item.name, send("#{item.class.to_s.downcase}_path", item.is_a?(Product) ? {:item_num => item.item_num, :name => item.name.parameterize} : {:idea_num => item.idea_num, :name => item.name.parameterize})
   - if item.class == Product
     %p= display_product_price(item)
     - if with_buttons?

@@ -252,6 +252,15 @@
 		height: 210px;
 		border: 1px solid $catalog_buybox_border;
 		margin: 5px;
+		
+		h3 {
+		  font-size: 1.2em !important;
+		  margin: 0 0 2px 0 !important;
+		}
+		
+		p.item_name {
+		  line-height: 1.3em !important;
+		}
 
   	.life-cycle {
       position: absolute;
