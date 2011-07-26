@@ -45,4 +45,9 @@ class UserMailer < ActionMailer::Base
 	  @subscription = subscription
 	  mail(:to => subscription.email, :subject => "#{get_domain.capitalize} #{subscription.list_name} Subscription Confirmation")
 	end
+	
+	def exception_message(exception)
+	  @exception = exception
+	  mail(:to => ["mronai@ellison.com", "mbarla@ellison.com"], :subject => "An Exception Occured")	  
+	end
 end

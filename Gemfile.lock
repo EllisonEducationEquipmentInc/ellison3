@@ -287,6 +287,8 @@ GEM
       escape (= 0.0.4)
       pr_geohash (~> 1.0)
       rsolr (= 0.12.1)
+    sunspot-rails-failover (0.0.5)
+      sunspot_rails (~> 1.2.1)
     sunspot_rails (1.2.1)
       nokogiri
       sunspot (= 1.2.1)
@@ -357,6 +359,7 @@ DEPENDENCIES
   shippinglogic!
   shoulda
   spork
+  sunspot-rails-failover
   sunspot_mongoid!
   therubyracer
   warden

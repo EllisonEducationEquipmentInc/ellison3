@@ -68,3 +68,12 @@ SunspotCommiter = Struct.new(:interval) do
     Delayed::Job.enqueue self, 0, next_time.call.utc
   end  
 end
+
+module EllisonExceptionHandler
+  def self.handle(exception)
+    UserMailer.exception_message(exception).deliver
+  end
+end
+
+Sunspot::Rails::Failover.exception_handler = EllisonExceptionHandler
+Sunspot::Rails::Failover.setup
