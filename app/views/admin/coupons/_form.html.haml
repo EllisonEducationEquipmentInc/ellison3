@@ -10,7 +10,7 @@
       = f.radio_button(:active, true)
       disabled
       = f.radio_button(:active, false)
-    .field
+    #enabled_for.field
       = required_label f, :systems_enabled, { :label => "Enabled for", :label_size => "auto" }
       = system_enabled('coupon')
   .contentwrap_large.last
@@ -135,6 +135,56 @@
   .actions
     = f.submit :class => 'wymupdate jqui_save'
   :javascript
+    $(document).ready(function() {
+      var validator = $(".new_coupon, .edit_coupon").validate({
+        errorClass: "invalid",
+        rules: {
+          "coupon[systems_enabled][]": {
+            required: true,
+            minlength: 1
+          },
+          "coupon[start_date_szus]": {
+            required: true
+          },
+          "coupon[end_date_szus]": {
+            required: true
+          },
+          "coupon[name]": {
+            required: true
+          },
+          "coupon[codes]": {
+            required: true
+          },
+          "coupon[discount_value]": {
+            required: true
+          }
+        },
+        messages: {
+          "coupon[systems_enabled][]": {
+            required: "Please choose at least one system."
+          },
+          "coupon[start_date_szus]": {
+            required: "Please provide a start date."
+          },
+          "coupon[end_date_szus]": {
+            required: "Please provide an end date."
+          },
+          "coupon[name]": {
+            required: "Please provide a coupon title."
+          },
+          "coupon[codes]": {
+            required: "Please specify at least one coupon code."
+          },
+          "coupon[discount_value]": {
+            required: "Please specify a discount value."
+          },
+          "coupon[shipping_countries][]": {
+            required: "Please select at least one country."
+          }
+        }
+      });
+    });
+
     function update_coupon_level(){
       $('.level_specific').hide();
       $('.'+$('#coupon_level').attr('value')+'_level').show();
@@ -156,10 +206,12 @@
       }
     }
     function toggle_shpping_conditions(){
-      if ($('#coupon_free_shipping_true').attr('checked')) {
+      if (($('#coupon_free_shipping_true').attr('checked')) || ($('#coupon_level').attr('value') == 'shipping')) {
         $('.shipping_level').show();
-      } else if ($('#coupon_level').attr('value') != 'shipping'){
+        $('#coupon_shipping_countries_').rules('add', {required: true});
+      } else {
         $('.shipping_level').hide();
+        $('#coupon_shipping_countries_').rules('remove');
       }
     }
     $(function() {

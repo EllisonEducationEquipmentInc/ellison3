@@ -92,8 +92,22 @@ ul#tag_products, ul#tag_ideas { @extend ul.horizontal;
 	border: 1px solid $catalog_buybox_border;
 	background: #FFF;
 	overflow: auto;
+  position: relative;
+  
+  label.invalid {
+    position: absolute;
+    font-size: 1em;
+    top: 4px;
+    left: 160px;
+  }
 }
 
+#enabled_for {
+
+  label.invalid {
+    position: absolute;
+  }
+}
 
 // MegaNav
 #meganav_admin {
