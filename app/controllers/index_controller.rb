@@ -240,7 +240,7 @@ class IndexController < ApplicationController
   end
   
   def static_page
-    @static_page = StaticPage.active.where(:system_enabled => current_system, :permalink => params[:id]).first
+    @static_page = StaticPage.active.where(:system_enabled => current_system, :permalink => params[:id].downcase).first
     raise "Invalid StaticPage" unless @static_page.present?
     @title = @static_page.name
     if params[:no_layout]
