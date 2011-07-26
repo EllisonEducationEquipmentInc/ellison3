@@ -40,7 +40,7 @@ class VisualAsset
 	
 	validates :name, :asset_type, :systems_enabled, :start_date, :end_date, :presence => true
 	
-  before_save {|obj| obj._parent.force_touch! if obj.changed? || obj.new_record?}
+  before_save {|obj| obj._parent.force_touch! if obj.changed? || obj.new_record? || (obj.child_visual_assets.present? && (obj.child_visual_assets.any?(&:changed?) || obj.child_visual_assets.any? {|e| e.previous_changes.present?}))}
   before_save :run_callbacks_on_children, :if => Proc.new {|obj| obj.asset_type == 'billboards' || obj.asset_type == 'galleries'}
 	
 	def initialize(attributes = nil)
