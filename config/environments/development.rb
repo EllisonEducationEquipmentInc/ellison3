@@ -30,7 +30,7 @@ Ellison3::Application.configure do
 	
 	config.after_initialize do
 	  SslRequirement.disable_ssl_check = true
+  	Mongoid.database.connection.instance_variable_set "@logger", Mongoid::Logger.new unless Mongoid.database.connection.logger
 	end
-	
 	
 end
