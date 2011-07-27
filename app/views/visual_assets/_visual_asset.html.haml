@@ -1,6 +1,6 @@
 - if visual_asset.must_own.blank? || machines_owned.any? {|e| visual_asset.must_own.include?(e)}
   - if visual_asset.asset_type == 'galleries' && visual_asset.child_visual_assets.present?
-    %div{ :class => "frame_gallery#{visual_asset.wide? ? '_wide' : nil}", :style => "height: #{visual_asset.wide? ? '304' : '252'}px" }
+    %div{ :class => "frame_gallery#{visual_asset.wide? ? '_wide' : nil}", :style => "height: #{visual_asset.wide? ? '304' : '304'}px" }
       = link_to image_tag("/images/ui-objects/_#{current_system}_frame_gallery#{visual_asset.wide? ? '_wide' : nil}.png", :class => "frame_gallery"), "#", :id => "gallery_link", :onclick => "if ($(this).attr('href') == '#') { return false; }"
       .gallery_asset{:id => "gallery_#{visual_asset.id}"}
         %ul
