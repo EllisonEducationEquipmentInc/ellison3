@@ -94,7 +94,7 @@
   .field
     = f.label :asset_type
     %br
-    = f.select :asset_type, f.object.asset_types_list, {}, :onchange => "$('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .type_specific').hide();$('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .'+this.value).show();", :class => "#{'child_' if f.object.is_child?}visual_asset_asset_type_#{child_index} visual_asset_type"
+    = f.select :asset_type, f.object.asset_types_list, {}, :onchange => "if (this.value == 'image_with_text') { $('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} p.va_image_help').show(); } else { $('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} p.va_image_help').hide(); }; $('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .type_specific').hide();$('#visual_asset_#{f.object.new_record? ? child_index : f.object.id} .'+this.value).show();", :class => "#{'child_' if f.object.is_child?}visual_asset_asset_type_#{child_index} visual_asset_type"
   .clear
   
   -# Configuration Fields for Specific Asset Types
@@ -116,7 +116,7 @@
   .field.type_specific.image.billboard.gallery.image_with_text
     %span.icon_imagefield= required_label f, :image, { :label_size => "55px"}
     = f.file_field :image
-    %p.formhelp== Suggested image dimensions: 125px x 125px (medium-sized image),<br>or 420px x 160px (half-banner-sized image)
+    %p.va_image_help{ :style => "margin-left: 88px"}== Suggested image dimensions:<br> - 125px x 125px (medium-sized image), or<br> - 420px x 155px (half-banner-sized image)
     = f.hidden_field :image_cache
     - if f.object.image?
       .right
