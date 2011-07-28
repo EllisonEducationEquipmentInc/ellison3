@@ -116,6 +116,7 @@
   .field.type_specific.image.billboard.gallery.image_with_text
     %span.icon_imagefield= required_label f, :image, { :label_size => "55px"}
     = f.file_field :image
+    %p.formhelp== Suggested image dimensions: 125px x 125px (medium-sized image),<br>or 420px x 160px (half-banner-sized image)
     = f.hidden_field :image_cache
     - if f.object.image?
       .right
