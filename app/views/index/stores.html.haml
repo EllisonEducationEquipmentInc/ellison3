@@ -52,22 +52,23 @@
       - @distributors.each do |store|
         .online_store.ui-corner-all= render store
       .clear
-  - if is_er?
-    %hr 
-    .legend 
-      %p Product Lines & Brands 
-      %ul 
-        %li 
-          %span.icon_brand-allstar AllStar 
-        -# hiding Ellison icon for now... 
+  - if is_er? || is_sizzix_us?
+    %hr
+    - unless is_sizzix_us?
+      .legend 
+        %p Product Lines & Brands 
+        %ul 
           %li 
-            %span.icon_brand-ellison Ellison 
-        %li 
-          %span.icon_brand-prestige Prestige 
-        %li 
-          %span.icon_brand-rollmodel RollModel 
-        %li 
-          %span.icon_brand-sizzix Sizzix 
+            %span.icon_brand-allstar AllStar 
+          -# hiding Ellison icon for now... 
+            %li 
+              %span.icon_brand-ellison Ellison 
+          %li 
+            %span.icon_brand-prestige Prestige 
+          %li 
+            %span.icon_brand-rollmodel RollModel 
+          %li 
+            %span.icon_brand-sizzix Sizzix 
     .legend 
       %p Store Excellence Levels 
       %ul 
