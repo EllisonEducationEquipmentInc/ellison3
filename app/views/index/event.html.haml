@@ -37,12 +37,13 @@
   %p= @event.description.html_safe
   %p= image_tag @event.actual_logo if @event.actual_logo.present?
 .event_detail.ui-corner-all
-  %p
+  %p{ :style => "margin-bottom: 0" }
     - if @event.actual_image.present?
       = image_tag @event.actual_image
     - else
       = image_tag "/images/events/_#{current_system}_default.jpg"
-  %h3 Event Manager/Sponsor
-  = @event.sponsor.html_safe
+  - unless @event.sponsor.blank?
+    %h3 Event Manager/Sponsor
+    = @event.sponsor.html_safe
 .clear
 = link_to "Back to Events List", events_path, :class => "link_back minilink"
