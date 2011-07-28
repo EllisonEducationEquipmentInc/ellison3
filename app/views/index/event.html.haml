@@ -42,7 +42,7 @@
       = image_tag @event.actual_image
     - else
       = image_tag "/images/events/_#{current_system}_default.jpg"
-  - unless @event.sponsor.blank?
+  - unless @event.sponsor.blank? || @event.sponsor == "<br />"
     %h3 Event Manager/Sponsor
     = @event.sponsor.html_safe
 .clear
