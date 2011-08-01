@@ -66,7 +66,7 @@ gem 'rack-recaptcha', :require => 'rack/recaptcha'
 gem 'barista'
 gem 'execjs'
 gem 'therubyracer'
-gem 'sunspot-rails-failover'
+gem 'sunspot-rails-failover', :git => 'https://github.com/flyingmachine/sunspot-rails-failover.git'
 
 # Use unicorn as the web server
 # gem 'unicorn'

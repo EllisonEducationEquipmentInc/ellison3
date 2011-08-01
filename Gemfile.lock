@@ -32,6 +32,13 @@ GIT
       subexec (~> 0.1.0)
 
 GIT
+  remote: https://github.com/flyingmachine/sunspot-rails-failover.git
+  revision: 0c1371ba54386c0668fde617ec9fe240f450c77d
+  specs:
+    sunspot-rails-failover (0.0.5)
+      sunspot_rails (~> 1.2.1)
+
+GIT
   remote: https://github.com/piotrmarat/youtube_it.git
   revision: ec09f274c1ccdaa4b164bcac8910f3f5cb6a5693
   specs:
@@ -286,8 +293,6 @@ GEM
       escape (= 0.0.4)
       pr_geohash (~> 1.0)
       rsolr (= 0.12.1)
-    sunspot-rails-failover (0.0.5)
-      sunspot_rails (~> 1.2.1)
     sunspot_rails (1.2.1)
       nokogiri
       sunspot (= 1.2.1)
@@ -360,7 +365,7 @@ DEPENDENCIES
   shippinglogic!
   shoulda
   spork
-  sunspot-rails-failover
+  sunspot-rails-failover!
   sunspot_mongoid!
   therubyracer
   warden

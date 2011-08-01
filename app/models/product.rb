@@ -614,7 +614,7 @@ class Product
     tag_dates = ELLISON_SYSTEMS.inject([]) {|a, e| tag.send("start_date_#{e}").present? ? a << tag.send("start_date_#{e}") : a; tag.send("end_date_#{e}").present? ? a << tag.send("end_date_#{e}") : a}
     tag_dates.uniq.each do |d|
       Rails.logger.info "TAG CAUSED SCHEDULED REINDEX!!! scheduled at #{d}"
-      commit ? self.delay(:run_at => d).index! : self.delay(:run_at => d).index
+      commit ? self.delay(:run_at => d).index : self.delay(:run_at => d).index
     end
   end
   
@@ -697,7 +697,7 @@ private
   
   def maybe_index
     if @marked_for_auto_indexing
-      self.delay.index!
+      self.delay.index
       remove_instance_variable(:@marked_for_auto_indexing)
     end
     index_dates = []
@@ -705,11 +705,11 @@ private
       if (self.send(d).is_a?(DateTime) || self.send(d).is_a?(ActiveSupport::TimeWithZone) || self.send(d).is_a?(Time)) && !index_dates.include?(self.send(d).utc)
         scheduled_at = self.send(d).utc > Time.now.utc ? self.send(d) : Time.now
         Rails.logger.info "FUTURE REINDEX!!! scheduled at #{scheduled_at}"
-        self.delay(:run_at => scheduled_at).index!
+        self.delay(:run_at => scheduled_at).index
         index_dates << self.send(d).utc
       end
     end
-    @scheduled_indexing_campaign_dates.each {|d| self.delay(:run_at => d > Time.now ? d : Time.now).index!}
+    @scheduled_indexing_campaign_dates.each {|d| self.delay(:run_at => d > Time.now ? d : Time.now).index}
     @marked_for_scheduled_auto_indexing = []
   end
   
