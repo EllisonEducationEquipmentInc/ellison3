@@ -116,7 +116,7 @@ class IndexController < ApplicationController
   def search
     # search filter - redirect to product or idea page if q is item_num or itea_num
     if params[:q].present? && params[:q] =~ /^(a|A)*[0-9]{3,6}($|-[a-zA-Z0-9\.]{1,10}$)/
-      @product = Product.displayable.where(:item_num => params[:q]).first
+      @product = Product.listable.where(:item_num => params[:q]).first
       render :js => "location.href='#{product_url(:item_num => @product.url_safe_item_num, :name => @product.name.parameterize)}'" and return if @product
       @idea = Idea.available.where(:idea_num => params[:q]).first
       render :js => "location.href='#{idea_url(:idea_num => @idea.idea_num, :name => @idea.name.parameterize)}'" and return if @idea
