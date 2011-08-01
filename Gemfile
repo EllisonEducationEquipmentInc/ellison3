@@ -12,13 +12,14 @@ gem 'rails', '3.0.4'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-
+gem 'rake', '0.8.7'
 #gem 'mongo', '>=1.0.8'
 gem 'mongo_ext'
 gem "bson_ext", ">=1.0.7"
 gem 'passenger'
 gem 'mysql'
-gem 'haml', '3.0.25'
+gem 'haml', '3.1'
+gem 'sass'
 gem 'will_paginate', '>=3.0.pre2'
 gem 'capybara'
 gem 'database_cleaner'
@@ -49,9 +50,10 @@ gem 'active_merchant'
 gem 'httparty'
 gem 'shippinglogic', :git => 'git://github.com/computadude/shippinglogic.git', :branch => "master"
 gem 'sunspot_mongoid', :git => 'git://github.com/jugyo/sunspot_mongoid.git', :branch => "master"
+#gem 'sunspot'
 gem 'feedzirra'
 gem 'geokit'
-gem 'youtube_it', '1.4.2', :git => "git://github.com/kylejginavan/youtube_it.git" #"https://github.com/computadude/youtube_it.git" 
+gem 'youtube_it', '1.4.2', :git => "https://github.com/piotrmarat/youtube_it.git" #"https://github.com/computadude/youtube_it.git" 
 #gem 'memcache'
 gem 'memcache-client'
 gem 'event-calendar', :require => 'event_calendar', :git => 'git://github.com/elevation/event_calendar.git', :branch => "master"
