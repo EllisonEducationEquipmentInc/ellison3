@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 source 'http://gemcutter.org'
 source 'http://gems.github.com'
 require 'rubygems'
-#require 'image_science'
+require 'image_science'
 #require 'mongo'
 require 'csv'
 
@@ -12,7 +12,7 @@ gem 'rails', '3.0.4'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-gem 'rake', '0.8.7'
+#gem 'rake', '0.8.7'
 #gem 'mongo', '>=1.0.8'
 gem 'mongo_ext'
 gem "bson_ext", ">=1.0.7"
