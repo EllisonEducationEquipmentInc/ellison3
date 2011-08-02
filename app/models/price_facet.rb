@@ -21,7 +21,7 @@ class PriceFacet
   end
   
   def savings
-    [AbstractFacet.new("Under 50%", 0, 50, true), AbstractFacet.new("50% and Over", 50, 99, true), AbstractFacet.new("55% and Over", 55, 99, true), AbstractFacet.new("60% and Over", 60, 99, true), AbstractFacet.new("65% and Over", 65, 99, true), AbstractFacet.new("70% and Over", 70, 99, true), AbstractFacet.new("75% and Over", 75, 99, true)]
+    [AbstractFacet.new("Under 60%", 0, 59, true), AbstractFacet.new("60% to 74%", 60, 74, true), AbstractFacet.new("75% to 80%", 75, 80, true), AbstractFacet.new("Over 80%", 81, 99, true)]
   end
   
   def c
