@@ -51,4 +51,20 @@ namespace :data_import do
     `rm -f /data/shared/tradeshow_orders/tradeshow_orders.xml`
   end
 
+  desc "update msrp from /data/shared/data_files/msrp_update.csv"
+  task :update_msrp => :environment do
+    CSV.foreach("/data/shared/data_files/msrp_update.csv", :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
+      @product = Product.where(:item_num => row['item_num']).first 
+      next unless @product
+      LOCALES_2_CURRENCIES.values.each do |currency|
+        @product.send "msrp_#{currency}=", row["msrp_#{currency}"] if row["msrp_#{currency}"].present?
+        @product.send "wholesale_price_#{currency}=", row["wholesale_price_#{currency}"] if row["wholesale_price_#{currency}"].present?
+      end
+      begin
+        p @product.save(:validate => false)        
+      rescue Exception => e
+        p "!!! ERROR: product #{@product.item_num} was NOT saved. Make sure you manually update this product. #{e}"
+      end
+    end
+  end
 end
