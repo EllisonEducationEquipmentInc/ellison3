@@ -418,6 +418,7 @@ root.toggle_child_visual_asset_type = (child_index, value) ->
   
 root.youtube_video_links = ->
   $(".fancyvideo").live "click", ->
+    _gaq.push [ "_trackEvent", "Video", "Play Video", @id]
     $.fancybox 
       padding: 0
       autoScale: false
