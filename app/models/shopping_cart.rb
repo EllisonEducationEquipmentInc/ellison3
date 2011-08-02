@@ -87,6 +87,7 @@ module ShoppingCart
 		    get_cart.cart_items << cart_item
 		  end
 		  get_cart.coupon = order.coupon
+		  get_cart.coupon_code = order.coupon_code
 		  get_cart.save
 		end
 		
