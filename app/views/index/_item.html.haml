@@ -17,7 +17,7 @@
       .life-cycle
         %span= item.public_life_cycle
 
-  %p= link_to image_tag(item.medium_image), send("#{item.class.to_s.downcase}_path", item.is_a?(Product) ? {:item_num => item.item_num, :name => item.name.parameterize} : {:idea_num => item.idea_num, :name => item.name.parameterize} )
+  %p= link_to image_tag(item.medium_image, :size => "125x125"), send("#{item.class.to_s.downcase}_path", item.is_a?(Product) ? {:item_num => item.item_num, :name => item.name.parameterize} : {:idea_num => item.idea_num, :name => item.name.parameterize} )
   %h3.item_number= item.item_num
   %p.item_name= link_to item.name, send("#{item.class.to_s.downcase}_path", item.is_a?(Product) ? {:item_num => item.item_num, :name => item.name.parameterize} : {:idea_num => item.idea_num, :name => item.name.parameterize})
   - if item.class == Product
