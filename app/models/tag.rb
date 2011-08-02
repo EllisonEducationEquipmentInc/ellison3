@@ -168,7 +168,7 @@ class Tag
         prods.each {|e| e.index_by_tag(self, false)}
         ELLISON_SYSTEMS.inject([]) {|a, e| self.send("start_date_#{e}").present? ? a << self.send("start_date_#{e}") : a; self.send("end_date_#{e}").present? ? a << self.send("end_date_#{e}") : a}.uniq.each do |d|
           Rails.logger.info "TAG SCHEDULED COMMIT!! at #{d}"
-          Sunspot.delay(:run_at => d).commit
+          Sunspot.delay(:run_at => d, :priority => 1).commit
         end
       end
     end
@@ -326,7 +326,7 @@ private
 	    Rails.logger.info "REINDEX!!! Tag's products/ideas are scheduled for reindexing"
 	    self.products.each {|e| e.delay.index}
 	    self.ideas.each {|e| e.delay.index}
-	    Sunspot.delay.commit
+	    Sunspot.delay(:priority => 1).commit
 	    remove_instance_variable(:@marked_for_auto_indexing)
 	  end
     index_dates = []
@@ -336,7 +336,7 @@ private
         Rails.logger.info "FUTURE REINDEX!!! scheduled at #{scheduled_at}"
         self.products.each {|e| e.delay(:run_at => scheduled_at).index}
   	    self.ideas.each {|e| e.delay(:run_at => scheduled_at).index}
-  	    Sunspot.delay(:run_at => scheduled_at).commit
+  	    Sunspot.delay(:run_at => scheduled_at, :priority => 1).commit
         index_dates << self.send(d).utc
       end
 	  end
