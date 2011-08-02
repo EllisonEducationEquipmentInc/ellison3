@@ -98,7 +98,7 @@ module ApplicationHelper
   %p.buttonset{:id => "wishlist_buttons_#{product.id}"}
     %button.wishlist{:id => "add_to_list_#{product.id}", :rel => "#{product.item_num}", :alt => "Add to My Default List", :title => "Add to My Default List"} Add to My List
     %button.select{:id => "add_to_list_#{product.id}", :rel => "#{product.item_num}"} Select a list
-  .wishlist_loader{:style => "display:none"}= image_tag('/images/ui-objects/loader-ajax_fb.gif')
+  .wishlist_loader{:style => "display:none"}= image_tag('/images/ui-objects/loader-ajax_fb.gif', :size => '16x11')
 HTML
     Haml::Engine.new(html).render(self)
 	end
@@ -165,11 +165,11 @@ HTML
 	end
 	
 	def spinner
-		image_tag('/images/ui-objects/loader-ajax.gif', :class => 'spinner').html_safe
+		image_tag('/images/ui-objects/loader-ajax.gif', :class => 'spinner', :size => '32x32').html_safe
 	end
 	
 	def loader_bar
-		image_tag('/images/ui-objects/loader-ajax_fb.gif', :class => 'spinner').html_safe
+		image_tag('/images/ui-objects/loader-ajax_fb.gif', :class => 'spinner', :size => '16x11').html_safe
 	end
 
 	def facebook_like
@@ -301,7 +301,7 @@ HTML
 	
 	def video_thumbnail(youtube_id)
 	  content_tag :div, :class => "thumbnail", :style => "background: url('http://i1.ytimg.com/vi/#{youtube_id}/default.jpg') no-repeat center center;" do
-	    link_to image_tag("/images/ui-buttons/play-video_on.png"), "http://www.youtube.com/embed/#{youtube_id}?autoplay=1", :class => "fancyvideo", :id => youtube_id, :alt => "click to play this video", :title => "click to play this video"
+	    link_to image_tag("/images/ui-buttons/play-video_on.png", :size => '65x65'), "http://www.youtube.com/embed/#{youtube_id}?autoplay=1", :class => "fancyvideo", :id => youtube_id, :alt => "click to play this video", :title => "click to play this video"
 	  end
 	end
 	
