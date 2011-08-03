@@ -37,11 +37,11 @@ class Campaign
   # after_validation :trigger_reindex_callback
     
   def available?(time = Time.zone.now)
-    start_date <= time && end_date >= time && active && systems_enabled.include?(current_system)
+    start_date <= time && end_date > time && active && systems_enabled.include?(current_system)
   end
   
   def not_expired?(time = Time.zone.now)
-    end_date >= time && active
+    end_date > time && active
   end
   
   def discount_name
