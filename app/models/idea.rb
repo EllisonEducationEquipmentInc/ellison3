@@ -112,7 +112,10 @@ class Idea
 	
 	# solr fields:
 	searchable :auto_index => false, :auto_remove => true, :ignore_attribute_changes_of => [:updated_at, :use_tabs] do
-	  boolean :active
+	  time :last_indexed_at, :stored => true do
+      Time.now
+    end
+    boolean :active
 		text :tag_names do
 			tags.available.map { |tag| tag.name }
 		end

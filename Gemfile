@@ -85,6 +85,8 @@ gem 'shoulda', :group => :test
 group :test do
   gem 'webrat'
   gem 'factory_girl_rails'
+  gem 'remarkable_rails'
+  gem 'remarkable_mongoid'
 end
 
 gem "rails3-generators", :group => :development 

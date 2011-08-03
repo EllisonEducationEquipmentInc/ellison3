@@ -215,6 +215,9 @@ class Product
   
   # solr fields:
   searchable :auto_index => false, :auto_remove => true, :ignore_attribute_changes_of => WAREHOUSES.map {|e| "quantity_#{e}".to_sym} + [:updated_at, :use_tabs, :instructions, :keywords] do
+    time :last_indexed_at, :stored => true do
+      Time.now
+    end
     boolean :active
     boolean :outlet
     text :tag_names do
