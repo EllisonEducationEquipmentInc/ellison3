@@ -6,6 +6,7 @@ require "action_mailer/railtie"
 require "active_resource/railtie"
 require "rails/test_unit/railtie"
 require 'mongoid/railtie'
+require 'rake'
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
@@ -13,6 +14,9 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module Ellison3
   class Application < Rails::Application
+
+    include Rake::DSL
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

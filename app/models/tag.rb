@@ -264,7 +264,7 @@ private
           c.start_date = campaign.start_date
           c.end_date = campaign.end_date
           self.products << product unless self.products.include?(product)
-          product.save
+          product.save(:validate => false)
         end
       else
         products.each do |product|
@@ -273,7 +273,7 @@ private
           c.id = campaign.id
           c.start_date = campaign.start_date
           c.end_date = campaign.end_date
-          product.save
+          product.save(:validate => false)
         end
       end
     end
