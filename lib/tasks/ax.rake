@@ -106,6 +106,7 @@ namespace :ax do
           p result
         end
       end
+      Sunspot.commit
     end
   end
   
