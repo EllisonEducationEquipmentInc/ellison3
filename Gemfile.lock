@@ -15,6 +15,13 @@ GIT
     event-calendar (2.3.3)
 
 GIT
+  remote: git://github.com/flyingmachine/sunspot-rails-failover.git
+  revision: 0c1371ba54386c0668fde617ec9fe240f450c77d
+  specs:
+    sunspot-rails-failover (0.0.5)
+      sunspot_rails (~> 1.2.1)
+
+GIT
   remote: git://github.com/jugyo/sunspot_mongoid.git
   revision: 688430d98805e10916ecddb7f46f8ae774cb04a7
   branch: master
@@ -38,13 +45,6 @@ GIT
   specs:
     mini_magick (3.3)
       subexec (~> 0.1.0)
-
-GIT
-  remote: https://github.com/flyingmachine/sunspot-rails-failover.git
-  revision: 0c1371ba54386c0668fde617ec9fe240f450c77d
-  specs:
-    sunspot-rails-failover (0.0.5)
-      sunspot_rails (~> 1.2.1)
 
 GEM
   remote: http://rubygems.org/
