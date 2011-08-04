@@ -38,7 +38,7 @@ gem "compass", ">= 0.10.5"
 #gem 'inline'
 gem 'RubyInline'
 gem 'image_science', ">=1.2.1" #, :git => 'git://github.com/perezd/image_science.git', :branch => 'master', :require => 'inline'
-gem 'mini_magick', :git => 'git://github.com/probablycorey/mini_magick.git'
+#gem 'mini_magick', :git => 'git://github.com/probablycorey/mini_magick.git'
 #gem 'carrierwave-rails3', :require => 'carrierwave' #, :git => 'git://github.com/jnicklas/carrierwave.git', :branch => 'master' 
 gem 'carrierwave', '0.5.3'  #:git => "git://github.com/jnicklas/carrierwave.git"
 gem 'remotipart'
