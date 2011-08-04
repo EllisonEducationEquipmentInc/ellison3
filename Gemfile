@@ -93,5 +93,6 @@ gem "rails3-generators", :group => :development
 group :development do
   gem "ruby-debug19"
   gem "rack-bug"
+  gem 'wirble'
 end
 

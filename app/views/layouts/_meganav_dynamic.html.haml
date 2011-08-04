@@ -1,4 +1,4 @@
-- cache "navigation_#{current_system}", :expires_in => 10.minutes do
+- cache "navigation_#{current_system}", :expires_in => 30.minutes do
   - @top_navigations.each do |top_nav|
     - panel_columns = Navigation.where(:system => current_system, :top_nav => @top_navigations.index(top_nav)).asc(:column)
     %li.megaitem.ui-corner-top
