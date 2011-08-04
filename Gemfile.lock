@@ -39,13 +39,6 @@ GIT
       builder
       oauth (>= 0.4.4)
 
-GIT
-  remote: git://github.com/probablycorey/mini_magick.git
-  revision: 5838f409936f6c269c001af85b74a64ab0d8bd65
-  specs:
-    mini_magick (3.3)
-      subexec (~> 0.1.0)
-
 GEM
   remote: http://rubygems.org/
   remote: http://gemcutter.org/
@@ -303,7 +296,6 @@ GEM
     sexp_processor (3.0.5)
     shoulda (2.11.3)
     spork (0.8.5)
-    subexec (0.1.0)
     sunspot (1.2.1)
       escape (= 0.0.4)
       pr_geohash (~> 1.0)
@@ -361,7 +353,6 @@ DEPENDENCIES
   image_science (>= 1.2.1)
   launchy
   memcache-client
-  mini_magick!
   mongo_ext
   mongo_session_store (>= 2.0.0)
   mongoid (= 2.0.1)
