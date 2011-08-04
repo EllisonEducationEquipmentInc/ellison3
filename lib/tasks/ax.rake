@@ -106,7 +106,7 @@ namespace :ax do
           p result
         end
       end
-      Sunspot.delay(:priority => 0).commit
+      Sunspot.delay(:priority => 1).commit
     end
   end
   
