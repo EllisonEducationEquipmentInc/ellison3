@@ -53,7 +53,7 @@ gem 'sunspot_mongoid', :git => 'git://github.com/jugyo/sunspot_mongoid.git', :br
 #gem 'sunspot'
 gem 'feedzirra'
 gem 'geokit'
-gem 'youtube_it', '1.4.2', :git => "https://github.com/piotrmarat/youtube_it.git" #"https://github.com/computadude/youtube_it.git" 
+gem 'youtube_it', '1.4.2', :git => "git://github.com/piotrmarat/youtube_it.git" #"https://github.com/computadude/youtube_it.git" 
 #gem 'memcache'
 gem 'memcache-client'
 gem 'event-calendar', :require => 'event_calendar', :git => 'git://github.com/elevation/event_calendar.git', :branch => "master"

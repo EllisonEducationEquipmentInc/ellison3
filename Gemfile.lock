@@ -25,6 +25,14 @@ GIT
       sunspot_rails (>= 1.1.0)
 
 GIT
+  remote: git://github.com/piotrmarat/youtube_it.git
+  revision: ec09f274c1ccdaa4b164bcac8910f3f5cb6a5693
+  specs:
+    youtube_it (1.4.2)
+      builder
+      oauth (>= 0.4.4)
+
+GIT
   remote: git://github.com/probablycorey/mini_magick.git
   revision: 5838f409936f6c269c001af85b74a64ab0d8bd65
   specs:
@@ -37,14 +45,6 @@ GIT
   specs:
     sunspot-rails-failover (0.0.5)
       sunspot_rails (~> 1.2.1)
-
-GIT
-  remote: https://github.com/piotrmarat/youtube_it.git
-  revision: ec09f274c1ccdaa4b164bcac8910f3f5cb6a5693
-  specs:
-    youtube_it (1.4.2)
-      builder
-      oauth (>= 0.4.4)
 
 GEM
   remote: http://rubygems.org/
