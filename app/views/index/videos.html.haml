@@ -6,11 +6,11 @@
       %ul.videolist
         %li
           .video-thumbnail
-            .play-button.tooltip_playvideo= link_to "play", playlist.videos.first.embed_url + "&autoplay=1&fs=1", :class => "fancyvideo", :id => playlist.videos.first.embed_url[/v\/([^&]+)/, 1]
+            .play-button.tooltip_playvideo= link_to "play", playlist.videos.first.embed_url + "&autoplay=1&fs=1", :class => "fancyvideo", :id => playlist.videos.first.embed_url[/v\/([^&]+)/, 1], :rel => j(playlist.videos.first.title)
             %img{ :src => "#{playlist.videos.first.thumbnails.first.try :url}", :width => "390", :height => "291" }
           %p.video-title
             %span== Today's Featured #{system_name.titleize} Video: 
-            = link_to playlist.videos.first.title, playlist.videos.first.embed_url + "&autoplay=1&fs=1", :class => "fancyvideo", :id => playlist.videos.first.embed_url[/v\/([^&]+)/, 1]
+            = link_to playlist.videos.first.title, playlist.videos.first.embed_url + "&autoplay=1&fs=1", :class => "fancyvideo", :id => playlist.videos.first.embed_url[/v\/([^&]+)/, 1], :rel => j(playlist.videos.first.title)
           %p.video-detail
             == #{l playlist.videos.first.published_at || playlist.videos.first.updated_at, :format => :date_short}
             |

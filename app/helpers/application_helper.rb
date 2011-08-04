@@ -301,7 +301,7 @@ HTML
 	
 	def video_thumbnail(youtube_id)
 	  content_tag :div, :class => "thumbnail", :style => "background: url('http://i1.ytimg.com/vi/#{youtube_id}/default.jpg') no-repeat center center;" do
-	    link_to image_tag("/images/ui-buttons/play-video_on.png", :size => '65x65'), "http://www.youtube.com/embed/#{youtube_id}?autoplay=1", :class => "fancyvideo", :id => youtube_id, :alt => "click to play this video", :title => "click to play this video"
+	    link_to image_tag("/images/ui-buttons/play-video_on.png", :size => '65x65'), "http://www.youtube.com/embed/#{youtube_id}?autoplay=1", :class => "fancyvideo", :rel => youtube_id, :id => youtube_id, :alt => "click to play this video", :title => "click to play this video"
 	  end
 	end
 	
