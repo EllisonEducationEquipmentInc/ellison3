@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 source 'http://gemcutter.org'
 source 'http://gems.github.com'
 require 'rubygems'
-#require 'image_science'
+require 'image_science'
 #require 'mongo'
 require 'csv'
 
