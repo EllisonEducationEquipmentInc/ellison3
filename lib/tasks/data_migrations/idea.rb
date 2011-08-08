@@ -8,7 +8,7 @@ module OldData
     #acts_as_ferret :fields => [:idea_num, :name] 
     #after_save :flush_cache
     after_create :clear_all_ideas
-    after_save {|record| record.index! rescue '' if record.to_reindex == "1"}
+    after_save {|record| record.delay.index rescue '' if record.to_reindex == "1"}
 
     named_scope :available, lambda {{:conditions => ["active_status = ? AND start_date <= ? AND  end_date >= ?", true, Time.zone.now, Time.zone.now]}}
     named_scope :new_idea, lambda { { :conditions => ['new_lesson = ? AND new_expires_at > ?', true, Time.zone.now ] } }

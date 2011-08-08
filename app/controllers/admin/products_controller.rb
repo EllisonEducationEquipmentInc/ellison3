@@ -151,7 +151,7 @@ class Admin::ProductsController < ApplicationController
 	def delete_campaign
 		@product = Product.find(params[:product_id])
 		@product.campaigns.find(params[:id]).delete
-		@product.delay.index!
+		@product.delay.index
 	end
 	
 	# image methods
@@ -270,7 +270,7 @@ class Admin::ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @tag = Tag.find(params[:tag_id])
     @product.remove_from_collection :tags, @tag
-    @product.delay.index! if @tag.active
+    @product.delay.index if @tag.active
     render :js => "$('li#tag_#{@tag.id}').remove()"
   end
   

@@ -137,7 +137,7 @@ class Admin::TagsController < ApplicationController
     @tag = Tag.find(params[:id])
     @product = Product.find(params[:product_id])
     @tag.remove_from_collection :products, @product
-    @product.delay.index! if @tag.active
+    @product.delay.index if @tag.active
     render :js => "$('li#product_#{@product.id}').remove()"
   end
   
@@ -161,7 +161,7 @@ class Admin::TagsController < ApplicationController
     @tag = Tag.find(params[:id])
     @idea = Idea.find(params[:idea_id])
     @tag.remove_from_collection :ideas, @idea
-    @idea.delay.index! if @tag.active
+    @idea.delay.index if @tag.active
     render :js => "$('li#idea_#{@idea.id}').remove()"
   end
   

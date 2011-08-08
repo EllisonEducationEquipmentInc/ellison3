@@ -231,7 +231,7 @@ class Admin::IdeasController < ApplicationController
     @idea = Idea.find(params[:id])
     @tag = Tag.find(params[:tag_id])
     @idea.remove_from_collection :tags, @tag
-    @idea.delay.index! if @tag.active
+    @idea.delay.index if @tag.active
     render :js => "$('li#tag_#{@tag.id}').remove()"
   end
   
