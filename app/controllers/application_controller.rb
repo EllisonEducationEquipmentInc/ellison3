@@ -247,7 +247,7 @@ private
 	    elsif is_ee?
 	      is_us? ? 'UA-3328816-2' : 'UA-23939177-5'
 	    else
-	      'UA-3328816-8'
+	      params[:tp] == 'g' || params[:tp] == 'c' ? 'UA-3328816-9' : 'UA-3328816-8'
 	    end
 	  end
 	end

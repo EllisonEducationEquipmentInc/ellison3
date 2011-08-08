@@ -68,6 +68,7 @@ root.bind_hashchange = ->
       event_name = (if outlet then "Outlet" else "Catalog")
       outlet_param = (if outlet then "outlet=1&" else "")
       _gaq.push [ "_trackEvent", event_name, "Search", $.param.fragment() ]
+      _gaq.push ['_trackPageview', location.pathname + location.hash + location.search]
       $.ajax 
         url: "/index/search?lang=" + $("html").attr("lang") + "&s=" + current_system + "&" + outlet_param + $.param.fragment()
         beforeSend: ->
