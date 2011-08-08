@@ -2,7 +2,7 @@ $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory
 require "rvm/capistrano"                  # Load RVM's capistrano plugin.
 set :rvm_ruby_string, 'ruby-1.9.2-p136@global'
 
-require "bundler/capistrano"
+#require "bundler/capistrano"
 #require "eycap/recipes"
 
 #=================================================================================================
@@ -125,7 +125,7 @@ after "deploy", "deploy:cleanup"
 after "deploy:migrations" , "deploy:cleanup"
 #after "deploy:update_code", "deploy:symlink_configs"
 after "deploy:update_code", "custom_symlink"
-#after 'custom_symlink', 'bundler:bundle_new_release'
+after 'custom_symlink', 'bundler:bundle_new_release'
 
 # uncomment the following to have a database backup done before every migration
 # before "deploy:migrate", "db:dump"
@@ -160,7 +160,7 @@ namespace :bundler do
  
   task :bundle_new_release, :roles => :app do
     bundler.create_symlink
-    run "cd #{release_path} && bundle install --without test"
+    run "cd #{release_path} && bundle install --without test development"
   end
 end
 
