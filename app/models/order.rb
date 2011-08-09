@@ -99,7 +99,7 @@ class Order
 	
 	class << self
 	  def find_by_public_order_number(public_order_number)
-	    Order.where(:system => public_order_number[/[a-z]{2,4}/i].downcase, :order_number => public_order_number[/\d+/]).first
+	    Order.where(:system => public_order_number[/[a-z]{2,4}/i].downcase, :order_number => public_order_number[/\d+/]).first rescue nil
 	  end
 	  
     def quanity_sold(item_num)
