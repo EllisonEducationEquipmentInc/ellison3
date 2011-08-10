@@ -62,7 +62,7 @@ class UsersController < ApplicationController
 
   # DELETE /resource
   def destroy
-    get_cart.update_attributes :order_reference => nil if get_cart.order_reference
+    get_cart.update_attribute :order_reference, nil if get_cart.order_reference
     resource.destroy
     set_flash_message :notice, :destroyed
     sign_out_and_redirect(self.resource)
