@@ -123,6 +123,15 @@ namespace :migrations do |ns|
   task :make_erus_edu_products_orderable => :environment do
     Product.collection.update({:orderable_erus => false, :orderable_eeus => true, :systems_enabled => {:$in => ["erus"]}}, {:$set => {:orderable_erus => true}}, :multi => true)
   end
+  
+  # desc "Add Partner account retailer type to discount matrix"
+  # task :add_partner_account_to_discount_matrix => :environment do
+  #   @discount_category = DiscountCategory.new(:name => "Partner account")
+  #   RetailerDiscountLevels.instance.levels.each do |level|
+  #     @discount_category.send("discount_#{level.id}=", 0)
+  #   end
+  #   p @discount_category.save
+  # end
 	
 	
 	#======== migration tasks end here ========

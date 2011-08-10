@@ -33,7 +33,10 @@ class RetailerDiscountLevels
           21 => ["15K Dealer", "Education"],
           22 => ["Key Account", "Education"],
           23 => ["Catalog Dealer/Distributor", "Education"],
-          24 => ["Sales Rep", "Education"]
+          24 => ["Sales Rep", "Education"],
+          25 => ["Partner Account", "Sizzix"],
+          26 => ["Partner Account", "Education"],
+          27 => ["Partner Account", "International"]
         }.each do |k,v|
       
       @levels << DiscountLevel.new(k, v[0], v[1])
@@ -55,6 +58,10 @@ class RetailerDiscountLevels
   
   def find_by_group(group)
     @levels.select {|e| e.group == group}
+  end
+  
+  def ordered_levels
+    @groups.inject([]) {|a,e| a += find_by_group(e)}
   end
   
   alias :[] :find

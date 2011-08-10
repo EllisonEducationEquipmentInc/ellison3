@@ -9,7 +9,7 @@
           %th{:colspan => v.length}= k.upcase
       %tr
         %th Name
-        - retailer_discount_levels.levels.each do |level|
+        - retailer_discount_levels.ordered_levels.each do |level|
           %th{:style => "white-space: nowrap"}= level.name
     %tbody
       = render :partial => 'discount_category', :collection => @discount_categories

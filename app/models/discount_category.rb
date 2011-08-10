@@ -9,7 +9,7 @@ class DiscountCategory
 	field :active, :type => Boolean, :default => true
 	field :old_id, :type => Integer
 	RetailerDiscountLevels.instance.levels.each do |level|
-	  field :"discount_#{level.id}", :type => Integer
+	  field :"discount_#{level.id}", :type => Integer, :default => 0
 	  validates_presence_of :"discount_#{level.id}"
 	  validates_numericality_of :"discount_#{level.id}", :only_integer => true
 	end
