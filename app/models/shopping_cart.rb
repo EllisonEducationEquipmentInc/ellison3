@@ -565,7 +565,7 @@ module ShoppingCart
   	end
   	
   	def can_use_previous_payment?
-  	  !get_cart.order_reference.blank? && current_admin && current_admin.can_act_as_customer && Order.find(get_cart.order_reference).user == current_user rescue false
+  	  @quote.blank? && get_cart.order_reference.present? && current_admin && current_admin.can_act_as_customer && Order.find(get_cart.order_reference).user == current_user rescue false
   	end
   	
   	def can_tokenize_payment?
