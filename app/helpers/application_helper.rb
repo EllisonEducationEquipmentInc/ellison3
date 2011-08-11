@@ -39,9 +39,9 @@ module ApplicationHelper
 		coupon = show_coupon #&& product.coupon_price(get_cart) < product.price
 		
 		msrp = gross_price product.msrp
-		regular_price = gross_price(product.price(:time => date)) if product.price(:time => date) < product.msrp && product.sale_price(date) != product.price(:time => date)
+		regular_price = gross_price(product.price(:time => date)) if product.price(:time => date) < product.msrp && product.sale_price(:time => date) != product.price(:time => date)
     wholesale_price = gross_price(product.wholesale_price(:time => date))
-		sale_price = gross_price(product.sale_price(date)) if product.sale_price(date) && product.sale_price(date) <= product.price(:time => date)
+		sale_price = gross_price(product.sale_price(:time => date)) if product.sale_price(:time => date) && product.sale_price(:time => date) <= product.price(:time => date)
 		if is_er? && sale_price && sale_price >= product.retailer_price
 		  regular_price = sale_price
 		  sale_price = nil

@@ -36,8 +36,10 @@ class Campaign
   
   # after_validation :trigger_reindex_callback
     
-  def available?(time = Time.zone.now)
-    start_date <= time && end_date > time && active && systems_enabled.include?(current_system)
+  def available?(options = {})
+    time = options[:time] || Time.zone.now
+    sys = options[:system] || current_system
+    start_date <= time && end_date > time && active && systems_enabled.include?(sys)
   end
   
   def not_expired?(time = Time.zone.now)
@@ -50,12 +52,12 @@ class Campaign
     nil 
   end
   
-  def sale_price
+  def sale_price(options = {})
     return unless product
     if discount_type == 0
-      product.base_price - (0.01 * discount * product.base_price).round(2)
+      product.base_price(options) - (0.01 * discount * product.base_price(options)).round(2)
     elsif discount_type == 1
-      product.base_price - discount > 0 ? product.base_price - discount : 0.0
+      product.base_price(options) - discount > 0 ? product.base_price(options) - discount : 0.0
     elsif discount_type == 2
       discount
     end

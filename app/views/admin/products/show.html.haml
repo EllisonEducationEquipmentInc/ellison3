@@ -11,14 +11,14 @@
 %p
   %b Price:
   = number_to_currency @product.price(:time => @time)
-- if @product.get_best_campaign(@time)
+- if @product.get_best_campaign(:time => @time)
   %p
     %b Current Best Campaign:
-    = @product.get_best_campaign(@time).inspect
+    = @product.get_best_campaign(:time => @time).inspect
 %p
   %b All Current active Campaigns (for current system):
   %br
-  - @product.campaigns.current(@time).each do |campaign|
+  - @product.campaigns.current(:time => @time).each do |campaign|
     = campaign.inspect
     %br
 %p

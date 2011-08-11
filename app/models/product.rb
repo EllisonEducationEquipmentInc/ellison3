@@ -116,8 +116,10 @@ class Product
   
   # associations
   embeds_many :campaigns do
-    def current(time = Time.zone.now)
-      @target.select {|campaign| campaign.available?(time)}
+    def current(options = {})
+      time = options[:time] || Time.zone.now
+      sys = options[:system] || current_system
+      @target.select {|campaign| campaign.available?(options)}
     end
   end
   embeds_many :tabs do
@@ -342,7 +344,8 @@ class Product
   
   def price(options = {})
     time = options[:time] || Time.zone.now
-    best_price = campaign_price(time) && base_price(options) > campaign_price(time) ? campaign_price(time) : base_price(options)
+    system = options[:system] || current_system
+    best_price = campaign_price(options) && base_price(options) > campaign_price(options) ? campaign_price(options) : base_price(options)
     if is_er? && !new_record? && !retailer_discount_level.blank?
       rp = retailer_price(retailer_discount_level, options)
       rp < best_price ? rp : best_price
@@ -355,8 +358,10 @@ class Product
     send("price_#{current_system}_#{current_currency}=", p) if p.present? && self.outlet
   end
 
-  def campaign_price(time = Time.zone.now)
-    get_best_campaign(time).try :sale_price
+  def campaign_price(options = {})
+    time = options[:time] || Time.zone.now
+    system = options[:system] || current_system
+    get_best_campaign(options).try :sale_price
   end
 
   alias :sale_price :campaign_price
@@ -367,12 +372,14 @@ class Product
     sp
   end
   
-  def get_best_campaign(time = Time.zone.now)
-    campaigns.current(time).sort {|x,y| x.sale_price <=> y.sale_price}.first
+  def get_best_campaign(options = {})
+    time = options[:time] || Time.zone.now
+    system = options[:system] || current_system
+    campaigns.current(options).sort {|x,y| x.sale_price(options) <=> y.sale_price(options)}.first
   end
   
-  def campaign_name
-    get_best_campaign.try :name
+  def campaign_name(options = {})
+    get_best_campaign(options).try :name
   end
   
   def retailer_price(discount_level = retailer_discount_level, options = {})
