@@ -220,6 +220,7 @@ Ellison3::Application.routes.draw do |map|
       match 'firmwares(/:action(.:format))' => "firmwares"
       match 'discount_categories(/:action(.:format))' => "discount_categories"
       match 'reports(/:action(.:format))' => "reports"
+      match 'solr(/:action(/:id(.:format)))' => "solr"
     end
 
       

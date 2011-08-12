@@ -1,0 +1,2 @@
+module Admin::SolrHelper
+end
