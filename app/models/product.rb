@@ -361,7 +361,7 @@ class Product
   def campaign_price(options = {})
     time = options[:time] || Time.zone.now
     system = options[:system] || current_system
-    get_best_campaign(options).try :sale_price
+    get_best_campaign(options).try :sale_price, options
   end
 
   alias :sale_price :campaign_price
