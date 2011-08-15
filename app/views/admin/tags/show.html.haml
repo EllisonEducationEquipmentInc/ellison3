@@ -16,12 +16,14 @@
       %th Name
       %th Orderable
       %th Price
+      %th Outlet
     - @products.each do |product|
       %tr
         %td= link_to product.item_num, edit_admin_product_path(product)
         %td= link_to product.name, admin_product_path(product)
         %td= product.send("orderable_#{current_system}")
         %td= display_product_price product, :date => @time
+        %td= product.outlet?
   = will_paginate @products, :params => {:time => params[:time]}
 %p= @tag.systems_enabled.join(", ")      
 - @tag.attributes.keys.reject {|k| %w(versions campaigns).include? k}.each do |attribute|
