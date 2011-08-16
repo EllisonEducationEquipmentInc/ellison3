@@ -124,6 +124,12 @@ namespace :migrations do |ns|
     Product.collection.update({:orderable_erus => false, :orderable_eeus => true, :systems_enabled => {:$in => ["erus"]}}, {:$set => {:orderable_erus => true}}, :multi => true)
   end
   
+  desc "remove PO box shipping addresses"
+  task :remove_po_box_shipping_addresses => :environment do
+    User.collection.update({:systems_enabled => {:$nin => ["erus"]}, :addresses => {:$elemMatch => {'address_type' => 'shipping', :country => 'United States',  'address1' => /p\.?o\.?\s?box/i, :state => {:$not => /^(HI|AK|AA|AE|AP)$/}}}}, {:$unset => {'addresses.$' => 1}}, :multi => true)
+    User.collection.update({:'addresses' => {:$exists => true, :$in => [nil]}}, {:$pull => {'addresses' => nil}}, :multi => true)
+  end
+  
   # desc "Add Partner account retailer type to discount matrix"
   # task :add_partner_account_to_discount_matrix => :environment do
   #   @discount_category = DiscountCategory.new(:name => "Partner account")
