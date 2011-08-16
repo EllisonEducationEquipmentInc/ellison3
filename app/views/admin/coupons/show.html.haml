@@ -15,8 +15,8 @@
       %tr
         %td= link_to product.item_num, edit_admin_product_path(product)
         %td= link_to product.name, admin_product_path(product)
-        %td= display_product_price product, :date => @time
-        %td= number_to_currency product.calculate_coupon_discount(@coupon)
+        %td= display_product_price product, :date => @time rescue 'ERROR'
+        %td= number_to_currency product.calculate_coupon_discount(@coupon) rescue 'ERROR'
 - @coupon.group? && @coupon.children.each do |child|
   = link_to "#{child.name} (#{child.codes * ', '})", admin_coupon_path(child)
   %br
