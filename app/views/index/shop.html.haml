@@ -1,4 +1,4 @@
-- cache_unless is_admin?, ['landing_page', @landing_page,  @landing_page.updated_at.utc.to_i, current_system, current_locale, Product.retailer_discount_level, ecommerce_allowed?], :expires_in => 3.hours do
+- cache_unless is_admin?, ['landing_page', @landing_page,  @landing_page.updated_at.utc.to_i, current_system, current_locale, Product.retailer_discount_level, ecommerce_allowed?], :expires_in => 1.hours do
   #products_filter
     - if @landing_page.quick_search
       -#%h3== Quick #{@landing_page ? nil : 'Products'} Search
