@@ -720,6 +720,8 @@ ul.ui-widget-header {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100) !important;
   /* For IE 8 */
   -MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)" !important;
+  
+  *width: 100px;
 }
 
 #tooltip {
