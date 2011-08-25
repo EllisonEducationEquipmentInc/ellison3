@@ -21,7 +21,8 @@
     %br/
     All it requires is for you to fill out our short form below and you can immediately begin to recieve the latest updates!
 
-.ui-corner-all{:class=>"newsletter_midframe", :style=>"background:url('/images/discount_panel.jpg') bottom right no-repeat"}
+
+.ui-corner-all{ :style => "#{ is_ee_us? ? "background:url('/images/discount_panel.jpg') bottom right no-repeat;" : "background:nonel;" }" }
   .newsletter_content_b
     %h2{:style=>"margin-bottom:8px;", :class=>"signup_header"} 
       Thank you for your interest in receiving emails from
