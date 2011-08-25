@@ -47,9 +47,7 @@
       Yes, I'd like to subscribe to
       %strong= @list[1]
       = render :partial => 'segments'
-      - if is_er_us?
-        %div{:style=>"width:112px; position:relative; bottom: 22px; left:776px;"}
-        Subscribe now!
+
   .clear
   - if @subscribed.present?
     .error{ :style => "margin: 0 16px 12px 16px" }== The email address <strong>#{@subscribed.email}</strong> has already been subscribed to receive <strong>#{@list[1]}</strong>, but is still awaiting confirmation. Please follow the instructions in the confirmation email to confirm your subscription. You can request to send the confirmation email again by clicking on the Re-send confirmation email button below.
