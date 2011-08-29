@@ -485,7 +485,7 @@ class Product
   end
   
   def out_of_stock?(sys = current_system, qty = QUANTITY_THRESHOLD)
-    available?(sys) && quantity <= qty
+    available?(sys) && (qty == 0 ? quantity <= qty : quantity < qty)
   end
 
   def pre_order?(sys = current_system)
