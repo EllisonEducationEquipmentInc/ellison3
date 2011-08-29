@@ -74,7 +74,11 @@
       color: #CCC;
     }
     em {
-      color: $link;
+      @if $system == szuk {
+        color: $text;
+      } @else {
+        color: $link;
+      }
     }
   }
 }
