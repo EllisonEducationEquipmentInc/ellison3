@@ -73,10 +73,12 @@ root.bind_hashchange = ->
         beforeSend: ->
           $("#product_catalog").css opacity: 0.3
           $("#products_filter").css opacity: 0.3
+          $(".item-block").css opacity: 0.3
         
         complete: ->
           $("#product_catalog").css opacity: 1
           $("#products_filter").css opacity: 1
+          $(".item-block").css opacity: 1
           $("#product_catalog").css 'filter', ''
           $("#products_filter").css 'filter', ''
 
