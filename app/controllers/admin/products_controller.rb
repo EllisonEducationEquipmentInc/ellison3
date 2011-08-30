@@ -8,8 +8,8 @@ class Admin::ProductsController < ApplicationController
 	ssl_exceptions
 	
 	def index
-	  if params[:item_num] && params[:item_num] =~ /^(a|A)*[0-9]{3,6}($|-[a-zA-Z0-9\.]{1,10}$)/
-	    @product = Product.where(:item_num => params[:item_num]).first
+	  if params[:item_num].present? && params[:item_num] =~ /^(a|A)*[0-9]{3,6}($|-[a-zA-Z0-9\.]{1,10}$)/
+	    @product = Product.where(:item_num => params[:item_num].upcase).first
 	    redirect_to(edit_admin_product_path(@product)) and return if @product
 	  end
 	  criteria = Mongoid::Criteria.new(Product)
