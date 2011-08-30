@@ -166,7 +166,7 @@ class Tag
   def product_item_nums=(item_nums)
     unless item_nums.blank?
       prods = Product.where(:item_num.in => item_nums.split(/,\s*/))
-      products.concat(prods.to_a)
+      add_to_collection "products", (prods.to_a)
       if self.active
         prods.each {|e| e.index_by_tag(self, false)}
         ELLISON_SYSTEMS.inject([]) {|a, e| self.send("start_date_#{e}").present? ? a << self.send("start_date_#{e}") : a; self.send("end_date_#{e}").present? ? a << self.send("end_date_#{e}") : a}.uniq.each do |d|
