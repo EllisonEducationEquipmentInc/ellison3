@@ -246,6 +246,10 @@ class User
       save
     end
   end
+  
+  def real_name
+    self.name == 'New User' ? '' : self.name
+  end
 
 private
 
