@@ -16,6 +16,7 @@ class Cart
 	field :changed_items, :type => Array
 	field :order_reference
 	field :coupon_code
+	field :coupon_updated_at, :type => DateTime
 	field :free_shipping_by_coupon, :type => Boolean, :default => false
 	field :last_check_at, :type => DateTime
 	
@@ -160,10 +161,11 @@ class Cart
 			self.coupon = Coupon.available.with_coupon.where(:_id => self.coupon_id).first
 			self.coupon_id = Coupon.available.with_coupon.where(:_id => self.coupon_id).first.try :id #lame!
 			self.coupon_removed = self.changed.include? "coupon_id"
-			self.coupon_code = nil if self.coupon_removed
+			self.coupon_code, self.coupon_updated_at = nil if self.coupon_removed
 			self.last_check_at = Time.now.utc
 		end
-		reset_tax_and_shipping if cart_items.any?(&:updated?) || self.removed > 0 || self.coupon_removed
+		reset_tax_and_shipping if cart_items.any?(&:updated?) || self.removed > 0 || self.coupon_removed || self.coupon_updated_at != self.coupon.try(:updated_at)
+		self.coupon_updated_at = self.coupon.try(:updated_at) if self.coupon_updated_at != self.coupon.try(:updated_at)
 		apply_coupon_discount
 	end
 	

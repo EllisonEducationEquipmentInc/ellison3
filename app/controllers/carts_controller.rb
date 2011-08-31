@@ -301,6 +301,7 @@ class CartsController < ApplicationController
 	  if @coupon
 	    get_cart.coupon = @coupon
 	    @cart.coupon_code = coupon_code
+	    @cart.coupon_updated_at = @coupon.updated_at
 	    @cart.reset_tax_and_shipping
 	    @cart.apply_coupon_discount
 	  else
@@ -309,7 +310,7 @@ class CartsController < ApplicationController
 	end
 	
 	def remove_coupon
-	  get_cart.coupon_id, get_cart.coupon_code = nil
+	  get_cart.coupon_id, get_cart.coupon_code, get_cart.coupon_updated_at = nil
 	  @cart.reset_tax_and_shipping
 	  @cart.apply_coupon_discount
 	  render :activate_coupon
