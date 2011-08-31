@@ -294,6 +294,10 @@ module EllisonSystem
     ]
   end
   
+  def cc_sales_rep?
+    is_ee? || is_er?
+  end
+  
   def timeout_message
     "Sorry! We are experiencing technical difficulties. Please try again later or contact customer service for assistance."
   end
