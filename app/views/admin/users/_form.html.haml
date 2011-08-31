@@ -55,7 +55,7 @@
     .field
       = f.label :admin_id, "Sales Representative", :class => "autosize"
       %br
-      = f.select :admin_id, Admin.sales_reps.asc(:name).map {|e| ["#{e.name} - #{e.email} (#{e.employee_number})", e.id]}, :prompt => '--- select sales rep ---'
+      = f.select :admin_id, Admin.sales_reps.asc(:name).map {|e| ["#{e.name} - #{e.email} (#{e.employee_number})", e.id]}, :prompt => '--- select sales rep ---', :include_blank => true
     .field
       = f.label :erp, "AX ID", :class => "autosize"
       = f.text_field :erp
