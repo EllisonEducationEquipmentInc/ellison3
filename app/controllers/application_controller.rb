@@ -354,7 +354,7 @@ private
         parameters[:"spellcheck"] = true
         parameters[:"spellcheck.collate"] = true
         # if keywords are item nums separated by spaces, keyword search minimum should match = 0. same as OR. see http://wiki.apache.org/solr/DisMaxQParserPlugin
-        parameters[:mm] = 0 if params[:q].present? && params[:q].split(/\s+/).all? {|e| e =~ /^(A|38-)?\d{4,6}-?[A-Z0-9.]{0,8}$/}
+        parameters[:mm] = 0 if params[:q].present? && params[:q].split(/\s+/).all? {|e| e =~ /^(A|38-)?\d{4,6}-?[A-Z0-9.]{0,8}$/i}
       end
       query.with :"listable_#{current_system}", true
       @filter_conditions = {}
