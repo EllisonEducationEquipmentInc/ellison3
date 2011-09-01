@@ -127,7 +127,7 @@
     = form_for @order, :url => {:action => "cc_purchase"}, :html => {:id => "cc_purchase_form", 'data-type' => 'html'}, :as => :cc_purchase, :remote => true do |f|
       .left.field
         = label_tag :purchase_system, "System", :class => "autosize"
-        = select_tag :purchase_system, options_for_select(ELLISON_SYSTEMS, params[:site] || current_system), :style => "margin-right: 18px"
+        = select_tag :purchase_system, options_for_select(@systems, params[:site] || current_system), :style => "margin-right: 18px"
       .left.field
         = label_tag :purchase_transaction_type, "Transaction type"
         = select_tag :purchase_transaction_type, options_for_select(%w(purchase authorize), params[:transaction_type]), :style => "margin-right: 18px"
@@ -222,7 +222,7 @@
     = form_tag url_for(:action => "cc_capture"), :id => "cc_capture_form", 'data-type' => 'html', :remote => true do
       .field
         = label_tag :cc_capture_system, "System"
-        = select_tag :cc_capture_system, options_for_select(ELLISON_SYSTEMS, params[:site] || current_system)
+        = select_tag :cc_capture_system, options_for_select(@systems, params[:site] || current_system)
       .field
         = label_tag :cc_capture_total_amount, "<span class='required'>Amount</span>".html_safe
         = text_field_tag :cc_capture_total_amount, params[:total_amount]
@@ -258,7 +258,7 @@
     = form_tag url_for(:action => "cc_refund"), :id => "cc_refund_form", 'data-type' => 'html', :remote => true do
       .field
         = label_tag :cc_refund_system, "System"
-        = select_tag :cc_refund_system, options_for_select(ELLISON_SYSTEMS, params[:site] || current_system)
+        = select_tag :cc_refund_system, options_for_select(@systems, params[:site] || current_system)
       .field
         = label_tag :amount_to_refund, "<span class='required'>Amount</span>".html_safe
         = text_field_tag :amount_to_refund, params[:amount_to_refund]

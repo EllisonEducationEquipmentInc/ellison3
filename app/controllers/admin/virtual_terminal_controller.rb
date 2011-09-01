@@ -15,6 +15,7 @@ class Admin::VirtualTerminalController < ApplicationController
 	  @order = Order.new(params[:order])
 	  @order.build_address unless @order.address
 	  @order.build_payment unless @order.payment
+	  @systems = ELLISON_SYSTEMS.select {|e|  current_admin.has_write_access? "virtual_terminal", e}
 	end
 	
 	def cch_calculate
