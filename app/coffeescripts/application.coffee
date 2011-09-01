@@ -73,26 +73,10 @@ root.bind_hashchange = ->
         beforeSend: ->
           $("#product_catalog").css opacity: 0.3
           $("#products_filter").css opacity: 0.3
-          $(".item-block").css
-            opacity: 0.3
-            'filter': 'progid:DXImageTransform.Microsoft.Alpha(Opacity=30)'
-            '-MS-filter': 'progid:DXImageTransform.Microsoft.Alpha(Opacity=30)'
-          $(".facets").css
-            opacity: 0.3
-            'filter': 'progid:DXImageTransform.Microsoft.Alpha(Opacity=30)'
-            '-MS-filter': 'progid:DXImageTransform.Microsoft.Alpha(Opacity=30)'
         
         complete: ->
           $("#product_catalog").css opacity: 1
           $("#products_filter").css opacity: 1
-          $(".item-block").css
-            opacity: 1
-            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100)
-            -MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100);"
-          $(".shadowOnBit").css
-            opacity: 1
-            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100)
-            -MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100);"
           $("#product_catalog").css 'filter', ''
           $("#products_filter").css 'filter', ''
 
