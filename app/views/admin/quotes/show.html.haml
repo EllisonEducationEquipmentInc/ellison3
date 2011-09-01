@@ -102,7 +102,7 @@
             - elsif item.product.out_of_stock?(@quote.system)
               Out of stock
         %td= item.item_num
-        %td= item.name
+        %td= item.name.html_safe
         %td= item.quantity
         %td= number_to_currency item.gross_price
         %td= number_to_currency item.item_total

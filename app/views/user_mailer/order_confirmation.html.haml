@@ -66,7 +66,7 @@
   - @order.order_items.each do |item|
     %tr{:class => cycle('odd', 'even')}
       %td{ :style => "font-size: 11px; vertical-align: top;", :width => "60", :align => "left" }= item.item_num
-      %td{ :style => "font-size: 11px; vertical-align: top;", :align => "left" }= item.name
+      %td{ :style => "font-size: 11px; vertical-align: top;", :align => "left" }= item.name.html_safe
       %td{ :style => "font-size: 11px; vertical-align: top;", :width => "40", :align => "center" }= item.quantity
       %td{ :style => "font-size: 11px; vertical-align: top;", :width => "55", :align => "right" }= number_to_currency item.gross_price
       %td{ :style => "font-size: 11px; vertical-align: top;", :width => "70", :align => "right" }= number_to_currency item.item_total

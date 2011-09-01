@@ -50,7 +50,7 @@
   - @quote.order_items.each do |item|
     %tr{:class => cycle('odd', 'even')}
       %td{ :width => "60", :align => "left" }= item.item_num
-      %td{ :align => "left" }= item.name
+      %td{ :align => "left" }= item.name.html_safe
       %td{ :width => "40", :align => "center" }= item.quantity
       %td{ :width => "55", :align => "right" }= number_to_currency item.gross_price
       %td{ :width => "70", :align => "right" }= number_to_currency item.item_total
