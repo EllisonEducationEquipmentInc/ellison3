@@ -51,6 +51,10 @@
     - if @idea.description.present?
       %h4== #{is_er? || is_ee? ? 'Concept' : nil}#{is_er? || is_sizzix? ? "#{is_er? ? '/' : nil}Short Description" : nil}: 
       = @idea.description.try :html_safe
+    - if @idea.instructions.present?
+      %p.dontprint
+        %strong Instructions: 
+        = link_to "Download PDF", @idea.instructions, :target => '_blank', :title => "Download Instructions", :class => "link_instructions"
     - if @idea.objective.present? && !is_sizzix?
       %h4 Objective:
       = @idea.objective.try :html_safe  

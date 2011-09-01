@@ -40,6 +40,8 @@ class Idea
 	field :use_tabs, :type => Boolean, :default => true
 	field :video
 	field :item_group
+	field :instructions
+  
 	
 	field :created_by
 	field :updated_by
