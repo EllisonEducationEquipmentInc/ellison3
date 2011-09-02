@@ -105,7 +105,7 @@ class Cart
 		@cart_errors = []
 		@cart_errors << "The cart can only contain 99 items per order." if !is_er? && total_quantity > MAX_ITEMS
 		@cart_errors << "The maximum amount in the cart per order is 100,000" if sub_total > MAX_CART_VALUE
-		if self.changed_items.present? || self.removed > 0 || self.coupon_removed || self.coupon_has_been_updated
+		if self.changed_items.present? || self.removed > 0 || self.coupon_removed #|| self.coupon_has_been_updated
 			@cart_errors << "The price on one or more of the items in your order has been adjusted since you last placed it in your Shopping Cart. Items in your cart will always reflect the most recent price displayed on their corresponding product detail pages." if changed_item_attributes.include?("price")
 			@cart_errors << "Some items placed in your cart are greater than the quantity available for sale. The most current quantity available has been updated in your Shopping Cart." if changed_item_attributes.include?("quantity") 
 			@cart_errors << "Stock level of some items placed in your cart has changed." if changed_item_attributes.include?("out_of_stock")
@@ -113,7 +113,7 @@ class Cart
 			@cart_errors << "Items #{self.removed_items * ', '} placed in your Shopping Cart are no longer available for purchase and have been removed. If you are still interested in this item(s), please check back again at a later date for availability." if self.removed > 0
 			@cart_errors << "The Handling price on one or more of the items in your order has been adjusted since you last placed it in your Shopping Cart." if changed_item_attributes.include?("handling_price")	
 			@cart_errors << "Your coupon is no longer valid or changed. Please review your Shopping Cart to verify its contents." if self.coupon_removed
-			@cart_errors << "Your coupon has changed. Please review your Shopping Cart to verify its contents." if self.coupon_has_been_updated
+			#@cart_errors << "Your coupon has changed. Please review your Shopping Cart to verify its contents." if self.coupon_has_been_updated
 			# TODO: min qty, handling amount
 			#"The quantity of some items placed in your cart is less than the required minimum quantity. The required minimum quantity has been updated in your Shopping Cart."
 		end
@@ -164,11 +164,11 @@ class Cart
 			self.coupon_id = Coupon.available.with_coupon.where(:_id => self.coupon_id).first.try :id #lame!
 			self.coupon_removed = self.changed.include? "coupon_id"
 			self.coupon_code, self.coupon_updated_at = nil if self.coupon_removed
-			self.coupon_has_been_updated = self.coupon_updated_at != self.coupon.try(:updated_at)
+			#self.coupon_has_been_updated = self.coupon_updated_at != self.coupon.try(:updated_at)
 			self.last_check_at = Time.now.utc
 		end
-		reset_tax_and_shipping if cart_items.any?(&:updated?) || self.removed > 0 || self.coupon_removed || self.coupon_updated_at != self.coupon.try(:updated_at)
-		self.coupon_updated_at = self.coupon.try(:updated_at) if self.coupon_updated_at != self.coupon.try(:updated_at)
+		reset_tax_and_shipping if cart_items.any?(&:updated?) || self.removed > 0 || self.coupon_removed #|| self.coupon_updated_at != self.coupon.try(:updated_at)
+		#self.coupon_updated_at = self.coupon.try(:updated_at) if self.coupon_updated_at != self.coupon.try(:updated_at)
 		apply_coupon_discount
 	end
 	
