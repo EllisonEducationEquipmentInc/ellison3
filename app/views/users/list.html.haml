@@ -27,7 +27,7 @@
         .field
           = label_tag(:list_your_name, "<span class='required'>Your Name:</span>".html_safe, :class => "autosize")
           %br
-          = text_field_tag :list_your_name, get_user.real_name, :size => 40
+          = text_field_tag :list_your_name, get_user.name, :size => 40
         .field
           = label_tag(:list_to, "<span class='required'>To:</span>".html_safe, :class => "autosize")
           %br

@@ -138,6 +138,11 @@ namespace :migrations do |ns|
   #   end
   #   p @discount_category.save
   # end
+  
+  desc "remove 'New User'"
+  task :remove_new_user_from_users => :environment do
+    User.collection.update({:name => "New User"}, {:$set => {"name" => ""}}, :multi => true)
+  end
 	
 	
 	#======== migration tasks end here ========
