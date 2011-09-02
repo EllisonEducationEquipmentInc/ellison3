@@ -1,5 +1,18 @@
 %h2 Edit coupon
 
 = render 'form'
-
+%hr
+%ul.record_info
+  %li
+    Created By 
+    %strong= @coupon.created_by
+  %li
+    Created On
+    %strong= @coupon.created_at
+  %li
+    Updated By
+    %strong= @coupon.updated_by
+  %li
+    Updated On
+    %strong= @coupon.updated_at
 = link_to 'Back', admin_coupons_path, :class => 'jqui_back'
