@@ -40,9 +40,9 @@ class Admin::MaterialOrdersController < ApplicationController
   def export_to_csv
     @orders = MaterialOrder.where(:status => 'NEW', :created_at.gte => params[:start_date], :created_at.lte => params[:end_date])    
     csv_string = CSV.generate do |csv|
-      csv << ["customerzone", "labelcode", "labelabbrevation", "qty", "instructions", "Cust", "labelbatch", "customerfirstname", "customerlasname", "customercompany", "customeraddress1", "customeraddress2", "customercity", "customerstate", "customerzip", "country"]
+      csv << ["Cstmrzone", "Labelcode", "qty", "First_name", "Last_name", "Company", "Street", "Street2", "City", "State", "Zip", "Country", "Tel_num", "Email_addr"]
       @orders.each do |order|
-        csv << [(UspsZone.get_zone(order.address.zip_code[0,3]).try(:zone) rescue ''), order.materials.map {|e| e.label_code} * ', ', "", 1, "", "", "", order.address.first_name.try(:upcase), order.address.last_name.try(:upcase), order.address.company.try(:upcase), order.address.address1.try(:upcase), order.address.address2.try(:upcase), order.address.city.try(:upcase), order.address.state.try(:upcase), order.address.zip_code, order.address.country.try(:upcase)]
+        csv << [(UspsZone.get_zone(order.address.zip_code[0,3]).try(:zone) rescue ''), order.materials.map {|e| e.label_code} * ', ', 1, order.address.first_name.try(:upcase), order.address.last_name.try(:upcase), order.address.company.try(:upcase), order.address.address1.try(:upcase), order.address.address2.try(:upcase), order.address.city.try(:upcase), order.address.state.try(:upcase), order.address.zip_code, order.address.country.try(:upcase), order.address.phone.try(:upcase), order.address.email.try(:upcase)]
       end
     end
 
