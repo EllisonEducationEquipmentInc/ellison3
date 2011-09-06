@@ -67,7 +67,7 @@
         return false;
       });
       $('#keyword').change(function() {
-        if (this.value.length < 3) {
+        if (this.value.length < 2) {
           return false;
         } else {
           location.hash = $.param.fragment( location.hash, {q: $.deparam.fragment()['q'] ? $.deparam.fragment()['q']+' '+this.value : this.value, page: 1}, 0 );
