@@ -143,6 +143,7 @@
         %li Merchandise CANNOT be returned without prior approval.
         - unless is_uk?
           %li Returns or exchanges subject to restocking fee.
+        - if is_uk?
           %li Please allow a maximum ten working days for your order to be processed.
   - unless @order.comments.blank?
     %tr
