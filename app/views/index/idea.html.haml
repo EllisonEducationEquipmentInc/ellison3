@@ -49,7 +49,8 @@
     %span.idea-number== #{idea_name} ##{@idea.idea_num}
   .item_description
     - if @idea.description.present?
-      %h4== #{is_er? || is_ee? ? 'Concept' : nil}#{is_er? || is_sizzix? ? "#{is_er? ? '/' : nil}Short Description" : nil}: 
+      - unless is_sizzix?
+        %h4== Concept#{is_er? ? "/Short Description" : nil}: 
       = @idea.description.try :html_safe
     - if @idea.instructions.present?
       %p.dontprint
