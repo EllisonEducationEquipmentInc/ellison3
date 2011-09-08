@@ -203,6 +203,7 @@ jQuery.extend(WYMeditor, {
     UNLINK			        : "Unlink",
     INSERT_UNORDEREDLIST: "InsertUnorderedList",
     INSERT_ORDEREDLIST	: "InsertOrderedList",
+    TARGET              : "target",
 
     MAIN_CONTAINERS : new Array("p","h1","h2","h3","h4","h5","h6","pre","blockquote"),
 
@@ -495,6 +496,7 @@ jQuery.fn.wymeditor = function(options) {
     titleSelector:     ".wym_title",
     altSelector:       ".wym_alt",
     textSelector:      ".wym_text",
+    targetSelector:    ".wym_target",  
     
     rowsSelector:      ".wym_rows",
     colsSelector:      ".wym_cols",
@@ -560,6 +562,10 @@ jQuery.fn.wymeditor = function(options) {
                + "<div class='row'>"
                + "<label>{Title}</label>"
                + "<input type='text' class='wym_title' value='' size='40' />"
+               + "</div>"
+               + "<div class='row'>"
+               + "<label>Open in new window?</label>"
+               + "<input type='checkbox' class='wym_target' value=' target=\"_blank\"' />"
                + "</div>"
                + "<div class='row row-indent'>"
                + "<input class='wym_submit' type='button'"
@@ -1457,6 +1463,11 @@ WYMeditor.INIT_DIALOG = function(index) {
     jQuery(wym._options.srcSelector).val(jQuery(selected).attr(WYMeditor.SRC));
     jQuery(wym._options.titleSelector).val(jQuery(selected).attr(WYMeditor.TITLE));
     jQuery(wym._options.altSelector).val(jQuery(selected).attr(WYMeditor.ALT));
+    if (jQuery(selected).attr(WYMeditor.TARGET) == '_blank') {
+        jQuery(wym._options.targetSelector).each(function() {
+            this.checked = true;
+        });
+    }
   }
 
   //auto populate image fields if selected image
@@ -1486,6 +1497,12 @@ WYMeditor.INIT_DIALOG = function(index) {
         link.attr(WYMeditor.HREF, sUrl)
             .attr(WYMeditor.TITLE, jQuery(wym._options.titleSelector).val());
 
+        var newWinCheckbox = jQuery(wym._options.targetSelector)[0];
+        if (newWinCheckbox.checked) {
+            link.attr(WYMeditor.TARGET, '_blank');
+        } else {
+            link.removeAttr(WYMeditor.TARGET);
+        }
       }
       window.close();
   });
@@ -1898,7 +1915,8 @@ WYMeditor.XhtmlValidator = {
         "rel":/^(alternate|designates|stylesheet|start|next|prev|contents|index|glossary|copyright|chapter|section|subsection|appendix|help|bookmark| |shortcut|icon)+$/,
         "rev":/^(alternate|designates|stylesheet|start|next|prev|contents|index|glossary|copyright|chapter|section|subsection|appendix|help|bookmark| |shortcut|icon)+$/,
         "shape":/^(rect|rectangle|circ|circle|poly|polygon)$/,
-        "5":"type"
+        "5":"type",
+        "6":"target"
       }
     },
     "0":"abbr",
