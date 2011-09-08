@@ -726,6 +726,7 @@ h3.item_title {
   #thumbnail_list {
     float: left;
     visibility: hidden;
+    *text-align: left;
   
     .thumbnail { float: left; }
   	.video-thumbnail { @extend .thumbnail; }  	
