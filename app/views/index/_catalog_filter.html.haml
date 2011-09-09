@@ -66,13 +66,24 @@
         disable_facet_link($(this), "ell3_ui-check-box-tick--disabled");
         return false;
       });
-      $('#keyword').change(function() {
+      $('#keyword').bind('change', function() {
         if (this.value.length < 2) {
           return false;
         } else {
           location.hash = $.param.fragment( location.hash, {q: $.deparam.fragment()['q'] ? $.deparam.fragment()['q']+' '+this.value : this.value, page: 1}, 0 );
         }
       });
+      $('#keyword').bind('keypress', function(e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+          if (this.value.length < 2) {
+            return false;
+          } else {
+            location.hash = $.param.fragment( location.hash, {q: $.deparam.fragment()['q'] ? $.deparam.fragment()['q']+' '+this.value : this.value, page: 1}, 0 );
+          }
+          return false;
+        }
+      });
+
       $('.multifacet_remove').click(function() {
         var facets = $.deparam.fragment()['facets'].split(',');
         facets.splice(facets.indexOf($(this).attr('rel')),1);        
