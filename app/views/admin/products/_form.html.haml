@@ -113,13 +113,18 @@
       .field
         = f.label :outlet, "Sell on the Outlet?", :class => "autosize"
         yes
-        = f.radio_button(:outlet, true, :onchange => "if (this.checked) {$('#outlet_price').show();$('#price_szus_usd').attr('disabled', false)}")
+        = f.radio_button(:outlet, true, :onchange => "if (this.checked) {$('#outlet_price, #outlet_since').show();$('#price_szus_usd').attr('disabled', false)}")
         no
-        = f.radio_button(:outlet, false, :onchange => "if (this.checked) {$('#outlet_price').hide();$('#price_szus_usd').attr('disabled', true)}")
+        = f.radio_button(:outlet, false, :onchange => "if (this.checked) {$('#outlet_price, #outlet_since').hide();$('#price_szus_usd').attr('disabled', true)}")
       .field#outlet_price{:style => "display:#{@product.outlet ? 'block' : 'none'}"}
         = f.label :price_szus_usd, "Outlet Price <span class='formhelp'>(szus usd)</span>".html_safe, :class => "autosize"
         %span.icon_pricefield_usd
           = f.text_field :price_szus_usd, :size => 8
+      - if @product.outlet? && @product.outlet_since.present?
+        .field#outlet_since
+          = f.label :outlet_since
+          %br
+          = f.text_field :outlet_since, :class => 'datetimepicker'
   %div{ :class => "contentwrap_#{ is_sizzix_us? ? 'medium' : 'large'} last"}
     - WAREHOUSES.each do |warehouse|
       .field
