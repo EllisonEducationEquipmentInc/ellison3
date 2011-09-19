@@ -40,6 +40,10 @@
 = javascript_include_tag 'hoverintent/jquery.hoverIntent.minified.js', 'event_calendar', "jquery.rails.js", 'jquery.remotipart.js', 'rails_remote'
 = csrf_meta_tag
 
+- if RAILS_ENV == 'development'
+  /[if IE]
+    = javascript_include_tag "https://getfirebug.com/firebug-lite.js"
+
 / System Favicons
 - if is_sizzix?
   %link{ :href => "/images/favicons/s_favicon.ico", :rel => "icon", :type => "image/x-icon" }
