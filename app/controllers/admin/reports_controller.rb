@@ -31,7 +31,7 @@ class Admin::ReportsController < ApplicationController
 	  criteria = List.listable.where(:owns.ne => true, :created_at.gt => Time.zone.parse(params[:start_date]), :created_at.lt => Time.zone.parse(params[:end_date]), :system => params[:order_system])
 		#@total_wishlists = criteria.count
 		@wishlist_users = criteria.distinct(:user_id).count
-		@items_per_lists = List.items_per_list :system => params[:order_system], :query => {:created_at => {"$gt" => Time.zone.parse(params[:start_date]), "$lt" => Time.zone.parse(params[:end_date])}, :active => true, :save_for_later => {"$ne"=>true}, :owns => {"$ne"=>true}, :system => params[:order_system]}
+		@items_per_lists = List.items_per_list :system => params[:order_system], :query => {:created_at => {"$gt" => Time.zone.parse(params[:start_date]).utc, "$lt" => Time.zone.parse(params[:end_date]).utc}, :active => true, :save_for_later => {"$ne"=>true}, :owns => {"$ne"=>true}, :system => params[:order_system]}
 	end
 	
 	def get_status
