@@ -1,0 +1,113 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", 'http-equiv' => "Content-Type"}
+    %style{:type => "text/css"}
+      :plain
+        body,#wrap {
+          background-color: #e1d7c7;
+        }
+        td, th {
+          font-size: 11px;
+          vertical-align: top;
+        }
+        #layout {
+          margin: 10px auto 30px;
+          text-align: left;
+        }
+        #message {
+          font-size: 13px;
+          background: #fff;
+          color: #444;
+          font-style: normal;
+          font-weight: normal;
+          font-family: Helvetica;
+          line-height: 1.4em;
+          padding: 10px 20px 30px;
+          vertical-align: top;
+        }
+        #message .primary-heading,.content .primary-heading {
+          font-size: 22px;
+          font-weight: normal;
+          color: #333;
+          font-family: Georgia;
+          line-height: 150%;
+          text-align: left;
+          margin: 10px 0px;
+        }
+        #message .secondary-heading,.content .secondary-heading {
+          font-size: 18px;
+          font-weight: normal;
+          color: #333;
+          font-style: normal;
+          font-family: Georgia;
+          text-align: left;
+          margin-bottom: 15px;
+        }
+        #content {
+          padding-bottom: 20px;
+        }
+        td.threecol {
+          width: 28%;
+          padding-right: 10px;
+          padding-left: 10px;
+          color: #444;
+          padding-top: 10px;
+          border-right: 1px solid #ccc;
+        }
+        td.first {
+          padding-left: 0;
+          width: 25%;
+        }
+        td.last {
+          padding-right: 0px;
+          margin-right: 0px;
+          border: 0;
+        }
+        td.twocol-left {
+          width: 50%;
+          padding-right: 10px;
+          color: #444;
+          padding-top: 10px;
+          border-right: 1px solid #ccc;
+        }
+        td.twocol-right {
+          padding-left: 20px;
+          color: #444;
+          padding-top: 10px;
+        }
+        ul#feedback_history {
+          list-style: none;
+          margin: 0;
+          padding: 0;        
+        }
+        ul#feedback_history li {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+      
+  %body{ :style => "background-color: #e1d7c7;"}
+    %center
+      #wrap{ :style => "background-color: #e1d7c7;"}
+        %table#layout{ :width => "600", :border => "0", :cellspacing => "0", :cellpadding => "0", :style => "margin: 10px auto 30px; text-align: left;" }
+          %tr
+            %td#message{ :style => "font-size: 13px; background: #fff; color: #444; font-style: normal; font-weight: normal; font-family: Helvetica; line-height: 1.4em; padding: 10px 20px 30px; vertical-align: top;" }
+              = yield
+              %table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
+                %tr
+                  %td{ :style => "font-size: 11px; vertical-align: top;" }
+                    %p
+                      Kind Regards,
+                      %br
+                      == #{get_domain} Customer Service
+                      %br
+                      = link_to get_domain, "http://www.#{get_domain}/home"
+              %table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
+                %tr
+                  %td{ :style => "font-size: 11px; vertical-align: top;" }= image_tag("http://www.#{get_domain}/images/ui-email/logo_#{current_system}.png", :alt => "#{system_name}", :title => "#{system_name}")
+                %tr
+                  %td &nbsp;
+          %tr
+            %td{ :align => "center", :style => "font-size: 11px; vertical-align: top;" }
+              %p **Please do not reply to this email as it is sent from an unattended mail box.**            
