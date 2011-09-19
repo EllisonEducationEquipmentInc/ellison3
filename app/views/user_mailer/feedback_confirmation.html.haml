@@ -4,7 +4,7 @@
       %p Dear Customer, 
       %p== Thank you for your #{ is_us? ? "i" : "e"}nquiry. Your reference number is #{@feedback.number}. A member of our Customer Service will answer your email personally as soon as possible.#{ " In the meantime perhaps one of our FAQs below can help you with your query." if is_uk? }
 
-      - if is_uk?
+      - if is_sizzix_us?
         %p
           %strong Order Delivery
           %br
