@@ -67,4 +67,14 @@ namespace :data_import do
       end
     end
   end
+  
+  desc "expire UK products"
+  task :expire_products => :environment do
+    set_current_system "szuk"
+    CSV.foreach("/data/shared/data_files/products_to_expire.csv", :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
+      @product = Product.where(:item_num => row['item_num']).first
+      next unless @product
+      @product.update_attributes :end_date_szuk => 2.day.ago
+    end
+  end
 end
