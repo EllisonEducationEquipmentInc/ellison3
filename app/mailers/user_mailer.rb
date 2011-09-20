@@ -39,7 +39,6 @@ class UserMailer < ActionMailer::Base
 	  @feedback = feedback
 	  mail(:to => feedback.email, :subject => "RE: [#{get_domain.capitalize}] #{feedback.subject} - #{feedback.number}")
 	  set_current_system original_system
-	  render :layout => 'feedback_reply'
 	end
 	
 	def subscription_confirmation(subscription)
