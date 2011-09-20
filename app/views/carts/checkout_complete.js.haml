@@ -19,4 +19,4 @@
     '#{item.quantity}'               // quantity - required
     ]);
   _gaq.push(['_trackTrans']);
-  == setTimeout('redirect_to_order("#{order_path(@order)}")',3500);
+  == setTimeout('redirect_to_order("#{admin_signed_in? && current_admin.can_act_as_customer ? admin_order_path(@order) : order_path(@order)}")',3500);
