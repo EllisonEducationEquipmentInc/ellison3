@@ -96,6 +96,8 @@ Ellison3::Application.routes.draw do |map|
 	
 	match '/calendar(/:year(/:month))' => 'index#calendar', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
 	
+	match '/upload/fast_upload' => 'carts#fast_upload', :as => :fast_upload
+	
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action

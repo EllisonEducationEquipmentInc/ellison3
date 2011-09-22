@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-	before_filter :authenticate_user!, :only => [:checkout, :proceed_checkout, :quote, :proceed_quote, :quote_2_order, :move_to_cart, :delete_from_saved_list, :save_cod]
+	before_filter :authenticate_user!, :only => [:checkout, :proceed_checkout, :quote, :proceed_quote, :quote_2_order, :move_to_cart, :delete_from_saved_list, :save_cod, :cart_upload, :fast_upload]
 	before_filter :authenticate_admin!, :only => [:custom_price]
 	before_filter :pre_validate_cart, :only => [:checkout, :quote]
 	before_filter :admin_user_as_permissions!, :only => [:remove_order_reference, :use_previous_orders_card, :set_upsell]
@@ -12,7 +12,8 @@ class CartsController < ApplicationController
 	ssl_required :checkout, :proceed_checkout, :quote, :proceed_quote, :quote_2_order
 	ssl_allowed :index, :get_shipping_options, :change_shipping_method, :copy_shipping_address, :change_shipping_method, :get_shipping_service, :get_shipping_amount, :get_tax_amount, :get_total_amount,
 	  :custom_price, :create_shipping, :create_billing, :activate_coupon, :remove_coupon, :shopping_cart, :change_quantity, :add_selected_to_cart, :move_to_cart, :delete_from_saved_list, :last_item,
-	   :add_to_cart, :remove_from_cart, :save_cod, :get_deferred_first_payment, :forget_credit_card, :set_upsell, :remove_order_reference, :add_to_cart_by_item_num, :use_previous_orders_card
+	   :add_to_cart, :remove_from_cart, :save_cod, :get_deferred_first_payment, :forget_credit_card, :set_upsell, :remove_order_reference, :add_to_cart_by_item_num, :use_previous_orders_card, :cart_upload, :fast_upload, 
+	   :process_cart_import, :get_cart_import_status
 	
 	verify :xhr => true, :only => [:set_upsell, :get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :use_previous_orders_card, :remove_order_reference, :shopping_cart, :change_quantity, :add_selected_to_cart, :save_cod, :add_to_cart_by_item_num] #, :redirect_to => {:action => :index}
 	
@@ -342,6 +343,89 @@ class CartsController < ApplicationController
 	    render :action => 'carts/change_shipping_method'
 	  end
 	end
+	  
+  def cart_upload
+    
+  end
+  
+  # import cart items from uploaded csv file
+  # the following modules have to be compiled for nginx:
+  #
+  #   NginxHttpUploadProgressModule
+  #   nginx_upload_module
+  #
+  # These directories have to exist and be writable by nginx:
+  #
+  #   /data/shared/uploads/tmp
+  #   /data/shared/uploads/carts
+  #
+  # change nginx conf:
+  #
+  # http
+  #   upload_progress proxied 1m;
+  # 
+  # server:
+  # 
+  #    # Match this location for the upload module
+  #    location /upload/fast_upload {
+  #      proxy_pass http://127.0.0.1;
+  #      upload_pass @fast_upload_endpoint;
+  #      upload_store /data/shared/uploads/tmp;
+  # 
+  #      # set permissions on the uploaded files
+  #      upload_store_access user:rw group:rw all:r;
+  # 
+  #      # Set specified fields in request body
+  #      # this puts the original filename, new path+filename and content type in the requests params
+  #      upload_set_form_field fast_asset[][original_name] "$upload_file_name";
+  #      upload_set_form_field fast_asset[][content_type] "$upload_content_type";
+  #      upload_set_form_field fast_asset[][filepath] "$upload_tmp_path";
+  # 
+  #      upload_pass_form_field "^X-Progress-ID$|^authenticity_token$";
+  #      upload_cleanup 400 404 499 500-505;
+  #      track_uploads proxied 30s;
+  #      client_max_body_size 100m;
+  #    }
+  # 
+  #    location ^~ /progress {
+  #      # report uploads tracked in the 'proxied' zone
+  #      upload_progress_json_output;
+  #      report_uploads proxied;
+  #    }
+  # 
+  #    location @fast_upload_endpoint {
+  #      passenger_enabled on;
+  #      rails_env development;
+  #    }
+  # 
+  #    location / {
+  #      rails_env development;
+  #      passenger_enabled on;
+  #    }
+  def fast_upload
+    #params["fast_asset"] # => [{"original_name"=>"rubymine-1.0.dmg", "content_type"=>"application/x-diskcopy", "filepath"=>"/data/shared/uploads/tmp/0000000004"}]
+    if params["fast_asset"].present? && params["fast_asset"].respond_to?('[]')
+      params["fast_asset"].each do |item|
+        @file = item
+        @new_name = "/data/shared/uploads/carts/#{Digest::SHA1.hexdigest("#{@file['original_name']}-#{Time.now.to_f}")}-#{@file['original_name']}"
+        FileUtils.mv(item['filepath'], @new_name)
+      end
+      
+      # check if header columns are correct (item_num, qty)
+      header = File.open(@new_name, "r") {|f| f.readline}.gsub(/["\n]/,'').split(/,\s*/)
+      raise "Uploaded File must have comma separated values, and the header columns must be 'item_num', 'qty' #{header}" unless ["item_num", "qty"].all? {|e| header.include?(e)}
+      @cart_importer = CartImporter.create :cart => get_cart, :system => current_system, :file_name => @new_name
+    else
+      raise "No file or invalid file has been uploaded"   
+    end
+  rescue Exception => e
+    redirect_to({:action => "cart_upload"}, :alert => e.message)
+  end
+  
+  def get_cart_import_status
+    @cart_importer = CartImporter.find(params[:id])
+    render :text => @cart_importer.percent.to_i
+  end
   
 private
 
