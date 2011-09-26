@@ -9,20 +9,18 @@
   $.ajax({
     tryCount : 0,
     retryLimit : 100,
-    url:'/carts/get_cart_import_status/', 
+    url:'/carts/get_cart_import_status/#{@cart_importer.id}', 
     success: function(data) {
       percent = data;
       $('#import_percentage').text(percent);
       this.tryCount++;
       if (percent == "100") {
-        $.fancybox.close();
         window.location.href='/cart';
       } else if (this.tryCount <= this.retryLimit) {
         $(this).doTimeout( 'retrying', 1000, function(){
           $.ajax(this[0]);
         });
       } else {
-        $.fancybox.close()
         alert('expired');
       }
     }
