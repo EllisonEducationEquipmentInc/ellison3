@@ -19,6 +19,7 @@ module EllisonSystem
   MIN_ORDER = 0.01
   ER_MIN_ORDER = 100
   ER_FIRST_MIN_ORDER = 300
+  ITEMS_FOR_THREE_EASY_PAYMENTS = ["655934", "29851", "29914", "657500", "656250", "656820", "656850"]
   
   @@disable_solr_indexing = false
   
