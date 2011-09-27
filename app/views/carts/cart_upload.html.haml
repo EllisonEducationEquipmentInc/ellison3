@@ -1,3 +1,21 @@
+%h3 Upload Cart
+%p
+  you can upload a csv file (max 99 lines) that contains item_num and quantity.
+%p 
+  Sample csv format:
+  %table{:style => "width:200px"}
+    %tr
+      %th item_num
+      %th qty
+    %tr
+      %td 654324
+      %td 5
+    %tr
+      %td 654325
+      %td 7
+    %tr
+      %td 654326
+      %td 3
 = form_tag fast_upload_path, :multipart => true, :method => :post, :id => 'upload' do
   = file_field_tag :file, :required => 'required'
   = submit_tag :upload

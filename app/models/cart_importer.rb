@@ -8,7 +8,7 @@ class CartImporter
 	field :percent, :type => Integer, :default => 0
 	field :total_count, :type => Integer, :default => 0
 	field :system
-	field :import_errors, :type => Hash, :default => {}
+	field :import_errors, :type => Array, :default => []
 	
 	belongs_to :cart
   
@@ -24,7 +24,10 @@ class CartImporter
 	  n = 0
 	  CSV.foreach(self.file_name, :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
       product = Product.available.where(:item_num => row['item_num']).first
-      next unless product
+      unless product
+        update_attribute :import_errors, self.import_errors << row['item_num']
+        next
+      end
   	  qty = row['item_num'].blank? ? is_er? ? product.minimum_quantity : 1 : row['qty'].to_i
   	  qty = product.minimum_quantity if is_er? && qty < product.minimum_quantity
   	  self.cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.outlet? ? product.price : product.sale_price, :msrp => product.msrp_or_wholesale_price, :price => product.price, 
@@ -60,5 +63,6 @@ private
     self.complete = true
     self.percent = 100
     save!
+    FileUtils.rm_f self.file_name
   end	
 end

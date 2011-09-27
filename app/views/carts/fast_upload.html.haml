@@ -15,6 +15,7 @@
       $('#import_percentage').text(percent);
       this.tryCount++;
       if (percent == "100") {
+        #{"alert('Items #{@cart_importer.import_errors * ", "} were not found or unavailable');" if @cart_importer.import_errors.present?}
         window.location.href='/cart';
       } else if (this.tryCount <= this.retryLimit) {
         $(this).doTimeout( 'retrying', 1000, function(){
