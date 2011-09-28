@@ -12,8 +12,7 @@ class CartsController < ApplicationController
 	ssl_required :checkout, :proceed_checkout, :quote, :proceed_quote, :quote_2_order
 	ssl_allowed :index, :get_shipping_options, :change_shipping_method, :copy_shipping_address, :change_shipping_method, :get_shipping_service, :get_shipping_amount, :get_tax_amount, :get_total_amount,
 	  :custom_price, :create_shipping, :create_billing, :activate_coupon, :remove_coupon, :shopping_cart, :change_quantity, :add_selected_to_cart, :move_to_cart, :delete_from_saved_list, :last_item,
-	   :add_to_cart, :remove_from_cart, :save_cod, :get_deferred_first_payment, :forget_credit_card, :set_upsell, :remove_order_reference, :add_to_cart_by_item_num, :use_previous_orders_card, :cart_upload, :fast_upload, 
-	   :process_cart_import, :get_cart_import_status
+	   :add_to_cart, :remove_from_cart, :save_cod, :get_deferred_first_payment, :forget_credit_card, :set_upsell, :remove_order_reference, :add_to_cart_by_item_num, :use_previous_orders_card
 	
 	verify :xhr => true, :only => [:set_upsell, :get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :use_previous_orders_card, :remove_order_reference, :shopping_cart, :change_quantity, :add_selected_to_cart, :save_cod, :add_to_cart_by_item_num] #, :redirect_to => {:action => :index}
 	
