@@ -413,7 +413,10 @@ class CartsController < ApplicationController
       
       # check if header columns are correct (item_num, qty)
       header = File.open(@new_name, "r") {|f| f.readline}.gsub(/["\n\r]/,'').split(/,\s*/)
-      raise "Uploaded File must have comma separated values, and the header columns must be 'item_num', 'qty' #{header}" unless ["item_num", "qty"].all? {|e| header.include?(e)}
+      unless ["item_num", "qty"].all? {|e| header.include?(e)}
+        FileUtils.rm_f @new_name
+        raise "Uploaded File must have comma separated values, and the header columns must be 'item_num', 'qty' #{header}" 
+      end
       get_cart.save if get_cart.new_record?
       @cart_importer = CartImporter.create :cart => get_cart, :system => current_system, :file_name => @new_name
       @cart_importer.populate_cart
