@@ -429,6 +429,33 @@ class CartsController < ApplicationController
     render :text => @cart_importer.percent.to_i
   end
   
+  def download_sample_cart_csv
+    csv = <<-CSV.strip_heredoc
+      "item_num","qty"
+      654809,3
+      654831,3
+      654818,1
+      654806,3
+      654815,1
+      654816,1
+      654799,3
+      654826,3
+      654824,3
+      654833,3
+      20362-EW,1
+      20535-DC,1
+      20537-XL,3
+      20537-LG,5
+      20554-XL,1
+      20554-LG,2
+      20556-LG,3
+      20556-SM,9
+      20556-XL,10
+      20558-LG,1
+    CSV
+    send_data csv, :filename => 'cart_itmes.csv', :type => 'text/csv'
+  end
+  
 private
 
   def reset_cart_item_errors

@@ -152,7 +152,7 @@ class Cart
 			    # mark item as "out_of_stock" to trigger limited quantity notification
 			    item.out_of_stock = true
 			  else
-			   	item.quantity = product.unavailable? || !product.orderable? ? 0 : product.quantity if product.unavailable? || !product.orderable? || product.quantity < item.quantity
+			   	item.quantity = product.unavailable? ? 0 : product.quantity if product.unavailable? || product.quantity < item.quantity 
 			  end
 			end
 		end

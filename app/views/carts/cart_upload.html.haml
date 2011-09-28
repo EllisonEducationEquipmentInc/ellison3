@@ -16,6 +16,8 @@
     %tr
       %td 654326
       %td 3
+%p
+  = link_to 'Download sample csv file', :action => 'download_sample_cart_csv'
 = form_tag fast_upload_path, :multipart => true, :method => :post, :id => 'upload' do
   = file_field_tag :file, :required => 'required'
   = submit_tag :upload
