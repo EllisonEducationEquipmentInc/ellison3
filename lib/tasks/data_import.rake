@@ -86,7 +86,7 @@ namespace :data_import do
       next unless @product
       p "associating #{@product.item_num} with #{@tag.name}"
       @product.add_to_collection "tags", @tag
-      @product.delay.index
+      @product.index_by_tag(@tag) if @tag.active 
     end
     Sunspot.delay.commit
   end
@@ -99,7 +99,7 @@ namespace :data_import do
       next unless @idea
       p "associating #{@idea.idea_num} with #{@tag.name}"
       @idea.add_to_collection "tags", @tag
-      @idea.delay.index
+      @idea.index_by_tag(@tag) if @tag.active
     end
     Sunspot.delay.commit
   end
