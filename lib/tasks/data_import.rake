@@ -77,4 +77,30 @@ namespace :data_import do
       @product.update_attributes :end_date_eeuk => 2.day.ago
     end
   end
+  
+  desc "assiciate products with tag"
+  task :products_to_tag => :environment do
+    CSV.foreach("/data/shared/data_files/tag_product_association.csv", :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
+      @tag = Tag.find(row['tag_id']) unless @tag.present? && @tag.id.to_s == row['tag_id']
+      @product = Product.where(:item_num => row['item_num']).first
+      next unless @product
+      p "associating #{@product.item_num} with #{@tag.name}"
+      @product.add_to_collection "tags", @tag
+      @product.delay.index
+    end
+    Sunspot.delay.commit
+  end
+  
+  desc "assiciate ideas with tag"
+  task :ideas_to_tag => :environment do
+    CSV.foreach("/data/shared/data_files/tag_idea_association.csv", :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
+      @tag = Tag.find(row['tag_id']) unless @tag.present? && @tag.id.to_s == row['tag_id']
+      @idea = Idea.where(:idea_num => row['idea_num']).first
+      next unless @idea
+      p "associating #{@idea.idea_num} with #{@tag.name}"
+      @idea.add_to_collection "tags", @tag
+      @idea.delay.index
+    end
+    Sunspot.delay.commit
+  end
 end
