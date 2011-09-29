@@ -1,4 +1,17 @@
 - if admin_signed_in? && current_admin.can_act_as_customer || is_er? && ecommerce_allowed?
+  #import_items{:style=>"margin:0 0 8px; font-weight:bold;"}
+    = "To import items to cart from a CSV file, "
+    = link_to "Click here.", :action => :cart_upload
+  - unless @cart.cart_items.blank?
+    #empty_cart{:style=>"float:right; margin-bottom:2px; text-align:right; padding-top:0; background:none; border:0; margin-right:4px;"}
+      REMOVE ITEMS IN CART
+    :javascript
+      $("#empty_cart").button({icons: {primary: 'ui-icon-trash'}})
+        .click( function() {
+          $.ajax({url:"/carts/empty_cart", complete: function(){$.fancybox.resize()}});
+          _gaq.push(['_trackEvent', 'Cart', 'Empty Cart']);
+          $(this).button({ disabled: true });
+        });
   #add_to_cart_by_item_num
     = form_tag add_to_cart_by_item_num_path, :id => "add_to_cart_by_item_num_form", :remote => true, :onsubmit => "return false;" do
       .field{ :style => "margin-bottom: 0" }
@@ -16,13 +29,3 @@
           return false;
         });
       });
-  #import_items= link_to "Click here to import items to cart from a csv file", :action => :cart_upload
-  - unless @cart.cart_items.blank?
-    #empty_cart Empty Cart
-    :javascript
-      $("#empty_cart").button({icons: {primary: 'ui-icon-trash'}})
-        .click( function() {
-          $.ajax({url:"/carts/empty_cart", complete: function(){$.fancybox.resize()}});
-          _gaq.push(['_trackEvent', 'Cart', 'Empty Cart']);
-          $(this).button({ disabled: true });
-        });
