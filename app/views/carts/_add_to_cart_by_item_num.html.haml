@@ -16,3 +16,13 @@
           return false;
         });
       });
+  #import_items= link_to "Click here to import items to cart from a csv file", :action => :cart_upload
+  - unless @cart.cart_items.blank?
+    #empty_cart Empty Cart
+    :javascript
+      $("#empty_cart").button({icons: {primary: 'ui-icon-trash'}})
+        .click( function() {
+          $.ajax({url:"/carts/empty_cart", complete: function(){$.fancybox.resize()}});
+          _gaq.push(['_trackEvent', 'Cart', 'Empty Cart']);
+          $(this).button({ disabled: true });
+        });

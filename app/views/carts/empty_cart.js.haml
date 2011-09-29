@@ -1,4 +1,2 @@
 == $('#shoppingcart_info').html('#{escape_javascript(render(:partial => "carts/shopping_cart"))}');
-$('#cart_container').load('/cart');
-setTimeout("$.fancybox.resize()", 200);
-setTimeout("$.fancybox.close()", 1200);
+== $('#cart_container').html('#{escape_javascript(render(:partial => "carts/cart"))}');
