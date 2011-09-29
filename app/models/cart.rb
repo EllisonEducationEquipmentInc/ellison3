@@ -141,20 +141,17 @@ class Cart
 		  next if item.coupon?
 			product = item.product
 			item.write_attributes :sale_price => product.outlet? ? product.price : product.sale_price, :campaign_name => product.campaign_name, :msrp => product.msrp_or_wholesale_price, :currency => current_currency, :small_image => product.small_image, :tax_exempt => product.tax_exempt, :outlet => product.outlet?, :pre_order => product.pre_order?,
-			  :handling_price => product.handling_price, :retailer_price => product.retailer_price, :weight => product.virtual_weight, :actual_weight => product.weight
-			
-			item.out_of_stock = if check && backorder_allowed? && product.listable?(current_system, item.quantity) && product.quantity < item.quantity
-			  elsif backorder_allowed? && product.listable?(current_system, item.quantity) 
-			    product.out_of_stock?(current_system, item.quantity - 1) 
-			  else
-			    product.out_of_stock?
-			  end
+			  :handling_price => product.handling_price, :retailer_price => product.retailer_price, :weight => product.virtual_weight, :actual_weight => product.weight, :out_of_stock => backorder_allowed? && product.listable?(current_system, item.quantity) ? product.out_of_stock?(current_system, item.quantity - 1) : product.out_of_stock?
 			item.price = product.price unless item.custom_price
 			if check
 			  if quote
 			    item.quantity = 0 if !product.available?
 			  elsif backorder_allowed? && product.out_of_stock? && product.listable?
 			    # do nothing
+			  elsif backorder_allowed? && product.listable?(current_system, item.quantity) && product.quantity < item.quantity
+			    # mark item as "out_of_stock" to trigger limited quantity notification
+			    item.out_of_stock = true
+			    item.reset_attribute! "out_of_stock" if item.changes["out_of_stock"].present? && item.changes["out_of_stock"].uniq.count == 1
 			  else
 			   	item.quantity = product.unavailable? ? 0 : product.quantity if product.unavailable? || product.quantity < item.quantity 
 			  end
