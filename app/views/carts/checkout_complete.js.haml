@@ -14,7 +14,10 @@
     '#{@order.public_order_number}',           // order ID - necessary to associate item with transaction
     '#{item.item_num}',           // SKU/code - required
     '#{escape_javascript item.name}',        // product name
-    '#{escape_javascript(item.product.product_lines.map(&:name) * ', ')}',   // category or variation
+    - if is_er?
+      '',
+    - else
+      '#{escape_javascript(item.product.product_lines.map(&:name) * ', ')}',   // category or variation
     '#{convert_2_gbp item.sale_price}',          // unit price - required
     '#{item.quantity}'               // quantity - required
     ]);
