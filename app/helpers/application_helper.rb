@@ -200,10 +200,10 @@ module ApplicationHelper
 	    @breadcrumb_tags.each do |tag|
 	      breadcrumbs << link_to(tag.name, "#", :rel => tag.facet_param, :class => "tag_breadcrumb") + "<span class='dontdisplay'>, </span> ".html_safe + link_to("x", "#", :title => "Remove #{tag.name}", :rel => tag.facet_param, :class => "tag_breadcrumb_remove")
 	    end
-	    breadcrumbs << price_label + ' ' + link_to("x", "#", :rel => params[:price], :title => "remove price", :class => "price_breadcrumb_remove") unless params[:price].blank?
-	    breadcrumbs << saving_label + ' ' + link_to("x", "#", :rel => params[:saving], :title => "remove saving", :class => "saving_breadcrumb_remove") unless params[:saving].blank?
+	    breadcrumbs << price_label + ' ' + link_to("x", "#", :rel => sanitize(params[:price]), :title => "remove price", :class => "price_breadcrumb_remove") unless params[:price].blank?
+	    breadcrumbs << saving_label + ' ' + link_to("x", "#", :rel => sanitize(params[:saving]), :title => "remove saving", :class => "saving_breadcrumb_remove") unless params[:saving].blank?
 	    params[:brand].present? && params[:brand].split(",").each do |brand| 
-	      breadcrumbs << brand  + ' ' + link_to("x", "#", :rel => brand.gsub(" ", "+"), :title => "remove item_group", :class => "item_group_breadcrumb_remove") 
+	      breadcrumbs << brand  + ' ' + link_to("x", "#", :rel => sanitize(brand.gsub(" ", "+")), :title => "remove item_group", :class => "item_group_breadcrumb_remove") 
 	    end
 	    r << breadcrumbs.join("<span class='breadcrumb_arrow dontprint'> > </span>".html_safe)
 	    r << javascript_tag do
@@ -251,7 +251,7 @@ module ApplicationHelper
 	end
 	
 	def keyword_label
-	  "Search Keywords: #{params[:q]} " unless params[:q].blank?
+	  "Search Keywords: #{sanitize params[:q]} " unless params[:q].blank?
 	end
 	
 	def sortable(column, title = nil)  
