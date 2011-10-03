@@ -192,6 +192,7 @@ private
   def sign_in_and_populate_cart
     change_current_system @order.system
     I18n.locale = @order.locale
+    sign_out(current_user) if user_signed_in?
     sign_in("user", @order.user)
     clear_cart
     order_to_cart @order
