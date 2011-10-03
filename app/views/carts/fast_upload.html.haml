@@ -16,7 +16,7 @@
       $('#import_percentage').text(percent);
       this.tryCount++;
       if (percent == "100") {
-        $('#redirect_message').text('please wait, you are being redirected to cart page...');
+        $('#redirect_message').text('Please wait, you are being redirected to cart page...');
         #{"alert('Items #{@cart_importer.import_errors * ", "} were not found or unavailable');" if @cart_importer.import_errors.present?}
         window.location.href='/cart';
       } else if (this.tryCount <= this.retryLimit) {
