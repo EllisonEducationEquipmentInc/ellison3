@@ -1,6 +1,6 @@
 %h3 Upload Cart
 %p
-  you can upload a csv file (max 300 lines) that contains item_num and quantity.
+  You can upload CSV file (max. 300 lines) to add products to cart. The CSV file must contain “item_num and qty” fields and should be in lower case.
 %p 
   Sample csv format:
   %table{:style => "width:200px"}
@@ -19,6 +19,8 @@
 %p
   = link_to 'Download sample csv file', :action => 'download_sample_cart_csv'
 %h4 Upload Cart:
+%p
+  To upload products to cart, first click on “Browse” button to select a file. Once file is selected, click on “upload” button to upload products to cart.
 = form_tag fast_upload_path, :multipart => true, :method => :post, :id => 'upload' do
   = file_field_tag :file, :required => 'required'
   = submit_tag :upload
