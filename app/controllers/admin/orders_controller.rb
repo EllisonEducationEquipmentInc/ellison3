@@ -193,8 +193,9 @@ private
     change_current_system @order.system
     I18n.locale = @order.locale
     sign_out(current_user) if user_signed_in?
-    sign_in("user", @order.user)
     clear_cart
+    get_cart.save
+    sign_in("user", @order.user)
     order_to_cart @order
   end
 end

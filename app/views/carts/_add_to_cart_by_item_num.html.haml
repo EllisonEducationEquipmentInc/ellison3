@@ -3,14 +3,14 @@
     = "To upload items from an Excel-CSV file, "
     = link_to "click here.", :action => :cart_upload
     - unless @cart.cart_items.blank?
-      #empty_cart{:style=>"float:right; text-align:right; padding-top:0; background:none; border:0; margin-right:4px;"}
-        = link_to "REMOVE ITEMS IN CART"
+      = link_to "REMOVE ITEMS IN CART", '#', :style=>"float:right; text-align:right; padding-top:0; background:none; border:0; margin-right:4px;", :id => 'empty_cart'
       :javascript
         $("#empty_cart").button({icons: {primary: 'ui-icon-trash'}})
           .click( function() {
             $.ajax({url:"/carts/empty_cart"});
             _gaq.push(['_trackEvent', 'Cart', 'Empty Cart']);
             $(this).button({ disabled: true });
+            return false;
           });
   #add_to_cart_by_item_num
     = form_tag add_to_cart_by_item_num_path, :id => "add_to_cart_by_item_num_form", :remote => true, :onsubmit => "return false;" do
