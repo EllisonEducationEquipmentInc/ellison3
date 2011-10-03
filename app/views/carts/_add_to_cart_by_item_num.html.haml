@@ -8,7 +8,7 @@
       :javascript
         $("#empty_cart").button({icons: {primary: 'ui-icon-trash'}})
           .click( function() {
-            $.ajax({url:"/carts/empty_cart", complete: function(){$.fancybox.resize()}});
+            $.ajax({url:"/carts/empty_cart"});
             _gaq.push(['_trackEvent', 'Cart', 'Empty Cart']);
             $(this).button({ disabled: true });
           });
