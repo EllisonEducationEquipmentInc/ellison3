@@ -1,7 +1,8 @@
 - if admin_signed_in? && current_admin.can_act_as_customer || is_er? && ecommerce_allowed?
   #import_items{:style=>"margin:0 0 8px; font-weight:bold;"}
-    = "To upload items from an Excel-CSV file, "
-    = link_to "click here.", :action => :cart_upload
+    - if is_er?
+      = "To upload items from an Excel-CSV file, "
+      = link_to "click here.", :action => :cart_upload
     - unless @cart.cart_items.blank?
       = link_to "REMOVE ITEMS IN CART", '#', :style=>"float:right; text-align:right; padding-top:0; background:none; border:0; margin-right:4px;", :id => 'empty_cart'
       :javascript
