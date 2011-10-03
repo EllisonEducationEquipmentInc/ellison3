@@ -52,7 +52,7 @@
           %strong== ... But good news! We found #{link_to "#{pluralize @product_search.total, "Product"}", "#", :class => "toggle_product"}!
     
     - if !@search.correctly_spelled? && @search.spell_collation
-      %p== Did you mean #{link_to_function @search.spell_collation, "location.hash = $.param.fragment( location.hash, {q: '#{@search.spell_collation}'}, 0 )"}?
+      %p== Did you mean #{link_to_function sanitize(@search.spell_collation), "location.hash = $.param.fragment( location.hash, {q: '#{sanitize(@search.spell_collation)}'}, 0 )"}?
     %p Try these search tips:
     %ul
       %li Double check your spelling. 
