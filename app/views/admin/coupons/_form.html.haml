@@ -38,7 +38,7 @@
       = f.radio_button(:no_code_required, true, :onclick => "if (this.checked) {$('label[for=coupon_codes] span').removeClass('required');}")
     .field
       = required_label f, :codes, { :label => "Coupon Code(s)", :label_size => "auto" }
-      %p.formhelp (Only alpha numeric characters and dashes allowed.)
+      %p.formhelp Only alpha numeric characters, dashes(-) allowed and no spaces.
       = f.text_area :codes, :rows => 2, :cols => 57, :value => @coupon.codes.try(:join, ", ")
       %p.formhelp To create aliases, add additional coupon codes here, separated with commas
     .field
