@@ -1,4 +1,6 @@
+$(document).ready(function(){
 $.fancybox.close();
+});
 - if @material_order.address.valid? && @material_order.address.save
   $('.material_ids:checked').each(function(){this.checked = false});
   $('#material_address').slideUp();  
@@ -8,6 +10,7 @@ $.fancybox.close();
     $('#bypass_avs').show();
   == alert('#{escape_javascript @material_order.address.errors.full_messages.join("\n")}');
 $(document).ready(function(){
+$.fancybox.close();
+});
 setTimeout("$.fancybox.close()", 1000);
 setTimeout("$.fancybox.close()", 3000);
-});
