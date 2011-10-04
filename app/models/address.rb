@@ -5,6 +5,7 @@ class Address
 	attr_accessor :enable_avs_bypass
 		
 	attr_accessor_with_default :allow_po_box, false
+
 	attr_protected :allow_po_box
 	
 	field :address_type, :default => "shipping"
@@ -89,7 +90,7 @@ class Address
 			@fedex.address :streets => "#{self.address1} #{self.address2}", :city => self.city, :state => self.state, :postal_code => self.zip_code, :country => country_2_code(self.country)
 		end
 		self.enable_avs_bypass = true if @fedex.address.changes.include?("INSUFFICIENT_DATA") && !@fedex.address.changes.include?("BOX_NUMBER_MATCH")
-		if @fedex.address.changes.include?("INSUFFICIENT_DATA") || @fedex.address.changes.include?("BOX_NUMBER_MATCH") && !allow_po_box
+		if @fedex.address.changes.include?("INSUFFICIENT_DATA") || @fedex.address.changes.include?("BOX_NUMBER_MATCH") && !self.allow_po_box
 			self.avs_failed = true
 		else
 			self.avs_result = @fedex.address.changes.is_a?(Array) ? @fedex.address.changes * ', ' : @fedex.address.changes
