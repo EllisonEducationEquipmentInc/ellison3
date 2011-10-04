@@ -301,6 +301,7 @@ class UsersController < ApplicationController
 	
 	def order_material
 	  @material_order = MaterialOrder.new(params[:material_order])
+	  @material_order.address.allow_po_box = true
 	  @material_order.user = get_user
 	end
 	
