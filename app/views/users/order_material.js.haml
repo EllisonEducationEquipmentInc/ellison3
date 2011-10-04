@@ -2,6 +2,7 @@ $(document).ready(function(){
 $.fancybox.close();
 });
 - if @material_order.address.valid? && @material_order.address.save
+  - sleep 1
   $('.material_ids:checked').each(function(){this.checked = false});
   $('#material_address').slideUp();  
   == $('#material_orders').append('#{escape_javascript render(:partial => 'material_order', :object => @material_order)}')
