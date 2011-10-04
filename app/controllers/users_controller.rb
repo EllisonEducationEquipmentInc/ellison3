@@ -241,6 +241,7 @@ class UsersController < ApplicationController
 	def materials
 	  @material_order = MaterialOrder.new
 	  @material_order.address = get_user.shipping_address || Address.new
+	  @material_order.address.allow_po_box = true
 		render :partial => 'materials'
 	end
 	
