@@ -72,3 +72,17 @@
 
   .actions
     = submit_tag "Submit", :class => 'jqui_save'
+%br
+%hr
+%h3 Customer Summary Report
+%p This report tells how many new user sign ups for the site within the selected date ranges
+= form_tag url_for(:action => 'customer_summary_report'), :remote => true, :class => 'report_form' do
+  .field
+    = label_tag :start_date
+    = text_field_tag :start_date, @start_date, :class => 'datetimepicker', :id => :customer_summary_start_date
+    = label_tag :end_date
+    = text_field_tag :end_date, @end_date, :class => 'datetimepicker', :id => :customer_summary_end_date
+
+  .actions
+    = submit_tag "Submit", :class => 'jqui_save'
+#customer_summary_report

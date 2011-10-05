@@ -69,6 +69,11 @@ class Admin::ReportsController < ApplicationController
   	end
 	end
 	
+	def customer_summary_report
+    @customer_summary = User.where(:systems_enabled.in => [current_system], :created_at.gt => Time.zone.parse(params[:start_date]), :created_at.lt => Time.zone.parse(params[:end_date])).count 
+	  render :js => "$('#customer_summary_report').html('#{@customer_summary}')"
+	end
+	
 	def download_report
 	  @report = Report.find(params[:id])
     @gridfs_file = Mongo::GridFileSystem.new(Mongoid.database).open(@report.file_name, 'r')
