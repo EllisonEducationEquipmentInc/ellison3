@@ -46,7 +46,7 @@ gem 'hpricot'
 gem 'ruby_parser'
 gem 'devise', '1.1.3'
 gem 'warden' #, '1.0.2'
-gem 'active_merchant'
+gem 'activemerchant', :require => 'active_merchant'
 gem 'httparty'
 gem 'shippinglogic', :git => 'git://github.com/computadude/shippinglogic.git', :branch => "master"
 gem 'sunspot_mongoid', :git => 'git://github.com/jugyo/sunspot_mongoid.git', :branch => "master"
