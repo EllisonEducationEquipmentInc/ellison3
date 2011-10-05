@@ -213,7 +213,7 @@ EOF
     
     def summary(options = {})
       start_date, end_date, system = parse_options(options)
-      collection.group :key => :locale, :cond => {:created_at => {"$gt" => start_date.utc, "$lt" => end_date.utc}, :system => system}, :reduce => "function(obj, out){out.subtotal += obj.subtotal_amount; out.shipping_amount += obj.shipping_amount; out.tax_amount += obj.tax_amount; out.total_amount += (obj.subtotal_amount + obj.shipping_amount + obj.tax_amount + obj.handling_amount); out.handling_amount += obj.handling_amount}", :initial => {:total_amount => 0, :subtotal => 0, :shipping_amount => 0, :tax_amount => 0, :handling_amount => 0}
+      collection.group :key => :locale, :cond => {:created_at => {"$gt" => start_date.utc, "$lt" => end_date.utc}, :system => system}, :reduce => "function(obj, out){out.subtotal += obj.subtotal_amount; out.shipping_amount += obj.shipping_amount; out.tax_amount += obj.tax_amount; out.total_amount += (obj.subtotal_amount + obj.shipping_amount + obj.tax_amount + obj.handling_amount); out.handling_amount += obj.handling_amount; out.total_discount += obj.total_discount ? obj.total_discount : 0 ; out.count++}", :initial => {:total_amount => 0, :subtotal => 0, :shipping_amount => 0, :tax_amount => 0, :handling_amount => 0, :total_discount => 0, :count => 0}
     end
     
     def status_summary(options = {})

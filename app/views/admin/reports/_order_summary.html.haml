@@ -9,7 +9,7 @@
         - set_current_locale summary.values[0]
         %tr{ :class => cycle(:odd, :even) }
           - summary.values.each do |val|
-            %td= val.respond_to?(:round) ? number_to_currency(val.round(2)) : val
+            %td= summary.values[-1] == val ? val : val.respond_to?(:round) ? number_to_currency(val.round(2)) : val rescue val
     - set_current_locale @original_locale
 - else
   No results found
