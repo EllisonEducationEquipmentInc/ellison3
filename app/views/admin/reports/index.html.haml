@@ -56,6 +56,20 @@
     = submit_tag "Submit", :class => 'jqui_save'
 %br
 %hr
+%h3 Products Performance Report
+%p This report gives us an overview of how the product(s) performed during the selected period. Select the date range, and select the desired category and submit button.
+= form_tag url_for(:action => 'product_performance_report'), :remote => true, :class => 'report_form' do
+  .field
+    = label_tag :tag
+    = select_tag :tag, grouped_options_for_select(@tags)
+    = label_tag :start_date
+    = text_field_tag :start_date, @start_date, :class => 'datetimepicker', :id => :product_performance_start_date
+    = label_tag :end_date
+    = text_field_tag :end_date, @end_date, :class => 'datetimepicker', :id => :product_performance_end_date
+  .actions
+    = submit_tag "Submit", :class => 'jqui_save'
+%br
+%hr
 %h3 Products Coupon Usage Report
 %p This report gives an overview of how the products under the selected coupon code performed. All coupon codes of #{current_system} are listed in the dropdown.
 = form_tag url_for(:action => 'coupon_usage_report'), :remote => true, :class => 'report_form' do

@@ -221,6 +221,34 @@ EOF
       collection.group :key => :status, :cond => {:created_at => {"$gt" => start_date.utc, "$lt" => end_date.utc}, :system => system}, :reduce => "function(obj, out){out.count++;}", :initial => {:count => 0}
     end
     
+    def product_performance(tag, options = {})
+      start_date, end_date, system = parse_options(options)
+      map = <<-EOF.strip_heredoc
+        function() {
+          if (this.order_items) {
+            this.order_items.forEach(function(doc) {
+              if (doc.product_id && #{tag.product_ids.map(&:to_s)}.indexOf(doc.product_id.toString()) >= 0) emit( {item_num: doc.item_num, name: doc.name, sale_price: doc.sale_price, quoted_price: doc.quoted_price, locale: doc.locale}, {quantity: doc.quantity, item_total: doc.sale_price * doc.quantity, number_of_orders: 1, locale: doc.locale} );
+            })
+          }
+        }
+      EOF
+
+      reduce = <<-EOF.strip_heredoc
+        function( key , values ){
+          var total = 0;
+          var sum = 0;
+          var number_of_orders = 0;
+          for ( var i=0; i<values.length; i++ ){
+            total += values[i].quantity;
+            sum += values[i].item_total;
+            number_of_orders += 1;
+          }
+          return {number_of_orders: number_of_orders, quantity : total, item_total: sum};
+        };
+      EOF
+      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {:status=>{"$nin"=>["Cancelled", "To Refund", "Refunded"]}, :created_at => {"$gt" => start_date.utc, "$lt" => end_date.utc}, "order_items.product_id" => {"$in" => tag.product_ids}, "system" => current_system}})["results"]
+    end
+    
   private
   
     def parse_options(options)
