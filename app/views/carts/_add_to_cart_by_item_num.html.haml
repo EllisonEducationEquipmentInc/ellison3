@@ -1,6 +1,6 @@
 - if admin_signed_in? && current_admin.can_act_as_customer || is_er? && ecommerce_allowed?
   #import_items{:style=>"margin:0 0 8px; font-weight:bold;"}
-    - if is_er? && ecommerce_allowed?
+    - if false # is_er? && ecommerce_allowed?
       = "To upload items from an Excel-CSV file, "
       = link_to "click here.", :action => :cart_upload
     - unless @cart.cart_items.blank?
