@@ -13,6 +13,7 @@ class Admin::ReportsController < ApplicationController
 	  @campaigns = Rails.cache.fetch("disctinct_campaign_names_#{current_system}", :expires_in => 1.hour.since) {Order.send(current_system).distinct('order_items.campaign_name').compact.sort {|x,y| x.downcase <=> y.downcase}}
 	  @coupons = Rails.cache.fetch("disctinct_coupon_codes_#{current_system}", :expires_in => 1.hour.since) {Order.send(current_system).distinct('order_items.coupon_code').compact.sort {|x,y| x.downcase <=> y.downcase}}
 	  @shipping_coupons = Rails.cache.fetch("disctinct_order_coupon_codes_#{current_system}", :expires_in => 1.hour.since) {Order.send(current_system).where(:free_shipping_by_coupon => true).distinct('coupon_code').compact.sort {|x,y| x.downcase <=> y.downcase}}
+	  @all_coupons = Rails.cache.fetch("all_disctinct_coupon_codes_#{current_system}", :expires_in => 1.hour.since) {Coupon.only(:codes, :id).where(:_id.in => Order.send(current_system).distinct(:coupon_id)).map {|e| e}}
 	end
 	
 	def order_analysis
@@ -67,6 +68,11 @@ class Admin::ReportsController < ApplicationController
   	  @report.delay.shipping_coupon_usage params[:coupon]
   	  render :process
   	end
+	end
+	
+	def coupon_summary_report
+	  @coupon_summary_report = Order.send(current_system).not_cancelled.where(:coupon_id => params[:coupon]).count
+	  render :js => "$('#coupon_summary_report').html('#{@coupon_summary_report}')"
 	end
 	
 	def customer_summary_report

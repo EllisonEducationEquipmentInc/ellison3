@@ -93,7 +93,7 @@ class Order
 	end
 	
 	scope :real_orders, :where => {:status.in => ["Open", "Processing", "In Process", "Shipped"]}
-	scope :not_cancelled, :where => {:status.ne => 'Cancelled'}
+	scope :not_cancelled, :where => {:status.nin => ['Cancelled', "To Refund", "Refunded"]}
 	
 	before_create :set_system
 	
@@ -154,7 +154,7 @@ EOF
         };
 EOF
 
-      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {:created_at => {"$gt" => start_date.utc, "$lt" => end_date.utc}, "order_items.campaign_name" => campaign_name, "system" => current_system}})["results"]
+      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {:status=>{"$nin"=>["Cancelled", "To Refund", "Refunded"]}, :created_at => {"$gt" => start_date.utc, "$lt" => end_date.utc}, "order_items.campaign_name" => campaign_name, "system" => current_system}})["results"]
     end
     
     def coupon_usage(coupon_code, options = {})
@@ -182,7 +182,7 @@ EOF
         };
 EOF
 
-      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {"order_items.coupon_code" => coupon_code, "system" => current_system}})["results"]
+      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {:status=>{"$nin" => ["Cancelled", "To Refund", "Refunded"]}, "order_items.coupon_code" => coupon_code, "system" => current_system}})["results"]
     end
     
     def shipping_coupon_usage(coupon_code)
@@ -208,7 +208,7 @@ EOF
         };
 EOF
 
-      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {"coupon_code" => coupon_code, "system" => current_system}})["results"]
+      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {:status=>{"$nin"=>["Cancelled", "To Refund", "Refunded"]}, "coupon_code" => coupon_code, "system" => current_system}})["results"]
     end
     
     def summary(options = {})

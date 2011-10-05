@@ -74,6 +74,18 @@
     = submit_tag "Submit", :class => 'jqui_save'
 %br
 %hr
+%h3 Coupon Summary Report
+%p This report gives a summary overview of how many orders were placed with the selected coupon. All coupon codes of #{current_system} are listed in the dropdown.
+= form_tag url_for(:action => 'coupon_summary_report'), :remote => true, :class => 'report_form' do
+  .field
+    = label_tag :coupon
+    = select_tag :coupon, options_for_select([["--- select coupon ---", nil]] + @all_coupons.map {|e| [e.codes * ', ', e.id]})
+
+  .actions
+    = submit_tag "Submit", :class => 'jqui_save'
+#coupon_summary_report
+%br
+%hr
 %h3 Customer Summary Report
 %p This report tells how many new user sign ups for the site within the selected date ranges
 = form_tag url_for(:action => 'customer_summary_report'), :remote => true, :class => 'report_form' do
