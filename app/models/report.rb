@@ -101,6 +101,25 @@ class Report
     Rails.logger.error("#{e}")
 	end
 	
+	def customer_report(tag)
+    set_current_system self.system || current_system
+	  self.report_type = "customer_report"
+	  @users = User.where(:_id.in => Order.send(self.system).not_cancelled.where(:created_at.gt => self.start_date, :created_at.lt => self.end_date, :"order_items.product_id".in => tag.product_ids).distinct(:user_id).compact)
+		self.total_count = @users.count
+		n = 0
+    csv_string = CSV.generate  do |csv|
+			csv << ["email", "company", "first_name", "last_name", "last_sign_in_at"]
+			@users.each do |user|
+				n += 1
+        percentage!(n)
+				csv << [user.email, user.company, user.billing_address.try(:first_name), user.billing_address.try(:last_name), user.last_sign_in_at]
+			end
+		end
+		write_to_gridfs csv_string
+		completed!
+  rescue Exception => e
+    Rails.logger.error("#{e}")
+	end
 	
 	
 private

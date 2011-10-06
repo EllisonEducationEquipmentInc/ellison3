@@ -88,6 +88,20 @@
     = submit_tag "Submit", :class => 'jqui_save'
 %br
 %hr
+%h3 Customer Report
+%p This report gives an overvie of customers who bought products of the selected tag within the specified time.
+= form_tag url_for(:action => 'customer_report'), :remote => true, :class => 'report_form' do
+  .field
+    = label_tag :tag
+    = select_tag :tag, grouped_options_for_select(@tags)
+    = label_tag :start_date
+    = text_field_tag :start_date, @start_date, :class => 'datetimepicker', :id => :customer_start_date
+    = label_tag :end_date
+    = text_field_tag :end_date, @end_date, :class => 'datetimepicker', :id => :customer_end_date
+  .actions
+    = submit_tag "Submit", :class => 'jqui_save'
+%br
+%hr
 %h3 Coupon Summary Report
 %p This report gives a summary overview of how many orders were placed with the selected coupon. All coupon codes of #{current_system} are listed in the dropdown.
 = form_tag url_for(:action => 'coupon_summary_report'), :remote => true, :class => 'report_form' do

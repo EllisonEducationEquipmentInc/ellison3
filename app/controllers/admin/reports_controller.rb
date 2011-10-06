@@ -82,6 +82,17 @@ class Admin::ReportsController < ApplicationController
   	end
 	end
 	
+	def customer_report
+	  if params[:tag].blank?
+	    render :js => "alert('select tag from the dropdown')"
+	  else
+	    @tag = Tag.find params[:tag]
+  	  @report = Report.create :start_date => Time.zone.parse(params[:start_date]), :end_date => Time.zone.parse(params[:end_date]), :system => current_system
+  	  @report.delay.customer_report @tag
+  	  render :process
+  	end
+	end
+	
 	def coupon_summary_report
 	  @coupon_summary_report = Order.send(current_system).not_cancelled.where(:coupon_id => params[:coupon]).count
 	  render :js => "$('#coupon_summary_report').html('#{@coupon_summary_report}')"
