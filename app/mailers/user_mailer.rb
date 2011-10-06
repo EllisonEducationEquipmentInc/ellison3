@@ -37,7 +37,16 @@ class UserMailer < ActionMailer::Base
 	  original_system = current_system
 	  set_current_system feedback.system
 	  @feedback = feedback
-	  mail(:to => feedback.email, :subject => "RE: [#{get_domain.capitalize}] #{feedback.subject} - #{feedback.number}")
+	  @comments = feedback.comments.sort {|x,y| y.created_at <=> x.created_at}
+	  mail(:to => feedback.email, :subject => "RE: [#{get_domain.capitalize}] #{feedback.subject} - #{feedback.number}") do |format|
+      format.html { 
+        if is_us?
+          render 'feedback_reply_us', :layout => 'feedback_reply'
+        else
+          render 'feedback_reply'
+        end
+      }
+    end
 	  set_current_system original_system
 	end
 	

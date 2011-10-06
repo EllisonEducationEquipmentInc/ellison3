@@ -1,6 +1,7 @@
 %table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
   %tr
     %td
+      %ul#latest_feedback= render :partial => 'comments/comment', :object => @comments.shift
       %h3 Dear Valued Customer,
       %p== A member of our Customer Service team has responded to your inquiry number #{@feedback.number}, below. Please click on the link or copy and paste it into your browser if you have further questions or comments:
       %p= link_to reply_to_feedback_url(@feedback, :host => get_domain), reply_to_feedback_url(@feedback, :host => get_domain)
