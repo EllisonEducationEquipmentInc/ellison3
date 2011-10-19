@@ -2,6 +2,7 @@
 %br
 %hr
 %h3 Order Analysis Report
+%p This report gives you overview of all orders with customer tracking cookie and utm_source info.  This report lists orders which are NOT cancelled.
 = form_tag url_for(:action => 'order_analysis'), :remote => true, :class => 'report_form' do
   .field
     = label_tag :start_date
@@ -43,7 +44,7 @@
 %br
 %hr
 %h3 Products Campaign Usage Report
-%p This report gives an overview of how the products under the selected campaign performed between the campaign start and end dates. All the active and inactive campaign names of #{current_system}, which have orders are listed in the dropdown.
+%p This report gives an overview of how the products under the selected campaign performed between the campaign start and end dates. All coupon codes of  #{current_system}, which have orders are listed in the drop down.
 = form_tag url_for(:action => 'campaign_usage_report'), :remote => true, :class => 'report_form' do
   .field
     = label_tag :campaign
@@ -57,7 +58,7 @@
 %br
 %hr
 %h3 Products Performance Report
-%p This report gives us an overview of how the product(s) performed during the selected period. Select the date range, and select the desired category and submit button.
+%p This report gives us an overview of how the products under the tag performed during the selected period. Select the date range, and select the desired category and submit button.  This report looks for product performance of all products under a specified tag.
 = form_tag url_for(:action => 'product_performance_report'), :remote => true, :class => 'report_form' do
   .field
     = label_tag :tag
@@ -71,7 +72,7 @@
 %br
 %hr
 %h3 Products Coupon Usage Report
-%p This report gives an overview of how the products under the selected coupon code performed. All coupon codes of #{current_system} are listed in the dropdown.
+%p This report gives an overview of how the products under the selected coupon code performed. All coupon codes of #{current_system}, which have orders are listed in the dropdown.
 = form_tag url_for(:action => 'coupon_usage_report'), :remote => true, :class => 'report_form' do
   .field
     = label_tag :coupon
@@ -88,8 +89,8 @@
     = submit_tag "Submit", :class => 'jqui_save'
 %br
 %hr
-%h3 Customer Report
-%p This report gives an overvie of customers who bought products of the selected tag within the specified time.
+%h3 Customer Information Report by tag
+%p This report gives an overview of customers who bought products of the selected tag within the specified time.
 = form_tag url_for(:action => 'customer_report'), :remote => true, :class => 'report_form' do
   .field
     = label_tag :tag
@@ -103,7 +104,7 @@
 %br
 %hr
 %h3 Coupon Summary Report
-%p This report gives a summary overview of how many orders were placed with the selected coupon. All coupon codes of #{current_system} are listed in the dropdown.
+%p This report gives a summary overview of how many orders were placed with the selected coupon. All coupon codes of  #{current_system}, which have orders are listed in the drop down.
 = form_tag url_for(:action => 'coupon_summary_report'), :remote => true, :class => 'report_form' do
   .field
     = label_tag :coupon
