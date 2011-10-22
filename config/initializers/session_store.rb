@@ -7,5 +7,4 @@
 # (create the session table with "rake db:sessions:create")
 # Rails.application.config.session_store :active_record_store
 
-require "mongo_session_store/mongoid"
-Rails.application.config.session_store :mongoid_store, :key => '_ellison3_session', :expire_after => 30.days
+Ellison3::Application.config.session_store :mongoid_store, :key => '_ellison3_session', :expire_after => 30.days

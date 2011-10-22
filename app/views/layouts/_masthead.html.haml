@@ -20,7 +20,7 @@
           %li.plaintext= link_to "<span>or</span>".html_safe, signin_signup_path, :class => "btn-plaintext", :onclick => "return false"
           %li= link_to "<span>Sign Up</span>".html_safe, signin_signup_path, :class => "lightbox btn-signup", :title => "Sign Up", :alt => "Sign Up"
         - if is_uk? && !@cart_locked
-          %li= link_to image_tag("/images/ui-buttons/currency_#{current_currency}.png", :title => "Switch to #{current_currency == 'gbp' ? 'the Euro' : 'British Pounds'}", :alt => "Switch to #{current_currency == 'gbp' ? 'the Euro' : 'British Pounds'}"), "?#{request.query_parameters.merge("locale" => "#{current_currency == 'gbp' ? 'en-EU' : 'en-UK'}").to_params}", :class => "btn-locale"
+          %li= link_to image_tag("/images/ui-buttons/currency_#{current_currency}.png", :title => "Switch to #{current_currency == 'gbp' ? 'the Euro' : 'British Pounds'}", :alt => "Switch to #{current_currency == 'gbp' ? 'the Euro' : 'British Pounds'}"), "?#{request.query_parameters.merge("locale" => "#{current_currency == 'gbp' ? 'en-EU' : 'en-UK'}").to_param}", :class => "btn-locale"
       - if free_shipping_message.present?
         #promo_message
           %span= free_shipping_message.html_safe

@@ -17,7 +17,7 @@
               %strong Switch System:
               %span{:id => 'systemswitch'}
                 - (ELLISON_SYSTEMS & current_admin.systems_enabled).each do |sys|
-                  = link_to_unless current_system == sys, sys, "?#{request.query_parameters.merge('system' => sys).to_params}"
+                  = link_to_unless current_system == sys, sys, "?#{request.query_parameters.merge('system' => sys).to_param}"
           .clear
           %hr
           %ul.contentwrap_small
