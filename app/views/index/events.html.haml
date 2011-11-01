@@ -1,12 +1,10 @@
 %h2 Events
 = image_tag "/images/ui-objects/_#{current_system}_banner_event.png"
 %h3{:style=>"margin-top:8px;"} Want to connect with us live and in person?
-- if is_ee_us?  
-  %p Come see us at our next Tradeshow or Convention booth at a city near you. Simply check the listings below for a complete schedule of our upcoming events!
-- elsif is_uk?
+- if is_uk?
   %p
 - else
-  %p Find us at our next Tradeshow or Convention Booth at a city near you. Simply check our listing below to browse our complete schedule of upcoming events!
+  %p Come see us at our next Tradeshow or Convention booth at a city near you. Simply check the listings below for a complete schedule of our upcoming events!
 - if @events.present?
   %table
     %thead
