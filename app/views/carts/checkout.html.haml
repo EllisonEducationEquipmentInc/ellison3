@@ -62,6 +62,12 @@
       == Weight: #{get_cart.total_actual_weight} lbs
     #shipping_options{ :style => "width: #{get_user.shipping_address.try(:country) == "United States" ? '200' : '285'}px"}= render :partial => "shipping_options" if get_user.shipping_address
     = link_to "Estimated shipping and handling", "/shipping_handling?no_layout=1", :class => "link_help lightbox"
+    - if is_sizzix_uk?
+      %p{:class=>"legalese", :style=>"margin-right:12px;"}
+        %br
+        %span{:class=>"legalese", :style=>"font-weight:bold;"}UK Delivery Service
+        %br
+        We will be shipping out UK orders using the courier company DPD from the period Monday 31st October to Friday 11th November. We feel that DPD offer a range of benefits for you, which include an estimated 1 hour delivery window and the ability to receive text message notification of delivery times and dates. If you would like to receive a text message notification please enter a mobile telephone number as your main contact number when you place your order. There is no additional charge for this service. Any replies made to this service via text message will be charged at your normal network rate
   %h3 Payment
   #checkout_cc{:style => "display:#{get_user.billing_address && get_user.shipping_address ? 'block' : 'none'}"}= render :partial => 'payment' if get_user.billing_address && get_user.shipping_address
 .clear
