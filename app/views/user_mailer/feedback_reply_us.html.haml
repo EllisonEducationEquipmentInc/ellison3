@@ -1,7 +1,8 @@
 %table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
   %tr
     %td
-      %p#latest_feedback= render :partial => 'comments/comment', :object => @comments.shift
+      %p
+        #latest_feedback= render :partial => 'comments/comment', :object => @comments.shift
       %p== If you have any other questions or concerns, please click on the link below. It will remain active for 7 days. Once the link expires, you will need to create a new session by posting your question on our feedback form.
       %p= link_to reply_to_feedback_url(@feedback, :host => get_domain), reply_to_feedback_url(@feedback, :host => get_domain)
       
