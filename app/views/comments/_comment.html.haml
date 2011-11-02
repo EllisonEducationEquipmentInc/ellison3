@@ -1,6 +1,8 @@
-On 
-= l comment.created_at, :format => :custom rescue ''
-= comment.admin_reply ? "Customer Support and Service" : comment.email
-wrote:
-%br
-= simple_format comment.message
+%li
+  On 
+  = l comment.created_at, :format => :custom rescue ''
+  = comment.admin_reply ? "Customer Support and Service" : comment.email
+  wrote:
+  %br
+  = simple_format comment.message
+  %hr
