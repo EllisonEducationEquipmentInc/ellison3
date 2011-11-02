@@ -96,15 +96,6 @@
               = yield
               %table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
                 %tr
-                  %td{ :style => "font-size: 11px; vertical-align: top;" }
-                    %p
-                      Kind Regards,
-                      %br
-                      == #{get_domain} Customer Service
-                      %br
-                      = link_to get_domain, "http://www.#{get_domain}/home"
-              %table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
-                %tr
                   %td{ :style => "font-size: 11px; vertical-align: top;" }= image_tag("http://www.#{get_domain}/images/ui-email/logo_#{current_system}.png", :alt => "#{system_name}", :title => "#{system_name}")
                 %tr
                   %td &nbsp;
