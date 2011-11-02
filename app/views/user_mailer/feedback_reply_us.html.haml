@@ -1,8 +1,7 @@
 %table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
   %tr
     %td
-      %p
-        #latest_feedback= render :partial => 'comments/comment', :object => @comments.shift
+      %ul#latest_feedback= render :partial => 'comments/comment', :object => @comments.shift
       %p== If you have any other questions or concerns, please click on the link below. It will remain active for 7 days. Once the link expires, you will need to create a new session by posting your question on our feedback form.
       %p= link_to reply_to_feedback_url(@feedback, :host => get_domain), reply_to_feedback_url(@feedback, :host => get_domain)
       
@@ -14,9 +13,6 @@
               %br
               == #{get_domain} Customer Service
               %br
-              = link_to get_domain, "http://www.#{get_domain}/home"
+              = link_to get_domain, "http://www.#{get_domain}/home"                      
                       
-                      
-      %hr
-      %p
-        #feedback_history= render :partial => 'comments/comment', :collection => @comments
+      %ul#feedback_history= render :partial => 'comments/comment', :collection => @comments
