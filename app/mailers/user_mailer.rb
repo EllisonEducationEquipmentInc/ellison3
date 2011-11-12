@@ -41,6 +41,7 @@ class UserMailer < ActionMailer::Base
 	  mail(:to => feedback.email, :subject => "RE: [#{get_domain.capitalize}] #{feedback.subject} - #{feedback.number}") do |format|
       format.html { 
         if is_us?
+          @latest = @comments.shift
           render 'feedback_reply_us', :layout => 'feedback_reply'
         else
           render 'feedback_reply'
