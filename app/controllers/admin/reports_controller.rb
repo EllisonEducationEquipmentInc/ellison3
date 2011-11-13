@@ -77,7 +77,7 @@ class Admin::ReportsController < ApplicationController
 	  else
 	    @tag = Tag.find params[:tag]
   	  @report = Report.create :start_date => Time.zone.parse(params[:start_date]), :end_date => Time.zone.parse(params[:end_date]), :system => current_system
-  	  @report.product_performance @tag
+  	  @report.delay.product_performance @tag
   	  render :process
   	end
 	end
