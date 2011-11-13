@@ -14,7 +14,7 @@ class Admin::ReportsController < ApplicationController
 	  @coupons = Rails.cache.fetch("disctinct_coupon_codes_#{current_system}", :expires_in => 1.hour.since) {Order.send(current_system).distinct('order_items.coupon_code').compact.sort {|x,y| x.downcase <=> y.downcase}}
 	  @shipping_coupons = Rails.cache.fetch("disctinct_order_coupon_codes_#{current_system}", :expires_in => 1.hour.since) {Order.send(current_system).where(:free_shipping_by_coupon => true).distinct('coupon_code').compact.sort {|x,y| x.downcase <=> y.downcase}}
 	  @all_coupons = Rails.cache.fetch("all_disctinct_coupon_codes_#{current_system}", :expires_in => 1.hour.since) {Coupon.only(:codes, :id).where(:_id.in => Order.send(current_system).distinct(:coupon_id)).map {|e| e}}
-    @tags = Rails.cache.fetch("all_report_tags_#{current_system}", :expires_in => 1.hour.since) {Tag.send(current_system).where(:tag_type.in => ["designer", "artist", "special", "exclusive", "theme"]).order_by([:tag_type, :name]).only(:tag_type).group.each_with_object({}) {|e, h| h[e["tag_type"]] = e["group"].sort {|x,y| x.name <=> y.name }.map {|i| [i.name, i.id]}}}
+    @tags = Rails.cache.fetch("all_report_tags_#{current_system}", :expires_in => 1.hour.since) {Tag.send(current_system).where(:tag_type.in => ["designer", "artist", "special", "exclusive", "theme", "product_line"]).order_by([:tag_type, :name]).only(:tag_type).group.each_with_object({}) {|e, h| h[e["tag_type"]] = e["group"].sort {|x,y| x.name <=> y.name }.map {|i| [i.name, i.id]}}}
 	end
 	
 	def order_analysis
@@ -77,7 +77,7 @@ class Admin::ReportsController < ApplicationController
 	  else
 	    @tag = Tag.find params[:tag]
   	  @report = Report.create :start_date => Time.zone.parse(params[:start_date]), :end_date => Time.zone.parse(params[:end_date]), :system => current_system
-  	  @report.delay.product_performance @tag
+  	  @report.product_performance @tag
   	  render :process
   	end
 	end

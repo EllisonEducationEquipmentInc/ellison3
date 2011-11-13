@@ -103,7 +103,7 @@ class Order
 	  end
 	  
     def quanity_sold(item_num)
-      map = <<EOF
+      map = <<-EOF
         function() {
           if (this.order_items) {
             this.order_items.forEach(function(doc) {
@@ -111,9 +111,9 @@ class Order
             })
           }
         }
-EOF
+      EOF
 
-      reduce = <<EOF
+      reduce = <<-EOF
         function( key , values ){
           var total = 0;
           var sum = 0;
@@ -123,14 +123,14 @@ EOF
           }
           return { quantity : total, item_total: sum};
         };
-EOF
+      EOF
 
       collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {"order_items.item_num" => item_num}})["results"]
     end
     
     def campaign_usage(campaign_name, options = {})
       start_date, end_date, system = parse_options(options)
-      map = <<EOF
+      map = <<-EOF
         function() {
           if (this.order_items) {
             this.order_items.forEach(function(doc) {
@@ -138,9 +138,9 @@ EOF
             })
           }
         }
-EOF
+      EOF
 
-      reduce = <<EOF
+      reduce = <<-EOF
         function( key , values ){
           var total = 0;
           var sum = 0;
@@ -152,13 +152,13 @@ EOF
           }
           return {number_of_orders: number_of_orders, quantity : total, item_total: sum};
         };
-EOF
+      EOF
 
       collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {:status=>{"$nin"=>["Cancelled", "To Refund", "Refunded"]}, :created_at => {"$gt" => start_date.utc, "$lt" => end_date.utc}, "order_items.campaign_name" => campaign_name, "system" => current_system}})["results"]
     end
     
     def coupon_usage(coupon_code, options = {})
-      map = <<EOF
+      map = <<-EOF
         function() {
           if (this.order_items) {
             this.order_items.forEach(function(doc) {
@@ -166,9 +166,9 @@ EOF
             })
           }
         }
-EOF
+      EOF
 
-      reduce = <<EOF
+      reduce = <<-EOF
         function( key , values ){
           var total = 0;
           var sum = 0;
@@ -180,19 +180,19 @@ EOF
           }
           return {number_of_orders: number_of_orders, quantity : total, item_total: sum};
         };
-EOF
+      EOF
 
       collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {:status=>{"$nin" => ["Cancelled", "To Refund", "Refunded"]}, "order_items.coupon_code" => coupon_code, "system" => current_system}})["results"]
     end
     
     def shipping_coupon_usage(coupon_code)
-      map = <<EOF
+      map = <<-EOF
         function() {
           emit(this.locale, {subtotal_amount: this.subtotal_amount, shipping_amount: this.shipping_amount, number_of_orders: 1, line_items: this.order_items.length} );
         }
-EOF
+      EOF
 
-      reduce = <<EOF
+      reduce = <<-EOF
         function( key , values ){
           var total_shipping = 0;
           var sum = 0;
@@ -206,7 +206,7 @@ EOF
           }
           return {number_of_orders: number_of_orders, total_subtotal_amount: sum, total_shipping: total_shipping, total_line_items: total_line_items};
         };
-EOF
+      EOF
 
       collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {:status=>{"$nin"=>["Cancelled", "To Refund", "Refunded"]}, "coupon_code" => coupon_code, "system" => current_system}})["results"]
     end
@@ -227,7 +227,7 @@ EOF
         function() {
           if (this.order_items) {
             this.order_items.forEach(function(doc) {
-              if (doc.product_id && #{tag.product_ids.map(&:to_s)}.indexOf(doc.product_id.toString()) >= 0) emit( {item_num: doc.item_num, name: doc.name, sale_price: doc.sale_price, quoted_price: doc.quoted_price, locale: doc.locale}, {quantity: doc.quantity, item_total: doc.sale_price * doc.quantity, number_of_orders: 1, locale: doc.locale} );
+              if (doc.product_id && #{tag.product_ids.map(&:to_s)}.indexOf(doc.product_id.toString()) >= 0) emit( {item_num: doc.item_num, name: doc.name, sale_price: doc.sale_price, quoted_price: doc.quoted_price, locale: doc.locale, outlet: doc.outlet}, {quantity: doc.quantity, item_total: doc.sale_price * doc.quantity, number_of_orders: 1, locale: doc.locale} );
             })
           }
         }
