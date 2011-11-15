@@ -19,7 +19,7 @@ namespace :ax do
         xml = build_ax_xml @orders
         filename = "global_orders_download_#{Time.now.strftime("%d%m%y_%H%M%S")}.xml"
         File.open("#{PATH}/to_ax/#{filename}", "w") { |f| f.puts(xml)}
-        Order.collection.update({:_id => {:in =>  @orders.map(&:id)}}, {:$set => {:status => "Processing"}}, :multi => true)
+        Order.collection.update({:_id => {:$in  =>  @orders.map(&:id)}}, {:$set => {:status => "Processing"}}, :multi => true)
         p "#{filename} has been created"
       else
         p "there are no open orders in the system"
@@ -36,7 +36,7 @@ namespace :ax do
         xml = build_ax_xml @orders
         filename = "global_orders_download_#{Time.now.strftime("%d%m%y_%H%M%S")}.xml"
         File.open("#{PATH}/uk_to_ax/#{filename}", "w") { |f| f.puts(xml)}
-        Order.collection.update({:_id => {:in =>  @orders.map(&:id)}}, {:$set => {:status => "Processing"}}, :multi => true)
+        Order.collection.update({:_id => {:$in  =>  @orders.map(&:id)}}, {:$set => {:status => "Processing"}}, :multi => true)
         p "#{filename} has been created"
       else
         p "there are no open orders in the system"
@@ -53,7 +53,7 @@ namespace :ax do
         xml = build_ax_xml @orders
         filename = "global_orders_download_#{Time.now.strftime("%d%m%y_%H%M%S")}.xml"
         File.open("#{PATH}/uk_to_ax/#{filename}", "w") { |f| f.puts(xml)}
-        Order.collection.update({:_id => {:in =>  @orders.map(&:id)}}, {:$set => {:status => "Processing"}}, :multi => true)
+        Order.collection.update({:_id => {:$in  =>  @orders.map(&:id)}}, {:$set => {:status => "Processing"}}, :multi => true)
         p "#{filename} has been created"
       else
         p "there are no open orders in the system"
@@ -70,7 +70,7 @@ namespace :ax do
         xml = build_ax_xml @orders
         filename = "paid_pre_orders_download_#{Time.now.strftime("%d%m%y_%H%M%S")}.xml"
         File.open("#{PATH}/to_ax/pre_orders/#{filename}", "w") { |f| f.puts(xml)}
-        Order.collection.update({:_id => {:in =>  @orders.map(&:id)}}, {:$set => {:status => "Processing"}}, :multi => true)
+        Order.collection.update({:_id => {:$in  =>  @orders.map(&:id)}}, {:$set => {:status => "Processing"}}, :multi => true)
         p "#{filename} has been created"
       else
         p "there are no open orders in the system"
