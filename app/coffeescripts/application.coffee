@@ -657,7 +657,7 @@ root.payment_validator_options =
   
   submitHandler: (form) ->
     _gaq.push [ "_trackEvent", "Cart", "Place Order" ]
-    fancyloader "Your order is being processed. Thank you for your patience!"
+    fancyloader "Your order is being processed. Please do not click the browser back button while order is processing. Thank you for your patience!"
     $("#proceed_checkout").callRemote()
   
   messages: 
