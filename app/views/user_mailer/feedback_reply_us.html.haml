@@ -17,4 +17,4 @@
               = link_to get_domain, "http://www.#{get_domain}/home"                      
                       
       %hr
-      %ul#feedback_history= render :partial => 'comments/comment', :collection => @comments
+      %ul{:style=>"padding:0; margin:0;"}#feedback_history= render :partial => 'comments/comment', :collection => @comments
