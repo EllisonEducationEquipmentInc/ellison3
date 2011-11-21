@@ -34,7 +34,7 @@ class Address
 	validates_presence_of :state, :if => Proc.new {|p| p.us?}
 	validates_presence_of :company, :if => Proc.new {|p| p.is_er?}
 	validates_format_of :zip_code, :with => /^\d{5}(-\d{4})?$/, :if => Proc.new {|p| p.us?}
-	validates_format_of :phone, :with => /^(1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})(-|\.)?[2-9]\d{2}(-|\.)?\d{4}$/, :if => Proc.new {|p| p.us?}
+	validates_format_of :phone, :with => /^(1(-|\.)?)?(\([2-9]\d{2}\)|[2-9]\d{2})(-|\.)?[2-9]\d{2}(-|\.)?\d{4}$/, :if => Proc.new {|p| p.us?}
 	validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
 	
 	after_validation :validate_address, :if => :must_be_verified?

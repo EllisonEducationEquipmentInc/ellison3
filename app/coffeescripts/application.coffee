@@ -520,7 +520,7 @@ $(document).ready ->
   highlight_keyword()
   jQuery.validator.addMethod "phoneUS", (phone_number, element) ->
     phone_number = phone_number.replace(/\s+/g, "")
-    @optional(element) or phone_number.length > 9 and phone_number.match(/^(1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})(-|\.)?[2-9]\d{2}(-|\.)?\d{4}$/)
+    @optional(element) or phone_number.length > 9 and phone_number.match(/^(1(-|\.)?)?(\([2-9]\d{2}\)|[2-9]\d{2})(-|\.)?[2-9]\d{2}(-|\.)?\d{4}$/)
   , "Please specify a valid US phone number"
   jQuery.validator.addMethod "zipUS", (zip, element) ->
     @optional(element) or zip.match(/^\d{5}(-\d{4})?$/)
