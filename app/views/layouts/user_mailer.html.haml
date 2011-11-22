@@ -105,9 +105,9 @@
                     %p
                       Kind Regards,
                       %br
-                      == #{get_domain} Customer Service
+                      == #{get_domain.capitalize} Customer Service
                       %br
-                      = link_to get_domain, "http://www.#{get_domain}/home"
+                      = link_to get_domain.capitalize, "http://www.#{get_domain}/home"
           %tr
             %td{ :align => "center", :style => "font-size: 11px; vertical-align: top;" }
               %p **Please do not reply to this email as it is sent from an unattended mail box.**            

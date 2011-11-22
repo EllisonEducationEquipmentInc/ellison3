@@ -118,7 +118,7 @@
       - unless is_uk?
         %li Returns or exchanges subject to restocking fee.
       - if is_uk?
-        %li Please allow a maximum ten working days for your order to be processed.
+        %li Please allow a maximum ten working days for your order to be processed during busier periods.
     - unless @order.comments.blank?
       %p== <strong>Comments:</strong> #{@order.comments}
     %p= link_to "Print a copy of this order receipt.", "javascript:window.print()", :class => "link_print dontprint"
