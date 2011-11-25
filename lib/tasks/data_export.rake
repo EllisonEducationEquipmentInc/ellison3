@@ -44,7 +44,7 @@ namespace :data_export do
   
   def gross_price(price)
     if is_us?
-      price
+      price.round(2)
     else
       @vat ||= SystemSetting.value_at("vat").to_f
       (price.to_f * (1+@vat/100.0)).round(2)
