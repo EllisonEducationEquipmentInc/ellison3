@@ -171,6 +171,10 @@ class Product
       active.where(:systems_enabled.in => [sys], :"start_date_#{current_system}".lte => time.change(:sec => 1), :"end_date_#{current_system}".gte => time.change(:sec => 1))      
     end
     
+    def orderable(sys = current_system)
+      where(:"orderable_#{sys}" =>  true)
+    end
+    
     def find_by_item_num(item_num)
       active.where(:item_num => item_num).cache.first
     end
@@ -519,6 +523,16 @@ class Product
   def can_be_purchased?(sys = current_system, qty_needed = 1)
     pre_order?(sys) && quantity(sys) >= qty_needed || backorder_allowed?(sys) && !pre_order?(sys) && out_of_stock? && listable?(sys) && orderable?(sys) || 
       backorder_allowed?(sys) && !pre_order?(sys) && listable?(sys, qty_needed - 1) && orderable?(sys) || !backorder_allowed?(sys) && available?(sys) && quantity(sys) >= qty_needed
+  end
+  
+  def google_availability
+    if pre_order?
+      "preorder"
+    elsif %w(discontinued available).include?(life_cycle) && quantity > 0
+      "in stock"
+    elsif %w(available).include?(life_cycle) && quantity < 1
+      can_be_purchased? ? "available for order" : "out of stock"
+    end
   end
 
   # system specific distribution life cycle - before its expiriation (distribution_life_cycle_ends_#{sys})

@@ -15,8 +15,9 @@ namespace :data_export do
                       'xmlns' => 'http://www.w3.org/2005/Atom', 'xmlns:g' => 'http://base.google.com/ns/1.0'}) do |feed|
           feed.title("#{current_system}_product_feed.xml")
           feed.updated(Time.zone.now)
-          Product.listable.in_batches(100) do |group|
+          Product.listable.orderable.in_batches(100) do |group|
             group.each do |product|
+              next if product.google_availability.blank?
               print "."
               feed.entry(product, :id => product.id, :url => "http://www.#{get_domain}/product/#{product.item_num}/#{product.name.parameterize}") do |entry|
                 entry.title(product.name)
@@ -29,6 +30,8 @@ namespace :data_export do
                 #entry.tag!("g:id", product.item_num)
                 entry.tag!("g:upc", product.upc) unless product.upc.blank?
                 entry.tag!("g:mpn", product.item_num)
+                entry.tag!("g:availability", product.google_availability)
+                entry.tag!("g:google_product_category", "Arts & Entertainment > Crafts & Hobbies > Scrapbooking")
               end
             end
           end
