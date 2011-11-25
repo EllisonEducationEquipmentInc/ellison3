@@ -35,6 +35,7 @@ class Payment
 	field :deferred, :type => Boolean, :default => false
 	field :purchase_order, :type => Boolean, :default => false
 	field :purchase_order_number
+	field :reference_purchase_order_number
 	
 	field :cv2_result
 	field :status
