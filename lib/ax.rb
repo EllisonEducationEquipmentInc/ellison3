@@ -67,7 +67,9 @@ module Ax
                   end
                   xml.cybersource_merchant_ref_num(order.payment.vendor_tx_code)
                   xml.amount_charged(format_with_precision(order.total_amount))
-
+                  if order.payment.present? && order.payment.reference_purchase_order_number.present?
+                    xml.ref_purchase_order_number order.payment.reference_purchase_order_number
+                  end
                   xml.invoice_address {
                     xml.invoice_contact_first(order.payment.first_name)
                     xml.invoice_contact_last(order.payment.last_name)
