@@ -22,7 +22,7 @@ namespace :data_export do
               feed.entry(product, :id => product.id, :url => "http://www.#{get_domain}/product/#{product.item_num}/#{product.name.parameterize}") do |entry|
                 entry.title(product.name)
                 entry.description(product.description)
-                entry.tag!("g:image_link", "http://www.#{get_domain}#{product.medium_image}")
+                entry.tag!("g:image_link", "http://www.#{get_domain}#{product.large_image}")
                 entry.tag!("g:price", gross_price(product.price))
                 entry.tag!("g:condition", "new")
                 entry.tag!("g:product_type", "Arts & Entertainment > Crafts & Hobbies > Scrapbooking")

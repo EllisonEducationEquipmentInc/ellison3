@@ -262,9 +262,9 @@ class IndexController < ApplicationController
       else
         'sizzix,ellison'
       end
-    @countries = Store.active.physical_stores.order_by(:country, :desc).distinct(:country).sort {|x,y| x <=> y}
-    @online_stores = Store.active.webstores.order_by(:name, :asc).cache
-    @distributors = Store.active.distributors.order_by(:name, :asc).cache
+    @countries = Store.active.physical_stores.order_by(:country => :desc).distinct(:country).sort {|x,y| x <=> y}
+    @online_stores = Store.active.webstores.order_by(:name => :asc).cache
+    @distributors = Store.active.distributors.order_by(:name => :asc).cache
     @store_locator_content = SharedContent.store_locator
     @title = 'Store Locator'
   end
@@ -274,7 +274,7 @@ class IndexController < ApplicationController
     criteria = criteria.where.active.physical_stores
     criteria = criteria.where(:brands.in => params[:brands]) if params[:brands].present?
     if params[:country] && params[:country] != 'United States'
-      @stores = criteria.where(:country => params[:country]).map {|e| e}
+      @stores = criteria.where(:country => params[:country]).order_by(:name => :asc).map {|e| e}
     elsif params[:zip_code].present? && params[:zip_code] =~ /^\d{5,}/
       @zip_geo = MultiGeocoder.geocode(params[:zip_code])
       @stores = criteria.where(:location.within => { "$center" => [ [@zip_geo.lat, @zip_geo.lng], ((params[:radius].to_i * 20)/(3963.192*0.3141592653))] }).map {|e| e}
