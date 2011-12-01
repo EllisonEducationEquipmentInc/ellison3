@@ -86,7 +86,6 @@
     - if is_er?
       .field 
         = f.label :reference_purchase_order_number, "Reference Purchase Order Number", :style=>"width:208px"
-        %br
         = f.text_field :reference_purchase_order_number, :class => "cc"
     - if is_er? && get_user.token && get_user.token.current?
       .field.credit_card

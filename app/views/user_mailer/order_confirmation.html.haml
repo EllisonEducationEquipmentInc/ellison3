@@ -108,8 +108,9 @@
       %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "left" }
         This order was charged to:
         - if @order.payment.try(:purchase_order)
-          %strong Purchase Order
-          = @order.payment.purchase_order_number
+          %strong 
+            Purchase Order
+            = @order.payment.purchase_order_number
         - else
           %strong
             == #{@order.payment.card_name}, 
