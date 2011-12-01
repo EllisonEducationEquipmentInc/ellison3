@@ -85,7 +85,8 @@
   #cc_info
     - if is_er?
       .field 
-        = f.label :reference_purchase_order_number
+        = f.label :reference_purchase_order_number, {:style=> "width:auto !important;"}
+        %br
         = f.text_field :reference_purchase_order_number, :class => "cc"
     - if is_er? && get_user.token && get_user.token.current?
       .field.credit_card
