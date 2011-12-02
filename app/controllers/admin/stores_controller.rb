@@ -17,7 +17,7 @@ class Admin::StoresController < ApplicationController
 	  criteria = criteria.where(:product_line.in => [params[:product_line]]) unless params[:product_line].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria = criteria.any_of({ :name => regexp}, { :contact_person => regexp }, {:store_number => regexp})
+  	  criteria = criteria.any_of({ :name => regexp}, { :contact_person => regexp }, {:store_number => regexp}, {:zip_code =>regexp})
 	  end
 		@stores = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
 	end
