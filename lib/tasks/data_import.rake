@@ -103,4 +103,25 @@ namespace :data_import do
     end
     Sunspot.delay.commit
   end
+  
+  desc "import lyris subscriptions"
+  task :lyris_subscriptions => :environment do
+    set_current_system ENV['system'] || "szus"
+    get_list_and_segments
+    CSV.foreach("/data/shared/data_files/lyris.csv", :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
+      @subscription = Subscription.first(:conditions => {:email => row['email'].downcase, :list => subscription_list}) || Subscription.new 
+      @subscription.email = row['email'].downcase
+      @subscription.confirmed = true
+      @subscription.list = subscription_list
+      @subscription.list_name = @list[1]
+      @segments.keys.map(&:to_s).each do |segment|
+        @subscription.segments << segment if row[segment] == "1"
+      end
+      @subscription.save
+      p "===== #{@subscription.valid?} #{@subscription.email} #{@subscription.list} ===="
+      Lyris.delay.new :create_single_member, :email_address => @subscription.email, :list_name => @subscription.list, :full_name => @subscription.name
+      Lyris.delay.new :update_member_status, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :member_status => 'normal'
+      Lyris.delay.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @subscription.segments.map {|e| {:name => e.to_sym, :value => 1}} << {:name => :subscription_id, :value => @subscription.id.to_s}
+    end
+  end
 end
