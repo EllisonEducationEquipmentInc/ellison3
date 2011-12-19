@@ -251,6 +251,10 @@ module EllisonSystem
     "erus" => {:erus_retailers => "The Retailers Newsletter", :sizzix_retailers => "Sizzix Retailers", :eclips => "Sizzix eclips", :tim_holtz => "Tim Holtz", :quilt_consumer => "Quilting", :ellison_retailers => "Ellison Retailers", :sizzix_retailers_in_spanish => "Sizzix Retailers in Spanish"}
   }
   
+  def list_to_system(list)
+    NEWSLETTER_SEGMENTS.select {|k,v| v.keys.include?(list.to_sym)}.keys.first rescue nil
+  end
+  
   def get_list_and_segments
     @segments = NEWSLETTER_SEGMENTS[current_system].dup
     @list = @segments.shift

@@ -1,0 +1,19 @@
+= form_for([:admin, @subscription]) do |f|
+  = f.error_messages
+  
+
+  %h3.contentwrap_XXXL.last Basic Information
+  .contentwrap_large
+    .field
+      = required_label f, :email, {:label_size => "50px"}
+      = f.text_field :email
+    .field
+      = f.label :name, :style => "width: 50px"
+      = f.text_field :name
+    Yes, I'd like to subscribe to
+    %strong= @list[1]
+    = render :partial => 'index/segments'
+
+  .clear
+  .actions
+    = f.submit :class => 'jqui_save'

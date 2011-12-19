@@ -189,6 +189,13 @@ Ellison3::Application.routes.draw do |map|
 			    get :shared_contents_autocomplete, :reorder_visual_assets
 			  end
 			end
+			resources :subscriptions do
+			  collection do
+			    get :upload
+          post :fast_upload
+			  end
+			end
+      
 			resources :landing_pages do
 			  collection do
 			    get :reorder_visual_assets
