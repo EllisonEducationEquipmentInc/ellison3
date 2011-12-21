@@ -90,6 +90,7 @@ class Admin::SubscriptionsController < ApplicationController
   end
   
   def destroy
+    @subscription = Subscription.find(params[:id])
     #@lyris = Lyris.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @segments.keys.map {|e| {:name => e, :value => 0}} if @segments.present?
     @lyris = Lyris.new :update_member_status, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :member_status => 'unsub'
     if @lyris.success?
