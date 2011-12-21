@@ -10,7 +10,10 @@
     .field
       = f.label :name, :style => "width: 50px"
       = f.text_field :name
-    Yes, I'd like to subscribe to
+    .field
+      = f.label :confirmed
+      = f.check_box :confirmed
+    Segments:
     %strong= @list[1]
     = render :partial => 'index/segments'
 

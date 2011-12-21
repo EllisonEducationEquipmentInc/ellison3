@@ -55,19 +55,20 @@ class Admin::SubscriptionsController < ApplicationController
     @subscribed = Subscription.first(:conditions => {:email => params[:subscription][:email].downcase, :list => subscription_list, :confirmed => false})
     @subscription = Subscription.new params[:subscription]
     @subscription.email = params[:subscription][:email].downcase
+    @subscription.confirmed = params[:subscription][:confirmed]
     @subscription.list = subscription_list
     @subscription.list_name = @list[1]
     if @subscribed.blank? && @subscription.save
       # TODO: make them delayed
       begin
         @lyris = Lyris.new :create_single_member, :email_address => @subscription.email, :list_name => @subscription.list, :full_name => @subscription.name
-        @lyris = Lyris.new :update_member_status, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :member_status => 'confirm'
+        @lyris = Lyris.new :update_member_status, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :member_status => @subscription.confirmed ? 'normal' : 'confirm'
         @lyris = Lyris.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @subscription.segments.map {|e| {:name => e.to_sym, :value => 1}} << {:name => :subscription_id, :value => @subscription.id.to_s} #if @subscription.segments.present?
-        UserMailer.subscription_confirmation(@subscription).deliver
+        UserMailer.subscription_confirmation(@subscription).deliver unless @subscription.confirmed
       rescue Exception => e
         Rails.logger.info e
         @subscription.delete
-        redirect_to({:action => "new"}, :alert => "An error has occured. Please try again later, or contact customer support.") and return
+        redirect_to({:action => "new"}, :alert => "An error has occured. Please try again later.") and return
       end
       redirect_to(admin_subscriptions_url, :notice => "subscription request has been successfully sent. You will receive a confirmation email shortly. Please follow its instructions to confirm your subscription.")
     else
@@ -84,7 +85,7 @@ class Admin::SubscriptionsController < ApplicationController
     @subscription.write_attributes(params[:subscription])
     @lyris = Lyris.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @segments.keys.map {|e| {:name => e, :value => @subscription.segments.include?(e.to_s) ? 1 : 0}} if @segments.present?
     @subscription.save
-    flash[:notice] = "Your Newsletter Subscription settings have been updated."
+    flash[:notice] = "Newsletter Subscription settings have been updated."
     redirect_to(admin_subscriptions_url)
   end
   
@@ -95,10 +96,8 @@ class Admin::SubscriptionsController < ApplicationController
       @subscription.segments = []
       @subscription.destroy
       flash[:notice] = "#{@subscription.email} has been Unsubscribed from #{@subscription.list_name}."
-      redirect_to(admin_subscriptions_url)
     else
       flash[:alert] = "an error has occured. please try again."
-      render :subscription
     end
     redirect_to(admin_subscriptions_url)
   end
