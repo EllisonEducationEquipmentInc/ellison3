@@ -1,10 +1,10 @@
 - unless get_cart.coupon.blank?
   %p
-    == Your coupon code <span class="coupon_code">#{get_cart.coupon_code}</span> has been applied.
+    == Your coupon code <span class="coupon_code" style="max-width:490px;">#{get_cart.coupon_code}</span> has been applied.
     = link_to "remove", remove_coupon_path, :remote => true, :class => "link_remove"
     - unless get_cart.coupon.description.blank?
       %br
-    %span.legalese= raw get_cart.coupon.description
+    %span.legalese{:style=>"line-height:-16em"}= raw get_cart.coupon.description
     - unless get_cart.coupon.long_description.blank? || get_cart.coupon.long_description == "<br />"
       = link_to 'more details', '#coupon_long_description', :class => 'lightbox link_help'
       #coupon_long_description_container{:style => "display:none"}
