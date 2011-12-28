@@ -36,6 +36,8 @@
     %strong Quote Date:
     %span#quote_date= l @quote.created_at, :format => :custom
     %br
+    %span.legalize= "(Edit date only in yyyy/mm/dd format)"
+    %br
     %strong Quote Name:
     %span.quote_name{:id => @quote.id}= @quote.name
     %br

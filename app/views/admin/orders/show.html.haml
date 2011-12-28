@@ -65,8 +65,10 @@
     %strong Order Date:
     %span.emphasize= l @order.created_at, :format => :custom
     %br
-    %strong Estimated Ship Date:
+    %strong Estimated Ship Date:    
     %span#estimated_ship_date= l @order.estimated_ship_date, :format => :custom rescue ''
+    %br
+    %span.legalize= "(Edit date only in yyyy/mm/dd format)"
     - if @order.tracking_number.present?
       %br
       %strong Tracking #:
