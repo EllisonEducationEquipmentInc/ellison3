@@ -104,7 +104,6 @@ class Admin::SubscriptionsController < ApplicationController
   end
 
   def fast_upload
-    redirect_to(catalog_path) and return unless is_er? && ecommerce_allowed?
     #params["fast_asset"] # => [{"original_name"=>"rubymine-1.0.dmg", "content_type"=>"application/x-diskcopy", "filepath"=>"/data/shared/uploads/tmp/0000000004"}]
     if params["fast_asset"].present? && params["fast_asset"].respond_to?('[]')
       params["fast_asset"].each do |item|
