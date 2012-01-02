@@ -32,12 +32,14 @@ class SubscriptionImporter
         @subscription.segments << segment if row[segment] == "1"
       end
       @subscription.segments.uniq!
-      @subscription.save
-      Rails.logger.info "===== #{@subscription.valid?} #{@subscription.email} #{@subscription.list} ===="
-      Lyris.delay.new :create_single_member, :email_address => @subscription.email, :list_name => @subscription.list, :full_name => @subscription.name
-      Lyris.delay.new :update_member_status, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :member_status => 'normal'
-      Lyris.delay.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @subscription.segments.map {|e| {:name => e.to_sym, :value => 1}} << {:name => :subscription_id, :value => @subscription.id.to_s}
- 
+      if @subscription.save
+        Rails.logger.info "===== #{@subscription.valid?} #{@subscription.email} #{@subscription.list} ===="
+        Lyris.delay.new :create_single_member, :email_address => @subscription.email, :list_name => @subscription.list, :full_name => @subscription.name
+        Lyris.delay.new :update_member_status, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :member_status => 'normal'
+        Lyris.delay.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @subscription.segments.map {|e| {:name => e.to_sym, :value => 1}} << {:name => :subscription_id, :value => @subscription.id.to_s}
+      else
+        Rails.logger.info "!!! subscription record is invalid. #{@subscription.errors}"
+      end
       n += 1
       percentage!(n)
     end
