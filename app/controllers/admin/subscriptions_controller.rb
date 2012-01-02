@@ -102,5 +102,30 @@ class Admin::SubscriptionsController < ApplicationController
     end
     redirect_to(admin_subscriptions_url)
   end
+
+  def fast_upload
+    redirect_to(catalog_path) and return unless is_er? && ecommerce_allowed?
+    #params["fast_asset"] # => [{"original_name"=>"rubymine-1.0.dmg", "content_type"=>"application/x-diskcopy", "filepath"=>"/data/shared/uploads/tmp/0000000004"}]
+    if params["fast_asset"].present? && params["fast_asset"].respond_to?('[]')
+      params["fast_asset"].each do |item|
+        @file = item
+        @new_name = "/data/shared/uploads/subscriptions/#{Digest::SHA1.hexdigest("#{@file['original_name']}-#{Time.now.to_f}")}-#{@file['original_name']}"
+        FileUtils.mv(item['filepath'], @new_name)
+      end
+      # check if header columns are correct
+      header = File.open(@new_name, "r") {|f| f.readline}.gsub(/["\n\r]/,'').split(/,\s*/)
+      unless ["list"].all? {|e| header.include?(e)}
+        FileUtils.rm_f @new_name
+        raise "Uploaded File must have comma separated values, and the header columns must include 'list' #{header}"
+      end
+
+      @importer = SubscriptionImporter.create :system => current_system, :file_name => @new_name
+      @importer.import_subscriptions
+    else
+      raise "No file or invalid file has been uploaded"   
+    end
+  rescue Exception => e
+    redirect_to({:action => "upload"}, :alert => e.message)
+  end
   
 end

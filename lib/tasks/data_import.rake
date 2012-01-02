@@ -117,6 +117,7 @@ namespace :data_import do
       @segments.keys.map(&:to_s).each do |segment|
         @subscription.segments << segment if row[segment] == "1"
       end
+      @subscription.segments.uniq!
       @subscription.save
       p "===== #{@subscription.valid?} #{@subscription.email} #{@subscription.list} ===="
       Lyris.delay.new :create_single_member, :email_address => @subscription.email, :list_name => @subscription.list, :full_name => @subscription.name

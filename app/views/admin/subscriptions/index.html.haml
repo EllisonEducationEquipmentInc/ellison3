@@ -1,5 +1,10 @@
 %h2 Listing Subscriptions
 = link_to 'New Subscription', new_admin_subscription_path, :class => 'jqui_new' if has_write_permissions?
+- if has_write_permissions?
+  %p
+    To upload CSV file
+    click 
+    = link_to 'here', :action => :upload
 %br
 %h3 Filters
 - unless params[:q].blank?
