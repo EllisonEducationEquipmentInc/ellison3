@@ -127,4 +127,8 @@ class Admin::SubscriptionsController < ApplicationController
     redirect_to({:action => "upload"}, :alert => e.message)
   end
   
+  def get_subscription_import_status
+    @importer = SubscriptionImporter.find(params[:id])
+    render :text => @importer.percent.to_i
+  end
 end

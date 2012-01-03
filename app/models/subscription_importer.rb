@@ -38,6 +38,7 @@ class SubscriptionImporter
         Lyris.delay.new :update_member_status, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :member_status => 'normal'
         Lyris.delay.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @subscription.segments.map {|e| {:name => e.to_sym, :value => 1}} << {:name => :subscription_id, :value => @subscription.id.to_s}
       else
+        update_attribute :import_errors, self.import_errors << row['email']
         Rails.logger.info "!!! subscription record is invalid. #{@subscription.errors}"
       end
       n += 1
