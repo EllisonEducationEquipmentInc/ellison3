@@ -1,7 +1,7 @@
 %h3
   = @file["original_name"]
   has been uploaded
-%h4 Processing cart items...
+%h4 Processing subscriptions...
 %span#import_percentage 0
 \%
 #redirect_message
@@ -10,14 +10,14 @@
   $.ajax({
     tryCount : 0,
     retryLimit : 100,
-    url:'/carts/get_cart_import_status/#{@cart_importer.id}', 
+    url:'/admin/subscriptions/get_subscription_import_status/#{@importer.id}', 
     success: function(data) {
       percent = data;
       $('#import_percentage').text(percent);
       this.tryCount++;
       if (percent == "100") {
-        $('#redirect_message').text('Please wait, you are being redirected to cart page...');
-        #{"alert('Items #{@cart_importer.import_errors * ", "} were not found or unavailable');" if @cart_importer.import_errors.present?}
+        $('#redirect_message').text('Please wait, you are being redirected...');
+        #{"alert('Emails #{@importer.import_errors * ", "} were not imported');" if @importer.import_errors.present?}
         window.location.href='/cart';
       } else if (this.tryCount <= this.retryLimit) {
         $(this).doTimeout( 'retrying', 1000, function(){
