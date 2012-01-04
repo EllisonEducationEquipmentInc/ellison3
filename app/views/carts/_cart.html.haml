@@ -73,7 +73,8 @@
   .dontprint
     - unless @cart_locked
       = render :partial => 'carts/add_to_cart_by_item_num'
-      #cart_coupon= render :partial => "carts/coupon"
+      %div{:style=>"width:540px;"}
+        #cart_coupon= render :partial => "carts/coupon"
       - if quote_allowed?
         %button{:class => "save_as_quote right"} Save as Quote
       - if (chekout_allowed? || get_cart.pre_order?) && quote_allowed?
