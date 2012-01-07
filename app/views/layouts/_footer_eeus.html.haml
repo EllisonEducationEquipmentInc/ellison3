@@ -42,6 +42,14 @@
     %li= link_to "Online Ordering Support", "/onlinesupport"
     %li= link_to "Privacy Policy", "/privacy"
     %li= link_to "Legal Notices", "/legal"
+    
+  %div{:style => "width:174px; height:72px; float:left;"}
+    %div{:style => "width:66px; height:72px; float:left; padding-top:20px;"}
+      %script{:src => "https://sealserver.trustwave.com/seal.js?style=invert&size=65x36&code=7182ceb80ca511e0b34b005056b201e5", :type => "text/javascript"}
+    %div{:style => "width:8px; height:72px; float:left;"}
+    %div{:style => "width:100px; height:72px; float:left;", :title => "Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications."}
+      %script{:src => "https://seal.verisign.com/getseal?host_name=www.ellisoneducation.com&amp;size=S&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en"}
+      %a{:class=>"legalese", :href => "http://www.verisign.com/ssl-certificate/", :style => "color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;", :target => "_blank"} ABOUT SSL CERTIFICATES
 
 .column_right{:class=>"panel_height"}
   %h2 Subscribe to Us
