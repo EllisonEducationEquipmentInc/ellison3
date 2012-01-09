@@ -152,6 +152,7 @@ class Admin::QuotesController < ApplicationController
   def change_quote_date
     @quote = Quote.find(params[:id])
     @quote.updated_by = current_admin.email
+    @quote.expires_at ||= is_ee? ? 90.days.from_now : 6.months.from_now
     @quote.update_attribute :created_at, params[:update_value]
     render :inline => "<%= @quote.created_at %>"
   end
