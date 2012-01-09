@@ -21,7 +21,7 @@ class SubscriptionImporter
   def import_subscriptions
     n = 0
     CSV.foreach(self.file_name, :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
-      set_currenct_system list_to_system(row['list'])
+      set_current_system list_to_system(row['list'])
       get_list_and_segments
       @subscription = Subscription.first(:conditions => {:email => row['email'].downcase, :list => subscription_list}) || Subscription.new 
       @subscription.email = row['email'].downcase
