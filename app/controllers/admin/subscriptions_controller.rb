@@ -81,6 +81,7 @@ class Admin::SubscriptionsController < ApplicationController
   # PUT /subscriptions/1.xml
   def update
     @subscription = Subscription.find(params[:id])
+    set_current_system list_to_system(@subscription.list)
     get_list_and_segments
     params[:subscription][:segments] ||= []
     @subscription.write_attributes(params[:subscription])
