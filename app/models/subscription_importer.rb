@@ -46,6 +46,7 @@ class SubscriptionImporter
       percentage!(n)
     end
   rescue Exception => e
+    @subscription.destroy if @subscription
     self.import_errors << e.message
     Rails.logger.error("#{e}")
   ensure
