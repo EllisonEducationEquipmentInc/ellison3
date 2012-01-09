@@ -33,6 +33,7 @@ class Admin::SubscriptionsController < ApplicationController
   # GET /subscriptions/new.xml
   def new
     @subscription = Subscription.new
+    @subscription.confirmed = true
     get_list_and_segments
     respond_to do |format|
       format.html # new.html.erb
