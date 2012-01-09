@@ -34,9 +34,10 @@ class SubscriptionImporter
       @subscription.segments.uniq!
       if @subscription.save
         Rails.logger.info "===== #{@subscription.valid?} #{@subscription.email} #{@subscription.list} ===="
-        Lyris.delay.new :create_single_member, :email_address => @subscription.email, :list_name => @subscription.list, :full_name => @subscription.name
-        Lyris.delay.new :update_member_status, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :member_status => 'normal'
-        Lyris.delay.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @subscription.segments.map {|e| {:name => e.to_sym, :value => 1}} << {:name => :subscription_id, :value => @subscription.id.to_s}
+	Rails.logger.info "sending id: #{@subscription.segments.map {|e| {:name => e.to_sym, :value => 1}} << {:name => :subscription_id, :value => @subscription.id.to_s}}"
+        Lyris.new :create_single_member, :email_address => @subscription.email, :list_name => @subscription.list, :full_name => @subscription.name
+        Lyris.new :update_member_status, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :member_status => 'normal'
+        Lyris.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @subscription.segments.map {|e| {:name => e.to_sym, :value => 1}} << {:name => :subscription_id, :value => @subscription.id.to_s}
       else
         update_attribute :import_errors, self.import_errors << row['email']
         Rails.logger.info "!!! subscription record is invalid. #{@subscription.errors}"
@@ -44,9 +45,11 @@ class SubscriptionImporter
       n += 1
       percentage!(n)
     end
-    completed!
   rescue Exception => e
+    self.import_errors << e.message
     Rails.logger.error("#{e}")
+  ensure
+    completed!
   end
 
 private
