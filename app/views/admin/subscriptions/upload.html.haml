@@ -23,10 +23,10 @@
     %th list
   %tr
     %td test5@ellison.com
-    %td connection
+    %td ellison_education_uk
   %tr
     %td test6@ellison.com
-    %td connection
+    %td ellison_education_uk
 %p{:style=>"font-weight:bold; border:0; margin:0; padding:0;"}
   SZUK:
 %table{:style => "width:200px;"}
@@ -90,7 +90,7 @@
 %p{:class=>"Legalese"}
   %strong
     NOTE: 
-  Segments are optional (field after “list” column). If Value is “1” then email address will be flagged for the segment. IF value is 0 or left blank the email address will NOT be flagged for that segment. For ERUS make sure to select atleast one segment.  
+  Segments are optional (field after “list” column). If Value is “1” then email address will be flagged for the segment. If value is 0 or left blank the email address will NOT be flagged for that segment. For ERUS make sure to select atleast one segment.  
 %p
   %div{:style=>"font-weight:bold;"}
     To upload subscriptions, first click on “Browse” button to select a file. Once file is selected, click on “upload” button to upload subscriptions.
@@ -105,7 +105,7 @@
 %br  
 %p
   %strong
-    Functionality Detail:
+    Functionality Details:
   %br
   1. Email addresses in the csv file will be subscribed to the list specified in the csv file. User can be in any site while bulk uploading subscriptions.
   %br
@@ -113,7 +113,7 @@
   %br
   3. IF email address already exists with member status as “unsub” or “held” or “normal” or “confirm” then lyris member status will be updated to “Normal”.
   %br
-  4. We can’t update or delete already flagged segment – can only add “segements”
+  4. Can’t update or delete already flagged segment – can only add “segements”.
 
 :javascript
   $(function() {
