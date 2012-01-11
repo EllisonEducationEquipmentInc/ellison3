@@ -1,17 +1,22 @@
 %h2 Listing Subscriptions
+%p{:class=>"Legalese"}  
+  Please
+  %strong Do not 
+  create / delete or change member status on the LYRIS interface. 
+  %strong Only 
+  use the WEBSITE ADMIN to create/delete or update segment information.
 = link_to 'New Subscription', new_admin_subscription_path, :class => 'jqui_new' if has_write_permissions?
 - if has_write_permissions?
   %p
-    To upload CSV file
+    %br
+    To Bulk Upload Subscriptions to a list through CSV file click here
     click 
     = link_to 'here', :action => :upload
-%br
 %h3 Filters
 - unless params[:q].blank?
   = link_to 'all', admin_subscriptions_path, :class => 'jqui_button'
 = form_tag(admin_subscriptions_path, :method => :get) do
   = text_field_tag :q, nil, :placeholder => "email"
-  Incl. inactive
   = submit_tag "search", :class => 'jqui_search'
 .highlightable
   %table
@@ -34,8 +39,8 @@
           %td= subscription.name
           %td= subscription.confirmed
           - if has_write_permissions?
-            %td= link_to 'Edit', edit_admin_subscription_path(subscription), :class => "jqui_edit_min"
-            %td= link_to 'Destroy', admin_subscription_path(subscription), :confirm => 'Are you sure?', :method => :delete, :class => "jqui_destroy_min"
+            %td= link_to 'Click to edit Subscribers segments', edit_admin_subscription_path(subscription), :class => "jqui_edit_min"
+            %td= link_to 'Click to Unsubscribe from entire list', admin_subscription_path(subscription), :confirm => 'Are you sure?', :method => :delete, :class => "jqui_destroy_min"
 %br
 = will_paginate @subscriptions
 %br

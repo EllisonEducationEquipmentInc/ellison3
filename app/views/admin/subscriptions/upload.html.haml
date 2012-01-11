@@ -1,21 +1,95 @@
 %h3 Upload Subscriptions 
 %p
-  You can upload a CSV file (max. 300 lines) to subscribe to lyris. The CSV file must contain “email, list” fields, and the segments have to be separate columns too (ex: sizzix_outlet). Column names must be lower case.
-%p 
-  %p{:style=>"font-weight:bold;"}Sample csv format:
-  %table{:style => "width:200px;"}
-    %tr
-      %th email
-      %th sizzix_outlet
-      %th list
-    %tr
-      %td test@ellison.com
-      %td 1
-      %td sizzixscoop
-    %tr
-      %td test2@ellison.com
-      %td 0
-      %td sizzixscoop    
+  You can upload a CSV file (max. 300 lines) to subscribe email addressess on web and lyris. The CSV file must contain “email, list” fields, and the segments have to be separate columns too (ex: sizzix_outlet). Column names must be lower case. CSV file should be in valid and correct format.
+%p{:style=>"font-weight:bold;"}
+  Sample CSV formats by sites:
+%p{:style=>"font-weight:bold; border:0; margin:0; padding:0;"}
+  EEUS:
+%table{:style => "width:200px;"}
+  %tr
+    %th email
+    %th list
+  %tr
+    %td test5@ellison.com
+    %td connection
+  %tr
+    %td test6@ellison.com
+    %td connection  
+%p{:style=>"font-weight:bold; border:0; margin:0; padding:0;"}
+  EEUK:
+%table{:style => "width:200px;"}
+  %tr
+    %th email
+    %th list
+  %tr
+    %td test5@ellison.com
+    %td connection
+  %tr
+    %td test6@ellison.com
+    %td connection
+%p{:style=>"font-weight:bold; border:0; margin:0; padding:0;"}
+  SZUK:
+%table{:style => "width:200px;"}
+  %tr
+    %th email
+    %th list
+  %tr
+    %td test3@ellison.com
+    %td sizzix_uk_consumers
+  %tr
+    %td test4@ellison.com
+    %td sizzix_uk_consumers
+%  %p{:style=>"font-weight:bold; border:0; margin:0; padding:0;"}
+  SZUS:
+%table{:style => "width:200px;"}
+  %tr
+    %th email
+    %th list
+    %th sizzix_outlet
+    %th sizzix_events
+  %tr
+    %td test@ellison.com
+    %td sizzixscoop
+    %td 1
+    %td
+  %tr
+    %td test2@ellison.com
+    %td sizzixscoop  
+    %td 0
+    %td
+%p{:style=>"font-weight:bold; border:0; margin:0; padding:0;"}
+  ERUS:
+%table{:style => "width:200px;"}
+  %tr
+    %th email
+    %th list
+    %th sizzix_retailers
+    %th ellison_retailers
+    %th sizzix_retailers_in_spanish
+    %th tim_holtz
+    %th eclip
+    %th quilting
+  %tr
+    %td test7@ellison.com
+    %td erus_retailers
+    %td 1
+    %td 0
+    %td 0
+    %td 1 
+    %td 1
+    %td 0
+  %tr
+    %td test8@ellison.com
+    %td erus_retailers  
+    %td 0
+    %td 0 
+    %td 1 
+    %td 1
+    %td 0
+    %td 1
+%p{:class=>"Legalese"}
+  NOTE: Segments are optional (field after “list” column). If Value is “1” then email address will be flagged for the segment. IF value is 0 or left blank the email address will NOT be flagged for that segment. For eRUS make sure to select atleast one segment.    
+  
 %p
   %br
   %div{:style=>"font-weight:bold;"}
@@ -27,6 +101,20 @@
   #progress
     #progressbar &nbsp;
     #percents
+  
+%br  
+%p
+  %strong
+    Functionality Detail:
+  %br
+  1. Email addresses in the csv file will be subscribed to the list specified in the csv file. User can be in any site while bulk uploading subscriptions.
+  %br
+  2. If email address does not exist on lyris or web new subscription will be created for the list for the specified segments.
+  %br
+  3. IF email address already exists with member status as “unsub” or “held” or “normal” or “confirm” then lyris member status will be updated to “Normal”.
+  %br
+  4. We can’t update or delete already flagged segment – can only add “segements”
+
 :javascript
   $(function() {
     $('form').uploadProgress({
@@ -43,3 +131,5 @@
       interval: 2000
      });
   });
+  
+
