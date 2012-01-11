@@ -4,12 +4,12 @@
   %strong Do not 
   create / delete or change member status on the LYRIS interface. 
   %strong Only 
-  use the WEBSITE ADMIN to create/delete or update segment information.
+  use the WEBSITE ADMIN to create/delete subscriptions or update segment information.
 = link_to 'New Subscription', new_admin_subscription_path, :class => 'jqui_new' if has_write_permissions?
 - if has_write_permissions?
   %p
     %br
-    To Bulk Upload Subscriptions to a list through CSV file click here
+    To Bulk Upload Subscriptions to a list through CSV file
     click 
     = link_to 'here', :action => :upload
 %h3 Filters
