@@ -88,10 +88,8 @@
     %td 0
     %td 1
 %p{:class=>"Legalese"}
-  NOTE: Segments are optional (field after “list” column). If Value is “1” then email address will be flagged for the segment. IF value is 0 or left blank the email address will NOT be flagged for that segment. For eRUS make sure to select atleast one segment.    
-  
+  NOTE: Segments are optional (field after “list” column). If Value is “1” then email address will be flagged for the segment. IF value is 0 or left blank the email address will NOT be flagged for that segment. For eRUS make sure to select atleast one segment.  
 %p
-  %br
   %div{:style=>"font-weight:bold;"}
     To upload subscriptions, first click on “Browse” button to select a file. Once file is selected, click on “upload” button to upload subscriptions.
 = form_tag( {:action => 'fast_upload'}, :multipart => true, :method => :post, :id => 'upload') do
