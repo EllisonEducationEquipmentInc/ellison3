@@ -71,7 +71,7 @@ class Admin::SubscriptionsController < ApplicationController
         @subscription.delete
         redirect_to({:action => "new"}, :alert => "An error has occured. Please try again later.") and return
       end
-      redirect_to(admin_subscriptions_url, :notice => "subscription request has been successfully sent. You will receive a confirmation email shortly. Please follow its instructions to confirm your subscription.")
+      redirect_to(admin_subscriptions_url, :notice => "subscription request has been successfully sent to customer.  Customer should follow instructions in the email to confirm subscription.. You will receive a confirmation email shortly. Please follow its instructions to confirm your subscription.")
     else
       render :new
     end
@@ -100,7 +100,7 @@ class Admin::SubscriptionsController < ApplicationController
       @subscription.destroy
       flash[:notice] = "#{@subscription.email} has been Unsubscribed from #{@subscription.list_name}."
     else
-      flash[:alert] = "an error has occured. please try again."
+      flash[:alert] = "Unable to unsubscribe from web as customer email address is not found in Lyris mailing list."
     end
     redirect_to(admin_subscriptions_url)
   end

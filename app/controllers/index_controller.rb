@@ -444,7 +444,7 @@ class IndexController < ApplicationController
         flash[:notice] = "You have been Unsubscribed from #{@subscription.list_name}."
         redirect_to(user_signed_in? && @subscription.email.downcase == current_user.email.downcase ? myaccount_path(:tab => 'subscriptions') : root_path)
       else
-        flash[:alert] = "an error has occured. please try again."
+        flash[:alert] = "An error has occurred.  Please contact customer Service specifying your email address."
         render :subscription
       end
     else
