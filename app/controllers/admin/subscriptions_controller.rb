@@ -121,7 +121,7 @@ class Admin::SubscriptionsController < ApplicationController
       end
 
       @importer = SubscriptionImporter.create :system => current_system, :file_name => @new_name
-      @importer.import_subscriptions
+      @importer.delay.import_subscriptions
     else
       raise "No file or invalid file has been uploaded"   
     end
