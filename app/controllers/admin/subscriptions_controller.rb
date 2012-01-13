@@ -71,7 +71,7 @@ class Admin::SubscriptionsController < ApplicationController
         @subscription.delete
         redirect_to({:action => "new"}, :alert => "An error has occured. Please try again later.") and return
       end
-      redirect_to(admin_subscriptions_url, :notice => "A subscription request has been successfully sent to customer. Customer should follow instructions in the email to confirm subscription. You will receive a confirmation email shortly. Please follow its instructions to confirm your subscription.")
+      redirect_to(admin_subscriptions_url, :notice => "A subscription request has been sent to the customer successfully. The customer should follow instructions in the email to confirm the subscription.")
     else
       render :new
     end
