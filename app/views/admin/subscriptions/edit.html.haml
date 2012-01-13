@@ -1,7 +1,7 @@
 %h1 Edit subscription
 
 = render 'form'
-%div{:style=>"Legalese"}
-  Edit Only List segments.  Don’t edit email, name or confirmed fields.
+%div{:class=>"legalese"}
+  Edit Only List segments (if applicable).  Don’t edit email, name or confirmed fields.
 %br
 = link_to 'Back', admin_subscriptions_path, :class => 'jqui_back'
