@@ -271,6 +271,10 @@ module EllisonSystem
     end    
     return lyris_email
 	end
+  
+  def all_lyris_lists
+    NEWSLETTER_SEGMENTS.values.map {|e| e.keys.first.to_s}
+  end
 
   
   def institutions

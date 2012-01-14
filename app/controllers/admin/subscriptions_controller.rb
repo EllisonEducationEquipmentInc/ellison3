@@ -10,6 +10,7 @@ class Admin::SubscriptionsController < ApplicationController
 	def index
 	  criteria = Mongoid::Criteria.new(Subscription)
 	  criteria = criteria.where :deleted_at => nil
+	  criteria = criteria.where(:list=> params[:list]) unless params[:list].blank?
 	  if params[:q].present?
 	    regexp = Regexp.new("^#{params[:q]}")
   	  criteria = criteria.any_of({ :email => regexp}, { :name => regexp})

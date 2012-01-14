@@ -17,6 +17,7 @@
   = link_to 'all', admin_subscriptions_path, :class => 'jqui_button'
 = form_tag(admin_subscriptions_path, :method => :get) do
   = text_field_tag :q, nil, :placeholder => "email"
+  = select_tag :list, options_for_select([["- list -", nil]] + all_lyris_lists, params[:list])
   = submit_tag "search", :class => 'jqui_search'
 .highlightable
   %table
