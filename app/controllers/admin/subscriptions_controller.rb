@@ -74,6 +74,7 @@ class Admin::SubscriptionsController < ApplicationController
       end
       redirect_to(admin_subscriptions_url, :notice => "A subscription request has been sent to the customer successfully. The customer should follow instructions in the email to confirm the subscription.")
     else
+      flash[:notice] = "The email address #{@subscription.email} has already been subscribed to receive #{subscription_list}, but is still awaiting confirmation" if @subscribed
       render :new
     end
   end
