@@ -9,7 +9,7 @@
       = f.text_field :email, :disabled => !f.object.new_record?
     .field
       = f.label :name, :style => "width: 50px"
-      = f.text_field :name
+      = f.text_field :name, :disabled => !f.object.new_record?
     .field
       = f.label :confirmed
       = f.check_box :confirmed, :disabled => !f.object.new_record?
