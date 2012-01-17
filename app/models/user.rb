@@ -251,7 +251,7 @@ private
 
   def email_uniqueness_by_system
     u=User.where(:email => Regexp.new("^#{Regexp.escape(self.email)}$", Regexp::IGNORECASE)).first
-    errors.add(:email, u.systems_enabled.detect {|e| e != current_system} ? "address (#{self.email}) has already been used on another Ellison-owed website,  http://www.#{system_to_domain(u.systems_enabled.detect {|e| e != current_system})}. Ellison owns and operates www.ellison.com, www.sizzix.com, www.ellisoneducation.com, www.ellisonretailers.com, www.sizzix.co.uk and www.ellisoneducation.co.uk.  We welcome your qualified account on multiple sites and for best results suggest using an alternative email address for each. If this is not possible, please contact Customer Service for assistance." : :taken) if u.present?
+    errors.add(:email, u.systems_enabled.detect {|e| e != current_system} ? "address (#{self.email}) has already been used on another Ellison-owned website,  http://www.#{system_to_domain(u.systems_enabled.detect {|e| e != current_system})}. Ellison owns and operates www.ellison.com, www.sizzix.com, www.ellisoneducation.com, www.ellisonretailers.com, www.sizzix.co.uk and www.ellisoneducation.co.uk.  We welcome your qualified account on multiple sites and for best results suggest using an alternative email address for each. If this is not possible, please contact Customer Service for assistance." : :taken) if u.present?
   end
   
   def run_callbacks_on_retailer_application
