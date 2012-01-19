@@ -9,7 +9,7 @@
   var percent = 0;
   $.ajax({
     tryCount : 0,
-    retryLimit : 200,
+    retryLimit : 400,
     url:'/admin/subscriptions/get_subscription_import_status/#{@importer.id}', 
     success: function(data) {
       percent = data;
@@ -20,7 +20,7 @@
         #{"alert('Emails #{@importer.import_errors * ", "} were not imported');" if @importer.import_errors.present?}
         window.location.href='/admin/subscriptions';
       } else if (this.tryCount <= this.retryLimit) {
-        $(this).doTimeout( 'retrying', 2000, function(){
+        $(this).doTimeout( 'retrying', 3000, function(){
           $.ajax(this[0]);
         });
       } else {
