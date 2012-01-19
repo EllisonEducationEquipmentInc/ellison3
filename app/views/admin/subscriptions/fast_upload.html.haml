@@ -20,7 +20,7 @@
         #{"alert('Emails #{@importer.import_errors * ", "} were not imported');" if @importer.import_errors.present?}
         window.location.href='/admin/subscriptions';
       } else if (this.tryCount <= this.retryLimit) {
-        $(this).doTimeout( 'retrying', 3000, function(){
+        $(this).doTimeout( 'retrying', 4000, function(){
           $.ajax(this[0]);
         });
       } else {
