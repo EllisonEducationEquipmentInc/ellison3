@@ -15,7 +15,7 @@ class Subscription
   field :verification_sent, :type => DateTime
   
   validates_presence_of :email, :list_name
-  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+  validates_format_of :email, :with => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
   validates_uniqueness_of :email, :scope => :list, :message => "address has already been subscribed.", :case_sensitive => false
   
   scope :confirmed, :where => { :confirmed => true }
