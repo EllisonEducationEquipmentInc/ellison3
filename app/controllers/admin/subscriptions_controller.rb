@@ -11,6 +11,7 @@ class Admin::SubscriptionsController < ApplicationController
 	  criteria = Mongoid::Criteria.new(Subscription)
 	  criteria = criteria.where :deleted_at => nil
 	  criteria = criteria.where(:list=> params[:list]) unless params[:list].blank?
+    @importer = SubscriptionImporter.find(params[:importer_id]) if params[:importer_id].present?
 	  if params[:q].present?
 	    regexp = Regexp.new("^#{params[:q]}")
   	  criteria = criteria.any_of({ :email => regexp}, { :name => regexp})

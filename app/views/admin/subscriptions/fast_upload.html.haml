@@ -18,7 +18,7 @@
       if (percent == "100") {
         $('#redirect_message').text('Please wait, you are being redirected...');
         #{"alert('Emails #{@importer.import_errors * ", "} were not imported');" if @importer.import_errors.present?}
-        window.location.href='/admin/subscriptions';
+        window.location.href='/admin/subscriptions?importer_id=#{@importer.id}';
       } else if (this.tryCount <= this.retryLimit) {
         $(this).doTimeout( 'retrying', 4000, function(){
           $.ajax(this[0]);

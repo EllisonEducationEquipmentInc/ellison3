@@ -1,3 +1,13 @@
+- if @importer
+  .notice
+    File:
+    = @importer.file_name
+    %br
+    Percent:
+    = @importer.percent
+    %br
+    Errors:
+    = @importer.import_errors * ", "
 %h2 Listing Subscriptions
 %p{:class=>"Legalese"}  
   Please
