@@ -25,6 +25,7 @@ class Subscription
   index :email
   index :list
   index :confirmed
+  index :updated_at
   
 private
 
