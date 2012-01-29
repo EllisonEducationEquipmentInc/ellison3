@@ -1,4 +1,6 @@
 class IndexController < ApplicationController
+
+  respond_to :html, :xml, :js
   
   include Geokit::Geocoders
   

@@ -66,5 +66,6 @@ module Ellison3
     
     config.gem 'rack-recaptcha', :lib => 'rack/recaptcha'
     config.middleware.use Rack::Recaptcha, :public_key => '6LccaAQAAAAAAOK5d5-hmN0uuXuJtcDdSjzfUiCS', :private_key => '6LccaAQAAAAAACmi40-3YDKa0pfGYp8QO4oaRdej'
+
   end
 end

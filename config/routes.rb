@@ -1,4 +1,4 @@
-Ellison3::Application.routes.draw do |map|
+Ellison3::Application.routes.draw do
 	
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -9,94 +9,94 @@ Ellison3::Application.routes.draw do |map|
 	# Sets the devise scope to be used in the controller. 
 	as :user do
     # get "myaccount", :to => "users#myaccount"
-		match "myaccount(/:tab)", :to => "users#myaccount", :as => :myaccount
-		match "myaccount/order/:id", :to => "users#order", :as => :order
-		match "myaccount/quote/:id", :to => "users#quote", :as => :myquote
-		match "list/:id", :to => "users#list", :as => :list
-		get "billing", :to => "users#billing"
-		get "shipping", :to => "users#shipping"
-		get "mylists", :to => "users#mylists"
-		get "orders", :to => "users#orders"
-		get "quotes", :to => "users#quotes"
-		get "materials", :to => "users#materials"
-		get "edit_address", :to => "users#edit_address"
-		get "checkout_requested", :to => "users#checkout_requested"
-		get "quote_requested", :to => "users#quote_requested"
-		get "signin_signup", :to => "users#signin_signup"
-		post "update_address", :to => "users#update_address"
-		post "update_list", :to => "users#update_list"
-		post "create_list", :to => "users#create_list"
-		delete "delete_list", :to => "users#delete_list"
-		post "user_as", :to => "sessions#user_as"
-		get "add_to_list", :to => "users#add_to_list"
-		get "users/save_for_later", :to => "users#save_for_later"
-		get "list_set_to_default", :to => "users#list_set_to_default"
-		delete "remove_from_list", :to => "users#remove_from_list"
-		post "move_to_list", :to => "users#move_to_list"
-		post "users/email_list", :to => "users#email_list"
-		get "users/get_lists", :to => "users#get_lists"
-		get "retailer_application", :to => "users#retailer_application", :as => :retailer_application
-		post "users/create_retailer_application", :to => "users#create_retailer_application"
-		get 'users/view_retailer_application', :to => "users#view_retailer_application"
-		get 'users/machines_i_own', :to => "users#machines_i_own"
-		get 'users/subscriptions', :to => "users#subscriptions"
-		post 'users/order_material', :to => "users#order_material"
-		get 'eclipsware', :to => "users#eclipsware"
-		post 'users/show_fw_files', :to => "users#show_fw_files"
-		get 'users/download_firmware', :to => "users#download_firmware"
-		get 'users/messages', :to => "users#messages"
-		post 'users/change_quote_name', :to => "users#change_quote_name"
-		post 'users/resend_subscription_confirmation', :to => "users#resend_subscription_confirmation"
-		get 'login', :to => "sessions#new"
-		get 'signup', :to => "users#new"
+		match "myaccount(/:tab)", :to => "users#myaccount", :as => :myaccount, :format => false
+		match "myaccount/order/:id", :to => "users#order", :as => :order, :format => false
+		match "myaccount/quote/:id", :to => "users#quote", :as => :myquote, :format => false
+		match "list/:id", :to => "users#list", :as => :list, :format => false
+		get "billing", :to => "users#billing", :format => false
+		get "shipping", :to => "users#shipping", :format => false
+		get "mylists", :to => "users#mylists", :format => false
+		get "orders", :to => "users#orders", :format => false
+		get "quotes", :to => "users#quotes", :format => false
+		get "materials", :to => "users#materials", :format => false
+		get "edit_address", :to => "users#edit_address", :format => false
+		get "checkout_requested", :to => "users#checkout_requested", :format => false
+		get "quote_requested", :to => "users#quote_requested", :format => false
+		get "signin_signup", :to => "users#signin_signup", :format => false
+		post "update_address", :to => "users#update_address", :format => false
+		post "update_list", :to => "users#update_list", :format => false
+		post "create_list", :to => "users#create_list", :format => false
+		delete "delete_list", :to => "users#delete_list", :format => false
+		post "user_as", :to => "sessions#user_as", :format => false
+		get "add_to_list", :to => "users#add_to_list", :format => false
+		get "users/save_for_later", :to => "users#save_for_later", :format => false
+		get "list_set_to_default", :to => "users#list_set_to_default", :format => false
+		delete "remove_from_list", :to => "users#remove_from_list", :format => false
+		post "move_to_list", :to => "users#move_to_list", :format => false
+		post "users/email_list", :to => "users#email_list", :format => false
+		get "users/get_lists", :to => "users#get_lists", :format => false
+		get "retailer_application", :to => "users#retailer_application", :as => :retailer_application, :format => false
+		post "users/create_retailer_application", :to => "users#create_retailer_application", :format => false
+		get 'users/view_retailer_application', :to => "users#view_retailer_application", :format => false
+		get 'users/machines_i_own', :to => "users#machines_i_own", :format => false
+		get 'users/subscriptions', :to => "users#subscriptions", :format => false
+		post 'users/order_material', :to => "users#order_material", :format => false
+		get 'eclipsware', :to => "users#eclipsware", :format => false
+		post 'users/show_fw_files', :to => "users#show_fw_files", :format => false
+		get 'users/download_firmware', :to => "users#download_firmware", :format => false
+		get 'users/messages', :to => "users#messages", :format => false
+		post 'users/change_quote_name', :to => "users#change_quote_name", :format => false
+		post 'users/resend_subscription_confirmation', :to => "users#resend_subscription_confirmation", :format => false
+		get 'login', :to => "sessions#new", :format => false
+		get 'signup', :to => "users#new", :format => false
   end
 
-  match 'admin' => 'admin#index'
+  match 'admin' => 'admin#index', :format => false
 
-  match 'shop/:id' => 'index#shop', :as => :shop
-  match 'lp/:id' => 'index#tag_group', :as => :tag_group
-	match 'products' => 'index#products'
-	match 'home' => 'index#home'
-	match 'latinamerica' => 'index#stores'
+  match 'shop/:id' => 'index#shop', :as => :shop, :format => false
+  match 'lp/:id' => 'index#tag_group', :as => :tag_group, :format => false
+	match 'products' => 'index#products', :format => false
+	match 'home' => 'index#home', :format => false
+	match 'latinamerica' => 'index#stores', :format => false
 	
-	match 'stores' => 'index#stores', :as => :stores
-	match 'campaigns' => 'index#campaigns'
-	match 'events' => 'index#events'
-	match 'blogs' => 'index#blog'
-	match 'event/:id' => 'index#event', :as => :event
-	match 'catalog' => 'index#catalog', :as => :catalog
-	match 'outlet' => 'index#shop', :defaults => { :id => 'outlet' }, :as => :outlet
+	match 'stores' => 'index#stores', :as => :stores, :format => false
+	match 'campaigns' => 'index#campaigns', :format => false
+	match 'events' => 'index#events', :format => false
+	match 'blogs' => 'index#blog', :format => false
+	match 'event/:id' => 'index#event', :as => :event, :format => false
+	match 'catalog' => 'index#catalog', :as => :catalog, :format => false
+	match 'outlet' => 'index#shop', :defaults => { :id => 'outlet' }, :as => :outlet, :format => false
 	
 	# redirects from rails 2 url's
-	match 'product/:old_id' => 'index#old_product', :old_id => /\d{1,5}/
-	match 'idea/:old_id' => 'index#old_idea', :old_id => /\d{1,4}/
-	match 'catalog/:tag_type/:name' => 'index#old_catalog'
+	match 'product/:old_id' => 'index#old_product', :old_id => /\d{1,5}/, :format => false
+	match 'idea/:old_id' => 'index#old_idea', :old_id => /\d{1,4}/, :format => false
+	match 'catalog/:tag_type/:name' => 'index#old_catalog', :format => false
 	
-	match 'product/:id' => 'index#product', :id => /[0-9a-f]{24}/
-	match 'product/:item_num(/:name)' => 'index#product', :as => :product
-	match 'idea/:id' => 'index#idea', :id => /[0-9a-f]{24}/
-	match 'idea/:idea_num(/:name)' => 'index#idea', :as => :idea
+	match 'product/:id' => 'index#product', :id => /[0-9a-f]{24}/, :format => false
+	match 'product/:item_num(/:name)' => 'index#product', :as => :product, :format => false
+	match 'idea/:id' => 'index#idea', :id => /[0-9a-f]{24}/, :format => false
+	match 'idea/:idea_num(/:name)' => 'index#idea', :as => :idea, :format => false
 		
 	#match 'lesson/:id' => 'index#idea', :as => :idea, :constraints => Proc.new {|obj| obj.is_ee?}
 	#match 'project/:id' => 'index#idea', :as => :idea, :constraints => Proc.new {|obj| !obj.is_ee?}
-	match 'contact' => 'index#contact', :as => :contact
-	match 'reply_to_feedback/:id' => 'index#reply_to_feedback', :as => :reply_to_feedback
-	match 'videos' => 'index#videos', :as => :videos
+	match 'contact' => 'index#contact', :as => :contact, :format => false
+	match 'reply_to_feedback/:id' => 'index#reply_to_feedback', :as => :reply_to_feedback, :format => false
+	match 'videos' => 'index#videos', :as => :videos, :format => false
 	
-	match 'forget_credit_card' => 'carts#forget_credit_card', :as => :forget_credit_card
-	match 'cart' => 'carts#index', :as => :cart
-	match 'checkout' => 'carts#checkout', :as => :checkout
-	match 'quote' => 'carts#quote', :as => :quote
-	match 'pre_order' => 'carts#quote', :as => :pre_order
-	match 'activate_coupon' => 'carts#activate_coupon', :as => :activate_coupon
-	match 'add_to_cart_by_item_num' => "carts#add_to_cart_by_item_num", :as => :add_to_cart_by_item_num
-	match 'remove_coupon' => 'carts#remove_coupon', :as => :remove_coupon
-	match 'remove_order_reference' => 'carts#remove_order_reference', :as => :remove_order_reference
-	match 'instructions' => 'index#instructions'
+	match 'forget_credit_card' => 'carts#forget_credit_card', :as => :forget_credit_card, :format => false
+	match 'cart' => 'carts#index', :as => :cart, :format => false
+	match 'checkout' => 'carts#checkout', :as => :checkout, :format => false
+	match 'quote' => 'carts#quote', :as => :quote, :format => false
+	match 'pre_order' => 'carts#quote', :as => :pre_order, :format => false
+	match 'activate_coupon' => 'carts#activate_coupon', :as => :activate_coupon, :format => false
+	match 'add_to_cart_by_item_num' => "carts#add_to_cart_by_item_num", :as => :add_to_cart_by_item_num, :format => false
+	match 'remove_coupon' => 'carts#remove_coupon', :as => :remove_coupon, :format => false
+	match 'remove_order_reference' => 'carts#remove_order_reference', :as => :remove_order_reference, :format => false
+	match 'instructions' => 'index#instructions', :format => false
 	
-	match '/calendar(/:year(/:month))' => 'index#calendar', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
+	match '/calendar(/:year(/:month))' => 'index#calendar', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}, :format => false
 	
-	match '/upload/fast_upload' => 'carts#fast_upload', :as => :fast_upload
+	match '/upload/fast_upload' => 'carts#fast_upload', :as => :fast_upload, :format => false
 	
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
@@ -235,7 +235,7 @@ Ellison3::Application.routes.draw do |map|
       
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "index#home"
+  root :to => "index#home", :format => false
   
 	#match "/grid/*path" => Gridfs #"gridfs#serve"
   # match "/solr_terms/:term" => SolrTerms
@@ -244,13 +244,15 @@ Ellison3::Application.routes.draw do |map|
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  match ':controller(/:action(/:id(.:format)))'
-  match ':controller(/:action(.:format))'
+  #match ':controller(/:action(/:id(.:format)))'
+  #match ':controller(/:action(.:format))'
   
+  match 'index/:action' => 'index', :format => false
+  match 'carts/:action' => 'carts', :format => false
   
 	# static and 404 pages middleware route
-	match "*path.html" => "static_pages#serve"
+	match "*path.html" => "static_pages#serve", :format => false
 
-  match ':id' => 'index#static_page'
+  match ':id' => 'index#static_page', :format => false
 
 end
