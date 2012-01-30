@@ -49,6 +49,7 @@
     %li= link_to "Privacy Policy", "/privacy"
     %li= link_to "Legal Notices", "/legal"    
 
+  - unless is_admin?
     %div{:style => "width:100px; height:54px; float:left;", :title => "Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications."}
       %script{:src => "https://seal.verisign.com/getseal?host_name=www.sizzix.co.uk&size=S&use_flash=NO&use_transparent=NO&lang=en", :type => "text/javascript"}
     

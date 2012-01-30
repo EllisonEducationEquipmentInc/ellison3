@@ -44,12 +44,13 @@
   %ul
     %li= link_to "ventas@ellisonlatinamerica.com", "mailto:ventas@ellisonlatinamerica.com"
   
-  %div{:style => "width:225px; height:54px; float:left; padding:0 6px;"}
-    %div{:style => "width:100px; height:54px; float:left;", :title => "Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications."}
-      %script{:src => "https://seal.verisign.com/getseal?host_name=www.ellison.com&size=S&use_flash=NO&use_transparent=NO&lang=en", :type => "text/javascript"}
-    %div{:style => "width:8px; height:54px; float:left;"}
-    %div{:style => "width:105px; height:54px; float:left; padding-top:9px;"}
-      %script{:src => "https://sealserver.trustwave.com/seal.js?style=invert&code=7182ceb80ca511e0b34b005056b201e5", :type => "text/javascript"}
+  - unless is_admin?
+    %div{:style => "width:225px; height:54px; float:left; padding:0 6px;"}
+      %div{:style => "width:100px; height:54px; float:left;", :title => "Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications."}
+        %script{:src => "https://seal.verisign.com/getseal?host_name=www.ellison.com&size=S&use_flash=NO&use_transparent=NO&lang=en", :type => "text/javascript"}
+      %div{:style => "width:8px; height:54px; float:left;"}
+      %div{:style => "width:105px; height:54px; float:left; padding-top:9px;"}
+        %script{:src => "https://sealserver.trustwave.com/seal.js?style=invert&code=7182ceb80ca511e0b34b005056b201e5", :type => "text/javascript"}
   
 .column_right{:class=>"panel_height"}
   %h2 Learn More
