@@ -51,8 +51,6 @@ Ellison3::Application.routes.draw do
 		get 'signup', :to => "users#new", :format => false
   end
 
-  match 'admin' => 'admin#index', :format => false
-
   match 'shop/:id' => 'index#shop', :as => :shop, :format => false
   match 'lp/:id' => 'index#tag_group', :as => :tag_group, :format => false
 	match 'products' => 'index#products', :format => false
@@ -97,7 +95,9 @@ Ellison3::Application.routes.draw do
 	match '/calendar(/:year(/:month))' => 'index#calendar', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}, :format => false
 	
 	match '/upload/fast_upload' => 'carts#fast_upload', :as => :fast_upload, :format => false
-	match ':controller(/:action(/:id))', :format => false
+    match 'admin' => 'admin#index', :format => false
+ 
+   
 	
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
@@ -238,7 +238,7 @@ Ellison3::Application.routes.draw do
   # just remember to delete public/index.html.
   root :to => "index#home", :format => false
   
-	#match "/grid/*path" => Gridfs #"gridfs#serve"
+  #match "/grid/*path" => Gridfs #"gridfs#serve"
   # match "/solr_terms/:term" => SolrTerms
 	
   # See how all your routes lay out with "rake routes"
@@ -248,12 +248,14 @@ Ellison3::Application.routes.draw do
   #match ':controller(/:action(/:id(.:format)))'
   #match ':controller(/:action(.:format))'
   
+  match ':controller(/:action(/:id))', :format => false
+  match ':controller(/:action(.:format))'
+
   match 'index/:action' => 'index', :format => false
   match 'carts/:action' => 'carts', :format => false
   
 	# static and 404 pages middleware route
 	match "*path.html" => "static_pages#serve", :format => false
 
-  match ':id' => 'index#static_page', :format => false
-
-end
+    match ':id' => 'index#static_page', :format => false
+  end
