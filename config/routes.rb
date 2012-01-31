@@ -3,7 +3,7 @@ Ellison3::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
-  devise_for :users, :controllers => { :registrations => "users", :sessions => "sessions" }
+  devise_for :users, :controllers => { :registrations => "users", :sessions => "sessions" }, :format => false
 	devise_for :admins, :controllers => {:registrations => "admin/registrations", :sessions => "admin/sessions" }
 
 	# Sets the devise scope to be used in the controller. 
@@ -19,8 +19,8 @@ Ellison3::Application.routes.draw do
 		get "orders", :to => "users#orders", :format => false
 		get "quotes", :to => "users#quotes", :format => false
 		get "materials", :to => "users#materials", :format => false
-		get "edit_address", :to => "users#edit_address", :format => false
-		get "checkout_requested", :to => "users#checkout_requested", :format => false
+		get "edit_address", :to => "users#edit_address"
+		get "checkout_requested", :to => "users#checkout_requested"
 		get "quote_requested", :to => "users#quote_requested", :format => false
 		get "signin_signup", :to => "users#signin_signup", :format => false
 		post "update_address", :to => "users#update_address", :format => false
@@ -47,8 +47,8 @@ Ellison3::Application.routes.draw do
 		get 'users/messages', :to => "users#messages", :format => false
 		post 'users/change_quote_name', :to => "users#change_quote_name", :format => false
 		post 'users/resend_subscription_confirmation', :to => "users#resend_subscription_confirmation", :format => false
-		get 'login', :to => "sessions#new", :format => false
-		get 'signup', :to => "users#new", :format => false
+		get 'login', :to => "sessions#new", :format => false, :as => :login
+		get 'signup', :to => "users#new", :format => false, :as => :signup
   end
 
   match 'shop/:id' => 'index#shop', :as => :shop, :format => false
@@ -95,7 +95,6 @@ Ellison3::Application.routes.draw do
 	match '/calendar(/:year(/:month))' => 'index#calendar', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}, :format => false
 	
 	match '/upload/fast_upload' => 'carts#fast_upload', :as => :fast_upload, :format => false
-    match 'admin' => 'admin#index', :format => false
  
    
 	
@@ -248,6 +247,8 @@ Ellison3::Application.routes.draw do
   #match ':controller(/:action(/:id(.:format)))'
   #match ':controller(/:action(.:format))'
   
+  match 'admin' => 'admin#index', :format => false
+
   match ':controller(/:action(/:id))', :format => false
   match ':controller(/:action(.:format))'
 
