@@ -23,7 +23,7 @@ Ellison3::Application.routes.draw do
 		get "checkout_requested", :to => "users#checkout_requested"
 		get "quote_requested", :to => "users#quote_requested", :format => false
 		get "signin_signup", :to => "users#signin_signup", :format => false
-		post "update_address", :to => "users#update_address", :format => false
+		post "update_address", :to => "users#update_address"
 		post "update_list", :to => "users#update_list", :format => false
 		post "create_list", :to => "users#create_list", :format => false
 		delete "delete_list", :to => "users#delete_list", :format => false
