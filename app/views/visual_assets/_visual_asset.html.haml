@@ -61,7 +61,7 @@
   - elsif visual_asset.asset_type == 'catalog_search'
     .asset_catalog_search
       %h2{:class => "#{visual_asset.name.parameterize(sep = '-') }"}
-        %span= visual_asset.name
+        %span= visual_asset.name.html_safe
         %span= link_to "View All", catalog_path(:anchor => visual_asset.search_query), :class => "minilink"
       %div{ :class => "item_carousel#{visual_asset.wide? ? '_wide' : nil} ui-widget-#{ is_sizzix_us? ? 'header' : 'content'} ui-widget ui-corner-all" }
         %div{:id => "asset_carousel_#{visual_asset.id}"}
@@ -91,7 +91,7 @@
   - elsif visual_asset.asset_type == 'products' || visual_asset.asset_type == 'ideas'
     .asset_items
       %h2{:class => "#{visual_asset.name.parameterize(sep = '-') }"}
-        %span= visual_asset.name
+        %span= visual_asset.name.html_safe
       %div{ :class => "item_carousel#{visual_asset.wide? ? '_wide' : nil} ui-widget-#{ is_sizzix_us? ? 'header' : 'content'} ui-widget ui-corner-all", :id => "asset_carousel_#{visual_asset.id}" }
         %ul= render :partial => 'index/item', :collection => visual_asset.asset_type == 'products' ? Product.listable.where(:item_num.in => visual_asset.products).cache : Idea.available.where(:idea_num.in => visual_asset.ideas).cache
         .controls{ :style => "display: none"}
