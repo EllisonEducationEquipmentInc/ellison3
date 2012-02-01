@@ -252,6 +252,7 @@ Ellison3::Application.routes.draw do
   match ':controller(/:action(/:id))', :format => false
   match ':controller(/:action(.:format))'
 
+  match "carts/quote_2_order/:id(.:format)" => "carts#quote_2_order"
   match 'index/:action' => 'index', :format => false
   match 'carts/:action' => 'carts', :format => false
   
