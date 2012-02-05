@@ -218,7 +218,7 @@ Ellison3::Application.routes.draw do
 			  end
 			end
       
-      resources :navigations, :system_settings
+      resources :navigations, :system_settings, :bloggers
       resources :system_settings do
         collection do
 			    post :save_vat, :save_free_shipping_message
@@ -247,7 +247,7 @@ Ellison3::Application.routes.draw do
   #match ':controller(/:action(/:id(.:format)))'
   #match ':controller(/:action(.:format))'
   
-  match 'admin' => 'admin#index', :format => false
+  match 'admin' => 'admin#index', :format => false, as: :admin
 
   match ':controller(/:action(/:id))', :format => false
   match ':controller(/:action(.:format))'

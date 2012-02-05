@@ -1,0 +1,25 @@
+= form_for([:admin, @blogger], :html => {:multipart => true}) do |f|
+  = f.error_messages
+  
+  %hr
+  %h3.contentwrap_XXXL.last System Visibility
+  .contentwrap_large
+    .field
+      = required_label f, :systems_enabled, { :label => "Enabled for", :label_size => "auto" }
+      = system_enabled('blogger')
+  .contentwrap_large.last
+  %hr
+  %h3.contentwrap_XXXL.last Basic Information
+  .contentwrap_large
+    .field
+      = required_label f, :name
+      = f.text_field :name
+    .field
+      = required_label f, :blog_url
+      = f.text_field :blog_url
+    .field
+      = f.label :photo_url
+      = f.text_field :photo_url
+
+  .actions
+    = f.submit :class => 'wymupdate jqui_save'
