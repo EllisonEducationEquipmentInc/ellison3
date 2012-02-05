@@ -1,0 +1,21 @@
+- @bloggers.each do |blogger|
+  .blogger{:style => "border: #{@blogger == blogger ? 2 : 1}px solid gray"}
+    = link_to "?id=#{blogger.id}" do
+      = image_tag blogger.photo_url
+      = blogger.name
+%img{:src => "/images/ui-backgrounds/blog_header_szuk.png"}/
+%ul{:class=>"uk_blog_ul ui-corner-all", :style=>"float:left; width:916px; list-style-type: none; padding: 0 16px 14px;"}
+  - @feed.entries.each do |feed|
+    %li{:class=>"uk_blog_li"}
+      - if feed["title"].present?
+        %h3= feed["title"].html_safe
+      %p
+        %span.timestamp= l(Time.parse(feed["published"]), :format => :blog) rescue feed["published"]
+        %br/    
+        = feed["summary"].try(:html_safe)
+- if @page > 1
+  %div{:style=>"float:right"}
+    = link_to "View Newer Posts", "?page=#{@page-1}"
+- if @per_page * @page < @feed.total_results
+  %div{:style=>"float:right"}
+    = link_to "View Older Posts", "?page=#{@page+1}"

@@ -372,6 +372,25 @@ class IndexController < ApplicationController
   rescue Exception => e
     go_404
   end
+
+  def blog_uk
+    raise "invalid system" unless is_sizzix_uk?
+    @page = params[:page].try(:to_i) || 1
+    @title = "Blogs"
+    @per_page = 10
+    start_index = (@page-1)*@per_page + 1
+    @bloggers = Blogger.send current_system
+    if params[:id].present?
+      @blogger = Blogger.find params[:id]
+      @feed = Feed.where(:name => "blogger_#{@blogger.id}_#{start_index}").first || Feed.new(:name => "blogger_#{@blogger.id}_#{start_index}")
+      Rails.logger.info "#{@blogger.blog_url}&max-results=#{@per_page}&start-index=#{start_index}"
+      process_feed("#{@blogger.blog_url}&max-results=#{@per_page}&start-index=#{start_index}", 60)
+    else
+      @feed = Feed.where(:name => "blog_uk_#{start_index}").first || Feed.new(:name => "blog_uk_#{start_index}")
+      process_feed("http://sizzixukblog.blogspot.com/feeds/posts/default?alt=rss&max-results=#{@per_page}&start-index=#{start_index}", 60)
+    end
+ 
+  end
   
   def newsletter
     get_list_and_segments
