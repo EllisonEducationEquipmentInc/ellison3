@@ -15,7 +15,7 @@ class Admin::BloggersController < ApplicationController
 	  else
 	    criteria.where(:systems_enabled.in => params[:systems_enabled]) 
 	  end
-	  criteria = criteria.where(:active => true) if params[:inactive].blank?
+		#criteria = criteria.where(:active => true) if params[:inactive].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
   	  criteria = criteria.any_of({ :name => regexp})
