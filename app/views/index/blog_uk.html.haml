@@ -9,7 +9,7 @@
           = image_tag blogger.photo_url
         %div{:style=>"color: #{@blogger == blogger ? '#fff' : '#346DA3'}; font-weight:bold;"}
           = blogger.name
-        %p{:style=>"color: #{@blogger == blogger ? '#fff' : '#346DA3'};"}        
+        %p{:style=>"color: #{@blogger == blogger ? '#fff' : '#346DA3'}; margin-bottom:0 !important;"}        
           #{@blogger == blogger ? 'Currently selected' : 'Click to select'}
 
 %ul{:class=>"uk_blog_ul ui-corner-all", :style=>"float:left; width:916px; list-style-type: none; padding: 0 16px 14px;"}
