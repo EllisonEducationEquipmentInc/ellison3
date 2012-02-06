@@ -47,7 +47,6 @@
               %li= link_to "Cart Page Banners Setup", admin_shared_contents_path(:placement => 'cart')
               %li= link_to "All Shared Content setup", admin_shared_contents_path
               %li= link_to "Manage Videos", "http://youtube.com", :target => '_blank'
-              %li= link_to "Manage Blogs", "http://blogspot.com", :target => '_blank'
           %ul.contentwrap_small
             %li.listtitle.first Customer Related
             %ul
@@ -78,6 +77,7 @@
               %li= link_to "Store Locator Setup", admin_shared_contents_path(:placement => 'store_locator')
               %li= link_to "System Settings", admin_system_settings_path
               %li= link_to "Solr/search Commit admin", "/admin/solr"
+              %li= link_to "Blog Administration", "/admin/bloggers", :target => '_blank'
           %hr
           - if get_cart.order_reference
             #previous_order_reference.contentwrap_XXXL.last
