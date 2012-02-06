@@ -1,18 +1,18 @@
 %img{:src => "/images/ui-backgrounds/blog_header_szuk.png"}/
-%div{:class=>"ui-corner-all", :style=>"border:1px solid #6699cc; float:left; margin:0 0 6px 0; background:url(/images/ui-backgrounds/blog_head.gif)top center repeat-x; padding:2px; "}
-  %div{:style=>"padding-left:10px; height:21px; color:white; font-weight:bold;"}
+.bloghead{:class=>"ui-corner-all"}
+  .blogframe
     View Blogs by Designer
+    .blogdview
+      View all Blogs
   - @bloggers.each do |blogger|
-    .blogger{:class=>"ui-corner-all", :style => "background:url(#{@blogger == blogger ? '/images/ui-backgrounds/blog_selected.gif' : '/images/ui-backgrounds/blog_choose.gif'}) bottom right no-repeat; border:1px solid #69c; width: 166px; float: left; margin:2px 4px; padding:6px;"}
+    .blogger{:class=>"ui-corner-all blogselector", :style => "background:url(#{@blogger == blogger ? '/images/ui-backgrounds/blog_selected.gif' : '/images/ui-backgrounds/blog_choose.gif'}) bottom right no-repeat;"}
       = link_to "?id=#{blogger.id}" do
-        %div{:style=>"border:1px solid #{@blogger == blogger ? '#fff' : '#69c'}; float:left; margin-right:4px; width:54px; height:63px;"}
+        .blogpic{:style=>"border:1px solid #{@blogger == blogger ? '#fff' : '#69c'};"}
           = image_tag blogger.photo_url
-        %div{:style=>"color: #{@blogger == blogger ? '#fff' : '#346DA3'}; font-weight:bold;"}
+        .blogname{:style=>"color: #{@blogger == blogger ? '#fff' : '#346DA3'};"}
           = blogger.name
         %p{:style=>"color: #{@blogger == blogger ? '#fff' : '#346DA3'}; margin-bottom:0 !important;"}        
           #{@blogger == blogger ? 'Currently selected' : 'Click to select'}
-%p{:style=>"float:left; color:white; font-weight:bold; padding-right:10px; margin:0 0 6px 4px;"}
-  = link_to "View all Blogs", "/index/blog_uk"
 
 %ul{:class=>"uk_blog_ul ui-corner-all", :style=>"float:left; width:916px; list-style-type: none; padding: 0 16px 14px;"}
   - @feed.entries.each do |feed|
@@ -27,5 +27,5 @@
   %div{:style=>"float:right"}
     = link_to "View Newer Posts", "?page=#{@page-1}"
 - if @per_page * @page < @feed.total_results
-  %div{:style=>"float:right; margin-right:10px;"}
+  %div{:style=>"float:right; margin-right:8px"}
     = link_to "View Older Posts", "?page=#{@page+1}"

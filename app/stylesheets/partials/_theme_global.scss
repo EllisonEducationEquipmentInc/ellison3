@@ -573,9 +573,21 @@ ul.ui-tabs-nav {
     }
   }
 
-  #blog-posts h2 { background: url('/images/ui-objects/flower_pink-geometric.png') no-repeat;  }
+  #blog-posts h2 {background: url('/images/ui-objects/flower_pink-geometric.png') no-repeat;}
 
-  #social-media h2 { background: url('/images/ui-objects/bird_blue-twitter.png') no-repeat; }
+  #social-media h2 {background: url('/images/ui-objects/bird_blue-twitter.png') no-repeat; }
+  
+  .bloghead {width:944px; border:1px solid #6699cc; float:left; margin:0 0 10px 0; background:url(/images/ui-backgrounds/blog_head.gif)top center repeat-x; padding:2px;}
+
+  .blogframe {padding-left:10px; height:21px; color:white; font-weight:bold;}
+  
+  .blogdview {width:auto; float:right; color:white; font-weight:bold; padding-right:10px; margin:0 0 6px 4px; text-decoration:none;}
+  
+  .blogselector {border:1px solid #69c; width: 166px; float: left; margin:2px 4px; padding:6px;}
+  
+  .blogpic {float:left; margin-right:4px; width:54px; height:63px;}
+  
+  .blogname {font-weight:bold;}
 
 }
 

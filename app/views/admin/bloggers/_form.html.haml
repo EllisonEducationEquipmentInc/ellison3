@@ -17,12 +17,19 @@
     .field
       = required_label f, :blog_url
       = f.text_field :blog_url
+      %br
+      %p{:class=>"legalese"}
+        *Enter RSS feed label with no spaces in the URL
+        %br
+        (If label name has a space, replace with "%20")
     .field
       = f.label :photo_url
       = f.text_field :photo_url
       %br
       %p{:class=>"legalese"}
         *Blogger photo standard size is currently 54 by 63 pixels.
+        %br
+        Images should be jpgs stored in the "/images/blog/" directory.
 
   .actions
     = f.submit :class => 'wymupdate jqui_save'
