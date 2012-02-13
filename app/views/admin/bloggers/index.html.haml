@@ -14,6 +14,7 @@
       %tr
         = sortable "name"
         %th Feed URL
+        %th Display Order
         %th Systems
         - if has_write_permissions?
           %th &nbsp;
@@ -23,6 +24,7 @@
         %tr{ :class => cycle(:odd, :even) }
           %td= blogger.name
           %td= blogger.blog_url
+          %td= blogger.display_order
           %td= blogger.systems_enabled.join(", ") rescue ''
           - if has_write_permissions?
             %td= link_to 'Edit', edit_admin_blogger_path(blogger), :class => 'jqui_edit_min'
