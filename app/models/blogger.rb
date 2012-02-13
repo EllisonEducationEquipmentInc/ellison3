@@ -9,6 +9,9 @@ class Blogger
   field :systems_enabled, :type => Array
   field :created_by
   field :updated_by
+  field :display_order, type: Integer
+
+  index :display_order
 
   validates_presence_of :name, :blog_url, :systems_enabled
 

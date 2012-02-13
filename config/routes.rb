@@ -60,7 +60,7 @@ Ellison3::Application.routes.draw do
 	match 'stores' => 'index#stores', :as => :stores, :format => false
 	match 'campaigns' => 'index#campaigns', :format => false
 	match 'events' => 'index#events', :format => false
-	match 'blogs' => 'index#blog', :format => false
+	match 'blogs_uk' => 'index#blog_uk', :format => false, :as => :blog_uk
 	match 'event/:id' => 'index#event', :as => :event, :format => false
 	match 'catalog' => 'index#catalog', :as => :catalog, :format => false
 	match 'outlet' => 'index#shop', :defaults => { :id => 'outlet' }, :as => :outlet, :format => false

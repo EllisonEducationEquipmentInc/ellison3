@@ -3,7 +3,8 @@
   .blogframe
     View Blogs by Designer
     .blogdview
-      View all Blogs
+      - if @blogger
+        = link_to 'View all Blogs', blog_uk_path
   - @bloggers.each do |blogger|
     .blogger{:class=>"ui-corner-all blogselector", :style => "background:url(#{@blogger == blogger ? '/images/ui-backgrounds/blog_selected.gif' : '/images/ui-backgrounds/blog_choose.gif'}) bottom right no-repeat;"}
       = link_to "?id=#{blogger.id}" do
@@ -11,7 +12,7 @@
           = image_tag blogger.photo_url
         .blogname{:style=>"color: #{@blogger == blogger ? '#fff' : '#346DA3'};"}
           = blogger.name
-        %p{:style=>"color: #{@blogger == blogger ? '#fff' : '#346DA3'}; margin-bottom:0 !important;"}        
+        %p{:style=>"color: #{@blogger == blogger ? '#fff' : '#346DA3'}; margin-bottom:0 !important;"}
           #{@blogger == blogger ? 'Currently selected' : 'Click to select'}
 
 %ul{:class=>"uk_blog_ul ui-corner-all", :style=>"float:left; width:916px; list-style-type: none; padding: 0 16px 14px;"}
@@ -25,7 +26,7 @@
         = feed["summary"].try(:html_safe)
 - if @page > 1
   %div{:style=>"float:right"}
-    = link_to "View Newer Posts", "?page=#{@page-1}"
+    = link_to "View Newer Posts", "?page=#{@page-1}&id=#{params[:id]}"
 - if @per_page * @page < @feed.total_results
   %div{:style=>"float:right; margin-right:8px"}
-    = link_to "View Older Posts", "?page=#{@page+1}"
+    = link_to "View Older Posts", "?page=#{@page+1}&id=#{params[:id]}"

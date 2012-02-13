@@ -12,6 +12,9 @@
   %h3.contentwrap_XXXL.last Basic Information
   .contentwrap_large
     .field
+      = required_label f, :display_order
+      = f.text_field :display_order
+    .field
       = required_label f, :name
       = f.text_field :name
     .field

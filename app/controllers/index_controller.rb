@@ -379,7 +379,7 @@ class IndexController < ApplicationController
     @title = "Blogs"
     @per_page = 10
     start_index = (@page-1)*@per_page + 1
-    @bloggers = Blogger.send current_system
+    @bloggers = Blogger.send(current_system).order_by([[:display_order, Mongo::ASCENDING]])
     if params[:id].present?
       @blogger = Blogger.find params[:id]
       @feed = Feed.where(:name => "blogger_#{@blogger.id}_#{start_index}").first || Feed.new(:name => "blogger_#{@blogger.id}_#{start_index}")
@@ -389,7 +389,8 @@ class IndexController < ApplicationController
       @feed = Feed.where(:name => "blog_uk_#{start_index}").first || Feed.new(:name => "blog_uk_#{start_index}")
       process_feed("http://sizzixukblog.blogspot.com/feeds/posts/default?alt=rss&max-results=#{@per_page}&start-index=#{start_index}", 60)
     end
- 
+  rescue Exception => e
+    go_404 
   end
   
   def newsletter
