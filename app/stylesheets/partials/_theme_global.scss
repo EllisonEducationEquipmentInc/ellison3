@@ -577,11 +577,11 @@ ul.ui-tabs-nav {
 
   #social-media h2 {background: url('/images/ui-objects/bird_blue-twitter.png') no-repeat; }
   
-  .bloghead {width:944px; border:1px solid #6699cc; float:left; margin:0 0 10px 0; background:url(/images/ui-backgrounds/blog_head.gif)top center repeat-x; padding:2px;}
+  .bloghead {position:relative; width:944px; border:1px solid #6699cc; float:left; margin:0 0 10px 0; background:url(/images/ui-backgrounds/blog_head.gif)top center repeat-x; padding:2px;}
 
-  .blogframe {padding-left:10px; height:21px; color:white; font-weight:bold;}
+  .blogframe {position:relative; width:940px; padding-left:10px; height:21px; color:white; font-weight:bold;}
   
-  .blogdview {width:auto; float:right; color:white; font-weight:bold; padding-right:10px; margin:0;}
+  .blogdview {position:relative; width:86px; float:right; color:white; font-weight:bold; padding:0 10px 0 0!important; margin:0!important; border:0!important;}
 
   .blogdview a {
     color: white!important;
