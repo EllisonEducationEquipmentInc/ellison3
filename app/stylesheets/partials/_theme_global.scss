@@ -581,7 +581,13 @@ ul.ui-tabs-nav {
 
   .blogframe {padding-left:10px; height:21px; color:white; font-weight:bold;}
   
-  .blogdview {width:auto; float:right; color:white; font-weight:bold; padding-right:10px; margin:0; text-decoration:none;}
+  .blogdview {width:auto; float:right; color:white; font-weight:bold; padding-right:10px; margin:0;}
+
+  .blogdview a {
+    color: white!important;
+    outline: medium none!important;
+    text-decoration: none!important;
+}
   
   .blogselector {border:1px solid #69c; width: 166px; float: left; margin:2px 4px; padding:6px;}
   
