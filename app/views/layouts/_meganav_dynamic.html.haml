@@ -2,7 +2,7 @@
   - @top_navigations.each do |top_nav|
     - panel_columns = Navigation.where(:system => current_system, :top_nav => @top_navigations.index(top_nav)).asc(:column)
     %li.megaitem.ui-corner-top
-      = link_to top_nav.label, top_nav.link, :class => "megalink", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
+      = link_to top_nav.label, top_nav.link, :class => "megalink #{top_nap.css_class}", :onclick => "$(this).siblings('div.megapanel').hide(); return true;"
       -# apply the full-width class to panels with six columns
       -# apply the reverse class to the panel of the last meganav link, but only if there are more than five meganav links
       .megapanel{:class => panel_columns.count >= 6 ? 'full-width' : ((@top_navigations.index(top_nav) == @top_navigations.length - 1) && @top_navigations.index(top_nav) > 4) ? 'reverse' : nil}

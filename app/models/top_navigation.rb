@@ -4,7 +4,7 @@ class TopNavigation
   include Singleton 
   include EllisonSystem
   
-  Navigation = Struct.new(:label, :link)
+  Navigation = Struct.new(:label, :link, :css_class)
   
   def initialize
     list
@@ -24,7 +24,7 @@ private
       Navigation.new("Machines & Accessories", "/lp/categories"),
       Navigation.new("Products", "/catalog"),
       Navigation.new("Electronic Cutting", "/shop/eclips"),
-      Navigation.new("Clearance", "/shop/clearance")
+      Navigation.new("Clearance", "/shop/clearance", "nav_clearance")
     ]
   end
   
