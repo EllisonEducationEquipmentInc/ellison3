@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 namespace :data_import do
 
   desc "import tradeshow orders from /data/shared/tradeshow_orders/tradeshow_orders.xml"
@@ -124,5 +126,97 @@ namespace :data_import do
       Lyris.delay.new :update_member_status, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :member_status => 'normal'
       Lyris.delay.new :update_member_demographics, :simple_member_struct_in => {:email_address => @subscription.email, :list_name => @subscription.list}, :demographics_array => @subscription.segments.map {|e| {:name => e.to_sym, :value => 1}} << {:name => :subscription_id, :value => @subscription.id.to_s}
     end
+  end
+
+  desc "Update Surecut products short description and overview tab content"
+  task :update_surecut => :environment do
+    set_current_system "eeus"
+
+    description = <<-HTML
+      <p>Each AllStar Die features a curriculum-based design to create fresh visuals, economical activities and essential resources for the classroom and homeschooling. With just one die, any teacher can support lesson plans, help increase subject retention and meet important standards. It’s no wonder learning has never been this fun!</p>
+      <p>Not sure if this die is compatible with your machine? Check the compatibility below.</p>
+    HTML
+    
+    overview = <<-HTML
+      <p>Each <strong>AllStar Die</strong> exceeds the Ellison unmatched expectation of quality, including:</p><ul><li>Inexpensive, economical</li><li>Curriculum-based artwork</li><li>High-quality wood and steel rule encased in durable plastic</li><li>Reliable cuts</li><li>Ability to cut many <a href="/materials_uide" target="_blank">lightweight materials thicknesses</a></li><li>Lightweight, easy portability</li></ul><p>See the <a href="/die_size_guide">Ellison Die Size Guide</a> for more information.<br /><br /><strong>Experiencing cutting problems?</strong><br />As a general rule, steel-rule cannot be sharpened. Instead, it’s likely your Cutting Pad needs replacing. Learn how to recognize and change worn Cutting Pads by reviewing instructions for your specific machine found <a href="/maintenace" target="_blank">here</a>.</p>
+    HTML
+
+    Product.where(name: /^Ellison AllStar Die/).each do |product|
+      change_product_overview_and_description(product, description, overview)
+    end
+
+    tag = Tag.where(name: "AllStar Long Dies").first
+    if tag
+      tag.products.each do |product|
+        change_product_overview_and_description(product, description, overview)
+      end
+    end
+
+    tag = Tag.where(name: "AllStar Standard Dies").first
+    if tag
+      tag.products.each do |product|
+        change_product_overview_and_description(product, description, overview)
+      end
+    end
+  end
+
+  desc "Update Allstar products short description and overview tab content"
+  task :update_allstar => :environment do
+    set_current_system "eeus"
+
+    description = <<-HTML
+      <p>Each SureCut Die features a curriculum-based design to create many ideas for the classroom, including memorable visuals and essential hands-on activities. With just one die, any teacher can support lesson plans, help increase subject retention and meet important standards. It’s no wonder learning has never been this fun!</p> <p>Not sure if this die is compatible with your machine? Check the compatibility below.</p>
+    HTML
+    
+    overview = <<-HTML
+      <p>Each <strong>SureCut Die*</strong> exceeds the Ellison unmatched expectation of quality, including:</p> <ul> <li>Curriculum-based artwork</li> <li>Genuine birch cutting block</li> <li>Laser-accurate steel rule</li> <li>Crisp cuts</li> <li>Ability to cut <a href="/materials_guide">many different materials/thicknesses</a></li> </ul> <p>In addition, four sizes of die blocks are used for all sizes of shapes, letters and numbers with noted differences between die designs and block sizes. See the <a href="/die_size_guide">Ellison Die Size Guide </a>for more information.<br /> <br /> <strong>Experiencing cutting problems?</strong><br /> As a general rule, steel-rule cannot be sharpened. Instead, it’s likely your Cutting Pad needs replacing.  Learn how to recognize and change worn cutting pads by reviewing instructions for your specific machine found <a href="/maintenance" target="_blank">here.</a></p>
+    HTML
+
+    Product.where(name: /^Ellison SureCut Die/).each do |product|
+      change_product_overview_and_description(product, description, overview)
+    end
+
+    tag = Tag.where(name: "Ellison SureCut TY, SM & LG Dies").first
+    if tag
+      tag.products.each do |product|
+        change_product_overview_and_description(product, description, overview)
+      end
+    end
+
+    tag = Tag.where(name: "Ellison SureCut DC Dies").first
+    if tag
+      tag.products.each do |product|
+        change_product_overview_and_description(product, description, overview)
+      end
+    end
+
+    tag = Tag.where(name: "Ellison SureCut XL Dies").first
+    if tag
+      tag.products.each do |product|
+        change_product_overview_and_description(product, description, overview)
+      end
+    end
+
+    tag = Tag.where(name: "Ellison SureCut XL Dies or Ellison SureCut 1 ¼” – 5” Alpha Dies").first
+    if tag
+      tag.products.each do |product|
+        change_product_overview_and_description(product, description, overview)
+      end
+    end
+
+    tag = Tag.where(name: "Ellison SureCut 8” Alpha Dies").first
+    if tag
+      tag.products.each do |product|
+        change_product_overview_and_description(product, description, overview)
+      end
+    end
+  end
+
+
+  def change_product_overview_and_description(product, description, overview)
+    product.description = description
+    tab = product.tabs.current.detect {|t| t.name =~ /overview/i}
+    tab.text = overview if tab
+    p product.save
   end
 end
