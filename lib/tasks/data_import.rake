@@ -145,19 +145,19 @@ namespace :data_import do
       change_product_overview_and_description(product, description, overview)
     end
 
-    tag = Tag.where(name: "AllStar Long Dies").first
-    if tag
-      tag.products.each do |product|
-        change_product_overview_and_description(product, description, overview)
-      end
-    end
+    #tag = Tag.where(name: "AllStar Long Dies").first
+    #if tag
+      #tag.products.each do |product|
+        #change_product_overview_and_description(product, description, overview)
+      #end
+    #end
 
-    tag = Tag.where(name: "AllStar Standard Dies").first
-    if tag
-      tag.products.each do |product|
-        change_product_overview_and_description(product, description, overview)
-      end
-    end
+    #tag = Tag.where(name: "AllStar Standard Dies").first
+    #if tag
+      #tag.products.each do |product|
+        #change_product_overview_and_description(product, description, overview)
+      #end
+    #end
   end
 
   desc "Update Allstar products short description and overview tab content"
@@ -176,40 +176,40 @@ namespace :data_import do
       change_product_overview_and_description(product, description, overview)
     end
 
-    tag = Tag.where(name: "Ellison SureCut TY, SM & LG Dies").first
-    if tag
-      tag.products.each do |product|
-        change_product_overview_and_description(product, description, overview)
-      end
-    end
+    #tag = Tag.where(name: "Ellison SureCut TY, SM & LG Dies").first
+    #if tag
+      #tag.products.each do |product|
+        #change_product_overview_and_description(product, description, overview)
+      #end
+    #end
 
-    tag = Tag.where(name: "Ellison SureCut DC Dies").first
-    if tag
-      tag.products.each do |product|
-        change_product_overview_and_description(product, description, overview)
-      end
-    end
+    #tag = Tag.where(name: "Ellison SureCut DC Dies").first
+    #if tag
+      #tag.products.each do |product|
+        #change_product_overview_and_description(product, description, overview)
+      #end
+    #end
 
-    tag = Tag.where(name: "Ellison SureCut XL Dies").first
-    if tag
-      tag.products.each do |product|
-        change_product_overview_and_description(product, description, overview)
-      end
-    end
+    #tag = Tag.where(name: "Ellison SureCut XL Dies").first
+    #if tag
+      #tag.products.each do |product|
+        #change_product_overview_and_description(product, description, overview)
+      #end
+    #end
 
-    tag = Tag.where(name: "Ellison SureCut XL Dies or Ellison SureCut 1 ¼” – 5” Alpha Dies").first
-    if tag
-      tag.products.each do |product|
-        change_product_overview_and_description(product, description, overview)
-      end
-    end
+    #tag = Tag.where(name: "Ellison SureCut XL Dies or Ellison SureCut 1 ¼” – 5” Alpha Dies").first
+    #if tag
+      #tag.products.each do |product|
+        #change_product_overview_and_description(product, description, overview)
+      #end
+    #end
 
-    tag = Tag.where(name: "Ellison SureCut 8” Alpha Dies").first
-    if tag
-      tag.products.each do |product|
-        change_product_overview_and_description(product, description, overview)
-      end
-    end
+    #tag = Tag.where(name: "Ellison SureCut 8” Alpha Dies").first
+    #if tag
+      #tag.products.each do |product|
+        #change_product_overview_and_description(product, description, overview)
+      #end
+    #end
   end
 
 
