@@ -242,8 +242,9 @@ module EllisonSystem
   
   # the first element in the hash is the actual list name ex: :sizzix_scoop =>	"Sizzix Scoop" listname: sizzix_scoop
   # the other keys represent a column of the members table in lyris, values are the labels displayed on the front-end.
-  # naming convention on lyris: in order to make it work, always name columns in lyris folowing these conventions: capitalize the first letter (and only the first letter) of each word, end separate words with underscores. Ex: Eclip, Education_Uk_Nursery, Sizzix_Uk_Dutch_Retailers etc.  
-  NEWSLETTER_SEGMENTS = {"szus" => {:sizzixscoop =>	"The Sizzix Scoop", :sizzix_outlet =>	"Sizzix Outlet", :sizzix_events => "Sizzix Events"},
+  # naming convention on lyris: in order to make it work, always name columns in lyris folowing these conventions: capitalize the first letter (and only the first letter) of each word, end separate words with underscores. Ex: Eclip, Education_Uk_Nursery, Sizzix_Uk_Dutch_Retailers etc. 
+  # removed outlet segment for szus on feb 22nd :sizzix_outlet =>	"Sizzix Outlet" 
+  NEWSLETTER_SEGMENTS = {"szus" => {:sizzixscoop =>	"The Sizzix Scoop",  :sizzix_events => "Sizzix Events"},
     "szuk" => {:sizzix_uk_consumers => "The Sizzix.co.uk Newsletter", :quilt_consumer => "Quilting"},
     "eeus" => {:connection => "The Ellison Connection"},
     "eeuk" => {:ellison_education_uk => "The Ellisoneducation.co.uk Newsletter"},

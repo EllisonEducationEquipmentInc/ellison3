@@ -44,10 +44,9 @@
           .actions{:class=>"news_submit"}
             = f.submit "Submit", :class => 'jqui_save'
         %br
-      - unless is_sizzix_us?
-        Yes, I'd like to subscribe to
-        %strong= @list[1]
-        = render :partial => 'segments'
+      Yes, I'd like to subscribe to
+      %strong= @list[1]
+      = render :partial => 'segments'
 
   .clear
   - if @subscribed.present?
