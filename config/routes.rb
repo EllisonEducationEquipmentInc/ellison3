@@ -63,7 +63,7 @@ Ellison3::Application.routes.draw do
 	match 'blogs' => 'index#blog_uk', :format => false, :as => :blog_uk
 	match 'event/:id' => 'index#event', :as => :event, :format => false
 	match 'catalog' => 'index#catalog', :as => :catalog, :format => false
-	match 'outlet' => 'index#shop', :defaults => { :id => 'outlet' }, :as => :outlet, :format => false
+	match 'outlet' => 'index#shop', :defaults => { :id => 'clearance' }, :as => :clearance, :format => false
 	
 	# redirects from rails 2 url's
 	match 'product/:old_id' => 'index#old_product', :old_id => /\d{1,5}/, :format => false
