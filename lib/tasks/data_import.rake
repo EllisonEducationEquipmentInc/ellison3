@@ -129,7 +129,7 @@ namespace :data_import do
   end
 
   desc "Update Surecut products short description and overview tab content"
-  task :update_surecut => :environment do
+  task :update_allstar => :environment do
     set_current_system "eeus"
 
     description = <<-HTML
@@ -141,7 +141,7 @@ namespace :data_import do
       <p>Each <strong>AllStar Die</strong> exceeds the Ellison unmatched expectation of quality, including:</p><ul><li>Inexpensive, economical</li><li>Curriculum-based artwork</li><li>High-quality wood and steel rule encased in durable plastic</li><li>Reliable cuts</li><li>Ability to cut many <a href="/materials_uide" target="_blank">lightweight materials thicknesses</a></li><li>Lightweight, easy portability</li></ul><p>See the <a href="/die_size_guide">Ellison Die Size Guide</a> for more information.<br /><br /><strong>Experiencing cutting problems?</strong><br />As a general rule, steel-rule cannot be sharpened. Instead, it’s likely your Cutting Pad needs replacing. Learn how to recognize and change worn Cutting Pads by reviewing instructions for your specific machine found <a href="/maintenace" target="_blank">here</a>.</p>
     HTML
 
-    Product.where(name: /^Ellison AllStar Die/).each do |product|
+    Product.where(name: /^Ellison AllStar( Long)? Die/).each do |product|
       change_product_overview_and_description(product, description, overview)
     end
 
@@ -161,7 +161,7 @@ namespace :data_import do
   end
 
   desc "Update Allstar products short description and overview tab content"
-  task :update_allstar => :environment do
+  task :update_surecut => :environment do
     set_current_system "eeus"
 
     description = <<-HTML
@@ -215,6 +215,7 @@ namespace :data_import do
 
   def change_product_overview_and_description(product, description, overview)
     product.description = description
+    product.description_erus, product.description_eeuk = nil
     tab = product.tabs.current.detect {|t| t.name =~ /overview/i}
     tab.text = overview if tab
     p product.save
