@@ -61,6 +61,7 @@ class Admin::UsersController < ApplicationController
     redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@user)
     mass_assign_protected_attributes
     @user.created_by = current_admin.email
+    @user.email.downcase!
     respond_to do |format|
       if @user.save
         format.html { redirect_to(admin_users_url, :notice => 'User was successfully created.') }
@@ -79,6 +80,7 @@ class Admin::UsersController < ApplicationController
     redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@user)
     mass_assign_protected_attributes
     @user.updated_by = current_admin.email
+    @user.email.downcase!
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to(admin_users_url, :notice => 'User was successfully updated.') }
