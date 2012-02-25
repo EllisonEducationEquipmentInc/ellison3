@@ -382,6 +382,7 @@ class IndexController < ApplicationController
     @bloggers = Blogger.send(current_system).order_by([[:display_order, Mongo::ASCENDING]])
     if params[:id].present?
       @blogger = Blogger.find params[:id]
+      @title << " - #{@blogger.name}"
       @feed = Feed.where(:name => "blogger_#{@blogger.id}_#{start_index}").first || Feed.new(:name => "blogger_#{@blogger.id}_#{start_index}")
       Rails.logger.info "#{@blogger.blog_url}&max-results=#{@per_page}&start-index=#{start_index}"
       process_feed("#{@blogger.blog_url}&max-results=#{@per_page}&start-index=#{start_index}", 60)
