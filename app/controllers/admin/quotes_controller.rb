@@ -171,4 +171,21 @@ class Admin::QuotesController < ApplicationController
 	  end
 	  send_file "/data/shared/report_files/#{filename}", :filename => filename
 	end
+
+  def active_quotes_report
+    FileUtils.mkdir "/data/shared/report_files" unless File.exists? "/data/shared/report_files"
+    filename = "active_orders_report_#{current_system}_#{Time.now.utc.strftime "%m%d%Y_%H"}.csv"
+    unless File.exists? "/data/shared/report_files/#{filename}"
+      csv_string = CSV.generate do |csv|
+        csv << ["item_num", "name", "quoted_price", "sales_price", "quantity", "campaign_name", "quote_number", "name", "created_at", "expires_at", "customer_rep", "company", "first_name", "last_name", "email", "erp"]
+        Quote.send(current_system).activ.each do |quote|
+          quote.order_items.each do |item|
+            csv << [item.item_num, item.name, item.quoted_price, item.sales_price, item.quantity, item.campaign_name, item.quote.quote_number, item.quote.name, item.quote.created_at, item.quote.expires_at, item.quote.customer_rep, item.quote.user.company, item.quote.user.first_name, item.quote.user.last_name, item.quote.user.email, item.quote.user.erp]
+          end
+        end
+      end
+      File.open("/data/shared/report_files/#{filename}", "w") {|file| file.write(csv_string)}
+    end
+    send_file "/data/shared/report_files/#{filename}", :filename => filename
+  end
 end
