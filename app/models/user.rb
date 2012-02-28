@@ -45,7 +45,7 @@ class User
 	field :created_by
 	field :updated_by
 	
-	validates_presence_of   :email
+	validates_presence_of   :email, :systems_enabled
 	validates_uniqueness_of :email, :case_sensitive => false, :if => Proc.new {|obj| !obj.new_record? && obj.email_changed?}
 	validate :email_uniqueness_by_system, :if => Proc.new {|obj| obj.new_record?}
 	validates_presence_of :tax_exempt_certificate, :if => Proc.new {|obj| obj.tax_exempt}
