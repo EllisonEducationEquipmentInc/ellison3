@@ -9,7 +9,7 @@ class Payment
   
   # deferred payment constants
 	NUMBER_OF_PAYMENTS = 2 	# not including first time 'setup' fee
-	FREQUENCY = 'weekly'
+	FREQUENCY = 'monthly'
 	
 	field :first_name
 	field :last_name

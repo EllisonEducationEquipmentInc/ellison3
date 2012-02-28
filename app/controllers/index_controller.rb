@@ -67,7 +67,7 @@ class IndexController < ApplicationController
       @keywords << @idea.tags.keywords.map {|e| e.name} * ', '
       @description = @idea.description if @idea.description.present?
     end
-    #fresh_when(:etag => [Time.now.utc.strftime("%m%d%Y%H"), 'idea', @idea, @idea.updated_at.utc.to_i, current_system, current_locale, admin_signed_in?, user_signed_in?], :last_modified => @idea.updated_at.utc)
+    fresh_when(:etag => [Time.now.utc.strftime("%m%d%Y%H"), 'idea', @idea, @idea.updated_at.utc.to_i, current_system, current_locale, admin_signed_in?, user_signed_in?], :last_modified => @idea.updated_at.utc)
     #expires_in 5.minutes, 'max-stale' => 5.minutes
   rescue Exception => e
     Rails.logger.info e
@@ -108,7 +108,7 @@ class IndexController < ApplicationController
   def catalog
     @title = "Catalog"
     #expires_in 3.hours, 'max-stale' => 5.hours
-    #fresh_when :etag => [Time.now.utc.strftime("%m%d%Y%H"), current_locale, current_system, current_user, flash, Time.zone.now.strftime("%m%d%Y%H"), admin_signed_in?]
+    fresh_when :etag => [Time.now.utc.strftime("%m%d%Y%H"), current_locale, current_system, current_user, flash, Time.zone.now.strftime("%m%d%Y%H"), admin_signed_in?]
   end
   
   def outlet
@@ -134,7 +134,7 @@ class IndexController < ApplicationController
       @products = @search.results
     end
     #fresh_when :etag => [request.request_uri, current_system, current_locale, ecommerce_allowed?, Product.retailer_discount_level, Time.zone.now.strftime("%m%d%Y%H"), admin_signed_in?]
-    #expires_in 5.minutes, 'max-stale' => 10.minutes unless is_er?
+    expires_in 5.minutes, 'max-stale' => 10.minutes unless is_er?
   end
   
   def quick_search
@@ -365,7 +365,7 @@ class IndexController < ApplicationController
     raise "invalid system" unless is_sizzix_uk?
     @page = params[:page].try(:to_i) || 1
     @title = "Blogs"
-    @per_page = 2
+    @per_page = 10
     start_index = (@page-1)*@per_page + 1
     @feed = Feed.where(:name => "blog_uk_#{start_index}").first || Feed.new(:name => "blog_uk_#{start_index}")
     process_feed("http://sizzixukblog.blogspot.com/feeds/posts/default?alt=rss&max-results=#{@per_page}&start-index=#{start_index}", 60)
@@ -377,7 +377,7 @@ class IndexController < ApplicationController
     raise "invalid system" unless is_sizzix_uk?
     @page = params[:page].try(:to_i) || 1
     @title = "Blogs"
-    @per_page = 2
+    @per_page = 10
     start_index = (@page-1)*@per_page + 1
     @bloggers = Blogger.send(current_system).order_by([[:display_order, Mongo::ASCENDING]])
     if params[:id].present?
