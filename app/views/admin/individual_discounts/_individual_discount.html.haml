@@ -7,7 +7,7 @@
   -#= link_to_function "remove", "$(this).parent('li').remove()"
   = f.check_box :_destroy, :style => "margin-left: 0px"
   = f.label :_destroy, "Delete?", :class => "autosize minilink", :style => "font-weight: normal"
-  = f.text_field :label, :class => 'transperent product_info', :readonly => true, :style => "width: 440px"
+  = f.text_field :label, :class => 'transperent product_info', :readonly => true, :style => "padding-left:3px; width: 422px; font-size:10px !important;"
   = f.text_field :product_id, :class => 'transperent individual_product_id', :readonly => true, :size => 25, :type => "hidden"
 
   :javascript
