@@ -78,11 +78,12 @@ class Admin::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@user)
+    @user.write_attributes(params[:user])
     mass_assign_protected_attributes
     @user.updated_by = current_admin.email
     @user.email.downcase!
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.save
         format.html { redirect_to(admin_users_url, :notice => 'User was successfully updated.') }
         format.xml  { head :ok }
       else
