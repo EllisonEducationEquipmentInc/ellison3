@@ -130,7 +130,7 @@ module Ax
 			xml.target!
 		end
 		
-		def order_status_update(xml)
+		def order_status_update(xml, no_emails = false)
 			begin
 				doc = REXML::Document.new(xml)
 		    doc.root.elements.each('orders') do |orders|

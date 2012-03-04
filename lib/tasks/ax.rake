@@ -82,10 +82,10 @@ namespace :ax do
   end
   
   desc "process order status updates from AX"
-  task :status_update => :include_ax do
+  task :status_update, [:arg1] => [:include_ax] do |t, args|
     new_relic_wrapper "status_update" do
       Dir.glob("#{PATH}/from_ax/orders_status_update_*") do |filename| 
-        result = order_status_update(IO.read(filename))
+        result = order_status_update(IO.read(filename), args[:arg1] == "no_email")
         if result == 1
           FileUtils.mv filename, "#{PATH}/processed_ax/"
           p "#{filename} has been successfully proccessed"
@@ -199,6 +199,11 @@ namespace :ax do
     filename = "inventory_upload_#{Time.now.strftime("%d%m%y_%H%M%S")}.xml"
     File.open("#{PATH}/from_ax/#{filename}", "w") {|file| file.puts(xml.target!)}
     p "#{PATH}/from_ax/#{filename} has been created" 
+  end
+
+  desc "test"
+  task :test, [:arg1] => [:environment]do |t, args|
+    p args[:arg1] == "no_email"
   end
   
   def random_life_cycle
