@@ -218,6 +218,6 @@ namespace :data_import do
     product.description_erus, product.description_eeuk = nil
     tab = product.tabs.current.detect {|t| t.name =~ /overview/i}
     tab.text = overview if tab
-    p product.save
+    p "#{product.save} #{product.item_num}"
   end
 end
