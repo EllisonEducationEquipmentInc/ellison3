@@ -12,6 +12,7 @@
         = f.radio_button(:active, true, :onclick => "if (this.checked) {$(this).closest('.va_title').find('h#{f.object.is_child? ? 3 : 2}, .va_active-dates').removeClass('disabled')}")
       .va_active-dates
         == Active #{l f.object.start_date, :format => :custom} to #{l f.object.end_date, :format => :custom}
+      .va_active-dates= f.object.systems_enabled * ', '
     = link_to "-", "#", :class => "va_collapse va_close"
     -# important: h2 is the sort handler for parent VA's, h3 for children
     - if f.object.new_record?
