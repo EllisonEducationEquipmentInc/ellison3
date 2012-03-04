@@ -172,20 +172,20 @@ class Admin::QuotesController < ApplicationController
 	  send_file "/data/shared/report_files/#{filename}", :filename => filename
 	end
 
-  def active_quotes_report
-    FileUtils.mkdir "/data/shared/report_files" unless File.exists? "/data/shared/report_files"
-    filename = "active_orders_report_#{current_system}_#{Time.now.utc.strftime "%m%d%Y_%H"}.csv"
-    unless File.exists? "/data/shared/report_files/#{filename}"
-      csv_string = CSV.generate do |csv|
-        csv << ["quote_number", "quote name", "item_num", "name","release_dates", "quoted_price", "sales_price", "quantity", "campaign_name", "coupon_code", "created_at", "expires_at", "customer_rep", "company", "name", "email", "erp", "subtotal", "shipping_amount", "handling_amount", "sales_tax", "total_amount", "total_discount", ]
-        Quote.send(current_system).active.each do |quote|
-          quote.order_items.each do |item|
-            csv << [item.quote.quote_number, item.quote.name, item.item_num, item.name, item.product.tags.release_dates.map(&:name) * ', ', item.quoted_price, item.sale_price, item.quantity, item.campaign_name,  item.quote.coupon_code, item.quote.created_at, item.quote.expires_at, item.quote.get_customer_rep.try(:email), item.quote.user.company, item.quote.user.name, item.quote.user.email, item.quote.user.erp, item.quote.subtotal_amount, item.quote.shipping_amount, item.quote.handling_amount, item.quote.tax_amount, item.quote.total_amount, item.quote.total_discount ]
-          end
-        end
-      end
-      File.open("/data/shared/report_files/#{filename}", "w") {|file| file.write(csv_string)}
-    end
-    send_file "/data/shared/report_files/#{filename}", :filename => filename
-  end
+  #def active_quotes_report
+    #FileUtils.mkdir "/data/shared/report_files" unless File.exists? "/data/shared/report_files"
+    #filename = "active_orders_report_#{current_system}_#{Time.now.utc.strftime "%m%d%Y_%H"}.csv"
+    #unless File.exists? "/data/shared/report_files/#{filename}"
+      #csv_string = CSV.generate do |csv|
+        #csv << ["quote_number", "quote name", "item_num", "name","release_dates", "quoted_price", "sales_price", "quantity", "campaign_name", "coupon_code", "created_at", "expires_at", "customer_rep", "company", "name", "email", "erp", "subtotal", "shipping_amount", "handling_amount", "sales_tax", "total_amount", "total_discount", ]
+        #Quote.send(current_system).active.each do |quote|
+          #quote.order_items.each do |item|
+            #csv << [item.quote.quote_number, item.quote.name, item.item_num, item.name, item.product.tags.release_dates.map(&:name) * ', ', item.quoted_price, item.sale_price, item.quantity, item.campaign_name,  item.quote.coupon_code, item.quote.created_at, item.quote.expires_at, item.quote.get_customer_rep.try(:email), item.quote.user.company, item.quote.user.name, item.quote.user.email, item.quote.user.erp, item.quote.subtotal_amount, item.quote.shipping_amount, item.quote.handling_amount, item.quote.tax_amount, item.quote.total_amount, item.quote.total_discount ]
+          #end
+        #end
+      #end
+      #File.open("/data/shared/report_files/#{filename}", "w") {|file| file.write(csv_string)}
+    #end
+    #send_file "/data/shared/report_files/#{filename}", :filename => filename
+  #end
 end
