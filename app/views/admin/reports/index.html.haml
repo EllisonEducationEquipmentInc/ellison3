@@ -129,8 +129,8 @@
 #customer_summary_report
   %br
 %hr
-%h3 Active Quotes Report
-%p This report gives us an overview of ...
+%h3 Active Quotes/Pre-Order Report
+%p This report generates all Active Quotes/Pre-orders line items to CSV file within the selected date ranges.
 = form_tag url_for(:action => 'active_quotes_report'), :remote => true, :class => 'report_form' do
   .field
     = label_tag :start_date
