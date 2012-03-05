@@ -130,7 +130,7 @@
   %br
 %hr
 %h3 Active Quotes/Pre-Order Report
-%p This report generates all Active Quotes/Pre-orders line items to CSV file within the selected date ranges.
+%p This report generates all Active Quotes/Pre-orders line items to CSV file within the selected date ranges along with Release Date information of the product if the product is tagged for release date filter.  The generation of report is very database intensive and takes long time to generate report.  If there are more quotes/pre-orders on selected date range - the report will time out.  Select the date range based on no. of quotes you have in the selected date range.  
 = form_tag url_for(:action => 'active_quotes_report'), :remote => true, :class => 'report_form' do
   .field
     = label_tag :start_date
