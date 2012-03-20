@@ -1,2 +1,2 @@
-= link_to "Pin It", "http://pinterest.com/pin/create/button/?url=#{product_url(:item_num => @product.url_safe_item_num, :name => @product.name.parameterize)}&media=http://#{get_domain}#{@product.large_image}&description=#{u @product.name} #{number_to_currency gross_price(@product.msrp)}", class: "pin-it-button", 'count-layout' => "vertical"
+= link_to "Pin It", "http://pinterest.com/pin/create/button/?url=#{product_url(:item_num => @product.url_safe_item_num, :name => @product.name.parameterize)}&media=http://#{get_domain}#{@product.large_image}&description=#{u @product.name} #{number_to_currency gross_price(@product.msrp)}", class: "pin-it-button", 'count-layout' => "none"
 %script{:type => "text/javascript", :src  => "http://assets.pinterest.com/js/pinit.js"}

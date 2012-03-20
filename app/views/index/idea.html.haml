@@ -78,7 +78,7 @@
   .item_sociallinks.dontprint
     .ibuttons
       = render partial: 'ideas/pinterest'
-    = facebook_like
+      = facebook_like
 
   %div{ :class => "item_detail#{ @idea.use_tabs ? '-tabbed' : (@idea.products.displayable.count < 1 && @idea.four_related_criteria.count < 1) ? '-full' : nil}"}
     = render :partial => "index/#{'non_' unless @idea.use_tabs}tab_block", :locals => {:object => @idea}
