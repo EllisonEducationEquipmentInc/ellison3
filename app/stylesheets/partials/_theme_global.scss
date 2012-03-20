@@ -524,6 +524,9 @@ ul.ui-tabs-nav {
     }
     
     ul#blog_feeds, ul#connect-with-sizzix { @extend ul.plain;
+    
+      height:330px;
+      float:left;
 
       li {
         font-family: Georgia, serif !important;
@@ -647,7 +650,7 @@ ul.ui-tabs-nav {
           margin: 0 0 0 70px !important;
         }
         
-        li { margin: 0 12px 0 0 !important; }
+        li { margin: 0 10px 0 0 !important; }
       }
     }
     

@@ -764,8 +764,17 @@ h3.item_title {
 }
 
 .item_sociallinks {
+  width:230px;
+  position:relative;
   
-  iframe { margin: 6px 0 0 10px };
+  iframe { height:65px !important; float:left !important; margin: 6px 0 0 10px };
+}
+
+.ibuttons {
+  height:65px;
+  float:left!important;
+  bottom:0;
+  margin-top:4px;
 }
 
 .buybox { @extend .rounded;
