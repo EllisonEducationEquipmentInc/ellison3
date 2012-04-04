@@ -174,9 +174,9 @@ module ApplicationHelper
 
 	def facebook_like
 #	  if params[:controller] == 'index' && params[:action] == 'idea'
-#  	  %(<iframe src="http://www.facebook.com/plugins/like.php?href=#{request.url}&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:21px; margin: 0" allowTransparency="true"></iframe>).html_safe
+#  	  %(<iframe src="http://www.facebook.com/plugins/like.php?href=#{request.url}&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:48px; height:21px; margin: 0" allowTransparency="true"></iframe>).html_safe
 #  	else
-  		%(<iframe src="http://www.facebook.com/plugins/like.php?href=#{request.url}&amp;layout=button_count&amp;show_faces=false&amp;width=46&amp;action=like&amp;colorscheme=light&amp;height=22" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:46px; height:22px;" allowTransparency="true"></iframe>).html_safe
+  		%(<iframe src="http://www.facebook.com/plugins/like.php?href=#{request.url}&amp;layout=button_count&amp;show_faces=false&amp;width=46&amp;action=like&amp;colorscheme=light&amp;height=22" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:48px; height:22px;" allowTransparency="true"></iframe>).html_safe
 #  	end
 	end
 	
