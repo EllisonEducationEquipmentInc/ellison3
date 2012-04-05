@@ -43,7 +43,7 @@ class Order
 	index "order_items.coupon_name"
 	
 	index [[:user_id, Mongo::ASCENDING], [:system, Mongo::ASCENDING], [:created_at, Mongo::DESCENDING]]
-	index [[:updated_at, Mongo::DESCENDING], [:system, Mongo::DESCENDING], [:order_number, Mongo::DESCENDING], [:tax_transaction, Mongo::DESCENDING], [:deleted_at, Mongo::ASCENDING]]
+	index [[:updated_at, Mongo::DESCENDING], [:system, Mongo::DESCENDING], [:order_number, Mongo::DESCENDING], [:tax_transaction, Mongo::DESCENDING]]
   index [["order_items.campaign_name", Mongo::ASCENDING], [:system, Mongo::ASCENDING]]
 	
 	field :status, :default => "New"
