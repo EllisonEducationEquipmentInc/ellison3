@@ -62,7 +62,7 @@
       == Weight: #{get_cart.total_actual_weight} lbs
     #shipping_options{ :style => "width: #{get_user.shipping_address.try(:country) == "United States" ? '200' : '285'}px"}= render :partial => "shipping_options" if get_user.shipping_address
     = link_to "Estimated shipping and handling", "/shipping_handling?no_layout=1", :class => "link_help lightbox"
-  %h3 Payment
+  %h3 Payment Options
   #checkout_cc{:style => "display:#{get_user.billing_address && get_user.shipping_address ? 'block' : 'none'}"}= render :partial => 'payment' if get_user.billing_address && get_user.shipping_address
 .clear
 %hr

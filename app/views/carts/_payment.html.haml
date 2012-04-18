@@ -1,3 +1,4 @@
+%h3{:class=>"paytype_header"} Credit Card
 = form_for(@payment, :url => {:controller => :carts, :action => @quote ? "quote_2_order" : "proceed_checkout", :id => @quote, :secure => true}, :remote => true, :html => {:id => "proceed_checkout", :method => :post, :multipart => true}) do |f|
   = f.error_messages
   - if get_cart.allow_deferred?
@@ -112,7 +113,7 @@
           = required_label f, :full_card_number, { :label => "Credit Card Number", :label_size => "auto" }
           = text_field :payment, :full_card_number, :size => 24, :maxlength => 16, :class => "cc", :style => "display: inline-block"
           - unless is_uk?
-            = link_to "Using a gift card?", "/usingagiftcard?no_layout=1", :class => "link_help lightbox", :style => "margin-right: 12px"
+            = link_to "Using a prepaid gift card?", "/usingagiftcard?no_layout=1", :class => "link_help lightbox", :style => "margin-right: 12px"
         .clear_left
         - if is_uk?
           %p.formhelp== <strong>Note:</strong> Currently, we do <strong>NOT</strong> accept International Maestro card form of Payment.
@@ -159,7 +160,7 @@
       %div= text_area_tag :comments, nil
   = f.submit "Place Order", :class => 'jqui_save'
   .clear
-  %p.legalese{ :style => "width: 500px; float: right" }
+  %p.legalese{:class => "checkout_disclaimer"}
     - if is_uk?
       == All purchases from our website are made subject to our #{link_to "terms and conditions", "/termsofsale?no_layout=1", :class => "lightbox"}. By clicking the button to confirm your order you agree to and will be bound by those terms & conditions and we therefore suggest that you read them #{link_to "here", "/termsofsale?no_layout=1", :class => "lightbox"} first.
     - else
