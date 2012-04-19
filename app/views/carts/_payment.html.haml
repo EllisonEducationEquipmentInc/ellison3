@@ -1,54 +1,17 @@
 %h3{:class=>"paytype_header"}
-  - if is_uk?  
-    %img{:class=>"cc_uk_img", :src =>"/images/ui-icons/cc_set_uk.jpg"}
-  - else
-    %img{:class=>"cc_us_img", :src =>"/images/ui-icons/cc_set_us.jpg"}
-  %div{:class =>"cc_main"}
-    Credit Card
-// Messaging Info Goes Here
-//  %div{:class =>"cc_other"}
-//    How would you like to pay for this order?
 = form_for(@payment, :url => {:controller => :carts, :action => @quote ? "quote_2_order" : "proceed_checkout", :id => @quote, :secure => true}, :remote => true, :html => {:id => "proceed_checkout", :method => :post, :multipart => true}) do |f|
+  %div
+    - if is_uk?  
+      %img{:class=>"cc_uk_img", :src =>"/images/ui-icons/cc_set_uk.jpg"}
+    - else
+      %img{:class=>"cc_us_img", :src =>"/images/ui-icons/cc_set_us.jpg"}
+    %div{:class =>"cc_main"}
+      Credit Card
+  // Messaging Info Goes Here
+  //  %div{:class =>"cc_other"}
+  //    How would you like to pay for this order?
+
   = f.error_messages
-  - if get_cart.allow_deferred?
-    #deferred_options
-      %strong How would you like to pay for this order?
-      %br
-      = radio_button_tag :deferred, 0, !@payment.deferred, :onclick => "$('#payment_deferred').val(this.value); $('#agreed_terms').closest('tr').hide(); $('#agreed_terms').rules('remove');"
-      with a Single Payment
-      %table
-        %tr
-          %th
-            Payment Due 
-            = l Date.today
-        %tr
-          %td
-            %span#deferred_single_total_amount= render :partial => 'deferred_single_total_amount'
-            %span (incl S&H +Tax)
-      = radio_button_tag :deferred, 1, @payment.deferred, :onclick => "$('#payment_deferred').val(this.value); $('#agreed_terms').closest('tr').show(); $('#agreed_terms').rules('add', {required: true, messages:{required: 'To place your order, please check the box if you agree with the terms and conditions of the Three Easy Payments program.'}});"
-      in Three Easy Payments
-      %table
-        %tr
-          %th
-            Payment 1 Due 
-            = l Date.today
-          - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
-            %th
-              Payment 
-              = i+1 
-              Due
-              = l i.months.since, :format => :date
-        %tr
-          %td
-            %span#deferred_first_payment= render :partial => 'deferred_first_payment'
-            %span (incl S&H + Tax)
-          - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
-            %td= number_to_currency((gross_price(get_cart.sub_total)/(Payment::NUMBER_OF_PAYMENTS + 1.0)).round(2))
-        %tr{:id => "agreed_terms_row", :style => "display: none;"}
-          %td{:colspan => "#{Payment::NUMBER_OF_PAYMENTS + 1}"}
-            = check_box_tag :agreed_terms, "1", false
-            == I agree that Sizzix.com may charge my credit card or debit card to recieve payment in full for my purchase of this merchandise in 3 month payment installments. Click here for #{ link_to "Terms and Conditions of Sale", "/3ez_terms_of_sale?no_layout=1", :class => "lightbox" }.
-    = f.hidden_field :deferred
   - if purchase_order_allowed?
     .field
       = f.label :purchase_order, "Would you like to pay with a purchase order?", :class => "autosize"
@@ -92,6 +55,45 @@
           If a Purchase Order is not attached, then this
           %br
           order will not be processed until received.
+  - if get_cart.allow_deferred?
+    #deferred_options
+      %strong How would you like to pay for this order?
+      %br
+      = radio_button_tag :deferred, 0, !@payment.deferred, :onclick => "$('#payment_deferred').val(this.value); $('#agreed_terms').closest('tr').hide(); $('#agreed_terms').rules('remove');"
+      with a Single Payment
+      %table
+        %tr
+          %th
+            Payment Due 
+            = l Date.today
+        %tr
+          %td
+            %span#deferred_single_total_amount= render :partial => 'deferred_single_total_amount'
+            %span (incl S&H +Tax)
+      = radio_button_tag :deferred, 1, @payment.deferred, :onclick => "$('#payment_deferred').val(this.value); $('#agreed_terms').closest('tr').show(); $('#agreed_terms').rules('add', {required: true, messages:{required: 'To place your order, please check the box if you agree with the terms and conditions of the Three Easy Payments program.'}});"
+      in Three Easy Payments
+      %table
+        %tr
+          %th
+            Payment 1 Due 
+            = l Date.today
+          - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
+            %th
+              Payment 
+              = i+1 
+              Due
+              = l i.months.since, :format => :date
+        %tr
+          %td
+            %span#deferred_first_payment= render :partial => 'deferred_first_payment'
+            %span (incl S&H + Tax)
+          - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
+            %td= number_to_currency((gross_price(get_cart.sub_total)/(Payment::NUMBER_OF_PAYMENTS + 1.0)).round(2))
+        %tr{:id => "agreed_terms_row", :style => "display: none;"}
+          %td{:colspan => "#{Payment::NUMBER_OF_PAYMENTS + 1}"}
+            = check_box_tag :agreed_terms, "1", false
+            == I agree that Sizzix.com may charge my credit card or debit card to recieve payment in full for my purchase of this merchandise in 3 month payment installments. Click here for #{ link_to "Terms and Conditions of Sale", "/3ez_terms_of_sale?no_layout=1", :class => "lightbox" }.
+    = f.hidden_field :deferred
   #cc_info
     - if is_er?
       .field 
