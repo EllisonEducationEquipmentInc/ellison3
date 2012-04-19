@@ -44,19 +44,10 @@
           If a Purchase Order is not attached, then this
           %br
           order will not be processed until received.
-  %div{:style=>"float:left; height:auto;"}
-    - if is_uk?  
-      %img{:class=>"cc_uk_img", :src =>"/images/ui-icons/cc_set_uk.jpg"}
-    - else
-      %img{:class=>"cc_us_img", :src =>"/images/ui-icons/cc_set_us.jpg"}
-    %div{:class =>"cc_main"}
-      %h3 Credit Card
-  // Messaging Info Goes Here
-  //  %div{:class =>"cc_other"}
-  //    How would you like to pay for this order?
   - if get_cart.allow_deferred?
     #deferred_options
-      %strong How would you like to pay for this order?
+      %div{:class =>"cc_other"}
+        %strong How would you like to pay for this order?
       %br
       = radio_button_tag :deferred, 0, !@payment.deferred, :onclick => "$('#payment_deferred').val(this.value); $('#agreed_terms').closest('tr').hide(); $('#agreed_terms').rules('remove');"
       with a Single Payment
@@ -93,6 +84,17 @@
             = check_box_tag :agreed_terms, "1", false
             == I agree that Sizzix.com may charge my credit card or debit card to recieve payment in full for my purchase of this merchandise in 3 month payment installments. Click here for #{ link_to "Terms and Conditions of Sale", "/3ez_terms_of_sale?no_layout=1", :class => "lightbox" }.
     = f.hidden_field :deferred
+  %div{:style=>"float:left; height:auto;"}
+    - if is_uk?  
+      %img{:class=>"cc_uk_img", :src =>"/images/ui-icons/cc_set_uk.jpg"}
+    - else
+      %img{:class=>"cc_us_img", :src =>"/images/ui-icons/cc_set_us.jpg"}
+    %div{:class =>"cc_main"}
+      %h3 Credit Card
+      //    Messaging Info Goes Here
+      //    %div{:class =>"cc_other"}
+      //      This card has been applied.
+
   #cc_info
     - if is_er?
       .field 
@@ -112,8 +114,7 @@
         = f.text_field :first_name, :class => "cc"
       .left.field-stacked.credit_card
         = required_label f, :last_name, { :label => "Last Name", :label_size => "auto" }
-        = f.text_field :last_name, :class => "cc"
-        
+        = f.text_field :last_name, :class => "cc"        
       .clear_left
       .credit_card
         .left.field-stacked{ :style => "margin-right: 12px#{is_uk? ? '; margin-bottom: 0' : nil}"}
@@ -185,3 +186,4 @@
         order_comment();
         $('#proceed_checkout').validate(payment_validator_options);
     });
+    
