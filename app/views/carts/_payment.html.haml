@@ -1,4 +1,13 @@
-%h3{:class=>"paytype_header"} Credit Card
+%h3{:class=>"paytype_header"}
+  - if is_uk?  
+    %img{:class=>"cc_uk_img", :src =>"/images/ui-icons/cc_set_uk.jpg"}
+  - else
+    %img{:class=>"cc_us_img", :src =>"/images/ui-icons/cc_set_us.jpg"}
+  %div{:class =>"cc_main"}
+    Credit Card
+// Messaging Info Goes Here
+//  %div{:class =>"cc_other"}
+//    How would you like to pay for this order?
 = form_for(@payment, :url => {:controller => :carts, :action => @quote ? "quote_2_order" : "proceed_checkout", :id => @quote, :secure => true}, :remote => true, :html => {:id => "proceed_checkout", :method => :post, :multipart => true}) do |f|
   = f.error_messages
   - if get_cart.allow_deferred?

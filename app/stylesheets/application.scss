@@ -215,7 +215,34 @@ td.pre_order{
 }
 .paytype_header {
   float: left;
-  height: 40px;
   margin-top: 6px !important;
+  margin-right:4px !important;
   width: 624px;
 }
+.cc_uk_img {
+  float:left;
+  margin-right:6px!important;
+  margin-bottom:2px!important;
+  width:60px;
+  height:38px
+}
+.cc_us_img {
+  float:left;
+  margin-right:6px!important;
+  margin-bottom:2px!important;
+  width:60px;
+  height:38px
+}
+.cc_main {
+  margin-bottom:4px;
+  float:left;
+  height:18px;
+  width:520px;
+}
+.cc_other {
+  font-weight:normal!important;
+  float:left;
+  width:520px;
+}
+
+
