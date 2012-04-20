@@ -84,17 +84,6 @@
             = check_box_tag :agreed_terms, "1", false
             == I agree that Sizzix.com may charge my credit card or debit card to recieve payment in full for my purchase of this merchandise in 3 month payment installments. Click here for #{ link_to "Terms and Conditions of Sale", "/3ez_terms_of_sale?no_layout=1", :class => "lightbox" }.
     = f.hidden_field :deferred
-  %div{:style=>"float:left; height:auto;"}
-    - if is_uk?  
-      %img{:class=>"cc_uk_img", :src =>"/images/ui-icons/cc_set_uk.jpg"}
-    - else
-      %img{:class=>"cc_us_img", :src =>"/images/ui-icons/cc_set_us.jpg"}
-    %div{:class =>"cc_main"}
-      %h3 Credit Card
-      //    Messaging Info Goes Here
-      //    %div{:class =>"cc_other"}
-      //      This card has been applied.
-
   #cc_info
     - if is_er?
       .field 
@@ -124,7 +113,7 @@
           = required_label f, :full_card_number, { :label => "Credit Card Number", :label_size => "auto" }
           = text_field :payment, :full_card_number, :size => 24, :maxlength => 16, :class => "cc", :style => "display: inline-block"
           - unless is_uk?
-            = link_to "Using a prepaid gift card?", "/usingagiftcard?no_layout=1", :class => "link_help lightbox", :style => "margin-right: 12px"
+            = link_to "Using a Prepaid Card?", "/usingagiftcard?no_layout=1", :class => "link_help lightbox", :style => "margin-right: 12px"
         .clear_left
         - if is_uk?
           %p.formhelp== <strong>Note:</strong> Currently, we do <strong>NOT</strong> accept International Maestro card form of Payment.
