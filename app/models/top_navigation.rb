@@ -19,11 +19,11 @@ private
   # define top navigation values for each system here:
   def list_szus
     [
-      Navigation.new("Projects", "/lp/categories?ideas=1"), 
-      Navigation.new("New & Notable", "/catalog#ideas=1"), 
-      Navigation.new("Machines & Accessories", "/lp/categories"),
-      Navigation.new("Products", "/catalog"),
-      Navigation.new("Electronic Cutting", "/shop/eclips"),
+      Navigation.new("Idea Gallery", "/lp/categories?ideas=1"), 
+      Navigation.new("Shop", "/catalog"), 
+      Navigation.new("eclips", "/shop/eclips"),
+      Navigation.new("Quilting", "/shop/sizzixquilting"),
+      Navigation.new("Community", "#"),
       Navigation.new("Clearance", "/shop/clearance", "nav_clearance")
     ]
   end
