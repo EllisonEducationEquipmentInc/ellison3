@@ -20,7 +20,7 @@ class Admin::FeedbacksController < ApplicationController
 	  criteria = criteria.where(:subject => params[:subject]) unless params[:subject].blank?
 	  unless params[:q].blank?
 	    regexp = Regexp.new(params[:q], "i")
-  	  criteria = criteria.any_of({ :email => regexp}, { 'comments.message' => regexp }, {:number => params[:q]})
+  	  criteria = criteria.any_of({ :email => regexp}, { 'comments.message' => regexp }, {:number => params[:q].to_i})
 	  end
 	  order = params[:sort] ? {sort_column => sort_direction} : [[:status, :asc], [:created_at, :desc]]
 		@feedbacks = criteria.order_by(order).paginate :page => params[:page], :per_page => 50
