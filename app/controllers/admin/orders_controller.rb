@@ -24,8 +24,11 @@ class Admin::OrdersController < ApplicationController
 	  criteria = criteria.where('order_items.gift_card' => Boolean.set(params[:gift_card])) unless params[:gift_card].blank?
 	  if params[:q].present?
 	    regexp = params[:extended] == "1" ? Regexp.new(params[:q], "i") : Regexp.new("^#{params[:q]}")
-      #criteria = criteria.any_of({'order_number' => params[:q][/\d+/].to_i}, {:tax_transaction => params[:q]}, {"payment.vpstx_id" => params[:q]}, {"payment.tx_auth_no" => params[:q]}, {"payment.purchase_order_number" => params[:q]}, {'address.email' => regexp}, {'address.company' => regexp}, { 'address.last_name' => regexp })
   	  criteria = criteria.where({'order_number' => params[:q][/\d+/].to_i} )
+  		@orders = criteria.paginate :page => params[:page], :per_page => 50
+    elsif params[:others].present?
+	    regexp = params[:extended] == "1" ? Regexp.new(params[:others], "i") : Regexp.new("^#{params[:others]}")
+      criteria = criteria.any_of({'address.email' => regexp}, {'address.company' => regexp}, { 'address.last_name' => regexp })
   		@orders = criteria.paginate :page => params[:page], :per_page => 50
 	  else
 	    order = params[:order] ? {sort_column => sort_direction} : [[:created_at, :desc]]

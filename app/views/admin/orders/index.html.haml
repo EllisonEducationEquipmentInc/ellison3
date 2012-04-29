@@ -4,7 +4,8 @@
   = link_to 'all', admin_orders_path, :class => 'jqui_button'
 = form_tag(admin_orders_path, :method => :get) do
   = admin_systems_checkboxes
-  = text_field_tag :q, nil, :placeholder => "shipping name, address"
+  = text_field_tag :q, nil, :placeholder => "order #"
+  = text_field_tag :others, nil, :placeholder => "shipping name, address, email"
   = check_box_tag :extended, "1"
   Extended search (partial match)
   = select_tag :status, options_for_select([['All', nil]] + Order::STATUSES, params[:status])
