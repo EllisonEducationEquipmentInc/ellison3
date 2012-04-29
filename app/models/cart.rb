@@ -126,6 +126,10 @@ class Cart
 	rescue
 		false
 	end
+
+  def gift_card?
+    cart_items.any? &:gift_card
+  end
 		
 	# to adjust qty and remove unavailable items and prompt user, pass true in the argument
 	def update_items(check = false, quote = false)
