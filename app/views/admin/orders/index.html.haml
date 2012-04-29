@@ -7,7 +7,7 @@
   = text_field_tag :q, nil, :placeholder => "order #"
   = text_field_tag :others, nil, :placeholder => "shipping name, address, email"
   = check_box_tag :extended, "1"
-  Extended search (partial match)
+  Extended search (case insensitive, partial match)
   = select_tag :status, options_for_select([['All', nil]] + Order::STATUSES, params[:status])
   = select_tag :deferred, options_for_select([['All', nil]] + [['deferred', 1], ['not-deferred', 0]], params[:deferred])
   = select_tag :gift_card, options_for_select([['All', nil]] + [['gift card', 1], ['non-gift card', 0]], params[:gift_card])
