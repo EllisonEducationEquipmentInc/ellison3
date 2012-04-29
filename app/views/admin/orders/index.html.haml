@@ -6,9 +6,10 @@
   = admin_systems_checkboxes
   = text_field_tag :q, nil, :placeholder => "shipping name, address"
   = check_box_tag :extended, "1"
-  Extended search (case insensitive, partial match)
+  Extended search (partial match)
   = select_tag :status, options_for_select([['All', nil]] + Order::STATUSES, params[:status])
   = select_tag :deferred, options_for_select([['All', nil]] + [['deferred', 1], ['not-deferred', 0]], params[:deferred])
+  = select_tag :gift_card, options_for_select([['All', nil]] + [['gift card', 1], ['non-gift card', 0]], params[:gift_card])
   = submit_tag "search", :class => 'jqui_search'
 .highlightable
   %table

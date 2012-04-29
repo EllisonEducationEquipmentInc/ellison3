@@ -21,6 +21,7 @@ class Admin::OrdersController < ApplicationController
 	  end
 	  criteria = criteria.where(:status => params[:status]) unless params[:status].blank?
 	  criteria = criteria.where('payment.deferred' => Boolean.set(params[:deferred])) unless params[:deferred].blank?
+	  criteria = criteria.where('order_items.gift_card' => Boolean.set(params[:gift_card])) unless params[:gift_card].blank?
 	  if params[:q].present?
 	    regexp = params[:extended] == "1" ? Regexp.new(params[:q], "i") : Regexp.new("^#{params[:q]}")
       #criteria = criteria.any_of({'order_number' => params[:q][/\d+/].to_i}, {:tax_transaction => params[:q]}, {"payment.vpstx_id" => params[:q]}, {"payment.tx_auth_no" => params[:q]}, {"payment.purchase_order_number" => params[:q]}, {'address.email' => regexp}, {'address.company' => regexp}, { 'address.last_name' => regexp })

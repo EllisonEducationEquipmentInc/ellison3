@@ -13,6 +13,7 @@ class OrderItem
 	field :coupon_code
 	field :custom_price, :type => Boolean, :default => false
 	field :coupon_price, :type => Boolean, :default => false
+	field :gift_card, :type => Boolean, :default => false
 	field :quantity, :type => Integer, :default => 1
 	field :tax_exempt, :type => Boolean, :default => false
 	field :vat_exempt, :type => Boolean, :default => false

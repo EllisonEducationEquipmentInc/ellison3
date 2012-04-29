@@ -21,7 +21,7 @@ class Product
   
   QUANTITY_THRESHOLD = 0
   LIFE_CYCLES = ['pre-release', 'available', 'discontinued', 'unavailable']
-  ITEM_TYPES = ['machine', 'bundle', 'die', 'accessory', 'supply']
+  ITEM_TYPES = ['machine', 'bundle', 'die', 'accessory', 'supply', 'gift_card']
   ITEM_GROUPS = ['Sizzix', 'Ellison', 'Third Party']
   
   cattr_accessor :retailer_discount_level
@@ -65,6 +65,7 @@ class Product
   field :weight_kgs, :type => Float
   field :active, :type => Boolean, :default => true
   field :outlet, :type => Boolean, :default => false
+  #field :gift_card, :type => Boolean, :default => false
   field :outlet_since, :type => DateTime
   field :life_cycle
   field :life_cycle_date, :type => Date
@@ -418,6 +419,12 @@ class Product
   def virtual_weight(sys = current_system)
     self.send("virtual_weight_#{sys}").present? && (self.send("virtual_weight_ends_#{sys}").blank? || self.send("virtual_weight_ends_#{sys}").present? && self.send("virtual_weight_ends_#{sys}") > Time.zone.now) ? self.send("virtual_weight_#{sys}") : self.weight
   end
+
+  def gift_card
+    self.item_type == "gift_card"
+  end
+
+  alias :gift_card? :gift_card
   
   # Availability logic:
   # if life_cycle is either 'pre-release', 'available' or 'discontinued' then availability is determined by "orderable_#{current_system}" - (system specific) attribute

@@ -105,6 +105,7 @@ class Cart
 		@cart_errors = []
 		@cart_errors << "The cart can only contain 99 items per order." if !is_er? && total_quantity > MAX_ITEMS
 		@cart_errors << "The maximum amount in the cart per order is 100,000" if sub_total > MAX_CART_VALUE
+    @cart_errors << "A Gift Card item(s) has been identified in your cart. To order Gift Card(s), please continue to checkout only with Gift Card item(s) in your cart." unless cart_items.all?(&:gift_card) || cart_items.none?(&:gift_card)
 		if self.changed_items.present? || self.removed > 0 || self.coupon_removed #|| self.coupon_has_been_updated
 			@cart_errors << "The price on one or more of the items in your order has been adjusted since you last placed it in your Shopping Cart. Items in your cart will always reflect the most recent price displayed on their corresponding product detail pages." if changed_item_attributes.include?("price")
 			@cart_errors << "Some items placed in your cart are greater than the quantity available for sale. The most current quantity available has been updated in your Shopping Cart." if changed_item_attributes.include?("quantity") 
@@ -141,7 +142,7 @@ class Cart
 		  next if item.coupon?
 			product = item.product
 			item.write_attributes :sale_price => product.outlet? ? product.price : product.sale_price, :campaign_name => product.campaign_name, :msrp => product.msrp_or_wholesale_price, :currency => current_currency, :small_image => product.small_image, :tax_exempt => product.tax_exempt, :outlet => product.outlet?, :pre_order => product.pre_order?,
-			  :handling_price => product.handling_price, :retailer_price => product.retailer_price, :weight => product.virtual_weight, :actual_weight => product.weight, :out_of_stock => backorder_allowed? && product.listable?(current_system, item.quantity) ? product.out_of_stock?(current_system, item.quantity - 1) : product.out_of_stock?
+			  :handling_price => product.handling_price, :gift_card => product.gift_card, :retailer_price => product.retailer_price, :weight => product.virtual_weight, :actual_weight => product.weight, :out_of_stock => backorder_allowed? && product.listable?(current_system, item.quantity) ? product.out_of_stock?(current_system, item.quantity - 1) : product.out_of_stock?
 			item.price = product.price unless item.custom_price
 			if check
 			  if quote

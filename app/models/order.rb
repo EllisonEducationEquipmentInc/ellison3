@@ -41,6 +41,7 @@ class Order
 	index "payment.purchase_order_number"
 	index "order_items.campaign_name"
 	index "order_items.coupon_name"
+  index "order_items.gift_card"
 	
 	index [[:user_id, Mongo::ASCENDING], [:system, Mongo::ASCENDING], [:created_at, Mongo::DESCENDING]]
 	index [[:updated_at, Mongo::DESCENDING], [:system, Mongo::DESCENDING], [:order_number, Mongo::DESCENDING], [:tax_transaction, Mongo::DESCENDING]]
@@ -330,6 +331,10 @@ class Order
     Admin.find(self.customer_rep_id) if self.customer_rep_id
   rescue
     nil
+  end
+
+  def gift_card?
+    order_items.any? &:gift_card
   end
   
 	# use this format to change status:
