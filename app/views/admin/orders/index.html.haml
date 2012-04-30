@@ -4,8 +4,8 @@
   = link_to 'all', admin_orders_path, :class => 'jqui_button'
 = form_tag(admin_orders_path, :method => :get) do
   = admin_systems_checkboxes
-  = text_field_tag :q, nil, :placeholder => "order #"
-  = text_field_tag :others, nil, :placeholder => "shipping name, address, email"
+  = text_field_tag :q, nil, :placeholder => "order No."
+  = text_field_tag :others, nil, :placeholder => "email, ship co., ship last name"
   = check_box_tag :extended, "1"
   Extended search (case insensitive, partial match)
   = select_tag :status, options_for_select([['All', nil]] + Order::STATUSES, params[:status])
