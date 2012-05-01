@@ -1,5 +1,4 @@
 %h2 Listing orders
-
 %span{:class=>"hdr1"}Display Order List
 %span{:class=>"hdr1_red"}
   (By System):
@@ -43,8 +42,8 @@
     = select_tag :gift_card, options_for_select([['All', nil]] + [['gift card', 1], ['non-gift card', 0]], params[:gift_card])
   .order_line3
     = submit_tag "search", :class => 'jqui_search'
-  .order_line_btm
-  
+  .order_line_btm  
+.clear
 .highlightable
   %table
     %thead
