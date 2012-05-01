@@ -1,20 +1,19 @@
 %h2 Listing orders
 %span{:class=>"hdr1"}Display Order List
-%span{:class=>"hdr1_red"}
-  (By System):
+%span{:class=>"hdr2_red"}by System:
 = admin_systems_checkboxes
 .order_line
 - unless params[:q].blank?
   = link_to 'all', admin_orders_path, :class => 'jqui_button'
 = form_tag(admin_orders_path, :method => :get) do
   .order_container
-    %span{:style=>"font-weight:normal;"}Search By
-    %span{:class=>"hdr2_red"}Order Number:
+    %span{:style=>"font-weight:normal;"}Search
+    %span{:class=>"hdr2_red"}by Order Number:
     %br
     = text_field_tag :q, nil, :placeholder => "order No."
   .order_container
-    %span{:style=>"font-weight:normal;"}Search By
-    %span{:class=>"hdr2_red"}Recipient/Ship-To:
+    %span{:style=>"font-weight:normal;"}Search
+    %span{:class=>"hdr2_red"}by Recipient/Ship-To:
     %br
     = text_field_tag :others, nil, :placeholder => "email, ship co., ship last name"
   .order_container
@@ -26,18 +25,18 @@
   %div{:style=>"width:100%; height:1px; float:left;"}
   %br
   .order_container
-    %span{:style=>"font-weight:normal;"}Filter By
-    %span{:class=>"hdr2_red"}Order Status:
+    %span{:style=>"font-weight:normal;"}Filter
+    %span{:class=>"hdr2_red"}by Order Status:
     %br
     = select_tag :status, options_for_select([['All', nil]] + Order::STATUSES, params[:status])
   .order_container
-    %span{:style=>"font-weight:normal;"}Filter By
-    %span{:class=>"hdr2_red"}Payment Deferrment:
+    %span{:style=>"font-weight:normal;"}Filter
+    %span{:class=>"hdr2_red"}by Payment Deferrment:
     %br
     = select_tag :deferred, options_for_select([['All', nil]] + [['deferred', 1], ['not-deferred', 0]], params[:deferred])
   .order_container
-    %span{:style=>"font-weight:normal;"}Filter By
-    %span{:class=>"hdr2_red"}Gift Card:
+    %span{:style=>"font-weight:normal;"}Filter
+    %span{:class=>"hdr2_red"}by Gift Card:
     %br
     = select_tag :gift_card, options_for_select([['All', nil]] + [['gift card', 1], ['non-gift card', 0]], params[:gift_card])
   .order_line3
