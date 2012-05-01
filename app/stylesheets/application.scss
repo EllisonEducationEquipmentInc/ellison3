@@ -246,4 +246,32 @@ td.pre_order{
   width:100%;
 }
 
+.hdr1 {
+font-weight:bold;
+}
+
+.hdr1_red {
+color:#A9250E;
+}
+
+.hdr2{
+font-weight:normal;
+}
+
+.hdr2_red {
+color:#A9250E; font-weight:bold;
+}
+
+.order_line {
+  height:1px; width:100%; border-bottom:1px solid #DCDCDC; margin:2px 0 6px;
+}
+.order_container {
+  float:left; height:auto; width:auto;margin:0 24px 6px 0;
+}
+.order_line_btm {
+  float:left; height:1px; width:100%; border-bottom:1px solid #DCDCDC; margin:2px 0 6px;
+}
+.order_line3 {
+  float:right; height:auto; width:auto;margin-right:16px; margin-bottom:6px; padding-top: 18px;
+}
 
