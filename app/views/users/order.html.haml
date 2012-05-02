@@ -118,7 +118,7 @@
         %li== Your credit card statement will reflect a charge from Sizzix/Ellison#{is_us? ? ' Lake Forest, CA' : nil}.
       %li Shipping errors and claims must be made within 30 days of receipt of goods.
       - if @order.gift_card?
-        %li No returns on Gift Cards.
+        %li Gift Cards CANNOT be returned.
       - else
         %li Merchandise CANNOT be returned without prior approval.
       - unless is_uk?
