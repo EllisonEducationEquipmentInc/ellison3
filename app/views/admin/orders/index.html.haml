@@ -1,11 +1,11 @@
 %h2 Listing orders
-%span{:class=>"hdr1"}Display Order List
+%span{:class=>"hdr1"}Filter
 %span{:class=>"hdr2_red"}by System:
-= admin_systems_checkboxes
-.order_line
-- unless params[:q].blank?
-  = link_to 'all', admin_orders_path, :class => 'jqui_button'
 = form_tag(admin_orders_path, :method => :get) do
+  = admin_systems_checkboxes
+  .order_line
+  - unless params[:q].blank?
+    = link_to 'all', admin_orders_path, :class => 'jqui_button'
   .order_container
     %span{:style=>"font-weight:normal;"}Search
     %span{:class=>"hdr2_red"}by Order Number:
