@@ -5,6 +5,24 @@
 #   client.videos_by(:author => 'sizzix', :order_by => 'published', :time => 'this_week').videos #=> returns this weeks recently uploaded videos 
 #
 class YouTubeIt
+  module Parser
+    class PlaylistFeedParser < FeedParser #:nodoc:
+
+      def parse_content(content)
+        xml = REXML::Document.new(content.body)
+        entry = xml.elements["entry"] || xml.elements["feed"]
+        YouTubeIt::Model::Playlist.new(
+          :title         => entry.elements["title"].text,
+          :summary       => ((entry.elements["summary"] || entry.elements["media:group"].elements["media:description"]).text rescue ""),
+          :description   => ((entry.elements["summary"] || entry.elements["media:group"].elements["media:description"]).text rescue ""),
+          :playlist_id   => entry.elements["id"].text[/playlist([^<]+)/, 1].sub(':',''),
+          :published     => entry.elements["published"] ? entry.elements["published"].text : nil,
+          :response_code => content.status,
+          :xml           => content.body)
+      end
+    end
+  end
+
   module Request #:nodoc:
     class VideoSearch < BaseSearch #:nodoc:
       attr_reader :time

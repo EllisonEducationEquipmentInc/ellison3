@@ -486,7 +486,7 @@ private
 
   def get_videos
     @feed = Feed.where(:name => "video_paylist_#{current_system}").first || Feed.new(:name => "video_paylist_#{current_system}")
-    process_feed("http://gdata.youtube.com/feeds/api/users/#{youtube_user}/playlists", 60)
+    process_feed("http://gdata.youtube.com/feeds/api/users/#{youtube_user}/playlists?v=2", 60)
     @client = YouTubeIt::Client.new
     @videos = Rails.cache.fetch("videos_#{current_system}", :expires_in => 60.minutes) do
       @feed.entries.inject([]) do |arr, e|
@@ -496,7 +496,7 @@ private
           arr << v
         rescue Exception => e
           next
-        end        
+        end
       end
     end
   end
