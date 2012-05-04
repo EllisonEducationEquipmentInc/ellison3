@@ -145,6 +145,10 @@ EOF
     nil
   end
 
+  def gift_card?
+    order_items.any? &:gift_card
+  end
+
 private
 
   def set_quote_number
