@@ -23,8 +23,6 @@ gem 'sass'
 gem 'will_paginate', '>=3.0.pre2'
 gem 'capybara'
 gem 'database_cleaner'
-gem 'cucumber-rails'
-gem 'cucumber'
 gem 'rspec-rails', '>=2.0.0.beta.20'
 gem 'spork'
 gem 'launchy'    # So you can do Then show me the page
@@ -83,6 +81,8 @@ gem 'capistrano'
 # Bundle gems for certain environments:
 gem 'shoulda', :group => :test
 group :test do
+  gem 'cucumber-rails'
+  gem 'cucumber'
   gem 'webrat'
   gem 'factory_girl_rails'
   gem 'remarkable_rails'
