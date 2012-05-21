@@ -4,9 +4,24 @@
     Welcome to our firmware downloads page. Here you can get the most recent features, bugfixes and upgrades for your eclips machine!
     %br
     %br
-  %img{:src => "#{ is_sizzix? ? '/images/static/firmware/eclips_fw_shot_szus.png' : '/images/static/firmware/eclips_fw_shot_eeus.png'}", :class => "fw_intro_frame"}
-    %p{:style=>"float:left; width:363px; margin: 0 14px 0;"}
-      %strong
+  - if is_sizzix?
+    .ec_fw_szus
+      .p_fw
+        If you would like to update your eCAL software, you can visit the 
+        = link_to "Craftedge.com Support Center.", "http://www.craftedge.com/support/lostsw.php"
+        %br
+        %br
+        From the Craftedge Support Center Support Download Page you can locate and download the latest firmware updates.
+  - else
+    .ec_fw_eeus
+      .p_fw
+        If you would like to update your eCAL software, you can visit the 
+        = link_to "Craftedge.com Support Center.", "http://www.craftedge.com/support/lostsw.php"
+        %br
+        %br
+        From the Craftedge Support Center Support Download Page you can locate and download the latest firmware updates.
+  %p{:style=>"float:left; width:363px; margin: 0 14px 0;"}
+    %strong
   .alignleft
     = @text.html_safe
 .fw_frame

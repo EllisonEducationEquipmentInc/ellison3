@@ -172,6 +172,27 @@ td.pre_order{
 }
 
 // eclipsware
+
+.ec_fw_szus {
+  float:left;
+  width:374px;
+  height:648px;
+  margin-right:24px;
+  background:url('/images/static/firmware/eclips_fw_shot_szus.png');
+}
+
+.ec_fw_eeus {
+  float:left;
+  width:374px;
+  height:648px;
+  margin-right:24px;
+  background:url('/images/static/firmware/eclips_fw_shot_eeus.png');
+}
+
+.p_fw {
+  margin:414px 26px 12px 22px;
+}
+
 .fw_frame {
   float:left; padding: 4px 0 6px; border-bottom:2px dotted #E3DDCE; width:950px; margin:0 0 4px;
 }
