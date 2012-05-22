@@ -316,6 +316,11 @@ class CartsController < ApplicationController
 	  render :activate_coupon
 	end
 
+  def apply_gift_card
+    @payment = Payment.new params[:payment]
+    @valutec = Valutec.new :transaction_sale, card_number: "#{@payment.full_card_number}=#{@payment.card_pin}", amount: total_cart
+  end
+
   def remove_order_reference
     get_cart.update_attribute :order_reference, nil
     render :js => "$('#previous_order_reference').remove();location.href= location.href;"

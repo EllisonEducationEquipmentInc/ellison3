@@ -575,6 +575,10 @@ module ShoppingCart
   	def purchase_order_allowed?
   	  !get_cart.gift_card? && (is_ee? || !is_sizzix? && user_signed_in? && get_user.purchase_order)
   	end
+
+    def gift_card_allowed?
+      is_sizzix_us? || is_ee_us?
+    end
   	
   	def tax_exempt?
   	  user_signed_in? && get_user.tax_exempt?

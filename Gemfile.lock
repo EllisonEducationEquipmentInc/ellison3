@@ -78,6 +78,8 @@ GEM
       activesupport (= 3.0.4)
     activesupport (3.0.4)
     addressable (2.2.6)
+    akami (1.0.0)
+      gyoku (>= 0.4.0)
     archive-tar-minitar (0.5.2)
     arel (2.0.10)
     barista (1.2.1)
@@ -168,11 +170,15 @@ GEM
     gherkin (2.4.5)
       json (>= 1.4.6)
     git (1.2.5)
+    gyoku (0.4.4)
+      builder (>= 2.1.2)
     haml (3.1.2)
     highline (1.6.2)
     hpricot (0.8.4)
     httparty (0.7.8)
       crack (= 0.1.8)
+    httpi (0.9.7)
+      rack
     i18n (0.6.0)
     image_science (1.2.1)
     jeweler (1.8.3)
@@ -222,6 +228,7 @@ GEM
     newrelic_rpm (3.1.1)
     nifty-generators (0.4.6)
     nokogiri (1.5.0)
+    nori (1.1.0)
     oauth (0.4.6)
     oauth2 (0.5.2)
       faraday (~> 0.7)
@@ -307,6 +314,14 @@ GEM
       sexp_processor (~> 3.0)
     rubyzip (0.9.4)
     sass (3.1.5)
+    savon (0.9.9)
+      akami (~> 1.0)
+      builder (>= 2.1.2)
+      gyoku (>= 0.4.0)
+      httpi (~> 0.9)
+      nokogiri (>= 1.4.0)
+      nori (~> 1.1)
+      wasabi (~> 2.1)
     sax-machine (0.0.20)
       nokogiri (> 0.0.0)
     selenium-webdriver (0.2.2)
@@ -335,6 +350,8 @@ GEM
     tzinfo (0.3.29)
     warden (0.10.7)
       rack (>= 1.0.0)
+    wasabi (2.1.0)
+      nokogiri (>= 1.4.0)
     webrat (0.7.3)
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
@@ -400,6 +417,7 @@ DEPENDENCIES
   ruby-debug19
   ruby_parser
   sass
+  savon
   shippinglogic!
   shoulda
   spork

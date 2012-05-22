@@ -65,6 +65,7 @@ gem 'barista'
 gem 'execjs'
 gem 'therubyracer'
 gem 'sunspot-rails-failover', :git => 'git://github.com/flyingmachine/sunspot-rails-failover.git'
+gem 'savon'
 
 # Use unicorn as the web server
 # gem 'unicorn'

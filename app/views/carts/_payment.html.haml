@@ -1,4 +1,15 @@
 %h3{:class=>"paytype_header"}
+- if gift_card_allowed?
+  #gift_card_option
+    #gift_card_errors
+    = form_for(@payment, :url => {:controller => :carts, :action => 'apply_gift_card', :secure => true}, :remote => true, :html => {:id => "gift_card_form", :method => :post}) do |f|
+      .field
+        = f.label :full_card_number,"Gift Card Number"
+        = f.text_field :full_card_number
+        = f.label :card_pin,  "PIN"
+        = f.text_field :card_pin
+        = f.submit "Apply Gift Card", :class => 'jqui_save', id: "apply_gift_card"
+        = link_to "Check Balance", '#', class: "jqui_save", id: "check_gift_card_balance"
 = form_for(@payment, :url => {:controller => :carts, :action => @quote ? "quote_2_order" : "proceed_checkout", :id => @quote, :secure => true}, :remote => true, :html => {:id => "proceed_checkout", :method => :post, :multipart => true}) do |f|
   = f.error_messages
   - if purchase_order_allowed?
@@ -44,6 +55,7 @@
           If a Purchase Order is not attached, then this
           %br
           order will not be processed until received.
+
   - if get_cart.allow_deferred?
     #deferred_options
       %div{:class =>"cc_other"}

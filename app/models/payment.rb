@@ -29,6 +29,7 @@ class Payment
 	field :card_expiration_month
 	field :card_expiration_year
 	field :card_security_code
+  field :card_pin
 	
 	field :save_credit_card, :type => Boolean, :default => false
 	field :use_saved_credit_card, :type => Boolean, :default => false
@@ -65,7 +66,7 @@ class Payment
 	
 	mount_uploader :attachment, PrivateAttachmentUploader	
 	
-	embedded_in :order, :inverse_of => :payment
+	embedded_in :order, polymorphic: true
 	
 	validates_presence_of :email
 	validates_presence_of :purchase_order_number, :if => Proc.new {|obj| obj.purchase_order}

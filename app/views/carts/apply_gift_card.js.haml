@@ -1,0 +1,4 @@
+- if @valutec.response.success?
+  $('#gift_card_option').html('#{@valutec.balance}')
+- else
+  $('#gift_card_errors').html('#{@valutec.response.errors}')

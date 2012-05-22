@@ -15,7 +15,8 @@ class Order
 	validates_inclusion_of :status, :in => STATUSES
 	validates_uniqueness_of :order_number, :on => :create, :message => "must be unique"
 	
-	embeds_one :payment
+	embeds_one :payment, as: :payment
+	embeds_one :gift_card, class_name: "Payment", as: :payment
 	embeds_one :address, :validate => false
 	embeds_many :order_items
 	referenced_in :user, :validate => false
