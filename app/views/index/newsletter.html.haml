@@ -13,9 +13,9 @@
 .ui-corner-all{ :class => "#{ is_sizzix? ? 'newsletter_topframe_sz' : 'newsletter_topframe_ee' }" }
   .newsletter_content_a
     - if is_sizzix_uk?
-      %h2{:style=>"border-bottom:1px dotted #D4D1BF; margin-bottom:8px;"} Stay In The Know with Sizzix.co.uk?
+      %h2{:class=>"news_line"} Stay In The Know with Sizzix.co.uk
     - else
-      %h2{:style=>"border-bottom:1px dotted #D4D1BF; margin-bottom:8px;"} Interested in keeping up to date with us?
+      %h2{:class=>"news_line"} Interested in keeping up to date with us?
     %p
     - if is_sizzix_uk?
       By signing up to our newsletter, you get full access to all our promotions, the latest news and much more. Keep up to date with exclusive projects from our designers and follow us on our blog and social media sites.
@@ -27,11 +27,9 @@
       == #{get_domain.capitalize}!
       By signing up to register with us, you get full access to our free consumer newsletters! Get the latest info on new items, clearance items, and items on sale! You will also keep notified of how you can recieve additional deals as well as keep notifed on the latest news at
       == #{get_domain.capitalize}!
-    %br/
-    %br/
-  
-    All it requires is for you to fill out our short form below and you can immediately begin to recieve the latest updates!
-
+      %br/
+      %br/    
+      All it requires is for you to fill out our short form below and you can immediately begin to recieve the latest updates!
 
 .ui-corner-all{ :class=>"newsletter_midframe", :style => "#{ is_ee_us? ? "background:url('/images/static/discount_panel.jpg') bottom center no-repeat;" : "background:none;" }" }
   .newsletter_content_b
