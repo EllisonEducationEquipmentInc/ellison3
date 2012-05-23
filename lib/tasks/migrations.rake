@@ -143,6 +143,11 @@ namespace :migrations do |ns|
   task :remove_new_user_from_users => :environment do
     User.collection.update({:name => "New User"}, {:$set => {"name" => ""}}, :multi => true)
   end
+
+  desc "add gift card discount category"
+  task :add_gift_card_discount_category => :environment do
+    DiscountCategory.create name: "Gift Cards"
+  end
 	
 	
 	#======== migration tasks end here ========
