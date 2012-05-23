@@ -39,7 +39,7 @@ module Ax
               xml.sales_recipient(order.customer_rep)
               xml.sales_responsible(order.customer_rep)
               xml.sales_origin(order.order_prefix(order.system))
-              # xml.giftcard_order order.gift_card? ? "TRUE" : "FALSE"
+              xml.giftcard_order order.gift_card? ? "TRUE" : "FALSE"
 
               xml.payment {
                 if order.payment.present?

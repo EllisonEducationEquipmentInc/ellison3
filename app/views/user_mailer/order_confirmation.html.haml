@@ -152,7 +152,7 @@
           %li Gift Cards CANNOT be returned.
         - else
           %li Merchandise CANNOT be returned without prior approval.
-        - unless is_uk?
+        - if is_us? && !@order.gift_card?
           %li Returns or exchanges subject to restocking fee.
         - if is_uk?
           %li Please allow a maximum ten working days for your order to be processed during busier periods.
