@@ -22,9 +22,9 @@
             .c_right
               %img{:src => "/images/ui-icons/giftcard_ico_back.png", :width => "60", :height => "38"}
           .cb_left
-            .c_asterisk_left
+            %div{:class=>"checkout_disclaimer legalese", :style=>"float:left; color:#A9250E"}
               Only one Gift Card allowed Per Order.
-            .c_asterisk_left
+              %br
               Not for Use with Three Easy Payments.
           .btn_right
             = f.submit "Apply Gift Card", :class => 'jqui_save', id: "apply_gift_card"
@@ -129,6 +129,8 @@
         %img{:src => "/images/ui-icons/cc_ico_uk.png", :width => "60", :height => "38", :class=>"cc_thumb"}
       %h3
         Credit/Debit Card
+      - if get_cart.allow_deferred?
+        How would you like to pay for this order?
       = f.error_messages
     #cc_info
       - if is_er?
@@ -192,7 +194,6 @@
               = f.check_box :save_credit_card
               = f.label :save_credit_card, "Check to Save Credit Card on file", :class => "autosize"
               = link_to "Learn More", "/keepcardonfile?no_layout=1", :class => "link_help lightbox"
-        .c_linebreak
         .clear_left
     - if can_use_previous_payment?
       .field
