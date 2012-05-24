@@ -298,3 +298,73 @@ color:#A9250E; font-weight:bold;
   float:right; height:auto; width:auto;margin-right:16px; margin-bottom:6px; padding-top: 18px;
 }
 
+// Coupon Checkout CSS
+
+.c_labelwidth {
+  width:225px!important;
+}
+.c_left {
+  width:230px;
+  height:auto;
+  float:left;
+}
+.c_right {
+  width:60px;
+  height:auto;
+  float:right;
+  margin-right:12px;
+}
+.btn_right {
+  width:auto;
+  height:auto;
+  float:right;
+}
+.c_container {
+  position:relative;
+  padding:4px 0 0 6px;
+  width:100%;
+  height:auto;
+  float:left;  
+}
+.c_bottom {
+  margin:8px 0!important;  
+  width:100%;
+  height:auto;
+  float:left;
+  padding:6px 0!important;
+  border-bottom:1px solid #cfcfcf!important;
+  
+}
+.cb_left {
+  width:300px;
+  height:auto;
+  float:left;
+}
+.c_asterisk_left {
+  font-family: Verdana,Arial,sans-serif;
+  font-size: .85em; color:#A9250E;
+  padding: 0 0 0 16px;
+  background:url(/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_asterisk-required.png) no-repeat left top;
+}
+.gc_frame{
+  width:100%;
+  position:relative;
+  height:auto;
+  padding:2px;  
+}
+.cc_frame{
+  width:100%;
+  position:relative;
+  height:auto;
+  padding:8px 6px 0;
+  float:left;
+}
+.checkout_container{
+  padding-bottom:6px;
+  float:left;
+  width:100%;
+}
+.cc_thumb {
+  float:left; margin-right:6px;
+}
+
