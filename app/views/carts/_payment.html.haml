@@ -23,9 +23,12 @@
               %img{:src => "/images/ui-icons/giftcard_ico_back.png", :width => "60", :height => "38"}
           .cb_left
             %div{:class=>"checkout_disclaimer legalese", :style=>"float:left; color:#A9250E"}
-              Only one Gift Card allowed Per Order.
+              ONLY ONE GIFT CARD ALLOWED PER ORDER.
               %br
-              Not for Use with Three Easy Payments.
+              - if get_cart.allow_deferred? && is_sizzix_us?
+                NOT FOR USE WITH THREE EASY PAYMENTS.
+              - if is_ee_us?
+                NOT FOR USE WITH PURCHASE ORDER.
           .btn_right
             = f.submit "Apply Gift Card", :class => 'jqui_save', id: "apply_gift_card"
             = link_to "Check Balance", '#', class: "jqui_save", id: "check_gift_card_balance"
@@ -82,9 +85,6 @@
   
     - if get_cart.allow_deferred?
       #deferred_options
-        %div{:class =>"cc_other"}
-          %strong How would you like to pay for this order?
-        %br
         = radio_button_tag :deferred, 0, !@payment.deferred, :onclick => "$('#payment_deferred').val(this.value); $('#agreed_terms').closest('tr').hide(); $('#agreed_terms').rules('remove');"
         with a Single Payment
         %table
