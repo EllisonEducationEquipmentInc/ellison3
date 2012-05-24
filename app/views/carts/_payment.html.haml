@@ -27,7 +27,7 @@
               %br
               - if get_cart.allow_deferred? && is_sizzix_us?
                 NOT FOR USE WITH THREE EASY PAYMENTS.
-              - if is_ee_us?
+              - if purchase_order_allowed? && is_ee_us?
                 NOT FOR USE WITH PURCHASE ORDER.
           .btn_right
             = f.submit "Apply Gift Card", :class => 'jqui_save', id: "apply_gift_card"
