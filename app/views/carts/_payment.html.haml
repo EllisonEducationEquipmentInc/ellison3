@@ -21,111 +21,117 @@
               = f.text_field :card_pin
             .c_right
               %img{:src => "/images/ui-icons/giftcard_ico_back.png", :width => "60", :height => "38"}
-          .c_bottom
-            .cb_left
-              .c_asterisk_left
-                Only one Gift Card allowed Per Order.
-              .c_asterisk_left
-                Not for Use with Three Easy Payments.
-            .btn_right
-              = f.submit "Apply Gift Card", :class => 'jqui_save', id: "apply_gift_card"
-              = link_to "Check Balance", '#', class: "jqui_save", id: "check_gift_card_balance"
+          .cb_left
+            .c_asterisk_left
+              Only one Gift Card allowed Per Order.
+            .c_asterisk_left
+              Not for Use with Three Easy Payments.
+          .btn_right
+            = f.submit "Apply Gift Card", :class => 'jqui_save', id: "apply_gift_card"
+            = link_to "Check Balance", '#', class: "jqui_save", id: "check_gift_card_balance"
+          .c_linebreak
 = form_for(@payment, :url => {:controller => :carts, :action => @quote ? "quote_2_order" : "proceed_checkout", :id => @quote, :secure => true}, :remote => true, :html => {:id => "proceed_checkout", :method => :post, :multipart => true}) do |f|
   .checkout_container
-    - if is_us?
-      %img{:src => "/images/ui-icons/cc_ico_us.png", :width => "60", :height => "38", :class=>"cc_thumb"}
-    - else
-      %img{:src => "/images/ui-icons/cc_ico_uk.png", :width => "60", :height => "38", :class=>"cc_thumb"}
-    %h3
-      Credit Card
-    How would you like to pay for this order?
-  = f.error_messages
-  - if purchase_order_allowed? && !(@quote && @quote.gift_card?)
-    .field
-      = f.label :purchase_order, "Would you like to pay with a purchase order?", :class => "autosize"
-      Yes
-      = f.radio_button(:purchase_order, true, :onclick => "show_purchase_order();")
-      No
-      = f.radio_button(:purchase_order, false,  :onclick => "show_purchase_order();")
-    :javascript
-      function show_purchase_order(){
-        if ($('#payment_purchase_order_true').attr('checked')) {
-          $('#po_info').show();
-          $('#cc_info').hide();
-          $('#payment_attachment').rules('add',{required: false});
-          $('#payment_purchase_order_number').rules('add',{required: true});
-          $('.cc').each(function() {
-            $(this).rules('remove')
-          })
-        } else {
-          $('#po_info').hide();
-          $('#cc_info').show();
-          $('.cc').each(function() {
-            $(this).rules('add',{required: true})
-          });
-          $('#payment_full_card_number').rules('add',{creditcard: true});
-          $('#payment_card_security_code').rules('add',{cvv: true});
-          $('#payment_attachment').rules('remove');
-          $('#payment_purchase_order_number').rules('remove');
-        }
-      };
-    #po_info{:style => "display:none"}
+    - if purchase_order_allowed? && !(@quote && @quote.gift_card?)
+      %img{:src => "/images/ui-icons/po_ico.png", :width => "60", :height => "38", :class=>"cc_thumb"}
+      %h3
+        Purchase Order
       .field
-        = required_label f, :purchase_order_number, {:label => "Purchase Order Number", :label_size => "155px"}
-        = f.text_field :purchase_order_number
-      .field
-        = f.label :attachment, "Upload Purchase Order", :style => "width: 155px"
-        = f.file_field :attachment
-        = f.hidden_field :attachment_cache
-        %p.formhelp{ :style => "margin-left: 166px"}
-          Please upload .jpg, .doc or .pdf documents only.
-          %br
-          If a Purchase Order is not attached, then this
-          %br
-          order will not be processed until received.
-
-  - if get_cart.allow_deferred?
-    #deferred_options
-      %div{:class =>"cc_other"}
-        %strong How would you like to pay for this order?
-      %br
-      = radio_button_tag :deferred, 0, !@payment.deferred, :onclick => "$('#payment_deferred').val(this.value); $('#agreed_terms').closest('tr').hide(); $('#agreed_terms').rules('remove');"
-      with a Single Payment
-      %table
-        %tr
-          %th
-            Payment Due 
-            = l Date.today
-        %tr
-          %td
-            %span#deferred_single_total_amount= render :partial => 'deferred_single_total_amount'
-            %span (incl S&H +Tax)
-      = radio_button_tag :deferred, 1, @payment.deferred, :onclick => "$('#payment_deferred').val(this.value); $('#agreed_terms').closest('tr').show(); $('#agreed_terms').rules('add', {required: true, messages:{required: 'To place your order, please check the box if you agree with the terms and conditions of the Three Easy Payments program.'}});"
-      in Three Easy Payments
-      %table
-        %tr
-          %th
-            Payment 1 Due 
-            = l Date.today
-          - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
+        = f.label :purchase_order, "Would you like to pay with a purchase order?", :class => "autosize"
+        Yes
+        = f.radio_button(:purchase_order, true, :onclick => "show_purchase_order();")
+        No
+        = f.radio_button(:purchase_order, false,  :onclick => "show_purchase_order();")
+      :javascript
+        function show_purchase_order(){
+          if ($('#payment_purchase_order_true').attr('checked')) {
+            $('#po_info').show();
+            $('#cc_info').hide();
+            $('#payment_attachment').rules('add',{required: false});
+            $('#payment_purchase_order_number').rules('add',{required: true});
+            $('.cc').each(function() {
+              $(this).rules('remove')
+            })
+          } else {
+            $('#po_info').hide();
+            $('#cc_info').show();
+            $('.cc').each(function() {
+              $(this).rules('add',{required: true})
+            });
+            $('#payment_full_card_number').rules('add',{creditcard: true});
+            $('#payment_card_security_code').rules('add',{cvv: true});
+            $('#payment_attachment').rules('remove');
+            $('#payment_purchase_order_number').rules('remove');
+          }
+        };
+      #po_info{:style => "display:none"}
+        .field
+          = required_label f, :purchase_order_number, {:label => "Purchase Order Number", :label_size => "155px"}
+          = f.text_field :purchase_order_number
+        .field
+          = f.label :attachment, "Upload Purchase Order", :style => "width: 155px"
+          = f.file_field :attachment
+          = f.hidden_field :attachment_cache
+          %p.formhelp{ :style => "margin-left: 166px"}
+            Please upload .jpg, .doc or .pdf documents only.
+            %br
+            If a Purchase Order is not attached, then this
+            %br
+            order will not be processed until received.
+      .c_linebreak
+  
+    - if get_cart.allow_deferred?
+      #deferred_options
+        %div{:class =>"cc_other"}
+          %strong How would you like to pay for this order?
+        %br
+        = radio_button_tag :deferred, 0, !@payment.deferred, :onclick => "$('#payment_deferred').val(this.value); $('#agreed_terms').closest('tr').hide(); $('#agreed_terms').rules('remove');"
+        with a Single Payment
+        %table
+          %tr
             %th
-              Payment 
-              = i+1 
-              Due
-              = l i.months.since, :format => :date
-        %tr
-          %td
-            %span#deferred_first_payment= render :partial => 'deferred_first_payment'
-            %span (incl S&H + Tax)
-          - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
-            %td= number_to_currency((gross_price(get_cart.sub_total)/(Payment::NUMBER_OF_PAYMENTS + 1.0)).round(2))
-        %tr{:id => "agreed_terms_row", :style => "display: none;"}
-          %td{:colspan => "#{Payment::NUMBER_OF_PAYMENTS + 1}"}
-            = check_box_tag :agreed_terms, "1", false
-            == I agree that Sizzix.com may charge my credit card or debit card to recieve payment in full for my purchase of this merchandise in 3 month payment installments. Click here for #{ link_to "Terms and Conditions of Sale", "/3ez_terms_of_sale?no_layout=1", :class => "lightbox" }.
-    = f.hidden_field :deferred
-  #cc_info
-    .cc_frame
+              Payment Due 
+              = l Date.today
+          %tr
+            %td
+              %span#deferred_single_total_amount= render :partial => 'deferred_single_total_amount'
+              %span (incl S&H +Tax)
+        = radio_button_tag :deferred, 1, @payment.deferred, :onclick => "$('#payment_deferred').val(this.value); $('#agreed_terms').closest('tr').show(); $('#agreed_terms').rules('add', {required: true, messages:{required: 'To place your order, please check the box if you agree with the terms and conditions of the Three Easy Payments program.'}});"
+        in Three Easy Payments
+        %table
+          %tr
+            %th
+              Payment 1 Due 
+              = l Date.today
+            - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
+              %th
+                Payment 
+                = i+1 
+                Due
+                = l i.months.since, :format => :date
+          %tr
+            %td
+              %span#deferred_first_payment= render :partial => 'deferred_first_payment'
+              %span (incl S&H + Tax)
+            - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
+              %td= number_to_currency((gross_price(get_cart.sub_total)/(Payment::NUMBER_OF_PAYMENTS + 1.0)).round(2))
+          %tr{:id => "agreed_terms_row", :style => "display: none;"}
+            %td{:colspan => "#{Payment::NUMBER_OF_PAYMENTS + 1}"}
+              = check_box_tag :agreed_terms, "1", false
+              == I agree that Sizzix.com may charge my credit card or debit card to recieve payment in full for my purchase of this merchandise in 3 month payment installments. Click here for #{ link_to "Terms and Conditions of Sale", "/3ez_terms_of_sale?no_layout=1", :class => "lightbox" }.
+      = f.hidden_field :deferred
+      .c_linebreak
+  .checkout_container
+    .gc_frame
+      - if is_us?
+        %img{:src => "/images/ui-icons/cc_ico_us.png", :width => "60", :height => "38", :class=>"cc_thumb"}
+      - else
+        %img{:src => "/images/ui-icons/cc_ico_uk.png", :width => "60", :height => "38", :class=>"cc_thumb"}
+      %h3
+        Credit/Debit Card
+      How would you like to pay for this order?
+      = f.error_messages
+    #cc_info
       - if is_er?
         .field 
           = f.label :reference_purchase_order_number, "Reference Purchase Order Number", :style=>"width:208px"
@@ -187,34 +193,34 @@
               = f.check_box :save_credit_card
               = f.label :save_credit_card, "Check to Save Credit Card on file", :class => "autosize"
               = link_to "Learn More", "/keepcardonfile?no_layout=1", :class => "link_help lightbox"
-          .c_bottom
+        .c_linebreak
         .clear_left
-  - if can_use_previous_payment?
-    .field
-      = f.check_box :use_previous_orders_card, :onclick => "if (this.checked) {$('.credit_card').remove()} else {$(this).attr('disabled', true);$('#payment_submit').replaceWith('#{escape_javascript spinner}');$('#checkout_cc').load('/carts/use_previous_orders_card');}"
-      = f.label :use_previous_orders_card, "Use same payment info that was used in order", :class => "autosize", :style => "margin-right: 0px"
-      %strong= link_to "##{get_cart.order_reference}", admin_order_path(get_cart.order_reference)
-  - if is_er? || is_ee?
-    .ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
-      %h4.ui-accordion-header.ui-helper-reset#order_comment
-        %span.ui-icon.ui-icon-triangle-1-e
-        = link_to 'Comments', "#"
-      %div= text_area_tag :comments, nil
-  = f.submit "Place Order", :class => 'jqui_save'
-  .clear
-  %p.legalese{:class => "checkout_disclaimer"}
-    - if is_uk?
-      == All purchases from our website are made subject to our #{link_to "terms and conditions", "/termsofsale?no_layout=1", :class => "lightbox"}. By clicking the button to confirm your order you agree to and will be bound by those terms & conditions and we therefore suggest that you read them #{link_to "here", "/termsofsale?no_layout=1", :class => "lightbox"} first.
-    - else
-      == By clicking the "Place Order" button above, your order will be placed. Please check your order carefully before submitting. #{"Once your order has been placed, it cannot be changed." unless is_ee?}
-      == By placing an order you acknowledge and accept the #{link_to "terms and conditions", "/termsofsale?no_layout=1", :class => "lightbox"} of our website.
-  :javascript
-    var button_label = "Place Order";
-    $(document).ready(function() { 
-        $(".jqui_save").button({icons: {primary: 'ui-icon-disk'}});
-        //initialize_buttons();
-        $('#payment_submit').button({disabled: #{!(get_cart.shipping_amount && get_cart.tax_amount)}, label: #{get_cart.shipping_amount && get_cart.tax_amount ? 'button_label' : '\'please wait...\''}});
-        order_comment();
-        $('#proceed_checkout').validate(payment_validator_options);
-    });
-    
+    - if can_use_previous_payment?
+      .field
+        = f.check_box :use_previous_orders_card, :onclick => "if (this.checked) {$('.credit_card').remove()} else {$(this).attr('disabled', true);$('#payment_submit').replaceWith('#{escape_javascript spinner}');$('#checkout_cc').load('/carts/use_previous_orders_card');}"
+        = f.label :use_previous_orders_card, "Use same payment info that was used in order", :class => "autosize", :style => "margin-right: 0px"
+        %strong= link_to "##{get_cart.order_reference}", admin_order_path(get_cart.order_reference)
+    - if is_er? || is_ee?
+      .ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
+        %h4.ui-accordion-header.ui-helper-reset#order_comment
+          %span.ui-icon.ui-icon-triangle-1-e
+          = link_to 'Comments', "#"
+        %div= text_area_tag :comments, nil
+    = f.submit "Place Order", :class => 'jqui_save'
+    .clear
+    %p.legalese{:class => "checkout_disclaimer"}
+      - if is_uk?
+        == All purchases from our website are made subject to our #{link_to "terms and conditions", "/termsofsale?no_layout=1", :class => "lightbox"}. By clicking the button to confirm your order you agree to and will be bound by those terms & conditions and we therefore suggest that you read them #{link_to "here", "/termsofsale?no_layout=1", :class => "lightbox"} first.
+      - else
+        == By clicking the "Place Order" button above, your order will be placed. Please check your order carefully before submitting. #{"Once your order has been placed, it cannot be changed." unless is_ee?}
+        == By placing an order you acknowledge and accept the #{link_to "terms and conditions", "/termsofsale?no_layout=1", :class => "lightbox"} of our website.
+    :javascript
+      var button_label = "Place Order";
+      $(document).ready(function() { 
+          $(".jqui_save").button({icons: {primary: 'ui-icon-disk'}});
+          //initialize_buttons();
+          $('#payment_submit').button({disabled: #{!(get_cart.shipping_amount && get_cart.tax_amount)}, label: #{get_cart.shipping_amount && get_cart.tax_amount ? 'button_label' : '\'please wait...\''}});
+          order_comment();
+          $('#proceed_checkout').validate(payment_validator_options);
+      });
+      

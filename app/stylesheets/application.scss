@@ -324,15 +324,15 @@ color:#A9250E; font-weight:bold;
   padding:4px 0 0 6px;
   width:100%;
   height:auto;
-  float:left;  
+  float:left; 
+  margin-bottom:6px; 
 }
-.c_bottom {
-  margin:8px 0!important;  
+.c_linebreak {
   width:100%;
-  height:auto;
+  height:1px;
   float:left;
-  padding:6px 0!important;
   border-bottom:1px solid #cfcfcf!important;
+  margin: 6px 0 10px;
   
 }
 .cb_left {
@@ -350,7 +350,9 @@ color:#A9250E; font-weight:bold;
   width:100%;
   position:relative;
   height:auto;
-  padding:2px;  
+  padding:2px;
+  float:left;
+  margin-bottom:4px;
 }
 .cc_frame{
   width:100%;
@@ -360,7 +362,6 @@ color:#A9250E; font-weight:bold;
   float:left;
 }
 .checkout_container{
-  padding-bottom:6px;
   float:left;
   width:100%;
 }
