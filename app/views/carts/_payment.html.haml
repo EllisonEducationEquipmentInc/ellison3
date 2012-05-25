@@ -91,7 +91,7 @@
           Credit/Debit Card
         - if get_cart.allow_deferred?
           How would you like to pay for this order?
-
+          
       - if get_cart.allow_deferred?
         #deferred_options
           = radio_button_tag :deferred, 0, !@payment.deferred, :onclick => "$('#payment_deferred').val(this.value); $('#agreed_terms').closest('tr').hide(); $('#agreed_terms').rules('remove');"
