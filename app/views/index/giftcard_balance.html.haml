@@ -1,0 +1,37 @@
+.gc_container
+  %img{:src => "/images/ui-icons/gc_front_ico.png", :width => "60px", :height => "38px", :class=>"cc_thumb"}
+  %h2 Check your Gift Card Balance
+  %br
+  Need to verify your Sizzix/Ellison Gift Card balance? No problem! Its simple and easy to check.
+  %br
+  Enter your 19 digit Gift Card Number and also the 9-digit pin number(located on the back of the card).
+  %br
+  %br
+  .gc_cell{:class=>"ui-widget ui-widget-content ui-corner-all"}
+    = form_tag '/rotas' do
+      = field_set_tag do
+        %h2
+          Gift Card (Without Hyphens)
+        = text_field_tag :gcnumber
+        %br
+        %h2
+          Pin Number
+        = text_field_tag :pinnumber
+        %br
+        %br
+        = submit_tag 'Gift Card Balance'
+.gc_container2
+  %br
+  %img{:src => "/images/ui-icons/gc_balance_thumb.jpg", :class=>"gc_thumb"}
+%br
+.c_linebreak
+%br
+%h2 Interested in Buying More Cards?
+%br
+= link_to "Continue Shopping", "#"
+%br
+%br
+If you would like more information regarding how to use our Gift Cards
+= link_to "click here.", "#"
+%br
+%br

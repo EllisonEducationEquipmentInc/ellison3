@@ -89,11 +89,11 @@
         = image_tag("/images/ui-icons/cc_ico_u#{is_us? ? 's' : 'k'}.png", :width => "60", :height => "38", :class=>"cc_thumb credit_card")
         %h3
           Credit/Debit Card
+        - if get_cart.allow_deferred?
+          How would you like to pay for this order?
 
       - if get_cart.allow_deferred?
         #deferred_options
-          %strong How would you like to pay for this order?
-          %br
           = radio_button_tag :deferred, 0, !@payment.deferred, :onclick => "$('#payment_deferred').val(this.value); $('#agreed_terms').closest('tr').hide(); $('#agreed_terms').rules('remove');"
           with a Single Payment
           %table
