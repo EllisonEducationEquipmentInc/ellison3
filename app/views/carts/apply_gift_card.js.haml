@@ -1,4 +1,11 @@
-- if @valutec.response.success?
-  $('#gift_card_option').html('#{@valutec.balance}')
+- if @valutec.response.success? && @valutec.authorized?
+  - if params[:balance] == "1" || @valutec.balance < 0.01
+    $('#gift_card_errors').html('The balance on this Sizzix/Ellison Gift card is #{number_to_currency @valutec.balance}')
+  - elsif @cart.gift_card_applied?
+    $('#gift_card_errors').html('')
+    $('#gift_card_applied').html('#{escape_javascript render(partial: 'carts/gift_card_applied')}')
+    $('#gift_card_form').hide()
+- elsif @valutec.response.success?
+  $('#gift_card_errors').html('#{@valutec.results[:error_msg]}')
 - else
   $('#gift_card_errors').html('#{@valutec.response.errors}')

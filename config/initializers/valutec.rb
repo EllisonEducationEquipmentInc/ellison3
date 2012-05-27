@@ -48,5 +48,13 @@ class Valutec
     results[:balance].to_f
   end
 
+  def authorized?
+    results[:authorized] rescue false
+  end
+
+  def card_num_last_four
+    self.card_number.split("=").first[-4,4] rescue ''
+  end
+
 end
 

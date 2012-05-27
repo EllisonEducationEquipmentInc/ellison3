@@ -1,0 +1,8 @@
+%li#cart_gift_card_applied_amount
+  %span.left Sizzix/Ellison Gift Card:
+  %span#gift_card_applied_amount.amount.right -#{number_to_currency @cart.gift_card_applied_amount}
+  .clear
+%li#cart_balance_due
+  %span.left Balance Due:
+  %span#balance_due.amount.right= number_to_currency @cart.balance_due
+  .clear

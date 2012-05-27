@@ -64,7 +64,7 @@ p#edit_shipping_address, p#edit_billing_address {
   font-weight: bold;
 }
 
-#cart_total {
+#cart_total, #cart_gift_card_applied_amount, #cart_balance_due {
   font-size: 1.4em;
   color: $cart_total_price;
 }

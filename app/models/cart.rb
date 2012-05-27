@@ -20,6 +20,8 @@ class Cart
 	field :coupon_updated_at, :type => DateTime
 	field :free_shipping_by_coupon, :type => Boolean, :default => false
 	field :last_check_at, :type => DateTime
+  field :gift_card_number
+  field :gift_card_balance, type: Float
 	
 	referenced_in :coupon
 	
@@ -42,7 +44,12 @@ class Cart
 		self.shipping_amount, self.shipping_service, self.shipping_rates, self.shipping_calculated_at = nil
 	end
 	
+  def reset_gift_card
+    self.gift_card_balance, self.gift_card_number = nil
+  end
+
 	def reset_tax_and_shipping(to_save = false)
+    reset_gift_card
 		reset_shipping_amount
 		reset_tax
 		save if to_save
@@ -80,9 +87,26 @@ class Cart
 		cart_items.inject(0) {|sum, item| sum += (item.quantity * item.handling_price)}
 	end
 	
-  # def total
-  #   (sub_total + tax_amount + shipping_amount + handling_amount).round(2)
-  # end
+  def total
+    (sub_total + tax_amount + shipping_amount + handling_amount).round(2)
+  end
+
+  def gift_card_applied_amount
+    return 0.0 unless gift_card_number && gift_card_balance && gift_card_balance > 0.0
+    if gift_card_balance > total
+      total
+    else
+      gift_card_balance
+    end
+  end
+
+  def gift_card_applied?
+    gift_card_applied_amount > 0.0
+  end
+
+  def balance_due
+    total - gift_card_applied_amount
+  end
 	
 	def pre_order?
 	  cart_items.any? {|e| e.pre_order}
