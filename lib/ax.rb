@@ -42,7 +42,7 @@ module Ax
               xml.giftcard_order order.gift_card? ? "TRUE" : "FALSE"
 
               xml.payment {
-                if order.payment.present?
+                if order.payment.present? || order.gift_card.present?
                   xml.freight_charges(format_with_precision(order.shipping_amount))
                   xml.surcharge(format_with_precision(order.handling_amount))
 
@@ -51,36 +51,51 @@ module Ax
                     xml.tax_amount(format_with_precision(order.tax_amount + order.shipping_vat))
                     tax_calculated_at = order.tax_calculated_at.in_time_zone("America/Chicago").strftime("%m/%d/%Y") unless order.tax_calculated_at.blank?
                     xml.tax_trans_date(tax_calculated_at)
-  									xml.tax_exempt_num(order.tax_exempt_number)
-  									xml.VAT_percentage(order.vat_percentage)
+                    xml.tax_exempt_num(order.tax_exempt_number)
+                    xml.VAT_percentage(order.vat_percentage)
                   }
-
-                  if order.payment.try :purchase_order
-  									xml.payment_method('Terms')
-                    xml.payment_id(order.payment.purchase_order_number)
-  								elsif order.payment.try :deferred
-  									xml.payment_method('3EZ')
-                    xml.payment_id(order.system == "szuk" || order.system == "eeuk" ? order.payment.tx_auth_no : order.payment.vpstx_id)
-                  else
-  									xml.payment_method('CC')
-  									xml.card_type(order.payment.card_name)
-                    xml.payment_id(order.system == "szuk" || order.system == "eeuk" ? order.payment.tx_auth_no : order.payment.vpstx_id)
-                  end
-                  xml.cybersource_merchant_ref_num(order.payment.vendor_tx_code)
-                  xml.amount_charged(format_with_precision(order.total_amount))
-                  if order.payment.present? && order.payment.reference_purchase_order_number.present?
-                    xml.ref_purchase_order_number order.payment.reference_purchase_order_number
-                  end
+                  xml.payment_type {
+                    if order.payment.present?
+                      xml.type {
+                        if order.payment.try :purchase_order
+                          xml.payment_method('Terms')
+                          xml.payment_id(order.payment.purchase_order_number)
+                        elsif order.payment.try :deferred
+                          xml.payment_method('3EZ')
+                          xml.payment_id(order.system == "szuk" || order.system == "eeuk" ? order.payment.tx_auth_no : order.payment.vpstx_id)
+                        elsif order.payment.present?
+                          xml.payment_method('CC')
+                          xml.card_type(order.payment.card_name)
+                          xml.payment_id(order.system == "szuk" || order.system == "eeuk" ? order.payment.tx_auth_no : order.payment.vpstx_id)
+                        end
+                        xml.cybersource_merchant_ref_num(order.payment.vendor_tx_code)
+                        xml.amount_charged(format_with_precision(order.gift_card.present? ? order.payment.paid_amount : order.total_amount))
+                        if order.payment.present? && order.payment.reference_purchase_order_number.present?
+                          xml.ref_purchase_order_number order.payment.reference_purchase_order_number
+                        end
+                      }
+                    end
+                    if order.gift_card.present?
+                      xml.type {
+                        xml.payment_method('GC')
+                        xml.giftcard_num(order.gift_card.card_number)
+                        xml.giftcard_identifer(order.gift_card.vendor_tx_code)
+                        xml.giftcard_auth_num(order.gift_card.authorization)
+                        xml.giftcard_amount_charged(format_with_precision(order.gift_card.paid_amount))
+                      }
+                    end
+                  }
+                  billing_address = order.payment.present? ? order.payment : order.gift_card
                   xml.invoice_address {
-                    xml.invoice_contact_first(order.payment.first_name)
-                    xml.invoice_contact_last(order.payment.last_name)
-                    xml.invoice_company(order.payment.company)
-                    xml.street(order.payment.address2.blank? ? order.payment.address1 : "#{order.payment.address1} #{order.payment.address2}")
-                    xml.zip_code(order.payment.zip_code)
-                    xml.city(order.payment.city)
-                    xml.state(order.payment.state)
-                    xml.country(country_2_code order.payment.country)
-                    xml.phone_num(order.payment.phone)
+                    xml.invoice_contact_first(billing_address.first_name)
+                    xml.invoice_contact_last(billing_address.last_name)
+                    xml.invoice_company(billing_address.company)
+                    xml.street(billing_address.address2.blank? ? billing_address.address1 : "#{billing_address.address1} #{billing_address.address2}")
+                    xml.zip_code(billing_address.zip_code)
+                    xml.city(billing_address.city)
+                    xml.state(billing_address.state)
+                    xml.country(country_2_code billing_address.country)
+                    xml.phone_num(billing_address.phone)
                   }
                 end
               }

@@ -163,6 +163,7 @@ class CartsController < ApplicationController
       end
       cart_total = @valutec.results[:amount_due].to_f
       @gift_card_payment = Payment.new payment_method: "Gift Card", card_number: @valutec.card_number, authorization: @valutec.results[:authorization_code], paid_at: Time.zone.now, paid_amount: @valutec.card_amount_used, vendor_tx_code: @valutec.identifier, email: get_user.email
+      @gift_card_payment.copy_common_attributes(get_user.billing_address) if get_user.billing_address
       params[:payment][:purchase_order] = false if params[:payment].present?
     else
       cart_total = total_cart
