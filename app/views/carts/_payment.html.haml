@@ -53,51 +53,54 @@
   = f.error_messages
   .checkout_container
     - if purchase_order_allowed? && !(@quote && @quote.gift_card?)
-      .field
-        = f.label :purchase_order, "Would you like to pay with a purchase order?", :class => "autosize"
-        Yes
-        = f.radio_button(:purchase_order, true, :onclick => "show_purchase_order();")
-        No
-        = f.radio_button(:purchase_order, false,  :onclick => "show_purchase_order();")
-      :javascript
-        function show_purchase_order(){
-          if ($('#payment_purchase_order_true').attr('checked')) {
-            $('#po_info').show();
-            $('#cc_info').hide();
-            $('#payment_attachment').rules('add',{required: false});
-            $('#payment_purchase_order_number').rules('add',{required: true});
-            $('.cc').each(function() {
-              $(this).rules('remove')
-            })
-          } else {
-            $('#po_info').hide();
-            $('#cc_info').show();
-            $('.cc').each(function() {
-              $(this).rules('add',{required: true})
-            });
-            $('#payment_full_card_number').rules('add',{creditcard: true});
-            $('#payment_card_security_code').rules('add',{cvv: true});
-            $('#payment_attachment').rules('remove');
-            $('#payment_purchase_order_number').rules('remove');
-          }
-        };
-      #po_info{:style => "display:none"}
-        = image_tag "/images/ui-icons/po_ico.png", :width => "60", :height => "38", :class=>"cc_thumb"
-        %h3 Purchase Order
+      #po_options
         .field
-          = required_label f, :purchase_order_number, {:label => "Purchase Order Number", :label_size => "155px"}
-          = f.text_field :purchase_order_number
-        .field
-          = f.label :attachment, "Upload Purchase Order", :style => "width: 155px"
-          = f.file_field :attachment
-          = f.hidden_field :attachment_cache
-          %p.formhelp{ :style => "margin-left: 166px"}
-            Please upload .jpg, .doc or .pdf documents only.
-            %br
-            If a Purchase Order is not attached, then this
-            %br
-            order will not be processed until received.
-      .c_linebreak
+          = image_tag "/images/ui-icons/po_ico.png", :width => "60", :height => "38", :class=>"cc_thumb"
+          = f.label :purchase_order, "Would you like to pay with a purchase order?", :class => "autosize"
+          Yes
+          = f.radio_button(:purchase_order, true, :onclick => "show_purchase_order();")
+          No
+          = f.radio_button(:purchase_order, false,  :onclick => "show_purchase_order();")
+        :javascript
+          function show_purchase_order(){
+            if ($('#payment_purchase_order_true').attr('checked')) {
+              $('#po_info').show();
+              $('#gift_card_option').hide();
+              $('#cc_info').hide();
+              $('#payment_attachment').rules('add',{required: false});
+              $('#payment_purchase_order_number').rules('add',{required: true});
+              $('.cc').each(function() {
+                $(this).rules('remove')
+              })
+            } else {
+              $('#po_info').hide();
+              $('#cc_info').show();
+              $('#gift_card_option').show();
+              $('.cc').each(function() {
+                $(this).rules('add',{required: true})
+              });
+              $('#payment_full_card_number').rules('add',{creditcard: true});
+              $('#payment_card_security_code').rules('add',{cvv: true});
+              $('#payment_attachment').rules('remove');
+              $('#payment_purchase_order_number').rules('remove');
+            }
+          };
+        #po_info{:style => "display:none"}
+          %h3 Purchase Order
+          .field
+            = required_label f, :purchase_order_number, {:label => "Purchase Order Number", :label_size => "155px"}
+            = f.text_field :purchase_order_number
+          .field
+            = f.label :attachment, "Upload Purchase Order", :style => "width: 155px"
+            = f.file_field :attachment
+            = f.hidden_field :attachment_cache
+            %p.formhelp{ :style => "margin-left: 166px"}
+              Please upload .jpg, .doc or .pdf documents only.
+              %br
+              If a Purchase Order is not attached, then this
+              %br
+              order will not be processed until received.
+        .c_linebreak
   
   .checkout_container
     #cc_info

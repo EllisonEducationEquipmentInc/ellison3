@@ -682,6 +682,7 @@ root.remove_gift_card = ->
   $('#gift_card_applied').html('')
   $('#gift_card_form').show()
   $('#deferred_options').show()
+  $('#po_options').show()
   $('#cart_gift_card_applied_amount').remove()
   $('#cart_balance_due').remove()
   $('#cc_info').show ->

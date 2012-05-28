@@ -236,7 +236,7 @@
       %span.left Total Savings:
       %span.amount.right= number_to_currency @order.total_discount
       .clear
-  %li    
+  %li 
     - if @order.payment.present?
       - if @order.payment.try(:purchase_order)
         .error
@@ -250,7 +250,9 @@
         - if @order.payment.reference_purchase_order_number.present?
           %br
           == Reference Purchase Order Number: #{@order.payment.reference_purchase_order_number}
-    - else
+    - if @order.gift_card.present?
+      Paid by Gift card
+    - if @order.payment.blank? && @order.gift_card.blank?
       No Payment Info Available
 %hr
 - if @order.coupon
@@ -285,7 +287,7 @@
     Subscription ID:
     = @order.payment.subscriptionid
   .field{:style=>"float:left; height:auto; width:932px;", :class => @order.payment.paid_amount && @order.payment.paid_amount < @order.total_amount ? 'error' : nil}
-    %strong Paid Amount:
+    %strong CC Paid Amount:
     = number_to_currency @order.payment.paid_amount rescue "N/A"
   .field
     %strong Paid At:
@@ -302,7 +304,23 @@
   .field
     %strong Refunded At:
     = l @order.payment.refunded_at, :format => :custom rescue ""
-- else
+- if @order.gift_card.present?
+  .field
+    %strong Gift Card
+    = @order.gift_card.card_number
+  .field
+    %strong Gift Card Amount:
+    = number_to_currency @order.gift_card.paid_amount
+  .field
+    %strong Authorization:
+    = @order.gift_card.authorization
+  .field
+    %strong Identifier:
+    = @order.gift_card.vendor_tx_code
+  .field
+    %strong Paid At:
+    = l @order.gift_card.paid_at, :format => :custom rescue ""
+- if @order.payment.blank? && @order.gift_card.blank?
   .error No Payment Info Available
 .field
   %strong Tax Transaction ID:

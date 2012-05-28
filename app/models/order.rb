@@ -338,6 +338,14 @@ class Order
   def gift_card?
     order_items.any? &:gift_card
   end
+
+  def balance_due
+    if gift_card.present? && gift_card.paid_amount.present?
+      total_amount - gift_card.paid_amount
+    else
+      total_amount
+    end
+  end
   
 	# use this format to change status:
 	#   @order.in_process! 
