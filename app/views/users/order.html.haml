@@ -82,21 +82,29 @@
         %td{ :style => "text-align: right;" }= number_to_currency item.gross_price
         %td{ :style => "text-align: right;" }= number_to_currency item.item_total
 .contentwrap_XL
-  - if @order.payment.present?
+  - if @order.payment.present? || @order.gift_card.present?
     %p
       %strong
+        This order was charged to:
         - if @order.payment.try(:purchase_order)
           Purchase Order
           = @order.payment.purchase_order_number
           = link_to "download", @order.payment.attachment_url, :class => "link_download dontprint", :target => "_blank" if @order.payment.attachment?
-        - else
-          This order was charged to: 
+        - elsif @order.payment.present?
           == #{@order.payment.card_name}, 
           == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
+          - if @order.gift_card.present?
+            = number_to_currency @order.payment.paid_amount rescue ''
+            %br
           - if @order.payment.reference_purchase_order_number.present?
             %br
             == Reference Purchase Order Number: #{@order.payment.reference_purchase_order_number}
-      - if @order.payment.deferred
+        - if @order.gift_card.present?
+          Sizzix/Ellison Gift Card
+          = @order.gift_card.card_num_last_four
+          - if @order.payment.present?
+            = number_to_currency @order.gift_card.paid_amount rescue ''
+      - if @order.payment.try :deferred
         %br
         %table#deferred_details
           %tr
@@ -125,6 +133,7 @@
         %li Returns or exchanges subject to restocking fee.
       - if is_uk?
         %li Please allow a maximum ten working days for your order to be processed during busier periods.
+      %li No Returns accepted on Gift cards
     - unless @order.comments.blank?
       %p== <strong>Comments:</strong> #{@order.comments}
     %p= link_to "Print a copy of this order receipt.", "javascript:window.print()", :class => "link_print dontprint"

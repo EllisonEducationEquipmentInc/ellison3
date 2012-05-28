@@ -103,7 +103,7 @@
         %strong Total Savings:
       %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}
         %strong= number_to_currency @order.total_discount
-  - if @order.payment.present?
+  - if @order.payment.present? || @order.gift_card.present?
     %tr
       %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "left" }
         This order was charged to:
@@ -111,18 +111,27 @@
           %strong 
             Purchase Order
             = @order.payment.purchase_order_number
-        - else
+        - elsif @order.payment.present?
           %strong
             == #{@order.payment.card_name}, 
             == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
+          - if @order.gift_card.present?
+            = number_to_currency @order.payment.paid_amount rescue ''
+            %br
           - if @order.payment.reference_purchase_order_number.present?
             %br
             == Reference Purchase Order Number: 
             %strong
               #{@order.payment.reference_purchase_order_number}
+        - if @order.gift_card.present?
+          Sizzix/Ellison Gift Card
+          = @order.gift_card.card_num_last_four
+          - if @order.payment.present?
+            = number_to_currency @order.gift_card.paid_amount rescue ''
+
       %br
       %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}
-    - if @order.payment.deferred
+    - if @order.payment.try :deferred
       %tr
         %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "left" }
           %table{ :width => "100% "}
@@ -156,6 +165,7 @@
           %li Returns or exchanges subject to restocking fee.
         - if is_uk?
           %li Please allow a maximum ten working days for your order to be processed during busier periods.
+        %li No Returns accepted on Gift cards
   - unless @order.comments.blank?
     %tr
       %td{ :style => "font-size: 11px; vertical-align: top;" }

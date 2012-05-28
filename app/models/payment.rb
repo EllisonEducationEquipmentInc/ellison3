@@ -109,4 +109,8 @@ class Payment
     0.upto(masked.size - 5) { |i| masked[i] = 'x'}
     write_attribute :card_number, masked
   end
+
+  def card_num_last_four
+    self.card_number.split("=").first[-4,4] rescue ''
+  end
 end

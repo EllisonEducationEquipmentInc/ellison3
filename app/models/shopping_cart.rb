@@ -120,11 +120,12 @@ module ShoppingCart
   		end
 
   		order.save!
-  		if order.is_a?(Order) && order.payment
-  		  order.decrement_items! 
+  		if order.is_a?(Order) && (order.payment || order.gift_card)
+  		  order.decrement_items!
   		  order.user.add_to_owns_list order.order_items.map {|e| e.product_id}
   		end
-  		flash[:notice] = "Thank you for your #{order.is_a?(Order) ? 'order' : quote_name.downcase}.  Below is your #{order.is_a?(Order) ? 'order' : quote_name} receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email."
+      gift_card_msg = order.gift_card.present? ? "<br><br>Please do not throw away your Sizzix/Ellison plastic Gift Card unless you are sure of your purchase.  If you decide to return merchandise that you purchased using Sizzix/Ellison Gift Card, the refunded amount will be credited directly back to you Sizzix/Ellison Gift Card." : ''
+  		flash[:notice] = "Thank you for your #{order.is_a?(Order) ? 'order' : quote_name.downcase}.  Below is your #{order.is_a?(Order) ? 'order' : quote_name} receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email. #{gift_card_msg}".html_safe
 		end
 		
 		# shipping logic: 

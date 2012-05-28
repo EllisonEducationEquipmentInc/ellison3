@@ -194,6 +194,10 @@ class CartsController < ApplicationController
 		render "checkout_complete"
 	rescue Exception => e
 		@reload_cart = @cart_locked = true if e.exception.class == RealTimeCartError
+    if @valutec && @valutec.authorized?
+      Rails.logger.info "!!! voiding GC transaction #{@valutec.results[:authorization_code]}"
+      Valutec.new :transaction_void, card_number: @valutec.card_number, request_auth_code: @valutec.results[:authorization_code]
+    end
 		@error_message = if e.exception.class == Timeout::Error
 		  timeout_message
     else

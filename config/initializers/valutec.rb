@@ -5,14 +5,15 @@ class Valutec
   CLIENT_KEY = Rails.env == "production" ? '45bf3191-79e6-4883-818f-c93a35e98cc7' : '45c4ddcc-feb1-4cb1-99f0-1ba71d6d8f69'
   TERMINAL_ID =  Rails.env == "production" ? is_sizzix? ? '156026' : '156027' : '153189'
 
-  attr_accessor :action, :card_number, :amount, :response, :identifier
+  attr_accessor :action, :card_number, :amount, :response, :identifier, :request_auth_code
 
   def initialize(*args)
     @action = args.shift
     options = args.extract_options!
     @amount = options[:amount]
     @card_number = options[:card_number]
-    @identifier = SecureRandom.hex(5)
+    @request_auth_code = options[:request_auth_code]
+    @identifier = options[:identifier] || SecureRandom.hex(5)
     send @action
   end
 
@@ -34,7 +35,7 @@ class Valutec
           "CardNumber" => self.card_number,
           "Amount" => self.amount,
           "Identifier" => self.identifier
-        }
+        }.merge(action == :transaction_void ? {"RequestAuthCode" => self.request_auth_code} : {})
       end
     else
       super
