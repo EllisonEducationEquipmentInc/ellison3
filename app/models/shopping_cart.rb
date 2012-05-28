@@ -118,6 +118,7 @@ module ShoppingCart
   		  get_user.token.copy_common_attributes order.payment, :status
   		  get_user.save
   		end
+
   		order.save!
   		if order.is_a?(Order) && order.payment
   		  order.decrement_items! 

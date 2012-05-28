@@ -98,6 +98,8 @@ class Cart
     else
       gift_card_balance
     end
+  rescue
+    0.0
   end
 
   def gift_card_applied?

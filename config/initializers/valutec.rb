@@ -5,13 +5,14 @@ class Valutec
   CLIENT_KEY = Rails.env == "production" ? '45bf3191-79e6-4883-818f-c93a35e98cc7' : '45c4ddcc-feb1-4cb1-99f0-1ba71d6d8f69'
   TERMINAL_ID =  Rails.env == "production" ? is_sizzix? ? '156026' : '156027' : '153189'
 
-  attr_accessor :action, :card_number, :amount, :response
+  attr_accessor :action, :card_number, :amount, :response, :identifier
 
   def initialize(*args)
     @action = args.shift
     options = args.extract_options!
     @amount = options[:amount]
     @card_number = options[:card_number]
+    @identifier = SecureRandom.hex(5)
     send @action
   end
 
@@ -32,7 +33,7 @@ class Valutec
           "ProgramType" => 'Gift',
           "CardNumber" => self.card_number,
           "Amount" => self.amount,
-          "Identifier" => SecureRandom.hex(5)
+          "Identifier" => self.identifier
         }
       end
     else
@@ -54,6 +55,22 @@ class Valutec
 
   def card_num_last_four
     self.card_number.split("=").first[-4,4] rescue ''
+  end
+
+  def success?
+    response && response.success?
+  end
+
+  def card_balance_was_not_used?
+    action == :transaction_sale && authorized? && results[:card_amount_used] && results[:card_amount_used] == "0.00"
+  end
+
+  def card_amount_used
+    if authorized? && action == :transaction_sale && results[:card_amount_used].nil? && results[:amount_due].nil?
+      self.amount
+    else
+      results[:card_amount_used].to_i
+    end
   end
 
 end

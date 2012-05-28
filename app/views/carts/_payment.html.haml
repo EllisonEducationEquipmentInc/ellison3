@@ -9,7 +9,7 @@
         Use a Sizzix/Ellison Gift Card?
       #gift_card_errors
       #gift_card_applied
-        - if @cart.gift_card_applied?
+        - if get_cart.gift_card_applied?
           = render partial: 'carts/gift_card_applied'
       = form_for(@payment, :url => {:controller => :carts, :action => 'apply_gift_card', :secure => true}, :remote => true, :html => {:id => "gift_card_form", :method => :post}) do |f|
         .field
@@ -17,11 +17,11 @@
             .c_left
               = f.label :full_card_number, "Enter Gift Card Number", :class => "c_labelwidth"
               %br
-              = f.text_field :full_card_number
+              = f.text_field :full_card_number, class: "required"
             .c_left
               = f.label :card_pin,  "Enter Gift Card Pin Number", :class => "c_labelwidth"
               %br
-              = f.text_field :card_pin
+              = f.text_field :card_pin, class: "required"
             .c_right
               %img{:src => "/images/ui-icons/giftcard_ico_back.png", :width => "60", :height => "38"}
           .cb_left
@@ -37,14 +37,17 @@
             = link_to "Check Balance", '#', class: "jqui_save", id: "check_gift_card_balance"
           .c_linebreak
   :coffeescript
-    $('#check_gift_card_balance').click ->
-      $.ajax
-        url: "/carts/apply_gift_card"
-        data: $(this).parents('form').serialize()+'&balance=1'
-        type: 'POST'
-        success: (data) ->
-          data
-      false
+    $ ->
+      $('#gift_card_form').validate()
+      $('#check_gift_card_balance').click ->
+        if $('#gift_card_form').valid()
+          $.ajax
+            url: "/carts/apply_gift_card"
+            data: $(this).parents('form').serialize()+'&balance=1'
+            type: 'POST'
+            success: (data) ->
+              data
+        false
 
 = form_for(@payment, :url => {:controller => :carts, :action => @quote ? "quote_2_order" : "proceed_checkout", :id => @quote, :secure => true}, :remote => true, :html => {:id => "proceed_checkout", :method => :post, :multipart => true}) do |f|
   = f.error_messages
@@ -234,4 +237,5 @@
           order_comment();
           $('#proceed_checkout').validate(payment_validator_options);
       });
-      
+= content_for :remove_cc_validation
+

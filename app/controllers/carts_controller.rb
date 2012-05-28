@@ -153,6 +153,19 @@ class CartsController < ApplicationController
 		return unless real_time_cart
 		sleep 0.5
 		get_cart.reload
+    if @cart.gift_card_applied?
+      @valutec = Valutec.new :transaction_sale, card_number: @cart.gift_card_number, amount: total_cart
+      unless @valutec.success? && @valutec.authorized? && @valutec.card_amount_used > 0
+        @cart.reset_gift_card
+        @cart.save
+        flash[:alert] = "There were problems authorizing the gift cart. Please try again. #{@valutec.response}"
+        render :js => "window.location.href = '#{checkout_path}'" and return
+      end
+      cart_total = @valutec.results[:amount_due].to_f
+      @gift_card_payment = Payment.new payment_method: "Gift Card", card_number: @valutec.card_number, authorization: @valutec.results[:authorization_code], paid_at: Time.zone.now, paid_amount: @valutec.card_amount_used, vendor_tx_code: @valutec.identifier, email: get_user.email
+    else
+      cart_total = total_cart
+    end
 		if can_use_previous_payment? && params[:payment] && params[:payment][:use_previous_orders_card]  == "1"
       @payment = Order.find(get_cart.order_reference).payment.dup
       use_payment_token = true
@@ -160,15 +173,17 @@ class CartsController < ApplicationController
 		  use_payment_token = false
 		  new_payment
 		end
-		@payment.deferred = false if @payment.present? && !get_cart.allow_deferred?
+		@payment.deferred = false if @payment.present? && !get_cart.allow_deferred? || @cart.gift_card_applied?
 		if @payment.try :deferred
 		  @payment.number_of_payments = Payment::NUMBER_OF_PAYMENTS
 			@payment.frequency = Payment::FREQUENCY
 			@payment.deferred_payment_amount = (gross_price(get_cart.sub_total)/(@payment.number_of_payments + 1.0)).round(2)
 		end
 		cart_to_order(:address => get_user.shipping_address)
-    process_card(:amount => (total_cart * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?, :use_payment_token => use_payment_token) unless @payment.purchase_order && purchase_order_allowed? || get_cart.pre_order?
-		@order.payment = @payment unless get_cart.pre_order?
+    Rails.logger.info "!!!! #{cart_total} #{cart_total < 0.1}"
+    process_card(:amount => (cart_total * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?, :use_payment_token => use_payment_token) unless @payment.purchase_order && purchase_order_allowed? || get_cart.pre_order? || cart_total < 0.01
+		@order.payment = @payment unless get_cart.pre_order? || cart_total < 0.01
+    @order.gift_card = @gift_card_payment if @gift_card_payment
     process_order(@order)
 		clear_cart
 		cookies[:tracking], cookies[:utm_source] = nil
@@ -239,6 +254,7 @@ class CartsController < ApplicationController
 	def change_shipping_method
 		@rate = get_cart.shipping_rates.detect {|r| r['type'] == params[:method]}
 		get_cart.reset_tax
+    get_cart.reset_gift_card
 		get_cart.update_attributes :shipping_amount => @rate['rate'], :shipping_service => @rate['type']
 	rescue
 		calculate_shipping(get_user.shipping_address, :shipping_service => params[:method])

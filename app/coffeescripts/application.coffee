@@ -677,3 +677,15 @@ root.payment_validator_options =
       required: "In what Month does your card expire?"
     "payment[card_expiration_year]": 
       required: "In what Year does your card expire?"
+
+root.remove_gift_card = ->
+  $('#gift_card_applied').html('')
+  $('#gift_card_form').show()
+  $('#deferred_options').show()
+  $('#cart_gift_card_applied_amount').remove()
+  $('#cart_balance_due').remove()
+  $('#cc_info').show ->
+    $('.cc').each ->
+      $(this).rules('add', required: true)
+    $('#payment_full_card_number').rules('add', creditcard: true)
+    $('#payment_card_security_code').rules('add', cvv: true)
