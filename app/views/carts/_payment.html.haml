@@ -56,6 +56,7 @@
       #po_options
         .field
           = image_tag "/images/ui-icons/po_ico.png", :width => "60", :height => "38", :class=>"cc_thumb"
+          %h3 Purchase Order
           = f.label :purchase_order, "Would you like to pay with a purchase order?", :class => "autosize"
           Yes
           = f.radio_button(:purchase_order, true, :onclick => "show_purchase_order();")
@@ -86,7 +87,6 @@
             }
           };
         #po_info{:style => "display:none"}
-          %h3 Purchase Order
           .field
             = required_label f, :purchase_order_number, {:label => "Purchase Order Number", :label_size => "155px"}
             = f.text_field :purchase_order_number
