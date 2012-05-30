@@ -7,19 +7,20 @@
         %h3
           Gift Card
         Use a Sizzix/Ellison Gift Card?
-      #gift_card_errors
-      #gift_card_applied
-        - if get_cart.gift_card_applied?
-          = render partial: 'carts/gift_card_applied'
+      .gc_error{:class=>"checkout_disclaimer"}
+        #gift_card_errors
+        #gift_card_applied
+          - if get_cart.gift_card_applied?
+            = render partial: 'carts/gift_card_applied'
       = form_for(@payment, :url => {:controller => :carts, :action => 'apply_gift_card', :secure => true}, :remote => true, :html => {:id => "gift_card_form", :method => :post}) do |f|
         .field
           .c_container{:class=>"ui-widget ui-widget-content ui-corner-all"}
             .c_left
-              = f.label :full_card_number, "Enter Gift Card Number", :class => "c_labelwidth"
+              = f.label :full_card_number, "Enter Card Number (19 digits)", :class => "c_labelwidth"
               %br
               = f.text_field :full_card_number, class: "required", minlength: 19, maxlength: 19, digits: true, size: 25
             .c_left
-              = f.label :card_pin,  "Enter Gift Card Pin Number", :class => "c_labelwidth"
+              = f.label :card_pin,  "Enter Pin Number (8 digits)", :class => "c_labelwidth"
               %br
               = f.text_field :card_pin, class: "required", minlength: 8, maxlength: 8, digits: true, size: 15
             .c_right
@@ -33,7 +34,7 @@
               - if purchase_order_allowed? && is_ee_us?
                 NOT FOR USE WITH PURCHASE ORDER.
           .btn_right
-            = f.submit "Apply Gift Card", :class => 'jqui_save', id: "apply_gift_card"
+            = f.submit "Apply Gift Card", :class => 'jqui_save button_green bold', id: "apply_gift_card", :disable_with => "Please Wait..."
             = link_to "Check Balance", '#', class: "jqui_save", id: "check_gift_card_balance"
           .c_linebreak
   :coffeescript
@@ -108,7 +109,6 @@
         = image_tag("/images/ui-icons/cc_ico_u#{is_us? ? 's' : 'k'}.png", :width => "60", :height => "38", :class=>"cc_thumb credit_card")
         %h3
           Credit/Debit Card
-
       - if get_cart.allow_deferred?
         #deferred_options
           %strong How would you like to pay for this order?
@@ -148,83 +148,82 @@
                 = check_box_tag :agreed_terms, "1", false
                 == I agree that Sizzix.com may charge my credit card or debit card to recieve payment in full for my purchase of this merchandise in 3 month payment installments. Click here for #{ link_to "Terms and Conditions of Sale", "/3ez_terms_of_sale?no_layout=1", :class => "lightbox" }.
         = f.hidden_field :deferred
-        .c_linebreak
-
-      - if is_er?
-        .field 
-          = f.label :reference_purchase_order_number, "Reference Purchase Order Number", :style=>"width:208px"
-          = f.text_field :reference_purchase_order_number, :class => "cc"
-      - if is_er? && get_user.token && get_user.token.current?
-        .field.credit_card
-          %strong Credit Card on file:
-          = get_user.token.card_name
-          = get_user.token.card_number
-          %br
-          = link_to "Replace Card with Another One", forget_credit_card_path(:quote => @quote), :remote => true, :class => "link_replace-card"
-          = f.hidden_field :use_saved_credit_card
-      - else
-        .left.field-stacked.credit_card
-          = required_label f, :first_name, { :label => "First Name", :label_size => "auto" }
-          = f.text_field :first_name, :class => "cc"
-        .left.field-stacked.credit_card
-          = required_label f, :last_name, { :label => "Last Name", :label_size => "auto" }
-          = f.text_field :last_name, :class => "cc"        
-        .clear_left
-        .credit_card
-          .left.field-stacked{ :style => "margin-right: 12px#{is_uk? ? '; margin-bottom: 0' : nil}"}
-            = required_label f, :card_name, { :label => "Credit Card Type", :label_size => "auto" }
-            = select :payment, :card_name, Payment.cards, {:prompt => "--- Card Type ---"}, :class => "cc"
-          .left.field-stacked{ :style => "#{is_uk? ? 'margin-bottom: 0' : nil}"}
-            = required_label f, :full_card_number, { :label => "Credit Card Number", :label_size => "auto" }
-            = text_field :payment, :full_card_number, :size => 24, :maxlength => 16, :class => "cc", :style => "display: inline-block"
-            - unless is_uk?
-              = link_to "Using a Prepaid Card?", "/usingagiftcard?no_layout=1", :class => "link_help lightbox", :style => "margin-right: 12px"
-          .clear_left
-          - if is_uk?
-            %p.formhelp== <strong>Note:</strong> Currently, we do <strong>NOT</strong> accept International Maestro card form of Payment.
-          .left.field-stacked
-            = required_label f, :card_expiration_month, { :label => "Expiration Date", :label_size => "auto" }
-            = select :payment, :card_expiration_month, Payment.months, { :prompt => "Month" }, :class => "cc"
-          .left.field-stacked{ :style => "margin-right: 12px"}
+      .c_container{:class=>"ui-widget ui-widget-content ui-corner-all"}
+        - if is_er?
+          .field 
+            = f.label :reference_purchase_order_number, "Reference Purchase Order Number", :style=>"width:208px"
+            = f.text_field :reference_purchase_order_number, :class => "cc"
+        - if is_er? && get_user.token && get_user.token.current?
+          .field.credit_card
+            %strong Credit Card on file:
+            = get_user.token.card_name
+            = get_user.token.card_number
             %br
-            = select :payment, :card_expiration_year, Payment.years, { :prompt => "Year" }, :class => "cc"
-          .left.field-stacked{ :style => "#{is_uk? ? 'margin-bottom: 0' : nil}"}
-            = required_label f, :card_security_code, { :label => "Security Code", :label_size => "auto" }
-            = text_field :payment, :card_security_code, :size => 4, :maxlength => 4, :class => "cc", :style => "display: inline-block"
-            = link_to "What is This?", "/seccode?no_layout=1", :class => "link_help lightbox"
+            = link_to "Replace Card with Another One", forget_credit_card_path(:quote => @quote), :remote => true, :class => "link_replace-card"
+            = f.hidden_field :use_saved_credit_card
+        - else
+          .left.field-stacked.credit_card
+            = required_label f, :first_name, { :label => "First Name", :label_size => "auto" }
+            = f.text_field :first_name, :class => "cc"
+          .left.field-stacked.credit_card
+            = required_label f, :last_name, { :label => "Last Name", :label_size => "auto" }
+            = f.text_field :last_name, :class => "cc"        
           .clear_left
-          - if !is_us?
-            .field
-              You need to fill in the following fields
-              %strong ONLY
-              if the information is on your card.
-            .field.credit_card{:style => "margin-right: 24px"}
-              = f.label :card_issue_month, "Card Start Date", :style => "width: 110px"
-              = select :payment, :card_issue_month, Payment.months, { :include_blank => true }, :class => "cc"
-              \/
-              = select :payment, :card_issue_year, Payment.issue_years, { :include_blank => true }, :class => "cc"
-            .field.credit_card
-              = f.label :card_issue_number, :style => "width: 110px"
-              = f.text_field :card_issue_number, :size => 2, :maxlength => 2, :class => "cc"
-          - if can_tokenize_payment? && is_er?
-            .field
-              = f.check_box :save_credit_card
-              = f.label :save_credit_card, "Check to Save Credit Card on file", :class => "autosize"
-              = link_to "Learn More", "/keepcardonfile?no_layout=1", :class => "link_help lightbox"
+          .credit_card
+            .left.field-stacked{ :style => "margin-right: 12px#{is_uk? ? '; margin-bottom: 0' : nil}"}
+              = required_label f, :card_name, { :label => "Credit Card Type", :label_size => "auto" }
+              = select :payment, :card_name, Payment.cards, {:prompt => "--- Card Type ---"}, :class => "cc"
+            .left.field-stacked{ :style => "#{is_uk? ? 'margin-bottom: 0' : nil}"}
+              = required_label f, :full_card_number, { :label => "Credit Card Number", :label_size => "auto" }
+              = text_field :payment, :full_card_number, :size => 24, :maxlength => 16, :class => "cc", :style => "display: inline-block"
+              - unless is_uk?
+                = link_to "Using a Prepaid Card?", "/usingagiftcard?no_layout=1", :class => "link_help lightbox", :style => "margin-right: 12px"
+            .clear_left
+            - if is_uk?
+              %p.formhelp== <strong>Note:</strong> Currently, we do <strong>NOT</strong> accept International Maestro card form of Payment.
+            .left.field-stacked
+              = required_label f, :card_expiration_month, { :label => "Expiration Date", :label_size => "auto" }
+              = select :payment, :card_expiration_month, Payment.months, { :prompt => "Month" }, :class => "cc"
+            .left.field-stacked{ :style => "margin-right: 12px"}
+              %br
+              = select :payment, :card_expiration_year, Payment.years, { :prompt => "Year" }, :class => "cc"
+            .left.field-stacked{ :style => "#{is_uk? ? 'margin-bottom: 0' : nil}"}
+              = required_label f, :card_security_code, { :label => "Security Code", :label_size => "auto" }
+              = text_field :payment, :card_security_code, :size => 4, :maxlength => 4, :class => "cc", :style => "display: inline-block"
+              = link_to "What is This?", "/seccode?no_layout=1", :class => "link_help lightbox"
+            .clear_left
+            - if !is_us?
+              .field
+                You need to fill in the following fields
+                %strong ONLY
+                if the information is on your card.
+              .field.credit_card{:style => "margin-right: 24px"}
+                = f.label :card_issue_month, "Card Start Date", :style => "width: 110px"
+                = select :payment, :card_issue_month, Payment.months, { :include_blank => true }, :class => "cc"
+                \/
+                = select :payment, :card_issue_year, Payment.issue_years, { :include_blank => true }, :class => "cc"
+              .field.credit_card
+                = f.label :card_issue_number, :style => "width: 110px"
+                = f.text_field :card_issue_number, :size => 2, :maxlength => 2, :class => "cc"
+            - if can_tokenize_payment? && is_er?
+              .field
+                = f.check_box :save_credit_card
+                = f.label :save_credit_card, "Check to Save Credit Card on file", :class => "autosize"
+                = link_to "Learn More", "/keepcardonfile?no_layout=1", :class => "link_help lightbox"
         .clear_left
-    - if can_use_previous_payment?
-      .field
-        = f.check_box :use_previous_orders_card, :onclick => "if (this.checked) {$('.credit_card').remove()} else {$(this).attr('disabled', true);$('#payment_submit').replaceWith('#{escape_javascript spinner}');$('#checkout_cc').load('/carts/use_previous_orders_card');}"
-        = f.label :use_previous_orders_card, "Use same payment info that was used in order", :class => "autosize", :style => "margin-right: 0px"
-        %strong= link_to "##{get_cart.order_reference}", admin_order_path(get_cart.order_reference)
-    - if is_er? || is_ee?
-      .ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
-        %h4.ui-accordion-header.ui-helper-reset#order_comment
-          %span.ui-icon.ui-icon-triangle-1-e
-          = link_to 'Comments', "#"
-        %div= text_area_tag :comments, nil
-    = f.submit "Place Order", :class => 'jqui_save'
-    .clear
+        - if can_use_previous_payment?
+          .field
+            = f.check_box :use_previous_orders_card, :onclick => "if (this.checked) {$('.credit_card').remove()} else {$(this).attr('disabled', true);$('#payment_submit').replaceWith('#{escape_javascript spinner}');$('#checkout_cc').load('/carts/use_previous_orders_card');}"
+            = f.label :use_previous_orders_card, "Use same payment info that was used in order", :class => "autosize", :style => "margin-right: 0px"
+            %strong= link_to "##{get_cart.order_reference}", admin_order_path(get_cart.order_reference)
+        - if is_er? || is_ee?
+          .ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
+            %h4.ui-accordion-header.ui-helper-reset#order_comment
+              %span.ui-icon.ui-icon-triangle-1-e
+              = link_to 'Comments', "#"
+            %div= text_area_tag :comments, nil
+      = f.submit "Place Order", :class => 'jqui_save'
+      .clear
     %p.legalese{:class => "checkout_disclaimer"}
       - if is_uk?
         == All purchases from our website are made subject to our #{link_to "terms and conditions", "/termsofsale?no_layout=1", :class => "lightbox"}. By clicking the button to confirm your order you agree to and will be bound by those terms & conditions and we therefore suggest that you read them #{link_to "here", "/termsofsale?no_layout=1", :class => "lightbox"} first.

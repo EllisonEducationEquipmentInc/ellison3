@@ -1,7 +1,7 @@
 - unless get_cart.coupon.blank?
   %p
     == Your coupon code <span class="coupon_code" style="max-width:490px;">#{get_cart.coupon_code}</span> has been applied.
-    = link_to "remove", remove_coupon_path, :remote => true, :class => "link_remove"
+
     - unless get_cart.coupon.description.blank?
       %br
     %span.legalese{:style=>"line-height:-16em"}= raw get_cart.coupon.description
@@ -11,6 +11,7 @@
         #coupon_long_description= get_cart.coupon.long_description.html_safe
       :javascript
         initialize_lightboxes();
+    .c_linebreak
 - else
   = form_tag activate_coupon_path, :id => "coupon_form", :remote => true, :onsubmit => "return false;"  do
     .field

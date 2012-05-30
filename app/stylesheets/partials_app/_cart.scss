@@ -117,6 +117,12 @@ ul.cart_summary {
     left: 773px;
     */
   }
+  
+  #remove_submit { 
+    @extend .button_large;
+    @extend .right;
+  }
+
 }
 
 #checkout_summary {

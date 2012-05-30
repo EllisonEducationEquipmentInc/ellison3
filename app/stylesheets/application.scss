@@ -315,17 +315,21 @@ color:#A9250E; font-weight:bold;
   margin-right:12px;
 }
 .btn_right {
-  width:auto;
-  height:auto;
-  float:right;
+  width:auto!important;
+  height:auto!important;
+  float:right!important;
 }
 .c_container {
   position:relative;
-  padding:4px 0 0 6px;
-  width:100%;
-  height:auto;
+  padding:4px 8px 0 10px;
+  width:610px;
+  min-height:46px;
   float:left; 
-  margin-bottom:6px; 
+  margin-bottom:6px;
+  
+  input {
+    background:white;
+  }
 }
 .c_linebreak {
   width:100%;
@@ -393,5 +397,15 @@ color:#A9250E; font-weight:bold;
   height:158px;
   margin-left:auto;
   margin-right:auto;
+}
+.gc_btn{
+  margin:0 6px 5px 0!important;
+}
+
+.gc_error {
+  float:left;
+  color:#A9250E;
+  font-weight:bold;
+  height:auto!important;
 }
 

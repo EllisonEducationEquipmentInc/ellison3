@@ -1,29 +1,33 @@
-= number_to_currency @cart.gift_card_applied_amount
-has been Applied to your Sizzix/Ellison Gift card ending #{@cart.gift_card_number.split("=").first[-4,4]}.
-- if @cart.balance_due > 0.0
-  The balance due is #{number_to_currency @cart.balance_due}. Please enter your credit card information below.
-- else
-  = content_for :remove_cc_validation do
-    :coffeescript
-      $ ->
-        $('#cc_info').hide()
-        $('.cc').each ->
-          $(this).rules('remove')
-  - if request.xhr?
-    = content_for :remove_cc_validation
-
-= link_to "Remove", '#', class: "jqui_save", id: "remove_gift_card"
-:coffeescript
-  $ ->
-    $('#gift_card_form').hide()
-    $('#deferred_0').trigger('click')
-    $('#deferred_options').hide()
-    $('#payment_purchase_order_false').trigger('click')
-    $('#po_options').hide()
-    $('#cart_gift_card_applied_amount').remove()
-    $('#cart_balance_due').remove()
-    $('ul.cart_summary').append('#{escape_javascript render(partial: 'carts/balance_due')}')
-    $('#remove_gift_card').click ->
-      $.ajax
-        url: 'carts/remove_gift_card'
-      false
+.c_container{:class=>"ui-widget ui-widget-content ui-corner-all"}
+  %div{:class=>"checkout_disclaimer legalese", :style=>"float:left; color:#A9250E; width:450px;"}
+    = number_to_currency @cart.gift_card_applied_amount
+    has been Applied to your Sizzix/Ellison Gift card ending #{@cart.gift_card_number.split("=").first[-4,4]}.
+  - if @cart.balance_due > 0.0
+    %div{:class=>"checkout_disclaimer legalese", :style=>"float:left; color:#A9250E; width:450px;"}
+      The balance due is #{number_to_currency @cart.balance_due}. Please enter your credit card information below.
+  - else
+    = content_for :remove_cc_validation do
+      :coffeescript
+        $ ->
+          $('#cc_info').hide()
+          $('.cc').each ->
+            $(this).rules('remove')
+    - if request.xhr?
+      = content_for :remove_cc_validation
+  .btn_right
+    = link_to "Remove", '#', class: "jqui_save gc_btn", id: "remove_gift_card", :disable_with => "Please Wait..."
+  :coffeescript
+    $ ->
+      $('#gift_card_form').hide()
+      $('#deferred_0').trigger('click')
+      $('#deferred_options').hide()
+      $('#payment_purchase_order_false').trigger('click')
+      $('#po_options').hide()
+      $('#cart_gift_card_applied_amount').remove()
+      $('#cart_balance_due').remove()
+      $('ul.cart_summary').append('#{escape_javascript render(partial: 'carts/balance_due')}')
+      $('#remove_gift_card').click ->
+        $.ajax
+          url: 'carts/remove_gift_card'
+        false
+.c_linebreak
