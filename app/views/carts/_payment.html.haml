@@ -17,11 +17,11 @@
             .c_left
               = f.label :full_card_number, "Enter Gift Card Number", :class => "c_labelwidth"
               %br
-              = f.text_field :full_card_number, class: "required"
+              = f.text_field :full_card_number, class: "required", minlength: 19, maxlength: 19, digits: true, size: 25
             .c_left
               = f.label :card_pin,  "Enter Gift Card Pin Number", :class => "c_labelwidth"
               %br
-              = f.text_field :card_pin, class: "required"
+              = f.text_field :card_pin, class: "required", minlength: 8, maxlength: 8, digits: true, size: 15
             .c_right
               %img{:src => "/images/ui-icons/giftcard_ico_back.png", :width => "60", :height => "38"}
           .cb_left
