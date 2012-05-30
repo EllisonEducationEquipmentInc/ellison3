@@ -116,7 +116,7 @@
             == #{@order.payment.card_name}, 
             == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
           - if @order.gift_card.present?
-            = number_to_currency @order.payment.paid_amount rescue ''
+            = number_to_currency @order.balance_due rescue ''
             %br
           - if @order.payment.reference_purchase_order_number.present?
             %br
