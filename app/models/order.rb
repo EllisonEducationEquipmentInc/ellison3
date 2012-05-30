@@ -346,6 +346,14 @@ class Order
       total_amount
     end
   end
+
+  def billing_address
+    if payment.present?
+      payment
+    elsif gift_card.present?
+      gift_card
+    end
+  end
   
 	# use this format to change status:
 	#   @order.in_process! 

@@ -3,22 +3,22 @@
 #billing_address
   %h3 Billing Address
   %p
-    - if @order.payment.present?
-      - unless @order.payment.company.blank?
-        = @order.payment.company
+    - if @order.billing_address.present?
+      - unless @order.billing_address.company.blank?
+        = @order.billing_address.company
         %br
-      == #{@order.payment.first_name} #{@order.payment.last_name}
+      == #{@order.billing_address.first_name} #{@order.billing_address.last_name}
       %br
-      = @order.payment.address1
+      = @order.billing_address.address1
       %br
-      - unless @order.payment.address2.blank?
-        = @order.payment.address2
+      - unless @order.billing_address.address2.blank?
+        = @order.billing_address.address2
         %br
-      == #{@order.payment.city}, #{@order.payment.state} #{@order.payment.zip_code}
+      == #{@order.billing_address.city}, #{@order.billing_address.state} #{@order.billing_address.zip_code}
       %br
-      = @order.payment.country
+      = @order.billing_address.country
       %br
-      = @order.payment.phone
+      = @order.billing_address.phone
 
 #shipping_address
   %h3 Shipping Address

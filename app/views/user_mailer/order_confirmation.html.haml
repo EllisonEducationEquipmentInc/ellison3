@@ -6,22 +6,22 @@
     %td.threecol.first{ :style => "width: 28%; padding-right: 10px; padding-left: 10px; color: #444; padding-top: 10px; border-right: 1px solid #ccc; padding-left:0; width:25%;" }
       %h3.secondary-heading{ :style => "font-size: 18px; font-weight: normal; color: #333; font-style: normal; font-family: Georgia; text-align: left; margin-bottom: 15px;" } Billing Address
       %p
-        - if @order.payment.present?
-          - unless @order.payment.company.blank?
-            = @order.payment.company
+        - if @order.billing_address.present?
+          - unless @order.billing_address.company.blank?
+            = @order.billing_address.company
             %br
-          == #{@order.payment.first_name} #{@order.payment.last_name}
+          == #{@order.billing_address.first_name} #{@order.billing_address.last_name}
           %br
-          = @order.payment.address1
+          = @order.billing_address.address1
           %br
-          - unless @order.payment.address2.blank?
-            = @order.payment.address2
+          - unless @order.billing_address.address2.blank?
+            = @order.billing_address.address2
             %br
-          == #{@order.payment.city}, #{@order.payment.state} #{@order.payment.zip_code}
+          == #{@order.billing_address.city}, #{@order.billing_address.state} #{@order.billing_address.zip_code}
           %br
-          = @order.payment.country
+          = @order.billing_address.country
           %br
-          = @order.payment.phone
+          = @order.billing_address.phone
     %td.threecol{ :style => "width: 28%; padding-right: 10px; padding-left: 10px; color: #444; padding-top: 10px; border-right: 1px solid #ccc;" }
       %h3.secondary-heading{ :style => "font-size: 18px; font-weight: normal; color: #333; font-style: normal; font-family: Georgia; text-align: left; margin-bottom: 15px;" } Shipping Address
       %p
