@@ -69,41 +69,12 @@
           loop: false,
           live: false,
           hashtags: true,
-          timestamp: false,
+          timestamp: true,
           avatars: false,
           behavior: 'all'
         }
       }).render().setUser('sizzix_#{ is_us? ? "us" : "uk" }').start();
-      
-      
-    %script{:charset => "utf-8", :src => "http://widgets.twimg.com/j/2/widget.js"}
-    :javascript
-      new TWTR.Widget({
-        version: 2,
-        type: 'profile',
-        rpp: 5,
-        interval: 30000,
-        width: 250,
-        height: 300,
-        theme: {
-          shell: {
-            background: '#184191',
-            color: '#ffffff'
-          },
-          tweets: {
-            background: '#000000',
-            color: '#ffffff',
-            links: '#70eaff'
-          }
-        },
-        features: {
-          scrollbar: false,
-          loop: false,
-          live: false,
-          behavior: 'all'
-        }
-      }).render().setUser('sizzix_us').start();
-
+  
     %ul#connect-with-sizzix
       %li= link_to "Follow Us on Pinterest", "http://pinterest.com/sizzix", :target => "blank", :class => "link_pinterest"
       %li= link_to "Follow Us on Twitter", "http://www.twitter.com/sizzix_#{ is_us? ? "us" : "uk" }", :target => "blank", :class => "link_twitter"
