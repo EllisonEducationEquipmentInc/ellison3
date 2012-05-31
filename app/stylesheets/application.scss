@@ -301,7 +301,7 @@ color:#A9250E; font-weight:bold;
 // Coupon Checkout CSS
 
 .c_labelwidth {
-  width:225px!important;
+  width:auto!important;
 }
 .c_left {
   width:230px;
@@ -407,5 +407,9 @@ color:#A9250E; font-weight:bold;
   color:#A9250E;
   font-weight:bold;
   height:auto!important;
+}
+
+.float {
+  float:left;
 }
 

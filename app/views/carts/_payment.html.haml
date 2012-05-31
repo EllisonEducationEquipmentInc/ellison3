@@ -16,11 +16,11 @@
         .field
           .c_container{:class=>"ui-widget ui-widget-content ui-corner-all"}
             .c_left
-              = f.label :full_card_number, "Enter Card Number (19 digits)", :class => "c_labelwidth"
+              = f.label :full_card_number, "Enter Card Number (19 digits)", :class => "required c_labelwidth"
               %br
               = f.text_field :full_card_number, class: "required", minlength: 19, maxlength: 19, digits: true, size: 25
             .c_left
-              = f.label :card_pin,  "Enter Pin Number (8 digits)", :class => "c_labelwidth"
+              = f.label :card_pin,  "Enter Pin Number (8 digits)", :class => "required c_labelwidth"
               %br
               = f.text_field :card_pin, class: "required", minlength: 8, maxlength: 8, digits: true, size: 15
             .c_right
@@ -89,6 +89,14 @@
               $('#payment_card_security_code').rules('add',{cvv: true});
               $('#payment_attachment').rules('remove');
               $('#payment_purchase_order_number').rules('remove');
+              
+              var divElement = document.createElement("div");  
+  
+              divElement.id = "myDiv";  
+              divElement.className = "myDivClass";  
+              divElement.innerHTML = "Hello World!";  
+              document.body.appendChild(divElement);
+              
             }
           };
         #po_info{:style => "display:none"}
@@ -221,7 +229,7 @@
           = f.label :use_previous_orders_card, "Use same payment info that was used in order", :class => "autosize", :style => "margin-right: 0px"
           %strong= link_to "##{get_cart.order_reference}", admin_order_path(get_cart.order_reference)
       - if is_er? || is_ee?
-        .ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons
+        .ui-accordion.ui-widget.ui-helper-reset.ui-accordion-icons{:class=>"float"}
           %h4.ui-accordion-header.ui-helper-reset#order_comment
             %span.ui-icon.ui-icon-triangle-1-e
             = link_to 'Comments', "#"
