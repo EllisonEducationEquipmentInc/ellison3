@@ -158,7 +158,7 @@ class CartsController < ApplicationController
       unless @valutec.success? && @valutec.authorized? && @valutec.card_amount_used > 0 #&& @cart.gift_card_applied_amount <= @valutec.balance
         @cart.reset_gift_card
         @cart.save
-        flash[:alert] = "There were problems authorizing the gift cart. Please try again."
+        flash[:alert] = "There was problem authorizing the gift card. Please try again"
         render :js => "window.location.href = '#{checkout_path}'" and return
       end
       cart_total = @valutec.results[:amount_due].to_f

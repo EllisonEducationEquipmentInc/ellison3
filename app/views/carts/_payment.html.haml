@@ -39,7 +39,10 @@
           .c_linebreak
   :coffeescript
     $ ->
-      $('#gift_card_form').validate()
+      $('#gift_card_form').validate
+        messages:
+          'payment[full_card_number]': "Please enter a valid Gift Card Number"
+          'payment[card_pin]': "Please enter a valid Pin Number"
       $('#check_gift_card_balance').click ->
         if $('#gift_card_form').valid()
           $.ajax
