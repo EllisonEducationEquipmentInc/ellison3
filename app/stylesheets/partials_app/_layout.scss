@@ -176,7 +176,7 @@
   height: 30px;
   background: url('/images/ui-buttons/green-large_off.png') no-repeat;
   border: none;
-  font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+  font-family: 'PT Sans', Helvetica, Arial, sans-serif!important;
   text-transform: uppercase;
   font-weight: bold;
   font-size: 1.1em;
@@ -207,9 +207,10 @@
   &:hover { background: url('/images/ui-buttons/green_on.png') no-repeat; };
 }
 
-.bold {
-  font-weight:bold;
+.bg_large {
+  font-size: 1.3em!important;  
 }
+
 
 // for visual asset carousels
 a.prev_button {
