@@ -124,7 +124,7 @@
             %strong
               #{@order.payment.reference_purchase_order_number}
         - if @order.gift_card.present?
-          Sizzix/Ellison Gift Card
+          Sizzix/Ellison Gift Card Ending
           = @order.gift_card.card_num_last_four
           - if @order.payment.present?
             = number_to_currency @order.gift_card.paid_amount rescue ''

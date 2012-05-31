@@ -79,7 +79,7 @@ module Ax
                       xml.type {
                         xml.payment_method('GC')
                         xml.giftcard_num(order.gift_card.card_number)
-                        xml.giftcard_identifer(order.gift_card.vendor_tx_code)
+                        xml.giftcard_identifier(order.gift_card.vendor_tx_code)
                         xml.giftcard_auth_num(order.gift_card.authorization)
                         xml.giftcard_amount_charged(format_with_precision(order.gift_card.paid_amount))
                       }
