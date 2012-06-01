@@ -33,7 +33,7 @@
       - else
         = link_to "http://#{request.host_with_port}/shop/<strong>#{@landing_page.permalink}</strong>".html_safe, "http://#{request.host_with_port}/shop/#{@landing_page.permalink}"
     .field
-      = f.label :short_desc, "Short Description <span class='formhelp'><em>for internal admin use only</em></span>".html_safe, :class => "autosize"
+      = f.label :short_desc, "Short Description".html_safe, :class => "autosize"
       %br
       = f.text_area :short_desc, :cols => 57, :rows => 5
 
