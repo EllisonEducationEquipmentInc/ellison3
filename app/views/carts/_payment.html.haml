@@ -1,5 +1,5 @@
 %h3{:class=>"paytype_header"}
-- if gift_card_allowed?
+- if gift_card_allowed? && !@quote
   .checkout_container
     #gift_card_option
       .gc_frame

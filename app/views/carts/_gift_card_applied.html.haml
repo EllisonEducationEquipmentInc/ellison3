@@ -1,3 +1,7 @@
+:coffeescript
+  $ ->
+    $('#payment_purchase_order_false').trigger('click')
+
 .c_container{:class=>"ui-widget ui-widget-content ui-corner-all"}
   %div{:class=>"checkout_disclaimer legalese", :style=>"float:left; color:#A9250E; width:450px;"}
     = number_to_currency @cart.gift_card_applied_amount
@@ -16,18 +20,17 @@
       = content_for :remove_cc_validation
   .btn_right
     = link_to "Remove", '#', class: "jqui_save gc_btn", id: "remove_gift_card", :disable_with => "Please Wait..."
-  :coffeescript
-    $ ->
-      $('#gift_card_form').hide()
-      $('#deferred_0').trigger('click')
-      $('#deferred_options').hide()
-      $('#payment_purchase_order_false').trigger('click')
-      $('#po_options').hide()
-      $('#cart_gift_card_applied_amount').remove()
-      $('#cart_balance_due').remove()
-      $('ul.cart_summary').append('#{escape_javascript render(partial: 'carts/balance_due')}')
-      $('#remove_gift_card').click ->
-        $.ajax
-          url: 'carts/remove_gift_card'
-        false
 .c_linebreak
+:coffeescript
+  $ ->
+    $('#gift_card_form').hide()
+    $('#deferred_0').trigger('click')
+    $('#deferred_options').hide()
+    $('#po_options').hide()
+    $('#cart_gift_card_applied_amount').remove()
+    $('#cart_balance_due').remove()
+    $('ul.cart_summary').append('#{escape_javascript render(partial: 'carts/balance_due')}')
+    $('#remove_gift_card').click ->
+      $.ajax
+        url: 'carts/remove_gift_card'
+      false
