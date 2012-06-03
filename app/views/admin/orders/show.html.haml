@@ -320,6 +320,12 @@
   .field
     %strong Paid At:
     = l @order.gift_card.paid_at, :format => :custom rescue ""
+  .field
+    %strong Refunded Amount:
+    = number_to_currency @order.gift_card.refunded_amount rescue "N/A"
+  .field
+    %strong Refunded At:
+    = l @order.gift_card.refunded_at, :format => :custom rescue ""
 - if @order.payment.blank? && @order.gift_card.blank?
   .error No Payment Info Available
 .field

@@ -2,28 +2,28 @@ require 'rubygems'
 require 'builder'
 
 module Ax
-	 
+   
   # include EllisonSystem
   # include ShoppingCart
-	
-	module ClassMethods
-		
-	end
-	
-	module InstanceMethods
-				
-		PATH = Rails.env == 'development' ? "#{Rails.root}" : "/data/shared"
-		
-		def calculate_tax?(state)
-	    %w(CA IN WA UT).include?(state)
-	  end
-		
-		def format_with_precision(number, precision=2)
+  
+  module ClassMethods
+    
+  end
+  
+  module InstanceMethods
+        
+    PATH = Rails.env == 'development' ? "#{Rails.root}" : "/data/shared"
+    
+    def calculate_tax?(state)
+      %w(CA IN WA UT).include?(state)
+    end
+    
+    def format_with_precision(number, precision=2)
       "%.*f" % [precision, number]
     end
-		
-		def build_ax_xml(orders)
-			xml = Builder::XmlMarkup.new(:indent => 2)
+    
+    def build_ax_xml(orders)
+      xml = Builder::XmlMarkup.new(:indent => 2)
       xml.instruct!
       xml.salesorders do
         orders.each do |order|
@@ -143,141 +143,141 @@ module Ax
           }
         end
       end
-			xml.target!
-		end
-		
-		def order_status_update(xml, no_emails = false)
-			begin
-				doc = REXML::Document.new(xml)
-		    doc.root.elements.each('orders') do |orders|
-		      orders.elements.each('order') do |order|
-		        order_number = order.attributes['number']
-		        tracking_number = order.attributes['tracking_number']
-		        tracking_url = order.attributes['tracking_url']
-		        tracking_url = "http://www.fedex.com/Tracking?ascend_header=1&clienttype=dotcom&cntry_code=us&language=english&tracknumbers=#{tracking_number}" if !tracking_number.blank? && tracking_url =~ /fedex/i
-		        carrier_description = order.attributes['carrier_description']
-		        state = order.attributes['status'].blank? ? '' : order.attributes['status'].strip.downcase
+      xml.target!
+    end
+    
+    def order_status_update(xml, no_emails = false)
+      begin
+        doc = REXML::Document.new(xml)
+        doc.root.elements.each('orders') do |orders|
+          orders.elements.each('order') do |order|
+            order_number = order.attributes['number']
+            tracking_number = order.attributes['tracking_number']
+            tracking_url = order.attributes['tracking_url']
+            tracking_url = "http://www.fedex.com/Tracking?ascend_header=1&clienttype=dotcom&cntry_code=us&language=english&tracknumbers=#{tracking_number}" if !tracking_number.blank? && tracking_url =~ /fedex/i
+            carrier_description = order.attributes['carrier_description']
+            state = order.attributes['status'].blank? ? '' : order.attributes['status'].strip.downcase
 
-	          dborder = Order.find_by_public_order_number order_number
-	          unless dborder.blank?
-	            if state =~ /^shipped$/i
-	              order_status = "Shipped"
-	            elsif state =~ /^cancel(l?)ed$/i
-	              order_status = dborder.payment.try(:purchase_order) ? 'Cancelled' : "To Refund"
-	            elsif state =~ /^processing$/i
-	              order_status = "Processing"
-	            elsif state =~ /^in(\s|-)process$/i
-	              order_status = "In Process"
+            dborder = Order.find_by_public_order_number order_number
+            unless dborder.blank?
+              if state =~ /^shipped$/i
+                order_status = "Shipped"
+              elsif state =~ /^cancel(l?)ed$/i
+                order_status = dborder.payment.try(:purchase_order) ? 'Cancelled' : "To Refund"
+              elsif state =~ /^processing$/i
+                order_status = "Processing"
+              elsif state =~ /^in(\s|-)process$/i
+                order_status = "In Process"
               elsif state =~ /^on(\s|-)hold$/i
-	              order_status = "On Hold"
-	            else
-	              next
-	            end
-							
-							# TODO: handle invalid order_status, cch failure
-  						set_current_system dborder.system
-	            dborder.update_attributes!(:status => order_status, :tracking_number => tracking_number, :tracking_url => tracking_url, :carrier_description => carrier_description)							
-  						if order_status == "Shipped"
-  						  dborder.send_shipping_confirmation unless no_emails || dborder.system == "szuk" || dborder.system == "eeuk"
-  						  dborder.delay.delete_billing_subscription_id if dborder.system == "eeus" && dborder.payment && dborder.payment.subscriptionid.present?
-  						  #commit_tax(dborder) if !dborder.tax_committed
-  						end
-	          end
+                order_status = "On Hold"
+              else
+                next
+              end
+              
+              # TODO: handle invalid order_status, cch failure
+              set_current_system dborder.system
+              dborder.update_attributes!(:status => order_status, :tracking_number => tracking_number, :tracking_url => tracking_url, :carrier_description => carrier_description)              
+              if order_status == "Shipped"
+                dborder.send_shipping_confirmation unless no_emails || dborder.system == "szuk" || dborder.system == "eeuk"
+                dborder.delay.delete_billing_subscription_id if dborder.system == "eeus" && dborder.payment.present? && dborder.payment.subscriptionid.present?
+                #commit_tax(dborder) if !dborder.tax_committed
+              end
+            end
 
-		      end
-				end
-				return 1
-			rescue Exception => e
-				return e #.backtrace
-			end
-		end
-		
-		def update_inventory_from_ax(xml, options = {})
-			doc = REXML::Document.new(xml)
-	    doc.root.elements.each('items') do |items|
-	      items.elements.each('item') do |item|
-	        item_number = item.attributes['number']
-	        onhand_qty_wh01 = item.attributes['onhand_qty_wh1'].to_i 
-	        onhand_qty_wh11 = item.attributes['onhand_qty_wh11'].to_i
-	        onhand_qty_uk = item.attributes['onhand_qty_uk'].blank? ? nil : item.attributes['onhand_qty_uk'].to_i
-					new_life_cycle = case item.attributes['life_cycle']
-					when "Pre-Release"
-					  'pre-release'
-					when 'Active'
-					  'available'
-					when 'Discontinued'
-					  'discontinued'
-					when 'Inactive'
-					  'unavailable'
-					else
-					  nil
-					end
-					product = Product.first(:conditions => {:item_num => item_number})
-					unless product.blank?
-					  product.quantity_us =  onhand_qty_wh01 < 1 ? 0 : onhand_qty_wh01 unless options[:exclude] == "quantity_us"
-					  product.quantity_sz =  onhand_qty_wh11 < 1 ? 0 : onhand_qty_wh11 unless options[:exclude] == "quantity_sz"
-					  product.quantity_uk =  onhand_qty_uk < 1 ? 0 : onhand_qty_uk unless onhand_qty_uk.nil? || options[:exclude] == "quantity_uk"					   
-					  if new_life_cycle
-					    product.life_cycle = new_life_cycle
-					    if item.attributes['life_cycle_date'].present? && item.attributes['life_cycle_date'] =~ /^\d{2}\/\d{2}\/\d{2,4}$/
-					      life_cycle_date = Date.new(item.attributes['life_cycle_date'].split("/")[2].to_i, item.attributes['life_cycle_date'].split("/")[0].to_i, item.attributes['life_cycle_date'].split("/")[1].to_i) 
-					      product.life_cycle_date = life_cycle_date
-					    end
-					  end
-					  product.save(:validate => false)
-						Rails.logger.info "*** updating #{product.id} #{product.item_num}, life_cycle: #{new_life_cycle ? new_life_cycle : '--- not changed ---'}, onhand_qty_wh01: #{onhand_qty_wh01}, onhand_qty_wh11: #{onhand_qty_wh11}, onhand_qty_uk: #{onhand_qty_uk}" 
-					else
-						Rails.logger.info "!!! inventory on-hand quantity of #{item_number} could not be updated"
-					end
-	      end
-	    end
-			return 1
-		rescue Exception => e
-			return e
-		end
-		
-		def create_status_update_xml(orders, options = {})
-			options[:state] ||= 'In Process'
-	    xml = Builder::XmlMarkup.new(:indent => 2)
-	    xml.instruct!
-	    xml.tag!(:order_status_update) {
-	      xml.orders {
-	        orders.each do |order|
-	          xml.order(:number => order.public_order_number, :status => options[:state], :tracking_url => '', :tracking_number => '')
-	        end
-	      }
-	    }
-	    xml.target!
-	  end
-	  
-	  def ax_shipping_code(shipping_service)
-	    case shipping_service
-	    when "EXPRESS_SAVER", "FEDEX_EXPRESS_SAVER"
-	      "FDXES"
-	    when "FEDEX_GROUND", "GROUND"
-	      "FXGround"
-	    when "FEDEX_2_DAY", "SECOND_DAY"
-	      "FDX2D"
-	    when "FIRST_OVERNIGHT"
-	      "FXDFONIGHT"
-	    when "STANDARD_OVERNIGHT", "OVERNIGHT"
-	      "FDXSO"
-	    when "PRIORITY_OVERNIGHT"
-	      "FDXPO"
-	    when "INTERNATIONAL_ECONOMY"
-	      "FDXIE"
-	    when "FEDEX_3_DAY_FREIGHT"
-	      "FDXTHRDFR"
-	    else
-	      'FXGround'
-	    end
-	  end
-	  
-	
-	end
-	
-	def self.included(receiver)
-		receiver.extend         ClassMethods
-		receiver.send :include, InstanceMethods
-	end
+          end
+        end
+        return 1
+      rescue Exception => e
+        return e #.backtrace
+      end
+    end
+    
+    def update_inventory_from_ax(xml, options = {})
+      doc = REXML::Document.new(xml)
+      doc.root.elements.each('items') do |items|
+        items.elements.each('item') do |item|
+          item_number = item.attributes['number']
+          onhand_qty_wh01 = item.attributes['onhand_qty_wh1'].to_i 
+          onhand_qty_wh11 = item.attributes['onhand_qty_wh11'].to_i
+          onhand_qty_uk = item.attributes['onhand_qty_uk'].blank? ? nil : item.attributes['onhand_qty_uk'].to_i
+          new_life_cycle = case item.attributes['life_cycle']
+          when "Pre-Release"
+            'pre-release'
+          when 'Active'
+            'available'
+          when 'Discontinued'
+            'discontinued'
+          when 'Inactive'
+            'unavailable'
+          else
+            nil
+          end
+          product = Product.first(:conditions => {:item_num => item_number})
+          unless product.blank?
+            product.quantity_us =  onhand_qty_wh01 < 1 ? 0 : onhand_qty_wh01 unless options[:exclude] == "quantity_us"
+            product.quantity_sz =  onhand_qty_wh11 < 1 ? 0 : onhand_qty_wh11 unless options[:exclude] == "quantity_sz"
+            product.quantity_uk =  onhand_qty_uk < 1 ? 0 : onhand_qty_uk unless onhand_qty_uk.nil? || options[:exclude] == "quantity_uk"             
+            if new_life_cycle
+              product.life_cycle = new_life_cycle
+              if item.attributes['life_cycle_date'].present? && item.attributes['life_cycle_date'] =~ /^\d{2}\/\d{2}\/\d{2,4}$/
+                life_cycle_date = Date.new(item.attributes['life_cycle_date'].split("/")[2].to_i, item.attributes['life_cycle_date'].split("/")[0].to_i, item.attributes['life_cycle_date'].split("/")[1].to_i) 
+                product.life_cycle_date = life_cycle_date
+              end
+            end
+            product.save(:validate => false)
+            Rails.logger.info "*** updating #{product.id} #{product.item_num}, life_cycle: #{new_life_cycle ? new_life_cycle : '--- not changed ---'}, onhand_qty_wh01: #{onhand_qty_wh01}, onhand_qty_wh11: #{onhand_qty_wh11}, onhand_qty_uk: #{onhand_qty_uk}" 
+          else
+            Rails.logger.info "!!! inventory on-hand quantity of #{item_number} could not be updated"
+          end
+        end
+      end
+      return 1
+    rescue Exception => e
+      return e
+    end
+    
+    def create_status_update_xml(orders, options = {})
+      options[:state] ||= 'In Process'
+      xml = Builder::XmlMarkup.new(:indent => 2)
+      xml.instruct!
+      xml.tag!(:order_status_update) {
+        xml.orders {
+          orders.each do |order|
+            xml.order(:number => order.public_order_number, :status => options[:state], :tracking_url => '', :tracking_number => '')
+          end
+        }
+      }
+      xml.target!
+    end
+    
+    def ax_shipping_code(shipping_service)
+      case shipping_service
+      when "EXPRESS_SAVER", "FEDEX_EXPRESS_SAVER"
+        "FDXES"
+      when "FEDEX_GROUND", "GROUND"
+        "FXGround"
+      when "FEDEX_2_DAY", "SECOND_DAY"
+        "FDX2D"
+      when "FIRST_OVERNIGHT"
+        "FXDFONIGHT"
+      when "STANDARD_OVERNIGHT", "OVERNIGHT"
+        "FDXSO"
+      when "PRIORITY_OVERNIGHT"
+        "FDXPO"
+      when "INTERNATIONAL_ECONOMY"
+        "FDXIE"
+      when "FEDEX_3_DAY_FREIGHT"
+        "FDXTHRDFR"
+      else
+        'FXGround'
+      end
+    end
+    
+  
+  end
+  
+  def self.included(receiver)
+    receiver.extend         ClassMethods
+    receiver.send :include, InstanceMethods
+  end
 end

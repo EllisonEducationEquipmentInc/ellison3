@@ -1,40 +1,40 @@
 class Admin::OrdersController < ApplicationController
   layout 'admin'
-	
-	before_filter :set_admin_title
-	before_filter :admin_read_permissions!
+  
+  before_filter :set_admin_title
+  before_filter :admin_read_permissions!
   before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :authorize_cc, :change_order_status, :recalculate_tax, :change_amount, :make_payment, :refund_cc]
-	before_filter :admin_user_as_permissions!, :only => [:recreate]
-	
-	ssl_exceptions
-	
-	def index
-	  @current_locale = current_locale
-	  criteria = Mongoid::Criteria.new(Order)
-	  criteria = criteria.where :deleted_at => nil
-	  criteria = criteria.where(:user_id => params[:user_id]) unless params[:user_id].blank?
-	  criteria = criteria.where :user_id.in => current_admin.users.map {|e| e.id} if current_admin.limited_sales_rep
-	  criteria = if params[:systems_enabled].blank?
-	    criteria.where(:system.in => admin_systems)
-	  else
-	    criteria.where(:system.in => params[:systems_enabled]) 
-	  end
-	  criteria = criteria.where(:status => params[:status]) unless params[:status].blank?
-	  criteria = criteria.where('payment.deferred' => Boolean.set(params[:deferred])) unless params[:deferred].blank?
-	  criteria = criteria.where('order_items.gift_card' => Boolean.set(params[:gift_card])) unless params[:gift_card].blank?
-	  if params[:q].present?
-	    regexp = params[:extended] == "1" ? Regexp.new(params[:q], "i") : Regexp.new("^#{params[:q]}")
-  	  criteria = criteria.where({'order_number' => params[:q][/\d+/].to_i} )
-  		@orders = criteria.paginate :page => params[:page], :per_page => 50
+  before_filter :admin_user_as_permissions!, :only => [:recreate]
+  
+  ssl_exceptions
+  
+  def index
+    @current_locale = current_locale
+    criteria = Mongoid::Criteria.new(Order)
+    criteria = criteria.where :deleted_at => nil
+    criteria = criteria.where(:user_id => params[:user_id]) unless params[:user_id].blank?
+    criteria = criteria.where :user_id.in => current_admin.users.map {|e| e.id} if current_admin.limited_sales_rep
+    criteria = if params[:systems_enabled].blank?
+      criteria.where(:system.in => admin_systems)
+    else
+      criteria.where(:system.in => params[:systems_enabled]) 
+    end
+    criteria = criteria.where(:status => params[:status]) unless params[:status].blank?
+    criteria = criteria.where('payment.deferred' => Boolean.set(params[:deferred])) unless params[:deferred].blank?
+    criteria = criteria.where('order_items.gift_card' => Boolean.set(params[:gift_card])) unless params[:gift_card].blank?
+    if params[:q].present?
+      regexp = params[:extended] == "1" ? Regexp.new(params[:q], "i") : Regexp.new("^#{params[:q]}")
+      criteria = criteria.where({'order_number' => params[:q][/\d+/].to_i} )
+      @orders = criteria.paginate :page => params[:page], :per_page => 50
     elsif params[:others].present?
-	    regexp = params[:extended] == "1" ? Regexp.new(params[:others], "i") : Regexp.new("^#{params[:others]}")
+      regexp = params[:extended] == "1" ? Regexp.new(params[:others], "i") : Regexp.new("^#{params[:others]}")
       criteria = criteria.any_of({'address.email' => regexp}, {'address.company' => regexp}, { 'address.last_name' => regexp })
-  		@orders = criteria.paginate :page => params[:page], :per_page => 50
-	  else
-	    order = params[:order] ? {sort_column => sort_direction} : [[:created_at, :desc]]
-  		@orders = criteria.order_by(order).paginate :page => params[:page], :per_page => 50
-	  end
-	end
+      @orders = criteria.paginate :page => params[:page], :per_page => 50
+    else
+      order = params[:order] ? {sort_column => sort_direction} : [[:created_at, :desc]]
+      @orders = criteria.order_by(order).paginate :page => params[:page], :per_page => 50
+    end
+  end
 
   # GET /orders/1
   # GET /orders/1.xml
@@ -137,20 +137,29 @@ class Admin::OrdersController < ApplicationController
   end
   
   def change_shipping
-	  @order = Order.find(params[:id])
-	  @order.update_attributes :shipping_amount => params[:update_value][/[0-9.]+/]
-	  render :inline => "$('#shipping_amount').html('<%= number_to_currency @order.shipping_amount %>');$('#total_amount').html('<%= number_to_currency @order.total_amount %>');<% if calculate_tax?(@order.address.state) %>$('#tax_amount').addClass('error');alert('don\\'t forget to run CCH tax');<% end %>" # "<%= display_product_price_cart @order.shipping_amount %>"
+    @order = Order.find(params[:id])
+    @order.update_attributes :shipping_amount => params[:update_value][/[0-9.]+/]
+    render :inline => "$('#shipping_amount').html('<%= number_to_currency @order.shipping_amount %>');$('#total_amount').html('<%= number_to_currency @order.total_amount %>');<% if calculate_tax?(@order.address.state) %>$('#tax_amount').addClass('error');alert('don\\'t forget to run CCH tax');<% end %>" # "<%= display_product_price_cart @order.shipping_amount %>"
   end
   
   def recreate
     @order = Order.find(params[:id])
     redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@order.user)
-		sign_in_and_populate_cart
-		unless @order.status_frozen?
-    	@order.cancelled!
-    	@order.save 
-    	get_cart.update_attributes :order_reference => @order.id
-		end
+    sign_in_and_populate_cart
+    unless @order.status_frozen?
+      @order.cancelled!
+      if @order.gift_card
+        @valutec = Valutec.new :transaction_void, card_number: @order.gift_card.card_number, request_auth_code: @order.gift_card.authorization, identifier: @order.gift_card.vendor_tx_code
+        if @valutec.authorized?
+          @order.gift_card.void_authorization = @valutec.results[:authorization_code]
+          @order.gift_card.void_at = Time.zone.now
+        else
+          flash[:alert] = "Gift Card Void failed. Please contact accounting to credit GC."
+        end
+      end
+      @order.save
+      get_cart.update_attributes :order_reference => @order.id
+    end
     redirect_to cart_path
   end
   
@@ -165,7 +174,7 @@ class Admin::OrdersController < ApplicationController
     @order.off_hold!
     @order.save
     @order.decrement_items! 
-	  @order.user.add_to_owns_list @order.order_items.map {|e| e.product_id}
+    @order.user.add_to_owns_list @order.order_items.map {|e| e.product_id}
     flash[:notice] = "Successful transaction..."
     render :js => "window.location.href = '#{admin_orders_path}'" and return
   rescue Exception => e
@@ -176,23 +185,38 @@ class Admin::OrdersController < ApplicationController
     @order = Order.find(params[:id])
     redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@order.user)
     change_current_system @order.system
-    net_response = refund_cc_transaction(@order.payment)
-    if net_response.success?
+    refund_gc
+    net_response = refund_cc_transaction(@order.payment) if @order.payment
+    unless @order.payment_needs_refund? || @order.gc_needs_refund?
       @order.refunded!
       @order.save
       tax_from_order(@order, true) if @order.tax_committed #CCH 'return'
-			if params[:recreate]
-				sign_in_and_populate_cart
-				get_cart.update_attributes :order_reference => @order.id
-	      redirect_to cart_path, :notice => net_response.message and return 
-			end
+      if params[:recreate]
+        sign_in_and_populate_cart
+        get_cart.update_attributes :order_reference => @order.id
+        redirect_to cart_path, :notice => net_response && net_response.message || "successful transaction" and return
+      end
     end
-    redirect_to(admin_order_path(@order), :notice => net_response.message)
-	rescue Exception => e
-		redirect_to(admin_order_path(@order), :alert => e.to_s)
+    redirect_to(admin_order_path(@order), :notice => net_response && net_response.message || "successful transaction")
+  rescue Exception => e
+    redirect_to(admin_order_path(@order), :alert => e.to_s)
   end
 
 private
+
+  def refund_gc
+    if @order.gc_needs_refund?
+      @valutec = Valutec.new :transaction_add_value, card_number: @order.gift_card.card_number, amount: @order.gift_card.paid_amount, identifier: @order.gift_card.vendor_tx_code
+      if @valutec.authorized?
+        @order.gift_card.refund_authorization = @valutec.results[:authorization_code]
+        @order.gift_card.refunded_at = Time.zone.now
+        @order.gift_card.refunded_amount = @order.gift_card.paid_amount
+        @order.save
+      else
+        flash[:alert] = "Gift Card Void failed. Please try again"
+      end
+    end
+  end
 
   def sign_in_and_populate_cart
     change_current_system @order.system
