@@ -477,6 +477,13 @@ class IndexController < ApplicationController
       redirect_to(user_signed_in? && @subscription.email == current_user.email ? myaccount_path(:tab => 'subscriptions') : {:action => "subscription", :id => @subscription.id})
     end
   end
+
+  def giftcard_balance
+    @payment = Payment.new params[:payment]
+    if request.post?
+      @valutec = Valutec.new :transaction_card_balance, card_number: "#{@payment.full_card_number}=#{@payment.card_pin}"
+    end
+  end
   
   def error
     nil/3

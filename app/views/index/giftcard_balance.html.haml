@@ -8,18 +8,19 @@
   %br
   %br
   .gc_cell{:class=>"ui-widget ui-widget-content ui-corner-all"}
-    = form_tag '/rotas' do
+    = form_for(@payment, :url => {:controller => :index, :action => 'giftcard_balance', :secure => true}, :remote => true, :html => {:id => "gift_card_form", :method => :post}) do |f|
       = field_set_tag do
         %h2
           Gift Card (Without Hyphens)
-        = text_field_tag :gcnumber
+        = f.text_field :full_card_number, class: "required", minlength: 19, maxlength: 19, digits: true, size: 25
         %br
         %h2
           Pin Number
-        = text_field_tag :pinnumber
+        = f.text_field :card_pin, class: "required", minlength: 8, maxlength: 8, digits: true, size: 15
         %br
         %br
-        = submit_tag 'Gift Card Balance', :class=>"button_large bg_large"
+        = f.submit "Gift Card Balance", :class => 'button_large bg_large', id: "apply_gift_card", :disable_with => "Please Wait..."
+    #gift_card_errors{style: "display:none"}
 .gc_container2
   %br
   %img{:src => "/images/ui-icons/gc_balance_thumb.jpg", :class=>"gc_thumb"}
@@ -35,3 +36,10 @@ If you would like more information regarding how to use our Gift Cards
 = link_to "click here.", "#"
 %br
 %br
+:coffeescript
+  $ ->
+    $('#gift_card_form').validate
+      errorClass: "invalid"
+      messages:
+        'payment[full_card_number]': "Please enter a valid Gift Card Number"
+        'payment[card_pin]': "Please enter a valid Pin Number"

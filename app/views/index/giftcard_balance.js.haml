@@ -1,0 +1,4 @@
+- if @valutec.response.success?
+  $('#gift_card_errors').show().html('The balance on this Sizzix/Ellison Gift card is #{number_to_currency @valutec.balance}')
+- else
+  $('#gift_card_errors').show().html('#{@valutec.response.errors}')
