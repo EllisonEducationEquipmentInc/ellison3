@@ -2,21 +2,24 @@
   %img{:src => "/images/ui-icons/gc_front_ico.png", :width => "60px", :height => "38px", :class=>"cc_thumb"}
   %h2 Check your Gift Card Balance
   %br
-  Need to verify your Sizzix/Ellison Gift Card balance? No problem! Its simple and easy to check.
-  %br
-  Enter your 19 digit Gift Card Number (without spaces) and also the 8-digit pin number(located on the back of the card).
+  Need to verify your Sizzix/Ellison Gift Card balance? No problem! Its simple and easy to check.  Enter your 19 digit Gift Card Number (without spaces) and also the 8-digit pin number(located on the back of the card).
   %br
   %br
   .gc_cell{:class=>"ui-widget ui-widget-content ui-corner-all"}
     = form_for(@payment, :url => {:controller => :index, :action => 'giftcard_balance', :secure => true}, :remote => true, :html => {:id => "gift_card_form", :method => :post}) do |f|
       = field_set_tag do
         %h2
-          Enter Gift Card Number (19 digits No Hyphens)
-        = f.text_field :full_card_number, class: "required", minlength: 19, maxlength: 19, digits: true, size: 25
+          Enter Gift Card Number:
+        = f.text_field :full_card_number, class: "required", style: "background:white", minlength: 19, maxlength: 19, digits: true, size: 25
+        %br
+        = f.label :full_card_number, "Card Number should contain 19 Digits with no Hyphens", :class => "required c_labelwidth", :style=>"color:#A9250E"
+        %br
         %br
         %h2
-          Enter Pin Number (8 digits)
-        = f.text_field :card_pin, class: "required", minlength: 8, maxlength: 8, digits: true, size: 15
+          Enter Gift Card Pin Number:
+        = f.text_field :card_pin, class: "required", style: "background:white", minlength: 8, maxlength: 8, digits: true, size: 15
+        %br
+        = f.label :full_card_number, "Gift Card Pin Number should contain 8 Digits", :class => "required c_labelwidth", :style=>"color:#A9250E"
         %br
         %br
         = f.submit "Gift Card Balance", :class => 'button_large bg_large', id: "apply_gift_card", :disable_with => "Please Wait..."
