@@ -306,11 +306,11 @@
     = l @order.payment.refunded_at, :format => :custom rescue ""
 - if @order.gift_card.present?
   .field
-    %strong Gift Card Number
-    = @order.gift_card.card_number
-  .field
     %strong Gift Card Amount:
     = number_to_currency @order.gift_card.paid_amount
+  .field
+    %strong Gift Card Number
+    = @order.gift_card.card_number
   .field
     %strong Gift Card Authorization:
     = @order.gift_card.authorization
