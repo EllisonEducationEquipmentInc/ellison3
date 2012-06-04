@@ -287,44 +287,44 @@
     Subscription ID:
     = @order.payment.subscriptionid
   .field{:style=>"float:left; height:auto; width:932px;", :class => @order.payment.paid_amount && @order.payment.paid_amount < @order.total_amount ? 'error' : nil}
-    %strong CC Paid Amount:
+    %strong Credit Card Paid Amount:
     = number_to_currency @order.payment.paid_amount rescue "N/A"
   .field
-    %strong Paid At:
+    %strong Credit Card Paid At:
     = l @order.payment.paid_at, :format => :custom rescue ""
   .field
-    %strong Merchant Reference Number:
+    %strong Credit Card Merchant Reference Number:
     = @order.payment.vendor_tx_code
   .field
-    %strong Transaction ID:
+    %strong Credit Card Transaction ID:
     = is_us? ? @order.payment.vpstx_id : @order.payment.tx_auth_no
   .field
-    %strong Refunded Amount:
+    %strong Credit Card Refunded Amount:
     = number_to_currency @order.payment.refunded_amount rescue "N/A"
   .field
-    %strong Refunded At:
+    %strong Credit Card Amount Refunded At:
     = l @order.payment.refunded_at, :format => :custom rescue ""
 - if @order.gift_card.present?
   .field
-    %strong Gift Card
+    %strong Gift Card Number
     = @order.gift_card.card_number
   .field
     %strong Gift Card Amount:
     = number_to_currency @order.gift_card.paid_amount
   .field
-    %strong Authorization:
+    %strong Gift Card Authorization:
     = @order.gift_card.authorization
   .field
-    %strong Identifier:
+    %strong Gift Card Identifier:
     = @order.gift_card.vendor_tx_code
   .field
-    %strong Paid At:
+    %strong Gift Card Paid At:
     = l @order.gift_card.paid_at, :format => :custom rescue ""
   .field
-    %strong Refunded Amount:
+    %strong Gift Card Refunded Amount:
     = number_to_currency @order.gift_card.refunded_amount rescue "N/A"
   .field
-    %strong Refunded At:
+    %strong Gift Card Amount Refunded At:
     = l @order.gift_card.refunded_at, :format => :custom rescue ""
 - if @order.payment.blank? && @order.gift_card.blank?
   .error No Payment Info Available
