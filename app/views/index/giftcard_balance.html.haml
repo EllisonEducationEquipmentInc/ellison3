@@ -9,15 +9,15 @@
     = form_for(@payment, :url => {:controller => :index, :action => 'giftcard_balance', :secure => true}, :remote => true, :html => {:id => "gift_card_form", :method => :post}) do |f|
       = field_set_tag do
         %h2
-          Enter Gift Card Number:
-        = f.label :full_card_number, "Card Number should contain 19 Digits with no Hyphens", :class => "required c_labelwidth gc_legal"
+          Enter Gift Card Number
+        = f.label :full_card_number, "(19 Digits with no Hyphens)", :class => "c_labelwidth gc_legal"
         %br
         = f.text_field :full_card_number, class: "required", style: "background:white", minlength: 19, maxlength: 19, digits: true, size: 25
         %br
         %br
         %h2
-          Enter Gift Card Pin Number:
-        = f.label :full_card_number, "Gift Card Pin Number should contain 8 Digits", :class => "required c_labelwidth gc_legal"
+          Enter Gift Card Pin Number
+        = f.label :full_card_number, "(8 Digits)", :class => "c_labelwidth gc_legal"
         %br
         = f.text_field :card_pin, class: "required", style: "background:white", minlength: 8, maxlength: 8, digits: true, size: 15
         %br
