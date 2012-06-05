@@ -226,8 +226,8 @@
             %span.ui-icon.ui-icon-triangle-1-e
             = link_to 'Comments', "#"
           %div= text_area_tag :comments, nil
-      = f.submit "Place Order", :class => 'jqui_save'
-      .clear
+    = f.submit "Place Order", :class => 'jqui_save'
+    .clear
     %p.legalese{:class => "checkout_disclaimer"}
       - if is_uk?
         == All purchases from our website are made subject to our #{link_to "terms and conditions", "/termsofsale?no_layout=1", :class => "lightbox"}. By clicking the button to confirm your order you agree to and will be bound by those terms & conditions and we therefore suggest that you read them #{link_to "here", "/termsofsale?no_layout=1", :class => "lightbox"} first.
