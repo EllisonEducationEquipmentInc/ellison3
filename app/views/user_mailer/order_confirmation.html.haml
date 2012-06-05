@@ -106,7 +106,8 @@
   - if @order.payment.present? || @order.gift_card.present?
     %tr
       %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "left" }
-        This order was charged to:
+        %span{:class=>"no_bold", :style=>"text-decoration:underline"}
+          This order was charged to:
         %br
         - if @order.payment.try(:purchase_order)
           %strong 
@@ -151,6 +152,7 @@
               - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
                 %td{ :style => "font-size: 11px; vertical-align: top;", :align => "center" }= number_to_currency(@order.payment.deferred_payment_amount)
         %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}
+%br
 %table{ :width => "100%", :border => "0", :cellspacing => "0", :cellpadding => "0" }
   %tr
     %td{ :style => "font-size: 11px; vertical-align: top;" }
