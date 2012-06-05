@@ -1,4 +1,4 @@
-- if @valutec.response.success?
+- if @valutec.authorized?
   $('#gift_card_errors').show().html('The balance on this Sizzix/Ellison Gift card is #{number_to_currency @valutec.balance}')
 - else
-  $('#gift_card_errors').show().html('#{@valutec.response.errors}')
+  $('#gift_card_errors').show().html('#{@valutec.errors}')

@@ -9,7 +9,7 @@ class IndexController < ApplicationController
   before_filter :register_continue_shopping!, :only => [:campaigns, :shop, :tag_group, :catalog]
   before_filter :register_last_action!, :only => [:product, :idea, :catalog]
   
-  ssl_required :contact, :send_feedback, :reply_to_feedback
+  ssl_required :contact, :send_feedback, :reply_to_feedback, :giftcard_balance
   ssl_allowed :limited_search, :machines_survey, :static_page, :add_comment, :newsletter, :create_subscription, :subscription, :update_subscription, :resend_subscription_confirmation
   
   verify :xhr => true, :only => [:search, :quick_search, :send_feedback, :add_comment], :redirect_to => {:action => :home}
@@ -479,10 +479,13 @@ class IndexController < ApplicationController
   end
 
   def giftcard_balance
+    raise "wrong system" unless is_sizzix_us? || is_ee_us?
     @payment = Payment.new params[:payment]
     if request.post?
       @valutec = Valutec.new :transaction_card_balance, card_number: "#{@payment.full_card_number}=#{@payment.card_pin}"
     end
+  rescue 
+    go_404
   end
   
   def error

@@ -74,5 +74,16 @@ class Valutec
     end
   end
 
+  def errors
+    unless authorized?
+      {
+        "CARD NOT ACTIVE" => "The gift card number you entered was not valid. Please check your number and try again",
+        "CARD NOT FOUND" => "The gift card number you entered was not valid. Please check your number and try again",
+        "CARD DEACTIVATED" => "The gift card number you entered was not valid. Please check your number and try again",
+        "CANNOT ACCEPT CARD" => "The pin number you entered was not valid. Please check your pin and try again"
+      }[results[:error_msg]] || results[:error_msg]
+    end
+  end
+
 end
 
