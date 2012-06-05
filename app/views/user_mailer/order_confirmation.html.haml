@@ -125,6 +125,7 @@
             %strong
               == Reference Purchase Order Number: 
               #{@order.payment.reference_purchase_order_number}
+            %br
         - if @order.gift_card.present?
           %strong
             Sizzix/Ellison Gift Card Ending
