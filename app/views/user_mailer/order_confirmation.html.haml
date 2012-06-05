@@ -118,15 +118,13 @@
             == #{@order.payment.card_name}, 
             == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
           - if @order.gift_card.present?
-            = number_to_currency @order.balance_due rescue ''
+            %strong
+              = number_to_currency @order.balance_due rescue ''
             %br
           - if @order.payment.reference_purchase_order_number.present?
-            %br
             %strong
               == Reference Purchase Order Number: 
-            %strong
               #{@order.payment.reference_purchase_order_number}
-            %br
         - if @order.gift_card.present?
           %strong
             Sizzix/Ellison Gift Card Ending
@@ -134,7 +132,6 @@
           - if @order.payment.present?
             %strong
               = number_to_currency @order.gift_card.paid_amount rescue ''
-          %br
       %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}
     - if @order.payment.try :deferred
       %tr
