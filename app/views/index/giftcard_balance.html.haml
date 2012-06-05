@@ -11,7 +11,7 @@
         #gift_card_errors2{class: "legalese gc_error_2"}
         %h2
           Enter Gift Card Number
-        = f.label :full_card_number, "(19 Digits with no Spaces)", :class => "c_labelwidth gc_legal"
+        = f.label :full_card_number, "(19 Digits with No Spaces)", :class => "c_labelwidth gc_legal"
         %br
         = f.text_field :full_card_number, class: "required", style: "background:white", minlength: 19, maxlength: 19, digits: true, size: 25
         %br
