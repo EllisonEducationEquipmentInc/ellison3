@@ -244,7 +244,7 @@
           = @order.payment.purchase_order_number
           = link_to "download", @order.payment.attachment_url, :class => "link_download", :target => "_blank" if @order.payment.attachment?
       - else
-        %span{:class=>"no_bold"}
+        %span{:class=>"no_bold", :style=>"text-decoration:underline"}
           This order was charged to:
         %br
         = @order.payment.card_name
