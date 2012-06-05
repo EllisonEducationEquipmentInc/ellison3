@@ -85,7 +85,9 @@
   - if @order.payment.present? || @order.gift_card.present?
     %p
       %strong
-        This order was charged to:
+        %span{:class=>"no_bold", :style=>"text-decoration:underline"} 
+          This order was charged to:
+        %br
         - if @order.payment.try(:purchase_order)
           Purchase Order
           = @order.payment.purchase_order_number
@@ -99,11 +101,14 @@
           - if @order.payment.reference_purchase_order_number.present?
             %br
             == Reference Purchase Order Number: #{@order.payment.reference_purchase_order_number}
+            %br
         - if @order.gift_card.present?
           Sizzix/Ellison Gift Card Ending 
           = @order.gift_card.card_num_last_four
+          %br
           - if @order.payment.present?
             = number_to_currency @order.gift_card.paid_amount rescue ''
+          %br
       - if @order.payment.try :deferred
         %br
         %table#deferred_details

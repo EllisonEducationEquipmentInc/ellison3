@@ -252,12 +252,15 @@
         - if @order.payment.reference_purchase_order_number.present?
           %br
           == Reference Purchase Order Number: #{@order.payment.reference_purchase_order_number}
+          %br
     - if @order.gift_card.present?
       %br
       Paid by Gift card
+      %br
     - if @order.payment.blank? && @order.gift_card.blank?
       %br
       No Payment Info Available
+      %br
 %hr
 - if @order.coupon
   .field
