@@ -244,15 +244,19 @@
           = @order.payment.purchase_order_number
           = link_to "download", @order.payment.attachment_url, :class => "link_download", :target => "_blank" if @order.payment.attachment?
       - else
-        This order was charged to:
+        %span{:class=>"no_bold"}
+          This order was charged to:
+        %br
         = @order.payment.card_name
         == #{@order.payment.card_expiration_month}/#{@order.payment.card_expiration_year}
         - if @order.payment.reference_purchase_order_number.present?
           %br
           == Reference Purchase Order Number: #{@order.payment.reference_purchase_order_number}
     - if @order.gift_card.present?
+      %br
       Paid by Gift card
     - if @order.payment.blank? && @order.gift_card.blank?
+      %br
       No Payment Info Available
 %hr
 - if @order.coupon
@@ -305,7 +309,7 @@
     %strong Credit Card Amount Refunded At:
     = l @order.payment.refunded_at, :format => :custom rescue ""
 - if @order.gift_card.present?
-  .field
+  .field{:class=>"error"}
     %strong Gift Card Amount:
     = number_to_currency @order.gift_card.paid_amount
   .field
