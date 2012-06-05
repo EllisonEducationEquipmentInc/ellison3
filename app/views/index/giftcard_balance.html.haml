@@ -8,6 +8,7 @@
   .gc_cell{:class=>"ui-widget ui-widget-content ui-corner-all"}
     = form_for(@payment, :url => {:controller => :index, :action => 'giftcard_balance', :secure => true}, :remote => true, :html => {:id => "gift_card_form", :method => :post}) do |f|
       = field_set_tag do
+        #gift_card_errors2{class: "legalese gc_error_2"}
         %h2
           Enter Gift Card Number
         = f.label :full_card_number, "(19 Digits with no Hyphens)", :class => "c_labelwidth gc_legal"
@@ -25,7 +26,7 @@
         = f.submit "Gift Card Balance", :class => 'button_large bg_large', id: "apply_gift_card", :disable_with => "Please Wait..."
         %br
         %br
-    #gift_card_errors{class: "gc_bal"}
+    #gift_card_errors{class:"gc_bal"}
 .gc_container2
   %br
   %img{:src => "/images/ui-icons/gc_balance_thumb.jpg", :class=>"gc_thumb"}

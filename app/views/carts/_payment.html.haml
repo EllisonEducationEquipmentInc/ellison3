@@ -7,8 +7,8 @@
         %h3
           Gift Card
         Use a Sizzix/Ellison Gift Card?
-      .gc_error{:class=>"checkout_disclaimer"}
-        #gift_card_errors
+      .gc_error{:class=>"checkout_disclaimer legalese gc_error_2"}
+        #gift_card_errors{class: "gc_error_2"}
         #gift_card_applied
           - if get_cart.gift_card_applied?
             = render partial: 'carts/gift_card_applied'
