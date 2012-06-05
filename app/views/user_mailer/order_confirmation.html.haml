@@ -122,7 +122,8 @@
             %br
           - if @order.payment.reference_purchase_order_number.present?
             %br
-            == Reference Purchase Order Number: 
+            %strong
+              == Reference Purchase Order Number: 
             %strong
               #{@order.payment.reference_purchase_order_number}
             %br
