@@ -29,17 +29,20 @@
     #gift_card_errors{class:"gc_bal"}
 .gc_container2
   %br
-  %img{:src => "/images/ui-icons/gc_balance_thumb.jpg", :class=>"gc_thumb"}
+  %img{:src => "/images/ui-icons/gc_balance_thumb.jpg"}
 %br
 .c_linebreak
 %br
 %h2 Interested in Buying More Cards?
+You may
+= link_to "click here to purchase additional Gift Cards." || '/catalog#facets=category~gift-cards'
+%br
+Or if you would like more information regarding how to use our Gift Cards,
+= link_to " click here.", "/pricing"
+%br
+%br
 = link_to "Continue Shopping", session[:continue_shopping] || '/lp/categories', :class => "link_continue-shopping float"
 /catalog#facets=category~gift-cards
-%br
-%br
-If you would like more information regarding how to use our Gift Cards
-= link_to "click here.", "/pricing"
 %br
 %br
 :coffeescript
