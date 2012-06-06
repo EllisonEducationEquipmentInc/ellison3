@@ -101,7 +101,7 @@ class Admin::OrdersController < ApplicationController
     @order = Order.find(params[:id] || params[:element_id])
     if @order.uk_may_change? || !@order.status_frozen? || @order.to_refund?
       @order.send "#{params[:update_value].parameterize.underscore}!"
-      @order.refund_gc! if @order.system == "eeus" && @order.status_change == ["New", "Cancelled"]
+      @order.refund_gc! if @order.system == "eeus" && (@order.status_change == ["New", "Cancelled"] || @order.status_change == ["Pending", "Cancelled"])
       @order.save
     end
     render :text => @order.status
