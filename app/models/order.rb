@@ -43,6 +43,7 @@ class Order
   index "order_items.campaign_name"
   index "order_items.coupon_name"
   index "order_items.gift_card"
+  index "gift_card"
   
   index [[:user_id, Mongo::ASCENDING], [:system, Mongo::ASCENDING], [:created_at, Mongo::DESCENDING]]
   index [[:updated_at, Mongo::DESCENDING], [:system, Mongo::DESCENDING], [:order_number, Mongo::DESCENDING], [:tax_transaction, Mongo::DESCENDING]]
@@ -361,6 +362,28 @@ class Order
   
   def payment_needs_refund?
     payment.present? && payment.paid_amount > payment.refunded_amount.to_f
+  end
+
+  def refund_gc!
+    if gc_needs_refund?
+      Rails.logger.info "!!! voiding GC transaction #{public_order_number}"
+      @valutec = Valutec.new :transaction_void, card_number: self.gift_card.card_number, request_auth_code: self.gift_card.authorization, identifier: self.gift_card.vendor_tx_code
+      if @valutec.authorized?
+        self.gift_card.void_authorization = @valutec.results[:authorization_code]
+        self.gift_card.void_at = Time.zone.now
+      else
+        Rails.logger.info "!!! void failed. Adding value..."
+        @valutec = Valutec.new :transaction_add_value, card_number: self.gift_card.card_number, amount: self.gift_card.paid_amount, identifier: self.gift_card.vendor_tx_code
+        if @valutec.authorized?
+          self.gift_card.refund_authorization = @valutec.results[:authorization_code]
+          self.gift_card.refunded_at = Time.zone.now
+          self.gift_card.refunded_amount = self.gift_card.paid_amount
+        else
+          Rails.logger.info "!!! GC refund failed !!!"
+        end
+      end
+      save
+    end
   end
   
   # use this format to change status:

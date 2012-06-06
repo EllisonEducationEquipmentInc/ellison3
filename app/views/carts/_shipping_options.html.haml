@@ -3,7 +3,7 @@
     - get_cart.shipping_rates.sort {|x,y| x["rate"] <=> y["rate"]}.each do |rate|
       %li
         %span.left
-          = radio_button_tag :shipping_service, rate["type"], rate["type"] == get_cart.shipping_service, :onclick => "$.ajax({beforeSend: function() {$('#payment_submit').button({disabled: true, label: 'please wait...'});$('#deferred_single_total_amount').html('#{escape_javascript loader_bar}');$('#deferred_first_payment').html('#{escape_javascript loader_bar}');$('#total_amount').html('#{escape_javascript loader_bar}');$('#shipping_amount').html('#{escape_javascript loader_bar}');remove_gift_card();$('#tax_amount').html('#{escape_javascript loader_bar}');}, url:'/carts/change_shipping_method?method='+this.value});"
+          = radio_button_tag :shipping_service, rate["type"], rate["type"] == get_cart.shipping_service, :onclick => "$.ajax({beforeSend: function() {$('#payment_submit').button({disabled: true, label: 'please wait...'});$('#deferred_single_total_amount').html('#{escape_javascript loader_bar}');$('#deferred_first_payment').html('#{escape_javascript loader_bar}');$('#total_amount').html('#{escape_javascript loader_bar}');$('#shipping_amount').html('#{escape_javascript loader_bar}');if (!$('#payment_purchase_order_true').attr('checked')) remove_gift_card();$('#tax_amount').html('#{escape_javascript loader_bar}');}, url:'/carts/change_shipping_method?method='+this.value});"
           == #{rate["name"]}:
         %span.right= number_to_currency gross_price(rate["rate"])
         - unless rate["delivered_by"].blank?

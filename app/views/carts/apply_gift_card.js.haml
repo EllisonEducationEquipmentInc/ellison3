@@ -6,6 +6,6 @@
     $('#gift_card_applied').html('#{escape_javascript render(partial: 'carts/gift_card_applied')}')
     $('#gift_card_form').hide()
 - elsif @valutec.response.success?
-  $('#gift_card_errors').html('#{@valutec.results[:error_msg]}')
+  $('#gift_card_errors').html('#{@valutec.errors}')
 - else
   $('#gift_card_errors').html('#{@valutec.response.errors}')

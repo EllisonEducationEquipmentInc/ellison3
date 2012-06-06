@@ -22,6 +22,7 @@ class Admin::OrdersController < ApplicationController
     criteria = criteria.where(:status => params[:status]) unless params[:status].blank?
     criteria = criteria.where('payment.deferred' => Boolean.set(params[:deferred])) unless params[:deferred].blank?
     criteria = criteria.where('order_items.gift_card' => Boolean.set(params[:gift_card])) unless params[:gift_card].blank?
+    criteria = criteria.where(:gift_card.exists => Boolean.set(params[:paid_with_gift_card])) unless params[:paid_with_gift_card].blank?
     if params[:q].present?
       regexp = params[:extended] == "1" ? Regexp.new(params[:q], "i") : Regexp.new("^#{params[:q]}")
       criteria = criteria.where({'order_number' => params[:q][/\d+/].to_i} )
@@ -100,6 +101,7 @@ class Admin::OrdersController < ApplicationController
     @order = Order.find(params[:id] || params[:element_id])
     if @order.uk_may_change? || !@order.status_frozen? || @order.to_refund?
       @order.send "#{params[:update_value].parameterize.underscore}!"
+      @order.refund_gc! if @order.system == "eeus" && @order.status_change == ["New", "Cancelled"]
       @order.save
     end
     render :text => @order.status
@@ -148,15 +150,8 @@ class Admin::OrdersController < ApplicationController
     sign_in_and_populate_cart
     unless @order.status_frozen?
       @order.cancelled!
-      if @order.gift_card
-        @valutec = Valutec.new :transaction_void, card_number: @order.gift_card.card_number, request_auth_code: @order.gift_card.authorization, identifier: @order.gift_card.vendor_tx_code
-        if @valutec.authorized?
-          @order.gift_card.void_authorization = @valutec.results[:authorization_code]
-          @order.gift_card.void_at = Time.zone.now
-        else
-          flash[:alert] = "Gift Card Void failed. Please contact accounting to credit GC."
-        end
-      end
+      @order.refund_gc!
+      flash[:alert] = "Gift Card Void failed. Please contact accounting to credit GC." if @order.gc_needs_refund?
       @order.save
       get_cart.update_attributes :order_reference => @order.id
     end
@@ -185,7 +180,8 @@ class Admin::OrdersController < ApplicationController
     @order = Order.find(params[:id])
     redirect_to :action => "index" and return if current_admin.limited_sales_rep && !current_admin.users.include?(@order.user)
     change_current_system @order.system
-    refund_gc
+    @order.refund_gc!
+    flash[:alert] = "Gift Card Void failed. Please try again" if @order.gc_needs_refund?
     net_response = refund_cc_transaction(@order.payment) if @order.payment
     unless @order.payment_needs_refund? || @order.gc_needs_refund?
       @order.refunded!
@@ -203,20 +199,6 @@ class Admin::OrdersController < ApplicationController
   end
 
 private
-
-  def refund_gc
-    if @order.gc_needs_refund?
-      @valutec = Valutec.new :transaction_add_value, card_number: @order.gift_card.card_number, amount: @order.gift_card.paid_amount, identifier: @order.gift_card.vendor_tx_code
-      if @valutec.authorized?
-        @order.gift_card.refund_authorization = @valutec.results[:authorization_code]
-        @order.gift_card.refunded_at = Time.zone.now
-        @order.gift_card.refunded_amount = @order.gift_card.paid_amount
-        @order.save
-      else
-        flash[:alert] = "Gift Card Void failed. Please try again"
-      end
-    end
-  end
 
   def sign_in_and_populate_cart
     change_current_system @order.system
