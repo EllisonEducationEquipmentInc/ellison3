@@ -5,7 +5,7 @@
 .c_container{:class=>"ui-widget ui-widget-content ui-corner-all"}
   %div{:class=>"checkout_disclaimer legalese", :style=>"float:left; color:#A9250E; width:450px;"}
     = number_to_currency @cart.gift_card_applied_amount
-    has been Applied to your Sizzix/Ellison Gift card ending #{@cart.gift_card_number.split("=").first[-4,4]}.
+    has been applied to your Sizzix/Ellison Gift card ending #{@cart.gift_card_number.split("=").first[-4,4]}.
   - if @cart.balance_due > 0.0
     %div{:class=>"checkout_disclaimer legalese", :style=>"float:left; color:#A9250E; width:450px;"}
       The balance due is #{number_to_currency @cart.balance_due}. Please enter your credit card information below.
