@@ -131,7 +131,7 @@ class Cart
     @cart_errors = []
     @cart_errors << "The cart can only contain 99 items per order." if !is_er? && total_quantity > MAX_ITEMS
     @cart_errors << "The maximum amount in the cart per order is 100,000" if sub_total > MAX_CART_VALUE
-    @cart_errors << "Please note: Your shopping cart contains one or more Gift Cards. Gift Cards must be ordered separately from other items. Please remove items that cannot be ordered together and proceed to checkout. Remember, Gift Card orders ship for FREE!" unless cart_items.all?(&:gift_card) || cart_items.none?(&:gift_card)
+    @cart_errors << "Your shopping cart contains one or more Gift Cards. Gift Cards must be ordered separately from other items. Please remove items that cannot be ordered together and proceed to checkout. Remember, Gift Card orders ship for FREE!" unless cart_items.all?(&:gift_card) || cart_items.none?(&:gift_card)
     if self.changed_items.present? || self.removed > 0 || self.coupon_removed #|| self.coupon_has_been_updated
       @cart_errors << "The price on one or more of the items in your order has been adjusted since you last placed it in your Shopping Cart. Items in your cart will always reflect the most recent price displayed on their corresponding product detail pages." if changed_item_attributes.include?("price")
       @cart_errors << "Some items placed in your cart are greater than the quantity available for sale. The most current quantity available has been updated in your Shopping Cart." if changed_item_attributes.include?("quantity") 
