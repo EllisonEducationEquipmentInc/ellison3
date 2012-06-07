@@ -150,6 +150,7 @@ class Admin::OrdersController < ApplicationController
     sign_in_and_populate_cart
     unless @order.status_frozen?
       @order.cancelled!
+      flash[:alert] = "Gift Card Voided" if @order.gc_needs_refund?
       @order.refund_gc!
       flash[:alert] = "Gift Card Void failed. Please contact accounting to credit GC." if @order.gc_needs_refund?
       @order.save

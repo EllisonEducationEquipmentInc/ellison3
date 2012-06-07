@@ -334,6 +334,9 @@
     %strong Gift Card Amount Refunded At:
     = l @order.gift_card.refunded_at, :format => :custom rescue ""
   .field
+    %strong Gift Card Refund Authorization:
+    = @order.gift_card.refund_authorization
+  .field
     %strong Gift Card Voided at:
     = l @order.gift_card.void_at, :format => :custom rescue ""
   .field

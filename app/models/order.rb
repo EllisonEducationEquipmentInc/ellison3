@@ -357,7 +357,7 @@ class Order
   end
 
   def gc_needs_refund?
-    gift_card.present? && gift_card.paid_amount > gift_card.refunded_amount.to_f
+    gift_card.present? && gift_card.paid_amount > gift_card.refunded_amount.to_f && gift_card.void_authorization.blank?
   end
   
   def payment_needs_refund?
