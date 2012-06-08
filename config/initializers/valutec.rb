@@ -78,7 +78,7 @@ class Valutec
     unless authorized?
       {
         "CARD NOT ACTIVE" => "The Gift Card number you entered is not active. Please contact Customer Service.",
-        "CARD NOT FOUND" => "The Gift Card number you entered is not valid. Please check your number and try again.",
+        "CARD NOT FOUND" => "The Gift Card number you entered is not valid. Please check the number and try again.",
         "CARD DEACTIVATED" => "The Gift Card number you entered is not active. Please <a href='/contact'>contact</a> Customer Service.",
         "CANNOT ACCEPT CARD" => "The Pin number you entered is not valid. Please check the number and try again."
       }[results[:error_msg]] || results[:error_msg]
