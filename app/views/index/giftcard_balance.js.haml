@@ -2,5 +2,5 @@
   $('#gift_card_errors').show().html('The balance on this Sizzix/Ellison Gift card is #{number_to_currency @valutec.balance}')
   $('#gift_card_errors2').show().html('')
 - else
-  $('#gift_card_errors2').show().html('#{@valutec.errors}<br/><br/>')
+  $('#gift_card_errors2').show().html('#{escape_javascript @valutec.errors}<br/><br/>')
   $('#gift_card_errors').show().html('')

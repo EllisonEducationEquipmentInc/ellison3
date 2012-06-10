@@ -3,6 +3,7 @@ if ($('#cart_container').length > 0) {
 }
 if ($('#review_bag').length > 0) {
 - @cart_locked = true
+remove_gift_card();
 == $('#cart_coupon').html('#{escape_javascript(render(:partial => "carts/coupon"))}');
 == $('#cart_contents').html('#{escape_javascript(render(:partial => "carts/cart"))}');
 == $('#shipping_options').html('#{escape_javascript(render(:partial => "carts/shipping_options"))}');
