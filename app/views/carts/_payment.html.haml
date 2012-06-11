@@ -1,5 +1,5 @@
 %h3{:class=>"paytype_header"}
-- if RAILS_ENV == 'development'
+- unless RAILS_ENV == 'production'
   - if gift_card_allowed? && !@quote
     .checkout_container
       #gift_card_option
