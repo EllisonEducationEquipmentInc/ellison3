@@ -378,12 +378,12 @@ color:#A9250E; font-weight:bold;
   position:relative;
 }
 .gc_cell{
-  width:650px;
+  width:700px;
   height:auto;
   float:center;
   margin-left:auto;
   margin-right:auto;
-  padding:36px 0;
+  padding:8px 0;
   text-align:center;
 }
 .gc_container2{
@@ -407,6 +407,23 @@ color:#A9250E; font-weight:bold;
   color:#A9250E;
   font-weight:bold;
   height:auto!important;
+}
+
+.gc_img_frame{
+  width:auto;
+  height:154px;
+  position:relative;
+  text-align:center;
+  margin-top:6px;
+}
+
+.gc_img {
+  float:center;
+  z-index:200;
+  postion:relative;
+  left:400px;
+  width:725px;
+  height:168px;
 }
 
 .gc_bal {

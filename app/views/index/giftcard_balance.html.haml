@@ -5,6 +5,8 @@
   Need to verify your Sizzix/Ellison Gift Card balance? No problem! Its simple and easy to check.  Enter your 19 digit Gift Card Number (without spaces) and also the 8-digit pin number(located on the back of the card).
   %br
   %br
+  .gc_img_frame
+    %img{:class=>"gc_img", :src=>"/images/ui-backgrounds/gc_numerics.png"} 
   .gc_cell{:class=>"ui-widget ui-widget-content ui-corner-all"}
     = form_for(@payment, :url => {:controller => :index, :action => 'giftcard_balance', :secure => true}, :remote => true, :html => {:id => "gift_card_form", :method => :post}) do |f|
       = field_set_tag do
@@ -27,9 +29,7 @@
         %br
         %br
     #gift_card_errors{class:"gc_bal"}
-.gc_container2
-  %br
-  %img{:src => "/images/ui-icons/gc_balance_thumb.jpg"}
+%br
 %br
 .c_linebreak
 %br
