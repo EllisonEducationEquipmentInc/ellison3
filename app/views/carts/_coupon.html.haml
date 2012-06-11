@@ -11,7 +11,6 @@
         #coupon_long_description= get_cart.coupon.long_description.html_safe
       :javascript
         initialize_lightboxes();
-    .c_linebreak
 - else
   = form_tag activate_coupon_path, :id => "coupon_form", :remote => true, :onsubmit => "return false;"  do
     .field
