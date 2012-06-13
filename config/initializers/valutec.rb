@@ -2,8 +2,8 @@ require "savon"
 
 class Valutec
 
-  CLIENT_KEY = Rails.env == "production" ? '45bf3191-79e6-4883-818f-c93a35e98cc7' : '45c4ddcc-feb1-4cb1-99f0-1ba71d6d8f69'
-  TERMINAL_ID =  Rails.env == "production" ? is_sizzix? ? '156026' : '156027' : '153189'
+  CLIENT_KEY = Rails.env == "production" ? '45bf3191-79e6-4883-818f-c93a35e98cc7' : '6986f09e-c288-4231-996a-5dfe3c2497d9'
+  TERMINAL_ID =  Rails.env == "production" ? is_sizzix? ? '156026' : '156027' : '158348'
 
   attr_accessor :action, :card_number, :amount, :response, :identifier, :request_auth_code
 
