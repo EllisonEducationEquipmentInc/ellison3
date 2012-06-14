@@ -1,58 +1,58 @@
 %h3{:class=>"paytype_header"}
 - if gift_card_allowed? && !@quote
-	.checkout_container
-		#gift_card_option
-			.gc_frame
-				%img{:src => "/images/ui-icons/giftcard_ico_front.png", :width => "60", :height => "38", :class=>"cc_thumb"}
-				%h3
-					Gift Card
-				Use a Sizzix/Ellison Gift Card?
-			.gc_error{:class=>"checkout_disclaimer"}
-				#gift_card_errors
-				#gift_card_applied
-					- if get_cart.gift_card_applied?
-						= render partial: 'carts/gift_card_applied'
-			= form_for(@payment, :url => {:controller => :carts, :action => 'apply_gift_card', :secure => true}, :remote => true, :html => {:id => "gift_card_form", :method => :post}) do |f|
-				.field
-					.c_container{:class=>"ui-widget ui-widget-content ui-corner-all"}
-						.c_left
-							= f.label :full_card_number, "Enter Card Number (19 digits)", :class => "required c_labelwidth"
-							%br
-							= f.text_field :full_card_number, class: "required", minlength: 19, maxlength: 19, digits: true, size: 25
-						.c_left
-							= f.label :card_pin,  "Enter Pin Number (8 digits)", :class => "required c_labelwidth"
-							%br
-							= f.text_field :card_pin, class: "required", minlength: 8, maxlength: 8, digits: true, size: 15
-						.c_right
-							%img{:src => "/images/ui-icons/giftcard_ico_back.png", :width => "60", :height => "38"}
-					.cb_left
-						%div{:class=>"checkout_disclaimer legalese", :style=>"float:left; color:#A9250E"}
-							ONLY ONE GIFT CARD ALLOWED PER ORDER.
-							%br
-							- if get_cart.allow_deferred? && is_sizzix_us?
-								NOT FOR USE WITH THREE EASY PAYMENTS.
-							- if purchase_order_allowed? && is_ee_us?
-								NOT FOR USE WITH PURCHASE ORDER.
-					.btn_right
-						= f.submit "Apply Gift Card", :class => 'jqui_save button_green bold', id: "apply_gift_card", :disable_with => "Please Wait..."
-						= link_to "Check Balance", '#', class: "jqui_save", id: "check_gift_card_balance"
-					.c_linebreak
-	:coffeescript
-		$ ->
-			$('#gift_card_form').validate
-				errorClass: "invalid"
-				messages:
-					'payment[full_card_number]': "Please enter a valid Gift Card Number"
-					'payment[card_pin]': "Please enter a valid Pin Number"
-			$('#check_gift_card_balance').click ->
-				if $('#gift_card_form').valid()
-					$.ajax
-						url: "/carts/apply_gift_card"
-						data: $(this).parents('form').serialize()+'&balance=1'
-						type: 'POST'
-						success: (data) ->
-							data
-				false
+  .checkout_container
+    #gift_card_option
+      .gc_frame
+        %img{:src => "/images/ui-icons/giftcard_ico_front.png", :width => "60", :height => "38", :class=>"cc_thumb"}
+        %h3
+          Gift Card
+        Use a Sizzix/Ellison Gift Card?
+      .gc_error{:class=>"checkout_disclaimer"}
+        #gift_card_errors
+        #gift_card_applied
+          - if get_cart.gift_card_applied?
+            = render partial: 'carts/gift_card_applied'
+      = form_for(@payment, :url => {:controller => :carts, :action => 'apply_gift_card', :secure => true}, :remote => true, :html => {:id => "gift_card_form", :method => :post}) do |f|
+        .field
+          .c_container{:class=>"ui-widget ui-widget-content ui-corner-all"}
+            .c_left
+              = f.label :full_card_number, "Enter Card Number (19 digits)", :class => "required c_labelwidth"
+              %br
+              = f.text_field :full_card_number, class: "required", minlength: 19, maxlength: 19, digits: true, size: 25
+            .c_left
+              = f.label :card_pin,  "Enter Pin Number (8 digits)", :class => "required c_labelwidth"
+              %br
+              = f.text_field :card_pin, class: "required", minlength: 8, maxlength: 8, digits: true, size: 15
+            .c_right
+              %img{:src => "/images/ui-icons/giftcard_ico_back.png", :width => "60", :height => "38"}
+          .cb_left
+            %div{:class=>"checkout_disclaimer legalese", :style=>"float:left; color:#A9250E"}
+              ONLY ONE GIFT CARD ALLOWED PER ORDER.
+              %br
+              - if get_cart.allow_deferred? && is_sizzix_us?
+                NOT FOR USE WITH THREE EASY PAYMENTS.
+              - if purchase_order_allowed? && is_ee_us?
+                NOT FOR USE WITH PURCHASE ORDER.
+          .btn_right
+            = f.submit "Apply Gift Card", :class => 'jqui_save button_green bold', id: "apply_gift_card", :disable_with => "Please Wait..."
+            = link_to "Check Balance", '#', class: "jqui_save", id: "check_gift_card_balance"
+          .c_linebreak
+  :coffeescript
+    $ ->
+      $('#gift_card_form').validate
+        errorClass: "invalid"
+        messages:
+          'payment[full_card_number]': "Please enter a valid Gift Card Number"
+          'payment[card_pin]': "Please enter a valid Pin Number"
+      $('#check_gift_card_balance').click ->
+        if $('#gift_card_form').valid()
+          $.ajax
+            url: "/carts/apply_gift_card"
+            data: $(this).parents('form').serialize()+'&balance=1'
+            type: 'POST'
+            success: (data) ->
+              data
+        false
 
 = form_for(@payment, :url => {:controller => :carts, :action => @quote ? "quote_2_order" : "proceed_checkout", :id => @quote, :secure => true}, :remote => true, :html => {:id => "proceed_checkout", :method => :post, :multipart => true}) do |f|
   = f.error_messages
