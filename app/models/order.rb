@@ -43,7 +43,7 @@ class Order
   index "order_items.campaign_name"
   index "order_items.coupon_name"
   index "order_items.gift_card"
-  index "gift_card"
+  index "gift_card.vendor_tx_code"
   
   index [[:user_id, Mongo::ASCENDING], [:system, Mongo::ASCENDING], [:created_at, Mongo::DESCENDING]]
   index [[:updated_at, Mongo::DESCENDING], [:system, Mongo::DESCENDING], [:order_number, Mongo::DESCENDING], [:tax_transaction, Mongo::DESCENDING]]

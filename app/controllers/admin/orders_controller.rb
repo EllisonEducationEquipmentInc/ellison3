@@ -21,6 +21,7 @@ class Admin::OrdersController < ApplicationController
     end
     criteria = criteria.where(:status => params[:status]) unless params[:status].blank?
     criteria = criteria.where('payment.deferred' => Boolean.set(params[:deferred])) unless params[:deferred].blank?
+    criteria = criteria.where('gift_card.vendor_tx_code' => params[:identifier]) unless params[:identifier].blank?
     criteria = criteria.where('order_items.gift_card' => Boolean.set(params[:gift_card])) unless params[:gift_card].blank?
     criteria = criteria.where(:gift_card.exists => Boolean.set(params[:paid_with_gift_card])) unless params[:paid_with_gift_card].blank?
     if params[:q].present?

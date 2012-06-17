@@ -3,7 +3,6 @@ require "savon"
 class Valutec
   extend EllisonSystem
   CLIENT_KEY =  Rails.env == "production" ? '45bf3191-79e6-4883-818f-c93a35e98cc7' : '6986f09e-c288-4231-996a-5dfe3c2497d9'
-  TERMINAL_ID = Rails.env == "production" ? is_sizzix? ? '156026' : '156027' : '158348'
 
   attr_accessor :action, :card_number, :amount, :response, :identifier, :request_auth_code
 
@@ -25,12 +24,16 @@ class Valutec
     client.wsdl.soap_actions
   end
 
+  def terminal_id
+    Rails.env == "production" ? is_sizzix? ? '156026' : '156027' : '158348'
+  end
+
   def method_missing(key, *args)
     if client.wsdl.soap_actions.include? key
       @response = client.request(key) do
         soap.body = {
           "ClientKey" => CLIENT_KEY,
-          "TerminalID" => TERMINAL_ID,
+          "TerminalID" => terminal_id,
           "ProgramType" => 'Gift',
           "CardNumber" => self.card_number,
           "Amount" => self.amount,
