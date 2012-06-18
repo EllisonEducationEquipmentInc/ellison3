@@ -52,13 +52,13 @@
       - unless is_sizzix?
         %h4== Concept#{is_er? ? "/Short Description" : nil}: 
       = @idea.description.try :html_safe
+    - if @idea.objective.present? && !is_sizzix?
+      %h4 Objective:
+      = @idea.objective.try :html_safe  
     - if @idea.instructions.present?
       %p.dontprint
         %strong Instructions: 
         = link_to "Download PDF", @idea.instructions, :target => '_blank', :title => "Download Instructions", :class => "link_instructions"
-    - if @idea.objective.present? && !is_sizzix?
-      %h4 Objective:
-      = @idea.objective.try :html_safe  
     - if (is_ee_us? || is_er?) && @idea.grade_levels.count > 0
       %p
         %strong== Recommended Grade Level#{'s' if @idea.grade_levels.count > 1}: 

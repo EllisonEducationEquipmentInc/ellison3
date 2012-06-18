@@ -45,8 +45,8 @@
     %br
     = select_tag :paid_with_gift_card, options_for_select([['All', nil]] + [['yes', 1], ['no', 0]], params[:paid_with_gift_card])
   .order_container
-    %span{:style=>"font-weight:normal;"}Filter
-    %span{:class=>"hdr2_red"} Gift Card Identifier:
+    %span{:style=>"font-weight:normal;"}Search
+    %span{:class=>"hdr2_red"} by Gift Card Identifier:
     %br
     = text_field_tag :identifier
   .order_line3
