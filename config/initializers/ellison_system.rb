@@ -245,7 +245,7 @@ module EllisonSystem
   # naming convention on lyris: in order to make it work, always name columns in lyris folowing these conventions: capitalize the first letter (and only the first letter) of each word, end separate words with underscores. Ex: Eclip, Education_Uk_Nursery, Sizzix_Uk_Dutch_Retailers etc. 
   # removed outlet segment for szus on feb 22nd :sizzix_outlet =>	"Sizzix Outlet" 
   NEWSLETTER_SEGMENTS = {"szus" => {:sizzixscoop =>	"The Sizzix Scoop",  :sizzix_events => "Sizzix Events"},
-    "szuk" => {:sizzix_uk_consumers => "The Sizzix.co.uk Newsletter", :quilt_consumer => "Quilting"},
+    "szuk" => {:sizzix_uk_consumers => "The Sizzix.co.uk Newsletter", :applique => "Applique", :cardmaking => "Cardmaking", :papercrafting => "Papercraft", :quilt_consumer => "Quilting", :scrapbooking => "Scrapbooking"},
     "eeus" => {:connection => "The Ellison Connection"},
     "eeuk" => {:ellison_education_uk => "The Ellisoneducation.co.uk Newsletter"},
     # "eeuk" => {:ellison_education_uk => "The Ellisoneducation.co.uk Newsletter", :back_to_school => "Back to School", :education_uk_nursery => "Education UK Nursery", :education_uk_primary => "Education UK Primary", :education_uk_secondary => "Education UK Secondary"},
