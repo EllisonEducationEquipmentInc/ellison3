@@ -25,7 +25,7 @@ class Valutec
   end
 
   def terminal_id
-    Rails.env == "production" ? is_sizzix? ? '156026' : '156027' : '158348'
+    Rails.env == "production" ? is_sizzix? ? '156028' : '156029' : '158348'
   end
 
   def method_missing(key, *args)
