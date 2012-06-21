@@ -73,7 +73,7 @@ class Valutec
     if authorized? && action == :transaction_sale && results[:card_amount_used].nil? && results[:amount_due].nil?
       self.amount
     else
-      results[:card_amount_used].to_i
+      results[:card_amount_used].to_f
     end
   end
 
