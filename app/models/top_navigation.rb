@@ -23,6 +23,7 @@ private
       Navigation.new("Shop", "/catalog"), 
       Navigation.new("eclips", "/shop/eclips"),
       Navigation.new("Quilting", "/shop/sizzixquilting"),
+      Navigation.new("Gift Cards", "/catalog#facets=category~gift-cards"),
       Navigation.new("Community", "#"),
       Navigation.new("Clearance", "/shop/clearance", "nav_clearance")
     ]
@@ -45,6 +46,7 @@ private
       Navigation.new("Lessons", "/lp/curriculums?ideas=1"), 
       Navigation.new("Products", "/product_overview"), 
       Navigation.new("Electronic Cutting", "/eclips"),
+      Navigation.new("Gift Cards", "/catalog#facets=category~gift-cards"),
       Navigation.new("Specials", "/campaigns"),
       Navigation.new("Support", "#")
     ]
