@@ -32,6 +32,8 @@
   %h2 Learn More
   %p Other useful resources:
   %ul
+    %li= link_to "Purchase Gift Cards", "/catalog#facets=category~gift-cards"
+    %li= link_to "Check Gift Card Balance" "/giftcard_balance"
     %li= link_to "Store Locator", "/stores"
     %li= link_to "Sizzix Official Blog", "http://sizzixblog.blogspot.com"
     %li= link_to "Sizzix Events", "/events"
@@ -48,7 +50,7 @@
       %script{:src => "https://sealserver.trustwave.com/seal.js?style=invert&code=7182ceb80ca511e0b34b005056b201e5", :type => "text/javascript"}
 
 .column_right{:class=>"panel_height"}
-  %h2 Subscribe to the Sizzix Scoop
+  %h2 Subscribe to Us
   = render "layouts/newsletter_signup_form"
 
   %h2 To Connect With Us
