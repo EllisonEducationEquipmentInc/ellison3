@@ -243,10 +243,10 @@ module EllisonSystem
   # the first element in the hash is the actual list name ex: :sizzix_scoop =>	"Sizzix Scoop" listname: sizzix_scoop
   # the other keys represent a column of the members table in lyris, values are the labels displayed on the front-end.
   # naming convention on lyris: in order to make it work, always name columns in lyris folowing these conventions: capitalize the first letter (and only the first letter) of each word, end separate words with underscores. Ex: Eclip, Education_Uk_Nursery, Sizzix_Uk_Dutch_Retailers etc. 
-  # removed outlet segment for szus on feb 22nd :sizzix_outlet =>	"Sizzix Outlet" 
-  NEWSLETTER_SEGMENTS = {"szus" => {:sizzixscoop =>	"The Sizzix Scoop",  :sizzix_events => "Sizzix Events"},
-    "szuk" => {:sizzix_uk_consumers => "The Sizzix.co.uk Newsletter", :applique => "Applique", :cardmaking => "Cardmaking", :papercrafting => "Papercraft", :quilt_consumer => "Quilting", :scrapbooking => "Scrapbooking"},
-    "eeus" => {:connection => "The Ellison Connection"},
+  # removed outlet segment for szus on feb 22nd 2012 :sizzix_outlet =>	"Sizzix Outlet", removed :sizzix_events => "Sizzix Events" on June 20th 2012 
+  NEWSLETTER_SEGMENTS = {"szus" => {:sizzixscoop =>	"The Sizzix Scoop Newsletter", :cardmaking => "Cardmaking", :eclips => "Electronic Cutting", :fashion => "Fashion", :home_decor => "Home Decor", :jewelry => "Jewelry",:papercrafting => "Papercrafting", :quilt_consumer => "Quilting & Applique", :scrapbooking => "Scrapbooking"},
+    "szuk" => {:sizzix_uk_consumers => "The Sizzix.co.uk Newsletter", :applique => "Applique", :cardmaking => "Cardmaking", :papercrafting => "Papercrafting", :quilt_consumer => "Quilting", :scrapbooking => "Scrapbooking"},
+    "eeus" => {:connection => "The Ellison Connection Newsletter"},
     "eeuk" => {:ellison_education_uk => "The Ellisoneducation.co.uk Newsletter"},
     # "eeuk" => {:ellison_education_uk => "The Ellisoneducation.co.uk Newsletter", :back_to_school => "Back to School", :education_uk_nursery => "Education UK Nursery", :education_uk_primary => "Education UK Primary", :education_uk_secondary => "Education UK Secondary"},
     "erus" => {:erus_retailers => "The Retailers Newsletter", :sizzix_retailers => "Sizzix Retailers", :eclips => "Sizzix eclips", :tim_holtz => "Tim Holtz", :quilt_consumer => "Quilting", :ellison_retailers => "Ellison Retailers", :sizzix_retailers_in_spanish => "Sizzix Retailers in Spanish"}

@@ -12,12 +12,13 @@
   %img{ :src => "/images/ui-backgrounds/newsletter_comp_er.png", :style => "float:left; margin:0 10px 0 2px;", :width => "183", :height => "259"}
 .ui-corner-all{ :class => "#{ is_sizzix? ? 'newsletter_topframe_sz' : 'newsletter_topframe_ee' }" }
   .newsletter_content_a
-    - if is_sizzix_uk?
-      %h2{:class=>"news_line"} Stay In The Know with Sizzix.co.uk
+    - if is_uk?
+      %h2{:class=>"news_line"} 
+        ==Stay In The Know with #{get_domain.capitalize}! 
     - else
       %h2{:class=>"news_line"} Interested in keeping up to date with us?
     %p
-    - if is_sizzix_uk?
+    - if is_uk?
       By signing up to our newsletter, you get full access to all our promotions, the latest news and much more. Keep up to date with exclusive projects from our designers and follow us on our blog and social media sites.
       %br
       %br
@@ -33,15 +34,13 @@
 
 .ui-corner-all{ :class=>"newsletter_midframe", :style => "#{ is_ee_us? ? "background:url('/images/static/discount_panel.jpg') bottom center no-repeat;" : "background:none;" }" }
   .newsletter_content_b
-    - if is_sizzix_uk?
+    - if is_uk?
       %h2{:style=>"margin-bottom:0;"}
         Join Up Now, You’re Almost There!
     - else
       %h2{:style=>"margin-bottom:8px;", :class=>"signup_header"}
-        Thank you for your interest in receiving emails from
-        = is_sizzix_uk? ? 'Sizzix' : is_ee_uk? ? 'Ellison Education' : system_name
-      To start receiving special offers, latest information of newest products, projects and other promotions please provide the below information and confirm your Newsletter signup by confirming the link sent to your email address
-    
+        Subscribe Now!
+        
   .news_border
     = form_for @subscription, :url => url_for(:action => :create_subscription) do |f|
       %br
@@ -57,8 +56,7 @@
           .actions{:class=>"news_submit"}
             = f.submit "Submit", :class => 'jqui_save'
         %br
-      Yes, I'd like to subscribe to
-      %strong= @list[1]
+      == Yes, please subscribe me to <strong>#{@list[1]}</strong>. 
       = render :partial => 'segments'
 
 
@@ -71,23 +69,20 @@
         = raw recaptcha_tag(:ajax, :ssl => request.ssl?, :display => {:theme => 'white'})
         = submit_tag "Re-send confirmation email", :class => 'jqui_save', :style => "margin-top: 12px"
 .newsletter_content_c
-  %h2{:class=>"signup_header"} FAQs
+  %h2{:class=>"signup_header"} Hints
   %p
     %div{:style=>"font-weight:bold;"}
-      How can I unsubscribe from your email newsletter?
-    To remove your subscription to 
-    %strong== #{@list[1]},
-    please follow the unsubscribe link in your newsletter email. Or, please log in at
-    =get_domain.capitalize
-    and go to My Account page and uncheck the Subscription box.
+      == Ensure that you continue to receive <strong>#{@list[1]}</strong> after subscribing
+    == To ensure that <strong>#{@list[1]} </strong> is delivered to your inbox, and not as treated as spam, please add the email address <strong>#{lyris_email}</strong> to your address book as soon as possible. This will prevent any deliveries to your "Bulk" or "Junk" mail folders.
     %br
     %br
     %div{:style=>"font-weight:bold;"}
-      After subscribing, how can I ensure that I will continue to receive my newsletter?
-    == To ensure that <strong>#{@list[1]}</strong> is delivered to your inbox, not as spam, please add the email address <strong>#{lyris_email}</strong> to your address book as soon as possible. This will prevent any deliveries to your Bulk or Junk mail folders.
-    %br
-    %br
-
+      == Unsubscribe from <strong>#{@list[1]}</strong> 
+    To cancel your subscription to 
+    %strong== #{@list[1]},
+    please follow the unsubscribe link in your newsletter email. Alternatively, you may Sign In at
+    =get_domain.capitalize
+    and go to your My Account profile (Newsletter Subscriptions tab) to uncheck subscription box and update your subscription preferences.
 :javascript
   $(document).ready(function() {
     var validator = $("#new_subscription").validate({
