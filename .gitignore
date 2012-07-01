@@ -2,3 +2,12 @@
 db/*.sqlite3
 log/*.log
 tmp/**/*
+log/
+db/backups
+.powrc
+tags
+config/memcached.rb
+config/mongoid.yml
+config/sunspot.yml
+config/newrelic.yml
+config/database.yml
