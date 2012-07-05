@@ -11,3 +11,14 @@ config/mongoid.yml
 config/sunspot.yml
 config/newrelic.yml
 config/database.yml
+public/javascripts/application.js
+public/javascripts/view_toggle.js
+public/stylesheets/compiled/admin.css
+public/stylesheets/compiled/ie.css
+public/stylesheets/compiled/print.css
+public/stylesheets/compiled/application.css
+public/stylesheets/compiled/screen_eeuk.css
+public/stylesheets/compiled/screen_eeus.css
+public/stylesheets/compiled/screen_szuk.css
+public/stylesheets/compiled/screen_szus.css
+public/stylesheets/compiled/screen_erus.css
