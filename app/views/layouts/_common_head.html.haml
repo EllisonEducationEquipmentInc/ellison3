@@ -21,6 +21,7 @@
 = stylesheet_link_tag 'jquery.tooltip.css', :media => 'screen, projection'
 = stylesheet_link_tag 'bubblepopup/jquery.bubblepopup.v2.3.1.css', :media => 'screen, projection'
 = stylesheet_link_tag 'event_calendar'
+= stylesheet_link_tag '/javascripts/cl_style.css'
 / Google Web Fonts
 - if is_sizzix_us?
   = stylesheet_link_tag "http#{'s' if request.ssl?}://fonts.googleapis.com/css?family=PT+Sans:regular,bold&subset=latin"
@@ -39,6 +40,7 @@
 = javascript_include_tag 'jumpmenu.js'
 = javascript_include_tag 'uk_survey.js'
 = javascript_include_tag 'hoverintent/jquery.hoverIntent.minified.js', 'event_calendar', "jquery.rails.js", 'jquery.remotipart.js', 'rails_remote', 'jquery.uploadProgress.js'
+= javascript_include_tag '/javascripts/js_loader.js'
 = csrf_meta_tag
 
 - if RAILS_ENV == 'development'
@@ -64,4 +66,15 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
   
-
+/ Sizzix UK Cookie Notify
+/- if is_sizzix_uk?
+/  :javascript
+/    $LAB.script("javascripts/tm.cookie.js").wait().script("javascripts/tm.cookieLaw.js").wait(function() {
+/    var cookie_notify = "<div id=\'cookieNotification\'><div class=\'bg\'></div><div>This website uses cookies to give you the best experience on #{get_domain.capitalize}. Some of these may have been set already. If you use this site we will assume that you accept this. If you require more information on cookies and how to manage them, please see our <a href=\'/contact\'>cookie policy.</a></div><br/><button class=\'button_green\' type=\"submit\" onclick=\'c_close();\'>Close Window</button></div>";
+/    tm.mirrorCookies.initCookies(cookie_notify);});
+/  :javascript
+/    function c_close() {
+/    var ele = document.getElementById("cookieNotification");
+/    ele.style.display = "none";
+/    }
+    
