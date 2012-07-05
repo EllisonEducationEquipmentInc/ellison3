@@ -67,7 +67,7 @@
   })();
   
 / Sizzix UK Cookie Notify
-- if is_sizzix_uk?
+- if is_uk?
   :javascript
     $LAB.script("javascripts/tm.cookie.js").wait().script("javascripts/tm.cookieLaw.js").wait(function() {
     var cookie_notify = "<div id=\'cookieNotification\'><div class=\'bg\'></div><div>This website uses cookies to give you the best experience on #{get_domain.capitalize}. Some of these may have been set already. If you use this site we will assume that you accept this. If you require more information on cookies and how to manage them, please see our <a href=\'/contact\'>cookie policy.</a></div><br/><button class=\'button_green\' type=\"submit\" onclick=\'c_close();\'>Close Window</button></div>";
