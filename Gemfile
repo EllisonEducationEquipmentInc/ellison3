@@ -15,7 +15,7 @@ gem 'rails', '3.0.4'
 #gem 'rake', '0.8.7'
 #gem 'mongo', '1.3.1'
 gem 'mongo_ext'
-gem "bson_ext", ">=1.0.7"
+gem "bson_ext", "~>1.4"
 gem 'passenger'
 gem 'mysql'
 gem 'haml', '3.1.2'
