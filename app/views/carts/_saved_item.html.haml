@@ -9,7 +9,9 @@
       %span.icon_cart_retired Retired
     - elsif product.out_of_stock?
       %br
-      %span{:class => "icon_#{cart_name}_alert"}= product.listable? ? "Low stock level" : 'Out of Stock'
+      %span{:class => "icon_#{cart_name}_alert"}
+        Out of stock
+        =# product.listable? ? "Low stock level" : 'Out of Stock'
   %td
     .thumbnail
       = link_to image_tag(product.small_image), product_path(:item_num => product.url_safe_item_num, :name => product.name.parameterize)

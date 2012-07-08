@@ -8,7 +8,7 @@
       %span.icon_cart_pre-order Pre-order
     - elsif cart_item.out_of_stock && !is_ee_uk?
       %br
-      %span{:class => "icon_#{cart_name}_alert"} Low stock level
+      %span{:class => "icon_#{cart_name}_alert"} Out of stock
   %td
     .thumbnail
       = link_to(image_tag(cart_item.small_image), product_path(:item_num => cart_item.item_num.gsub(".", "point"), :name => cart_item.name.parameterize)) unless cart_item.small_image.blank?
