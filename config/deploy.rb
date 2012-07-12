@@ -13,16 +13,15 @@ require "bundler/capistrano"
 # usage example:
 # 
 # cap staging deploy TAG="version_1.0"
-# 
-if ENV['TAG']
-  deploy_version = "tags/#{ENV['TAG']}"
-elsif ENV['BRANCH']
-  deploy_version = "branches/#{ENV['BRANCH']}"
-else
-  deploy_version = "trunk/"
-end
-
-
+# cap staging deploy - (new command to deploy from git) deploys from staging branch always
+ 
+#if ENV['TAG']
+#  deploy_version = "tags/#{ENV['TAG']}"
+#elsif ENV['BRANCH']
+#  deploy_version = "branches/#{ENV['BRANCH']}"
+#else
+#  deploy_version = "trunk/"
+#end
 set :keep_releases,       5
 set :application,         "ellison3"
 set :user,                "ellison"
@@ -30,11 +29,13 @@ set :password,            "ellison123" #"RbBR5VrQ"
 set :deploy_to,           "/data/ellison3_production" #"/data/ellison3_qa"
 set :monit_group,         "ellison"
 set :runner,              "ellison"
-set :repository,          "https://ellison.svn.beanstalkapp.com/ellison3/#{deploy_version}"
-set :scm_username,        "engineyard"
-set :scm_password,        "yardwork123"
-set :scm,                 :subversion
-#set :deploy_via,          :filtered_remote_cache
+#set :scm_username,       "engineyard"
+#set :scm_password,        "yardwork123"
+#set :scm_passphrase,      ""
+set :scm,                 :git
+set :branch,              "staging"
+set :repository,          "git@github.com:ellisoneducation/ellison3.git"
+set :deploy_via,          :remote_cache
 set :repository_cache,    "/var/cache/engineyard/#{application}"
 set :production_database, "ellison3_production"
 set :production_dbhost,   "localhost"
