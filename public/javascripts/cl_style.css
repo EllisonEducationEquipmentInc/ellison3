@@ -25,7 +25,6 @@ body {
     font-size: 12px;
     padding: 0 6px 6px;
     color: #666!important;
-<<<<<<< HEAD
 }
 
 #cookieNotification div a:link {
@@ -43,8 +42,6 @@ body {
 #cookieNotification div a:active {
 	text-decoration: underline!important;
 	color: #666!important;
-=======
->>>>>>> 18c685f3e3849cce1ac4327fa2631e0a001fdacc
 }
 
 #cookieNotification button {
@@ -69,7 +66,6 @@ body {
 	border: 1px solid #fff;
 	text-shadow: 0px 1px 0px #fff;
 	color: #666!important;
-<<<<<<< HEAD
 }
 
 #cookieNotification button:hover {	
@@ -90,7 +86,6 @@ body {
 	box-shadow: 0px 0px 5px #cccccc, inset 0px 0px 10px #eaeaea;
 }
 
-=======
 }
 
 #cookieNotification div a:link {
@@ -110,8 +105,6 @@ body {
 	color: #666!important;
 }
 
-
-
 #cookieNotification button:hover {	
 	margin:7px auto 9px auto;
 	background: linear-gradient(to bottom, #ffffff 0%,#f4f4f4 100%);
@@ -129,8 +122,6 @@ body {
 	-webkit-box-shadow: 0px 0px 5px #cccccc, inset 0px 0px 10px #eaeaea;
 	box-shadow: 0px 0px 5px #cccccc, inset 0px 0px 10px #eaeaea;
 }
-
->>>>>>> 18c685f3e3849cce1ac4327fa2631e0a001fdacc
 
 .bg {
 		position: absolute;
@@ -151,10 +142,6 @@ body {
 		background: -o-linear-gradient(270deg, rgb(255, 255, 255) 30%, rgb(228, 228, 228) 97%);
 		background: -ms-linear-gradient(270deg, rgb(255, 255, 255) 30%, rgb(228, 228, 228) 97%);
 		background: linear-gradient(270deg, rgb(255, 255, 255) 30%, rgb(228, 228, 228) 97%);
-<<<<<<< HEAD
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f4f4f4',GradientType=0 );
-=======
->>>>>>> 18c685f3e3849cce1ac4327fa2631e0a001fdacc
 		-webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
