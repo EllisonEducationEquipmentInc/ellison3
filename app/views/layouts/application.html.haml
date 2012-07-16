@@ -22,6 +22,7 @@
             = render "layouts/meganav" unless is_corp_site?
             .clear
           #content
+            #modal_box_content= yield :modal_content
             = render "layouts/content"
         .design-gutter.dontprint.last
           \&nbsp;
