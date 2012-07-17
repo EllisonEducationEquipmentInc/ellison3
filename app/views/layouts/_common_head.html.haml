@@ -70,7 +70,7 @@
 - if is_uk?
   :javascript
     $LAB.script("/javascripts/cookie_uk.js").wait().script("/javascripts/cookielaw_uk.js").wait(function() {
-    var cookie_notify = "<div id=\'cookieNotification\'><div class=\'bg\'></div><div>This website uses cookies to give you the best experience on #{get_domain.capitalize}. Some of these may have been set already. If you use this site we will assume that you accept this. If you require more information on cookies and how to manage them, please see our <a href=\'/contact\'>cookie policy.</a></div><br/><button class=\'button_green\' type=\"submit\" onclick=\'c_close();\'>Close Window</button></div>";
+    var cookie_notify = "<div id=\'cookieNotification\'><div class=\'bg\'></div><div>This website uses cookies to give you the best experience on #{get_domain.capitalize}. Some of these may have been set already. If you use this site we will assume that you accept this. If you require more information on cookies and how to manage them, please see our <a rel=\'nofollow\' href=\'/cookie-policy\'>cookie policy.</a></div><button style=\"cursor:pointer\" type=\"submit\" onclick=\'c_close();\'>Close this popup</button></div>";
     tm.mirrorCookies.initCookies(cookie_notify);});
   :javascript
     function c_close() {
