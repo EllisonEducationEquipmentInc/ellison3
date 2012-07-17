@@ -113,7 +113,7 @@ end
 
 desc "incremental custom migrations"
 task :custom_migrations, :roles => :db, :except => {:no_release => true} do
-  run "cd #{latest_release} && RAILS_ENV=#{rails_env} rake migrations:run"
+  run "cd #{latest_release} && RAILS_ENV=#{rails_env} bundle exec rake migrations:run"
 end
 
 #after "deploy:symlink_configs", "custom_symlink"
