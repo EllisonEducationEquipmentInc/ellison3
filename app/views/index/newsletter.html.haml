@@ -93,7 +93,9 @@
     %strong== #{@list[1]},
     please follow the unsubscribe link in your newsletter email. Alternatively, you may Sign In at
     =get_domain.capitalize
-    and go to your My Account profile (Newsletter Subscriptions tab) to uncheck subscription box and update your subscription preferences.
+    and go to your 
+    =link_to "My Account", "/myaccount/subscriptions"
+    profile (Newsletter Subscriptions tab) to uncheck subscription box and update your subscription preferences.
 :javascript
   $(document).ready(function() {
     var validator = $("#new_subscription").validate({
