@@ -25,12 +25,12 @@ tm.mirrorCookies = function() {
   function cookieNotifTimer() {
     var $popup = $('#cookieNotification'), onTimeOut = function() {
       $popup.hide();
-    }, timer = setTimeout(onTimeOut, 25000);
+    }, timer = setTimeout(onTimeOut, 15000);
 
     $popup.bind('mouseenter', function() {
       clearTimeout(timer);
     }).bind('mouseleave', function() {
-      timer = setTimeout(onTimeOut, 25000);
+      timer = setTimeout(onTimeOut, 15000);
     });
   }
 
