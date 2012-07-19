@@ -9,9 +9,14 @@
     .field
       = f.label :name, :style => "width: 50px"
       = f.text_field :name
-    Yes, I'd like to subscribe to
-    %strong= @list[1]
+    == Yes, please subscribe me to <strong>#{@list[1]}</strong>.
+    %br
+    - if @segments.present?
+      Select additional areas of interest to receive special editions for even more inspiration.
+      %br
+      %br
     = render :partial => 'index/segments'
+    %br
     .actions
       = f.submit :class => 'jqui_save'
 - elsif !@subscription.confirmed
