@@ -14,6 +14,7 @@
     - if @segments.present?
       Select additional areas of interest to receive special editions for even more inspiration.
     = render :partial => 'index/segments'
+    %br
     .actions
       = f.submit :class => 'jqui_save'
 - elsif !@subscription.confirmed
