@@ -1,9 +1,7 @@
 - if @segments.present?
-  .segments
-    %br
-    Select additional areas of interest to receive special editions for even more inspiration.
-    %ul.plain{ :style => "margin-bottom: 10px" }
-      - @segments.each do |segment|
-        %li
-          = check_box_tag "subscription[segments][]", segment[0], @subscription.segments.include?(segment[0].to_s), :id => nil, :class => "subscription_segment"
-          = segment[1]
+  Select additional areas of interest to receive special editions for even more inspiration.
+  %ul.plain{ :style => "margin-bottom: 10px" }
+    - @segments.each do |segment|
+      %li
+        = check_box_tag "subscription[segments][]", segment[0], @subscription.segments.include?(segment[0].to_s), :id => nil, :class => "subscription_segment"
+        = segment[1]

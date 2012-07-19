@@ -21,7 +21,7 @@
       - else
         ==Keep Up to Date with #{system_name}!
     %p
-    - if is_sizzix_uk?
+    - if is_uk?
       By signing up to our newsletter, you get full access to all our promotions, the latest news and much more. Keep up to date with exclusive projects from our designers and follow us on our blog and social media sites.
       %br
       %br
@@ -67,8 +67,9 @@
           .actions{:class=>"news_submit"}
             = f.submit "Submit", :class => 'jqui_save'
         %br
-      == Yes, please subscribe me to <strong>#{@list[1]}</strong>. 
-      = render :partial => 'segments'
+      == Yes, please subscribe me to <strong>#{@list[1]}</strong>.
+      .segments
+        = render :partial => 'segments'
 
 
   .clear
