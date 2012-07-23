@@ -281,7 +281,7 @@ GEM
       remarkable_activerecord (>= 3.1.8)
       rspec (>= 1.2.0)
       rspec-rails (>= 1.2.0)
-    remotipart (1.0.2)
+    remotipart (0.4.1)
     rpm_contrib (2.1.11)
       newrelic_rpm (>= 3.1.1)
       newrelic_rpm (>= 3.1.1)
@@ -416,7 +416,7 @@ DEPENDENCIES
   rails3-generators
   remarkable_mongoid
   remarkable_rails
-  remotipart
+  remotipart (= 0.4.1)
   rpm_contrib
   rspec-rails (>= 2.0.0.beta.20)
   ruby-debug19

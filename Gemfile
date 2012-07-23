@@ -39,7 +39,7 @@ gem 'image_science', ">=1.2.1" #, :git => 'git://github.com/perezd/image_science
 #gem 'mini_magick', :git => 'git://github.com/probablycorey/mini_magick.git'
 #gem 'carrierwave-rails3', :require => 'carrierwave' #, :git => 'git://github.com/jnicklas/carrierwave.git', :branch => 'master' 
 gem 'carrierwave', '0.5.3'  #:git => "git://github.com/jnicklas/carrierwave.git"
-gem 'remotipart'
+gem 'remotipart', '0.4.1'
 gem 'hpricot'
 gem 'ruby_parser'
 gem 'devise', '1.1.3'
