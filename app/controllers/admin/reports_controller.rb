@@ -108,6 +108,12 @@ class Admin::ReportsController < ApplicationController
     @report.delay.active_quotes_report
     render :process
   end
+
+  def real_time_stock_status_reports
+    @report = Report.create  :system => current_system
+    @report.delay.real_time_stock_status_reports
+    render :process
+  end
   
   def download_report
     @report = Report.find(params[:id])

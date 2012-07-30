@@ -139,3 +139,9 @@
     = text_field_tag :end_date, @end_date, :class => 'datetimepicker', :id => :active_quotes_end_date
   .actions
     = submit_tag "Submit", :class => 'jqui_save'
+%hr
+%h3 Real time stock status report
+%p This report generates all #{current_system} active products inventory, life cycle state, brand, orderable state etc. based on the parameters selected
+= form_tag url_for(:action => 'real_time_stock_status_reports'), :remote => true, :class => 'report_form' do
+  .actions
+    = submit_tag "Submit", :class => 'jqui_save'
