@@ -36,7 +36,7 @@ module EllisonSystem
   end
   
   def backorder_allowed?(sys = current_system)
-    sys == 'erus' || sys == 'eruk' || sys == 'eeus' || sys == 'eeuk'
+    sys == 'erus' || sys == 'eruk' || sys == 'eeuk'
   end
   
 	def current_system

@@ -80,15 +80,14 @@ module ApplicationHelper
       - if @product_obj.pre_order?
         %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "", :title => "Add to Shopping Bag to Pre-Order"}== Pre-Order
       - elsif backorder_allowed? && @product_obj.out_of_stock? && @product_obj.listable?
-        - if is_ee?
-          = link_to "Out of Stock", "#div_add_to_cart_#{product.id}", class: "add_to_cart_out_of_stock lightbox"
-          = content_for :modal_content do
-            .out_of_stock_options{id: "div_add_to_cart_#{product.id}"}
-              %h2 Add to cart
-              %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "Add to Shopping #{cart_name.capitalize}", :title => "Add to Shopping #{cart_name.capitalize}"}== Add to #{cart_name.capitalize} +
-              = link_to_function "close", "$.fancybox.close()"
-        - else
-          %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "Add to Shopping #{cart_name.capitalize}", :title => "Add to Shopping #{cart_name.capitalize}"}== Add to #{cart_name.capitalize} +
+        %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "Add to Shopping #{cart_name.capitalize}", :title => "Add to Shopping #{cart_name.capitalize}"}== Add to #{cart_name.capitalize} +
+      - elsif is_ee_us? && !backorder_allowed? && @product_obj.out_of_stock? && @product_obj.listable?
+        = link_to "Out of Stock", "#div_add_to_cart_#{product.id}", class: "add_to_cart_out_of_stock lightbox"
+        .modal_box_content
+          .out_of_stock_options{id: "div_add_to_cart_#{product.id}"}
+            %h2 Add to cart
+            %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "Add to Shopping #{cart_name.capitalize}", :title => "Add to Shopping #{cart_name.capitalize}"}== Add to #{cart_name.capitalize} +
+            = link_to_function "close", "$.fancybox.close()"
       - elsif @product_obj.out_of_stock?
         - if is_uk?
           = link_to "Check availability at your Local Retailer", stores_path
