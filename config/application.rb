@@ -40,6 +40,7 @@ module Ellison3
     config.i18n.default_locale = 'en-US'
 
     # Configure generators values. Many other options are available, be sure to check the documentation.
+    config.generators.stylesheet_engine = :sass
     config.generators do |g|
       g.orm             :mongoid
       g.template_engine :haml

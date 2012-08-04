@@ -203,3 +203,5 @@ namespace :delayed_job do
     }.split("\n").join('')
   end
 end
+        require './config/boot'
+        require 'airbrake/capistrano'

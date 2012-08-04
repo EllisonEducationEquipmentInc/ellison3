@@ -15,12 +15,12 @@ gem 'rails', '3.0.4'
 #gem 'rake', '0.8.7'
 #gem 'mongo', '1.3.1'
 gem 'mongo_ext'
-gem "bson_ext", ">=1.0.7"
+gem "bson_ext", "~> 1.5.2"  #">=1.0.7"
 gem 'passenger'
 gem 'mysql'
 gem 'haml', '3.1.2'
 gem 'sass'
-gem 'will_paginate', '>=3.0.pre2'
+gem 'will_paginate', '3.0.3'
 gem 'capybara'
 gem 'database_cleaner'
 gem 'rspec-rails', '>=2.0.0.beta.20'
@@ -31,7 +31,7 @@ gem "mongo_session_store-rails3" #, ">=2.1.0", :git => 'git://github.com/brianhe
 gem "mongoid", "2.0.1"
 #gem "mongoid", :git => "git://github.com/computadude/mongoid.git", :branch => "master"
 gem "nifty-generators"
-gem "compass", ">= 0.10.5"
+gem "compass", "0.11.5"
 #gem 'rb-inotify', ">= 0.5.1"
 #gem 'inline'
 gem 'RubyInline'
@@ -39,7 +39,7 @@ gem 'image_science', ">=1.2.1" #, :git => 'git://github.com/perezd/image_science
 #gem 'mini_magick', :git => 'git://github.com/probablycorey/mini_magick.git'
 #gem 'carrierwave-rails3', :require => 'carrierwave' #, :git => 'git://github.com/jnicklas/carrierwave.git', :branch => 'master' 
 gem 'carrierwave', '0.5.3'  #:git => "git://github.com/jnicklas/carrierwave.git"
-gem 'remotipart'
+gem 'remotipart', '0.4.1'
 gem 'hpricot'
 gem 'ruby_parser'
 gem 'devise', '1.1.3'
@@ -58,7 +58,7 @@ gem 'event-calendar', :require => 'event_calendar', :git => 'git://github.com/el
 gem 'rpm_contrib'
 #gem 'newrelic_rpm'
 gem "ghazel-daemons"
-gem 'delayed_job'
+gem 'delayed_job', '3.0.3' #'2.1.4'
 gem 'delayed_job_mongoid'
 gem 'rack-recaptcha', :require => 'rack/recaptcha'
 gem 'barista'
@@ -66,6 +66,7 @@ gem 'execjs'
 gem 'therubyracer'
 gem 'sunspot-rails-failover', :git => 'git://github.com/flyingmachine/sunspot-rails-failover.git'
 gem 'savon'
+gem "airbrake"
 
 # Use unicorn as the web server
 # gem 'unicorn'
