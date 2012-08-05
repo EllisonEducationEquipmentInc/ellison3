@@ -38,6 +38,10 @@ module EllisonSystem
   def backorder_allowed?(sys = current_system)
     sys == 'erus' || sys == 'eruk' || sys == 'eeuk'
   end
+
+  def can_place_quote_on_backordered?(sys = current_system)
+    backorder_allowed?(sys) || sys == "eeus"
+  end
   
 	def current_system
 		Thread.current[:current_system] ||= ELLISON_SYSTEMS.first
