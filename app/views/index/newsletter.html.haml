@@ -1,5 +1,8 @@
 %h2
-  Newsletter Sign Up
+  - if is_us?
+    Newsletter Subscription
+  - else
+    Newsletter Sign Up
 - if is_sizzix_us?
   %img{ :src => "/images/ui-backgrounds/newsletter_comp_sz.png", :style => "float:left; margin:0 10px 0 2px;", :width => "183", :height => "259"}
 - if is_sizzix_uk?
@@ -12,25 +15,33 @@
   %img{ :src => "/images/ui-backgrounds/newsletter_comp_er.png", :style => "float:left; margin:0 10px 0 2px;", :width => "183", :height => "259"}
 .ui-corner-all{ :class => "#{ is_sizzix? ? 'newsletter_topframe_sz' : 'newsletter_topframe_ee' }" }
   .newsletter_content_a
-    - if is_uk?
-      %h2{:class=>"news_line"} 
-        ==Stay In The Know with #{get_domain.capitalize}! 
-    - else
-      %h2{:class=>"news_line"} Interested in keeping up to date with us?
+    %h2{:class=>"news_line"} 
+      - if is_uk?
+        ==Stay In The Know with #{get_domain.capitalize}!
+      - else
+        ==Keep Up to Date with #{system_name}!
     %p
     - if is_uk?
       By signing up to our newsletter, you get full access to all our promotions, the latest news and much more. Keep up to date with exclusive projects from our designers and follow us on our blog and social media sites.
       %br
       %br
       To join all you need to do is fill out the form below. You will then be sent an email to the address you give, asking you to confirm these details. Simply click on the link in the email to confirm your registration and start receiving our newsletter.
+    - elsif is_sizzix_us?
+      By subscribing to The Sizzix Scoop newsletter you’ll be kept up to date on the latest Sizzix news, product releases plus trend-setting projects from your favorite designers. You’ll also be notified about Sizzix.com promotions and discounts. Select additional areas of interest for special editions dedicated to your crafting passion.
+      %br
+      %br
+      To subscribe, complete the form below. After you click “Subscribe” you’ll receive an email to confirm your subscription. Simply click on the link provided to confirm your registration. Your first Sizzix Scoop will contain a special offer just for you!
+    - elsif is_ee_us?
+      Stay in the know with Ellison Education! By subscribing to The Ellison Connection newsletter, you’ll get the latest information on Ellison’s newest and most popular products plus lessons to enhance teaching and learning. You will also be notified about sale events and clearance items in addition to the latest news at EllisonEducation.com
+      %br
+      %br
+      To subscribe, complete the form below. After you click “Subscribe” you’ll receive an email to confirm your subscription. Simply click on the link provided to confirm your registration. Your first Ellison Connection will contain a special discount offer!     
     - else
-      Stay in the know with
-      == #{get_domain.capitalize}!
-      By signing up to register with us, you get full access to our free consumer newsletters! Get the latest info on new items, clearance items, and items on sale! You will also keep notified of how you can recieve additional deals as well as keep notifed on the latest news at
-      == #{get_domain.capitalize}!
+      ==Stay in the know with #{system_name}!
+      By subscribing to The Retailers newsletter, you’ll get the latest information on Ellison’s new arrivals. You will also be notified about sale events and clearance items in addition to the latest news at EllisonRetailers.com
       %br/
       %br/    
-      All it requires is for you to fill out our short form below and you can immediately begin to recieve the latest updates!
+      To subscribe, complete the form below. After you click “Subscribe” you’ll receive an email to confirm your subscription. Simply click on the link provided to confirm your registration.
 
 .ui-corner-all{ :class=>"newsletter_midframe", :style => "#{ is_ee_us? ? "background:url('/images/static/discount_panel.jpg') bottom center no-repeat;" : "background:none;" }" }
   .newsletter_content_b
@@ -38,7 +49,7 @@
       %h2{:style=>"margin-bottom:0;"}
         Join Up Now, You’re Almost There!
     - else
-      %h2{:style=>"margin-bottom:8px;", :class=>"signup_header"}
+      %h2{:style=>"margin-bottom:0;", :class=>"signup_header"}
         Subscribe Now!
         
   .news_border
@@ -54,10 +65,15 @@
             = f.label :name, nil, :style => "width: 50px"
             = f.text_field :name
           .actions{:class=>"news_submit"}
-            = f.submit "Submit", :class => 'jqui_save'
+            = f.submit "Subscribe", :class => 'jqui_save'
         %br
-      == Yes, please subscribe me to <strong>#{@list[1]}</strong>. 
-      = render :partial => 'segments'
+        
+      == Yes, please subscribe me to <strong>#{@list[1]}</strong>.
+      %br
+      - if @segments.present?
+        Select additional areas of interest to receive special editions for even more inspiration.
+      .segments
+        = render :partial => 'segments'
 
 
   .clear
@@ -73,16 +89,21 @@
   %p
     %div{:style=>"font-weight:bold;"}
       == Ensure that you continue to receive <strong>#{@list[1]}</strong> after subscribing
-    == To ensure that <strong>#{@list[1]} </strong> is delivered to your inbox, and not as treated as spam, please add the email address <strong>#{lyris_email}</strong> to your address book as soon as possible. This will prevent any deliveries to your "Bulk" or "Junk" mail folders.
+    == To ensure that <strong>#{@list[1]} </strong> is delivered to your email and "inbox", and not as treated as spam, please add the email address, <strong>#{lyris_email}</strong> to your address book as soon as possible. This will prevent any deliveries to your "Bulk" or "Junk" mail folders.
     %br
     %br
     %div{:style=>"font-weight:bold;"}
       == Unsubscribe from <strong>#{@list[1]}</strong> 
     To cancel your subscription to 
-    %strong== #{@list[1]},
+    %strong== #{@list[1]}
+    - if @segments.present?
+      %strong
+        or special editions
     please follow the unsubscribe link in your newsletter email. Alternatively, you may Sign In at
     =get_domain.capitalize
-    and go to your My Account profile (Newsletter Subscriptions tab) to uncheck subscription box and update your subscription preferences.
+    and go to your 
+    =link_to "My Account", "/myaccount/subscriptions"
+    profile (Newsletter Subscriptions tab) to uncheck subscription box and update your subscription preferences.
 :javascript
   $(document).ready(function() {
     var validator = $("#new_subscription").validate({

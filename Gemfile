@@ -31,7 +31,7 @@ gem "mongo_session_store-rails3" #, ">=2.1.0", :git => 'git://github.com/brianhe
 gem "mongoid", "2.0.1"
 #gem "mongoid", :git => "git://github.com/computadude/mongoid.git", :branch => "master"
 gem "nifty-generators"
-gem "compass", ">= 0.10.5"
+gem "compass", "0.11.5"
 #gem 'rb-inotify', ">= 0.5.1"
 #gem 'inline'
 gem 'RubyInline'
@@ -66,6 +66,7 @@ gem 'execjs'
 gem 'therubyracer'
 gem 'sunspot-rails-failover', :git => 'git://github.com/flyingmachine/sunspot-rails-failover.git'
 gem 'savon'
+gem "airbrake"
 
 # Use unicorn as the web server
 # gem 'unicorn'
