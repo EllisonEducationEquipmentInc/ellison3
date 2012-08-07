@@ -177,13 +177,14 @@ class Cart
       if check
         if quote
           item.quantity = 0 if !product.available?
-        elsif backorder_allowed? && product.out_of_stock? && product.listable?
+        elsif (quote && can_place_quote_on_backordered?) || (backorder_allowed? && product.out_of_stock? && product.listable?)
           # do nothing
-        elsif backorder_allowed? && product.listable?(current_system, item.quantity) && product.quantity < item.quantity
+        elsif (quote && can_place_quote_on_backordered?) || (backorder_allowed? && product.listable?(current_system, item.quantity) && product.quantity < item.quantity)
           # mark item as "out_of_stock" to trigger limited quantity notification
           item.out_of_stock = true
           item.reset_attribute! "out_of_stock" if item.changes["out_of_stock"].present? && item.changes["out_of_stock"].uniq.count == 1
         else
+            Rails.logger.info "Cart: removing item..."
            item.quantity = product.unavailable? ? 0 : product.quantity if product.unavailable? || product.quantity < item.quantity 
         end
       end
