@@ -87,7 +87,8 @@ module ApplicationHelper
           .out_of_stock_options{id: "div_add_to_cart_#{product.id}"}
             %p{:class=>"out_of_stock_frame"} This item is presently out of stock and expected to be In stock soon.  You can choose to add this item to cart to Save as Quote.
             %br
-            %button{:style=>"margin-left:35px;", :class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "Add to Shopping #{cart_name.capitalize}", :title => "Add to Shopping #{cart_name.capitalize}"}== Add to #{cart_name.capitalize} +
+            .out_of_stock_bframe
+              %button{:style=>"margin-left:auto; margin-right:auto;", :class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "Add to Shopping #{cart_name.capitalize}", :title => "Add to Shopping #{cart_name.capitalize}"}== Add to #{cart_name.capitalize} +
       - elsif @product_obj.out_of_stock?
         - if is_uk?
           = link_to "Check availability at your Local Retailer", stores_path
