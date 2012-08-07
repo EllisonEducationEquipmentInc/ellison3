@@ -39,6 +39,22 @@
     %h2.decorative
       %span News from our Blog  
     %ul#blog_feeds= spinner
+    
+- if is_ee_us?
+  %h2 News from our Teacher’s Blog
+  %div{:class=>"item_carousel_wide ui-widget-content ui-widget ui-corner-all fbox"}
+    .b_frame_s1
+      %img{:height => "232", :src => "/images/ui-backgrounds/t_lounge_bkg.png", :style => "margin-top:22px;", :width => "348"}/
+      .b_text_1
+        %p
+          %span{:class => "b_text_2"} Welcome to the Teachers’ Lounge.
+          %br
+          Join us as we explore creative curriculum ideas and share our favorite tips and clearance information with you. And you won’t want to miss the weekly contests...yes, there are prizes! We are delighted you could join us.
+          %br/
+          %br/
+          %a{:href => "http://ellisoneducation.typepad.com/teachers_lounge/", :target => "blank"} Enter the Ellison Teacher's Lounge
+    .b_frame_s2
+      %ul#blog_feeds_ee= spinner
 
 - if is_sizzix_us?
   #social-media
@@ -84,8 +100,9 @@
       %li= link_to "Watch Us on YouTube", "http://www.youtube.com/sizzix", :target => "blank", :class => "link_youtube"
       %li= link_to "Sign Up for our Newsletter", "/index/newsletter", :target => "_blank", :class => "link_newsletter"
       %li= link_to "Email Us", "/contact", :class => "link_contact"
-  :javascript
-    $(document).ready(function(){
-      $('#sizzix_tweets').load('/index/twitter_feed#{"_uk" if is_uk?}');
-      $('#blog_feeds').load('/index/blog_feed#{"_uk" if is_uk?}');
-    });
+:javascript
+  $(document).ready(function(){
+    $('#sizzix_tweets').load('/index/twitter_feed#{"_uk" if is_uk?}');
+    $('#blog_feeds').load('/index/blog_feed#{"_uk" if is_uk?}');
+    $('#blog_feeds_ee').load('/index/blog_feed_ee');
+  });
