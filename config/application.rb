@@ -12,6 +12,9 @@ require 'rake'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
+require 'yaml' 
+YAML::ENGINE.yamler= 'syck' 
+
 module Ellison3
   class Application < Rails::Application
 
