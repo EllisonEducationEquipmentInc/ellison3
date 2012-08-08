@@ -1,5 +1,5 @@
-require 'yaml' 
-YAML::ENGINE.yamler= 'syck' 
+require 'yaml'
+YAML::ENGINE.yamler= 'syck'
 # Load the rails application
 require File.expand_path('../application', __FILE__)
 require "sunspot/rails/solr_logging"
