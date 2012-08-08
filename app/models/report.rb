@@ -148,10 +148,10 @@ class Report
     self.total_count = @products.count
     n = 0
     csv_string = CSV.generate do |csv|
-      csv << ["Item #", "Item Name", "Lifecycle", "Brand", "Orderable", "Price", "Qty US", "Qty SZ", "Qty UK"]
+      csv << ["Item #", "Item Name", "Lifecycle", "Brand", "Orderable", "Price", "Qty US", "Qty SZ", "Qty UK","Outlet"]
       @products.in_batches(500) do |batch|
         batch.each do |product|
-          csv << [product.item_num, product.name, product.life_cycle, product.item_group, product.orderable?, product.price, product.quantity_us, product.quantity_sz, product.quantity_uk]
+          csv << [product.item_num, product.name, product.life_cycle, product.item_group, product.orderable?, product.price, product.quantity_us, product.quantity_sz, product.quantity_uk,product.outlet]
         end
       end
     end
