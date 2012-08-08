@@ -2,6 +2,11 @@
 
 module Psych
   module Visitors
+
+    class Visitor
+
+    end
+ 
     ###
     # YAMLTree builds a YAML ast given a ruby object.  For example:
     #
