@@ -214,6 +214,13 @@ class IndexController < ApplicationController
     render :partial => 'index/feed', :collection => @feed.entries
   end
   
+  def blog_feed_ee
+    @feed = Feed.where(:name => 'blog_ee').first || Feed.new(:name => 'blog_ee')
+    process_feed("http://ellisoneducation.typepad.com/teachers_lounge/atom.xml")
+    expires_in 10.minutes, 'max-stale' => 15.minutes, :public => true
+    render :partial => 'index/feed', :collection => @feed.entries
+  end
+  
   def videos
     @title = "Videos"
     unless fragment_exist? "videos_page_#{current_system}"
