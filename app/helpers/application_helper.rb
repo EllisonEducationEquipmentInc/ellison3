@@ -82,7 +82,7 @@ module ApplicationHelper
       - elsif backorder_allowed? && @product_obj.out_of_stock? && @product_obj.listable?
         %button{:class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "Add to Shopping #{cart_name.capitalize}", :title => "Add to Shopping #{cart_name.capitalize}"}== Add to #{cart_name.capitalize} +
       - elsif is_ee_us? && !backorder_allowed? && @product_obj.out_of_stock? && @product_obj.listable?
-        = link_to "Out of Stock", "#div_add_to_cart_#{product.id}", class: "add_to_cart_out_of_stock lightbox, :title=>"Click for options", :alt=>"click for options"
+        = link_to "Out of Stock", "#div_add_to_cart_#{product.id}", class: "add_to_cart_out_of_stock lightbox", :title=>"Click for options", :alt=>"click for options"
         .modal_box_content
           .out_of_stock_options{id: "div_add_to_cart_#{product.id}"}
             %p{:class=>"out_of_stock_frame"} This item is presently out of stock and expected to be In stock soon.  You can choose to add this item to cart to Save as Quote.
