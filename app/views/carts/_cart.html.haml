@@ -77,7 +77,7 @@
       - if chekout_allowed?
         %p.error{:style=>"margin-top:10px;"} Due to high demand, some items in your cart are currently at a low stock level. If your order cannot be processed within normal ordering time, we will contact you as soon as possible.
       - else
-        %p.error{:style=>"margin-top:10px;"} Some items placed in your shopping cart are currently out of stock and available only to “Save As Quote” at this time.  You may “Save” these items for later or add to “My List” under your customer account.  To continue to “Check Out”, please remove the out of stock items to complete your order. 
+        %p.error{:style=>"margin-top:10px;"} Some items placed in your shopping cart are currently out of stock and available only to “Save As Quote” at this time.  You may “Save” these items for later or add to “My List” under your customer account.  To continue to “Check Out”, please remove the out of stock items to complete your order.
     - unless @cart_locked
       = render :partial => 'carts/add_to_cart_by_item_num'
       %div{:style=>"width:540px;"}
