@@ -85,7 +85,7 @@ module ApplicationHelper
         = link_to "Out of Stock", "#div_add_to_cart_#{product.id}", class: "add_to_cart_out_of_stock lightbox", :title=>"Click for options", :alt=>"click for options"
         .modal_box_content
           .out_of_stock_options{id: "div_add_to_cart_#{product.id}"}
-            %p{:class=>"out_of_stock_frame"} This item is currently out of stock.  You can choose to add this item to your cart to “Save As Quote”.
+            %p{:class=>"out_of_stock_frame"} This item is currently out of stock.  You can choose to add this item to your cart to 'Save As Quote'.
             %br
             .out_of_stock_bframe
               %button{:style=>"margin-left:auto; margin-right:auto;", :class => "#{class_name}", :id => "add_to_cart_#{product.id}", :rel => "#{product.item_num}", :alt => "Add to Shopping #{cart_name.capitalize}", :title => "Add to Shopping #{cart_name.capitalize}"}== Add to #{cart_name.capitalize} +
