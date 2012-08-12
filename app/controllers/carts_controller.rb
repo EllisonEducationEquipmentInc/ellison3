@@ -20,7 +20,7 @@ class CartsController < ApplicationController
   
   def index
     if get_cart.last_check_at.blank? || get_cart.last_check_at.present? && get_cart.last_check_at.utc < 5.minute.ago.utc
-      return unless real_time_cart
+      return unless real_time_cart true
     end
     @title = "Shopping #{cart_name.titleize}"
     @cart_locked = true if params[:locked] == "1"

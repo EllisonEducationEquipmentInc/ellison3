@@ -504,7 +504,7 @@ class Product
   end
   
   def can_be_added_to_cart?
-    if backorder_allowed? #is_ee?
+    if backorder_allowed? || is_ee_us?
       listable?
     elsif is_er?
       in_stock? || pre_order?
