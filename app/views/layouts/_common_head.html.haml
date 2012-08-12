@@ -4,7 +4,7 @@
   %meta{ :name => "keywords", :content => "#{@keywords}" }
 - if @description.present?
   %meta{ :name => "description", :content => "#{strip_tags @description}" }
-- if current_system == 'szus'
+- if current_system == 'szus' && 'eeus'
   = stylesheet_link_tag 'jqui-ellison3/jquery-ui-1.8.4.custom.css', :media => 'all'
 - else
   = stylesheet_link_tag 'jqui-er/jquery-ui-1.8.6.custom.css', :media => 'all'

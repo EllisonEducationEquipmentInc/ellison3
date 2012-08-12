@@ -199,3 +199,53 @@ body.bp {
    
   }
 }
+
+// EEUS Blog Panel CSS
+
+.fbox {
+	position:relative; float:left;
+}
+.b_frame_s1 {
+	float:left; width:348px;
+}
+.b_text_1 {
+	float:left; width:316px; height:auto; margin: 0 16px 10px; font-size:12px!important;
+}
+.b_text_2{
+	font-size:16px; font-weight:bold;
+}
+.b_frame_s2 {
+	border-left: 1px solid black; float: left; height: auto; margin: 16px 0; padding: 8px 16px; width: 566px;
+}
+
+#blog_feeds_ee {
+  list-style-type: none;
+  margin:0!important;
+  padding:0!important;
+  
+  h3 {
+   font-size:15px!important;    
+  }
+  
+  ul {
+    margin:0!important;
+    padding:0!important;
+  }
+  
+  p {
+    margin:0!important;
+  }
+  
+  li {
+    margin-bottom:18px;
+  }
+
+  li:last-child {
+    margin:0 0 4px!important;
+  }
+  
+}
+
+.timestamp {
+  font-style:italic;
+}
