@@ -145,6 +145,10 @@ class Report
     set_current_system self.system || current_system
     self.report_type = "real_time_stock_status_reports"
     @products = Product.send(current_system).active
+    @products = @products.where(:outlet => report_options[:outlet].present?) if report_options[:outlet].present?
+    @products = @products.where(:"orderable_#{self.system}" => report_options[:orderable].present?) if report_options[:orderable].present?
+    @products = @products.where(item_group: report_options[:item_group]) if report_options[:item_group].present?
+    @products = @products.where(life_cycle: report_options[:life_cycle]) if report_options[:life_cycle].present?
     self.total_count = @products.count
     n = 0
     csv_string = CSV.generate do |csv|
