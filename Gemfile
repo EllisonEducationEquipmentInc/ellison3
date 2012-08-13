@@ -35,7 +35,7 @@ gem "compass", "0.11.5"
 #gem 'rb-inotify', ">= 0.5.1"
 #gem 'inline'
 gem 'RubyInline'
-gem 'image_science', ">=1.2.1" #, :git => 'git://github.com/perezd/image_science.git', :branch => 'master', :require => 'inline'
+gem 'image_science', git: 'git://github.com/asynchrony/image_science.git'
 #gem 'mini_magick', :git => 'git://github.com/probablycorey/mini_magick.git'
 #gem 'carrierwave-rails3', :require => 'carrierwave' #, :git => 'git://github.com/jnicklas/carrierwave.git', :branch => 'master' 
 gem 'carrierwave', '0.5.3'  #:git => "git://github.com/jnicklas/carrierwave.git"
