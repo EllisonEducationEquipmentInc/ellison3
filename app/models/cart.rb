@@ -175,9 +175,9 @@ class Cart
         :handling_price => product.handling_price, :gift_card => product.gift_card, :retailer_price => product.retailer_price, :weight => product.virtual_weight, :actual_weight => product.weight, :out_of_stock => backorder_allowed? && product.listable?(current_system, item.quantity) ? product.out_of_stock?(current_system, item.quantity - 1) : product.out_of_stock?
       item.price = product.price unless item.custom_price
       if check
-        if quote
-          item.quantity = 0 if !product.available?
-        elsif (quote && can_place_quote_on_backordered? || backorder_allowed?) && product.out_of_stock? && product.listable?
+        if quote && !product.available?
+          item.quantity = 0
+        #elsif (quote && can_place_quote_on_backordered? || backorder_allowed?) && product.out_of_stock? && product.listable?
           # do nothing
         elsif (quote && can_place_quote_on_backordered? || backorder_allowed?) && product.listable?(current_system, item.quantity) && product.quantity < item.quantity
           # mark item as "out_of_stock" to trigger limited quantity notification
