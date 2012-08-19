@@ -123,10 +123,11 @@
 	margin-bottom: 10px;	
 
   label {
-    margin-right: 8px;
+    margin-right: 4px;
+    margin-left:12px;
   	font-weight: bold;
   	display: inline-block;
-  	width: 100px;
+  	width: auto;
   	
   	&.autosize { width: auto;}
   	&.w70 { width: 70px; }
