@@ -334,7 +334,7 @@ body.bp {
       
       span {
         background: transparent url('/images/ui-backgrounds/_#{$system}_tab_inactive.gif') no-repeat;
-        color: $catalog_tab_inactive;
+//        color: $catalog_tab_inactive;
         padding: 11px 0 14px 12px;  // padding left to accomodate link icon; padding right to space away from link divider
         
         &:hover { background: transparent url('/images/ui-backgrounds/_#{$system}_tab_active.gif') no-repeat left; }
