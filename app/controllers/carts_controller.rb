@@ -20,7 +20,7 @@ class CartsController < ApplicationController
   
   def index
     if get_cart.last_check_at.blank? || get_cart.last_check_at.present? && get_cart.last_check_at.utc < 5.minute.ago.utc
-      return unless real_time_cart
+      return unless real_time_cart true
     end
     @title = "Shopping #{cart_name.titleize}"
     @cart_locked = true if params[:locked] == "1"
@@ -90,7 +90,7 @@ class CartsController < ApplicationController
   def checkout
     return unless real_time_cart
     session[:user_return_to] = nil
-    redirect_to(catalog_path, :alert => flash[:alert] || I18n.t(:empty_cart)) and return if get_cart.cart_items.blank? || !ecommerce_allowed?
+    redirect_to(catalog_path, :alert => flash[:alert] || I18n.t(:empty_cart)) and return if get_cart.cart_items.blank? || !ecommerce_allowed? || !chekout_allowed?
     set_proper_currency!
     @title = "Checkout"
     @cart_locked, @checkout = true, true
@@ -107,7 +107,7 @@ class CartsController < ApplicationController
   end
   
   def quote
-    return unless real_time_cart
+    return unless real_time_cart true
     session[:user_return_to] = nil
     redirect_to(catalog_path, :alert => flash[:alert] || I18n.t(:empty_cart)) and return if get_cart.cart_items.blank? || !ecommerce_allowed? || !(quote_allowed? || get_cart.pre_order?)
     @title = quote_name
@@ -212,7 +212,7 @@ class CartsController < ApplicationController
   
   def proceed_quote
     redirect_to :quote and return unless (quote_allowed? || get_cart.pre_order?) && get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
-    return unless real_time_cart(false)
+    return unless real_time_cart(true)
     sleep 0.5
     get_cart.reload
     cart_to_quote(:address => get_user.shipping_address)

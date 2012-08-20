@@ -47,7 +47,7 @@ private
 	end
 	
 	def chekout_allowed?
-	  !is_ee_uk? && !get_cart.pre_order?
+	  !is_ee_uk? && !get_cart.pre_order? && (!is_ee_us? || get_cart.cart_items.none?(&:out_of_stock))
 	end
 	
 	def quote_allowed?

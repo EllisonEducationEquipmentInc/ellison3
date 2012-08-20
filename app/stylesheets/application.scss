@@ -455,6 +455,7 @@ color:#A9250E; font-weight:bold;
   font-weight:normal!important;
 }
 
+
 .segments li{
 	float:left!important;
 	width:176px;
@@ -466,6 +467,28 @@ color:#A9250E; font-weight:bold;
 	width:612px;
 	float:left;
 	position:relative;
+}
+
+#modal_box_content {
+  display: none;
+}
+
+.modal_box_content {
+  display: none;
+}
+
+.out_of_stock_frame {
+  text-align:center; width:250px!important; height:auto; margin:4px;
+}
+
+.out_of_stock_bframe {
+ position:relative; text-align:center; width:100%;
+}
+
+.out_of_stock_options {
+  button {
+   margin:0!important;
+  }
 }
 
 

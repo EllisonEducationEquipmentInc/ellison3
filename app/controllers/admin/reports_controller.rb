@@ -109,6 +109,7 @@ class Admin::ReportsController < ApplicationController
     render :process
   end
 
+
   def real_time_stock_status_reports
     @report = Report.create  :system => current_system, report_options: {outlet: params[:outlet], orderable: params[:orderable], item_group: params[:item_group], life_cycle: params[:life_cycle]}
     sleep 1
@@ -116,6 +117,7 @@ class Admin::ReportsController < ApplicationController
     @report.delay.real_time_stock_status_reports
     render :process
   end
+
   
   def download_report
     @report = Report.find(params[:id])

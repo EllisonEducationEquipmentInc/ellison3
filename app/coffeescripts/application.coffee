@@ -131,6 +131,9 @@ root.initialize_buttons = ->
       $.ajax url: "/carts/add_to_cart?id=" + @id.replace("add_to_cart_", "") + qty
       $(this).button disabled: true
       _gaq.push [ "_trackEvent", "Cart", "Add To Cart", $(this).attr("rel") ]
+
+  $ ->
+    $(".add_to_cart_out_of_stock").button(icons: primary: "ui-icon-plus")
   
   $ ->
     $(".wishlist").button().click(->
