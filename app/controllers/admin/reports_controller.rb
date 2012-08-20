@@ -110,7 +110,7 @@ class Admin::ReportsController < ApplicationController
   end
 
   def real_time_stock_status_reports
-    @report = Report.create  :system => current_system
+    @report = Report.create  :system => current_system, report_options: {outlet: params[:outlet], orderable: params[:orderable], item_group: params[:item_group], life_cycle: params[:life_cycle]}
     sleep 1
     @report = Report.find @report.id
     @report.delay.real_time_stock_status_reports
