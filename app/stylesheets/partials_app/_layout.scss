@@ -123,11 +123,10 @@
 	margin-bottom: 10px;	
 
   label {
-    margin-right: 4px;
-    margin-left:12px;
+    margin-right: 8px;
   	font-weight: bold;
   	display: inline-block;
-  	width: auto;
+  	width: 100px;
   	
   	&.autosize { width: auto;}
   	&.w70 { width: 70px; }
@@ -635,6 +634,10 @@ a.next_button { @extend a.prev_button;
 
 .icon_brand-rollmodel { @extend .icon;
   background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_brand-rollmodel.png") no-repeat left bottom;
+}
+
+.icon_brand-eclips { @extend .icon;
+  background: url("/images/ui-icons/set_fugue_custom/16x16/drop-shadow/ell3_brand-eclips.png") no-repeat left bottom;
 }
 
 .icon_brand-sizzix { @extend .icon;

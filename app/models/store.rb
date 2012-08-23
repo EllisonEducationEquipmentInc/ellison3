@@ -6,7 +6,7 @@ class Store
 	
 	AGENT_TYPES = ["Distributor", "Sales Representative", "Authorized Reseller"]
 	AUTHORIZED_RESELLER_TYPES = ["Catalog sales only", "Web sales only", "Brick and Mortar Store", "Combination"]
-	PRODUCT_LINES = %w(Sizzix AllStar Prestige RollModel)
+	PRODUCT_LINES = %w(Sizzix eclips AllStar Prestige RollModel)
 	BRANDS = %w(sizzix ellison)
 	EXCELLENCE_LEVELS = ["Executive", "Preferred", "Elite", "A Cut Above"]
 	
