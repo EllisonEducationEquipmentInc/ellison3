@@ -141,7 +141,7 @@
     = submit_tag "Submit", :class => 'jqui_save'
 %hr
 %h3 Real time stock status report
-%p This report generates all #{current_system} active products inventory, life cycle state, brand, orderable state etc. 
+%p This report generates all #{current_system} active products US (WH1), SZ(WH11) and UK product inventory with current price.  It can be filtered by product life cycle state, brand, orderable, and outlet stuats (if applicable). 
 = form_tag url_for(:action => 'real_time_stock_status_reports'), :remote => true, :class => 'report_form' do
   .field
     = label_tag :item_group, "Brand"

@@ -35,7 +35,7 @@
     %br
   - if store.has_ellison_design_centers?
     %em Ellison Design Center Available
-- unless is_sizzix_uk?
+- if is_er?
   %p
     - store.product_line.each do |product_line|
       = link_to product_line, "/catalog#q=#{product_line}", :class => "icon_brand-#{product_line.parameterize}", :style => "text-indent: -9999px;", :alt => "#{product_line}", :title => "#{product_line}"
