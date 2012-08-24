@@ -134,7 +134,10 @@
     .clear
     .error== Some of the items in your quote are temporarily out of stock.  However, you can still convert your #{quote_name.downcase} to an order. A Customer Service Representative will contact you soon with more information regarding these items.
 - elsif !(is_er? || is_ee_uk?)
-  .error== Some of the items in your quote are either out of stock or unavailable at this time. Please Contact Customer Service to convert this #{quote_name.downcase} to an order.
+  .error
+    Some of the items in your quote are either out of stock or unavailable at this time. Please Contact 
+    = link_to "Customer Service", "/contact"
+    to convert this #{quote_name.downcase} to an order.
 - else
   .notice.dontprint{:style => "text-align: center; margin-top: 36px"}== Please Contact Customer Service to convert this #{quote_name.downcase} to an order.
 %br
