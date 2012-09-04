@@ -40,4 +40,5 @@
     - store.product_line.each do |product_line|
       = link_to product_line, "/catalog#q=#{product_line}", :class => "icon_brand-#{product_line.parameterize}", :style => "text-indent: -9999px;", :alt => "#{product_line}", :title => "#{product_line}"
 - if @zip_geo.present?
+  / removed longitude and latitutde as from address per request of Cynthia saddr=#{@zip_geo.lat},#{@zip_geo.lng}
   %p= link_to 'Get Directions', "http://maps.google.com/maps?&daddr=#{store.address1} #{store.city} #{store.state} #{store.zip_code} #{store.country}", :target => '_blank', :class => "link_directions"

@@ -331,7 +331,7 @@ module ShoppingCart
     end
     
     def calculate_tax?(state)
-      %w(CA IN WA UT).include?(state)
+      %w(CA CO IN TX WA UT).include?(state)
     end
     
     def calculate_setup_fee(subtotal, shipping_and_handling, tax)

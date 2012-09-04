@@ -4,7 +4,7 @@ class Store
 	include Mongoid::Timestamps
 	include Geokit::Geocoders
 	
-	AGENT_TYPES = ["Distributor", "Sales Representative", "Authorized Reseller", "Catalog Company"]
+	AGENT_TYPES = ["Distributor", "Sales Representative", "Authorized Reseller"]
 	AUTHORIZED_RESELLER_TYPES = ["Catalog sales only", "Web sales only", "Brick and Mortar Store", "Combination"]
 	PRODUCT_LINES = %w(Sizzix eclips AllStar Prestige RollModel)
 	BRANDS = %w(sizzix ellison)
