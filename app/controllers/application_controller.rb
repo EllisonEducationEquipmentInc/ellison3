@@ -192,6 +192,9 @@ private
   	elsif is_sizzix_us?
 			@description = "Sizzix - Die-Cutting and Embossing Tools for Today’s Crafter | Creators of electronic and hand-operated shape-cutting machines. Uniquely design and embellish cards, scrapbooks, jewelry, quilts, home décor and more."
 			@keywords = "Papercrafting, arts & crafts, crafting, cardmaking, scrapbooking, altered art, Tim Holtz, appliqué, embossing, eclips, Big Shot Machine, Stamp2Cut, die-cutter, accessories, projects, birthday decorations, quilting, do-it-yourself"	
+  	elsif is_er_us?
+			@description = "Ellison - Ellison is the premier provider of award-winning die-cutting and embossing products for the craft and educational markets. With its global headquarters in Lake Forest, California and a UK office for European accounts, Ellison continues to shape the future of creativity!"
+			@keywords = "Die-Cutting Crafting Learning Resources Educational Equipment Lesson Plans Arts & Crafts K-12 Lessons Bulletin Boards Hands-on Learning Classroom Visuals Creative Products Cardmaking Scrapbooking Craft Ideas Quilting Ellison Retailers Sizzix Retailers"	
   	elsif is_ee_us?
 			@description = "Ellison Education - Curriculum-Based Die-Cutting for the Classroom | Create memorable visuals and essential hands-on activities for all ages and stages of K-12 student education. Fun Free Lesson Plans. Online deals."
 			@keywords = "Educational Die-Cutting for Preschools, Elementary, Jr High, High School, Shape-cutting, Printable Free Lesson Plans for Educators, Teacher Lesson Ideas, Promotions, Coupons, Teacher Tools, Classroom Décor, Classroom Decorating, Education Standards, Curriculum Development, Children, Homeschool, Early Childhood Education, Bulletin Boards, Learning, Fundraising, Resources, Visual Aids, Cut Outs, Teacher Supplies, Custom Dies, Die Cuts, Die Cut Machine, eclips"	    
