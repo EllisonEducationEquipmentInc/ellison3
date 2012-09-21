@@ -52,5 +52,3 @@ production:
   password: ellison123
   socket: /var/run/mysqld/mysqld.sock
   host: localhost
-cucumber:
-  <<: *test

@@ -1,4 +1,5 @@
 .bundle
+sunspot-solr.pid
 db/*.sqlite3
 log/*.log
 tmp/**/*

@@ -81,14 +81,11 @@ gem 'capistrano'
 # gem 'aws-s3', :require => 'aws/s3'
 
 # Bundle gems for certain environments:
-gem 'shoulda', :group => :test
+
 group :test do
-  gem 'cucumber-rails'
-  gem 'cucumber'
+	gem 'shoulda'
   gem 'webrat'
   gem 'factory_girl_rails'
-  gem 'remarkable_rails'
-  gem 'remarkable_mongoid'
 end
 
 gem "rails3-generators", :group => :development 
