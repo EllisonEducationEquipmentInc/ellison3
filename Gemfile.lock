@@ -112,6 +112,9 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
+    capybara-webkit (0.12.1)
+      capybara (>= 1.0.0, < 1.2)
+      json
     carrierwave (0.5.3)
       activesupport (~> 3.0)
     childprocess (0.3.3)
@@ -272,10 +275,10 @@ GEM
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
       rspec-mocks (~> 2.11.0)
-    rspec-core (2.11.0)
-    rspec-expectations (2.11.1)
+    rspec-core (2.11.1)
+    rspec-expectations (2.11.3)
       diff-lcs (~> 1.1.3)
-    rspec-mocks (2.11.1)
+    rspec-mocks (2.11.3)
     rspec-rails (2.11.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
@@ -311,10 +314,6 @@ GEM
       multi_json (~> 1.0)
       rubyzip
     sexp_processor (3.2.0)
-    shoulda (3.1.0)
-      shoulda-context (~> 1.0)
-      shoulda-matchers (~> 1.2)
-    shoulda-context (1.0.0)
     shoulda-matchers (1.2.0)
       activesupport (>= 3.0.0)
     simple_oauth (0.1.8)
@@ -338,10 +337,6 @@ GEM
     wasabi (2.5.0)
       httpi (~> 1.0)
       nokogiri (>= 1.4.0)
-    webrat (0.7.3)
-      nokogiri (>= 1.2.0)
-      rack (>= 1.0)
-      rack-test (>= 0.5.3)
     will_paginate (3.0.3)
     wirble (0.1.3)
     xpath (0.1.4)
@@ -366,6 +361,7 @@ DEPENDENCIES
   bundler (>= 1.0.10)
   capistrano
   capybara
+  capybara-webkit
   carrierwave (= 0.5.3)
   compass (= 0.11.5)
   database_cleaner
@@ -396,19 +392,18 @@ DEPENDENCIES
   rails3-generators
   remotipart (= 0.4.1)
   rpm_contrib
-  rspec-rails (>= 2.0.0.beta.20)
+  rspec-rails (~> 2.11.0)
   ruby-debug19
   ruby_parser
   sass
   savon
   shippinglogic!
-  shoulda
+  shoulda-matchers
   spork
   sunspot-rails-failover!
   sunspot_mongoid!
   therubyracer
   warden
-  webrat
   will_paginate (= 3.0.3)
   wirble
   youtube_it

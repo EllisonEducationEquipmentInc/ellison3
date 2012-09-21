@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe Compatibility do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { Compatibility.new }
+  its(:products) { should be_empty }
 end

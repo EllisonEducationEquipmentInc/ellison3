@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe FedexRate do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { FedexRate.new }
+  its(:weight_max) { should be_nil }
 end

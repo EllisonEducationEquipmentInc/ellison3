@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe Store do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { Store.new }
+  its(:webstore) { should be_false }
 end

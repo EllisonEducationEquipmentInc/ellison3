@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe ProductConfig do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { ProductConfig.new }
+  its(:name) { should be_nil }
 end

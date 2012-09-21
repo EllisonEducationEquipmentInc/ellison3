@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe RetailerApplication do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { RetailerApplication.new }
+  its(:no_website) { should be_false }
 end

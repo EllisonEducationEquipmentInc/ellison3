@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe Feedback do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { Feedback.new }
+  its(:priority) { should eql(0) }
 end

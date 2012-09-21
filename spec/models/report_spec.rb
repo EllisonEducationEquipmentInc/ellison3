@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe Report do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { Report.new }
+  its(:percent) { should eql(0) }
 end
