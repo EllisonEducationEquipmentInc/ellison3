@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe Comment do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { Comment.new }
+  its(:admin_reply) { should be_false }
 end

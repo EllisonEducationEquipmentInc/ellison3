@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe ShippingRate do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { ShippingRate.new }
+  its(:percentage) { should be_false }
 end

@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe Account do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { Account.new }
+  its(:active) { should be_true }
 end

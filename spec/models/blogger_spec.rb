@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe Blogger do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { Blogger.new }
+  its(:name) { should be_nil }
 end

@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe Feed do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { Feed.new }
+  its(:feeds) { should be_nil }
 end

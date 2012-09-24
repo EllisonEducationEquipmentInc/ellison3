@@ -21,9 +21,6 @@ gem 'mysql'
 gem 'haml', '3.1.2'
 gem 'sass'
 gem 'will_paginate', '3.0.3'
-gem 'capybara'
-gem 'database_cleaner'
-gem 'rspec-rails', '>=2.0.0.beta.20'
 gem 'spork'
 gem 'launchy'    # So you can do Then show me the page
 gem "mongo_session_store-rails3" #, ">=2.1.0", :git => 'git://github.com/brianhempel/mongo_session_store.git'
@@ -81,14 +78,17 @@ gem 'capistrano'
 # gem 'aws-s3', :require => 'aws/s3'
 
 # Bundle gems for certain environments:
-gem 'shoulda', :group => :test
+
 group :test do
-  gem 'cucumber-rails'
-  gem 'cucumber'
-  gem 'webrat'
+  gem 'shoulda-matchers'
+  gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
-  gem 'remarkable_rails'
-  gem 'remarkable_mongoid'
+end
+
+group :development, :test do
+  gem 'rspec-rails', '~> 2.11.0'
 end
 
 gem "rails3-generators", :group => :development 

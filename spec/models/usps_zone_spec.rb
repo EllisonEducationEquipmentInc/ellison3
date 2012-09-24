@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe UspsZone do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { UspsZone.new }
+  its(:zip_prefix) { should be_nil }
 end

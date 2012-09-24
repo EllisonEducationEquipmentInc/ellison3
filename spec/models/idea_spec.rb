@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe Idea do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { Idea.new }
+  its(:use_tabs) { should be_true }
 end

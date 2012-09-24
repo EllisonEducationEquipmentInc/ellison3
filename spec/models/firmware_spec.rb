@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe Firmware do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { Firmware.new }
+  its(:display_order) { should eql(100) }
 end
