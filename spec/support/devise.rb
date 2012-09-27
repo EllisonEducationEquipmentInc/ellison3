@@ -13,4 +13,5 @@ end
 
 RSpec.configure do |config|
   config.include Devise::CapybaraTestHelpers, type: :request
+  config.include Devise::TestHelpers, type: :controller
 end
