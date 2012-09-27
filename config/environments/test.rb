@@ -30,5 +30,9 @@ Ellison3::Application.configure do
   # like if you have constraints or database-specific column types
   # config.active_record.schema_format = :sql
 
-	config.active_support.deprecation = :stderr 
+  config.active_support.deprecation = :stderr
+
+  config.after_initialize do
+    SslRequirement.disable_ssl_check = true
+  end
 end
