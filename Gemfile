@@ -44,6 +44,7 @@ gem 'capistrano'
 
 
 group :test do
+  gem "mongoid-rspec"
   gem 'shoulda-matchers'
   gem 'capybara'
   gem 'capybara-webkit'
@@ -54,11 +55,11 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.11.0'
+  gem 'debugger'
 end
 
 gem "rails3-generators", :group => :development
 group :development do
-  gem "ruby-debug19"
   gem "rack-bug"
   gem 'wirble'
 end

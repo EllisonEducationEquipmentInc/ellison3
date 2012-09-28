@@ -1,0 +1,27 @@
+require 'spec_helper'
+
+feature "Stores", js:true do
+  let(:systems_enabled) { %w[szus szuk eeus eeuk erus] }
+  let(:store_permission) { FactoryGirl.build(:permission, name: "stores", write: true, systems_enabled: systems_enabled) }
+  let(:admin){ FactoryGirl.create(:admin_user, password: "test1234", permissions: [store_permission]) }
+
+  context "edit store" do
+   	scenario "as a admin I should be able to check in which systems a store can be display" do
+   	  store = FactoryGirl.create(:store)
+   	  login_as_admin admin
+   	  visit edit_admin_store_path(store)
+
+  	  systems_enabled.each do |system|
+  	    page.has_unchecked_field?("store_systems_enabled_#{system}").should be_true
+  	    check "store_systems_enabled_#{system}"
+  	  end
+
+  	  click_button "Update Store"
+  	  visit edit_admin_store_path(store)
+
+  	  systems_enabled.each do |system|
+  	    page.has_checked_field?("store_systems_enabled_#{system}").should be_true
+  	  end
+    end
+  end
+end
