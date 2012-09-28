@@ -1,9 +1,4 @@
-ENV['PATH'] = "/usr/local/bin:#{ENV['PATH']}"
 source 'http://rubygems.org'
-source 'http://gemcutter.org'
-source 'http://gems.github.com'
-require 'rubygems'
-require 'csv'
 
 gem 'bundler', '>=1.0.10'
 gem 'rails', '3.0.4'
@@ -19,7 +14,7 @@ gem "mongoid", "2.0.1"
 gem "nifty-generators"
 gem "compass", "0.11.5"
 gem 'RubyInline'
-gem 'image_science', git: 'git://github.com/asynchrony/image_science.git'
+gem 'image_science'
 gem 'carrierwave', '0.5.3'
 gem 'remotipart', '0.4.1'
 gem 'hpricot'
@@ -61,7 +56,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.11.0'
 end
 
-gem "rails3-generators", :group => :development 
+gem "rails3-generators", :group => :development
 group :development do
   gem "ruby-debug19"
   gem "rack-bug"
