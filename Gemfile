@@ -5,7 +5,7 @@ gem 'rails', '3.0.4'
 gem 'mongo_ext'
 gem "bson_ext", "~> 1.5.2"
 gem 'passenger'
-gem 'mysql'
+gem 'rvm-capistrano'
 gem 'haml', '3.1.2'
 gem 'sass'
 gem 'will_paginate', '3.0.3'
