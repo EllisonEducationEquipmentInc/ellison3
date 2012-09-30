@@ -1,12 +1,12 @@
 Ellison3::Application.routes.draw do
-  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
   devise_for :users, :controllers => { :registrations => "users", :sessions => "sessions" }, :format => false
   devise_for :admins, :controllers => {:registrations => "admin/registrations", :sessions => "admin/sessions" }
 
-  # Sets the devise scope to be used in the controller. 
+  # Sets the devise scope to be used in the controller.
   as :user do
     # get "myaccount", :to => "users#myaccount"
     match "myaccount(/:tab)", :to => "users#myaccount", :as => :myaccount, :format => false
@@ -56,7 +56,7 @@ Ellison3::Application.routes.draw do
   match 'products' => 'index#products', :format => false
   match 'home' => 'index#home', :format => false
   match 'latinamerica' => 'index#stores', :format => false
-  
+
   match 'stores' => 'index#stores', :as => :stores, :format => false
   match 'giftcard_balance' => 'index#giftcard_balance', :format => false
   match 'campaigns' => 'index#campaigns', :format => false
@@ -65,23 +65,23 @@ Ellison3::Application.routes.draw do
   match 'event/:id' => 'index#event', :as => :event, :format => false
   match 'catalog' => 'index#catalog', :as => :catalog, :format => false
   match 'outlet' => 'index#shop', :defaults => { :id => 'clearance' }, :as => :clearance, :format => false
-  
+
   # redirects from rails 2 url's
   match 'product/:old_id' => 'index#old_product', :old_id => /\d{1,5}/, :format => false
   match 'idea/:old_id' => 'index#old_idea', :old_id => /\d{1,4}/, :format => false
   match 'catalog/:tag_type/:name' => 'index#old_catalog', :format => false
-  
+
   match 'product/:id' => 'index#product', :id => /[0-9a-f]{24}/, :format => false
   match 'product/:item_num(/:name)' => 'index#product', :as => :product, :format => false
   match 'idea/:id' => 'index#idea', :id => /[0-9a-f]{24}/, :format => false
   match 'idea/:idea_num(/:name)' => 'index#idea', :as => :idea, :format => false
-    
+
   #match 'lesson/:id' => 'index#idea', :as => :idea, :constraints => Proc.new {|obj| obj.is_ee?}
   #match 'project/:id' => 'index#idea', :as => :idea, :constraints => Proc.new {|obj| !obj.is_ee?}
   match 'contact' => 'index#contact', :as => :contact, :format => false
   match 'reply_to_feedback/:id' => 'index#reply_to_feedback', :as => :reply_to_feedback, :format => false
   match 'videos' => 'index#videos', :as => :videos, :format => false
-  
+
   match 'forget_credit_card' => 'carts#forget_credit_card', :as => :forget_credit_card, :format => false
   match 'cart' => 'carts#index', :as => :cart, :format => false
   match 'checkout' => 'carts#checkout', :as => :checkout, :format => false
@@ -92,13 +92,13 @@ Ellison3::Application.routes.draw do
   match 'remove_coupon' => 'carts#remove_coupon', :as => :remove_coupon, :format => false
   match 'remove_order_reference' => 'carts#remove_order_reference', :as => :remove_order_reference, :format => false
   match 'instructions' => 'index#instructions', :format => false
-  
+
   match '/calendar(/:year(/:month))' => 'index#calendar', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}, :format => false
-  
+
   match '/upload/fast_upload' => 'carts#fast_upload', :as => :fast_upload, :format => false
- 
-   
-  
+
+
+
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
@@ -196,7 +196,7 @@ Ellison3::Application.routes.draw do
           post :fast_upload
         end
       end
-      
+
       resources :landing_pages do
         collection do
           get :reorder_visual_assets
@@ -218,14 +218,14 @@ Ellison3::Application.routes.draw do
           post :update_attribute
         end
       end
-      
+
       resources :navigations, :system_settings, :bloggers
       resources :system_settings do
         collection do
           post :save_vat, :save_free_shipping_message
         end
       end
-      
+
       match 'virtual_terminal(/:action(/:id(.:format)))' => "virtual_terminal"
       match 'firmwares(/:action(.:format))' => "firmwares"
       match 'discount_categories(/:action(.:format))' => "discount_categories"
@@ -233,21 +233,21 @@ Ellison3::Application.routes.draw do
       match 'solr(/:action(/:id(.:format)))' => "solr"
     end
 
-      
+
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => "index#home", :format => false
-  
+
   #match "/grid/*path" => Gridfs #"gridfs#serve"
   # match "/solr_terms/:term" => SolrTerms
-  
+
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   #match ':controller(/:action(/:id(.:format)))'
   #match ':controller(/:action(.:format))'
-  
+
   match 'admin' => 'admin#index', :format => false, as: :admin
 
   match ':controller(/:action(/:id))', :format => false
@@ -256,7 +256,7 @@ Ellison3::Application.routes.draw do
   match "carts/quote_2_order/:id(.:format)" => "carts#quote_2_order"
   match 'index/:action' => 'index', :format => false
   match 'carts/:action' => 'carts', :format => false
-  
+
   # static and 404 pages middleware route
   match "*path.html" => "static_pages#serve", :format => false
 

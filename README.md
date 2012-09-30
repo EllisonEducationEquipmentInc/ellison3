@@ -22,15 +22,17 @@ Basic prerequisites include Ruby, git, RVM and Homebrew installed.
     ```
     brew install mongodb
     ```
- 
+
 #### Ubuntu/Debian
+
+You will need to sudo apt-get install libfreeimage-dev for the image_science dependency,
+otherwise you'll run into a missing dependency: FreeImage.h.
 
 #### Common
 
 1. Initialize configuration files
 
     ```
-    cp config/database.example config/database.yml
     cp config/memcached.example config/memcached.rb
     cp config/mongoid.example config/mongoid.yml
     cp config/newrelic.example config/newrelic.yml
