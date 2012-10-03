@@ -36,6 +36,7 @@ class Store
   field :website
   field :keyword
   field :internal_comments
+  field :systems_enabled, :type => Array
   
 	field :created_by
 	field :updated_by
@@ -60,7 +61,6 @@ class Store
   
   before_save :get_geo_location, :if => Proc.new {|obj| obj.physical_store}
   
-  scope :active, :where => { :active => true }
   scope :physical_stores, :where => { :physical_store => true }
   scope :webstores, :where => { :webstore => true }
   scope :distributors, :where => { :agent_type => "Distributor" }
@@ -73,6 +73,10 @@ class Store
     update_attribute :active, false
   end
   
+  def self.active
+    where(active: true, :systems_enabled.in => [ current_system ])
+  end
+
 private  
 
   def get_geo_location

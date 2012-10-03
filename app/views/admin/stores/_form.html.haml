@@ -5,6 +5,9 @@
     %br
     = f.check_box :active
   .field
+    = required_label f, :systems_enabled, { :label => "Enabled for", :label_size => "auto" }
+    = system_enabled('store')
+  .field
     = f.label :store_number
     %br
     = f.text_field :store_number
