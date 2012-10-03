@@ -1,4 +1,4 @@
-%h2= is_er? ? "Distributor Locator" : is_us? ? "Store Locator" : is_uk? ? "Stockist List" : "Store Locator"
+%h2= store_locator_title
 - content_for :gmap_header do
   = javascript_include_tag 'http://maps.google.com/maps/api/js?v=3.3&sensor=false'
   = javascript_include_tag '/javascripts/vendor/markermanager.js'

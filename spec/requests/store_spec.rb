@@ -37,4 +37,39 @@ feature "Stores", js:true do
       end
     end
   end
+
+  context "Store locator tabs" do
+
+    scenario "when no physical stores I should not see stores tab" do
+      visit stores_path
+      page.should_not have_xpath("//a[@href='#stores']")
+    end
+
+    scenario "when physical stores I should see stores tab" do
+      store1 = FactoryGirl.create(:store, systems_enabled: %w[szus szuk eeus eeuk erus],
+        physical_store: true, product_line: ["Sizzix", "eclipse"])
+
+      visit stores_path
+      page.should have_xpath("//a[@href='#stores']")
+      page.should_not have_xpath("//a[@href='#online_resellers']")
+    end
+
+    scenario "when distributors I should see stores tab" do
+      store1 = FactoryGirl.create(:store, systems_enabled: %w[szus szuk eeus eeuk erus],
+        physical_store: true, product_line: ["Sizzix", "eclipse"])
+
+      visit stores_path
+      page.should have_xpath("//a[@href='#stores']")
+      page.should_not have_xpath("//a[@href='#online_resellers']")
+    end
+
+    scenario "when no distributors I should see stores tab" do
+      store1 = FactoryGirl.create(:store, systems_enabled: %w[szus szuk eeus eeuk erus],
+        physical_store: true, product_line: ["Sizzix", "eclipse"])
+
+      visit stores_path
+      page.should have_xpath("//a[@href='#stores']")
+      page.should_not have_xpath("//a[@href='#online_resellers']")
+    end
+  end
 end

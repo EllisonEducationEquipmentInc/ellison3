@@ -21,4 +21,8 @@ module IndexHelper
       link_to event.name, catalog_path(:anchor => "facets=#{event.facet_param}&ideas=1")
     end
   end
+
+  def store_locator_title
+    is_er? ? "Distributor Locator" : is_us? ? "Store Locator" : is_uk? ? "Stockist List" : "Store Locator"
+  end
 end
