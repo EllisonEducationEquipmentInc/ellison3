@@ -23,6 +23,14 @@ module IndexHelper
   end
 
   def store_locator_title
-    is_er? ? "Distributor Locator" : is_us? ? "Store Locator" : is_uk? ? "Stockist List" : "Store Locator"
+    if is_us?
+      "Store Locator"
+    elsif is_uk?
+      "Stockist List"
+    elsif is_er?
+      "Distributor Locator"
+    else
+      "Store Locator"
+    end
   end
 end
