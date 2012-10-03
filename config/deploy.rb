@@ -28,11 +28,11 @@ after "deploy:start", "delayed_job:start"
 
 desc "Application symlinks"
 task :custom_symlink, :roles => :app, :except => {:no_release => true, :no_symlink => true} do
-   run "ln -nfs #{shared_path}/images/ #{release_path}/public/images"
-   run "ln -nfs #{shared_path}/config/newrelic.yml #{latest_release}/config/newrelic.yml"
-   run "ln -nfs #{shared_path}/config/mongoid.yml #{latest_release}/config/mongoid.yml"
-   run "ln -nfs #{shared_path}/config/memcached.rb #{latest_release}/config/memcached.rb"
-   run "ln -nfs #{shared_path}/config/sunspot.yml #{latest_release}/config/sunspot.yml"
+  run "ln -nfs #{shared_path}/images/ #{release_path}/public/images"
+  run "ln -nfs #{shared_path}/config/newrelic.yml #{latest_release}/config/newrelic.yml"
+  run "ln -nfs #{shared_path}/config/mongoid.yml #{latest_release}/config/mongoid.yml"
+  run "ln -nfs #{shared_path}/config/memcached.rb #{latest_release}/config/memcached.rb"
+  run "ln -nfs #{shared_path}/config/sunspot.yml #{latest_release}/config/sunspot.yml"
 end
 
 desc "incremental custom migrations"

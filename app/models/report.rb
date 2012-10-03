@@ -2,7 +2,7 @@ class Report
   include EllisonSystem
   include Mongoid::Document
   include Mongoid::Timestamps
-  
+
   field :file_name
   field :complete, :type => Boolean, :default => false
   field :percent, :type => Integer, :default => 0
@@ -12,15 +12,15 @@ class Report
   field :start_date, :type => DateTime
   field :end_date, :type => DateTime
   field :system
-  
+
   validates_presence_of :file_name
-  
+
   def initialize(attrs = nil)
     super
     set_current_system self.system || current_system
     self.file_name ||= "reports/#{id}/#{Digest::SHA1.hexdigest("#{id}-#{Time.now.to_f}")}.csv"
   end
-  
+
   def order_analysis
     set_current_system self.system || current_system
     self.report_type = "order_analysis"
@@ -38,9 +38,9 @@ class Report
     write_to_gridfs csv_string
     completed!
   rescue Exception => e
-    Rails.logger.error("#{e}")  
+    Rails.logger.error("#{e}")
   end
-  
+
   def campaign_coupon_usage(campaign, report_type = "campaign")
     set_current_system self.system || current_system
     self.report_type = "#{report_type}_usage"
@@ -58,9 +58,9 @@ class Report
     write_to_gridfs csv_string
     completed!
   rescue Exception => e
-    Rails.logger.error("#{e}")  
+    Rails.logger.error("#{e}")
   end
-  
+
   def shipping_coupon_usage(coupon)
     set_current_system self.system || current_system
     self.report_type = "shipping_coupon_usage"
@@ -78,9 +78,9 @@ class Report
     write_to_gridfs csv_string
     completed!
   rescue Exception => e
-    Rails.logger.error("#{e}")  
+    Rails.logger.error("#{e}")
   end
-  
+
   def product_performance(tag)
     set_current_system self.system || current_system
     self.report_type = "product_performance"
@@ -100,7 +100,7 @@ class Report
   rescue Exception => e
     Rails.logger.error("#{e}")
   end
-  
+
   def customer_report(tag)
     set_current_system self.system || current_system
     self.report_type = "customer_report"
@@ -165,11 +165,11 @@ class Report
     Rails.logger.error("#{e}")
   end
 
-private
+  private
 
   def modulo
     m = self.total_count/10
-    case 
+    case
     when m < 2
       2
     when m > 50
@@ -188,8 +188,8 @@ private
     self.percent = 100
     save!
     Rails.logger.info("--- #{self.file_name} report completed")
-  end  
-  
+  end
+
   def write_to_gridfs(data)
     Mongo::GridFileSystem.new(Mongoid.database).open(file_name, 'w') do |gridfs_file|
       gridfs_file.write data

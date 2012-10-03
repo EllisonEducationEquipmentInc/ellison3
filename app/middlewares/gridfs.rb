@@ -1,11 +1,11 @@
 require 'mongo'
 
 class Gridfs
-  
-  def initialize(app)  
-    @app = app  
+
+  def initialize(app)
+    @app = app
   end
-  
+
   def call(env)
     if env["PATH_INFO"] =~ /^\/grid\/(.+)$/
       gridfs_path = $1
@@ -21,17 +21,17 @@ class Gridfs
             etags = etags.split(/\s*,\s*/)
             fresh = false if etags.include?(etag) || etags.include?('*')
           end
-          
+
           response_headers = {'Content-Type' => gridfs_file.content_type, "ETag" => etag,
-              "Cache-Control" => "public, max-age=315360000", "Date" => Time.now.httpdate, "Last-Modified" => gridfs_file.upload_date.httpdate}
-              
+            "Cache-Control" => "public, max-age=315360000", "Date" => Time.now.httpdate, "Last-Modified" => gridfs_file.upload_date.httpdate}
+
           if fresh
             response_headers["Content-Length"] = "#{gridfs_file.file_length}"
             [200, response_headers, [gridfs_file.read]]
           else
             return [304, response_headers, []]
           end
-        end  
+        end
       rescue Exception => e
         [404, {'Content-Type' => 'text/plain'}, ["File not found. #{e}"]]
       end

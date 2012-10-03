@@ -2,16 +2,16 @@ class Campaign
   include EllisonSystem
   include Mongoid::Document
   include Mongoid::Timestamps
-  
+
   DISCOUNT_TYPES = [["Percent", 0], ["Absolute", 1], ["Fixed", 2]]
-  
+
   # validations
   validates :name, :start_date, :end_date, :systems_enabled, :presence => true
   validates_numericality_of :discount, :greater_than => 0.0, :if => Proc.new {|obj| !obj.individual}
   validates_presence_of :discount, :discount_type, :if => Proc.new {|obj| !obj.individual}
-  
+
   accepts_nested_attributes_for :individual_discounts, :allow_destroy => true, :reject_if => proc { |attributes| !attributes['product_id'].valid_bson_object_id? || attributes['discount'].blank?}
-  
+
   # field definitions
   field :name
   field :code
@@ -23,35 +23,35 @@ class Campaign
   field :discount_type, :type => Integer, :default => 0
   field :systems_enabled, :type => Array
   field :individual, :type => Boolean, :default => false
-  
+
   field :created_by
-	field :updated_by
-  
+  field :updated_by
+
   # associations
   embedded_in :product, :inverse_of => :campaigns
   embedded_in :tag, :inverse_of => :campaign
   embeds_many :individual_discounts
-    
+
   validates_associated :individual_discounts
-  
+
   # after_validation :trigger_reindex_callback
-    
+
   def available?(options = {})
     time = options[:time] || Time.zone.now
     sys = options[:system] || current_system
     start_date <= time && end_date > time && active && systems_enabled.include?(sys)
   end
-  
+
   def not_expired?(time = Time.zone.now)
     end_date > time && active
   end
-  
+
   def discount_name
     DISCOUNT_TYPES[discount_type][0]
   rescue
-    nil 
+    nil
   end
-  
+
   def sale_price(options = {})
     return unless product
     if discount_type == 0
@@ -62,18 +62,18 @@ class Campaign
       discount
     end
   end
-  
+
   def reindex?
     self.changed? && self.changed.any? {|e| (["systems_enabled", "active", "discount_type", "discount"]).include?(e)}
   end
-  
+
   def scheduled_reindex
     new_record? ? [self.start_date, self.end_date] : self.changed.select {|e| (["start_date", "end_date"]).include?(e)}.map { |m| self.send(m) }.uniq
   end
-  
+
   def trigger_reindex_callback
     Rails.logger.info "trigger_reindex_callback"
     self.product.send(:reindex?) if self.product.present?
   end
-  
+
 end
