@@ -6,7 +6,7 @@ describe Store do
   describe "initialization" do
     its(:physical_store) { should be_false }
     its(:product_line)   { should eql([]) }
-    its(:webstore) { should be_false }
+    its(:catalog_company) { should be_false }
     its(:webstore) { should be_false }
     its(:active)   { should be_true }
   end

@@ -16,6 +16,7 @@ class Store
   field :logo_url
   field :webstore, :type => Boolean, :default => false
   field :physical_store, :type => Boolean, :default => false
+  field :catalog_company, :type => Boolean, :default => false
   field :brands, :type => Array
   field :product_line, :type => Array, :default => []
   field :agent_type

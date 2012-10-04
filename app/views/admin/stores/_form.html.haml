@@ -36,6 +36,10 @@
     %br
     = f.check_box :physical_store
   .field
+    = f.label :catalog_company, "Catalog Company"
+    %br
+    = f.check_box :catalog_company
+  .field
     = f.label :brands
     %br
     = select_tag :"store[brands][]", options_for_select(Store::BRANDS, @store.brands), :multiple => true
@@ -47,10 +51,6 @@
     = f.label :agent_type
     %br
     = f.select :agent_type, Store::AGENT_TYPES
-  .field
-    = f.label :authorized_reseller_type
-    %br
-    = f.text_field :authorized_reseller_type
   .field
     = f.label :excellence_level
     %br
