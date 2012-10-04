@@ -1,12 +1,12 @@
 class Account
   include EllisonSystem
   include Mongoid::Document
-	include Mongoid::Timestamps
-	
-	references_many :users, :autosave => true, :index => true
-	
-	field :active, :type => Boolean, :default => true
-	field :school
+  include Mongoid::Timestamps
+
+  references_many :users, :autosave => true, :index => true
+
+  field :active, :type => Boolean, :default => true
+  field :school
   field :name
   field :city
   field :erp
@@ -30,10 +30,10 @@ class Account
   field :email
   field :old_id, :type => Integer
   field :old_id_uk, :type => Integer
-  
+
   index :old_id
   index :old_id_uk
-  
+
   def destroy
     update_attribute :active, false
   end

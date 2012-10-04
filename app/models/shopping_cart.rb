@@ -1,33 +1,33 @@
 module ShoppingCart
   module ClassMethods
-    
+
   end
-  
+
   module InstanceMethods
-    
+
     class RealTimeCartError < StandardError; end #:nodoc
-    
-  private 
-    
+
+    private
+
     def get_cart
       @cart ||= (Cart.find(session[:shopping_cart]) rescue Cart.new)
       session[:shopping_cart] = @cart.id.to_s
       @cart
     end
-    
+
     def add_2_cart(product, qty = 1)
       if item = get_cart.cart_items.find_item(product.item_num)
         item.quantity += qty
       else
-        get_cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.outlet? ? product.price : product.sale_price, :msrp => product.msrp_or_wholesale_price, :price => product.price, 
-          :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product => product, :weight => product.virtual_weight, :actual_weight => product.weight, :retailer_price => product.retailer_price,
-          :tax_exempt => product.tax_exempt, :gift_card => product.gift_card, :handling_price => product.handling_price, :pre_order => product.pre_order?, :out_of_stock => product.out_of_stock?, :minimum_quantity => product.minimum_quantity, :campaign_name => product.campaign_name, :outlet => product.outlet?)
+        get_cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.outlet? ? product.price : product.sale_price, :msrp => product.msrp_or_wholesale_price, :price => product.price,
+                                            :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product => product, :weight => product.virtual_weight, :actual_weight => product.weight, :retailer_price => product.retailer_price,
+                                            :tax_exempt => product.tax_exempt, :gift_card => product.gift_card, :handling_price => product.handling_price, :pre_order => product.pre_order?, :out_of_stock => product.out_of_stock?, :minimum_quantity => product.minimum_quantity, :campaign_name => product.campaign_name, :outlet => product.outlet?)
       end
       get_cart.reset_tax_and_shipping true
       get_cart.apply_coupon_discount
       session[:shopping_cart] ||= get_cart.id.to_s
     end
-    
+
     def change_qty(item_num, qty)
       cart_item = get_cart.cart_items.find_item(item_num)
       return cart_item if is_er? && cart_item.minimum_quantity > qty
@@ -36,7 +36,7 @@ module ShoppingCart
       get_cart.apply_coupon_discount
       cart_item
     end
-    
+
     def remove_cart(item_num)
       cart_item = get_cart.cart_items.find_item(item_num)
       cart_item.delete
@@ -44,24 +44,24 @@ module ShoppingCart
       get_cart.apply_coupon_discount
       cart_item.id.to_s
     end
-    
+
     def clear_cart
       get_cart.clear
       session[:shopping_cart], @cart = nil
     end
-    
+
     def cart_to_order(options = {})
       @order = cart_to_order_or_quote(:order, options)
     end
-    
+
     def cart_to_quote(options = {})
       @quote = cart_to_order_or_quote(:quote, options)
     end
-    
+
     def cart_to_order_or_quote(klass, options = {})
       order = klass.to_s.classify.constantize.new(:id => options[:order_id], :subtotal_amount => get_cart.sub_total, :shipping_amount => calculate_shipping(options[:address]), :handling_amount => calculate_handling, :tax_amount => calculate_tax(options[:address]), :coupon_code => get_cart.coupon_code,
-                    :tax_transaction => get_cart.reload.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at, :locale => current_locale, :shipping_service => get_cart.shipping_service, :order_reference => get_cart.order_reference, :vat_percentage => vat, :vat_exempt => vat_exempt?, 
-                    :tax_exempt => tax_exempt?, :tax_exempt_number => tax_exempt? ? get_user.tax_exempt_certificate : nil, :total_discount => gross_price(get_cart.total_discount), :free_shipping_by_coupon => get_cart.free_shipping_by_coupon)
+                                                  :tax_transaction => get_cart.reload.tax_transaction, :tax_calculated_at => get_cart.tax_calculated_at, :locale => current_locale, :shipping_service => get_cart.shipping_service, :order_reference => get_cart.order_reference, :vat_percentage => vat, :vat_exempt => vat_exempt?,
+                                                  :tax_exempt => tax_exempt?, :tax_exempt_number => tax_exempt? ? get_user.tax_exempt_certificate : nil, :total_discount => gross_price(get_cart.total_discount), :free_shipping_by_coupon => get_cart.free_shipping_by_coupon)
       order.coupon = get_cart.coupon
       if get_cart.cod?
         order.cod_account_type = get_user.cod_account_type
@@ -69,19 +69,19 @@ module ShoppingCart
       end
       get_cart.cart_items.each do |item|
         order.order_items << OrderItem.new(:name => item.name, :item_num => item.item_num, :sale_price => item.price, :quoted_price => item.msrp, :quantity => item.quantity, :gift_card => item.gift_card,
-            :locale => item.currency, :product => item.product, :tax_exempt => item.tax_exempt, :discount => item.msrp - item.price, :custom_price => item.custom_price, :outlet => item.product.outlet?,
-            :coupon_price => item.coupon_price, :coupon_name => item.coupon_name, :coupon_code => order.coupon_code.present? && item.coupon_price ? order.coupon_code : nil, :vat => calculate_vat(item.price), :vat_percentage => vat, :vat_exempt => vat_exempt?, :upsell => item.upsell, :campaign_name => item.campaign_name)
+                                           :locale => item.currency, :product => item.product, :tax_exempt => item.tax_exempt, :discount => item.msrp - item.price, :custom_price => item.custom_price, :outlet => item.product.outlet?,
+                                           :coupon_price => item.coupon_price, :coupon_name => item.coupon_name, :coupon_code => order.coupon_code.present? && item.coupon_price ? order.coupon_code : nil, :vat => calculate_vat(item.price), :vat_percentage => vat, :vat_exempt => vat_exempt?, :upsell => item.upsell, :campaign_name => item.campaign_name)
       end
       order.address ||= get_user.shipping_address.clone
       order
     end
-    
+
     def order_to_cart(order)
       get_cart
       order.order_items.each do |item|
         cart_item = CartItem.new(:price => item.sale_price, :small_image => item.product.small_image, :added_at => Time.now, :pre_order => item.product.pre_order?, :gift_card => item.product.gift_card,
-          :out_of_stock => item.product.out_of_stock?, :weight => item.product.virtual_weight, :actual_weight => item.product.weight, :msrp => item.product.msrp_or_wholesale_price, :minimum_quantity => item.product.minimum_quantity, 
-          :retailer_price => item.product.retailer_price, :currency => item.locale )
+                                 :out_of_stock => item.product.out_of_stock?, :weight => item.product.virtual_weight, :actual_weight => item.product.weight, :msrp => item.product.msrp_or_wholesale_price, :minimum_quantity => item.product.minimum_quantity,
+                                 :retailer_price => item.product.retailer_price, :currency => item.locale )
         cart_item.copy_common_attributes item
         cart_item.custom_price = true if cart_item.price != item.product.price
         get_cart.cart_items << cart_item
@@ -90,13 +90,13 @@ module ShoppingCart
       get_cart.coupon_code = order.coupon_code
       get_cart.save
     end
-    
+
     # defines logic if payment of an order can be run, or payment has to be tokenized first and payment has to be run manually
     def payment_can_be_run?
       #@order.gift_card? || (!(backorder_allowed? && @order.order_items.any? {|e| e.product.out_of_stock?(current_system, e.quantity)}) && (is_sizzix? || (is_er? && @order && @order.address)) && !@order.payment.try(:purchase_order))
       !(backorder_allowed? && @order.order_items.any? {|e| e.product.out_of_stock?(current_system, e.quantity)}) && (is_sizzix? || (is_er? && @order && @order.address)) && !@order.payment.try(:purchase_order)
     end
-    
+
     def process_order(order)
       order.user = get_user
       order.ip_address = request.remote_ip
@@ -127,8 +127,8 @@ module ShoppingCart
       gift_card_msg = order.respond_to?(:gift_card) && order.gift_card.present? ? "<br><br>Please do not discard your used Sizzix/Ellison Gift Card until you are completely satisfied with your purchases. The value of returned or partially returned merchandise that is purchased using a Gift Card (or a Gift Card and a credit card) will be credited to a Gift Card first, with any remaining balance applied to a credit card." : ''
       flash[:notice] = "Thank you for your #{order.is_a?(Order) ? 'order' : quote_name.downcase}.  Below is your #{order.is_a?(Order) ? 'order' : quote_name} receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email. #{gift_card_msg}".html_safe
     end
-    
-    # shipping logic: 
+
+    # shipping logic:
     #   SZUS:  Shipping Rates (cart subtotal based)
     #   ER: domestic - US Shipping Rates (by weight/zone), international - real fedex call.
     #   SZUK, EEUK: Shipping Rates (cart subtotal based)
@@ -137,12 +137,12 @@ module ShoppingCart
       return get_cart.shipping_amount if get_cart.shipping_amount && get_cart.shipping_calculated_at > 1.hour.ago
       @shipping_discount_percentage = 0.0
       coupon = if get_cart.coupon.present? && get_cart.coupon.shipping? && get_cart.coupon_conditions_met? && get_cart.shipping_conditions_met?(address)
-        get_cart.coupon
-      elsif get_cart.coupon.present? && get_cart.coupon.group? && get_cart.coupon_conditions_met? && get_cart.coupon.children.detect {|c| c.shipping? && get_cart.coupon_conditions_met?(c) && get_cart.shipping_conditions_met?(address, c)}.present?
-        get_cart.coupon.children.detect {|c| c.shipping? && get_cart.coupon_conditions_met?(c) && get_cart.shipping_conditions_met?(address, c)}
-      else
-        shipping_promotion_coupon_discount(address)
-      end
+                 get_cart.coupon
+               elsif get_cart.coupon.present? && get_cart.coupon.group? && get_cart.coupon_conditions_met? && get_cart.coupon.children.detect {|c| c.shipping? && get_cart.coupon_conditions_met?(c) && get_cart.shipping_conditions_met?(address, c)}.present?
+                 get_cart.coupon.children.detect {|c| c.shipping? && get_cart.coupon_conditions_met?(c) && get_cart.shipping_conditions_met?(address, c)}
+               else
+                 shipping_promotion_coupon_discount(address)
+               end
       if coupon.present?
         if coupon.free_shipping
           get_cart.update_attributes :free_shipping_by_coupon => true, :shipping_calculated_at => Time.now, :shipping_amount => 0.0, :shipping_service => "STANDARD", :shipping_rates => [{:name => "STANDARD", :type => "STANDARD", :currency => current_currency, :rate => 0.0}]
@@ -161,7 +161,7 @@ module ShoppingCart
       # options[:package_width] ||= (get_cart.total_volume**(1.0/3.0)).round
       # options[:package_height] ||= (get_cart.total_volume**(1.0/3.0)).round
       if is_er_us? #is_us? && !is_ee? #address.us?
-        us_shipping_rate(address, options) || fedex_rate(address, options) 
+        us_shipping_rate(address, options) || fedex_rate(address, options)
       else
         shipping_rate(address, options)
       end
@@ -172,12 +172,12 @@ module ShoppingCart
       get_cart.update_attributes :shipping_calculated_at => Time.now, :shipping_amount => rate, :shipping_service => @shipping_service, :shipping_rates => @rates ? fedex_rates_to_a(@rates, @shipping_discount_percentage) : [{:name => @shipping_service, :type => @shipping_service, :currency => current_currency, :rate => rate}]
       rate
     end
-    
+
     # get eligible shipping coupons that don't require coupon code
     def shipping_promotion_coupon_discount(address)
       Coupon.available.no_code_required.by_location(address).detect {|e| get_cart.coupon_conditions_met?(e)}
     end
-    
+
     # convert an array of Shippinglogic::FedEx::Rate::Service elements to an array of hashes that can be saved in the db
     def fedex_rates_to_a(rates, shipping_discount_percentage = 0.0)
       a = []
@@ -189,42 +189,42 @@ module ShoppingCart
       end
       a
     end
-    
+
     def get_delayed_shipping
       tries = 0
       get_cart
       while @cart.shipping_amount.blank? && tries < 5
         Rails.logger.info "CCH: waiting for shipping amount..."
         tries += 1
-        sleep(2**tries) 
+        sleep(2**tries)
         @cart = get_cart.reload
       end
       get_cart.shipping_amount
     end
-    
+
     # only for systems where shipping is NOT weight based
     def calculate_handling
       !is_er? ? get_cart.handling_amount : 0.0
     end
-    
+
     def calculate_tax(address, options={})
       return get_cart.tax_amount if get_cart.tax_amount && get_cart.tax_calculated_at && get_cart.tax_calculated_at > 1.hour.ago
       total_tax = if !get_cart.gift_card? && is_us? && (calculate_tax?(address.state) || address.country == 'Canada')
-        cch_sales_tax(address)
-        @cch.total_tax.to_f    
-      elsif is_uk? 
-        calculate_vat(get_cart.sub_total, vat_exempt?)
-      else
-        0.0
-      end
-      get_cart.update_attributes :tax_amount => total_tax, :tax_transaction => @cch ? @cch.transaction_id : nil, :tax_calculated_at => Time.zone.now #, :vat_percentage => 
+                    cch_sales_tax(address)
+                    @cch.total_tax.to_f
+                  elsif is_uk?
+                    calculate_vat(get_cart.sub_total, vat_exempt?)
+                  else
+                    0.0
+                  end
+      get_cart.update_attributes :tax_amount => total_tax, :tax_transaction => @cch ? @cch.transaction_id : nil, :tax_calculated_at => Time.zone.now #, :vat_percentage =>
       total_tax
     end
-    
+
     def calculate_shipping_and_handling
       calculate_shipping + calculate_handling
     end
-    
+
     # US shipping rates based on weight + Fedex zones
     def us_shipping_rate(address, options={})
       return false unless address.us?
@@ -241,7 +241,7 @@ module ShoppingCart
       end
       @rates
     end
-    
+
     # shipping rates based on cart subtotal
     def shipping_rate(address, options={})
       shipping_subtotal_amount = options[:subtotal_amount] || subtotal_cart
@@ -254,7 +254,7 @@ module ShoppingCart
           else
             'Please try again later.'
           end
-        raise "Unable to calculate shipping. #{msg}" 
+        raise "Unable to calculate shipping. #{msg}"
       end
       @rates = []
       standard = Shippinglogic::FedEx::Rate::Service.new
@@ -269,26 +269,26 @@ module ShoppingCart
       end
       @rates
     end
-    
+
     #
     # Calculates fedex shipping rates based on shipping address and weight.
     # first argument should be an Address object.
     # available options:
     #   :request_type    #=> 'ACCOUNT' (default) or 'LIST'
-    #   :residential     #=> true or false (default)  
+    #   :residential     #=> true or false (default)
     #   :weight         #=> weight in lbs (required)
     #   :service        #=> fedex service type: "FEDEX_GROUND" (default), "GROUND_HOME_DELIVERY", "FEDEX_EXPRESS_SAVER", "FEDEX_2_DAY", "STANDARD_OVERNIGHT", "PRIORITY_OVERNIGHT", "FIRST_OVERNIGHT", "FEDEX_2_DAY_SATURDAY_DELIVERY", "PRIORITY_OVERNIGHT_SATURDAY_DELIVERY", "FEDEX_3_DAY_FREIGHT", "FEDEX_2_DAY_FREIGHT", "FEDEX_1_DAY_FREIGHT", "FEDEX_3_DAY_FREIGHT_SATURDAY_DELIVERY", "FEDEX_2_DAY_FREIGHT_SATURDAY_DELIVERY", "FEDEX_1_DAY_FREIGHT_SATURDAY_DELIVERY", "INTERNATIONAL_GROUND", "INTERNATIONAL_ECONOMY", "INTERNATIONAL_PRIORITY", "INTERNATIONAL_FIRST", "INTERNATIONAL_PRIORITY_SATURDAY_DELIVERY", "INTERNATIONAL_ECONOMY_FREIGHT", "INTERNATIONAL_PRIORITY_FREIGHT"
     #   :packaging_type #=> "FEDEX_ENVELOPE", "FEDEX_PAK", "FEDEX_BOX" (default), "FEDEX_TUBE", "FEDEX_10KG_BOX", "FEDEX_25KG_BOX", "YOUR_PACKAGING" - needs package dimensions (:package_length => 12, :package_width => 12, :package_height => 12)
-    def fedex_rate(address, options={})      
-      Rails.logger.info "Getting Fedex rate for #{address.inspect}"                      
+    def fedex_rate(address, options={})
+      Rails.logger.info "Getting Fedex rate for #{address.inspect}"
       @fedex = Shippinglogic::FedEx.new(FEDEX_AUTH_KEY, FEDEX_SECURITY_CODE, FEDEX_ACCOUNT_NUMBER, FEDEX_METER_NUMBER, :test => false)
-      @rates = @fedex.rate(:service_type => options[:service_type], :shipper_company_name => "Ellison", :shipper_streets => '25862 Commercentre Drive', :shipper_city => 'Lake Forest', :shipper_state => 'CA', :shipper_postal_code => "92630", :shipper_country => "US", 
-                          :recipient_name => "#{address.first_name} #{address.last_name}", :recipient_company_name => address.company, :recipient_streets => "#{address.address1} #{address.address2}", :recipient_city => address.city,  :recipient_postal_code => address.zip_code, :recipient_state => address.with_state? ? address.state : nil, :recipient_country => country_2_code(address.country), :recipient_residential => options[:residential], 
-                          :package_weight => options[:weight], :rate_request_types => options[:request_type] || "ACCOUNT", :packaging_type => options[:packaging_type] || "FEDEX_BOX", :package_length => options[:package_length] || 12, :package_width => options[:package_width] || 12, :package_height => options[:package_height] || 12, :ship_time => options[:ship_time] || skip_weekends(Time.now, 3.days), :package_count => options[:package_count] || 1)                          
+      @rates = @fedex.rate(:service_type => options[:service_type], :shipper_company_name => "Ellison", :shipper_streets => '25862 Commercentre Drive', :shipper_city => 'Lake Forest', :shipper_state => 'CA', :shipper_postal_code => "92630", :shipper_country => "US",
+                          :recipient_name => "#{address.first_name} #{address.last_name}", :recipient_company_name => address.company, :recipient_streets => "#{address.address1} #{address.address2}", :recipient_city => address.city,  :recipient_postal_code => address.zip_code, :recipient_state => address.with_state? ? address.state : nil, :recipient_country => country_2_code(address.country), :recipient_residential => options[:residential],
+                          :package_weight => options[:weight], :rate_request_types => options[:request_type] || "ACCOUNT", :packaging_type => options[:packaging_type] || "FEDEX_BOX", :package_length => options[:package_length] || 12, :package_width => options[:package_width] || 12, :package_height => options[:package_height] || 12, :ship_time => options[:ship_time] || skip_weekends(Time.now, 3.days), :package_count => options[:package_count] || 1)
       raise "unable to calculate shipping rates. please check your shipping address or call customer service to place an order." if @rates.blank?
       @rates
     end
-    
+
     def cch_sales_tax(customer, options = {})
       Rails.logger.info "Getting CCH tax for #{customer.inspect}"
       options[:shipping_charge] ||= calculate_shipping(customer, options) #get_delayed_shipping
@@ -302,38 +302,38 @@ module ShoppingCart
         tries += 1
         @cch = CCH::Cch.new(:action => 'calculate', :cart => options[:cart], :confirm_address => options[:confirm_address],  :customer => customer, :handling_charge => options[:handling_charge], :shipping_charge => options[:shipping_charge], :exempt => options[:exempt], :tax_exempt_certificate => options[:tax_exempt_certificate])
       rescue Timeout::Error => e
-        if tries < 4     
-          sleep(2**tries)            
-          retry                      
+        if tries < 4
+          sleep(2**tries)
+          retry
         end
         Rails.logger.error "!!! CCH Timed out. Retrying..."
       end
     end
-    
+
     def tax_from_order(order, refund = false)
       if !order.gift_card? && calculate_tax?(order.address.state)
         set_current_system order.system
         @cch = CCH::Cch.new(:action => refund ? 'ProcessAttributedReturn' : 'calculate', :customer => order.address, :shipping_charge => order.shipping_amount, :handling_charge => order.handling_amount, :total => order.subtotal_amount, :transaction_id => order.tax_transaction, :exempt => order.user.tax_exempt?, :tax_exempt_certificate => order.user.tax_exempt_certificate )
-        order.update_attributes(:tax_transaction => @cch.transaction_id, :tax_calculated_at => Time.zone.now,  :tax_amount => @cch.total_tax, :tax_exempt => order.user.tax_exempt?, :tax_exempt_number => order.user.tax_exempt_certificate) if !refund && @cch && @cch.success? 
+        order.update_attributes(:tax_transaction => @cch.transaction_id, :tax_calculated_at => Time.zone.now,  :tax_amount => @cch.total_tax, :tax_exempt => order.user.tax_exempt?, :tax_exempt_number => order.user.tax_exempt_certificate) if !refund && @cch && @cch.success?
       end
     end
-    
+
     def subtotal_cart
       gross_price get_cart.sub_total
     end
-    
+
     def shipping_vat
       calculate_vat get_cart.shipping_amount
     end
-    
+
     def total_cart
       (get_cart.sub_total + get_cart.tax_amount + get_cart.shipping_amount + calculate_handling + shipping_vat).round(2)
     end
-    
+
     def calculate_tax?(state)
       %w(CA CO IN TX WA UT).include?(state)
     end
-    
+
     def calculate_setup_fee(subtotal, shipping_and_handling, tax)
       total = subtotal + shipping_and_handling + tax
       monthly_payment = (subtotal/(Payment::NUMBER_OF_PAYMENTS + 1.0)).round(2)
@@ -371,12 +371,12 @@ module ShoppingCart
           :email => billing.email,
           :billing_address => {:name => billing.first_name + ' ' + billing.last_name, :address1 => billing.address1, :city => billing.city, :state => billing.state, :country => country_2_code(billing.country), :zip => billing.zip_code, :phone => billing.phone}
         }
-        gw_options[:currency] = is_gbp? ? "GBP" : "EUR" 
+        gw_options[:currency] = is_gbp? ? "GBP" : "EUR"
       end
       amount_to_charge = tokenize_only ? 0 : amount.to_i #? amount : (total_cart * 100 ).to_i
       timeout(50) do
         if options[:capture] && !billing.deferred && !billing.use_saved_credit_card && !billing.save_credit_card && !tokenize_only && !options[:use_payment_token]
-          @net_response = @gateway.purchase(amount_to_charge, credit_card, gw_options)  
+          @net_response = @gateway.purchase(amount_to_charge, credit_card, gw_options)
         elsif (billing.save_credit_card || tokenize_only) && !billing.use_saved_credit_card && !options[:use_payment_token]
           gw_options.merge!(:number_of_payments => 0, :frequency=> "on-demand", :shipping_address => {}, :start_date => Time.zone.now.strftime("%Y%m%d"),  :subscription_title => "#{credit_card.first_name} #{credit_card.last_name}", :setup_fee => amount_to_charge)
           @net_response = @gateway.recurring_billing(0, credit_card, gw_options)
@@ -389,14 +389,14 @@ module ShoppingCart
           @payment.paid_amount = amount_to_charge
           return @payment
         elsif billing.deferred
-          @net_response = @gateway.recurring_billing(amount_to_charge, credit_card, gw_options)  
+          @net_response = @gateway.recurring_billing(amount_to_charge, credit_card, gw_options)
         else
           @net_response = @gateway.authorize(amount_to_charge, credit_card, gw_options)
         end
       end
       if @net_response.success?
-        #if @net_response.params["AddressResult"] != "MATCHED" || @net_response.params["PostCodeResult"] != "MATCHED" 
-        #  raise "Payment address and/or postcode don't match the address on your credit card statement." 
+        #if @net_response.params["AddressResult"] != "MATCHED" || @net_response.params["PostCodeResult"] != "MATCHED"
+        #  raise "Payment address and/or postcode don't match the address on your credit card statement."
         #elsif @net_response.params["CV2Result"] != "MATCHED"
         #  raise "CVV code is invalid. Please try again."
         #else
@@ -411,7 +411,7 @@ module ShoppingCart
           @payment.card_name = user.token.card_name
         end
         process_gw_response @net_response
-      else 
+      else
         if is_us? && (@net_response.params["reasonCode"] == "200" || @net_response.params["reasonCode"] == "230")
           timeout(50) do
             @reversal = @gateway.authorization_reversal(amount_to_charge, @net_response.params["requestID"], @net_response.params["requestToken"], :order_id => @net_response.params["merchantReferenceCode"])
@@ -425,7 +425,7 @@ module ShoppingCart
         raise 'Your card could not be authorized! Please correct any details below and try again, try another card or contact us for further assistance. ' + message.join("<br>")
       end
     end
-    
+
     # pass a Payment object as the first argument
     def void_cc_transaction(payment, options = {})
       get_gateway
@@ -441,7 +441,7 @@ module ShoppingCart
       end
       @net_response
     end
-    
+
     def refund_cc_transaction(payment, options = {})
       get_gateway
       options.merge!(:order_id => "REFUND#{payment.order.id}", :description => "REFUND#{payment.order.id}", :currency => payment.order.locale.to_s == 'en-UK' ? "GBP" : "EUR") if is_uk?
@@ -451,7 +451,7 @@ module ShoppingCart
       if @net_response.success?
         payment.refunded_at = Time.zone.now
         payment.refunded_amount = if @net_response.params['amount'].present?
-            @net_response.params['amount'] 
+            @net_response.params['amount']
           else
             payment.paid_amount
           end
@@ -461,9 +461,9 @@ module ShoppingCart
       end
       @net_response
     end
-    
+
     # example: tokenize_billing_info(credit_card, :billing_address=>{:address1 => @billing.address, :address2 => @billing.address2, :country => @billing.country, :company => @billing.company, :zip => @billing.zip_code, :phone => @billing.phone, :state => @billing.state, :city => @billing.city}, :email => @billing.email, :order_id => get_user.id, :customer_account_id => get_user.erp)
-    def tokenize_billing_info(credit_card, options)     
+    def tokenize_billing_info(credit_card, options)
       subscription_title = credit_card.first_name ? "#{credit_card.first_name} #{credit_card.last_name}" : "create customer"
       options.merge!(:number_of_payments => 0, :frequency=> "on-demand", :shipping_address => {}, :start_date => Time.zone.now.strftime("%Y%m%d"),  :subscription_title => subscription_title, :setup_fee => 0)
       get_gateway options[:system]
@@ -472,9 +472,9 @@ module ShoppingCart
       end
       @net_response
     end
-    
+
     # retreive tokenized customer billing info
-    # example: 
+    # example:
     #   get_tokenized_billing_info :subscription_id=>"2774176050310008284282", :order_id=>"aweweweqq"
     def get_tokenized_billing_info(options)
       get_gateway options[:system]
@@ -483,14 +483,14 @@ module ShoppingCart
       end
       @net_response
     end
-    
-    # example: 
+
+    # example:
     #   tokenized_billing_info :subscription_id=>"2774176050310008284282", :order_id=>"aweweweqq"
     def delete_tokenized_billing_info(options)
       get_gateway options[:system]
       @gateway.delay.delete_customer_info options
     end
-    
+
     # updates current user's payment/subscription token from cybersource
     def update_user_token
       if is_er_us? && get_user.token && !get_user.token.current?
@@ -514,12 +514,12 @@ module ShoppingCart
         card_name.underscore
       end
     end
-    
+
     def country_2_code(country)
       return "GB" if country == "Northern Ireland"
       Country.name_2_code(country)
     end
-    
+
     def process_gw_response(response)
       if is_us?
         # cybersource mappings
@@ -549,15 +549,15 @@ module ShoppingCart
       @payment.paid_at = Time.zone.now
     end
 
-    
+
     def skip_weekends(date, inc)
       date += inc
       while (date.wday % 7 == 0) or (date.wday % 7 == 6) do
         date += inc
-      end   
+      end
       date
     end
-    
+
     def new_payment(user = get_user)
       @payment = Payment.new
       @payment.copy_common_attributes(user.billing_address) if user.billing_address
@@ -566,18 +566,18 @@ module ShoppingCart
       raise "Purchase Order is missing" if @payment.purchase_order && @payment.purchase_order_number.blank?
       @payment.subscriptionid = user.token.subscriptionid if is_er_us? && user.token && user.token.current?
     end
-    
+
     def can_use_previous_payment?
       order=Order.find(get_cart.order_reference)
       @quote.blank? && order.payment.present? && !order.payment.purchase_order && get_cart.order_reference.present? && current_admin && current_admin.can_act_as_customer && order.user == current_user
     rescue
       false
     end
-    
+
     def can_tokenize_payment?
       is_us? && !is_sizzix?
     end
-    
+
     def purchase_order_allowed?
       !get_cart.gift_card? && (is_ee? || !is_sizzix? && user_signed_in? && get_user.purchase_order)
     end
@@ -585,15 +585,15 @@ module ShoppingCart
     def gift_card_allowed?
       is_sizzix_us? || is_ee_us?
     end
-    
+
     def tax_exempt?
       user_signed_in? && get_user.tax_exempt?
     end
-    
+
     def ecommerce_allowed?
       !is_er? || user_signed_in? && get_user.status == 'active'
     end
-    
+
     def cod_allowed?
       is_er?
     end
@@ -601,9 +601,9 @@ module ShoppingCart
     def retailer_discount_levels
       RetailerDiscountLevels.instance
     end
-    
+
   end
-  
+
   def self.included(receiver)
     receiver.extend         ClassMethods
     receiver.send :include, InstanceMethods

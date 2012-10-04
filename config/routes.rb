@@ -137,101 +137,101 @@ Ellison3::Application.routes.draw do
   #   end
 
   # Sample resource route within a namespace:
-    namespace :admin do
-      # Directs /admin/products/* to Admin::ProductsController
-      # (app/controllers/admin/products_controller.rb)
-      resources :products do
-        collection do
-          get :new_campaign, :edit_campaign, :new_image, :new_tab, :products_autocomplete, :reorder_tabs, :show_tabs, :product_helper, :product_helper_by_tag, :remove_tag, :add_tag, :remove_idea, :add_idea
-          post :create_campaign, :update_campaign, :upload_image, :create_tab, :update_tab, :clone_existing_tab, :edit_outlet_price
-          delete :delete_campaign, :delete_image, :delete_tab, :remove_all_products
-          put :update_campaign, :update_tab
-        end
+  namespace :admin do
+    # Directs /admin/products/* to Admin::ProductsController
+    # (app/controllers/admin/products_controller.rb)
+    resources :products do
+      collection do
+        get :new_campaign, :edit_campaign, :new_image, :new_tab, :products_autocomplete, :reorder_tabs, :show_tabs, :product_helper, :product_helper_by_tag, :remove_tag, :add_tag, :remove_idea, :add_idea
+        post :create_campaign, :update_campaign, :upload_image, :create_tab, :update_tab, :clone_existing_tab, :edit_outlet_price
+        delete :delete_campaign, :delete_image, :delete_tab, :remove_all_products
+        put :update_campaign, :update_tab
       end
-      resources :ideas do
-        collection do
-          get :new_image, :new_tab, :ideas_autocomplete, :reorder_tabs, :show_tabs, :idea_helper, :idea_helper_by_tag, :remove_product, :add_product, :remove_tag, :add_tag
-          post :upload_image, :create_tab, :update_tab, :clone_existing_tab
-          delete :delete_image, :delete_tab
-          put :update_tab
-        end
-      end
-      resources :us_shipping_rates, :as => :fedex_rates
-      resources :shipping_rates
-      resources :messages
-      resources :users do
-        collection do
-          get :view_retailer_application, :edit_token
-          put :update_token
-        end
-      end
-      resources :countries
-      resources :orders do
-        collection do
-          post :update_internal_comment, :change_order_status, :change_shipping, :make_payment, :update_estimated_ship_date
-          get :recalculate_tax, :recreate, :refund_cc
-        end
-      end
-      resources :material_orders do
-        collection do
-          post :change_order_status, :export_to_csv
-        end
-      end
-      resources :quotes do
-        collection do
-          post :update_internal_comment, :change_quote_name, :change_shipping, :change_quote_date
-          get :update_active_status, :recreate, :pre_orders_report, :login_as_and_goto_quote, :recalculate_tax, :active_quotes_report
-        end
-      end
-      resources :coupons, :stores, :events, :materials, :search_phrases
-      resources :static_pages
-      resources :shared_contents do
-        collection do
-          get :shared_contents_autocomplete, :reorder_visual_assets
-        end
-      end
-      resources :subscriptions do
-        collection do
-          get :upload
-          post :fast_upload
-        end
-      end
-
-      resources :landing_pages do
-        collection do
-          get :reorder_visual_assets
-        end
-      end
-      resources :tags do
-        collection do
-          get :tags_autocomplete, :reorder_visual_assets, :remove_product, :add_product, :remove_idea, :add_idea
-        end
-      end
-      resources :compatibilities do
-        collection do
-          get :tags_autocomplete
-        end
-      end
-      resources :profiles, :as => 'admins'
-      resources :feedbacks do
-        collection do
-          post :update_attribute
-        end
-      end
-
-      resources :navigations, :system_settings, :bloggers
-      resources :system_settings do
-        collection do
-          post :save_vat, :save_free_shipping_message
-        end
-      end
-
-      match 'virtual_terminal(/:action(/:id(.:format)))' => "virtual_terminal"
-      match 'firmwares(/:action(.:format))' => "firmwares"
-      match 'discount_categories(/:action(.:format))' => "discount_categories"
-      match 'reports(/:action(.:format))' => "reports"
-      match 'solr(/:action(/:id(.:format)))' => "solr"
     end
+    resources :ideas do
+      collection do
+        get :new_image, :new_tab, :ideas_autocomplete, :reorder_tabs, :show_tabs, :idea_helper, :idea_helper_by_tag, :remove_product, :add_product, :remove_tag, :add_tag
+        post :upload_image, :create_tab, :update_tab, :clone_existing_tab
+        delete :delete_image, :delete_tab
+        put :update_tab
+      end
+    end
+    resources :us_shipping_rates, :as => :fedex_rates
+    resources :shipping_rates
+    resources :messages
+    resources :users do
+      collection do
+        get :view_retailer_application, :edit_token
+        put :update_token
+      end
+    end
+    resources :countries
+    resources :orders do
+      collection do
+        post :update_internal_comment, :change_order_status, :change_shipping, :make_payment, :update_estimated_ship_date
+        get :recalculate_tax, :recreate, :refund_cc
+      end
+    end
+    resources :material_orders do
+      collection do
+        post :change_order_status, :export_to_csv
+      end
+    end
+    resources :quotes do
+      collection do
+        post :update_internal_comment, :change_quote_name, :change_shipping, :change_quote_date
+        get :update_active_status, :recreate, :pre_orders_report, :login_as_and_goto_quote, :recalculate_tax, :active_quotes_report
+      end
+    end
+    resources :coupons, :stores, :events, :materials, :search_phrases
+    resources :static_pages
+    resources :shared_contents do
+      collection do
+        get :shared_contents_autocomplete, :reorder_visual_assets
+      end
+    end
+    resources :subscriptions do
+      collection do
+        get :upload
+        post :fast_upload
+      end
+    end
+
+    resources :landing_pages do
+      collection do
+        get :reorder_visual_assets
+      end
+    end
+    resources :tags do
+      collection do
+        get :tags_autocomplete, :reorder_visual_assets, :remove_product, :add_product, :remove_idea, :add_idea
+      end
+    end
+    resources :compatibilities do
+      collection do
+        get :tags_autocomplete
+      end
+    end
+    resources :profiles, :as => 'admins'
+    resources :feedbacks do
+      collection do
+        post :update_attribute
+      end
+    end
+
+    resources :navigations, :system_settings, :bloggers
+    resources :system_settings do
+      collection do
+        post :save_vat, :save_free_shipping_message
+      end
+    end
+
+    match 'virtual_terminal(/:action(/:id(.:format)))' => "virtual_terminal"
+    match 'firmwares(/:action(.:format))' => "firmwares"
+    match 'discount_categories(/:action(.:format))' => "discount_categories"
+    match 'reports(/:action(.:format))' => "reports"
+    match 'solr(/:action(/:id(.:format)))' => "solr"
+  end
 
 
   # You can have the root of your site routed with "root"
@@ -260,5 +260,5 @@ Ellison3::Application.routes.draw do
   # static and 404 pages middleware route
   match "*path.html" => "static_pages#serve", :format => false
 
-    match ':id' => 'index#static_page', :format => false
-  end
+  match ':id' => 'index#static_page', :format => false
+end
