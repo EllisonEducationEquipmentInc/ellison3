@@ -86,7 +86,10 @@ class Store
     active.physical_stores.distinct(:country).sort { |x,y| x <=> y }
   end
 
-private  
+  private  
+
+  def representative_serving_states
+  end
 
   def get_geo_location
     if location.blank? || address1_changed? || address2_changed? || city_changed? || state_changed? || zip_code_changed?
