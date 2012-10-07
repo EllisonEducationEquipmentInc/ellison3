@@ -1,3 +1,5 @@
+require 'yaml'
+YAML::ENGINE.yamler= 'syck'
 require File.expand_path('../boot', __FILE__)
 require 'image_science'
 #require 'rails/all'
@@ -6,13 +8,11 @@ require "action_mailer/railtie"
 require "active_resource/railtie"
 require 'mongoid/railtie'
 require 'rake'
+require 'csv'
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
-
-require 'yaml' 
-YAML::ENGINE.yamler= 'syck' 
 
 module Ellison3
   class Application < Rails::Application
