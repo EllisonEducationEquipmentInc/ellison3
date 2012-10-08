@@ -33,4 +33,18 @@ module IndexHelper
       "Store Locator"
     end
   end
+
+  def store_locator_tab
+    link_title = if is_sizzix_us? || is_ee_us?
+      "Stores"
+    elsif is_sizzix_uk? || is_ee_uk?
+      "Stockist List"
+    elsif is_er?
+      "Distributors"
+    else
+      "Stores"
+    end
+
+    link_to link_title, "#stores"
+  end
 end

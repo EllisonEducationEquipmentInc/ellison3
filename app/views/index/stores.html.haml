@@ -1,44 +1,47 @@
-%h2= store_locator_title
 - content_for :gmap_header do
   = javascript_include_tag 'http://maps.google.com/maps/api/js?v=3.3&sensor=false'
   = javascript_include_tag '/javascripts/vendor/markermanager.js'
   = javascript_include_tag '/javascripts/vendor/StyledMarker.js'
-  / = javascript_include_tag '/javascripts/vendor/jquery.metadata.js'
   = javascript_include_tag 'jquery.jmapping.js'
-.tab-block
-  %ul
-    %li= link_to "Stores", "#stores"
-    - unless is_sizzix_uk?
-      %li= link_to "Online Retailers", "#online_resellers"
-  #stores
-    %p Most of the products that you love are available through our website or at your local craft store. Although we don't sell selected items online, we'll put you in touch with a retailer who might. Be sure to call ahead for product availability. Can't find a retailer near you? We're always adding new retail locations, so check back soon!
-    %hr
-    = form_tag '#', :onsubmit => 'return false' do
-      .column_20.field
-        %h3 Search by Country:
-        = select_tag :country, options_for_select(@countries, params[:country]), :onchange => "toggle_store_fields()"
-      .column_20.field.us_only
-        %h3 Search by Zip Code:
-        = text_field_tag :zip_code, params[:zip_code], :onchange => "$('#map_search_submit').trigger('click');"
-      .column_20.field.us_only
-        %h3 Search by Radius:
-        = select_tag :radius, options_for_select([5,10,20,30,50], params[:radius] || 5), :onchange => "$('#map_search_submit').trigger('click');"
-        miles
-      .column_20.field{ :style => "visibility: #{is_sizzix_uk? ? 'hidden' : 'visible'}"}
-        %h3 Search by Brands:
-        = check_box_tag 'brands[]', "sizzix", params[:brands].present? && params[:brands].include?('sizzix'), :id => "brands_sizzix", :class => 'brands', :onchange => "$('#map_search_submit').trigger('click');"
-        Sizzix
-        = check_box_tag 'brands[]', "ellison", params[:brands].present? && params[:brands].include?('ellison'), :id => "brands_ellison", :class => 'brands', :onchange => "$('#map_search_submit').trigger('click');"
-        Ellison
-      = link_to 'Search&nbsp;&nbsp;'.html_safe, '#', :id => 'map_search_submit', :class => 'jqui_save'
-    .clear
-    %hr
-    .store_list
-      #map-side-bar Enter search criteria to get started.
-    .storeframe
-      #map
-    .clear
-  - unless is_sizzix_uk?
+#store-locator.tab-block
+  #tab-head
+    %ul
+      %span.title
+        = store_locator_title
+      - unless @online_retailers.empty?
+        %li= link_to "Online Retailers", "#online_resellers"
+      - unless @countries.empty?
+        %li= store_locator_tab
+  - unless @countries.empty?
+    #stores
+      %p Most of the products that you love are available through our website or at your local craft store. Although we don't sell selected items online, we'll put you in touch with a retailer who might. Be sure to call ahead for product availability. Can't find a retailer near you? We're always adding new retail locations, so check back soon!
+      %hr
+      = form_tag '#', :onsubmit => 'return false' do
+        .column_20.field
+          %h3 Search by Country:
+          = select_tag :country, options_for_select(@countries, params[:country]), :onchange => "toggle_store_fields()"
+        .column_20.field.us_only
+          %h3 Search by Zip Code:
+          = text_field_tag :zip_code, params[:zip_code], :onchange => "$('#map_search_submit').trigger('click');"
+        .column_20.field.us_only
+          %h3 Search by Radius:
+          = select_tag :radius, options_for_select([5,10,20,30,50], params[:radius] || 5), :onchange => "$('#map_search_submit').trigger('click');"
+          miles
+        .column_20.field{ :style => "visibility: #{is_sizzix_uk? ? 'hidden' : 'visible'}"}
+          %h3 Search by Brands:
+          = check_box_tag 'brands[]', "sizzix", params[:brands].present? && params[:brands].include?('sizzix'), :id => "brands_sizzix", :class => 'brands', :onchange => "$('#map_search_submit').trigger('click');"
+          Sizzix
+          = check_box_tag 'brands[]', "ellison", params[:brands].present? && params[:brands].include?('ellison'), :id => "brands_ellison", :class => 'brands', :onchange => "$('#map_search_submit').trigger('click');"
+          Ellison
+        = link_to 'Search&nbsp;&nbsp;'.html_safe, '#', :id => 'map_search_submit', :class => 'jqui_save'
+      .clear
+      %hr
+      .store_list
+        #map-side-bar Enter search criteria to get started.
+      .storeframe
+        #map
+      .clear
+  - unless @online_retailers.empty?
     #online_resellers.store-grid
       %h2 Online Retailers
       - @online_stores.each do |store|

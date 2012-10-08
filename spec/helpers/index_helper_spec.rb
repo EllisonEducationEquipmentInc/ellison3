@@ -36,4 +36,53 @@ describe IndexHelper do
       end
     end
   end
+
+  describe "#store_locator_tab" do
+
+    context "When the current system is a sizzix from the US" do
+      it "returns the link Store Locator tab" do
+        helper.should_receive(:is_sizzix_us?).and_return true
+        helper.store_locator_tab.should eql link_to "Stores", "#stores"
+      end
+    end
+
+    context "when current system is ellison education us" do
+      it "returns the link Store Locator tab" do
+        helper.should_receive(:is_sizzix_us?).and_return false
+        helper.should_receive(:is_ee_us?).and_return true
+        helper.store_locator_tab.should eql link_to "Stores", "#stores"
+      end
+    end
+
+    context "when current system is sizzix uk" do
+      it "returns the link Store Locator tab" do
+        helper.should_receive(:is_sizzix_us?).and_return false
+        helper.should_receive(:is_ee_us?).and_return false
+        helper.should_receive(:is_sizzix_uk?).and_return true
+        helper.store_locator_tab.should eql link_to "Stockist List", "#stores"
+      end
+    end
+
+    context "when current system is ellison education uk" do
+      it "returns the link Store Locator tab" do
+        helper.should_receive(:is_sizzix_us?).and_return false
+        helper.should_receive(:is_sizzix_uk?).and_return false
+        helper.should_receive(:is_ee_us?).and_return false
+        helper.should_receive(:is_ee_uk?).and_return true
+        helper.store_locator_tab.should eql link_to "Stockist List", "#stores"
+      end
+    end
+
+    context "when current system is ellison retailers us or uk" do
+      it "returns the link Store Locator tab" do
+        helper.should_receive(:is_sizzix_us?).and_return false
+        helper.should_receive(:is_sizzix_uk?).and_return false
+        helper.should_receive(:is_ee_us?).and_return false
+        helper.should_receive(:is_ee_uk?).and_return false
+        helper.should_receive(:is_er?).and_return true
+        helper.store_locator_tab.should eql link_to "Distributors", "#stores"
+      end
+    end
+  end
+
 end
