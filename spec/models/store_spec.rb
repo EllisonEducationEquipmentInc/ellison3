@@ -64,14 +64,14 @@ describe Store do
       Store.online_retailers.to_a.should =~ [ webstore ]
     end
 
-    it "should return retailers either web store or catalog company" do
+    it "returns either retailers web store or catalog company" do
       catalog_company = FactoryGirl.create(:all_system_store, catalog_company: true)
       physical = FactoryGirl.create(:all_system_store, physical_store: true)
       webstore = FactoryGirl.create(:all_system_store, webstore: true)
       Store.online_retailers.to_a.should =~ [ webstore, catalog_company ]
     end
 
-    it "should return retailers group by country and ordering in ascending by name" do
+    it "returns retailers grouped by country and ordered by name" do
       usa_products = FactoryGirl.create(:all_system_store, name: "Products", catalog_company: true, country: "United States")
       usa_matz     = FactoryGirl.create(:all_system_store, name: "Matz", catalog_company: true, country: "United States")
       co_zixs      = FactoryGirl.create(:all_system_store, name: "Zixs", catalog_company: true, country: "Colombia")

@@ -40,7 +40,7 @@ feature "Stores", js:true do
 
   context "Store locator tabs" do
 
-    scenario "when no physical stores I should not see stores tab" do
+    scenario "when there's no physical stores I shouldn't see the stores tab" do
       visit stores_path
       page.should_not have_xpath("//a[@href='#stores']")
     end

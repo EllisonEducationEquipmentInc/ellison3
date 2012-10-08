@@ -113,4 +113,69 @@ describe IndexHelper do
     end
   end
 
+  describe "#retailers_group_with" do
+
+    let(:retailers) { double('as store criteria') }
+    let(:countries) { [ "us", "uk" ] }
+
+    it "should return countries in ascending order" do
+      retailers.should_receive(:where).with(:country.in => countries).and_return(retailers)
+      retailers.should_receive(:order_by).with(:country => :asc)
+      helper.should_receive(:is_ee_uk?).and_return true
+      helper.retailers_group_with(retailers, countries)
+    end
+
+    it "should return countries in ascending order" do
+      retailers.should_receive(:where).with(:country.in => countries).and_return(retailers)
+      retailers.should_receive(:order_by).with(:country => :asc)
+      helper.should_receive(:is_ee_uk?).and_return false
+      helper.should_receive(:is_sizzix_uk?).and_return true
+      helper.retailers_group_with(retailers, countries)
+    end
+
+    it "should return countries in descending order" do
+      retailers.should_receive(:where).with(:country.in => countries).and_return(retailers)
+      retailers.should_receive(:order_by).with(:country => :desc)
+      helper.should_receive(:is_sizzix_uk?).and_return false
+      helper.should_receive(:is_ee_uk?).and_return false
+      helper.should_receive(:is_ee_us?).and_return true
+      helper.retailers_group_with(retailers, countries)
+    end
+
+    it "should return countries in descending order" do
+      retailers.should_receive(:where).with(:country.in => countries).and_return(retailers)
+      retailers.should_receive(:order_by).with(:country => :desc)
+      helper.should_receive(:is_sizzix_uk?).and_return false
+      helper.should_receive(:is_ee_uk?).and_return false
+      helper.should_receive(:is_ee_us?).and_return false
+      helper.should_receive(:is_sizzix_us?).and_return true
+      helper.retailers_group_with(retailers, countries)
+    end
+
+    it "should return countries in descending order" do
+      retailers.should_receive(:where).with(:country.in => countries).and_return(retailers)
+      retailers.should_receive(:order_by).with(:country => :desc)
+      helper.should_receive(:is_sizzix_uk?).and_return false
+      helper.should_receive(:is_sizzix_us?).and_return false
+      helper.should_receive(:is_ee_uk?).and_return false
+      helper.should_receive(:is_ee_us?).and_return false
+      helper.should_receive(:is_er_us?).and_return true
+      helper.retailers_group_with(retailers, countries)
+    end
+
+  end
+
+  describe "#retailers_group_without" do
+
+    let(:retailers) { double('as store criteria') }
+    let(:countries) { [ "us", "uk" ] }
+
+    it "should return countries in ascending order" do
+      retailers.should_receive(:where).with(:country.nin => countries).and_return(retailers)
+      retailers.should_receive(:order_by).with(:country => :asc)
+      retailers_group_without retailers, countries
+    end
+
+  end
+
 end

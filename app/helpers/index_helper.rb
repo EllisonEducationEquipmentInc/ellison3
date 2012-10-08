@@ -56,4 +56,16 @@ module IndexHelper
     end
   end
 
+  def retailers_group_with online_retailers, country_array
+    if is_ee_uk? || is_sizzix_uk?
+      online_retailers.where(:country.in => country_array).order_by(:country => :asc)
+    elsif is_ee_us? || is_sizzix_us? ||  is_er_us?
+      online_retailers.where(:country.in => country_array).order_by(:country => :desc)
+    end
+  end
+
+  def retailers_group_without online_retailers, country_array
+    online_retailers.where(:country.nin => country_array).order_by(:country => :asc)
+  end
+
 end

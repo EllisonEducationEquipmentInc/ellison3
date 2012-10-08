@@ -43,8 +43,18 @@
       .clear
   - unless @online_retailers.empty?
     #online_resellers.store-grid
-      %h2 Online Retailers
-      - @online_stores.each do |store|
+      - country = "initial_country"
+      - retailers_group_with(@online_retailers, ["United States", "United Kingdom"]).each do |store|
+        - unless country == store.country
+          - country = store.country
+          .clear
+          %h2= store.country
+        .online_store.ui-corner-all= render store
+      - retailers_group_without(@online_retailers, ["United States", "United Kingdom"]).each do |store|
+        - unless country == store.country
+          - country = store.country
+          .clear
+          %h2= store.country
         .online_store.ui-corner-all= render store
       .clear
   - if is_er? || is_sizzix_us?
@@ -119,6 +129,4 @@
     } else {
       $('.us_only').hide();
     }
-  
-    $('div.store-grid div.online_store:nth-child(3n+1)').after("<div class='clear'> </div>");
   }
