@@ -42,7 +42,7 @@ feature "Stores", js:true do
 
     scenario "when there's no physical stores I shouldn't see the stores tab" do
       visit stores_path
-      page.should_not have_xpath("//a[@href='#stores']")
+      page.should_not have_link("Stores")
     end
 
     scenario "when physical stores I should see stores tab" do
@@ -50,8 +50,8 @@ feature "Stores", js:true do
         physical_store: true, product_line: ["Sizzix", "eclipse"])
 
       visit stores_path
-      page.should have_xpath("//a[@href='#stores']")
-      page.should_not have_xpath("//a[@href='#online_resellers']")
+      page.should have_link("Stores")
+      page.should_not have_link("Online Retailers")
     end
 
     scenario "when distributors I should see stores tab" do
@@ -59,8 +59,8 @@ feature "Stores", js:true do
         physical_store: true, product_line: ["Sizzix", "eclipse"])
 
       visit stores_path
-      page.should have_xpath("//a[@href='#stores']")
-      page.should_not have_xpath("//a[@href='#online_resellers']")
+      page.should have_link("Stores")
+      page.should_not have_link("Online Retailers")
     end
 
     scenario "when no distributors I should see stores tab" do
@@ -68,8 +68,8 @@ feature "Stores", js:true do
         physical_store: true, product_line: ["Sizzix", "eclipse"])
 
       visit stores_path
-      page.should have_xpath("//a[@href='#stores']")
-      page.should_not have_xpath("//a[@href='#online_resellers']")
+      page.should have_link("Stores")
+      page.should_not have_link("Online Retailers")
     end
   end
 end

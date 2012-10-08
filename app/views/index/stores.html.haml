@@ -19,7 +19,7 @@
       = form_tag '#', :onsubmit => 'return false' do
         .column_20.field
           %h3 Search by Country:
-          = select_tag :country, options_for_select(@countries, params[:country]), :onchange => "toggle_store_fields()"
+          = select_tag :country, options_for_select(@countries, params[:country])
         .column_20.field.us_only
           %h3 Search by Zip Code:
           = text_field_tag :zip_code, params[:zip_code], :onchange => "$('#map_search_submit').trigger('click');"
@@ -94,39 +94,8 @@
 - if @store_locator_content.present?
   #current_visual_assets= render @store_locator_content.visual_assets.current
 :javascript
-  $(document).ready(function(){
-    $(".tab-block").tabs();
-    toggle_store_fields();
-    $.getScript('/javascripts/vendor/jquery.metadata.js', function() {
-      $('#map').jMapping({default_point: {lat: #{is_uk? ? '53.13359' : '40.513799'}, lng:#{is_uk? ? '-1.977539' : '-98.876953'}}, default_zoom_level: #{is_uk? ? 4 : 3}, link_selector: '.map-link'});
-    });
-    $('#map_search_submit').click( function() {
-      if ($('#country').val() == 'United States' && $('#zip_code').val().length < 5) {
-        alert('invalid zip code');
-        return false;
-      }
-      if ($('.brands:checked').length < 1){
-        alert('please select at least one brand');
-        return false;
-      }
-      $.ajax({url:'/index/update_map?'+$(this).parents('form').serialize(), success: function(html){
-        $('#map-side-bar').html(html);
-        $('#map').jMapping('update');
-        if (html.length < 20) $('#map').data('jMapping').map.setZoom(4);
-        $('.info-box').show();
-        $('.info-box h3').css('cursor', 'pointer');
-        if ($('#map').data('jMapping').map.zoom > 15) $('#map').data('jMapping').map.setZoom(15);
-      }});
-      return false;
-    });
-    if ($('#country').val() != 'United States') $('#map_search_submit').trigger('click');
-  }).bind('afterMapping.jMapping', function(e,m) {
-    setTimeout("$('#map').data('jMapping').map.setZoom(4)", 1200);
-  });
-  function toggle_store_fields(){
-    if ($('#country').val() == 'United States'){
-      $('.us_only').show();
-    } else {
-      $('.us_only').hide();
-    }
-  }
+  lat = #{is_uk? ? '53.13359' : '40.513799'}
+  lng = #{is_uk? ? '-1.977539' : '-98.876953'}
+  zoom = #{is_uk? ? 4 : 3}
+  tab_title = "#{store_locator_title}"
+  new document.StoreLocator(tab_title, lat, lng, zoom)

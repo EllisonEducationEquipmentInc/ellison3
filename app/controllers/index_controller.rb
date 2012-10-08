@@ -269,7 +269,7 @@ class IndexController < ApplicationController
       elsif is_ee?
         'ellison'
       else
-        'sizzix,ellison'
+        'sizzix, ellison'
       end
     @countries = Store.distinct_countries
     @online_retailers = Store.online_retailers.cache
