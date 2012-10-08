@@ -10,8 +10,6 @@
     %li= link_to "Stores", "#stores"
     - unless is_sizzix_uk?
       %li= link_to "Online Retailers", "#online_resellers"
-    - if is_ee? || is_er?
-      %li= link_to "Distributors", "#distributors"
   #stores
     %p Most of the products that you love are available through our website or at your local craft store. Although we don't sell selected items online, we'll put you in touch with a retailer who might. Be sure to call ahead for product availability. Can't find a retailer near you? We're always adding new retail locations, so check back soon!
     %hr
@@ -44,12 +42,6 @@
     #online_resellers.store-grid
       %h2 Online Retailers
       - @online_stores.each do |store|
-        .online_store.ui-corner-all= render store
-      .clear
-  - if is_ee? || is_er?
-    #distributors.store-grid
-      %h2 Distributors
-      - @distributors.each do |store|
         .online_store.ui-corner-all= render store
       .clear
   - if is_er? || is_sizzix_us?

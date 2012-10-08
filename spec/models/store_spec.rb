@@ -44,4 +44,65 @@ describe Store do
       Store.active.to_a.should =~ [store1, store2]
     end
   end
+
+  describe ".online_retailers" do
+
+    it "should not return physical stores" do
+      physical = FactoryGirl.create(:all_system_store, physical_store: true)
+      Store.online_retailers.to_a.should =~ [ ]
+    end
+
+    it "should not return inactive web store" do
+      webstore = FactoryGirl.create(:all_system_store, webstore: true, active: false)
+      catalog_company = FactoryGirl.create(:all_system_store, catalog_company: true)
+      Store.online_retailers.to_a.should =~ [ catalog_company ]
+    end
+
+    it "should not return inactive catalog_company" do
+      webstore = FactoryGirl.create(:all_system_store, webstore: true)
+      catalog_company = FactoryGirl.create(:all_system_store, catalog_company: true, active: false)
+      Store.online_retailers.to_a.should =~ [ webstore ]
+    end
+
+    it "should return retailers either web store or catalog company" do
+      catalog_company = FactoryGirl.create(:all_system_store, catalog_company: true)
+      physical = FactoryGirl.create(:all_system_store, physical_store: true)
+      webstore = FactoryGirl.create(:all_system_store, webstore: true)
+      Store.online_retailers.to_a.should =~ [ webstore, catalog_company ]
+    end
+
+    it "should return retailers group by country and ordering in ascending by name" do
+      usa_products = FactoryGirl.create(:all_system_store, name: "Products", catalog_company: true, country: "United States")
+      usa_matz     = FactoryGirl.create(:all_system_store, name: "Matz", catalog_company: true, country: "United States")
+      co_zixs      = FactoryGirl.create(:all_system_store, name: "Zixs", catalog_company: true, country: "Colombia")
+      uk_alo       = FactoryGirl.create(:all_system_store, name: "Alo", webstore: true, country: "United Kingdom")
+      aus_prado    = FactoryGirl.create(:all_system_store, name: "Prado", webstore: true, country: "Australia")
+
+      Store.online_retailers.to_a.should eql [ aus_prado, co_zixs, uk_alo, usa_matz, usa_products ]
+    end
+
+  end
+
+  describe ".distinct_countries" do
+
+    it "should return countries of the stores in ascending order with unique values" do
+      FactoryGirl.create(:all_system_store, physical_store: true, country: "United States")
+      FactoryGirl.create(:all_system_store, physical_store: true, country: "United Kingdom")
+      FactoryGirl.create(:all_system_store, physical_store: true, country: "United Kingdom")
+      FactoryGirl.create(:all_system_store, physical_store: true, country: "Australia")
+      Store.distinct_countries.should eql [ "Australia", "United Kingdom", "United States" ]
+    end
+
+    it "should not include countries for web stores" do
+      FactoryGirl.create(:all_system_store, webstore: true, country: "United States")
+      FactoryGirl.create(:all_system_store, physical_store: true, country: "Australia")
+      Store.distinct_countries.should =~ [ "Australia" ]
+    end
+
+    it "should not return any countries when no stores have been created" do
+      Store.distinct_countries.should =~ [ ]
+    end
+
+  end
+
 end

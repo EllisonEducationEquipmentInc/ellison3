@@ -264,18 +264,16 @@ class IndexController < ApplicationController
 
   def stores
     params[:country] ||= is_us? ? 'United States' : 'United Kingdom'
-    params[:brands] ||= if is_sizzix?
-                          'sizzix'
-                        elsif is_ee?
-                          'ellison'
-                        else
-                          'sizzix,ellison'
-                        end
-    @countries = Store.active.physical_stores.order_by(:country => :desc).distinct(:country).sort {|x,y| x <=> y}
-    @online_stores = Store.active.webstores.order_by(:name => :asc).cache
-    @distributors = Store.active.distributors.order_by(:name => :asc).cache
+    params[:brands] ||= if is_sizzix? 
+        'sizzix' 
+      elsif is_ee?
+        'ellison'
+      else
+        'sizzix,ellison'
+      end
+    @countries = Store.distinct_countries
+    @online_retailers = Store.online_retailers.cache
     @store_locator_content = SharedContent.store_locator
-    @title = 'Store Locator'
   end
 
   def update_map

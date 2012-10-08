@@ -78,7 +78,15 @@ class Store
     where(active: true, :systems_enabled.in => [ current_system ])
   end
 
-  private
+  def self.online_retailers
+    active.any_of({ :webstore => true }, { :catalog_company => true }).order_by(:country => :asc, :name => :asc)
+  end
+
+  def self.distinct_countries
+    active.physical_stores.distinct(:country).sort { |x,y| x <=> y }
+  end
+
+private  
 
   def get_geo_location
     if location.blank? || address1_changed? || address2_changed? || city_changed? || state_changed? || zip_code_changed?
