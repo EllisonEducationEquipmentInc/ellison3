@@ -85,4 +85,32 @@ describe IndexHelper do
     end
   end
 
+  describe "#additional_text_for" do
+    let(:store) { double('as store') }
+
+    it "should return title when store is only a catalog company" do
+      store.stub(:catalog_company).and_return true
+      store.stub(:webstore).and_return false
+      helper.additional_text_for(store).should eql content_tag(:span, "Contact store to request a catalog", class: "nav_clearance")
+    end
+
+    it "should return title when store is only a catalog company and web store" do
+      store.stub(:catalog_company).and_return true
+      store.stub(:webstore).and_return true
+      helper.additional_text_for(store).should eql content_tag(:span, "Online and Catalog", class: "nav_clearance")
+    end
+
+    it "should not return title when store is only a web store" do
+      store.stub(:catalog_company).and_return false
+      store.stub(:webstore).and_return true
+      helper.additional_text_for(store).should eql nil
+    end
+
+    it "should not return title when store is not both web store and  catalog company" do
+      store.stub(:catalog_company).and_return false
+      store.stub(:webstore).and_return false
+      helper.additional_text_for(store).should eql nil
+    end
+  end
+
 end

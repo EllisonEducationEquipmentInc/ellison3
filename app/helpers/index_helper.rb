@@ -47,4 +47,13 @@ module IndexHelper
 
     link_to link_title, "#stores"
   end
+
+  def additional_text_for store
+    if store.catalog_company && !store.webstore
+      content_tag(:span, "Contact store to request a catalog", :class => "nav_clearance")
+    elsif store.catalog_company && store.webstore
+      content_tag(:span, "Online and Catalog", :class => "nav_clearance")
+    end
+  end
+
 end
