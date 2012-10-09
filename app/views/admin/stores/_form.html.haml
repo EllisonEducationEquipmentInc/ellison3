@@ -83,11 +83,11 @@
     = f.label :country
     %br
     = f.select :country, Country.all.asc(:name).cache.map {|e| e.name}
-  .representative_serving{ style: "display: none" }
+  .representative_serving.hide
     .field
       = f.label "Representative Serving States"
       %br
-      = select_tag :representative_serving_states, options_for_select(states, @store.representative_serving_states), multiple: true
+      = select_tag 'store[representative_serving_states][]'.to_sym, options_for_select(states, @store.representative_serving_states), multiple: true
   .field
     = f.label :contact_person
     %br

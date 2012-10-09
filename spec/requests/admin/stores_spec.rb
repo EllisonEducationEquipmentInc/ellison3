@@ -17,7 +17,7 @@ feature "Stores", js:true do
       visit edit_admin_store_path(store)
     end
 
-    scenario "as a admin I should be able to check in which systems a store can be display" do
+    scenario "as a admin I should be able to check in which systems a store can be displayed" do
       systems_enabled.each do |system|
         page.has_unchecked_field?("store_systems_enabled_#{system}").should be_true
         check "store_systems_enabled_#{system}"
@@ -61,12 +61,21 @@ feature "Stores", js:true do
     end
 
     context "As a Sales Representative in a US store" do
-      scenario "I should be able to see a Us state drop down list" do
+      before do
         within ".new_store" do
           select('Sales Representative', from: 'Agent type')
           select('United States', from: 'Country')
         end
         page.should have_content "Representative serving states"
+      end
+
+      scenario "I should be able to add more than one serving states" do
+        fill_in 'Name', with: 'D-Store'
+        select 'ellison', from: 'store_brands_'
+        select 'Alabama', from: 'store_representative_serving_states_'
+        select 'Arizona', from: 'store_representative_serving_states_'
+        click_on 'Create Store'
+        page.should have_content "Store was successfully created."
       end
     end
 
