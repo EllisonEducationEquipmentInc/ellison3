@@ -1,8 +1,5 @@
-require 'yaml'
-YAML::ENGINE.yamler= 'syck'
 require File.expand_path('../boot', __FILE__)
 require 'image_science'
-#require 'rails/all'
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
