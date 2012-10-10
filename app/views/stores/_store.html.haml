@@ -4,6 +4,7 @@
   %h3.map-link{ :class => "#{ !is_sizzix_uk? ? "icon_excellence-level_#{store.excellence_level.parameterize}" : nil }", :alt => "#{store.excellence_level.capitalize} #{is_uk? ? 'Stockist' : 'Store'}", :title => "#{store.excellence_level.capitalize} #{is_uk? ? 'Stockist' : 'Store'}" }= store.name
 - else
   %h3.map-link= store.name
+  = additional_text_for store
 %p
   - if store.address1.present?
     = store.address1

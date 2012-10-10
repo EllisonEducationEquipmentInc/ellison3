@@ -96,6 +96,21 @@
   margin: 8px 0;
 }
 
+#store-locator {
+  .ui-tabs-nav li {
+    float: right;
+  }
+
+  span.title {
+    font-family: 'PT Sans',Helvetica,Arial,sans-serif;
+    font-size: 1.7em;
+    text-transform: capitalize;
+    font-weight: normal;
+    color: #222222;
+    float: left;
+  }
+}
+
 .rounded {
   -moz-border-radius:1ex;
   -webkit-border-radius:1ex;
