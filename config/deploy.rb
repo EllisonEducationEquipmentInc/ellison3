@@ -2,7 +2,6 @@ require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
 require 'airbrake/capistrano'
 require "delayed/recipes"
-require 'barista/capistrano'
 
 set :rvm_ruby_string, 'ruby-1.9.3-p194@Ellison3'
 require "rvm/capistrano"                  # Load RVM's capistrano plugin.
