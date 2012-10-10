@@ -189,4 +189,40 @@ describe IndexHelper do
 
   end
 
+  describe "#map_position_for" do
+    let(:store) { double('as store') }
+    let(:location) { ["lat", "lng"] }
+
+    it "should return map position for sales representative store" do
+      store.should_receive(:representative_serving_states_locations).and_return({ "FL" => location})
+      helper.map_position_for("0", store, "FL").should eql("{ id: 0, point: {lat: lat, lng: lng}, category: 'Stores' }")
+    end
+
+    it "should return map position for non sales representative store" do
+      store.should_receive(:representative_serving_states_locations).and_return({ })
+      store.should_receive(:location).exactly(2).times.and_return(location)
+      helper.map_position_for("2", store, "FL").should eql("{ id: 2, point: {lat: lat, lng: lng}, category: 'Stores' }")
+    end
+  end
+
+  describe "#only_sizzix_us_or_uk" do
+
+    it "should return empty when sizzix US is present" do
+      helper.should_receive(:is_sizzix_us?).and_return true
+       helper.only_sizzix_us_or_uk.should eql ""
+    end
+
+    it "should return empty when sizzix UK is present" do
+      helper.should_receive(:is_sizzix_us?).and_return false
+      helper.should_receive(:is_sizzix_uk?).and_return true
+      helper.only_sizzix_us_or_uk.should eql ""
+    end
+
+    it "should hide when it is not sizzix US nor sizzix UK" do
+      helper.should_receive(:is_sizzix_us?).and_return false
+      helper.should_receive(:is_sizzix_uk?).and_return false
+      helper.only_sizzix_us_or_uk.should eql "hide"
+    end
+
+  end
 end

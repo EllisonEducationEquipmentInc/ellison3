@@ -1,0 +1,30 @@
+= form_tag '#', :onsubmit => 'return false' do
+  .column.country.field
+    %h3 Search by Country:
+    = select_tag :country, options_for_select(@countries, params[:country])
+  .column.field.states.us_only
+    %h3 Search by State:
+    = select_tag :state, options_for_select(@states), :include_blank => "Select state"
+  #zip_option{ :class => only_sizzix_us_or_uk }
+    .column.field.separator.us_or_uk_only
+      %h3 &nbsp;
+      %span &nbsp;
+      %span
+        or
+    .column.zipcode.field.us_or_uk_only
+      %h3 Search by Zip Code:
+      = text_field_tag :zip_code, params[:zip_code], :onchange => "$('#map_search_submit').trigger('click');"
+    .column.field.radius-miles.us_or_uk_only
+      %h3 Search by Radius:
+      = select_tag :radius, options_for_select([5,10,20,30,50], params[:radius] || 5), :onchange => "$('#map_search_submit').trigger('click');"
+      miles
+  .column.field.separator
+    %h3 &nbsp;
+    %span &nbsp;
+    %span
+      or
+  .column.search-name.field
+    %h3 Search by Name:
+    = text_field_tag :name, params[:name]
+
+  = link_to 'Search&nbsp;&nbsp;'.html_safe, '#', :id => 'map_search_submit', :class => 'jqui_save'

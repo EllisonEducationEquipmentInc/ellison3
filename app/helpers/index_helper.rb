@@ -68,4 +68,20 @@ module IndexHelper
     online_retailers.where(:country.nin => country_array).order_by(:country => :asc)
   end
 
+  def map_position_for index, store, state
+    location = store.representative_serving_states_locations[ state ]
+    if location.present?
+      "{ id: #{index}, point: {lat: #{location[0]}, lng: #{location[1]}}, category: 'Stores' }"
+    else
+      "{ id: #{index}, point: {lat: #{store.location[0]}, lng: #{store.location[1]}}, category: 'Stores' }"
+    end
+  end
+
+  def only_sizzix_us_or_uk
+    if is_sizzix_us? || is_sizzix_uk?
+      ""
+    else
+      "hide"
+    end
+  end
 end

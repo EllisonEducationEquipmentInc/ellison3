@@ -22,11 +22,15 @@ class document.StoreLocator
         toggle_store_fields()
 
       $("#map_search_submit").click ->
-        if $("#country").val() is "United States" and $("#zip_code").val().length < 5
-          alert "invalid zip code"
+        state_is_blank = $("#state").val().length == 0
+        name_is_blank = $("#name").val().length == 0
+        country_val = $("#country").val()
+
+        if country_val is "United States" and state_is_blank and $("#zip_code").val().length == 0 and name_is_blank
+          alert "please select state or zip code or search by name"
           return false
-        if $(".brands:checked").length < 1
-          alert "please select at least one brand"
+        else if country_val is "United States" and $("#zip_code").val().length < 5 and state_is_blank and name_is_blank
+          alert "invalid zip code"
           return false
         $.ajax
           url: "/index/update_map?" + $(this).parents("form").serialize()
@@ -45,6 +49,20 @@ class document.StoreLocator
 
   toggle_store_fields = ->
     if $("#country").val() is "United States"
+      $("#map_search_submit").removeClass("without_us_or_uk")
       $(".us_only").show()
-    else
+      $(".us_or_uk_only").show()
+      $(".zipcode").addClass("zipcode_us")
+      $(".zipcode").removeClass("postcode_uk")
+      $(".zipcode h3").text("Search by Zip Code:")
+    else if $("#country").val() is "United Kingdom"
+      $("#map_search_submit").removeClass("without_us_or_uk")
       $(".us_only").hide()
+      $(".us_or_uk_only").show()
+      $(".zipcode").addClass("postcode_uk")
+      $(".zipcode").removeClass("zipcode_us")
+      $(".zipcode h3").text("Search by Postal Code:")
+    else
+      $("#map_search_submit").addClass("without_us_or_uk")
+      $(".us_only").hide()
+      $(".us_or_uk_only").hide()

@@ -1,2 +1,2 @@
-.map-location{"data-jmapping" => "{id: #{@stores.index(store)}, point: {lat: #{store.location[0]}, lng: #{store.location[1]}}, category: 'Stores'}"}
+.map-location{ "data-jmapping" => map_position_for( @stores.index(store), store, params[:state] ) }
   .info-box= render store

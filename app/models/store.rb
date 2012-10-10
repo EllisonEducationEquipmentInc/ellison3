@@ -40,6 +40,7 @@ class Store
   field :systems_enabled, :type => Array
 
   field :representative_serving_states, :type => Array
+  field :representative_serving_states_locations, :type => Hash, :default => {}
   field :created_by
   field :updated_by
 
@@ -92,6 +93,41 @@ class Store
     where(catalog_company: true)
   end
 
+  def self.distinct_states country='United States'
+    sales_representative_states = active.physical_stores.where(:country => country, :agent_type => 'Sales Representative').distinct(:representative_serving_states)
+    states = active.physical_stores.where(:country => country).excludes(:agent_type => 'Sales Representative').distinct(:state)
+    states.concat(sales_representative_states).uniq.sort
+  end
+
+  def self.all_by_state state
+    all_by_country('United States').any_of({ :state => state }, { :representative_serving_states => state })
+  end
+
+  def self.all_by_country country
+    active.physical_stores.where(:country => country).order_by(:name => :asc)
+  end
+
+  def self.all_by_locations_for country, code_location, radius
+    all_by_country(country).where(:location.within => { "$center" => [ [code_location.lat, code_location.lng], ((radius.to_i * 20)/(3963.192*0.3141592653))] })
+  end
+
+  def self.stores_for name, country, state, zip_code, zip_geo, radius
+    if name.present?
+      all_by_country(country).where(:name => /#{name}/i).to_a
+    elsif state.present?
+      all_by_state(state).to_a
+    elsif zip_code.present?
+      if country == "United States" && zip_code =~ /^\d{5,}/
+        all_by_locations_for(country, zip_geo, radius).to_a
+      elsif country == "United Kingdom"
+        all_by_locations_for(country, zip_geo, radius).to_a
+      end
+    else
+      all_by_country(country).to_a
+    end
+
+  end
+
   private
 
   def valid_serving_states_representative?
@@ -116,5 +152,20 @@ class Store
         return false
       end
     end
+
+    if valid_serving_states_representative?
+      get_serving_states_locations
+    end
+
+  end
+
+  def get_serving_states_locations
+    states_hash = {}
+      representative_serving_states.each do |state|
+        position = MultiGeocoder.geocode(state)
+        states_hash[ state ] = [ position.lat, position.lng ] if position.success
+      end
+
+      self.representative_serving_states_locations = states_hash
   end
 end
