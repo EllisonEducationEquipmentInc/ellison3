@@ -39,6 +39,7 @@ class Store
   field :internal_comments
   field :systems_enabled, :type => Array
 
+  field :representative_serving_states, :type => Array
   field :created_by
   field :updated_by
 
@@ -61,6 +62,7 @@ class Store
   #validates_inclusion_of :product_line, :in => PRODUCT_LINES
 
   before_save :get_geo_location, :if => Proc.new {|obj| obj.physical_store}
+  before_save :validate_sales_representative_states
 
   scope :physical_stores, :where => { :physical_store => true }
   scope :webstores, :where => { :webstore => true }
@@ -86,7 +88,18 @@ class Store
     active.physical_stores.distinct(:country).sort { |x,y| x <=> y }
   end
 
-private  
+  private
+
+  def valid_serving_states_representative?
+    country == 'United States' && agent_type == 'Sales Representative'
+  end
+
+  def validate_sales_representative_states
+    if representative_serving_states.present? && !valid_serving_states_representative?
+      errors.add(:base, "Admin can't be a serving representative")
+      false
+    end
+  end
 
   def get_geo_location
     if location.blank? || address1_changed? || address2_changed? || city_changed? || state_changed? || zip_code_changed?

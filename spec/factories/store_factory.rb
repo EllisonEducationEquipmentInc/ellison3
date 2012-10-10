@@ -4,10 +4,11 @@ FactoryGirl.define  do
     sequence(:store_number) {|i| "000#{i}" }
     brands ["sizzix", "ellison"]
     agent_type "Authorized Reseller"
-    address1 "Mountain View, CA 94040"
-    city "San Francisco"
-    country "Estados Unidos"
+    address1 "10191 S De Anza Blvd, CA 95014"
+    city "Cupertino"
+    country "United States"
     website "www.example.com"
+    zip_code "95014"
   end
 
   factory :all_system_store, parent: :store do
@@ -15,3 +16,4 @@ FactoryGirl.define  do
     systems_enabled %w[szus szuk eeus eeuk erus]
   end
 end
+

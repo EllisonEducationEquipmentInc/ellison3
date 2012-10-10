@@ -21,7 +21,7 @@
     = f.text_field :logo_url
   .field
     = f.label :image
-    = image_tag(@store.image_url(:logo)) if @store.image? 
+    = image_tag(@store.image_url(:logo)) if @store.image?
     = f.file_field :image
     = f.hidden_field :image_cache
     %br
@@ -83,6 +83,11 @@
     = f.label :country
     %br
     = f.select :country, Country.all.asc(:name).cache.map {|e| e.name}
+  .representative_serving.hide
+    .field
+      = f.label "Representative Serving States"
+      %br
+      = select_tag 'store[representative_serving_states][]'.to_sym, options_for_select(states, @store.representative_serving_states), multiple: true
   .field
     = f.label :contact_person
     %br
@@ -111,6 +116,10 @@
     = f.label :internal_comments
     %br
     = f.text_area :internal_comments
-                          
+
   .actions
     = f.submit :class => 'jqui_save'
+
+:javascript
+  adminStore = new document.AdminStore('form');
+  adminStore.bind_agent_type_and_country();

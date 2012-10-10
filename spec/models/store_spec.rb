@@ -105,4 +105,84 @@ describe Store do
 
   end
 
+  describe "#representative_serving_states" do
+    before do
+      @store = Store.new
+      @store.name = 'D-name'
+      @store.brands = ["sizzix", "ellison"]
+      @states = ["Al", "Fl"]
+    end
+
+    describe "when the admin is a Sales representative from the US" do
+      before do
+        @store.country = 'United States'
+        @store.agent_type = 'Sales Representative'
+      end
+
+      describe "when the admin hasn't selected any representative state" do
+        specify { @store.save.should be_true }
+      end
+
+      describe "when the admin has selected Florida and Alabama from the serving representative" do
+        before do
+          @store.representative_serving_states = @states
+        end
+
+        specify { @store.save.should be_true }
+
+        it "has Florida and Alabama as serving representative" do
+          @store.save.should be_true
+          @store.representative_serving_states.should == @states
+        end
+      end
+    end
+
+    describe "when the admin is not a Sales representative from the US" do
+      before do
+        @store.country = 'United States'
+        @store.agent_type = 'Authorized Reseller'
+      end
+
+      describe "when the admin has representative serving states" do
+        before do
+          @store.representative_serving_states = @states
+        end
+
+        specify { @store.save.should be_false }
+
+        it "returns a serving representative error" do
+          @store.save
+          @store.errors[:base].should include "Admin can't be a serving representative"
+        end
+      end
+
+      describe "when the admin doesn't have representative serving states" do
+        specify { @store.save.should be_true }
+      end
+    end
+
+    describe "when the admin is a Sales representative but not from the US" do
+      before do
+        @store.country = 'Colombia'
+        @store.agent_type = 'Sales Representative'
+      end
+
+      describe "when the admin has representative serving states" do
+        before do
+          @store.representative_serving_states = @states
+        end
+
+        specify { @store.save.should be_false }
+
+        it "returns a serving representative error" do
+          @store.save
+          @store.errors[:base].should include "Admin can't be a serving representative"
+        end
+      end
+
+      describe "when the admin doesn't have representative serving states" do
+        specify { @store.save.should be_true }
+      end
+    end
+  end
 end

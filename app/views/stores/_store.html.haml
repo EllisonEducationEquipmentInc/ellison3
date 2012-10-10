@@ -18,6 +18,10 @@
   - if store.country.present?
     = store.country
     %br
+  - if store.representative_serving_states.present?
+    %strong Representative Serving:
+    = store.representative_serving_states.join(", ")
+    %br
   - if store.phone.present?
     %strong Phone:
     = store.phone
