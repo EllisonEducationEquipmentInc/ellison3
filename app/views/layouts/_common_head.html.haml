@@ -43,7 +43,7 @@
 = javascript_include_tag '/javascripts/js_loader.js'
 = csrf_meta_tag
 
-- if RAILS_ENV == 'development'
+- if ::Rails.env == 'development'
   /[if IE]
     = javascript_include_tag "https://getfirebug.com/firebug-lite.js"
 
