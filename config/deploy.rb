@@ -2,35 +2,14 @@ require "rvm/capistrano"                  # Load RVM's capistrano plugin.
 set :rvm_ruby_string, 'ruby-1.9.3-p194@Ellison3'
 
 require "bundler/capistrano"
-#require "eycap/recipes"
 
-#=================================================================================================
-# ELLISON CUSTOM CONDITIONS
-#=================================================================================================
-# optional ENV variables to specify what svn repo should be deplyed
-#
-# usage example:
-# 
-# cap staging deploy TAG="version_1.0"
-# cap staging deploy - (new command to deploy from git) deploys from staging branch always
- 
-#if ENV['TAG']
-#  deploy_version = "tags/#{ENV['TAG']}"
-#elsif ENV['BRANCH']
-#  deploy_version = "branches/#{ENV['BRANCH']}"
-#else
-#  deploy_version = "trunk/"
-#end
 set :keep_releases,       5
 set :application,         "ellison3"
 set :user,                "ellison"
-set :password,            "ellison123" #"RbBR5VrQ"
-set :deploy_to,           "/data/ellison3_production" #"/data/ellison3_qa"
+set :password,            "ellison123" 
+set :deploy_to,           "/data/ellison3_production" 
 set :monit_group,         "ellison"
 set :runner,              "ellison"
-#set :scm_username,       "engineyard"
-#set :scm_password,        "yardwork123"
-#set :scm_passphrase,      ""
 set :scm,                 :git
 set :branch,              "staging"
 set :repository,          "git@github.com:ellisoneducation/ellison3.git"
@@ -52,7 +31,7 @@ default_run_options[:pty] = true
 # comment out if it gives you trouble. newest net/ssh needs this set.
 ssh_options[:paranoid] = false
 
-require 'cap_recipes/tasks/utilities'
+#require 'cap_recipes/tasks/utilities'
 
 # =================================================================================================
 # ROLES
@@ -167,27 +146,20 @@ end
 namespace :delayed_job do
   desc "Start delayed_job process"
   task :start, :roles => delayed_job_role do
-    utilities.with_role(delayed_job_role) do
-      run "RAILS_ENV=#{delayed_job_env} #{base_ruby_path}/bin/ruby #{delayed_script_path} start"
-    end
+    run "cd #{latest_release} &&  RAILS_ENV=#{delayed_job_env} bundle exec #{delayed_script_path} start"
   end
 
   desc "Stop delayed_job process"
   task :stop, :roles => delayed_job_role do
-    utilities.with_role(delayed_job_role) do
-      run "RAILS_ENV=#{delayed_job_env} #{base_ruby_path}/bin/ruby #{delayed_script_path} stop"
-    end
+    run "cd #{latest_release} &&  RAILS_ENV=#{delayed_job_env} bundle exec #{delayed_script_path} stop"
   end
 
   desc "Restart delayed_job process"
   task :restart, :roles => delayed_job_role do
-    utilities.with_role(delayed_job_role) do
-      delayed_job.stop
-      sleep(4)
-      #run "killall -s TERM delayed_job; true"
-      enforce_stop_delayed_job
-      delayed_job.start
-    end
+    delayed_job.stop
+    sleep(4)
+    enforce_stop_delayed_job
+    delayed_job.start
   end
   
   def enforce_stop_delayed_job
