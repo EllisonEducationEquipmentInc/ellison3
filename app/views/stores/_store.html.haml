@@ -31,13 +31,9 @@
     = store.fax
     %br
   - if store.email.present?
-    %strong Email: 
-    = link_to store.email, "mailto:#{store.email}"
-    %br
+    %p= link_to "Contact Via Email", "mailto:#{store.email}"
   - if store.website.present?
-    %strong Website: 
-    = link_to store.website, store.website, :target => '_blank'
-    %br
+    %p= link_to "Browse their website", store.website, :target => '_blank'
   - if store.has_ellison_design_centers?
     %em Ellison Design Center Available
 - if is_er?
