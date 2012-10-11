@@ -62,4 +62,8 @@ Ellison3::Application.configure do
   config.i18n.fallbacks = true
 
   config.active_support.deprecation = :notify
+
+  config.after_initialize do
+    SslRequirement.disable_ssl_check = true
+  end
 end
