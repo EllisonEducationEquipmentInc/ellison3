@@ -23,7 +23,7 @@ GIT
 
 GIT
   remote: git://github.com/jugyo/sunspot_mongoid.git
-  revision: fb4cf0c701276e7084672e2419999c40e8964cd3
+  revision: 688430d98805e10916ecddb7f46f8ae774cb04a7
   branch: master
   specs:
     sunspot_mongoid (0.4.1)
