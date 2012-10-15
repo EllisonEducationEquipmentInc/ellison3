@@ -5,6 +5,7 @@ gem 'rails', '3.0.4'
 gem 'mongo_ext'
 gem "bson_ext", "~> 1.5.2"
 gem 'passenger'
+gem 'rvm-capistrano'
 gem 'mysql'
 gem 'haml', '3.1.2'
 gem 'sass'
