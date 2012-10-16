@@ -55,13 +55,13 @@ class Store
   mount_uploader :image, GenericImageUploader
 
   validates_presence_of :name, :brands, :agent_type
-  validates_presence_of :address1, :city, :country, :if => Proc.new {|obj| obj.physical_store}
-  validates_presence_of :website, :if => Proc.new {|obj| obj.webstore}
+  validates_presence_of :address1, :city, :country, :if => :physical_store?
+  validates_presence_of :website, :if => :webstore?
   validates_inclusion_of :agent_type, :in => AGENT_TYPES
   #validates_inclusion_of :brands, :in => BRANDS
   #validates_inclusion_of :product_line, :in => PRODUCT_LINES
 
-  before_save :get_geo_location, :if => Proc.new {|obj| obj.physical_store}
+  validate :get_geo_location, :if => :physical_store?
   before_save :validate_sales_representative_states
 
   scope :physical_stores, :where => { :physical_store => true }

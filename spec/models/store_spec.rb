@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Store do
-  subject { Store.new }
 
   describe "initialization" do
     its(:physical_store) { should be_false }
@@ -16,6 +15,92 @@ describe Store do
     it { should validate_presence_of(:brands) }
     it { should validate_presence_of(:agent_type) }
     it { should ensure_inclusion_of(:agent_type).in_array(["Distributor", "Sales Representative", "Authorized Reseller"]) }
+
+    context "when physical store is false by default" do
+      it "should not validate presence of address1" do
+        subject.valid?
+        subject.errors[:address1].should_not include("can't be blank")
+      end
+
+      it "should not validate presence of country" do
+        subject.valid?
+        subject.errors[:country].should_not include("can't be blank")
+      end
+
+      it "should not validate presence of city" do
+        subject.valid?
+        subject.errors[:city].should_not include("can't be blank")
+      end
+    end
+
+    context "when physical store is true" do
+
+      context "on initialization" do
+
+        before do
+          stub_invalid_geocode
+        end
+
+        subject { Store.new(physical_store: true) }
+
+        it "should validate presence of address1" do
+          subject.valid?
+          subject.errors[:address1].should include("can't be blank")
+        end
+
+        it "should validate presence of country" do
+          subject.valid?
+          subject.errors[:country].should include("can't be blank")
+        end
+
+        it "should validate presence of city" do
+          subject.valid?
+          subject.errors[:city].should include("can't be blank")
+        end
+
+        it "should validate location" do
+          store = FactoryGirl.build(:store, physical_store: true, address1: "affda;fj", country: "affda;fj", city: "affda;fj", zip_code: "affda;fj")
+          store.should_not be_valid
+          store.save.should be_false
+          store.errors[:location].should include("Invalid address, could not be Geocoded.")
+        end
+
+      end
+
+      context "on update" do
+
+        it "should validate location on update physical store" do
+          Geokit::Geocoders::MultiGeocoder.stub(:geocode).and_return(double('as response', success: true, lat: 37.3203455, lng: -122.0328205))
+          store = FactoryGirl.create(:store, physical_store: true)
+          store.address1 = "affda;fj"
+          store.country = "affda;fj"
+          store.city = "affda;fj"
+          store.zip_code = "affda;fj"
+          stub_invalid_geocode
+          store.should_not be_valid
+          store.save.should be_false
+          store.errors[:location].should include("Invalid address, could not be Geocoded.")
+        end
+
+        it "should validate location on upgrade webstore to physical store" do
+          stub_invalid_geocode
+          store = FactoryGirl.create(:store, webstore: true, address1: "affda;fj", country: "affda;fj", city: "affda;fj", zip_code: "affda;fj" )
+          store.should be_valid
+          store.webstore = false
+          store.physical_store = true
+          store.should_not be_valid
+          store.save.should be_false
+          store.errors[:location].should include("Invalid address, could not be Geocoded.")
+        end
+
+      end
+
+    end
+
+    it "should respond to geocode" do
+      expect { Geokit::Geocoders::MultiGeocoder.geocode }.to_not raise_error NoMethodError
+    end
+
   end
 
   describe ".active" do
@@ -184,5 +269,9 @@ describe Store do
         specify { @store.save.should be_true }
       end
     end
+  end
+
+  def stub_invalid_geocode
+    Geokit::Geocoders::MultiGeocoder.stub(:geocode).and_return(double('as response', success: false))
   end
 end
