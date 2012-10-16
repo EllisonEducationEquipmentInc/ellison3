@@ -35,6 +35,7 @@ describe Admin::StoresController do
       controller.current_admin.should_receive(:email).and_return("example@example.com")
       store.should_receive(:created_by=).with("example@example.com")
       store.should_receive(:save).and_return(true)
+      store.stub(to_param: "1010")
       post :create, store: { name: 'foo name' }
     end
 
