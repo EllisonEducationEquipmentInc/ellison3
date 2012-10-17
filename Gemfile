@@ -30,6 +30,7 @@ gem 'geokit'
 gem 'youtube_it'
 gem 'memcache-client'
 gem 'event-calendar', :require => 'event_calendar', :git => 'git://github.com/elevation/event_calendar.git', :branch => "master"
+gem 'rpm_contrib'
 gem "ghazel-daemons"
 gem 'delayed_job', '3.0.3'
 gem 'delayed_job_mongoid'

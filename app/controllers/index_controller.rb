@@ -519,7 +519,7 @@ private
   def process_feed(source, mins = 15)
     if @feed.new_record? || @feed.updated_at < mins.minutes.ago
       feed = Feedzirra::Feed.fetch_and_parse(source)
-      feed.sanitize_entries!
+      #feed.sanitize_entries!
       @feed.total_results = feed.total_results.to_i if feed.total_results.present?
       @feed.feeds = feed.entries.to_json
       @feed.save
