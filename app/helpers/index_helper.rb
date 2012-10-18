@@ -23,7 +23,7 @@ module IndexHelper
   end
 
   def store_locator_title
-    if is_us?
+    if is_sizzix_us? || is_ee_us?
       "Store Locator"
     elsif is_uk?
       "Stockist List"
