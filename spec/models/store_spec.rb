@@ -347,8 +347,12 @@ describe Store do
       @code_location = double "as code location"
       @code_location.stub(:lat).and_return(37.328075)
       @code_location.stub(:lng).and_return(-122.032399)
-      @apple = FactoryGirl.create(:all_system_store, physical_store: true)
+
+      stub_geocode_position_to 37.325618, -122.043278
+      @apple = FactoryGirl.create(:all_system_store, name: "APPLE COMPUTER", physical_store: true)
+      stub_geocode_position_to 37.415351, -122.143915
       @hp = FactoryGirl.create(:all_system_store, physical_store: true, address1: "3000 Hanover Street Palo Alto, CA 94304", city: "Palo Alto", zip_code: "94304")
+      stub_geocode_position_to 47.663393, -122.297444
       @ms = FactoryGirl.create(:all_system_store, physical_store: true, address1: "2642 Northeast University Village Street, Seattle, WA 98105", city: "Seattle", state: "WA", zip_code: "98105")
     end
 
@@ -372,9 +376,13 @@ describe Store do
 
   describe ".stores_for" do
     before do
-      @apple  = FactoryGirl.create(:all_system_store, name: "APPLE COMPUTER", physical_store: true)
-      @hp     = FactoryGirl.create(:all_system_store, physical_store: true, address1: "3000 Hanover Street Palo Alto, CA 94304", city: "Palo Alto", zip_code: "94304")
-      @ms     = FactoryGirl.create(:all_system_store, physical_store: true, address1: "2642 Northeast University Village Street, Seattle, WA 98105", city: "Seattle", state: "WA", zip_code: "98105")
+      stub_geocode_position_to 37.325618, -122.043278
+      @apple = FactoryGirl.create(:all_system_store, name: "APPLE COMPUTER", physical_store: true)
+      stub_geocode_position_to 37.415351, -122.143915
+      @hp = FactoryGirl.create(:all_system_store, physical_store: true, address1: "3000 Hanover Street Palo Alto, CA 94304", city: "Palo Alto", zip_code: "94304")
+      stub_geocode_position_to 47.663393, -122.297444
+      @ms = FactoryGirl.create(:all_system_store, physical_store: true, address1: "2642 Northeast University Village Street, Seattle, WA 98105", city: "Seattle", state: "WA", zip_code: "98105")
+      stub_geocode_position_to 51.290936, -0.755782
       @imb_uk = FactoryGirl.create(:all_system_store, name: "IMB Computer", physical_store: true, address1: "Meudon House Meudon Avenue Farnborough, GU14 7NB", city: "Farnborough", state: "Hampshire", country: "United Kingdom", zip_code: "GU14 7NB")
     end
 
@@ -429,4 +437,8 @@ describe Store do
     Geokit::Geocoders::MultiGeocoder.stub(:geocode).and_return(double('as response', success: false))
   end
 
+  def stub_geocode_position_to lat, lng
+    Geokit::Geocoders::MultiGeocoder.stub(:geocode).
+      and_return(double('as response', success: true, lat: lat, lng: lng))
+  end
 end

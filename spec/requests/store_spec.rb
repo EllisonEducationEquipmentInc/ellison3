@@ -237,40 +237,6 @@ feature "Stores", js: true do
       end
     end
 
-    context "When search on ellison.com" do
-      before do
-        set_request_host("ellison.com")
-        visit stores_path
-      end
-
-      scenario "I want to search stores" do
-        page.should have_content "Search by State:"
-        page.has_select?('state').should be_true
-        page.has_css?("div#zip_option", visible: false).should be_true
-
-        page.should have_content "Search by Name:"
-        page.has_field?('name').should be_true
-
-      end
-    end
-
-    context "When search on ellisonretailers.com" do
-      before do
-        set_request_host("ellisonretailers.com")
-        visit stores_path
-      end
-
-      scenario "country search should be by defaults to US" do
-        page.has_select?('country', :selected => 'United States').should be_true
-        page.should have_content "Search by State:"
-        page.has_select?('state').should be_true
-        page.has_css?("div#zip_option", visible: false).should be_true
-
-        page.should have_content "Search by Name:"
-        page.has_field?('name').should be_true
-      end
-    end
-
   end
 
   def check_content_for store
