@@ -2,7 +2,7 @@ module Feedzirra
   
   module Parser
     class RSSEntry
-      element :"atom:summary", :as => :summary, :with => {:type => "text"}
+      element :"atom:summary", :as => :summary
     end
     
     class RSS
