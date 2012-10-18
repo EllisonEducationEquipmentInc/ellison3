@@ -334,6 +334,8 @@ GEM
     ruby_parser (2.3.1)
       sexp_processor (~> 3.0)
     rubyzip (0.9.9)
+    rvm-capistrano (1.2.7)
+      capistrano (>= 2.0.0)
     sass (3.1.20)
     savon (1.1.0)
       akami (~> 1.2.0)
@@ -438,6 +440,7 @@ DEPENDENCIES
   rspec-rails (~> 2.11.0)
   ruby-debug19
   ruby_parser
+  rvm-capistrano
   sass
   savon
   shippinglogic!
