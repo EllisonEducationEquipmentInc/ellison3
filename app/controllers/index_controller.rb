@@ -508,7 +508,7 @@ private
     @videos = Rails.cache.fetch("videos_#{current_system}", :expires_in => 60.minutes) do
       @feed.entries.inject([]) do |arr, e|
         begin
-          v = @client.playlist(e["entry_id"][/\w+$/])
+          v = @client.playlist(e["yt_playlist_id"])
           v.max_result_count = 24
           arr << v
         rescue Exception => e

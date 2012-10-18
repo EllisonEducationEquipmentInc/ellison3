@@ -61,5 +61,7 @@ gem "rails3-generators", :group => :development
 group :development do
   gem "ruby-debug19"
   gem "rack-bug"
+  gem 'irbtools-more', :require => false
+  gem 'terminal-notifier'
   gem 'wirble'
 end
