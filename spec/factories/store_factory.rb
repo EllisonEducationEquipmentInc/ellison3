@@ -15,6 +15,7 @@ FactoryGirl.define  do
     email "my_email@mail.com"
     website "www.example.com"
     zip_code "95014"
+    systems_enabled ["szus"]
   end
 
   factory :all_system_store, parent: :store do

@@ -18,7 +18,7 @@ feature "Stores", js:true do
     end
 
     scenario "as a admin I should be able to check in which systems a store can be displayed" do
-      systems_enabled.each do |system|
+      (systems_enabled - store.systems_enabled).each do |system|
         page.has_unchecked_field?("store_systems_enabled_#{system}").should be_true
         check "store_systems_enabled_#{system}"
       end
@@ -69,7 +69,13 @@ feature "Stores", js:true do
         page.should have_content "Representative serving states"
       end
 
-      scenario "I should be able to add more than one serving states" do
+      scenario "I should be required to select at least one site/system" do
+        click_on 'Create Store'
+        page.should have_content "Systems enabled can't be blank"
+      end
+
+      scenario "I should be able to add more than one serving state" do
+        check "store_systems_enabled_szus"
         fill_in 'Name', with: 'D-Store'
         select 'ellison', from: 'store_brands_'
         select 'Alabama', from: 'store_representative_serving_states_'
