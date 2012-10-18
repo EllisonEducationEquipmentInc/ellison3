@@ -43,7 +43,7 @@ gem 'sunspot-rails-failover', :git => 'git://github.com/flyingmachine/sunspot-ra
 gem 'savon'
 gem "airbrake"
 gem 'capistrano'
-
+gem "mongoid_rails_migrations", "0.0.14"
 
 group :test do
   gem "mongoid-rspec"
