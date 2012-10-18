@@ -57,3 +57,12 @@ otherwise you'll run into a missing dependency: FreeImage.h.
     ```
     rails s
     ```
+
+#### Misc
+
+You need to create mongodb indexes in the test and development environments.
+
+    ```
+    rake db:mongoid:create_indexes RAILS_ENV=test
+    rake db:mongoid:create_indexes
+    ```
