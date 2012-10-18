@@ -98,10 +98,6 @@ describe Store do
 
     end
 
-    it "should respond to geocode" do
-      expect { Geokit::Geocoders::MultiGeocoder.geocode }.to_not raise_error NoMethodError
-    end
-
   end
 
   describe ".active" do
