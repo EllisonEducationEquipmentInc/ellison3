@@ -190,6 +190,24 @@ describe Store do
 
   end
 
+  describe ".catalog_companies" do
+    describe "when there are no stores with catalog company" do
+      before do
+        FactoryGirl.create :store
+      end
+
+      specify{ Store.catalog_companies.should be_empty }
+    end
+
+    describe "when there are stores with catalog company" do
+      before do
+        @store = FactoryGirl.create :store, catalog_company: true
+      end
+
+      specify{ Store.catalog_companies.should include @store }
+    end
+  end
+
   describe "#representative_serving_states" do
     before do
       @store = Store.new

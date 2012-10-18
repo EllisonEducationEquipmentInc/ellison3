@@ -88,6 +88,10 @@ class Store
     active.physical_stores.distinct(:country).sort { |x,y| x <=> y }
   end
 
+  def self.catalog_companies
+    where(catalog_company: true)
+  end
+
   private
 
   def valid_serving_states_representative?
