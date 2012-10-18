@@ -89,4 +89,50 @@ feature "Stores", js:true do
       end
     end
   end
+
+  context "filtering stores" do
+    before do
+      login_as_admin admin
+      visit admin_stores_path
+    end
+
+    scenario "I should see the Agent type/Retailer type field" do
+      page.should have_content "Agent type/Retailer type"
+    end
+
+    scenario "I should see the Catalog company field" do
+      page.should have_content "Catalog Company"
+    end
+
+    scenario "I should be able to filter by Catalog Company" do
+      store_without_catalog_company = FactoryGirl.create(:sales_representative_webstore_us_store)
+      store_with_catalog_company = FactoryGirl.create(:store, catalog_company: true)
+
+      visit current_path
+
+      page.should have_content store_with_catalog_company.name
+      page.should have_content store_without_catalog_company.name
+
+      check 'catalog_company'
+      click_on 'search'
+
+      page.should have_content store_with_catalog_company.name
+      page.should_not have_content store_without_catalog_company.name
+    end
+
+    Store::AGENT_TYPES.each do |agent_type|
+      scenario "I should be able to filter by Agent type: #{agent_type}" do
+        with_agent_type = FactoryGirl.create(:store, agent_type: agent_type)
+        without_agent_type = FactoryGirl.create(:store)
+
+        visit current_path
+
+        select agent_type, from: 'agent_type'
+        click_on 'search'
+
+        page.should have_content with_agent_type.name
+        page.should_not have_content without_agent_type.name unless agent_type == without_agent_type.agent_type
+      end
+    end
+  end
 end
