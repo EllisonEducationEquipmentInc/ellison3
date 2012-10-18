@@ -6,6 +6,9 @@ require 'rspec/autorun'
 require 'capybara/rspec'
 require 'shoulda/matchers'
 require 'database_cleaner'
+require 'webmock'
+
+WebMock.disable_net_connect!(:allow_localhost => true)
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -33,6 +36,9 @@ RSpec.configure do |config|
 
   config.before :each do
     DatabaseCleaner.start
+
+    Geokit::Geocoders::MultiGeocoder.stub(:geocode).
+      and_return(double('as response', success: true, lat: 37.3203455, lng: -122.0328205))
   end
 
   config.after :each do
