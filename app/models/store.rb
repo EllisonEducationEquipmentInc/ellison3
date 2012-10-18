@@ -54,7 +54,7 @@ class Store
 
   mount_uploader :image, GenericImageUploader
 
-  validates_presence_of :name, :brands, :agent_type
+  validates_presence_of :name, :brands, :agent_type, :systems_enabled
   validates_presence_of :address1, :city, :country, :if => :physical_store?
   validates_presence_of :website, :if => :webstore?
   validates_inclusion_of :agent_type, :in => AGENT_TYPES

@@ -14,6 +14,7 @@ describe Store do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:brands) }
     it { should validate_presence_of(:agent_type) }
+    it { should validate_presence_of(:systems_enabled) }
     it { should ensure_inclusion_of(:agent_type).in_array(["Distributor", "Sales Representative", "Authorized Reseller"]) }
 
     context "when physical store is false by default" do
@@ -106,8 +107,8 @@ describe Store do
   describe ".active" do
 
     it "should not return stores when systems enabled is empty" do
-      FactoryGirl.create(:store)
-      FactoryGirl.create(:store)
+      FactoryGirl.build(:store, systems_enabled: []).save(validate: false)
+      FactoryGirl.build(:store, systems_enabled: []).save(validate: false)
       Store.active.count.should eql(0)
     end
 
@@ -210,7 +211,7 @@ describe Store do
 
   describe "#representative_serving_states" do
     before do
-      @store = Store.new
+      @store = Store.new(systems_enabled: ["szus"])
       @store.name = 'D-name'
       @store.brands = ["sizzix", "ellison"]
       @states = ["Al", "Fl"]
