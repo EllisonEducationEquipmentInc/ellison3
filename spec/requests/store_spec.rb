@@ -133,7 +133,7 @@ feature "Stores", js: true do
       @uk = FactoryGirl.create(:physical_us_store, name: "London", country: "United Kingdom", city: "Londo", zip_code: "GU14 7NB")
     end
 
-    context "When search on sizzix.com" do
+    context "When searching on sizzix.com" do
       before do
         set_request_host("sizzix.com")
         visit stores_path
@@ -142,7 +142,7 @@ feature "Stores", js: true do
       scenario "I want to search stores" do
         page.has_select?('country', :selected => 'United States').should be_true
         page.should have_content "Search by State:"
-        page.has_select?('state').should be_true
+        page.should have_select('state')
         
         page.should have_content "Search by Zip Code:"
         page.has_field?('zip_code').should be_true
@@ -154,9 +154,7 @@ feature "Stores", js: true do
 
         fill_in 'name', with: "ertino"
         click_link "Search"
-        wait_until do
-          page.should have_content @us.name
-        end
+        page.should have_content @us.name
 
         select 'United Kingdom', :from => 'country'
 
@@ -166,10 +164,9 @@ feature "Stores", js: true do
         page.has_select?('radius').should be_true
       end
 
-
     end
 
-    context "When search on sizzix.co.uk" do
+    context "When searching on sizzix.co.uk" do
       before do
         set_request_host("sizzix.co.uk")
         visit stores_path
@@ -187,13 +184,11 @@ feature "Stores", js: true do
 
         fill_in 'zip_code', with: "GU14 7NB"
         click_link "Search"
-        wait_until do
-          page.should have_content @uk.name
-        end
+        page.should have_content @uk.name
       end
     end
 
-    context "When search on ellisoneducation.com" do
+    context "When searching on ellisoneducation.com" do
       before do
         set_request_host("ellisoneducation.com")
         visit stores_path
@@ -202,7 +197,7 @@ feature "Stores", js: true do
       scenario "I want to search stores" do
         page.has_select?('country', :selected => 'United States').should be_true
         page.should have_content "Search by State:"
-        page.has_select?('state').should be_true
+        page.should have_select('state')
         page.has_css?("div#zip_option", visible: false).should be_true
 
         page.should have_content "Search by Name:"
@@ -210,14 +205,11 @@ feature "Stores", js: true do
 
         select 'Colombia', :from => 'country'
         click_link "Search"  
-        wait_until do
-          page.should have_content @co.name
-        end
-
+        page.should have_content @co.name
       end
     end
 
-    context "When search on ellisoneducation.co.uk" do
+    context "When searching on ellisoneducation.co.uk" do
       before do
         set_request_host("ellisoneducation.co.uk")
         visit stores_path
@@ -231,9 +223,7 @@ feature "Stores", js: true do
         page.has_field?('name').should be_true
 
         click_link "Search"
-        wait_until do
-          page.should have_content @uk.name
-        end
+        page.should have_content @uk.name
       end
     end
 

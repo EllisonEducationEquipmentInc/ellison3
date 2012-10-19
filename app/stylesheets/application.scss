@@ -534,4 +534,10 @@ color:#A9250E; font-weight:bold;
   .country{
     width: 118px;
   }
+
+  #map_search_submit{
+    span.ui-button-text{
+      padding: 0.4em 2em 0.4em 2.1em;
+    }
+  }
 }

@@ -64,6 +64,7 @@ class Store
 
   validate :get_geo_location, :if => :physical_store?
   before_save :validate_sales_representative_states
+  before_save :set_serving_states_locations, :if => :physical_store?
 
   scope :physical_stores, :where => { :physical_store => true }
   scope :webstores, :where => { :webstore => true }
@@ -113,19 +114,18 @@ class Store
 
   def self.stores_for name, country, state, zip_code, zip_geo, radius
     if name.present?
-      all_by_country(country).where(:name => /#{name}/i).to_a
+      all_by_country(country).where(:name => /#{name}/i)
     elsif state.present?
-      all_by_state(state).to_a
+      all_by_state(state)
     elsif zip_code.present?
       if country == "United States" && zip_code =~ /^\d{5,}/
-        all_by_locations_for(country, zip_geo, radius).to_a
+        all_by_locations_for(country, zip_geo, radius)
       elsif country == "United Kingdom"
-        all_by_locations_for(country, zip_geo, radius).to_a
+        all_by_locations_for(country, zip_geo, radius)
       end
     else
-      all_by_country(country).to_a
-    end
-
+      all_by_country(country)
+    end.to_a
   end
 
   private
@@ -152,20 +152,16 @@ class Store
         return false
       end
     end
-
-    if valid_serving_states_representative?
-      get_serving_states_locations
-    end
-
   end
 
-  def get_serving_states_locations
-    states_hash = {}
-      representative_serving_states.each do |state|
+  def set_serving_states_locations
+    if valid_serving_states_representative? && representative_serving_states.present?
+      states_hash = representative_serving_states.each_with_object({ }) do |state, hash|
         position = MultiGeocoder.geocode(state)
-        states_hash[ state ] = [ position.lat, position.lng ] if position.success
+        hash[ state ] = [ position.lat, position.lng ] if position.success
       end
 
-      self.representative_serving_states_locations = states_hash
+      self.representative_serving_states_locations = states_hash if states_hash.present?
+    end
   end
 end

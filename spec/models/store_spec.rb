@@ -104,6 +104,28 @@ describe Store do
 
   end
 
+  describe "after save" do
+
+    subject { FactoryGirl.build(:physical_us_store, agent_type: "Sales Representative") }
+
+    context "when the physical US store sales representative is recorded without validations" do
+      specify { expect { subject.save(validate: false) }.to_not raise_error }
+    end
+
+    context "when the physical US store sales representative is recorded" do
+      specify { expect { subject.save }.to_not raise_error }
+    end
+
+    it "should set representative serving states geo locations" do
+      store = FactoryGirl.build(:sales_representative_physical_us_store)
+      store.save
+      state_location = [ Geokit::Geocoders::MultiGeocoder.geocode.lat,  Geokit::Geocoders::MultiGeocoder.geocode.lng]
+      store.representative_serving_states_locations["Al"].should =~ state_location
+      store.representative_serving_states_locations["Fl"].should =~ state_location
+    end
+
+  end
+
   describe ".active" do
 
     it "should not return stores when systems enabled is empty" do
@@ -402,7 +424,7 @@ describe Store do
       geo_location = double "as code location"
       geo_location.stub(:lat).and_return(@hp.location[0])
       geo_location.stub(:lng).and_return(@hp.location[1])
-      Store.stores_for(nil, "United States", nil, "9430", geo_location, "20").should be_nil
+      Store.stores_for(nil, "United States", nil, "9430", geo_location, "20").should be_empty
     end
 
     it "should return stores by zip code in US" do

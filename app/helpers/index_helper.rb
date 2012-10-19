@@ -69,19 +69,12 @@ module IndexHelper
   end
 
   def map_position_for index, store, state
-    location = store.representative_serving_states_locations[ state ]
-    if location.present?
-      "{ id: #{index}, point: {lat: #{location[0]}, lng: #{location[1]}}, category: 'Stores' }"
-    else
-      "{ id: #{index}, point: {lat: #{store.location[0]}, lng: #{store.location[1]}}, category: 'Stores' }"
-    end
+    representative_location = store.representative_serving_states_locations[ state ]
+    location = representative_location.present? ? representative_location : store.location
+    { :id => index, :point => { :lat => location[0], :lng => location[1] }, :category => 'Stores' }.to_json
   end
 
-  def only_sizzix_us_or_uk
-    if is_sizzix_us? || is_sizzix_uk?
-      ""
-    else
-      "hide"
-    end
+  def class_for_zip_option
+    is_sizzix_us? || is_sizzix_uk? ? "" : "hide"
   end
 end

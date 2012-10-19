@@ -5,7 +5,7 @@
   .column.field.states.us_only
     %h3 Search by State:
     = select_tag :state, options_for_select(@states), :include_blank => "Select state"
-  #zip_option{ :class => only_sizzix_us_or_uk }
+  #zip_option{ :class => class_for_zip_option }
     .column.field.separator.us_or_uk_only
       %h3 &nbsp;
       %span &nbsp;
@@ -27,4 +27,4 @@
     %h3 Search by Name:
     = text_field_tag :name, params[:name]
 
-  = link_to 'Search&nbsp;&nbsp;'.html_safe, '#', :id => 'map_search_submit', :class => 'jqui_save'
+  = link_to 'Search', '#', :id => 'map_search_submit', :class => 'jqui_save'
