@@ -5,7 +5,7 @@ class UpdateEnabledSystemsAllStores < Mongoid::Migration
 
       agent_type = store.agent_type
       brands = store.brands.map(&:upcase)
-      sites_enabled = store.systems_enabled
+      sites_enabled = store.systems_enabled || [ ]
 
       if agent_type == "Authorized Reseller" && brands.include?("SIZZIX")
         store.systems_enabled = sites_enabled.push('szus', 'szuk').uniq - ["erus"]
@@ -32,17 +32,17 @@ class UpdateEnabledSystemsAllStores < Mongoid::Migration
       brands = store.brands.map(&:upcase)
 
       if agent_type == "Authorized Reseller" && brands.include?("SIZZIX")
-        store.systems_enabled = store.systems_enabled - [ 'szus', 'szuk' ]
+        store.systems_enabled = (store.systems_enabled || [ ]) - [ 'szus', 'szuk' ]
         store.save(:validate => false)
       end
 
       if agent_type == "Authorized Reseller" && brands.include?("ELLISON")
-        store.systems_enabled = store.systems_enabled - [ 'eeus', 'eeuk' ]
+        store.systems_enabled = (store.systems_enabled || [ ]) - [ 'eeus', 'eeuk' ]
         store.save(:validate => false)
       end
 
       if agent_type == "Distributor" || agent_type == "Sales Representative"
-        store.systems_enabled = store.systems_enabled - [ 'erus' ]
+        store.systems_enabled = (store.systems_enabled || [ ]) - [ 'erus' ]
         store.save(:validate => false)
       end
     end
