@@ -31,12 +31,15 @@
           return toggle_store_fields();
         });
         $("#map_search_submit").click(function() {
-          if ($("#country").val() === "United States" && $("#zip_code").val().length < 5) {
-            alert("invalid zip code");
+          var country_val, name_is_blank, state_is_blank;
+          state_is_blank = $("#state").val().length === 0;
+          name_is_blank = $("#name").val().length === 0;
+          country_val = $("#country").val();
+          if (country_val === "United States" && state_is_blank && $("#zip_code").val().length === 0 && name_is_blank) {
+            alert("please select state or zip code or search by name");
             return false;
-          }
-          if ($(".brands:checked").length < 1) {
-            alert("please select at least one brand");
+          } else if (country_val === "United States" && $("#zip_code").val().length < 5 && state_is_blank && name_is_blank) {
+            alert("invalid zip code");
             return false;
           }
           $.ajax({
@@ -66,9 +69,23 @@
 
     toggle_store_fields = function() {
       if ($("#country").val() === "United States") {
-        return $(".us_only").show();
+        $("#map_search_submit").removeClass("without_us_or_uk");
+        $(".us_only").show();
+        $(".us_or_uk_only").show();
+        $(".zipcode").addClass("zipcode_us");
+        $(".zipcode").removeClass("postcode_uk");
+        return $(".zipcode h3").text("Search by Zip Code:");
+      } else if ($("#country").val() === "United Kingdom") {
+        $("#map_search_submit").removeClass("without_us_or_uk");
+        $(".us_only").hide();
+        $(".us_or_uk_only").show();
+        $(".zipcode").addClass("postcode_uk");
+        $(".zipcode").removeClass("zipcode_us");
+        return $(".zipcode h3").text("Search by Postal Code:");
       } else {
-        return $(".us_only").hide();
+        $("#map_search_submit").addClass("without_us_or_uk");
+        $(".us_only").hide();
+        return $(".us_or_uk_only").hide();
       }
     };
 

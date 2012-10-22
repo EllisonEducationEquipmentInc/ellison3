@@ -125,6 +125,110 @@ feature "Stores", js: true do
     end
   end
 
+  context "Search Store Locator" do
+    background do
+      @us = FactoryGirl.create(:physical_us_store, name: "Cupertino")
+      @us_wa = FactoryGirl.create(:physical_us_store, name: "Seattle", city: "Seattle", state: "WA", address1: "2642 Northeast University Village Street, Seattle, 98105")
+      @co = FactoryGirl.create(:physical_us_store, name: "Salitre", country: "Colombia", city: "Bogota", address1: "Bogota")
+      @uk = FactoryGirl.create(:physical_us_store, name: "London", country: "United Kingdom", city: "Londo", zip_code: "GU14 7NB")
+    end
+
+    context "When searching on sizzix.com" do
+      before do
+        set_request_host("sizzix.com")
+        visit stores_path
+      end
+
+      scenario "I want to search stores" do
+        page.has_select?('country', :selected => 'United States').should be_true
+        page.should have_content "Search by State:"
+        page.should have_select('state')
+        
+        page.should have_content "Search by Zip Code:"
+        page.has_field?('zip_code').should be_true
+        page.should have_content "Search by Radius:"
+        page.has_select?('radius').should be_true
+
+        page.should have_content "Search by Name:"
+        page.has_field?('name').should be_true
+
+        fill_in 'name', with: "ertino"
+        click_link "Search"
+        page.should have_content @us.name
+
+        select 'United Kingdom', :from => 'country'
+
+        page.should have_content "Search by Postal Code"
+        page.has_field?('zip_code').should be_true
+        page.should have_content "Search by Radius:"
+        page.has_select?('radius').should be_true
+      end
+
+    end
+
+    context "When searching on sizzix.co.uk" do
+      before do
+        set_request_host("sizzix.co.uk")
+        visit stores_path
+      end
+
+      scenario "I want to search stores" do
+        page.has_select?('country', :selected => 'United Kingdom').should be_true
+        page.should have_content "Search by Name:"
+        page.has_field?('name').should be_true
+
+        page.should have_content "Search by Postal Code:"
+        page.has_field?('zip_code').should be_true
+        page.should have_content "Search by Radius:"
+        page.has_select?('radius').should be_true
+
+        fill_in 'zip_code', with: "GU14 7NB"
+        click_link "Search"
+        page.should have_content @uk.name
+      end
+    end
+
+    context "When searching on ellisoneducation.com" do
+      before do
+        set_request_host("ellisoneducation.com")
+        visit stores_path
+      end
+
+      scenario "I want to search stores" do
+        page.has_select?('country', :selected => 'United States').should be_true
+        page.should have_content "Search by State:"
+        page.should have_select('state')
+        page.has_css?("div#zip_option", visible: false).should be_true
+
+        page.should have_content "Search by Name:"
+        page.has_field?('name').should be_true
+
+        select 'Colombia', :from => 'country'
+        click_link "Search"  
+        page.should have_content @co.name
+      end
+    end
+
+    context "When searching on ellisoneducation.co.uk" do
+      before do
+        set_request_host("ellisoneducation.co.uk")
+        visit stores_path
+      end
+
+      scenario "I want to search stores" do
+        page.has_select?('country', :selected => 'United Kingdom').should be_true
+        page.has_css?("div#zip_option", visible: false).should be_true
+
+        page.should have_content "Search by Name:"
+        page.has_field?('name').should be_true
+
+        click_link "Search"
+        page.should have_content @uk.name
+      end
+    end
+
+  end
+
   def check_content_for store
     wait_until do
       page.should have_content store.name

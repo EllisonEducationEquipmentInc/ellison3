@@ -100,6 +100,28 @@ describe Store do
 
   end
 
+  describe "after save" do
+
+    subject { FactoryGirl.build(:physical_us_store, agent_type: "Sales Representative") }
+
+    context "when the physical US store sales representative is recorded without validations" do
+      specify { expect { subject.save(validate: false) }.to_not raise_error }
+    end
+
+    context "when the physical US store sales representative is recorded" do
+      specify { expect { subject.save }.to_not raise_error }
+    end
+
+    it "should set representative serving states geo locations" do
+      store = FactoryGirl.build(:sales_representative_physical_us_store)
+      store.save
+      state_location = [ Geokit::Geocoders::MultiGeocoder.geocode.lat,  Geokit::Geocoders::MultiGeocoder.geocode.lng]
+      store.representative_serving_states_locations["Al"].should =~ state_location
+      store.representative_serving_states_locations["Fl"].should =~ state_location
+    end
+
+  end
+
   describe ".active" do
 
     it "should not return stores when systems enabled is empty" do
@@ -286,7 +308,155 @@ describe Store do
     end
   end
 
+  describe ".distinct_states" do
+
+    it "should return U.S states of the stores in ascending order with unique values" do
+      FactoryGirl.create(:all_system_store, physical_store: true, agent_type: 'Sales Representative', representative_serving_states: ["AL", "FL", "CA"])
+      FactoryGirl.create(:all_system_store, physical_store: true, state: "AL")
+      FactoryGirl.create(:all_system_store, physical_store: true, state: "WY")
+      FactoryGirl.create(:all_system_store, physical_store: true, state: "WY")
+      Store.distinct_states.should eql [ "AL", "CA", "FL", "WY" ]
+    end
+
+    it "should not include states for web stores" do
+      FactoryGirl.create(:all_system_store, webstore: true, state: "WY")
+      FactoryGirl.create(:all_system_store, physical_store: true, state: "AL")
+      Store.distinct_states.should =~ [ "AL" ]
+    end
+
+    it "should include states only for United States" do
+      FactoryGirl.create(:all_system_store, physical_store: true, state: "WY")
+      FactoryGirl.create(:all_system_store, physical_store: true, country: "Australia", state: "FL")
+      Store.distinct_states.should =~ [ "WY" ]
+    end
+
+    it "should not return any state when no stores have been created" do
+      Store.distinct_states.should =~ [ ]
+    end
+
+  end
+
+  describe ".all_by_state" do
+
+    it "returns stores from given state and in ascending order by name" do
+      store1 = FactoryGirl.create(:all_system_store, physical_store: true, name: "One store", agent_type: 'Sales Representative', representative_serving_states: ["AL", "FL", "CA"])
+      store2 = FactoryGirl.create(:all_system_store, physical_store: true, name: "Two Store", state: "AL")
+      store3 = FactoryGirl.create(:all_system_store, physical_store: true, name: "Three Store", state: "AL")
+      store4 = FactoryGirl.create(:all_system_store, physical_store: true, name: "Four Store", state: "WY")
+      Store.all_by_state("AL").to_a.should eql [ store1, store3, store2 ]
+    end
+
+    it "should not include stores for web stores" do
+      store1 = FactoryGirl.create(:all_system_store, webstore: true, state: "WY")
+      store2 = FactoryGirl.create(:all_system_store, physical_store: true, state: "AL")
+      Store.all_by_state("AL").to_a.should =~ [ store2 ]
+    end
+
+    it "should return only store for United States" do
+      store1 = FactoryGirl.create(:all_system_store, physical_store: true, state: "AL", country: "United Kingdom")
+      store2 = FactoryGirl.create(:all_system_store, physical_store: true, state: "AL")
+      Store.all_by_state("AL").to_a.should =~ [ store2 ]
+    end
+
+  end
+
+  describe ".all_by_locations_for" do
+    before do
+      @code_location = double "as code location"
+      @code_location.stub(:lat).and_return(37.328075)
+      @code_location.stub(:lng).and_return(-122.032399)
+
+      stub_geocode_position_to 37.325618, -122.043278
+      @apple = FactoryGirl.create(:all_system_store, name: "APPLE COMPUTER", physical_store: true)
+      stub_geocode_position_to 37.415351, -122.143915
+      @hp = FactoryGirl.create(:all_system_store, physical_store: true, address1: "3000 Hanover Street Palo Alto, CA 94304", city: "Palo Alto", zip_code: "94304")
+      stub_geocode_position_to 47.663393, -122.297444
+      @ms = FactoryGirl.create(:all_system_store, physical_store: true, address1: "2642 Northeast University Village Street, Seattle, WA 98105", city: "Seattle", state: "WA", zip_code: "98105")
+    end
+
+    it "should not return stores within 0 miles radius" do
+      Store.all_by_locations_for("United States", @code_location, "0").to_a.should =~ [  ]
+    end
+
+    it "should return stores within 8 miles radius" do
+      Store.all_by_locations_for("United States", @code_location, "8").to_a.should =~ [ @apple ]
+    end
+
+    it "should return stores within 20 miles radius" do
+      Store.all_by_locations_for("United States", @code_location, "20").to_a.should =~ [ @apple, @hp ]
+    end
+
+    it "should return stores within 1000 miles radius" do
+      Store.all_by_locations_for("United States", @code_location, "1000").to_a.should =~ [ @apple, @hp, @ms ]
+    end
+
+  end
+
+  describe ".stores_for" do
+    before do
+      stub_geocode_position_to 37.325618, -122.043278
+      @apple = FactoryGirl.create(:all_system_store, name: "APPLE COMPUTER", physical_store: true)
+      stub_geocode_position_to 37.415351, -122.143915
+      @hp = FactoryGirl.create(:all_system_store, physical_store: true, address1: "3000 Hanover Street Palo Alto, CA 94304", city: "Palo Alto", zip_code: "94304")
+      stub_geocode_position_to 47.663393, -122.297444
+      @ms = FactoryGirl.create(:all_system_store, physical_store: true, address1: "2642 Northeast University Village Street, Seattle, WA 98105", city: "Seattle", state: "WA", zip_code: "98105")
+      stub_geocode_position_to 51.290936, -0.755782
+      @imb_uk = FactoryGirl.create(:all_system_store, name: "IMB Computer", physical_store: true, address1: "Meudon House Meudon Avenue Farnborough, GU14 7NB", city: "Farnborough", state: "Hampshire", country: "United Kingdom", zip_code: "GU14 7NB")
+    end
+
+    it "should not return any store" do
+      Store.stores_for(nil, nil, nil, nil, nil, nil).should be_empty
+    end
+
+    it "should return stores by name" do
+      Store.stores_for("comp", "United States", nil, nil, nil, nil).should =~ [ @apple ]
+    end
+
+    it "should return stores by state" do
+      Store.stores_for(nil, "United States", "WA", nil, nil, nil).should =~ [ @ms ]
+    end
+
+    it "should not return stores when zip code of US is less than five digits" do
+      geo_location = double "as code location"
+      geo_location.stub(:lat).and_return(@hp.location[0])
+      geo_location.stub(:lng).and_return(@hp.location[1])
+      Store.stores_for(nil, "United States", nil, "9430", geo_location, "20").should be_empty
+    end
+
+    it "should return stores by zip code in US" do
+      geo_location = double "as code location"
+      geo_location.stub(:lat).and_return(@hp.location[0])
+      geo_location.stub(:lng).and_return(@hp.location[1])
+      Store.stores_for(nil, "United States", nil, "94304", geo_location, "20").should =~ [ @apple, @hp ]
+    end
+
+    it "should return stores by post code in UK" do
+      geo_location = double "as code location"
+      geo_location.stub(:lat).and_return(@imb_uk.location[0])
+      geo_location.stub(:lng).and_return(@imb_uk.location[1])
+      Store.stores_for(nil, "United Kingdom", nil, "94304", geo_location, "5").should =~ [ @imb_uk ]
+    end
+
+    it "should return all stores in US" do
+      Store.stores_for(nil, "United States", nil, nil, nil, nil).should =~ [ @apple, @hp, @ms ]
+    end
+
+    it "should return all stores in UK" do
+      Store.stores_for(nil, "United Kingdom", nil, nil, nil, nil).should =~ [ @imb_uk ]
+    end
+
+    it "should not return any store when no country has been given" do
+      Store.stores_for("name", nil, nil, nil, nil, nil).should =~ [ ]
+    end
+
+  end
+
   def stub_invalid_geocode
     Geokit::Geocoders::MultiGeocoder.stub(:geocode).and_return(double('as response', success: false))
+  end
+
+  def stub_geocode_position_to lat, lng
+    Geokit::Geocoders::MultiGeocoder.stub(:geocode).
+      and_return(double('as response', success: true, lat: lat, lng: lng))
   end
 end

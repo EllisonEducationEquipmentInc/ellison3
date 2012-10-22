@@ -264,28 +264,19 @@ class IndexController < ApplicationController
 
   def stores
     params[:country] ||= is_us? ? 'United States' : 'United Kingdom'
-    params[:brands] ||= if is_sizzix? 
-        'sizzix' 
-      elsif is_ee?
-        'ellison'
-      else
-        'sizzix, ellison'
-      end
+
+    @states = Store.distinct_states
     @countries = Store.distinct_countries
     @online_retailers = Store.online_retailers.cache
     @store_locator_content = SharedContent.store_locator
   end
 
   def update_map
-    criteria = Mongoid::Criteria.new(Store)
-    criteria = criteria.where.active.physical_stores
-    criteria = criteria.where(:brands.in => params[:brands]) if params[:brands].present?
-    if params[:country] && params[:country] != 'United States'
-      @stores = criteria.where(:country => params[:country]).order_by(:name => :asc).map {|e| e}
-    elsif params[:zip_code].present? && params[:zip_code] =~ /^\d{5,}/
-      @zip_geo = MultiGeocoder.geocode(params[:zip_code])
-      @stores = criteria.where(:location.within => { "$center" => [ [@zip_geo.lat, @zip_geo.lng], ((params[:radius].to_i * 20)/(3963.192*0.3141592653))] }).map {|e| e}
-    end
+    @zip_geo = MultiGeocoder.geocode(params[:zip_code]) if params[:zip_code].present?
+
+    @stores = Store.stores_for( params[:name], params[:country], params[:state],
+                                params[:zip_code], @zip_geo, params[:radius] )
+
     if @stores.present?
       render :partial => "store", :collection => @stores
     else

@@ -491,4 +491,53 @@ color:#A9250E; font-weight:bold;
   }
 }
 
+#store-locator{
 
+  .separator{
+    width: 26px;
+  }
+
+  .states{
+    margin-left: 10px;
+    width: 100px;
+  }
+
+  .zipcode_us{
+    width: 145px;
+  }
+
+  .postcode_uk{
+    width: 156px;
+    input{
+      width: 135px;
+    }
+  }
+
+  .radius-miles{
+    width: 106px;
+  }
+
+  .with_us_or_uk{
+    margin-right: 0px;
+    margin-top: 6px;
+  }
+
+  .without_us_or_uk{
+    margin-right: 478px;
+    margin-top: 12px;
+  }
+
+  .search-name{
+    width: 130px;
+  }
+
+  .country{
+    width: 118px;
+  }
+
+  #map_search_submit{
+    span.ui-button-text{
+      padding: 0.4em 2em 0.4em 2.1em;
+    }
+  }
+}

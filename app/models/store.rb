@@ -40,6 +40,7 @@ class Store
   field :systems_enabled, :type => Array
 
   field :representative_serving_states, :type => Array
+  field :representative_serving_states_locations, :type => Hash, :default => {}
   field :created_by
   field :updated_by
 
@@ -63,6 +64,7 @@ class Store
 
   validate :get_geo_location, :if => :physical_store?
   before_save :validate_sales_representative_states
+  before_save :set_serving_states_locations, :if => :physical_store?
 
   scope :physical_stores, :where => { :physical_store => true }
   scope :webstores, :where => { :webstore => true }
@@ -92,6 +94,40 @@ class Store
     where(catalog_company: true)
   end
 
+  def self.distinct_states country='United States'
+    sales_representative_states = active.physical_stores.where(:country => country, :agent_type => 'Sales Representative').distinct(:representative_serving_states)
+    states = active.physical_stores.where(:country => country).excludes(:agent_type => 'Sales Representative').distinct(:state)
+    states.concat(sales_representative_states).uniq.sort
+  end
+
+  def self.all_by_state state
+    all_by_country('United States').any_of({ :state => state }, { :representative_serving_states => state })
+  end
+
+  def self.all_by_country country
+    active.physical_stores.where(:country => country).order_by(:name => :asc)
+  end
+
+  def self.all_by_locations_for country, code_location, radius
+    all_by_country(country).where(:location.within => { "$center" => [ [code_location.lat, code_location.lng], ((radius.to_i * 20)/(3963.192*0.3141592653))] })
+  end
+
+  def self.stores_for name, country, state, zip_code, zip_geo, radius
+    if name.present?
+      all_by_country(country).where(:name => /#{name}/i)
+    elsif state.present?
+      all_by_state(state)
+    elsif zip_code.present?
+      if country == "United States" && zip_code =~ /^\d{5,}/
+        all_by_locations_for(country, zip_geo, radius)
+      elsif country == "United Kingdom"
+        all_by_locations_for(country, zip_geo, radius)
+      end
+    else
+      all_by_country(country)
+    end.to_a
+  end
+
   private
 
   def valid_serving_states_representative?
@@ -115,6 +151,17 @@ class Store
         errors.add(:location, "Invalid address, could not be Geocoded.")
         return false
       end
+    end
+  end
+
+  def set_serving_states_locations
+    if valid_serving_states_representative? && representative_serving_states.present?
+      states_hash = representative_serving_states.each_with_object({ }) do |state, hash|
+        position = MultiGeocoder.geocode(state)
+        hash[ state ] = [ position.lat, position.lng ] if position.success
+      end
+
+      self.representative_serving_states_locations = states_hash if states_hash.present?
     end
   end
 end
