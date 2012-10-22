@@ -77,6 +77,13 @@ describe Admin::StoresController do
           get :index, agent_type: 'Agent type'
         end
       end
+
+      describe "when an Admin is filtering by sites enabled" do
+        it "filters the search by Sites enabled" do
+          @criteria.should_receive(:where).with(:systems_enabled.in => ['szus']).and_return @criteria
+          get :index, sites_enabled: ['szus']
+        end
+      end
     end
   end
 

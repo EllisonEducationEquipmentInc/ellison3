@@ -110,6 +110,31 @@ feature "Stores", js:true do
       page.should have_content "Catalog Company"
     end
 
+    scenario "I should see Sites Enabled in the sites table" do
+      store = FactoryGirl.create(:all_system_store)
+      visit current_path
+      page.should have_content "Sites Enabled"
+      page.should have_content store.systems_enabled.join(", ")
+    end
+
+    scenario "I should be able to filter by sites enabled" do
+      szus_store = FactoryGirl.create(:store, systems_enabled: ["szus"])
+      store = FactoryGirl.create(:all_system_store)
+
+      visit current_path
+
+      page.should have_content store.name
+      page.should have_content szus_store.name
+
+      select 'eeuk', from: 'sites_enabled'
+      select 'eeus', from: 'sites_enabled'
+
+      click_on 'search'
+
+      page.should have_content store.name
+      page.should_not have_content szus_store.name
+    end
+
     scenario "I should be able to filter by Catalog Company" do
       store_without_catalog_company = FactoryGirl.create(:sales_representative_webstore_us_store)
       store_with_catalog_company = FactoryGirl.create(:store, catalog_company: true)

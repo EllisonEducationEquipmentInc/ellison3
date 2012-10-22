@@ -57,6 +57,7 @@ class Admin::StoresController < ApplicationController
     criteria = criteria.where(:active => true) if params[:inactive].blank?
     criteria = criteria.where(:brands.in => [params[:brands]]) unless params[:brands].blank?
     criteria = criteria.where(:product_line.in => [params[:product_line]]) unless params[:product_line].blank?
+    criteria = criteria.where(:systems_enabled.in => params[:sites_enabled]) unless params[:sites_enabled].blank?
     criteria = criteria.where(:agent_type.in => [params[:agent_type]]) unless params[:agent_type].blank?
 
     unless params[:q].blank?
