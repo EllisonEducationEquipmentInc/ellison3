@@ -259,14 +259,33 @@ input#brands_sizzix { margin-left: 0 !important; }
 }
 
 .legend {
-  float: right;
-  margin: 0 24px 10px 0px;
+  float: left;
+  margin: 0 4px 10px 0px;
 
   p {
     margin-bottom: 0 !important;
     font-weight: bold;
   }
-  ul { @extend ul.plain; }
+
+  ul {
+    @extend ul.plain;
+  }
+
+  li {
+    float:left;
+  }
+
+  span {
+    margin:0 8px 0 0;
+  }
+}
+
+.legend_hdr {
+  font-weight:bold;
+}
+
+.store_fix {
+  width:100%;
 }
 
 // Instructions

@@ -14,16 +14,51 @@
         %li= store_locator_tab
   - unless @countries.empty?
     #stores
-      %p Most of the products that you love are available through our website or at your local craft store. Although we don't sell selected items online, we'll put you in touch with a retailer who might. Be sure to call ahead for product availability. Can't find a retailer near you? We're always adding new retail locations, so check back soon!
+      - if @store_locator_content.present?
+        #current_visual_assets= render @store_locator_content.visual_assets.current
       %hr
       = render "stores/search_bar"
       .clear
-      %hr
+      %hr      
+
       .store_list
         #map-side-bar Enter search criteria to get started.
       .storeframe
         #map
       .clear
+      %br
+
+      - if is_er? || is_ee?
+        .legend 
+          %ul
+            %li
+              %span{:class=>"legend_hdr"} Product Lines & Brands:
+              %li 
+                %span.icon_brand-allstar AllStar 
+              %li 
+                %span.icon_brand-eclips eclips 
+              %li 
+                %span.icon_brand-prestige Prestige 
+              %li 
+                %span.icon_brand-rollmodel RollModel 
+              %li 
+                %span.icon_brand-sizzix Sizzix
+
+      - if is_er? || is_sizzix_us?
+        .legend 
+          %ul 
+            %li
+              %span{:class=>"legend_hdr"} Store Excellence Levels:
+            %li 
+              %span.icon_excellence-level_a-cut-above A Cut Above 
+            %li 
+              %span.icon_excellence-level_elite Elite 
+            %li 
+              %span.icon_excellence-level_executive Executive 
+            %li 
+              %span.icon_excellence-level_preferred Preferred 
+      .clear
+
   - unless @online_retailers.empty?
     #online_resellers.store-grid
       - country = "initial_country"
@@ -40,42 +75,10 @@
           %h2= store.country
         .online_store.ui-corner-all= render store
       .clear
-  - if is_er? || is_sizzix_us?
-    %hr
-    - unless is_sizzix_us?
-      .legend 
-        %p Product Lines & Brands 
-        %ul 
-          %li 
-            %span.icon_brand-allstar AllStar 
-          -# hiding Ellison icon for now... 
-            %li 
-              %span.icon_brand-ellison Ellison 
-          %li 
-            %span.icon_brand-eclips eclips 
-          %li 
-            %span.icon_brand-prestige Prestige 
-          %li 
-            %span.icon_brand-rollmodel RollModel 
-          %li 
-            %span.icon_brand-sizzix Sizzix 
-    .legend 
-      %p Store Excellence Levels 
-      %ul 
-        %li 
-          %span.icon_excellence-level_a-cut-above A Cut Above 
-        %li 
-          %span.icon_excellence-level_elite Elite 
-        %li 
-          %span.icon_excellence-level_executive Executive 
-        %li 
-          %span.icon_excellence-level_preferred Preferred 
-    .clear 
 
   - unless is_sizzix_uk?
     .clear
-- if @store_locator_content.present?
-  #current_visual_assets= render @store_locator_content.visual_assets.current
+
 :javascript
   lat = #{is_uk? ? '53.13359' : '40.513799'}
   lng = #{is_uk? ? '-1.977539' : '-98.876953'}
