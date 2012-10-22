@@ -84,6 +84,19 @@ feature "Stores", js: true do
       end
     end
 
+    context "when sales representative doesn't have any serving states" do
+      before do
+        @store = FactoryGirl.create(:sales_representative_physical_us_store, representative_serving_states: [])
+        visit stores_path
+      end
+      scenario "I Shouldn't see the representative states field" do
+        select "United States", :from => 'country'
+        fill_in 'zip_code', with: @store.zip_code
+        check_content_for @store, representative_serving: true
+        page.should_not have_content "Representative Serving: #{@store.representative_serving_states.join(", ")}"
+      end
+    end
+
     context "when I'm in the Online Retailers Tab" do
       before do
         @online_retailer = FactoryGirl.create(:sales_representative_webstore_us_store)
@@ -229,7 +242,7 @@ feature "Stores", js: true do
 
   end
 
-  def check_content_for store
+  def check_content_for store, not_tested = {}
     wait_until do
       page.should have_content store.name
       page.should have_content store.address1
@@ -238,7 +251,7 @@ feature "Stores", js: true do
       page.should have_content store.state
       page.should have_content store.zip_code
       page.should have_content store.country
-      page.should have_content "Representative Serving: #{store.representative_serving_states.join(", ")}"
+      page.should have_content "Representative Serving: #{store.representative_serving_states.join(", ")}" unless not_tested[:representative_serving].present?
       page.should have_content store.phone
       page.should have_content store.fax
       page.should have_content "Contact Via Email"

@@ -4,6 +4,7 @@ class Store
   include Mongoid::Timestamps
   include Geokit::Geocoders
 
+  US_STATES = ["AA", "AE", "AP", "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
   AGENT_TYPES = ["Distributor", "Sales Representative", "Authorized Reseller"]
   AUTHORIZED_RESELLER_TYPES = ["Catalog sales only", "Web sales only", "Brick and Mortar Store", "Combination"]
   PRODUCT_LINES = %w(Sizzix eclips AllStar Prestige RollModel)
@@ -62,6 +63,7 @@ class Store
   #validates_inclusion_of :brands, :in => BRANDS
   #validates_inclusion_of :product_line, :in => PRODUCT_LINES
 
+  validate :representative_states_selected?
   validate :get_geo_location, :if => :physical_store?
   before_save :validate_sales_representative_states
   before_save :set_serving_states_locations, :if => :physical_store?
@@ -134,10 +136,25 @@ class Store
     country == 'United States' && agent_type == 'Sales Representative'
   end
 
+  def serving_states?
+    representative_serving_states.present?
+  end
+
   def validate_sales_representative_states
-    if representative_serving_states.present? && !valid_serving_states_representative?
+    if serving_states? && !valid_serving_states_representative?
       errors.add(:base, "Admin can't be a serving representative")
       false
+    end
+  end
+
+  def representative_states_selected?
+    if agent_type == 'Sales Representative' and serving_states?
+      representative_serving_states.each do |state|
+        unless US_STATES.include? state
+          errors.add(:representative_serving_states, "Invalid US State: #{state}.")
+          return false
+        end
+      end
     end
   end
 
