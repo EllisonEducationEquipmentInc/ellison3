@@ -9,11 +9,15 @@
         $(".tab-block").tabs("select", 1);
         $(".tab-block").bind("tabsselect", function(event, ui) {
           if (ui.index === 0) {
-            return $("#tab-head span").text("Online Retailers");
-          } else {
-            if (ui.index === 1) {
-              return $("#tab-head span").text(store_locator_title);
-            }
+            $("#tab-head span").text("Online Retailers");
+            $("#stores > .storeframe").toggle();
+            $("#map_search_submit").toggle();
+            return $("#stores > hr").toggle();
+          } else if (ui.index === 1) {
+            $("#tab-head span").text(store_locator_title);
+            $("#stores > .storeframe").toggle();
+            $("#map_search_submit").toggle();
+            return $("#stores > hr").toggle();
           }
         });
         toggle_store_fields();

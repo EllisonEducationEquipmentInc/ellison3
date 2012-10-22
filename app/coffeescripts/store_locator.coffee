@@ -6,7 +6,14 @@ class document.StoreLocator
       $(".tab-block").bind "tabsselect", (event, ui) ->
         if ui.index is 0
           $("#tab-head span").text "Online Retailers"
-        else $("#tab-head span").text store_locator_title  if ui.index is 1
+          $("#stores > .storeframe").toggle()
+          $("#map_search_submit").toggle()
+          $("#stores > hr").toggle()
+        else if ui.index is 1
+          $("#tab-head span").text store_locator_title
+          $("#stores > .storeframe").toggle()
+          $("#map_search_submit").toggle()
+          $("#stores > hr").toggle()
 
       toggle_store_fields()
       $.getScript "/javascripts/vendor/jquery.metadata.js", ->
