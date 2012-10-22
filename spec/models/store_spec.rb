@@ -232,7 +232,21 @@ describe Store do
       @store = Store.new(systems_enabled: ["szus"])
       @store.name = 'D-name'
       @store.brands = ["sizzix", "ellison"]
-      @states = ["Al", "Fl"]
+      @states = ["AL", "FL"]
+    end
+
+    describe "when the selected state is not correct" do
+      before do
+        @store.country = 'United States'
+        @store.agent_type = 'Sales Representative'
+        @invalid = ""
+        @store.representative_serving_states = ["AL", @invalid, "FL"]
+      end
+
+      it "returns a serving representative state error" do
+        @store.save.should be_false
+        @store.errors[:representative_serving_states].should include "Invalid US State: #{@invalid}."
+      end
     end
 
     describe "when the admin is a Sales representative from the US" do
@@ -253,7 +267,7 @@ describe Store do
         specify { @store.save.should be_true }
 
         it "has Florida and Alabama as serving representative" do
-          @store.save.should be_true
+          @store.save
           @store.representative_serving_states.should == @states
         end
       end

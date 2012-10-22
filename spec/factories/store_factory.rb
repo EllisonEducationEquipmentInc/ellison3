@@ -29,14 +29,14 @@ FactoryGirl.define  do
 
   factory :sales_representative_physical_us_store, parent: :physical_us_store do
     agent_type 'Sales Representative'
-    representative_serving_states ["Al", "Fl"]
+    representative_serving_states ["AL", "FL"]
   end
 
   factory :sales_representative_webstore_us_store, parent: :all_system_store do
     webstore true
     physical_store false
     agent_type 'Sales Representative'
-    representative_serving_states ["Al", "Fl"]
+    representative_serving_states ["AL", "FL"]
   end
 end
 
