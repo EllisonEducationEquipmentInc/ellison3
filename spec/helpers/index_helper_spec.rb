@@ -174,6 +174,15 @@ describe IndexHelper do
       helper.retailers_group_with(retailers, countries)
     end
 
+    it "should return empty" do
+      helper.should_receive(:is_sizzix_uk?).and_return false
+      helper.should_receive(:is_sizzix_us?).and_return false
+      helper.should_receive(:is_ee_uk?).and_return false
+      helper.should_receive(:is_ee_us?).and_return false
+      helper.should_receive(:is_er_us?).and_return false
+      helper.retailers_group_with(retailers, countries).should be_empty
+    end
+
   end
 
   describe "#retailers_group_without" do

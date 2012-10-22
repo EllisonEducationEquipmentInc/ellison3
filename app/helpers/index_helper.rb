@@ -61,6 +61,8 @@ module IndexHelper
       online_retailers.where(:country.in => country_array).order_by(:country => :asc)
     elsif is_ee_us? || is_sizzix_us? ||  is_er_us?
       online_retailers.where(:country.in => country_array).order_by(:country => :desc)
+    else
+      [ ]
     end
   end
 
