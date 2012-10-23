@@ -116,8 +116,8 @@ describe Store do
       store = FactoryGirl.build(:sales_representative_physical_us_store)
       store.save
       state_location = [ Geokit::Geocoders::MultiGeocoder.geocode.lat,  Geokit::Geocoders::MultiGeocoder.geocode.lng]
-      store.representative_serving_states_locations["Al"].should =~ state_location
-      store.representative_serving_states_locations["Fl"].should =~ state_location
+      store.representative_serving_states_locations["AL"].should =~ state_location
+      store.representative_serving_states_locations["FL"].should =~ state_location
     end
 
   end
