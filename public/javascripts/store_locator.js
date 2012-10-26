@@ -40,10 +40,10 @@
           name_is_blank = $("#name").val().length === 0;
           country_val = $("#country").val();
           if (country_val === "United States" && state_is_blank && $("#zip_code").val().length === 0 && name_is_blank) {
-            alert("please select state or zip code or search by name");
+            alert("Please select state or zip code or search by name");
             return false;
           } else if (country_val === "United States" && $("#zip_code").val().length < 5 && state_is_blank && name_is_blank) {
-            alert("invalid zip code");
+            alert("Invalid zip code");
             return false;
           }
           $.ajax({
@@ -85,7 +85,7 @@
         $(".us_or_uk_only").show();
         $(".zipcode").addClass("postcode_uk");
         $(".zipcode").removeClass("zipcode_us");
-        return $(".zipcode h3").text("Search by Postal Code:");
+        return $(".zipcode h3").text("Search by Post Code:");
       } else {
         $("#map_search_submit").addClass("without_us_or_uk");
         $(".us_only").hide();

@@ -45,7 +45,7 @@
           %td= store.state
           %td= store.country
           %td= store.active
-          %td= store.systems_enabled.join(", ")
+          %td= store.systems_enabled.join(", ") rescue[]
           %td= store.agent_type
           - if has_write_permissions?
             %td{ :width => 30, :style => "text-align: right;" }= link_to 'Edit', edit_admin_store_path(store), :class => 'jqui_edit_min'

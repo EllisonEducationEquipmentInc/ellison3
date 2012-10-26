@@ -34,10 +34,10 @@ class document.StoreLocator
         country_val = $("#country").val()
 
         if country_val is "United States" and state_is_blank and $("#zip_code").val().length == 0 and name_is_blank
-          alert "please select state or zip code or search by name"
+          alert "Please select state or zip code or search by name"
           return false
         else if country_val is "United States" and $("#zip_code").val().length < 5 and state_is_blank and name_is_blank
-          alert "invalid zip code"
+          alert "Invalid zip code"
           return false
         $.ajax
           url: "/index/update_map?" + $(this).parents("form").serialize()
@@ -68,7 +68,7 @@ class document.StoreLocator
       $(".us_or_uk_only").show()
       $(".zipcode").addClass("postcode_uk")
       $(".zipcode").removeClass("zipcode_us")
-      $(".zipcode h3").text("Search by Postal Code:")
+      $(".zipcode h3").text("Search by Post Code:")
     else
       $("#map_search_submit").addClass("without_us_or_uk")
       $(".us_only").hide()
