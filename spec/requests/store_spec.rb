@@ -177,6 +177,19 @@ feature "Stores", js: true do
         page.has_select?('radius').should be_true
       end
 
+      scenario "I want to search by zip code and then change the search in other country" do
+        fill_in 'zip_code', with: "98105"
+        click_link "Search"
+        within("#map-side-bar") do
+          page.should have_content "Seattle"
+        end
+
+        select "Colombia", :from => 'country'
+        click_link "Search"
+        within("#map-side-bar") do
+          page.should have_content "Salitre"
+        end
+      end
     end
 
     context "When searching on sizzix.co.uk" do

@@ -344,6 +344,13 @@ describe Store do
       Store.distinct_states.should =~ [ "WY" ]
     end
 
+    it "should not include blank states" do
+      FactoryGirl.create(:all_system_store, physical_store: true, state: "WY")
+      FactoryGirl.create(:all_system_store, physical_store: true, state: "FL")
+      FactoryGirl.create(:all_system_store, physical_store: true, state: " ")
+      Store.distinct_states.should =~ [ "WY", "FL" ]
+    end
+
     it "should not return any state when no stores have been created" do
       Store.distinct_states.should =~ [ ]
     end
