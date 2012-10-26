@@ -171,7 +171,7 @@ feature "Stores", js: true do
 
         select 'United Kingdom', :from => 'country'
 
-        page.should have_content "Search by Postal Code"
+        page.should have_content "Search by Post Code"
         page.has_field?('zip_code').should be_true
         page.should have_content "Search by Radius:"
         page.has_select?('radius').should be_true
@@ -190,7 +190,7 @@ feature "Stores", js: true do
         page.should have_content "Search by Name:"
         page.has_field?('name').should be_true
 
-        page.should have_content "Search by Postal Code:"
+        page.should have_content "Search by Post Code:"
         page.has_field?('zip_code').should be_true
         page.should have_content "Search by Radius:"
         page.has_select?('radius').should be_true

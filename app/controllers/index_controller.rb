@@ -269,6 +269,7 @@ class IndexController < ApplicationController
     @countries = Store.distinct_countries
     @online_retailers = Store.online_retailers.cache
     @store_locator_content = SharedContent.store_locator
+    @title = 'Store Locator'
   end
 
   def update_map
