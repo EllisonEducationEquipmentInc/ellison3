@@ -499,11 +499,11 @@ color:#A9250E; font-weight:bold;
 
   .states{
     margin-left: 10px;
-    width: 100px;
+    width: auto;
   }
 
   .zipcode_us{
-    width: 145px;
+    width: auto;
   }
 
   .postcode_uk{
@@ -514,25 +514,27 @@ color:#A9250E; font-weight:bold;
   }
 
   .radius-miles{
-    width: 106px;
+    width:auto;
   }
 
   .with_us_or_uk{
     margin-right: 0px;
     margin-top: 6px;
+    width:auto;
   }
 
   .without_us_or_uk{
     margin-right: 478px;
-    margin-top: 12px;
+    margin-top: 8px;
+    width:auto;
   }
 
   .search-name{
-    width: 130px;
+    width: auto;
   }
 
   .country{
-    width: 118px;
+    width: auto;
   }
 
   #map_search_submit{
