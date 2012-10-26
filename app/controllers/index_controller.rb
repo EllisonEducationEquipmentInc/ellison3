@@ -497,7 +497,7 @@ private
     @videos = Rails.cache.fetch("videos_#{current_system}", :expires_in => 60.minutes) do
       @feed.entries.inject([]) do |arr, e|
         begin
-          v = @client.playlist(e["entry_id"][/\w+$/])
+          v = @client.playlist(e["yt_playlist_id"])
           v.max_result_count = 24
           arr << v
         rescue Exception => e
@@ -510,7 +510,6 @@ private
   def process_feed(source, mins = 15)
     if @feed.new_record? || @feed.updated_at < mins.minutes.ago
       feed = Feedzirra::Feed.fetch_and_parse(source)
-      #feed.sanitize_entries!
       @feed.total_results = feed.total_results.to_i if feed.total_results.present?
       @feed.feeds = feed.entries.to_json
       @feed.save
