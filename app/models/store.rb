@@ -99,7 +99,7 @@ class Store
   def self.distinct_states country='United States'
     sales_representative_states = active.physical_stores.where(:country => country, :agent_type => 'Sales Representative').distinct(:representative_serving_states)
     states = active.physical_stores.where(:country => country).excludes(:agent_type => 'Sales Representative').distinct(:state)
-    states.concat(sales_representative_states).uniq.sort
+    states.concat(sales_representative_states).uniq.delete_if{ |state| state.blank? }.sort
   end
 
   def self.all_by_state state
