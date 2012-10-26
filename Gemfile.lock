@@ -223,7 +223,7 @@ GEM
     json (1.7.5)
     jwt (0.1.5)
       multi_json (>= 1.0)
-    launchy (2.1.0)
+    launchy (2.1.2)
       addressable (~> 2.3)
     libv8 (3.3.10.4)
     libwebsocket (0.1.5)
