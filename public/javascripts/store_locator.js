@@ -74,6 +74,7 @@
     toggle_store_fields = function() {
       $("#zip_code").val("");
       $("#name").val("");
+      $("#state").val("");
       if ($("#country").val() === "United States") {
         $("#map_search_submit").removeClass("without_us_or_uk");
         $(".us_only").show();
