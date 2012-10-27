@@ -15,7 +15,7 @@
   - unless @countries.empty?
     #stores
       - if @store_locator_content.present?
-        #current_visual_assets= render @store_locator_content.visual_assets.current
+        #current_visual_assets{:class=>"store_set"}= render @store_locator_content.visual_assets.current
       %hr
       = render "stores/search_bar"
       .clear
