@@ -20,22 +20,6 @@
       = f.label :name
       %br
       = f.text_field :name
-    .field{:class=>"admin_lab"}
-      = f.label :image
-      = image_tag(@store.image_url(:logo)) if @store.image?
-      %br
-      = f.file_field :image
-      = f.hidden_field :image_cache
-      %br
-    .field{:class=>"admin_lab"}
-      = f.label :logo_url
-      %br
-      = f.text_field :logo_url
-      %br
-    .field{:class=>"admin_lab"}
-      = f.label :remove_image
-      %br
-      = f.check_box :remove_image
   .store_panel
     .field{:class=>"admin_lab"}
       = f.label :webstore, "Online Store"
@@ -126,6 +110,26 @@
       %br
       %div{:class=>"legalese"}
         *Please enter http to url (eg. "http://www.google.com")
+  %hr
+  %h3{:class=>"hdr_full"} Store Logos
+  .field
+    = f.label :image
+    = image_tag(@store.image_url(:logo)) if @store.image?
+    %br
+    = f.file_field :image
+    = f.hidden_field :image_cache
+    %br
+  .field
+    = f.label :remove_image
+    %br
+    = f.check_box :remove_image
+  .field
+    or
+  .field{:class=>"admin_lab"}
+    = f.label :logo_url, "Image path to Store Logo"
+    %br
+    = f.text_field :logo_url
+  %br
   %br
   %hr
   %h3{:class=>"hdr_full"} Internal Use
