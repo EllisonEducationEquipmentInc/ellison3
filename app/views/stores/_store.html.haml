@@ -1,9 +1,10 @@
 - if store.logo.present? && File.exists?("#{Rails.root}/public/#{store.logo}")
   %p.store_logo= image_tag(store.logo)
 - if store.excellence_level.present?
-  %h3.map-link{ :class => "#{ !is_sizzix_uk? ? "icon_excellence-level_#{store.excellence_level.parameterize}" : nil }", :alt => "#{store.excellence_level.capitalize} #{is_uk? ? 'Stockist' : 'Store'}", :title => "#{store.excellence_level.capitalize} #{is_uk? ? 'Stockist' : 'Store'}" }= store.name
+  %h3.map-link{ :class => "#{ !is_sizzix_uk? && !is_ee? ? "icon_excellence-level_#{store.excellence_level.parameterize} store_fix" : nil }", :alt => "#{store.excellence_level.capitalize} #{is_uk? ? 'Stockist' : 'Store'}", :title => "#{store.excellence_level.capitalize} #{is_uk? ? 'Stockist' : 'Store'}" }= store.name
 - else
   %h3.map-link= store.name
+= additional_text_for store
 %p
   - if store.address1.present?
     = store.address1
@@ -17,6 +18,10 @@
   - if store.country.present?
     = store.country
     %br
+  - if store.representative_serving_states.present?
+    %strong Representative Serving:
+    = store.representative_serving_states.join(", ")
+    %br
   - if store.phone.present?
     %strong Phone:
     = store.phone
@@ -26,19 +31,15 @@
     = store.fax
     %br
   - if store.email.present?
-    %strong Email: 
-    = link_to store.email, "mailto:#{store.email}"
-    %br
+    %p= link_to "Contact Via Email", "mailto:#{store.email}"
   - if store.website.present?
-    %strong Website: 
-    = link_to store.website, store.website, :target => '_blank'
-    %br
+    %p= link_to "Browse their website", store.website, :target => '_blank'
   - if store.has_ellison_design_centers?
     %em Ellison Design Center Available
-- if is_er?
+- if is_er? || is_ee?
   %p
     - store.product_line.each do |product_line|
       = link_to product_line, "/catalog#q=#{product_line}", :class => "icon_brand-#{product_line.parameterize}", :style => "text-indent: -9999px;", :alt => "#{product_line}", :title => "#{product_line}"
-- if @zip_geo.present?
+- if store.physical_store?
   / removed longitude and latitutde as from address per request of Cynthia saddr=#{@zip_geo.lat},#{@zip_geo.lng}
   %p= link_to 'Get Directions', "http://maps.google.com/maps?&daddr=#{store.address1} #{store.city} #{store.state} #{store.zip_code} #{store.country}", :target => '_blank', :class => "link_directions"

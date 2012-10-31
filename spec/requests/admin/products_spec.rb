@@ -9,7 +9,7 @@ feature "Products", js: true do
   	  visit new_admin_product_path
   	  page.should have_content "New product"
   	  page.should have_content "System Visibility"
-  	  page.should have_field("product_active_true", checked: true)
+  	  page.should have_checked_field("product_active_true")
   	  check 'product_systems_enabled_szus'
 
   	  page.should have_content "Basic Information"

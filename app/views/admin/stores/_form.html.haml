@@ -1,113 +1,150 @@
 = form_for([:admin, @store], :html => {:multipart => true}) do |f|
+  %h3{:class=>"hdr_full"} System Visibility
   = f.error_messages
   .field
     = f.label :active
     %br
     = f.check_box :active
   .field
-    = f.label :store_number
+    = required_label f, :systems_enabled, { :label => "Enabled for", :label_size => "auto" }
+    = system_enabled('store')
+  %hr
+  %h3{:class=>"hdr_full"} Store Basic Information
+  .store_panel
+    .field{:class=>"admin_lab"}
+      = f.label :store_number
+      %br
+      = f.text_field :store_number
+      %br
+    .field{:class=>"admin_lab"}
+      = required_label f, :name
+      %br
+      = f.text_field :name
+  .store_panel
+    .field{:class=>"admin_lab"}
+      = f.label :webstore, "Online Store"
+      %br
+      = f.check_box :webstore
+    .field{:class=>"admin_lab"}
+      = f.label :physical_store, "Physical Store"
+      %br
+      = f.check_box :physical_store
+    .field{:class=>"admin_lab"}
+      = f.label :catalog_company, "Catalog Company"
+      %br
+      = f.check_box :catalog_company
+    .field{:class=>"admin_lab"}
+      = f.label :has_ellison_design_centers
+      %br
+      = f.check_box :has_ellison_design_centers
+  .store_panel
+    .field{:class=>"admin_lab"}
+      = required_label f, :brands
+      %br
+      = select_tag :"store[brands][]", options_for_select(Store::BRANDS, @store.brands), :multiple => true
+    .field{:class=>"admin_lab"}
+      = f.label :product_line
+      %br
+      = select_tag :"store[product_line][]", options_for_select(Store::PRODUCT_LINES, @store.product_line), :multiple => true
+    .field{:class=>"admin_lab"}
+      = f.label :agent_type
+      %br
+      = f.select :agent_type, Store::AGENT_TYPES
+    .field{:class=>"admin_lab"}
+      = f.label :excellence_level
+      %br
+      = f.select :excellence_level, Store::EXCELLENCE_LEVELS, :prompt => "-- select --"
+  %hr
+  %h3{:class=>"hdr_full"} Store Address/Contact Details
+  .store_panel
+    .field
+      = f.label :address1
+      %br
+      = f.text_field :address1
+    .field
+      = f.label :address2
+      %br
+      = f.text_field :address2
+    .field
+      = f.label :city
+      %br
+      = f.text_field :city
+    .field
+      = f.label :state
+      %br
+      = f.text_field :state
+      %br
+      %div{:class=>"legalese"}
+        *If store country is US enter US state abbreviation
+    .field{:class=>"admin_lab"}
+      = f.label :zip_code
+      %br
+      = f.text_field :zip_code
+    .field
+      = f.label :country
+      %br
+      = f.select :country, Country.all.asc(:name).cache.map {|e| e.name}
+    .representative_serving.hide
+      = f.label "Representative Serving States"
+      %br
+      = select_tag 'store[representative_serving_states][]'.to_sym, options_for_select(states, @store.representative_serving_states), multiple: true, :include_blank => "Select a state"
     %br
-    = f.text_field :store_number
-  .field
-    = f.label :name
     %br
-    = f.text_field :name
-  .field
-    = f.label :logo_url
-    %br
-    = f.text_field :logo_url
+  .store_panel
+    .field{:class=>"admin_lab"}
+      = f.label :phone
+      %br
+      = f.text_field :phone
+    .field
+      = f.label :email
+      %br
+      = f.text_field :email
+    .field
+      = f.label :fax
+      %br
+      = f.text_field :fax
+    .field
+      = f.label :website
+      %br
+      = f.text_field :website
+      %br
+      %div{:class=>"legalese"}
+        *Please enter http to url (eg. "http://www.google.com")
+  %hr
+  %h3{:class=>"hdr_full"} Store Logos
   .field
     = f.label :image
-    = image_tag(@store.image_url(:logo)) if @store.image? 
+    = image_tag(@store.image_url(:logo)) if @store.image?
+    %br
     = f.file_field :image
     = f.hidden_field :image_cache
     %br
+  .field
     = f.label :remove_image
+    %br
     = f.check_box :remove_image
   .field
-    = f.label :webstore, "Online Store"
+    or
+  .field{:class=>"admin_lab"}
+    = f.label :logo_url, "Image path to Store Logo"
     %br
-    = f.check_box :webstore
-  .field
-    = f.label :physical_store, "Physical Store"
-    %br
-    = f.check_box :physical_store
-  .field
-    = f.label :brands
-    %br
-    = select_tag :"store[brands][]", options_for_select(Store::BRANDS, @store.brands), :multiple => true
-  .field
-    = f.label :product_line
-    %br
-    = select_tag :"store[product_line][]", options_for_select(Store::PRODUCT_LINES, @store.product_line), :multiple => true
-  .field
-    = f.label :agent_type
-    %br
-    = f.select :agent_type, Store::AGENT_TYPES
-  .field
-    = f.label :authorized_reseller_type
-    %br
-    = f.text_field :authorized_reseller_type
-  .field
-    = f.label :excellence_level
-    %br
-    = f.select :excellence_level, Store::EXCELLENCE_LEVELS, :prompt => "-- select --"
-  .field
-    = f.label :has_ellison_design_centers
-    %br
-    = f.check_box :has_ellison_design_centers
-  .field
-    = f.label :address1
-    %br
-    = f.text_field :address1
-  .field
-    = f.label :address2
-    %br
-    = f.text_field :address2
-  .field
-    = f.label :city
-    %br
-    = f.text_field :city
-  .field
-    = f.label :state
-    %br
-    = f.text_field :state
-  .field
-    = f.label :zip_code
-    %br
-    = f.text_field :zip_code
-  .field
-    = f.label :country
-    %br
-    = f.select :country, Country.all.asc(:name).cache.map {|e| e.name}
+    = f.text_field :logo_url
+  %br
+  %br
+  %hr
+  %h3{:class=>"hdr_full"} Internal Use
   .field
     = f.label :contact_person
     %br
     = f.text_field :contact_person
   .field
-    = f.label :phone
-    %br
-    = f.text_field :phone
-  .field
-    = f.label :fax
-    %br
-    = f.text_field :fax
-  .field
-    = f.label :email
-    %br
-    = f.text_field :email
-  .field
-    = f.label :website
-    %br
-    = f.text_field :website
-  .field
-    = f.label :keyword
-    %br
-    = f.text_field :keyword
-  .field
     = f.label :internal_comments
     %br
     = f.text_area :internal_comments
-                          
+
   .actions
     = f.submit :class => 'jqui_save'
+
+:javascript
+  adminStore = new document.AdminStore('form');
+  adminStore.bind_agent_type_and_country();

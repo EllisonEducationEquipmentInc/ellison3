@@ -2,24 +2,24 @@ class CartImporter
   include EllisonSystem
   include Mongoid::Document
   include Mongoid::Timestamps
-  
+
   field :file_name
   field :complete, :type => Boolean, :default => false
   field :percent, :type => Integer, :default => 0
   field :total_count, :type => Integer, :default => 0
   field :system
   field :import_errors, :type => Array, :default => []
-  
+
   belongs_to :cart
-  
+
   validates_presence_of :file_name, :cart_id
-  
+
   def initialize(attrs = nil)
     super
     set_current_system self.system || current_system
     self.total_count = File.readlines(file_name).count
   end
-  
+
   def populate_cart
     n = 0
     CSV.foreach(self.file_name, :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
@@ -34,9 +34,9 @@ class CartImporter
         item.quantity += qty
         self.cart.save
       else
-        self.cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.outlet? ? product.price : product.sale_price, :msrp => product.msrp_or_wholesale_price, :price => product.price, 
-          :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product => product, :weight => product.virtual_weight, :actual_weight => product.weight, :retailer_price => product.retailer_price,
-          :tax_exempt => product.tax_exempt, :handling_price => product.handling_price, :pre_order => product.pre_order?, :out_of_stock => product.out_of_stock?, :minimum_quantity => product.minimum_quantity, :campaign_name => product.campaign_name, :outlet => product.outlet?)
+        self.cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.outlet? ? product.price : product.sale_price, :msrp => product.msrp_or_wholesale_price, :price => product.price,
+                                             :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product => product, :weight => product.virtual_weight, :actual_weight => product.weight, :retailer_price => product.retailer_price,
+                                             :tax_exempt => product.tax_exempt, :handling_price => product.handling_price, :pre_order => product.pre_order?, :out_of_stock => product.out_of_stock?, :minimum_quantity => product.minimum_quantity, :campaign_name => product.campaign_name, :outlet => product.outlet?)
       end
       n += 1
       percentage!(n)
@@ -46,11 +46,11 @@ class CartImporter
     Rails.logger.error("#{e}")
   end
 
-private
+  private
 
   def modulo
     m = self.total_count/10
-    case 
+    case
     when m < 2
       2
     when m > 50
@@ -69,5 +69,5 @@ private
     self.percent = 100
     save!
     FileUtils.rm_f self.file_name
-  end  
+  end
 end

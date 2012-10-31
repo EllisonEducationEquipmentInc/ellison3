@@ -362,20 +362,6 @@ module EllisonSystem
 	
 end
 
-# class ActiveRecord::Base
-#   include EllisonSystem
-#   class << self
-#     include EllisonSystem
-#   end
-# end
-
-# class ActiveRecord::Migration
-#   include EllisonSystem
-#   class << self
-#     include EllisonSystem
-#   end
-# end
-
 class ActionView::Base
   include EllisonSystem
   class << self

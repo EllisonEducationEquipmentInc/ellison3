@@ -2,26 +2,26 @@ require 'rubygems'
 require 'builder'
 
 module Ax
-   
+
   # include EllisonSystem
   # include ShoppingCart
-  
+
   module ClassMethods
-    
+
   end
-  
+
   module InstanceMethods
-        
+
     PATH = Rails.env == 'development' ? "#{Rails.root}" : "/data/shared"
-    
+
     def calculate_tax?(state)
       %w(CA IN WA UT).include?(state)
     end
-    
+
     def format_with_precision(number, precision=2)
       "%.*f" % [precision, number]
     end
-    
+
     def build_ax_xml(orders)
       xml = Builder::XmlMarkup.new(:indent => 2)
       xml.instruct!
@@ -115,7 +115,7 @@ module Ax
 
                   xml.ship_company(order.address.company)
                   xml.street(order.address.address2.blank? ? order.address.address1 :
-                                                            "#{order.address.address1} #{order.address.address2}")
+                             "#{order.address.address1} #{order.address.address2}")
                   xml.zip_code(order.address.zip_code)
                   xml.city(order.address.city)
                   xml.state(order.address.state)
@@ -131,12 +131,12 @@ module Ax
               i = 1
               order.order_items.each do |item|
                 xml.line({ 'num' => i,
-                  'item_number' => item.item_num,
-                  'qty' => item.quantity,
-                  'unit_price' => format_with_precision(item.quoted_price),
-                  'discount_amount' => format_with_precision(item.quoted_price - item.sale_price),
-                  'VAT_amount' => item.vat,
-                  'upsell' => item.upsell ? 'UPSELL' : ''})
+                           'item_number' => item.item_num,
+                           'qty' => item.quantity,
+                           'unit_price' => format_with_precision(item.quoted_price),
+                           'discount_amount' => format_with_precision(item.quoted_price - item.sale_price),
+                           'VAT_amount' => item.vat,
+                           'upsell' => item.upsell ? 'UPSELL' : ''})
                 i += 1
               end
             }
@@ -145,7 +145,7 @@ module Ax
       end
       xml.target!
     end
-    
+
     def order_status_update(xml, no_emails = false)
       begin
         doc = REXML::Document.new(xml)
@@ -173,10 +173,10 @@ module Ax
               else
                 next
               end
-              
+
               # TODO: handle invalid order_status, cch failure
               set_current_system dborder.system
-              dborder.update_attributes!(:status => order_status, :tracking_number => tracking_number, :tracking_url => tracking_url, :carrier_description => carrier_description)              
+              dborder.update_attributes!(:status => order_status, :tracking_number => tracking_number, :tracking_url => tracking_url, :carrier_description => carrier_description)
               if order_status == "Shipped"
                 dborder.send_shipping_confirmation unless no_emails || dborder.system == "szuk" || dborder.system == "eeuk"
                 dborder.delay.delete_billing_subscription_id if dborder.system == "eeus" && dborder.payment.present? && dborder.payment.subscriptionid.present?
@@ -191,41 +191,41 @@ module Ax
         return e #.backtrace
       end
     end
-    
+
     def update_inventory_from_ax(xml, options = {})
       doc = REXML::Document.new(xml)
       doc.root.elements.each('items') do |items|
         items.elements.each('item') do |item|
           item_number = item.attributes['number']
-          onhand_qty_wh01 = item.attributes['onhand_qty_wh1'].to_i 
+          onhand_qty_wh01 = item.attributes['onhand_qty_wh1'].to_i
           onhand_qty_wh11 = item.attributes['onhand_qty_wh11'].to_i
           onhand_qty_uk = item.attributes['onhand_qty_uk'].blank? ? nil : item.attributes['onhand_qty_uk'].to_i
           new_life_cycle = case item.attributes['life_cycle']
-          when "Pre-Release"
-            'pre-release'
-          when 'Active'
-            'available'
-          when 'Discontinued'
-            'discontinued'
-          when 'Inactive'
-            'unavailable'
-          else
-            nil
-          end
+                           when "Pre-Release"
+                             'pre-release'
+                           when 'Active'
+                             'available'
+                           when 'Discontinued'
+                             'discontinued'
+                           when 'Inactive'
+                             'unavailable'
+                           else
+                             nil
+                           end
           product = Product.first(:conditions => {:item_num => item_number})
           unless product.blank?
             product.quantity_us =  onhand_qty_wh01 < 1 ? 0 : onhand_qty_wh01 unless options[:exclude] == "quantity_us"
             product.quantity_sz =  onhand_qty_wh11 < 1 ? 0 : onhand_qty_wh11 unless options[:exclude] == "quantity_sz"
-            product.quantity_uk =  onhand_qty_uk < 1 ? 0 : onhand_qty_uk unless onhand_qty_uk.nil? || options[:exclude] == "quantity_uk"             
+            product.quantity_uk =  onhand_qty_uk < 1 ? 0 : onhand_qty_uk unless onhand_qty_uk.nil? || options[:exclude] == "quantity_uk"
             if new_life_cycle
               product.life_cycle = new_life_cycle
               if item.attributes['life_cycle_date'].present? && item.attributes['life_cycle_date'] =~ /^\d{2}\/\d{2}\/\d{2,4}$/
-                life_cycle_date = Date.new(item.attributes['life_cycle_date'].split("/")[2].to_i, item.attributes['life_cycle_date'].split("/")[0].to_i, item.attributes['life_cycle_date'].split("/")[1].to_i) 
+                life_cycle_date = Date.new(item.attributes['life_cycle_date'].split("/")[2].to_i, item.attributes['life_cycle_date'].split("/")[0].to_i, item.attributes['life_cycle_date'].split("/")[1].to_i)
                 product.life_cycle_date = life_cycle_date
               end
             end
             product.save(:validate => false)
-            Rails.logger.info "*** updating #{product.id} #{product.item_num}, life_cycle: #{new_life_cycle ? new_life_cycle : '--- not changed ---'}, onhand_qty_wh01: #{onhand_qty_wh01}, onhand_qty_wh11: #{onhand_qty_wh11}, onhand_qty_uk: #{onhand_qty_uk}" 
+            Rails.logger.info "*** updating #{product.id} #{product.item_num}, life_cycle: #{new_life_cycle ? new_life_cycle : '--- not changed ---'}, onhand_qty_wh01: #{onhand_qty_wh01}, onhand_qty_wh11: #{onhand_qty_wh11}, onhand_qty_uk: #{onhand_qty_uk}"
           else
             Rails.logger.info "!!! inventory on-hand quantity of #{item_number} could not be updated"
           end
@@ -235,7 +235,7 @@ module Ax
     rescue Exception => e
       return e
     end
-    
+
     def create_status_update_xml(orders, options = {})
       options[:state] ||= 'In Process'
       xml = Builder::XmlMarkup.new(:indent => 2)
@@ -249,7 +249,7 @@ module Ax
       }
       xml.target!
     end
-    
+
     def ax_shipping_code(shipping_service)
       case shipping_service
       when "EXPRESS_SAVER", "FEDEX_EXPRESS_SAVER"
@@ -272,10 +272,10 @@ module Ax
         'FXGround'
       end
     end
-    
-  
+
+
   end
-  
+
   def self.included(receiver)
     receiver.extend         ClassMethods
     receiver.send :include, InstanceMethods

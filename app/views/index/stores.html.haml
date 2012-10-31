@@ -1,129 +1,87 @@
-%h2= is_er? ? "Distributor Locator" : is_us? ? "Store Locator" : is_uk? ? "Stockist List" : "Store Locator"
 - content_for :gmap_header do
   = javascript_include_tag 'http://maps.google.com/maps/api/js?v=3.3&sensor=false'
   = javascript_include_tag '/javascripts/vendor/markermanager.js'
   = javascript_include_tag '/javascripts/vendor/StyledMarker.js'
-  / = javascript_include_tag '/javascripts/vendor/jquery.metadata.js'
   = javascript_include_tag 'jquery.jmapping.js'
-.tab-block
-  %ul
-    %li= link_to "Stores", "#stores"
-    - unless is_sizzix_uk?
-      %li= link_to "Online Retailers", "#online_resellers"
-    - if is_ee? || is_er?
-      %li= link_to "Distributors", "#distributors"
-  #stores
-    %p Most of the products that you love are available through our website or at your local craft store. Although we don't sell selected items online, we'll put you in touch with a retailer who might. Be sure to call ahead for product availability. Can't find a retailer near you? We're always adding new retail locations, so check back soon!
-    %hr
-    = form_tag '#', :onsubmit => 'return false' do
-      .column_20.field
-        %h3 Search by Country:
-        = select_tag :country, options_for_select(@countries, params[:country]), :onchange => "toggle_store_fields()"
-      .column_20.field.us_only
-        %h3 Search by Zip Code:
-        = text_field_tag :zip_code, params[:zip_code], :onchange => "$('#map_search_submit').trigger('click');"
-      .column_20.field.us_only
-        %h3 Search by Radius:
-        = select_tag :radius, options_for_select([5,10,20,30,50], params[:radius] || 5), :onchange => "$('#map_search_submit').trigger('click');"
-        miles
-      .column_20.field{ :style => "visibility: #{is_sizzix_uk? ? 'hidden' : 'visible'}"}
-        %h3 Search by Brands:
-        = check_box_tag 'brands[]', "sizzix", params[:brands].present? && params[:brands].include?('sizzix'), :id => "brands_sizzix", :class => 'brands', :onchange => "$('#map_search_submit').trigger('click');"
-        Sizzix
-        = check_box_tag 'brands[]', "ellison", params[:brands].present? && params[:brands].include?('ellison'), :id => "brands_ellison", :class => 'brands', :onchange => "$('#map_search_submit').trigger('click');"
-        Ellison
-      = link_to 'Search&nbsp;&nbsp;'.html_safe, '#', :id => 'map_search_submit', :class => 'jqui_save'
-    .clear
-    %hr
-    .store_list
-      #map-side-bar Enter search criteria to get started.
-    .storeframe
-      #map
-    .clear
-  - unless is_sizzix_uk?
-    #online_resellers.store-grid
-      %h2 Online Retailers
-      - @online_stores.each do |store|
-        .online_store.ui-corner-all= render store
+#store-locator.tab-block
+  #tab-head
+    %ul
+      %span.title
+        = store_locator_title
+      - unless @online_retailers.empty?
+        %li= link_to "Online Retailers", "#online_resellers"
+      - unless @countries.empty?
+        %li= store_locator_tab
+  - unless @countries.empty?
+    #stores
+      - if @store_locator_content.present?
+        #current_visual_assets{:class=>"store_set"}= render @store_locator_content.visual_assets.current
+      %hr
+      = render "stores/search_bar"
       .clear
-  - if is_ee? || is_er?
-    #distributors.store-grid
-      %h2 Distributors
-      - @distributors.each do |store|
-        .online_store.ui-corner-all= render store
+      %hr      
+
+      .store_list
+        #map-side-bar Enter search criteria to get started.
+      .storeframe
+        #map
       .clear
-  - if is_er? || is_sizzix_us?
-    %hr
-    - unless is_sizzix_us?
-      .legend 
-        %p Product Lines & Brands 
-        %ul 
-          %li 
-            %span.icon_brand-allstar AllStar 
-          -# hiding Ellison icon for now... 
+      %br
+
+      - if is_er? || is_ee?
+        .legend 
+          %ul
+            %li
+              %span{:class=>"legend_hdr"} Product Lines & Brands:
+              %li 
+                %span.icon_brand-allstar AllStar 
+              %li 
+                %span.icon_brand-eclips eclips 
+              %li 
+                %span.icon_brand-prestige Prestige 
+              %li 
+                %span.icon_brand-rollmodel RollModel 
+              %li 
+                %span.icon_brand-sizzix Sizzix
+
+      - if is_er? || is_sizzix_us?
+        .legend 
+          %ul 
+            %li
+              %span{:class=>"legend_hdr"} Store Excellence Levels:
             %li 
-              %span.icon_brand-ellison Ellison 
-          %li 
-            %span.icon_brand-eclips eclips 
-          %li 
-            %span.icon_brand-prestige Prestige 
-          %li 
-            %span.icon_brand-rollmodel RollModel 
-          %li 
-            %span.icon_brand-sizzix Sizzix 
-    .legend 
-      %p Store Excellence Levels 
-      %ul 
-        %li 
-          %span.icon_excellence-level_a-cut-above A Cut Above 
-        %li 
-          %span.icon_excellence-level_elite Elite 
-        %li 
-          %span.icon_excellence-level_executive Executive 
-        %li 
-          %span.icon_excellence-level_preferred Preferred 
-    .clear 
+              %span.icon_excellence-level_a-cut-above A Cut Above 
+            %li 
+              %span.icon_excellence-level_elite Elite 
+            %li 
+              %span.icon_excellence-level_executive Executive 
+            %li 
+              %span.icon_excellence-level_preferred Preferred 
+      .clear
+
+  - unless @online_retailers.empty?
+    #online_resellers.store-grid
+      - country = "initial_country"
+      - retailers_group_with(@online_retailers, ["United States", "United Kingdom"]).each do |store|
+        - unless country == store.country
+          - country = store.country
+          .clear
+          %h2= store.country
+        .online_store.ui-corner-all= render store
+      - retailers_group_without(@online_retailers, ["United States", "United Kingdom"]).each do |store|
+        - unless country == store.country
+          - country = store.country
+          .clear
+          %h2= store.country
+        .online_store.ui-corner-all= render store
+      .clear
 
   - unless is_sizzix_uk?
     .clear
-- if @store_locator_content.present?
-  #current_visual_assets= render @store_locator_content.visual_assets.current
+
 :javascript
-  $(document).ready(function(){
-    $(".tab-block").tabs();
-    toggle_store_fields();
-    $.getScript('/javascripts/vendor/jquery.metadata.js', function() {
-      $('#map').jMapping({default_point: {lat: #{is_uk? ? '53.13359' : '40.513799'}, lng:#{is_uk? ? '-1.977539' : '-98.876953'}}, default_zoom_level: #{is_uk? ? 4 : 3}, link_selector: '.map-link'});
-    });
-    $('#map_search_submit').click( function() {
-      if ($('#country').val() == 'United States' && $('#zip_code').val().length < 5) {
-        alert('invalid zip code');
-        return false;
-      }
-      if ($('.brands:checked').length < 1){
-        alert('please select at least one brand');
-        return false;
-      }
-      $.ajax({url:'/index/update_map?'+$(this).parents('form').serialize(), success: function(html){
-        $('#map-side-bar').html(html);
-        $('#map').jMapping('update');
-        if (html.length < 20) $('#map').data('jMapping').map.setZoom(4);
-        $('.info-box').show();
-        $('.info-box h3').css('cursor', 'pointer');
-        if ($('#map').data('jMapping').map.zoom > 15) $('#map').data('jMapping').map.setZoom(15);
-      }});
-      return false;
-    });
-    if ($('#country').val() != 'United States') $('#map_search_submit').trigger('click');
-  }).bind('afterMapping.jMapping', function(e,m) {
-    setTimeout("$('#map').data('jMapping').map.setZoom(4)", 1200);
-  });
-  function toggle_store_fields(){
-    if ($('#country').val() == 'United States'){
-      $('.us_only').show();
-    } else {
-      $('.us_only').hide();
-    }
-  
-    $('div.store-grid div.online_store:nth-child(3n+1)').after("<div class='clear'> </div>");
-  }
+  lat = #{is_uk? ? '53.13359' : '40.513799'}
+  lng = #{is_uk? ? '-1.977539' : '-98.876953'}
+  zoom = #{is_uk? ? 4 : 3}
+  tab_title = "#{store_locator_title}"
+  new document.StoreLocator(tab_title, lat, lng, zoom)
