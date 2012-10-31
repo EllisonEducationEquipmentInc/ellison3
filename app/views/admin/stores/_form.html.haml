@@ -17,7 +17,7 @@
       = f.text_field :store_number
       %br
     .field{:class=>"admin_lab"}
-      = f.label :name
+      = required_label f, :name
       %br
       = f.text_field :name
   .store_panel
@@ -33,9 +33,13 @@
       = f.label :catalog_company, "Catalog Company"
       %br
       = f.check_box :catalog_company
+    .field{:class=>"admin_lab"}
+      = f.label :has_ellison_design_centers
+      %br
+      = f.check_box :has_ellison_design_centers
   .store_panel
     .field{:class=>"admin_lab"}
-      = f.label :brands
+      = required_label f, :brands
       %br
       = select_tag :"store[brands][]", options_for_select(Store::BRANDS, @store.brands), :multiple => true
     .field{:class=>"admin_lab"}
@@ -50,10 +54,6 @@
       = f.label :excellence_level
       %br
       = f.select :excellence_level, Store::EXCELLENCE_LEVELS, :prompt => "-- select --"
-    .field{:class=>"admin_lab"}
-      = f.label :has_ellison_design_centers
-      %br
-      = f.check_box :has_ellison_design_centers
   %hr
   %h3{:class=>"hdr_full"} Store Address/Contact Details
   .store_panel
