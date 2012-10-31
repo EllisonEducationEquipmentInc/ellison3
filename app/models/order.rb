@@ -2,19 +2,19 @@ class Order
   include EllisonSystem
   include Mongoid::Document
   include Mongoid::Timestamps
-  
+
   include Mongoid::Sequence
-  
+
   field :order_number, :type=>Integer
   sequence :order_number
-  
+
   # have to be titlized
   STATUSES = ["New", "Pending", "Open", "Processing", "In Process", "Shipped", "To Refund", "Refunded", "Cancelled", "On Hold", "Off Hold"]
-  
+
   validates :status, :subtotal_amount, :shipping_amount, :tax_amount, :address, :order_items, :presence => true
   validates_inclusion_of :status, :in => STATUSES
   validates_uniqueness_of :order_number, :on => :create, :message => "must be unique"
-  
+
   embeds_one :payment, as: :payment
   embeds_one :gift_card, class_name: "Payment", as: :payment
   embeds_one :address, :validate => false
@@ -22,8 +22,8 @@ class Order
   referenced_in :user, :validate => false
   referenced_in :coupon, :validate => false
   referenced_in :quote, :validate => false
-  
-  index :status 
+
+  index :status
   index :system
   index :created_at
   index :updated_at
@@ -44,12 +44,12 @@ class Order
   index "order_items.coupon_name"
   index "order_items.gift_card"
   index "gift_card.vendor_tx_code"
-  
+
   index [[:user_id, Mongo::ASCENDING], [:system, Mongo::ASCENDING], [:created_at, Mongo::DESCENDING]]
   index [[:updated_at, Mongo::DESCENDING], [:system, Mongo::DESCENDING], [:order_number, Mongo::DESCENDING], [:tax_transaction, Mongo::DESCENDING]]
   index [["order_items.campaign_name", Mongo::ASCENDING], [:system, Mongo::ASCENDING]]
   index [["address.email", Mongo::ASCENDING], ["address.company", Mongo::ASCENDING], ["address.last_name", Mongo::ASCENDING]]
-  
+
   field :status, :default => "New"
   field :system
   field :locale
@@ -85,27 +85,27 @@ class Order
   field :free_shipping_by_coupon, :type => Boolean, :default => false
   field :cod_account_type
   field :cod_account
-  
+
   field :old_quote_id, :type => Integer
-  
+
   field :clickid
   field :utm_source
   field :tracking
-  
+
   ELLISON_SYSTEMS.each do |sys|
     scope sys.to_sym, :where => { :system => sys }  # scope :szuk, :where => { :systems_enabled => "szuk" } #dynaically create a scope for each system. ex
   end
-  
+
   scope :real_orders, :where => {:status.in => ["Open", "Processing", "In Process", "Shipped"]}
   scope :not_cancelled, :where => {:status.nin => ['Cancelled', "To Refund", "Refunded"]}
-  
+
   before_create :set_system
-  
+
   class << self
     def find_by_public_order_number(public_order_number)
       Order.where(:system => public_order_number[/[a-z]{2,4}/i].downcase, :order_number => public_order_number[/\d+/]).first rescue nil
     end
-    
+
     def quanity_sold(item_num)
       map = <<-EOF
         function() {
@@ -131,7 +131,7 @@ class Order
 
       collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {"order_items.item_num" => item_num}})["results"]
     end
-    
+
     def campaign_usage(campaign_name, options = {})
       start_date, end_date, system = parse_options(options)
       map = <<-EOF
@@ -160,7 +160,7 @@ class Order
 
       collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {:status=>{"$nin"=>["Cancelled", "To Refund", "Refunded"]}, :created_at => {"$gt" => start_date.utc, "$lt" => end_date.utc}, "order_items.campaign_name" => campaign_name, "system" => current_system}})["results"]
     end
-    
+
     def coupon_usage(coupon_code, options = {})
       map = <<-EOF
         function() {
@@ -188,7 +188,7 @@ class Order
 
       collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {:status=>{"$nin" => ["Cancelled", "To Refund", "Refunded"]}, "order_items.coupon_code" => coupon_code, "system" => current_system}})["results"]
     end
-    
+
     def shipping_coupon_usage(coupon_code)
       map = <<-EOF
         function() {
@@ -214,17 +214,17 @@ class Order
 
       collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {:status=>{"$nin"=>["Cancelled", "To Refund", "Refunded"]}, "coupon_code" => coupon_code, "system" => current_system}})["results"]
     end
-    
+
     def summary(options = {})
       start_date, end_date, system = parse_options(options)
       collection.group :key => :locale, :cond => {:created_at => {"$gt" => start_date.utc, "$lt" => end_date.utc}, :system => system}, :reduce => "function(obj, out){out.subtotal += obj.subtotal_amount; out.shipping_amount += obj.shipping_amount; out.tax_amount += obj.tax_amount; out.total_amount += (obj.subtotal_amount + obj.shipping_amount + obj.tax_amount + obj.handling_amount); out.handling_amount += obj.handling_amount; out.total_discount += obj.total_discount ? obj.total_discount : 0 ; out.count++}", :initial => {:total_amount => 0, :subtotal => 0, :shipping_amount => 0, :tax_amount => 0, :handling_amount => 0, :total_discount => 0, :count => 0}
     end
-    
+
     def status_summary(options = {})
       start_date, end_date, system = parse_options(options)
       collection.group :key => :status, :cond => {:created_at => {"$gt" => start_date.utc, "$lt" => end_date.utc}, :system => system}, :reduce => "function(obj, out){out.count++;}", :initial => {:count => 0}
     end
-    
+
     def product_performance(tag, options = {})
       start_date, end_date, system = parse_options(options)
       map = <<-EOF.strip_heredoc
@@ -252,9 +252,9 @@ class Order
       EOF
       collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {:status=>{"$nin"=>["Cancelled", "To Refund", "Refunded"]}, :created_at => {"$gt" => start_date.utc, "$lt" => end_date.utc}, "order_items.product_id" => {"$in" => tag.product_ids}, "system" => current_system}})["results"]
     end
-    
-  private
-  
+
+    private
+
     def parse_options(options)
       start_date = options[:start_date] || Time.zone.now.beginning_of_day
       end_date = options[:end_date] || Time.zone.now.end_of_day
@@ -262,40 +262,40 @@ class Order
       [start_date, end_date, system]
     end
   end
-  
+
   def gross_subtotal_amount
     self.vat_exempt || self.vat_exempt.nil?  ? subtotal_amount : subtotal_amount + tax_amount
   rescue
     subtotal_amount
   end
-  
+
   def gross_shipping_amount
     self.shipping_amount + shipping_vat
   end
-  
+
   def total_amount
     (subtotal_amount + shipping_amount + handling_amount + tax_amount + shipping_vat).round(2)
   end
-  
+
   def shipping_vat
     self.vat_exempt ? 0.0 : (self.shipping_amount * ((self.vat_percentage || 0.0)/100.0)).round(2)
   end
-  
+
   def decrement_items!
     order_items.each do |item|
       item.product.decrement_quantity(item.quantity) rescue next
     end
   end
-  
+
   # if status can no longer be changed on the web
   def status_frozen?
     !(self.status == 'New' || pending?)
   end
-  
+
   def uk_may_change?
     is_uk? &&  (self.system == "szuk" || self.system == "eeuk") && ["Open", "Processing", "In Process", "To Refund"].include?(self.status)
   end
-  
+
   def public_status
     case self.status
     when "Processing"
@@ -306,20 +306,20 @@ class Order
       self.status
     end
   end
-  
+
   def public_order_number
     "#{order_prefix(self.system)}#{self.order_number}"
   end
-  
+
   # true if On Hold pre-order can be paid now because all items became available
   def can_be_paid?
     on_hold? && order_items.all? {|e| e.product.available?(self.system) && e.product.quantity(self.system) >= e.quantity}
   end
-  
+
   def cod?
     self.shipping_service == "COD"
   end
-  
+
   def send_shipping_confirmation
     UserMailer.delay.shipping_confirmation(self)
   end
@@ -329,7 +329,7 @@ class Order
     get_gateway self.system
     @gateway.delete_customer_info :subscription_id => self.payment.subscriptionid, :order_id => self.id
   end
-  
+
   def get_customer_rep
     Admin.find(self.customer_rep_id) if self.customer_rep_id
   rescue
@@ -359,7 +359,7 @@ class Order
   def gc_needs_refund?
     gift_card.present? && gift_card.paid_amount > gift_card.refunded_amount.to_f && gift_card.void_authorization.blank?
   end
-  
+
   def payment_needs_refund?
     payment.present? && payment.paid_amount > payment.refunded_amount.to_f
   end
@@ -385,27 +385,27 @@ class Order
       save
     end
   end
-  
+
   # use this format to change status:
-  #   @order.in_process! 
+  #   @order.in_process!
   #   p @order.status # => "In Process"
   #
   #   to check agains a specific status:
-  #   @order.in_process? # => true 
+  #   @order.in_process? # => true
   def method_missing(key, *args)
     if s=STATUSES.detect {|e| e == key.to_s.gsub(/(\?|!)$/, '').titleize}
       if key.to_s[-1] == "!"
-        self.status = s 
+        self.status = s
       elsif key.to_s[-1] == "?"
-        self.status == s 
+        self.status == s
       end
     else
       raise NoMethodError, "undefined method `#{key}` for #{self}"
     end
   end
 
-private
-  
+  private
+
   def set_system
     self.system ||= current_system
   end

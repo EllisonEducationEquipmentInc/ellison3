@@ -1,12 +1,12 @@
 class Migration
-	include EllisonSystem
+  include EllisonSystem
   include Mongoid::Document
-	include Mongoid::Timestamps
+  include Mongoid::Timestamps
 
-	validates_presence_of :name
-	validates_uniqueness_of :name
-	
-	field :name
-	
-	index :name
+  validates_presence_of :name
+  validates_uniqueness_of :name
+
+  field :name
+
+  index :name
 end

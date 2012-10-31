@@ -1,9 +1,9 @@
 # custom FitterHappier rack app to check app's healthiness (including mongodb)
 class FitterHappier
-  def initialize(app)  
-    @app = app  
+  def initialize(app)
+    @app = app
   end
-  
+
   def call(env)
     if env["PATH_INFO"] =~  /^\/fitter_happier(.+)?$/
       time = Time.now.to_formatted_s(:rfc822)
@@ -30,7 +30,7 @@ class FitterHappier
           [500, {"Content-Type" => 'text/html; charset=utf-8'}, ["!!! ALERT !!! MONGODB IS DOWN!!! @ #{time}\n"]]
         rescue Exception => e
           [500, {"Content-Type" => 'text/html; charset=utf-8'}, ["!!! ALERT !!! INTERNAL SERVER ERROR!!! @ #{time}\n#{e}"]]
-        end        
+        end
       else
         [200, {"Content-Type" => 'text/html; charset=utf-8'}, ["FitterHappier Site Check Passed"]]
       end

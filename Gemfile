@@ -6,7 +6,6 @@ gem 'mongo_ext'
 gem "bson_ext", "~> 1.5.2"
 gem 'passenger'
 gem 'rvm-capistrano'
-gem 'mysql'
 gem 'haml', '3.1.2'
 gem 'sass'
 gem 'will_paginate', '3.0.3'
@@ -32,6 +31,7 @@ gem 'youtube_it'
 gem 'memcache-client'
 gem 'event-calendar', :require => 'event_calendar', :git => 'git://github.com/elevation/event_calendar.git', :branch => "master"
 gem 'rpm_contrib'
+gem 'newrelic_rpm'
 gem "ghazel-daemons"
 gem 'delayed_job', '3.0.3'
 gem 'delayed_job_mongoid'
@@ -43,24 +43,26 @@ gem 'sunspot-rails-failover', :git => 'git://github.com/flyingmachine/sunspot-ra
 gem 'savon'
 gem "airbrake"
 gem 'capistrano'
-
+gem "mongoid_rails_migrations", "0.0.14"
 
 group :test do
+  gem "mongoid-rspec"
   gem 'shoulda-matchers'
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'launchy'
+  gem 'webmock'
 end
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.11.0'
+  gem 'debugger'
 end
 
 gem "rails3-generators", :group => :development
 group :development do
-  gem "ruby-debug19"
   gem "rack-bug"
   gem 'irbtools-more', :require => false
   gem 'terminal-notifier'
