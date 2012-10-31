@@ -9,16 +9,20 @@
   = select_tag :product_line, options_for_select([["- product line -", nil]] + Store::PRODUCT_LINES, params[:product_line])
   = select_tag :agent_type, options_for_select([['- Agent type/Retailer type -', nil]] + Store::AGENT_TYPES, params[:agent_type])
   = select_tag :sites_enabled, options_for_select(ELLISON_SYSTEMS, params[:sites_enabled]), multiple: true
-  = check_box_tag :inactive, "1", params[:inactive] == "1"
-  Incl. inactive
+  %br
+  %br
   = check_box_tag :webstores, "1", params[:webstores] == "1"
   Webstores
   = check_box_tag :physical_stores, "1", params[:physical_stores] == "1"
   Physical Stores
   = check_box_tag :catalog_company, "1", params[:catalog_company] == "1"
   Catalog Company
+  = check_box_tag :inactive, "1", params[:inactive] == "1"
+  Incl. inactive
 
   = submit_tag "search", :class => 'jqui_search'
+  %br
+  %br
 .highlightable
   %table
     %thead
