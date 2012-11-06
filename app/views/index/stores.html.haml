@@ -28,7 +28,7 @@
       .clear
       %br
 
-      - if is_er? || is_ee?
+      - unless is_sizzix_uk?
         .legend 
           %ul
             %li
@@ -38,10 +38,12 @@
               %li 
                 %span.icon_brand-eclips eclips 
               %li 
-                %span.icon_brand-prestige Prestige 
-              %li 
-                %span.icon_brand-rollmodel RollModel 
-              %li 
+                %span.icon_brand-prestige Prestige
+              %li
+                %span.icon_brand-quilting Quilting
+              %li
+                %span.icon_brand-rollmodel RollModel
+              %li
                 %span.icon_brand-sizzix Sizzix
 
       - if is_er? || is_sizzix_us?
@@ -49,8 +51,6 @@
           %ul 
             %li
               %span{:class=>"legend_hdr"} Store Excellence Levels:
-            %li 
-              %span.icon_excellence-level_a-cut-above A Cut Above 
             %li 
               %span.icon_excellence-level_elite Elite 
             %li 

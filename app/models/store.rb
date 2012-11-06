@@ -7,9 +7,9 @@ class Store
   US_STATES = ["AA", "AE", "AP", "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
   AGENT_TYPES = ["Distributor", "Sales Representative", "Authorized Reseller"]
   AUTHORIZED_RESELLER_TYPES = ["Catalog sales only", "Web sales only", "Brick and Mortar Store", "Combination"]
-  PRODUCT_LINES = %w(Sizzix eclips AllStar Prestige RollModel)
+  PRODUCT_LINES = %w(Sizzix eclips AllStar Prestige Quilting RollModel)
   BRANDS = %w(sizzix ellison)
-  EXCELLENCE_LEVELS = ["Executive", "Preferred", "Elite", "A Cut Above"]
+  EXCELLENCE_LEVELS = ["Executive", "Preferred", "Elite"]
 
   field :store_number
   field :active, :type => Boolean, :default => true

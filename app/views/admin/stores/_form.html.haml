@@ -88,6 +88,9 @@
       = f.label "Representative Serving States"
       %br
       = select_tag 'store[representative_serving_states][]'.to_sym, options_for_select(states, @store.representative_serving_states), multiple: true, :include_blank => "Select a state"
+      %br
+      %div{:class=>"legalese"}
+        Select atleast one state if store type is US Sales Representative
     %br
     %br
   .store_panel
@@ -119,6 +122,8 @@
     = f.file_field :image
     = f.hidden_field :image_cache
     %br
+    %div{:class=>"legalese"}
+      *Preferred  Logo dimensions 115W x 40h 
   .field
     = f.label :remove_image
     %br
@@ -129,6 +134,11 @@
     = f.label :logo_url, "Image path to Store Logo"
     %br
     = f.text_field :logo_url
+    %br
+    %div{:class=>"legalese"}
+      Sample path: /images/static/storelogos/&lt;filename&gt;.jpg
+      %br
+      Preferred Logo Dimensions 115W x 40h
   %br
   %br
   %hr
