@@ -9,7 +9,7 @@ class Store
   AUTHORIZED_RESELLER_TYPES = ["Catalog sales only", "Web sales only", "Brick and Mortar Store", "Combination"]
   PRODUCT_LINES = %w(Sizzix eclips AllStar Prestige Quilting RollModel)
   BRANDS = %w(sizzix ellison)
-  EXCELLENCE_LEVELS = ["Executive", "Preferred", "Elite"]
+  EXCELLENCE_LEVELS = ["Executive", "Preferred", "Elite", ""]
 
   field :store_number
   field :active, :type => Boolean, :default => true
