@@ -67,4 +67,5 @@ group :development do
   gem 'irbtools-more', :require => false
   gem 'terminal-notifier'
   gem 'wirble'
+  gem 'rbtrace'
 end
