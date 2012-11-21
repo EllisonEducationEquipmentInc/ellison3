@@ -6,9 +6,9 @@
     :javascript
       var current_system = "#{current_system}";
     %title
-      = @title
-      \| 
       = get_domain.capitalize
+      \- 
+      = @title
     = render "layouts/common_head"
     = yield :gmap_header
   %body.bp

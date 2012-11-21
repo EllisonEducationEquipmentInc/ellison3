@@ -175,7 +175,7 @@ private
 	# define default meta title here. overrite @title at the action level. 
 	def page_title
 		@title = if is_sizzix?
-			"Sizzix - Die-Cutting and Embossing Tools for Today’s Crafter"
+			"Die-Cutting and Embossing Tools for Today’s Crafter"
 		elsif is_ee?
 			"Curriculum-based shape-cutting for the classroom"
 		elsif is_er?
@@ -190,7 +190,7 @@ private
   		@keywords = "arts and crafts, art and craft, card making, cardmaking, card making instructions, make greetings cards, make cards, scrapbooking, rubber stamps, paper crafts, papercraft, home décor, quilting, appliqué, wedding stationery, embellishments, embellish, Fiona Williams, Pete Hughes, QVC, Hobbycraft, eclips, eclipse, Cuttlebug, cricut, die cutting, cutting die, shape cutter, shape cutting, scrapbooking, scrap booking, scrap book, scrapbook, embossing, tim holtz, alterations, rub ons, design, ideas, craft, crafting, card cutting, inspiration, texture boutique, top tips, hobby, christmas, halloween, xmas, card cutting, sizzix, ellison, big shot, hello kitty, embossing, present box, gift boxes, bigz xl, cutting pad, sizzlits, bags & boxes, cutting dies, bigz dies, textures, emboslits, clearlits, little sizzles, texturz, texture plates, alphabet sets, discount craft, embossing folders, cutting mat, XL cutting plates, shape-cutting, die cut, shape cut, cut out shapes, quilting, fabric, felt, paper, cardstock, chip board, mount board, texture, textured paper, jelly rolls, patch work squares, card designs, card ideas"
 	    @description = "There's no bigger or better place for craft materials, equipment and inspiration. Sizzix.co.uk has 1000's of different ideas and craft activities from exclusive Sizzix designers. Get creative with Sizzix, make light work of crafting and turn your hobby into a passion. Sizzix products are so versatile - your not restricted to paper, you can cut anything from paper and cardstock to fabric and chip board. In fact any bigz die with the steel rule blade technology will cut paper, fabric, card, felt, chip board and much, much more. You are never on your own with Sizzix we have a huge section of inspirational project ideas using a huge selection of die and embossing technologies. Creative ideas are always being added using all the die and embossing technologies. The eclips electronic shape cutter is perfect for all your crafting projects whether you love scrapbooking, cardmaking or home decor"
   	elsif is_sizzix_us?
-			@description = "Creators of electronic and hand-operated shape-cutting machines. Uniquely design and embellish cards, scrapbooks, jewelry, quilts, home décor and more."
+			@description = "Sizzix puts creativity in your hands with the craftiest die cutting machines, die cutting tools, accessories, and embossing equipment in the arts and craft industry!"
 			@keywords = "Papercrafting, arts & crafts, crafting, cardmaking, scrapbooking, altered art, Tim Holtz, appliqué, embossing, eclips, Big Shot Machine, Stamp2Cut, die-cutter, accessories, projects, birthday decorations, quilting, do-it-yourself"
   	elsif is_ee_us?
 			@description = "Create memorable visuals and essential hands-on activities for all ages and stages of K-12 student education. Fun Free Lesson Plans. Online deals."
