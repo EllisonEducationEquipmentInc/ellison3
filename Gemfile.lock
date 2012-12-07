@@ -34,7 +34,7 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
-    RubyInline (3.11.3)
+    RubyInline (3.11.4)
       ZenTest (~> 4.3)
     ZenTest (4.8.2)
     abstract (1.0.0)
@@ -192,7 +192,7 @@ GEM
     httpi (1.1.1)
       rack
     i18n (0.6.1)
-    image_science (1.2.3)
+    image_science (1.2.4)
       RubyInline (~> 3.9)
     interactive_editor (0.0.10)
       spoon (>= 0.0.1)
@@ -275,7 +275,7 @@ GEM
       jruby-pageant (>= 1.1.1)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
-    newrelic_rpm (3.4.2.1)
+    newrelic_rpm (3.5.3.25)
     nifty-generators (0.4.6)
     nokogiri (1.5.5)
     nori (1.1.3)
