@@ -30,15 +30,15 @@ module Ax
           xml.order {
             xml.header {
               xml.sales_id(order.public_order_number)
-              xml.ax_customer(order.system == "szus" ? "SIZZIX.COM" : order.user.try(:erp))      # ax_ship_to
-              xml.invoice_account(order.system == "szus" ? "SIZZIX.COM" : order.user.try(:invoice_account))     # ax_bill_to
+              xml.ax_customer(order.system == "szus" ? order.address.us? ? "SIZZIX.COM" : "SIZZIX.CA" : order.user.try(:erp))      # ax_ship_to
+              xml.invoice_account(order.system == "szus" ? order.address.us? ? "SIZZIX.COM" : "SIZZIX.CA" : order.user.try(:invoice_account))     # ax_bill_to
               xml.cust_name("#{order.address.first_name} #{order.address.last_name}")
               xml.email(order.address.email)
               xml.currency_code(LOCALES_2_CURRENCIES[order.locale.to_s].upcase)
               xml.source_code(order.coupon_code)
               xml.sales_recipient(order.customer_rep)
               xml.sales_responsible(order.customer_rep)
-              xml.sales_origin(order.order_prefix(order.system))
+              xml.sales_origin(order.system == "szus" && order.address.canada? ? "SZCA" : order.order_prefix(order.system))
               xml.giftcard_order order.gift_card? ? "TRUE" : "FALSE"
 
               xml.payment {
@@ -102,7 +102,7 @@ module Ax
 
               xml.delivery {
                 xml.delivery_zone(order.address.us? && order.address.try(:zip_code) ? FedexZone.find_by_zip(order.address.zip_code).try(:zone) : '')
-                xml.delivery_mode(order.cod? ? order.cod_account_type : ax_shipping_code(order.shipping_service))
+                xml.delivery_mode(order.cod? ? order.cod_account_type : order.system == "szus" && order.address.canada? ? "FDXINTGRD" : ax_shipping_code(order.shipping_service))
                 xml.priority(order.shipping_priority)
                 xml.delivery_term(order.cod? ? 'CC' : 'PP')
                 xml.delivery_ship_account(order.cod_account) if order.cod?

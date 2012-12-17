@@ -175,7 +175,7 @@ class CartsController < ApplicationController
       use_payment_token = false
       new_payment
     end
-    @payment.deferred = false if @payment.present? && !get_cart.allow_deferred? || @cart.gift_card_applied?
+    @payment.deferred = false if @payment.present? && !get_cart.allow_deferred? || @cart.gift_card_applied? || !current_user.shipping_address.us?
     @payment.purchase_order = false if @cart.gift_card_applied?
     if @payment.try :deferred
       @payment.number_of_payments = Payment::NUMBER_OF_PAYMENTS

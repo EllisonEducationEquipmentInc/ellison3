@@ -113,7 +113,7 @@
         = image_tag("/images/ui-icons/cc_ico_u#{is_us? ? 's' : 'k'}.png", :width => "60", :height => "38", :class=>"cc_thumb credit_card")
         %h3
           Credit/Debit Card
-      - if get_cart.allow_deferred?
+      - if get_cart.allow_deferred? && current_user.shipping_address.us?
         #deferred_options
           %strong How would you like to pay for this order?
           %br

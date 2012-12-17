@@ -209,7 +209,7 @@ module ShoppingCart
 
     def calculate_tax(address, options={})
       return get_cart.tax_amount if get_cart.tax_amount && get_cart.tax_calculated_at && get_cart.tax_calculated_at > 1.hour.ago
-      total_tax = if !get_cart.gift_card? && is_us? && (calculate_tax?(address.state) || address.country == 'Canada')
+      total_tax = if !get_cart.gift_card? && is_us? && (calculate_tax?(address.state) || (address.country == 'Canada' && !is_sizzix_us?))
                     cch_sales_tax(address)
                     @cch.total_tax.to_f
                   elsif is_uk?
@@ -247,9 +247,9 @@ module ShoppingCart
       shipping_subtotal_amount = options[:subtotal_amount] || subtotal_cart
       rate = ShippingRate.where(:system => current_system, :"price_min_#{current_currency}".lte => shipping_subtotal_amount, :"price_max_#{current_currency}".gte => shipping_subtotal_amount, :zone_or_country => address.us? ? FedexZone.get_zone_by_address(address).try(:to_s) : address.country).first
       if rate.blank?
-        msg = if is_sizzix_us? && !address.us?
+        msg = if is_sizzix_us? && !address.us_or_ca?
             "Sizzix.com only ships to U.S addresses. Please change your shipping address, or place your order on sizzix.co.uk"
-          elsif is_sizzix_uk? && address.us?
+          elsif is_sizzix_uk? && address.us_or_ca?
             "Sizzix.co.uk does not ship to U.S addresses. Please change your shipping address, or place your order on sizzix.com"
           else
             'Please try again later.'
@@ -583,7 +583,7 @@ module ShoppingCart
     end
 
     def gift_card_allowed?
-      is_sizzix_us? || is_ee_us?
+      (is_sizzix_us? || is_ee_us?) #&& get_user.shipping_address.us?
     end
 
     def tax_exempt?
