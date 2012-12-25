@@ -22,6 +22,8 @@ $.fancybox.close();
   - if @shipping_address.enable_avs_bypass
     $('#bypass_avs').show();
   == alert('#{escape_javascript @shipping_address.errors.full_messages.join("\n")}');
+- if @address.canada?
+  $('#canada_disclaimer').show();
 $(document).ready(function(){
 $.fancybox.close();
 });
