@@ -23,6 +23,14 @@ $.fancybox.close();
     - elsif @address.address_type == 'billing' && !currency_correct?
       alert('Currency will be adjusted based on your billing address country');
       == window.location='#{checkout_path}';
+    - elsif @address.address_type == 'billing' && get_cart.allow_deferred?
+      - if @address.canada?
+        $('#deferred_0').trigger('click');
+        $('#deferred_options').hide();
+      - else
+        $('#deferred_options').show();
+        == $('#deferred_single_total_amount').html('#{escape_javascript(render(:partial => "carts/deferred_single_total_amount"))}');
+        == $('#deferred_first_payment').html('#{escape_javascript(render(:partial => "carts/deferred_first_payment"))}');
 - else
   - if @address.enable_avs_bypass
     $('#bypass_avs').show();

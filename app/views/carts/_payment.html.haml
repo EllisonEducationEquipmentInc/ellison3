@@ -113,8 +113,8 @@
         = image_tag("/images/ui-icons/cc_ico_u#{is_us? ? 's' : 'k'}.png", :width => "60", :height => "38", :class=>"cc_thumb credit_card")
         %h3
           Credit/Debit Card
-      - if get_cart.allow_deferred? && current_user.shipping_address.us?
-        #deferred_options
+      - if get_cart.allow_deferred?
+        #deferred_options{style: "display:#{get_user.billing_address.try(:canada?) ? 'none' : 'block' }"}
           %strong How would you like to pay for this order?
           %br
           = radio_button_tag :deferred, 0, !@payment.deferred, :onclick => "$('#payment_deferred').val(this.value); $('#agreed_terms').closest('tr').hide(); $('#agreed_terms').rules('remove');"
