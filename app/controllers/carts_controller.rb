@@ -504,9 +504,10 @@ class CartsController < ApplicationController
 
   def real_time_cart(quote = false)
     get_cart.update_items true, quote
-    flash[:alert] = ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
+    flash[:alert] = ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe if @cart.cart_errors.present? || ineligable_for_gift_card?
     # raise RealTimeCartError, ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
-    if @cart.cart_errors.present?
+    if @cart.cart_errors.present? || ineligable_for_gift_card?
+      flash[:alert] << "<br> No gift card to Canada notice...".html_safe if ineligable_for_gift_card?
       if request.xhr? || params[:format] && params[:format] == 'js'
         response.content_type = Mime::HTML if params[:remotipart_submitted]
         render :js => "window.location.href = '#{cart_path}'" and return false
@@ -515,6 +516,10 @@ class CartsController < ApplicationController
       end
     end
     true
+  end
+
+  def ineligable_for_gift_card?
+    gift_card_allowed? && @cart.gift_card? && get_user.shipping_address.present? && !get_user.shipping_address.us?
   end
 
   def add_to_cart_do
