@@ -222,7 +222,6 @@ module ActiveMerchant #:nodoc:
           xml.tag! 'city', address[:city]
           xml.tag! 'state', address[:state]
           xml.tag! 'postalCode', address[:zip]
-          xml.tag! 'phoneNumber', address[:phone]
           xml.tag! 'country', address[:country]
           xml.tag! 'email', options[:email]
           xml.tag! 'customerID', options[:customer_account_id] if options[:customer_account_id]
