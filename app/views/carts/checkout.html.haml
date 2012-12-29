@@ -66,7 +66,10 @@
   #checkout_cc{:style => "display:#{get_user.billing_address && get_user.shipping_address ? 'block' : 'none'}"}= render :partial => 'payment' if get_user.billing_address && get_user.shipping_address
 .clear
 #canada_disclaimer{:style => "display:#{get_user.billing_address.try(:canada?) || get_user.shipping_address.try(:canada?) ? 'block' : 'none'}"}
-  Canada discaimer...
+  %p== Canada orders are subject to the import fees and duty. These charges are always the recipient's responsibility. By clicking the PLACE ORDER button, you are agreeing to be responsible for all fees. 
+  %p== All pricing is displayed and charged in U.S. Dollars (USD). Additional fees may apply. Your credit card company may charge a fee for converting payment into USD.
+  %p== At this time, gift cards can only be shipped to addresses in the United States.
+  
 %hr
 #checkout_cart
   = link_to_function "top", "$('html, body').animate({ scrollTop: 0 }, 500);", :class => "minilink right"

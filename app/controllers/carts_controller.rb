@@ -507,7 +507,7 @@ class CartsController < ApplicationController
     flash[:alert] = ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe if @cart.cart_errors.present? || ineligable_for_gift_card?
     # raise RealTimeCartError, ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
     if @cart.cart_errors.present? || ineligable_for_gift_card?
-      flash[:alert] << "<br> No gift card to Canada notice...".html_safe if ineligable_for_gift_card?
+      flash[:alert] << "At this time, gift cards can only be shipped to addresses in the United States.  Please navigate to Myaccount page by clicking on My Account link on navigation and update shipping address to United States address to place gift card order.".html_safe if ineligable_for_gift_card?
       if request.xhr? || params[:format] && params[:format] == 'js'
         response.content_type = Mime::HTML if params[:remotipart_submitted]
         render :js => "window.location.href = '#{cart_path}'" and return false
