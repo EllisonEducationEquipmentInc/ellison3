@@ -23,7 +23,7 @@ $.fancybox.close();
     $('#bypass_avs').show();
   == alert('#{escape_javascript @shipping_address.errors.full_messages.join("\n")}');
 - if @shipping_address.canada?
-  $('#canada_disclaimer').show();
+  $('#canada_shipping_disclaimer').show();
 $(document).ready(function(){
 $.fancybox.close();
 });
