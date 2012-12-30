@@ -228,6 +228,10 @@
           %div= text_area_tag :comments, nil
     = f.submit "Place Order", :class => 'jqui_save'
     .clear
+    #canada_disclaimer{:style => "display:#{get_user.billing_address.try(:canada?) || get_user.shipping_address.try(:canada?) ? 'block' : 'none'}"}
+      %p.checkout_disclaimer.legalese== Canada orders are subject to the import fees and duty. These charges are always the recipient's responsibility. By clicking the PLACE ORDER button, you are agreeing to be responsible for all fees. 
+      %p.checkout_disclaimer.legalese== All pricing is displayed and charged in U.S. Dollars (USD). Additional fees may apply. Your credit card company may charge a fee for converting payment into USD.
+      %p.checkout_disclaimer.legalese== At this time, gift cards can only be shipped to addresses in the United States.
     %p.legalese{:class => "checkout_disclaimer"}
       - if is_uk?
         == All purchases from our website are made subject to our #{link_to "terms and conditions", "/termsofsale?no_layout=1", :class => "lightbox"}. By clicking the button to confirm your order you agree to and will be bound by those terms & conditions and we therefore suggest that you read them #{link_to "here", "/termsofsale?no_layout=1", :class => "lightbox"} first.
