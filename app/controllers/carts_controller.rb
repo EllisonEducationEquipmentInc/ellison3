@@ -202,7 +202,7 @@ class CartsController < ApplicationController
     @error_message = if e.exception.class == Timeout::Error
                        timeout_message
                      else
-                       e.message + e.backtrace.join("<br />")
+                       e.message #backtrace.join("<br />")
                      end
     if get_cart.cart_items.blank?
       flash[:alert] = @error_message
