@@ -37,7 +37,12 @@ $.fancybox.close();
   - if @address.enable_avs_bypass
     $('#bypass_avs').show();
   == alert('#{escape_javascript @address.errors.full_messages.join("\n")}');
-- unless @address.us?
+- if @address.us?
+  - if @address.address_type == 'billing'
+    $('#canada_billiing_disclaimer').hide();
+  - else
+    $('#canada_shipping_disclaimer').hide();
+- else
   - if @address.address_type == 'billing'
     $('#canada_billiing_disclaimer').show();
   - else
