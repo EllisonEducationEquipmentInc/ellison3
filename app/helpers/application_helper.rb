@@ -397,4 +397,18 @@ module ApplicationHelper
     }
   JS
   end
+
+  def lyris_tracking_id
+    if is_sizzix_us?
+      'ssMhzuwsfSoBOA'
+    elsif is_sizzix_uk?
+      'haqKoDXQpkDHiu'
+    elsif is_ee_us?
+      'CJNm1aUtT0R5gf'
+    elsif is_ee_uk?
+      'Vd30e613hevs7w'
+    elsif is_er_us?
+      'oH1MhWr8goK1Rj'
+    end
+  end
 end

@@ -65,6 +65,13 @@
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
+
+  document.write('<'
+    + 'script type="text/javascript" src="'
+    + document.location.protocol
+    + '//stats1.clicktracks.com/cgi-bin/ctasp-server.cgi?i=#{lyris_tracking_id}'
+    + '"><'
+    + '/script>');
   
 / Sizzix UK Cookie Notify
 - if is_uk?
