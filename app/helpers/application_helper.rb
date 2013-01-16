@@ -398,6 +398,17 @@ module ApplicationHelper
   JS
   end
 
+  def lyris_tracking_code
+    <<-JS
+    document.write('<'
+      + 'script type="text/javascript" src="'
+      + document.location.protocol
+      + '//stats1.clicktracks.com/cgi-bin/ctasp-server.cgi?i=#{lyris_tracking_id}'
+      + '"><'
+      + '/script>');
+    JS
+  end
+
   def lyris_tracking_id
     if is_sizzix_us?
       'ssMhzuwsfSoBOA'
