@@ -699,7 +699,6 @@ class Product
       return image.default_url(version) if FileTest.exists?("#{Rails.root}/public/#{image.default_url(version)}")
       return "/images/products/#{version}/noimage.jpg" if FileTest.exists?("#{Rails.root}/public/images/products/#{version}/noimage.jpg")
     end
-    ''
   end
 
   # NOTE: needs git://github.com/computadude/mongoid.git
