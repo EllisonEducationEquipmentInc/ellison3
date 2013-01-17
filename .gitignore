@@ -12,7 +12,6 @@ config/mongoid.yml
 config/sunspot.yml
 config/newrelic.yml
 config/database.yml
-public/images/**/*
 public/javascripts/application.js
 public/javascripts/view_toggle.js
 public/stylesheets/compiled/admin.css
