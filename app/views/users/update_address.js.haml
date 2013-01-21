@@ -26,7 +26,7 @@ $.fancybox.close();
       alert('Currency will be adjusted based on your billing address country');
       == window.location='#{checkout_path}';
     - elsif @address.address_type == 'billing' && get_cart.allow_deferred?
-      - if @address.canada?
+      - if @address.canada? || get_cart.gift_card_applied?
         $('#deferred_0').trigger('click');
         $('#deferred_options').hide();
       - else
