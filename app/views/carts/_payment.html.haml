@@ -230,7 +230,7 @@
     .clear
     #canada_shipping_disclaimer{:style => "display:#{get_user.shipping_address.try(:canada?) ? 'block' : 'none'}"}
       - if is_sizzix_us?
-        %p.checkout_disclaimer.legalese== Canada orders are subject to the import fees and duty. These charges are always the recipient's responsibility. By clicking the PLACE ORDER button, you are agreeing to be responsible for all fees.
+        %p.checkout_disclaimer.legalese== Canada orders are subject to the import fees and duty. These charges are always the recipient's responsibility. By clicking the PLACE ORDER button, you are agreeing to be responsible for all fees.  For more information #{link_to "click here", "/canadatax?no_layout=1", :class => "lightbox"}.
       - elsif is_ee_us?
         %p.checkout_disclaimer.legalese== Duties and taxes will be charged to your order and are reflected above. By clicking PLACE ORDER, you authorize our customs broker to act as your agent with Customs and Revenue Canada to clear merchandise and process all duties and taxes. 
     #canada_billiing_disclaimer{:style => "display:#{get_user.billing_address.try(:canada?) ? 'block' : 'none'}"}

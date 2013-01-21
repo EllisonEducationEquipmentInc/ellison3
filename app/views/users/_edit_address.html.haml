@@ -13,11 +13,11 @@
       - if is_uk?
         == All items are subject to availability. We offer delivery services to most countries within European Union, Switzerland and Norway. Unfortunately we do not offer a standard delivery charge to Malta, Cyprus or Turkey, for delivery to these and other countries not stated, please send an email to <a href='mailto:customerservices@ellisondesign.co.uk'>customerservices@ellisondesign.co.uk</a>. We will be happy to help provide delivery options or recommend a local wholesaler for you. Charges that cover delivery are subject to change without notice. Standard destinations will incur the shipping costs detailed in the tables below. V.A.T. on the shipping cost will be charged at #{vat}% and will be included in the shipping cost on your order.
       - if is_sizzix_us?
-        Please note: Orders can only be shipped to the 50 United States, Canada Provinces and APO/FPO addresses with a U.S. form of payment. At this time, gift cards can only be shipped to 50 United States.
+        Please note: Orders can only be shipped to the 50 United States, Canada Provinces and APO/FPO addresses.  At this time, gift cards can only be shipped to 50 United States.  All payments must be made in US Dollars (USD).
         %br
         ==#{get_domain.capitalize} primarily ships via FedEx Ground for United States shipments and FedEx International Ground for Canada shipments. FedEx cannot deliver to a post office box. A physical address must be provided during online checkout.
       - if is_ee_us?
-        Please note: We only ship orders to the 50 United States and APO/FPO addresses with a U.S. form of payment.
+        Please note: We only ship orders to the 50 United States and APO/FPO addresses. All payments must be made in US Dollars (USD).
         %br
         ==#{get_domain.capitalize} primarily ships via FedEx Ground. FedEx cannot deliver to a post office box; a physical address must be provided during online checkout.
   - if @address.address_type == "billing"

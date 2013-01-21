@@ -266,6 +266,8 @@ module Ax
         "FDXPO"
       when "INTERNATIONAL_ECONOMY"
         "FDXIE"
+      when "INTERNATIONAL_PRIORITY"
+        "FDXIP"
       when "FEDEX_3_DAY_FREIGHT"
         "FDXTHRDFR"
       else
