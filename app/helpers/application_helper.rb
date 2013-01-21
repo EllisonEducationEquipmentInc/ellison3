@@ -250,7 +250,7 @@ module ApplicationHelper
             });
         });
         JS
-	js.html_safe
+        js.html_safe
       end
     end
     r.html_safe
