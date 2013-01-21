@@ -690,7 +690,7 @@ class Product
 
   def get_image(version)
     if image?
-      version.to_s == 'zoom' ? image_url : image_url(version)
+      return version.to_s == 'zoom' ? image_url : image_url(version)
     else
       return image.default_url_edu_by_item_num(version) if (is_ee? || is_er?) && FileTest.exists?("#{Rails.root}/public/#{image.default_url_edu_by_item_num(version)}")
       return image.default_url_edu_by_item_num_downcase(version) if (is_ee? || is_er?) && FileTest.exists?("#{Rails.root}/public/#{image.default_url_edu_by_item_num_downcase(version)}")
@@ -699,6 +699,7 @@ class Product
       return image.default_url(version) if FileTest.exists?("#{Rails.root}/public/#{image.default_url(version)}")
       return "/images/products/#{version}/noimage.jpg" if FileTest.exists?("#{Rails.root}/public/images/products/#{version}/noimage.jpg")
     end
+    ''
   end
 
   # NOTE: needs git://github.com/computadude/mongoid.git
