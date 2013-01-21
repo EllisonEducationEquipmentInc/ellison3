@@ -220,7 +220,7 @@ module ApplicationHelper
       end
       r << breadcrumbs.join("<span class='breadcrumb_arrow dontprint'> > </span>".html_safe)
       r << javascript_tag do
-        <<-JS
+        js = <<-JS
         $(function() {
           $('.tag_breadcrumb').click(function() {
               var facets = $.deparam.fragment()['facets'].split(',');
@@ -250,6 +250,7 @@ module ApplicationHelper
             });
         });
         JS
+	js.html_safe
       end
     end
     r.html_safe
