@@ -1,5 +1,6 @@
 = remote_multipart_response do
   window.CT_C_OrderTotal='#{convert_2_gbp @order.subtotal_amount}';
+  CT_RecordView('checkout_complete', 'GET');
   _gaq.push(['_addTrans',
   '#{@order.public_order_number}',           // order ID - required
   '#{get_domain}', // affiliation or store name
