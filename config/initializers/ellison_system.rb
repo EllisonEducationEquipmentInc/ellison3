@@ -316,33 +316,68 @@ module EllisonSystem
     "Sorry! We are experiencing technical difficulties. Please try again later or contact customer service for assistance."
   end
 
+  def gateway_options(system = current_system)
+    # Production
+    if Rails.env.production?
+      if system == 'szus'
+        {:merchant_account => {
+           :name => 'cyber_source',
+           :user_name => 'sizzix',
+           :password => 'NVb8EJQOhgBktwCaSSQCyQ/Vg2rDSbXlpdn9FDycbRHQkWmRd6AX5SsLK5g5k7sft0BhcJStSafgCb8h3AH9sogEFZfq5kn1bWvcQsPGBg1R03oQDLvz0u78pdb2lqEg19DsTHMJWr1Ql1iqm7x86aZDs2A+ryBjb+4Bs54DVrLhqF+a1KmMe1iaZzdGmNaia1DHbVueMwOMS+A2GYfSy8cVVxDAEeyp8Hao+U+H+nT4n5wH9jzBMEaY0KoxGn6U8aCMpJM4LSFGi2eWd05+kfL4Jj6WB8lhxwL/d7ZlH/JhxTGr0F9lcuUttN9+nUfkT899ffQ8rJdEOwyKkVKfcg==',
+           :login => 'sizzix'}}
+      elsif system == 'eeus'
+         {:merchant_account => {
+           :name => 'cyber_source',
+           :user_name => 'ellison',
+           :password => 'BpPtot9m0tKahzNosKGmdeCQeUkeaN8vKx8vOcJtLlUV+eqjELk7bFUR2owrRdf8PhQlp62zms4cVROaVuZXnpHN5PMRfrYG6ovp9V0Qfnw0EU87aHOWjdo5rXr+1LNyFCU8iZRniIn3ZIGvVMVW8QO/2zp+qCadKdXika1TEK8CTzg0E+m87q0x9vlPh/p0+J+cB/Y8wVmb6dQ7psXnkqYeWEsqzDz5MotnlndOfpHy+Cao80jCuusGCGetFjF1jkWGq9BfZXLlLbTffp1H5E/PfX30PKyXRDsMipFSn3KzsDv6Ywgpi0AtDKlsVHsbHtp0Mg7ZiH6p3WBfqDFkgg==',
+           :login => 'ellison'}}
+      elsif system == 'erus'
+        {:merchant_account => {
+          :name => 'cyber_source',
+          :user_name => 'ellisonretail',
+          :password => 'v1pBkChVavoz3XPXCMRW8ewXMMDfW70ldwLWp4AAtNHkG00sxaUM/HVo68yhhoJStUo2wtu1mhb54dEJKTWmdeCQeUkeaN8vKx8vOcJtLlUV+eqjELk7bFUR2owrRdf8PhQlp62zms4cVROaVuZXnpHN5PMRfrYG6ovp9V0Qfnw2wdYoR55Q6O9NONckGcjm9cR/4Ro+jRTLzCr54dEJKTWmdeCQeUkeaN8vKx8vOcJtLlUV+eqjELk7bFUR2owrRdf8PhQlp62zms4cVROaVuZXnpEZt/g92j+Xi2DQeV0Qfnw0UsRt/uF4ZslZMYzlmLIDgMHs5XVYnYg5HIGvVA==',
+          :login => 'ellisonretail'}}
+      else
+         {:merchant_account => {
+           :name => 'sage_pay',
+           :user_name => 'ellison',
+           :password => 'ellisond',
+           :login => 'ellisonadmin'}}
+      end
+
+    # development, test, staging
+    else
+      if system == 'szus'
+        {:merchant_account => {
+           :name => 'cyber_source',
+           :user_name => 'sizzix',
+           :password => 'NVb8EJQOhgBktwCaSSQCyQ/Vg2rDSbXlpdn9FDycbRHQkWmRd6AX5SsLK5g5k7sft0BhcJStSafgCb8h3AH9sogEFZfq5kn1bWvcQsPGBg1R03oQDLvz0u78pdb2lqEg19DsTHMJWr1Ql1iqm7x86aZDs2A+ryBjb+4Bs54DVrLhqF+a1KmMe1iaZzdGmNaia1DHbVueMwOMS+A2GYfSy8cVVxDAEeyp8Hao+U+H+nT4n5wH9jzBMEaY0KoxGn6U8aCMpJM4LSFGi2eWd05+kfL4Jj6WB8lhxwL/d7ZlH/JhxTGr0F9lcuUttN9+nUfkT899ffQ8rJdEOwyKkVKfcg==',
+           :login => 'sizzix'}}
+      elsif system == 'eeus'
+         {:merchant_account => {
+           :name => 'cyber_source',
+           :user_name => 'ellison',
+           :password => 'BpPtot9m0tKahzNosKGmdeCQeUkeaN8vKx8vOcJtLlUV+eqjELk7bFUR2owrRdf8PhQlp62zms4cVROaVuZXnpHN5PMRfrYG6ovp9V0Qfnw0EU87aHOWjdo5rXr+1LNyFCU8iZRniIn3ZIGvVMVW8QO/2zp+qCadKdXika1TEK8CTzg0E+m87q0x9vlPh/p0+J+cB/Y8wVmb6dQ7psXnkqYeWEsqzDz5MotnlndOfpHy+Cao80jCuusGCGetFjF1jkWGq9BfZXLlLbTffp1H5E/PfX30PKyXRDsMipFSn3KzsDv6Ywgpi0AtDKlsVHsbHtp0Mg7ZiH6p3WBfqDFkgg==',
+           :login => 'ellison'}}
+      elsif system == 'erus'
+        {:merchant_account => {
+          :name => 'cyber_source',
+          :user_name => 'ellisonretail',
+          :password => 'v1pBkChVavoz3XPXCMRW8ewXMMDfW70ldwLWp4AAtNHkG00sxaUM/HVo68yhhoJStUo2wtu1mhb54dEJKTWmdeCQeUkeaN8vKx8vOcJtLlUV+eqjELk7bFUR2owrRdf8PhQlp62zms4cVROaVuZXnpHN5PMRfrYG6ovp9V0Qfnw2wdYoR55Q6O9NONckGcjm9cR/4Ro+jRTLzCr54dEJKTWmdeCQeUkeaN8vKx8vOcJtLlUV+eqjELk7bFUR2owrRdf8PhQlp62zms4cVROaVuZXnpEZt/g92j+Xi2DQeV0Qfnw0UsRt/uF4ZslZMYzlmLIDgMHs5XVYnYg5HIGvVA==',
+          :login => 'ellisonretail'}}
+      else
+         {:merchant_account => {
+           :name => 'sage_pay',
+           :user_name => 'ellison',
+           :password => 'ellisond',
+           :login => 'ellisonadmin'}}
+      end
+    end
+  end
+
 	def get_gateway(system = current_system)
 	  system ||= current_system
-    options = if system == 'szus'
-              {:merchant_account => {
-                 :name => 'cyber_source',
-                 :user_name => 'sizzix',
-                 :password => 'NVb8EJQOhgBktwCaSSQCyQ/Vg2rDSbXlpdn9FDycbRHQkWmRd6AX5SsLK5g5k7sft0BhcJStSafgCb8h3AH9sogEFZfq5kn1bWvcQsPGBg1R03oQDLvz0u78pdb2lqEg19DsTHMJWr1Ql1iqm7x86aZDs2A+ryBjb+4Bs54DVrLhqF+a1KmMe1iaZzdGmNaia1DHbVueMwOMS+A2GYfSy8cVVxDAEeyp8Hao+U+H+nT4n5wH9jzBMEaY0KoxGn6U8aCMpJM4LSFGi2eWd05+kfL4Jj6WB8lhxwL/d7ZlH/JhxTGr0F9lcuUttN9+nUfkT899ffQ8rJdEOwyKkVKfcg==',
-                 :login => 'sizzix'}}
-            elsif system == 'eeus'
-               {:merchant_account => {
-                 :name => 'cyber_source',
-                 :user_name => 'ellison',
-                 :password => 'BpPtot9m0tKahzNosKGmdeCQeUkeaN8vKx8vOcJtLlUV+eqjELk7bFUR2owrRdf8PhQlp62zms4cVROaVuZXnpHN5PMRfrYG6ovp9V0Qfnw0EU87aHOWjdo5rXr+1LNyFCU8iZRniIn3ZIGvVMVW8QO/2zp+qCadKdXika1TEK8CTzg0E+m87q0x9vlPh/p0+J+cB/Y8wVmb6dQ7psXnkqYeWEsqzDz5MotnlndOfpHy+Cao80jCuusGCGetFjF1jkWGq9BfZXLlLbTffp1H5E/PfX30PKyXRDsMipFSn3KzsDv6Ywgpi0AtDKlsVHsbHtp0Mg7ZiH6p3WBfqDFkgg==',
-                 :login => 'ellison'}}
-           elsif system == 'erus'
-              {:merchant_account => {
-                :name => 'cyber_source',
-                :user_name => 'ellisonretail',
-                :password => 'v1pBkChVavoz3XPXCMRW8ewXMMDfW70ldwLWp4AAtNHkG00sxaUM/HVo68yhhoJStUo2wtu1mhb54dEJKTWmdeCQeUkeaN8vKx8vOcJtLlUV+eqjELk7bFUR2owrRdf8PhQlp62zms4cVROaVuZXnpHN5PMRfrYG6ovp9V0Qfnw2wdYoR55Q6O9NONckGcjm9cR/4Ro+jRTLzCr54dEJKTWmdeCQeUkeaN8vKx8vOcJtLlUV+eqjELk7bFUR2owrRdf8PhQlp62zms4cVROaVuZXnpEZt/g92j+Xi2DQeV0Qfnw0UsRt/uF4ZslZMYzlmLIDgMHs5XVYnYg5HIGvVA==',
-                :login => 'ellisonretail'}}
-            else
-               {:merchant_account => {
-                 :name => 'sage_pay',
-                 :user_name => 'ellison',
-                 :password => 'ellisond',
-                 :login => 'ellisonadmin'}}
-             end
+    options = gateway_options(system)
     config = GwConfig.new(options)
     ActiveMerchant::Billing::Base.mode = :test unless Rails.env == 'production' 
     @gateway = ActiveMerchant::Billing::Base.gateway(config.name.to_s).new(:login => config.user_name.to_s, :password => config.password.to_s)    
