@@ -12,6 +12,6 @@ class Feed
   validates_presence_of :name, :feeds
 
   def entries
-    ActiveSupport::JSON.decode(self.feeds.gsub(/\\u[^0]*[a-f0-9]{2,4}/, '')) rescue []
+    ActiveSupport::JSON.decode(self.feeds) rescue []
   end
 end
