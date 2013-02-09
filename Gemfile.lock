@@ -295,7 +295,7 @@ GEM
       rake (>= 0.8.1)
     polyglot (0.3.3)
     pr_geohash (1.0.0)
-    rack (1.2.7)
+    rack (1.2.8)
     rack-bug (0.3.0)
       rack (>= 1.0)
     rack-mount (0.6.14)
