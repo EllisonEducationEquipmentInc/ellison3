@@ -5,7 +5,7 @@
       .caption= image.caption
   .clear
 - if tab.text
-  = youtube_video tab.text.html_safe
+  = raw youtube_video tab.text.html_safe
 - if tab.products
   = render :partial => 'products/product', :collection => Product.available.where(:item_num.in => tab.products).cache
   .clear

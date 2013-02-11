@@ -310,7 +310,7 @@ module ApplicationHelper
       .html_safe
       new_text.gsub!(text_to_replace, embeded_code)
     end
-    new_text
+    new_text.html_safe
   end
 
   def video_thumbnail(youtube_id)
