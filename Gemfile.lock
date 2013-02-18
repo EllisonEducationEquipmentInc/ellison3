@@ -93,7 +93,7 @@ GEM
     bson_ext (1.5.2)
       bson (= 1.5.2)
     builder (2.1.2)
-    capistrano (2.13.4)
+    capistrano (2.14.2)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
