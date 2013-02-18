@@ -54,9 +54,9 @@
       = visual_asset.content.html_safe
       .clear
   - elsif visual_asset.asset_type == 'text'
-    .asset_text= visual_asset.content.html_safe
+    .asset_text=raw youtube_video visual_asset.content.html_safe
   - elsif visual_asset.asset_type == 'freeform'
-    .asset_freeform= visual_asset.content.html_safe
+    .asset_freeform=raw youtube_video visual_asset.content.html_safe
     .clear
   - elsif visual_asset.asset_type == 'catalog_search'
     .asset_catalog_search
