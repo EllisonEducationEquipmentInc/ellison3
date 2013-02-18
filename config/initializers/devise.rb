@@ -140,3 +140,7 @@ Devise.setup do |config|
   #   manager.default_strategies(:scope => :user).unshift :twitter_oauth
   # end
 end
+
+Devise::PasswordsController.class_eval do
+  ssl_exceptions
+end
