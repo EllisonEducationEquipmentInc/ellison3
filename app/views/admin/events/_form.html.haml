@@ -53,7 +53,7 @@
       = f.text_field :zip_code
     .field
       = f.label :country
-      = f.select :country, countries
+      = f.select :country, Country.all.asc(:name).cache.map {|e| e.name}
 
   .contentwrap_large.last
     .field
