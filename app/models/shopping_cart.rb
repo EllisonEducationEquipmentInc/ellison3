@@ -125,6 +125,7 @@ module ShoppingCart
         order.user.add_to_owns_list order.order_items.map {|e| e.product_id}
       end
       gift_card_msg = order.respond_to?(:gift_card) && order.gift_card.present? ? "<br><br>Please do not discard your used Sizzix/Ellison Gift Card until you are completely satisfied with your purchases. The value of returned or partially returned merchandise that is purchased using a Gift Card (or a Gift Card and a credit card) will be credited to a Gift Card first, with any remaining balance applied to a credit card." : ''
+      flash[:tracking] = "1"
       flash[:notice] = "Thank you for your #{order.is_a?(Order) ? 'order' : quote_name.downcase}.  Below is your #{order.is_a?(Order) ? 'order' : quote_name} receipt.  Please print it for your reference.  You will also receive a copy of this receipt by email. #{gift_card_msg}".html_safe
     end
 

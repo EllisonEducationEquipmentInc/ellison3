@@ -1,4 +1,7 @@
 - I18n.locale = @order.locale
+- if flash[:tracking].present?
+  :javascript
+    window.CT_C_OrderTotal='#{convert_2_gbp @order.subtotal_amount}';
 %div= link_to 'Back to Orders', myaccount_path('orders', :page => params[:page]), :class => 'jqui_back dontprint'
 #billing_address
   %h3 Billing Address
