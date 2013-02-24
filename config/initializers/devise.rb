@@ -141,3 +141,6 @@ Devise.setup do |config|
   # end
 end
 
+Devise::PasswordsController.class_eval do
+  ssl_exceptions
+end
