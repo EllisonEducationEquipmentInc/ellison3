@@ -1,8 +1,8 @@
 - if controller_name != 'sessions'
   Already a Member?
-  = link_to "Sign in", login_path
+  = link_to "Sign in", resource_class == User ? login_path : new_admin_session_path
   %br/
-- if devise_mapping.registerable? && controller_name != 'users'
+- if resource_class != Admin && devise_mapping.registerable? && controller_name != 'users'
   Not a Member?
   = link_to "Sign up", signup_path
   %br/
@@ -15,3 +15,4 @@
 - if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
   = link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name)
   %br/
+
