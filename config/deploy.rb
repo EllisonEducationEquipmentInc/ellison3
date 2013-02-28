@@ -3,7 +3,7 @@ require 'capistrano/ext/multistage'
 require 'airbrake/capistrano'
 require "delayed/recipes"
 
-set :rvm_ruby_string, 'ruby-1.9.3-p194@Ellison3'
+set :rvm_ruby_string, 'ruby-1.9.3-p392@Ellison3'
 require "rvm/capistrano"                  # Load RVM's capistrano plugin.
 
 set :use_sudo, false
