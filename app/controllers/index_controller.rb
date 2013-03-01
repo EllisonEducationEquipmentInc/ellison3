@@ -23,6 +23,7 @@ class IndexController < ApplicationController
 
   def campaigns
     @campaign = SharedContent.campaigns
+    @title = "Internet Specials"
   end
 
   def products
@@ -148,6 +149,7 @@ class IndexController < ApplicationController
   end
 
   def contact
+    @title = "Contact Us"
     @feedback = Feedback.new
     @feedback.email = get_user.email if user_signed_in?
     @subjects = SharedContent.active.where(:systems_enabled.in => [current_system], :placement => 'contact').order([:display_order, :asc]).cache
@@ -313,6 +315,7 @@ class IndexController < ApplicationController
   end
 
   def instructions
+    @title = "Product Instructions"
     unless fragment_exist? "instructions_page_#{current_system}"
       #@products = Product.displayable.only(:item_type).where(:instructions.exists => true, :instructions.ne => '').asc(:name).group
       @products = Product.collection.group(:key => 'item_type', :cond => {:deleted_at=>{"$exists"=>false}, :active=>true, :systems_enabled=>{"$in"=>[current_system]}, :"start_date_#{current_system}"=>{"$lte"=> Time.now.utc}, :"end_date_#{current_system}"=>{"$gte"=> Time.now.utc}, :instructions => {'$exists' => true, '$ne' => ''}}, :reduce => "function(obj, prev) { prev.group.push(obj); }", :initial=>{:group=>[]} ).collect do |docs|
@@ -392,6 +395,7 @@ class IndexController < ApplicationController
   end
 
   def newsletter
+    @title = "Newsletter Sign up"
     get_list_and_segments
     @subscription = Subscription.new :list => @list[0]
     @subscription.email = if params[:email]
@@ -476,6 +480,7 @@ class IndexController < ApplicationController
   end
 
   def giftcard_balance
+    @title = "Gift Card Balance"
     raise "wrong system" unless is_sizzix_us? || is_ee_us?
     @payment = Payment.new params[:payment]
     if request.post?
