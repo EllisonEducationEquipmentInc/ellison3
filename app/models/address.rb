@@ -2,9 +2,7 @@ class Address
   include EllisonSystem
   include Mongoid::Document
 
-  attr_accessor :enable_avs_bypass
-
-  attr_accessor_with_default :allow_po_box, false
+  attr_accessor :enable_avs_bypas, :allow_po_box
 
   attr_protected :allow_po_box
 
@@ -42,6 +40,7 @@ class Address
 
   def initialize(attributes = nil)
     super(attributes)
+    self.allow_po_box = false if self.allow_po_box.nil?
     self.country ||= "United States" if is_us?
     self.country ||= "United Kingdom" if is_uk?
   end

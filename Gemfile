@@ -1,16 +1,16 @@
 source 'http://rubygems.org'
 
 gem 'bundler', '>=1.0.10'
-gem 'rails', '3.0.20'
+gem 'rails', '3.1.11'
 gem 'mongo_ext'
 gem "bson_ext", "~> 1.5.2"
 gem 'passenger'
 gem 'rvm-capistrano'
-gem 'haml', '3.1.2'
+gem 'haml' #, '3.1.2'
 gem 'sass'
 gem 'will_paginate', '3.0.3'
-gem "mongo_session_store-rails3"
-gem "mongoid", "2.0.1"
+gem 'mongo_session_store-rails3', '~>3.0.6'
+gem "mongoid",  "2.0.2"
 gem "nifty-generators"
 gem "compass", "0.11.5"
 gem 'RubyInline'
@@ -19,12 +19,13 @@ gem 'carrierwave', '0.5.3'
 gem 'remotipart', '0.4.1'
 gem 'hpricot'
 gem 'ruby_parser'
-gem 'devise', '1.1.3'
+gem 'devise', '2.2.3'
 gem 'warden'
 gem 'activemerchant', :require => 'active_merchant'
 gem 'httparty'
 gem 'shippinglogic', :git => 'git://github.com/computadude/shippinglogic.git', :branch => "master"
-gem 'sunspot_mongoid', :git => 'git://github.com/jugyo/sunspot_mongoid.git', :branch => "master"
+gem 'sunspot_mongoid', git: 'git://github.com/jugyo/sunspot_mongoid.git', branch: "master"
+gem 'sunspot-rails-failover', git: 'git@github.com:computadude/sunspot-rails-failover.git'
 gem 'feedzirra'
 gem 'geokit'
 gem 'youtube_it'
@@ -39,7 +40,6 @@ gem 'rack-recaptcha', :require => 'rack/recaptcha'
 gem 'barista'
 gem 'execjs'
 gem 'therubyracer'
-gem 'sunspot-rails-failover', :git => 'git://github.com/flyingmachine/sunspot-rails-failover.git'
 gem 'savon'
 gem "airbrake"
 gem 'capistrano'
@@ -59,6 +59,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 2.11.0'
   gem 'debugger'
+  gem 'ZenTest'
 end
 
 gem "rails3-generators", :group => :development
