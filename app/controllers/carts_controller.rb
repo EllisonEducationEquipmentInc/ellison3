@@ -1,4 +1,7 @@
 class CartsController < ApplicationController
+
+  respond_to :html, :js, :json
+
   before_filter :authenticate_user!, :only => [:checkout, :proceed_checkout, :quote, :proceed_quote, :quote_2_order, :move_to_cart, :delete_from_saved_list, :save_cod, :cart_upload, :fast_upload]
   before_filter :authenticate_admin!, :only => [:custom_price]
   before_filter :pre_validate_cart, :only => [:checkout, :quote]
@@ -15,8 +18,8 @@ class CartsController < ApplicationController
   :add_to_cart, :remove_from_cart, :save_cod, :get_deferred_first_payment, :forget_credit_card, :set_upsell, :remove_order_reference, :add_to_cart_by_item_num, :use_previous_orders_card, :empty_cart,
   :apply_gift_card, :remove_gift_card
 
-  verify :xhr => true, :only => [:set_upsell, :get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :use_previous_orders_card,
-                                 :remove_order_reference, :shopping_cart, :change_quantity, :add_selected_to_cart, :save_cod, :add_to_cart_by_item_num, :apply_gift_card, :remove_gift_card] #, :redirect_to => {:action => :index}
+  #verify :xhr => true, :only => [:set_upsell, :get_shipping_options, :get_shipping_amount, :get_tax_amount, :get_total_amount, :activate_coupon, :remove_coupon, :proceed_quote, :use_previous_orders_card,
+                                 #:remove_order_reference, :shopping_cart, :change_quantity, :add_selected_to_cart, :save_cod, :add_to_cart_by_item_num, :apply_gift_card, :remove_gift_card] #, :redirect_to => {:action => :index}
 
   def index
     if get_cart.last_check_at.blank? || get_cart.last_check_at.present? && get_cart.last_check_at.utc < 5.minute.ago.utc

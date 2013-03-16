@@ -14,8 +14,8 @@ class UsersController < ApplicationController
   ssl_exceptions :signin_signup, :checkout_requested, :quote_requested, :add_to_list, :save_for_later, :list, :get_lists
   ssl_allowed :signin_signup, :checkout_requested, :quote_requested, :add_to_list, :save_for_later, :list, :get_lists, :change_quote_name, :subscriptions, :resend_subscription_confirmation
 
-  verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list, :save_for_later, :add_to_list, :list_set_to_default, :remove_from_list, :move_to_list, :email_list, :view_retailer_application, :change_quote_name], :redirect_to => {:action => :myaccount}
-  verify :method => :post, :only => [:create_retailer_application, :order_material, :resend_subscription_confirmation]
+  #verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list, :save_for_later, :add_to_list, :list_set_to_default, :remove_from_list, :move_to_list, :email_list, :view_retailer_application, :change_quote_name], :redirect_to => {:action => :myaccount}
+  #verify :method => :post, :only => [:create_retailer_application, :order_material, :resend_subscription_confirmation]
 
   # GET /resource/sign_up
   def new

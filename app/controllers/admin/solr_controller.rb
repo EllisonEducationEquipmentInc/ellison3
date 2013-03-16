@@ -7,7 +7,7 @@ class Admin::SolrController < ApplicationController
 
  	ssl_exceptions
  	
- 	verify :xhr => true, :only => [:commit]
+   #verify :xhr => true, :only => [:commit]
 	
  	def index
  	  
