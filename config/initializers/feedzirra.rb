@@ -18,4 +18,14 @@ module Feedzirra
       element :"yt:playlistId", :as => :yt_playlist_id
     end
   end
+
+  module FeedEntryUtilities
+    def as_json(options=nil)
+      h={}
+      each do |item|
+        h[item] = send(item)
+      end
+      h
+    end
+  end
 end

@@ -56,17 +56,17 @@ group :test do
   gem 'webmock'
 end
 
-group :development, :test do
-  gem 'rspec-rails', '~> 2.11.0'
-  gem 'debugger'
-  gem 'ZenTest'
-end
-
-gem "rails3-generators", :group => :development
 group :development do
+  gem "rails3-generators"
+  gem "letter_opener"
+  gem 'meta_request', '0.2.1'
   gem "rack-bug"
   gem 'irbtools-more', :require => false
   gem 'terminal-notifier'
   gem 'wirble'
   gem 'rbtrace'
+  gem 'rspec-rails', '~> 2.11.0'
+  gem 'debugger'
+  gem "better_errors"
+  gem "binding_of_caller"
 end
