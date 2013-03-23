@@ -26,6 +26,7 @@ gem 'httparty'
 gem 'shippinglogic', :git => 'git://github.com/computadude/shippinglogic.git', :branch => "master"
 gem 'sunspot_mongoid', git: 'git://github.com/jugyo/sunspot_mongoid.git', branch: "master"
 gem 'sunspot-rails-failover', git: 'git@github.com:computadude/sunspot-rails-failover.git'
+gem 'sunspot_with_kaminari'
 gem 'feedzirra'
 gem 'geokit'
 gem 'youtube_it'
