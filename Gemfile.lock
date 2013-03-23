@@ -245,9 +245,6 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     memcache-client (1.8.5)
-    meta_request (0.2.1)
-      rack-contrib
-      rails
     metaclass (0.0.1)
     method_locator (0.0.4)
     method_source (0.8.1)
@@ -313,8 +310,6 @@ GEM
       rack (>= 1.0)
     rack-cache (1.2)
       rack (>= 0.4)
-    rack-contrib (1.1.0)
-      rack (>= 0.9.1)
     rack-mount (0.8.3)
       rack (>= 1.0.0)
     rack-recaptcha (0.6.5)
@@ -476,7 +471,6 @@ DEPENDENCIES
   launchy
   letter_opener
   memcache-client
-  meta_request (= 0.2.1)
   mongo_ext
   mongo_session_store-rails3 (~> 3.0.6)
   mongoid (= 2.0.2)

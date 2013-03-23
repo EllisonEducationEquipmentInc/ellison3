@@ -59,7 +59,7 @@ end
 group :development do
   gem "rails3-generators"
   gem "letter_opener"
-  gem 'meta_request', '0.2.1'
+  #gem 'meta_request', '0.2.1'
   gem "rack-bug"
   gem 'irbtools-more', :require => false
   gem 'terminal-notifier'
