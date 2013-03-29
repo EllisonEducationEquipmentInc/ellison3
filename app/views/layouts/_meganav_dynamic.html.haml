@@ -16,8 +16,8 @@
                 - nav.navigation_links.ordered.each do |link|
                   %li= link_to_unless link.link.blank?, link.label.html_safe, link.link
               - elsif nav.navigation_type == 'product_tag'
-                - perform_search(Product, :facets => [nav.tag_type], :ignore_keyword => true, :facet_limit => 20).facet("#{nav.tag_type}_#{current_system}").rows.each do |row|
+                - perform_search(Product, :facets => [nav.tag_type], :ignore_keyword => true, :facet_limit => 50).facet("#{nav.tag_type}_#{current_system}").rows.each do |row|
                   %li= link_to(row.instance.name, "/catalog#facets=#{row.value}") rescue next
               - elsif nav.navigation_type == 'idea_tag'
-                - perform_search(Idea, :facets => [nav.tag_type], :ignore_keyword => true, :facet_limit => 20).facet("#{nav.tag_type}_#{current_system}").rows.each do |row|
+                - perform_search(Idea, :facets => [nav.tag_type], :ignore_keyword => true, :facet_limit => 50).facet("#{nav.tag_type}_#{current_system}").rows.each do |row|
                   %li= link_to(row.instance.name, "/catalog#facets=#{row.value}&ideas=1") rescue next
