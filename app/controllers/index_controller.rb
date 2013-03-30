@@ -100,6 +100,7 @@ class IndexController < ApplicationController
     else
       raise "invalid tag_type: #{params[:id]}"
     end
+    @title = "#{@klass.public_name} - #{params[:id].humanize}"
     #expires_in 1.hour, 'max-stale' => 3.hours
   rescue Exception => e
     Rails.logger.info e.message
