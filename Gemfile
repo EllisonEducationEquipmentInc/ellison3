@@ -8,7 +8,7 @@ gem 'passenger'
 gem 'rvm-capistrano'
 gem 'haml' #, '3.1.2'
 gem 'sass'
-gem 'will_paginate', '3.0.3'
+gem 'will_paginate', '2.3.16'
 gem 'mongo_session_store-rails3', '~>3.0.6'
 gem "mongoid",  "2.0.2"
 gem "nifty-generators"
@@ -45,6 +45,7 @@ gem 'savon'
 gem "airbrake"
 gem 'capistrano'
 gem "mongoid_rails_migrations", "0.0.14"
+gem 'bartt-ssl_requirement', '~>1.4.0', :require => 'ssl_requirement'
 
 group :test do
   gem "mongoid-rspec"

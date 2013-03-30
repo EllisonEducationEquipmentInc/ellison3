@@ -4,7 +4,7 @@ Ellison3::Application.routes.draw do
   # first created -> highest priority.
 
   devise_for :users, :controllers => { :registrations => "users", :sessions => "sessions" }, :format => false
-  devise_for :admins, :controllers => {:registrations => "admin/registrations", :sessions => "admin/sessions" }
+  devise_for :admins, :controllers => {:registrations => "admin/registrations", :sessions => "admin/sessions" }, :format => false
 
   # Sets the devise scope to be used in the controller.
   as :user do
