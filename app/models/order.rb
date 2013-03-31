@@ -46,6 +46,7 @@ class Order
   index "gift_card.vendor_tx_code"
 
   index [[:user_id, Mongo::ASCENDING], [:system, Mongo::ASCENDING], [:created_at, Mongo::DESCENDING]]
+  index [[:deleted_at, Mongo::DESCENDING], [:system, Mongo::ASCENDING], [:created_at, Mongo::DESCENDING]]
   index [[:updated_at, Mongo::DESCENDING], [:system, Mongo::DESCENDING], [:order_number, Mongo::DESCENDING], [:tax_transaction, Mongo::DESCENDING]]
   index [["order_items.campaign_name", Mongo::ASCENDING], [:system, Mongo::ASCENDING]]
   index [["address.email", Mongo::ASCENDING], ["address.company", Mongo::ASCENDING], ["address.last_name", Mongo::ASCENDING]]
