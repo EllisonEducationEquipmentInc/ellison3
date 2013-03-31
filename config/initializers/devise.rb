@@ -144,3 +144,31 @@ end
 Devise::PasswordsController.class_eval do
   ssl_exceptions
 end
+
+module Devise
+  class ParamFilter
+
+    private
+
+    # Determine which values should be transformed to string or passed as-is to the query builder underneath
+    def param_requires_string_conversion?(value)
+      false #true unless value.is_a?(TrueClass) || value.is_a?(FalseClass) || value.is_a?(Fixnum)
+    end
+  end
+
+  module Models
+
+    module Authenticatable
+      module ClassMethods
+
+        protected
+
+        # Determine which values should be transformed to string or passed as-is to the query builder underneath
+        def auth_param_requires_string_conversion?(value)
+          false
+        end
+
+      end
+    end
+  end
+end

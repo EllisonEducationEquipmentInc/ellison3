@@ -1,14 +1,14 @@
 source 'http://rubygems.org'
 
 gem 'bundler', '>=1.0.10'
-gem 'rails', '3.1.11'
+gem 'rails', '3.1.12'
 gem 'mongo_ext'
 gem "bson_ext", "~> 1.5.2"
 gem 'passenger'
 gem 'rvm-capistrano'
 gem 'haml' #, '3.1.2'
 gem 'sass'
-gem 'will_paginate', '3.0.3'
+gem 'will_paginate', '2.3.16'
 gem 'mongo_session_store-rails3', '~>3.0.6'
 gem "mongoid",  "2.0.2"
 gem "nifty-generators"
@@ -19,13 +19,14 @@ gem 'carrierwave', '0.5.3'
 gem 'remotipart', '0.4.1'
 gem 'hpricot'
 gem 'ruby_parser'
-gem 'devise', '1.5.3'
+gem 'devise', '1.4.9'
 gem 'warden'
 gem 'activemerchant', :require => 'active_merchant'
 gem 'httparty'
 gem 'shippinglogic', :git => 'git://github.com/computadude/shippinglogic.git', :branch => "master"
 gem 'sunspot_mongoid', git: 'git://github.com/jugyo/sunspot_mongoid.git', branch: "master"
 gem 'sunspot-rails-failover', git: 'git@github.com:computadude/sunspot-rails-failover.git'
+gem 'sunspot_with_kaminari'
 gem 'feedzirra'
 gem 'geokit'
 gem 'youtube_it'
@@ -44,6 +45,7 @@ gem 'savon'
 gem "airbrake"
 gem 'capistrano'
 gem "mongoid_rails_migrations", "0.0.14"
+gem 'bartt-ssl_requirement', '~>1.4.0', :require => 'ssl_requirement'
 
 group :test do
   gem "mongoid-rspec"

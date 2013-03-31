@@ -1,4 +1,7 @@
 class SessionsController < ApplicationController
+
+  respond_to :html, :js, :json
+
   prepend_before_filter :require_no_authentication, :only => [ :new, :create ]
   before_filter :trackable, :only => [ :new, :create ]
   before_filter :admin_user_as_permissions!, :only => [:user_as]
