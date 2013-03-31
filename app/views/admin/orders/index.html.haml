@@ -85,7 +85,7 @@
             %td{:style => "text-align: right; white-space: nowrap;"}= link_to 'View', admin_order_path(order), :class => 'jqui_show_min'
 - I18n.locale = @current_locale
 %br
-= will_paginate @orders
+= paginate @orders
 %br
 - if has_write_permissions? && is_uk?
   :javascript

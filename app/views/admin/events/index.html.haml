@@ -44,6 +44,6 @@
             %td= link_to 'Edit', edit_admin_event_path(event), :class => 'jqui_edit_min'
             %td= link_to 'Destroy', admin_event_path(event), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
 %br
-= will_paginate @events
+= paginate @events
 %br
 = link_to 'New event', new_admin_event_path, :class => 'jqui_new' if has_write_permissions?

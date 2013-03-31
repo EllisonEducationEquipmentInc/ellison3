@@ -24,7 +24,7 @@
         %td= product.send("orderable_#{current_system}")
         %td= display_product_price product, :date => @time
         %td= product.outlet?
-  = will_paginate @products, :params => {:time => params[:time]}
+  = paginate @products, :params => {:time => params[:time]}
 %p= @tag.systems_enabled.join(", ")      
 - @tag.attributes.keys.reject {|k| %w(versions campaigns).include? k}.each do |attribute|
   %p

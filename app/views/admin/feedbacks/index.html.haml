@@ -40,7 +40,7 @@
           - if has_write_permissions?
             %td= link_to 'Reply', admin_feedback_path(feedback)
 %br
-= will_paginate @feedbacks
+= paginate @feedbacks
 %br
 - if has_write_permissions?
   :javascript

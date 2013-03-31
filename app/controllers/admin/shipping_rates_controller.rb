@@ -1,26 +1,26 @@
 class Admin::ShippingRatesController < ApplicationController
   layout 'admin'
-	
-	before_filter :set_admin_title
-	before_filter :admin_read_permissions!
+  
+  before_filter :set_admin_title
+  before_filter :admin_read_permissions!
   before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy]
-	
-	ssl_exceptions
-	
-	def index
-	  criteria = Mongoid::Criteria.new(ShippingRate)
-	  criteria = criteria.where :deleted_at => nil
-	  criteria = if params[:systems_enabled].blank?
-	    criteria.where(:system => current_system)
-	  else
-	    criteria.where(:system.in => params[:systems_enabled]) 
-	  end
-	  unless params[:q].blank?
-	    regexp = Regexp.new(params[:q], "i")
-  	  criteria = criteria.any_of({ :zone_or_country => regexp})
-	  end
-		@shipping_rates = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
-	end
+  
+  ssl_exceptions
+  
+  def index
+    criteria = Mongoid::Criteria.new(ShippingRate)
+    criteria = criteria.where :deleted_at => nil
+    criteria = if params[:systems_enabled].blank?
+      criteria.where(:system => current_system)
+    else
+      criteria.where(:system.in => params[:systems_enabled]) 
+    end
+    unless params[:q].blank?
+      regexp = Regexp.new(params[:q], "i")
+      criteria = criteria.any_of({ :zone_or_country => regexp})
+    end
+    @shipping_rates = criteria.order_by(sort_column => sort_direction).page(params[:page]).per(50)
+  end
 
   # GET /shipping_rates/1
   # GET /shipping_rates/1.xml

@@ -428,7 +428,6 @@ GEM
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
     websocket (1.0.7)
-    will_paginate (2.3.16)
     wirb (1.0.1)
       paint
     wirble (0.1.3)
@@ -477,6 +476,7 @@ DEPENDENCIES
   httparty
   image_science
   irbtools-more
+  kaminari
   launchy
   letter_opener
   memcache-client
@@ -509,6 +509,5 @@ DEPENDENCIES
   therubyracer
   warden
   webmock
-  will_paginate (= 2.3.16)
   wirble
   youtube_it

@@ -1,34 +1,34 @@
 class Admin::QuotesController < ApplicationController
   layout 'admin'
-	
-	before_filter :set_admin_title
-	before_filter :admin_read_permissions!
+  
+  before_filter :set_admin_title
+  before_filter :admin_read_permissions!
   before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :update_internal_comment, :update_active_status, :change_quote_name, :change_quote_date]
-	before_filter :admin_user_as_permissions!, :only => [:recreate]
-	
-	ssl_exceptions
-	
-	def index
-	  @current_locale = current_locale
-	  criteria = Mongoid::Criteria.new(Quote)
-	  criteria = criteria.where :deleted_at => nil
-	  criteria = criteria.where(:user_id => params[:user_id]) unless params[:user_id].blank?
-	  criteria = criteria.where :user_id.in => current_admin.users.map {|e| e.id} if current_admin.limited_sales_rep
-	  criteria = criteria.active unless params[:inactive].present?
-	  criteria = if params[:systems_enabled].blank?
-	    criteria.where(:system.in => admin_systems)
-	  else
-	    criteria.where(:system.in => params[:systems_enabled]) 
-	  end
-	  if params[:q].present?
-	    redirect_to(admin_quote_path(:id => params[:q])) if params[:q].valid_bson_object_id?
-	    regexp = params[:extended] == "1" ? Regexp.new(params[:q], "i") : Regexp.new("^#{params[:q]}")
-  	  criteria = criteria.any_of({:quote_number => params[:q]}, {:name => regexp}, { 'address.first_name' => regexp}, { 'address.last_name' => regexp }, { 'address.company' => regexp }, { 'internal_comments' => regexp })
-	  	@quotes = criteria.paginate :page => params[:page], :per_page => 50
-	  else
-  		@quotes = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50	    
-	  end
-	end
+  before_filter :admin_user_as_permissions!, :only => [:recreate]
+  
+  ssl_exceptions
+  
+  def index
+    @current_locale = current_locale
+    criteria = Mongoid::Criteria.new(Quote)
+    criteria = criteria.where :deleted_at => nil
+    criteria = criteria.where(:user_id => params[:user_id]) unless params[:user_id].blank?
+    criteria = criteria.where :user_id.in => current_admin.users.map {|e| e.id} if current_admin.limited_sales_rep
+    criteria = criteria.active unless params[:inactive].present?
+    criteria = if params[:systems_enabled].blank?
+      criteria.where(:system.in => admin_systems)
+    else
+      criteria.where(:system.in => params[:systems_enabled]) 
+    end
+    if params[:q].present?
+      redirect_to(admin_quote_path(:id => params[:q])) if params[:q].valid_bson_object_id?
+      regexp = params[:extended] == "1" ? Regexp.new(params[:q], "i") : Regexp.new("^#{params[:q]}")
+      criteria = criteria.any_of({:quote_number => params[:q]}, {:name => regexp}, { 'address.first_name' => regexp}, { 'address.last_name' => regexp }, { 'address.company' => regexp }, { 'internal_comments' => regexp })
+      @quotes = criteria.page(params[:page]).per(50)
+    else
+      @quotes = criteria.order_by(sort_column => sort_direction).page(params[:page]).per(50)
+    end
+  end
 
   # GET /quotes/1
   # GET /quotes/1.xml
@@ -144,9 +144,9 @@ class Admin::QuotesController < ApplicationController
   end
   
   def change_shipping
-	  @quote = Quote.find(params[:id])
-	  @quote.update_attributes :shipping_amount => params[:update_value][/[0-9.]+/]
-	  render :inline => "$('#shipping_amount').html('<%= number_to_currency @quote.shipping_amount %>');$('#total_amount').html('<%= number_to_currency @quote.total_amount %>');<% if calculate_tax?(@quote.address.state) %>$('#tax_amount').addClass('error');alert('don\\'t forget to run CCH tax');<% end %>" # "<%= display_product_price_cart @order.shipping_amount %>"
+    @quote = Quote.find(params[:id])
+    @quote.update_attributes :shipping_amount => params[:update_value][/[0-9.]+/]
+    render :inline => "$('#shipping_amount').html('<%= number_to_currency @quote.shipping_amount %>');$('#total_amount').html('<%= number_to_currency @quote.total_amount %>');<% if calculate_tax?(@quote.address.state) %>$('#tax_amount').addClass('error');alert('don\\'t forget to run CCH tax');<% end %>" # "<%= display_product_price_cart @order.shipping_amount %>"
   end
   
   def change_quote_date
@@ -160,17 +160,17 @@ class Admin::QuotesController < ApplicationController
   def pre_orders_report
     FileUtils.mkdir "/data/shared/report_files" unless File.exists? "/data/shared/report_files"
     filename = "pre_orders_report_#{current_system}_#{Time.now.utc.strftime "%m%d%Y_%H"}.csv"
-	  unless File.exists? "/data/shared/report_files/#{filename}"
-	    csv_string = CSV.generate do |csv|
+    unless File.exists? "/data/shared/report_files/#{filename}"
+      csv_string = CSV.generate do |csv|
         csv << ["item_num", "quantity", "item_total"]
         Quote.pre_orders_report.each do |item|
           csv << [item["_id"], item["value"]["quantity"], item["value"]["item_total"]]
         end
       end
-	    File.open("/data/shared/report_files/#{filename}", "w") {|file| file.write(csv_string)}
-	  end
-	  send_file "/data/shared/report_files/#{filename}", :filename => filename
-	end
+      File.open("/data/shared/report_files/#{filename}", "w") {|file| file.write(csv_string)}
+    end
+    send_file "/data/shared/report_files/#{filename}", :filename => filename
+  end
 
   #def active_quotes_report
     #FileUtils.mkdir "/data/shared/report_files" unless File.exists? "/data/shared/report_files"
