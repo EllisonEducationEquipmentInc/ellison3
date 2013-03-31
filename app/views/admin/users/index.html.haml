@@ -51,6 +51,6 @@
           - if has_write_permissions?
             %td{:style => "text-align: right; white-space: nowrap;"}= link_to 'Edit', edit_admin_user_path(user), :class => 'jqui_edit_min'
 %br
-= will_paginate @users
+= paginate @users
 %br
 = link_to 'New user', new_admin_user_path, :class => 'jqui_new' if has_write_permissions?

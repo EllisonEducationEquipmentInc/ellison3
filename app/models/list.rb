@@ -77,7 +77,7 @@ EOF
   end
 
   def products(page = 1)
-    Product.displayable.where(:_id.in => self.product_ids).paginate(:page => page, :per_page => 25)
+    Product.displayable.where(:_id.in => self.product_ids).page(page).per(25)
   end
 
   def add_product(product_id)

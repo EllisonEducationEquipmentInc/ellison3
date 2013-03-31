@@ -2,29 +2,29 @@ class Admin::MessagesController < ApplicationController
   layout 'admin'
 
   before_filter :set_admin_title
-	before_filter :admin_read_permissions!
+  before_filter :admin_read_permissions!
   before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy]
-	
-	ssl_exceptions
-	
-	def index
-	  criteria = Mongoid::Criteria.new(Message)
-	  criteria = criteria.where :deleted_at => nil
-	  criteria = criteria.where(:active => true) if params[:inactive].blank?
-	  if params[:user_id].present? && params[:user_id].valid_bson_object_id?
-	    criteria = criteria.where(:user_id => params[:user_id])
-	  else
-  	  criteria = criteria.where(:discount_level.in => [params[:discount_level]]) unless params[:discount_level].blank?
-	    criteria = criteria.group_message
-	  end
-	  
-	  unless params[:q].blank?
-	    regexp = Regexp.new(params[:q], "i")
-  	  criteria = criteria.any_of({ :subject => regexp})
-	  end
-		@messages = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
-	end
-	
+  
+  ssl_exceptions
+  
+  def index
+    criteria = Mongoid::Criteria.new(Message)
+    criteria = criteria.where :deleted_at => nil
+    criteria = criteria.where(:active => true) if params[:inactive].blank?
+    if params[:user_id].present? && params[:user_id].valid_bson_object_id?
+      criteria = criteria.where(:user_id => params[:user_id])
+    else
+      criteria = criteria.where(:discount_level.in => [params[:discount_level]]) unless params[:discount_level].blank?
+      criteria = criteria.group_message
+    end
+    
+    unless params[:q].blank?
+      regexp = Regexp.new(params[:q], "i")
+      criteria = criteria.any_of({ :subject => regexp})
+    end
+    @messages = criteria.order_by(sort_column => sort_direction).page(params[:page]).per(50)
+  end
+  
 
   # GET /messages/1
   # GET /messages/1.xml

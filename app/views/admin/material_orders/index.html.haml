@@ -42,7 +42,7 @@
           %td
             %span.material_order_status{:id => material_order.id}= material_order.status
 %br
-= will_paginate @material_orders
+= paginate @material_orders
 %br
 :javascript
   $(document).ready(function(){

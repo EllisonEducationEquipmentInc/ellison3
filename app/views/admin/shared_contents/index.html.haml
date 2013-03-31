@@ -39,6 +39,6 @@
             -#
               %td{ :width => 30, :style => "text-align: right;" }= link_to 'Destroy', admin_shared_content_path(shared_content), :confirm => 'Are you sure?', :method => :delete, :class => "jqui_destroy_min"
 %br
-= will_paginate @shared_contents
+= paginate @shared_contents
 %br
 = link_to 'New shared_content', new_admin_shared_content_path, :class => 'jqui_new' if has_write_permissions?

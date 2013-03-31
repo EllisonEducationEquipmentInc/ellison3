@@ -94,7 +94,7 @@ class UsersController < ApplicationController
 
   def orders
     @current_locale = current_locale
-    @orders = get_user.orders.where(:system => current_system).desc(:created_at).paginate(:page => params[:page], :per_page => 10)
+    @orders = get_user.orders.where(:system => current_system).desc(:created_at).page(params[:page]).per(10)
     render :partial => 'order_status'
   end
 
@@ -220,7 +220,7 @@ class UsersController < ApplicationController
 
   def quotes
     @current_locale = current_locale
-    @quotes = get_user.quotes.active.where(:system => current_system).desc(:created_at).paginate(:page => params[:page], :per_page => 10)
+    @quotes = get_user.quotes.active.where(:system => current_system).desc(:created_at).page(params[:page]).per(10)
     render :partial => 'quotes'
   end
 

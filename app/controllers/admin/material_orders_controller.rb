@@ -2,20 +2,20 @@ class Admin::MaterialOrdersController < ApplicationController
   layout 'admin'
 
   before_filter :set_admin_title
-	before_filter :admin_read_permissions!
+  before_filter :admin_read_permissions!
   before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :change_order_status]
-	
-	ssl_exceptions
-	
-	def index
-	  criteria = Mongoid::Criteria.new(MaterialOrder)
-	  criteria = criteria.where(:status => params[:status]) unless params[:status].blank?
-	  unless params[:q].blank?
-	    regexp = Regexp.new(params[:q], "i")
-  	  criteria = criteria.any_of({'order_number' => params[:q][/\d+/].to_i}, { 'address.address1' => regexp}, { 'address.last_name' => regexp}, { 'address.company' => regexp})
-	  end
-		@material_orders = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
-	end
+  
+  ssl_exceptions
+  
+  def index
+    criteria = Mongoid::Criteria.new(MaterialOrder)
+    criteria = criteria.where(:status => params[:status]) unless params[:status].blank?
+    unless params[:q].blank?
+      regexp = Regexp.new(params[:q], "i")
+      criteria = criteria.any_of({'order_number' => params[:q][/\d+/].to_i}, { 'address.address1' => regexp}, { 'address.last_name' => regexp}, { 'address.company' => regexp})
+    end
+    @material_orders = criteria.order_by(sort_column => sort_direction).page(params[:page]).per(50)
+  end
 
   # GET /material_orders/1
   # GET /material_orders/1.xml

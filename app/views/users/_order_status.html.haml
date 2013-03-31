@@ -21,7 +21,7 @@
     :javascript
       initialize_tables();
   - I18n.locale = @current_locale
-  = will_paginate @orders, :class => 'pagination ajax'
+  = paginate @orders, :class => 'pagination ajax'
 :javascript
   $(document).ready(function(){
     $("#orders").css({ opacity: 1.0 });

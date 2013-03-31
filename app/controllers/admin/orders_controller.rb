@@ -34,7 +34,7 @@ class Admin::OrdersController < ApplicationController
       @orders = criteria.paginate :page => params[:page], :per_page => 50
     else
       order = params[:order] ? {sort_column => sort_direction} : [[:created_at, :desc]]
-      @orders = criteria.order_by(order).paginate :page => params[:page], :per_page => 50
+      @orders = criteria.order_by(order).page(params[:page]).per(50)
     end
   end
 

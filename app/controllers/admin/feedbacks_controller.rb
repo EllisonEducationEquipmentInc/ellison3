@@ -2,29 +2,29 @@ class Admin::FeedbacksController < ApplicationController
   layout 'admin'
 
   before_filter :set_admin_title
-	before_filter :admin_read_permissions!
+  before_filter :admin_read_permissions!
   before_filter :admin_write_permissions!, :only => [:new, :create, :show, :edit, :update, :destroy, :update_attribute, :add_comment]
-	
-	ssl_exceptions
-	
-	def index
-	  criteria = Mongoid::Criteria.new(Feedback)
-	  criteria = criteria.where :deleted_at => nil
-	  criteria = if params[:systems_enabled].blank?
-	    criteria.where(:system.in => admin_systems)
-	  else
-	    criteria.where(:system.in => params[:systems_enabled]) 
-	  end
-	  criteria = criteria.where(:status => params[:status]) unless params[:status].blank?
-	  criteria = criteria.where(:department => params[:department]) unless params[:department].blank?
-	  criteria = criteria.where(:subject => params[:subject]) unless params[:subject].blank?
-	  unless params[:q].blank?
-	    regexp = Regexp.new(params[:q], "i")
-  	  criteria = criteria.any_of({ :email => regexp}, { 'comments.message' => regexp }, {:number => params[:q].to_i})
-	  end
-	  order = params[:sort] ? {sort_column => sort_direction} : [[:status, :asc], [:created_at, :desc]]
-		@feedbacks = criteria.order_by(order).paginate :page => params[:page], :per_page => 50
-	end
+  
+  ssl_exceptions
+  
+  def index
+    criteria = Mongoid::Criteria.new(Feedback)
+    criteria = criteria.where :deleted_at => nil
+    criteria = if params[:systems_enabled].blank?
+      criteria.where(:system.in => admin_systems)
+    else
+      criteria.where(:system.in => params[:systems_enabled]) 
+    end
+    criteria = criteria.where(:status => params[:status]) unless params[:status].blank?
+    criteria = criteria.where(:department => params[:department]) unless params[:department].blank?
+    criteria = criteria.where(:subject => params[:subject]) unless params[:subject].blank?
+    unless params[:q].blank?
+      regexp = Regexp.new(params[:q], "i")
+      criteria = criteria.any_of({ :email => regexp}, { 'comments.message' => regexp }, {:number => params[:q].to_i})
+    end
+    order = params[:sort] ? {sort_column => sort_direction} : [[:status, :asc], [:created_at, :desc]]
+    @feedbacks = criteria.order_by(order).page(params[:page]).per(50)
+  end
 
   # GET /feedbacks/1
   # GET /feedbacks/1.xml
@@ -92,12 +92,12 @@ class Admin::FeedbacksController < ApplicationController
   end
   
   def add_comment
-	  @feedback = Feedback.find(params[:id])
-	  @comment = @feedback.comments.build params[:comment]
-	  @comment.admin_reply = true
-	  @feedback.status = "replied"
-	  @feedback.expires_at = 7.days.since
-	  respond_to do |format|
+    @feedback = Feedback.find(params[:id])
+    @comment = @feedback.comments.build params[:comment]
+    @comment.admin_reply = true
+    @feedback.status = "replied"
+    @feedback.expires_at = 7.days.since
+    respond_to do |format|
       if @feedback.save
         UserMailer.delay.feedback_reply(@feedback)
         format.html { redirect_to(admin_feedbacks_url, :notice => 'Your reply was sent') }
@@ -107,7 +107,7 @@ class Admin::FeedbacksController < ApplicationController
         format.xml  { render :xml => @feedback.errors, :status => :unprocessable_entity }
       end
     end
-	end
+  end
 
   # DELETE /feedbacks/1
   # DELETE /feedbacks/1.xml

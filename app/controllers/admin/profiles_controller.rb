@@ -1,26 +1,26 @@
 class Admin::ProfilesController < ApplicationController
-	layout 'admin'
-	
-	before_filter :set_admin_title
-	before_filter :admin_read_permissions!
+  layout 'admin'
+  
+  before_filter :set_admin_title
+  before_filter :admin_read_permissions!
   before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy]
-	
-	ssl_exceptions
-	
-	def index
-	  criteria = Mongoid::Criteria.new(Admin)
-	  criteria = if params[:systems_enabled].blank?
-	    criteria.where(:systems_enabled.in => admin_systems)
-	  else
-	    criteria.where(:systems_enabled.in => params[:systems_enabled]) 
-	  end
-	  criteria = criteria.where(:active => true) if params[:inactive].blank?
-	  unless params[:q].blank?
-	    regexp = Regexp.new(params[:q], "i")
-  	  criteria = criteria.any_of({ :name => regexp}, { :email => regexp }, {:employee_number => regexp})
-	  end
-		@admins = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
-	end
+  
+  ssl_exceptions
+  
+  def index
+    criteria = Mongoid::Criteria.new(Admin)
+    criteria = if params[:systems_enabled].blank?
+      criteria.where(:systems_enabled.in => admin_systems)
+    else
+      criteria.where(:systems_enabled.in => params[:systems_enabled]) 
+    end
+    criteria = criteria.where(:active => true) if params[:inactive].blank?
+    unless params[:q].blank?
+      regexp = Regexp.new(params[:q], "i")
+      criteria = criteria.any_of({ :name => regexp}, { :email => regexp }, {:employee_number => regexp})
+    end
+    @admins = criteria.order_by(sort_column => sort_direction).page(params[:page]).per(50)
+  end
 
   # GET /admins/1
   # GET /admins/1.xml
@@ -71,7 +71,7 @@ class Admin::ProfilesController < ApplicationController
   # PUT /admins/1.xml
   def update
     @admin = Admin.find(params[:id])
-		mass_assign_protected_attributes
+    mass_assign_protected_attributes
     respond_to do |format|
       if @admin.update_attributes(params[:admin])
         format.html { redirect_to(admin_admins_url, :notice => 'Admin was successfully updated.') }
@@ -97,21 +97,21 @@ class Admin::ProfilesController < ApplicationController
   end
 
 private 
-	
-	def build_permissions
-	  Permission::ADMIN_MODULES.each do |mod|
+  
+  def build_permissions
+    Permission::ADMIN_MODULES.each do |mod|
       @admin.permissions.build :name => mod, :read => false unless @admin.permissions.detect {|e| e.name == mod}
     end
-	end
-	
-	# these attributes can only be changed by an admin who has write permissions to change admin profiles
-	def mass_assign_protected_attributes
-	  @admin.systems_enabled = params[:admin][:systems_enabled] || []
-		@admin.active = params[:admin][:active]
-		@admin.permissions_attributes = params[:admin][:permissions_attributes] || {}
-		@admin.can_act_as_customer = params[:admin][:can_act_as_customer]
-		@admin.can_change_prices = params[:admin][:can_change_prices]
-		@admin.limited_sales_rep = params[:admin][:limited_sales_rep]
-		@admin.updated_by = current_admin.email
-	end
+  end
+  
+  # these attributes can only be changed by an admin who has write permissions to change admin profiles
+  def mass_assign_protected_attributes
+    @admin.systems_enabled = params[:admin][:systems_enabled] || []
+    @admin.active = params[:admin][:active]
+    @admin.permissions_attributes = params[:admin][:permissions_attributes] || {}
+    @admin.can_act_as_customer = params[:admin][:can_act_as_customer]
+    @admin.can_change_prices = params[:admin][:can_change_prices]
+    @admin.limited_sales_rep = params[:admin][:limited_sales_rep]
+    @admin.updated_by = current_admin.email
+  end
 end

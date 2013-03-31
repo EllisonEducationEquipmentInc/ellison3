@@ -1,28 +1,28 @@
 class Admin::SharedContentsController < ApplicationController
   layout 'admin'
-	
-	before_filter :set_admin_title
+  
+  before_filter :set_admin_title
   before_filter :admin_read_permissions!
   before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy]
-	
-	ssl_exceptions
-	
-	def index
-	  criteria = Mongoid::Criteria.new(SharedContent)
-	  criteria = criteria.where :deleted_at => nil
-	  criteria = if params[:systems_enabled].blank?
-	    criteria.where(:systems_enabled.in => admin_systems)
-	  else
-	    criteria.where(:systems_enabled.in => params[:systems_enabled]) 
-	  end
-	  criteria = criteria.where(:active => true) if params[:inactive].blank?
-	  criteria = criteria.where(:placement => params[:placement] == 'none' ? '' : params[:placement]) unless params[:placement].blank?
-	  unless params[:q].blank?
-	    regexp = Regexp.new(params[:q], "i")
-  	  criteria = criteria.any_of({ :name => regexp}, { :short_desc => regexp})
-	  end
-		@shared_contents = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 100
-	end
+  
+  ssl_exceptions
+  
+  def index
+    criteria = Mongoid::Criteria.new(SharedContent)
+    criteria = criteria.where :deleted_at => nil
+    criteria = if params[:systems_enabled].blank?
+      criteria.where(:systems_enabled.in => admin_systems)
+    else
+      criteria.where(:systems_enabled.in => params[:systems_enabled]) 
+    end
+    criteria = criteria.where(:active => true) if params[:inactive].blank?
+    criteria = criteria.where(:placement => params[:placement] == 'none' ? '' : params[:placement]) unless params[:placement].blank?
+    unless params[:q].blank?
+      regexp = Regexp.new(params[:q], "i")
+      criteria = criteria.any_of({ :name => regexp}, { :short_desc => regexp})
+    end
+    @shared_contents = criteria.order_by(sort_column => sort_direction).page(params[:page]).per(50)
+  end
 
   # GET /shared_contents/1
   # GET /shared_contents/1.xml
@@ -105,7 +105,7 @@ class Admin::SharedContentsController < ApplicationController
   end
   
   def shared_contents_autocomplete
-		@shared_contents = SharedContent.active.only(:name, :short_desc, :id).where({:name => Regexp.new("#{params[:term]}", "i")}).asc(:name).limit(20).all.map {|p| {:label => "#{p.name} (#{p.short_desc})", :value => p.name, :id => p.id}}
-		render :json => @shared_contents.to_json
-	end
+    @shared_contents = SharedContent.active.only(:name, :short_desc, :id).where({:name => Regexp.new("#{params[:term]}", "i")}).asc(:name).limit(20).all.map {|p| {:label => "#{p.name} (#{p.short_desc})", :value => p.name, :id => p.id}}
+    render :json => @shared_contents.to_json
+  end
 end

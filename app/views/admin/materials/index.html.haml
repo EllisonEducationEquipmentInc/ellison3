@@ -31,6 +31,6 @@
             %td= link_to 'Edit', edit_admin_material_path(material), :class => 'jqui_edit_min'
             %td= link_to 'Destroy', admin_material_path(material), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
 %br
-= will_paginate @materials
+= paginate @materials
 %br
 = link_to 'New material', new_admin_material_path, :class => 'jqui_new' if has_write_permissions?

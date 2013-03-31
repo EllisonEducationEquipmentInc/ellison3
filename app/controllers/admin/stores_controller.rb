@@ -9,7 +9,7 @@ class Admin::StoresController < ApplicationController
 
   def index
     criteria = get_criteria_for_stores(params)
-    @stores = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
+    @stores = criteria.order_by(sort_column => sort_direction).page(params[:page]).per(50)
   end
 
   def new
