@@ -362,8 +362,8 @@ class UsersController < ApplicationController
   # We need to use a copy because we don't want actions like update changing
   # the current user in place.
   def authenticate_scope!
-    send(:"authenticate_#{resource_name}!")
-    self.resource = resource_class.find(send(:get_user).id)
+    send(:"authenticate_#{resource_name}!", :force => true)
+    self.resource = send(:get_user) ? resource_class.find(send(:get_user).id) : nil
   end
 
 end
