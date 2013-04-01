@@ -1,5 +1,5 @@
 %ul.contentwrap_XXXL.last#tag_products= render :partial => 'product', :collection => @products, :locals => {:tag_id => @tag.id}
-= paginate @products, :class => 'product_pagination pagination ajax', :params => {:action => 'more_products'}
+.product_pagination.pagination.ajax= paginate @products, :params => {:action => 'more_products'}
 :javascript
   $(document).ready(function(){
     $("#tag_products_section").css({ opacity: 1.0 });

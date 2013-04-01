@@ -29,7 +29,7 @@
     :javascript
       initialize_tables();
   - I18n.locale = current_locale
-  = paginate @quotes, :class => 'pagination ajax'
+  .pagination.ajax= paginate @quotes
 :javascript
   $(document).ready(function(){
     $("#quotes").css({ opacity: 1.0 });
