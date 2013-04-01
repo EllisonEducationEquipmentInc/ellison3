@@ -406,7 +406,7 @@ class ApplicationController < ActionController::Base
           end
         end
       end
-      query.paginate(:page => params[:page] || 1, :per_page => @per_page || per_page)
+      query.paginate(:page => params[:page] || 1, :per_page => 2)
       query.order_by(*default_sort(klass).split(":")) unless default_sort(klass).blank? || klass == Idea && ['quantity_sold', 'price', 'orderable', 'outlet_since'].any? {|e| default_sort(klass).include? e}
     end
   end
