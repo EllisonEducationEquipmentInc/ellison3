@@ -6,7 +6,7 @@ Devise.setup do |config|
   config.mailer_sender = proc { "consumersupport@#{get_domain}" }
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = "Devise::Mailer"
+  config.mailer = "Devise::Mailer"
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -168,6 +168,26 @@ module Devise
           false
         end
 
+      end
+    end
+  end
+
+  module Mailers
+    module Helpers
+      protected
+
+      def mailer_sender(mapping)
+        if default_params[:from].present?
+          if default_params[:from].is_a?(Proc)
+            default_params[:from].call
+          else
+            default_params[:from]
+          end
+        elsif Devise.mailer_sender.is_a?(Proc)
+          Devise.mailer_sender.call(mapping.name)
+        else
+          Devise.mailer_sender
+        end
       end
     end
   end
