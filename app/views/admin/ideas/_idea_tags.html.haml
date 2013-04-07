@@ -1,5 +1,5 @@
 %ul#idea_tags= render :partial => 'tag', :collection => @tags, :locals => {:idea_id => @idea.id}
-= paginate @tags, :class => 'tag_pagination pagination ajax', :params => {:action => 'more_tags'}
+.tag_pagination.pagination.ajax= paginate @tags, :params => {:action => 'more_tags'}
 :javascript
   $(document).ready(function(){
     $("#idea_tags_section").css({ opacity: 1.0 });
