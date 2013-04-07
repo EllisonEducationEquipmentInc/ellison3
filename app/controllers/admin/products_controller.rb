@@ -27,7 +27,7 @@ class Admin::ProductsController < ApplicationController
     if params[:q].present?
       regexp = true ? Regexp.new(params[:q], "i") : Regexp.new("^#{params[:q]}")
       criteria = criteria.any_of({ :item_num => regexp}, { :name => regexp }, {:short_desc => regexp})
-      @products = criteria.paginate :page => params[:page], :per_page => 50
+      @products = criteria.page(params[:page]).per_page(50)
     else
       @products = criteria.order_by(sort_column => sort_direction).page(params[:page]).per(50)
     end
