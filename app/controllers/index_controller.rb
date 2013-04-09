@@ -93,8 +93,8 @@ class IndexController < ApplicationController
   # /lp/:id
   def tag_group
     if %w(product_lines artists themes designers categories curriculums).include? params[:id]
+      get_search_objects
       unless fragment_exist? ['tag_group', current_system, params[:id], params[:ideas]]
-        get_search_objects
         @search = perform_search(@klass, :facets => [params[:id].singularize], :facet_sort => :index)
       end
     else
