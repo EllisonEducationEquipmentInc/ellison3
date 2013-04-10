@@ -75,7 +75,7 @@
     $("#product_catalog").css({ 'opacity': '1.0', 'filter' : '' });
     $('.pagination.ajax a').click(function() {
       this.innerHTML='#{escape_javascript loader_bar}';
-      location.hash = $.param.fragment( location.hash, {page: $.deparam.querystring(this.href)['page']}, 0 );
+      location.hash = $.param.fragment( location.hash, {page: $.deparam.querystring(this.href)['page'] || 1}, 0 );
       $('html, body').animate({ scrollTop: 0 }, 500);
       return false;
     })
