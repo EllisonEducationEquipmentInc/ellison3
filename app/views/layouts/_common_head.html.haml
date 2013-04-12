@@ -2,6 +2,10 @@
 
 - if @keywords.present?
   %meta{ :name => "keywords", :content => "#{@keywords}" }
+- if current_system == 'szus'
+  %meta{ :name=> "p:domain_verify", :content=> "b297c2f85e4b149150e902960266aac3" }
+- if current_system == 'eeus'
+  %meta{ :name=> "p:domain_verify", :content=> "3301ae6b8564ffbdecc24ee509cc4fc1" }
 - if @description.present?
   %meta{ :name => "description", :content => "#{strip_tags @description}" }
 - if current_system == 'szus' && 'eeus'
