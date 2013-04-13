@@ -18,6 +18,7 @@ class Admin
   field :can_change_prices, :type => Boolean, :default => false
   field :systems_enabled, :type => Array
   field :reset_password_token_expires_at, :type => DateTime
+  field :reset_password_sent_at, :type => DateTime
 
   field :reset_password_token
   field :email

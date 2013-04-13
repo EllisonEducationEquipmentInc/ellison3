@@ -139,6 +139,7 @@ Devise.setup do |config|
   #   end
   #   manager.default_strategies(:scope => :user).unshift :twitter_oauth
   # end
+  config.reset_password_within = 3.days
 end
 
 Devise::PasswordsController.class_eval do
