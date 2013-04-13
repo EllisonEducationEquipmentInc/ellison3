@@ -316,7 +316,7 @@
   %br
   .clear
   .actions
-    = f.submit :class => 'wymupdate jqui_save', :disable_with => "please wait..."
+    = f.submit :class => 'wymupdate jqui_save', :disable_with => "please wait...", id: 'tag_submit'
 :javascript
   function check_date(date_string) {
     var now = Date.today();
