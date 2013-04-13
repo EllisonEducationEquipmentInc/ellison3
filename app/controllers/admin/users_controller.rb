@@ -21,7 +21,7 @@ class Admin::UsersController < ApplicationController
     if params[:q].present?
       regexp = Regexp.new("^#{params[:q]}")
       criteria = criteria.any_of({ :name => regexp}, { :email => regexp }, { :erp => regexp }, { :company => regexp })
-      @users = criteria..page(params[:page]).per(50)
+      @users = criteria.page(params[:page]).per(50)
     else
       @users = criteria.order_by(sort_column => sort_direction).page(params[:page]).per(50)
     end
