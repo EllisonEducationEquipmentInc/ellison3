@@ -159,7 +159,7 @@ class Order
         };
       EOF
 
-      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {:status=>{"$nin"=>["Cancelled", "To Refund", "Refunded"]}, :created_at => {"$gt" => start_date.utc, "$lt" => end_date.utc}, "order_items.campaign_name" => campaign_name, "system" => current_system}})["results"]
+      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {:status=>{"$nin"=>["Cancelled", "To Refund", "Refunded"]}, :created_at => {"$gt" => start_date.utc.strftime("%Y-%m-%d %H:%M:%S UTC"), "$lt" => end_date.utc.strftime("%Y-%m-%d %H:%M:%S UTC")}, "order_items.campaign_name" => campaign_name, "system" => current_system}})["results"]
     end
 
     def coupon_usage(coupon_code, options = {})
@@ -251,7 +251,7 @@ class Order
           return {number_of_orders: number_of_orders, quantity : total, item_total: sum};
         };
       EOF
-      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {:status=>{"$nin"=>["Cancelled", "To Refund", "Refunded"]}, :created_at => {"$gt" => start_date.utc, "$lt" => end_date.utc}, "order_items.product_id" => {"$in" => tag.product_ids}, "system" => current_system}})["results"]
+      collection.mapreduce(map, reduce, {:out => {:inline => true}, :raw => true, :query => {:status=>{"$nin"=>["Cancelled", "To Refund", "Refunded"]}, :created_at => {"$gt" => start_date.utc.strftime("%Y-%m-%d %H:%M:%S UTC"), "$lt" => end_date.utc.strftime("%Y-%m-%d %H:%M:%S UTC")}, "order_items.product_id" => {"$in" => tag.product_ids}, "system" => current_system}})["results"]
     end
 
     private

@@ -480,6 +480,7 @@ DEPENDENCIES
   launchy
   letter_opener
   memcache-client
+  mongo (= 1.5.2)
   mongo_ext
   mongo_session_store-rails3 (~> 3.0.6)
   mongoid (= 2.0.2)

@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'bundler', '>=1.0.10'
 gem 'rails', '3.1.12'
 gem 'mongo_ext'
+gem 'mongo', '1.5.2'
 gem "bson_ext", "~> 1.5.2"
 gem 'passenger'
 gem 'rvm-capistrano'
