@@ -196,8 +196,8 @@ class Admin::OrdersController < ApplicationController
       end
     end
     redirect_to(admin_order_path(@order), :notice => net_response && net_response.message || "successful transaction")
-  rescue Exception => e
-    redirect_to(admin_order_path(@order), :alert => e.to_s)
+  #rescue Exception => e
+    #redirect_to(admin_order_path(@order), :alert => e.to_s)
   end
 
 private

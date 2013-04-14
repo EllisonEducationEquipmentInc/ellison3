@@ -54,9 +54,9 @@ GEM
     active_utils (1.0.5)
       activesupport (>= 2.3.11)
       i18n
-    activemerchant (1.31.1)
+    activemerchant (1.28.0)
       active_utils (>= 1.0.2)
-      activesupport (>= 2.3.14)
+      activesupport (>= 2.3.11)
       builder (>= 2.0.0)
       i18n
       json (>= 1.5.1)
@@ -447,7 +447,7 @@ PLATFORMS
 
 DEPENDENCIES
   RubyInline
-  activemerchant
+  activemerchant (= 1.28.0)
   airbrake
   barista
   bartt-ssl_requirement (~> 1.4.0)
