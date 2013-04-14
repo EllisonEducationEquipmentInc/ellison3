@@ -42,7 +42,7 @@ gem 'rack-recaptcha', :require => 'rack/recaptcha'
 gem 'barista'
 gem 'execjs'
 gem 'therubyracer'
-gem 'savon'
+gem 'savon', '1.2.0'
 gem "airbrake"
 gem 'capistrano'
 gem "mongoid_rails_migrations", "0.0.14"
