@@ -31,7 +31,7 @@ class SessionsController < ApplicationController
       u.save
       resource = u
     else
-      resource = warden.authenticate!(:scope => resource_name, :recall => request.xhr? ? "failure" : "new")
+      resource = warden.authenticate!(:scope => resource_name, :recall => request.xhr? ? "sessions#failure" : "sessions#new")
     end
     set_flash_message :notice, :signed_in
     if is_er?

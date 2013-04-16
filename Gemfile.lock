@@ -77,7 +77,7 @@ GEM
     activesupport (3.1.12)
       multi_json (~> 1.0)
     addressable (2.3.3)
-    airbrake (3.1.10)
+    airbrake (3.1.11)
       activesupport
       builder
       json
@@ -448,7 +448,7 @@ PLATFORMS
 DEPENDENCIES
   RubyInline
   activemerchant (= 1.28.0)
-  airbrake
+  airbrake (>= 3.1.11)
   barista
   bartt-ssl_requirement (~> 1.4.0)
   better_errors
