@@ -35,7 +35,7 @@ class TopNavigation
      Navigation.new("Quilting", "#"),
      Navigation.new("Projects", "/lp/categories?ideas=1"),
      Navigation.new("Promotions", "/campaigns"),
-     Navigation.new("Featured", "#"),
+     Navigation.new("Education", "/catalog#facets=theme~education-collection"),
      Navigation.new("Community", "#"),
      Navigation.new("Support", "#")
     ]
