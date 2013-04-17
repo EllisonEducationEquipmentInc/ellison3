@@ -8,7 +8,7 @@
     to keep up to date on the latest news from Sizzix!
   - else
     and stay informed with regular email updates!
-= form_tag({:controller => 'index', :action => 'newsletter'}, :method => :get) do
+= form_tag('/newsletter', :method => :get) do
   = text_field_tag :email, "Enter your email address", :onfocus => "if (this.value == 'Enter your email address'){this.value='';}", :onblur => "if (this.value == ''){this.value='Enter your email address';}", :size => 30, :class => "email_footer"
   = submit_tag "Subscribe", :class => "jqui_save"
   
