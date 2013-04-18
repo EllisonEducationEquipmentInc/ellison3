@@ -89,7 +89,7 @@
   %p
     %div{:style=>"font-weight:bold;"}
       == Ensure that you continue to receive <strong>#{@list[1]}</strong> after subscribing
-    == To ensure that <strong>#{@list[1]} </strong> is delivered to your email and "inbox", and not as treated as spam, please add the email address, <strong>#{lyris_email}</strong> to your address book as soon as possible. This will prevent any deliveries to your "Bulk" or "Junk" mail folders.
+    == To ensure that <strong>#{@list[1]} </strong> is delivered to your email and "inbox", and not as treated as spam, please add the email address, <strong>#{new_lyris_email}</strong> to your address book as soon as possible. This will prevent any deliveries to your "Bulk" or "Junk" mail folders.
     %br
     %br
     %div{:style=>"font-weight:bold;"}
@@ -99,11 +99,7 @@
     - if @segments.present?
       %strong
         or special editions
-    please follow the unsubscribe link in your newsletter email. Alternatively, you may Sign In at
-    =get_domain.capitalize
-    and go to your 
-    =link_to "My Account", "/myaccount/subscriptions"
-    profile (Newsletter Subscriptions tab) to uncheck subscription box and update your subscription preferences.
+    please follow the unsubscribe link in your newsletter email. 
 :javascript
   $(document).ready(function() {
     var validator = $("#new_subscription").validate({

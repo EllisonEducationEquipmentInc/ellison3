@@ -276,6 +276,19 @@ module EllisonSystem
     end    
     return lyris_email
 	end
+
+  # new_lyris_email is added temporarily on April 17 2013, need to remove once new lyris sign-up static pages are launched
+	def new_lyris_email
+    new_lyris_email = case current_system
+      when "szus" then "sizzixscoop@marketing.sizzix.com"
+      when "szuk" then "sizzixinteractivenews@marketing.sizzix.co.uk"
+      when "eeus" then "connection@marketing.ellisoneducation.com"
+      when "eeuk" then "EducationNews@marketing.ellisoneducation.co.uk"
+      when "erus" then "ellison_retail_news@marketing.ellison.com"
+      else "ellison_retail_news@marketing.ellison.com"
+    end    
+    return new_lyris_email
+	end
   
   def all_lyris_lists
     NEWSLETTER_SEGMENTS.values.map {|e| e.keys.first.to_s}
