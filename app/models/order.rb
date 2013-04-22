@@ -370,13 +370,13 @@ class Order
       Rails.logger.info "!!! voiding GC transaction #{public_order_number}"
       @valutec = Valutec.new :transaction_void, card_number: self.gift_card.card_number, request_auth_code: self.gift_card.authorization, identifier: self.gift_card.vendor_tx_code
       if @valutec.authorized?
-        self.gift_card.void_authorization = @valutec.results[:authorization_code]
+        self.gift_card.void_authorization = @valutec.results[:authorization_code].try(:to_s)
         self.gift_card.void_at = Time.zone.now
       else
         Rails.logger.info "!!! void failed. Adding value..."
         @valutec = Valutec.new :transaction_add_value, card_number: self.gift_card.card_number, amount: self.gift_card.paid_amount, identifier: self.gift_card.vendor_tx_code
         if @valutec.authorized?
-          self.gift_card.refund_authorization = @valutec.results[:authorization_code]
+          self.gift_card.refund_authorization = @valutec.results[:authorization_code].try(:to_s)
           self.gift_card.refunded_at = Time.zone.now
           self.gift_card.refunded_amount = self.gift_card.paid_amount
         else
