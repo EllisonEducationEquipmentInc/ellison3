@@ -54,6 +54,7 @@ class UsersController < ApplicationController
     params[:user][:email].downcase! if params[:user][:email].present?
     if get_user.update_attributes(params[:user])
       @profile = I18n.t("#{resource_name}.updated", :scope => "devise.#{controller_name}")
+      sign_in(get_user, :bypass => true)
       #set_flash_message :profile, :updated
       #redirect_to after_update_path_for(get_user)
     else
