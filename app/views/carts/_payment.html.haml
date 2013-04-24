@@ -226,7 +226,7 @@
           %span.ui-icon.ui-icon-triangle-1-e
           = link_to 'Comments', "#"
         %div= text_area_tag :comments, nil
-    = f.submit "Place Order", :class => 'jqui_save'
+    = f.submit "Place Order", :class => 'jqui_save', id: "payment_submit"
     .clear
     %p.legalese{:class => "checkout_disclaimer"}
       - if is_uk?

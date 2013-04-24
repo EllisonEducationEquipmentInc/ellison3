@@ -40,6 +40,6 @@
             %td= link_to 'Edit', edit_admin_message_path(message), :class => 'jqui_edit_min'
             %td= link_to 'Destroy', admin_message_path(message), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
 %br
-= will_paginate @messages
+= paginate @messages
 %br
 = link_to 'New message', new_admin_message_path(:user_id => params[:user_id]), :class => 'jqui_new' if has_write_permissions?

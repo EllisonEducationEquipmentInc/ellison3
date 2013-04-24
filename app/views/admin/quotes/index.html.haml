@@ -46,5 +46,5 @@
             %td{:style => "text-align: right; white-space: nowrap;"}= link_to 'View', admin_quote_path(quote), :class => 'jqui_show_min'
 - I18n.locale = @current_locale
 %br
-= will_paginate @quotes
+= paginate @quotes
 %br

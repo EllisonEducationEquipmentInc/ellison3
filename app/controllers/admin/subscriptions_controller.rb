@@ -1,25 +1,25 @@
 class Admin::SubscriptionsController < ApplicationController
-	layout 'admin'
-	
-	before_filter :set_admin_title
-	before_filter :admin_read_permissions!
+  layout 'admin'
+  
+  before_filter :set_admin_title
+  before_filter :admin_read_permissions!
   before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy, :upload, :fast_upload]
-	
-	ssl_exceptions
-	
-	def index
-	  criteria = Mongoid::Criteria.new(Subscription)
-	  criteria = criteria.where :deleted_at => nil
-	  criteria = criteria.where(:list=> params[:list]) unless params[:list].blank?
+  
+  ssl_exceptions
+  
+  def index
+    criteria = Mongoid::Criteria.new(Subscription)
+    criteria = criteria.where :deleted_at => nil
+    criteria = criteria.where(:list=> params[:list]) unless params[:list].blank?
     @importer = SubscriptionImporter.find(params[:importer_id]) if params[:importer_id].present?
-	  if params[:q].present?
-	    regexp = Regexp.new("^#{params[:q]}")
-  	  criteria = criteria.any_of({ :email => regexp}, { :name => regexp})
-  		@subscriptions = criteria.paginate :page => params[:page], :per_page => 50
+    if params[:q].present?
+      regexp = Regexp.new("^#{params[:q]}")
+      criteria = criteria.any_of({ :email => regexp}, { :name => regexp})
+      @subscriptions = criteria.page(params[:page]).per(50)
     else
-      @subscriptions = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
-	  end
-	end
+      @subscriptions = criteria.order_by(sort_column => sort_direction).page(params[:page]).per(50)
+    end
+  end
 
   # GET /subscriptions/1
   # GET /subscriptions/1.xml

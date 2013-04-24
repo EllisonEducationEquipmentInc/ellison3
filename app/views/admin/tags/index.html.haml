@@ -42,6 +42,6 @@
             %td{ :width => 30, :style => "text-align: right;" }= link_to 'Edit', edit_admin_tag_path(tag), :class => 'jqui_edit_min'
             -#%td{ :width => 30, :style => "text-align: right;" }= link_to 'Destroy', admin_tag_path(tag), :confirm => 'Are you sure?', :method => :delete
 %br
-= will_paginate @tags
+= paginate @tags
 %br
 = link_to 'New tag', new_admin_tag_path, :class => 'jqui_new' if has_write_permissions?

@@ -12,8 +12,8 @@ class IndexController < ApplicationController
   ssl_required :contact, :send_feedback, :reply_to_feedback, :giftcard_balance
   ssl_allowed :limited_search, :machines_survey, :static_page, :add_comment, :newsletter, :create_subscription, :subscription, :update_subscription, :resend_subscription_confirmation
 
-  verify :xhr => true, :only => [:search, :quick_search, :send_feedback, :add_comment], :redirect_to => {:action => :home}
-  verify :method => :post, :only => [:update_subscription, :create_subscription, :resend_subscription_confirmation], :redirect_to => {:action => :home}
+  #verify :xhr => true, :only => [:search, :quick_search, :send_feedback, :add_comment], :redirect_to => {:action => :home}
+  #verify :method => :post, :only => [:update_subscription, :create_subscription, :resend_subscription_confirmation], :redirect_to => {:action => :home}
 
   helper_method :idea?, :per_page
 

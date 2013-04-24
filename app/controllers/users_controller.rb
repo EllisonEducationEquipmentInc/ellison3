@@ -14,8 +14,8 @@ class UsersController < ApplicationController
   ssl_exceptions :signin_signup, :checkout_requested, :quote_requested, :add_to_list, :save_for_later, :list, :get_lists
   ssl_allowed :signin_signup, :checkout_requested, :quote_requested, :add_to_list, :save_for_later, :list, :get_lists, :change_quote_name, :subscriptions, :resend_subscription_confirmation
 
-  verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list, :save_for_later, :add_to_list, :list_set_to_default, :remove_from_list, :move_to_list, :email_list, :view_retailer_application, :change_quote_name], :redirect_to => {:action => :myaccount}
-  verify :method => :post, :only => [:create_retailer_application, :order_material, :resend_subscription_confirmation]
+  #verify :xhr => true, :only => [:checkout_requested, :quote_requested, :billing, :shipping, :edit_address, :orders, :mylists, :quotes, :materials, :update_list, :create_list, :delete_list, :save_for_later, :add_to_list, :list_set_to_default, :remove_from_list, :move_to_list, :email_list, :view_retailer_application, :change_quote_name], :redirect_to => {:action => :myaccount}
+  #verify :method => :post, :only => [:create_retailer_application, :order_material, :resend_subscription_confirmation]
 
   # GET /resource/sign_up
   def new
@@ -54,6 +54,7 @@ class UsersController < ApplicationController
     params[:user][:email].downcase! if params[:user][:email].present?
     if get_user.update_attributes(params[:user])
       @profile = I18n.t("#{resource_name}.updated", :scope => "devise.#{controller_name}")
+      sign_in(get_user, :bypass => true)
       #set_flash_message :profile, :updated
       #redirect_to after_update_path_for(get_user)
     else
@@ -93,7 +94,7 @@ class UsersController < ApplicationController
 
   def orders
     @current_locale = current_locale
-    @orders = get_user.orders.where(:system => current_system).desc(:created_at).paginate(:page => params[:page], :per_page => 10)
+    @orders = get_user.orders.where(:system => current_system).desc(:created_at).page(params[:page]).per(10)
     render :partial => 'order_status'
   end
 
@@ -219,7 +220,7 @@ class UsersController < ApplicationController
 
   def quotes
     @current_locale = current_locale
-    @quotes = get_user.quotes.active.where(:system => current_system).desc(:created_at).paginate(:page => params[:page], :per_page => 10)
+    @quotes = get_user.quotes.active.where(:system => current_system).desc(:created_at).page(params[:page]).per(10)
     render :partial => 'quotes'
   end
 
@@ -361,8 +362,8 @@ class UsersController < ApplicationController
   # We need to use a copy because we don't want actions like update changing
   # the current user in place.
   def authenticate_scope!
-    send(:"authenticate_#{resource_name}!")
-    self.resource = resource_class.find(send(:get_user).id)
+    send(:"authenticate_#{resource_name}!", :force => true)
+    self.resource = send(:get_user) ? resource_class.find(send(:get_user).id) : nil
   end
 
 end

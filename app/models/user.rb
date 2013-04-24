@@ -5,7 +5,7 @@ class User
   include Mongoid::Paranoia
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable #, :validatable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :encryptable #, :validatable
 
   STATUSES = ["pending", "active", "suspended", "declined"]
 
@@ -31,6 +31,7 @@ class User
   field :cod_account_type
   field :cod_account
   field :reset_password_token_expires_at, :type => DateTime
+  field :reset_password_sent_at, :type => DateTime
 
   field :old_account_id, :type => Integer
   field :old_id_szus, :type => Integer

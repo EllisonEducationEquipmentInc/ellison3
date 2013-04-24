@@ -1,11 +1,14 @@
 class SessionsController < ApplicationController
+
+  respond_to :html, :js, :json
+
   prepend_before_filter :require_no_authentication, :only => [ :new, :create ]
   before_filter :trackable, :only => [ :new, :create ]
   before_filter :admin_user_as_permissions!, :only => [:user_as]
 
   include Devise::Controllers::InternalHelpers
 
-  verify :xhr => true, :only => [:user_as], :redirect_to => :root_path
+  #verify :xhr => true, :only => [:user_as], :redirect_to => :root_path
 
   ssl_exceptions :user_as, :destroy
   ssl_allowed :user_as, :destroy
@@ -28,7 +31,7 @@ class SessionsController < ApplicationController
       u.save
       resource = u
     else
-      resource = warden.authenticate!(:scope => resource_name, :recall => request.xhr? ? "failure" : "new")
+      resource = warden.authenticate!(:scope => resource_name, :recall => request.xhr? ? "sessions#failure" : "sessions#new")
     end
     set_flash_message :notice, :signed_in
     if is_er?

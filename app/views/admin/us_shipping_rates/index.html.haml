@@ -24,6 +24,6 @@
             %td{ :width => 30, :style => "text-align: right;" }= link_to 'Edit', edit_admin_fedex_rate_path(fedex_rate), :class => 'jqui_edit_min'
             %td{ :width => 30, :style => "text-align: right;" }= link_to 'Destroy', admin_fedex_rate_path(fedex_rate), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
 %br
-= will_paginate @fedex_rates
+= paginate @fedex_rates
 %br
 = link_to 'New US Shipping Rate', new_admin_fedex_rate_path, :class => 'jqui_new' if has_write_permissions?

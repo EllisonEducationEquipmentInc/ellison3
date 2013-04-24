@@ -19,9 +19,9 @@ class Admin::TagsController < ApplicationController
     criteria = criteria.where(:tag_type => params[:tag_type]) unless params[:tag_type].blank?
     if params[:q].present?
       criteria = criteria.where({ :name => params[:extended] == "1" ? /#{params[:q]}/i : /^#{params[:q]}/})
-      @tags = criteria.paginate :page => params[:page], :per_page => 50
+      @tags = criteria.page(params[:page]).per(50)
     else
-      @tags = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 50
+      @tags = criteria.order_by(sort_column => sort_direction).page(params[:page]).per(50)
     end
   end
 
@@ -30,7 +30,7 @@ class Admin::TagsController < ApplicationController
   def show
     @tag = Tag.find(params[:id])
     @time = params[:time].blank? ? Time.zone.now : Time.zone.parse(params[:time])
-    @products = Product.available(current_system, @time).where(:tag_ids.in => [@tag.id]).paginate(:page => params[:page], :per_page => 50) if @tag.campaign? || @tag.tag_type == 'exclusive'
+    @products = Product.available(current_system, @time).where(:tag_ids.in => [@tag.id]).page(params[:page]).per(50) if @tag.campaign? || @tag.tag_type == 'exclusive'
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @tag }

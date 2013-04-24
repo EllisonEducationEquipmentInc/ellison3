@@ -1,5 +1,5 @@
 %ul.contentwrap_XXXL.last#tag_ideas= render :partial => 'idea', :collection => @ideas, :locals => {:tag_id => @tag.id}
-= will_paginate @ideas, :class => 'idea_pagination pagination ajax', :params => {:action => 'more_ideas'}
+.idea_pagination.pagination.ajax= paginate @ideas, :params => {:action => 'more_ideas'}
 :javascript
   $(document).ready(function(){
     $("#tag_ideas_section").css({ opacity: 1.0 });

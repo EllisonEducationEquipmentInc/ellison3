@@ -80,7 +80,7 @@
     - else
       = render @products
       .clear
-      = will_paginate @products 
+      = paginate @products 
 :javascript
   $(document).ready(function(){
     setTimeout("shadow_on()", 3000);

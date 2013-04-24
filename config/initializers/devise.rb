@@ -1,3 +1,5 @@
+require 'airbrake/rails/controller_methods'
+
 # Use this hook to configure devise mailer, warden hooks and so forth. The first
 # four configuration values can also be set straight in your models.
 Devise.setup do |config|
@@ -6,7 +8,7 @@ Devise.setup do |config|
   config.mailer_sender = proc { "consumersupport@#{get_domain}" }
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = "Devise::Mailer"
+  config.mailer = "Devise::Mailer"
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -116,7 +118,7 @@ Devise.setup do |config|
   # Configure sign_out behavior. 
   # By default sign_out is scoped (i.e. /users/sign_out affects only :user scope).
   # In case of sign_out_all_scopes set to true any logout action will sign out all active scopes.
-  # config.sign_out_all_scopes = false
+  config.sign_out_all_scopes = false
 
   # ==> Navigation configuration
   # Lists the formats that should be treated as navigational. Formats like
@@ -139,8 +141,58 @@ Devise.setup do |config|
   #   end
   #   manager.default_strategies(:scope => :user).unshift :twitter_oauth
   # end
+  config.reset_password_within = 3.days
 end
 
 Devise::PasswordsController.class_eval do
   ssl_exceptions
+end
+
+module Devise
+  class ParamFilter
+
+    private
+
+    # Determine which values should be transformed to string or passed as-is to the query builder underneath
+    def param_requires_string_conversion?(value)
+      false #true unless value.is_a?(TrueClass) || value.is_a?(FalseClass) || value.is_a?(Fixnum)
+    end
+  end
+
+  module Models
+
+    module Authenticatable
+      module ClassMethods
+
+        protected
+
+        # Determine which values should be transformed to string or passed as-is to the query builder underneath
+        def auth_param_requires_string_conversion?(value)
+          false
+        end
+
+      end
+    end
+  end
+
+  module Mailers
+    module Helpers
+      protected
+
+      def mailer_sender(mapping)
+        if default_params[:from].present?
+          if default_params[:from].is_a?(Proc)
+            default_params[:from].call
+          else
+            default_params[:from]
+          end
+        elsif Devise.mailer_sender.is_a?(Proc)
+          Devise.mailer_sender.call(mapping.name)
+        else
+          Devise.mailer_sender
+        end
+      end
+    end
+  end
+
 end

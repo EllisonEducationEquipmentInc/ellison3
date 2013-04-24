@@ -40,6 +40,6 @@
             %td= link_to 'Edit', edit_admin_landing_page_path(landing_page), :class => 'jqui_edit_min'
             %td= link_to 'Destroy', admin_landing_page_path(landing_page), :confirm => 'Are you sure?', :method => :delete, :class => 'jqui_destroy_min'
 %br
-= will_paginate @landing_pages
+= paginate @landing_pages
 %br
 = link_to 'New landing_page', new_admin_landing_page_path, :class => 'jqui_new' if has_write_permissions?

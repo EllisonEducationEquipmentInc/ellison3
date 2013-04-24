@@ -27,14 +27,14 @@ class Admin::OrdersController < ApplicationController
     if params[:q].present?
       regexp = params[:extended] == "1" ? Regexp.new(params[:q], "i") : Regexp.new("^#{params[:q]}")
       criteria = criteria.where({'order_number' => params[:q][/\d+/].to_i} )
-      @orders = criteria.paginate :page => params[:page], :per_page => 50
+      @orders = criteria.page(params[:page]).per(50)
     elsif params[:others].present?
       regexp = params[:extended] == "1" ? Regexp.new(params[:others], "i") : Regexp.new("^#{params[:others]}")
       criteria = criteria.any_of({'address.email' => regexp}, {'address.company' => regexp}, { 'address.last_name' => regexp })
-      @orders = criteria.paginate :page => params[:page], :per_page => 50
+      @orders = criteria.page(params[:page]).per(50)
     else
       order = params[:order] ? {sort_column => sort_direction} : [[:created_at, :desc]]
-      @orders = criteria.order_by(order).paginate :page => params[:page], :per_page => 50
+      @orders = criteria.order_by(order).page(params[:page]).per(50)
     end
   end
 

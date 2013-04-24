@@ -41,6 +41,6 @@
             %td= link_to 'Edit', edit_admin_admin_path(user), :class => "jqui_edit_min"
             %td= link_to 'Deactivate', admin_admin_path(user), :confirm => 'Are you sure?', :method => :delete, :class => "jqui_destroy_min"
 %br
-= will_paginate @admins
+= paginate @admins
 %br
 = link_to 'New admin user', new_admin_admin_path, :class => 'jqui_new' if has_write_permissions?

@@ -1,27 +1,27 @@
 class Admin::StaticPagesController < ApplicationController
   layout 'admin'
-	
-	before_filter :set_admin_title
+  
+  before_filter :set_admin_title
   before_filter :admin_read_permissions!
   before_filter :admin_write_permissions!, :only => [:new, :create, :edit, :update, :destroy]
-	
-	ssl_exceptions
-	
-	def index
-	  criteria = Mongoid::Criteria.new(StaticPage)
-	  criteria = criteria.where :deleted_at => nil
-	  criteria = if params[:systems_enabled].blank?
-	    criteria.where(:system_enabled.in => admin_systems)
-	  else
-	    criteria.where(:system_enabled.in => params[:systems_enabled]) 
-	  end
-	  criteria = criteria.where(:active => true) if params[:inactive].blank?
-	  unless params[:q].blank?
-	    regexp = Regexp.new(params[:q], "i")
-  	  criteria = criteria.any_of({ :name => regexp}, { :short_desc => regexp}, { :permalink => regexp})
-	  end
-		@static_pages = criteria.order_by(sort_column => sort_direction).paginate :page => params[:page], :per_page => 100
-	end
+  
+  ssl_exceptions
+  
+  def index
+    criteria = Mongoid::Criteria.new(StaticPage)
+    criteria = criteria.where :deleted_at => nil
+    criteria = if params[:systems_enabled].blank?
+      criteria.where(:system_enabled.in => admin_systems)
+    else
+      criteria.where(:system_enabled.in => params[:systems_enabled]) 
+    end
+    criteria = criteria.where(:active => true) if params[:inactive].blank?
+    unless params[:q].blank?
+      regexp = Regexp.new(params[:q], "i")
+      criteria = criteria.any_of({ :name => regexp}, { :short_desc => regexp}, { :permalink => regexp})
+    end
+    @static_pages = criteria.order_by(sort_column => sort_direction).page(params[:page]).per(50)
+  end
 
   # GET /static_pages/1
   # GET /static_pages/1.xml

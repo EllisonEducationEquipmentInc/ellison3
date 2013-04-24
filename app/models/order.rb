@@ -46,6 +46,7 @@ class Order
   index "gift_card.vendor_tx_code"
 
   index [[:user_id, Mongo::ASCENDING], [:system, Mongo::ASCENDING], [:created_at, Mongo::DESCENDING]]
+  index [[:deleted_at, Mongo::DESCENDING], [:system, Mongo::ASCENDING], [:created_at, Mongo::DESCENDING]]
   index [[:updated_at, Mongo::DESCENDING], [:system, Mongo::DESCENDING], [:order_number, Mongo::DESCENDING], [:tax_transaction, Mongo::DESCENDING]]
   index [["order_items.campaign_name", Mongo::ASCENDING], [:system, Mongo::ASCENDING]]
   index [["address.email", Mongo::ASCENDING], ["address.company", Mongo::ASCENDING], ["address.last_name", Mongo::ASCENDING]]
@@ -231,7 +232,7 @@ class Order
         function() {
           if (this.order_items) {
             this.order_items.forEach(function(doc) {
-              if (doc.product_id && #{tag.product_ids.map(&:to_s)}.indexOf(doc.product_id.toString()) >= 0) emit( {item_num: doc.item_num, name: doc.name, sale_price: doc.sale_price, quoted_price: doc.quoted_price, locale: doc.locale, outlet: doc.outlet}, {quantity: doc.quantity, item_total: doc.sale_price * doc.quantity, number_of_orders: 1, locale: doc.locale} );
+              if (doc.product_id && #{tag.product_ids.map(&:to_s)}.indexOf(doc.product_id.valueOf()) >= 0) emit( {item_num: doc.item_num, name: doc.name, sale_price: doc.sale_price, quoted_price: doc.quoted_price, locale: doc.locale, outlet: doc.outlet}, {quantity: doc.quantity, item_total: doc.sale_price * doc.quantity, number_of_orders: 1, locale: doc.locale} );
             })
           }
         }
@@ -369,13 +370,13 @@ class Order
       Rails.logger.info "!!! voiding GC transaction #{public_order_number}"
       @valutec = Valutec.new :transaction_void, card_number: self.gift_card.card_number, request_auth_code: self.gift_card.authorization, identifier: self.gift_card.vendor_tx_code
       if @valutec.authorized?
-        self.gift_card.void_authorization = @valutec.results[:authorization_code]
+        self.gift_card.void_authorization = @valutec.results[:authorization_code].try(:to_s)
         self.gift_card.void_at = Time.zone.now
       else
         Rails.logger.info "!!! void failed. Adding value..."
         @valutec = Valutec.new :transaction_add_value, card_number: self.gift_card.card_number, amount: self.gift_card.paid_amount, identifier: self.gift_card.vendor_tx_code
         if @valutec.authorized?
-          self.gift_card.refund_authorization = @valutec.results[:authorization_code]
+          self.gift_card.refund_authorization = @valutec.results[:authorization_code].try(:to_s)
           self.gift_card.refunded_at = Time.zone.now
           self.gift_card.refunded_amount = self.gift_card.paid_amount
         else

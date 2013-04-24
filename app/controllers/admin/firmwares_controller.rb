@@ -7,7 +7,7 @@ class Admin::FirmwaresController < ApplicationController
 	
 	ssl_exceptions
 	
-	verify :method => :post, :only => [:update_text, :upload_file]
+	#verify :method => :post, :only => [:update_text, :upload_file]
 	
 	def index
 	  @text = SystemSetting.value_at("firmware_text") || SystemSetting.new(:key => "firmware_text").value

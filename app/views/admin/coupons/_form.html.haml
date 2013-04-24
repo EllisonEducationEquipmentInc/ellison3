@@ -133,7 +133,7 @@
   .clear
   %hr
   .actions
-    = f.submit :class => 'wymupdate jqui_save'
+    = f.submit :class => 'wymupdate jqui_save', id: 'coupon_submit'
   :javascript
     $(document).ready(function() {
       var validator = $(".new_coupon, .edit_coupon").validate({

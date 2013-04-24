@@ -9,8 +9,8 @@ class Report
   field :total_count, :type => Integer, :default => 0
   field :report_type
   field :report_options, :type => Hash, :default => {}
-  field :start_date, :type => DateTime
-  field :end_date, :type => DateTime
+  field :start_date, :type => Time
+  field :end_date, :type => Time
   field :system
 
   validates_presence_of :file_name

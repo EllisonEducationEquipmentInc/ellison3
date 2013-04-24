@@ -63,7 +63,7 @@ module Mongoid #:nodoc:
     def get_related_paginated(relation_name, options = {})
       order_by = options[:sort] || [[:name, :asc]]
       metadata = self.relations[relation_name.to_s]
-      metadata.klass.where(metadata.inverse_foreign_key.to_sym.in => [self.id]).order_by(order_by).paginate :page => options[:page] || 1, :per_page => options[:per_page] || 100
+      metadata.klass.where(metadata.inverse_foreign_key.to_sym.in => [self.id]).order_by(order_by).page(options[:page] || 1).per(options[:per_page] || 100)
     end
   end
   
