@@ -646,6 +646,8 @@ ul.ui-tabs-nav {
           margin: 0 0 0 50px !important;
         } @else if $system == erus {
           margin: 0 0 0 12px !important;
+        } @else if $system == eeus {
+          margin: 0 0 0 42px !important;
         } @else {
           margin: 0 0 0 70px !important;
         }
