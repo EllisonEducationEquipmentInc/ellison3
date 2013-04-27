@@ -105,6 +105,19 @@ namespace :data_import do
     end
     Sunspot.delay.commit
   end
+
+  desc "ideas_enddate_updates"
+  task :ideas_enddate_updates => [:environment] do
+    CSV.foreach("/data/shared/data_files/ideas_enddate_updates.csv", :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
+      @idea = Idea.where(:idea_num => row['idea_num']).first
+      if @idea
+        @idea.end_date_szus = row['end_date_szus'] if row['end_date_szus'].present?
+        @idea.end_date_szuk = row['end_date_szuk'] if row['end_date_szuk'].present?
+        @idea.end_date_erus = row['end_date_erus'] if row['end_date_erus'].present?
+        @idea.save
+      end
+    end
+  end
   
   desc "import lyris subscriptions"
   task :lyris_subscriptions => :environment do
