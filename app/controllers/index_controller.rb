@@ -258,7 +258,7 @@ class IndexController < ApplicationController
     if params[:no_layout]
       render :static_page, :layout => false
     else
-      expires_in 1.hours, 'max-stale' => 1.hours, :public => true
+      #expires_in 1.hours, 'max-stale' => 1.hours, :public => true
     end
   rescue Exception => e
     Rails.logger.info e.message
