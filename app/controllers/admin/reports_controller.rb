@@ -95,7 +95,8 @@ class Admin::ReportsController < ApplicationController
   
   def coupon_summary_report
     @coupon_summary_report = Order.send(current_system).not_cancelled.where(:coupon_id => params[:coupon]).count
-    render :js => "$('#coupon_summary_report').html('#{@coupon_summary_report}')"
+    @sum = Order.send(current_system).not_cancelled.where(:coupon_id => params[:coupon]).sum(:subtotal_amount)
+    render :js => "$('#coupon_summary_report').html('#{@coupon_summary_report} #{help.number_to_currency @sum}')"
   end
   
   def customer_summary_report
