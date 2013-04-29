@@ -114,6 +114,8 @@ namespace :data_import do
         @idea.end_date_szus = row['end_date_szus'] if row['end_date_szus'].present?
         @idea.end_date_szuk = row['end_date_szuk'] if row['end_date_szuk'].present?
         @idea.end_date_erus = row['end_date_erus'] if row['end_date_erus'].present?
+        @idea.end_date_eeus = row['end_date_eeus'] if row['end_date_eeus'].present?
+        @idea.end_date_eeuk = row['end_date_eeuk'] if row['end_date_eeuk'].present?
         @idea.save
       end
     end
