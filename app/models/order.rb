@@ -139,7 +139,7 @@ class Order
         function() {
           if (this.order_items) {
             this.order_items.forEach(function(doc) {
-              if (doc.campaign_name == '#{campaign_name}') emit( {item_num: doc.item_num, name: doc.name, sale_price: doc.sale_price, quoted_price: doc.quoted_price, locale: doc.locale}, {quantity: doc.quantity, item_total: doc.sale_price * doc.quantity, number_of_orders: 1, locale: doc.locale} );
+              if (doc.campaign_name == "#{campaign_name}") emit( {item_num: doc.item_num, name: doc.name, sale_price: doc.sale_price, quoted_price: doc.quoted_price, locale: doc.locale}, {quantity: doc.quantity, item_total: doc.sale_price * doc.quantity, number_of_orders: 1, locale: doc.locale} );
             })
           }
         }
