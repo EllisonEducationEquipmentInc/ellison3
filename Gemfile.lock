@@ -147,7 +147,7 @@ GEM
     debugger-linecache (1.1.2)
       debugger-ruby_core_source (>= 1.1.1)
     debugger-ruby_core_source (1.2.0)
-    delayed_job (3.0.3)
+    delayed_job (3.0.5)
       activesupport (~> 3.0)
     delayed_job_mongoid (1.0.8)
       delayed_job (~> 3.0.0)
@@ -462,7 +462,7 @@ DEPENDENCIES
   compass (= 0.11.5)
   database_cleaner
   debugger
-  delayed_job (= 3.0.3)
+  delayed_job (= 3.0.5)
   delayed_job_mongoid
   devise (= 1.4.9)
   event-calendar!

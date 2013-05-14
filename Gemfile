@@ -36,7 +36,7 @@ gem 'event-calendar', :require => 'event_calendar', :git => 'git://github.com/el
 gem 'rpm_contrib'
 gem 'newrelic_rpm'
 gem "ghazel-daemons"
-gem 'delayed_job', '3.0.3'
+gem 'delayed_job', '3.0.5'
 gem 'delayed_job_mongoid'
 gem 'rack-recaptcha', :require => 'rack/recaptcha'
 gem 'barista'
