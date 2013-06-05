@@ -178,7 +178,7 @@ class CartsController < ApplicationController
       use_payment_token = false
       new_payment
     end
-    @payment.deferred = false if @payment.present? && !get_cart.allow_deferred? || @cart.gift_card_applied?
+    @payment.deferred = false if @payment.present? && !get_cart.allow_deferred? || @cart.gift_card_applied? || !get_user.billing_address.us?
     @payment.purchase_order = false if @cart.gift_card_applied?
     if @payment.try :deferred
       @payment.number_of_payments = Payment::NUMBER_OF_PAYMENTS
@@ -507,9 +507,10 @@ class CartsController < ApplicationController
 
   def real_time_cart(quote = false)
     get_cart.update_items true, quote
-    flash[:alert] = ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
+    flash[:alert] = ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe if @cart.cart_errors.present? || ineligable_for_gift_card?
     # raise RealTimeCartError, ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
-    if @cart.cart_errors.present?
+    if @cart.cart_errors.present? || ineligable_for_gift_card?
+      flash[:alert] << "<br> At this time, gift cards can only be shipped to United States addresses. Please click on the My Account navigation bar above to access the Myaccount page and update your shipping address to a valid United States address. This will allow the gift card order to be placed.".html_safe if ineligable_for_gift_card?
       if request.xhr? || params[:format] && params[:format] == 'js'
         response.content_type = Mime::HTML if params[:remotipart_submitted]
         render :js => "window.location.href = '#{cart_path}'" and return false
@@ -518,6 +519,10 @@ class CartsController < ApplicationController
       end
     end
     true
+  end
+
+  def ineligable_for_gift_card?
+    gift_card_allowed? && @cart.gift_card? && get_user.shipping_address.present? && !get_user.shipping_address.us?
   end
 
   def add_to_cart_do

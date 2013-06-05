@@ -114,7 +114,7 @@
         %h3
           Credit/Debit Card
       - if get_cart.allow_deferred?
-        #deferred_options
+        #deferred_options{style: "display:#{get_user.billing_address.try(:canada?) ? 'none' : 'block' }"}
           %strong How would you like to pay for this order?
           %br
           = radio_button_tag :deferred, 0, !@payment.deferred, :onclick => "$('#payment_deferred').val(this.value); $('#agreed_terms').closest('tr').hide(); $('#agreed_terms').rules('remove');"
@@ -228,6 +228,14 @@
         %div= text_area_tag :comments, nil
     = f.submit "Place Order", :class => 'jqui_save', id: "payment_submit"
     .clear
+    #canada_shipping_disclaimer{:style => "display:#{get_user.shipping_address.try(:canada?) ? 'block' : 'none'}"}
+      - if is_sizzix_us?
+        %p.checkout_disclaimer.legalese== Canada orders are subject to the import fees and duty. These charges are always the recipient's responsibility. By clicking the PLACE ORDER button, you are agreeing to be responsible for all fees.  For more information #{link_to "click here", "/canadatax?no_layout=1", :class => "lightbox"}.
+      - elsif is_ee_us?
+        %p.checkout_disclaimer.legalese== Duties and taxes will be charged to your order and are reflected above. By clicking PLACE ORDER, you authorize our customs broker to act as your agent with Customs and Revenue Canada to clear merchandise and process all duties and taxes. 
+    #canada_billiing_disclaimer{:style => "display:#{get_user.billing_address.try(:canada?) ? 'block' : 'none'}"}
+      - if is_sizzix_us?
+        %p.checkout_disclaimer.legalese== All pricing is displayed and charged in U.S. Dollars (USD). Additional fees may apply. Your credit card company may charge a fee for converting payment into USD.
     %p.legalese{:class => "checkout_disclaimer"}
       - if is_uk?
         == All purchases from our website are made subject to our #{link_to "terms and conditions", "/termsofsale?no_layout=1", :class => "lightbox"}. By clicking the button to confirm your order you agree to and will be bound by those terms & conditions and we therefore suggest that you read them #{link_to "here", "/termsofsale?no_layout=1", :class => "lightbox"} first.

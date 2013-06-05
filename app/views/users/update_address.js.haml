@@ -13,9 +13,11 @@ $.fancybox.close();
       == $('#cart_tax').html('#{escape_javascript(render(:partial => "carts/tax_amount"))}');
       == $('#cart_total').html('#{escape_javascript(render(:partial => "carts/total_amount"))}');
       remove_gift_card();
-      - if get_cart.allow_deferred?
+      - if get_cart.allow_deferred? && get_user.billing_address.try(:us?)
         == $('#deferred_single_total_amount').html('#{escape_javascript(render(:partial => "carts/deferred_single_total_amount"))}');
         == $('#deferred_first_payment').html('#{escape_javascript(render(:partial => "carts/deferred_first_payment"))}');
+      - else
+        $('#deferred_options').hide()
       - if is_uk?
         == $('#shoppingcart_info').html('#{escape_javascript(render(:partial => "carts/shopping_cart"))}');
         == $('#cart_sub_total').html('#{escape_javascript(number_to_currency gross_price(get_cart.sub_total))}');
@@ -23,10 +25,28 @@ $.fancybox.close();
     - elsif @address.address_type == 'billing' && !currency_correct?
       alert('Currency will be adjusted based on your billing address country');
       == window.location='#{checkout_path}';
+    - elsif @address.address_type == 'billing' && get_cart.allow_deferred?
+      - if @address.canada? || get_cart.gift_card_applied?
+        $('#deferred_0').trigger('click');
+        $('#deferred_options').hide();
+      - else
+        $('#deferred_options').show();
+        == $('#deferred_single_total_amount').html('#{escape_javascript(render(:partial => "carts/deferred_single_total_amount"))}');
+        == $('#deferred_first_payment').html('#{escape_javascript(render(:partial => "carts/deferred_first_payment"))}');
 - else
   - if @address.enable_avs_bypass
     $('#bypass_avs').show();
   == alert('#{escape_javascript @address.errors.full_messages.join("\n")}');
+- if @address.us?
+  - if @address.address_type == 'billing'
+    $('#canada_billiing_disclaimer').hide();
+  - else
+    $('#canada_shipping_disclaimer').hide();
+- else
+  - if @address.address_type == 'billing'
+    $('#canada_billiing_disclaimer').show();
+  - else
+    $('#canada_shipping_disclaimer').show();
 $(document).ready(function(){
 $.fancybox.close();
 });
