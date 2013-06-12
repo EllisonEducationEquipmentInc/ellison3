@@ -40,22 +40,6 @@
       %span News from our Blog  
     %ul#blog_feeds= spinner
     
-- if is_ee_us?
-  %h2 News from our Teachers' Blog
-  %div{:class=>"item_carousel_wide ui-widget-content ui-widget ui-corner-all fbox"}
-    .b_frame_s1
-      %img{:height => "232", :src => "/images/ui-backgrounds/t_lounge_bkg.png", :style => "margin-top:22px;", :width => "348"}/
-      .b_text_1
-        %p
-          %span{:class => "b_text_2"} Welcome to the Teachers’ Lounge.
-          %br
-          Join us as we explore creative curriculum ideas and share our favorite tips and clearance information with you. And you won’t want to miss the weekly contests...yes, there are prizes! We are delighted you could join us.
-          %br/
-          %br/
-          %a{:href => "http://ellisoneducation.typepad.com/teachers_lounge/", :target => "blank"} Enter the Ellison Teachers' Lounge
-    .b_frame_s2
-      %ul#blog_feeds_ee= spinner
-
 - if is_sizzix_us?
   #social-media
     %h2.decorative
