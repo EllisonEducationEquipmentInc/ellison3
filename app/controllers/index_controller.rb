@@ -212,7 +212,7 @@ class IndexController < ApplicationController
 
   def blog_feed_ee
     @feed = Feed.where(:name => 'blog_ee').first || Feed.new(:name => 'blog_ee')
-    process_feed("http://ellisoneducation.typepad.com/teachers_lounge/atom.xml")
+    process_feed("http://blog.ellisoneducation.com/feed")
     expires_in 10.minutes, 'max-stale' => 15.minutes, :public => true
     render :partial => 'index/feed', :collection => @feed.entries
   end
