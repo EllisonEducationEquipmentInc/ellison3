@@ -198,7 +198,7 @@ class IndexController < ApplicationController
 
   def blog_feed
     @feed = Feed.where(:name => 'blog').first || Feed.new(:name => 'blog')
-    process_feed("http://sizzixblog.blogspot.com/feeds/posts/default?alt=rss&max-results=5")
+    process_feed("http://blog.sizzix.com/feed")
     expires_in 10.minutes, 'max-stale' => 15.minutes, :public => true
     render :partial => 'index/feed', :collection => @feed.entries
   end
