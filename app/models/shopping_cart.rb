@@ -163,6 +163,8 @@ module ShoppingCart
       # options[:package_height] ||= (get_cart.total_volume**(1.0/3.0)).round
       if is_er_us? #is_us? && !is_ee? #address.us?
         us_shipping_rate(address, options) || fedex_rate(address, options)
+      elsif is_sizzix_us? #address.us?
+        fedex_rate(address, options)
       else
         shipping_rate(address, options)
       end
