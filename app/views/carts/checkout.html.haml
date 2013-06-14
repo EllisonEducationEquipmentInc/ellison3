@@ -55,7 +55,7 @@
   #checkout_shipping_options
     #cod_info{:style => "display:#{get_user.shipping_address ? 'block' : 'none'}"}= render :partial => 'users/cod_form' if cod_allowed?
     %h3 Shipping Options
-    - if is_er_us? & is_sizzix_us?
+    - if is_er_us? 
       - if admin_signed_in?
         == Virtual Weight: #{get_cart.total_weight} lbs
         %br
