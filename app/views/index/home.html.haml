@@ -61,36 +61,7 @@
   #social-media
     %h2.decorative
       %span Sizzix Tweets with Twitter
-    = javascript_include_tag 'http://widgets.twimg.com/j/2/widget.js'
-    :javascript
-      new TWTR.Widget({
-        version: 2,
-        type: 'profile',
-        rpp: 5,
-        interval: 6000,
-        width: 'auto',
-        height: 300,
-        theme: {
-          shell: {
-            background: '#243250',
-            color: '#ffffff'
-          },
-          tweets: {
-            background: '#040f28',
-            color: '#ffffff',
-            links: '#03D2F7'
-          }
-        },
-        features: {
-          scrollbar: false,
-          loop: false,
-          live: false,
-          hashtags: true,
-          timestamp: true,
-          avatars: false,
-          behavior: 'all'
-        }
-      }).render().setUser('sizzix_#{ is_us? ? "us" : "uk" }').start();
+    #sizzix_tweets
   
     %ul#connect-with-sizzix
       %li= link_to "Follow Us on Pinterest", "http://pinterest.com/sizzix", :target => "blank", :class => "link_pinterest"

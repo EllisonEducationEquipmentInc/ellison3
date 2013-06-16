@@ -190,10 +190,9 @@ class IndexController < ApplicationController
   end
 
   def twitter_feed
-    @feed = Feed.where(:name => 'twitter').first || Feed.new(:name => 'twitter')
-    process_feed("http://twitter.com/statuses/user_timeline/46690271.rss")
-    expires_in 10.minutes, 'max-stale' => 15.minutes, :public => true
-    render :partial => 'index/feed', :collection => @feed.entries
+    @twitter = Twitter.user_timeline 46690271
+    #expires_in 10.minutes, 'max-stale' => 15.minutes, :public => true
+    render :partial => 'index/tweet', :collection => @twitter
   end
 
   def blog_feed

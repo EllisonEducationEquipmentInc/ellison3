@@ -1,0 +1,6 @@
+%li
+  %h3= tweet.text
+  %p
+    %span.timestamp
+      = distance_of_time_in_words_to_now tweet.created_at
+      ago
