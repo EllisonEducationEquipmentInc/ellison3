@@ -60,8 +60,8 @@
 - if is_sizzix_us?
   #social-media
     %h2.decorative
-      %span Sizzix Tweets with Twitter
-    #sizzix_tweets
+      %span Sizzix Tweets With Twitter
+    .twitter_block= render partial: "index/twitter"
   
     %ul#connect-with-sizzix
       %li= link_to "Follow Us on Pinterest", "http://pinterest.com/sizzix", :target => "blank", :class => "link_pinterest"
@@ -74,7 +74,6 @@
       %li= link_to "Email Us", "/contact", :class => "link_contact"
 :javascript
   $(document).ready(function(){
-    $('#sizzix_tweets').load('/index/twitter_feed#{"_uk" if is_uk?}');
     $('#blog_feeds').load('/index/blog_feed#{"_uk" if is_uk?}');
     $('#blog_feeds_ee').load('/index/blog_feed_ee');
   });
