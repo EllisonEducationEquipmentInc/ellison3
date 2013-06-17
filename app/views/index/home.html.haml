@@ -63,15 +63,7 @@
       %span Sizzix Tweets With Twitter
     .twitter_block= render partial: "index/twitter"
   
-    %ul#connect-with-sizzix
-      %li= link_to "Follow Us on Pinterest", "http://pinterest.com/sizzix", :target => "blank", :class => "link_pinterest"
-      %li= link_to "Follow Us on Twitter", "http://www.twitter.com/sizzix_#{ is_us? ? "us" : "uk" }", :target => "blank", :class => "link_twitter"
-      %li= link_to "Join Us on Facebook", "http://www.facebook.com/Sizzix", :target => "blank", :class => "link_facebook"
-      - if is_sizzix_us?
-        %li= link_to "Read Our Blog", "http://sizzixblog.blogspot.com/", :target => "blank", :class => "link_blogspot"
-      %li= link_to "Watch Us on YouTube", "http://www.youtube.com/sizzix", :target => "blank", :class => "link_youtube"
-      %li= link_to "Sign Up for our Newsletter", "/index/newsletter", :target => "_blank", :class => "link_newsletter"
-      %li= link_to "Email Us", "/contact", :class => "link_contact"
+ 
 :javascript
   $(document).ready(function(){
     $('#blog_feeds').load('/index/blog_feed#{"_uk" if is_uk?}');
