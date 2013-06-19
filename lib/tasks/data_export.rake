@@ -131,11 +131,11 @@ namespace :data_export do
   task :export_all_ideas => :environment do
     CSV.open("/data/shared/report_files/all_ideas_report_#{Time.now.strftime "%m%d%Y_%H%M"}.csv", "w") do |csv|
       csv << [Time.zone.now]
-      csv << ["id", "idea_num", "name", "systems_enabled"] + ELLISON_SYSTEMS.map {|e| "start_date_#{e}"} + ELLISON_SYSTEMS.map {|e| "end_date_#{e}"} + ELLISON_SYSTEMS.map {|e| "distribution_life_cycle_#{e}"} + ELLISON_SYSTEMS.map {|e| "distribution_life_cycle_ends_#{e}"} +  ["objective", "active", "keywords", "item_group", "video", "tags"] 
+      csv << ["id", "idea_num", "name", "systems_enabled"] + ELLISON_SYSTEMS.map {|e| "start_date_#{e}"} + ELLISON_SYSTEMS.map {|e| "end_date_#{e}"} + ELLISON_SYSTEMS.map {|e| "distribution_life_cycle_#{e}"} + ELLISON_SYSTEMS.map {|e| "distribution_life_cycle_ends_#{e}"} +  ["objective", "active", "keywords", "item_group", "video", "tags", "Products_Used"] 
       Idea.all.in_batches(500) do |batch|
         batch.each do |product|
           csv << [product.id, product.idea_num, product.name, product.systems_enabled * ', '] + ELLISON_SYSTEMS.map {|e| product.send("start_date_#{e}")} + ELLISON_SYSTEMS.map {|e| product.send("end_date_#{e}")} + ELLISON_SYSTEMS.map {|e| product.send("distribution_life_cycle_#{e}")} + ELLISON_SYSTEMS.map {|e| product.send("distribution_life_cycle_ends_#{e}")} + 
-                 [product.objective, product.active, product.keywords, product.item_group, product.video, product.tags.order([:tag_type, :asc]).map {|e| "#{e.name} - (#{e.tag_type})"} * ', '] 
+                 [product.objective, product.active, product.keywords, product.item_group, product.video, product.tags.order([:tag_type, :asc]).map {|e| "#{e.name} - (#{e.tag_type})"} * ', '] + [product.products.map {|e| "#{e.item_num}"} * ', ']
         end
       end
     end
