@@ -646,6 +646,11 @@ ul.ui-tabs-nav {
           margin: 0 0 0 50px !important;
         } @else if $system == erus {
           margin: 0 0 0 12px !important;
+        } @else if $system == szuk {
+          margin: 0 0 0 12px !important;
+          width:100%;
+          height:auto;
+          float:left;
         } @else if $system == eeus {
           margin: 0 0 0 42px !important;
         } @else {
@@ -657,7 +662,7 @@ ul.ui-tabs-nav {
     }
     
     .copyright { @extend .legalese;
-      margin-bottom: 18px;
+      margin: 10px 0 0 18px;
       text-align: center;
     }
   }

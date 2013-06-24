@@ -28,17 +28,8 @@ body.bp {
 }
 
 #header {
-  margin: 8px 0 0 0;
+  margin: 34px 0 0 0;
   height:144px;
-  
-  #logo_masthead {
-  	background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
-  	display: block;
-  	width: 177px; 
-  	height: 98px;
-  	margin: 2px 0 0 24px;
-  	text-indent: -9999em;
-  }
   
   .nav_utility {
     
@@ -79,7 +70,7 @@ body.bp {
   #shoppingcart_icon {
     width: 52px;
     height: 62px;
-    margin: 0 0 0 0;
+    margin: 29px 0 0 0;
   }
 
   #shoppingcart_info {
@@ -93,7 +84,7 @@ body.bp {
   }
   
   #nav_megamenu {
-    top: -3px;
+    top: 13px;
 
     .megalink {
       font-family:  'PT Sans', Helvetica, Arial, sans-serif;
@@ -175,18 +166,20 @@ body.bp {
     font-style: italic;
     font-weight: bold;
     line-height: 2em;
-    top: 140px;
+    top: 116px;
     left: -2px;
-    width: 47px;
-    height: 34px;
+    width: 37px;
+    height: 64px;
     padding: 3px 0 0 8px;
+    color:transparent!important;   
   }
   a.nextBtn { @extend a.prevBtn;
-    top: 138px;
-    left: 706px;
-    width: 45px;
-    height: 35px;
+    top: 116px;
+    left: 712px;
+    width: 37px;
+    height: 64px;
     padding: 5px 0 0 10px;
+    color:transparent!important;   
   }
 }
 
@@ -196,13 +189,15 @@ body.bp {
   height: 306px;
 
   a.prevBtn {
-    top: 136px;
-    left: -1;    
+    top: 116px;
+    left: -1;
+    color:transparent!important;   
   }
   
   a.nextBtn {
-    top: 138px;
-    left: 907px;
+    top: 116px;
+    left: 912px;
+    color:transparent!important;   
   }
 }
 
@@ -235,4 +230,19 @@ body.bp {
 }
 .uk_blog_content {
    padding: 14px 12px; float:left; width:226px; height:408px; margin-bottom:10px;
+}
+
+//Social Media
+
+ul.social-icons li {
+  float:left!important;
+}
+.sub_div {
+  width:460px; float:left; margin:22px 0 0 26px;
+}
+.sub_s2 {
+  width:100%; float:left;
+}
+.sub_s3 {
+  width:190px; height:auto; float:left;
 }
