@@ -1,6 +1,9 @@
 .dontprint
   -# logo masthead & branding
-  - unless is_uk?
+  - if is_uk?
+    %a{:href=>"/home"}
+      %div{:style=>"height: 80px; float:left; width: 160px;"}
+  - else
     %h1.masthead
       - if is_corp_site?
         = link_to system_name, "/corp_#{params[:region] ? params[:region] : 'northamerica'}?tp=c&nation=#{params[:nation] ? params[:nation].parameterize : 'united-states'}&region=#{params[:region] ? params[:region] : 'northamerica'}", :id => "logo_masthead_corporate-#{params[:nation] ? params[:nation].parameterize : 'united-states'}", :title => system_name, :alt => system_name
