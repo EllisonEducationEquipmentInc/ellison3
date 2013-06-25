@@ -191,13 +191,15 @@ body.bp {
   a.prevBtn {
     top: 116px;
     left: -1;
-    color:transparent!important;   
+    color:transparent!important;
+    text-indent: -9999px;
   }
   
   a.nextBtn {
     top: 116px;
     left: 912px;
-    color:transparent!important;   
+    color:transparent!important;
+    text-indent: -9999px;
   }
 }
 
