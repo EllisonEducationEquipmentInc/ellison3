@@ -219,8 +219,7 @@ body.bp {
 
   .panel_height {
     min-height:575px;
-  }  
-
+  }
 }
 
 // for use with Blogs
@@ -240,11 +239,11 @@ ul.social-icons li {
   float:left!important;
 }
 .sub_div_l {
-  width:480px; float:left; margin:22px 0 0 0; border-right:1px dashed white;
+  width:452px; float:left; margin:22px 20px 0 0;
 }
 
 .sub_div_r {
-  width:440px; float:left; margin:22px 0 0 26px;
+  width:440px; float:left; margin:26px 0 0 0; border-left:1px dashed white; padding:0 0 0 26px;
 }
 .sub_s2 {
   width:100%; float:left;
@@ -254,4 +253,8 @@ ul.social-icons li {
 }
 .sub_s4 {
   width:100px; height:auto; float:left;
+}
+
+.copyright {
+  color:#114C84!important; 
 }
