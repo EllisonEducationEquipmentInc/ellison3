@@ -259,9 +259,13 @@ ul.social-icons li {
   color:#114C84!important; 
 }
 
-#uk_link a:link, a:visited, a:active {
-  color: #114C84!important;
-}
+.special a:link {color:red;}
+
+.uk_link a:link {color: #114C84!important;}
+.uk_link a:visited {color: #114C84!important;}
+.uk_link a:hover {color: #114C84!important;}
+.uk_link a:active {color: #114C84!important;}
+
 
 .h3_case {
   text-transform:none!important;

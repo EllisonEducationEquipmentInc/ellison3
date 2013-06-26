@@ -20,6 +20,6 @@
     - if is_sizzix_us? 
       %li{:style=>"list-style:none"}= link_to "#{is_uk? ? 'U.S.' : 'European'} visitors please visit our #{is_uk? ? 'U.S.' : 'U.K.'} site", "#{is_uk? ? 'http://www.sizzix.com' : 'http://www.sizzix.co.uk'}"
     - if is_sizzix_uk?
-      %li{:id=>"uk_link", :style=>"list-style:none"}= link_to "#{is_uk? ? 'U.S.' : 'European'} visitors please visit our #{is_uk? ? 'U.S.' : 'U.K.'} site", "#{is_uk? ? 'http://www.sizzix.com' : 'http://www.sizzix.co.uk'}"
+      %li{:class=>"uk_link", :style=>"list-style:none"}= link_to "#{is_uk? ? 'U.S.' : 'European'} visitors please visit our #{is_uk? ? 'U.S.' : 'U.K.'} site", "#{is_uk? ? 'http://www.sizzix.com' : 'http://www.sizzix.co.uk'}"
     - else  
       %li{:style=>"list-style:none"}= link_to "#{is_uk? ? 'U.S.' : 'European'} visitors please visit our #{is_uk? ? 'U.S.' : 'U.K.'} site", "#{is_uk? ? 'http://www.ellisoneducation.com' : 'http://www.ellisoneducation.co.uk'}"
