@@ -227,6 +227,21 @@ namespace :data_import do
     #end
   end
 
+  desc "import product weight, dimensions"
+  task :product_weight => [:environment] do
+    CSV.foreach("/data/shared/data_files/product_weight_update.csv", :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
+      @product = Product.where(:item_num => row['item_num']).first 
+      if @product
+        @product.weight = row['weight'] if row['weight'].present?
+        @product.length = row['length'] if row['length'].present?
+        @product.width = row['width'] if row['width'].present?
+        @product.height = row['height'] if row['height'].present?
+        @product.save validate: false
+        p row['item_num']
+      end
+    end
+  end
+
 
   def change_product_overview_and_description(product, description, overview)
     product.description = description
