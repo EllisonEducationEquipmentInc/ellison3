@@ -170,6 +170,24 @@
       %span.icon_weightfield
         = f.text_field :weight_kgs, :size => 8
         kg
+    .field
+      = f.label :length, "Length <em>(in inches)</em>".html_safe, :class => "autosize"
+      %br
+      %span.icon_lengthfield
+        = f.text_field :length, :size => 8
+        in
+    .field
+      = f.label :width, "Width <em>(in inches)</em>".html_safe, :class => "autosize"
+      %br
+      %span.icon_lengthfield
+        = f.text_field :width, :size => 8
+        in
+    .field
+      = f.label :height, "Height <em>(in inches)</em>".html_safe, :class => "autosize"
+      %br
+      %span.icon_lengthfield
+        = f.text_field :height, :size => 8
+        in
     - currencies.each  do |currency|
       .field
         = f.label "handling_price_#{currency}", "Handling Price #{currency.upcase}", :class => "autosize"
