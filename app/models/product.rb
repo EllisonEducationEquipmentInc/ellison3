@@ -35,7 +35,7 @@ class Product
   validates_uniqueness_of :upc, :allow_blank => true, :if => Proc.new {|obj| obj.new_record? || obj.upc_changed?}, :case_sensitive => false
   validate :must_have_msrp
   # TODO: re-enable after migrations
-  #validates_numericality_of :weight, :greater_than => 0.0
+  validates_numericality_of :weight, :greater_than => 0.0
   validates_numericality_of :weight_kgs, :greater_than => 0.0, :allow_nil => true
 
   validates_associated :tabs
