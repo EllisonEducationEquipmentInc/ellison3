@@ -158,7 +158,7 @@ class Cart
   end
 
   # to adjust qty and remove unavailable items and prompt user, pass true in the argument
-  def update_items(check = false, quote = false)
+  def update_items(check = false, quote = false, country = nil)
     return if cart_items.blank?
     Rails.logger.info "Cart: cart items are being updated"
     if check && cart_items.any?(&:coupon_price)
@@ -172,7 +172,7 @@ class Cart
       next if item.coupon?
       product = item.product
       item.write_attributes :sale_price => product.outlet? ? product.price : product.sale_price, :campaign_name => product.campaign_name, :msrp => product.msrp_or_wholesale_price, :currency => current_currency, :small_image => product.small_image, :tax_exempt => product.tax_exempt, :outlet => product.outlet?, :pre_order => product.pre_order?,
-      :handling_price => product.handling_price, :gift_card => product.gift_card, :retailer_price => product.retailer_price, :weight => product.virtual_weight, :actual_weight => product.weight, :out_of_stock => backorder_allowed? && product.listable?(current_system, item.quantity) ? product.out_of_stock?(current_system, item.quantity - 1) : product.out_of_stock?
+      :handling_price => product.handling_price, :gift_card => product.gift_card, :retailer_price => product.retailer_price, :weight => product.virtual_weight(current_system, country), :actual_weight => product.weight, :out_of_stock => backorder_allowed? && product.listable?(current_system, item.quantity) ? product.out_of_stock?(current_system, item.quantity - 1) : product.out_of_stock?
       item.price = product.price unless item.custom_price
       if check
         if quote && !product.available?

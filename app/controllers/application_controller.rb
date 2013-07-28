@@ -129,7 +129,7 @@ class ApplicationController < ActionController::Base
     if is_uk? && user_signed_in? && get_user.billing_address && !currency_correct?
       session[:locale] = I18n.locale = gbp_only? ? 'en-UK' : 'en-EU'
       get_cart.reset_tax_and_shipping
-      get_cart.update_items
+      get_cart.update_items false, false, current_user.try(:country)
     end
   end
 
@@ -153,7 +153,7 @@ class ApplicationController < ActionController::Base
     if params[:locale] && I18n.available_locales.include?(params[:locale].to_sym) && allowed_locales.include?(params[:locale]) && I18n.locale.to_s != params[:locale]
       I18n.locale = params[:locale]
       get_cart.reset_tax_and_shipping
-      get_cart.update_items
+      get_cart.update_items false, false, current_user.try(:country)
     end
     session[:locale] = I18n.locale
   end

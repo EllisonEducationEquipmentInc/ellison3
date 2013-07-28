@@ -506,7 +506,7 @@ class CartsController < ApplicationController
   end
 
   def real_time_cart(quote = false)
-    get_cart.update_items true, quote
+    get_cart.update_items true, quote, current_user.try(:country)
     flash[:alert] = ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe if @cart.cart_errors.present? || ineligable_for_gift_card?
     # raise RealTimeCartError, ("<strong>Please note:</strong> " + @cart.cart_errors.join("<br />")).html_safe unless @cart.cart_errors.blank?
     if @cart.cart_errors.present? || ineligable_for_gift_card?

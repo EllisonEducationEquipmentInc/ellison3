@@ -94,6 +94,7 @@ class Product
 
   field :item_code
   field :default_config, :type => Boolean, :default => false
+  field :virtual_weight_countries, type: Array
 
   index :item_num, :unique => true #, :background => true
   index :systems_enabled
@@ -416,7 +417,8 @@ class Product
   end
 
   # system specific virtual weight has precedence over actual weight
-  def virtual_weight(sys = current_system)
+  def virtual_weight(sys = current_system, country = nil)
+    return self.weight unless virtual_weight_countries.include?(country)
     self.send("virtual_weight_#{sys}").present? && (self.send("virtual_weight_ends_#{sys}").blank? || self.send("virtual_weight_ends_#{sys}").present? && self.send("virtual_weight_ends_#{sys}") > Time.zone.now) ? self.send("virtual_weight_#{sys}") : self.weight
   end
 

@@ -205,6 +205,10 @@
       = f.label "virtual_weight_ends_#{current_system}", "<span class='icon_datefield'>Virtual Weight End Date #{current_system.upcase}</span>".html_safe, :class => 'overrideable ui-corner-all autosize'
       %br
       = f.text_field "virtual_weight_ends_#{current_system}", :class => 'datetimepicker'
+    .field
+      = f.label "virtual_weight_countries", :class => 'overrideable ui-corner-all autosize'
+      %br
+      = f.select "virtual_weight_countries", countries, {}, :class => 'ui-corner-all autosize', multiple: true
     
   %hr
   %h3.contentwrap_XXXL.last Default Product Image

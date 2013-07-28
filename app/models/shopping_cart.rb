@@ -20,7 +20,7 @@ module ShoppingCart
         item.quantity += qty
       else
         get_cart.cart_items << CartItem.new(:name => product.name, :item_num => product.item_num, :sale_price => product.outlet? ? product.price : product.sale_price, :msrp => product.msrp_or_wholesale_price, :price => product.price,
-                                            :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product => product, :weight => product.virtual_weight, :actual_weight => product.weight, :retailer_price => product.retailer_price,
+                                            :quantity => qty, :currency => current_currency, :small_image => product.small_image, :added_at => Time.now, :product => product, :weight => product.virtual_weight(current_system, current_user.try(:country)), :actual_weight => product.weight, :retailer_price => product.retailer_price,
                                             :tax_exempt => product.tax_exempt, :gift_card => product.gift_card, :handling_price => product.handling_price, :pre_order => product.pre_order?, :out_of_stock => product.out_of_stock?, :minimum_quantity => product.minimum_quantity, :campaign_name => product.campaign_name, :outlet => product.outlet?)
       end
       get_cart.reset_tax_and_shipping true
@@ -80,7 +80,7 @@ module ShoppingCart
       get_cart
       order.order_items.each do |item|
         cart_item = CartItem.new(:price => item.sale_price, :small_image => item.product.small_image, :added_at => Time.now, :pre_order => item.product.pre_order?, :gift_card => item.product.gift_card,
-                                 :out_of_stock => item.product.out_of_stock?, :weight => item.product.virtual_weight, :actual_weight => item.product.weight, :msrp => item.product.msrp_or_wholesale_price, :minimum_quantity => item.product.minimum_quantity,
+                                 :out_of_stock => item.product.out_of_stock?, :weight => item.product.virtual_weight(current_system, current_user.try(:country)), :actual_weight => item.product.weight, :msrp => item.product.msrp_or_wholesale_price, :minimum_quantity => item.product.minimum_quantity,
                                  :retailer_price => item.product.retailer_price, :currency => item.locale )
         cart_item.copy_common_attributes item
         cart_item.custom_price = true if cart_item.price != item.product.price

@@ -248,6 +248,10 @@ class User
     end
   end
 
+  def country
+    shipping_address.try :country
+  end
+
   private
 
   def email_uniqueness_by_system
