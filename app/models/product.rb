@@ -418,7 +418,7 @@ class Product
 
   # system specific virtual weight has precedence over actual weight
   def virtual_weight(sys = current_system, country = nil)
-    return self.weight unless virtual_weight_countries.include?(country)
+    return self.weight unless virtual_weight_countries.present? && virtual_weight_countries.include?(country)
     self.send("virtual_weight_#{sys}").present? && (self.send("virtual_weight_ends_#{sys}").blank? || self.send("virtual_weight_ends_#{sys}").present? && self.send("virtual_weight_ends_#{sys}") > Time.zone.now) ? self.send("virtual_weight_#{sys}") : self.weight
   end
 
