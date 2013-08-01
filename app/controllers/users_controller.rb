@@ -263,7 +263,10 @@ class UsersController < ApplicationController
     @address = get_user.send("#{params[:address_type]}_address") || get_user.addresses.build(:address_type => params[:address_type])
     @address.attributes = params["#{params[:address_type]}_address"]
     set_vat_exempt
-    get_cart.reset_tax_and_shipping(true) if @address.address_type == 'shipping'
+    if @address.address_type == 'shipping'
+      get_cart.reset_tax_and_shipping(true)
+      get_cart.update_items(false, false, @address.country)
+    end
   end
 
   def signin_signup
