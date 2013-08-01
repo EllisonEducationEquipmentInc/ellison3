@@ -1,8 +1,8 @@
 - if is_er_us? || is_sizzix_us?
   - if get_cart.total_weight < get_cart.total_actual_weight
-    == Virtual Weight: #{get_cart.total_weight} lbs
+    == Billable Weight: #{get_cart.total_weight} lbs
     %br
-  == Weight: #{get_cart.total_actual_weight} lbs
+  == Actual Weight: #{get_cart.total_actual_weight} lbs
 - unless get_cart.shipping_rates.blank?
   %ul.plain
     - get_cart.shipping_rates.sort {|x,y| x["rate"] <=> y["rate"]}.each do |rate|
