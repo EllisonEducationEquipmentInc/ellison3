@@ -266,6 +266,7 @@ class UsersController < ApplicationController
     if @address.address_type == 'shipping'
       get_cart.reset_tax_and_shipping(true)
       get_cart.update_items(false, false, @address.country)
+      calculate_shipping @address
     end
   end
 
