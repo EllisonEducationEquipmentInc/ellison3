@@ -107,7 +107,7 @@ namespace :data_export do
       csv << ["id", "upc", "item_num", "name", "systems_enabled"] + WAREHOUSES.map {|e| "quantity_#{e}"} + ELLISON_SYSTEMS.map {|e| "orderable_#{e}"} + ELLISON_SYSTEMS.map {|e| "availability_message_#{e}"} + ELLISON_SYSTEMS.map {|e| "start_date_#{e}"} + 
             ELLISON_SYSTEMS.map {|e| "end_date_#{e}"} + ELLISON_SYSTEMS.map {|e| "distribution_life_cycle_#{e}"} + ELLISON_SYSTEMS.map {|e| "distribution_life_cycle_ends_#{e}"} + 
             LOCALES_2_CURRENCIES.values.map {|e| "msrp_#{e}"} + LOCALES_2_CURRENCIES.values.map {|e| "wholesale_price_#{e}"} + LOCALES_2_CURRENCIES.values.map {|e| "handling_price_#{e}"} + ELLISON_SYSTEMS.map {|s| LOCALES_2_CURRENCIES.values.map {|e| "price_#{s}_#{e}"}}.flatten +
-            ["life_cycle", "active", "weight",  "keywords", "outlet", "minimum_quantity", "discount_category", "item_type", "item_group", "video", "instructions", "tags", "short_description_szus"]
+            ["life_cycle", "active", "weight",  "keywords", "outlet", "minimum_quantity", "discount_category", "item_type", "item_group", "video", "instructions", "tags", "short_description", "overview"]
       Product.all.in_batches(500) do |batch|
         batch.each do |product|
           prices = []
@@ -121,7 +121,7 @@ namespace :data_export do
           csv << [product.id, product.upc, product.item_num, product.name, product.systems_enabled * ', '] + WAREHOUSES.map {|e| product.send("quantity_#{e}")} + ELLISON_SYSTEMS.map {|e| product.send("orderable_#{e}")} + ELLISON_SYSTEMS.map {|e| product.send("availability_message_#{e}")} + 
                  ELLISON_SYSTEMS.map {|e| product.send("start_date_#{e}")} + ELLISON_SYSTEMS.map {|e| product.send("end_date_#{e}")} + ELLISON_SYSTEMS.map {|e| product.send("distribution_life_cycle_#{e}")} + ELLISON_SYSTEMS.map {|e| product.send("distribution_life_cycle_ends_#{e}")} + 
                  LOCALES_2_CURRENCIES.values.map {|e| product.send("msrp_#{e}")} + LOCALES_2_CURRENCIES.values.map {|e| product.send("wholesale_price_#{e}")} + LOCALES_2_CURRENCIES.values.map {|e| product.send("handling_price_#{e}")} + prices +
-                 [product.life_cycle, product.active, product.weight, product.keywords, product.outlet, product.minimum_quantity, product.discount_category.try(:name), product.item_type, product.item_group, product.video, product.instructions, product.tags.order([:tag_type, :asc]).map {|e| "#{e.name} - (#{e.tag_type})"} * ', ', product.description_szus]
+                 [product.life_cycle, product.active, product.weight, product.keywords, product.outlet, product.minimum_quantity, product.discount_category.try(:name), product.item_type, product.item_group, product.video, product.instructions, product.tags.order([:tag_type, :asc]).map {|e| "#{e.name} - (#{e.tag_type})"} * ', ', product.description, product.tabs.where(:name=>'Overview').first.try(:text)]
         end
       end
     end
