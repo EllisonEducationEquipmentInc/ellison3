@@ -1,4 +1,4 @@
-- if is_er_us? || is_sizzix_us?
+- if is_er_us? 
   - if get_cart.total_weight < get_cart.total_actual_weight
     == Billable Weight: #{get_cart.total_weight} lbs
     %br

@@ -239,7 +239,6 @@ class CartsController < ApplicationController
     @shipping_address = get_user.addresses.build(:address_type => "shipping")
     @shipping_address.attributes = params[:shipping_address]
     get_cart.update_items(false, false, @shipping_address.country)
-    calculate_shipping @shipping_address
     @billing_address = get_user.addresses.build(:address_type => "billing", :email => get_user.email)
   end
 
