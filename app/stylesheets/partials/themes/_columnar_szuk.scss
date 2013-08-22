@@ -28,7 +28,7 @@ body.bp {
 }
 
 #header {
-  margin: 34px 0 0 0;
+  margin: 22px 0 0 0;
   height:144px;
   
   #logo_masthead {
@@ -43,6 +43,7 @@ body.bp {
   
   .nav_utility {
     height:24px;
+    margin-bottom:12px!important;
     
     li {
       font-family: 'PT Sans', Helvetica, Arial, sans-serif;
@@ -95,7 +96,7 @@ body.bp {
   }
   
   #nav_megamenu {
-    top: 4px;
+    top: 13px;
 
     .megalink {
       font-family:  'PT Sans', Helvetica, Arial, sans-serif;
@@ -276,7 +277,8 @@ ul.social-icons li {
 }
 .copyright {
   color:#114C84!important;
-  padding: 12px 0 10px 18px!important; 
+  padding: 0px 0 10px 18px!important; 
+  margin:0!important;
 }
 
 .special a:link {color:red;}
