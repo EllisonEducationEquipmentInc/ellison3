@@ -31,6 +31,16 @@ body.bp {
   margin: 34px 0 0 0;
   height:144px;
   
+  #logo_masthead {
+    background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
+    display: block;
+    width: 177px; 
+    height: 98px;
+    margin: 2px 0 0 24px;
+    text-indent: -9999em;
+  }
+  
+  
   .nav_utility {
     height:24px;
     
@@ -85,7 +95,7 @@ body.bp {
   }
   
   #nav_megamenu {
-    top: 13px;
+    top: 4px;
 
     .megalink {
       font-family:  'PT Sans', Helvetica, Arial, sans-serif;
@@ -240,11 +250,11 @@ ul.social-icons li {
   float:left!important;
 }
 .sub_div_l {
-  width:452px; float:left; margin:22px 20px 0 0;
+  width:452px; float:left; margin:12px 20px 0 0;
 }
 
 .sub_div_r {
-  width:440px; float:left; margin:26px 0 0 0; border-left:1px dashed white; padding:0 0 0 26px;
+  width:450px; float:left; margin:12px 0 0 0; border-left:1px dashed white; padding:0 0 0 26px;
 }
 .sub_s2 {
   width:100%; float:left;
@@ -253,11 +263,20 @@ ul.social-icons li {
   width:190px; height:auto; float:left;
 }
 .sub_s4 {
-  width:100px; height:auto; float:left;
+  width:auto; height:auto; float:left;
 }
-
+.sub_s4 li {
+  display: inline;
+}
+.uk_ssl {
+  width:100px;
+  height:54px;
+  float:right;
+  padding:24px;
+}
 .copyright {
-  color:#114C84!important; 
+  color:#114C84!important;
+  padding: 12px 0 10px 18px!important; 
 }
 
 .special a:link {color:red;}

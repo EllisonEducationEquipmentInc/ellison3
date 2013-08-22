@@ -1,58 +1,34 @@
 %div{:class=>"sub_div_l"}
-  %h2== Customer Service
-  %p 
-    Contact us for help with any issues or concerns 
-    %span{:style=>"font-weight:bold"}=link_to "You may contact us online 24/7", "/contact"    
-    
-  .bold Customer Service Hours
-  %p
-    8:30 a.m. to 5:00 p.m., GMT, Monday to Friday
-  %h3{:class=>"h3_case"} By Phone
-  %ul
-    %li 0844 499 8181 (Within UK) + 44 (0) 845 345 2277 (Outside of the UK)
-    
-  %h3{:class=>"h3_case"} By Fax
-  %ul
-    %li +44 845 345 0011 (Within UK) + 44 (0) 845 345 2277 (Outside of the UK)
-    
-  %div{:style=>"width:220px; float:left; margin:0 0 0 0;"}
-    %h3{:class=>"h3_case"} By Mail
-    %ul
-      %li Ellison Europe Ltd.
-      %li Unit 3, Whitegate Industrial Estate
-      %li Wrexham
-      %li United Kingdom, LL13 8UG
-      %br
-      %li VAT No. 886263386
-
-  %div{:style=>"width:220px; float:left; margin:0 0 0 0;"}
-    %h3{:class=>"h3_case"} By Email
-    %ul
-      %li
-        =link_to "europecustomerservices@ellison.com", "mailto:europecustomerservices@ellison.com"
-  
-%div{:class=>"sub_div_r"}
   %h2 Subscribe to Us
   = render "layouts/newsletter_signup_form"
   
-  %div{:class=>"sub_s2"}
-    %h2
-      To Connect With Us
-      %ul.social-icons
-        %li= link_to image_tag("/images/ui-icons/set_social-media/nwc-uk-youtube.png", :size => "47x46"), "http://youtube.com/sizzix", :target => "blank", :title => "Watch us on YouTube", :alt => "Watch us on YouTube"
-        %li= link_to image_tag("/images/ui-icons/set_social-media/nwc-uk-facebook.png", :size => "47x46"), "http://www.facebook.com/Sizzix", :target => "blank", :title => "Join us on Facebook", :alt => "Join us on Facebook"
-        %li= link_to image_tag("/images/ui-icons/set_social-media/nwc-uk-twitter.png", :size => "47x46"), "http://twitter.com/sizzix_uk", :target => "blank", :title => "Follow us on Twitter", :alt => "Follow us on Twitter"
-        %li= link_to image_tag("/images/ui-icons/set_social-media/nwc-uk-blogger.png", :size => "47x46"), "http://sizzixukblog.blogspot.com", :title => "Check out our Blog", :alt => "Check out our Blog"
-        %li= link_to image_tag("/images/ui-icons/set_social-media/nwc-uk-pinterest.png", :size => "47x46"), "http://pinterest.com/sizzix/", :target => "blank", :title => "Join us on Pinterest", :alt => "Join us on Pinterest"
-  %div{:class=>"sub_s3"}
-    = link_to image_tag("/images/ui-icons/set_social-media/uk_sizzix_blog.jpg", :style=>"margin:0 12px 0 0;", :size => "182x115"), "/blogs", :title => "Check out our Blog", :target => "blank", :alt => "Check out our Blog"
   %div{:class=>"sub_s4"}
     %h3{:class=>"h3_case"} Learn More
     %ul
       %li= link_to "About Us", "/about"
+      %li= " | "
       %li= link_to "Terms of Use", "/site_use"
+      %li= " | "
       %li= link_to "Privacy Policy", "/privacy"
+      %li= " | "
       %li= link_to "Cookie Policy", "/cookie-policy"
+      %li= " | "
       %li= link_to "Legal Notices", "/legal"
-  %div{:style => "width:100px; height:54px; float:left; padding:24px;", :title => "Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications."}
+
+%div{:class=>"sub_div_r", :style=>"display:inline;"}
+  %div{:style => "width:100px; height:54px; float:right; padding:10px 10px 10px 6px;", :title => "Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications."}
     %script{:src => "https://seal.verisign.com/getseal?host_name=www.sizzix.co.uk&size=S&use_flash=NO&use_transparent=NO&lang=en", :type => "text/javascript"}
+  %h2== Customer Service
+
+  .bold Customer Service Hours
+  %p
+    8:30 a.m. to 5:00 p.m., GMT, Monday to Friday
+  %h3{:class=>"h3_case"} By Phone
+  0844 499 8181 (Within UK) | + 44 845 345 2277 (Outside of the UK)
+
+  %div{:style=>"width:220px; float:left; margin:0 0 0 0;"}
+    %p
+    %h3{:class=>"h3_case"} By Email
+    %ul
+      %li
+        =link_to "europecustomerservices@ellison.com", "mailto:europecustomerservices@ellison.com"
