@@ -15,9 +15,14 @@
     %br
   == Copyright &copy; Ellison 1996 - #{DateTime.now.year}. All rights reserved.
   %br  
+  - if is_sizzix_uk?
+    == VAT No.886263386
+    %br
   - unless is_er? 
     == This site is intended for visitors within #{is_us? ? 'the United States' : 'Europe'}.
-    - if is_sizzix? 
+    - if is_sizzix_us? 
       %li{:style=>"list-style:none"}= link_to "#{is_uk? ? 'U.S.' : 'European'} visitors please visit our #{is_uk? ? 'U.S.' : 'U.K.'} site", "#{is_uk? ? 'http://www.sizzix.com' : 'http://www.sizzix.co.uk'}"
+    - elsif is_sizzix_uk?
+      %li{:class=>"uk_link", :style=>"list-style:none"}= link_to "#{is_uk? ? 'U.S.' : 'European'} visitors please visit our #{is_uk? ? 'U.S.' : 'U.K.'} site", "#{is_uk? ? 'http://www.sizzix.com' : 'http://www.sizzix.co.uk'}"
     - else  
       %li{:style=>"list-style:none"}= link_to "#{is_uk? ? 'U.S.' : 'European'} visitors please visit our #{is_uk? ? 'U.S.' : 'U.K.'} site", "#{is_uk? ? 'http://www.ellisoneducation.com' : 'http://www.ellisoneducation.co.uk'}"

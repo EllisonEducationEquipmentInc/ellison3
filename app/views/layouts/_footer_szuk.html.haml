@@ -1,66 +1,34 @@
-.column{:class=>"panel_height"}
-  %h2== Customer Service
-  %p 
-    Contact us for help with any issues or concerns
-    %br
-    %span{:style=>"font-weight:bold"}=link_to "You may contact us online 24/7", "/contact"    
-    
-  .bold Customer Service Hours
-  %p
-    8:30 a.m. to 5:00 p.m., GMT,
-    %br/
-    Monday to Friday
-  %h3 By Phone
-  %ul
-    %li (0) 844 499 8181 (Within UK)
-    %li + 44 (0) 845 345 2277 (Outside of the UK)
-    
-  %h3 By Fax
-  %ul
-    %li +44 845 345 0011 (Within UK)
-    %li + 44 (0) 845 345 2277 (Outside of the UK)
-    
-  %h3 By Mail
-  %ul
-    %li Ellison Europe Ltd.
-    %li Unit 3, Whitegate Industrial Estate
-    %li Wrexham
-    %li United Kingdom, LL13 8UG
-    %li VAT No. 886263386 
-
-  %h3 By Email
-  %ul
-    %li
-      Customer Services:
-      %br
-      =link_to "europecustomerservices@ellison.com", "mailto:europecustomerservices@ellison.com"
-
-.column{:class=>"panel_height"}
-  %h2 Learn More
-  %p Other useful resources:
-  %ul
-    %li= link_to "About Us", "/about"
-    %li= link_to "Stockist List", "/stores"
-    %li= link_to "Sizzix Official Blog", "/blogs"
-    %li= link_to "Sizzix Awards", "/awards"
-    %li= link_to "Sizzix Events", "/events"
-    %li= link_to "Sizzix News", "/news"
-    %li= link_to "Terms of Use", "/site_use"
-    %li= link_to "Privacy Policy", "/privacy"
-    %li= link_to "Cookie Policy", "/cookie-policy", :rel => "nofollow"
-    %li= link_to "Legal Notices", "/legal"
-
-  %div{:style => "width:100px; height:54px; float:left;", :title => "Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications."}
-    %script{:src => "https://seal.verisign.com/getseal?host_name=www.sizzix.co.uk&size=S&use_flash=NO&use_transparent=NO&lang=en", :type => "text/javascript"}
-  
-.column_right{:class=>"panel_height"}
+%div{:class=>"sub_div_l"}
   %h2 Subscribe to Us
   = render "layouts/newsletter_signup_form"
   
-  %h2 To Connect With Us
-  %ul.social-icons
-    %li= link_to image_tag("/images/ui-icons/set_social-media/32x32/pinterest.png", :size => "32x32"), "http://pinterest.com/sizzix/", :target => "blank", :title => "Join us on Pinterest", :alt => "Join us on Pinterest"
-    %li= link_to image_tag("/images/ui-icons/set_social-media/32x32/facebook.png", :size => "32x32"), "http://www.facebook.com/Sizzix", :target => "blank", :title => "Join us on Facebook", :alt => "Join us on Facebook"
-    %li= link_to image_tag("/images/ui-icons/set_social-media/32x32/twitter.png", :size => "32x32"), "http://twitter.com/sizzix_uk", :target => "blank", :title => "Follow us on Twitter", :alt => "Follow us on Twitter"
-    %li= link_to image_tag("/images/ui-icons/set_social-media/32x32/youtube.png", :size => "32x32"), "http://youtube.com/sizzix", :target => "blank", :title => "Watch us on YouTube", :alt => "Watch us on YouTube"
-    %li= link_to image_tag("/images/ui-icons/set_social-media/32x32/email.png", :size => "32x32"), "/contact", :title => "Send us an email", :alt => "Send us an email"
+  %div{:class=>"sub_s4"}
+    %h3{:class=>"h3_case"} Learn More
+    %ul
+      %li= link_to "About Us", "/about"
+      %li= " | "
+      %li= link_to "Terms of Use", "/site_use"
+      %li= " | "
+      %li= link_to "Privacy Policy", "/privacy"
+      %li= " | "
+      %li= link_to "Cookie Policy", "/cookie-policy"
+      %li= " | "
+      %li= link_to "Legal Notices", "/legal"
+
+%div{:class=>"sub_div_r", :style=>"display:inline;"}
+  %div{:style => "width:100px; height:54px; float:right; padding:4px;", :title => "Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications."}
+    %script{:src => "https://seal.verisign.com/getseal?host_name=www.sizzix.co.uk&size=S&use_flash=NO&use_transparent=NO&lang=en", :type => "text/javascript"}
+  %h2== Customer Service
+
+  .bold Customer Service Hours
+  %p
+    8:30 a.m. to 5:00 p.m., GMT, Monday to Friday
+  %h3{:class=>"h3_case"} By Phone
+  0844 499 8181 (Within UK) | + 44 845 345 2277 (Outside of the UK)
+
+  %div{:style=>"width:220px; float:left; margin:0 0 0 0;"}
+    %p
+    %h3{:class=>"h3_case"} By Email
+    %ul{:class=>"li_btm"}
+      %li
+        =link_to "europecustomerservices@ellison.com", "mailto:europecustomerservices@ellison.com"
