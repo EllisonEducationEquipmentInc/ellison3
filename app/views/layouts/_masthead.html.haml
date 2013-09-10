@@ -1,7 +1,8 @@
 .dontprint
   -# logo masthead & branding
   - if is_sizzix_uk?
-    %div{:style=>"height: 80px; float:left; width: 160px;"}
+    %a{:href => "/home"}
+      %div{:style=>"height: 80px; float:left; width: 160px;"}
   - elsif is_corp_site?
     %h1.masthead
       = link_to system_name, "/corp_#{params[:region] ? params[:region] : 'northamerica'}?tp=c&nation=#{params[:nation] ? params[:nation].parameterize : 'united-states'}&region=#{params[:region] ? params[:region] : 'northamerica'}", :id => "logo_masthead_corporate-#{params[:nation] ? params[:nation].parameterize : 'united-states'}", :title => system_name, :alt => system_name
