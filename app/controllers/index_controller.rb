@@ -189,23 +189,9 @@ class IndexController < ApplicationController
     render :layout => false
   end
 
-  def twitter_feed
-    @feed = Feed.where(:name => 'twitter').first || Feed.new(:name => 'twitter')
-    process_feed("http://twitter.com/statuses/user_timeline/46690271.rss")
-    expires_in 10.minutes, 'max-stale' => 15.minutes, :public => true
-    render :partial => 'index/feed', :collection => @feed.entries
-  end
-
   def blog_feed
     @feed = Feed.where(:name => 'blog').first || Feed.new(:name => 'blog')
-    process_feed("http://sizzixblog.blogspot.com/feeds/posts/default?alt=rss&max-results=5")
-    expires_in 10.minutes, 'max-stale' => 15.minutes, :public => true
-    render :partial => 'index/feed', :collection => @feed.entries
-  end
-
-  def twitter_feed_uk
-    @feed = Feed.where(:name => 'twitter_uk').first || Feed.new(:name => 'twitter_uk')
-    process_feed("http://twitter.com/statuses/user_timeline/45567009.rss")
+    process_feed("http://blog.sizzix.com/feed")
     expires_in 10.minutes, 'max-stale' => 15.minutes, :public => true
     render :partial => 'index/feed', :collection => @feed.entries
   end
@@ -219,7 +205,7 @@ class IndexController < ApplicationController
 
   def blog_feed_ee
     @feed = Feed.where(:name => 'blog_ee').first || Feed.new(:name => 'blog_ee')
-    process_feed("http://ellisoneducation.typepad.com/teachers_lounge/atom.xml")
+    process_feed("http://blog.ellisoneducation.com/feed")
     expires_in 10.minutes, 'max-stale' => 15.minutes, :public => true
     render :partial => 'index/feed', :collection => @feed.entries
   end

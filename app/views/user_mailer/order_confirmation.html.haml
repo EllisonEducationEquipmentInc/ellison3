@@ -170,7 +170,27 @@
           %li Returns or exchanges subject to restocking fee.
         - if is_uk?
           %li Please allow a maximum ten working days for your order to be processed during busier periods.
+
   - unless @order.comments.blank?
     %tr
       %td{ :style => "font-size: 11px; vertical-align: top;" }
         %p== <strong>Comments: </strong>#{@order.comments}
+        %br
+- if is_sizzix_us?
+  %div{:style=>"font-size: 11px; line-height: 16px;  font-family: Times New Roman; font-weight: normal; color: #333;"}
+    %span{:style => "font-weight:bold;" } OUR PHONES HAVE LITERALLY BEEN RINGING OFF THE HOOK!
+    %br
+    %br
+    %span We just introduced the new-look Sizzix Big Shot Machine on Lifetime Television’s, The Balancing Act with Julie Moran. Due to the overwhelming response, the Big Shot Machine bundle promotional offer has been extended to you, our loyal customer.  
+    %br
+    %br
+      %a{:href => "http://www.sizzix.com/balancingact?utm_source=OrderConfirm&utm_medium=email&utm_campaign=BA+Flip-Its+Upsell+Promo"} Click here to receive your exclusive Balancing Act offer.
+//    %br
+//    %br
+//      Everyone is a buzz with excitement over the release of Stephanie Barnard’s Flip-its, which were also showcased on The Balancing Act TV program. The feedback has been so enthusiastic that we have decided to offer you 20% off selected Flip-its dies!
+//    %br
+//    %br
+//      %a{:href => "http://www.sizzix.com/catalog?utm_source=OrderConfirm&utm_medium=email&utm_campaign=BA+Flip-Its+Upsell+Promo#facets=special~stephanie-barnard-flip-its"} Click here to receive your exclusive Flip-its offer.
+//    %br
+//    %br
+//    %br
