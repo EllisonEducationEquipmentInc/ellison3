@@ -8,6 +8,8 @@
   %meta{ :name=> "p:domain_verify", :content=> "3301ae6b8564ffbdecc24ee509cc4fc1" }
 - if @description.present?
   %meta{ :name => "description", :content => "#{strip_tags @description}" }
+- if current_system == 'szus'
+  %meta{content: "a-tBw1x2TUwR80EavxHbXMxxiMYa5ban3haNUZPpQyE", name: "google-site-verification"}
 - if current_system == 'szus' && 'eeus'
   = stylesheet_link_tag 'jqui-ellison3/jquery-ui-1.8.4.custom.css', :media => 'all'
 - else
