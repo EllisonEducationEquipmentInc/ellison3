@@ -31,10 +31,6 @@
     .field
       = f.label :display_order
       = f.number_field :display_order, :min => 0, :max => 100, :size => 3
-    .field
-      = f.label :haml_content, "HAML Code"
-      %br
-      = f.text_area :haml_content, :cols => 106, :rows => 25
   .contentwrap_large.last
     .field
       = f.label :short_desc, "Short Description", :class => "autosize"
@@ -53,7 +49,7 @@
   %br
   .clear
   .actions
-    = f.submit :class => 'wymupdate jqui_save', id: 'shared_content_submit'
+    = f.submit :class => 'wymupdate jqui_save'
 :javascript
   $('#visual_assets').sortable({handle: 'h2', tolerance: 'pointer', start: function(event, ui) {$('.visual_asset').css({height:"25px",overflow:"hidden"})}, stop: function(event, ui) {$('.visual_asset').css({height:"auto"})}, update: function(event, ui) {
     $.ajax({url:"/admin/shared_contents/reorder_visual_assets?id=#{@shared_content.id}&"+$("#visual_assets").sortable('serialize')});

@@ -32,7 +32,6 @@
   :javascript
     shadow_on();
 - if tab.shared_content.present?
-  = Haml::Engine.new(tab.shared_content.haml_content).render(self) if tab.shared_content.haml_content.present?
   = render :partial => 'visual_assets/visual_asset', :collection => tab.shared_content.visual_assets.current
   .clear
   
