@@ -11,6 +11,7 @@ class SharedContent
   field :systems_enabled, :type => Array
   field :placement
   field :display_order, :type => Integer, :default => 100
+  field :haml_content
 
   field :created_by
   field :updated_by

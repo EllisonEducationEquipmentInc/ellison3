@@ -2,4 +2,7 @@
 .page-break
 #save_list= render 'carts/saved_list' if user_signed_in? && !request.xhr?
 %hr.dontprint
-#current_visual_assets.dontprint= render @shared_content.visual_assets.current if !request.xhr? && @shared_content.present?
+#current_visual_assets.dontprint
+  - if !request.xhr? && @shared_content.present?
+    = render @shared_content.visual_assets.current 
+    = Haml::Engine.new(@shared_content.haml_content).render(self) if @shared_content.haml_content.present?
