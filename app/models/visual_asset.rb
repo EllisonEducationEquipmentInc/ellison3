@@ -24,6 +24,7 @@ class VisualAsset
   field :images, :type => Array, :default => []
   field :recurring, :type => Boolean, :default => false
   field :must_own, :type => Array
+  field :haml_content
 
   Date::DAYNAMES.each do |day|
     field :"#{day.downcase}", :type => Boolean, :default => false
