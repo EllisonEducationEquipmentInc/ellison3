@@ -107,6 +107,7 @@ class Payment
     return if self.full_card_number.blank?
     masked = self.full_card_number.dup
     0.upto(masked.size - 5) { |i| masked[i] = 'x'}
+    write_attribute :card_security_code, nil
     write_attribute :card_number, masked
   end
 
