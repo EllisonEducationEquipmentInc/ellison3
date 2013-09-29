@@ -24,3 +24,5 @@ FEDEX_METER_NUMBER   = '101341003'
 
 
 LYRIS_CREDENTIALS = "lyrisaccount@ellison.com:el432lyris"
+
+LYRIS_HQ_PASSWORD = "Lyris_2013_HQ"
