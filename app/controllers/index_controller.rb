@@ -392,6 +392,10 @@ class IndexController < ApplicationController
       end
   end
 
+  def newsletter_signup
+    
+  end
+
   def create_subscription
     get_list_and_segments
     @subscribed = Subscription.first(:conditions => {:email => params[:subscription][:email].downcase, :list => subscription_list, :confirmed => false})
