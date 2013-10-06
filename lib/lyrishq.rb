@@ -12,7 +12,6 @@ class Lyrishq
   # Example:
   #
   # l=Lyrishq.new ml_id: '1742', site_id: '2012000352', type: 'record', activity: 'query-data', email: 'mronai@ellison.com'
-  # l.process
   # l.success? => false
   # l.error #=> "Can't find email address or unique id"
   #
