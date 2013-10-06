@@ -1,5 +1,81 @@
 %h2
-  Newsletter Sign Up
-.ui-corner-all{ :class => "#{ is_sizzix? ? 'newsletter_topframe_sz' : 'newsletter_topframe_ee' }" }
+  New User Sign Up
+.ui-corner-all
   .newsletter_content_a
     %h2.news_line
+    = form_tag newsletter_signup_path, id: 'newsletter-form-full' do
+      .field
+        = label_tag :email, "Email *"
+        = text_field_tag :email, nil, required: true, email: :email
+      .field
+        = label_tag 'demograpics[1]', "First Name *"
+        = text_field_tag 'demograpics[1]', nil, required: true
+      .field
+        = label_tag 'demograpics[2]', "Last Name *"
+        = text_field_tag 'demograpics[2]', nil, required: true
+      - if is_sizzix_us?
+        .field
+          = label_tag 'demograpics[11]', "Gender *"
+          Male
+          = radio_button_tag 'demograpics[11]', 'Male', false, required: true
+          Female
+          = radio_button_tag 'demograpics[11]', 'Female', false, required: true
+        .field
+          = label_tag 'demograpics[36031]', "Country *"
+          = select_tag 'demograpics[36031]', options_for_select(['United States', 'Canada']), prompt: "--- select ---", required: true
+        .field
+          = label_tag 'demograpics[37850]', "State/Province *"
+          = select_tag 'demograpics[37850]', grouped_options_for_select({USA: states.map {|e| e[0]}, Canada: provinces.map {|e| e[0]}}, nil, "--- select ---"), required: true
+        .field
+          = label_tag 'demograpics[37655]', "DOB *"
+          = select_tag 'demograpics[37655]', options_for_select(Date::MONTHNAMES), required: true
+          = select_tag 'demograpics[37656]', options_for_select((1..31).to_a.unshift(["dd", nil])), required: true
+          = select_tag 'demograpics[37656]', options_for_select((1910..2012).to_a.unshift(["yyyy", nil])), required: true
+        .field
+          = label_tag 'demograpics[37654]', "Which Sizzix Die-cutting Machines do you own?"
+          Big Shot™
+          = check_box_tag 'demograpics[37654]', 'Big Shot', false
+          Big Shot™ Pro
+          = check_box_tag 'demograpics[37654]', 'Big Shot Pro', false
+          BIGKick™
+          = check_box_tag 'demograpics[37654]', 'BIGKick', false
+          eClips™
+          = check_box_tag 'demograpics[37654]', 'eClips', false
+          Sidekick™
+          = check_box_tag 'demograpics[37654]', 'Sidekick', false
+          Texture Boutique™
+          = check_box_tag 'demograpics[37654]', 'Texture Boutique', false
+          Vagabond™
+          = check_box_tag 'demograpics[37654]', 'Vagabond', false
+          Vintaj BIGKick™
+          = check_box_tag 'demograpics[37654]', 'Vintaj BIGKick', false
+          Other
+          = check_box_tag 'demograpics[37654]', 'Other', false
+        .field
+          = label_tag 'demograpics[35424]', "Areas of interest"
+          Cardmaking
+          = check_box_tag 'demograpics[35424]', 'Cardmaking', false
+          Electronic Cutting
+          = check_box_tag 'demograpics[35424]', 'Electronic Cutting', false
+          Fashion
+          = check_box_tag 'demograpics[35424]', 'Fashion', false
+          Home Decor
+          = check_box_tag 'demograpics[35424]', 'Home Decor', false
+          Jewelry
+          = check_box_tag 'demograpics[35424]', 'Jewelry', false
+          Papercrafting
+          = check_box_tag 'demograpics[35424]', 'Papercrafting', false
+          Quilting & Appliqué
+          = check_box_tag 'demograpics[35424]', 'Quilting & Appliqué', false
+          Scrapbooking
+          = check_box_tag 'demograpics[35424]', 'Scrapbooking', false
+        .field
+          = hidden_field_tag 'demograpics[37658]', 'Popup'
+          = hidden_field_tag 'extras[doubleoptin]', 'yes'
+          = hidden_field_tag 'extras[trigger]', 'yes'
+
+      .actions
+        = submit_tag :submit
+
+:coffeescript
+  $('#newsletter-form-full').validate()
