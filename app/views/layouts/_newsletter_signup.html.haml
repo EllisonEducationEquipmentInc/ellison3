@@ -1,18 +1,15 @@
 .right
   = link_to 'x', '#', id: 'close_newsletter_signup'
 %h3 Newsletter signup
-= form_tag newsletter_signup_path, id: 'newsletter-signup-form' do
+.error#newsletter_signup_errors(style='display:none')
+#newsletter_signup_messages.notice(style='display:none')
+= form_tag url_for(controller: 'index', action: 'newsletter_signup_do'), remote: true, id: 'newsletter-signup-form' do
   = label_tag :email
   = text_field_tag :email
   = submit_tag :submit
 :coffeescript
-  set_newsletter_cookie = ->
-    $.cookie 'newsletter_signup_closed', true,
-      expires: 90
-
-  $('#newsletter-signup-form').submit ->
-    set_newsletter_cookie()
   $('#close_newsletter_signup').click ->
     $('#newsletter_signup').hide()
-    set_newsletter_cookie()
+    $.cookie 'newsletter_signup_closed', true,
+      expires: 90
     false

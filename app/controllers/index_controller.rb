@@ -1,3 +1,5 @@
+require 'lyrishq'
+
 class IndexController < ApplicationController
 
   respond_to :html, :xml, :js
@@ -394,6 +396,10 @@ class IndexController < ApplicationController
 
   def newsletter_signup
     
+  end
+
+  def newsletter_signup_do
+    @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'add', email: params[:email], demographic: {37658 => 'Popup'}, extras: {doubleoptin: 'yes'}
   end
 
   def create_subscription

@@ -294,6 +294,14 @@ module EllisonSystem
     NEWSLETTER_SEGMENTS.values.map {|e| e.keys.first.to_s}
   end
 
+  def lyrishq_settings
+    if is_sizzix_us?
+      {ml_id: '1742', site_id: '2012000352'}
+    else
+      {ml_id: '1742', site_id: '2012000352'}
+    end
+  end
+
   
   def institutions
     [["Day Care 3 - 6 yrs", "DA"], ["District Media Center", "DM"], ["Head Start, Even Start", "HE"], ["Individuals-Teacher, Crafter, Designer", "IN"], ["Non-Profit Organization, Hospital", "NP"], ["Public Library", "PL"], ["School - Pre-School, Early Childhood Center", "SP"], ["School - Elementary", "SE"], ["School - Junior High", "SJ"], ["School - High School", "SH"], ["School - University", "SU"], ["School - Charter Elementary, Jr High, High", "SCHE"], ["School - Private", "PR"], ["School - Church", "SC"], ["School - District", "SD"], ["School - Government, Government Agency", "SG"]]
