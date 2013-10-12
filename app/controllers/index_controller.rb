@@ -395,7 +395,17 @@ class IndexController < ApplicationController
   end
 
   def newsletter_signup
-    
+    if request.post?
+      @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'add', email: params[:email], demographic: params[:demographic], extras: params[:extras]
+      if @lyrishq.success?
+        flash[:notice] = "Thank you for signing up."
+      elsif @lyrishq.error? && @lyrishq.error =~ /already exists/i
+        # TODO: fire a trigger for customer to get update profile page link through email to update newsletter profile
+        flash[:alert] = "We have just sent you an email which contains a unique link.  Click on the link to be taken through to your preferences page to update your profile."
+      else
+        flash[:alert] = @lyrishq.error
+      end
+    end
   end
 
   def newsletter_signup_do
