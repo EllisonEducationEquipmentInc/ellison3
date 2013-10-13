@@ -400,7 +400,11 @@ class IndexController < ApplicationController
         @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'query-data', email: params[:email]
         if @lyrishq.success?
           @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'triggers', activity: 'fire-trigger', extras: {trigger_id: trigger_id, recipients: params[:email]}
-          flash[:notice] = "We have just sent you an email which contains a unique link.  Click on the link to be taken through to your preferences page to update your profile." if @lyrishq.success?
+          if @lyrishq.success?
+            flash[:notice] = "We have just sent you an email which contains a unique link.  Click on the link to be taken through to your preferences page to update your profile."
+          else
+            flash[:alert] = @lyrishq.error
+          end
         else
           flash[:alert] = "Email address is not part of the list. Please sign up."
         end
@@ -415,6 +419,23 @@ class IndexController < ApplicationController
         end
       end
     end
+  end
+
+  def updateprofile
+    raise "missing uid or email" unless params[:uid] && params[:email]
+    @lyrishq_profile = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'query-data', email: params[:email]
+    raise "email uid mismatch" if @lyrishq_profile.error? || @lyrishq_profile.uid != params[:uid]
+    if request.post?
+      @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'update', email: params[:email], demographics: params[:demographics], extras: params[:extras]
+      if @lyrishq.success?
+        flash[:notice] = "Your profile has been updated."
+        redirect_to root_url
+      else
+        flash[:alert] = @lyrishq.error
+      end
+    end
+  #rescue
+    #go_404
   end
 
   # signup from popup
