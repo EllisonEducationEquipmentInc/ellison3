@@ -6,7 +6,7 @@
     = form_tag newsletter_signup_path, id: 'newsletter-form-full' do
       .field
         = label_tag :email, "Email *"
-        = text_field_tag :email, nil, required: true, email: :email
+        = text_field_tag :email, params[:email], required: true, email: :email
       .field
         = label_tag 'demographics[1]', "First Name *"
         = text_field_tag 'demographics[1]', nil, required: true
@@ -69,7 +69,7 @@
           = check_box_tag 'demographics[35424][]', 'Quilting & Appliqué', false
           Scrapbooking
           = check_box_tag 'demographics[35424][]', 'Scrapbooking', false
-        = hidden_field_tag 'demographics[37658]', 'Newsletter Signup Page'
+        = hidden_field_tag 'demographics[37658]', params[:source] || 'Newsletter Signup Page'
         = hidden_field_tag 'extras[doubleoptin]', 'yes'
 
       - elsif is_sizzix_uk?
@@ -116,7 +116,7 @@
         .field
           = label_tag 'demographics[37690]', "Crafting interest"
           = text_field_tag 'demographics[37690]', nil
-        = hidden_field_tag 'demographics[37789]', 'Newsletter Signup Page'
+        = hidden_field_tag 'demographics[37789]', params[:source] || 'Newsletter Signup Page'
 
 
       - elsif is_ee_us?
@@ -166,12 +166,30 @@
           = check_box_tag 'demographics[37785][]', 'Vacation Bible Study (VBS)', false
           Other
           = check_box_tag 'demographics[37785][]', 'Vacation Bible Study (VBS)', false
-        = hidden_field_tag 'demographics[37789]', 'Other'
+        = hidden_field_tag 'demographics[37783]', params[:source] || 'Newsletter Signup Page'
         = hidden_field_tag 'extras[doubleoptin]', 'yes'
+
+        - if @update
+          = hidden_field_tag 'demographics[40651]', 'YES'
+          = hidden_field_tag 'extras[state]', 'active'
 
 
       = hidden_field_tag 'extras[trigger]', 'yes'
 
+      .actions
+        = submit_tag :submit
+
+.clear
+%h2
+  Existing User Sign In
+.ui-corner-all
+  .newsletter_content_a
+    %h2.news_line
+    = form_tag newsletter_signup_path, id: 'newsletter-form-full' do
+      .field
+        = label_tag :email, "Email *"
+        = text_field_tag :email, params[:email], required: true, email: :email
+        = hidden_field_tag 'existing', true
       .actions
         = submit_tag :submit
 

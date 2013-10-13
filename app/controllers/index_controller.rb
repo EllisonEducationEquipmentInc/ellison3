@@ -396,19 +396,28 @@ class IndexController < ApplicationController
 
   def newsletter_signup
     if request.post?
-      @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'add', email: params[:email], demographics: params[:demographics], extras: params[:extras]
-      Rails.logger.info "!!! #{@lyrishq.request}"
-      if @lyrishq.success?
-        flash[:notice] = "Thank you for signing up."
-      elsif @lyrishq.error? && @lyrishq.error =~ /already exists/i
-        # TODO: fire a trigger for customer to get update profile page link through email to update newsletter profile
-        flash[:alert] = "We have just sent you an email which contains a unique link.  Click on the link to be taken through to your preferences page to update your profile."
+      if params[:existing]
+        @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'query-data', email: params[:email]
+        if @lyrishq.success?
+          @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'triggers', activity: 'fire-trigger', extras: {trigger_id: trigger_id, recipients: params[:email]}
+          flash[:notice] = "We have just sent you an email which contains a unique link.  Click on the link to be taken through to your preferences page to update your profile." if @lyrishq.success?
+        else
+          flash[:alert] = "Email address is not part of the list. Please sign up."
+        end
       else
-        flash[:alert] = @lyrishq.error
+        @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'add', email: params[:email], demographics: params[:demographics], extras: params[:extras]
+        if @lyrishq.success?
+          flash[:notice] = "Thank you for signing up."
+        elsif @lyrishq.error? && @lyrishq.error =~ /already exists/i
+          flash[:alert] = "Email address already on the list.  To update your email preferences, click update now."
+        else
+          flash[:alert] = @lyrishq.error
+        end
       end
     end
   end
 
+  # signup from popup
   def newsletter_signup_do
     @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'add', email: params[:email], demographic: {37658 => 'Popup'}, extras: {doubleoptin: 'yes'}
   end
@@ -503,6 +512,16 @@ class IndexController < ApplicationController
   end
 
 private
+
+  def trigger_id
+    if is_sizzix_uk?
+      3178
+    elsif is_ee_us?
+      5512
+    else
+      5641
+    end
+  end
 
   def get_videos
     @feed = Feed.where(:name => "video_paylist_#{current_system}").first || Feed.new(:name => "video_paylist_#{current_system}")
