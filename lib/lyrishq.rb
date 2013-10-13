@@ -74,7 +74,7 @@ private
     xml = Builder::XmlMarkup.new :indent => 2
     xml.DATA email, 'type' => "email" if email
     demographics.each do |id, value|
-      xml.DATA value, 'type' => "demographic", 'id' => id
+      xml.DATA Array.wrap(value).join("||"), 'type' => "demographic", 'id' => id
     end
     extras.each do |id, value|
       xml.DATA value, 'type' => "extra", 'id' => id

@@ -396,7 +396,8 @@ class IndexController < ApplicationController
 
   def newsletter_signup
     if request.post?
-      @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'add', email: params[:email], demographic: params[:demographic], extras: params[:extras]
+      @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'add', email: params[:email], demographics: params[:demographics], extras: params[:extras]
+      Rails.logger.info "!!! #{@lyrishq.request}"
       if @lyrishq.success?
         flash[:notice] = "Thank you for signing up."
       elsif @lyrishq.error? && @lyrishq.error =~ /already exists/i
