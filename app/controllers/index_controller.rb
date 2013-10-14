@@ -11,7 +11,7 @@ class IndexController < ApplicationController
   before_filter :register_continue_shopping!, :only => [:campaigns, :shop, :tag_group, :catalog]
   before_filter :register_last_action!, :only => [:product, :idea, :catalog]
 
-  ssl_required :contact, :send_feedback, :reply_to_feedback, :giftcard_balance
+  ssl_required :contact, :send_feedback, :reply_to_feedback, :giftcard_balance, :updateprofile, :newsletter_signup
   ssl_allowed :limited_search, :machines_survey, :static_page, :add_comment, :newsletter, :create_subscription, :subscription, :update_subscription, :resend_subscription_confirmation
 
   #verify :xhr => true, :only => [:search, :quick_search, :send_feedback, :add_comment], :redirect_to => {:action => :home}
@@ -434,8 +434,8 @@ class IndexController < ApplicationController
         flash[:alert] = @lyrishq.error
       end
     end
-  #rescue
-    #go_404
+  rescue
+    go_404
   end
 
   # signup from popup
