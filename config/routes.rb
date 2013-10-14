@@ -55,6 +55,8 @@ Ellison3::Application.routes.draw do
   match 'lp/:id' => 'index#tag_group', :as => :tag_group, :format => false
   match 'products' => 'index#products', :format => false
   match 'home' => 'index#home', :format => false
+  match 'newsletter-signup' => 'index#newsletter_signup', :format => false, as: :newsletter_signup
+  match 'updateprofile' => 'index#updateprofile', :format => false, as: :update_newsletter_profile
   match 'latinamerica' => 'index#stores', :format => false
 
   match 'stores' => 'index#stores', :as => :stores, :format => false

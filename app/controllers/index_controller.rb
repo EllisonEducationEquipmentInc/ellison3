@@ -1,3 +1,5 @@
+require 'lyrishq'
+
 class IndexController < ApplicationController
 
   respond_to :html, :xml, :js
@@ -9,7 +11,7 @@ class IndexController < ApplicationController
   before_filter :register_continue_shopping!, :only => [:campaigns, :shop, :tag_group, :catalog]
   before_filter :register_last_action!, :only => [:product, :idea, :catalog]
 
-  ssl_required :contact, :send_feedback, :reply_to_feedback, :giftcard_balance
+  ssl_required :contact, :send_feedback, :reply_to_feedback, :giftcard_balance, :updateprofile, :newsletter_signup
   ssl_allowed :limited_search, :machines_survey, :static_page, :add_comment, :newsletter, :create_subscription, :subscription, :update_subscription, :resend_subscription_confirmation
 
   #verify :xhr => true, :only => [:search, :quick_search, :send_feedback, :add_comment], :redirect_to => {:action => :home}
@@ -392,6 +394,55 @@ class IndexController < ApplicationController
       end
   end
 
+  def newsletter_signup
+    if request.post?
+      if params[:existing]
+        @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'query-data', email: params[:email]
+        if @lyrishq.success?
+          @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'triggers', activity: 'fire-trigger', extras: {trigger_id: trigger_id, recipients: params[:email]}
+          if @lyrishq.success?
+            flash[:notice] = "We have just sent you an email which contains a unique link.  Click on the link to be taken through to your preferences page to update your profile."
+          else
+            flash[:alert] = @lyrishq.error
+          end
+        else
+          flash[:alert] = "Email address is not part of the list. Please sign up."
+        end
+      else
+        @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'add', email: params[:email], demographics: params[:demographics], extras: params[:extras]
+        if @lyrishq.success?
+          flash[:notice] = "Thank you for signing up."
+        elsif @lyrishq.error? && @lyrishq.error =~ /already exists/i
+          flash[:alert] = "Email address already on the list.  To update your email preferences, click update now."
+        else
+          flash[:alert] = @lyrishq.error
+        end
+      end
+    end
+  end
+
+  def updateprofile
+    raise "missing uid or email" unless params[:uid] && params[:email]
+    @lyrishq_profile = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'query-data', email: params[:email]
+    raise "email uid mismatch" if @lyrishq_profile.error? || @lyrishq_profile.uid != params[:uid]
+    if request.post?
+      @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'update', email: params[:email], demographics: params[:demographics], extras: params[:extras]
+      if @lyrishq.success?
+        flash[:notice] = "Your profile has been updated."
+        redirect_to root_url
+      else
+        flash[:alert] = @lyrishq.error
+      end
+    end
+  rescue
+    go_404
+  end
+
+  # signup from popup
+  def newsletter_signup_do
+    @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'add', email: params[:email], demographic: {37658 => 'Popup'}, extras: {doubleoptin: 'yes'}
+  end
+
   def create_subscription
     get_list_and_segments
     @subscribed = Subscription.first(:conditions => {:email => params[:subscription][:email].downcase, :list => subscription_list, :confirmed => false})
@@ -482,6 +533,16 @@ class IndexController < ApplicationController
   end
 
 private
+
+  def trigger_id
+    if is_sizzix_uk?
+      3178
+    elsif is_ee_us?
+      5512
+    else
+      5641
+    end
+  end
 
   def get_videos
     @feed = Feed.where(:name => "video_paylist_#{current_system}").first || Feed.new(:name => "video_paylist_#{current_system}")

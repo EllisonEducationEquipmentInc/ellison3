@@ -1,0 +1,32 @@
+%h2
+  New User Sign Up
+.ui-corner-all
+  .newsletter_content_a
+    %h2.news_line
+    = form_tag newsletter_signup_path, id: 'newsletter-form-full' do
+      .field
+        = label_tag :email, "Email *"
+        = text_field_tag :email, params[:email], required: true, email: :email
+      = render partial: 'newsletter_form'
+
+      = hidden_field_tag 'extras[trigger]', 'yes'
+
+      .actions
+        = submit_tag :submit
+
+.clear
+%h2
+  Existing User Sign In
+.ui-corner-all
+  .newsletter_content_a
+    %h2.news_line
+    = form_tag newsletter_signup_path, id: 'newsletter-form-full' do
+      .field
+        = label_tag :email, "Email *"
+        = text_field_tag :email, params[:email], required: true, email: :email
+        = hidden_field_tag 'existing', true
+      .actions
+        = submit_tag :submit
+
+:coffeescript
+  $('#newsletter-form-full').validate()
