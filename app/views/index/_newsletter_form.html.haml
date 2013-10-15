@@ -116,7 +116,7 @@
     = select_tag 'demographics[37851]', grouped_options_for_select({USA: states, Canada: provinces}, @lyrishq_profile && @lyrishq_profile.demographic(37851), "--- select ---"), required: true
   .field
     = label_tag 'demographics[37784]', "Where do you teach? *"
-    = select_tag 'demographics[37784]', options_for_select([['-- select --', nil],"Childcare - Afterschool, Year-Round & Seasonal Programs", "Home School", "Preschool/Pre-K", "Elementary School", "Middle School", "High School", "College/ University", "Technical/Trade School", "Sunday School", "Other"], @lyrishq_profile && @lyrishq_profile.demographic(37784)), required: true
+    = select_tag 'demographics[37784]', options_for_select([['-- select --', nil],"Childcare Afterschool, Year-Round & Seasonal Programs", "Home School", "Preschool/Daycare", "Elementary School", "Middle School", "High School", "College/ University", "Technical/Trade School", "Sunday School", "Other"], @lyrishq_profile && @lyrishq_profile.demographic(37784)), required: true
   .field
     = label_tag 'demographics[37786]', "School/Organization"
     = select_tag 'demographics[37786]', options_for_select([['-- select --', nil],"Business (Resellers, Distributors, Independents)", "Career Center", "School District Office", "Faith Based School", "Government (Federal, State & Local Agencies)", "Non-Profit - Head Start/Even Start, Museums", "Hospital/Media Center", "Library/Media Center", "Senior Center", "Place of Worship", "Private School", "Public School", "PTO/PTA", "Teacher Resource Center", "Other"], @lyrishq_profile && @lyrishq_profile.demographic(37786)), required: true

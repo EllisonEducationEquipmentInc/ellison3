@@ -303,7 +303,7 @@ module EllisonSystem
       {ml_id: '1656', site_id: '2012000356'}
     elsif is_ee_uk?
       {ml_id: '1692', site_id: '2012000357'}
-    elsif is_erus?
+    elsif is_er_us?
       {ml_id: '1690', site_id: '2012000343'}
     end
   end

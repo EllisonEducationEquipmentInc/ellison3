@@ -541,7 +541,7 @@ private
       6311
     elsif is_sizzix_us?
       6302
-    elsif is_erus?
+    elsif is_er_us?
       6302
     end
   end
