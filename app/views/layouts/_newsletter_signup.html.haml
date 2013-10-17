@@ -16,8 +16,7 @@
   .error#newsletter_signup_errors(style='display:none')
   #newsletter_signup_messages.notice(style='display:none')
   = form_tag url_for(controller: 'index', action: 'newsletter_signup_do'), remote: true, id: 'newsletter-signup-form' do
-    = label_tag :email
-    = text_field_tag :email
+    = text_field_tag :email, "Type your email address here", :onfocus => "if (this.value == 'Type your email address here'){this.value='';}", :onblur => "if (this.value == ''){this.value='Type your email address here';}", :size => 36, :style =>"color:#666;"
     %br
     - if is_ee?
       = submit_tag :submit, value: 'Sign up for the Connection', class: 'lyris_btn_css'
