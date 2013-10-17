@@ -1,8 +1,16 @@
 .lyris_su_corner
-  %img{alt: "", height: "27", src: "http://www.sizzix.com/images/static/szx_su_logo.png", width: "58"}/
+  - if is_sizzix_us?
+    %img{alt: "", height: "27", src: "http://www.sizzix.com/images/static/szx_su_logo.png", width: "58"}/
+  - else
+    %img{alt: "", height: "27", src: "http://www.ellisoneducation.com/images/static/ee_su_logo.png", width: "76"}/
   = link_to 'x', '#', class: 'lyris_btn_close', id: 'close_newsletter_signup'
 .lyris_su_btm
-  %h2 New to Sizzix.com?
+  - if is_ee?
+    %h2 New to Ellisoneducation.com?
+  - elsif is_sizzix_us?
+    %h2 New to Sizzix.com?
+  - else
+    %h2 New to Ellison?
   %p
     Thanks for joining us. We would love to add you as a subscriber. Simply enter your email address in the box below and you can receive regular updates!
   .error#newsletter_signup_errors(style='display:none')
@@ -11,7 +19,12 @@
     = label_tag :email
     = text_field_tag :email
     %br
-    = submit_tag :submit, value: 'Sign Up for the Sizzix Scoop', class: 'lyris_btn_css'
+    - if is_ee?
+      = submit_tag :submit, value: 'Sign up for the Connection', class: 'lyris_btn_css'
+    - elsif is_sizzix_us?
+      = submit_tag :submit, value: 'Sign up for the Scoop', class: 'lyris_btn_css'
+    - else
+      = submit_tag :submit, value: 'Sign up for our Newsletter', class: 'lyris_btn_css'
   :coffeescript
     $('#close_newsletter_signup').click ->
       $('#newsletter_signup').hide()
