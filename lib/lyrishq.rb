@@ -52,7 +52,9 @@ class Lyrishq
   end
 
   def error
-    (@response/"data").inner_text if error? && @response.present?
+    if error? && @response.present?
+      (@response/"data").inner_text == "Email address already exists" ? "Email address already exists in our list.  If you are not receiving our newsletter, please update your profile <a href='/newsletter-signup'>here</a> to start receiving the newsletter" : (@response/"data").inner_text
+    end
   end
 
   def uid
