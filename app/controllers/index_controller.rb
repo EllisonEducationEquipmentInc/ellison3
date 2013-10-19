@@ -12,7 +12,7 @@ class IndexController < ApplicationController
   before_filter :register_last_action!, :only => [:product, :idea, :catalog]
 
   ssl_required :contact, :send_feedback, :reply_to_feedback, :giftcard_balance, :updateprofile, :newsletter_signup
-  ssl_allowed :limited_search, :machines_survey, :static_page, :add_comment, :newsletter, :create_subscription, :subscription, :update_subscription, :resend_subscription_confirmation
+  ssl_allowed :limited_search, :machines_survey, :static_page, :add_comment, :newsletter, :create_subscription, :subscription, :update_subscription, :resend_subscription_confirmation, :newsletter_signup_do
 
   #verify :xhr => true, :only => [:search, :quick_search, :send_feedback, :add_comment], :redirect_to => {:action => :home}
   #verify :method => :post, :only => [:update_subscription, :create_subscription, :resend_subscription_confirmation], :redirect_to => {:action => :home}
@@ -440,7 +440,7 @@ class IndexController < ApplicationController
 
   # signup from popup
   def newsletter_signup_do
-    @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'add', email: params[:email], demographic: {37658 => 'Popup'}, extras: {doubleoptin: 'yes'}
+    @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'add', email: params[:email], demographic: {is_sizzix_us? ? 37658 : 37783 => 'Popup'}, extras: {doubleoptin: 'yes'}
   end
 
   def create_subscription
