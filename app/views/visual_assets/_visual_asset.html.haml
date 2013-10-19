@@ -56,7 +56,9 @@
   - elsif visual_asset.asset_type == 'text'
     .asset_text=raw youtube_video visual_asset.content.html_safe
   - elsif visual_asset.asset_type == 'freeform'
-    .asset_freeform=raw youtube_video visual_asset.content.html_safe
+    .asset_freeform
+      = raw youtube_video visual_asset.content.html_safe
+      = Haml::Engine.new(visual_asset.haml_content).render(self) if visual_asset.haml_content.present?
     .clear
   - elsif visual_asset.asset_type == 'catalog_search'
     .asset_catalog_search

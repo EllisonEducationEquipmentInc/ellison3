@@ -1,16 +1,33 @@
-.right
-  = link_to 'x', '#', id: 'close_newsletter_signup'
-%h3 Newsletter signup
-.error#newsletter_signup_errors(style='display:none')
-#newsletter_signup_messages.notice(style='display:none')
-= form_tag url_for(controller: 'index', action: 'newsletter_signup_do'), remote: true, id: 'newsletter-signup-form' do
-  = label_tag :email
-  = text_field_tag :email
-  = submit_tag :submit
-:coffeescript
-  $('#close_newsletter_signup').click ->
-    $('#newsletter_signup').hide()
-    $.cookie 'newsletter_signup_closed', true,
-      path: '/'
-      expires: 90
-    false
+.lyris_su_corner
+  - if is_sizzix_us?
+    %img{alt: "", height: "27", src: "images/static/szx_su_logo.png", width: "58"}/
+  - else
+    %img{alt: "", height: "27", src: "images/static/ee_su_logo.png", width: "76"}/
+  = link_to 'x', '#', class: 'lyris_btn_close', id: 'close_newsletter_signup'
+.lyris_su_btm
+  - if is_ee?
+    %h2 New to Ellisoneducation.com?
+  - elsif is_sizzix_us?
+    %h2 New to Sizzix.com?
+  - else
+    %h2 New to Ellison?
+  %p
+    Thanks for joining us. We would love to add you as a subscriber. Simply enter your email address in the box below and you can receive regular updates!
+  .error#newsletter_signup_errors(style='display:none')
+  #newsletter_signup_messages.notice(style='display:none')
+  = form_tag url_for(controller: 'index', action: 'newsletter_signup_do'), remote: true, id: 'newsletter-signup-form' do
+    = text_field_tag :email, "Type your email address here", :onfocus => "if (this.value == 'Type your email address here'){this.value='';}", :onblur => "if (this.value == ''){this.value='Type your email address here';}", :size => 36, :style =>"color:#666;"
+    %br
+    - if is_ee?
+      = submit_tag :submit, value: 'Sign up for the Connection', class: 'lyris_btn_css'
+    - elsif is_sizzix_us?
+      = submit_tag :submit, value: 'Sign up for the Scoop', class: 'lyris_btn_css'
+    - else
+      = submit_tag :submit, value: 'Sign up for our Newsletter', class: 'lyris_btn_css'
+  :coffeescript
+    $('#close_newsletter_signup').click ->
+      $('#newsletter_signup').hide()
+      $.cookie 'newsletter_signup_closed', true,
+        expires: 90
+        path: '/'
+      false

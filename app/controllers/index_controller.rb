@@ -536,11 +536,13 @@ private
 
   def trigger_id
     if is_sizzix_uk?
-      3178
-    elsif is_ee_us?
-      5512
-    else
-      5641
+      6310
+    elsif is_ee?
+      6311
+    elsif is_sizzix_us?
+      6302
+    elsif is_er_us?
+      6302
     end
   end
 

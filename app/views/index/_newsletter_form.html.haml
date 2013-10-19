@@ -3,9 +3,6 @@
   = text_field_tag 'demographics[1]', @lyrishq_profile && @lyrishq_profile.demographic(1), required: true
 - if is_sizzix_us?
   .field
-    = label_tag 'demographics[2]', "Last Name *"
-    = text_field_tag 'demographics[2]', @lyrishq_profile && @lyrishq_profile.demographic(2), required: true
-  .field
     = label_tag 'demographics[11]', "Gender *"
     Male
     = radio_button_tag 'demographics[11]', 'Male', @lyrishq_profile && @lyrishq_profile.demographic(11) == 'Male', required: true
@@ -31,7 +28,7 @@
     BIGKick™
     = check_box_tag 'demographics[37654][]', 'BIGKick', @lyrishq_profile && @lyrishq_profile.demographic(37654).include?('BIGKick')
     eClips™
-    = check_box_tag 'demographics[37654][]', 'eClips', @lyrishq_profile && @lyrishq_profile.demographic(37654).include?('eClips')
+    = check_box_tag 'demographics[37654][]', 'eclips', @lyrishq_profile && @lyrishq_profile.demographic(37654).include?('eclips')
     Sidekick™
     = check_box_tag 'demographics[37654][]', 'Sidekick', @lyrishq_profile && @lyrishq_profile.demographic(37654).include?('Sidekick')
     Texture Boutique™
@@ -86,8 +83,8 @@
     = check_box_tag 'demographics[37653][]', 'Vagabond', @lyrishq_profile && @lyrishq_profile.demographic(37653).include?('Vagabond')
     Vintaj BIGKick™
     = check_box_tag 'demographics[37653][]', 'Vintaj BIGKick', @lyrishq_profile && @lyrishq_profile.demographic(37653).include?('Vintaj BIGKick')
-    I don't own any Sizzix® machines
-    = check_box_tag 'demographics[37653][]', "I don't own any Sizzix machines", @lyrishq_profile && @lyrishq_profile.demographic(37653).include?("I don't own any Sizzix machines")
+    I don't own any Sizzix® Machines
+    = check_box_tag 'demographics[37653][]', "I don't own any Sizzix Machine", @lyrishq_profile && @lyrishq_profile.demographic(37653).include?("I don't own any Sizzix Machine")
   .field
     = label_tag 'demographics[35658][]', "Areas of interest"
     Appliqué
@@ -101,9 +98,9 @@
     Scrapbooking
     = check_box_tag 'demographics[35658][]', 'Scrapbooking', @lyrishq_profile && @lyrishq_profile.demographic(35658).include?('Scrapbooking')
     Home Décor
-    = check_box_tag 'demographics[35658][]', 'Home Décor', @lyrishq_profile && @lyrishq_profile.demographic(35658).include?('Home Décor')
+    = check_box_tag 'demographics[35658][]', 'Home Decor', @lyrishq_profile && @lyrishq_profile.demographic(35658).include?('Home Decor')
     Classroom Activites
-    = check_box_tag 'demographics[35658][]', 'Classroom Activites', @lyrishq_profile && @lyrishq_profile.demographic(35658).include?('Classroom Activites')
+    = check_box_tag 'demographics[35658][]', 'Classroom Activities', @lyrishq_profile && @lyrishq_profile.demographic(35658).include?('Classroom Activities')
   .field
     = label_tag 'demographics[37690]', "Crafting interest"
     = text_field_tag 'demographics[37690]', @lyrishq_profile && @lyrishq_profile.demographic(37690)
@@ -116,7 +113,7 @@
     = select_tag 'demographics[37782]', options_for_select(['United States', 'Canada'], @lyrishq_profile && @lyrishq_profile.demographic(37782)), prompt: "--- select ---"
   .field
     = label_tag 'demographics[37851]', "State/Province"
-    = select_tag 'demographics[37851]', grouped_options_for_select({USA: states.map {|e| e[0]}, Canada: provinces.map {|e| e[0]}}, @lyrishq_profile && @lyrishq_profile.demographic(37851), "--- select ---")
+    = select_tag 'demographics[37851]', grouped_options_for_select({USA: states, Canada: provinces}, @lyrishq_profile && @lyrishq_profile.demographic(37851), "--- select ---"), required: true
   .field
     = label_tag 'demographics[37784]', "Where do you teach? *"
     = select_tag 'demographics[37784]', options_for_select([['-- select --', nil],"Childcare Afterschool, Year-Round & Seasonal Programs", "Home School", "Preschool/Daycare", "Elementary School", "Middle School", "High School", "College/ University", "Technical/Trade School", "Sunday School", "Other"], @lyrishq_profile && @lyrishq_profile.demographic(37784)), required: true

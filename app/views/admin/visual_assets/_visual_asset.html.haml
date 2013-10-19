@@ -114,6 +114,11 @@
     %br
     = f.text_area :content, :class => 'wymeditor'
 
+  .field.type_specific.freeform
+    = f.label :haml_content
+    %br
+    = f.text_area :haml_content, style: "width:900px"
+
   .field.type_specific.image.billboard.gallery.image_with_text
     %span.icon_imagefield= required_label f, :image, { :label_size => "55px"}
     = f.file_field :image
