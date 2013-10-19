@@ -11,5 +11,6 @@
   $('#close_newsletter_signup').click ->
     $('#newsletter_signup').hide()
     $.cookie 'newsletter_signup_closed', true,
+      path: '/'
       expires: 90
     false

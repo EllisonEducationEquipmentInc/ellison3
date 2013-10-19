@@ -2,7 +2,7 @@
   $('#newsletter_signup_messages').show().html('Thank you.  You are almost there.  Check your email as we have just sent you a confirmation email.  Just click on the link within the email to confirm subscription.  If you haven\’t received your email, check your junk mail as it may be there.');
   $('#newsletter_signup_errors').remove()
   $('#newsletter-signup-form').remove()
-  $.cookie('newsletter_signup_closed', true, { expires: 360});
+  $.cookie('newsletter_signup_closed', true, {path: '/', expires: 360});
   setTimeout($('#newsletter_signup').remove(), 6000);
 - else
   $('#newsletter_signup_errors').show();
