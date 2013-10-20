@@ -438,7 +438,6 @@ class IndexController < ApplicationController
         params[:demographics]["37785"] = "" if params[:demographics]["37785"].blank?
       end
       @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'update', email: params[:email], demographics: params[:demographics], extras: params[:extras]
-      Rails.logger.info  @lyrishq.request
       if @lyrishq.success?
         render 'updateprofile_success'
       else
