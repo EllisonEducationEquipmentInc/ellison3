@@ -14,6 +14,12 @@
       = render partial: 'newsletter_form'
 
       = hidden_field_tag 'extras[trigger]', 'yes'
+      - if is_sizzix_us?
+        = hidden_field_tag 'demographics[37658]', params[:source] || 'Newsletter Signup Page'
+      - elsif is_sizzix_uk?
+        = hidden_field_tag 'demographics[37789]', params[:source] || 'Newsletter Signup Page'
+      - elsif is_ee_us?
+        = hidden_field_tag 'demographics[37783]', params[:source] || 'Newsletter Signup Page'
 
       .actions
         = submit_tag :submit
@@ -31,6 +37,7 @@
         = label_tag :email, "Email *"
         = text_field_tag :email, params[:email], required: true, email: :email
         = hidden_field_tag 'existing', true
+
       .actions
         = submit_tag :submit
 

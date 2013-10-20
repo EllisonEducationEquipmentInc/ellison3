@@ -57,7 +57,6 @@
     = check_box_tag 'demographics[35424][]', 'Quilting & Applique', @lyrishq_profile && @lyrishq_profile.demographic(35424, []).include?('Quilting & Applique')
     Scrapbooking
     = check_box_tag 'demographics[35424][]', 'Scrapbooking', @lyrishq_profile && @lyrishq_profile.demographic(35424, []).include?('Scrapbooking')
-  = hidden_field_tag 'demographics[37658]', params[:source] || @lyrishq_profile && @lyrishq_profile.demographic(37658) || 'Newsletter Signup Page'
   = hidden_field_tag 'extras[doubleoptin]', 'yes'
 
 - elsif is_sizzix_uk?
@@ -104,7 +103,6 @@
   .field
     = label_tag 'demographics[37690]', "Crafting interest"
     = text_field_tag 'demographics[37690]', @lyrishq_profile && @lyrishq_profile.demographic(37690)
-  = hidden_field_tag 'demographics[37789]', params[:source] || @lyrishq_profile && @lyrishq_profile.demographic(37789) || 'Newsletter Signup Page'
 
 
 - elsif is_ee_us?
@@ -154,7 +152,6 @@
     = check_box_tag 'demographics[37785][]', 'Vacation Bible Study (VBS)', @lyrishq_profile && @lyrishq_profile.demographic(37785).include?('Vacation Bible Study (VBS)')
     Other
     = check_box_tag 'demographics[37785][]', 'Other', @lyrishq_profile && @lyrishq_profile.demographic(37785).include?('Other')
-  = hidden_field_tag 'demographics[37783]', params[:source] || @lyrishq_profile && @lyrishq_profile.demographic(37783) || 'Newsletter Signup Page'
   = hidden_field_tag 'extras[doubleoptin]', 'yes'
 
 
