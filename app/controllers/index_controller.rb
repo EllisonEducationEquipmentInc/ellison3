@@ -423,11 +423,22 @@ class IndexController < ApplicationController
   end
 
   def updateprofile
-    raise "missing uid or email" unless params[:uid] && params[:email]
     @lyrishq_profile = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'query-data', email: params[:email]
+    params[:uid] = @lyrishq_profile.uid if admin_signed_in?
     raise "email uid mismatch" if @lyrishq_profile.error? || @lyrishq_profile.uid != params[:uid]
     if request.post?
+      if is_sizzix_us?
+        params[:demographics]["37654"] = "" if params[:demographics]["37654"].blank?
+        params[:demographics]["35424"] = "" if params[:demographics]["35424"].blank?
+      elsif is_sizzix_uk?
+        params[:demographics]["37653"] = "" if params[:demographics]["37653"].blank?
+        params[:demographics]["35658"] = "" if params[:demographics]["35658"].blank?
+      elsif is_ee_us?
+        params[:demographics]["37787"] = "" if params[:demographics]["35658"].blank?
+        params[:demographics]["37785"] = "" if params[:demographics]["37785"].blank?
+      end
       @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'update', email: params[:email], demographics: params[:demographics], extras: params[:extras]
+      Rails.logger.info  @lyrishq.request
       if @lyrishq.success?
         render 'updateprofile_success'
       else

@@ -22,41 +22,41 @@
   .field
     = label_tag 'demographics[37654][]', "Which Sizzix Die-cutting Machines do you own?"
     Big Shot™
-    = check_box_tag 'demographics[37654][]', 'Big Shot', @lyrishq_profile && @lyrishq_profile.demographic(37654).include?('Big Shot')
+    = check_box_tag 'demographics[37654][]', 'Big Shot', @lyrishq_profile && @lyrishq_profile.demographic(37654, []).include?('Big Shot')
     Big Shot™ Pro
-    = check_box_tag 'demographics[37654][]', 'Big Shot Pro', @lyrishq_profile && @lyrishq_profile.demographic(37654).include?('Big Shot Pro')
+    = check_box_tag 'demographics[37654][]', 'Big Shot Pro', @lyrishq_profile && @lyrishq_profile.demographic(37654, []).include?('Big Shot Pro')
     BIGKick™
-    = check_box_tag 'demographics[37654][]', 'BIGKick', @lyrishq_profile && @lyrishq_profile.demographic(37654).include?('BIGKick')
+    = check_box_tag 'demographics[37654][]', 'BIGKick', @lyrishq_profile && @lyrishq_profile.demographic(37654, []).include?('BIGKick')
     eClips™
-    = check_box_tag 'demographics[37654][]', 'eclips', @lyrishq_profile && @lyrishq_profile.demographic(37654).include?('eclips')
+    = check_box_tag 'demographics[37654][]', 'eclips', @lyrishq_profile && @lyrishq_profile.demographic(37654, []).include?('eclips')
     Sidekick™
-    = check_box_tag 'demographics[37654][]', 'Sidekick', @lyrishq_profile && @lyrishq_profile.demographic(37654).include?('Sidekick')
+    = check_box_tag 'demographics[37654][]', 'Sidekick', @lyrishq_profile && @lyrishq_profile.demographic(37654, []).include?('Sidekick')
     Texture Boutique™
-    = check_box_tag 'demographics[37654][]', 'Texture Boutique', @lyrishq_profile && @lyrishq_profile.demographic(37654).include?('Texture Boutique')
+    = check_box_tag 'demographics[37654][]', 'Texture Boutique', @lyrishq_profile && @lyrishq_profile.demographic(37654, []).include?('Texture Boutique')
     Vagabond™
-    = check_box_tag 'demographics[37654][]', 'Vagabond', @lyrishq_profile && @lyrishq_profile.demographic(37654).include?('Vagabond')
+    = check_box_tag 'demographics[37654][]', 'Vagabond', @lyrishq_profile && @lyrishq_profile.demographic(37654, []).include?('Vagabond')
     Vintaj BIGKick™
-    = check_box_tag 'demographics[37654][]', 'Vintaj BIGKick', @lyrishq_profile && @lyrishq_profile.demographic(37654).include?('Vintaj BIGKick')
+    = check_box_tag 'demographics[37654][]', 'Vintaj BIGKick', @lyrishq_profile && @lyrishq_profile.demographic(37654, []).include?('Vintaj BIGKick')
     Other
-    = check_box_tag 'demographics[37654][]', 'Other', @lyrishq_profile && @lyrishq_profile.demographic(37654).include?('Other')
+    = check_box_tag 'demographics[37654][]', 'Other', @lyrishq_profile && @lyrishq_profile.demographic(37654, []).include?('Other')
   .field
     = label_tag 'demographics[35424][]', "Areas of interest"
     Cardmaking
-    = check_box_tag 'demographics[35424][]', 'Cardmaking', @lyrishq_profile && @lyrishq_profile.demographic(35424).include?('Cardmaking')
+    = check_box_tag 'demographics[35424][]', 'Cardmaking', @lyrishq_profile && @lyrishq_profile.demographic(35424, []).include?('Cardmaking')
     Electronic Cutting
-    = check_box_tag 'demographics[35424][]', 'Electronic Cutting', @lyrishq_profile && @lyrishq_profile.demographic(35424).include?('Electronic Cutting')
+    = check_box_tag 'demographics[35424][]', 'Electronic Cutting', @lyrishq_profile && @lyrishq_profile.demographic(35424, []).include?('Electronic Cutting')
     Fashion
-    = check_box_tag 'demographics[35424][]', 'Fashion', @lyrishq_profile && @lyrishq_profile.demographic(35424).include?('Fashion')
+    = check_box_tag 'demographics[35424][]', 'Fashion', @lyrishq_profile && @lyrishq_profile.demographic(35424, []).include?('Fashion')
     Home Decor
-    = check_box_tag 'demographics[35424][]', 'Home Decor', @lyrishq_profile && @lyrishq_profile.demographic(35424).include?('Home Decor')
+    = check_box_tag 'demographics[35424][]', 'Home Decor', @lyrishq_profile && @lyrishq_profile.demographic(35424, []).include?('Home Decor')
     Jewelry
-    = check_box_tag 'demographics[35424][]', 'Jewelry', @lyrishq_profile && @lyrishq_profile.demographic(35424).include?('Jewelry')
+    = check_box_tag 'demographics[35424][]', 'Jewelry', @lyrishq_profile && @lyrishq_profile.demographic(35424, []).include?('Jewelry')
     Papercrafting
-    = check_box_tag 'demographics[35424][]', 'Papercrafting', @lyrishq_profile && @lyrishq_profile.demographic(35424).include?('Papercrafting')
+    = check_box_tag 'demographics[35424][]', 'Papercrafting', @lyrishq_profile && @lyrishq_profile.demographic(35424, []).include?('Papercrafting')
     Quilting & Appliqué
-    = check_box_tag 'demographics[35424][]', 'Quilting & Applique', @lyrishq_profile && @lyrishq_profile.demographic(35424).include?('Quilting & Applique')
+    = check_box_tag 'demographics[35424][]', 'Quilting & Applique', @lyrishq_profile && @lyrishq_profile.demographic(35424, []).include?('Quilting & Applique')
     Scrapbooking
-    = check_box_tag 'demographics[35424][]', 'Scrapbooking', @lyrishq_profile && @lyrishq_profile.demographic(35424).include?('Scrapbooking')
+    = check_box_tag 'demographics[35424][]', 'Scrapbooking', @lyrishq_profile && @lyrishq_profile.demographic(35424, []).include?('Scrapbooking')
   = hidden_field_tag 'demographics[37658]', params[:source] || @lyrishq_profile && @lyrishq_profile.demographic(37658) || 'Newsletter Signup Page'
   = hidden_field_tag 'extras[doubleoptin]', 'yes'
 
@@ -72,35 +72,35 @@
   .field
     = label_tag 'demographics[37653][]', "Which Sizzix Die-cutting Machines do you own?"
     Big Shot™
-    = check_box_tag 'demographics[37653][]', 'Big Shot', @lyrishq_profile && @lyrishq_profile.demographic(37653).include?('Big Shot')
+    = check_box_tag 'demographics[37653][]', 'Big Shot', @lyrishq_profile && @lyrishq_profile.demographic(37653, []).include?('Big Shot')
     Big Shot™ Pro
-    = check_box_tag 'demographics[37653][]', 'Big Shot Pro', @lyrishq_profile && @lyrishq_profile.demographic(37653).include?('Big Shot Pro')
+    = check_box_tag 'demographics[37653][]', 'Big Shot Pro', @lyrishq_profile && @lyrishq_profile.demographic(37653, []).include?('Big Shot Pro')
     eClips™
-    = check_box_tag 'demographics[37653][]', 'eClips', @lyrishq_profile && @lyrishq_profile.demographic(37653).include?('eClips')
+    = check_box_tag 'demographics[37653][]', 'eClips', @lyrishq_profile && @lyrishq_profile.demographic(37653, []).include?('eClips')
     Texture Boutique™
-    = check_box_tag 'demographics[37653][]', 'Texture Boutique', @lyrishq_profile && @lyrishq_profile.demographic(37653).include?('Texture Boutique')
+    = check_box_tag 'demographics[37653][]', 'Texture Boutique', @lyrishq_profile && @lyrishq_profile.demographic(37653, []).include?('Texture Boutique')
     Vagabond™
-    = check_box_tag 'demographics[37653][]', 'Vagabond', @lyrishq_profile && @lyrishq_profile.demographic(37653).include?('Vagabond')
+    = check_box_tag 'demographics[37653][]', 'Vagabond', @lyrishq_profile && @lyrishq_profile.demographic(37653, []).include?('Vagabond')
     Vintaj BIGKick™
-    = check_box_tag 'demographics[37653][]', 'Vintaj BIGKick', @lyrishq_profile && @lyrishq_profile.demographic(37653).include?('Vintaj BIGKick')
+    = check_box_tag 'demographics[37653][]', 'Vintaj BIGKick', @lyrishq_profile && @lyrishq_profile.demographic(37653, []).include?('Vintaj BIGKick')
     I don't own any Sizzix® Machines
-    = check_box_tag 'demographics[37653][]', "I don't own any Sizzix Machine", @lyrishq_profile && @lyrishq_profile.demographic(37653).include?("I don't own any Sizzix Machine")
+    = check_box_tag 'demographics[37653][]', "I don't own any Sizzix Machine", @lyrishq_profile && @lyrishq_profile.demographic(37653, []).include?("I don't own any Sizzix Machine")
   .field
     = label_tag 'demographics[35658][]', "Areas of interest"
     Appliqué
-    = check_box_tag 'demographics[35658][]', 'Applique', @lyrishq_profile && @lyrishq_profile.demographic(35658).include?('Applique')
+    = check_box_tag 'demographics[35658][]', 'Applique', @lyrishq_profile && @lyrishq_profile.demographic(35658, []).include?('Applique')
     Cardmaking
-    = check_box_tag 'demographics[35658][]', 'Cardmaking', @lyrishq_profile && @lyrishq_profile.demographic(35658).include?('Cardmaking')
+    = check_box_tag 'demographics[35658][]', 'Cardmaking', @lyrishq_profile && @lyrishq_profile.demographic(35658, []).include?('Cardmaking')
     Papercrafting
-    = check_box_tag 'demographics[35658][]', 'Papercrafting', @lyrishq_profile && @lyrishq_profile.demographic(35658).include?('Papercrafting')
+    = check_box_tag 'demographics[35658][]', 'Papercrafting', @lyrishq_profile && @lyrishq_profile.demographic(35658, []).include?('Papercrafting')
     Quilting
-    = check_box_tag 'demographics[35658][]', 'Quilting', @lyrishq_profile && @lyrishq_profile.demographic(35658).include?('Quilting')
+    = check_box_tag 'demographics[35658][]', 'Quilting', @lyrishq_profile && @lyrishq_profile.demographic(35658, []).include?('Quilting')
     Scrapbooking
-    = check_box_tag 'demographics[35658][]', 'Scrapbooking', @lyrishq_profile && @lyrishq_profile.demographic(35658).include?('Scrapbooking')
+    = check_box_tag 'demographics[35658][]', 'Scrapbooking', @lyrishq_profile && @lyrishq_profile.demographic(35658, []).include?('Scrapbooking')
     Home Décor
-    = check_box_tag 'demographics[35658][]', 'Home Decor', @lyrishq_profile && @lyrishq_profile.demographic(35658).include?('Home Decor')
+    = check_box_tag 'demographics[35658][]', 'Home Decor', @lyrishq_profile && @lyrishq_profile.demographic(35658, []).include?('Home Decor')
     Classroom Activites
-    = check_box_tag 'demographics[35658][]', 'Classroom Activities', @lyrishq_profile && @lyrishq_profile.demographic(35658).include?('Classroom Activities')
+    = check_box_tag 'demographics[35658][]', 'Classroom Activities', @lyrishq_profile && @lyrishq_profile.demographic(35658, []).include?('Classroom Activities')
   .field
     = label_tag 'demographics[37690]', "Crafting interest"
     = text_field_tag 'demographics[37690]', @lyrishq_profile && @lyrishq_profile.demographic(37690)

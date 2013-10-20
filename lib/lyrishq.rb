@@ -65,10 +65,14 @@ class Lyrishq
     response.xpath("//data[@id='#{id}' and @type='extra']").inner_text if success?
   end
 
-  def demographic(id)
+  def demographic(id, if_nil = nil)
     if success?
       value = response.xpath("//data[@id='#{id}' and @type='demographic']")
-      value.count == 1 ? value.inner_text : value.map(&:inner_text) if value.present?
+      if value.present?
+        value.count == 1 ? value.inner_text : value.map(&:inner_text)
+      else
+        if_nil
+      end
     end
   end
 
