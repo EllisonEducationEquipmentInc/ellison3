@@ -411,9 +411,10 @@ class IndexController < ApplicationController
       else
         @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'add', email: params[:email], demographics: params[:demographics], extras: params[:extras]
         if @lyrishq.success?
+          cookies[:newsletter_signup_closed] = {value: true, expires: 1.year.since}
           render 'newsletter_signup_success'
         elsif @lyrishq.error? && @lyrishq.error =~ /already exists/i
-          flash[:alert] = "Email address already on the list.  To update your email preferences, click update now."
+          flash[:existing_alert] = "Email address already on the list.  To update your email preferences, click update now."
         else
           flash[:alert] = @lyrishq.error
         end

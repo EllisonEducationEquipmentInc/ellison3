@@ -17,6 +17,8 @@
 .clear
 %h2
   Existing User Sign In
+- if flash[:existing_alert]
+  %p.dontprint.error= flash[:existing_alert]
 .ui-corner-all
   .newsletter_content_a
     %h2.news_line
