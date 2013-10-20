@@ -7,6 +7,10 @@
       .field
         = label_tag :email, "Email *"
         = text_field_tag :email, params[:email], required: true, email: :email
+      - if is_sizzix_uk?
+        .field
+          = label_tag :confirm_email, "Confirm Email *"
+          = text_field_tag :confirm_email, params[:confirm_email], required: true, email: :email
       = render partial: 'newsletter_form'
 
       = hidden_field_tag 'extras[trigger]', 'yes'
@@ -33,3 +37,7 @@
 :coffeescript
   $('#newsletter-form-full').validate()
   $('#newsletter-form-existing').validate()
+
+- if is_sizzix_uk?
+  :coffeescript
+    $('#confirm_email').rules('add',{equalTo: "#email"})
