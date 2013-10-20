@@ -22,7 +22,7 @@
 .ui-corner-all
   .newsletter_content_a
     %h2.news_line
-    = form_tag newsletter_signup_path, id: 'newsletter-form-full' do
+    = form_tag newsletter_signup_path, id: 'newsletter-form-existing' do
       .field
         = label_tag :email, "Email *"
         = text_field_tag :email, params[:email], required: true, email: :email
@@ -32,3 +32,4 @@
 
 :coffeescript
   $('#newsletter-form-full').validate()
+  $('#newsletter-form-existing').validate()
