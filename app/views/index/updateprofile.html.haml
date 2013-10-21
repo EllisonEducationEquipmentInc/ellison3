@@ -6,10 +6,14 @@
     = form_tag update_newsletter_profile_path, id: 'newsletter-form-full' do
       Email:
       = @lyrishq_profile.email
+      = hidden_field_tag 'extras[state]', 'active'
+      - if admin_signed_in?
+        .field
+          = label_tag :confirm_email, "Unsubscribe"
+          = check_box_tag 'extras[state]', 'unsubscribed'
       = render partial: 'newsletter_form'
 
       = hidden_field_tag 'extras[trigger]', 'yes'
-      = hidden_field_tag 'extras[state]', 'active'
       = hidden_field_tag :email, params[:email]
       = hidden_field_tag :uid, params[:uid]
       - if is_sizzix_us?

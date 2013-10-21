@@ -7,9 +7,19 @@
       .field
         = label_tag :email, "Email *"
         = text_field_tag :email, params[:email], required: true, email: :email
+      - if is_sizzix_uk?
+        .field
+          = label_tag :confirm_email, "Confirm Email *"
+          = text_field_tag :confirm_email, params[:confirm_email], required: true, email: :email
       = render partial: 'newsletter_form'
 
       = hidden_field_tag 'extras[trigger]', 'yes'
+      - if is_sizzix_us?
+        = hidden_field_tag 'demographics[37658]', params[:source] || 'Newsletter Signup Page'
+      - elsif is_sizzix_uk?
+        = hidden_field_tag 'demographics[37789]', params[:source] || 'Newsletter Signup Page'
+      - elsif is_ee_us?
+        = hidden_field_tag 'demographics[37783]', params[:source] || 'Newsletter Signup Page'
 
       .actions
         = submit_tag :submit
@@ -17,16 +27,24 @@
 .clear
 %h2
   Existing User Sign In
+- if flash[:existing_alert]
+  %p.dontprint.error= flash[:existing_alert]
 .ui-corner-all
   .newsletter_content_a
     %h2.news_line
-    = form_tag newsletter_signup_path, id: 'newsletter-form-full' do
+    = form_tag newsletter_signup_path, id: 'newsletter-form-existing' do
       .field
         = label_tag :email, "Email *"
         = text_field_tag :email, params[:email], required: true, email: :email
         = hidden_field_tag 'existing', true
+
       .actions
         = submit_tag :submit
 
 :coffeescript
   $('#newsletter-form-full').validate()
+  $('#newsletter-form-existing').validate()
+
+- if is_sizzix_uk?
+  :coffeescript
+    $('#confirm_email').rules('add',{equalTo: "#email"})
