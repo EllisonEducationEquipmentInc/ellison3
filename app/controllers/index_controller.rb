@@ -401,7 +401,7 @@ class IndexController < ApplicationController
         if @lyrishq.success?
           @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'triggers', activity: 'fire-trigger', extras: {trigger_id: trigger_id, recipients: params[:email]}
           if @lyrishq.success?
-            flash[:notice] = "We have just sent you an email which contains a unique link.  Click on the link to be taken through to your preferences page to update your profile."
+            render 'updateprofile_request_success'
           else
             flash[:alert] = @lyrishq.error
           end
