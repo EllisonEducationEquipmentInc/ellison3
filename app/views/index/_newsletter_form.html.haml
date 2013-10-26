@@ -15,10 +15,10 @@
     = label_tag 'demographics[37850]', "State/Province *"
     = select_tag 'demographics[37850]', grouped_options_for_select({USA: states, Canada: provinces}, @lyrishq_profile && @lyrishq_profile.demographic(37850), "--- select ---"), required: true
   .field
-    = label_tag 'demographics[37655]', "DOB"
-    = select_tag 'demographics[37655]', options_for_select([["mm", nil]] + Date::MONTHNAMES.reject {|e| e.nil?}, @lyrishq_profile && @lyrishq_profile.demographic(37655))
-    = select_tag 'demographics[37656]', options_for_select((1..31).to_a.unshift(["dd", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37656))
-    = select_tag 'demographics[37802]', options_for_select((1910..2012).to_a.unshift(["yyyy", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37802))
+    = label_tag 'demographics[37655]', "Brithday"
+    = select_tag 'demographics[37655]', options_for_select([["Month", nil]] + Date::MONTHNAMES.reject {|e| e.nil?}, @lyrishq_profile && @lyrishq_profile.demographic(37655))
+    = select_tag 'demographics[37656]', options_for_select((1..31).to_a.unshift(["Day", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37656))
+    = select_tag 'demographics[37802]', options_for_select((1910..2012).to_a.unshift(["Year", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37802))
   .field
     = label_tag 'demographics[37654][]', "Which Sizzix Die-cutting Machines do you own?"
     Big Shot™
@@ -64,10 +64,10 @@
     = label_tag 'demographics[37852]', "Country *"
     = select_tag 'demographics[37852]', options_for_select(Country.order_by([:name, :asc]).map(&:name), @lyrishq_profile && @lyrishq_profile.demographic(37852)), prompt: "--- select ---", required: true
   .field
-    = label_tag 'demographics[37788]', "DOB"
-    = select_tag 'demographics[37788]', options_for_select((1..31).to_a.unshift(["dd", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37788))
-    = select_tag 'demographics[37689]', options_for_select([["mm", nil]] + Date::MONTHNAMES.reject {|e| e.nil?}, @lyrishq_profile && @lyrishq_profile.demographic(37689))
-    = select_tag 'demographics[37791]', options_for_select((1910..2012).to_a.unshift(["yyyy", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37791))
+    = label_tag 'demographics[37788]', "Date of Brith"
+    = select_tag 'demographics[37788]', options_for_select((1..31).to_a.unshift(["Day", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37788))
+    = select_tag 'demographics[37689]', options_for_select([["Month", nil]] + Date::MONTHNAMES.reject {|e| e.nil?}, @lyrishq_profile && @lyrishq_profile.demographic(37689))
+    = select_tag 'demographics[37791]', options_for_select((1910..2012).to_a.unshift(["Year", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37791))
   .field
     = label_tag 'demographics[37653][]', "Which Sizzix Die-cutting Machines do you own?"
     Big Shot™
@@ -108,10 +108,11 @@
 - elsif is_ee_us?
   .field
     = label_tag 'demographics[37782]', "Country"
-    = select_tag 'demographics[37782]', options_for_select(['United States', 'Canada'], @lyrishq_profile && @lyrishq_profile.demographic(37782)), prompt: "--- select ---"
+    = select_tag 'demographics[37782]', options_for_select(['United States', 'Canada'], @lyrishq_profile && @lyrishq_profile.demographic(37782)), prompt: "--- select ---", required: true
   .field
     = label_tag 'demographics[37851]', "State/Province"
     = select_tag 'demographics[37851]', grouped_options_for_select({USA: states, Canada: provinces}, @lyrishq_profile && @lyrishq_profile.demographic(37851), "--- select ---"), required: true
+    
   .field
     = label_tag 'demographics[37784]', "Where do you teach? *"
     = select_tag 'demographics[37784]', options_for_select([['-- select --', nil],"Childcare Afterschool, Year-Round & Seasonal Programs", "Home School", "Preschool/Daycare", "Elementary School", "Middle School", "High School", "College/ University", "Technical/Trade School", "Sunday School", "Other"], @lyrishq_profile && @lyrishq_profile.demographic(37784)), required: true
