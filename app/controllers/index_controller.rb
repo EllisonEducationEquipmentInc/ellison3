@@ -454,7 +454,6 @@ class IndexController < ApplicationController
   # signup from popup
   def newsletter_signup_do
     @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'add', email: params[:email], demographics: {is_sizzix_us? ? 37658 : 37783 => 'Popup'}, extras: {doubleoptin: 'yes'}
-    Rails.logger.info @lyrishq.request
   end
 
   def create_subscription
