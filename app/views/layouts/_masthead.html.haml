@@ -83,11 +83,11 @@
         }});
       $('#searchbar').submit(function() {
         var default_value = "Search for #{is_sizzix? ? 'Sizzix ' : is_ee? ? 'Ellison ' : nil }Products & #{is_ee? ? 'Lessons' : 'Projects'}";
-        var search_value = $('#q').val();
+        var search_value = escape($('#q').val());
         if (search_value == default_value) {
           return false;
         } else {
-          location.href = 'http://'+location.host+'/catalog#q='+$('#q').val();return false;
+          location.href = 'http://'+location.host+'/catalog#q='+search_value;return false;
         }
       });
   - else
