@@ -155,5 +155,41 @@
     = check_box_tag 'demographics[37785][]', 'Other', @lyrishq_profile && @lyrishq_profile.demographic(37785).include?('Other')
   = hidden_field_tag 'extras[doubleoptin]', 'yes'
 
+- elsif is_er?
+  .field
+    = label_tag 'demographics[2]', "Last Name"
+    = text_field_tag 'demographics[2]', @lyrishq_profile && @lyrishq_profile.demographic(2)
+  .field
+    = label_tag 'demographics[37853]', "Country *"
+    = select_tag 'demographics[37853]', options_for_select(Country.order_by([:name, :asc]).map(&:name), @lyrishq_profile && @lyrishq_profile.demographic(37853)), prompt: "--- select ---", required: true
+  .field
+    = label_tag 'demographics[4]', "Address"
+    = text_field_tag 'demographics[4]', @lyrishq_profile && @lyrishq_profile.demographic(4)
+  .field
+    = label_tag 'demographics[5]', "City"
+    = text_field_tag 'demographics[5]', @lyrishq_profile && @lyrishq_profile.demographic(5)
+  .field
+    = label_tag 'demographics[37800]', "State"
+    = text_field_tag 'demographics[37800]', @lyrishq_profile && @lyrishq_profile.demographic(37800)
+  .field
+    = label_tag 'demographics[7]', "Zip/Postal Code"
+    = text_field_tag 'demographics[7]', @lyrishq_profile && @lyrishq_profile.demographic(7)
+  .field
+    = label_tag 'demographics[35811][]', "Areas of interest"
+    Ellison Retailers
+    = check_box_tag 'demographics[35811][]', 'Ellison Retailers', @lyrishq_profile && @lyrishq_profile.demographic(35811).include?('Ellison Retailers')
+    Sizzx Retailers
+    = check_box_tag 'demographics[35811][]', 'Sizzix Retailers', @lyrishq_profile && @lyrishq_profile.demographic(35811).include?('Sizzix Retailers')
+    Sizzix Retailers in Spanish
+    = check_box_tag 'demographics[35811][]', 'Sizzix Retailers in Spanish', @lyrishq_profile && @lyrishq_profile.demographic(35811).include?('Sizzix Retailers in Spanish')
+    eClips
+    = check_box_tag 'demographics[35811][]', 'eClips', @lyrishq_profile && @lyrishq_profile.demographic(35811).include?('eClips')
+    Quilting
+    = check_box_tag 'demographics[35811][]', 'Quilting', @lyrishq_profile && @lyrishq_profile.demographic(35811).include?('Quilting')
+    Tim Holtz
+    = check_box_tag 'demographics[35811][]', 'Tim Holtz', @lyrishq_profile && @lyrishq_profile.demographic(35811).include?('Tim Holtz')
+    
+
+  
 
 

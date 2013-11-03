@@ -22,5 +22,8 @@
         = hidden_field_tag 'demographics[40650]', 'YES'
       - elsif is_ee_us?
         = hidden_field_tag 'demographics[40651]', 'YES'
+      - elsif is_er?
+        = hidden_field_tag 'demographics[41845]', 'YES'
+      
       .actions
         = submit_tag :submit

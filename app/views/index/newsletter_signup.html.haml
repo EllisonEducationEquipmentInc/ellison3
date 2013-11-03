@@ -20,6 +20,8 @@
         = hidden_field_tag 'demographics[37789]', params[:source] || 'Newsletter Signup Page'
       - elsif is_ee_us?
         = hidden_field_tag 'demographics[37783]', params[:source] || 'Newsletter Signup Page'
+      - elsif is_er?
+        = hidden_field_tag 'demographics[37801]', params[:source] || 'Newsletter Signup Page'
 
       .actions
         = submit_tag :submit

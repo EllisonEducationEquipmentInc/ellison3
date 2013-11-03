@@ -430,15 +430,19 @@ class IndexController < ApplicationController
       if is_sizzix_us?
         params[:demographics]["37654"] = "" if params[:demographics]["37654"].blank?
         params[:demographics]["35424"] = "" if params[:demographics]["35424"].blank?
-        params[:demographics]["41586"] = Time.now.strftime "%m/%d/%y"
+        params[:demographics]["41588"] = Time.now.strftime "%m/%d/%y"
       elsif is_sizzix_uk?
         params[:demographics]["37653"] = "" if params[:demographics]["37653"].blank?
         params[:demographics]["35658"] = "" if params[:demographics]["35658"].blank?
-        params[:demographics]["41588"] = Time.now.strftime "%m/%d/%y"
+        params[:demographics]["41586"] = Time.now.strftime "%m/%d/%y"
       elsif is_ee_us?
         params[:demographics]["37787"] = "" if params[:demographics]["35658"].blank?
         params[:demographics]["37785"] = "" if params[:demographics]["37785"].blank?
         params[:demographics]["41590"] = Time.now.strftime "%m/%d/%y"
+      elsif is_er?
+        params[:demographics]["35811"] = "" if params[:demographics]["35811"].blank?
+        params[:demographics]["41844"] = Time.now.strftime "%m/%d/%y"
+        
       end
       @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'update', email: params[:email], demographics: params[:demographics], extras: params[:extras]
       if @lyrishq.success?
@@ -554,8 +558,8 @@ private
       6311
     elsif is_sizzix_us?
       6302
-    elsif is_er_us?
-      6302
+    elsif is_er?
+      6580
     end
   end
 
