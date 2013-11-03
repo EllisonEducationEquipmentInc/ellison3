@@ -1,18 +1,7 @@
 - if @lyrishq.success?
   $.cookie('newsletter_signup_closed', true, {path: '/', expires: 360});
-  setTimeout($('#newsletter_signup').remove(), 6000);
-  $.fancybox({
-  'padding' : 10,
-  'autoScale'	: false,
-  'scrolling' : 'auto',
-  'speedIn'	:	500, 
-  'speedOut' :	200,
-  'content' : '#{escape_javascript(render(:partial => "layouts/newsletter_success"))}',
-  'width'	: 860,
-  'autoDimensions' : true,
-  'title'	: false
-  });
-  setTimeout("$.fancybox.resize()", 900);
+  $('#newsletter-signup-form').remove();
+  $('#newsletter_signup_messages').show().html('#{escape_javascript(render(:partial => "layouts/newsletter_success"))}')
 - else
   $('#newsletter_signup_messages').show();
   $('#newsletter_signup_messages').html('#{j @lyrishq.error}');
