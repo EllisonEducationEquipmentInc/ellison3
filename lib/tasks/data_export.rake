@@ -135,7 +135,7 @@ namespace :data_export do
       Idea.all.in_batches(500) do |batch|
         batch.each do |product|
           csv << [product.id, product.idea_num, product.name, product.systems_enabled * ', '] + ELLISON_SYSTEMS.map {|e| product.send("start_date_#{e}")} + ELLISON_SYSTEMS.map {|e| product.send("end_date_#{e}")} + ELLISON_SYSTEMS.map {|e| product.send("distribution_life_cycle_#{e}")} + ELLISON_SYSTEMS.map {|e| product.send("distribution_life_cycle_ends_#{e}")} + 
-                 [product.objective, product.active, product.keywords, product.item_group, product.video, product.tags.order([:tag_type, :asc]).map {|e| "#{e.name} - (#{e.tag_type})"} * ', '] + [product.products.map {|e| "#{e.item_num}"} * ', ']
+                 [product.objective, product.active, product.keywords, product.item_group, product.video] + [product.products.map {|e| "#{e.item_num}"} * ', '] + product.tags.order([:tag_type, :asc]).map {|e| "#{e.name} - (#{e.tag_type})"}
         end
       end
     end
