@@ -148,6 +148,11 @@ namespace :migrations do |ns|
   task :add_gift_card_discount_category => :environment do
     DiscountCategory.create name: "Gift Cards"
   end
+
+  desc "remove card security code"
+  task :remove_card_security_code => [:environment] do
+    Order.collection.update({'payment.card_security_code' => {:$exists => true}}, {:$unset => {'payment.card_security_code' => ''}}, multi: true) 
+  end
 	
 	
 	#======== migration tasks end here ========
