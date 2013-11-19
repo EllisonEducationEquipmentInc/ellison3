@@ -575,7 +575,8 @@ color:#A9250E; font-weight:bold;
 }
 
 .field_f1 {
-  margin-top:7px;
+  margin-top:7px!important;
+  position:relative;
 }
 
 .checkbx_f1 {
@@ -607,4 +608,8 @@ color:#A9250E; font-weight:bold;
   width:auto;
   border-top:1px solid #ccc;
   margin:0 0 16px 0;
+}
+
+.signup_copy1{
+  float:left; height:auto; margin:16px 6px;
 }

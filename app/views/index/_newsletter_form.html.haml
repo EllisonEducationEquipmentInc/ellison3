@@ -1,23 +1,21 @@
 .field{:class=>"field_f1"}
-  = label_tag 'demographics[1]', "First Name *", class: 'label_div'
+  = label_tag 'demographics[1]', "First Name *"
   = text_field_tag 'demographics[1]', @lyrishq_profile && @lyrishq_profile.demographic(1), required: true
 - if is_sizzix_us?
   .field{:class=>"field_f1"}
-    = label_tag 'demographics[11]', "Gender *", class: 'label_div'
+    = label_tag 'demographics[11]', "Gender *"
     Male
     = radio_button_tag 'demographics[11]', 'Male', @lyrishq_profile && @lyrishq_profile.demographic(11) == 'Male', required: true
     Female
     = radio_button_tag 'demographics[11]', 'Female', @lyrishq_profile && @lyrishq_profile.demographic(11) == 'Female', required: true
   .field{:class=>"field_f1"}
-    %br
-    = label_tag 'demographics[36031]', "Country *", class: 'label_div'
+    = label_tag 'demographics[36031]', "Country *"
     = select_tag 'demographics[36031]', options_for_select(['United States', 'Canada'], @lyrishq_profile && @lyrishq_profile.demographic(36031)), prompt: "--- select ---", required: true
-  %br
   .field{:class=>"field_f1"}
-    = label_tag 'demographics[37850]', "State/Province *", class: 'label_div'
+    = label_tag 'demographics[37850]', "State/Province *"
     = select_tag 'demographics[37850]', grouped_options_for_select({USA: states, Canada: provinces}, @lyrishq_profile && @lyrishq_profile.demographic(37850), "--- select ---"), required: true
   .field{:class=>"field_f1"}
-    = label_tag 'demographics[37655]', "Birthday *", class: 'label_div'
+    = label_tag 'demographics[37655]', "Birthday *"
     = select_tag 'demographics[37655]', options_for_select([["Month", nil]] + Date::MONTHNAMES.reject {|e| e.nil?}, @lyrishq_profile && @lyrishq_profile.demographic(37655))
     = select_tag 'demographics[37656]', options_for_select((1..31).to_a.unshift(["dd", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37656))
     = select_tag 'demographics[37802]', options_for_select((1910..2012).to_a.unshift(["yyyy", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37802))
