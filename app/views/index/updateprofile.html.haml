@@ -1,22 +1,22 @@
 %h2
   Edit User
 .ui-corner-all
-  .newsletter_content_a
-    %h2.news_line
-    = form_tag update_newsletter_profile_path, id: 'newsletter-form-full' do
-      Email:
-      = @lyrishq_profile.email
-      = render partial: 'newsletter_form'
+  .signup_frame1
+    .newsletter_content_a
+      = form_tag update_newsletter_profile_path, id: 'newsletter-form-full' do
+        Email:
+        = @lyrishq_profile.email
 
-      = hidden_field_tag 'extras[trigger]', 'yes'
-      = hidden_field_tag 'extras[state]', 'active'
-      = hidden_field_tag :email, params[:email]
-      = hidden_field_tag :uid, params[:uid]
-      - if is_sizzix_us?
-        = hidden_field_tag 'demographics[40649]', 'YES'
-      - elsif is_sizzix_uk?
-        = hidden_field_tag 'demographics[40650]', 'YES'
-      - elsif is_ee_us?
-        = hidden_field_tag 'demographics[40651]', 'YES'
-      .actions
-        = submit_tag :submit
+  
+        = hidden_field_tag 'extras[trigger]', 'yes'
+        = hidden_field_tag 'extras[state]', 'active'
+        = hidden_field_tag :email, params[:email]
+        = hidden_field_tag :uid, params[:uid]
+        - if is_sizzix_us?
+          = hidden_field_tag 'demographics[40649]', 'YES'
+        - elsif is_sizzix_uk?
+          = hidden_field_tag 'demographics[40650]', 'YES'
+        - elsif is_ee_us?
+          = hidden_field_tag 'demographics[40651]', 'YES'
+        .actions
+          = submit_tag :submit, class: 'lyris_btn_css'

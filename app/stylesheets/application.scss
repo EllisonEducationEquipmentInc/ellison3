@@ -133,7 +133,7 @@ body.bp th, body.bp td, body.bp caption {
 	  float:left; width:946px; border:1px solid #D4D1BF; height:auto; margin:14px 0 0;
 	}	
 	.newsletter_content_a{
-	  padding:10px; float: left; margin: 0 212px 0 6px; width:510px;
+	  padding:10px; float: left; margin: 0; width:510px;
 	}
 	.newsletter_content_b{
 	  padding:10px; margin:0 6px; overflow:auto
@@ -150,9 +150,6 @@ body.bp th, body.bp td, body.bp caption {
 	.news_frame_left{
 	  float: left; margin: 6px 18px 12px 16px; padding: 12px 0 2px 16px; width: 266px;
 	}
-  .news_line {
-  border-bottom:1px dotted #D4D1BF; margin-bottom:8px;
-  }	
 	.news_frame_center{
 	  float:left; padding:0 10px; margin:0 6px;
 	  
@@ -575,4 +572,39 @@ color:#A9250E; font-weight:bold;
   -moz-border-radius: 8px;
   border-radius: 8px;
   text-shadow: 2px 2px 2px rgba(150, 150, 150, 0.51);
+}
+
+.field_f1 {
+  margin-top:7px;
+}
+
+.checkbx_f1 {
+  width:auto; margin:0 18px 8px 0; float:left;
+}
+
+.signup_frame1 {
+  margin:8px 6px 0;
+  width:auto;
+  padding:20px 20px 0;
+  border:1px solid #E3DDCE;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  float:left;
+  height:auto;
+  -webkit-box-shadow: 1px 1px 3px rgba(50, 50, 50, 0.22);
+  -moz-box-shadow: 1px 1px 3px rgba(50, 50, 50, 0.22);
+  box-shadow: 1px 1px 3px rgba(50, 50, 50, 0.22);
+}
+
+.label_div {
+  width:100%!important;
+  margin-bottom:12px;
+  float:left;
+}
+
+.signup_div {
+  width:auto;
+  border-top:1px solid #ccc;
+  margin:0 0 16px 0;
 }

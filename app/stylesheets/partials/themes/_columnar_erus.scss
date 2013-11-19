@@ -201,6 +201,85 @@ body.bp {
   }
 }
 
+
+// Lyris Scoop Signup form (For use on eeus homepage)
+.lyris_signup_border {
+	-webkit-border-radius: 9px;
+	-moz-border-radius: 9px;
+	border-radius: 9px;
+	background:#ccc;
+	padding:4px;
+	font-family: Arial, Gotham, "Helvetica Neue", Helvetica, Verdana, sans-serif;
+	}
+.lyris_su_corner {
+	background: #0F84FE;
+	-moz-border-radius-topleft: 9px;
+	-webkit-border-top-left-radius: 9px;
+	 border-top-left-radius: 9px;
+	 -moz-border-radius-topright: 9px;
+	 -webkit-border-top-right-radius: 9px;
+	 border-top-right-radius: 9px;
+	padding:6px 12px 2px;
+	text-align:center;
+	}
+.lyris_su_btm {
+	-moz-border-radius-bottomright: 9px;
+	-webkit-border-bottom-right-radius: 9px;
+	border-bottom-right-radius: 9px;
+	-moz-border-radius-bottomleft: 9px;
+	-webkit-border-bottom-left-radius: 9px;
+	border-bottom-left-radius: 9px;
+	background:white;
+	padding: 16px 16px 0;
+	text-align:center;
+
+	h2 {
+	line-height:22px;
+	padding-bottom:6px;
+	}
+
+}
+	
+.lyris_btn_css {
+	border:1px solid #5899B1;
+	color:white;
+	background: rgb(99, 161, 199);
+	background: -moz-linear-gradient(270deg, rgb(99, 161, 199) 30%, rgb(142, 193, 212) 70%);
+	background: -webkit-linear-gradient(270deg, rgb(99, 161, 199) 30%, rgb(142, 193, 212) 70%);
+	background: -o-linear-gradient(270deg, rgb(99, 161, 199) 30%, rgb(142, 193, 212) 70%);
+	background: -ms-linear-gradient(270deg, rgb(99, 161, 199) 30%, rgb(142, 193, 212) 70%);
+	background: linear-gradient(0deg, rgb(99, 161, 199) 30%, rgb(142, 193, 212) 70%);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	padding:6px 34px;
+	margin:12px 0 16px;
+	font-weight:bold;
+	cursor:pointer;
+
+}
+.lyris_btn_close {
+	width:50px;
+	position:absolute;
+	right:6px;
+	top:2px;
+	color:white!important;
+	font-weight:bold;
+	font-size:26px;
+	text-decoration:none!important;
+}
+
+.nletter_img {
+  float:right;
+  width:319px;
+  height:792px;
+  margin:10px 6px 0 0;
+  background: url('/images/ui-email/erus_default_img.jpg') top center no-repeat;
+}
+
+
+
+
 #footer {
   
   h2.kerned {
@@ -216,3 +295,4 @@ body.bp {
   }  
   
 }
+

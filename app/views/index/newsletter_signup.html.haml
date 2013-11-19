@@ -1,32 +1,48 @@
-%h2
-  New User Sign Up
-.ui-corner-all
-  .newsletter_content_a
-    %h2.news_line
-    = form_tag newsletter_signup_path, id: 'newsletter-form-full' do
-      .field
-        = label_tag :email, "Email *"
-        = text_field_tag :email, params[:email], required: true, email: :email
-      = render partial: 'newsletter_form'
 
-      = hidden_field_tag 'extras[trigger]', 'yes'
+.signup_frame1
+  %h2
+    Newsletter Sign Up
+  To become a subscriber to our newsletter please fill our the information below.
+  %br
+  %br
+  .ui-corner-all
+    .newsletter_content_a
+      %h2.news_line
+      = form_tag newsletter_signup_path, id: 'newsletter-form-full' do
+        .field
+          = label_tag :email, "Email *"
+          = text_field_tag :email, params[:email], required: true, email: :email
+        = render partial: 'newsletter_form'
+  
+        = hidden_field_tag 'extras[trigger]', 'yes'
+  
+        .actions
+          = submit_tag "Sign Up for our Newsletter Now", class: 'lyris_btn_css'
+  
+  .clear
+  .signup_div
+  %h2
+    Update your Newsletter Preferences
+  Already on our email list? Please enter your email address below to update your account preferences.
+  %br
+  %br
+  .ui-corner-all
+    .newsletter_content_a
+      %h2.news_line
+      = form_tag newsletter_signup_path, id: 'newsletter-form-full' do
+        .field
+          = label_tag :email, "Email *"
+          = text_field_tag :email, params[:email], required: true, email: :email
+          = hidden_field_tag 'existing', true
+        .actions
+          = submit_tag "Update your Newsletter Preferences", class: 'lyris_btn_css'
+          
+.nletter_img
+%div{:style=>"float:left; height:auto; margin:12px 6px;"}
+  %h2
+    Ensure that you continue to receive your newsletter after subscribing
+  To ensure that your newsletter is delivered to your email and "inbox", and not as treated as spam, please add the email address, <strong>#{new_lyris_email}</strong> to your address book as soon as possible. This will prevent any deliveries to your "Bulk" or "Junk" mail folders.
 
-      .actions
-        = submit_tag :submit
-
-.clear
-%h2
-  Existing User Sign In
-.ui-corner-all
-  .newsletter_content_a
-    %h2.news_line
-    = form_tag newsletter_signup_path, id: 'newsletter-form-full' do
-      .field
-        = label_tag :email, "Email *"
-        = text_field_tag :email, params[:email], required: true, email: :email
-        = hidden_field_tag 'existing', true
-      .actions
-        = submit_tag :submit
 
 :coffeescript
   $('#newsletter-form-full').validate()
