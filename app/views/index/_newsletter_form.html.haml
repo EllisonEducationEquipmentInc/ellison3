@@ -17,10 +17,10 @@
     = label_tag 'demographics[37850]', "State/Province *", class: 'label_div'
     = select_tag 'demographics[37850]', grouped_options_for_select({USA: states, Canada: provinces}, @lyrishq_profile && @lyrishq_profile.demographic(37850), "--- select ---"), required: true
   .field{:class=>"field_f1"}
-    = label_tag 'demographics[37655]', "DOB *", class: 'label_div'
-    = select_tag 'demographics[37655]', options_for_select(Date::MONTHNAMES, @lyrishq_profile && @lyrishq_profile.demographic(37655)), required: true
-    = select_tag 'demographics[37656]', options_for_select((1..31).to_a.unshift(["dd", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37656)), required: true
-    = select_tag 'demographics[37802]', options_for_select((1910..2012).to_a.unshift(["yyyy", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37802)), required: true
+    = label_tag 'demographics[37655]', "Birthday *", class: 'label_div'
+    = select_tag 'demographics[37655]', options_for_select([["Month", nil]] + Date::MONTHNAMES.reject {|e| e.nil?}, @lyrishq_profile && @lyrishq_profile.demographic(37655))
+    = select_tag 'demographics[37656]', options_for_select((1..31).to_a.unshift(["dd", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37656))
+    = select_tag 'demographics[37802]', options_for_select((1910..2012).to_a.unshift(["yyyy", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37802))
   .field{:class=>"field_f1"}
     = label_tag 'demographics[37654][]', "Which Sizzix Die-cutting Machines do you own?", class: 'label_div'
     %br
@@ -86,47 +86,47 @@
   .field{:class=>"field_f1"}
     = label_tag 'demographics[37852]', "Country *"
     = select_tag 'demographics[37852]', options_for_select(Country.order_by([:name, :asc]).map(&:name), @lyrishq_profile && @lyrishq_profile.demographic(37852)), prompt: "--- select ---", required: true
+
   .field{:class=>"field_f1"}
-    = label_tag 'demographics[37788]', "DOB *"
-    = select_tag 'demographics[37788]', options_for_select((1..31).to_a.unshift(["dd", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37788)), required: true
-    = select_tag 'demographics[37689]', options_for_select(Date::MONTHNAMES, @lyrishq_profile && @lyrishq_profile.demographic(37689)), required: true
-    = select_tag 'demographics[37791]', options_for_select((1910..2012).to_a.unshift(["yyyy", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37791)), required: true
+    = label_tag 'demographics[37788]', "Date of Birth"
+    = select_tag 'demographics[37788]', options_for_select((1..31).to_a.unshift(["Day", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37788))
+    = select_tag 'demographics[37689]', options_for_select([["Month", nil]] + Date::MONTHNAMES.reject {|e| e.nil?}, @lyrishq_profile && @lyrishq_profile.demographic(37689))
+    = select_tag 'demographics[37791]', options_for_select((1910..2012).to_a.unshift(["Year", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37791))
   .field{:class=>"field_f1"}
     = label_tag 'demographics[37653][]', "Which Sizzix Die-cutting Machines do you own?", class: 'label_div'
     Big Shot™
-    = check_box_tag 'demographics[37653][]', 'Big Shot', @lyrishq_profile && @lyrishq_profile.demographic(37653).include?('Big Shot')
+    = check_box_tag 'demographics[37653][]', 'Big Shot', @lyrishq_profile && @lyrishq_profile.demographic(37653, []).include?('Big Shot')
     Big Shot™ Pro
-    = check_box_tag 'demographics[37653][]', 'Big Shot Pro', @lyrishq_profile && @lyrishq_profile.demographic(37653).include?('Big Shot Pro')
+    = check_box_tag 'demographics[37653][]', 'Big Shot Pro', @lyrishq_profile && @lyrishq_profile.demographic(37653, []).include?('Big Shot Pro')
     eClips™
-    = check_box_tag 'demographics[37653][]', 'eClips', @lyrishq_profile && @lyrishq_profile.demographic(37653).include?('eClips')
+    = check_box_tag 'demographics[37653][]', 'eClips', @lyrishq_profile && @lyrishq_profile.demographic(37653, []).include?('eClips')
     Texture Boutique™
-    = check_box_tag 'demographics[37653][]', 'Texture Boutique', @lyrishq_profile && @lyrishq_profile.demographic(37653).include?('Texture Boutique')
+    = check_box_tag 'demographics[37653][]', 'Texture Boutique', @lyrishq_profile && @lyrishq_profile.demographic(37653, []).include?('Texture Boutique')
     Vagabond™
-    = check_box_tag 'demographics[37653][]', 'Vagabond', @lyrishq_profile && @lyrishq_profile.demographic(37653).include?('Vagabond')
+    = check_box_tag 'demographics[37653][]', 'Vagabond', @lyrishq_profile && @lyrishq_profile.demographic(37653, []).include?('Vagabond')
     Vintaj BIGKick™
-    = check_box_tag 'demographics[37653][]', 'Vintaj BIGKick', @lyrishq_profile && @lyrishq_profile.demographic(37653).include?('Vintaj BIGKick')
+    = check_box_tag 'demographics[37653][]', 'Vintaj BIGKick', @lyrishq_profile && @lyrishq_profile.demographic(37653, []).include?('Vintaj BIGKick')
     I don't own any Sizzix® Machines
-    = check_box_tag 'demographics[37653][]', "I don't own any Sizzix Machine", @lyrishq_profile && @lyrishq_profile.demographic(37653).include?("I don't own any Sizzix Machine")
+    = check_box_tag 'demographics[37653][]', "I don't own any Sizzix Machine", @lyrishq_profile && @lyrishq_profile.demographic(37653, []).include?("I don't own any Sizzix Machine")
   .field{:class=>"field_f1"}
     = label_tag 'demographics[35658][]', "Areas of interest", class: 'label_div'
     Appliqué
-    = check_box_tag 'demographics[35658][]', 'Applique', @lyrishq_profile && @lyrishq_profile.demographic(35658).include?('Applique')
+    = check_box_tag 'demographics[35658][]', 'Applique', @lyrishq_profile && @lyrishq_profile.demographic(35658, []).include?('Applique')
     Cardmaking
-    = check_box_tag 'demographics[35658][]', 'Cardmaking', @lyrishq_profile && @lyrishq_profile.demographic(35658).include?('Cardmaking')
+    = check_box_tag 'demographics[35658][]', 'Cardmaking', @lyrishq_profile && @lyrishq_profile.demographic(35658, []).include?('Cardmaking')
     Papercrafting
-    = check_box_tag 'demographics[35658][]', 'Papercrafting', @lyrishq_profile && @lyrishq_profile.demographic(35658).include?('Papercrafting')
+    = check_box_tag 'demographics[35658][]', 'Papercrafting', @lyrishq_profile && @lyrishq_profile.demographic(35658, []).include?('Papercrafting')
     Quilting
-    = check_box_tag 'demographics[35658][]', 'Quilting', @lyrishq_profile && @lyrishq_profile.demographic(35658).include?('Quilting')
+    = check_box_tag 'demographics[35658][]', 'Quilting', @lyrishq_profile && @lyrishq_profile.demographic(35658, []).include?('Quilting')
     Scrapbooking
-    = check_box_tag 'demographics[35658][]', 'Scrapbooking', @lyrishq_profile && @lyrishq_profile.demographic(35658).include?('Scrapbooking')
+    = check_box_tag 'demographics[35658][]', 'Scrapbooking', @lyrishq_profile && @lyrishq_profile.demographic(35658, []).include?('Scrapbooking')
     Home Décor
-    = check_box_tag 'demographics[35658][]', 'Home Decor', @lyrishq_profile && @lyrishq_profile.demographic(35658).include?('Home Decor')
+    = check_box_tag 'demographics[35658][]', 'Home Decor', @lyrishq_profile && @lyrishq_profile.demographic(35658, []).include?('Home Decor')
     Classroom Activites
-    = check_box_tag 'demographics[35658][]', 'Classroom Activities', @lyrishq_profile && @lyrishq_profile.demographic(35658).include?('Classroom Activities')
+    = check_box_tag 'demographics[35658][]', 'Classroom Activities', @lyrishq_profile && @lyrishq_profile.demographic(35658, []).include?('Classroom Activities')
   .field{:class=>"field_f1"}
     = label_tag 'demographics[37690]', "Crafting interest"
     = text_field_tag 'demographics[37690]', @lyrishq_profile && @lyrishq_profile.demographic(37690)
-  = hidden_field_tag 'demographics[37789]', params[:source] || @lyrishq_profile && @lyrishq_profile.demographic(37789) || 'Newsletter Signup Page'
 
 
 - elsif is_ee_us?
@@ -192,8 +192,43 @@
     .checkbx_f1
       = check_box_tag 'demographics[37785][]', 'Other', @lyrishq_profile && @lyrishq_profile.demographic(37785).include?('Other')
       Other
-  = hidden_field_tag 'demographics[37783]', params[:source] || @lyrishq_profile && @lyrishq_profile.demographic(37783) || 'Newsletter Signup Page'
   = hidden_field_tag 'extras[doubleoptin]', 'yes'
 
+- elsif is_er?
+  .field
+    = label_tag 'demographics[2]', "Last Name"
+    = text_field_tag 'demographics[2]', @lyrishq_profile && @lyrishq_profile.demographic(2)
+  .field
+    = label_tag 'demographics[37853]', "Country *"
+    = select_tag 'demographics[37853]', options_for_select(Country.order_by([:name, :asc]).map(&:name), @lyrishq_profile && @lyrishq_profile.demographic(37853)), prompt: "--- select ---", required: true
+  .field
+    = label_tag 'demographics[4]', "Address"
+    = text_field_tag 'demographics[4]', @lyrishq_profile && @lyrishq_profile.demographic(4)
+  .field
+    = label_tag 'demographics[5]', "City"
+    = text_field_tag 'demographics[5]', @lyrishq_profile && @lyrishq_profile.demographic(5)
+  .field
+    = label_tag 'demographics[37800]', "State"
+    = text_field_tag 'demographics[37800]', @lyrishq_profile && @lyrishq_profile.demographic(37800)
+  .field
+    = label_tag 'demographics[7]', "Zip/Postal Code"
+    = text_field_tag 'demographics[7]', @lyrishq_profile && @lyrishq_profile.demographic(7)
+  .field
+    = label_tag 'demographics[35811][]', "Areas of interest"
+    Ellison Retailers
+    = check_box_tag 'demographics[35811][]', 'Ellison Retailers', @lyrishq_profile && @lyrishq_profile.demographic(35811).include?('Ellison Retailers')
+    Sizzx Retailers
+    = check_box_tag 'demographics[35811][]', 'Sizzix Retailers', @lyrishq_profile && @lyrishq_profile.demographic(35811).include?('Sizzix Retailers')
+    Sizzix Retailers in Spanish
+    = check_box_tag 'demographics[35811][]', 'Sizzix Retailers in Spanish', @lyrishq_profile && @lyrishq_profile.demographic(35811).include?('Sizzix Retailers in Spanish')
+    eClips
+    = check_box_tag 'demographics[35811][]', 'eClips', @lyrishq_profile && @lyrishq_profile.demographic(35811).include?('eClips')
+    Quilting
+    = check_box_tag 'demographics[35811][]', 'Quilting', @lyrishq_profile && @lyrishq_profile.demographic(35811).include?('Quilting')
+    Tim Holtz
+    = check_box_tag 'demographics[35811][]', 'Tim Holtz', @lyrishq_profile && @lyrishq_profile.demographic(35811).include?('Tim Holtz')
+    
+
+  
 
 

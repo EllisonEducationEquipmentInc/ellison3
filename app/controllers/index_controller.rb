@@ -12,7 +12,7 @@ class IndexController < ApplicationController
   before_filter :register_last_action!, :only => [:product, :idea, :catalog]
 
   ssl_required :contact, :send_feedback, :reply_to_feedback, :giftcard_balance, :updateprofile, :newsletter_signup
-  ssl_allowed :limited_search, :machines_survey, :static_page, :add_comment, :newsletter, :create_subscription, :subscription, :update_subscription, :resend_subscription_confirmation
+  ssl_allowed :limited_search, :machines_survey, :static_page, :add_comment, :newsletter, :create_subscription, :subscription, :update_subscription, :resend_subscription_confirmation, :newsletter_signup_do
 
   #verify :xhr => true, :only => [:search, :quick_search, :send_feedback, :add_comment], :redirect_to => {:action => :home}
   #verify :method => :post, :only => [:update_subscription, :create_subscription, :resend_subscription_confirmation], :redirect_to => {:action => :home}
@@ -401,37 +401,54 @@ class IndexController < ApplicationController
         if @lyrishq.success?
           @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'triggers', activity: 'fire-trigger', extras: {trigger_id: trigger_id, recipients: params[:email]}
           if @lyrishq.success?
-            flash[:notice] = "We have just sent you an email which contains a unique link.  Click on the link to be taken through to your preferences page to update your profile."
+            render 'updateprofile_request_success'
           else
-            flash[:alert] = @lyrishq.error
+            flash.now[:alert] = @lyrishq.error
           end
         else
-          flash[:alert] = "Email address is not part of the list. Please sign up."
+          flash.now[:alert] = "Email address is not part of the list. Please sign up."
         end
       else
         @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'add', email: params[:email], demographics: params[:demographics], extras: params[:extras]
         if @lyrishq.success?
-          flash[:notice] = "Thank you for signing up."
+          cookies[:newsletter_signup_closed] = {value: true, expires: 1.year.since}
+          render 'newsletter_signup_success'
         elsif @lyrishq.error? && @lyrishq.error =~ /already exists/i
-          flash[:alert] = "Email address already on the list.  To update your email preferences, click update now."
+          flash.now[:existing_alert] = "Email address already on the list.  To update your email preferences, click update now."
         else
-          flash[:alert] = @lyrishq.error
+          flash.now[:alert] = @lyrishq.error
         end
       end
     end
   end
 
   def updateprofile
-    raise "missing uid or email" unless params[:uid] && params[:email]
     @lyrishq_profile = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'query-data', email: params[:email]
+    params[:uid] = @lyrishq_profile.uid if admin_signed_in?
     raise "email uid mismatch" if @lyrishq_profile.error? || @lyrishq_profile.uid != params[:uid]
     if request.post?
+      if is_sizzix_us?
+        params[:demographics]["37654"] = "" if params[:demographics]["37654"].blank?
+        params[:demographics]["35424"] = "" if params[:demographics]["35424"].blank?
+        params[:demographics]["41588"] = Time.now.strftime "%m/%d/%y"
+      elsif is_sizzix_uk?
+        params[:demographics]["37653"] = "" if params[:demographics]["37653"].blank?
+        params[:demographics]["35658"] = "" if params[:demographics]["35658"].blank?
+        params[:demographics]["41586"] = Time.now.strftime "%m/%d/%y"
+      elsif is_ee_us?
+        params[:demographics]["37787"] = "" if params[:demographics]["35658"].blank?
+        params[:demographics]["37785"] = "" if params[:demographics]["37785"].blank?
+        params[:demographics]["41590"] = Time.now.strftime "%m/%d/%y"
+      elsif is_er?
+        params[:demographics]["35811"] = "" if params[:demographics]["35811"].blank?
+        params[:demographics]["41844"] = Time.now.strftime "%m/%d/%y"
+        
+      end
       @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'update', email: params[:email], demographics: params[:demographics], extras: params[:extras]
       if @lyrishq.success?
-        flash[:notice] = "Your profile has been updated."
-        redirect_to root_url
+        render 'updateprofile_success'
       else
-        flash[:alert] = @lyrishq.error
+        flash.now[:alert] = @lyrishq.error
       end
     end
   rescue
@@ -440,7 +457,7 @@ class IndexController < ApplicationController
 
   # signup from popup
   def newsletter_signup_do
-    @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'add', email: params[:email], demographic: {37658 => 'Popup'}, extras: {doubleoptin: 'yes'}
+    @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'add', email: params[:email], demographics: {is_sizzix_us? ? 37658 : 37783 => 'Popup'}, extras: {doubleoptin: 'yes'}
   end
 
   def create_subscription
@@ -541,8 +558,8 @@ private
       6311
     elsif is_sizzix_us?
       6302
-    elsif is_er_us?
-      6302
+    elsif is_er?
+      6580
     end
   end
 
