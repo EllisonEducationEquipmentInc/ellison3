@@ -24,7 +24,7 @@
         - elsif is_er?
           = hidden_field_tag 'demographics[37801]', params[:source] || 'Newsletter Signup Page'
   
-        .actions
+        .actions{:style=>"float:left;"}
           = submit_tag :submit, value: 'Sign up for the Newsletter Now', class: 'lyris_btn_css'
 
   .clear
@@ -43,7 +43,7 @@
           = text_field_tag :email, params[:email], required: true, email: :email, :onfocus => "if (this.value == 'Enter your email address'){this.value='';}", :onblur => "if (this.value == ''){this.value='Enter your email address';}", :size => 36, :style =>"color:#666;"
           = hidden_field_tag 'existing', true
   
-        .actions
+        .actions{:style=>"float:left;"}
           = submit_tag :submit, value: 'Update your Newsletter Preferences Now', class: 'lyris_btn_css'
           
 .nletter_img
