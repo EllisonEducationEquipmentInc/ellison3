@@ -1,1 +1,17 @@
-Success  message upon requesting to update their profile.
+.signup_frame1
+	%p{:style=>'width:896px; height:auto; text-align:center; float:center;'}
+		- if is_sizzix?
+			%img.message{height: "127", src: "/images/ui-backgrounds/vbkg_welcomeback_szus.jpg", style: "margin-top:96px; margin-left:auto; margin-right:auto;", width: "223"}/
+		- else
+			%img.message{height: "127", src: "/images/ui-backgrounds/vbkg_welcomeback_eeus.jpg", style: "margin-top:96px; margin-left:auto; margin-right:auto;", width: "223"}/			
+		%br
+		%h2{:style=>'text-align:center'}
+			Update Your Profile
+		%p{:style=>'padding:0 22px; text-align:center;'}
+			Great! We have just sent you an email containing a unique link.  Clicking on this link will take you directly to our preferences page where you can update your profile.
+		%div{:style=>'text-align:center; margin-bottom:110px; width:100%; height:auto;'}
+			%a{:href=>'/home'}
+				- if is_sizzix?
+					= submit_tag :button, value: 'Continue Shopping at Sizzix', class: 'lyris_btn_css'
+				- else
+					= submit_tag :button, value: 'Continue Shopping at EllisonEducation', class: 'lyris_btn_css'

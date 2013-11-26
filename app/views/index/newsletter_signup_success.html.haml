@@ -1,1 +1,20 @@
-successful newsletter signup message
+.signup_frame1
+	%p{:style=>'width:896px; height:auto; text-align:center; float:center;'}
+		- if is_sizzix?
+			%img.message{height: "127", src: "/images/ui-backgrounds/vbkg_welcome_szus.jpg", style: "margin-top:96px; margin-left:auto; margin-right:auto;", width: "223"}/
+		- else
+			%img.message{height: "127", src: "/images/ui-backgrounds/vbkg_welcome_eeus.jpg", style: "margin-top:96px; margin-left:auto; margin-right:auto;", width: "223"}/			
+		%br
+		%h2{:style=>'text-align:center'}
+			Sign Up Completed
+		%p{:style=>'padding:0 22px; text-align:center;'}
+			- if is_sizzix?
+				Welcome to the Sizzix Scoop Newsletter. You have been successfully added to our subscriber list!
+			- else
+				Welcome to the Ellison Connection Newsletter. You have been successfully added to our subscriber list!				
+		%div{:style=>'text-align:center; margin-bottom:110px; width:100%; height:auto;'}
+			%a{:href=>'/home'}
+				- if is_sizzix?
+					= submit_tag :button, value: 'Continue Shopping at Sizzix', class: 'lyris_btn_css'
+				- else
+					= submit_tag :button, value: 'Continue Shopping at EllisonEducation', class: 'lyris_btn_css'
