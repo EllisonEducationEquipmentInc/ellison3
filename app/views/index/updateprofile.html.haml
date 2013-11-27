@@ -25,5 +25,6 @@
           = hidden_field_tag 'demographics[40651]', 'YES'
         - elsif is_er?
           = hidden_field_tag 'demographics[41845]', 'YES'
-        .actions
-          = submit_tag :submit, class: 'lyris_btn_css'
+        %div{:style=>'float:left; width:100%; height:auto;'}
+          .actions
+            = submit_tag :submit, class: 'lyris_btn_css'
