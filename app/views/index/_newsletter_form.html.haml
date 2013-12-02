@@ -22,7 +22,6 @@
   .field{:class=>"field_f1"}
     = label_tag 'demographics[37654][]', "Which Sizzix Die-cutting Machines do you own?", class: 'label_div'
     %br
-    %div{:style=>"width:auto; float:left;"}
     .checkbx_f1
       = check_box_tag 'demographics[37654][]', 'Big Shot', @lyrishq_profile && @lyrishq_profile.demographic(37654, []).include?('Big Shot')
       Big Shot™
@@ -50,7 +49,7 @@
     .checkbx_f1
       = check_box_tag 'demographics[37654][]', 'Other', @lyrishq_profile && @lyrishq_profile.demographic(37654, []).include?('Other')
       Other
-  .field{:class=>"field_f1"}
+  .field
     = label_tag 'demographics[35424][]', "Areas of interest", class: 'label_div'
     %br
     .checkbx_f1
