@@ -15,7 +15,7 @@
     = label_tag 'demographics[37850]', "State/Province *"
     = select_tag 'demographics[37850]', grouped_options_for_select({USA: states, Canada: provinces}, @lyrishq_profile && @lyrishq_profile.demographic(37850), "--- select ---"), required: true
   .field{:class=>"field_f1"}
-    = label_tag 'demographics[37655]', "Birthday *"
+    = label_tag 'demographics[37655]', "Birthday"
     = select_tag 'demographics[37655]', options_for_select([["Month", nil]] + Date::MONTHNAMES.reject {|e| e.nil?}, @lyrishq_profile && @lyrishq_profile.demographic(37655))
     = select_tag 'demographics[37656]', options_for_select((1..31).to_a.unshift(["dd", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37656))
     = select_tag 'demographics[37802]', options_for_select((1910..2012).to_a.unshift(["yyyy", nil]), @lyrishq_profile && @lyrishq_profile.demographic(37802))
@@ -130,7 +130,7 @@
 - elsif is_ee_us?
   .field{:class=>"field_f1"}
     = label_tag 'demographics[37782]', "Country", class: 'label_div'
-    = select_tag 'demographics[37782]', options_for_select(['United States', 'Canada'], @lyrishq_profile && @lyrishq_profile.demographic(37782)), prompt: "--- select ---"
+    = select_tag 'demographics[37782]', options_for_select(['United States', 'Canada'], @lyrishq_profile && @lyrishq_profile.demographic(37782)), prompt: "--- select ---", required: true
   .field{:class=>"field_f1"}
     = label_tag 'demographics[37851]', "State/Province", class: 'label_div'
     = select_tag 'demographics[37851]', grouped_options_for_select({USA: states, Canada: provinces}, @lyrishq_profile && @lyrishq_profile.demographic(37851), "--- select ---"), required: true
