@@ -395,6 +395,7 @@ class IndexController < ApplicationController
   end
 
   def newsletter_signup
+    @title = "Newsletter Sign Up"
     if request.post?
       if params[:existing]
         @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'query-data', email: params[:email]
@@ -423,6 +424,7 @@ class IndexController < ApplicationController
   end
 
   def updateprofile
+    @title = "Update Newsletter Sign Up Profile"
     @lyrishq_profile = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'query-data', email: params[:email]
     params[:uid] = @lyrishq_profile.uid if admin_signed_in?
     raise "email uid mismatch" if @lyrishq_profile.error? || @lyrishq_profile.uid != params[:uid]

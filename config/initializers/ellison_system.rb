@@ -267,11 +267,11 @@ module EllisonSystem
   
 	def lyris_email
     lyris_email = case current_system
-      when "szus" then "sizzixscoop@lyris.sizzix.com"
-      when "szuk" then "sizzix_uk_consumers@lyris.sizzix.co.uk"
-      when "eeus" then "connection@lyris.ellison.com"
-      when "eeuk" then "ellison_education_uk@lyris.ellison.com"
-      when "erus" then "erus_retailers@ellison.com"
+      when "szus" then "sizzixscoop@marketing.sizzix.com"
+      when "szuk" then "sizzixinteractivenews@marketing.sizzix.co.uk"
+      when "eeus" then "connection@marketing.ellison.com"
+      when "eeuk" then "educationnews@marketing.ellisoneducation.co.uk"
+      when "erus" then "ellison_retail_news@marketing.ellison.com"
       else "erus_retailers@ellison.com"
     end    
     return lyris_email
