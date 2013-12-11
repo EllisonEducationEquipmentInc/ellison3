@@ -1,4 +1,4 @@
-.signup_frame1
+.signup_frame1{:style=>'text-align:center;'}
 	%p{:style=>'width:896px; height:auto; text-align:center; float:center;'}
 		- if is_sizzix?
 			%img.message{height: "127", src: "/images/ui-backgrounds/vbkg_welcome_szus.jpg", style: "margin-top:96px; margin-left:auto; margin-right:auto;", width: "223"}/
@@ -8,9 +8,31 @@
 		%h2{:style=>'text-align:center'}
 			Sign Up Completed
 		%p{:style=>'padding:0 22px; text-align:center;'}
-			- if is_sizzix?
-				Welcome to the Sizzix Scoop Newsletter. You have been successfully added to our subscriber list!
+			- if is_sizzix_us?
+				%p
+					You’re one step away from your free subscription to the Sizzix.com Scoop. Soon you’ll be able to receive updates on our latest products, special offers, inspiring ideas, designer details, helpful videos and much more.
+				%p
+					Plus, a special 15% off discount at Sizzix.com awaits! But first, you will need to confirm your subscription in the email that you should be receiving shortly.
+				%p
+					P.S. To make sure our emails go directly to your inbox, remember to add
+					%a{:href=>"mailto:sizzixscoop@marketing.sizzix.co"}
+						sizzixscoop@marketing.sizzix.co 
+					to your address book. If you haven’t received an email from us, please check your spam or junk folder as it may be there.
+			- elsif is_sizzix_uk?
+				%p
+					%h2 Thank you for subscribing to our newsletter!
+					%br
+					We're delighted you have joined our mailing list and told us about your crafting preferences! We'll be bringing you special offers, exclusive online content and all the latest news from Sizzix. To get started, why not take a look around some of these exciting pages….
 			- else
+				%p
+					You’re one step away from your free subscription to the EllisonEducation.com Connection. Soon you’ll be able to receive updates on our latest products, special offers, inspiring ideas, designer details, helpful videos and much more.
+				%p
+					Plus, a special 15% off discount at EllisonEducation.com awaits! But first, you will need to confirm your subscription in the email that you should be receiving shortly.
+				%p
+					P.S. To make sure our emails go directly to your inbox, remember to add 
+					%a{:href=>"mailto:connection@marketing.ellisoneducation.com"}
+						connection@marketing.ellisoneducation.com
+					to your address book. If you haven’t received an email from us, please check your spam or junk folder as it may be there.
 				Welcome to the Ellison Connection Newsletter. You have been successfully added to our subscriber list!				
 		%div{:style=>'text-align:center; margin-bottom:110px; width:100%; height:auto;'}
 			%a{:href=>'/home'}
