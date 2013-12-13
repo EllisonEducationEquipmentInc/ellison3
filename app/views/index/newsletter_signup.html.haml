@@ -1,23 +1,38 @@
 // Title Here
-%h2 Title Here
-%br
+- if is_sizzix_uk?
+  %img{:src => "/images/ui-backgrounds/szuk_title_img.jpg", :style=>'margin-bottom:10px;'}/
+  %br
+- elsif is_sizzix_us?
+  %img{:src => "/images/ui-backgrounds/szus_title_img.jpg", :style=>'margin-bottom:10px;'}/
+  %br
+- else
+  %img{:src => "/images/ui-backgrounds/ee_title_img.jpg", :style=>'margin-bottom:10px;'}/
+  %br
 // This is sample copy
-%p
-  Sample Copy Fusce vitae imperdiet dolor, ut rhoncus lacus. Duis elit dolor, facilisis et elit eu, ullamcorper tempus tortor. Sed suscipit lacus eu sem blandit faucibus. Sed eget elit a mauris suscipit vestibulum eget vel lorem. Suspendisse sit amet rutrum ipsum. Morbi vestibulum venenatis felis, ac molestie libero tempus non. Morbi volutpat eu nisi nec eleifend. Duis dapibus libero eu quam tempus cursus. Fusce non sem justo. Nulla pulvinar blandit sapien ut rutrum. 
+- if is_sizzix_uk?
+  %p
+    Sample SZUK Copy Fusce vitae imperdiet dolor, ut rhoncus lacus. Duis elit dolor, facilisis et elit eu, ullamcorper tempus tortor. Sed suscipit lacus eu sem blandit faucibus. Sed eget elit a mauris suscipit vestibulum eget vel lorem. Suspendisse sit amet rutrum ipsum. Morbi vestibulum venenatis felis, ac molestie libero tempus non. Morbi volutpat eu nisi nec eleifend. Duis dapibus libero eu quam tempus cursus. Fusce non sem justo. Nulla pulvinar blandit sapien ut rutrum. 
+- elsif is_sizzix_us?
+  %p
+    Sample SZUS Copy Fusce vitae imperdiet dolor, ut rhoncus lacus. Duis elit dolor, facilisis et elit eu, ullamcorper tempus tortor. Sed suscipit lacus eu sem blandit faucibus. Sed eget elit a mauris suscipit vestibulum eget vel lorem. Suspendisse sit amet rutrum ipsum. Morbi vestibulum venenatis felis, ac molestie libero tempus non. Morbi volutpat eu nisi nec eleifend. Duis dapibus libero eu quam tempus cursus. Fusce non sem justo. Nulla pulvinar blandit sapien ut rutrum. 
+- else
+  %p
+    Sample ELLISON Fusce vitae imperdiet dolor, ut rhoncus lacus. Duis elit dolor, facilisis et elit eu, ullamcorper tempus tortor. Sed suscipit lacus eu sem blandit faucibus. Sed eget elit a mauris suscipit vestibulum eget vel lorem. Suspendisse sit amet rutrum ipsum. Morbi vestibulum venenatis felis, ac molestie libero tempus non. Morbi volutpat eu nisi nec eleifend. Duis dapibus libero eu quam tempus cursus. Fusce non sem justo. Nulla pulvinar blandit sapien ut rutrum. 
 %div{:style=>'height:auto; margin:0; border:0; padding:0; width:100%; float:left; background: url(/images/ui-email/szus_default_img.jpg) no-repeat right center;'}
   .signup_frame1
     %h2
       New User Sign Up
+    %span{:class=>'legalese', :style=>'color:#A9250E;'} (* Required Fields)
     .ui-corner-all
       .newsletter_content_a
         %h2.news_line
         = form_tag newsletter_signup_path, id: 'newsletter-form-full' do
           .field
-            = label_tag :email, "Email *"
+            = label_tag :email, "Email*", :class => 'req_lab'
             = text_field_tag :email, params[:email], required: true, email: :email, :onfocus => "if (this.value == 'Enter your email address'){this.value='';}", :onblur => "if (this.value == ''){this.value='Enter your email address';}", :size => 36, :style =>"color:#666;"
           - if is_sizzix_uk?
             .field
-              = label_tag :confirm_email, "Confirm Email *"
+              = label_tag :confirm_email, "Confirm Email *", :class => 'req_lab'
               = text_field_tag :confirm_email, params[:confirm_email], required: true, email: :email
           = render partial: 'newsletter_form'
     
@@ -39,6 +54,7 @@
     .signup_div
     %h2
       Existing User Sign In
+    %span{:class=>'legalese', :style=>'color:#A9250E;'} (* Required Fields)
     - if flash[:existing_alert]
       %p.dontprint.error= flash[:existing_alert]
     .ui-corner-all
@@ -46,7 +62,7 @@
         %h2.news_line
         = form_tag newsletter_signup_path, id: 'newsletter-form-existing' do
           .field
-            = label_tag :email, "Email *"
+            = label_tag :email, "Email *", :class => 'req_lab'
             = text_field_tag :email, params[:email], required: true, email: :email, :onfocus => "if (this.value == 'Enter your email address'){this.value='';}", :onblur => "if (this.value == ''){this.value='Enter your email address';}", :size => 36, :style =>"color:#666;"
             = hidden_field_tag 'existing', true
     

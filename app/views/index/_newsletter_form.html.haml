@@ -1,18 +1,18 @@
 .field{:class=>"field_f1"}
-  = label_tag 'demographics[1]', "First Name *"
+  = label_tag 'demographics[1]', "First Name *", :class => 'req_lab'
   = text_field_tag 'demographics[1]', @lyrishq_profile && @lyrishq_profile.demographic(1), required: true
 - if is_sizzix_us?
   .field{:class=>"field_f1"}
-    = label_tag 'demographics[11]', "Gender *"
+    = label_tag 'demographics[11]', "Gender *", :class => 'req_lab'
     Male
     = radio_button_tag 'demographics[11]', 'Male', @lyrishq_profile && @lyrishq_profile.demographic(11) == 'Male', required: true
     Female
     = radio_button_tag 'demographics[11]', 'Female', @lyrishq_profile && @lyrishq_profile.demographic(11) == 'Female', required: true
   .field{:class=>"field_f1"}
-    = label_tag 'demographics[36031]', "Country *"
+    = label_tag 'demographics[36031]', "Country *", :class => 'req_lab'
     = select_tag 'demographics[36031]', options_for_select(['United States', 'Canada'], @lyrishq_profile && @lyrishq_profile.demographic(36031)), prompt: "--- select ---", required: true
   .field{:class=>"field_f1"}
-    = label_tag 'demographics[37850]', "State/Province *"
+    = label_tag 'demographics[37850]', "State/Province *", :class => 'req_lab'
     = select_tag 'demographics[37850]', grouped_options_for_select({USA: states, Canada: provinces}, @lyrishq_profile && @lyrishq_profile.demographic(37850), "--- select ---"), required: true
   .field{:class=>"field_f1"}
     = label_tag 'demographics[37655]', "Birthday"
@@ -81,7 +81,7 @@
 
 - elsif is_sizzix_uk?
   .field{:class=>"field_f1"}
-    = label_tag 'demographics[37852]', "Country *"
+    = label_tag 'demographics[37852]', "Country *", :class => 'req_lab'
     = select_tag 'demographics[37852]', options_for_select(Country.order_by([:name, :asc]).map(&:name), @lyrishq_profile && @lyrishq_profile.demographic(37852)), prompt: "--- select ---", required: true
 
   .field{:class=>"field_f1"}
@@ -196,7 +196,7 @@
     = label_tag 'demographics[2]', "Last Name"
     = text_field_tag 'demographics[2]', @lyrishq_profile && @lyrishq_profile.demographic(2)
   .field
-    = label_tag 'demographics[37853]', "Country *"
+    = label_tag 'demographics[37853]', "Country *", :class => 'req_lab'
     = select_tag 'demographics[37853]', options_for_select(Country.order_by([:name, :asc]).map(&:name), @lyrishq_profile && @lyrishq_profile.demographic(37853)), prompt: "--- select ---", required: true
   .field
     = label_tag 'demographics[4]', "Address"

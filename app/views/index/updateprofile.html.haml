@@ -1,5 +1,13 @@
-%h2
-  Edit User
+- if is_sizzix_uk?
+  %img{:src => "/images/ui-backgrounds/szuk_title_img.jpg", :style=>'margin-bottom:10px;'}/
+  %br
+- elsif is_sizzix_us?
+  %img{:src => "/images/ui-backgrounds/szus_title_img.jpg", :style=>'margin-bottom:10px;'}/
+  %br
+- else
+  %img{:src => "/images/ui-backgrounds/ee_title_img.jpg", :style=>'margin-bottom:10px;'}/
+  %br%h2
+Edit User
 .ui-corner-all
   .signup_frame1
     .newsletter_content_a
