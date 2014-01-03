@@ -776,4 +776,55 @@ ul.ui-tabs-nav {
 
 }
 
+.email_bb_set1 {
+  width:910px; padding:0px; height:auto; margin:26px 20px 18px; float:left;
+}
+
+.email_bb1 {
+
+  width:308px; height:190px; float:left; ;
+
+  @if $system == szus {
+    background:url(/images/ui-email/bb1_custom_szus.jpg) no-repeat top left;
+} @else if $system == erus {
+    background:url(/images/ui-email/bb1_custom_erus.jpg) no-repeat top left;
+} @else if $system == szuk {
+    background:url(/images/ui-email/bb1_custom_szuk.jpg) no-repeat top left;
+} @else {
+    background:url(/images/ui-email/bb1_custom_eeus.jpg) no-repeat top left;
+}
+
+}
+
+.email_bb2 {
+
+  width:308px; height:190px; float:left; ;
+
+  @if $system == szus {
+    background:url(/images/ui-email/bb2_die_szus.jpg) no-repeat top left;
+} @else if $system == erus {
+    background:url(/images/ui-email/bb2_die_erus.jpg) no-repeat top left;
+} @else if $system == szuk {
+    background:url(/images/ui-email/bb2_die_szuk.jpg) no-repeat top left;
+} @else {
+    background:url(/images/ui-email/bb2_die_eeus.jpg) no-repeat top left;
+}
+
+}
+
+.email_bb3 {
+
+  width:290px; height:190px; float:left;
+
+  @if $system == szus {
+    background:url(/images/ui-email/bb3_mach_szus.jpg) no-repeat top left;
+} @else if $system == erus {
+    background:url(/images/ui-email/bb3_mach_erus.jpg) no-repeat top left;
+} @else if $system == szuk {
+    background:url(/images/ui-email/bb3_mach_szuk.jpg) no-repeat top left;
+} @else {
+    background:url(/images/ui-email/bb3_mach_eeus.jpg) no-repeat top left;
+}
+
+}
 

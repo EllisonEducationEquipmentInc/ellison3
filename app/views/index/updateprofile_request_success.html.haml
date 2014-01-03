@@ -1,9 +1,9 @@
 .signup_frame1
 	%p{:style=>'width:896px; height:auto; text-align:center; float:center;'}
 		- if is_sizzix?
-			%img.message{height: "127", src: "/images/ui-backgrounds/vbkg_welcomeback_szus.jpg", style: "margin-top:96px; margin-left:auto; margin-right:auto;", width: "223"}/
+			%img.message{height: "168", src: "/images/ui-email/vbkg_welcomeback_szus.png", style: "margin-top:96px; margin-left:auto; margin-right:auto;", width: "781"}/
 		- else
-			%img.message{height: "127", src: "/images/ui-backgrounds/vbkg_welcomeback_eeus.jpg", style: "margin-top:96px; margin-left:auto; margin-right:auto;", width: "223"}/			
+			%img.message{height: "168", src: "/images/ui-email/vbkg_welcomeback_eeus.png", style: "margin-top:96px; margin-left:auto; margin-right:auto;", width: "781"}/			
 		%br
 		%h2{:style=>'text-align:center'}
 			Update Your Profile
@@ -15,3 +15,10 @@
 					= submit_tag :button, value: 'Continue Shopping at Sizzix', class: 'lyris_btn_css'
 				- else
 					= submit_tag :button, value: 'Continue Shopping at EllisonEducation', class: 'lyris_btn_css'
+.email_bb_set1
+	%a{:href=>'#'}
+		.email_bb1
+	%a{:href=>'#'}
+		.email_bb2
+	%a{:href=>'#'}
+		.email_bb3
