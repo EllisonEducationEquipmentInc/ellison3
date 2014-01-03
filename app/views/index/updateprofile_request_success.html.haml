@@ -16,9 +16,13 @@
 				- else
 					= submit_tag :button, value: 'Continue Shopping at EllisonEducation', class: 'lyris_btn_css'
 .email_bb_set1
-	%a{:href=>'#'}
-		.email_bb1
-	%a{:href=>'#'}
+	- if is_sizzix_uk?
+		%a{:href=>'/101'}
+			.email_bb1
+	- else
+		%a{:href=>'/customdies'}
+			.email_bb1
+	%a{:href=>'/catalog#q=dies'}
 		.email_bb2
-	%a{:href=>'#'}
+	%a{:href=>'/catalog#q=machines'}
 		.email_bb3
