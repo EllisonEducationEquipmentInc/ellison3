@@ -691,7 +691,89 @@ ul.ui-tabs-nav {
   text-align:center;
   }
 
+.nletter_su_header {
+  width:950px;
+  height:155px;
+  margin:6px 0 14px;
+  border:0;
+  padding:0;
+  background: url(/images/ui-email/#{$system}_title_img.png) no-repeat top left;
 
+ @if $system == szuk {
+        width: 910px!important; height:104px!important; padding:0!important; margin:0 0 12px!important; border:0!important; background: url(/images/ui-email/szuk_title_img.jpg) no-repeat!important; float:left!important;
+      }
+}
 
+.nletter_su_left {
+  height:auto;
+  margin:0;
+  border:0;
+  padding:0;
+  width:950px;
+  float:left;
+  background: url(/images/ui-email/#{$system}_default_img.png) no-repeat right top;
+
+ @if $system == szuk {
+        width: 910px!important;
+      }
+
+}
+
+.outer_frame_nletter {
+
+ @if $system == szuk {
+          width: 100%px; height:auto; margin:5px; padding:20px!important; background: url(/images/ui-email/back.jpg); float:left;
+        }
+
+  border:0!important;
+  margin:0!important;
+
+}
+
+.szuk_container {
+
+  @if $system == szuk {
+    background: linear-gradient(to bottom, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 1px solid #66FFFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    float: left!important;
+    margin: 10px 0 10px 8px!important;
+    padding: 12px;
+    width: 864px;
+  }
+
+  float: left;
+  height: auto;
+  margin: 16px 6px;
+ 
+}
+
+.signup_frame1 {
+
+  margin:6px!important;
+  width:auto;
+  padding:20px 20px 0;
+  border:1px solid #E3DDCE;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  float:left;
+  height:auto;
+  -webkit-box-shadow: 1px 1px 3px rgba(50, 50, 50, 0.22);
+  -moz-box-shadow: 1px 1px 3px rgba(50, 50, 50, 0.22);
+  box-shadow: 1px 1px 3px rgba(50, 50, 50, 0.22);
+  background: linear-gradient(to bottom, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+
+  @if $system == szuk {
+    background: white;
+    border: 1px solid #66FFFF!important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4)!important;
+    float: left;
+    height: auto;
+    line-height: 15px;
+    margin: 10px 0 10px 8px!important;
+  }
+
+}
 
 

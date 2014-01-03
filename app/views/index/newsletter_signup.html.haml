@@ -1,89 +1,96 @@
 // Title Here
-- if is_sizzix_uk?
-  %img{:src => "/images/ui-backgrounds/szuk_title_img.jpg", :style=>'margin-bottom:10px;'}/
-  %br
-- elsif is_sizzix_us?
-  %img{:src => "/images/ui-backgrounds/szus_title_img.jpg", :style=>'margin-bottom:10px;'}/
-  %br
-- else
-  %img{:src => "/images/ui-backgrounds/ee_title_img.jpg", :style=>'margin-bottom:10px;'}/
-  %br
-// This is sample copy
-- if is_sizzix_uk?
-  %p
-    Sample SZUK Copy Fusce vitae imperdiet dolor, ut rhoncus lacus. Duis elit dolor, facilisis et elit eu, ullamcorper tempus tortor. Sed suscipit lacus eu sem blandit faucibus. Sed eget elit a mauris suscipit vestibulum eget vel lorem. Suspendisse sit amet rutrum ipsum. Morbi vestibulum venenatis felis, ac molestie libero tempus non. Morbi volutpat eu nisi nec eleifend. Duis dapibus libero eu quam tempus cursus. Fusce non sem justo. Nulla pulvinar blandit sapien ut rutrum. 
-- elsif is_sizzix_us?
-  %p
-    Sample SZUS Copy Fusce vitae imperdiet dolor, ut rhoncus lacus. Duis elit dolor, facilisis et elit eu, ullamcorper tempus tortor. Sed suscipit lacus eu sem blandit faucibus. Sed eget elit a mauris suscipit vestibulum eget vel lorem. Suspendisse sit amet rutrum ipsum. Morbi vestibulum venenatis felis, ac molestie libero tempus non. Morbi volutpat eu nisi nec eleifend. Duis dapibus libero eu quam tempus cursus. Fusce non sem justo. Nulla pulvinar blandit sapien ut rutrum. 
-- else
-  %p
-    Sample ELLISON Fusce vitae imperdiet dolor, ut rhoncus lacus. Duis elit dolor, facilisis et elit eu, ullamcorper tempus tortor. Sed suscipit lacus eu sem blandit faucibus. Sed eget elit a mauris suscipit vestibulum eget vel lorem. Suspendisse sit amet rutrum ipsum. Morbi vestibulum venenatis felis, ac molestie libero tempus non. Morbi volutpat eu nisi nec eleifend. Duis dapibus libero eu quam tempus cursus. Fusce non sem justo. Nulla pulvinar blandit sapien ut rutrum. 
-%div{:style=>'height:auto; margin:0; border:0; padding:0; width:100%; float:left; background: url(/images/ui-email/szus_default_img.jpg) no-repeat right center;'}
-  .signup_frame1
-    %h2
-      New User Sign Up
-    %span{:class=>'legalese', :style=>'color:#A9250E;'} (* Required Fields)
-    .ui-corner-all
-      .newsletter_content_a
-        %h2.news_line
-        = form_tag newsletter_signup_path, id: 'newsletter-form-full' do
-          .field
-            = label_tag :email, "Email*", :class => 'req_lab'
-            = text_field_tag :email, params[:email], required: true, email: :email, :onfocus => "if (this.value == 'Enter your email address'){this.value='';}", :onblur => "if (this.value == ''){this.value='Enter your email address';}", :size => 36, :style =>"color:#666;"
-          - if is_sizzix_uk?
+.outer_frame_nletter
+  .nletter_su_header
+    %br
+  // This is sample copy
+  - if is_sizzix_uk?
+    %p
+      .szuk_container
+        Sample SZUK Copy Fusce vitae imperdiet dolor, ut rhoncus lacus. Duis elit dolor, facilisis et elit eu, ullamcorper tempus tortor. Sed suscipit lacus eu sem blandit faucibus. Sed eget elit a mauris suscipit vestibulum eget vel lorem. Suspendisse sit amet rutrum ipsum. Morbi vestibulum venenatis felis, ac molestie libero tempus non. Morbi volutpat eu nisi nec eleifend. Duis dapibus libero eu quam tempus cursus. Fusce non sem justo. Nulla pulvinar blandit sapien ut rutrum. 
+  - elsif is_sizzix_us?
+    %p
+      Sample SZUS Copy Fusce vitae imperdiet dolor, ut rhoncus lacus. Duis elit dolor, facilisis et elit eu, ullamcorper tempus tortor. Sed suscipit lacus eu sem blandit faucibus. Sed eget elit a mauris suscipit vestibulum eget vel lorem. Suspendisse sit amet rutrum ipsum. Morbi vestibulum venenatis felis, ac molestie libero tempus non. Morbi volutpat eu nisi nec eleifend. Duis dapibus libero eu quam tempus cursus. Fusce non sem justo. Nulla pulvinar blandit sapien ut rutrum. 
+  - else
+    %p
+      Sample ELLISON Fusce vitae imperdiet dolor, ut rhoncus lacus. Duis elit dolor, facilisis et elit eu, ullamcorper tempus tortor. Sed suscipit lacus eu sem blandit faucibus. Sed eget elit a mauris suscipit vestibulum eget vel lorem. Suspendisse sit amet rutrum ipsum. Morbi vestibulum venenatis felis, ac molestie libero tempus non. Morbi volutpat eu nisi nec eleifend. Duis dapibus libero eu quam tempus cursus. Fusce non sem justo. Nulla pulvinar blandit sapien ut rutrum. 
+  .nletter_su_left
+    .signup_frame1
+      %h2
+        New User Sign Up
+      %span{:class=>'legalese', :style=>'color:#A9250E;'} (* Required Fields)
+      .ui-corner-all
+        .newsletter_content_a
+          %h2.news_line
+          = form_tag newsletter_signup_path, id: 'newsletter-form-full' do
             .field
-              = label_tag :confirm_email, "Confirm Email *", :class => 'req_lab'
-              = text_field_tag :confirm_email, params[:confirm_email], required: true, email: :email
-          = render partial: 'newsletter_form'
-    
-          = hidden_field_tag 'extras[trigger]', 'yes'
-          - if is_sizzix_us?
-            = hidden_field_tag 'demographics[37658]', params[:source] || 'Newsletter Signup Page'
-          - elsif is_sizzix_uk?
-            = hidden_field_tag 'demographics[37789]', params[:source] || 'Newsletter Signup Page'
-          - elsif is_ee_us?
-            = hidden_field_tag 'demographics[37783]', params[:source] || 'Newsletter Signup Page'
-          - elsif is_er?
-            = hidden_field_tag 'demographics[37801]', params[:source] || 'Newsletter Signup Page'
-    
-          .actions{:style=>"float:left;"}
-            = submit_tag :submit, value: 'Sign up for the Newsletter Now', class: 'lyris_btn_css'
+              = label_tag :email, "Email*", :class => 'req_lab'
+              = text_field_tag :email, params[:email], required: true, email: :email, :onfocus => "if (this.value == 'Enter your email address'){this.value='';}", :onblur => "if (this.value == ''){this.value='Enter your email address';}", :size => 36, :style =>"color:#666;"
+            - if is_sizzix_uk?
+              .field
+                = label_tag :confirm_email, "Confirm Email *", :class => 'req_lab'
+                = text_field_tag :confirm_email, params[:confirm_email], required: true, email: :email
+            = render partial: 'newsletter_form'
+      
+            = hidden_field_tag 'extras[trigger]', 'yes'
+            - if is_sizzix_us?
+              = hidden_field_tag 'demographics[37658]', params[:source] || 'Newsletter Signup Page'
+            - elsif is_sizzix_uk?
+              = hidden_field_tag 'demographics[37789]', params[:source] || 'Newsletter Signup Page'
+            - elsif is_ee_us?
+              = hidden_field_tag 'demographics[37783]', params[:source] || 'Newsletter Signup Page'
+            - elsif is_er?
+              = hidden_field_tag 'demographics[37801]', params[:source] || 'Newsletter Signup Page'
+      
+            .actions{:style=>"float:left;"}
+              = submit_tag :submit, value: 'Sign up for the Newsletter Now', class: 'lyris_btn_css'
 
-    .clear
-    
-    .signup_div
-    %h2
-      Existing User Sign In
-    %span{:class=>'legalese', :style=>'color:#A9250E;'} (* Required Fields)
-    - if flash[:existing_alert]
-      %p.dontprint.error= flash[:existing_alert]
-    .ui-corner-all
-      .newsletter_content_a
-        %h2.news_line
-        = form_tag newsletter_signup_path, id: 'newsletter-form-existing' do
-          .field
-            = label_tag :email, "Email *", :class => 'req_lab'
-            = text_field_tag :email, params[:email], required: true, email: :email, :onfocus => "if (this.value == 'Enter your email address'){this.value='';}", :onblur => "if (this.value == ''){this.value='Enter your email address';}", :size => 36, :style =>"color:#666;"
-            = hidden_field_tag 'existing', true
-    
-          .actions{:style=>"float:left;"}
-            = submit_tag :submit, value: 'Update your Newsletter Preferences Now', class: 'lyris_btn_css'
+      .clear
+      
+      .signup_div
+      %h2
+        Existing User Sign In
+      %span{:class=>'legalese', :style=>'color:#A9250E;'} (* Required Fields)
+      - if flash[:existing_alert]
+        %p.dontprint.error= flash[:existing_alert]
+      .ui-corner-all
+        .newsletter_content_a
+          %h2.news_line
+          = form_tag newsletter_signup_path, id: 'newsletter-form-existing' do
+            .field
+              = label_tag :email, "Email *", :class => 'req_lab'
+              = text_field_tag :email, params[:email], required: true, email: :email, :onfocus => "if (this.value == 'Enter your email address'){this.value='';}", :onblur => "if (this.value == ''){this.value='Enter your email address';}", :size => 36, :style =>"color:#666;"
+              = hidden_field_tag 'existing', true
+      
+            - if is_sizzix_uk?
+              %div{style: "width:100%; height:auto; position:relative; float:left; padding:14px 0 0; text-align:center;"}
+                %input{style: "width:150px; height:28px; background: url('/images/ui-email/submit.jpg') repeat scroll 0 0 transparent; border: 1px solid #5599AF; border-radius: 8px 8px 8px 8px; color: white; font-size: 15px; font-weight: bold; padding: 4px 32px 5px; cursor:pointer;", type: "submit", value: ""}/
+            - else
+              .actions{:style=>"float:left;"}
+                = submit_tag :submit, value: 'Update your Newsletter Preferences Now', class: 'lyris_btn_css'
+
+
+  - if is_sizzix_uk?
+    .szuk_container
+      %p
+        %img{ :src => "/images/ui-email/flowers.jpg", :style => "float:left; margin-right:12px;", :width => "300", :height => "100"}
+        By signing up to our newsletter, you get full access to all our promotions, the latest news and much more. Keep up to date with exclusive projects from our designers and follow us on our blog and social media sites.
+        %br
+        %br
+        To join all you need to do is fill out the form above.
             
-.signup_copy1
-  %h2
-    After subscribing, how can I ensure that I will continue to receive my newsletter?
-  To ensure that newsletter is delivered to your email and "inbox", and not as treated as spam, please add the email address, <strong>#{new_lyris_email}</strong> to your address book as soon as possible. This will prevent any deliveries to your "Bulk" or "Junk" mail folders.
-  %br
-  %br
-  %h2
-    How can I unsubscribe from your email newsletter?
-  To remove your newsletter subscription, please follow the unsubscribe link in your newsletter email.
-    
+  .szuk_container
+    %h2 After subscribing, how can I ensure that I will continue to receive my newsletter?
+    To ensure that newsletter is delivered to your email and "inbox", and not as treated as spam, please add the email address, <strong>#{new_lyris_email}</strong> to your address book as soon as possible. This will prevent any deliveries to your "Bulk" or "Junk" mail folders.
+    %br
+    %br
+    %h2 How can I unsubscribe from your email newsletter?
+    To remove your newsletter subscription, please follow the unsubscribe link in your newsletter email.
+      
 
-:coffeescript
-  $('#newsletter-form-full').validate()
-  $('#newsletter-form-existing').validate()
-
-- if is_sizzix_uk?
   :coffeescript
-    $('#confirm_email').rules('add',{equalTo: "#email"})
+    $('#newsletter-form-full').validate()
+    $('#newsletter-form-existing').validate()
+
+  - if is_sizzix_uk?
+    :coffeescript
+      $('#confirm_email').rules('add',{equalTo: "#email"})
