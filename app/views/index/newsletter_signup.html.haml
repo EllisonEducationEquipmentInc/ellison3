@@ -3,16 +3,14 @@
   .nletter_su_header
     %br
   // This is sample copy
-  - if is_sizzix_uk?
+  - if is_sizzix_us?
     %p
-      .szuk_container
-        Sample SZUK Copy Fusce vitae imperdiet dolor, ut rhoncus lacus. Duis elit dolor, facilisis et elit eu, ullamcorper tempus tortor. Sed suscipit lacus eu sem blandit faucibus. Sed eget elit a mauris suscipit vestibulum eget vel lorem. Suspendisse sit amet rutrum ipsum. Morbi vestibulum venenatis felis, ac molestie libero tempus non. Morbi volutpat eu nisi nec eleifend. Duis dapibus libero eu quam tempus cursus. Fusce non sem justo. Nulla pulvinar blandit sapien ut rutrum. 
-  - elsif is_sizzix_us?
-    %p
-      Sample SZUS Copy Fusce vitae imperdiet dolor, ut rhoncus lacus. Duis elit dolor, facilisis et elit eu, ullamcorper tempus tortor. Sed suscipit lacus eu sem blandit faucibus. Sed eget elit a mauris suscipit vestibulum eget vel lorem. Suspendisse sit amet rutrum ipsum. Morbi vestibulum venenatis felis, ac molestie libero tempus non. Morbi volutpat eu nisi nec eleifend. Duis dapibus libero eu quam tempus cursus. Fusce non sem justo. Nulla pulvinar blandit sapien ut rutrum. 
-  - else
+      Sample SZUS Copy Fusce vitae imperdiet dolor, ut rhoncus lacus. Duis elit dolor, facilisis et elit eu, ullamcorper tempus tortor. Sed suscipit lacus eu sem blandit faucibus. Sed eget elit a mauris suscipit vestibulum eget vel lorem. Suspendisse sit amet rutrum ipsum. Morbi vestibulum venenatis felis, ac molestie libero tempus non. Morbi volutpat eu nisi nec eleifend. Duis dapibus libero eu quam tempus cursus. Fusce non sem justo. Nulla pulvinar blandit sapien ut rutrum.
+  - elsif is_ee?
     %p
       Sample ELLISON Fusce vitae imperdiet dolor, ut rhoncus lacus. Duis elit dolor, facilisis et elit eu, ullamcorper tempus tortor. Sed suscipit lacus eu sem blandit faucibus. Sed eget elit a mauris suscipit vestibulum eget vel lorem. Suspendisse sit amet rutrum ipsum. Morbi vestibulum venenatis felis, ac molestie libero tempus non. Morbi volutpat eu nisi nec eleifend. Duis dapibus libero eu quam tempus cursus. Fusce non sem justo. Nulla pulvinar blandit sapien ut rutrum. 
+  - else
+
   .nletter_su_left
     .signup_frame1
       %h2
@@ -42,7 +40,11 @@
               = hidden_field_tag 'demographics[37801]', params[:source] || 'Newsletter Signup Page'
       
             .actions{:style=>"float:left;"}
-              = submit_tag :submit, value: 'Sign up for the Newsletter Now', class: 'lyris_btn_css'
+              - if is_sizzix_uk?
+                %div{style: "width:100%; height:auto; position:relative; float:left; padding:14px 0 0; text-align:center; margin: 0 auto; "}
+                  %input{style: "width:314px; height:33px; background: url('/images/ui-email/signup_uk.png') no-repeat scroll 0 0 transparent; border: 0; border-radius: 8px 8px 8px 8px; color: white; font-size: 15px; font-weight: bold; padding: 4px 32px 5px; cursor:pointer;", type: "submit", value: ""}/
+              - else
+                = submit_tag :submit, value: 'Sign up for the Newsletter Now', class: 'lyris_btn_css'
 
       .clear
       
@@ -63,7 +65,7 @@
       
             - if is_sizzix_uk?
               %div{style: "width:100%; height:auto; position:relative; float:left; padding:14px 0 0; text-align:center;"}
-                %input{style: "width:150px; height:28px; background: url('/images/ui-email/submit.jpg') repeat scroll 0 0 transparent; border: 1px solid #5599AF; border-radius: 8px 8px 8px 8px; color: white; font-size: 15px; font-weight: bold; padding: 4px 32px 5px; cursor:pointer;", type: "submit", value: ""}/
+                %input{style: "width:144px; height:33px; background: url('/images/ui-email/submit_uk.png') no-repeat scroll 0 0 transparent; border: 0; border-radius: 8px 8px 8px 8px; color: white; font-size: 15px; font-weight: bold; padding: 4px 32px 5px; cursor:pointer;", type: "submit", value: ""}/
             - else
               .actions{:style=>"float:left;"}
                 = submit_tag :submit, value: 'Update your Newsletter Preferences Now', class: 'lyris_btn_css'
