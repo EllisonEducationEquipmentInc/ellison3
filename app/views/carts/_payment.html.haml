@@ -202,11 +202,6 @@
                 %strong ONLY
                 if the information is on your card.
               .field.credit_card{:style => "margin-right: 24px"}
-                = f.label :card_issue_month, "Card Start Date", :style => "width: 110px"
-                = select :payment, :card_issue_month, Payment.months, { :include_blank => true }, :class => "cc"
-                \/
-                = select :payment, :card_issue_year, Payment.issue_years, { :include_blank => true }, :class => "cc"
-              .field.credit_card
                 = f.label :card_issue_number, :style => "width: 110px"
                 = f.text_field :card_issue_number, :size => 2, :maxlength => 2, :class => "cc"
             - if can_tokenize_payment? && is_er?

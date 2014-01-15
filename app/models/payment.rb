@@ -74,7 +74,7 @@ class Payment
   before_save :mask_card_number
 
   def self.cards
-    is_us? ? %w(Visa MasterCard Discover AmericanExpress) : [["Visa", "visa"],["MasterCard", "master"],["Visa Debit", "delta"], ["Solo", "solo"],["Maestro", "maestro"], ["Visa Electron (UKE)", "electron"]]
+    is_us? ? %w(Visa MasterCard Discover AmericanExpress) : [["Visa", "visa"],["MasterCard", "master"],["Visa Debit", "delta"], ["Maestro", "maestro"], ["Visa Electron (UKE)", "electron"]]
   end
 
   def self.months
