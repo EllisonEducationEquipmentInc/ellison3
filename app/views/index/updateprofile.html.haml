@@ -1,19 +1,16 @@
-- if is_sizzix_uk?
-  %img{:src => "/images/ui-backgrounds/szuk_title_img.jpg", :style=>'margin-bottom:10px;'}/
-  %br
-- elsif is_sizzix_us?
-  %img{:src => "/images/ui-backgrounds/szus_title_img.jpg", :style=>'margin-bottom:10px;'}/
-  %br
-- else
-  %img{:src => "/images/ui-backgrounds/ee_title_img.jpg", :style=>'margin-bottom:10px;'}/
-  %br%h2
-Edit User
 .ui-corner-all
-  .signup_frame1
+  - if is_sizzix?
+    %img.message{height: "113", src: "/images/ui-email/vbkg_updateprofile_szus.png", style: "margin-left:240px; margin-right:auto;", width: "405"}/
+  - else
+    %img.message{height: "91", src: "/images/ui-email/vbkg_updateprofile_eeus.png", style: "margin-left:240px; margin-right:auto;", width: "405"}/
+  .signup_frame1{:style=>'margin-left:182px!important;'}
     .newsletter_content_a
       = form_tag update_newsletter_profile_path, id: 'newsletter-form-full' do
-        Email:
-        = @lyrishq_profile.email
+        %h2
+          Email:
+          = @lyrishq_profile.email
+        %br
+        %br
         = hidden_field_tag 'extras[state]', 'active'
         - if admin_signed_in?
           .field
@@ -34,5 +31,6 @@ Edit User
         - elsif is_er?
           = hidden_field_tag 'demographics[41845]', 'YES'
         %div{:style=>'float:left; width:100%; height:auto;'}
+        %br
           .actions
-            = submit_tag :submit, class: 'lyris_btn_css'
+            = submit_tag :submit, value: 'Update Your User Profile', style: 'margin-left:126px;', class: 'lyris_btn_css'
