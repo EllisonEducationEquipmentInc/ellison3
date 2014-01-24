@@ -1,15 +1,18 @@
-.ui-corner-all
-  - if is_sizzix?
-    %img.message{height: "113", src: "/images/ui-email/vbkg_updateprofile_szus.png", style: "margin-left:240px; margin-right:auto;", width: "405"}/
-  - else
-    %img.message{height: "91", src: "/images/ui-email/vbkg_updateprofile_eeus.png", style: "margin-left:240px; margin-right:auto;", width: "405"}/
-  .signup_frame1{:style=>'margin-left:182px!important;'}
+.signup_frame1{:style=>'margin-bottom:16px!important;'}
+  .ui-corner-all
+    - if is_sizzix?
+      %img.message{height: "113", src: "/images/ui-email/vbkg_updateprofile_szus.png", style: "margin-left:240px; margin-right:auto;", width: "405"}/
+    - else
+      %img.message{height: "91", src: "/images/ui-email/vbkg_updateprofile_eeus.png", style: "margin-left:240px; margin-right:auto;", width: "405"}/
+    %br
+    %p{:style=>'padding:8px 20px 0;'}
+      Wecome the your User Profile Page. Here you can edit, update or delete any of your user preferences for your Sizzix account. Duis elit dolor, facilisis et elit eu, ullamcorper tempus tortor. Sed suscipit lacus eu sem blandit faucibus.
+  .signup_frame1{:style=>'margin-left:182px!important; margin-bottom:40px!important;'}
     .newsletter_content_a
       = form_tag update_newsletter_profile_path, id: 'newsletter-form-full' do
-        %h2
+        %h2{:style=>'text-align:center;'}
           Email:
           = @lyrishq_profile.email
-        %br
         %br
         = hidden_field_tag 'extras[state]', 'active'
         - if admin_signed_in?
