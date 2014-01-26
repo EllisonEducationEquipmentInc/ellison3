@@ -70,8 +70,8 @@ class ApplicationController < ActionController::Base
     @rate = SystemSetting.find_by_key('eur_gbp_rate') || SystemSetting.new(:key => "eur_gbp_rate")
     if @rate.new_record? || @rate.updated_at < Time.now.utc.beginning_of_day
       # get actual rate from google
-      res = Net::HTTP.get_response(URI.parse('http://www.google.com/ig/calculator?hl=en&q=1EUR=?GBP'))
-      if rate = res.body[/(\d|\.){3,11}/]
+      res = Net::HTTP.get_response(URI.parse('http://rate-exchange.appspot.com/currency?from=EUR&to=GBP'))
+      if res.is_a?(Net::HTTPOK) && rate = ActiveSupport::JSON.decode(res.body)["rate"]
         @rate.value = rate
         @rate.save
         rate.to_f

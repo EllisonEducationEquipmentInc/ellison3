@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/computadude/shippinglogic.git
+  revision: b31efb6315078db59fad3c1b3407c754635506a2
+  branch: master
+  specs:
+    shippinglogic (1.2.2)
+      builder (>= 2.1.2)
+      httparty (>= 0.4.4)
+
+GIT
   remote: git://github.com/elevation/event_calendar.git
   revision: 131d6dee147f4d515daa77d4acc7fa77f369bfcc
   branch: master
@@ -504,6 +513,7 @@ DEPENDENCIES
   rvm-capistrano
   sass
   savon (= 1.2.0)
+  shippinglogic!
   shoulda-matchers
   sunspot-rails-failover!
   sunspot_mongoid!
