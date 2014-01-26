@@ -24,7 +24,8 @@ gem 'devise', '1.4.9'
 gem 'warden'
 gem 'activemerchant', '1.28.0', :require => 'active_merchant'
 gem 'httparty'
-gem 'shippinglogic', :git => 'git://github.com/computadude/shippinglogic.git', :branch => "master"
+#gem 'shippinglogic',  path: '/Users/mark/Work/shippinglogic' # :git => 'git://github.com/computadude/shippinglogic.git', :branch => "master"
+gem 'fedex', git: 'git@github.com:jazminschroeder/fedex.git'
 gem 'sunspot_mongoid', git: 'git://github.com/jugyo/sunspot_mongoid.git', branch: "master"
 gem 'sunspot-rails-failover', git: 'git@github.com:computadude/sunspot-rails-failover.git'
 gem 'sunspot_with_kaminari'

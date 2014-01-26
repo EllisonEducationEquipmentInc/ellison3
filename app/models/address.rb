@@ -83,29 +83,29 @@ class Address
 
   def validate_address
     self.avs_result = nil
-    @fedex = Shippinglogic::FedEx.new(FEDEX_AUTH_KEY, FEDEX_SECURITY_CODE, FEDEX_ACCOUNT_NUMBER, FEDEX_METER_NUMBER, :test => false)
+    @fedex = Fedex::Shipment.new(key: FEDEX_AUTH_KEY, password: FEDEX_SECURITY_CODE, account_number: FEDEX_ACCOUNT_NUMBER, meter:  FEDEX_METER_NUMBER, mode: 'production')
     timeout(50) do
       Rails.logger.info "FEDEX validating address."
-      @fedex.address :streets => "#{self.address1} #{self.address2}", :city => self.city, :state => self.state, :postal_code => self.zip_code, :country => country_2_code(self.country)
+      @address_result = @fedex.validate_address address: {street: "#{self.address1} #{self.address2}", city: self.city, state: self.state, postal_code: self.zip_code, country: country_2_code(self.country)}
     end
-    self.enable_avs_bypass = true if @fedex.address.changes.include?("INSUFFICIENT_DATA") && !@fedex.address.changes.include?("BOX_NUMBER_MATCH")
-    if @fedex.address.changes.include?("INSUFFICIENT_DATA") || @fedex.address.changes.include?("BOX_NUMBER_MATCH") && !self.allow_po_box
+    self.enable_avs_bypass = true if @address_result.changes.include?("INSUFFICIENT_DATA") && !@address_result.address.changes.include?("BOX_NUMBER_MATCH")
+    if @address_result.score < 20 || @address_result.changes.include?("INSUFFICIENT_DATA") || @address_result.changes.include?("BOX_NUMBER_MATCH") && !self.allow_po_box
       self.avs_failed = true
     else
-      self.avs_result = @fedex.address.changes.is_a?(Array) ? @fedex.address.changes * ', ' : @fedex.address.changes
-      correct_address(@fedex.address.address)
+      self.avs_result = @address_result.changes.is_a?(Array) ? @address_result.changes * ', ' : @address_result.changes
+      correct_address(@address_result)
     end
-  rescue Shippinglogic::FedEx::Error, Timeout::Error => e
+  rescue Timeout::Error => e
     Rails.logger.error e.message
     self.bypass_avs = true
   end
 
   def correct_address(fedex_avs_result)
-    self.address1 = fedex_avs_result[:street_lines]
+    self.address1 = fedex_avs_result.street_lines
     self.address2 = nil
-    self.state = fedex_avs_result[:state_or_province_code]
-    self.zip_code = fedex_avs_result[:postal_code]
-    self.city = fedex_avs_result[:city]
+    self.state = fedex_avs_result.province_code
+    self.zip_code = fedex_avs_result.postal_code
+    self.city = fedex_avs_result.city
     save(:validate => false)
   end
 
