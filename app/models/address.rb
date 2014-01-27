@@ -88,7 +88,7 @@ class Address
       Rails.logger.info "FEDEX validating address."
       @address_result = @fedex.validate_address address: {street: "#{self.address1} #{self.address2}", city: self.city, state: self.state, postal_code: self.zip_code, country: country_2_code(self.country)}
     end
-    self.enable_avs_bypass = true if (@address_result.score < 20 || @address_result.changes.include?("INSUFFICIENT_DATA")) && !@address_result.address.changes.include?("BOX_NUMBER_MATCH")
+    self.enable_avs_bypass = true if (@address_result.score < 20 || @address_result.changes.include?("INSUFFICIENT_DATA")) && !@address_result.changes.include?("BOX_NUMBER_MATCH")
     if @address_result.score < 20 || @address_result.changes.include?("INSUFFICIENT_DATA") || @address_result.changes.include?("BOX_NUMBER_MATCH") && !self.allow_po_box
       self.avs_failed = true
     else
