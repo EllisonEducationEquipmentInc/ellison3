@@ -130,7 +130,10 @@ class IndexController < ApplicationController
       @search_phrase = SearchPhrase.available.where(:phrase => params[:q]).first
       render :js => "location.href='#{@search_phrase.destination}'" and return if @search_phrase
     end
-    session[:continue_shopping] = session[:last_action] = catalog_path + "#" + request.env["QUERY_STRING"]
+    qs = params.dup
+    qs.delete "controller"
+    qs.delete "action"
+    session[:continue_shopping] = session[:last_action] = catalog_path + "#" + qs.to_params
     if params[:q].present? || !fragment_exist?([params.to_params.gsub("%", ":"), current_system, current_locale, ecommerce_allowed?, Product.retailer_discount_level])
       get_search
       @products = @search.results
