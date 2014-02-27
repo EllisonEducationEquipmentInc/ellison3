@@ -15,8 +15,10 @@
 .ct4
   %p.ct5 Please fill out the following form:
   %p.p1
+    - if flash[:activation_message]
+      %p.gc_error_2= flash[:activation_message]
     = form_for @ecallite, url: '/ecallite', method: :post  do |f|
-      %p.gc_error_2 This is for Error1
+
       .form_el
         %label First Name:
         = f.text_field :first_name, placeholder: "Enter First Name", class: :form_txt, size: "24", required: true
@@ -29,7 +31,6 @@
       .form_el
         Confirm Email:
         = f.text_field :email_confirmation, placeholder: "Confirm Email", class: :form_txt, size: "24", required: true, type: :email, email: true, equalTo: "#ecal_activation_email"
-        %p.invalid This is for Error2
       .form_el
         Enter eCAL Code:
         = text_field_tag :activation_code_1, @ecallite.activation_code_1, class: :form_txt, size: 4, placeholder: "ECAL", required: true

@@ -95,7 +95,8 @@ Ellison3::Application.routes.draw do
 
   match '/calendar(/:year(/:month))' => 'index#calendar', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}, :format => false
 
-  match 'ecallite' => 'ecals#new', :format => false, via: :get
+  match 'ecallite' => 'ecals#new', :format => false, via: :get, as: :ecallite
+  match 'ecallite' => 'ecals#create', :format => false, via: :post
 
 
 

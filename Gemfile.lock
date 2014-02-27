@@ -44,7 +44,7 @@ GEM
   specs:
     RubyInline (3.12.1)
       ZenTest (~> 4.3)
-    ZenTest (4.9.0)
+    ZenTest (4.9.5)
     actionmailer (3.1.12)
       actionpack (= 3.1.12)
       mail (~> 2.4.4)
@@ -471,6 +471,7 @@ DEPENDENCIES
   capybara-webkit
   carrierwave (= 0.5.3)
   compass (= 0.11.5)
+  curb
   database_cleaner
   debugger
   delayed_job (= 3.0.5)

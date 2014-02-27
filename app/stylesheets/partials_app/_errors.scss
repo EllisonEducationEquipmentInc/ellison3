@@ -63,3 +63,23 @@ label.invalid {
     }
   }
 }
+
+#new_ecal_activation {
+  label.error {
+    color: #EA0000;
+    float: none;
+    font-style: italic;
+    font-weight: normal;
+    padding-left: 0.5em;
+    vertical-align: top;
+    width: auto;
+    background: none;
+    border: none;
+  }
+
+  input.error {
+    padding:3px 4px 2px;
+    background: none;
+
+  }
+}
