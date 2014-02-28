@@ -165,6 +165,26 @@ class Report
     Rails.logger.error("#{e}")
   end
 
+  def ecal_lite_report
+    set_current_system self.system || current_system
+    self.report_type = "ecal_lite_report"
+    @ecal_activations = EcalActivation.where(:created_at.gt => self.start_date, :created_at.lt => self.end_date)
+    self.total_count = @ecal_activations.count
+    n = 0
+    csv_string = CSV.generate do |csv|
+      csv << ["first_name", "last_name", "email", "activation_code", "system", "activation_date"]
+      @ecal_activations.in_batches(500) do |batch|
+        batch.each do |ecal_activation|
+          csv << [ecal_activation.first_name, ecal_activation.last_name, ecal_activation.email, ecal_activation.activation_code, ecal_activation.system, ecal_activation.created_at ]
+        end
+      end
+    end
+    write_to_gridfs csv_string
+    completed!
+  rescue Exception => e
+    Rails.logger.error("#{e}")
+  end
+
   private
 
   def modulo

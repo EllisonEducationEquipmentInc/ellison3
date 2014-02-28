@@ -8,10 +8,13 @@ class EcalActivation
   field :last_name
   field :email
   field :activation_code, default: ''
+  field :system
 
   validates :first_name, :last_name, :email, :activation_code, :presence => true
   validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
   validates :activation_code, :format => { :with => /[A-Za-z]{4}-\d{5}-\d{5}-\d{5}-\d{5}/ }
+
+  before_create :set_system
 
   def activation_code_1
     self.activation_code[0,4]
@@ -31,5 +34,11 @@ class EcalActivation
 
   def activation_code_5
     self.activation_code[23,5]
+  end
+
+  private
+
+  def set_system
+    self.system ||= current_system
   end
 end

@@ -110,6 +110,11 @@ class Admin::ReportsController < ApplicationController
     render :process
   end
 
+  def ecal_lite_report
+    @report = Report.create :start_date => Time.zone.parse(params[:start_date]), :end_date => Time.zone.parse(params[:end_date]), :system => current_system
+    @report.delay.ecal_lite_report
+    render :process
+  end
 
   def real_time_stock_status_reports
     @report = Report.create  :system => current_system, report_options: {outlet: params[:outlet], orderable: params[:orderable], item_group: params[:item_group], life_cycle: params[:life_cycle]}
