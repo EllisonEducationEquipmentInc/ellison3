@@ -33,15 +33,15 @@
         = f.text_field :email_confirmation, placeholder: "Confirm Email", class: :form_txt, size: "24", required: true, type: :email, email: true, equalTo: "#ecal_activation_email"
       .form_el
         Enter eCAL Code:
-        = text_field_tag :activation_code_1, @ecallite.activation_code_1, class: :form_txt, size: 4, placeholder: "ECAL", required: true
+        = text_field_tag :activation_code_1, @ecallite.activation_code_1, class: :form_txt, size: 4, placeholder: "ECAL",  minlength:4, maxlength:4, required: true
         \-
-        = text_field_tag :activation_code_2, @ecallite.activation_code_2, class: :form_txt, size: 5, digits: true, minlength: 5, minlength: 5, required: true
+        = text_field_tag :activation_code_2, @ecallite.activation_code_2, class: :form_txt, size: 5, digits: true, minlength: 5, maxlength: 5, required: true
         \-
-        = text_field_tag :activation_code_3, @ecallite.activation_code_3, class: :form_txt, size: 5, digits: true, minlength: 5, minlength: 5, required: true
+        = text_field_tag :activation_code_3, @ecallite.activation_code_3, class: :form_txt, size: 5, digits: true, minlength: 5, maxlength: 5, required: true
         \-
-        = text_field_tag :activation_code_4, @ecallite.activation_code_4, class: :form_txt, size: 5, digits: true, minlength: 5, minlength: 5, required: true
+        = text_field_tag :activation_code_4, @ecallite.activation_code_4, class: :form_txt, size: 5, digits: true, minlength: 5, maxlength: 5, required: true
         \-
-        = text_field_tag :activation_code_5, @ecallite.activation_code_5, class: :form_txt, size: 5, digits: true, minlength: 5, minlength: 5, required: true
+        = text_field_tag :activation_code_5, @ecallite.activation_code_5, class: :form_txt, size: 5, digits: true, minlength: 5, maxlength: 5, required: true
         %br
         %br
         = f.submit "Activate eCAL Software", class: 'form_btn'
