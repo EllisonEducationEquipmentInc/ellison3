@@ -472,6 +472,13 @@ $ ->
     $(".thumbnail").removeClass "selected"
     $(this).addClass "selected"
 
+root.jumpToNext = (elmnt, content) ->
+    if content.length is elmnt.maxLength
+      next = $(elmnt).attr('tabindex')
+      console.log $('#new_ecal_activation')[0].elements[next]
+      $('#new_ecal_activation')[0].elements[next].focus() if next < $('#new_ecal_activation')[0].elements.length
+    return
+
 $(document).ready ->
   bind_hashchange()
   initialize_facets()

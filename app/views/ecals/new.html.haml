@@ -13,39 +13,42 @@
     %br
 .ct3
 .ct4
-  %p.ct5 Please fill out the following form:
+  - unless flash[:activation_success].present?
+    %p.ct5 Please fill out the following form:
   %p.p1
     - if flash[:activation_message]
       %p.gc_error_2= flash[:activation_message]
-    = form_for @ecallite, url: '/ecallite', method: :post  do |f|
+    - if flash[:activation_success].blank?
+      = form_for @ecallite, url: '/ecallite', method: :post  do |f|
 
-      .form_el
-        %label First Name:
-        = f.text_field :first_name, placeholder: "Enter First Name", class: :form_txt, size: "24", required: true
-      .form_el
-        %label Last Name:
-        = f.text_field :last_name, placeholder: "Enter Last Name", class: :form_txt, size: "24", required: true
-      .form_el
-        %label Enter Email:
-        = f.text_field :email, placeholder: "Enter Email", class: :form_txt, size: "24", required: true, type: :email, email: true
-      .form_el
-        Confirm Email:
-        = f.text_field :email_confirmation, placeholder: "Confirm Email", class: :form_txt, size: "24", required: true, type: :email, email: true, equalTo: "#ecal_activation_email"
-      .form_el
-        Enter eCAL Code:
-        = text_field_tag :activation_code_1, @ecallite.activation_code_1, class: :form_txt, size: 4, placeholder: "ECAL",  minlength:4, maxlength:4, required: true
-        \-
-        = text_field_tag :activation_code_2, @ecallite.activation_code_2, class: :form_txt, size: 5, digits: true, minlength: 5, maxlength: 5, required: true
-        \-
-        = text_field_tag :activation_code_3, @ecallite.activation_code_3, class: :form_txt, size: 5, digits: true, minlength: 5, maxlength: 5, required: true
-        \-
-        = text_field_tag :activation_code_4, @ecallite.activation_code_4, class: :form_txt, size: 5, digits: true, minlength: 5, maxlength: 5, required: true
-        \-
-        = text_field_tag :activation_code_5, @ecallite.activation_code_5, class: :form_txt, size: 5, digits: true, minlength: 5, maxlength: 5, required: true
-        %br
-        %br
-        = f.submit "Activate eCAL Software", class: 'form_btn'
-        %p.gc_bal This is for Success Message
+        .form_el
+          %label First Name:
+          = f.text_field :first_name, placeholder: "Enter First Name", class: :form_txt, size: "24", required: true
+        .form_el
+          %label Last Name:
+          = f.text_field :last_name, placeholder: "Enter Last Name", class: :form_txt, size: "24", required: true
+        .form_el
+          %label Enter Email:
+          = f.text_field :email, placeholder: "Enter Email", class: :form_txt, size: "24", required: true, type: :email, email: true
+        .form_el
+          Confirm Email:
+          = f.text_field :email_confirmation, placeholder: "Confirm Email", class: :form_txt, size: "24", required: true, type: :email, email: true, equalTo: "#ecal_activation_email"
+        .form_el
+          Enter eCAL Code:
+          = text_field_tag :activation_code_1, @ecallite.activation_code_1, class: :form_txt, size: 4, placeholder: "ECAL",  minlength:4, maxlength:4, required: true, tabindex: 7, onkeyup: "jumpToNext(this,this.value)"
+          \-
+          = text_field_tag :activation_code_2, @ecallite.activation_code_2, class: :form_txt, size: 5, digits: true, minlength: 5, maxlength: 5, required: true, tabindex: 8, onkeyup: "jumpToNext(this,this.value)"
+          \-
+          = text_field_tag :activation_code_3, @ecallite.activation_code_3, class: :form_txt, size: 5, digits: true, minlength: 5, maxlength: 5, required: true, tabindex: 9, onkeyup: "jumpToNext(this,this.value)"
+          \-
+          = text_field_tag :activation_code_4, @ecallite.activation_code_4, class: :form_txt, size: 5, digits: true, minlength: 5, maxlength: 5, required: true, tabindex: 10, onkeyup: "jumpToNext(this,this.value)"
+          \-
+          = text_field_tag :activation_code_5, @ecallite.activation_code_5, class: :form_txt, size: 5, digits: true, minlength: 5, maxlength: 5, required: true, tabindex: 11, onkeyup: "jumpToNext(this,this.value)"
+          %br
+          %br
+          = f.submit "Activate eCAL Software", class: 'form_btn'
+    - else
+      %p.gc_bal= flash[:activation_success]
   .ct6
   .ct7
     %p If  you like the eCAL lite software, then you will love the eCAL software.  The eCAL software will expand the limits of  the eCAL lite program and add the following features to your craft arsenal:
@@ -67,4 +70,5 @@
 
 :coffeescript
   $('#new_ecal_activation').validate()
+
 
