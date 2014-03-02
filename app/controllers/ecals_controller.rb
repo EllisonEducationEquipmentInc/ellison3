@@ -12,8 +12,6 @@ class EcalsController < ApplicationController
     if @ecallite.valid?
       response = Curl::Easy.perform("https://www.craftedge.com/ecal_lite/redeem.php?code=#{@ecallite.activation_code}&fname=#{@ecallite.first_name}&lname=#{@ecallite.last_name}&email=#{@ecallite.email}")
       code = response.body_str.strip.gsub(";", '')
-      Rails.logger.info response.url
-      Rails.logger.info "!!!! code: #{code}"
       if code == "0"
         flash[:activation_success] = "You have successfully submitted your eCAL lite activation code. An email with the downloaded link to your eCAL lite software will be sent to your inbox shortly. "
         @ecallite.save
