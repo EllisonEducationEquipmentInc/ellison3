@@ -10,7 +10,7 @@ class EcalsController < ApplicationController
     @ecallite = EcalActivation.new params[:ecal_activation]
     @ecallite.activation_code = "#{params[:activation_code_1]}-#{params[:activation_code_2]}-#{params[:activation_code_3]}-#{params[:activation_code_4]}-#{params[:activation_code_5]}"
     if @ecallite.valid?
-      response = Curl::Easy.perform("https://www.craftedge.com/ecal_lite/redeem.php?code=#{@ecallite.activation_code}&fname=#{@ecallite.first_name}&lname=#{@ecallite.last_name}&email=#{@ecallite.email}")
+      response = Curl::Easy.perform("https://www.craftedge.com/ecal_lite/redeem.php?code=#{@ecallite.activation_code}&fname=#{CGI::escape @ecallite.first_name}&lname=#{CGI::escape @ecallite.last_name}&email=#{CGI::escape @ecallite.email}")
       code = response.body_str.strip.gsub(";", '')
       if code == "0"
         flash[:activation_success] = "You have successfully submitted your eCAL lite activation code. An email with the downloaded link to your eCAL lite software will be sent to your inbox shortly. "
