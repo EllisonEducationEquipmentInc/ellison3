@@ -29,10 +29,10 @@
           = f.text_field :last_name, placeholder: "Enter Last Name", class: :form_txt, size: "24", required: true
         .form_el
           %label Enter Email:
-          = f.text_field :email, placeholder: "Enter Email", class: :form_txt, size: "24", required: true, type: :email, email: true
+          = f.text_field :email, placeholder: "Enter Email Address", class: :form_txt, size: "24", required: true, type: :email, email: true
         .form_el
           Confirm Email:
-          = f.text_field :email_confirmation, placeholder: "Confirm Email", class: :form_txt, size: "24", required: true, type: :email, email: true, equalTo: "#ecal_activation_email"
+          = f.text_field :email_confirmation, placeholder: "Confirm Email Address", class: :form_txt, size: "24", required: true, type: :email, email: true, equalTo: "#ecal_activation_email"
         .form_el
           Enter eCAL Code:
           = text_field_tag :activation_code_1, @ecallite.activation_code_1, class: :form_txt, size: 4, minlength:4, maxlength:4, required: true, tabindex: 7, onkeyup: "jumpToNext(this,this.value)"
