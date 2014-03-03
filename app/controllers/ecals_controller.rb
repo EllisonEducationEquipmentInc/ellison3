@@ -25,7 +25,7 @@ class EcalsController < ApplicationController
         when "6"
           "We're sorry, the activation code entered has already been activated. Please request a new activation link by providing us the same email address used at the time of activation here "
         else
-          "Invalid fields."
+          "Oops invalid characters found in one or more fields.  Please correct and resubmit."
         end
         render :new
       end
