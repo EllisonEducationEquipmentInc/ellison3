@@ -7,12 +7,16 @@
 .lyris_su_btm#newsletter_popup_inner
   - if is_ee?
     %h2 New to Ellisoneducation.com?
+    %p
+      Subscribe to our newsletter for curriculum ideas, creative tips and special announcements, plus get advance notice of specials and sales.
   - elsif is_sizzix_us?
     %h2 New to Sizzix.com?
+    %p
+      Subscribe to our newsletter for tips & tricks, special announcements and updates about your favorite designers, plus get advance notice of specials and sales.
   - else
     %h2 New to Ellison?
-  %p
-    Thanks for joining us. We would love to add you as a subscriber. Simply enter your email address in the box below and you can receive regular updates!
+    %p
+      Subscribe to our newsletter for tips & tricks, special announcements and updates about your favorite designers, plus get advance notice of specials and sales.
   .error#newsletter_signup_errors(style='display:none')
   #newsletter_signup_messages.notice(style='display:none')
   = form_tag url_for(controller: 'index', action: 'newsletter_signup_do'), remote: true, id: 'newsletter-signup-form' do
