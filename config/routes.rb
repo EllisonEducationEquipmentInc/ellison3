@@ -97,8 +97,7 @@ Ellison3::Application.routes.draw do
 
   match 'ecallite' => 'ecals#new', :format => false, via: :get, as: :ecallite
   match 'ecallite' => 'ecals#create', :format => false, via: :post
-
-
+  match '/upload/fast_upload' => 'carts#fast_upload', :as => :fast_upload, :format => false
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
