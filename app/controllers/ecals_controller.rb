@@ -24,8 +24,10 @@ class EcalsController < ApplicationController
           "Unfortunately, the activation code entered does not match our records. Please re-enter activation code making sure to enter activation code exactly as it appears on the activation card."
         when "6"
           "We're sorry, the activation code entered has already been activated. Please request a new activation link by providing us the same email address used at the time of activation here "
-        else
+        when "3", "4", "5"
           "Oops invalid characters found in one or more fields.  Please correct and resubmit."
+        else
+          "Unfortunately we are experiencing issues.  Please try again later or email support@craftedge.com"
         end
         render :new
       end
