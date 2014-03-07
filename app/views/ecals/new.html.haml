@@ -1,26 +1,25 @@
 %link{href: "http://www.sizzix.com/images/static/form_code/css/form1.css", rel: "stylesheet", type: "text/css"}
 
 .outer_container
-  %img.img1{alt: "", height: "227", src: "http://www.sizzix.com/images/static/form_code/images/ecal_lite_banner.jpg", width: "950"}/
-.lead_container
+  %img.img1{alt: "", height: "162", src: "http://www.sizzix.com/images/static/form_code/images/ecal_lite_pg_comp2.png", width: "926"}/
 .ct_1
-  %p.ct2 Thank you for purchasing the Sizzix eclips2 machine.
+
   %p We are pleased that you have chosen the eclips2 to help bring to life all your many do-it-yourself (DIY) projects, including cardmaking, scrapbooking, invitations, party favors and other fun papercrafting and arts  crafts projects. As a Sizzix eclips user, you are entitled to a FREE copy of eCAL lite software. With eCAL lite, you can create your own designs, weld shapes and fonts together, purchase new digital designs from the eshape Store, size and skew designs to your liking and much more.
-  %p
+  %p{:style=>'margin-bottom:0px;!important;'}
     When you opened the box to your brand new eclips2, you may have noticed a card with an eCAL lite Authorization number. Please find this card and locate your Authorization number.  After you submit your name, email address and eCAL lite Authorization Code below, please check your Inbox for an email from CraftEdge containing your eCAL lite software activation link and serial number. If you do not see this email, check your Junk Folder.  Click the link in your email to download the eCAL lite Software. If you experience problems with the provided link, copy the link directly into your browser. Open the eCAL lite Software installer and follow the on-screen instructions to install the
     application on your computer. Open the eCAL lite Software installer and follow the on-screen instructions to install the application on your computer. When the activation prompt appears, enter the eCAL lite serial number that was provided in your email.
     %br
     %br
-.ct3
+    .outer_container
+      %img.img1{alt: "", height: "305", src: "http://www.sizzix.com/images/static/form_code/images/ecal_lite_btm2.png", width: "926"}/
 .ct4
   - unless flash[:activation_success].present?
-    %p.ct5 Please fill out the following form:
+    %p.ct5 
   %p.p1
     - if flash[:activation_message]
       %p.gc_error_2= flash[:activation_message]
     - if flash[:activation_success].blank?
       = form_for @ecallite, url: '/ecallite', method: :post  do |f|
-
         .form_el
           %label First Name:
           = f.text_field :first_name, placeholder: "Enter First Name", class: :form_txt, size: "24", required: true, tabindex: 3
@@ -49,7 +48,7 @@
           = f.submit "Activate eCAL Software", class: 'form_btn'
     - else
       %p.gc_bal= flash[:activation_success]
-  .ct6
+  .ct6{:style=>'margin-top:12px;'}
   .ct7
     %p If  you like the eCAL lite software, then you will love the eCAL software.  The eCAL software will expand the limits of  the eCAL lite program and add the following features to your craft arsenal:
     %ul{type: "disc"}
