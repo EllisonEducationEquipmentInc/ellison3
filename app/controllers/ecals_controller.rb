@@ -6,7 +6,7 @@ class EcalsController < ApplicationController
   end
 
   def create
-    @title = "eCAL Lite Software Activation"
+    @title = "eCAL Lite Software Authorization"
     @ecallite = EcalActivation.new params[:ecal_activation]
     @ecallite.activation_code = "#{params[:activation_code_1]}-#{params[:activation_code_2]}-#{params[:activation_code_3]}-#{params[:activation_code_4]}-#{params[:activation_code_5]}"
     if @ecallite.valid?
