@@ -382,8 +382,8 @@ module EllisonSystem
          {:merchant_account => {
            :name => 'sage_pay',
            :user_name => 'ellison',
-           :password => 'ellisond',
-           :login => 'ellisonadmin'}}
+           :password => 'gateway',
+           :login => 'fireball'}}
       end
     end
   end
