@@ -45,7 +45,7 @@
           = text_field_tag :activation_code_5, @ecallite.activation_code_5, class: :form_txt, size: 5, digits: true, minlength: 5, maxlength: 5, required: true, tabindex:11, onkeyup: "jumpToNext(this,this.value)"
           %br
           %br
-          = f.submit "Activate eCAL Software", class: 'form_btn'
+          = f.submit "Authorize eCAL Software", class: 'form_btn'
     - else
       %p.gc_bal= flash[:activation_success]
   .ct6{:style=>'margin-top:12px;'}
