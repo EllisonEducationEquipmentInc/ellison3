@@ -10,7 +10,7 @@
         %th{:style => "text-align: right; white-space: nowrap;"}== #{is_er? ? 'Wholesale' : 'Regular'} Price
         %th{:style => "text-align: right", :width => 75} Your Price
         %th.dontprint{:style => "text-align: right;" }
-    %tbody= render :partial => 'carts/saved_item', :collection => get_user.save_for_later_list.products, :as => :product
+    %tbody= render :partial => 'carts/saved_item', :collection => get_user.save_for_later_list.products.limit(250), :as => :product
   %p.legalese.right Prices and availability are subject to change.
   :javascript
     $(".move_to_cart").click( function() {
