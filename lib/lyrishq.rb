@@ -53,7 +53,7 @@ class Lyrishq
 
   def error
     if error? && @response.present?
-      (@response/"data").inner_text == "Email address already exists" ? "Email address already exists in our list.  If you are not receiving our newsletter, please update your profile <a href='/newsletter-signup'>here</a> to start receiving the newsletter".html_safe : (@response/"data").inner_text
+      (@response/"data").inner_text == "Email address already exists" ? "The Email address you have entered already exists in our  newsletter subscriber list.  If you wish to update your newsletter preferences <a href='/newsletter-signup'>click here</a>".html_safe : (@response/"data").inner_text
     end
   end
 

@@ -8,11 +8,11 @@
   - if is_ee?
     %h2 New to Ellisoneducation.com?
     %p
-      Subscribe to our newsletter for curriculum ideas, creative tips and special announcements, plus get advance notice of specials and sales.
+      Subscribe to our Ellison Connection newsletter for curriculum ideas, creative tips and special announcements, plus get advance notice of specials and sales.
   - elsif is_sizzix_us?
     %h2 New to Sizzix.com?
     %p
-      Subscribe to our newsletter for tips & tricks, special announcements and updates about your favorite designers, plus get advance notice of specials and sales.
+      Subscribe to our Sizzix Scoop newsletter for tips & tricks, special announcements and updates about your favorite designers, plus get advance notice of specials and sales.
   - else
     %h2 New to Ellison?
     %p
@@ -22,12 +22,7 @@
   = form_tag url_for(controller: 'index', action: 'newsletter_signup_do'), remote: true, id: 'newsletter-signup-form' do
     = text_field_tag :email, "Type your email address here", :onfocus => "if (this.value == 'Type your email address here'){this.value='';}", :onblur => "if (this.value == ''){this.value='Type your email address here';}", :size => 36, :style =>"color:#666;"
     %br
-    - if is_ee?
-      = submit_tag :submit, value: 'Sign up for the Connection', class: 'lyris_btn_css'
-    - elsif is_sizzix_us?
-      = submit_tag :submit, value: 'Sign up for the Scoop', class: 'lyris_btn_css'
-    - else
-      = submit_tag :submit, value: 'Sign up for our Newsletter', class: 'lyris_btn_css'
+    = submit_tag :submit, value: 'Click here to Subscribe', class: 'lyris_btn_css'
   :coffeescript
     $('#close_newsletter_signup').click ->
       $('#newsletter_signup').hide()
