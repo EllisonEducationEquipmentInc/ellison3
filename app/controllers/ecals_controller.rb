@@ -1,7 +1,7 @@
 class EcalsController < ApplicationController
 
   def new
-    @title = "eCAL Lite Software Activation"
+    @title = "eCAL Lite Software Authorization"
     @ecallite = EcalActivation.new
   end
 
@@ -13,19 +13,19 @@ class EcalsController < ApplicationController
       response = Curl::Easy.perform("https://www.craftedge.com/ecal_lite/redeem.php?code=#{@ecallite.activation_code}&fname=#{CGI::escape @ecallite.first_name}&lname=#{CGI::escape @ecallite.last_name}&email=#{CGI::escape @ecallite.email}")
       code = response.body_str.strip.gsub(";", '')
       if code == "0"
-        flash[:activation_success] = "You have successfully submitted your eCAL lite activation code. An email with the downloaded link to your eCAL lite software will be sent to your inbox shortly. "
+        flash[:activation_success] = "You have successfully submitted your eCAL lite Authorization code. An email with the downloaded link to your eCAL lite software will be sent to your inbox shortly. "
         @ecallite.save
         redirect_to ecallite_path
       else
         flash.now[:activation_message] = case code
         when "7", "8", "9", "10", "1"
-          "There was an error in processing your request to submit your eCAL lite activation code. Please try entering your activation code again. If you have any further questions about submitting your eCAL lite activations code, please contact support@craftedge.com with your serial number, email address and first and last name"
+          "There was an error in processing your request to submit your eCAL lite authorization code. Please try entering your authorization code again. If you have any further questions about submitting your eCAL lite authorization code, please contact support@craftedge.com with your serial number, email address and first and last name"
         when "2"
-          "Unfortunately, the activation code entered does not match our records. Please re-enter activation code making sure to enter activation code exactly as it appears on the activation card."
+          "Unfortunately, the authorization code entered does not match our records. Please re-enter authorization code making sure to enter authorization code exactly as it appears on the authorization card."
         when "6"
-          "We're sorry, the activation code entered has already been activated. Please request a new activation link by providing us the same email address used at the time of activation here "
+          "We're sorry, the authorization code entered has already been activated. Please request a new authorization link by providing us the same email address used at the time of authorization here "
         when "3", "4", "5"
-          "Oops invalid characters found in one or more fields.  Please correct and resubmit."
+          "Oops invalid data found in one or more fields.  Please correct and resubmit."
         else
           "Unfortunately we are experiencing issues.  Please try again later or email support@craftedge.com"
         end
