@@ -407,7 +407,7 @@ class IndexController < ApplicationController
             flash.now[:alert] = @lyrishq.error
           end
         else
-          flash.now[:alert] = "Email address is not part of the list. Please sign up."
+          flash.now[:alert] = "The email address you entered is not on our newsletter subscriber list.  Please sign up for the newsletter by filling out the form below."
         end
       else
         @lyrishq = Lyrishq.new ml_id: lyrishq_settings[:ml_id], site_id: lyrishq_settings[:site_id], type: 'record', activity: 'add', email: params[:email], demographics: params[:demographics], extras: params[:extras]
@@ -415,7 +415,7 @@ class IndexController < ApplicationController
           cookies[:newsletter_signup_closed] = {value: true, expires: 1.year.since}
           render 'newsletter_signup_success'
         elsif @lyrishq.error? && @lyrishq.error =~ /already exists/i
-          flash.now[:existing_alert] = "Email address already on the list.  To update your email preferences, click update now."
+          flash.now[:existing_alert] = "The Email address you entered already exists on our newsletter subscriber list. If you wish to update your email preferences, click update now."
         else
           flash.now[:alert] = @lyrishq.error
         end

@@ -5,10 +5,10 @@
   // This is sample copy
   - if is_sizzix_us?
     %p
-      Sample SZUS Copy Fusce vitae imperdiet dolor, ut rhoncus lacus. Duis elit dolor, facilisis et elit eu, ullamcorper tempus tortor. Sed suscipit lacus eu sem blandit faucibus. Sed eget elit a mauris suscipit vestibulum eget vel lorem. Suspendisse sit amet rutrum ipsum. Morbi vestibulum venenatis felis, ac molestie libero tempus non. Morbi volutpat eu nisi nec eleifend. Duis dapibus libero eu quam tempus cursus. Fusce non sem justo. Nulla pulvinar blandit sapien ut rutrum.
+      Sign up for the Sizzix.com Scoop Newsletter by filling out the form below, to receive news on latest products, special offers, inspiring ideas, designer details, helpful videos and much more! Once you submit your information, you will receive an email to the address you provide, requesting that you confirm the details you’ve submitted. Simply click on the link in the email to finalize your registration and begin receiving the Scoop. As an added incentive, new subscribers will receive a coupon code for added savings. It’s our way of welcoming you to the Scoop!
   - elsif is_ee?
     %p
-      Sample ELLISON Fusce vitae imperdiet dolor, ut rhoncus lacus. Duis elit dolor, facilisis et elit eu, ullamcorper tempus tortor. Sed suscipit lacus eu sem blandit faucibus. Sed eget elit a mauris suscipit vestibulum eget vel lorem. Suspendisse sit amet rutrum ipsum. Morbi vestibulum venenatis felis, ac molestie libero tempus non. Morbi volutpat eu nisi nec eleifend. Duis dapibus libero eu quam tempus cursus. Fusce non sem justo. Nulla pulvinar blandit sapien ut rutrum. 
+      Sign up for the Ellison Connection Newsletter by filling out the form below, to receive new on atest products, special offers, inspiring ideas, designer details, helpful videos and much more! Once you submit your information, you will receive an email to the address you provide, requesting that you confirm the details you’ve submitted. Simply click on the link in the email to finalize your registration and begin receiving the Connection Newsletter. As an added incentive, new subscribers will receive a coupon code for added savings. It’s our way of welcoming you to the Ellison Connection!
   - else
 
   .nletter_su_left
@@ -21,7 +21,7 @@
           %h2.news_line
           = form_tag newsletter_signup_path, id: 'newsletter-form-full' do
             .field
-              = label_tag :email, "Email*", :class => 'req_lab'
+              = label_tag :email, "Email *", :class => 'req_lab'
               = text_field_tag :email, params[:email], required: true, email: :email, :onfocus => "if (this.value == 'Enter your email address'){this.value='';}", :onblur => "if (this.value == ''){this.value='Enter your email address';}", :size => 36, :style =>"color:#666;"
             - if is_sizzix_uk?
               .field
@@ -81,12 +81,12 @@
         To join all you need to do is fill out the form above.
             
   .szuk_container
-    %h2 After subscribing, how can I ensure that I will continue to receive my newsletter?
-    To ensure that newsletter is delivered to your email and "inbox", and not as treated as spam, please add the email address, <strong>#{new_lyris_email}</strong> to your address book as soon as possible. This will prevent any deliveries to your "Bulk" or "Junk" mail folders.
+    %h2 How to ensure delivery of newsletter?
+    To ensure that your newsletter is delivered to your inbox, and not treated as spam, please add <strong>#{new_lyris_email}</strong> to your email address book as soon as possible. This will prevent any deliveries to your Bulk or Junk mail folders.
     %br
     %br
-    %h2 How can I unsubscribe from your email newsletter?
-    To remove your newsletter subscription, please follow the unsubscribe link in your newsletter email.
+    %h2 How to unsubscribe from newsletter?
+    To end your newsletter subscription, please follow the unsubscribe link at the bottom of every newsletter email.
       
 
   :coffeescript

@@ -8,13 +8,10 @@
 		%h2{:style=>'text-align:center'}
 			Update Your Profile
 		%p{:style=>'padding:0 22px; text-align:center;'}
-			Great! We have just sent you an email containing a unique link.  Clicking on this link will take you directly to our preferences page where you can update your profile.
+			Please check your inbox as we have just sent you an email.  It contains a unique link, which will take you directly to your email preferences page, allowing you to update your newsletter profile.
 		%div{:style=>'text-align:center; margin-bottom:110px; width:100%; height:auto;'}
 			%a{:href=>'/home'}
-				- if is_sizzix?
-					= submit_tag :button, value: 'Continue Shopping at Sizzix', class: 'lyris_btn_css'
-				- else
-					= submit_tag :button, value: 'Continue Shopping at EllisonEducation', class: 'lyris_btn_css'
+				= submit_tag :button, value: 'Continue Shopping', class: 'lyris_btn_css'
 .email_bb_set1
 	- if is_sizzix_uk?
 		%a{:href=>'/101'}
