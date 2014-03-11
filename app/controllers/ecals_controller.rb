@@ -23,7 +23,7 @@ class EcalsController < ApplicationController
         when "2"
           "Unfortunately, the authorization code entered does not match our records. Please re-enter authorization code making sure to enter authorization code exactly as it appears on the authorization card."
         when "6"
-          "We're sorry, the authorization code entered has already been activated. Please request a new authorization link by providing us the same email address used at the time of authorization here "
+          "We're sorry, the authorization code entered has already been activated. Please request a new authorization link by providing us the same email address used at the time of authorization <a href='http://www.craftedge.com/support/lostserial.php'>here</a>".html_safe
         when "3", "4", "5"
           "Oops invalid data found in one or more fields.  Please correct and resubmit."
         else
