@@ -643,7 +643,7 @@ ul.ui-tabs-nav {
       
       ul.social-icons { @extend .horizontal;
         @if $system == szus {
-          margin: 0 0 0 50px !important;
+          margin: 8px 0 0 14px !important
         } @else if $system == erus {
           margin: 0 0 0 12px !important;
         } @else if $system == szuk {
