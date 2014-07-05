@@ -68,10 +68,12 @@ class Admin::VirtualTerminalController < ApplicationController
     process_card(:amount => (params[:purchase_total_amount].to_f * 100).round, :payment => order.payment, :order => params[:purchase_order_id], :capture => params[:purchase_transaction_type] != "authorize", :use_payment_token => order.payment.subscriptionid.present?, :system => params[:purchase_system], :no_user => true)
     VirtualTransaction.create(:user => current_admin.email, :transaction_type => params[:purchase_transaction_type], :result => @payment.status, :raw_result => @payment.authorization, :transaction_id => @payment.security_key, :details => {:payment => @payment.attributes.to_hash})
     text = ""
-    ["subscriptionid", "cv2_result", "status", "vpstx_id", "security_key", "tx_auth_no", "status_detail", "address_result", "post_code_result", "paid_amount", "authorization"].each do |s|
+    ["subscriptionid", "cv2_result", "status", "vpstx_id", "security_key", "tx_auth_no", "status_detail", "address_result", "post_code_result", "paid_amount"].each do |s|
+# remove authorization element from above
       text << "#{s.titleize}: #{@payment.send(s)}<br />"
     end
-    text << "<br>AX URL Encoded Authorization string: #{CGI::escape(@payment.authorization)}" if @payment.authorization
+#    text << "<br>AX URL Encoded Authorization string: #{CGI::escape(@payment.authorization)}" if @payment.authorization
+    text << "<br><b>Please remember to copy Vpstx & Security Key values to the respective AX fields.  Details below: </b> <br> (a) 'Vpstx' to AX 'Payment Transaction Id' field. <br> (b) 'Security Key' value to AX 'Cybersource Merchant Reference' field section"
     render :text => text
   rescue Exception => e
     render :text => e.to_s + "\n" + e.backtrace.join("\n")
