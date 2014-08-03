@@ -364,26 +364,26 @@ module EllisonSystem
         {:merchant_account => {
            :name => 'cyber_source',
            :user_name => 'sizzix',
-           :password => 'DcbG3+LXRV0AZwkAGaEpZ+n/OzSJWBhONwBsZrq/N20PGDIAlJ2t+rlpR+sjgOaaf7C62QLZa4VQ3QbTUkYNJIo3u9ZQCt71VLUTYMSpWV9u/tlMUH5aPAvlx6VpMvBgsf8Gdvx1fA2n79o6iCyTIgCmZnaPQvLTOXt+7asTYyV46eykp+7NhHyUBpTfqu1yQDs0iVgYTjcAbGa6vzdtDxgyAJSdrfq5aUfrI4Dmmn+wutkC2WuFUN0G01JGDSSKN7vWUAre9VS1E2DEqVlfbv7ZTFB+WjwL5celaTLwYLH/Bnb8dXwNp+/aOogskyIApmZ2j0Ly0zl7fu2rE2MlCQ==',
+           :password => 'tiGfqAWKZc5/MNB3zBkPGa/HtGtotIhqTD8PKtilnwG9MPqVcMsd0ZSv+vqTOTrRI/qtkPUP7w1y9VLwmsn5K7LZ+vbmiDGdUM3EKxdjOouQtCx59h1A6VkQqT3o8jt/ITZbInyZ4u319zjAtyqVOXCfVwlej7bBeScOnHtjzUrt1XMDrJoEUPdBva/hn3FFBmDIU0u9TIAR9xokK+2oSKphhxH9zcCuZqx2pp00EYw9y9WE/0C9rH5KMveu5/oz34ZjmZnsfZQir46KOXpQEvEsgTx387xPcRFjk3zCMZnTnmzxJX0jLdADoELW1hO+1y5x5VB6GydrPIWEl2eogQ==',
            :login => 'sizzix'}}
       elsif system == 'eeus'
          {:merchant_account => {
            :name => 'cyber_source',
            :user_name => 'ellison',
-           :password => 'XS1C/PNJ9186uPcFAASCAmAwggJcAtIoyhjq9k5w/lSZIkBRg/CgVI4UCKvj1ogLj1TyBdl/D3vUcLUY/z6NghgkvDpYXWFjqSTgEBncr0+ml7oFXWNSATBP1lg3og5azfHDnob0HQrN/1NHbzFPpLgyqyJC/vj7Zm+XyhMdKB7VrFVOHvo97xcLWQUABIICYDCCAlwC0ijKGOr2TnD+VJkiQFGD8KBUjhQIq+PWiAuPVPIF2X8Pe9RwtRj/Po2CGCS8OlhdYWOpJOAQGdyvT6aXugVdY1IBME/WWDeiDlrN8cOehvQdCs3/U0dvMU+kuDKrIkL++Ptmb5fKEx0oHg==',
+           :password => 'rYHrAw8LDXZm3q0CfxGGZGY3vkqDFPhsTbd8OBneFHpLMlXPQwXuPcODjsnr4f79nprF0l+BnPLN0/8lErPhp7i9sD5T5MmZlR66a/CEb+ooGk70olbOtDPwApUnQwf/YpbzwRfWqCOm9HGGj/cT3feJoZKxF5pCLuM5+Fj4iRZR6zNXDzz7iWFPSzy+hdnLkJqCSXp2qIVBUYe01dNdIqeiuzX5rCisfKqLtHnDXFMCi+05w/NEP4oiURIkFrWl0IT+fukLBrLrvKVOTtdh2wR7lNqjKkMtOYMXJVAg/TmkdLnzJS4MUHUXMhLu1rjIkveCePzICIxUzxvy7/rVOA==',
            :login => 'ellison'}}
       elsif system == 'erus'
         {:merchant_account => {
           :name => 'cyber_source',
           :user_name => 'ellisonretail',
-          :password => 'HAuGLyXLCPduJIPyXpDMO4oImTKrIkL++Ptmb5fKEx0oHl4XlRBdxhUTtWV4+Eshb9WNEw7PZwZjfIGGIOsCAwEAAQKB6WeDiH3/JIStG+ZE6NymVzc4qMBUJviNWv8JQ3ybMhtPD+6AFUCteoIr7+E2GDp4oWkaHeI2BgkPZbpEmlbKcNivXKJK6sxKDKxNHt5BMqsiQv74+2Zvl8oTHSgeXheVEF3GFRO1ZXj4SyFv1Y0TDs9nBmN8gYYg6wIDAQABAoHpZ4OIff8khK0b5kTo3KZXNziowFQm+I1a/wlDfJsyG08P7oAVQK16givv4TYYOnihaRod4jYGCQ9lug==',
+          :password => 'LeM8l33rWc+zPLzSklp5tOZMm0bqQGYkTpCHwMMh5ZrRezV4SrOqRLZcCIxo0+y/iPpGByMuuOOsS84B+6A2NRNROidkdbeqcm+TSAKjqm+C/xtIGaV9qdfNkudLqNjMwYSTbDm4ZjjTBzWKwk+eU6HLepqbEfto43WNXoL1+yv6T9v8/dEncCCxHhqC/rdEz0W2NsNLrChumpecaUmBWG7eqo3UK8v1UmiWLMeoLFdAFvdVgQeliDOyjlAP1bui6J3duXCPQTRqw0lwWTd4xqlto0Hw+qbcoIJFcimAOkI6HO2KnxsqtijH7939WhpOn1ovLCGqGWgcw1qYMihLWA==',
           :login => 'ellisonretail'}}
       else
          {:merchant_account => {
            :name => 'sage_pay',
            :user_name => 'ellison',
-           :password => 'gateway',
-           :login => 'fireball'}}
+           :password => 'ellisond',
+           :login => 'ellisonadmin'}}
       end
     end
   end
