@@ -162,7 +162,7 @@ class Product
       displayable(sys, time).where(:life_cycle.in => LIFE_CYCLES[0,3])
     end
 
-    # displayable and life_cycle is in ['pre-release', 'available'], or discontinued but in-stock
+    # displayable and life_cycle is in ['pre-release', 'available'], or discontinued but in-stock or [discontinued orderable=false]
     def listable(sys = current_system)
       displayable(sys).any_of({:life_cycle => 'discontinued', "$where" => sys == "szus" ? "this.orderable_szus == false || this.quantity_sz > #{QUANTITY_THRESHOLD} || this.quantity_us > #{QUANTITY_THRESHOLD}" : "this.orderable_#{sys} == false || this.quantity_#{sys == "eeus" || sys == "erus" ? 'us' : 'uk'} > #{QUANTITY_THRESHOLD}"}, {:life_cycle.in => Product::LIFE_CYCLES[0,2]})
     end
