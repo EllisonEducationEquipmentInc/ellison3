@@ -7,7 +7,7 @@
 - if tab.text
   = raw youtube_video tab.text.html_safe
 - if tab.products
-  = render :partial => 'products/product', :collection => Product.available.where(:item_num.in => tab.products).cache
+  = render :partial => 'products/product', :collection => Product.displayable.where(:item_num.in => tab.products).cache
   .clear
 - if tab.ideas
   = render :partial => 'ideas/idea', :collection => Idea.available.where(:idea_num.in => tab.ideas).cache
