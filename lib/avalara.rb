@@ -11,8 +11,8 @@ class Avalara
 
   def initialize(attributes)
     @cart = attributes[:cart]                         # cart object
-    @items = @cart ? @cart.cart_items : attributes[:items]               # cart_item, or order_item object
-    @total = @cart ? @cart.taxable_amaunt : attributes[:total]  # order subtotal
+    @items = attributes[:items] || (@cart.is_a?(Cart) ? @cart.cart_items : @cart.order_items)  # cart_item, or order_item object
+    @total = attributes[:total] || (@cart.is_a?(Cart) ? @cart.taxable_amaunt : @cart.subtotal_amount)  # order subtotal
     @customer = attributes[:customer]                 # Address object
     @shipping_charge = attributes[:shipping_charge]   # decimal
     @handling_charge = attributes[:handling_charge]   # decimal
@@ -37,15 +37,47 @@ class Avalara
     @response["TotalTax"].to_f
   end
 
+  def transaction_id
+    @response["DocCode"]
+  end
+
+  def error?
+    !success?
+  end
+
+  def success?
+    @response["ResultCode"] == "Success"
+  end
+
+  def correct_address
+    return unless @confirm_address
+    begin
+      corrected_address = response["TaxAddresses"][0]
+      @customer.city = corrected_address["City"]
+      @customer.zip_code = corrected_address["PostalCode"]
+      @customer.state = corrected_address["Region"]
+      @customer.address1 = corrected_address["Address"]
+    rescue Exception => e
+    end
+  end
+
+  def pretty
+    @response
+  end
+
+  def errors
+    @response["Messages"] unless success?
+  end
+
 private
 
   def construct_body
     {
-      "CustomerCode" => @customer.user.try(:erp),
+      "CustomerCode" => @customer.user.try(:erp) || 'New',
       "DocDate" =>Date.today.strftime("%Y-%m-%d"),
       "CompanyCode" => "ELL",
       "Client" => "AvaTaxSample",
-      "DocCode" => @cart.is_a?(Order) ? @cart.order_number : @cart.id,
+      "DocCode" => @cart.is_a?(Order) ? @cart.order_number : @cart.try(:id),
       "DetailLevel" => "Tax",
       "Commit" => "false",
       "DocType" => "SalesOrder",
@@ -82,7 +114,7 @@ private
         "LineNo" => @i += 1,
         "ItemCode" => item.item_num,
         "Qty" => item.quantity,
-        "Amount" => (item.quantity * (item.respond_to?(:price) ? item.price : item.product.coupon_price(@cart)).to_f).to_f,
+        "Amount" => (item.quantity * (item.sale_price ? item.sale_price : item.product.coupon_price(@cart)).to_f).to_f,
         "OriginCode" => "01",
         "DestinationCode" => "02",
         "Description" => item.name,
