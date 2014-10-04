@@ -1,3 +1,5 @@
+require 'avalara'
+
 module ShoppingCart
   module ClassMethods
 
@@ -291,7 +293,7 @@ module ShoppingCart
     end
 
     def cch_sales_tax(customer, options = {})
-      Rails.logger.info "Getting CCH tax for #{customer.inspect}"
+      Rails.logger.info "Getting Avalara tax for #{customer.inspect}"
       options[:shipping_charge] ||= calculate_shipping(customer, options) #get_delayed_shipping
       options[:handling_charge] ||= calculate_handling
       options[:cart] ||= get_cart.reload
@@ -301,13 +303,13 @@ module ShoppingCart
       tries = 0
       begin
         tries += 1
-        @cch = CCH::Cch.new(:action => 'calculate', :cart => options[:cart], :confirm_address => options[:confirm_address],  :customer => customer, :handling_charge => options[:handling_charge], :shipping_charge => options[:shipping_charge], :exempt => options[:exempt], :tax_exempt_certificate => options[:tax_exempt_certificate])
+        @cch = Avalara.new(:action => 'calculate', :cart => options[:cart], :confirm_address => options[:confirm_address],  :customer => customer, :handling_charge => options[:handling_charge], :shipping_charge => options[:shipping_charge], :exempt => options[:exempt], :tax_exempt_certificate => options[:tax_exempt_certificate])
       rescue Timeout::Error => e
         if tries < 4
           sleep(2**tries)
           retry
         end
-        Rails.logger.error "!!! CCH Timed out. Retrying..."
+        Rails.logger.error "!!! Avalara Timed out. Retrying..."
       end
     end
 

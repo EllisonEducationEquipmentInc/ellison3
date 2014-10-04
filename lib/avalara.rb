@@ -21,6 +21,7 @@ class Avalara
     @referred_id = attributes[:referred_id]
     @tax_exempt_certificate = attributes[:tax_exempt_certificate].present? ? attributes[:tax_exempt_certificate] : nil
     @merchant_transaction_id = attributes[:merchant_transaction_id] || order_prefix
+    calculate
   end
 
   def calculate
@@ -30,6 +31,10 @@ class Avalara
     c.password = LICENSE_KEY
     c.http_post construct_body.to_json
     @response = JSON.parse c.body_str
+  end
+
+  def total_tax
+    @response["TotalTax"].to_f
   end
 
 private
@@ -77,7 +82,7 @@ private
         "LineNo" => @i += 1,
         "ItemCode" => item.item_num,
         "Qty" => item.quantity,
-        "Amount" => (item.quantity * (item.respond_to?(:sale_price) ? item.sale_price : item.product.coupon_price(cart)).to_f).to_f,
+        "Amount" => (item.quantity * (item.respond_to?(:price) ? item.price : item.product.coupon_price(@cart)).to_f).to_f,
         "OriginCode" => "01",
         "DestinationCode" => "02",
         "Description" => item.name,
@@ -99,7 +104,7 @@ private
           "TaxCode" => 'FR020100'
         }
       end
-    handling_item = if @handling_charge.present?
+    handling_item = if @handling_charge.present? && @handling_charge > 0
       {
         "LineNo" => @i += 1,
         "ItemCode" => 'handling',
@@ -107,8 +112,8 @@ private
         "Amount" => @handling_charge,
         "OriginCode" => "01",
         "DestinationCode" => "02",
-        "Description" => 'Shipping Charge',
-        "TaxCode" => 'FR020100'
+        "Description" => 'Handling Charge',
+        "TaxCode" => 'OHO10000'
       }
     end
 
