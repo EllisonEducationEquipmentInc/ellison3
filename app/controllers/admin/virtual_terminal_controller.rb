@@ -21,7 +21,7 @@ class Admin::VirtualTerminalController < ApplicationController
 	def cch_calculate
 	  @order = Order.new(params[:cch_calculate])
     if calculate_tax?(@order.address.state) || @order.address.country == "Canada"
-      @cch = CCH::Cch.new(:action => 'calculate', :customer => @order.address, :shipping_charge => @order.shipping_amount, :handling_charge => @order.handling_amount.present? ? @order.handling_amount : 0.0, :total => @order.subtotal_amount, :exempt => @order.tax_exempt, :tax_exempt_certificate => @order.tax_exempt_number, :merchant_transaction_id => params[:order_number])
+      @cch = Avalara.new(:action => 'calculate', :customer => @order.address, :shipping_charge => @order.shipping_amount, :handling_charge => @order.handling_amount.present? ? @order.handling_amount : 0.0, :total => @order.subtotal_amount, :exempt => @order.tax_exempt, :tax_exempt_certificate => @order.tax_exempt_number, :merchant_transaction_id => params[:order_number])
       if @cch.success?
         VirtualTransaction.create(:user => current_admin.email, :transaction_type => "cch_calculate", :result => @cch.total_tax.to_s, :raw_result => @cch.pretty, :transaction_id => @cch.transaction_id, :details => {:order => @order.attributes.to_hash})
         render :text => "Total Tax: #{@cch.total_tax} CCH Transaction ID: #{@cch.transaction_id}"
