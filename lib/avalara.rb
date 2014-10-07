@@ -114,7 +114,7 @@ private
         "LineNo" => @i += 1,
         "ItemCode" => item.item_num,
         "Qty" => item.quantity,
-        "Amount" => (item.quantity * (item.sale_price ? item.sale_price : item.product.coupon_price(@cart)).to_f).to_f,
+        "Amount" => (@cart.is_a?(Cart) ? item.total : item.item_total ).to_f.round(2),
         "OriginCode" => "01",
         "DestinationCode" => "02",
         "Description" => item.name,
