@@ -81,7 +81,7 @@ private
       "DetailLevel" => "Tax",
       "Commit" => "false",
       "DocType" => "SalesOrder",
-      "ExemptionNo" => @tax_exempt_certificate,
+      "ExemptionNo" => (is_ee_us? || is_er_us?) && @exempt ? @tax_exempt_certificate : nil,
       "CurrencyCode" => "USD",
       "Addresses" => [
         {
