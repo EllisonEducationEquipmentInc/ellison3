@@ -133,7 +133,7 @@ private
           "OriginCode" => "01",
           "DestinationCode" => "02",
           "Description" => 'Shipping Charge',
-          "TaxCode" => 'FR020100'
+          "TaxCode" => 'FR030000'
         }
       end
     handling_item = if @handling_charge.present? && @handling_charge > 0
@@ -145,7 +145,7 @@ private
         "OriginCode" => "01",
         "DestinationCode" => "02",
         "Description" => 'Handling Charge',
-        "TaxCode" => 'OHO10000'
+        "TaxCode" => 'FR030000'
       }
     end
 
