@@ -163,7 +163,7 @@ module Ax
               if state =~ /^shipped$/i
                 order_status = "Shipped"
               elsif state =~ /^cancel(l?)ed$/i
-                order_status = dborder.payment.try(:purchase_order) ? 'Cancelled' : "To Refund"
+                order_status = 'Cancelled' #dborder.payment.try(:purchase_order) ? 'Cancelled' : "To Refund"
               elsif state =~ /^processing$/i
                 order_status = "Processing"
               elsif state =~ /^in(\s|-)process$/i
