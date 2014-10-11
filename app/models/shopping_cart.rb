@@ -539,6 +539,8 @@ module ShoppingCart
         @payment.subscriptionid ||= response.params['subscriptionID']
         @payment.paid_amount = response.params["amount"]
         @payment.authorization = response.authorization
+        @payment.request_id = response.params["requestID"]
+        @payment.request_token = response.params["requestToken"]
       else
         # protx (sage) mappings
         @payment.status ||= response.params["Status"]
