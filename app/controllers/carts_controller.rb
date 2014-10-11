@@ -131,7 +131,7 @@ class CartsController < ApplicationController
     @order = Order.new
     @order.copy_common_attributes @quote, :created_at, :_id
     @order.order_items = @quote.order_items
-    process_card(:amount => (@quote.total_amount * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?) unless @payment.purchase_order && purchase_order_allowed?
+    process_card(:amount => (@quote.total_amount * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => false, :tokenize_only => !payment_can_be_run?) unless @payment.purchase_order && purchase_order_allowed?
     @order.payment = @payment
     @order.quote = @quote
     @order.address ||= get_user.shipping_address.clone
@@ -186,7 +186,7 @@ class CartsController < ApplicationController
       @payment.deferred_payment_amount = (gross_price(get_cart.sub_total)/(@payment.number_of_payments + 1.0)).round(2)
     end
     cart_to_order(:address => get_user.shipping_address)
-    process_card(:amount => (cart_total * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?, :use_payment_token => use_payment_token) unless @payment.purchase_order && purchase_order_allowed? || get_cart.pre_order? || cart_total < 0.01
+    process_card(:amount => (cart_total * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => false, :tokenize_only => !payment_can_be_run?, :use_payment_token => use_payment_token) unless @payment.purchase_order && purchase_order_allowed? || get_cart.pre_order? || cart_total < 0.01
     @order.payment = @payment unless get_cart.pre_order? || cart_total < 0.01
     @order.gift_card = @gift_card_payment if @gift_card_payment
     process_order(@order)
