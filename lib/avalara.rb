@@ -27,6 +27,7 @@ class Avalara
   def calculate
     c = Curl::Easy.new
     c.url = URL + '1.0/tax/get'
+    c.http_auth_types = :basic
     c.username = ACCOUNT_NUMBER
     c.password = LICENSE_KEY
     c.http_post construct_body.to_json
