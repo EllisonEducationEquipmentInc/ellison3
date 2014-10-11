@@ -97,6 +97,7 @@ module ShoppingCart
     def payment_can_be_run?
       #@order.gift_card? || (!(backorder_allowed? && @order.order_items.any? {|e| e.product.out_of_stock?(current_system, e.quantity)}) && (is_sizzix? || (is_er? && @order && @order.address)) && !@order.payment.try(:purchase_order))
       !(backorder_allowed? && @order.order_items.any? {|e| e.product.out_of_stock?(current_system, e.quantity)}) && (is_sizzix? || (is_er? && @order && @order.address)) && !@order.payment.try(:purchase_order)
+      !@order.payment.try(:purchase_order)
     end
 
     def process_order(order)
