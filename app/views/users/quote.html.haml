@@ -86,7 +86,7 @@
     %span.right= number_to_currency @quote.subtotal_amount
     .clear
   %li 
-    %span.left== Shipping & Handling (#{@quote.shipping_service.try :humanize}):
+    %span.left== Estimated Shipping & Handling (#{@quote.shipping_service.try :humanize}):
     %span.right= number_to_currency @quote.shipping_amount
     .clear
   - if @quote.cod?
@@ -97,7 +97,7 @@
         = @quote.cod_account
       .clear
   %li{:style => "display:#{@quote.handling_amount > 0.0 ? 'block' : 'none'}"}
-    %span.left Shipping & Handling Surcharge:
+    %span.left Estimated Shipping & Handling Surcharge:
     %span.right= number_to_currency @quote.handling_amount
     .clear
   %li 

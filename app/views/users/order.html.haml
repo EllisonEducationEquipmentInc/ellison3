@@ -151,7 +151,7 @@
     %span.right= number_to_currency @order.gross_subtotal_amount
     .clear
   %li 
-    %span.left== Shipping & Handling (#{@order.shipping_service.try :humanize}):
+    %span.left== Estimated Shipping & Handling (#{@order.shipping_service.try :humanize}):
     %span.right= number_to_currency @order.gross_shipping_amount
     .clear
   - if @order.cod?
@@ -162,7 +162,7 @@
         = @order.cod_account
       .clear
   %li{:style => "display:#{@order.handling_amount > 0.0 ? 'block' : 'none'}"}
-    %span.left Shipping & Handling Surcharge:
+    %span.left Estimated Shipping & Handling Surcharge:
     %span.right= number_to_currency @order.handling_amount
     .clear
   %li 
@@ -170,7 +170,7 @@
     %span.right= number_to_currency @order.tax_amount
     .clear
   %li#cart_total
-    %span.left Total:
+    %span.left Estimated Total:
     %span#total_amount.amount.right= number_to_currency @order.total_amount
     .clear
   - if @order.total_discount.present? && @order.total_discount > 0.0

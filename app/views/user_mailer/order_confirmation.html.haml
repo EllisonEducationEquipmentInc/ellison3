@@ -77,7 +77,7 @@
     %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}
       %strong= number_to_currency @order.gross_subtotal_amount
   %tr
-    %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "right" }== Shipping & Handling (#{@order.shipping_service.try :humanize})
+    %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "right" }== Estimated Shipping & Handling (#{@order.shipping_service.try :humanize})
     %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}= number_to_currency @order.gross_shipping_amount
   - if @order.cod?
     %tr
@@ -87,14 +87,14 @@
         = @order.cod_account
   - if @order.handling_amount > 0.0
     %tr
-      %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "right" } Shipping & Handling Surcharge
+      %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "right" } Estimated Shipping & Handling Surcharge
       %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}= number_to_currency @order.handling_amount
   %tr
     %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "right" }== #{is_us? ? 'Sales Tax' : is_uk? ? 'VAT (already included in Subtotal)' : 'Estimated Tax'}
     %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}= number_to_currency @order.tax_amount
   %tr
     %td{ :style => "font-size: 11px; vertical-align: top;", :colspan => "4", :align => "right" }
-      %strong TOTAL
+      %strong  Estimated TOTAL
     %td{ :style => "font-size: 11px; vertical-align: top;", :align => "right"}
       %strong= number_to_currency @order.total_amount
   - if @order.total_discount.present? && @order.total_discount > 0.0
