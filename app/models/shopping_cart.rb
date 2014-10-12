@@ -314,7 +314,7 @@ module ShoppingCart
     end
 
     def tax_from_order(order, refund = false)
-      if !order.gift_card? && calculate_tax?(order.address.state)
+      if calculate_tax?(order.address.state)
         set_current_system order.system
         @cch = Avalara.new(:action => refund ? 'ProcessAttributedReturn' : 'calculate', cart: order, :customer => order.address, :shipping_charge => order.shipping_amount, :handling_charge => order.handling_amount, :total => order.subtotal_amount, :transaction_id => order.tax_transaction, :exempt => order.user.tax_exempt?, :tax_exempt_certificate => order.user.tax_exempt_certificate )
         order.update_attributes(:tax_transaction => @cch.transaction_id, :tax_calculated_at => Time.zone.now,  :tax_amount => @cch.total_tax, :tax_exempt => order.user.tax_exempt?, :tax_exempt_number => order.user.tax_exempt_certificate) if !refund && @cch && @cch.success?

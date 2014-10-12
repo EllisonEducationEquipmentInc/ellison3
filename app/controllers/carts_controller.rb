@@ -131,10 +131,12 @@ class CartsController < ApplicationController
     @order = Order.new
     @order.copy_common_attributes @quote, :created_at, :_id
     @order.order_items = @quote.order_items
+    @order.address ||= get_user.shipping_address.clone
+    @cch = Avalara.new(:action => 'calculate', cart: @order, :customer => @order.address, :shipping_charge => @order.shipping_amount, :handling_charge => @order.handling_amount, :total => @order.subtotal_amount, :transaction_id => @order.tax_transaction, :exempt => @order.user.tax_exempt?, :tax_exempt_certificate => @order.user.tax_exempt_certificate )
+    @order.update_attributes(:tax_transaction => @cch.transaction_id, :tax_calculated_at => Time.zone.now,  :tax_amount => @cch.total_tax, :tax_exempt => @order.user.tax_exempt?, :tax_exempt_number => @order.user.tax_exempt_certificate) if @cch && @cch.success?
     process_card(:amount => (@quote.total_amount * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => false, :tokenize_only => !payment_can_be_run?) unless @payment.purchase_order && purchase_order_allowed?
     @order.payment = @payment
     @order.quote = @quote
-    @order.address ||= get_user.shipping_address.clone
     process_order @order
     @quote.update_attributes :active => false
     UserMailer.order_confirmation(@order).deliver
