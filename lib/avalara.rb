@@ -19,7 +19,7 @@ class Avalara
     @transaction_id = attributes[:transaction_id]
     @exempt = attributes[:exempt] || false            # tax exempt: boolean
     @referred_id = attributes[:referred_id]
-    @tax_exempt_certificate = attributes[:tax_exempt_certificate].present? ? attributes[:tax_exempt_certificate] : nil
+    @tax_exempt_certificate = @exempt ? attributes[:tax_exempt_certificate].present? || 'no_certificate_found' : nil
     @merchant_transaction_id = attributes[:merchant_transaction_id] || order_prefix
     calculate
   end

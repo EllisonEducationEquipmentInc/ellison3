@@ -213,7 +213,7 @@ module ShoppingCart
 
     def calculate_tax(address, options={})
       return get_cart.tax_amount if get_cart.tax_amount && get_cart.tax_calculated_at && get_cart.tax_calculated_at > 1.hour.ago
-      total_tax = if !get_cart.gift_card? && is_us? && (calculate_tax?(address.state) || address.country == 'Canada')
+      total_tax = if is_us? && (calculate_tax?(address.state) || address.country == 'Canada')
                     cch_sales_tax(address)
                     @cch.total_tax.to_f
                   elsif is_uk?
