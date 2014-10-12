@@ -144,7 +144,6 @@
             %tr
               %td
                 %span#deferred_first_payment= render :partial => 'deferred_first_payment'
-                %span (incl S&H + Tax)
               - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
                 %td= number_to_currency((gross_price(get_cart.sub_total)/(Payment::NUMBER_OF_PAYMENTS + 1.0)).round(2))
             %tr{:id => "agreed_terms_row", :style => "display: none;"}

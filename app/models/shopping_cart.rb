@@ -339,7 +339,7 @@ module ShoppingCart
 
     def calculate_setup_fee(subtotal, shipping_and_handling, tax)
       total = subtotal + shipping_and_handling + tax
-      monthly_payment = (subtotal/(Payment::NUMBER_OF_PAYMENTS + 1.0)).round(2)
+      monthly_payment = (total/(Payment::NUMBER_OF_PAYMENTS + 1.0)).round(2)
       setup_fee = monthly_payment + shipping_and_handling + tax
       setup_fee += total - setup_fee - monthly_payment * Payment::NUMBER_OF_PAYMENTS
       monthly_payment
