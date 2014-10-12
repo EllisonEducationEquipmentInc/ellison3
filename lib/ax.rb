@@ -46,7 +46,7 @@ module Ax
                   xml.freight_charges(format_with_precision(order.shipping_amount))
                   xml.surcharge(format_with_precision(order.handling_amount))
 
-                  if is_uk?
+                  if ['szuk', 'eeuk', 'eruk'].include? order.system
                     xml.tax {
                       xml.tax_amount(format_with_precision(order.tax_amount + order.shipping_vat))
                       xml.VAT_percentage(order.vat_percentage)
