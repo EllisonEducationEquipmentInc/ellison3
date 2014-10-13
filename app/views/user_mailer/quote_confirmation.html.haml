@@ -60,7 +60,7 @@
     %td{ :align => "right"}
       %strong= number_to_currency @quote.gross_subtotal_amount
   %tr
-    %td{ :colspan => "4", :align => "right" }== Estimated Shipping & Handling (#{@quote.shipping_service.try :humanize})
+    %td{ :colspan => "4", :align => "right" }== Shipping & Handling (#{@quote.shipping_service.try :humanize})
     %td{ :align => "right"}= number_to_currency @quote.gross_shipping_amount
   - if @quote.cod?
     %tr
@@ -70,14 +70,14 @@
         = @quote.cod_account
   - if @quote.handling_amount > 0.0
     %tr
-      %td{ :colspan => "4", :align => "right" } Estimated Shipping & Handling Surcharge
+      %td{ :colspan => "4", :align => "right" } Shipping & Handling Surcharge
       %td{ :align => "right"}= number_to_currency @quote.handling_amount
   %tr
-    %td{ :colspan => "4", :align => "right" }== #{is_us? ? 'Sales Tax' : is_uk? ? 'VAT (already included in Subtotal)' : 'Estimated Tax'}
+    %td{ :colspan => "4", :align => "right" }== #{is_us? ? 'Estimated Sales Tax' : is_uk? ? 'VAT (already included in Subtotal)' : 'Estimated Tax'}
     %td{ :align => "right"}= number_to_currency @quote.tax_amount
   %tr
     %td{ :colspan => "4", :align => "right" }
-      %strong Estimated TOTAL
+      %strong ESTIMATED TOTAL
     %td{ :align => "right"} 
       %strong= number_to_currency @quote.total_amount
   - if @quote.total_discount.present? && @quote.total_discount > 0.0
