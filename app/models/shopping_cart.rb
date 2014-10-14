@@ -339,10 +339,9 @@ module ShoppingCart
 
     def calculate_setup_fee(subtotal, shipping_and_handling, tax)
       total = subtotal + shipping_and_handling + tax
-      monthly_payment = (total/(Payment::NUMBER_OF_PAYMENTS + 1.0)).round(2)
-      setup_fee = monthly_payment + shipping_and_handling + tax
-      setup_fee += total - setup_fee - monthly_payment * Payment::NUMBER_OF_PAYMENTS
-      monthly_payment
+      setup_fee = total * 0.34
+      monthly_payment = (total - setup_fee) / 2.0
+      [setup_fee, monthly_payment.round(2)]
     end
 
     def process_card(options = {})
@@ -360,7 +359,7 @@ module ShoppingCart
         gw_options[:billing_address] = {:company => billing.company, :phone => billing.phone,  :address1 => billing.address1, :city => billing.city, :state => billing.state, :country => billing.country, :zip => billing.zip_code} unless billing.use_saved_credit_card
         gw_options[:subscription_id] = billing.subscriptionid
         if billing.deferred
-          gw_options[:setup_fee] = (calculate_setup_fee(get_cart.sub_total, get_cart.shipping_amount + calculate_handling, get_cart.tax_amount) * 100).round
+          gw_options[:setup_fee] = (calculate_setup_fee(get_cart.sub_total, get_cart.shipping_amount + calculate_handling, get_cart.tax_amount).first * 100).round
           gw_options[:number_of_payments] = billing.number_of_payments
           gw_options[:frequency] = billing.frequency
           gw_options[:start_date] = 1.months.since.strftime("%Y%m%d")

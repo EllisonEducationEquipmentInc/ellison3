@@ -185,7 +185,7 @@ class CartsController < ApplicationController
     if @payment.try :deferred
       @payment.number_of_payments = Payment::NUMBER_OF_PAYMENTS
       @payment.frequency = Payment::FREQUENCY
-      @payment.deferred_payment_amount = (gross_price(get_cart.sub_total)/(@payment.number_of_payments + 1.0)).round(2)
+      @payment.deferred_payment_amount = calculate_setup_fee(get_cart.sub_total, get_cart.shipping_amount + calculate_handling, get_cart.tax_amount).last
     end
     cart_to_order(:address => get_user.shipping_address)
     process_card(:amount => (cart_total * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => false, :tokenize_only => !payment_can_be_run?, :use_payment_token => use_payment_token) unless @payment.purchase_order && purchase_order_allowed? || get_cart.pre_order? || cart_total < 0.01
@@ -305,8 +305,8 @@ class CartsController < ApplicationController
 
   def get_deferred_first_payment
     raise 'invalid' unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
-    @first_payment = calculate_setup_fee(get_cart.sub_total, get_cart.shipping_amount + calculate_handling, get_cart.tax_amount)
-    render :inline => "<%= number_to_currency @first_payment %>"
+    @first_payment, @monthly_payment = calculate_setup_fee(get_cart.sub_total, get_cart.shipping_amount + calculate_handling, get_cart.tax_amount)
+    render :inline => "<td><%= number_to_currency @first_payment %></td><td><%= number_to_currency @monthly_payment %></td><td><%= number_to_currency @monthly_payment %></td>"
   rescue Exception => e
     render :nothing => true, :status => 510
   end

@@ -141,11 +141,8 @@
                   = i+1 
                   Due
                   = l i.months.since, :format => :date
-            %tr
-              %td
-                %span#deferred_first_payment= render :partial => 'deferred_first_payment'
-              - 1.upto(Payment::NUMBER_OF_PAYMENTS) do |i|
-                %td= number_to_currency((gross_price(get_cart.sub_total)/(Payment::NUMBER_OF_PAYMENTS + 1.0)).round(2))
+            %tr#deferred_first_payment
+              = render :partial => 'deferred_first_payment'
             %tr{:id => "agreed_terms_row", :style => "display: none;"}
               %td{:colspan => "#{Payment::NUMBER_OF_PAYMENTS + 1}"}
                 = check_box_tag :agreed_terms, "1", false
