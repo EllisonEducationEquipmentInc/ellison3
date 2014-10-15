@@ -57,7 +57,7 @@
 = form_for(@payment, :url => {:controller => :carts, :action => @quote ? "quote_2_order" : "proceed_checkout", :id => @quote, :secure => true}, :remote => true, :html => {:id => "proceed_checkout", :method => :post, :multipart => true}) do |f|
   = f.error_messages
   .checkout_container
-    - if purchase_order_allowed? && !(@quote && @quote.gift_card?)
+    - if purchase_order_allowed? && !(@quote && @quote.respond_to?(:gift_card?) && @quote.gift_card?)
       #po_options
         .field
           = image_tag "/images/ui-icons/po_ico.png", :width => "60", :height => "38", :class=>"cc_thumb"
