@@ -140,8 +140,11 @@ module ActiveMerchant #:nodoc:
         add_recurring_subscription_info(xml, money, options)
         if options[:setup_fee]
           if options[:setup_fee] > 0
-            #add_auth_service(xml)
-            add_purchase_service(xml, options)
+            if options[:number_of_payments] == 0
+              add_auth_service(xml)
+            else
+              add_purchase_service(xml, options)
+            end
           else
             #add_auth_service(xml)
           end
