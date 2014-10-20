@@ -75,6 +75,9 @@ class ApplicationController < ActionController::Base
         @rate.value = rate
         @rate.save
         rate.to_f
+      else
+        @rate.update_attribute :updated_at, Time.zone.now if @rate.updated_at < 12.hours.ago
+        @rate.value.try :to_f
       end
     else
       @rate.value.to_f
