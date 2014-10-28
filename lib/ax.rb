@@ -70,7 +70,7 @@ module Ax
                           xml.cybersource_token order.payment.request_token
                           xml.cybersource_merchant_ref_num(order.payment.vendor_tx_code)
                           xml.name_on_card "#{order.payment.first_name} #{order.payment.last_name}"
-                          xml.transaction_type order.payment.status_detail unless ['szuk', 'eeuk', 'eruk'].include? order.system
+                          xml.transaction_type ['szuk', 'eeuk', 'eruk'].include?(order.system) ? nil :order.payment.status_detail
                           xml.amount_charged(format_with_precision(order.gift_card.present? ? order.payment.paid_amount : order.total_amount))
                         end
                         if order.payment.present? && order.payment.reference_purchase_order_number.present?
