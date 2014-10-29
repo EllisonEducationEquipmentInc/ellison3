@@ -36,8 +36,6 @@ module Ax
               xml.email(order.address.email)
               xml.currency_code(LOCALES_2_CURRENCIES[order.locale.to_s].upcase)
               xml.source_code(order.coupon_code)
-              xml.sales_recipient(order.customer_rep)
-              xml.sales_responsible(order.customer_rep)
               xml.sales_origin(order.order_prefix(order.system))
               xml.giftcard_order order.gift_card? ? "TRUE" : "FALSE"
 
