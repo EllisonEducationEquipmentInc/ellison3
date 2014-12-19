@@ -36,8 +36,8 @@
             = render "layouts/footer_corporate"
           - else
             = render "layouts/footer_#{current_system}"
-          = render "layouts/legal"
-        .design-gutter.dontprint.last
-          \&nbsp;
+        .legal-wrap
+          .legal
+            = render "layouts/legal"
     - unless Rails.env.development?
       = javascript_include_tag "//stats1.clicktracks.com/cgi-bin/ctasp-server.cgi?i=#{lyris_tracking_id}"

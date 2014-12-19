@@ -13,7 +13,9 @@
   - if is_ee_us? 
     == Our Privacy Policy has been updated effective March 4, 2009.
     %br
-  == Copyright &copy; Ellison 1996 - #{DateTime.now.year}. All rights reserved.
+  == Copyright &copy;
+  %span= link_to image_tag("/images/ui-icons/set_social-media/ellison.png", :size => "57x20"), "#", :target => "blank", :title => "Ellison", :alt => "Ellison"
+  == 1996 - #{DateTime.now.year}. All rights reserved.
   %br  
   - if is_sizzix_uk?
     == VAT No.886263386
