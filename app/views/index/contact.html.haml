@@ -4,6 +4,9 @@
     Contact us online 24 hours a day by using our Contact Us Form. Please submit your request below 
     and a member of our Customer Service department will respond to you via email during our normal 
     business hours.
+  %p
+    - unless is_sizzix_uk?
+      %strong Our offices will be closed for the holidays, December 24-25, as well as December 31-January 1.  Call inquires will be reviewed in the order received upon our return.  We hope you have a wonderful Christmas and a fantastic New Year! We're really looking forward to showing you what we have in store for 2015!
   %hr
   #feedback_form.contentwrap_medium
     = form_for(@feedback, :url => {:controller => :index, :action => 'send_feedback', :secure => true}, :remote => true, :html => {:id => "contact_form", :method => :post}) do |f|
