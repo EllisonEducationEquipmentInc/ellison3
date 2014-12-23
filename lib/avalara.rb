@@ -2,8 +2,8 @@ require 'curb'
 
 class Avalara
 
-  ACCOUNT_NUMBER = Rails.env.production? ? '1100047148' : '1100047148'
-  LICENSE_KEY = Rails.env.production? ? '84143DB82A1BD04E' : '84143DB82A1BD04E'
+  ACCOUNT_NUMBER = Rails.env.production? ? '1100014140' : '1100047148'
+  LICENSE_KEY = Rails.env.production? ? 'E9E01247C714F6A2' : '84143DB82A1BD04E'
   URL = Rails.env.production? ? 'https://avatax.avalara.net/' : 'https://development.avalara.net/'
 
   attr_accessor :cart, :items, :total, :customer, :shipping_charge, :handling_charge, :response,
