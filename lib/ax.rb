@@ -36,8 +36,6 @@ module Ax
               xml.email(order.address.email)
               xml.currency_code(LOCALES_2_CURRENCIES[order.locale.to_s].upcase)
               xml.source_code(order.coupon_code)
-              xml.sales_recipient(order.customer_rep)
-              xml.sales_responsible(order.customer_rep)
               xml.sales_origin(order.order_prefix(order.system))
               xml.giftcard_order order.gift_card? ? "TRUE" : "FALSE"
 
@@ -46,30 +44,33 @@ module Ax
                   xml.freight_charges(format_with_precision(order.shipping_amount))
                   xml.surcharge(format_with_precision(order.handling_amount))
 
-                  xml.tax {
-                    xml.tax_transaction_id(order.tax_transaction)
-                    xml.tax_amount(format_with_precision(order.tax_amount + order.shipping_vat))
-                    tax_calculated_at = order.tax_calculated_at.in_time_zone("America/Chicago").strftime("%m/%d/%Y") unless order.tax_calculated_at.blank?
-                    xml.tax_trans_date(tax_calculated_at)
-                    xml.tax_exempt_num(order.tax_exempt_number)
-                    xml.VAT_percentage(order.vat_percentage)
-                  }
+                  if ['szuk', 'eeuk', 'eruk'].include? order.system
+                    xml.tax {
+                      xml.tax_amount(format_with_precision(order.tax_amount + order.shipping_vat))
+                      xml.VAT_percentage(order.vat_percentage)
+                    }
+                  end
+
                   xml.payment_type {
                     if order.payment.present?
                       xml.type {
                         if order.payment.try :purchase_order
                           xml.payment_method('Terms')
-                          xml.payment_id(order.payment.purchase_order_number)
+                          xml.request_id order.payment.purchase_order_number
+                          xml.amount_charged(format_with_precision(order.gift_card.present? ? order.payment.paid_amount : order.total_amount))
                         elsif order.payment.try :deferred
                           xml.payment_method('3EZ')
-                          xml.payment_id(order.system == "szuk" || order.system == "eeuk" ? order.payment.tx_auth_no : order.payment.vpstx_id)
+                          xml.cybersource_merchant_ref_num(order.payment.vendor_tx_code)
                         elsif order.payment.present?
                           xml.payment_method('CC')
                           xml.card_type(order.payment.card_name)
-                          xml.payment_id(order.system == "szuk" || order.system == "eeuk" ? order.payment.tx_auth_no : order.payment.vpstx_id)
+                          xml.request_id order.payment.request_id
+                          xml.cybersource_token order.payment.request_token
+                          xml.cybersource_merchant_ref_num(order.payment.vendor_tx_code)
+                          xml.name_on_card "#{order.payment.first_name} #{order.payment.last_name}"
+                          xml.transaction_type ['szuk', 'eeuk', 'eruk'].include?(order.system) ? nil :order.payment.status_detail
+                          xml.amount_charged(format_with_precision(order.gift_card.present? ? order.payment.paid_amount : order.total_amount))
                         end
-                        xml.cybersource_merchant_ref_num(order.payment.vendor_tx_code)
-                        xml.amount_charged(format_with_precision(order.gift_card.present? ? order.payment.paid_amount : order.total_amount))
                         if order.payment.present? && order.payment.reference_purchase_order_number.present?
                           xml.ref_purchase_order_number order.payment.reference_purchase_order_number
                         end
@@ -163,7 +164,7 @@ module Ax
               if state =~ /^shipped$/i
                 order_status = "Shipped"
               elsif state =~ /^cancel(l?)ed$/i
-                order_status = dborder.payment.try(:purchase_order) ? 'Cancelled' : "To Refund"
+                order_status = 'Cancelled' #dborder.payment.try(:purchase_order) ? 'Cancelled' : "To Refund"
               elsif state =~ /^processing$/i
                 order_status = "Processing"
               elsif state =~ /^in(\s|-)process$/i

@@ -101,7 +101,7 @@
     %span.right= number_to_currency @quote.handling_amount
     .clear
   %li 
-    %span.left== #{is_us? ? 'Sales Tax' : is_uk? ? 'VAT (already included in Subtotal)' : 'Estimated Tax'}:
+    %span.left== #{is_us? ? 'Estimated Sales Tax' : is_uk? ? 'VAT (already included in Subtotal)' : 'Estimated Tax'}:
     %span.right= number_to_currency @quote.tax_amount
     .clear
   %li#cart_total

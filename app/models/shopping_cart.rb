@@ -1,3 +1,5 @@
+require 'avalara'
+
 module ShoppingCart
   module ClassMethods
 
@@ -94,7 +96,7 @@ module ShoppingCart
     # defines logic if payment of an order can be run, or payment has to be tokenized first and payment has to be run manually
     def payment_can_be_run?
       #@order.gift_card? || (!(backorder_allowed? && @order.order_items.any? {|e| e.product.out_of_stock?(current_system, e.quantity)}) && (is_sizzix? || (is_er? && @order && @order.address)) && !@order.payment.try(:purchase_order))
-      !(backorder_allowed? && @order.order_items.any? {|e| e.product.out_of_stock?(current_system, e.quantity)}) && (is_sizzix? || (is_er? && @order && @order.address)) && !@order.payment.try(:purchase_order)
+      !(backorder_allowed? && !is_er_us? && @order.order_items.any? {|e| e.product.out_of_stock?(current_system, e.quantity)}) && (is_sizzix? || (is_er? && @order && @order.address)) && !@order.payment.try(:purchase_order)
     end
 
     def process_order(order)
@@ -210,7 +212,7 @@ module ShoppingCart
 
     def calculate_tax(address, options={})
       return get_cart.tax_amount if get_cart.tax_amount && get_cart.tax_calculated_at && get_cart.tax_calculated_at > 1.hour.ago
-      total_tax = if !get_cart.gift_card? && is_us? && (calculate_tax?(address.state) || address.country == 'Canada')
+      total_tax = if is_us? && (calculate_tax?(address.state) || address.country == 'Canada')
                     cch_sales_tax(address)
                     @cch.total_tax.to_f
                   elsif is_uk?
@@ -291,7 +293,7 @@ module ShoppingCart
     end
 
     def cch_sales_tax(customer, options = {})
-      Rails.logger.info "Getting CCH tax for #{customer.inspect}"
+      Rails.logger.info "Getting Avalara tax for #{customer.inspect}"
       options[:shipping_charge] ||= calculate_shipping(customer, options) #get_delayed_shipping
       options[:handling_charge] ||= calculate_handling
       options[:cart] ||= get_cart.reload
@@ -301,20 +303,20 @@ module ShoppingCart
       tries = 0
       begin
         tries += 1
-        @cch = CCH::Cch.new(:action => 'calculate', :cart => options[:cart], :confirm_address => options[:confirm_address],  :customer => customer, :handling_charge => options[:handling_charge], :shipping_charge => options[:shipping_charge], :exempt => options[:exempt], :tax_exempt_certificate => options[:tax_exempt_certificate])
+        @cch = Avalara.new(:action => 'calculate', :cart => options[:cart], :confirm_address => options[:confirm_address],  :customer => customer, :handling_charge => options[:handling_charge], :shipping_charge => options[:shipping_charge], :exempt => options[:exempt], :tax_exempt_certificate => options[:tax_exempt_certificate])
       rescue Timeout::Error => e
         if tries < 4
           sleep(2**tries)
           retry
         end
-        Rails.logger.error "!!! CCH Timed out. Retrying..."
+        Rails.logger.error "!!! Avalara Timed out. Retrying..."
       end
     end
 
     def tax_from_order(order, refund = false)
-      if !order.gift_card? && calculate_tax?(order.address.state)
+      if calculate_tax?(order.address.state)
         set_current_system order.system
-        @cch = CCH::Cch.new(:action => refund ? 'ProcessAttributedReturn' : 'calculate', :customer => order.address, :shipping_charge => order.shipping_amount, :handling_charge => order.handling_amount, :total => order.subtotal_amount, :transaction_id => order.tax_transaction, :exempt => order.user.tax_exempt?, :tax_exempt_certificate => order.user.tax_exempt_certificate )
+        @cch = Avalara.new(:action => refund ? 'ProcessAttributedReturn' : 'calculate', cart: order, :customer => order.address, :shipping_charge => order.shipping_amount, :handling_charge => order.handling_amount, :total => order.subtotal_amount, :transaction_id => order.tax_transaction, :exempt => order.user.tax_exempt?, :tax_exempt_certificate => order.user.tax_exempt_certificate )
         order.update_attributes(:tax_transaction => @cch.transaction_id, :tax_calculated_at => Time.zone.now,  :tax_amount => @cch.total_tax, :tax_exempt => order.user.tax_exempt?, :tax_exempt_number => order.user.tax_exempt_certificate) if !refund && @cch && @cch.success?
       end
     end
@@ -337,9 +339,9 @@ module ShoppingCart
 
     def calculate_setup_fee(subtotal, shipping_and_handling, tax)
       total = subtotal + shipping_and_handling + tax
-      monthly_payment = (subtotal/(Payment::NUMBER_OF_PAYMENTS + 1.0)).round(2)
-      setup_fee = monthly_payment + shipping_and_handling + tax
-      setup_fee += total - setup_fee - monthly_payment * Payment::NUMBER_OF_PAYMENTS
+      setup_fee = total * 0.34
+      monthly_payment = (total - setup_fee) / 2.0
+      [setup_fee, monthly_payment.round(2)]
     end
 
     def process_card(options = {})
@@ -357,7 +359,7 @@ module ShoppingCart
         gw_options[:billing_address] = {:company => billing.company, :phone => billing.phone,  :address1 => billing.address1, :city => billing.city, :state => billing.state, :country => billing.country, :zip => billing.zip_code} unless billing.use_saved_credit_card
         gw_options[:subscription_id] = billing.subscriptionid
         if billing.deferred
-          gw_options[:setup_fee] = (calculate_setup_fee(get_cart.sub_total, get_cart.shipping_amount + calculate_handling, get_cart.tax_amount) * 100).round
+          gw_options[:setup_fee] = (calculate_setup_fee(get_cart.sub_total, get_cart.shipping_amount + calculate_handling, get_cart.tax_amount).first * 100).round
           gw_options[:number_of_payments] = billing.number_of_payments
           gw_options[:frequency] = billing.frequency
           gw_options[:start_date] = 1.months.since.strftime("%Y%m%d")
@@ -536,6 +538,8 @@ module ShoppingCart
         @payment.subscriptionid ||= response.params['subscriptionID']
         @payment.paid_amount = response.params["amount"]
         @payment.authorization = response.authorization
+        @payment.request_id = response.params["requestID"]
+        @payment.request_token = response.params["requestToken"]
       else
         # protx (sage) mappings
         @payment.status ||= response.params["Status"]

@@ -131,10 +131,12 @@ class CartsController < ApplicationController
     @order = Order.new
     @order.copy_common_attributes @quote, :created_at, :_id
     @order.order_items = @quote.order_items
-    process_card(:amount => (@quote.total_amount * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?) unless @payment.purchase_order && purchase_order_allowed?
+    @order.address ||= get_user.shipping_address.clone
+    @cch = Avalara.new(:action => 'calculate', cart: @order, :customer => @order.address, :shipping_charge => @order.shipping_amount, :handling_charge => @order.handling_amount, :total => @order.subtotal_amount, :transaction_id => @order.tax_transaction, :exempt => @order.user.tax_exempt?, :tax_exempt_certificate => @order.user.tax_exempt_certificate )
+    @order.update_attributes(:tax_transaction => @cch.transaction_id, :tax_calculated_at => Time.zone.now,  :tax_amount => @cch.total_tax, :tax_exempt => @order.user.tax_exempt?, :tax_exempt_number => @order.user.tax_exempt_certificate) if @cch && @cch.success?
+    process_card(:amount => (@quote.total_amount * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => is_uk?, :tokenize_only => !payment_can_be_run?) unless @payment.purchase_order && purchase_order_allowed?
     @order.payment = @payment
     @order.quote = @quote
-    @order.address ||= get_user.shipping_address.clone
     process_order @order
     @quote.update_attributes :active => false
     UserMailer.order_confirmation(@order).deliver
@@ -147,7 +149,7 @@ class CartsController < ApplicationController
     @error_message = if e.exception.class == Timeout::Error
                        timeout_message
                      else
-                       e.message #backtrace.join("<br />")
+                       e.backtrace.join("<br />")
                      end
   end
 
@@ -183,10 +185,10 @@ class CartsController < ApplicationController
     if @payment.try :deferred
       @payment.number_of_payments = Payment::NUMBER_OF_PAYMENTS
       @payment.frequency = Payment::FREQUENCY
-      @payment.deferred_payment_amount = (gross_price(get_cart.sub_total)/(@payment.number_of_payments + 1.0)).round(2)
+      @payment.deferred_payment_amount = calculate_setup_fee(get_cart.sub_total, get_cart.shipping_amount + calculate_handling, get_cart.tax_amount).last
     end
     cart_to_order(:address => get_user.shipping_address)
-    process_card(:amount => (cart_total * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => true, :tokenize_only => !payment_can_be_run?, :use_payment_token => use_payment_token) unless @payment.purchase_order && purchase_order_allowed? || get_cart.pre_order? || cart_total < 0.01
+    process_card(:amount => (cart_total * 100).round, :payment => @payment, :order => @order.id.to_s, :capture => is_uk?, :tokenize_only => !payment_can_be_run?, :use_payment_token => use_payment_token) unless @payment.purchase_order && purchase_order_allowed? || get_cart.pre_order? || cart_total < 0.01
     @order.payment = @payment unless get_cart.pre_order? || cart_total < 0.01
     @order.gift_card = @gift_card_payment if @gift_card_payment
     process_order(@order)
@@ -303,8 +305,8 @@ class CartsController < ApplicationController
 
   def get_deferred_first_payment
     raise 'invalid' unless get_user.shipping_address && !get_cart.cart_items.blank? && request.xhr?
-    @first_payment = calculate_setup_fee(get_cart.sub_total, get_cart.shipping_amount + calculate_handling, get_cart.tax_amount)
-    render :inline => "<%= number_to_currency @first_payment %>"
+    @first_payment, @monthly_payment = calculate_setup_fee(get_cart.sub_total, get_cart.shipping_amount + calculate_handling, get_cart.tax_amount)
+    render :inline => "<td><%= number_to_currency @first_payment %></td><td><%= number_to_currency @monthly_payment %></td><td><%= number_to_currency @monthly_payment %></td>"
   rescue Exception => e
     render :nothing => true, :status => 510
   end
