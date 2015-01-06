@@ -1,57 +1,57 @@
 /* font face */
 @font-face {
     font-family: 'avenirultralight';
-    src: url('avenirnextltpro-ultltcn.eot');
-    src: url('avenirnextltpro-ultltcn.eot') format('embedded-opentype'),
-         url('avenirnextltpro-ultltcn.woff2') format('woff2'),
-         url('avenirnextltpro-ultltcn.woff') format('woff'),
-         url('avenirnextltpro-ultltcn.ttf') format('truetype'),
-         url('avenirnextltpro-ultltcn.svg#AvenirNextLTProUltraLightCondensed') format('svg');
+    src: url('/reskin_fonts/avenirnextltpro-ultltcn.eot');
+    src: url('/reskin_fonts/avenirnextltpro-ultltcn.eot') format('embedded-opentype'),
+         url('/reskin_fonts/avenirnextltpro-ultltcn.woff2') format('woff2'),
+         url('/reskin_fonts/avenirnextltpro-ultltcn.woff') format('woff'),
+         url('/reskin_fonts/avenirnextltpro-ultltcn.ttf') format('truetype'),
+         url('/reskin_fonts/avenirnextltpro-ultltcn.svg#AvenirNextLTProUltraLightCondensed') format('svg');
 }
 @font-face {
     font-family: 'avenirlight';
-    src: url('avenirnextltpro-cn.eot');
-    src: url('avenirnextltpro-cn.eot') format('embedded-opentype'),
-         url('avenirnextltpro-cn.woff2') format('woff2'),
-         url('avenirnextltpro-cn.woff') format('woff'),
-         url('avenirnextltpro-cn.ttf') format('truetype'),
-         url('avenirnextltpro-cn.svg#AvenirNextLTProCondensed') format('svg');
+    src: url('/reskin_fonts/avenirnextltpro-cn.eot');
+    src: url('/reskin_fonts/avenirnextltpro-cn.eot') format('embedded-opentype'),
+         url('/reskin_fonts/avenirnextltpro-cn.woff2') format('woff2'),
+         url('/reskin_fonts/avenirnextltpro-cn.woff') format('woff'),
+         url('/reskin_fonts/avenirnextltpro-cn.ttf') format('truetype'),
+         url('/reskin_fonts/avenirnextltpro-cn.svg#AvenirNextLTProCondensed') format('svg');
 }
 @font-face {
     font-family: 'avenirregular';
-    src: url('fonts/avenirnextltpro-regular.eot');
-    src: url('fonts/avenirnextltpro-regular.eot') format('embedded-opentype'),
-         url('fonts/avenirnextltpro-regular.woff2') format('woff2'),
-         url('fonts/avenirnextltpro-regular.woff') format('woff'),
-         url('fonts/avenirnextltpro-regular.ttf') format('truetype'),
-         url('fonts/avenirnextltpro-regular.svg#AvenirNextLTProRegular') format('svg');
+    src: url('/reskin_fonts/avenirnextltpro-regular.eot');
+    src: url('/reskin_fonts/avenirnextltpro-regular.eot') format('embedded-opentype'),
+         url('/reskin_fonts/avenirnextltpro-regular.woff2') format('woff2'),
+         url('/reskin_fonts/avenirnextltpro-regular.woff') format('woff'),
+         url('/reskin_fonts/avenirnextltpro-regular.ttf') format('truetype'),
+         url('/reskin_fonts/avenirnextltpro-regular.svg#AvenirNextLTProRegular') format('svg');
 }
 @font-face {
     font-family: 'avenirbold';
-    src: url('fonts/avenirnextltpro-bold.eot');
-    src: url('fonts/avenirnextltpro-bold.eot') format('embedded-opentype'),
-         url('fonts/avenirnextltpro-bold.woff2') format('woff2'),
-         url('fonts/avenirnextltpro-bold.woff') format('woff'),
-         url('fonts/avenirnextltpro-bold.ttf') format('truetype'),
-         url('fonts/avenirnextltpro-bold.svg#AvenirNextLTProBold') format('svg');
+    src: url('/reskin_fonts/avenirnextltpro-bold.eot');
+    src: url('/reskin_fonts/avenirnextltpro-bold.eot') format('embedded-opentype'),
+         url('/reskin_fonts/avenirnextltpro-bold.woff2') format('woff2'),
+         url('/reskin_fonts/avenirnextltpro-bold.woff') format('woff'),
+         url('/reskin_fonts/avenirnextltpro-bold.ttf') format('truetype'),
+         url('/reskin_fonts/avenirnextltpro-bold.svg#AvenirNextLTProBold') format('svg');
 }
 @font-face {
     font-family: 'aveniritalic';
-    src: url('fonts/avenirnextltpro-it.eot');
-    src: url('fonts/avenirnextltpro-it.eot') format('embedded-opentype'),
-         url('fonts/avenirnextltpro-it.woff2') format('woff2'),
-         url('fonts/avenirnextltpro-it.woff') format('woff'),
-         url('fonts/avenirnextltpro-it.ttf') format('truetype'),
-         url('fonts/avenirnextltpro-it.svg#AvenirNextLTProItalic') format('svg');
+    src: url('/reskin_fonts/avenirnextltpro-it.eot');
+    src: url('/reskin_fonts/avenirnextltpro-it.eot') format('embedded-opentype'),
+         url('/reskin_fonts/avenirnextltpro-it.woff2') format('woff2'),
+         url('/reskin_fonts/avenirnextltpro-it.woff') format('woff'),
+         url('/reskin_fonts/avenirnextltpro-it.ttf') format('truetype'),
+         url('/reskin_fonts/avenirnextltpro-it.svg#AvenirNextLTProItalic') format('svg');
 }
 @font-face {
     font-family: 'avenirdemi';
-    src: url('fonts/avenirnextltpro-demi.eot');
-    src: url('fonts/avenirnextltpro-demi.eot') format('embedded-opentype'),
-         url('fonts/avenirnextltpro-demi.woff2') format('woff2'),
-         url('fonts/avenirnextltpro-demi.woff') format('woff'),
-         url('fonts/avenirnextltpro-demi.ttf') format('truetype'),
-         url('fonts/avenirnextltpro-demi.svg#AvenirNextLTProDemi') format('svg');
+    src: url('/reskin_fonts/avenirnextltpro-demi.eot');
+    src: url('/reskin_fonts/avenirnextltpro-demi.eot') format('embedded-opentype'),
+         url('/reskin_fonts/avenirnextltpro-demi.woff2') format('woff2'),
+         url('/reskin_fonts/avenirnextltpro-demi.woff') format('woff'),
+         url('/reskin_fonts/avenirnextltpro-demi.ttf') format('truetype'),
+         url('/reskin_fonts/avenirnextltpro-demi.svg#AvenirNextLTProDemi') format('svg');
 }
 
 /* Main body styles */
@@ -381,7 +381,7 @@ a.next_button.disabled:focus {
 .main #content #blog-posts h2.decorative,
 .main #content #social-media h2.decorative {
 	width: 100%;
-	float: left;
+	/*float: left; fix for certain pages */
 	padding: 0 5px;
 	margin: 0 0 20px 0 !important;
 	font-family: 'georgia' !important;
@@ -424,7 +424,8 @@ a.next_button.disabled:focus {
 	border: none;
 	background: transparent;
 }
-#current_visual_assets .item_carousel_wide .item_element {
+#current_visual_assets .item_carousel_wide .item_element,
+#current_visual_assets .item_carousel_wide .item_element_cart {
 	min-height: 245px !important;
 	border: 1px solid #959595;
 }
@@ -727,7 +728,7 @@ a.next_button.disabled:focus {
 #product_catalog .listview .item-block{
 	margin: 0px 0px 14px 0px;
 	width: 100%;
-	-moz-box-sizing: border-box;
+	box-sizing: -moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	height: 135px;
@@ -903,33 +904,6 @@ a.next_button.disabled:focus {
 	border-radius: 0px;
 	background: #eee;
 	cursor: not-allowed !important;
-}
-
-/* Special selects */
-.select-wrapper{
-	display: inline-block;
-	height: 27px;
-	width: 200px;
-	max-width: 100%;
-	background: #fff;
-	border: 1px solid #999;
-	position: relative;
-	box-sizing: border-box;
-}
-.select-wrapper select{
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	width: 100%;
-	box-sizing: border-box;
-	height: 24px;
-	background: transparent;
-	border: 0px solid;
-    outline: 0;
-    margin: 0px !important;
-}
-.select-wrapper select:focus{
-    outline: 0;
 }
 
 /* Product Details */
@@ -1629,7 +1603,7 @@ a.link_directions {
 	border-radius: 0;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
-	        box-sizing: border-box;
+	        box-sizing: border-box;`
 }
 .contentwrap_medium input.jqui_save.ui-button.ui-widget.ui-state-default.ui-corner-all {
 	width: 120px;
@@ -1688,6 +1662,10 @@ textarea#feedback_comments_attributes_0_message {
 #footer .container a{
 	font-weight: normal;
 	font-family: 'avenirbold';
+}
+#footer .container a:hover{
+	color: #888;
+	text-decoration: none;
 }
 #footer .container .column {
 	border: none;
@@ -1789,6 +1767,54 @@ textarea#feedback_comments_attributes_0_message {
 	color: #e0e1e1;
 }
 
+/* Video page */
+#video_keyword{
+	border: 1px solid #bbb;
+	padding: 8px;
+	border-radius: 3px;
+	height: 14px;
+}
+.jquerybubblepopup td{
+	border: none !important;
+}
+.video-page .tinynav{
+	display: block;
+}
+.video-page .ui-tabs-nav{
+	display: none;
+}
+.video-page .select-wrapper{
+	width: 300px;
+	margin-left: 15px;
+}
+
+/* Special selects */
+.select-wrapper{
+	display: inline-block;
+	height: 27px;
+	width: 200px;
+	max-width: 100%;
+	background: #fff;
+	border: 1px solid #999;
+	position: relative;
+	box-sizing: border-box;
+}
+.select-wrapper select{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	box-sizing: border-box;
+	height: 24px;
+	background: transparent;
+	border: 0px solid;
+    outline: 0;
+    margin: 0px !important;
+}
+.select-wrapper select:focus{
+    outline: 0;
+}
+
 /* Admin */
 .ui-state-hover,
 .ui-widget-content .ui-state-hover,
@@ -1805,7 +1831,3 @@ body.bp #content a.sortable_header:visited{
 body.bp #content a.sortable_header:hover{
 	color: #3C3C3C !important;
 }
-
-
-
-
