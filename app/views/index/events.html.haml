@@ -6,7 +6,7 @@
 - else
   %p Come see us at our next trade show or convention booth at a city near you. Simply check the listings below for a complete schedule of our upcoming events!
 - if @events.present?
-  %table
+  %table{:class=>"event-list"}
     %thead
       %tr
         %th Name
