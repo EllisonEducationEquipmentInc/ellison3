@@ -1,3 +1,8 @@
+/*! http://tinynav.viljamis.com v1.2 by @viljamis */
+(function(a,k,g){a.fn.tinyNav=function(l){var c=a.extend({active:"selected",header:"",indent:"- ",label:""},l);return this.each(function(){g++;var h=a(this),b="tinynav"+g,f=".l_"+b,e=a("<select/>").attr("id",b).addClass("tinynav "+b);if(h.is("ul,ol")){""!==c.header&&e.append(a("<option/>").text(c.header));var d="";h.addClass("l_"+b).find("a").each(function(){d+='<option value="'+a(this).attr("href")+'">';var b;for(b=0;b<a(this).parents("ul, ol").length-1;b++)d+=c.indent;d+=a(this).text()+"</option>"});
+e.append(d);c.header||e.find(":eq("+a(f+" li").index(a(f+" li."+c.active))+")").attr("selected",!0);e.change(function(){triggerVideoChange(a(this).val())/*k.location.href=a(this).val()*/});a(f).after(e);c.label&&e.before(a("<label/>").attr("for",b).addClass("tinynav_label "+b+"_label").append(c.label))}})}})(jQuery,this,0);
+
+/* Nav hover rewrite */
 var hoverOverMenuItem = function(){
 	var meganav_hover, meganav_hover_bg, meganav_hover_border, panelOverhang, panelWidth, siteWidth, xCoord, xOrigin;
 	siteWidth = 950;
@@ -69,7 +74,9 @@ var hoverOverMenuItem = function(){
 	});
 };
 
-var fixsidebar = null;
+/* Custom JS */
+var sdmReskinFixsidebar = null;
+var triggerVideoChange = null;
 jQuery(document).ready(function(){
 	// Change header search submit button
 	jQuery("#searchbar .submitbutton")
@@ -78,7 +85,7 @@ jQuery(document).ready(function(){
 		.removeAttr('width');
 
 	// Fix catalog page sidebar
-	fixsidebar = function(){
+	sdmReskinFixsidebar = function(){
 		// Change catalog search submit button
 		jQuery("#products_filter input[type=image]")
 			.addClass('submitbutton')
@@ -121,7 +128,7 @@ jQuery(document).ready(function(){
 	    //		#product_catalog .item-block:nth-child(4n)
 	    jQuery("#product_catalog .page-break").remove();
 	}
-	setInterval(fixsidebar, 2000);
+	sdmReskinFixsidebar();
 
 	// Add class to admin link wrapper
 	jQuery(".megalink-admin")
@@ -147,9 +154,75 @@ jQuery(document).ready(function(){
 			},
 		});
 
+	// Video page stuff
+	if (jQuery("#search_videos").length){
+		// Add wrapping class to video page
+		jQuery("#content").addClass("video-page");
+
+		// Add wrapper around #per_page for catalog view
+		// if (!jQuery("#per_page").parent().is(".select-wrapper")){
+		// 	jQuery("#per_page").wrap("<div class='select-wrapper per-page-wrap'></div>");
+		// }
+
+		// Write function to change select video filter when we change the select
+		triggerVideoChange = function(txt){
+			jQuery('.tab-block')
+				.tabs("select", 
+					jQuery('.ui-tabs-panel').index(jQuery(txt))
+				);
+			// jQuery(".video_content.ui-tabs-panel")
+			// 	.addClass("ui-tabs-hide");
+			// jQuery(txt)
+			// 	.removeClass("ui-tabs-hide");
+		};
+
+		jQuery("#video_keyword")
+			.keypress(function(e){
+				var code = e.keyCode || e.which;
+				if(code == 13 && jQuery("#video_keyword").val().length) {
+					jQuery("#video-category .tinynav").val("#search_results");
+				}
+			});
+		jQuery("#search_videos .jqui_search")
+			.click(function(){
+				if(jQuery("#video_keyword").val().length) {
+					jQuery("#video-category .tinynav").val("#search_results");
+				}
+			});
+
+		// Add html to generate select box
+		jQuery(".contentwrap_XXXL .ui-tabs-nav")
+			.wrap("<div class='select-wrapper'></div>");
+		jQuery(".contentwrap_XXXL .select-wrapper")
+			.wrap("<div id='video-category'></div>");
+
+		// Create tinynav select
+		jQuery(".contentwrap_XXXL .ui-tabs-nav").tinyNav({
+			active : 'ui-state-active'
+		});
+
+		jQuery(".select-wrapper")
+			.before("<h3>Video Category</h3>");
+
+		jQuery("#search_videos")
+			.insertAfter("#video-category");
+	}
+
     // Replace add to bag button text
     jQuery(".add_to_cart .ui-button-text").text(function () {
         return jQuery(this).text().replace("Add to Bag +", "Add to Bag");
     });
-});
 
+    // Add margin to notice if on the same page as .frame_gallery_wide
+    if (jQuery(".frame_gallery_wide").length){
+    	jQuery(".dontprint.notice")
+	    	.css({
+	    		'margin-bottom' : '40px'
+	    	});
+    }
+    // Add class to warranty page
+    if (window.location.href.split('/warranties').length > 1){
+    	jQuery('body').addClass("warranties-page");
+    }
+
+});
