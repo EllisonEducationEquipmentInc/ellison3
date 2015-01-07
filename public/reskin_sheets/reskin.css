@@ -381,7 +381,7 @@ a.next_button.disabled:focus {
 	/*float: left; fix for certain pages */
 	margin: 0 0 20px 0 !important;
 	font-family: 'georgia' !important;
-	font-size: 30px !important;
+	font-size: 25px !important;
 	border-bottom: 1px solid #959595;
 	background: none;
 	-webkit-box-sizing: border-box;
@@ -445,13 +445,19 @@ a.next_button.disabled:focus {
 .compatibility_detail .item-block_related p.item_name,
 .compatible_tag p.item_name,
 .asset_catalog_search .item_carousel .item_element .item_name a {
-	font-size: 14px;
-	font-family: 'avenirbold';
-	color: #000;
+	font-size: 12px;
 }
-.asset_catalog_search li.item_element h3.item_number,
-span.msrp.old-price {
+#current_visual_assets .item_carousel_wide .item_element p.item_name a:hover,
+.asset_catalog_search .item_carousel .item_element .item_name a:hover {
+	color: #a9250e;
+}
+.asset_catalog_search li.item_element h3.item_number {
 	font-family: 'avenirregular';
+}
+.msrp.old-price {
+	font-family: 'avenirbold' !important;
+	font-weight: normal;
+	font-size: 1.1em !important;
 }
 #current_visual_assets .item_carousel_wide .item_element p .msrp {
 	font-size: 14px;
@@ -604,10 +610,10 @@ span.msrp.old-price {
 #products_filter ul a.price_query_facet_value,
 #products_filter ul a.saving_query_facet_value,
 #products_filter ul a.item_group_facet_value{
-	font-size: 13px;
-	line-height: 13px;
-	margin-top: 1px;
-	padding-top: 1px;
+	font-size: 13px !important;
+	line-height: 13px !important;
+	margin-top: 1px !important;
+	padding-top: 1px !important;
 	background: url('/reskin_images/new-checkbox.jpg') left top no-repeat !important;
 }
 
@@ -672,10 +678,12 @@ span.msrp.old-price {
 	line-height: 23px;
 	background: none;
 	font-size: 14px;
+	color: #000;
 }
 #catalogtabs li a.active,
 #catalogtabs li a.active span{
 	font-family: 'avenirbold';
+	color: #000;
 }
 #catalogtabs li a.inactive,
 #catalogtabs li a.inactive span{
@@ -690,18 +698,12 @@ span.msrp.old-price {
 }
 #catalog_breadcrumbs{
 	position: relative;
-	padding-left: 130px;
+	padding-left: 8px;
 	margin: 0px 0px 10px;
-}
-#catalog_breadcrumbs a:nth-child(1){
-	display: none;
 }
 #catalog_breadcrumbs a{
 	text-transform: none;
 	font-size: 14px;
-}
-#catalog_breadcrumbs .breadcrumb_arrow{
-	display: none;
 }
 #catalog_breadcrumbs a.tag_breadcrumb_remove,
 #catalog_breadcrumbs a.price_breadcrumb_remove,
@@ -710,7 +712,7 @@ span.msrp.old-price {
 	line-height: 16px;
 	display: inline-block;
 	width: 12px;
-	margin-right: 18px;
+	margin-right: 5px;
 	background: url('/reskin_images/new-checkbox-checked-hover.png') center center no-repeat;
 }
 #catalog_breadcrumbs a {
@@ -787,7 +789,7 @@ span.msrp.old-price {
 }
 #product_catalog .highlightable .cart-buttons .add_to_cart,
 #product_catalog .highlightable .cart-buttons .jqui_out_of_stock,
-#product_catalog .highlightable .cart-buttons .buttonset.ui-buttonset{
+#product_catalog .highlightable .cart-buttons .buttonset.ui-buttonset {
 	width: 93%;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -915,6 +917,12 @@ span.msrp.old-price {
 	font-size: 14px;
 	line-height: 20px;
 }
+#catalog_breadcrumbs .breadcrumb_arrow {
+	background: url('/reskin_images/arrow_right_black.png') no-repeat;
+}
+#products_filter ul a.facet_selected {
+	font-size: 13px;
+}
 /* Product Details */
 #content .breadcrumbs {
 	margin-bottom: 30px;
@@ -1006,6 +1014,14 @@ span.msrp.old-price {
 .cart-buttons .add_to_cart,
 .cart-buttons .add_to_cart:hover {
 	background: #f58a90;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	width: 145px;
+	height: 33px;
+	margin: 0;
+}
+.cart-buttons .jqui_out_of_stock {
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
 	border-radius: 0px;
@@ -1200,7 +1216,15 @@ select#feedback_subject,
 	-moz-border-radius: 0 !important;
 	border-radius: 0 !important;
 }
-
+.item_title .idea-number {
+	color: #000;
+	font-weight: normal;
+	font-family: 'avenirdemi';
+	font-size: 12px;
+}
+.cart-buttons .ui-button {
+	margin-right: 0;
+}
 /* FancyBox */
 #fancybox-content h4 {
 	font-size: 18px;
@@ -1224,7 +1248,7 @@ select#feedback_subject,
 }
 body.bp thead th {
 	background: none;
-	color: #000;
+	color: #fff;
 	border-bottom: 1px solid #acacac;
 	font-weight: normal;
 	font-family: 'avenirbold';
@@ -1293,9 +1317,11 @@ body.bp thead th {
 #checkout_cart table thead,
 table#order_details_items thead,
 #orders table thead,
-#lists table thead {
+#lists table thead,
+#save_list table thead {
 	border: none;
-	background: none;
+	background: #474E53;
+	border-radius: 0;
 }
 #cart_container table tr td {
 	font-family: 'avenirdemi';
@@ -1328,7 +1354,8 @@ input#coupon_code {
 .link_cart_remove-from-cart {
 	background: url('/reskin_images/new-checkbox-checked-hover.png') no-repeat top right;
 }
-.link_bag_save-for-later {
+.link_bag_save-for-later,
+.link_bag_move-back-to-cart {
 	background: url('/reskin_images/save_icon.png') no-repeat top right;
 }
 tbody tr:last-child td {
@@ -1425,7 +1452,12 @@ a.jqui_cancel {
 	border: none;
 	color: #fff;
 	padding: 7px 22px;
-	height: 16px;
+}
+a.jqui_cancel span.ui-button-text {
+	color: #fff;
+	font-family: 'avenirbold' !important;
+	font-size: 14px;
+	text-transform: capitalize;
 }
 a.jqui_cancel .ui-icon-closethick {
 	background: none;
@@ -1503,6 +1535,9 @@ a.jqui_button .ui-button-text {
 #lists a.jqui_new .ui-button-text,
 #lists a.jqui_show .ui-button-text {
 	line-height: 20px;
+}
+a .ui-button-icon-primary {
+	background: none !important;
 }
 /* Store locator */
 #stores .storeframe {
@@ -1661,7 +1696,6 @@ textarea#feedback_comments_attributes_0_message {
 	border: 1px solid #acacac;
 }
 #cart_container h2 {
-	font-size: 20px !important;
 	border-bottom: none !important;
 }
 /* Events */
@@ -1681,7 +1715,8 @@ textarea#feedback_comments_attributes_0_message {
 .event_info img {
 	border: 1px solid #acacac;
 }
-.event-list tbody tr:last-child td {
+.event-list tbody tr:last-child td,
+#order_details_items tbody tr:last-child td {
 	border-top: none;
 }
 #content .event-list thead {
@@ -1988,10 +2023,6 @@ ul.videolist li{
 }
 #user_new .jqui_save{
 	margin-bottom: 15px;
-}
-#apply_gift_card{
-	width: 160px;
-	padding: 8px 0px;
 }
 .warranties-page div > div > img{
 	padding: 4px;
