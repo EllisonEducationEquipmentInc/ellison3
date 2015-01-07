@@ -109,9 +109,15 @@ jQuery(document).ready(function(){
 			jQuery("#catalog_breadcrumbs *").length ? "block" : "none"
 		);
 
+
 		// Add wrapper around #sort for catalog view
-		if (!jQuery("#sort").parent().is(".select-wrapper")){
-			jQuery("#sort").wrap("<div class='select-wrapper sort-wrap'></div>");
+		if (jQuery("#sort").length && !jQuery("#sort").parent().is(".select-wrapper")){
+			jQuery("#sort")
+				.wrap("<div class='select-wrapper sort-wrap'></div>");
+		}else if (jQuery(".lonely-wrap").length == 0){
+			jQuery("#product_catalog .toggleview")
+				.first()
+				.before("<div class='lonely-wrap'>&nbsp;</div>");
 		}
 
 		// Add wrapper around #per_page for catalog view
@@ -226,3 +232,4 @@ jQuery(document).ready(function(){
     }
 
 });
+
