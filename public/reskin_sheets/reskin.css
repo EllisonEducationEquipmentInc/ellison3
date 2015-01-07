@@ -254,6 +254,11 @@ body.bp dfn{
 	top: auto;
 	left: auto;
 	float: left;
+	position: relative;
+	display: none;
+}
+#header #searchbar input.submitbutton.ready{
+	display: block;
 }
 #header #searchbar input.textfield{
 	top: auto;
