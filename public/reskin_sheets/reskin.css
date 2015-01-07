@@ -320,7 +320,9 @@ body.bp dfn{
 #header #shoppingcart_info p.cart_shipmsg a{
 	color: #e47c83;
 }
-
+#header #nav_megamenu .megalist .megaitem .listtitle {
+	font-weight: normal !important;
+}
 /* Body */
 .frame_gallery_wide{
 	margin-top: -29px;
@@ -914,6 +916,10 @@ span.msrp.old-price {
 	border-radius: 0px;
 	background: #eee;
 	cursor: not-allowed !important;
+	height: 33px;
+}
+.jqui_out_of_stock .ui-button-text{
+	line-height: 36px;
 }
 .asset_text_for_image p {
 	font-size: 14px;
@@ -2050,8 +2056,5 @@ body.bp #content a.sortable_header:visited{
 body.bp #content a.sortable_header:hover{
 	color: #3C3C3C !important;
 }
-
-
-
 
 
