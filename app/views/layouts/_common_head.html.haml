@@ -28,7 +28,9 @@
 = stylesheet_link_tag 'bubblepopup/jquery.bubblepopup.v2.3.1.css', :media => 'screen, projection'
 = stylesheet_link_tag 'event_calendar'
 = stylesheet_link_tag '/javascripts/cl_style.css'
-= stylesheet_link_tag '/stylesheets/reskin.css'
+- if is_sizzix_us?
+  = stylesheet_link_tag '/stylesheets/reskin.css'
+
 / Google Web Fonts
 - if is_sizzix_us?
   = stylesheet_link_tag "http#{'s' if request.ssl?}://fonts.googleapis.com/css?family=PT+Sans:regular,bold&subset=latin"
@@ -48,7 +50,9 @@
 = javascript_include_tag 'uk_survey.js'
 = javascript_include_tag 'hoverintent/jquery.hoverIntent.minified.js', 'event_calendar', "jquery.rails.js", 'jquery.remotipart.js', 'rails_remote', 'jquery.uploadProgress.js'
 = javascript_include_tag '/javascripts/js_loader.js'
-= javascript_include_tag '/javascripts/reskin.js'
+- if is_sizzix_us?
+  = stylesheet_link_tag '/stylesheets/reskin.css'
+
 = csrf_meta_tag
 
 - if ::Rails.env == 'development'
@@ -73,8 +77,7 @@
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
-
-  
+ 
 / Sizzix UK Cookie Notify
 - if is_uk?
   :javascript
