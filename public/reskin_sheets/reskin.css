@@ -456,7 +456,6 @@ span.msrp.old-price {
 #current_visual_assets .item_carousel_wide .item_element p .msrp {
 	font-size: 14px;
 	font-family: 'avenirregular';
-	color: #39b54a;
 }
 .item_carousel_wide {
 	float: left;
@@ -605,7 +604,7 @@ span.msrp.old-price {
 #products_filter ul a.price_query_facet_value,
 #products_filter ul a.saving_query_facet_value,
 #products_filter ul a.item_group_facet_value{
-	font-size: 11px;
+	font-size: 13px;
 	line-height: 13px;
 	margin-top: 1px;
 	padding-top: 1px;
@@ -693,15 +692,6 @@ span.msrp.old-price {
 	position: relative;
 	padding-left: 130px;
 	margin: 0px 0px 10px;
-}
-#catalog_breadcrumbs::before{
-	content: "Your Selections";
-	font-family: 'avenirbold';
-	text-transform: none;
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	font-size: 14px;
 }
 #catalog_breadcrumbs a:nth-child(1){
 	display: none;
@@ -1818,7 +1808,7 @@ input#payment_card_pin {
 #footer .container .column ul li a {
 	font-size: 13px;
 	font-weight: normal;
-	font-family: 'avenirbold';
+	font-family: 'avenirregular';
 }
 #footer .container .column_right form {
 	margin-top: 25px;
@@ -2056,5 +2046,8 @@ body.bp #content a.sortable_header:visited{
 body.bp #content a.sortable_header:hover{
 	color: #3C3C3C !important;
 }
+
+
+
 
 
