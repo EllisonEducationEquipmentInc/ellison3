@@ -1488,14 +1488,6 @@ input#billing_address_company {
 	left: 10px;
 	margin-top: -10px;
 }
-#user_new .jqui_button {
-	background: #8fb4af;
-	-webkit-border-radius: 0px;
-	-moz-border-radius: 0px;
-	border-radius: 0px;
-	border: none;
-	color: #fff;
-}
 input.jqui_save.ui-button.ui-widget.ui-state-default.ui-corner-all {
 	background: #8fb4af;
 	-webkit-border-radius: 0px;
@@ -2110,7 +2102,33 @@ ul.videolist li{
 	border: 1px solid #aaa;
 	background: #fff;
 }
-
+#user_new label {
+	font-size: 14px;
+	margin-right: 5px;
+}
+#user_new #user_email {
+	padding: 5px;
+}
+#user_new .jqui_button {
+	background: #8fb4af;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	border: none;
+	color: #fff;
+	font-size: 14px;
+	font-weight: normal;
+	font-family: 'avenirregular';
+	padding: 7px 22px;
+}
+#user_edit .jqui_save {
+	font-size: 14px;
+	font-weight: normal;
+	font-family: 'avenirregular';
+}
+#profile h2 {
+	display: none;
+}
 /* Special selects */
 .select-wrapper{
 	display: inline-block;
