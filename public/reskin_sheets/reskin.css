@@ -991,7 +991,7 @@ a.next_button.disabled:focus {
 }
 #content .item_images #thumbnail_list {
 	width: 100%;
-	padding: 0 5px;
+	padding: 0;
 	margin: 0;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
