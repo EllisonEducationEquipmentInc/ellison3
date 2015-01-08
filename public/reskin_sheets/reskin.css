@@ -62,15 +62,12 @@ body.bp{
 	font-size: 12px;
     -moz-osx-font-smoothing: grayscale;
 }
-body.bp a {
-	color: #a9250e;
-}
+body.bp a,
 body.bp a:visited {
-	color: #000;
-}
-body.bp a:hover {
 	color: #a9250e;
-	text-decoration: underline;
+ }
+body.bp a:hover {
+	color: #000;
 }
 body.bp h3 {
 	font-size: 12px;
