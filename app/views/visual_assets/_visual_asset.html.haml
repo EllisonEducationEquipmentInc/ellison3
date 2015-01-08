@@ -96,10 +96,10 @@
       %div{ :class => "item_carousel#{visual_asset.wide? ? '_wide' : nil} ui-widget-#{ is_sizzix_us? ? 'header' : 'content'} ui-widget ui-corner-all" }
         %div{:id => "asset_carousel_#{visual_asset.id}"}
           %ul= render :partial => 'index/item', :collection => visual_asset.asset_type == 'products' ? Product.listable.where(:item_num.in => visual_asset.products).cache : Idea.available.where(:idea_num.in => visual_asset.ideas).cache
-          .controls{ :style => "display: none"}
-            = link_to "prev", "#", :class => "prev_button disabled", :id => "prev_button_#{visual_asset.id}", :onclick => "return false;"
-            %span{:class=>"view_all"}= link_to "View All", catalog_path(:anchor => visual_asset.search_query), :class => "minilink"
-            = link_to "next", "#", :class => "next_button", :id => "next_button_#{visual_asset.id}", :onclick => "return false;"
+        .controls{ :style => "display: block"}
+          = link_to "prev", "#", :class => "prev_button disabled", :id => "prev_button_#{visual_asset.id}", :onclick => "return false;"
+          %span{:class=>"view_all"}= link_to "View All", catalog_path(:anchor => visual_asset.search_query), :class => "minilink"
+          = link_to "next", "#", :class => "next_button", :id => "next_button_#{visual_asset.id}", :onclick => "return false;"
         .clear
       :javascript
         $(function() {
