@@ -926,7 +926,9 @@ a.next_button.disabled:focus {
 	line-height: 20px;
 }
 #catalog_breadcrumbs .breadcrumb_arrow {
-	background: url('/reskin_images/arrow_right_black.png') no-repeat top center;
+	background: url('/reskin_images/arrow_right_black.png') no-repeat center;
+	width: 15px;
+	height: 15px;
 }
 #products_filter ul a.facet_selected {
 	font-size: 13px;
