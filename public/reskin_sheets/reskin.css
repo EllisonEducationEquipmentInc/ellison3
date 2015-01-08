@@ -541,6 +541,7 @@ a.next_button.disabled:focus {
 .item_carousel_wide .item_element_cart .life-cycle,
 .item-block .life-cycle {
 	background: url('/reskin_images/lifecycle.png') no-repeat;
+	top: 3px !important;
 }
 .life-cycle {
 	color: #fff;
