@@ -2161,13 +2161,6 @@ ul.videolist li{
 }
 
 /* Admin */
-body.bp #content a.sortable_header,
-body.bp #content a.sortable_header:visited{
-	color: #6e6e6e !important;
-}
-body.bp #content a.sortable_header:hover{
-	color: #3C3C3C !important;
-}
 #header #nav_megamenu ul.megalist li.megaitem .megapanel #systemswitch {
 	color: #000;
 	font-size: 12px;
