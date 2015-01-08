@@ -2191,7 +2191,11 @@ ul.videolist li{
 	color: #000;
 	font-size: 12px;
 }
-
+/* Admin Dyanmic Landing page */
+#content #edit_landing_page_sizzixquilting .visual_asset .va_title h2 {
+	font-size: 15px !important;
+	width: auto !important;
+}
 
 
 
