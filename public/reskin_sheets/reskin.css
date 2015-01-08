@@ -63,7 +63,7 @@ body.bp{
     -moz-osx-font-smoothing: grayscale;
 }
 body.bp a {
-	color: #a9250e;
+	color: #a9250e !important;
 }
 body.bp a:hover {
 	color: #a9250e;
@@ -74,6 +74,9 @@ body.bp h3 {
 	font-weight: normal;
 	text-transform: uppercase;
 	font-family: 'avenirbold';
+}
+input {
+	border: 1px solid #acacac;
 }
 #root .container {
 	background: none;
@@ -350,6 +353,9 @@ a .ui-button-icon-primary {
 	background: url('/reskin_images/arrow_right.png') no-repeat center center;
 	text-indent: -999em;
 	left: 898px;
+}
+.frame_gallery a.nextBtn {
+	left: 694px;
 }
 a.prev_button,
 a.prev_button:hover,
@@ -1274,7 +1280,7 @@ body.bp thead th {
 	border-bottom: 1px solid #acacac;
 	font-weight: normal;
 	font-family: 'avenirbold';
-	font-size: 12px;
+	font-size: 14px;
 }
 #checkout_now,
 #checkout_now:hover {
@@ -1351,9 +1357,15 @@ table#order_details_items thead,
 	background: #474E53;
 	border-radius: 0;
 }
-#cart_container table tr td {
-	font-family: 'avenirdemi';
-	font-size: 13px;
+table tr td {
+	font-family: 'avenirregular';
+	font-size: 12px;
+}
+#order_details,
+#quote_details,
+#pre-order_details {
+	font-size: 14px;
+	font-weight: normal;
 }
 body.bp table.striped tr:nth-child(even) td,
 body.bp table tr.even td {
@@ -1428,6 +1440,10 @@ input#shipping_address_company,
 input#billing_address_company {
 	width: 242px;
 }
+#billing_address,
+#shipping_address {
+	font-size: 14px;
+}
 #shipping_info,
 #checkout_billing {
 	font-size: 14px;
@@ -1472,8 +1488,7 @@ input.jqui_save.ui-button.ui-widget.ui-state-default.ui-corner-all {
 	border-radius: 0px;
 	border: none;
 	color: #fff;
-	padding: 8px 22px;
-	font-size: 14px;
+	padding: 7px 22px;
 }
 a.jqui_cancel {
 	background: #8fb4af !important;
