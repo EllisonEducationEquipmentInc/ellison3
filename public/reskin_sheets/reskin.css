@@ -83,7 +83,7 @@ body.bp h3 {
 	font-size: 14px;
 }
 .msrp{
-	font-family: 'avenirbold';
+	font-family: 'avenirbold' !important;
 	font-weight: normal;
 }
 body.bp strong,
@@ -94,7 +94,12 @@ body.bp dfn{
 	font-family: 'avenirbold' !important;
 	font-size: 14px;
 }
-
+a .ui-button-icon-primary {
+	background: none !important;
+}
+.highlightable .ui-button-icon-primary {
+	background-image: url('/stylesheets/jqui-ellison3/images/ui-icons_222222_256x240.png') !important;
+}
 /* Header */
 .main{
 	padding-top: 165px;
@@ -928,7 +933,7 @@ a.next_button.disabled:focus {
 }
 /* Product Details */
 #content .breadcrumbs {
-	margin-bottom: 30px;
+	margin-bottom: 18px;
 }
 .link_back {
 	background: url('/reskin_images/link_back.png') no-repeat left;
@@ -1454,11 +1459,11 @@ input.jqui_save.ui-button.ui-widget.ui-state-default.ui-corner-all {
 	padding: 8px 22px;
 }
 a.jqui_cancel {
-	background: #8fb4af;
+	background: #8fb4af !important;
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
 	border-radius: 0px;
-	border: none;
+	border: none !important;
 	color: #fff;
 	padding: 7px 22px;
 	height: 16px;
@@ -1544,9 +1549,6 @@ a.jqui_button .ui-button-text {
 #lists a.jqui_new .ui-button-text,
 #lists a.jqui_show .ui-button-text {
 	line-height: 20px;
-}
-a .ui-button-icon-primary {
-	background: none !important;
 }
 /* Store locator */
 #stores .storeframe {
