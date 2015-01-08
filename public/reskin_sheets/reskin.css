@@ -60,7 +60,6 @@ body.bp{
 	background: #f2f2f2;
 	font-family: 'avenirregular' !important;
 	font-size: 12px;
-	-webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 body.bp a,
@@ -1021,6 +1020,12 @@ a.next_button.disabled:focus {
 	height: 33px;
 	margin: 0;
 }
+.buybox .right .jqui_out_of_stock {
+	width: 145px;
+}
+.buybox .right .jqui_out_of_stock .ui-button-text {
+	color: #000;
+}
 .cart-buttons .jqui_out_of_stock {
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
@@ -1452,10 +1457,10 @@ a.jqui_cancel {
 	border: none;
 	color: #fff;
 	padding: 7px 22px;
+	height: 16px;
 }
 a.jqui_cancel span.ui-button-text {
 	color: #fff;
-	font-family: 'avenirbold' !important;
 	font-size: 14px;
 	text-transform: capitalize;
 }

@@ -82,10 +82,11 @@ jQuery(document).ready(function(){
 	jQuery("#searchbar .submitbutton")
 		.attr('src', '/reskin_images/transparent.gif')
 		.removeAttr('height')
-		.removeAttr('width');
+		.removeAttr('width')
+		.addClass('ready');
 
 	// Fix catalog page sidebar
-	sdmReskinFixsidebar = function(){
+	sdmReskinFixsidebar = function(isCallback){
 		// Change catalog search submit button
 		jQuery("#products_filter input[type=image]")
 			.addClass('submitbutton')
@@ -133,6 +134,11 @@ jQuery(document).ready(function(){
 	    // Remove extra page breaks as they cause this css rule to count improperly:
 	    //		#product_catalog .item-block:nth-child(4n)
 	    jQuery("#product_catalog .page-break").remove();
+	    if (typeof isCallback === 'undefined'){
+	    	setTimeout(function(){
+	    		sdmReskinFixsidebar(true);
+	    	}, 100);
+	    }
 	}
 	sdmReskinFixsidebar();
 
@@ -232,4 +238,5 @@ jQuery(document).ready(function(){
     }
 
 });
+
 
