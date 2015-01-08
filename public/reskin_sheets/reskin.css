@@ -462,6 +462,9 @@ a.next_button.disabled:focus {
 .asset_catalog_search .item_carousel .item_element .item_name {
 	min-height: 72px;
 }
+.item_name a {
+	color: #000 !important;
+}
 #current_visual_assets .item_carousel_wide .item_element p.item_name a,
 .compatibility_detail .item-block_related p.item_name,
 .compatible_tag p.item_name,
@@ -1485,6 +1488,14 @@ input#billing_address_company {
 	left: 10px;
 	margin-top: -10px;
 }
+#user_new .jqui_button {
+	background: #8fb4af;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	border: none;
+	color: #fff;
+}
 input.jqui_save.ui-button.ui-widget.ui-state-default.ui-corner-all {
 	background: #8fb4af;
 	-webkit-border-radius: 0px;
@@ -2076,18 +2087,22 @@ ul.videolist li{
 }
 
 /* Registration and misc pages */
-#user_new input{
+#guest_checkout input,
+#returning_customer input {
 	width: 180px;
+	padding: 5px;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
-#user_new label span,
-#user_new label{
+#guest_checkout label span,
+#guest_checkout label,
+#returning_customer label span,
+#returning_customer label {
 	font-weight: normal;
 	font-family: 'avenirbold';
 }
-#user_new .jqui_save{
+#guest_checkout .jqui_save{
 	margin-bottom: 15px;
 }
 .warranties-page div > div > img{
