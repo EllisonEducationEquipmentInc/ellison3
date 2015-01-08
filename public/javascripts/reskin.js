@@ -134,6 +134,7 @@ jQuery(document).ready(function(){
 	    // Remove extra page breaks as they cause this css rule to count improperly:
 	    //		#product_catalog .item-block:nth-child(4n)
 	    jQuery("#product_catalog .page-break").remove();
+
 	    if (typeof isCallback === 'undefined'){
 	    	setTimeout(function(){
 	    		sdmReskinFixsidebar(true);
@@ -227,7 +228,7 @@ jQuery(document).ready(function(){
 
     // Add margin to notice if on the same page as .frame_gallery_wide
     if (jQuery(".frame_gallery_wide").length){
-    	jQuery(".dontprint.notice")
+    	jQuery(".dontprint.notice, .dontprint.error")
 	    	.css({
 	    		'margin-bottom' : '40px'
 	    	});
@@ -237,6 +238,29 @@ jQuery(document).ready(function(){
     	jQuery('body').addClass("warranties-page");
     }
 
+    //Nth child fixes
+    var nthChildFixes = [
+    	[
+    		"#header #nav_megamenu ul.megalist li.megaitem:nth-child(2) .contentwrap_XS:nth-child(1)",
+    		"nth-child-fix-1"
+    	],
+    	[
+    		"#product_catalog .item-block:nth-child(4n)",
+    		"nth-child-fix-2"
+    	],
+    	[
+    		"body.bp table.striped tr:nth-child(even) td",
+    		"nth-child-fix-3"
+    	],
+    	[
+    		".ui-tabs-panel .item-block:nth-child(5n+1)",
+    		"nth-child-fix-4"
+    	]
+    ];
+
+    // Apply the nth child fixes
+    jQuery.each(nthChildFixes, function(key, nthChild){
+    	jQuery(nthChild[0]).addClass(nthChild[1]);
+    });
+
 });
-
-

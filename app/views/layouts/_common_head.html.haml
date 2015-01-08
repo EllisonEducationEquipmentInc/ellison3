@@ -31,7 +31,8 @@
 = stylesheet_link_tag '/javascripts/cl_style.css'
 - if is_sizzix_us?
   = stylesheet_link_tag '/reskin_sheets/reskin.css'
-
+  /[if IE]
+    = stylesheet_link_tag '/reskin_sheets/ie-all.css'
 / Google Web Fonts
 - if is_sizzix_us?
   = stylesheet_link_tag "http#{'s' if request.ssl?}://fonts.googleapis.com/css?family=PT+Sans:regular,bold&subset=latin"
