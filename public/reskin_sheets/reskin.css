@@ -1465,8 +1465,17 @@ input#billing_address_company {
 	left: 10px;
 	margin-top: -10px;
 }
-a.jqui_cancel,
-.jqui_save {
+input.jqui_save.ui-button.ui-widget.ui-state-default.ui-corner-all {
+	background: #8fb4af;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	border: none;
+	color: #fff;
+	padding: 8px 22px;
+	font-size: 14px;
+}
+a.jqui_cancel {
 	background: #8fb4af !important;
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
@@ -1474,6 +1483,9 @@ a.jqui_cancel,
 	border: none !important;
 	color: #fff;
 	padding: 7px 22px;
+	line-height: normal;
+}
+.actions .jqui_save {
 	font-size: 14px;
 	font-family: 'avenirregular';
 	font-weight: normal;
