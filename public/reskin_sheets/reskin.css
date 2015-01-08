@@ -1743,9 +1743,13 @@ a.jqui_destroy_min {
 }
 a.jqui_move_min .ui-icon-extlink {
 	background: url('/reskin_images/move_list.png') no-repeat !important;
+	width: 15px;
+	height: 15px;
 }
 a.jqui_destroy_min .ui-icon-trash {
 	background: url('/reskin_images/remove.png') no-repeat !important;
+	width: 15px;
+	height: 15px;
 }
 .item-block .list_actions {
 	border-top: 1px dotted #acacac;
