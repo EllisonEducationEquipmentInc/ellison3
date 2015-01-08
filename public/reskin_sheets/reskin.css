@@ -95,7 +95,7 @@ body.bp dfn{
 	font-size: 14px;
 }
 a .ui-button-icon-primary {
-	background: none !important;
+	background-image: none !important;
 }
 .highlightable .ui-button-icon-primary {
 	background-image: url('/stylesheets/jqui-ellison3/images/ui-icons_222222_256x240.png') !important;
