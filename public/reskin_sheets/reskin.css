@@ -64,7 +64,11 @@ body.bp{
 }
 body.bp a,
 body.bp a:visited {
-	color: #000;
+	color: #a9250e;
+}
+body.bp a:hover {
+	color: #a9250e;
+	text-decoration: underline;
 }
 body.bp h3 {
 	font-size: 12px;
