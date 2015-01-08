@@ -340,11 +340,13 @@ a .ui-button-icon-primary {
 .bp #root #content #current_visual_assets .frame_gallery_wide #gallery_link img {
 	display: none;
 }
-.frame_gallery_wide a.prevBtn {
+.frame_gallery_wide a.prevBtn,
+.frame_gallery a.prevBtn {
 	background: url('/reskin_images/arrow_left.png') no-repeat center center;
 	text-indent: -999em;
 }
-.frame_gallery_wide a.nextBtn {
+.frame_gallery_wide a.nextBtn,
+.frame_gallery a.nextBtn {
 	background: url('/reskin_images/arrow_right.png') no-repeat center center;
 	text-indent: -999em;
 	left: 898px;
@@ -1095,6 +1097,7 @@ a.next_button.disabled:focus {
 .item_description {
 	font-family: 'avenirregular';
 	font-size: 14px;
+	line-height: normal;
 }
 .designer-width.item_description p {
 	margin-bottom: 12px !important;
@@ -1462,16 +1465,8 @@ input#billing_address_company {
 	left: 10px;
 	margin-top: -10px;
 }
-input.jqui_save.ui-button.ui-widget.ui-state-default.ui-corner-all {
-	background: #8fb4af;
-	-webkit-border-radius: 0px;
-	-moz-border-radius: 0px;
-	border-radius: 0px;
-	border: none;
-	color: #fff;
-	padding: 8px 22px;
-}
-a.jqui_cancel {
+a.jqui_cancel,
+.jqui_save {
 	background: #8fb4af !important;
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
@@ -1479,12 +1474,16 @@ a.jqui_cancel {
 	border: none !important;
 	color: #fff;
 	padding: 7px 22px;
-	height: 16px;
+	font-size: 14px;
+	font-family: 'avenirregular';
+	font-weight: normal;
+	line-height: normal;
 }
 a.jqui_cancel span.ui-button-text {
 	color: #fff;
 	font-size: 14px;
 	text-transform: capitalize;
+	line-height: normal;
 }
 a.jqui_cancel .ui-icon-closethick {
 	background: none;
