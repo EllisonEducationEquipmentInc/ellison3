@@ -1,5 +1,5 @@
 %h2 Forgot Your Password
-%p Enter the email address used to create your account, then click Submit. We'll send you an email with a link where you can create your new password
+%p{:class=>"forgotpassword"} Enter the email address used to create your account, then click Submit. We'll send you an email with a link where you can create your new password
 = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
   = devise_error_messages!
   %p

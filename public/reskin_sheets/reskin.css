@@ -65,9 +65,10 @@ body.bp{
 body.bp a,
 body.bp a:visited {
 	color: #a9250e;
- }
+}
 body.bp a:hover {
 	color: #000;
+	text-decoration: underline;
 }
 body.bp h3 {
 	font-size: 12px;
@@ -205,7 +206,8 @@ a .ui-button-icon-primary {
 	left: auto !important;
 	margin: 0px 0px 1px 5px;
 }
-#header #nav_megamenu ul.megalist li.megaitem:nth-child(2) .contentwrap_XS:nth-child(1){
+#header #nav_megamenu ul.megalist li.megaitem:nth-child(2) .contentwrap_XS:nth-child(1),
+.nth-child-fix-1{
 	margin-top: 20px;
 }
 #header #nav_megamenu ul.megalist li.megaitem .megapanel{
@@ -220,8 +222,10 @@ a .ui-button-icon-primary {
 #header #nav_megamenu ul.megalist li.megaitem.hover .megapanel{
 	display: block;
 }
-#header #nav_megamenu ul.megalist li.megaitem .megapanel a {
-	font-size: 12px;
+#header #nav_megamenu ul.megalist li.megaitem .megapanel .listtitle,
+#header #nav_megamenu ul.megalist li.megaitem .megapanel .contentwrap_XS li,
+#header #nav_megamenu ul.megalist li.megaitem .megapanel .listtitle a {
+	font-size: 12px !important;
 }
 #header #nav_megamenu ul.megalist li.megaitem .megapanel a:hover{
 	color: #777;
@@ -754,7 +758,8 @@ a.next_button.disabled:focus {
 	box-sizing: border-box;
 	height: 135px;
 }
-#product_catalog .item-block:nth-child(4n){
+#product_catalog .item-block:nth-child(4n),
+.nth-child-fix-2{
 	margin-right: 0px;
 }
 .highlightable.listview .item-block.product .item_description{
@@ -823,6 +828,18 @@ a.next_button.disabled:focus {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
+}
+.item-block .cart-buttons .message{
+	background: #EEE;
+	height: 32px;
+	display: block;
+	margin: 0px auto;
+	width: 145px;
+	padding: 0px;
+}
+.item-block .cart-buttons .message a{
+	line-height: 32px;
+	text-decoration: none;
 }
 .per-page-wrap.select-wrapper{
 	width: 50px;
@@ -1208,7 +1225,8 @@ a.next_button.disabled:focus {
 	font-family: 'avenirregular' !important;
 	font-size: 14px !important;
 }
-.ui-tabs-panel .item-block:first-child {
+.ui-tabs-panel .item-block:nth-child(5n+1),
+.nth-child-fix-4 {
 	margin: 0;
 }
 .ui-tabs-panel .item-block {
@@ -1374,7 +1392,8 @@ table tr td {
 	font-weight: normal;
 }
 body.bp table.striped tr:nth-child(even) td,
-body.bp table tr.even td {
+body.bp table tr.even td,
+.nth-child-fix-3 {
 	background: #f2f2f2;
 }
 input#coupon_code {
@@ -2125,6 +2144,13 @@ ul.videolist li{
 }
 #profile h2 {
 	display: none;
+}
+.forgotpassword {
+	font-size: 14px;
+}
+#user_new a.jqui_button .ui-button-text {
+	padding: 0;
+	line-height: normal;
 }
 /* Special selects */
 .select-wrapper{
