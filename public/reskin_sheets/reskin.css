@@ -545,7 +545,18 @@ a.next_button.disabled:focus {
 .life-cycle {
 	color: #fff;
 }
-
+/* Carousel */
+.item_carousel .item_element .life-cycle,
+.item_carousel_wide .item_element .life-cycle,
+.item_carousel .item_carousel_wide .item_element_cart .life-cycle,
+.item_carousel_wide .item_carousel .item_element_cart .life-cycle,
+.item_carousel_wide .item_element_cart .life-cycle {
+    -webkit-transform: rotate(-30deg);
+       -moz-transform: rotate(-30deg);
+        -ms-transform: rotate(-30deg);
+         -o-transform: rotate(-30deg);
+            transform: rotate(-30deg);
+}
 /* Catalog Category */
 #products_filter h3{
 	margin-bottom: 5px;
@@ -830,12 +841,12 @@ a.next_button.disabled:focus {
 	box-sizing: border-box;
 }
 .item-block .cart-buttons .message{
-	background: #EEE;
 	height: 32px;
 	display: block;
 	margin: 0px auto;
 	width: 145px;
 	padding: 0px;
+	font-size: 12px;
 }
 .item-block .cart-buttons .message a{
 	line-height: 1.2em;
@@ -1024,6 +1035,9 @@ a.next_button.disabled:focus {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+}
+#content .buybox .message a {
+	font-size: 12px;
 }
 .zoomWrapper {
 	width: 298px !important;
