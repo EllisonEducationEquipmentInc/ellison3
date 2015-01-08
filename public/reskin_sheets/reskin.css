@@ -1376,7 +1376,8 @@ body.bp thead th {
 table#order_details_items thead,
 #orders table thead,
 #lists table thead,
-#save_list table thead {
+#save_list table thead,
+#content .event-list thead {
 	border: none;
 	background: #474E53;
 	border-radius: 0;
@@ -1799,9 +1800,6 @@ textarea#feedback_comments_attributes_0_message {
 #lists tbody tr:last-child td,
 #save_list tbody tr:last-child td {
 	border-top: none;
-}
-#content .event-list thead {
-	background: none;
 }
 #content .event-list {
 	-webkit-border-radius: 0px;
