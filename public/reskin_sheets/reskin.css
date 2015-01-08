@@ -838,8 +838,13 @@ a.next_button.disabled:focus {
 	padding: 0px;
 }
 .item-block .cart-buttons .message a{
-	line-height: 32px;
+	line-height: 1.2em;
+	height: 32px;
+	display: table-cell;
+	vertical-align: middle;
 	text-decoration: none;
+	width: 145px;
+	text-align: center;
 }
 .per-page-wrap.select-wrapper{
 	width: 50px;
