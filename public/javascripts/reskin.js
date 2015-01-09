@@ -112,10 +112,11 @@ jQuery(document).ready(function(){
 
 
 		// Add wrapper around #sort for catalog view
+		jQuery('.lonely-wrap').remove();
 		if (jQuery("#sort").length && !jQuery("#sort").parent().is(".select-wrapper")){
 			jQuery("#sort")
 				.wrap("<div class='select-wrapper width-100p sort-wrap'></div>");
-		}else if (jQuery(".lonely-wrap").length == 0){
+		}else if (!jQuery("#sort").length){
 			jQuery("#product_catalog .toggleview")
 				.first()
 				.before("<div class='lonely-wrap'>&nbsp;</div>");
@@ -146,6 +147,13 @@ jQuery(document).ready(function(){
 	// Misc select wrappers
 	jQuery("#feedback_subject")
 		.wrap("<div class='select-wrapper feedback-subject'></div>");
+	jQuery("#stores select#country, #stores select#state, #stores select#radius")
+		.each(function(){
+			jQuery(this)
+				.wrap("<div class='select-wrapper stores store-"+this.id+"'></div>");
+		})
+
+
 
 	// Add class to admin link wrapper
 	jQuery(".megalink-admin")

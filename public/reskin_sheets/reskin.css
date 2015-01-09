@@ -644,9 +644,9 @@ a.next_button.disabled{
 	border-right: none;
 	width: 130px;
 	float: left;
-	padding: 8px 13px 9px;
+	padding: 8px 13px;
 	font-weight: normal;
-	font-size: 11px;
+	font-size: 12px;
 	color: #000;
 }
 #products_filter .facets{
@@ -2297,6 +2297,9 @@ ul.videolist li{
 	padding: 0;
 	line-height: normal;
 }
+.field label {
+	font-weight: normal;
+}
 /* Special selects */
 .select-wrapper{
 	display: inline-block;
@@ -2356,6 +2359,28 @@ ul.videolist li{
     outline: 0;
 	border: 0;
 	width: 170px;
+	-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+.select-wrapper.stores{
+	width: 55px !important;
+	height: 24px;
+}
+.select-wrapper.stores.store-radius{
+	margin: 0px 0px -6px;
+}
+.select-wrapper.stores.store-country{
+	width: 140px !important;
+}
+.select-wrapper.stores select{
+	font-family: 'avenirregular' !important;
+	font-weight: normal !important;
+	font-size: 12px !important;
+	outline: 0 !important;
+	border: 0 !important;
+	width: 100% !important;
+	height: 24px;
 	-webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
