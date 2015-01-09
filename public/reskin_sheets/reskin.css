@@ -347,9 +347,15 @@ a .ui-button-icon-primary {
 #header #nav_megamenu .megalist .megaitem .listtitle {
 	font-weight: normal !important;
 }
-#existing_user_new .jqui_save,
-#guest_checkout #user_new .jqui_save{
-	color: #f58a90;
+#fancybox-content #existing_user_new .jqui_save,
+#fancybox-content #guest_checkout #user_new .jqui_save,
+#user_new .jqui_save,
+#admin_new input[type="submit"] {
+	background: #f58a90;
+	font-size: 14px;
+	font-family: 'avenirregular';
+	font-weight: normal;
+	line-height: normal;
 }
 /* Body */
 .frame_gallery_wide{
@@ -2183,7 +2189,8 @@ ul.videolist li{
 #returning_customer label span,
 #returning_customer label {
 	font-weight: normal;
-	font-family: 'avenirbold';
+	font-family: 'avenirregular';
+	font-size: 14px;
 }
 #guest_checkout .jqui_save{
 	margin-bottom: 15px;
@@ -2208,7 +2215,8 @@ ul.videolist li{
 	margin-right: 5px;
 }
 #user_new #user_email,
-#user_new #user_password {
+#user_new #user_password,
+#admin_new #admin_email {
 	padding: 5px;
 }
 #user_new .jqui_button {
@@ -2291,7 +2299,15 @@ ul.videolist li{
 	font-size: 15px !important;
 	width: auto !important;
 }
-
-
-
+#admin_new label {
+	font-size: 14px;
+	font-family: 'avenirregular';
+	font-weight: normal;
+	line-height: normal;
+}
+#admin_new input[type="submit"] {
+	color: #fff;
+	border: none;
+	padding: 7px 22px;
+}
 
