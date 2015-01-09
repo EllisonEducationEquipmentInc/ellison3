@@ -505,6 +505,9 @@ a.next_button.disabled{
 	font-weight: normal;
 	line-height: normal;
 }
+.main #content #blog-posts ul#blog_feeds li a {
+	text-decoration: underline;
+}
 .main #content #blog-posts ul#blog_feeds li p {
 	margin: 0 0 15px 0;
 }
@@ -1941,6 +1944,17 @@ textarea#feedback_comments_attributes_0_message {
 }
 .icon_bag_alert,
 .icon_cart_retired{
+	position: relative;
+}
+.icon_bag_alert::before,
+.icon_cart_retired::before{
+	content: " ";
+	width: 16px;
+	height: 16px;
+	display: block;
+	position: absolute;
+	top: -1px;
+	left: 0px;
 	background-image: url('/stylesheets/jqui-ellison3/images/ui-icons_222222_256x240.png') !important;
 	background-position: 0 -144px
 }
