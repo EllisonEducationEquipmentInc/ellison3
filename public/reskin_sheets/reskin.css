@@ -89,8 +89,24 @@ input {
 	font-family: 'avenirbold' !important;
 	font-weight: normal;
 }
-.keyword, .formhelp, .formhelp_important, p#disable_formhelp, .cart_disclaimer, .saia_help, .systems_enabled, .admin_checkboxes, .legalese, #footer .container .copyright, .byline, ul.record_info, .invalid, input, textarea{
+.keyword, .formhelp,
+.formhelp_important,
+p#disable_formhelp,
+.cart_disclaimer,
+.saia_help,
+.systems_enabled,
+.admin_checkboxes,
+.legalese,
+#footer .container .copyright,
+.byline,
+ul.record_info,
+.invalid,
+input,
+textarea{
 	font-family: 'avenirregular' !important;
+	font-size: 12px;
+	font-weight: normal;
+	font-style: normal;
 }
 body.bp strong,
 body.bp strong span,
@@ -432,6 +448,8 @@ a.next_button.disabled{
 	margin: 28px 0px 0px 0px !important;
 }
 #content h2,
+#returning_customer h2,
+#guest_checkout h2,
 .asset_catalog_search h2,
 .main #content #blog-posts h2.decorative,
 .main #content #social-media h2.decorative {
