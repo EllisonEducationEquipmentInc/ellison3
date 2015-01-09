@@ -89,7 +89,8 @@ input {
 	font-family: 'avenirbold' !important;
 	font-weight: normal;
 }
-.keyword, .formhelp,
+.keyword,
+.formhelp,
 .formhelp_important,
 p#disable_formhelp,
 .cart_disclaimer,
@@ -700,7 +701,7 @@ a.next_button.disabled{
 	text-transform: capitalize;
 }
 #products_filter .ui-accordion-content{
-	padding-bottom: 0px;
+	padding-bottom: 10px;
 	height: auto;
 }
 #products_filter ul a.facet_value,
@@ -1627,9 +1628,13 @@ a.jqui_cancel span.ui-button-text {
 a.jqui_cancel .ui-icon-closethick {
 	background: none;
 }
-input#payment_submit {
+#checkout_cc input#payment_submit {
 	text-transform: capitalize !important;
-	line-height: 14px;
+	line-height: normal;
+    font-size: 14px;
+    font-weight: normal;
+    font-family: 'avenirregular' !important;
+    height: auto;
 }
 /* Order Confirmation */
 a.jqui_back {
