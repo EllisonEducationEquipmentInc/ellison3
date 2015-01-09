@@ -2221,7 +2221,9 @@ ul.videolist li{
 
 /* Registration and misc pages */
 #guest_checkout input,
-#returning_customer input {
+#returning_customer input,
+#user_new #user_password,
+#user_password_confirmation {
 	width: 180px;
 	padding: 5px;
 	-moz-box-sizing: border-box;
@@ -2265,10 +2267,6 @@ ul.videolist li{
 #admin_new #admin_password,
 #user_password_confirmation {
 	padding: 5px;
-}
-#user_new #user_password,
-#user_password_confirmation {
-	width: 100%;
 }
 #user_new .jqui_button {
 	background: #8fb4af;
