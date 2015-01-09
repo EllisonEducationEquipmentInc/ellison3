@@ -282,5 +282,11 @@ jQuery(document).ready(function(){
     		btnText.parent().addClass('make-me-pink');
     	}
     });
+    jQuery("input[type='submit']").each(function(){
+    	var btn = $(this);
+    	if (btn.val().toLowerCase() == 'go!'){
+    		btn.addClass('make-me-pink');
+    	}
+    });
 
 });

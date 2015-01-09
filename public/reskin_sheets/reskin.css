@@ -367,6 +367,7 @@ a .ui-button-icon-primary {
 }
 #fancybox-content #existing_user_new .jqui_save,
 #fancybox-content #guest_checkout #user_new .jqui_save,
+#existing_user_new .jqui_save,
 #user_new .jqui_save,
 #admin_new input[type="submit"] {
 	background: #f58a90;
@@ -1636,6 +1637,17 @@ a.jqui_cancel .ui-icon-closethick {
     font-family: 'avenirregular' !important;
     height: auto;
 }
+.billing_address_new .jqui_save,
+.shipping_address_new .jqui_save,
+.billing_address_edit .jqui_save,
+.shipping_address_edit .jqui_save {
+	font-size: 14px;
+	font-weight: normal;
+	font-family: 'avenirregular';
+	height: 31px;
+	background: #f58a90 !important;
+}
+
 /* Order Confirmation */
 a.jqui_back {
 	border: none;
@@ -1896,6 +1908,10 @@ textarea#feedback_comments_attributes_0_message {
 #cart_container h2 {
 	border-bottom: none !important;
 }
+#cart_container #guest_checkout h2,
+#cart_container #returning_customer h2 {
+	border-bottom: 1px solid #959595;
+}
 /* Events */
 #content .event_info h2 {
 	margin: 0 !important;
@@ -2001,6 +2017,7 @@ input#payment_full_card_number,
 input#payment_card_pin {
 	border: 1px solid #acacac;
 	padding: 5px;
+	height: 12px;
 }
 /* Footer */
 #footer .container {
@@ -2284,6 +2301,7 @@ ul.videolist li{
 	font-size: 14px;
 	font-weight: normal;
 	font-family: 'avenirregular';
+	background: #f58a90 !important;
 }
 #profile h2 {
 	display: none;
@@ -2383,7 +2401,9 @@ ul.videolist li{
        -moz-box-sizing: border-box;
             box-sizing: border-box;
 }
-
+#error_explanation h2 {
+	border-bottom: none;
+}
 /* Admin */
 #header #nav_megamenu ul.megalist li.megaitem .megapanel #systemswitch {
 	color: #000;
