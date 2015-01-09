@@ -505,7 +505,7 @@ a.next_button.disabled{
 	font-weight: normal;
 	line-height: normal;
 }
-.main #content #blog-posts ul#blog_feeds li p a {
+.main #content #blog-posts ul#blog_feeds li p a:hover {
 	text-decoration: underline;
 }
 .main #content #blog-posts ul#blog_feeds li p {
