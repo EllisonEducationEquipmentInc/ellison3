@@ -1652,10 +1652,10 @@ a.jqui_button .ui-button-text {
 	line-height: 20px;
 }
 .icon_edit-in-place {
-	background: url('/reskin_images/Edit-Icon.png') no-repeat left bottom;
+	background: url('/reskin_images/Edit-Icon.png') no-repeat center left;
 }
 .icon_uneditable {
-	background: url('/reskin_images/No-Edit.png') no-repeat left bottom;
+	background: url('/reskin_images/No-Edit.png') no-repeat center left;
 }
 /* Store locator */
 #stores .storeframe {
@@ -1822,6 +1822,7 @@ a.link_directions {
 .contentwrap_medium input.jqui_save.ui-button.ui-widget.ui-state-default.ui-corner-all {
 	width: 120px;
 	margin: 10px 0;
+	background: #f58a90;
 }
 textarea#feedback_comments_attributes_0_message {
 	border: 1px solid #acacac;
