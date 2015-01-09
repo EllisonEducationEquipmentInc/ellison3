@@ -1,7 +1,7 @@
 %h2== The following item has been successfully added to your shopping #{cart_name}
 %table{:cellpadding => 10}
   %thead
-    %tr
+    %tr{:style => "#{ is_sizzix_us? ? 'background:#333; color:white;' : ''}"}
       %th{:width => 60} Item #
       %th{:width => 70} Item Name
       %th{:width => 400}
