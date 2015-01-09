@@ -56,7 +56,7 @@
     = form_for @subscription, :url => url_for(:action => :create_subscription) do |f|
       %br
       %div{:style=>"position:relative; float:left;"}
-        .news_frame_left
+        .news_frame_left{:class=>"ui-widget-header ui-widget ui-corner-all"}
           = f.error_messages
           .field
             = required_label f, :email, { :label_size => "50px" }
