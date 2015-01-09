@@ -1576,12 +1576,6 @@ a.jqui_cancel {
 	padding: 7px 22px;
 	line-height: normal;
 }
-.actions .jqui_save {
-	font-size: 14px;
-	font-family: 'avenirregular';
-	font-weight: normal;
-	line-height: normal;
-}
 a.jqui_cancel span.ui-button-text {
 	color: #fff;
 	font-size: 14px;
@@ -2198,11 +2192,22 @@ ul.videolist li{
 	border: 1px solid #aaa;
 	background: #fff;
 }
+#error_explanation,
+.dontprint.error,
+#user_new .jqui_save,
+.actions .jqui_save,
+#user_edit .jqui_save {
+	font-size: 14px;
+	font-family: 'avenirregular';
+	font-weight: normal;
+	line-height: normal;
+}
 #user_new label {
 	font-size: 14px;
 	margin-right: 5px;
 }
-#user_new #user_email {
+#user_new #user_email,
+#user_new #user_password {
 	padding: 5px;
 }
 #user_new .jqui_button {
@@ -2280,7 +2285,8 @@ ul.videolist li{
 	font-size: 12px;
 }
 /* Admin Dyanmic Landing page */
-#content #edit_landing_page_sizzixquilting .visual_asset .va_title h2 {
+#content #edit_landing_page_sizzixquilting .visual_asset .va_title h2,
+#content .edit_shared_content .visual_asset .va_title h2 {
 	font-size: 15px !important;
 	width: auto !important;
 }
