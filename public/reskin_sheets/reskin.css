@@ -347,6 +347,12 @@ a .ui-button-icon-primary {
 #header #nav_megamenu .megalist .megaitem .listtitle {
 	font-weight: normal !important;
 }
+#header ul.nav_utility li a.btn-signin span,
+#header ul#nav_utility_admin li a.btn-signin span,
+#header ul.nav_utility li a.btn-signup span,
+#header ul#nav_utility_admin li a.btn-signup span {
+	color: #f58a90;
+}
 /* Body */
 .frame_gallery_wide{
 	margin-top: -29px;
@@ -653,6 +659,7 @@ a.next_button.disabled:focus {
 }
 #products_filter .ui-accordion-content{
 	padding-bottom: 0px;
+	height: auto;
 }
 #products_filter ul a.facet_value,
 #products_filter ul a.price_query_facet_value,
@@ -748,6 +755,9 @@ a.next_button.disabled:focus {
 	position: relative;
 	padding-left: 8px;
 	margin: 0px 0px 10px;
+	font-size: 14px;
+	font-family: 'avenirregular';
+	text-transform: capitalize;
 }
 #catalog_breadcrumbs a{
 	text-transform: none;
@@ -859,10 +869,10 @@ a.next_button.disabled:focus {
 	width: 145px;
 	padding: 0px;
 	font-size: 12px;
+	line-height: normal;
 }
 .item-block .cart-buttons .message a{
-	line-height: 1.2em;
-	height: 32px;
+	line-height: normal;
 	display: table-cell;
 	vertical-align: middle;
 	text-decoration: none;
@@ -984,13 +994,20 @@ a.next_button.disabled:focus {
 	line-height: 20px;
 }
 #catalog_breadcrumbs .breadcrumb_arrow {
-	background: url('/reskin_images/arrow_right_black.png') no-repeat center;
+	background: url('/reskin_images/arrow_right_black.png') no-repeat bottom;
 	background-size: 40% 50%;
 	width: 15px;
 	height: 14px;
 }
 #products_filter ul a.facet_selected {
 	font-size: 13px;
+}
+.asset_freeform {
+	font-size: 14px;
+	font-family: 'avenirregular';
+	font-weight: normal;
+	line-height: normal;
+	margin: 0 5px;
 }
 /* Product Details */
 #content .breadcrumbs {
@@ -1306,6 +1323,10 @@ select#feedback_subject {
 #fancybox-content h4 {
 	font-size: 18px;
 }
+#fancybox-content .compatibility_detail h4 {
+	font-size: 14px;
+	line-height: normal;
+}
 #fancybox-content .compatibility_detail .compatible_tag {
 	margin-top: 8px;
 	background: none;
@@ -1316,6 +1337,9 @@ select#feedback_subject {
 }
 #fancybox-content .compatibility_detail .item-block_related {
 	border: 1px solid #ACACAC;
+}
+#fancybox-content .compatibility_detail .plus_sign:nth-child(9) {
+	margin-left: 166px;
 }
 .ui-widget-content,
 .ui-widget-header .ui-state-hover,
@@ -1516,8 +1540,8 @@ input#billing_address_company {
 	color: #fff;
 }
 #apply_gift_card {
-	border: 1px solid #8fb4af;
-	background: #8fb4af;
+	border: none;
+	background: #f58a90;
 	height: 30px;
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
