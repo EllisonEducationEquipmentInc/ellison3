@@ -89,6 +89,9 @@ input {
 	font-family: 'avenirbold' !important;
 	font-weight: normal;
 }
+.keyword, .formhelp, .formhelp_important, p#disable_formhelp, .cart_disclaimer, .saia_help, .systems_enabled, .admin_checkboxes, .legalese, #footer .container .copyright, .byline, ul.record_info, .invalid{
+	font-family: 'avenirregular' !important;
+}
 body.bp strong,
 body.bp strong span,
 body.bp .bold,
@@ -228,7 +231,8 @@ a .ui-button-icon-primary {
 	font-size: 12px !important;
 }
 #header #nav_megamenu ul.megalist li.megaitem .megapanel a:hover{
-	color: #777;
+	color: #a9250e;
+	text-decoration: none;
 }
 #header #nav_megamenu ul.megalist li.megaitem.hover{
 	border-bottom: 7px solid #ef5e67 !important;
@@ -560,6 +564,9 @@ a.next_button.disabled:focus {
             transform: rotate(-30deg);
 }
 /* Catalog Category */
+#products_filter .link_expand:hover{
+	color: #000 !important;
+}
 #products_filter h3{
 	margin-bottom: 5px;
 }
@@ -1588,6 +1595,10 @@ h3.my-account-title {
 	font-weight: normal !important;
 	text-align: center;
 }
+body.bp .make-me-pink,
+#send_email{
+	background: #f58a90 !important;
+}
 .tab-block #profile,
 .tab-block #ui-tabs-1,
 .tab-block #ui-tabs-2,
@@ -1630,6 +1641,10 @@ a.jqui_button .ui-button-text {
 	border: none;
 	color: #fff !important;
 	padding: 7px 12px;
+}
+#lists a.jqui_new,
+#lists a.jqui_show{
+	background: #f58a90 !important;
 }
 #lists a.jqui_trash .ui-button-text,
 #lists a.jqui_new .ui-button-text,
@@ -1777,6 +1792,7 @@ a.link_directions {
 	font-size: 14px;
 }
 .contentwrap_medium .infobox {
+	font-family: 'avenirregular';
 	float: right;
 	width: 290px;
 	background: #fff;
@@ -1787,6 +1803,10 @@ a.link_directions {
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 	        box-sizing: border-box;
+}
+.infobox ul li h4{
+	font-family: 'avenirbold';
+	font-weight: normal !important;
 }
 .contentwrap_medium input.jqui_save.ui-button.ui-widget.ui-state-default.ui-corner-all {
 	width: 120px;
@@ -1926,7 +1946,7 @@ input#payment_card_pin {
 	font-family: 'avenirbold';
 }
 #footer .container a:hover{
-	color: #888;
+	color: #a9250e;
 	text-decoration: none;
 }
 #footer .container .column {
@@ -1949,16 +1969,21 @@ input#payment_card_pin {
 	font-weight: normal;
 	font-family: 'avenirregular';
 }
+#footer .container .column ul li a:hover{
+	text-decoration: none;
+}
 #footer .container .column_right form {
 	margin-top: 25px;
 }
 #footer .container .column_right form .idlefield,
 #footer .container .column_right form .activefield {
 	color: #545759;
-	height: 26px;
+	height: 33px;
 	border: 1px solid #69ada6;
 	width: 70%;
 	padding: 0 10px;
+	float: left;
+	border-right: none;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -1970,7 +1995,7 @@ input#payment_card_pin {
 #footer .container .column_right form input.ui-button {
 	padding: 0;
 	width: 25%;
-	height: 26px;
+	height: 33px;
 	border: 1px solid #545759;
 	background: #545759;
 	-webkit-border-radius: 0px;

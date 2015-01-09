@@ -263,4 +263,12 @@ jQuery(document).ready(function(){
     	jQuery(nthChild[0]).addClass(nthChild[1]);
     });
 
+    // Make pink buttons
+    jQuery(".ui-button-text").each(function(){
+    	var btnText = $(this);
+    	if (btnText.text().toLowerCase() == 'go to cart'){
+    		btnText.parent().addClass('make-me-pink');
+    	}
+    });
+
 });
