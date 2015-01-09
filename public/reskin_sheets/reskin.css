@@ -99,6 +99,7 @@ body.bp dfn{
 	font-weight: normal !important;
 	font-family: 'avenirbold' !important;
 	font-size: 14px;
+	line-height: normal;
 }
 a .ui-button-icon-primary {
 	background-image: none !important;
@@ -288,10 +289,12 @@ a .ui-button-icon-primary {
 	border-right: none;
 	width: 340px;
 	float: left;
-	padding: 8px 13px 9px;
+	padding: 8px 13px 8px;
 	font-weight: normal;
-	font-size: 11px;
 	color: #000;
+	font-family: 'avenirregular';
+	font-size: 12px;
+	line-height: normal;
 }
 #header #shoppingcart_icon{
 
@@ -388,6 +391,7 @@ a.prev_button.disabled,
 a.prev_button.disabled:hover,
 a.prev_button.disabled:focus {
 	background: url('/reskin_images/carousel_arrow_left.png') no-repeat left;
+	margin-right: 10px;
 }
 a.next_button,
 a.next_button:hover,
@@ -395,9 +399,7 @@ a.next_button.disabled,
 a.next_button.disabled:hover,
 a.next_button.disabled:focus {
 	background: url('/reskin_images/carousel_arrow_right.png') no-repeat right;
-}
-.view_all {
-	margin: 0 30px;
+	margin-left: 10px;
 }
 #content h2,
 .asset_catalog_search h2,
@@ -492,6 +494,7 @@ a.next_button.disabled:focus {
 	font-size: 14px;
 	font-family: 'avenirregular';
 }
+.item_carousel,
 .item_carousel_wide {
 	float: left;
 	position: relative;
@@ -1280,10 +1283,7 @@ a.next_button.disabled:focus {
 	min-height: 150px;
 }
 .users_lists_container select#list,
-select#feedback_subject,
-#stores select#country,
-#stores select#state,
-#stores select#radius {
+select#feedback_subject {
 	height: 24px;
 	background: transparent;
 	border: 0px solid #acacac;
@@ -1667,7 +1667,7 @@ a.jqui_button .ui-button-text {
 #store-locator span.title {
 	width: 100%;
 	float: left;
-	padding: 0 5px;
+	padding: 0;
 	font-family: 'georgia' !important;
 	font-size: 30px !important;
 	background: none;
@@ -1724,7 +1724,7 @@ a.jqui_button .ui-button-text {
 	font-size: 12px;
 }
 .ui-button#map_search_submit {
-	background: #8fb4af;
+	background: #f58a90;
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
 	border-radius: 0px;
@@ -1732,6 +1732,9 @@ a.jqui_button .ui-button-text {
 	color: #fff;
 	height: auto;
 	margin: 0;
+}
+#store-locator {
+	margin: 0 !important;
 }
 #store-locator #map_search_submit span.ui-button-text {
 	padding: 10px;
@@ -1793,6 +1796,8 @@ a.link_directions {
 }
 .contentwrap_medium .infobox {
 	font-family: 'avenirregular';
+	font-size: 12px;
+	font-weight: normal;
 	float: right;
 	width: 290px;
 	background: #fff;
@@ -2226,7 +2231,18 @@ ul.videolist li{
 .select-wrapper select:focus{
     outline: 0;
 }
-
+#stores select#country,
+#stores select#state,
+#stores select#radius {
+	height: 24px;
+	background: #fff;
+	border: 0px solid #acacac;
+	outline: 1px solid #acacac;
+	outline-offset: -2px;
+	-webkit-border-radius: 0 !important;
+	-moz-border-radius: 0 !important;
+	border-radius: 0 !important;
+}
 /* Admin */
 #header #nav_megamenu ul.megalist li.megaitem .megapanel #systemswitch {
 	color: #000;
