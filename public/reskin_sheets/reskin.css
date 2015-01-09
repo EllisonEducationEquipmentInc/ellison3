@@ -79,8 +79,14 @@ body.bp h3 {
 input {
 	border: 1px solid #acacac;
 }
+#root {
+	width: 100%;
+}
 #root .container {
 	background: none;
+	width: auto;
+	margin: 0 auto;
+	overflow: hidden;
 }
 .dontprint.notice {
 	font-size: 14px;
@@ -124,10 +130,16 @@ a .ui-button-icon-primary {
 .highlightable .ui-button-icon-primary {
 	background-image: url('/stylesheets/jqui-ellison3/images/ui-icons_222222_256x240.png') !important;
 }
+.buybox div.right span.message, .buybox #header div#nation_select span.message, #header .buybox div#nation_select span.message, .buybox div.link_continue-shopping span.message, .buybox .item-block .list_actions div.jqui_destroy_min span.message, .item-block .list_actions .buybox div.jqui_destroy_min span.message, .buybox div.toggleview span.message, .buybox .item_designers div#item_designers_thumbnails span.message, .item_designers .buybox div#item_designers_thumbnails span.message, .buybox #checkout_cc div#payment_submit span.message, #checkout_cc .buybox div#payment_submit span.message, .buybox #checkout_cc div#remove_submit span.message, #checkout_cc .buybox div#remove_submit span.message, .buybox div.event_detail span.message, .buybox div#map_search_submit span.message, .buybox div#product_submit span.message, .buybox div#shared_content_submit span.message, .buybox div#landing_page_submit span.message, .buybox div#static_page_submit span.message, .buybox div#idea_submit span.message, .buybox div#tag_submit span.message, .buybox div#coupon_submit span.message, .buybox div#fedex_rate_submit span.message, .buybox div#shipping_rate_submit span.message, .buybox div#event_submit span.message, .buybox div.force_touch span.message, .buybox .va_title div.va_active-dates span.message, .va_title .buybox div.va_active-dates span.message{
+	font-family: 'avenirregular' !important;
+}
 
 /* Header */
 .main{
 	padding-top: 165px;
+	display: block;
+	float: none;
+	margin: 0 auto;
 }
 .main #header{
 	padding-top: 5px;
@@ -756,6 +768,14 @@ a.next_button.disabled{
 }
 #product_catalog .toggleview{
 	width: 10%;
+}
+#product_catalog > .dontprint > .right{
+	margin: 7px 0px 0px !important;
+	height: 33px;
+}
+#product_catalog .toggleview{
+	margin: 8px 0px 0px !important;
+	height: 32px;
 }
 #catalogtabs{
 	float: left;
@@ -1912,6 +1932,18 @@ textarea#feedback_comments_attributes_0_message {
 #cart_container #returning_customer h2 {
 	border-bottom: 1px solid #959595 !important;
 }
+.clearance_flag{
+	background: transparent url('/reskin_images/new-sizzix-outlet.png') no-repeat !important;
+	display: inline-block !important;
+}
+.clearance_flag img{
+	opacity: 0 !important;
+}
+.icon_bag_alert,
+.icon_cart_retired{
+	background-image: url('/stylesheets/jqui-ellison3/images/ui-icons_222222_256x240.png') !important;
+	background-position: 0 -144px
+}
 /* Events */
 #content .event_info h2 {
 	margin: 0 !important;
@@ -2021,7 +2053,7 @@ input#payment_card_pin {
 }
 /* Footer */
 #footer {
-	width: 100% !important;
+	width: 100%;
 }
 #footer .container {
 	background: #b4e1d8;
