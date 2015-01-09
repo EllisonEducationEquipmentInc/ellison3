@@ -1935,6 +1935,14 @@ textarea#feedback_comments_attributes_0_message {
 #cart_container #returning_customer h2 {
 	border-bottom: 1px solid #959595 !important;
 }
+#cart_container input.number_only{
+	padding: 3px 3px 1px;
+}
+.link_continue-shopping{
+	line-height: 17px;
+	margin-top: 7px;
+	background: url('/reskin_images/carousel_arrow_right.png') no-repeat right !important;
+}
 .clearance_flag{
 	background: transparent url('/reskin_images/new-sizzix-outlet.png') no-repeat !important;
 	display: inline-block !important;
@@ -1945,6 +1953,7 @@ textarea#feedback_comments_attributes_0_message {
 .icon_bag_alert,
 .icon_cart_retired{
 	position: relative;
+	background: transparent;
 }
 .icon_bag_alert::before,
 .icon_cart_retired::before{
