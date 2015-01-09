@@ -347,10 +347,8 @@ a .ui-button-icon-primary {
 #header #nav_megamenu .megalist .megaitem .listtitle {
 	font-weight: normal !important;
 }
-#header ul.nav_utility li a.btn-signin span,
-#header ul#nav_utility_admin li a.btn-signin span,
-#header ul.nav_utility li a.btn-signup span,
-#header ul#nav_utility_admin li a.btn-signup span {
+#existing_user_new .jqui_save,
+#guest_checkout #user_new .jqui_save{
 	color: #f58a90;
 }
 /* Body */
