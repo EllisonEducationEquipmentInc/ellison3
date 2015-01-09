@@ -1910,7 +1910,7 @@ textarea#feedback_comments_attributes_0_message {
 }
 #cart_container #guest_checkout h2,
 #cart_container #returning_customer h2 {
-	border-bottom: 1px solid #959595;
+	border-bottom: 1px solid #959595 !important;
 }
 /* Events */
 #content .event_info h2 {
