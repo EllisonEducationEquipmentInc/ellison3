@@ -2371,9 +2371,6 @@ ul.videolist li{
 	padding: 0;
 	line-height: normal;
 }
-.field label {
-	font-weight: normal;
-}
 /* Special selects */
 .select-wrapper{
 	display: inline-block;
