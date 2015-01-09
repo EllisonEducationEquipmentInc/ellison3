@@ -114,7 +114,7 @@ jQuery(document).ready(function(){
 		// Add wrapper around #sort for catalog view
 		if (jQuery("#sort").length && !jQuery("#sort").parent().is(".select-wrapper")){
 			jQuery("#sort")
-				.wrap("<div class='select-wrapper sort-wrap'></div>");
+				.wrap("<div class='select-wrapper width-100p sort-wrap'></div>");
 		}else if (jQuery(".lonely-wrap").length == 0){
 			jQuery("#product_catalog .toggleview")
 				.first()
@@ -123,7 +123,7 @@ jQuery(document).ready(function(){
 
 		// Add wrapper around #per_page for catalog view
 		if (!jQuery("#per_page").parent().is(".select-wrapper")){
-			jQuery("#per_page").wrap("<div class='select-wrapper per-page-wrap'></div>");
+			jQuery("#per_page").wrap("<div class='select-wrapper width-100p per-page-wrap'></div>");
 		}
 
 		// Fix button text
@@ -142,6 +142,10 @@ jQuery(document).ready(function(){
 	    }
 	}
 	sdmReskinFixsidebar();
+
+	// Misc select wrappers
+	jQuery("#feedback_subject")
+		.wrap("<div class='select-wrapper feedback-subject'></div>");
 
 	// Add class to admin link wrapper
 	jQuery(".megalink-admin")
