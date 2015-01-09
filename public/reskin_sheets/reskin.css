@@ -1638,7 +1638,7 @@ h3.my-account-title {
 	text-align: center;
 }
 body.bp .make-me-pink,
-input[type='submit'],
+#contact_form .jqui_save,
 #send_email{
 	background: #f58a90 !important;
 }
@@ -2052,7 +2052,7 @@ input#payment_card_pin {
 	width: 25%;
 	height: 33px;
 	border: 1px solid #545759;
-	background: #545759;
+	background: #545759 !important;
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
 	border-radius: 0px;
