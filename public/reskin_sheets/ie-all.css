@@ -21,7 +21,8 @@ h3.my-account-title,
 #footer .legal .copyright,
 body.bp .video-page h3,
 #user_new label span,
-#user_new label{
-	font-weight: bold !important;
-	font-family: 'avenirbold' !important;
+#user_new label,
+.infobox ul li h4{
+    font-weight: bold !important;
+    font-family: 'avenirbold' !important;
 }
