@@ -432,16 +432,16 @@ a.next_button.disabled:focus {
 .main #content #blog-posts ul#blog_feeds li .timestamp {
 	font-family: 'avenirregular';
 	font-size: 14px;
+	font-weight: normal;
+	line-height: normal;
 }
-.main #content #blog-posts ul#blog_feeds li h3 a {
+.main #content #blog-posts ul#blog_feeds li h3 a,
+.main #content #blog-posts ul#blog_feeds li a {
 	color: #000;
 	font-family: 'avenirbold';
 	font-size: 14px;
-}
-.main #content #blog-posts ul#blog_feeds li a {
-	font-family: 'avenirregular';
-	font-size: 14px;
-	color: #000;
+	font-weight: normal;
+	line-height: normal;
 }
 .main #content #blog-posts ul#blog_feeds li p {
 	margin: 0 0 15px 0;
@@ -1650,6 +1650,12 @@ a.jqui_button .ui-button-text {
 #lists a.jqui_new .ui-button-text,
 #lists a.jqui_show .ui-button-text {
 	line-height: 20px;
+}
+.icon_edit-in-place {
+	background: url('/reskin_images/Edit-Icon.png') no-repeat left bottom;
+}
+.icon_uneditable {
+	background: url('/reskin_images/No-Edit.png') no-repeat left bottom;
 }
 /* Store locator */
 #stores .storeframe {
