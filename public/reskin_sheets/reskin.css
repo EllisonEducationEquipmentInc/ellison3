@@ -2085,6 +2085,9 @@ input#payment_card_pin {
 #footer .container .legal .copyright a {
 	color: #e0e1e1;
 }
+#footer .main{
+	overflow: auto !important;
+}
 
 /* Video page */
 #video_keyword{
