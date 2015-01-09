@@ -2235,10 +2235,17 @@ ul.videolist li{
 	font-size: 14px;
 	margin-right: 5px;
 }
+#user_name,
 #user_new #user_email,
 #user_new #user_password,
-#admin_new #admin_email {
+#admin_new #admin_email,
+#admin_new #admin_password,
+#user_password_confirmation {
 	padding: 5px;
+}
+#user_new #user_password,
+#user_password_confirmation {
+	width: 100%;
 }
 #user_new .jqui_button {
 	background: #8fb4af;
