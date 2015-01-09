@@ -270,5 +270,8 @@ jQuery(document).ready(function(){
     		btnText.parent().addClass('make-me-pink');
     	}
     });
+    jQuery("input[type='submit']").each(function(){
+		$(this).addClass('make-me-pink');
+    });
 
 });

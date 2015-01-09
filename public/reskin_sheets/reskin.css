@@ -89,7 +89,7 @@ input {
 	font-family: 'avenirbold' !important;
 	font-weight: normal;
 }
-.keyword, .formhelp, .formhelp_important, p#disable_formhelp, .cart_disclaimer, .saia_help, .systems_enabled, .admin_checkboxes, .legalese, #footer .container .copyright, .byline, ul.record_info, .invalid{
+.keyword, .formhelp, .formhelp_important, p#disable_formhelp, .cart_disclaimer, .saia_help, .systems_enabled, .admin_checkboxes, .legalese, #footer .container .copyright, .byline, ul.record_info, .invalid, input, textarea{
 	font-family: 'avenirregular' !important;
 }
 body.bp strong,
@@ -107,6 +107,7 @@ a .ui-button-icon-primary {
 .highlightable .ui-button-icon-primary {
 	background-image: url('/stylesheets/jqui-ellison3/images/ui-icons_222222_256x240.png') !important;
 }
+
 /* Header */
 .main{
 	padding-top: 165px;
@@ -277,10 +278,10 @@ a .ui-button-icon-primary {
 	left: auto;
 	float: left;
 	position: relative;
-	display: none;
+	display: none !important;
 }
 #header #searchbar input.submitbutton.ready{
-	display: block;
+	display: block !important;
 }
 #header #searchbar input.textfield{
 	top: auto;
@@ -400,16 +401,35 @@ a.prev_button:hover,
 a.prev_button.disabled,
 a.prev_button.disabled:hover,
 a.prev_button.disabled:focus {
-	background: url('/reskin_images/carousel_arrow_left.png') no-repeat left;
-	margin-right: 10px;
+	background: url('/reskin_images/carousel_arrow_left.png') no-repeat left !important;
+	margin: 28px 10px 0px 0px !important;
 }
 a.next_button,
 a.next_button:hover,
 a.next_button.disabled,
 a.next_button.disabled:hover,
 a.next_button.disabled:focus {
-	background: url('/reskin_images/carousel_arrow_right.png') no-repeat right;
-	margin-left: 10px;
+	background: url('/reskin_images/carousel_arrow_right.png') no-repeat right !important;
+	margin: 28px 0px 0px 10px  !important;
+}
+a.prev_button.disabled,
+a.next_button.disabled{
+	opacity: 0;
+	display: none;
+}
+.item_images a.prev_button,
+.item_images a.prev_button:hover,
+.item_images a.prev_button.disabled,
+.item_images a.prev_button.disabled:hover,
+.item_images a.prev_button.disabled:focus {
+	margin: 28px 0px 0px 0px !important;
+}
+.item_images a.next_button,
+.item_images a.next_button:hover,
+.item_images a.next_button.disabled,
+.item_images a.next_button.disabled:hover,
+.item_images a.next_button.disabled:focus {
+	margin: 28px 0px 0px 0px !important;
 }
 #content h2,
 .asset_catalog_search h2,
@@ -1618,6 +1638,7 @@ h3.my-account-title {
 	text-align: center;
 }
 body.bp .make-me-pink,
+input[type='submit'],
 #send_email{
 	background: #f58a90 !important;
 }
