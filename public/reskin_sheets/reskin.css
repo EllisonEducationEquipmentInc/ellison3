@@ -2020,6 +2020,9 @@ input#payment_card_pin {
 	height: 12px;
 }
 /* Footer */
+#footer {
+	width: 100% !important;
+}
 #footer .container {
 	background: #b4e1d8;
 	border-top: 7px solid #fff;
