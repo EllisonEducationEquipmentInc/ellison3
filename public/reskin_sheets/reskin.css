@@ -2306,16 +2306,17 @@ ul.videolist li{
 	background: #fff;
 	border: 1px solid #999;
 	position: relative;
+	overflow: hidden;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 	        box-sizing: border-box;
 }
 .select-wrapper select{
+	font-family: 'avenirregular' !important;
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	width: 100%;
-	height: 24px;
+	height: 28px;
 	background: transparent;
 	border: 0px solid;
     outline: 0;
@@ -2323,6 +2324,9 @@ ul.videolist li{
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
+}
+.select-wrapper.width-100p select{
+	width: 100%;
 }
 .select-wrapper select:focus{
     outline: 0;
@@ -2339,6 +2343,24 @@ ul.videolist li{
 	-moz-border-radius: 0 !important;
 	border-radius: 0 !important;
 }
+.select-wrapper.feedback-subject{
+	width: 170px;
+	border: 1px solid #acacac;
+	margin-top: 8px;
+	margin-bottom: -8px;
+	-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+.select-wrapper select#feedback_subject{
+    outline: 0;
+	border: 0;
+	width: 170px;
+	-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
 /* Admin */
 #header #nav_megamenu ul.megalist li.megaitem .megapanel #systemswitch {
 	color: #000;
