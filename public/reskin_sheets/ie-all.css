@@ -1,0 +1,28 @@
+/**
+ * Because of the way windows renders fonts, we need to
+ * override the font-weight everywhere
+ */
+
+body.bp h3,
+.msrp,
+body.bp strong,
+body.bp strong span,
+body.bp .bold,
+body.bp dfn,
+.msrp.old-price,
+#content .item_title .life-cycle,
+.buybox .left h4 .msrp,
+.designer-width.item_description strong,
+.ui-tabs-panel .data_key,
+body.bp thead th,
+h3.my-account-title,
+.legend .legend_hdr,
+#footer .container a,
+#footer .legal .copyright,
+body.bp .video-page h3,
+#user_new label span,
+#user_new label,
+.infobox ul li h4{
+    font-weight: bold !important;
+    font-family: 'avenirbold' !important;
+}

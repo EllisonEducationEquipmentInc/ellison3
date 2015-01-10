@@ -71,7 +71,7 @@
     - else
       &nbsp;
     - if !is_ee? && @product.themes.count > 0
-      %p
+      %p{ :style => "margin-bottom: 12px !important;"}
         %strong== Theme#{'s' if @product.themes.count > 1}: 
         = raw @product.themes.asc(:name).map {|e| link_to(e.name, catalog_path(:anchor => "facets=#{e.facet_param}&page=1#{'&outlet=1' if @product.outlet}#{'&brand='+ @product.item_group if @product.item_group.present? && is_er?}"))} * ', '
     - if (is_ee? || is_er?) && @product.curriculums.count > 0

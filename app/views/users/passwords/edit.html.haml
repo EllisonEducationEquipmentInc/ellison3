@@ -1,5 +1,5 @@
 %h2 Change your password
-%p Enter your new password in the fields below and click "Change my Password."
+%p{:class=>"forgotpassword"} Enter your new password in the fields below and click "Change my Password."
 = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
   = f.error_messages
   = f.hidden_field :reset_password_token

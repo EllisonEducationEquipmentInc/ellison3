@@ -1,3 +1,13 @@
+public/images/catalog
+public/images/events
+public/images/ideas
+public/images/images
+public/images/landing
+public/images/materials
+public/images/pdfs
+public/images/products
+public/images/static
+public/images/stores
 .bundle
 sunspot-solr.pid
 db/*.sqlite3
