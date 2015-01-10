@@ -497,7 +497,9 @@ a.next_button.disabled{
 	font-weight: normal;
 	line-height: normal;
 }
-.main #content #blog-posts ul#blog_feeds li h3 a,
+.main #content #blog-posts ul#blog_feeds li h3 a:hover {
+	text-decoration: underline;
+}
 .main #content #blog-posts ul#blog_feeds li a {
 	color: #000;
 	font-family: 'avenirbold';
