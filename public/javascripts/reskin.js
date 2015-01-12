@@ -163,8 +163,8 @@ jQuery(document).ready(function(){
 			.addClass('has-admin-link');
 
 	// Remove promo message
-	jQuery("#promo_message")
-		.remove();
+	// jQuery("#promo_message")
+	//	.remove();
 
 	// Overwrite current JS hover
 	jQuery("#nav_megamenu li.megaitem")
