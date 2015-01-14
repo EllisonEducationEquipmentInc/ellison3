@@ -620,8 +620,9 @@ a.next_button.disabled{
 .life-cycle {
 	color: #fff;
 }
+
 /* Carousel */
-.item_carousel .item_element .life-cycle,
+/*.item_carousel .item_element .life-cycle,
 .item_carousel_wide .item_element .life-cycle,
 .item_carousel .item_carousel_wide .item_element_cart .life-cycle,
 .item_carousel_wide .item_carousel .item_element_cart .life-cycle,
@@ -632,7 +633,8 @@ a.next_button.disabled{
         -ms-transform: rotate(-30deg);
          -o-transform: rotate(-30deg);
             transform: rotate(-30deg);
-}
+} */
+
 /* Catalog Category */
 #products_filter .link_expand:hover{
 	color: #000 !important;
