@@ -236,6 +236,7 @@ namespace :data_import do
         @product.length = row['length'] if row['length'].present?
         @product.width = row['width'] if row['width'].present?
         @product.height = row['height'] if row['height'].present?
+        @product.minimum_quantity = row['min_qty'] if row['min_qty'].present?
         @product.save validate: false
         p row['item_num']
       end
