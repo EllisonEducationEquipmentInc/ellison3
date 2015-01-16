@@ -53,6 +53,10 @@
          url('/reskin_fonts/avenirnextltpro-demi.ttf') format('truetype'),
          url('/reskin_fonts/avenirnextltpro-demi.svg#AvenirNextLTProDemi') format('svg');
 }
+@font-face {
+    font-family: 'lato';
+    src: url('/reskin_fonts/Lato-Regular.ttf') format('truetype');
+}
 
 /* Main body styles */
 body,
@@ -198,7 +202,7 @@ a .ui-button-icon-primary {
 	font-weight: normal;
 	text-transform: none;
 	font-size: 20px;
-	font-family: 'avenirregular';
+	font-family: 'lato';
 }
 #header #nav_megamenu .has-admin-link .megalink{
 	font-size: 19px;
