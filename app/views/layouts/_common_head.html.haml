@@ -11,6 +11,7 @@
   %meta{ :name => "description", :content => "#{strip_tags @description}" }
 - if current_system == 'szus'
   %meta{content: "a-tBw1x2TUwR80EavxHbXMxxiMYa5ban3haNUZPpQyE", name: "google-site-verification"}
+  %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", :name => "viewport"}
 - if current_system == 'szus' && 'eeus'
   = stylesheet_link_tag 'jqui-ellison3/jquery-ui-1.8.4.custom.css', :media => 'all'
 - else
