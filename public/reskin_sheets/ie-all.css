@@ -26,3 +26,12 @@ body.bp .video-page h3,
     font-weight: bold !important;
     font-family: 'avenirbold' !important;
 }
+
+.item_carousel .item_element .life-cycle,
+.item_carousel_wide .item_element .life-cycle,
+.item_carousel .item_carousel_wide .item_element_cart .life-cycle,
+.item_carousel_wide .item_carousel .item_element_cart .life-cycle,
+.item_carousel_wide .item_element_cart .life-cycle,
+.item-block .life-cycle {
+    top: -24px !important;
+}
