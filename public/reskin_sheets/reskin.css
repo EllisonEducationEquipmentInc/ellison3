@@ -90,7 +90,7 @@ input {
 	background: none;
 	width: auto;
 	margin: 0 auto;
-	overflow: hidden;
+	overflow: visible;
 }
 .dontprint.notice {
 	font-size: 14px;
@@ -150,6 +150,7 @@ a .ui-button-icon-primary {
 	position: absolute;
 	top: 0px;
 	width: 100%;
+    min-width: 950px;
 	left: 0px;
 	z-index: 999;
 	border-bottom: 6px solid #fff;
@@ -2082,6 +2083,7 @@ input#payment_card_pin {
 /* Footer */
 #footer {
 	width: 100%;
+    min-width: 950px;
 }
 #footer .container {
 	background: #b4e1d8;
