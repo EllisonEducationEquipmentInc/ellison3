@@ -57,8 +57,7 @@
 /* Main body styles */
 body,
 body.bp{
-	background: url('/reskin_images/szus_rs_bkg.png') top center!important;
-	background-repeat: repeat-x!important;
+	background: #f2f2f2;
 	font-family: 'avenirregular' !important;
 	font-size: 12px;
     -moz-osx-font-smoothing: grayscale;
