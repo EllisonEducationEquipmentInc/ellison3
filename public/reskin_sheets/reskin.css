@@ -61,7 +61,8 @@
 /* Main body styles */
 body,
 body.bp{
-	background: #f2f2f2;
+	background: url('/reskin_images/szus_rs_bkg.png') top center!important;
+	background-repeat: repeat-x!important;
 	font-family: 'avenirregular' !important;
 	font-size: 12px;
     -moz-osx-font-smoothing: grayscale;
@@ -147,7 +148,7 @@ a .ui-button-icon-primary {
 }
 .main #header{
 	padding-top: 5px;
-	position: fixed;
+	position: absolute;
 	top: 0px;
 	width: 100%;
 	left: 0px;
