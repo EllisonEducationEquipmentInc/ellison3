@@ -978,7 +978,7 @@ a.next_button.disabled{
 	color: #000;
 	display: inline-block;
 	line-height: 13px;
-	width: 9px;
+	width: auto;
 	height: 13px;
 }
 #content .pagination .prev a{
@@ -993,30 +993,6 @@ a.next_button.disabled{
 #content .pagination .next a{
 	width: auto;
 }
-/*#content .pagination .prev a,
-#content .pagination .next a{
-    width: 1px;
-    margin-left: 13px;
-    height: 13px;
-    position: relative;
-    color: #000;
-	text-indent: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    display:inline-block;
-}
-#content .pagination .prev a::before,
-#content .pagination .next a::before{
-	display: block;
-	width: 10px;
-	content : "›";
-	position: absolute;
-	top: 0px;
-	right: 0px;
-}
-#content .pagination .prev a::before{
-	content: "‹";
-}*/
 #content .pagination .page.current{
 	font-family: 'avenirbold';
 	color: #000;
