@@ -2473,7 +2473,8 @@ ul.videolist li{
 }
 /* Admin Dyanmic Landing page */
 #content #edit_landing_page_sizzixquilting .visual_asset .va_title h2,
-#content .edit_shared_content .visual_asset .va_title h2 {
+#content .edit_shared_content .visual_asset .va_title h2,
+#content #visual_assets .visual_asset .va_title h2 {
 	font-size: 15px !important;
 	width: auto !important;
 }
