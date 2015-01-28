@@ -1322,7 +1322,6 @@ a.next_button.disabled{
 	font-family: 'avenirregular' !important;
 	font-size: 14px !important;
 }
-.ui-tabs-panel .item-block:nth-child(5n+1),
 .nth-child-fix-4 {
 	margin: 0;
 }
