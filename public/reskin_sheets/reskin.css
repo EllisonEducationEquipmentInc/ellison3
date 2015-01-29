@@ -1969,7 +1969,8 @@ textarea#feedback_comments_attributes_0_message {
 #order_details_items tbody tr:last-child td,
 #orders tbody tr:last-child td,
 #lists tbody tr:last-child td,
-#save_list tbody tr:last-child td {
+#save_list tbody tr:last-child td,
+.item_detail-tabbed tbody tr:last-child td {
 	border-top: none;
 }
 #content .event-list {
