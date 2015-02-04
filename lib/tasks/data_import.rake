@@ -106,6 +106,7 @@ namespace :data_import do
     Sunspot.delay.commit
   end
 
+#updating ideas end date rake task to update ideas keywords 2/4/2015
   desc "ideas_enddate_updates"
   task :ideas_enddate_updates => [:environment] do
     CSV.foreach("/data/shared/data_files/ideas_enddate_updates.csv", :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
@@ -116,6 +117,7 @@ namespace :data_import do
         @idea.end_date_erus = row['end_date_erus'] if row['end_date_erus'].present?
         @idea.end_date_eeus = row['end_date_eeus'] if row['end_date_eeus'].present?
         @idea.end_date_eeuk = row['end_date_eeuk'] if row['end_date_eeuk'].present?
+        @idea.keywords = row['keywords'] if row['keywords'].present?
         @idea.save
       end
     end
@@ -227,6 +229,7 @@ namespace :data_import do
     #end
   end
 
+# updating the below rake task as needed to update product fields.
   desc "import product weight, dimensions"
   task :product_weight => [:environment] do
     CSV.foreach("/data/shared/data_files/product_weight_update.csv", :headers => true, :row_sep => :auto, :skip_blanks => true, :quote_char => '"') do |row|
@@ -237,6 +240,7 @@ namespace :data_import do
         @product.width = row['width'] if row['width'].present?
         @product.height = row['height'] if row['height'].present?
         @product.minimum_quantity = row['min_qty'] if row['min_qty'].present?
+        @product.keywords = row['keywords'] if row['keywords'].present?
         @product.save validate: false
         p row['item_num']
       end
