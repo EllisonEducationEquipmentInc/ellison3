@@ -330,25 +330,25 @@ module EllisonSystem
   end
 
   def gateway_options(system = current_system)
-    # Production
+    # Production credentials updated on Feb 11 2015
     if Rails.env.production?
       if system == 'szus'
         {:merchant_account => {
            :name => 'cyber_source',
            :user_name => 'sizzix',
-           :password => 'NVb8EJQOhgBktwCaSSQCyQ/Vg2rDSbXlpdn9FDycbRHQkWmRd6AX5SsLK5g5k7sft0BhcJStSafgCb8h3AH9sogEFZfq5kn1bWvcQsPGBg1R03oQDLvz0u78pdb2lqEg19DsTHMJWr1Ql1iqm7x86aZDs2A+ryBjb+4Bs54DVrLhqF+a1KmMe1iaZzdGmNaia1DHbVueMwOMS+A2GYfSy8cVVxDAEeyp8Hao+U+H+nT4n5wH9jzBMEaY0KoxGn6U8aCMpJM4LSFGi2eWd05+kfL4Jj6WB8lhxwL/d7ZlH/JhxTGr0F9lcuUttN9+nUfkT899ffQ8rJdEOwyKkVKfcg==',
+           :password => 'MocJKd3mtvbymm5pYn5JIU7/SqXqwvSWdoU+2VxXuDnCiYiqnp9rDRUr9QMuFFOXg9LcmZlnPt64A00xX0wGtqEcN159rp90dtnJQBkpJ4cG4X3TY8bPEyiKefvhhSH9QXUG8MnHsBM+sjGszpyKXZQpQENWUpn3+TgSDjIA8jIORA9V2n9ooe0zk5+mo70MoIMGgtf5J07xGS1MxvRjOvI6x42AUmPrJyKoWSbFbicCjttEZmkd9PFjxxd84mvvLIcysObI7F40hFTt1qP4cJ45UDyo0vQaGcOp1pYckJEyHOdkp1U4yWeYxh/QyHQG+M7SCOdG5KdMjvChHhZpZw==',
            :login => 'sizzix'}}
       elsif system == 'eeus'
          {:merchant_account => {
            :name => 'cyber_source',
            :user_name => 'ellison',
-           :password => 'BpPtot9m0tKahzNosKGmdeCQeUkeaN8vKx8vOcJtLlUV+eqjELk7bFUR2owrRdf8PhQlp62zms4cVROaVuZXnpHN5PMRfrYG6ovp9V0Qfnw0EU87aHOWjdo5rXr+1LNyFCU8iZRniIn3ZIGvVMVW8QO/2zp+qCadKdXika1TEK8CTzg0E+m87q0x9vlPh/p0+J+cB/Y8wVmb6dQ7psXnkqYeWEsqzDz5MotnlndOfpHy+Cao80jCuusGCGetFjF1jkWGq9BfZXLlLbTffp1H5E/PfX30PKyXRDsMipFSn3KzsDv6Ywgpi0AtDKlsVHsbHtp0Mg7ZiH6p3WBfqDFkgg==',
+           :password => 'br9xXm585nrId72GOl4L8+P1GMQQaPjF4764RHoUTk9f58srmbVK8xzFFOxlHfH4CFn0HLv/ybwf8mAO1A5L6wY6ujkQdGtMTRKttm6jD1RgaOxWJo+sNyLUUMK4TzXxAqwVuH1ie2g+AZbKVXV5lML7THk/HVCXUeO1zum1KsIeSwHoYMvB4MZ3x0q4GtuJe7IWkINqf2vAYAvy+TTxnKYI02WRj4q5Js45l50hneUoGUrpd7tgUOcGPhpyaPw/3pPDsc7Uazx1PSm6VhBsXj2Zi87oc7+IybnQUB2SvMDCp0HvTl7rAzXHWpeYaEN0XkpzODqgxnv5DvrgojRz2g==',
            :login => 'ellison'}}
       elsif system == 'erus'
         {:merchant_account => {
           :name => 'cyber_source',
           :user_name => 'ellisonretail',
-          :password => 'v1pBkChVavoz3XPXCMRW8ewXMMDfW70ldwLWp4AAtNHkG00sxaUM/HVo68yhhoJStUo2wtu1mhb54dEJKTWmdeCQeUkeaN8vKx8vOcJtLlUV+eqjELk7bFUR2owrRdf8PhQlp62zms4cVROaVuZXnpHN5PMRfrYG6ovp9V0Qfnw2wdYoR55Q6O9NONckGcjm9cR/4Ro+jRTLzCr54dEJKTWmdeCQeUkeaN8vKx8vOcJtLlUV+eqjELk7bFUR2owrRdf8PhQlp62zms4cVROaVuZXnpEZt/g92j+Xi2DQeV0Qfnw0UsRt/uF4ZslZMYzlmLIDgMHs5XVYnYg5HIGvVA==',
+          :password => 'lpeqwQtW33B+pHzEjClDxDalsR5Tr9r53gXzkKUM9UmBcnlNADh89leU6fZst2fJPdAuYjj0gI34qJyiQexgxw6NtlyOXl0nku7+q9RpUp6lwIg9rbuF0NOtIdM3GiLDqxfArd9Gw6Up0Ev+jrbAUjBXP55OMnSwRfADBwTBkGdMS7GO9Wt3YsG30Cq+Ft5Kgntro0LL0qFqPTXbO4CMcWmqpiuOsb2pS17waVGqNOU5g9J8DJABC6vMGiwB436G4lvxe1zBo08vlq9xRAUcmc1EpBrF6Ih5gksr0nzODbzBtzSDAc7v6nGVLI/iq/xsmkUYV9RFa0GIZra0OERIag==',
           :login => 'ellisonretail'}}
       else
          {:merchant_account => {
