@@ -69,7 +69,7 @@ module Ax
                           xml.cybersource_merchant_ref_num(order.payment.vendor_tx_code)
                           xml.name_on_card "#{order.payment.first_name} #{order.payment.last_name}"
                           xml.transaction_type ['szuk', 'eeuk', 'eruk'].include?(order.system) ? nil :order.payment.status_detail
-                          xml.amount_charged(format_with_precision(order.gift_card.present? ? order.payment.paid_amount : order.total_amount))
+                          xml.amount_charged(order.payment.paid_amount)
                         end
                         if order.payment.present? && order.payment.reference_purchase_order_number.present?
                           xml.ref_purchase_order_number order.payment.reference_purchase_order_number
