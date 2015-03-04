@@ -187,7 +187,7 @@ a .ui-button-icon-primary {
 	z-index: 101;
 }
 #header #logo_masthead{
-	background: url('/reskin_images/new-logo.png') no-repeat;
+	background: url('/reskin_images/new-logo_outline.png') no-repeat;
 	height: 149px;
 	width: 150px;
 	left: 0px;
