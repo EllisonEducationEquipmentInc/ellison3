@@ -1,8 +1,7 @@
 // SIZZIX UK THEME
 
 body.bp {
-//  background: url("/images/ui-backgrounds/uk_dots_blue.gif") top left;
-  background: url("/images/ui-backgrounds/uk_texture_blue.jpg") top left;
+  background: white;
   
   .frame_gallery_wide {
     a {
@@ -18,25 +17,15 @@ body.bp {
   }
 }
 
-#root {
-  background: url("/images/ui-backgrounds/_#{$system}_root_r.png") center top repeat-y;
-  
-  .container {
-    background: url("/images/ui-backgrounds/_#{$system}_root.png") center top no-repeat;
-    
-  }
-}
-
 #header {
-  margin: 22px 0 0 0;
-  height:156px;
+  margin: 0 0 0 0;
   
   #logo_masthead {
     background: url("/images/ui-logos/_#{$system}_masthead.png") no-repeat;
     display: block;
     width: 177px; 
     height: 98px;
-    margin: 2px 0 0 24px;
+    margin: 2px 0 0 0;
     text-indent: -9999em;
   }
   
@@ -67,13 +56,13 @@ body.bp {
       font-size:14px;
       font-weight: normal;
       width:396px;
-      margin: 20px 0 0 15px;
+      margin: 0 0 0 15px;
       position: relative;
       float:left;
 
     }
     input.submitbutton {
-      margin: 15px 11px 0 0;
+      margin: 0 11px 0 0;
       position: relative;
       float:right;   
     }
@@ -91,45 +80,41 @@ body.bp {
     margin: 0 0 0 0;
     
     #cartspinner, p {
-      margin: 15px 0 0 5px;
+      margin: 7px 0 0 5px;
     }
   }
   
   #nav_megamenu {
-    top: 13px;
-
+    margin-top: 3px;
+    border-bottom:2px dotted #e3ddce;
+    
     .megalink {
       font-family:  'PT Sans', Helvetica, Arial, sans-serif;
-      font-size: 1.4em;
+      font-size: 1.29em;
       font-weight: bold;
       color: $meganav_link;
       text-transform: uppercase;
       text-decoration: none;
-      width:auto
       
       &:hover { color: $meganav_hover; };
     }
     
     .megalink-admin { @extend .megalink;
-      padding-top: 6px !important;
+      padding-top: 4px !important;
     }
     
     .megapanel {
-      top: 29px;
+      top: 23px;
       margin-top: 4px;
-      
-      a:visited, a.hover {
-        color:#ffffcc;
-      }
 
       .megasublist {
         li {
           padding: 9px 0;
-          // background: url("/images/ui-backgrounds/_#{$system}_megasubitem.png") no-repeat;
+          background: url("/images/ui-backgrounds/_#{$system}_megasubitem.png") no-repeat;
           
-          // &.last { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_last.png") no-repeat; }
+          &.last { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_last.png") no-repeat; }
           
-          &:hover { background-color: $table_td_even; }
+          &:hover { background: url("/images/ui-backgrounds/_#{$system}_megasubitem_hover.png") no-repeat; }
         }
       }
       
@@ -167,7 +152,7 @@ body.bp {
 // Navigation css
 
 .nav_clearance {
-  color:#346DA3!important;
+  color:#A9250E!important;
 }
 
 // content gallery (landing pages)
@@ -277,17 +262,16 @@ ul.social-icons li {
   margin-bottom:5px!important;
 }
 .copyright {
-  color:#114C84!important;
   padding: 0px 0 10px 18px!important; 
   margin:0!important;
 }
 
 .special a:link {color:red;}
 
-.uk_link a:link {color: #114C84!important;}
-.uk_link a:visited {color: #114C84!important;}
-.uk_link a:hover {color: #114C84!important;}
-.uk_link a:active {color: #114C84!important;}
+.uk_link a:link {color: white!important;}
+.uk_link a:visited {color: white!important;}
+.uk_link a:hover {color: white!important;}
+.uk_link a:active {color: white!important;}
 
 
 .h3_case {

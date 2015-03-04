@@ -93,14 +93,6 @@
               = submit_tag 'login', :class => 'jqui_save'
           #user_as= render :partial => 'layouts/user_as'
 
--# Sizzix UK mega menu link styles
-- if is_sizzix_uk?
-  :javascript
-    $(".megalink").FontEffect({
-      outline:true,
-      outlineWeight: 1,
-      outlineColor1: "#3359a4"
-    })
 :javascript
   $('ul.megasublist li').mouseover(function(){
     $('div.subpanel').eq($('ul.megasublist li').index(this)).fadeTo('fast',1).siblings('div.subpanel').fadeTo('fast',0).hide();
