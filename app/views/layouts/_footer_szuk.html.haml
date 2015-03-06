@@ -1,34 +1,35 @@
-%div{:class=>"sub_div_l"}
-  %h2 Subscribe to Us
-  = render "layouts/newsletter_signup_form"
-  
-  %div{:class=>"sub_s4"}
-    %h3{:class=>"h3_case"} Learn More
-    %ul
-      %li= link_to "About Us", "/about"
-      %li= " | "
-      %li= link_to "Terms of Use", "/site_use"
-      %li= " | "
-      %li= link_to "Privacy Policy", "/privacy"
-      %li= " | "
-      %li= link_to "Cookie Policy", "/cookie-policy"
-      %li= " | "
-      %li= link_to "Legal Notices", "/legal"
+%div{:style=>'width:100%;'}
+  %div{:class=>"sub_div_l"}
+    %h2 Subscribe to Us
+    = render "layouts/newsletter_signup_form"
+    
+    %div{:class=>"sub_s4"}
+      %h3{:class=>"h3_case"} Learn More
+      %ul
+        %li= link_to "About Us", "/about"
+        %li= " | "
+        %li= link_to "Terms of Use", "/site_use"
+        %li= " | "
+        %li= link_to "Privacy Policy", "/privacy"
+        %li= " | "
+        %li= link_to "Cookie Policy", "/cookie-policy"
+        %li= " | "
+        %li= link_to "Legal Notices", "/legal"
 
-%div{:class=>"sub_div_r", :style=>"display:inline;"}
-  %div{:style => "width:100px; height:54px; float:right; padding:4px;", :title => "Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications."}
-    %script{:src => "https://seal.verisign.com/getseal?host_name=www.sizzix.co.uk&size=S&use_flash=NO&use_transparent=NO&lang=en", :type => "text/javascript"}
-  %h2== Customer Service
+  %div{:class=>"sub_div_r", :style=>"display:inline;"}
+    %div{:style => "width:100px; height:54px; float:right; padding:4px;", :title => "Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications."}
+      %script{:src => "https://seal.verisign.com/getseal?host_name=www.sizzix.co.uk&size=S&use_flash=NO&use_transparent=NO&lang=en", :type => "text/javascript"}
+    %h2== Customer Service
 
-  .bold Customer Service Hours
-  %p
-    8:30 a.m. to 5:00 p.m., GMT, Monday to Friday
-  %h3{:class=>"h3_case"} By Phone
-  0844 499 8181 (Within UK) | + 44 845 345 2277 (Outside of the UK)
-
-  %div{:style=>"width:220px; float:left; margin:0 0 0 0;"}
+    .bold Customer Service Hours
     %p
-    %h3{:class=>"h3_case"} By Email
-    %ul{:class=>"li_btm"}
-      %li
-        =link_to "europecustomerservices@ellison.com", "mailto:europecustomerservices@ellison.com"
+      8:30 a.m. to 5:00 p.m., GMT, Monday to Friday
+    %h3{:class=>"h3_case"} By Phone
+    0844 499 8181 (Within UK) | + 44 845 345 2277 (Outside of the UK)
+
+    %div{:style=>"width:220px; float:left; margin:0 0 0 0;"}
+      %p
+      %h3{:class=>"h3_case"} By Email
+      %ul{:class=>"li_btm"}
+        %li
+          =link_to "europecustomerservices@ellison.com", "mailto:europecustomerservices@ellison.com"

@@ -187,7 +187,7 @@ a .ui-button-icon-primary {
 	z-index: 101;
 }
 #header #logo_masthead{
-	background: url('/reskin_images/new-logo_outline.png') no-repeat;
+	background: url('/reskin_images/new-logo.png') no-repeat;
 	height: 149px;
 	width: 150px;
 	left: 0px;
@@ -2072,6 +2072,7 @@ input#payment_card_pin {
 	float: none;
 	margin: 0 auto;
 	padding-top: 0;
+	position:relative;
 }
 #footer .container h2 {
 	font-family: 'avenirbold';
@@ -2195,6 +2196,7 @@ input#payment_card_pin {
 }
 #footer .main{
 	overflow: none !important;
+	height:200px!important;
 }
 
 /* Video page */

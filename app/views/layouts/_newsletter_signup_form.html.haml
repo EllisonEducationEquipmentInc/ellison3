@@ -19,7 +19,7 @@
   - else
     Sign up for e-newsletter and stay informed with regular email updates!
 = form_tag('/newsletter-signup', :method => :get) do
-  = text_field_tag :email, "Enter your email address", :onfocus => "if (this.value == 'Enter your email address'){this.value='';}", :onblur => "if (this.value == ''){this.value='Enter your email address';}", :size => 30, :class => "email_footer"
+  = text_field_tag :email, "Enter your email address", :onfocus => "if (this.value == 'Enter your email address'){this.value='';}", :onblur => "if (this.value == ''){this.value='Enter your email address';}", :size => 30, :style => 'padding:6px 6px 8px; margin-top:4px;', :class => "email_footer"
   = submit_tag "Subscribe", :class => "jqui_save"
   
 %br
