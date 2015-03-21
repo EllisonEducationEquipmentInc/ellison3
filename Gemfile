@@ -70,8 +70,7 @@ group :development do
   gem 'terminal-notifier'
   gem 'wirble'
   gem 'rbtrace'
-  gem 'rspec-rails', '~> 2.11.0'
-  gem 'debugger'
+  gem 'rspec-rails'
   gem "better_errors"
   gem "binding_of_caller"
   gem 'pry'
