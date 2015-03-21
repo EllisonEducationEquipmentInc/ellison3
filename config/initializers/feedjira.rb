@@ -1,4 +1,4 @@
-module Feedzirra
+module Feedjira
   
   module Parser
     class RSSEntry
