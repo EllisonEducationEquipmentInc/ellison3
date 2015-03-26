@@ -48,7 +48,7 @@ Ellison3::Application.configure do
     :perform_deliveries => true
   }
   #config.action_mailer.smtp_settings = ey_smtp_settings #{:address => "mail.ellison.com", :port => 25}
-  config.action_mailer.smtp_settings = {:address => "mail.ellison.com", :port => 25}
+  config.action_mailer.smtp_settings = {:address => "lfexch02.ellison.com", :port => 25}
 	config.action_mailer.perform_deliveries = true
 	config.action_mailer.raise_delivery_errors = false
 

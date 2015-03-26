@@ -19,7 +19,7 @@ Ellison3::Application.configure do
   
   # A dummy setup for development - no deliveries, but logged
   config.action_mailer.delivery_method = :smtp  
-  config.action_mailer.smtp_settings   = {:address => "mail.ellison.com", :port => 25}
+  config.action_mailer.smtp_settings   = {:address => "lfexch02.ellison.com", :port => 25}
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
   
