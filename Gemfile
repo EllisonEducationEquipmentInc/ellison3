@@ -8,7 +8,8 @@ gem "bson_ext", "~> 1.5.2"
 gem 'passenger'
 gem 'rvm-capistrano'
 gem 'haml' #, '3.1.2'
-gem 'sass'
+gem 'sass', '~> 3.2.14'
+gem 'bourbon', '~> 3.1.8'
 gem 'kaminari'
 gem 'mongo_session_store-rails3', '~>3.0.6'
 gem "mongoid",  "2.0.2"

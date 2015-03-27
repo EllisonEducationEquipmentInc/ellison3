@@ -106,6 +106,9 @@ GEM
     boson (1.2.4)
     boson-more (0.2.2)
       boson (>= 1.2.0)
+    bourbon (3.1.8)
+      sass (>= 3.2.0)
+      thor
     bourne (1.1.2)
       mocha (= 0.10.5)
     bson (1.5.2)
@@ -368,7 +371,7 @@ GEM
     rubyzip (0.9.9)
     rvm-capistrano (1.2.7)
       capistrano (>= 2.0.0)
-    sass (3.2.6)
+    sass (3.2.19)
     savon (1.2.0)
       akami (~> 1.2.0)
       builder (>= 2.1.2)
@@ -705,6 +708,7 @@ DEPENDENCIES
   bartt-ssl_requirement (~> 1.4.0)
   better_errors
   binding_of_caller
+  bourbon (~> 3.1.8)
   bson_ext (~> 1.5.2)
   bundler (>= 1.0.10)
   capistrano
@@ -753,7 +757,7 @@ DEPENDENCIES
   rspec-rails
   ruby_parser
   rvm-capistrano
-  sass
+  sass (~> 3.2.14)
   savon (= 1.2.0)
   shippinglogic!
   shoulda-matchers
