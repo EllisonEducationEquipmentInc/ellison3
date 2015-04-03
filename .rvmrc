@@ -1,1 +1,1 @@
-rvm --create use "ruby-2.0.0-p0@Ellison3"
+rvm --create use "ruby-1.9.3-p392@Ellison3"
