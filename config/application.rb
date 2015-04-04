@@ -4,6 +4,7 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
 require 'mongoid/railtie'
+#require "sprockets/railtie"
 require 'rake'
 require 'csv'
 
@@ -63,6 +64,12 @@ module Ellison3
     config.middleware.insert_before Rack::Runtime, "SolrTerms"
     config.middleware.insert_before Rack::Runtime, "Gridfs"
     config.middleware.insert_after ActionDispatch::Flash, "DynamicCache"
+
+        # Enable the asset pipeline
+    config.assets.enabled = true
+    config.assets.paths << Rails.root.join("app", "assets", "*")
+    config.assets.version = '1.0'
+    config.assets.initialize_on_precompile = false
 
     config.gem 'rack-recaptcha', :lib => 'rack/recaptcha'
     config.middleware.use Rack::Recaptcha, :public_key => '6LccaAQAAAAAAOK5d5-hmN0uuXuJtcDdSjzfUiCS', :private_key => '6LccaAQAAAAAACmi40-3YDKa0pfGYp8QO4oaRdej'
