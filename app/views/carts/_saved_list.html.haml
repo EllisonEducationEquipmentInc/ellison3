@@ -16,12 +16,12 @@
     $(".move_to_cart").click( function() {
         $.ajax({url:"/carts/move_to_cart?id="+this.id.replace('move_to_cart_', '')});
         $(this).html('#{escape_javascript loader_bar}')
-        _gaq.push(['_trackEvent', 'Cart', 'Move To Cart', $(this).attr('rel')]);
+        ga('send', 'event', 'Cart', 'Move To Cart', $(this).attr('rel'));
       })
     $(".delete_from_saved_list").click( function() {
         $.ajax({url:"/carts/delete_from_saved_list?id="+this.id.replace('delete_from_saved_list_', '')});
         $(this).html('#{escape_javascript loader_bar}')
-        _gaq.push(['_trackEvent', 'Cart', 'Delete from saved for later list', $(this).attr('rel')]);
+        ga('send', 'event', 'Cart', 'Delete from saved for later list', $(this).attr('rel'));
       });
   :javascript
     initialize_tables();

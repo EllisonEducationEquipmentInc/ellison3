@@ -19,5 +19,5 @@
         %br
         = link_to product.name.html_safe, product_path(:item_num => product.url_safe_item_num, :name => product.name.parameterize)
         %br
-        = link_to "<span class='link_instructions'>Download Instructions</span>".html_safe, product.instructions, :alt => "Download Instructions", :title => "Download Instructions", :class => "download-link", :onclick => "_gaq.push([ '_trackEvent', 'Instructions', 'Download', '#{product.item_num}']);window.open(window.location.protocol+'//'+window.location.hostname+$(this).attr('href'),'_blank'); return false;"
+        = link_to "<span class='link_instructions'>Download Instructions</span>".html_safe, product.instructions, :alt => "Download Instructions", :title => "Download Instructions", :class => "download-link", :onclick => "ga('send', 'event', 'Instructions', 'Download', '#{product.item_num}');window.open(window.location.protocol+'//'+window.location.hostname+$(this).attr('href'),'_blank'); return false;"
     .clear

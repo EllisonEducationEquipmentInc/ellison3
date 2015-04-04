@@ -9,7 +9,7 @@
         $("#empty_cart").button({icons: {primary: 'ui-icon-trash'}})
           .click( function() {
             $.ajax({url:"/carts/empty_cart"});
-            _gaq.push(['_trackEvent', 'Cart', 'Empty Cart']);
+            ga('send', 'event', 'Cart', 'Empty Cart');
             $(this).button({ disabled: true });
             return false;
           });
