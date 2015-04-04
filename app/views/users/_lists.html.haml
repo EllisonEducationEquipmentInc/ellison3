@@ -4,4 +4,4 @@
   = form_tag({:controller => 'users', :action => 'add_to_list', :id => params[:id]}, :remote => true, :method => :get) do
     = select_tag :list, options_for_select(@lists, get_user.lists.default.try(:id))
     %p.left= link_to "Manage My Lists", myaccount_path('mylists')
-    %p.right= link_to "Add to My List", "#", :onclick => "$(this).closest('form').submit(); _gaq.push(['_trackEvent', 'Lists', 'Add To List', $(this).attr('rel')]); return false;", :rel => params[:item_num]
+    %p.right= link_to "Add to My List", "#", :onclick => "$(this).closest('form').submit();ga('send', 'event', 'Lists', 'Add To List', $(this).attr('rel')); return false;", :rel => params[:item_num]

@@ -57,7 +57,7 @@
           }
           var item_num = this.id.replace('cart_quantity_', '')
           $.ajax({url:"/carts/change_quantity?item_num="+item_num+"&qty="+$(this).val()});
-          _gaq.push(['_trackEvent', 'Cart', 'Change Quantity', item_num+':'+$(this).val()]);
+          ga('send', 'event', 'Cart', 'Change Quantity', item_num+':'+$(this).val());
         })
     - if admin_signed_in? && current_admin.can_change_prices && !@cart_locked
       :javascript
@@ -103,12 +103,12 @@
         		});
         	$(".remove_from_cart").click( function() {
         			$.ajax({url:"/carts/remove_from_cart?item_num="+this.id.replace('remove_from_cart_', '')});
-        			_gaq.push(['_trackEvent', 'Cart', 'Remove From Cart', this.id.replace('remove_from_cart_', '')]);
+              ga('send', 'event', 'Cart', 'Change Quantity', this.id.replace('remove_from_cart_', ''));
         			$(this).html('#{escape_javascript loader_bar}')
         		}); 
         		$(".save_for_later").click( function() {
         				$.ajax({url:"/users/save_for_later?item_num="+$(this).attr('rel')});
-        				_gaq.push(['_trackEvent', 'Cart', 'Save for Later', $(this).attr('rel')]);
+                ga('send', 'event', 'Cart', 'Save for Later', $(this).attr('rel'));
         				#{ user_signed_in? ? "$(this).html('#{escape_javascript loader_bar}')" : nil }
         			});
         		$(".save_as_quote")
