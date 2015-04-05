@@ -12,7 +12,7 @@ set :keep_releases,       5
 set :application,         "ellison3"
 
 set :scm,                 :git
-set :branch,              "master"
+set :branch,              "rails_3_2"
 set :repository,          "git@github.com:stackbuilders/ellison3.git"
 
 set :default_stage, "staging"
