@@ -766,6 +766,7 @@ DEPENDENCIES
   savon (= 1.2.0)
   shippinglogic!
   shoulda-matchers
+  sprockets
   sunspot-rails-failover!
   sunspot_mongoid!
   sunspot_with_kaminari
