@@ -39,9 +39,6 @@ module Ellison3
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = 'en-US'
 
-    #disable asset pipeline
-    config.assets.enabled = false
-
     # Configure generators values. Many other options are available, be sure to check the documentation.
     config.generators.stylesheet_engine = :sass
     config.generators do |g|
