@@ -9,7 +9,6 @@ gem 'passenger'
 gem 'rvm-capistrano'
 gem 'haml' #, '3.1.2'
 gem 'sass', '~> 3.2.14'
-gem 'sass-rails'
 gem 'bourbon', '~> 3.1.8'
 gem 'kaminari'
 gem 'mongo_session_store-rails3', '~>3.0.6'
@@ -51,7 +50,6 @@ gem 'capistrano'
 gem "mongoid_rails_migrations", "0.0.14"
 gem 'bartt-ssl_requirement', '~>1.4.0', :require => 'ssl_requirement'
 gem 'curb'
-gem 'sprockets'
 
 group :test do
   gem "mongoid-rspec"

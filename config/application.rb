@@ -65,7 +65,11 @@ module Ellison3
     config.middleware.insert_before Rack::Runtime, "Gridfs"
     config.middleware.insert_after ActionDispatch::Flash, "DynamicCache"
 
-     config.gem 'rack-recaptcha', :lib => 'rack/recaptcha'
+    config.generators do |g|
+    g.assets false
+    end
+
+    config.gem 'rack-recaptcha', :lib => 'rack/recaptcha'
     config.middleware.use Rack::Recaptcha, :public_key => '6LccaAQAAAAAAOK5d5-hmN0uuXuJtcDdSjzfUiCS', :private_key => '6LccaAQAAAAAACmi40-3YDKa0pfGYp8QO4oaRdej'
 
   end
