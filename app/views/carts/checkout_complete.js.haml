@@ -21,7 +21,7 @@
     - else
       category: '#{escape_javascript(item.product.product_lines.map(&:name) * ', ')}',   // category or variation
     price: '#{item.sale_price}',          // unit price - required
-    quantity: '#{item.quantity}'               // quantity - required
+    quantity: '#{item.quantity}',               // quantity - required
     currency: '#{current_currency.upcase}'
     });
   ga('ecommerce:send');
