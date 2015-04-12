@@ -2,3 +2,6 @@
   ga('create', '#{ga_tracker_id}', 'auto');
   ga('send', 'pageview', location.pathname + location.hash + location.search);
   ga('require', 'ecommerce');
+- if get_user
+  :javascript
+    ga('set', '&uid', '#{get_user.id}');
