@@ -1,4 +1,7 @@
 <html lang="en-UK">
+    <script type="text/javascript">
+      var current_system = "erus";
+    </script>
 <head>
 <title>404 - Page Not Found | Ellison.com</title>
 <link type="text/css" rel="stylesheet" media="screen, projection" href="/stylesheets/compiled/screen_erus.css?1305041041">
@@ -23,6 +26,33 @@
       <div id="header">
         <div class="dontprint">
           <h1 class="masthead"> <a title="Ellison Retailers" id="logo_masthead" alt="Ellison Retailers" href="/home">Ellison Retailers</a> </h1>
+
+              <script>
+                $("input.textfield").addClass("idlefield");
+                $("input.textfield").focus(function(){
+                  $(this).addClass("activefield").removeClass("idlefield");
+                  $(this).val('');
+                }).blur(function(){
+                  $(this).removeClass("activefield").addClass("idlefield");
+                });
+                $("input.textfield").click(function(){
+                  $(this).val('');
+                });
+                
+                $('#q').change(function() {        
+                  $(this).removeClass("activefield").addClass("idlefield");
+                });
+                $('#searchbar').submit(function() {
+                  var default_value = "Search for Sizzix and Ellison Products &amp;amp;amp; Projects";
+                  var search_value = escape($('#q').val());
+                  if (search_value == default_value) {
+                    return false;
+                  } else {
+                    location.href = 'http://'+location.host+'/catalog#q='+search_value;return false;
+                  }
+                });
+              </script>
+
 
         </div>
         <div id="printmasthead" class="dontdisplay">

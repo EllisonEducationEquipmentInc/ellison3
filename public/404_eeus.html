@@ -1,4 +1,7 @@
 <html lang="en-US">
+    <script type="text/javascript">
+      var current_system = "eeus";
+    </script>
 <head>
 <title>404 - Page Not Found | Ellisoneducation.com</title>
 <meta name="keywords" content="Educational Die-Cutting for Preschools, Elementary, Jr High, High School, Shape-cutting, Printable Free Lesson Plans for Educators, Teacher Lesson Ideas, Promotions, Coupons, Teacher Tools, Classroom Décor, Classroom Decorating, Education Standards, Curriculum Development, Children, Homeschool, Early Childhood Education, Bulletin Boards, Learning, Fundraising, Resources, Visual Aids, Cut Outs, Teacher Supplies, Custom Dies">
@@ -25,6 +28,32 @@
     <div id="header" style="height:88px;">
       <div class="dontprint">
         <h1 class="masthead"> <a title="Ellison Education" id="logo_masthead" alt="Ellison Education" href="/home">Ellison Education</a> </h1>
+
+              <script>
+                $("input.textfield").addClass("idlefield");
+                $("input.textfield").focus(function(){
+                  $(this).addClass("activefield").removeClass("idlefield");
+                  $(this).val('');
+                }).blur(function(){
+                  $(this).removeClass("activefield").addClass("idlefield");
+                });
+                $("input.textfield").click(function(){
+                  $(this).val('');
+                });
+                
+                $('#q').change(function() {        
+                  $(this).removeClass("activefield").addClass("idlefield");
+                });
+                $('#searchbar').submit(function() {
+                  var default_value = "Search for Ellison Products &amp;amp;amp; Projects";
+                  var search_value = escape($('#q').val());
+                  if (search_value == default_value) {
+                    return false;
+                  } else {
+                    location.href = 'http://'+location.host+'/catalog#q='+search_value;return false;
+                  }
+                });
+              </script>
 
       </div>
       <div id="printmasthead" class="dontdisplay">

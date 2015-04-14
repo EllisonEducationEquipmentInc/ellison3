@@ -1,4 +1,7 @@
 <html lang="en-UK"><head>
+    <script type="text/javascript">
+      var current_system = "szuk";
+    </script>
     <title>404 - Page Not Found | Sizzix.co.uk</title>
     <meta name="keywords" content="arts and crafts, art and craft, card making, cardmaking, card making instructions, make greetings cards, make cards, scrapbooking, rubber stamps, paper crafts, papercraft, home décor, quilting, appliqué, wedding stationery, embellishments, embellish, Fiona Williams, Pete Hughes, QVC, Hobbycraft, eclips, eclipse, Cuttlebug, cricut, die cutting, cutting die, shape cutter, shape cutting, scrapbooking, scrap booking, scrap book, scrapbook, embossing, tim holtz, alterations, rub ons, design, ideas, craft, crafting, card cutting, inspiration, texture boutique, top tips, hobby, christmas, halloween, xmas, card cutting, sizzix, ellison, big shot, hello kitty, embossing, present box, gift boxes, bigz xl, cutting pad, sizzlits, bags &amp; boxes, cutting dies, bigz dies, textures, emboslits, clearlits, little sizzles, texturz, texture plates, alphabet sets, discount craft, embossing folders, cutting mat, XL cutting plates, shape-cutting, die cut, shape cut, cut out shapes, quilting, fabric, felt, paper, cardstock, chip board, mount board, texture, textured paper, jelly rolls, patch work squares, card designs, card ideas">
     <meta name="description" content="There's no bigger or better place for craft materials, equipment and inspiration. Sizzix.co.uk has 1000's of different ideas and craft activities from exclusive Sizzix designers. Get creative with Sizzix, make light work of crafting and turn your hobby into a passion. Sizzix products are so versatile - your not restricted to paper, you can cut anything from paper and cardstock to fabric and chip board. In fact any bigz die with the steel rule blade technology will cut paper, fabric, card, felt, chip board and much, much more. You are never on your own with Sizzix we have a huge section of inspirational project ideas using a huge selection of die and embossing technologies. Creative ideas are always being added using all the die and embossing technologies. The eclips electronic shape cutter is perfect for all your crafting projects whether you love scrapbooking, cardmaking or home decor">
@@ -29,6 +32,31 @@
             </div>
             <div id="printmasthead" class="dontdisplay">
               <h1>Sizzix.co.uk</h1>
+              <script>
+                $("input.textfield").addClass("idlefield");
+                $("input.textfield").focus(function(){
+                  $(this).addClass("activefield").removeClass("idlefield");
+                  $(this).val('');
+                }).blur(function(){
+                  $(this).removeClass("activefield").addClass("idlefield");
+                });
+                $("input.textfield").click(function(){
+                  $(this).val('');
+                });
+                
+                $('#q').change(function() {        
+                  $(this).removeClass("activefield").addClass("idlefield");
+                });
+                $('#searchbar').submit(function() {
+                  var default_value = "Search for Sizzix Products &amp;amp;amp; Projects";
+                  var search_value = escape($('#q').val());
+                  if (search_value == default_value) {
+                    return false;
+                  } else {
+                    location.href = 'http://'+location.host+'/catalog#q='+search_value;return false;
+                  }
+                });
+              </script>
             </div>
             <div id="nav_megamenu" class="dontprint">
 
