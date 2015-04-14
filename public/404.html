@@ -1,5 +1,5 @@
 <html lang="en-US"><head>
-    <script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script><script src="http://www.google-analytics.com/ga.js" async="" type="text/javascript"></script><script id="twitter-wjs" src="http://platform.twitter.com/widgets.js"></script><script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script><script>
+    <script>
       var current_system = "szus";
     </script>
     <title>
@@ -92,29 +92,6 @@
                 $('#q').change(function() {        
                   $(this).removeClass("activefield").addClass("idlefield");
                 });
-                $("#q").autocomplete({
-                  source: function(request, response) {
-                    $.ajax({
-                      url: "/szus_solr_terms/"+request.term,
-                      dataType: 'text json',
-                      data: {},
-                      success: function( data ) {response($.map(data.terms[0][1],function(n,i){return n[0]}))}
-                    });
-                  },
-                  search: function() {
-                    if (this.value.length &amp;amp;lt; 1) {
-                      return false;
-                    }
-                  },
-                  focus: function( event, ui ) {
-                          $(this).val( ui.item.label );
-                          return false;
-                        },
-                  select: function(event, ui) {
-                    this.value = ui.item.value;
-                    $(this.form).trigger('submit');
-                    return false;
-                  }});
                 $('#searchbar').submit(function() {
                   var default_value = "Search for Sizzix Products &amp;amp;amp; Projects";
                   var search_value = escape($('#q').val());
