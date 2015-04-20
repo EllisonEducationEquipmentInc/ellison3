@@ -81,7 +81,7 @@ body.bp h3 {
 	font-family: 'avenirbold';
 }
 input {
-	border: 1px solid #acacac;
+	border: 1px solid #FE8C90;
 }
 #root {
 	width: 100%;
@@ -342,7 +342,7 @@ a .ui-button-icon-primary {
 	width: 50px;
 	height: 60px;
 	display: block;
-	background: url('/reskin_images/new-cart-bag_uk.png') no-repeat center center;
+	background: url('/reskin_images/new-cart-bag-uk.png') no-repeat center center;
 }
 #header #shoppingcart_icon a img{
 	display: none;
