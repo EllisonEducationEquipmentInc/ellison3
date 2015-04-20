@@ -174,7 +174,10 @@ a .ui-button-icon-primary {
 	display: none !important;
 }
 #header{
-	background: #bfbfbf;
+	background: #c0bdbc;
+	-webkit-box-shadow: 0px 3px 12px -3px rgba(163,163,163,1);
+	-moz-box-shadow: 0px 3px 12px -3px rgba(163,163,163,1);
+	box-shadow: 0px 3px 12px -3px rgba(163,163,163,1);
 }
 #header #promo_message{
 	margin-top: 2px;
@@ -305,7 +308,7 @@ a .ui-button-icon-primary {
 	height: 50px;
 }
 #header #searchbar input.submitbutton{
-	background: #545759 url('/reskin_images/new-search-icon.png') no-repeat center center;
+	background: #FE8C90 url('/reskin_images/new-search-icon.png') no-repeat center center;
 	border: none;
 	height: 32px;
 	width: 53px;
@@ -321,7 +324,7 @@ a .ui-button-icon-primary {
 #header #searchbar input.textfield{
 	top: auto;
 	left: auto;
-	border: 1px solid #6bada5;
+	border: 1px solid #fe8c90;
 	border-right: none;
 	width: 340px;
 	float: left;
@@ -339,13 +342,13 @@ a .ui-button-icon-primary {
 	width: 50px;
 	height: 60px;
 	display: block;
-	background: url('/reskin_images/new-cart-bag.png') no-repeat center center;
+	background: url('/reskin_images/new-cart-bag_uk.png') no-repeat center center;
 }
 #header #shoppingcart_icon a img{
 	display: none;
 }
 #header #shoppingcart_info{
-	border: 1px solid #6baca4;
+	border: 1px solid #fe8c90;
 	border-right: none;
 	background: #fff;
 	margin-top: 7px;
@@ -1607,7 +1610,7 @@ input#billing_address_company {
 	margin-top: -10px;
 }
 input.jqui_save.ui-button.ui-widget.ui-state-default.ui-corner-all {
-	background: #696969;
+	background: #fe8c90;
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
 	border-radius: 0px;
@@ -2063,8 +2066,8 @@ input#payment_card_pin {
     min-width: 950px;
 }
 #footer .container {
-	background: #BFBFBF;
-	border-top: 7px solid #fff;
+	background: #74787b;
+	border-top: 7px solid #43474a;
 	width: 100%;
 }
 #footer .container .main {
@@ -2116,9 +2119,9 @@ input#payment_card_pin {
 }
 #footer .container .column_right form .idlefield,
 #footer .container .column_right form .activefield {
-	color: #545759;
+	color: #000!important;
 	height: 33px;
-	border: 1px solid #69ada6;
+	border: 1px solid #fe8c90;
 	width: 70%;
 	padding: 0 10px;
 	float: left;
@@ -2278,7 +2281,7 @@ ul.videolist li{
 	border-radius: 0px;
 }
 #content ul.videolist li {
-	border: 1px solid #acacac;
+	border: 1px solid #fe8c90;
 }
 
 /* Registration and misc pages */
@@ -2397,8 +2400,8 @@ ul.videolist li{
 #stores select#radius {
 	height: 24px;
 	background: #fff;
-	border: 0px solid #acacac;
-	outline: 1px solid #acacac;
+	border: 0px solid #fe8c90;
+	outline: 1px solid #fe8c90;
 	outline-offset: -2px;
 	-webkit-border-radius: 0 !important;
 	-moz-border-radius: 0 !important;
@@ -2406,7 +2409,7 @@ ul.videolist li{
 }
 .select-wrapper.feedback-subject{
 	width: 170px;
-	border: 1px solid #acacac;
+	border: 1px solid #fe8c90;
 	margin-top: 8px;
 	margin-bottom: -8px;
 	-webkit-box-sizing: border-box;
