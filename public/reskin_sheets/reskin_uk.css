@@ -81,7 +81,7 @@ body.bp h3 {
 	font-family: 'avenirbold';
 }
 input {
-	border: 1px solid #B4E1D7;
+	border: 1px solid #f38087;
 }
 #root {
 	width: 100%;
@@ -328,7 +328,7 @@ a .ui-button-icon-primary {
 	border-right: none;
 	width: 340px;
 	float: left;
-	padding: 7px 13px 8px;
+	padding: 6px 13px 8px;
 	font-weight: normal;
 	color: #000;
 	font-family: 'avenirregular';
