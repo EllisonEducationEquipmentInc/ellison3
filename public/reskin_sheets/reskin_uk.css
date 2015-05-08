@@ -81,7 +81,7 @@ body.bp h3 {
 	font-family: 'avenirbold';
 }
 input {
-	border: 1px solid #FE8C90;
+	border: 1px solid #B4E1D7;
 }
 #root {
 	width: 100%;
@@ -202,7 +202,7 @@ a .ui-button-icon-primary {
 }
 #header #nav_megamenu .megalink,
 .nav_clearance{
-	color: white !important;
+	color: #000 !important;
 	font-weight: normal;
 	text-transform: none;
 	font-size: 20px;
@@ -216,7 +216,7 @@ a .ui-button-icon-primary {
 }
 #header ul.nav_utility li a span{
 	font-size: 16px !important;
-	color:white!important;
+	color:#000!important;
 }
 #header ul.nav_utility li a.btn-masthead,
 #header ul.nav_utility li a.btn-admin-logout,
@@ -308,7 +308,7 @@ a .ui-button-icon-primary {
 	height: 50px;
 }
 #header #searchbar input.submitbutton{
-	background: #FE8C90 url('/reskin_images/new-search-icon.png') no-repeat center center;
+	background: #545759 url('/reskin_images/new-search-icon.png') no-repeat center center;
 	border: none;
 	height: 32px;
 	width: 53px;
@@ -324,7 +324,7 @@ a .ui-button-icon-primary {
 #header #searchbar input.textfield{
 	top: auto;
 	left: auto;
-	border: 1px solid #fe8c90;
+	border: 1px solid #939393;
 	border-right: none;
 	width: 340px;
 	float: left;
@@ -342,13 +342,13 @@ a .ui-button-icon-primary {
 	width: 50px;
 	height: 60px;
 	display: block;
-	background: url('/reskin_images/new-cart-bag.png') no-repeat center center;
+	background: url('/reskin_images/new-cart-bag-uk.png') no-repeat center center;
 }
 #header #shoppingcart_icon a img{
 	display: none;
 }
 #header #shoppingcart_info{
-	border: 1px solid #C0BDBC;
+	border: 1px solid #c0bdbc;
 	border-right: none;
 	background: #fff;
 	margin-top: 7px;
@@ -391,7 +391,7 @@ a .ui-button-icon-primary {
 #existing_user_new .jqui_save,
 #user_new .jqui_save,
 #admin_new input[type="submit"] {
-	background: #f58a90;
+	background: #B4E1D7;
 	font-size: 14px;
 	font-family: 'avenirregular';
 	font-weight: normal;
