@@ -81,7 +81,7 @@ body.bp h3 {
 	font-family: 'avenirbold';
 }
 input {
-	border: 1px solid #f38087;
+	border: 1px solid #B4E1D8;
 }
 #root {
 	width: 100%;
@@ -348,7 +348,7 @@ a .ui-button-icon-primary {
 	display: none;
 }
 #header #shoppingcart_info{
-	border: 1px solid #c0bdbc;
+	border: 1px solid #939393;
 	border-right: none;
 	background: #fff;
 	margin-top: 7px;
@@ -1610,13 +1610,14 @@ input#billing_address_company {
 	margin-top: -10px;
 }
 input.jqui_save.ui-button.ui-widget.ui-state-default.ui-corner-all {
-	background: #fe8c90;
+	background: #B4E1D8;
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
 	border-radius: 0px;
 	border: none;
-	color: #fff;
+	color: black;
 	padding: 7px 22px;
+	font-weight:bold;
 }
 a.jqui_cancel {
 	background: #8fb4af !important;
