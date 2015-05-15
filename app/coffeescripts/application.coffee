@@ -67,7 +67,7 @@ root.bind_hashchange = ->
     if location.pathname.indexOf("/catalog") >= 0 or outlet
       event_name = (if outlet then "Outlet" else "Catalog")
       outlet_param = (if outlet then "outlet=1&" else "")
-      _gaq.push [ "_trackEvent", event_name, "Search", $.param.fragment() ]
+      ga 'send', 'event', event_name, 'Search', $.param.fragment()
       $.ajax 
         url: "/index/search?lang=" + $("html").attr("lang") + "&s=" + current_system + "&" + outlet_param + $.param.fragment()
         beforeSend: ->
@@ -130,7 +130,7 @@ root.initialize_buttons = ->
       qty = (if $(this).siblings("input.er_product_quantity").val() == undefined then "" else "&qty=" + $(this).siblings("input.er_product_quantity").val())
       $.ajax url: "/carts/add_to_cart?id=" + @id.replace("add_to_cart_", "") + qty
       $(this).button disabled: true
-      _gaq.push [ "_trackEvent", "Cart", "Add To Cart", $(this).attr("rel") ]
+      ga 'send', 'event', 'Cart', 'Add To Cart', $(this).attr("rel")
 
   $ ->
     $(".add_to_cart_out_of_stock").button(icons: primary: "ui-icon-plus")
@@ -138,7 +138,7 @@ root.initialize_buttons = ->
   $ ->
     $(".wishlist").button().click(->
       $.ajax url: "/add_to_list?id=" + @id.replace("add_to_list_", "")
-      _gaq.push [ "_trackEvent", "Lists", "Add To Default List", $(this).attr("rel") ]
+      ga 'send', 'event', 'Lists', 'Add To Default List', $(this).attr("rel")
     ).next().button(
       text: false
       icons: primary: "ui-icon-triangle-1-s"
@@ -243,7 +243,7 @@ root.order_comment = ->
   
 root.initialize_show_cart = ->
   $(".show_cart").click ->
-    _gaq.push [ "_trackEvent", "Cart", "Show Cart" ]
+    ga 'send', 'event', 'Cart', 'Show Cart'
     show_cart()
     setTimeout "$.fancybox.resize()", 1600
     false
@@ -421,7 +421,7 @@ root.toggle_child_visual_asset_type = (child_index, value) ->
   
 root.youtube_video_links = ->
   $(".fancyvideo").live "click", ->
-    _gaq.push [ "_trackEvent", "Video", "Play Video", $(this).attr("rel")]
+    ga 'send', 'event', 'Video', 'Play Video', $(this).attr("rel")
     $.fancybox 
       padding: 0
       autoScale: false
@@ -665,7 +665,7 @@ root.payment_validator_options =
       required: true
   
   submitHandler: (form) ->
-    _gaq.push [ "_trackEvent", "Cart", "Place Order" ]
+    ga 'send', 'event', 'Cart', 'Place Order'
     fancyloader "Your order is being processed. Please do not click the browser back button while order is processing. Thank you for your patience!"
     $("#proceed_checkout").callRemote()
   

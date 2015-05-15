@@ -27,5 +27,5 @@
     .clear
 :javascript
   $(function() {
-    $(".tab-block").tabs({ select: function(event, ui) {_gaq.push(['_trackEvent', 'Product', 'Click Tab', $(ui.tab).text()])}});
+    $(".tab-block").tabs({ select: function(event, ui) {ga('send', 'event', 'Product', 'Click Tab', $(ui.tab).text());}});
   });

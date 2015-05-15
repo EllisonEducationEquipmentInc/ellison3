@@ -26,7 +26,7 @@
           return this.value+':'+$('#quantity_'+this.value).val();
         }).get().join(',');
         $.ajax({url:"/carts/add_selected_to_cart?values="+values});
-        _gaq.push(['_trackEvent', 'Cart', 'Add All Selected To Cart', values]);
+        ga('send', 'event', 'Cart', 'Add All Selected To Cart', values);
         $('#add_checked_to_cart').hide();
         $('input.add_to_cart_checkbox').attr('checked', false);
       });

@@ -1,4 +1,4 @@
 .ui-corner-all{:style=>"border:1px solid #ccc; padding:2px 6px; float:left; margin:4px;"}
   %strong= raw firmware_file.name
   %br
-  = link_to firmware_file.file_filename, {:action => 'download_firmware', :id => firmware_file.id}, :onclick => "_gaq.push(['_trackEvent', 'Firmware', 'Download', '#{firmware_file.name}']);$(this).doTimeout( 'downloading', 1000,function(){window.location.href=$(this).attr('href')});return false;"
+  = link_to firmware_file.file_filename, {:action => 'download_firmware', :id => firmware_file.id}, :onclick => "ga('send', 'event', 'Firmware', 'Download', '#{firmware_file.name}');$(this).doTimeout( 'downloading', 1000,function(){window.location.href=$(this).attr('href')});return false;"

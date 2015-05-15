@@ -1,4 +1,8 @@
 :javascript
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', '#{ga_tracker_id}']);
-  _gaq.push(['_trackPageview', location.pathname + location.hash + location.search]);
+  ga('create', '#{ga_tracker_id}', 'auto');
+  ga('require', 'linkid', 'linkid.js');
+  ga('send', 'pageview', location.pathname + location.hash + location.search);
+  ga('require', 'ecommerce');
+- if get_user
+  :javascript
+    ga('set', '&uid', '#{get_user.id}');

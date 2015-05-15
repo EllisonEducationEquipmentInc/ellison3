@@ -2160,6 +2160,9 @@ input#payment_card_pin {
 #footer .container .column_right ul.social-icons li.facebook a {
 	background-position: -20px 0;
 }
+#footer .container .column_right ul.social-icons li.gplus a {
+	background-position: -140px 0;
+}
 #footer .container .column_right ul.social-icons li.twitter a {
 	background-position: -40px 0;
 }
