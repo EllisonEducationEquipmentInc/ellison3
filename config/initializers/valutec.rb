@@ -17,7 +17,7 @@ class Valutec
   end
 
   def client
-    @client ||= Savon::Client.new("http://ws.valutec.net/Valutec.asmx?WSDL")
+    @client ||= Savon::Client.new("https://ws.valutec.net/Valutec.asmx?WSDL")
   end
 
   def soap_actions
