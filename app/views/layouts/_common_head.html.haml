@@ -78,23 +78,6 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-:javascript
-  adroll_adv_id = "PHWDGVMKL5FUBGFT3BSCPJ"; 
-  adroll_pix_id = "GPGZGCTW4NDFBJGP45IB66"; 
-  (function () { 
-  var oldonload = window.onload; 
-  window.onload = function(){ 
-     __adroll_loaded=true; 
-     var scr = document.createElement("script"); 
-     var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com"); 
-     scr.setAttribute('async', 'true'); 
-     scr.type = "text/javascript"; 
-     scr.src = host + "/j/roundtrip.js"; 
-     ((document.getElementsByTagName('head') || [null])[0] || 
-      document.getElementsByTagName('script')[0].parentNode).appendChild(scr); 
-     if(oldonload){oldonload()}}; 
-  }());
-
 = render :partial => 'layouts/ga' if @trackable
 
 <!-- End Google Analytics -->
