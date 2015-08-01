@@ -1,9 +1,9 @@
 %li
-  %p.video-thumbnail{ :style => "background: url('#{video.thumbnails.first.try :url}') no-repeat center center;"}= link_to image_tag("/images/ui-icons/set_fugue_custom/24x24/drop-shadow/ell3_film--glow.png", :class => "tooltip_playvideo"), "http://www.youtube.com/embed/#{video.embed_url[/v\/([^&]+)/, 1]}?autoplay=1", :rel => j(video.title), :class => "fancyvideo", :id => video.embed_url[/v\/([^&]+)/, 1]
-  %p.video-title= link_to video.title, "http://www.youtube.com/embed/#{video.embed_url[/v\/([^&]+)/, 1]}?autoplay=1", :class => "fancyvideo", :id => video.embed_url[/v\/([^&]+)/, 1], :rel => j(video.title)
+  %p.video-thumbnail{ :style => "background: url('#{video_default_image(video)}') no-repeat center center;"}= link_to image_tag("/images/ui-icons/set_fugue_custom/24x24/drop-shadow/ell3_film--glow.png", :class => "tooltip_playvideo"), "http://www.youtube.com/embed/#{yt_video_url(video)}?autoplay=1", :rel => j(video.title), :class => "fancyvideo", :id => yt_video_url(video)
+  %p.video-title= link_to video.title, "http://www.youtube.com/embed/#{yt_video_url(video)}?autoplay=1", :class => "fancyvideo", :id => yt_video_url(video), :rel => j(video.title)
   %p.video-detail
-    == #{video.duration/60} min #{video.duration%60} seconds 
-    %br
-    == #{l video.published_at || video.updated_at, :format => :date_short}  | #{video.view_count} views
+    -#== #{video.duration/60} min #{video.duration%60} seconds 
+    -#%br
+    -#== #{l video.published_at || video.updated_at, :format => :date_short}  | #{video.view_count} views
   .clear
   %p.video-description= truncate(video.description, :length => 200, :separator => ' ')

@@ -215,12 +215,14 @@ class IndexController < ApplicationController
 
   def videos
     @title = "Videos"
-    unless fragment_exist? "videos_page_#{current_system}"
-      get_videos
-      @recent_uploads = Rails.cache.fetch("recent_uploads_#{current_system}", :expires_in => 60.minutes) do
-        @client.videos_by(:author => youtube_user, :order_by => 'published', :time => 'this_month', :per_page => 2).videos
-      end
-    end
+    @recent_uploads = []
+    get_videos
+    #unless fragment_exist? "videos_page_#{current_system}"
+      #get_videos
+      #@recent_uploads = Rails.cache.fetch("recent_uploads_#{current_system}", :expires_in => 60.minutes) do
+        #@client.videos_by(:author => youtube_user, :order_by => 'published', :time => 'this_month', :per_page => 2).videos
+      #end
+    #end
   end
 
   def video_page
@@ -487,20 +489,22 @@ class IndexController < ApplicationController
 private
 
   def get_videos
-    @feed = Feed.where(:name => "video_paylist_#{current_system}").first || Feed.new(:name => "video_paylist_#{current_system}")
-    process_feed("http://gdata.youtube.com/feeds/api/users/#{youtube_user}/playlists?v=2", 60)
-    @client = YouTubeIt::Client.new
-    @videos = Rails.cache.fetch("videos_#{current_system}", :expires_in => 60.minutes) do
-      @feed.entries.inject([]) do |arr, e|
-        begin
-          v = @client.playlist(e["yt_playlist_id"])
-          v.max_result_count = 24
-          arr << v
-        rescue Exception => e
-          next
-        end
-      end
-    end
+    @channel = Yt::Channel.new url: "https://www.youtube.com/user/#{youtube_user}"
+    @videos = []
+    #@feed = Feed.where(:name => "video_paylist_#{current_system}").first || Feed.new(:name => "video_paylist_#{current_system}")
+    #process_feed("http://gdata.youtube.com/feeds/api/users/#{youtube_user}/playlists?v=2", 60)
+    #@client = YouTubeIt::Client.new
+    #@videos = Rails.cache.fetch("videos_#{current_system}", :expires_in => 60.minutes) do
+      #@feed.entries.inject([]) do |arr, e|
+        #begin
+          #v = @client.playlist(e["yt_playlist_id"])
+          #v.max_result_count = 24
+          #arr << v
+        #rescue Exception => e
+          #next
+        #end
+      #end
+    #end
   end
 
   def process_feed(source, mins = 15)

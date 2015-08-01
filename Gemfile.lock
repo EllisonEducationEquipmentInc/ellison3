@@ -455,6 +455,8 @@ GEM
       oauth (~> 0.4.4)
       oauth2 (~> 0.5.2)
       simple_oauth (~> 0.1.5)
+    yt (0.25.2)
+      activesupport
     zucker (12.1)
 
 PLATFORMS
@@ -530,3 +532,4 @@ DEPENDENCIES
   webmock
   wirble
   youtube_it
+  yt (~> 0.25.2)

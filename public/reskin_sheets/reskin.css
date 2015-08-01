@@ -2213,9 +2213,9 @@ input#payment_card_pin {
 .video-page .tinynav{
 	display: block;
 }
-.video-page .ui-tabs-nav{
-	display: none;
-}
+/*.video-page .ui-tabs-nav{*/
+	/*display: none;*/
+/*}*/
 .video-page .select-wrapper{
 	width: 300px;
 }

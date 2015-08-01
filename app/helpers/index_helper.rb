@@ -83,4 +83,18 @@ module IndexHelper
   def class_for_zip_option
     is_sizzix_us? || is_sizzix_uk? ? "" : "hide"
   end
+
+  # returns the video id of a Yt::Models::PlaylistItem
+  def yt_video_url(video)
+    video.snippet.data["resourceId"].try(:[], "videoId")
+  end
+
+  # returns the default url of a Yt::Models::PlaylistItem
+  def video_default_image(video)
+    if video.snippet.data["thumbnails"]
+      video.snippet.data["thumbnails"]["default"].try(:[], "url")
+    else
+      "https://i.ytimg.com/vi/#{yt_video_url(video)}/default.jpg"
+    end
+  end
 end
