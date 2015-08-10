@@ -97,4 +97,5 @@ module IndexHelper
       "https://i.ytimg.com/vi/#{yt_video_url(video)}/default.jpg"
     end
   end
+
 end
