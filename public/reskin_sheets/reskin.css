@@ -1694,10 +1694,16 @@ body.bp .make-me-pink,
 	background: none;
 	border: none;
 	border-bottom: 1px solid #acacac !important;
+	padding-bottom:16px;
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
 	border-radius: 0px;
 }
+
+.vidtab {
+	padding:0 0 8px;
+}
+
 .tab-block .ui-tabs-nav .ui-state-default {
 	border: 1px solid #acacac;
 }
@@ -2242,7 +2248,7 @@ body.bp .video-page h3{
 	font-family: 'avenirbold';
 }
 ul.videolist li{
-	width: 295px;
+	width: 285px;
 }
 #content.video-page h2{
 	width: 941px;
