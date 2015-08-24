@@ -492,8 +492,10 @@ private
   def featured_video_id
     if is_ee_us?
       'nSVuPZZiShE'
-    else
+    elsif is_sizzix_uk?
       'ZirCcDHMg4M'
+    else
+      'yUilq_JS6Bc'
     end
   end
 
