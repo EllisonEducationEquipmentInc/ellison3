@@ -6,7 +6,7 @@ body.bp {
   
   // YouTube video page
   #featured_video ul.videolist li {
-    padding-bottom: 6px;
+  // padding-bottom: 6px;
   }
   
   #recent_videos ul.videolist {
@@ -45,11 +45,11 @@ body.bp {
       height: auto;
       
       .video-thumbnail {
-        float: none;
+        float: left;
         position: relative;
-        width: 950px;
-        height: 400px;
-        margin: 0;
+        width: 380px;
+        height: 252px;
+        margin: 14px;
         overflow: hidden;
         
         img {
@@ -63,8 +63,8 @@ body.bp {
           width: 131px;
           background: url("/images/ui-buttons/play-video_large_off.png") no-repeat center center;
           position: absolute;
-          top: 138px;
-          left: 410px;
+          top: 64px;
+          left: 132px;
           z-index: 1;
           
           a {
@@ -83,6 +83,9 @@ body.bp {
         
         &.video-title {
           padding:12px 12px 0;
+          width:490px;
+          float:left;
+          margin:8px;
           
           span {
             font-style: italic;
@@ -94,6 +97,9 @@ body.bp {
           font-family: Verdana,Arial,sans-serif;
           font-size: 10.2px;
           padding:0 12px 12px;
+          width:490px;
+          float:left;
+          margin:8px;
         }      
       }
     }
@@ -160,6 +166,9 @@ ul.videolist { @extend ul.plain;
     p.video-title {
       padding:0;
       font-weight: bold;
+      width:490px;
+      float:left;
+      margin:8px;
       
       a {
         color: $text;
@@ -179,6 +188,9 @@ ul.videolist { @extend ul.plain;
     p.video-description {
       border-top:1px dotted #ccc;
       padding:12px;
+      width:490px;
+      float:left;
+      margin:8px;
     }
   }
 }
