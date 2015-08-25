@@ -22,7 +22,7 @@ body.bp {
     li {
       padding: 6px;
       margin: 0 3px 6px 0;
-      height: 180px;
+      height: 192px;
       
       p {
         margin-bottom: 0;
@@ -83,7 +83,7 @@ body.bp {
         
         &.video-title {
           padding:12px 12px 0;
-          width:490px;
+          width:auto;
           float:left;
           margin:8px;
           
@@ -97,8 +97,8 @@ body.bp {
           font-family: Verdana,Arial,sans-serif;
           font-size: 10.2px;
           padding:0 12px 12px;
-          width:490px;
-          float:left;
+          width:auto;
+          float:right;
           margin:8px;
         }      
       }
@@ -120,6 +120,7 @@ body.bp {
         &.video-detail, &.video-description {
           font-family: Verdana,Arial,sans-serif;
           font-size: 10.2px;
+          height:10px;
         }        
       }
       
@@ -166,7 +167,7 @@ ul.videolist { @extend ul.plain;
     p.video-title {
       padding:0;
       font-weight: bold;
-      width:490px;
+      width:auto;
       float:left;
       margin:8px;
       
@@ -188,9 +189,18 @@ ul.videolist { @extend ul.plain;
     p.video-description {
       border-top:1px dotted #ccc;
       padding:12px;
-      width:490px;
+      width:494px;
       float:left;
       margin:8px;
+    }
+
+    p.video-description-two {
+      border-top:1px dotted #ccc;
+      padding:6px;
+      width:auto;
+      float:left;
+      margin:8px;
+      height:54px;
     }
   }
 }
