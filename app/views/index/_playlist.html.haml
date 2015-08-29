@@ -3,8 +3,10 @@
     .video_content{:id => playlist.title.parameterize}
       %h3= playlist.title
       %ul.videolist
+        - i = 1
         - playlist.playlist_items.each do |item|
-          = render :partial => 'video', locals: { video: item }
+          = render :partial => 'video', locals: { video: item } unless i > 30
+          - i += 1
       -#- if playlist.total_pages > 1
         -#.pagination.ajax
           -#%span.previous_page{:class => playlist.previous_page ? nil : 'disabled'}= link_to_if playlist.previous_page, ' ← Previous', :action => 'video_page', :playlist_id => playlist.playlist_id, :page => playlist.previous_page

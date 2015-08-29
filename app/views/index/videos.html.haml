@@ -1,48 +1,48 @@
--#- cache "videos_page_#{current_system}", :expires_in => 60.minutes do
-%h2== Videos
-#featured_video
-  %h3 Featured Video
-  - if @featured_video
-    %ul.videolist
-      %li
-        .video-thumbnail
-          .play-button.tooltip_playvideo= link_to "play", "http://www.youtube.com/embed/#{@featured_video.id}?autoplay=1&fs=1", :class => "fancyvideo", :id => @featured_video.id, :rel => j(@featured_video.title)
-          %img{ :src => video_default_image(@featured_video), :width => "950"}
-        %p.video-title
-          %span== Today's Featured #{system_name.titleize} Video: 
-          = link_to @featured_video.title, "http://www.youtube.com/embed/#{@featured_video.id}?autoplay=1&fs=1", :style => "font-weight:bold",:class => "fancyvideo", :id => video_default_image(@featured_video), :rel => j(@featured_video.title)
-        %p.video-detail
-          == #{l @featured_video.published_at, :format => :date_short}
-          -#|
-          -#== #{playlist.videos.first.duration/60} min #{playlist.videos.first.duration%60} seconds 
-          -#|
-          -#== #{playlist.videos.first.view_count} views
-        - unless @featured_video.description.blank?
-          %p.video-description= truncate(@featured_video.description, :length => 200, :separator => ' ')
+- cache "videos_page_#{current_system}", :expires_in => 60.minutes do
+  %h2== Videos
+  #featured_video
+    %h3 Featured Video
+    - if @featured_video
+      %ul.videolist
+        %li
+          .video-thumbnail
+            .play-button.tooltip_playvideo= link_to "play", "http://www.youtube.com/embed/#{@featured_video.id}?autoplay=1&fs=1", :class => "fancyvideo", :id => @featured_video.id, :rel => j(@featured_video.title)
+            %img{ :src => video_default_image(@featured_video), :width => "950"}
+          %p.video-title
+            %span== Today's Featured #{system_name.titleize} Video: 
+            = link_to @featured_video.title, "http://www.youtube.com/embed/#{@featured_video.id}?autoplay=1&fs=1", :style => "font-weight:bold",:class => "fancyvideo", :id => video_default_image(@featured_video), :rel => j(@featured_video.title)
+          %p.video-detail
+            == #{l @featured_video.published_at, :format => :date_short}
+            -#|
+            -#== #{playlist.videos.first.duration/60} min #{playlist.videos.first.duration%60} seconds 
+            -#|
+            -#== #{playlist.videos.first.view_count} views
+          - unless @featured_video.description.blank?
+            %p.video-description= truncate(@featured_video.description, :length => 200, :separator => ' ')
 
-.contentwrap_XXXL.last
-  .tab-block
-    %ul
+  .contentwrap_XXXL.last
+    .tab-block
+      %ul
+        - @channel.playlists.each do |playlist|
+          %li= link_to playlist.title, "##{playlist.title.parameterize}" unless playlist.title =~ /Featured/i
       - @channel.playlists.each do |playlist|
-        %li= link_to playlist.title, "##{playlist.title.parameterize}" unless playlist.title =~ /Featured/i
-    - @channel.playlists.each do |playlist|
-      = render :partial => 'playlist', locals: { playlist: playlist } unless playlist.title =~ /Featured/i #@videos.reject {|e| e.title =~ /featured/i}
-  :javascript
-    $('.pagination.ajax a').live('click', function() {this.innerHTML='#{escape_javascript spinner}';$(this).closest('.video_content').load(this.href);return false;})
-    $('#video_keyword').change(function() {
-      if (this.value.length < 3) {
-        return false;
-      } else {
-        $('.tab-block').tabs("select", $('.tab-block').tabs("length") - 1);
-        location.hash = $.param.fragment( location.hash, {q: this.value}, 0 );
-        $.ajax({url:'/index/search_videos?q='+this.value, success: function(data){
-          $('#video_search').html(data);
-          highlight_keyword();
-          $('#video_keyword').val('');
-          youtube_video_links();
-        }});
-      }
-    });
-- if params[:v].present?
-  :javascript
-    $(document).ready(function(){$('##{params[:v]}').trigger('click')});
+        = render :partial => 'playlist', locals: { playlist: playlist } unless playlist.title =~ /Featured/i #@videos.reject {|e| e.title =~ /featured/i}
+    :javascript
+      $('.pagination.ajax a').live('click', function() {this.innerHTML='#{escape_javascript spinner}';$(this).closest('.video_content').load(this.href);return false;})
+      $('#video_keyword').change(function() {
+        if (this.value.length < 3) {
+          return false;
+        } else {
+          $('.tab-block').tabs("select", $('.tab-block').tabs("length") - 1);
+          location.hash = $.param.fragment( location.hash, {q: this.value}, 0 );
+          $.ajax({url:'/index/search_videos?q='+this.value, success: function(data){
+            $('#video_search').html(data);
+            highlight_keyword();
+            $('#video_keyword').val('');
+            youtube_video_links();
+          }});
+        }
+      });
+  - if params[:v].present?
+    :javascript
+      $(document).ready(function(){$('##{params[:v]}').trigger('click')});
