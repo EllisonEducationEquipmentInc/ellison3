@@ -49,6 +49,7 @@ gem 'capistrano'
 gem "mongoid_rails_migrations", "0.0.14"
 gem 'bartt-ssl_requirement', '~>1.4.0', :require => 'ssl_requirement'
 gem 'curb'
+gem 'yt', '~> 0.25.2'
 
 group :test do
   gem "mongoid-rspec"

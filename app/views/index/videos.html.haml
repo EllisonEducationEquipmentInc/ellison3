@@ -2,54 +2,31 @@
   %h2== Videos
   #featured_video
     %h3 Featured Video
-    - @videos.select {|e| e.title == "Featured_#{current_system}"}.each do |playlist|
+    - if @featured_video
       %ul.videolist
         %li
           .video-thumbnail
-            .play-button.tooltip_playvideo= link_to "play", playlist.videos.first.embed_url + "&autoplay=1&fs=1", :class => "fancyvideo", :id => playlist.videos.first.embed_url[/v\/([^&]+)/, 1], :rel => j(playlist.videos.first.title)
-            %img{ :src => "#{playlist.videos.first.thumbnails.first.try :url}", :width => "390", :height => "291" }
+            .play-button.tooltip_playvideo= link_to "play", "http://www.youtube.com/embed/#{@featured_video.id}?autoplay=1&fs=1", :class => "fancyvideo", :id => @featured_video.id, :rel => j(@featured_video.title)
+            %img{ :src => video_default_image(@featured_video), :width => "950"}
           %p.video-title
             %span== Today's Featured #{system_name.titleize} Video: 
-            = link_to playlist.videos.first.title, playlist.videos.first.embed_url + "&autoplay=1&fs=1", :class => "fancyvideo", :id => playlist.videos.first.embed_url[/v\/([^&]+)/, 1], :rel => j(playlist.videos.first.title)
+            = link_to @featured_video.title, "http://www.youtube.com/embed/#{@featured_video.id}?autoplay=1&fs=1", :style => "font-weight:bold",:class => "fancyvideo", :id => video_default_image(@featured_video), :rel => j(@featured_video.title)
           %p.video-detail
-            == #{l playlist.videos.first.published_at || playlist.videos.first.updated_at, :format => :date_short}
-            |
-            == #{playlist.videos.first.duration/60} min #{playlist.videos.first.duration%60} seconds 
-            |
-            == #{playlist.videos.first.view_count} views
-          - unless playlist.videos.first.description.blank?
-            %p.video-description= truncate(playlist.videos.first.description, :length => 200, :separator => ' ')
-  #recent_videos
-    %h3 Our Most Recent Uploads
-    - if @recent_uploads.present?
-      %ul.videolist= render :partial => 'video', :collection => @recent_uploads
-    - else
-      %p.msg No videos have been uploaded within the past month.
-  
-    #search_videos
-      %h3== Search #{system_name.capitalize} Videos
-      = text_field_tag :video_keyword, nil, :autocomplete => "off", :value => "enter keywords", :onfocus => "if (this.value == 'enter keywords'){this.value='';}", :onblur => "if (this.value == ''){this.value='enter keywords';}", :size => 50
-      :javascript
-        $("#video_keyword").addClass("idlefield");
-        $("#video_keyword").focus(function(){
-          $(this).addClass("activefield").removeClass("idlefield");
-        }).blur(function(){
-          $(this).removeClass("activefield").addClass("idlefield");
-        });
-
-      %span.jqui_search Search
+            == #{l @featured_video.published_at, :format => :date_short}
+            -#|
+            -#== #{playlist.videos.first.duration/60} min #{playlist.videos.first.duration%60} seconds 
+            -#|
+            -#== #{playlist.videos.first.view_count} views
+          - unless @featured_video.description.blank?
+            %p.video-description= truncate(@featured_video.description, :length => 200, :separator => ' ')
 
   .contentwrap_XXXL.last
     .tab-block
       %ul
-        - @videos.reject {|e| e.title =~ /featured/i}.each do |playlist|
-          %li= link_to playlist.title, "##{playlist.title.parameterize}"
-        %li= link_to "Search Results", "#search_results"
-      = render :partial => 'playlist', :collection => @videos.reject {|e| e.title =~ /featured/i}
-      #search_results
-        %h3 Search Results
-        .highlightable
-          %ul.videolist#video_search      
+        - @channel.playlists.each do |playlist|
+          %li= link_to playlist.title, "##{playlist.title.parameterize}" unless playlist.title =~ /Featured/i
+      - @channel.playlists.each do |playlist|
+        = render :partial => 'playlist', locals: { playlist: playlist } unless playlist.title =~ /Featured/i #@videos.reject {|e| e.title =~ /featured/i}
     :javascript
       $('.pagination.ajax a').live('click', function() {this.innerHTML='#{escape_javascript spinner}';$(this).closest('.video_content').load(this.href);return false;})
       $('#video_keyword').change(function() {
@@ -66,6 +43,6 @@
           }});
         }
       });
-- if params[:v].present?
-  :javascript
-    $(document).ready(function(){$('##{params[:v]}').trigger('click')});
+  - if params[:v].present?
+    :javascript
+      $(document).ready(function(){$('##{params[:v]}').trigger('click')});

@@ -1,10 +1,15 @@
-- unless playlist.title == "Featured"
-  .video_content{:id => playlist.title.parameterize}
-    %h3= playlist.title
-    %ul.videolist= render :partial => 'video', :collection => playlist.videos
-    - if playlist.total_pages > 1
-      .pagination.ajax
-        %span.previous_page{:class => playlist.previous_page ? nil : 'disabled'}= link_to_if playlist.previous_page, ' ← Previous', :action => 'video_page', :playlist_id => playlist.playlist_id, :page => playlist.previous_page
-        - (1..playlist.total_pages).each do |page|
-          = link_to_unless page == playlist.current_page, page, :action => 'video_page', :playlist_id => playlist.playlist_id, :page => page
-        %span.next_page{:class => playlist.next_page ? nil : 'disabled'}= link_to_if playlist.next_page, 'Next →', :action => 'video_page', :playlist_id => playlist.playlist_id, :page => playlist.next_page
+.div{:style=>'width:950px; height:auto; float:left;'}
+  - unless playlist.title == "Featured"
+    .video_content{:id => playlist.title.parameterize}
+      %h3= playlist.title
+      %ul.videolist
+        - i = 1
+        - playlist.playlist_items.each do |item|
+          = render :partial => 'video', locals: { video: item } unless i > 80
+          - i += 1
+      -#- if playlist.total_pages > 1
+        -#.pagination.ajax
+          -#%span.previous_page{:class => playlist.previous_page ? nil : 'disabled'}= link_to_if playlist.previous_page, ' ← Previous', :action => 'video_page', :playlist_id => playlist.playlist_id, :page => playlist.previous_page
+          -#- (1..playlist.total_pages).each do |page|
+            -#= link_to_unless page == playlist.current_page, page, :action => 'video_page', :playlist_id => playlist.playlist_id, :page => page
+          -#%span.next_page{:class => playlist.next_page ? nil : 'disabled'}= link_to_if playlist.next_page, 'Next →', :action => 'video_page', :playlist_id => playlist.playlist_id, :page => playlist.next_page
