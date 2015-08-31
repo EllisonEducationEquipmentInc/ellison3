@@ -5,7 +5,7 @@
       %ul.videolist
         - i = 1
         - playlist.playlist_items.each do |item|
-          = render :partial => 'video', locals: { video: item } unless i > 30
+          = render :partial => 'video', locals: { video: item } unless i > 80
           - i += 1
       -#- if playlist.total_pages > 1
         -#.pagination.ajax
