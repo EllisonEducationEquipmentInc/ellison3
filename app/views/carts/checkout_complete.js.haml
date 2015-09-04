@@ -9,6 +9,10 @@
   });
   - if is_sizzix_us?
     $('body').append('<img src="https://shareasale.com/sale.cfm?amount=#{convert_2_gbp @order.subtotal_amount}&tracking=#{@order.public_order_number}&transtype=sale&merchantID=51987" width="1" height="1">');
+
+    adroll_conversion_value: '#{@order.subtotal_amount}';
+    adroll_currency: 'USD';
+
   - if  is_ee_us?
     $('body').append('<img src="https://shareasale.com/sale.cfm?amount=#{convert_2_gbp @order.subtotal_amount}&tracking=#{@order.public_order_number}&transtype=sale&merchantID=55564" width="1" height="1">');
   - @order.order_items.each do |item|
