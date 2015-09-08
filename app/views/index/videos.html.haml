@@ -7,10 +7,10 @@
         %li
           .video-thumbnail
             .play-button.tooltip_playvideo= link_to "play", "http://www.youtube.com/embed/#{@featured_video.id}?autoplay=1&fs=1", :class => "fancyvideo", :id => @featured_video.id, :rel => j(@featured_video.title)
-            %img{ :src => video_default_image(@featured_video), :width => "950"}
+            %img{ :src => "//img.youtube.com/vi/#{@featured_video.id}/0.jpg"}
           %p.video-title
             %span== Today's Featured #{system_name.titleize} Video: 
-            = link_to @featured_video.title, "http://www.youtube.com/embed/#{@featured_video.id}?autoplay=1&fs=1", :style => "font-weight:bold",:class => "fancyvideo", :id => video_default_image(@featured_video), :rel => j(@featured_video.title)
+            = link_to @featured_video.title, "http://www.youtube.com/embed/#{@featured_video.id}?autoplay=1&fs=1", :style => "font-weight:bold",:class => "fancyvideo", :id => "//img.youtube.com/vi/#{@featured_video.id}/0.jpg", :rel => j(@featured_video.title)
           %p.video-detail
             == #{l @featured_video.published_at, :format => :date_short}
             -#|
