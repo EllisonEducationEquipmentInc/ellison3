@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   before_filter :get_meta_tags
   before_filter :get_navigation
 
+  after_filter :set_maintenance_cookie
+
   include ShoppingCart
   include SslRequirement
   include Rack::Recaptcha::Helpers
@@ -21,6 +23,13 @@ class ApplicationController < ActionController::Base
   :quote_allowed?, :chekout_allowed?, :currency_correct?, :vat_exempt?, :outlet?, :machines_owned, :perform_search, :admin_user_as_permissions!, :convert_2_gbp, :is_admin?, :free_shipping_message
 
   private
+
+  def set_maintenance_cookie
+    cookies[:maintenance] ||= {
+      value: '1',
+      expires: 1.day.since
+    }
+  end
 
   def fix_session
     session.destroy if cookies[:_ellison3_session].present? && cookies[:_ellison3_session].valid_bson_object_id?
@@ -47,11 +56,11 @@ class ApplicationController < ActionController::Base
   end
 
   def chekout_allowed?
-    !is_ee_uk? && !get_cart.pre_order? && (!is_ee_us? || get_cart.cart_items.none?(&:out_of_stock))
+    false #!is_ee_uk? && !get_cart.pre_order? && (!is_ee_us? || get_cart.cart_items.none?(&:out_of_stock))
   end
 
   def quote_allowed?
-    is_ee?
+    false #is_ee?
   end
 
   def vat
@@ -443,5 +452,9 @@ class ApplicationController < ActionController::Base
     else
       24
     end
+  end
+
+  def set_maintenance_message
+    flash[:alert] = "This feature is temporarily disabled as we are currently undergoing maintenance.   We will be back soon with whole new website in couple of hours.  Sorry for the inconvenience.  Please visit us in couple of hours"
   end
 end

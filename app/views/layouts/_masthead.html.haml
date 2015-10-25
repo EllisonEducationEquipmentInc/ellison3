@@ -19,8 +19,7 @@
         - if user_signed_in?
           %li= link_to "<span>#{admin_signed_in? ? 'Customer\'s' : 'My'} Account</span>".html_safe, myaccount_path(:secure => true), :class => "btn-myaccount", :title => "My Account", :alt => "My Account"
           %li= link_to "<span>Sign Out</span>".html_safe, destroy_session_path('user'), :class => "btn-signout", :title => "Sign Out", :alt => "Sign Out" 
-        - else
-          %li= link_to "<span>Sign In</span>".html_safe, signin_signup_path, :class => "lightbox btn-signin", :title => "Sign In", :alt => "Sign In"
+        - elsif false
           %li.plaintext= link_to "<span>or</span>".html_safe, signin_signup_path, :class => "btn-plaintext", :onclick => "return false"
           %li= link_to "<span>Sign Up</span>".html_safe, signin_signup_path, :class => "lightbox btn-signup", :title => "Sign Up", :alt => "Sign Up"
         - if is_uk? && !@cart_locked

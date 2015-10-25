@@ -91,6 +91,7 @@ class CartsController < ApplicationController
   end
 
   def checkout
+    set_maintenance_message
     return unless real_time_cart
     session[:user_return_to] = nil
     redirect_to(catalog_path, :alert => flash[:alert] || I18n.t(:empty_cart)) and return if get_cart.cart_items.blank? || !ecommerce_allowed? || !chekout_allowed?

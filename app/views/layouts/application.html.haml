@@ -23,6 +23,11 @@
             .clear
           #content
             #modal_box_content= yield :modal_content
+            - unless cookies[:maintenance].present?
+              .maintenance
+                .pull-right
+                  = link_to 'x', '#', onclick: "$('.maintenance').remove()"
+                Attention #{get_domain} Customers.  Website is undergoing maintenance and temporarily checkout and customer login features are disabled.  Please continue to browse the website until we are back with whole new website with improved user experience.   Don’t forgot to visit us in couple of hours.  See you then!
             = render "layouts/content"
         .design-gutter.dontprint.last
           \&nbsp;

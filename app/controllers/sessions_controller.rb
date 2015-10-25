@@ -15,12 +15,14 @@ class SessionsController < ApplicationController
 
   # GET /resource/sign_in
   def new
+    set_maintenance_message and redirect_to root_path and return false
     clean_up_passwords(build_resource)
     render_with_scope :new
   end
 
   # POST /resource/sign_in
   def create
+    set_maintenance_message and redirect_to root_path and return false
     params[:user] = params[:existing_user] if params[:user].blank?
     params[:user][:email].downcase!
     u = User.find_for_authentication :old_user => true, :email => params[:user][:email]

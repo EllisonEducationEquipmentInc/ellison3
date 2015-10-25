@@ -19,12 +19,14 @@ class UsersController < ApplicationController
 
   # GET /resource/sign_up
   def new
+    set_maintenance_message and redirect_to root_path and return false
     build_resource({})
     render_with_scope :new
   end
 
   # POST /resource/sign_up
   def create
+    set_maintenance_message and redirect_to root_path and return false
     build_resource
     resource.email.downcase!
     if resource.save
@@ -73,6 +75,7 @@ class UsersController < ApplicationController
   end
 
   def myaccount
+    set_maintenance_message and redirect_to root_path and return false
     # get "myaccount/:tab", :to => "users#myaccount"
     # to open a tab from the url, pass the key in the :tab parameter like this: /myaccount/orders or myaccount/mylists or myaccount/quotes etc.
     @title = "My Account - Profile"

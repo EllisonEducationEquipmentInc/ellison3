@@ -31,9 +31,10 @@
       %td
       %td{:style => "text-align: right", :class => "cart_extended_price"} Subtotal:
       %td#cart_subtotal{:style => "text-align: right", :class => "cart_extended_price"}= number_to_currency gross_price(get_cart.sub_total)
-%p.cart_shipmsg
-  \&nbsp;
-  %button{:id => 'checkout_now', :class => "right"} Check Out Now
+- if chekout_allowed?
+  %p.cart_shipmsg
+    \&nbsp;
+    %button{:id => 'checkout_now', :class => "right"} Check Out Now
 :javascript
   $("#checkout_now").button()
     .click(function(){
