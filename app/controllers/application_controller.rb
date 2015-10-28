@@ -455,6 +455,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_maintenance_message
-    flash[:alert] = "This feature is temporarily unavailable as our site is currently undergoing maintenance.  We apologize for the inconvenience.  In a  few short hours, we will return with a whole new website and an improved user experience."
+    flash[:alert] = "This feature is temporarily unavailable as our site is currently undergoing maintenance.  We apologise for the inconvenience.  In a  few short hours, we will return with a whole new website and an improved user experience."
   end
 end
