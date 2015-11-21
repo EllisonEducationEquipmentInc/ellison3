@@ -46,6 +46,7 @@ task :custom_symlink, :roles => :app, :except => {:no_release => true, :no_symli
   run "ln -nfs #{shared_path}/images/scoop #{release_path}/public/images/scoop"
   run "ln -nfs #{shared_path}/images/connection #{release_path}/public/images/connection"
   run "ln -nfs #{shared_path}/images/Newsletters #{release_path}/public/images/Newsletters"
+  run "ln -nfs #{shared_path}/images/retailer_application #{release_path}/public/images/retailer_application"
 
   run "ln -nfs #{shared_path}/config/newrelic.yml #{latest_release}/config/newrelic.yml"
   run "ln -nfs #{shared_path}/config/mongoid.yml #{latest_release}/config/mongoid.yml"
